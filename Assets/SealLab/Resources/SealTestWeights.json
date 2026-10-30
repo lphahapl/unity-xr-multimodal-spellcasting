@@ -1,0 +1,3340 @@
+{
+  "profiles": [
+    {
+      "sealName": "子",
+      "threshold": 0.75,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2,
+          "tolerance": 35,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 0,
+          "tolerance": 35,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1,
+          "tolerance": 35,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 0,
+          "tolerance": 35,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 2.5,
+          "tolerance": 0.045,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1,
+          "tolerance": 35,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1,
+          "tolerance": 0.045,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 2,
+          "tolerance": 0.045,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1,
+          "tolerance": 0.045,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "丑",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 2,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.5,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 3,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 0,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 0.5,
+          "tolerance": 0.03,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "寅",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 3,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.5,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 3,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.5,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 0,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 0.5,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 3,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 0,
+          "tolerance": 0.025,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 2,
+          "tolerance": 25,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 0,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 0,
+          "tolerance": 0.03,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 0,
+          "tolerance": 0.03,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "卯",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.5,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 2.2,
+          "tolerance": 0.015,
+          "required": true
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "辰",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 1.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 2.5,
+          "tolerance": 0.015,
+          "required": true
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "巳",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 2.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 2.5,
+          "tolerance": 15.0,
+          "required": true
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 2.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.8,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "午",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 2.5,
+          "tolerance": 0.015,
+          "required": true
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 2.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "未",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": true
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.5,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 2.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "申",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": true
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "酉",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 2.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 2.5,
+          "tolerance": 0.015,
+          "required": true
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "戌",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": true
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 2.2,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 0.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 1.5,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 1.8,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 2.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    },
+    {
+      "sealName": "亥",
+      "threshold": 0.8,
+      "minimumCoverage": 0.8,
+      "holdSeconds": 0.07,
+      "rules": [
+        {
+          "featureId": "L.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Curl",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "L.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Thumb.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Curl",
+          "weight": 2.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Index.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Middle.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Abduction",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Ring.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Curl",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Flexion",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "R.Pinky.Opposition",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.WristDistance",
+          "weight": 2.2,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.PalmAngle",
+          "weight": 2.5,
+          "tolerance": 15.0,
+          "required": true
+        },
+        {
+          "featureId": "Both.IndexTipDistance",
+          "weight": 1.8,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.MiddleTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.ThumbTipDistance",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.IndexDirectionAngle",
+          "weight": 1.0,
+          "tolerance": 15.0,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.X",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Y",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        },
+        {
+          "featureId": "Both.RightWristInLeft.Z",
+          "weight": 1.0,
+          "tolerance": 0.015,
+          "required": false
+        }
+      ]
+    }
+  ]
+}

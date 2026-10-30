@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d60cb3e0acbfd418e53f86b02275af, type: 3}
+  m_Name: "\u6548\u679C_fireball"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.ProjectileEffectDefinition
+  radius: 0.065
+  damage: 25
+  speed: 9
+  flightLifetime: 4
+  heldLifetime: 10
+  heldOffset: {x: 0, y: 0.05, z: 0.08}
+  armDelay: 0.25
+  trackingLossGrace: 0.5
+  pushDistance: 0.12
+  pushMinimumSeconds: 0.15
+  pushMaximumSeconds: 0.6
+  visualPrefab: {fileID: 4437276957977500368, guid: 56f11f328e7fd2747a0c29ea8b168863, type: 3}
+  impactPrefab: {fileID: 5939245472193094713, guid: 48098958a851e0945904bbcf5cd37b1f, type: 3}
+  material: {fileID: 0}

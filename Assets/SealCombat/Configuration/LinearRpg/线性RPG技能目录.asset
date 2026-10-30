@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543bc525fac1e5140b9bcf9887a8055f, type: 3}
+  m_Name: "\u7EBF\u6027RPG\u6280\u80FD\u76EE\u5F55"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillCatalog
+  skills:
+  - {fileID: 11400000, guid: 98f1aad44df71c44a9fbb723d4552174, type: 2}
+  - {fileID: 11400000, guid: 65044659bc913ee44b72e5a117a166e9, type: 2}
+  - {fileID: 11400000, guid: 2c08484b43813aa42a18ab6aaab0d939, type: 2}
+  - {fileID: 11400000, guid: 8dba3622998bb26408ea6cb032eab90e, type: 2}
+  matching:
+    historySeconds: 10
+    capacity: 640
+    maximumVoiceLatency: 2
+    exitSeconds: 0.15
+    maximumSampleGap: 0.12
+    ambiguityMargin: 0.05
+  cancelPhrase: "\u53D6\u6D88\u65BD\u6CD5"
+  cancelTokens: "q \u01D4 x i\u0101o sh \u012B f \u01CE"

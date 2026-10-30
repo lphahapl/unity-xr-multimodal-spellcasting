@@ -1,0 +1,456 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using NarutoVR.SealCombat.Rpg;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
+
+namespace NarutoVR.SealCombat.Editor
+{
+    /// <summary>Creates an independent RPG copy once. Existing scenes and generated user-owned assets are never rebuilt.</summary>
+    public static class LinearRpgSceneSetup
+    {
+        public const string ScenePath = "Assets/SealCombat/Scenes/LinearRpgTest.unity";
+        public const string ConfigurationRoot = "Assets/SealCombat/Configuration/LinearRpg";
+        public const string VoiceConfigurationPath = ConfigurationRoot + "/skill-voice-config.json";
+        const string SourceScenePath = "Assets/SealCombat/Scenes/FireballRange.unity";
+        const float GridSpacing = 1.5f;
+
+        sealed class Configuration
+        {
+            public SkillCatalog catalog;
+            public RpgPlayerDefinition player;
+            public RpgStageDefinition[] stages;
+            public Material markerMaterial;
+            public readonly List<Object> created = new List<Object>();
+        }
+
+        [MenuItem("Tools/NarutoVR/线性RPG/创建或打开测试场景")]
+        public static void Build()
+        {
+            RequireCleanEditMode();
+            if (File.Exists(ScenePath))
+            {
+                Scene loaded = SceneManager.GetSceneByPath(ScenePath);
+                if (loaded.IsValid() && loaded.isLoaded) SceneManager.SetActiveScene(loaded);
+                else EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+                Debug.Log("[线性RPG] 已打开现有测试场景；保留场景及配置中的自定义修改。");
+                return;
+            }
+            if (!File.Exists(SourceScenePath))
+                throw new InvalidOperationException("缺少庭院模板：" + SourceScenePath + "。本构建器不会重建或修改旧展示场景。");
+
+            var source = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
+            if (!source) throw new InvalidOperationException("缺少原技能目录：" + SkillConfigurationSetup.CatalogPath);
+            EnsureFolder("Assets/SealCombat/Scenes");
+            if (!AssetDatabase.CopyAsset(SourceScenePath, ScenePath))
+                throw new InvalidOperationException("无法复制庭院模板到独立场景：" + ScenePath);
+            Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            SceneManager.SetActiveScene(scene);
+            try
+            {
+                // Opening a scene may unload assets held only by managed stack references.
+                source = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
+                Configuration configuration = CreateConfiguration(source);
+                ConfigureScene(scene, configuration);
+                if (scene.path != ScenePath) throw new InvalidOperationException("拒绝保存非RPG目标场景。实际路径：" + scene.path);
+                EditorSceneManager.MarkSceneDirty(scene);
+                if (!EditorSceneManager.SaveScene(scene, ScenePath))
+                    throw new InvalidOperationException("无法保存独立RPG场景：" + ScenePath);
+                foreach (Object asset in configuration.created) AssetDatabase.SaveAssetIfDirty(asset);
+                Debug.Log("[线性RPG] 独立庭院关卡已创建：" + ScenePath + "。语音服务需加载独立配置：" + VoiceConfigurationPath + "。尚未进行真机验证。");
+            }
+            catch (Exception error)
+            {
+                throw new InvalidOperationException("RPG场景创建未完成；未保存本次场景修改。原庭院和原配置未改动。新复制场景为 " + ScenePath + "。", error);
+            }
+        }
+
+        [MenuItem("Tools/NarutoVR/线性RPG/修复未完成场景的配置引用")]
+        public static void RepairIncomplete()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出播放模式");
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.path != ScenePath) throw new InvalidOperationException("仅修复当前打开的LinearRpgTest场景");
+            // Keep the current in-memory construction as a reviewable scene copy, including any unsaved edits.
+            string backup = "Assets/SealCombat/Scenes/LinearRpgTest_BeforeReferenceRepair_" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".unity";
+            if (!EditorSceneManager.SaveScene(scene, backup, true)) throw new InvalidOperationException("无法备份当前新场景");
+            var config = CreateConfiguration(AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath));
+            var sessions = Components<LinearRpgController>(scene);
+            if (sessions.Length == 0) ConfigureScene(scene, config);
+            else
+            {
+                if (sessions.Length != 1) throw new InvalidOperationException("场景主控重复，请检查备份");
+                var session = sessions[0];
+                session.playerDefinition = config.player; session.stages = config.stages;
+                session.skills.catalog = config.catalog; session.skills.skills = new List<SkillDefinition>(config.catalog.skills);
+                foreach (var node in Components<NavigationNode>(scene))
+                    if (node.TryGetComponent<LineRenderer>(out var line)) line.sharedMaterial = config.markerMaterial;
+                string json = SkillConfigurationSetup.BuildVoiceJson(config.catalog, session.skills.voice.receivePort, session.skills.voice.servicePort);
+                if (!File.Exists(VoiceConfigurationPath)) File.WriteAllText(VoiceConfigurationPath, json, new UTF8Encoding(false));
+                SkillConfigurationSetup.ValidateController(session.skills);
+            }
+            EditorSceneManager.MarkSceneDirty(scene);
+            if (!EditorSceneManager.SaveScene(scene, ScenePath)) throw new InvalidOperationException("修复后保存失败");
+            foreach (var asset in config.created) AssetDatabase.SaveAssetIfDirty(asset);
+            Debug.Log("[线性RPG] 已重绑独立配置，原始内存场景副本：" + backup);
+        }
+
+        static void RequireCleanEditMode()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("请停止播放模式，再创建或打开线性RPG测试场景。");
+            var dirty = new List<string>();
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (scene.isDirty) dirty.Add(string.IsNullOrEmpty(scene.path) ? scene.name + "（未命名场景）" : scene.path);
+            }
+            if (dirty.Count != 0)
+                throw new InvalidOperationException("以下场景有未保存修改；构建器不会自动保存或丢弃，请先自行处理：\n" + string.Join("\n", dirty));
+        }
+
+        static Configuration CreateConfiguration(SkillCatalog source)
+        {
+            var result = new Configuration();
+            EnsureFolder(ConfigurationRoot);
+            SkillDefinition zi = RequireSkill(source, "buff.zi");
+            SkillDefinition voice = RequireSkill(source, "buff.voice");
+            SkillDefinition fire = source.skills.SingleOrDefault(s => s && s.effectDefinition is ProjectileEffectDefinition);
+            if (!fire || !(zi.effectDefinition is ShieldEffectDefinition) || !(voice.effectDefinition is ShieldEffectDefinition))
+                throw new InvalidOperationException("原目录必须包含一个火球及子印、护体咒两个护盾配方，并引用独立效果资产。");
+
+            var effects = new Dictionary<SkillEffectDefinition, SkillEffectDefinition>();
+            SkillDefinition CopySkill(SkillDefinition original)
+            {
+                if (!effects.TryGetValue(original.effectDefinition, out SkillEffectDefinition effect))
+                {
+                    effect = Clone(original.effectDefinition, ConfigurationRoot + "/效果_" + SafeName(original.skillId) + ".asset", null, result);
+                    effects.Add(original.effectDefinition, effect);
+                }
+                return Clone(original, ConfigurationRoot + "/技能_" + SafeName(original.skillId) + ".asset", copy =>
+                {
+                    copy.effectDefinition = effect;
+                    copy.manaCost = copy.effectDefinition is ProjectileEffectDefinition ? 20 : 15;
+                    if (copy.skillId == "buff.zi" || copy.skillId == "buff.voice") copy.cooldownGroup = "shield";
+                }, result);
+            }
+            SkillDefinition copiedZi = CopySkill(zi);
+            SkillDefinition copiedVoice = CopySkill(voice);
+            SkillDefinition copiedFire = CopySkill(fire);
+            var hiddenEffect = Clone((ShieldEffectDefinition)voice.effectDefinition,
+                ConfigurationRoot + "/效果_金刚护体.asset", copy => copy.capacity = 150, result);
+            SkillDefinition hidden = Clone(voice, ConfigurationRoot + "/技能_buff.hidden.asset", copy =>
+            {
+                copy.skillId = "buff.hidden";
+                copy.displayName = "金刚护体";
+                copy.triggerMode = SkillTriggerMode.VoiceOnly;
+                copy.phrase = "金刚护体";
+                copy.phraseTokens = "j īn g āng h ù t ǐ";
+                copy.sealName = string.Empty;
+                copy.effectKind = SkillEffectKind.SelfBuff;
+                copy.effectDefinition = hiddenEffect;
+                copy.manaCost = 25;
+                copy.cooldownSeconds = 8;
+                copy.cooldownGroup = "shield.hidden";
+            }, result);
+            result.catalog = Clone(source, ConfigurationRoot + "/线性RPG技能目录.asset", copy =>
+                copy.skills = new List<SkillDefinition> { copiedZi, copiedVoice, copiedFire, hidden }, result);
+            result.player = NewAsset<RpgPlayerDefinition>(ConfigurationRoot + "/默认玩家.asset", null, result);
+            result.stages = new[]
+            {
+                Stage("trial.01", "火球基础", "寅印与“火球术”匹配后，右手轻推发射。击破本阶段训练靶，再前往下一阶段。", 60, 40,
+                    new[] { "buff.zi", "buff.voice" }, false, result),
+                Stage("trial.02", "护盾与闪避", "子印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 90, 40,
+                    Array.Empty<string>(), true, result),
+                Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单购买隐藏法术及升级火球。", 120, 60,
+                    Array.Empty<string>(), true, result)
+            };
+            result.markerMaterial = NewAsset<Material>(ConfigurationRoot + "/导航点标记.mat", null, result,
+                () =>
+                {
+                    Shader shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
+                    if (!shader) throw new InvalidOperationException("缺少用于节点标记的Unlit着色器。");
+                    var material = new Material(shader);
+                    if (material.HasProperty("_BaseColor")) material.SetColor("_BaseColor", new Color(0.12f, 0.82f, 0.95f, 1));
+                    if (material.HasProperty("_Color")) material.SetColor("_Color", new Color(0.12f, 0.82f, 0.95f, 1));
+                    return material;
+                });
+            ValidateConfiguration(result.catalog);
+            foreach (Object asset in result.created) AssetDatabase.SaveAssetIfDirty(asset);
+            return result;
+        }
+
+        static RpgStageDefinition Stage(string id, string name, string instructions, float health, int reward,
+            string[] unlocks, bool hazards, Configuration configuration)
+        {
+            return NewAsset<RpgStageDefinition>(ConfigurationRoot + "/阶段_" + id + ".asset", stage =>
+            {
+                stage.stageId = id;
+                stage.displayName = name;
+                stage.instructions = instructions;
+                stage.targetHealth = health;
+                stage.rewardCurrency = reward;
+                stage.unlockSkillIds = unlocks;
+                stage.enableHazards = hazards;
+            }, configuration);
+        }
+
+        static SkillDefinition RequireSkill(SkillCatalog source, string id)
+        {
+            SkillDefinition result = source.skills == null ? null : source.skills.SingleOrDefault(s => s && s.skillId == id);
+            if (!result) throw new InvalidOperationException("原技能目录缺少配方：" + id);
+            return result;
+        }
+
+        static void ValidateConfiguration(SkillCatalog catalog)
+        {
+            List<string> errors = catalog.Validate();
+            foreach (SkillDefinition skill in catalog.skills)
+            {
+                if (!skill || !AssetDatabase.GetAssetPath(skill).StartsWith(ConfigurationRoot + "/", StringComparison.Ordinal))
+                    errors.Add("RPG目录中的技能必须是独立克隆资产。");
+                else if (!skill.effectDefinition || !AssetDatabase.GetAssetPath(skill.effectDefinition).StartsWith(ConfigurationRoot + "/", StringComparison.Ordinal))
+                    errors.Add("RPG技能效果必须引用独立克隆资产：" + skill.skillId);
+            }
+            if (errors.Count != 0) throw new InvalidOperationException(string.Join("\n", errors));
+        }
+
+        static T Clone<T>(T source, string path, Action<T> prepare, Configuration configuration) where T : Object
+        {
+            return NewAsset(path, prepare, configuration, () => Object.Instantiate(source));
+        }
+
+        static T NewAsset<T>(string path, Action<T> prepare, Configuration configuration, Func<T> factory = null) where T : Object
+        {
+            Object existing = AssetDatabase.LoadMainAssetAtPath(path);
+            if (existing)
+            {
+                if (existing is T typed) return typed;
+                throw new InvalidOperationException("已有资源类型与构建需求冲突；不会覆盖：" + path);
+            }
+            if (File.Exists(path)) throw new InvalidOperationException("资源文件已存在但无法加载；不会覆盖：" + path);
+            T created = factory != null ? factory() : ScriptableObject.CreateInstance(typeof(T)) as T;
+            if (!created) throw new InvalidOperationException("不能创建配置资源：" + path);
+            created.name = Path.GetFileNameWithoutExtension(path);
+            prepare?.Invoke(created);
+            AssetDatabase.CreateAsset(created, path);
+            configuration.created.Add(created);
+            return created;
+        }
+
+        static string SafeName(string value) => new string(value.Select(c => char.IsLetterOrDigit(c) || c == '.' || c == '-' || c == '_' ? c : '_').ToArray());
+
+        static void EnsureFolder(string path)
+        {
+            path = path.Replace('\\', '/').TrimEnd('/');
+            if (path == "Assets" || AssetDatabase.IsValidFolder(path)) return;
+            if (!path.StartsWith("Assets/", StringComparison.Ordinal) || path.Contains(".."))
+                throw new ArgumentException("生成路径必须在项目Assets内。", nameof(path));
+            string parent = Path.GetDirectoryName(path).Replace('\\', '/');
+            EnsureFolder(parent);
+            if (string.IsNullOrEmpty(AssetDatabase.CreateFolder(parent, Path.GetFileName(path))))
+                throw new InvalidOperationException("无法创建配置目录：" + path);
+        }
+
+        static T[] Components<T>(Scene scene) where T : Component => scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<T>(true)).ToArray();
+
+        static void ConfigureScene(Scene scene, Configuration configuration)
+        {
+            SkillTestController skills = Components<SkillTestController>(scene).Single();
+            if (!skills.effects || !skills.lab || !skills.voice || !skills.view)
+                throw new InvalidOperationException("庭院模板缺少既有技能、手部、语音或界面接线。");
+            Transform head = skills.effects.head;
+            Transform rig = skills.effects.playerRoot;
+            if (!head || !rig || head == rig || !head.IsChildOf(rig))
+                throw new InvalidOperationException("庭院模板必须显式配置同一Rig中的头部与玩家根节点；构建器不会替换Rig。");
+            Font font = skills.chineseFont ? skills.chineseFont : skills.view.chineseFont;
+            if (!font) throw new InvalidOperationException("庭院模板缺少中文字体。");
+
+            foreach (SkillScenario scenario in Components<SkillScenario>(scene))
+            {
+                if (scenario.worldText && scenario.worldText.canvas &&
+                    (!skills.statusText || scenario.worldText.canvas != skills.statusText.canvas))
+                    Object.DestroyImmediate(scenario.worldText.canvas.gameObject);
+                Object.DestroyImmediate(scenario);
+            }
+            foreach (Transform transform in Components<Transform>(scene).Where(t => t &&
+                (t.name == "试炼说明" || t.name.Contains("墙后靶"))).OrderByDescending(Depth).ToArray())
+                if (transform) Object.DestroyImmediate(transform.gameObject);
+
+            skills.catalog = configuration.catalog;
+            skills.skills = new List<SkillDefinition>(configuration.catalog.skills);
+            skills.enableOpenHandCancel = false;
+            skills.showDesktopControls = false;
+            skills.view.showDesktopControls = false;
+            skills.view.shortcuts.Clear();
+            skills.view.title = "结印与语音 · 实时输入诊断";
+            skills.view.maximumSkillRows = 4;
+            skills.view.controller = skills;
+            skills.view.chineseFont = font;
+            skills.effects.playerRoot = rig;
+            skills.effects.head = head;
+
+            SkillTrainingTarget[] targets = Components<SkillTrainingTarget>(scene)
+                .Where(t => t && t.transform.position.z > rig.position.z)
+                .OrderBy(t => t.transform.position.z).ToArray();
+            if (targets.Length != 3) throw new InvalidOperationException("移除墙后靶后应恰好保留三个前方训练靶，实际为：" + targets.Length);
+            foreach (SkillTrainingTarget target in targets)
+            { target.health = 60; target.resetAfterSeconds = 0; }
+
+            Collider floor = Components<Collider>(scene).SingleOrDefault(c => c && c.enabled && !c.isTrigger && c.name == "庭院石台");
+            if (!floor) throw new InvalidOperationException("缺少庭院石台真实地面碰撞体，拒绝猜测导航楼层。");
+            Physics.SyncTransforms();
+            Vector3 origin = FloorAt(floor, rig.position);
+            var root = new GameObject("线性RPG · 关卡与导航");
+            SceneManager.MoveGameObjectToScene(root, scene);
+            RpgLocomotionController locomotion = root.AddComponent<RpgLocomotionController>();
+            locomotion.rigRoot = rig; locomotion.head = head;
+            locomotion.rigFloorOffset = origin.y - rig.position.y;
+            locomotion.floorLayers = 1 << floor.gameObject.layer;
+            locomotion.obstacleLayers = ~(1 << 2);
+            NavigationNode[,] grid = CreateGrid(root.transform, origin, floor, locomotion, configuration.markerMaterial);
+            var controller = root.AddComponent<LinearRpgController>();
+            controller.skills = skills;
+            controller.locomotion = locomotion;
+            controller.playerDefinition = configuration.player;
+            controller.stages = configuration.stages;
+            controller.targets = targets;
+            controller.checkpointNodes = new[] { grid[1, 1], grid[1, 2], grid[2, 2] };
+            controller.autoLoad = true;
+            controller.lowHandsBelowHead = 0.55f;
+            controller.saveFileName = "linear-rpg-v1.json";
+            controller.hiddenSkillPrice = 60;
+            controller.fireballUpgradePrice = 30;
+            var hazard = root.AddComponent<RpgTrainingHazard>();
+            hazard.controller = controller;
+            hazard.interval = 6;
+            hazard.warningSeconds = 1.5f;
+            hazard.radius = 0.65f;
+            hazard.damage = 25;
+
+            var view = root.AddComponent<RpgSessionView>();
+            view.controller = controller;
+            view.chineseFont = font;
+            view.showDesktopControls = true;
+            view.statusText = WorldHud(root.transform, rig.position, font);
+            Selection.activeObject = root;
+
+            // Independent service configuration; never replace the original training service's file.
+            string voiceJson = SkillConfigurationSetup.BuildVoiceJson(configuration.catalog, skills.voice.receivePort, skills.voice.servicePort);
+            if (!File.Exists(VoiceConfigurationPath))
+            {
+                File.WriteAllText(VoiceConfigurationPath, voiceJson, new UTF8Encoding(false));
+                AssetDatabase.ImportAsset(VoiceConfigurationPath, ImportAssetOptions.ForceSynchronousImport);
+            }
+            else Debug.Log("[线性RPG] 保留已有独立语音配置：" + VoiceConfigurationPath);
+            SkillConfigurationSetup.ValidateController(skills);
+        }
+
+        static int Depth(Transform value)
+        {
+            int result = 0; while (value.parent) { result++; value = value.parent; } return result;
+        }
+
+        static Vector3 FloorAt(Collider floor, Vector3 position)
+        {
+            if (!floor.Raycast(new Ray(position + Vector3.up * 4, Vector3.down), out RaycastHit hit, 8) ||
+                Vector3.Angle(hit.normal, Vector3.up) > 35)
+                throw new InvalidOperationException("预设导航点不在合法庭院地面上：" + position);
+            return hit.point;
+        }
+
+        static NavigationNode[,] CreateGrid(Transform parent, Vector3 origin, Collider floor,
+            RpgLocomotionController locomotion, Material markerMaterial)
+        {
+            var result = new NavigationNode[3, 3];
+            for (int z = 0; z < 3; z++) for (int x = 0; x < 3; x++)
+            {
+                var item = new GameObject("导航点 " + x + "-" + z);
+                item.transform.SetParent(parent, false);
+                item.transform.position = FloorAt(floor, origin + new Vector3((x - 1) * GridSpacing, 0, (z - 1) * GridSpacing));
+                NavigationNode node = item.AddComponent<NavigationNode>();
+                node.nodeId = "courtyard." + x + "." + z;
+                node.overrideLayers = true;
+                node.floorLayers = locomotion.floorLayers;
+                node.obstacleLayers = locomotion.obstacleLayers;
+                result[x, z] = node;
+                var line = item.AddComponent<LineRenderer>();
+                line.sharedMaterial = markerMaterial;
+                line.useWorldSpace = false; line.loop = true;
+                line.widthMultiplier = 0.018f;
+                line.positionCount = 24;
+                line.shadowCastingMode = ShadowCastingMode.Off; line.receiveShadows = false;
+                for (int i = 0; i < line.positionCount; i++)
+                {
+                    float angle = i * Mathf.PI * 2 / line.positionCount;
+                    line.SetPosition(i, new Vector3(Mathf.Cos(angle) * 0.18f, 0.055f, Mathf.Sin(angle) * 0.18f));
+                }
+            }
+            for (int z = 0; z < 3; z++) for (int x = 0; x < 3; x++)
+            {
+                if (x > 0) result[x, z].neighbors.Add(result[x - 1, z]);
+                if (x < 2) result[x, z].neighbors.Add(result[x + 1, z]);
+                if (z > 0) result[x, z].neighbors.Add(result[x, z - 1]);
+                if (z < 2) result[x, z].neighbors.Add(result[x, z + 1]);
+            }
+            return result;
+        }
+
+        static Text WorldHud(Transform parent, Vector3 playerOrigin, Font font)
+        {
+            var panel = new GameObject("线性RPG · 世界状态面板", typeof(RectTransform), typeof(Canvas));
+            panel.transform.SetParent(parent, false);
+            panel.transform.position = playerOrigin + new Vector3(2.65f, 1.75f, 1.75f);
+            panel.transform.localScale = Vector3.one * 0.00115f;
+            Vector3 normal = panel.transform.position - playerOrigin; normal.y = 0;
+            panel.transform.rotation = Quaternion.LookRotation(normal, Vector3.up);
+            panel.GetComponent<RectTransform>().sizeDelta = new Vector2(1000, 1280);
+            var canvas = panel.GetComponent<Canvas>(); canvas.renderMode = RenderMode.WorldSpace; canvas.sortingOrder = 5;
+            var background = new GameObject("状态面板底色", typeof(RectTransform), typeof(Image));
+            background.transform.SetParent(panel.transform, false);
+            Stretch(background.GetComponent<RectTransform>(), 0);
+            background.GetComponent<Image>().color = new Color(0.015f, 0.03f, 0.06f, 0.9f);
+            background.GetComponent<Image>().raycastTarget = false;
+
+            Text status = Label(panel.transform, "关卡实时状态", font, 27);
+            var statusRect = status.rectTransform;
+            statusRect.anchorMin = new Vector2(0, 0.3f); statusRect.anchorMax = Vector2.one;
+            statusRect.offsetMin = new Vector2(30, 20); statusRect.offsetMax = new Vector2(-30, -30);
+            status.text = "线性RPG · 火球基础\n\n播放后显示生命、能量、护盾、关卡、导航与存档状态。\n电脑右侧菜单均为显式模拟输入。";
+            Text help = Label(panel.transform, "导航与施法说明", font, 25);
+            help.rectTransform.anchorMin = Vector2.zero; help.rectTransform.anchorMax = new Vector2(1, 0.3f);
+            help.rectTransform.offsetMin = new Vector2(30, 20); help.rectTransform.offsetMax = new Vector2(-30, -10);
+            help.color = new Color(0.4f, 0.9f, 1);
+            help.text = "左食指伸直并稳定准备，整手移动几厘米选四向邻点；停留确认，回中后再选。放下左手退出导航。\n" +
+                "导航准备期间，右手张掌短划闪避；持火球前推优先发射，侧后闪保留手中火球。\n" +
+                "双手放低保持取消待施法与未发射物；已生效护盾和飞行火球保留。\n真实语音需加载本关卡独立语音配置。";
+            return status;
+        }
+
+        static Text Label(Transform parent, string name, Font font, int size)
+        {
+            var item = new GameObject(name, typeof(RectTransform), typeof(Text));
+            item.transform.SetParent(parent, false);
+            Text text = item.GetComponent<Text>(); text.font = font; text.fontSize = size;
+            text.color = Color.white; text.alignment = TextAnchor.UpperLeft;
+            text.horizontalOverflow = HorizontalWrapMode.Wrap; text.verticalOverflow = VerticalWrapMode.Truncate;
+            text.raycastTarget = false;
+            return text;
+        }
+
+        static void Stretch(RectTransform rect, float padding)
+        {
+            rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.one * padding; rect.offsetMax = Vector2.one * -padding;
+        }
+    }
+}

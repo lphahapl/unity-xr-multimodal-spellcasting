@@ -1,0 +1,41 @@
+using UnityEngine;
+
+namespace NarutoVR.SealCombat
+{
+    [CreateAssetMenu(menuName = "NarutoVR/技能效果/手持投射物")]
+    public sealed class ProjectileEffectDefinition : SkillEffectDefinition
+    {
+        [Header("一、飞行与伤害")]
+        [InspectorName("碰撞半径（米）"), Tooltip("视觉按两倍半径缩放；纯视觉粒子不负责伤害。"), Min(.01f)] public float radius = .065f;
+        [InspectorName("命中伤害"), Tooltip("每个投射物只结算一次。"), Min(0)] public float damage = 25;
+        [InspectorName("飞行速度（米/秒）"), Min(.1f)] public float speed = 9;
+        [InspectorName("飞行寿命（秒）"), Min(.1f)] public float flightLifetime = 4;
+        [Header("二、持握与生成")]
+        [InspectorName("持握最长时间（秒）"), Tooltip("与技能时长取较小值；生成手由技能配置决定。"), Min(.1f)] public float heldLifetime = 10;
+        [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, .05f, .08f);
+        [InspectorName("生成及追踪恢复准备时间（秒）"), Min(.25f)] public float armDelay = .25f;
+        [InspectorName("追踪丢失消散时间（秒）"), Min(.05f)] public float trackingLossGrace = .5f;
+        [Header("三、轻推发射")]
+        [InspectorName("前推最小位移（米）"), Min(.05f)] public float pushDistance = .12f;
+        [InspectorName("前推最短时长（秒）"), Min(.05f)] public float pushMinimumSeconds = .15f;
+        [InspectorName("前推最长时长（秒）"), Min(.1f)] public float pushMaximumSeconds = .6f;
+        [Header("四、纯视觉资源")]
+        [InspectorName("持握与飞行预置体"), Tooltip("根节点约一单位直径；留空使用基础球体。")]
+        public GameObject visualPrefab;
+        [InspectorName("命中爆散预置体"), Tooltip("短生命周期表现，不负责再次造成伤害。")]
+        public GameObject impactPrefab;
+        [InspectorName("基础球体材质"), Tooltip("没有视觉预置体时使用；留空自动创建基础材质。")]
+        public Material material;
+        public override string Summary => $"手持投射物 · {damage:0} 伤害 / {speed:0.#} 米每秒";
+        public override string ValidateDefinition()
+        {
+            if (!AtLeast(radius,.01f) || !AtLeast(damage,0) || !AtLeast(speed,.1f) || !AtLeast(flightLifetime,.1f)) return "投射物半径、伤害、速度或飞行寿命无效";
+            if (!AtLeast(heldLifetime,.1f) || !AtLeast(armDelay,.25f) || !AtLeast(trackingLossGrace,.05f)) return "持握时间、准备时间或追踪丢失宽限无效";
+            if (!float.IsFinite(heldOffset.x) || !float.IsFinite(heldOffset.y) || !float.IsFinite(heldOffset.z)) return "持握偏移包含非有限数值";
+            if (!AtLeast(pushDistance,.05f) || !AtLeast(pushMinimumSeconds,.05f) || !AtLeast(pushMaximumSeconds,.1f) || pushMaximumSeconds < pushMinimumSeconds) return "轻推距离或时间区间无效";
+            return null;
+        }
+        private static bool AtLeast(float value,float minimum) => float.IsFinite(value) && value >= minimum;
+        public override bool TryActivate(SkillEffects executor, SkillDefinition skill) => executor && executor.TryCreateProjectile(this, skill);
+    }
+}

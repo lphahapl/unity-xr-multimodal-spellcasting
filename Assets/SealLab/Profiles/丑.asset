@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded8d36033895084d9c31d38f587f102, type: 3}
+  m_Name: "\u4E11"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealProfile
+  sealName: "\u4E11"
+  calibrated: 1
+  threshold: 0.8
+  minimumCoverage: 0.8
+  allowLowConfidence: 0
+  holdSeconds: 0.07
+  rules:
+  - featureId: L.Thumb.Curl
+    min: 197.34488
+    max: 201.369
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Thumb.Flexion
+    min: 268.48627
+    max: 299.13022
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Thumb.Abduction
+    min: 40.586147
+    max: 43.748695
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Index.Curl
+    min: 176.00534
+    max: 176.22708
+    tolerance: 25
+    weight: 2
+    required: 0
+  - featureId: L.Index.Flexion
+    min: 189.66289
+    max: 194.65817
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Index.Abduction
+    min: 16.339619
+    max: 22.50126
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Index.Opposition
+    min: 0.09281701
+    max: 0.09704059
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: L.Middle.Curl
+    min: 176.2551
+    max: 180.72627
+    tolerance: 25
+    weight: 1
+    required: 0
+  - featureId: L.Middle.Flexion
+    min: 200.96327
+    max: 206.63762
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Middle.Abduction
+    min: 18.07457
+    max: 20.830948
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Middle.Opposition
+    min: 0.09092105
+    max: 0.10124303
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: L.Ring.Curl
+    min: 178.21193
+    max: 178.43657
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Ring.Flexion
+    min: 189.44298
+    max: 193.33252
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Ring.Abduction
+    min: 28.396341
+    max: 31.416994
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Ring.Opposition
+    min: 0.104267925
+    max: 0.111501016
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: L.Max.Curl
+    min: 174.56601
+    max: 174.64803
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Max.Flexion
+    min: 171.95471
+    max: 175.12114
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: L.Max.Opposition
+    min: 0.116343275
+    max: 0.12437968
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: R.Thumb.Curl
+    min: 179.49881
+    max: 191.18904
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Thumb.Flexion
+    min: 162.84982
+    max: 181.32524
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Thumb.Abduction
+    min: 20.583954
+    max: 36.51298
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Index.Curl
+    min: 178.38675
+    max: 184.8091
+    tolerance: 25
+    weight: 2
+    required: 0
+  - featureId: R.Index.Flexion
+    min: 200.65051
+    max: 214.37985
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Index.Abduction
+    min: 33.1961
+    max: 40.589138
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Index.Opposition
+    min: 0.06673949
+    max: 0.08506259
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: R.Middle.Curl
+    min: 177.60226
+    max: 178.16156
+    tolerance: 25
+    weight: 1
+    required: 0
+  - featureId: R.Middle.Flexion
+    min: 182.20123
+    max: 186.58282
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Middle.Abduction
+    min: 35.538593
+    max: 38.154377
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Middle.Opposition
+    min: 0.116764806
+    max: 0.12621723
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: R.Ring.Curl
+    min: 182.02167
+    max: 182.19928
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Ring.Flexion
+    min: 177.98488
+    max: 180.47263
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Ring.Abduction
+    min: 37.422436
+    max: 40.360016
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Ring.Opposition
+    min: 0.13903946
+    max: 0.14901388
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: R.Max.Curl
+    min: 180.34146
+    max: 185.51143
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Max.Flexion
+    min: 178.85023
+    max: 184.41159
+    tolerance: 25
+    weight: 0
+    required: 0
+  - featureId: R.Max.Opposition
+    min: 0.14184195
+    max: 0.15117274
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: Both.WristDistance
+    min: 0.1678828
+    max: 0.17207117
+    tolerance: 0.03
+    weight: 1.5
+    required: 0
+  - featureId: Both.PalmAngle
+    min: 86.74277
+    max: 90.76268
+    tolerance: 25
+    weight: 1
+    required: 0
+  - featureId: Both.IndexTipDistance
+    min: 0.09383265
+    max: 0.10386864
+    tolerance: 0.025
+    weight: 1.5
+    required: 0
+  - featureId: Both.MiddleTipDistance
+    min: 0.11982428
+    max: 0.1259846
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: Both.ThumbTipDistance
+    min: 0.056313477
+    max: 0.062490102
+    tolerance: 0.025
+    weight: 0
+    required: 0
+  - featureId: Both.IndexDirectionAngle
+    min: 103.873055
+    max: 118.12821
+    tolerance: 25
+    weight: 3
+    required: 0
+  - featureId: Both.RightWristInLeft.X
+    min: -0.027366025
+    max: -0.015271262
+    tolerance: 0.03
+    weight: 0
+    required: 0
+  - featureId: Both.RightWristInLeft.Y
+    min: -0.13447945
+    max: -0.13168757
+    tolerance: 0.03
+    weight: 1
+    required: 0
+  - featureId: Both.RightWristInLeft.Z
+    min: 0.098962344
+    max: 0.10883167
+    tolerance: 0.03
+    weight: 0.5
+    required: 0
