@@ -26,7 +26,7 @@ namespace NarutoVR.SealCombat
         [Header("四、旧场景兼容持握与轻推参数")]
         [InspectorName("火球半径（米）"), Min(0.01f)] public float ballRadius = 0.065f;
         [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, 0.05f, 0.08f);
-        [InspectorName("持握最长时间（秒）"), Min(0.1f)] public float heldLifetime = 10;
+        [InspectorName("未发射储存超时（秒，旧配置）"), Min(0.1f)] public float heldLifetime = 60;
         [InspectorName("生成和追踪恢复后的准备时间（秒）"), Min(0.25f)] public float armDelay = 0.25f;
         [InspectorName("丢失追踪后的消散时间（秒）"), Min(0.05f)] public float trackingLossGrace = 0.5f;
         [InspectorName("前推最小位移（米）"), Min(0.05f)] public float pushDistance = 0.12f;
@@ -42,11 +42,40 @@ namespace NarutoVR.SealCombat
 
         public string Status { get; private set; } = "无生效技能";
         public bool HasHeldObject => heldObject;
+        public float HeldRemainingSeconds => heldObject ? Mathf.Max(0,(float)(heldExpiresAt-Now)) : 0;
         public bool HasRightHeldObject => heldObject && !heldInLeftHand;
+        public bool HasRightThrowObject => HasRightHeldObject && heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow;
+        public string ThrowStatus => heldObject && throwState != null ? throwBlockReason ?? (throwIntent != null ? throwIntent.Score.reason : throwState.Status) : string.Empty;
+        public ThrowActionScore CurrentThrowScore => throwIntent != null ? throwIntent.Score : default;
+        public string LastThrowOutcome { get; private set; } = "尚无发射或拒绝结果";
+        public string LastReleaseMode { get; private set; } = "尚未发射";
+        public static string ReleaseModeLabel(string mode) => mode=="GripRelease"?"松手投掷":mode=="WindupThrow"?"后拉前送":mode=="ReachHold"?"伸手保持":"尚无通过候选";
+        public HandThrowSettings ActiveThrowSettings => heldParameters.Throwing?.Copy();
+        public float ActiveProjectileSpeed => heldParameters.Speed;
+        public Vector3 LastLaunchDirection { get; private set; }
+        public Vector3 LastLaunchPosition { get; private set; }
+        public HandThrowObservation LastThrowObservation { get; private set; }
+        public bool HasThrowObservation { get; private set; }
+        public bool ThrowInputValid => heldObject && throwState != null && throwInputValid && !ThrowInputSuppressed && !PushInputSuppressed &&
+            HandNow >= LastThrowObservation.observed && HandNow - LastThrowObservation.observed <= heldParameters.Throwing.sampleMaxAge;
+        public bool ThrowArmed => ThrowInputValid && (throwState.Armed || (throwIntent?.Armed ?? false));
+        public bool ReleasePending => ThrowInputValid && throwState.ReleasePending && !(throwIntent?.ContradictsWindup(throwState.Estimate.velocity)??false);
+        public float ThrowGripProgress => ThrowInputValid ? throwState.GripProgress : 0;
+        public float ThrowReleaseProgress => ThrowInputValid ? throwState.ReleaseProgress : 0;
+        public Vector3 HeldThrowPosition => heldObject ? heldObject.transform.position : Vector3.zero;
+        private bool ReachPreview => ThrowInputValid && CurrentThrowScore.holdProgress>0;
+        public bool ThrowPreviewValid => ReachPreview || (ThrowInputValid && (throwState.ReleasePending ? releasePoseValid && throwState.Estimate.accepted : throwState.Armed && throwState.PreviewEstimate.accepted));
+        public Vector3 ThrowPreviewOrigin => releasePoseValid ? releasePose.position : HeldThrowPosition;
+        public Vector3 ThrowPreviewDirection => ReachPreview ? CurrentThrowScore.direction : ThrowPreviewValid ? (throwState.ReleasePending ? throwState.Estimate.velocity : throwState.PreviewEstimate.velocity).normalized : Vector3.zero;
+        public event Action<HandThrowObservation> ThrowObserved;
+        public bool ThrowInputSuppressed { get; set; }
+        public Func<bool, HandThrowSettings, ThrowGripSample> ThrowGripProvider { get; set; }
         public int ActiveProjectileCount => projectiles.Count;
         public int LaunchCount { get; private set; }
         public bool PushInputSuppressed { get; set; }
         public Func<double> GameClock { get; set; }
+        /// <summary>Observation time seam for deterministic replay. Production uses the snapshot's realtime clock.</summary>
+        public Func<double> HandInputClock { get; set; }
         // Future actor adapters can bind this seam; production scenes use the existing tracked source by default.
         public Func<bool, Pose?> WristPoseOverride { get; set; }
         public float BuffRemaining => shieldPoints > 0 ? Mathf.Max(0, (float)(buffExpiresAt - Now)) : 0;
@@ -57,6 +86,7 @@ namespace NarutoVR.SealCombat
         public event Action<string> Message;
 
         private double Now => GameClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
+        private double HandNow => HandInputClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
         private float shieldPoints, activeShieldCapacity;
         private double buffExpiresAt, heldExpiresAt, armAt, lostAt = -1;
         private GameObject heldObject, buffObject;
@@ -76,6 +106,19 @@ namespace NarutoVR.SealCombat
         private double lastObserved = double.NegativeInfinity;
         private Vector3 lastHandPosition, lastHeadPosition;
         private bool hasPreviousSample;
+        private HandThrowState throwState;
+        private HandThrowIntentState throwIntent;
+        private string shotId;
+        private string heldSource;
+        private string ThrowSource => WristPoseOverride!=null?"测试注入":lab?lab.TrackingSource:"无采样器";
+        private long observationSequence;
+        private bool throwInputValid, releasePoseValid, hasSafeHeldPoint;
+        private Pose releasePose;
+        private Vector3 safeHeldPoint;
+        private long releasePoseCandidate;
+        private readonly Collider[] throwOverlaps = new Collider[32];
+        private readonly RaycastHit[] throwSweeps = new RaycastHit[32];
+        private string throwBlockReason;
 
         // Values are captured once at activation. Editing a shared SO or activating a different
         // skill cannot change an existing held ball's motion, damage or eventual flight settings.
@@ -85,6 +128,8 @@ namespace NarutoVR.SealCombat
             public readonly Vector3 Offset;
             public readonly GameObject Visual, Impact;
             public readonly Material Material;
+            public readonly ProjectileReleaseMode ReleaseMode;
+            public readonly HandThrowSettings Throwing;
             public ProjectileParameters(ProjectileEffectDefinition definition, SkillEffects legacy)
             {
                 Radius = definition ? definition.radius : Mathf.Max(.01f, legacy.ballRadius);
@@ -97,7 +142,9 @@ namespace NarutoVR.SealCombat
                 PushDistance = definition ? definition.pushDistance : Mathf.Max(.05f, legacy.pushDistance);
                 PushMinimum = definition ? definition.pushMinimumSeconds : Mathf.Max(.05f, legacy.pushMinimumSeconds);
                 PushMaximum = definition ? definition.pushMaximumSeconds : Mathf.Max(PushMinimum, legacy.pushMaximumSeconds);
-                Offset = definition ? definition.heldOffset : legacy.heldOffset;
+                ReleaseMode = definition ? definition.releaseMode : ProjectileReleaseMode.ForwardPush;
+                Throwing = definition && definition.throwing != null ? definition.throwing.Copy() : new HandThrowSettings();
+                Offset = definition ? (ReleaseMode == ProjectileReleaseMode.GripThrow ? definition.throwLocalOffset : definition.heldOffset) : legacy.heldOffset;
                 Visual = definition ? definition.visualPrefab : legacy.fireballPrefab;
                 Impact = definition ? definition.impactPrefab : legacy.impactPrefab;
                 Material = definition ? definition.material : legacy.fireMaterial;
@@ -207,6 +254,8 @@ namespace NarutoVR.SealCombat
             { Report($"{(skill.leftHand ? "左" : "右")}手当前追踪无效，无法生成火球"); return false; }
 
             var parameters = new ProjectileParameters(definition, this);
+            if (parameters.ReleaseMode == ProjectileReleaseMode.GripThrow && ThrowGripProvider == null)
+            { Report("投掷模式未连接握拳/捏合输入，无法生成"); return false; }
             createdHeldThisActivation = true;
             if (parameters.Visual) heldObject = Instantiate(parameters.Visual);
             else
@@ -223,18 +272,24 @@ namespace NarutoVR.SealCombat
                 renderer.receiveShadows = false;
             }
             heldParameters = parameters;
+            throwState = parameters.ReleaseMode == ProjectileReleaseMode.GripThrow ? new HandThrowState(parameters.Throwing) : null;
             heldObject.name = "技能火球_持握";
             heldObject.transform.localScale = Vector3.one * parameters.Radius * 2;
             DisableVisualColliders(heldObject);
             heldObject.SetActive(true);
             if (heldObject.TryGetComponent<SkillVisualMotion>(out var motion)) motion.SetFlying(false);
             heldInLeftHand = skill.leftHand;
-            float holdSeconds = float.IsFinite(skill.durationSeconds) ? Mathf.Max(0.1f, skill.durationSeconds) : 10;
-            heldExpiresAt = Now + Mathf.Min(parameters.HeldLifetime, holdSeconds);
+            throwIntent = throwState != null && parameters.Throwing.assisted.enabled ? new HandThrowIntentState(parameters.Throwing,heldInLeftHand) : null;
+            shotId = Guid.NewGuid().ToString("N");
+            heldSource=ThrowSource;
+            heldExpiresAt = Now + parameters.HeldLifetime;
             lostAt = -1;
             ResetMotion(Now);
             UpdateHeldPosition(wrist);
-            Report($"{skill.displayName}已在{(heldInLeftHand ? "左" : "右")}手生成，准备后向前轻推发射");
+            if (throwState != null) { safeHeldPoint = heldObject.transform.position; hasSafeHeldPoint = ThrowPathClear(safeHeldPoint,safeHeldPoint); }
+            ObserveThrow("spawn", "持球已生成，等待准备及握持", wrist, default, 0, false);
+            Report($"{skill.displayName}已在{(heldInLeftHand ? "左" : "右")}手生成，" +
+                (throwState != null ? "握拳或捏住后，甩手并松开发射" : "准备后向前轻推发射"));
             return true;
         }
 
@@ -259,32 +314,126 @@ namespace NarutoVR.SealCombat
 
         private void UpdateHeld(double now)
         {
-            if (now >= heldExpiresAt) { ClearHeld(); Report("火球持握超时，已消散"); return; }
+            if (now >= heldExpiresAt) { ObserveThrow("expired","火球持握超时",default,default,0,false); ClearHeld(); Report("火球持握超时，已消散"); return; }
             if (!head || !TryGetWrist(heldInLeftHand, out Pose wrist, out double observed))
             {
+                throwInputValid = false; releasePoseValid = false;
                 heldObject.SetActive(false);
                 if (lostAt < 0) { lostAt = now; ResetMotion(now); Report("手部追踪丢失，火球已隐藏"); }
-                if (now - lostAt >= heldParameters.LossGrace)
-                { ClearHeld(); Report("手部追踪未恢复，火球已消散"); }
+                ObserveThrow("tracking_lost","持球手追踪缺失或过期",default,default,0,false);
+                if (now - lostAt >= heldParameters.LossGrace) { ClearHeld(); Report("手部追踪未恢复，火球已消散"); }
                 return;
             }
-            if (lostAt >= 0)
-            {
-                lostAt = -1;
-                ResetMotion(now);
-                Report("手部追踪恢复，请重新向前轻推");
-            }
+            if (lostAt >= 0) { lostAt = -1; ResetMotion(now); Report("手部追踪恢复，请重新握住再投掷"); }
             heldObject.SetActive(true);
             UpdateHeldPosition(wrist);
-            if (PushInputSuppressed) ResetMotion(now);
-            else TrackPush(wrist.position, observed, now);
+            if(heldSource!=ThrowSource)
+            {
+                heldSource=ThrowSource;ResetMotion(now);
+                ObserveThrow("source_changed","手部来源已改变，请重新握住",wrist,default,observed,false);return;
+            }
+            if (PushInputSuppressed || (throwState != null && ThrowInputSuppressed))
+            {
+                ResetMotion(now);
+                ObserveThrow("suppressed","界面、角色状态或其他输入仲裁阻止投掷",wrist,default,observed,false);
+                return;
+            }
+            if (throwState == null) { TrackPush(wrist.position,observed,now); return; }
+            ThrowGripSample grip = ThrowGripProvider != null ? ThrowGripProvider(heldInLeftHand,heldParameters.Throwing) : default;
+            if (now < armAt) { ObserveThrow("warming_up","生成或恢复追踪后的准备时间",wrist,grip,observed,true); return; }
+            if (!double.IsFinite(grip.observed) || Math.Abs(grip.observed-observed) > .01)
+            {
+                ResetMotion(now);
+                ObserveThrow("sample_skew","手形与腕骨不在同一观测帧",wrist,grip,observed,true); return;
+            }
+            double handNow=HandNow;
+            Vector3 velocity=throwState.Process(wrist.position,head.position,grip,handNow);
+            AssistedThrowCandidate candidate=throwIntent?.Process(wrist.position,head.position,head.forward,grip,handNow) ?? default;
+            bool backwards = throwIntent != null && throwIntent.ContradictsWindup(throwState.Estimate.velocity);
+            if (velocity.sqrMagnitude>.0001f && throwIntent != null && throwIntent.ContradictsWindup(velocity)) velocity=Vector3.zero;
+            bool pending=throwState.ReleasePending && !backwards;
+            Vector3 currentCenter=heldObject.transform.position;
+            throwInputValid=(grip.fistValid||grip.pinchValid) && observed<=handNow && handNow-observed<=heldParameters.Throwing.sampleMaxAge;
+            throwBlockReason=null;
+            Physics.SyncTransforms();
+            // A mature physical release wins. An unfinished release must not starve assisted actions.
+            bool assisted = velocity.sqrMagnitude<=.0001f && candidate.kind!=AssistedThrowKind.None;
+            string mode=assisted?candidate.kind.ToString():"GripRelease";
+            if (assisted)
+            {
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("辅助发射路径或出手点被阻挡",wrist,grip,observed); return; }
+                releasePose=new Pose(currentCenter,wrist.rotation); releasePoseValid=true;
+                velocity=candidate.direction * heldParameters.Speed;
+            }
+            else if (pending && throwState.Estimate.accepted && (!releasePoseValid || releasePoseCandidate!=throwState.CandidateId))
+            {
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("释放位置或甩手路径被阻挡，请重新握住",wrist,grip,observed); return; }
+                releasePose=new Pose(currentCenter,wrist.rotation); releasePoseValid=true; releasePoseCandidate=throwState.CandidateId;
+            }
+            if (velocity.sqrMagnitude>.0001f)
+            {
+                if (!releasePoseValid || !ThrowPathClear(releasePose.position,releasePose.position))
+                { RejectThrow("释放点被障碍占据，未发射",wrist,grip,observed); return; }
+                heldObject.transform.SetPositionAndRotation(releasePose.position,releasePose.rotation);
+                ObserveThrow("launched",assisted?(candidate.kind==AssistedThrowKind.ReachHold?"伸手保持发射":"后拉前送评分发射"):"握持松手投掷发射",wrist,grip,observed,true,velocity,mode);
+                Launch(velocity.normalized); return;
+            }
+            if (pending && releasePoseValid) heldObject.transform.SetPositionAndRotation(releasePose.position,releasePose.rotation);
+            else
+            {
+                releasePoseValid=false;
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("持球位置或移动路径被阻挡，请移回可用空间",wrist,grip,observed); return; }
+                safeHeldPoint=currentCenter; hasSafeHeldPoint=true;
+            }
+            string reason=throwIntent != null ? throwIntent.Score.reason+"；松手："+throwState.Status : throwState.Status;
+            if (backwards) reason="后拉阶段：不采用朝后的松手轨迹；"+reason;
+            ObserveThrow("frame",reason,wrist,grip,observed,true);
+        }
+
+        private void RejectThrow(string reason,Pose wrist,ThrowGripSample grip,double observed)
+        {
+            // Preserve the candidate and score before resetting. No other mode retries this action.
+            ObserveThrow("rejected",reason,wrist,grip,observed,true);
+            ResetMotion(Now); throwBlockReason=reason;
+        }
+
+        private void ObserveThrow(string kind,string reason,Pose wrist,ThrowGripSample grip,double observed,bool hasSample,Vector3 velocity=default,string mode="")
+        {
+            if (throwState==null) return;
+            if(kind=="launched")LastReleaseMode=ReleaseModeLabel(mode);
+            bool gripTimeValid=double.IsFinite(grip.observed);
+            bool headValid=head&&NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position,head.rotation));
+            if(!gripTimeValid)grip.observed=0;
+            var observation=new HandThrowObservation
+            {
+                schemaVersion=2,shotId=shotId,sequence=++observationSequence,eventType=kind,releaseMode=mode,
+                source=ThrowSource,
+                hasSample=hasSample,suppressed=ThrowInputSuppressed||PushInputSuppressed,
+                gripTimestampValid=hasSample&&gripTimeValid,headPoseValid=headValid,
+                observed=hasSample&&double.IsFinite(grip.observed)?grip.observed:0,wristObserved=double.IsFinite(observed)?observed:0,
+                now=double.IsFinite(HandNow)?HandNow:0,hand=hasSample?wrist.position:Vector3.zero,head=headValid?head.position:Vector3.zero,headForward=headValid?head.forward:Vector3.zero,
+                grip=grip,score=CurrentThrowScore,estimate=throwState.PreviewEstimate.samples>0&&!throwState.ReleasePending?throwState.PreviewEstimate:throwState.Estimate,
+                status=reason,armed=throwState.Armed||(throwIntent?.Armed??false),launchVelocity=velocity,candidateId=throwState.CandidateId,
+                pending=throwState.ReleasePending,inputValid=throwInputValid,gripProgress=throwState.GripProgress,releaseProgress=throwState.ReleaseProgress,
+                releaseOrigin=releasePoseValid?releasePose.position:HeldThrowPosition,
+                storageRemainingSeconds=HeldRemainingSeconds,projectileSpeed=heldParameters.Speed
+            };
+            LastThrowObservation=observation; HasThrowObservation=true;
+            if (kind=="launched"||kind=="rejected"||kind=="expired"||kind=="tracking_lost"||kind=="sample_skew")
+                LastThrowOutcome=reason+"；动作分 "+(observation.score.available?$"{observation.score.total:0.0}/{observation.score.threshold:0}":"未计算");
+            if (ThrowObserved!=null) foreach(Action<HandThrowObservation> listener in ThrowObserved.GetInvocationList())
+                try { listener(observation); } catch(Exception error) { Debug.LogWarning("投掷诊断监听失败："+error.Message,this); }
         }
 
         private void UpdateHeldPosition(Pose wrist)
         {
             Vector3 offset = heldParameters.Offset;
             if (heldInLeftHand) offset.x = -offset.x;
-            heldObject.transform.SetPositionAndRotation(wrist.position + head.rotation * offset, wrist.rotation);
+            Quaternion basis = heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow ? wrist.rotation : head.rotation;
+            heldObject.transform.SetPositionAndRotation(wrist.position + basis * offset, wrist.rotation);
         }
 
         private bool TryGetWrist(bool leftHand, out Pose worldPose, out double observed)
@@ -295,7 +444,7 @@ namespace NarutoVR.SealCombat
             {
                 Pose? supplied = WristPoseOverride(leftHand);
                 if (!supplied.HasValue || !NarutoVR.SealLab.SealLab.FinitePose(supplied.Value)) return false;
-                worldPose = supplied.Value; observed = Time.realtimeSinceStartupAsDouble; return true;
+                worldPose = supplied.Value; observed = HandNow; return true;
             }
             if (!lab || !lab.isActiveAndEnabled || !lab.recordingOrigin || lab.Frame == null) return false;
             HandSnapshot hand = leftHand ? lab.Frame.left : lab.Frame.right;
@@ -303,7 +452,7 @@ namespace NarutoVR.SealCombat
             if (hand == null || !hand.connected || !hand.tracked || !hand.fresh ||
                 hand.joints == null || hand.jointValid == null || wristIndex >= hand.joints.Length ||
                 wristIndex >= hand.jointValid.Length || !hand.jointValid[wristIndex]) return false;
-            double age = Time.realtimeSinceStartupAsDouble - hand.observedAt;
+            double age = HandNow - hand.observedAt;
             if (age < -0.01 || age > Mathf.Max(0.04f, lab.staleAfterSeconds)) return false;
             Pose localPose = hand.joints[wristIndex];
             if (!NarutoVR.SealLab.SealLab.FinitePose(localPose)) return false;
@@ -315,9 +464,12 @@ namespace NarutoVR.SealCombat
 
         private void ResetMotion(double now)
         {
+            throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwBlockReason = null;
             pushSamples.Clear();
             lastObserved = double.NegativeInfinity;
             hasPreviousSample = false;
+            throwState?.Reset();
+            throwIntent?.Reset();
             armAt = now + heldParameters.ArmDelay;
         }
 
@@ -384,6 +536,9 @@ namespace NarutoVR.SealCombat
 
         private void Launch(Vector3 direction)
         {
+            LastLaunchDirection = direction.normalized;
+            LastLaunchPosition = heldObject.transform.position;
+            throwInputValid = releasePoseValid = false;
             GameObject ball = heldObject;
             heldObject = null;
             pushSamples.Clear();
@@ -525,11 +680,66 @@ namespace NarutoVR.SealCombat
 
         private void ClearHeld()
         {
+            if (heldObject && throwState != null) ObserveThrow("cancelled", "持球结束或取消", default, default, 0, false);
+            throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwState?.Reset();
+            throwIntent?.Reset();
             if (heldObject) { heldObject.SetActive(false); Destroy(heldObject); }
             heldObject = null;
             pushSamples.Clear();
             lostAt = -1;
             hasPreviousSample = false;
+        }
+
+        bool ThrowPathClear(Vector3 from, Vector3 to)
+        {
+            int mask = hitLayers.value & ~playerLayers.value;
+            int count = Physics.OverlapSphereNonAlloc(to, heldParameters.Radius, throwOverlaps, mask, QueryTriggerInteraction.Ignore);
+            if (count == throwOverlaps.Length) return false;
+            for (int i=0;i<count;i++) if (!IgnoreThrowCollider(throwOverlaps[i])) return false;
+            Vector3 delta = to-from; float distance=delta.magnitude;
+            if (distance < .0001f) return true;
+            count = Physics.SphereCastNonAlloc(from, heldParameters.Radius, delta/distance, throwSweeps,distance,mask,QueryTriggerInteraction.Ignore);
+            if (count == throwSweeps.Length) return false;
+            for(int i=0;i<count;i++) if(!IgnoreThrowCollider(throwSweeps[i].collider)) return false;
+            return true;
+        }
+        bool IgnoreThrowCollider(Collider c) => !c || !c.enabled || (heldObject && c.transform.IsChildOf(heldObject.transform)) ||
+            ((playerRoot ? playerRoot : head ? head.root : null) is Transform root && c.transform.IsChildOf(root));
+
+        public string BuildThrowDebugDetails(double now)
+        {
+            if (!HasThrowObservation) return "尚无投掷观察；先生成火球并握住。\n甩手沿腕部轨迹发射；伸手保持沿估计肩部到腕部方向发射。";
+            var o=LastThrowObservation; var e=o.estimate;
+            double age=double.IsFinite(now)&&double.IsFinite(o.observed)?Math.Max(0,now-o.observed)*1000:0;
+            var b=new System.Text.StringBuilder();
+            var score=o.score;
+            b.AppendLine($"未发射储存剩余 {HeldRemainingSeconds:0.0} 秒");
+            b.AppendLine($"通过候选：{ReleaseModeLabel(score.candidate.ToString())}；最近实际发射：{LastReleaseMode}");
+            b.AppendLine($"动作评分 {(score.available?$"{score.total:0.0} / 100":"未计算")}；前送阈值 {score.threshold:0}（非置信概率）");
+            b.AppendLine($"阶段：{score.phase}；判定：{score.reason}");
+            if(score.available) b.AppendLine($"速度项 {score.speedScore*100:0} / 位移项 {score.distanceScore*100:0} / 方向项 {score.directionScore*100:0} / 后拉项 {score.windupScore*100:0}");
+            b.AppendLine($"后拉 {score.windupDistance*100:0.0} cm；前送 {score.forwardDistance*100:0.0} cm；相对/世界前向速度 {score.speed:0.00}/{score.worldSpeed:0.00} m/s");
+            b.AppendLine($"头腕距离 {score.headWristDistance*100:0.0}/{score.reachRequired*100:0.0} cm；主动伸手={score.extensionReady}；保持 {score.holdProgress*100:0}%");
+            b.AppendLine("保持路径："+score.holdReason);
+            b.AppendLine($"采样 {score.samples}；方向一致性 {score.consistency:0.00}；前送误差 {score.fitError*1000:0.0} mm；动作轮次 {score.actionEpoch:0}");
+            var assist=heldParameters.Throwing?.assisted;
+            if(assist!=null && assist.enabled) {
+                b.AppendLine($"前送启用={assist.windupEnabled}：后拉≥{assist.windupDistance*100:0}cm / 前送≥{assist.forwardDistance*100:0}cm / 速度≥{assist.forwardSpeed:0.00}m/s / 一致性≥{assist.minimumConsistency:0.00} / 分数≥{assist.scoreThreshold:0}；期限{assist.actionTimeout:0.00}s");
+                b.AppendLine($"保持启用={assist.reachEnabled}：头腕≥{assist.comfortableReach*assist.reachRatio*100:0}cm / 主动前伸≥{assist.reachMotion*100:0}cm / 身前>{assist.minimumForwardReach*100:0}cm / 保持{assist.reachSeconds:0.00}s");
+                b.AppendLine($"稳定门控：位置≤{assist.reachStability*100:0}cm / 速度≤{assist.reachSpeed:0.00}m/s / 瞄准波动≤{assist.aimStability:0}° / 前方半角≤{assist.forwardCone:0}°");
+            }
+            b.AppendLine($"事件 {o.eventType}；手形/腕骨时间差 {Math.Abs(o.observed-o.wristObserved)*1000:0} ms；输入占用={o.suppressed}");
+            b.AppendLine("最近发射或拒绝："+LastThrowOutcome);
+            b.AppendLine($"持球={HasHeldObject}；当前输入有效={ThrowInputValid}；观察年龄 {age:0} ms");
+            b.AppendLine($"握拳 有效/闭合/张开={o.grip.fistValid}/{o.grip.fistClosed}/{o.grip.fistOpen}；捏合={o.grip.pinchValid}/{o.grip.pinchClosed}/{o.grip.pinchOpen}");
+            b.AppendLine($"握持 {ThrowGripProgress*100:0}%；已准备={ThrowArmed}；释放候选={ReleasePending}；松手确认 {ThrowReleaseProgress*100:0}%");
+            b.AppendLine($"候选编号 {o.candidateId}；样本 {e.samples}；轨迹跨度 {Math.Max(0,e.end-e.start)*1000:0} ms；确认延迟 {(e.onset>0?Math.Max(0,o.observed-e.onset)*1000:0):0} ms");
+            b.AppendLine($"拟合速度 {e.velocity.magnitude:0.00} m/s；相对位移 {e.relativeDistance*100:0.0} cm；RMS误差 {e.rmsError*1000:0.0} mm；通过={e.accepted}");
+            b.AppendLine($"释放位置 {o.releaseOrigin:F3}；输出速度 {o.launchVelocity:F2}");
+            b.AppendLine($"上次发射位置 {LastLaunchPosition:F3}；方向 {LastLaunchDirection:F2}；累计 {LaunchCount} 发 / {HitCount} 次命中");
+            if (heldParameters.Throwing != null) b.AppendLine($"配置：握持 {heldParameters.Throwing.gripSeconds*1000:0} ms / 松手 {heldParameters.Throwing.releaseSeconds*1000:0} ms / 最低速度 {heldParameters.Throwing.minimumSpeed:0.00} m/s / 误差上限 {heldParameters.Throwing.maximumFitError*1000:0} mm");
+            b.Append("最近结果："+o.status+"\n轨迹判定："+(string.IsNullOrEmpty(e.reason)?"尚无冻结轨迹":e.reason));
+            return b.ToString();
         }
 
         private void ClearBuff()
@@ -583,11 +793,6 @@ namespace NarutoVR.SealCombat
             {
                 buffObject.SetActive(true);
                 buffObject.transform.SetPositionAndRotation(wrist.position, wrist.rotation);
-            }
-            else if (head)
-            {
-                buffObject.SetActive(true);
-                buffObject.transform.SetPositionAndRotation(head.position + head.rotation * new Vector3(-0.25f, -0.22f, 0.5f), head.rotation);
             }
             else buffObject.SetActive(false);
         }

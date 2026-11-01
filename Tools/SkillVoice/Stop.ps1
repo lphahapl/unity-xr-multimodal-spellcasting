@@ -1,3 +1,8 @@
+﻿param([string]$OwnerToken)
+if ($PSBoundParameters.ContainsKey('OwnerToken')) {
+    $ownerFile=Join-Path $PSScriptRoot 'service.owner'
+    if (!(Test-Path -LiteralPath $ownerFile) -or (Get-Content -LiteralPath $ownerFile -Raw) -cne $OwnerToken) { exit 0 }
+}
 $ErrorActionPreference = 'Stop'
 $script = Join-Path $PSScriptRoot 'skill_voice.py'
 $pidFile = Join-Path $PSScriptRoot 'service.pid'

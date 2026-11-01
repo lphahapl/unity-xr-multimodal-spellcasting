@@ -24,6 +24,70 @@ def log(kind, **data):
     print(json.dumps({"kind": kind, "monotonic": time.perf_counter(), **data}, ensure_ascii=False), flush=True)
 
 
+class AudioTelemetry:
+    """Bounded scalar diagnostics only. Never stores audio; clock is injectable for tests."""
+
+    def __init__(self, clock=time.perf_counter):
+        self.clock = clock
+        self.lock = threading.Lock()
+        self.device = {}
+        self.frames = self.voiced_frames = 0
+        self.last_frame = self.last_voice = None
+        self.rms = self.peak = 0.0
+        self.last_log = None
+        self.last_phrase = ""
+        self.phrase_count = 0
+
+    def configure(self, name, backend, index, sample_rate, threshold):
+        with self.lock:
+            self.device = dict(audio_device=str(name)[:160], audio_backend=str(backend)[:80],
+                               audio_device_index=int(index), audio_sample_rate=int(sample_rate),
+                               audio_energy_threshold=float(threshold))
+
+    def observe(self, samples):
+        import numpy as np
+        values = np.asarray(samples, dtype=np.float64)
+        if not values.size:
+            return
+        if not np.isfinite(values).all():
+            raise ValueError("麦克风样本含非有限数值；停止识别以避免无效输入")
+        # Float PCM should be in [-1,1]; bound diagnostic arithmetic without changing decoder input.
+        values = np.clip(values, -1.0, 1.0)
+        now = self.clock()
+        with self.lock:
+            self.frames += 1
+            self.last_frame = now
+            self.rms = float(np.sqrt(np.mean(values * values)))
+            self.peak = float(np.max(np.abs(values)))
+            if self.rms >= self.device.get("audio_energy_threshold", .012):
+                self.voiced_frames += 1
+                self.last_voice = now
+
+    def phrase(self, phrase):
+        with self.lock:
+            self.last_phrase = str(phrase)[:80]
+            self.phrase_count += 1
+
+    def snapshot(self):
+        now = self.clock()
+        with self.lock:
+            return dict(audio_telemetry_version=1, **self.device,
+                        audio_frames=self.frames, audio_voiced_frames=self.voiced_frames,
+                        audio_age=-1.0 if self.last_frame is None else max(0.0, now-self.last_frame),
+                        audio_voice_age=-1.0 if self.last_voice is None else max(0.0, now-self.last_voice),
+                        audio_rms=self.rms, audio_peak=self.peak,
+                        audio_last_phrase=self.last_phrase, audio_phrase_count=self.phrase_count,
+                        audio_score_available=False)
+
+    def log_due(self, interval=5.0):
+        now = self.clock()
+        with self.lock:
+            if self.last_log is not None and now-self.last_log < interval:
+                return False
+            self.last_log = now
+            return True
+
+
 class Bridge:
     """NTP-style four-timestamp handshake. No wall-clock synchronization required."""
 
@@ -40,13 +104,15 @@ class Bridge:
         self.status = "正在加载模型"
         self.mode = "starting"
         self.seq = 0
+        self.telemetry = AudioTelemetry()
         self.closed = threading.Event()
         self.thread = threading.Thread(target=self.run, name="SkillVoiceLoopback", daemon=True)
         self.thread.start()
 
     def send(self, kind, destination=None, **data):
+        diagnostics = self.telemetry.snapshot() if kind in ("heartbeat", "pong") and self.mode == "microphone" else {}
         payload = {"v": 1, "kind": kind, "session": self.session, "ready": self.ready,
-                   "status": self.status, "mode": self.mode, **data}
+                   "status": self.status, "mode": self.mode, **diagnostics, **data}
         try:
             self.socket.sendto(json.dumps(payload, ensure_ascii=False).encode("utf-8"), destination or self.target)
         except OSError:
@@ -77,6 +143,7 @@ class Bridge:
 
     def phrase(self, phrase, ended_at, detected_at, basis, **data):
         self.seq += 1
+        self.telemetry.phrase(phrase)
         now = time.perf_counter()
         record = dict(phrase=phrase, seq=self.seq, ended_at=ended_at, detected_at=detected_at,
                       sent_at=now, capture_basis=basis,
@@ -239,7 +306,11 @@ def run_microphone(args, kws):
     try:
         decoder = Decoder(kws, args, bridge)
         with sd.InputStream(device=args.device, channels=1, dtype="float32", samplerate=args.sample_rate,
-                            blocksize=int(args.sample_rate * 0.02), callback=callback):
+                            blocksize=int(args.sample_rate * 0.02), callback=callback) as input_stream:
+            device = sd.query_devices(input_stream.device, "input")
+            backend = sd.query_hostapis(device["hostapi"])["name"]
+            bridge.telemetry.configure(device["name"], backend, input_stream.device,
+                                       input_stream.samplerate, args.energy_threshold)
             bridge.ready, bridge.mode, bridge.status = True, "microphone", "中文口令识别中（本机）"
             log("ready", model=str(args.model), device=str(sd.query_devices(args.device, "input")),
                 threshold=args.threshold, energy_threshold=args.energy_threshold,
@@ -253,6 +324,9 @@ def run_microphone(args, kws):
                 if dropped.is_set():
                     # A discontinuity invalidates timestamps and acoustic context. Fail visibly.
                     raise RuntimeError("麦克风音频溢出/丢帧，已停止；关闭高负载应用或换输入设备后重启")
+                bridge.telemetry.observe(samples)
+                if bridge.telemetry.log_due():
+                    log("audio_input", **bridge.telemetry.snapshot(), audio_recorded=False)
                 decoder.accept(samples, args.sample_rate, start, basis)
     finally:
         bridge.close()

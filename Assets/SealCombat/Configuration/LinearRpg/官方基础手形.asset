@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c82db45cb7953240808e71d99427dc8, type: 3}
+  m_Name: "\u5B98\u65B9\u57FA\u7840\u624B\u5F62"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.BasicHandPoseSettings
+  index: {fileID: 11400000, guid: 29b0a95ffa0254044901c8c821379040, type: 2}
+  middle: {fileID: 11400000, guid: 6654d266dec806d458e8c45751c96535, type: 2}
+  ringAndPinky: {fileID: 11400000, guid: 8b470e0c4b48d474c9a42d7f661d48c7, type: 2}
+  description: "\u5DE6\u624B\u6307\u5411\uFF1A\u98DF\u6307Open\uFF0C\u5176\u4F59\u4E09\u6307Closed\u3002\u53F3\u624B\u5F20\u638C\uFF1A\u56DB\u6307Open\u3002\u76F4\u63A5\u4F7F\u7528SDK\u72B6\u6001\u5F15\u64CE\u7684\u6EDE\u56DE\u548C\u6700\u77ED\u786E\u8BA4\u65F6\u95F4\uFF1B\u5931\u6548\u6570\u636E\u7ACB\u5373\u6E05\u7A7A\u3002\u5341\u4E8C\u5370\u4ECD\u4F7F\u7528\u539F\u52A0\u6743\u8BC4\u5206\u3002"

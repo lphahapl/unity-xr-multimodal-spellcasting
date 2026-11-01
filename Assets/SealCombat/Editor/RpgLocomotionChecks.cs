@@ -151,14 +151,14 @@ namespace NarutoVR.SealCombat.Editor
 
         static void CheckDodgeNavigationGate()
         {
-            var state = new RpgGestureState();
+            var state = new RpgGestureState(new RpgGestureSettings { requireNavigationForDodge = true });
             var frame = Frame(0); frame.leftPointing = false;
             state.Process(frame, Vector3.forward, false, false, 0);
             frame = Frame(0.05, right: Right + Vector3.right * 0.04f); frame.leftPointing = false;
             state.Process(frame, Vector3.forward, false, false, 0.05);
             frame = Frame(0.13, right: Right + Vector3.right * 0.13f); frame.leftPointing = false;
             Require(state.Process(frame, Vector3.forward, false, false, 0.13).dodgeDirection == Vector3.zero,
-                "默认不在导航准备时，右手张掌短划不能闪避。");
+                "显式启用旧导航门控时，未准备不能闪避。");
 
             state = PreparedState();
             frame = Frame(0.4, right: Right + Vector3.right * 0.04f); frame.rightOpen = false;
@@ -174,7 +174,7 @@ namespace NarutoVR.SealCombat.Editor
 
         static RpgGestureState PreparedState()
         {
-            var state = new RpgGestureState();
+            var state = new RpgGestureState(new RpgGestureSettings { dwellSeconds = .35f });
             for (int i = 0; i <= 7; i++)
             {
                 double t = i * 0.05;
@@ -300,7 +300,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var node = item.AddComponent<NavigationNode>(); node.nodeId = id;
                 // EditMode fixtures must explicitly run lifecycle hooks of ordinary runtime MonoBehaviours.
-                node.SendMessage("OnEnable", SendMessageOptions.RequireReceiver);
+                NavigationNodeFixture.SetRegistered(node,true);
                 registeredNodes.Add(node);
                 return node;
             }
@@ -422,7 +422,7 @@ namespace NarutoVR.SealCombat.Editor
                 }
                 finally
                 {
-                    if (foreign) foreign.SendMessage("OnDisable", SendMessageOptions.RequireReceiver);
+                    if (foreign) NavigationNodeFixture.SetRegistered(foreign,false);
                     SceneManager.SetActiveScene(temporaryScene);
                     EditorSceneManager.ClosePreviewScene(foreignScene);
                 }
@@ -440,12 +440,12 @@ namespace NarutoVR.SealCombat.Editor
 
                 // Checkpoint 5: disabling a node unregisters it and makes it unavailable for restore.
                 b.enabled = false;
-                b.SendMessage("OnDisable", SendMessageOptions.RequireReceiver);
+                NavigationNodeFixture.SetRegistered(b,false);
                 beforeRejectedRestore = rig.transform.position;
                 Require(!Registered(b) && !controller.TryRestoreCheckpoint(b) && rig.transform.position == beforeRejectedRestore,
                     "已禁用并取消注册的节点不能用于检查点恢复。");
                 b.enabled = true;
-                b.SendMessage("OnEnable", SendMessageOptions.RequireReceiver);
+                NavigationNodeFixture.SetRegistered(b,true);
                 passed++;
 
                 // Clock 1: keep input timestamps in realtime while a separate game clock is paused.
@@ -489,7 +489,7 @@ namespace NarutoVR.SealCombat.Editor
             finally
             {
                 foreach (NavigationNode node in registeredNodes)
-                    if (node) node.SendMessage("OnDisable", SendMessageOptions.RequireReceiver);
+                    if (node) NavigationNodeFixture.SetRegistered(node,false);
                 Object.DestroyImmediate(world);
                 if (previousScene.IsValid() && previousScene.isLoaded) SceneManager.SetActiveScene(previousScene);
                 EditorSceneManager.CloseScene(temporaryScene, true);

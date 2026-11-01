@@ -11,7 +11,11 @@ namespace NarutoVR.SealCombat
         [InspectorName("飞行速度（米/秒）"), Min(.1f)] public float speed = 9;
         [InspectorName("飞行寿命（秒）"), Min(.1f)] public float flightLifetime = 4;
         [Header("二、持握与生成")]
-        [InspectorName("持握最长时间（秒）"), Tooltip("与技能时长取较小值；生成手由技能配置决定。"), Min(.1f)] public float heldLifetime = 10;
+        [InspectorName("释放方式")] public ProjectileReleaseMode releaseMode;
+        [InspectorName("投掷参数")] public HandThrowSettings throwing = new();
+        [InspectorName("投掷模式骨骼局部偏移（米）"), Tooltip("相对于手腕骨骼旋转；零表示精确跟随腕关节。")]
+        public Vector3 throwLocalOffset = new(0, .025f, .065f);
+        [InspectorName("未发射储存超时（秒）"), Tooltip("生成后开始计时；超时消散。独立于技能效果持续时间和发射后的飞行寿命。每个执行器最多储存一发。"), Min(.1f)] public float heldLifetime = 60;
         [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, .05f, .08f);
         [InspectorName("生成及追踪恢复准备时间（秒）"), Min(.25f)] public float armDelay = .25f;
         [InspectorName("追踪丢失消散时间（秒）"), Min(.05f)] public float trackingLossGrace = .5f;
@@ -33,6 +37,9 @@ namespace NarutoVR.SealCombat
             if (!AtLeast(heldLifetime,.1f) || !AtLeast(armDelay,.25f) || !AtLeast(trackingLossGrace,.05f)) return "持握时间、准备时间或追踪丢失宽限无效";
             if (!float.IsFinite(heldOffset.x) || !float.IsFinite(heldOffset.y) || !float.IsFinite(heldOffset.z)) return "持握偏移包含非有限数值";
             if (!AtLeast(pushDistance,.05f) || !AtLeast(pushMinimumSeconds,.05f) || !AtLeast(pushMaximumSeconds,.1f) || pushMaximumSeconds < pushMinimumSeconds) return "轻推距离或时间区间无效";
+            if (!System.Enum.IsDefined(typeof(ProjectileReleaseMode), releaseMode)) return "未知释放方式";
+            if (releaseMode == ProjectileReleaseMode.GripThrow && (throwing == null || !throwing.Valid ||
+                !float.IsFinite(throwLocalOffset.x) || !float.IsFinite(throwLocalOffset.y) || !float.IsFinite(throwLocalOffset.z))) return "投掷参数或骨骼偏移无效";
             return null;
         }
         private static bool AtLeast(float value,float minimum) => float.IsFinite(value) && value >= minimum;

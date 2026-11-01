@@ -14,6 +14,8 @@ namespace NarutoVR.SealCombat
         public bool ExternalCooldownAuthority { get; set; }
         public Action<string> Log;
         public string Status { get; private set; } = "等待技能输入";
+        public string ObservationDiagnostics { get; private set; } = "等待骨骼输入";
+        double nextObservationDiagnostic;
         public string PendingSkillName => pending < 0 ? "" : Name(recipes[pending].Definition);
         public string PendingSkillId => pending < 0 ? "" : recipes[pending].Id;
         public SkillDefinition PendingSkill => pending < 0 ? null : recipes[pending].Definition;
@@ -101,6 +103,8 @@ namespace NarutoVR.SealCombat
             now = Math.Max(now, frame.time); Prune();
             int flags = Flags(frame.left) | (Flags(frame.right) << 3);
             if (hasPrevious && previousLeft == frame.left.version && previousRight == frame.right.version && previousFlags == flags) return;
+            bool diagnosticDue=frame.time>=nextObservationDiagnostic;
+            if(diagnosticDue) { nextObservationDiagnostic=frame.time+.2; ObservationDiagnostics=$"骨骼间隔 {frame.time-lastSample:F3}s / 上限 {MaximumSampleGap:F3}s；输入占用={suppressActivation}；双手有效={BothHandsValid(frame)}"; }
             bool contiguous = frame.time - lastSample <= MaximumSampleGap + Epsilon;
             previousLeft = frame.left.version; previousRight = frame.right.version; previousFlags = flags;
             hasPrevious = true; lastSample = frame.time;
@@ -124,12 +128,17 @@ namespace NarutoVR.SealCombat
                 }
                 else state.ExitSince = double.NaN;
                 if (!contiguous || !quality || suppressActivation) foreach (var tracker in state.Trackers) tracker.Start = double.NaN;
-                if (state.Blocked || suppressActivation) continue;
+                if (state.Blocked || suppressActivation) { if(diagnosticDue) ObservationDiagnostics+=$"\n{state.Seal}：动作已消耗={state.Blocked}，输入被占用={suppressActivation}"; continue; }
                 foreach (var tracker in state.Trackers)
                 {
                     var recipe = recipes[tracker.Recipe];
                     if (tracker.Complete && recipe.Mode == SkillTriggerMode.GestureOnly) continue;
                     bool qualifies = quality && target.Score + Epsilon >= Threshold(recipe, target) && Unambiguous(slot, target);
+                    if(diagnosticDue) {
+                        string other="无"; float best=-1;
+                        for(int j=0;j<slot.ScoreCount;j++) if(slot.Scores[j].Seal!=target.Seal && slot.Scores[j].Quality && slot.Scores[j].Score>best) {best=slot.Scores[j].Score;other=slot.Scores[j].Seal;}
+                        ObservationDiagnostics+=$"\n{recipe.Id}/{state.Seal}：分数 {target.Score:P1} / {Threshold(recipe,target):P1}，质量通过={quality}，歧义通过={Unambiguous(slot,target)}；竞争印 {other} {best:P1}，要求领先 {Margin:P0}；保持 {(double.IsNaN(tracker.Start)?0:frame.time-tracker.Start):F3}/{target.Hold:F3}s";
+                    }
                     if (!qualifies) { tracker.Start = double.NaN; continue; }
                     if (state.Action == 0) state.Action = ++nextAction;
                     if (double.IsNaN(tracker.Start)) tracker.Start = frame.time;

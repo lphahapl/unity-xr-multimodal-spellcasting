@@ -10,7 +10,7 @@ namespace NarutoVR.SealCombat.Rpg
 {
     /// <summary>Single-player session adapter. Recognition, resources, effects and locomotion retain separate owners.</summary>
     [DefaultExecutionOrder(300)]
-    public sealed class LinearRpgController : MonoBehaviour
+    public sealed class LinearRpgController : MonoBehaviour, ISkillActivationPolicy
     {
 #if UNITY_EDITOR
         // Set only by the explicit Editor play-test harness, before the scene's Awake.
@@ -19,14 +19,15 @@ namespace NarutoVR.SealCombat.Rpg
         [Header("一、场景与配置")]
         [InspectorName("技能输入控制器")] public SkillTestController skills;
         [InspectorName("导航与闪避")] public RpgLocomotionController locomotion;
+        [InspectorName("腕饰菜单与教学卡")] public WristMenuController wristMenu;
         [InspectorName("玩家基础定义")] public RpgPlayerDefinition playerDefinition;
         [InspectorName("顺序关卡配置")] public RpgStageDefinition[] stages = Array.Empty<RpgStageDefinition>();
         [InspectorName("阶段训练靶")] public SkillTrainingTarget[] targets = Array.Empty<SkillTrainingTarget>();
         [InspectorName("各阶段检查点")] public NavigationNode[] checkpointNodes = Array.Empty<NavigationNode>();
         [Header("二、操作阈值")]
         [InspectorName("放下双手：低于头部（米）"), Range(.3f, 1)] public float lowHandsBelowHead = .55f;
-        [InspectorName("伸直手指最大弯曲角"), Range(0, 90)] public float straightCurl = 25;
-        [InspectorName("收拢手指最小弯曲角"), Range(0, 180)] public float foldedCurl = 45;
+        [InspectorName("官方基础手形配置"), Tooltip("官方逐指状态引擎与阈值；原始Curl伸直约180度，不使用归零弯曲角。")]
+        public BasicHandPoseSettings handPoseSettings;
         [Header("三、进度与存档")]
         [InspectorName("启动时读取存档")] public bool autoLoad = true;
         [InspectorName("存档文件名"), Tooltip("保存到Application.persistentDataPath；不接受目录或绝对路径。")]
@@ -55,10 +56,14 @@ namespace NarutoVR.SealCombat.Rpg
         RpgSaveStore store;
         RpgProgressData lastCheckpoint;
         SkillCatalog originalCatalog;
-        bool paused, initialized, wasNavigation, saveBlocked;
+        bool paused, initialized, wasNavigation, saveBlocked, wasUi;
+        public bool UiInputOwned => wristMenu && wristMenu.OwnsInput;
         double completedSince = -1;
         long activationSequence, damageSequence;
         readonly string sessionId = Guid.NewGuid().ToString("N");
+        OfficialHandPoseDetector handPoses;
+        public string HandPoseStatus => handPoses?.Status ?? "官方手形：等待初始化";
+        public event Action<RpgActionCue> Feedback;
 
         void Awake()
         {
@@ -69,6 +74,7 @@ namespace NarutoVR.SealCombat.Rpg
                 { saveFileName = EditorTestSaveFile; autoLoad = false; autoAdvanceStages = false; }
 #endif
                 ValidateSetup();
+                handPoses = new OfficialHandPoseDetector(handPoseSettings);
                 Player = playerDefinition ? playerDefinition.CreateState() : new RpgPlayerState();
                 Player.Tick(0);
                 originalCatalog = skills.catalog;
@@ -102,12 +108,15 @@ namespace NarutoVR.SealCombat.Rpg
                 Player.RestoreCheckpoint(Progress.checkpoint, GameTime, out _);
                 ApplyUpgrades();
                 skills.enableOpenHandCancel = false;
-                skills.ActivationOverride = TryActivate;
-                skills.GestureInputBlocked = () => !CanAct || locomotion.NavigationActive;
-                skills.VoiceInputBlocked = () => !CanAct || locomotion.NavigationActive;
+                skills.ActivationOverride = null;
+                skills.ActivationPolicy = this;
+                skills.GestureInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
+                skills.VoiceInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
+                skills.ExclusiveInputBlocked = () => UiInputOwned;
                 skills.CancelOverride = CancelCasting;
                 skills.DeferVoiceUntilLateUpdate = true;
                 skills.effects.GameClock = () => GameTime;
+                skills.effects.ThrowGripProvider = (left, settings) => ReadThrowGrip(left, settings, Time.realtimeSinceStartupAsDouble);
                 locomotion.GameClock = () => GameTime;
                 locomotion.CancelRequested += CancelCasting;
                 locomotion.Moved += OnMoved;
@@ -136,12 +145,23 @@ namespace NarutoVR.SealCombat.Rpg
             if (!initialized) return;
             if (!paused && Time.timeScale > 0) { GameTime += Time.deltaTime; Player.Tick(GameTime); }
             var frame = ReadNavigationFrame(Time.realtimeSinceStartupAsDouble);
-            locomotion.ProcessInput(frame, skills.effects.HasRightHeldObject, !CanAct, Time.realtimeSinceStartupAsDouble);
+            if (wristMenu && wristMenu.isActiveAndEnabled)
+                UpdateWristUi(frame,ReadWristMenuFrame(frame),!CanAct || skills.effects.HasHeldObject,Time.realtimeSinceStartupAsDouble);
+            if (UiInputOwned != wasUi)
+            {
+                skills.CancelInputOnly(); skills.InvalidateEarlierVoice(); locomotion.ResetInput();
+                wasUi = UiInputOwned;
+            }
+            // Skip the whole locomotion recognizer: its low-hands cancellation runs before blockActions.
+            if (!UiInputOwned) locomotion.ProcessInput(frame, skills.effects.HasRightHeldObject && !skills.effects.HasRightThrowObject, !CanAct, Time.realtimeSinceStartupAsDouble);
             bool navigating = locomotion.NavigationActive;
             if (navigating != wasNavigation) skills.CancelInputOnly();
             wasNavigation = navigating;
             // Suppress release on death/pause only: a held fireball still owns forward push during navigation.
-            skills.effects.PushInputSuppressed = !CanAct;
+            skills.effects.PushInputSuppressed = !CanAct || UiInputOwned;
+            // A spawned projectile already owns the release gesture. Residual two-hand seal protection
+            // must not clear its trajectory while hands separate (or the left hand goes out of view).
+            skills.effects.ThrowInputSuppressed = !CanAct || UiInputOwned || (locomotion.SealProtectionActive && !skills.effects.HasHeldObject);
             if (CanAct && !CampaignComplete && targets.Length > 0 && targets.All(t => t && t.IsDefeated))
             {
                 if (completedSince < 0) completedSince = GameTime;
@@ -150,17 +170,33 @@ namespace NarutoVR.SealCombat.Rpg
             else completedSince = -1;
         }
 
+        // Explicit UI intent may cancel an uncommitted navigation dwell, never a held spell.
+        public void UpdateWristUi(NavigationHandInput frame,WristMenuInput ui,bool hardBlocked,double now)
+        {
+            bool reserve=wristMenu.PrepareWristTap(ui,hardBlocked,now);
+            if(reserve && !UiInputOwned) locomotion.ResetInput();
+            bool sealBusy=!reserve && !UiInputOwned && !wristMenu.PanelOpen && !wristMenu.State.LauncherOpen && (locomotion.SealProtectionActive ||
+                (frame.leftValid && frame.rightValid && Vector3.Distance(frame.leftWrist,frame.rightWrist)<locomotion.gestures.sealEnterDistance));
+            wristMenu.Tick(ui,this,hardBlocked || (!reserve && locomotion.NavigationActive) || sealBusy,now);
+        }
+
         public bool DebugCast(string skillId) => TryActivate(skills ? skills.ConfiguredSkills.FirstOrDefault(s => s && s.skillId == skillId) : null);
+
+        bool ISkillActivationPolicy.TryActivate(SkillDefinition skill) => TryActivate(skill);
+        string ISkillActivationPolicy.ActivationStatus => Status;
+        bool ISkillActivationPolicy.OwnsCooldowns => true;
 
         bool TryActivate(SkillDefinition skill)
         {
             if (!CanAct || !skill || !skills.ConfiguredSkills.Contains(skill)) return Reject("当前无法施法");
+            if (UiInputOwned) return Reject("正在操作教学界面；手部恢复中立后再施法");
             if (locomotion.NavigationActive) return Reject("导航准备中：放下左手后再开始结印或吟唱");
             if (!Progress.unlockedSkillIds.Contains(skill.skillId)) return Reject("尚未解锁：" + skill.displayName);
             string request = sessionId + ":cast:" + (++activationSequence);
             bool accepted = Player.TryActivate(request, skill.skillId, CooldownGroup(skill), skill.manaCost, skill.cooldownSeconds,
                 GameTime, () => skills.effects.TryActivate(skill), out string reason);
             Status = accepted ? $"{skill.displayName}已准备，消耗 {skill.manaCost:0} MP" : reason + "；" + skills.effects.Status;
+            RpgFeedbackSignals.Raise(Feedback, accepted ? RpgActionCue.CastReady : RpgActionCue.Blocked, this);
             return accepted;
         }
 
@@ -169,12 +205,15 @@ namespace NarutoVR.SealCombat.Rpg
             if (!initialized) return;
             skills.CancelInputOnly(); skills.effects.CancelUnreleased(); locomotion.CancelPendingNavigation();
             Status = "已取消待施法输入与未发射火球；已生效护盾和飞行火球保留。已消耗MP和CD不返还。";
+            RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Cancelled, this);
         }
 
         public bool DebugMove(bool dodge, Vector2 direction)
         {
             if (!CanAct) return Reject("死亡或暂停时不能移动");
-            if (dodge && direction.y > 0 && skills.effects.HasRightHeldObject) return Reject("右手持球时前推属于发射；请实际前推或先取消火球");
+            if (UiInputOwned) return Reject("正在操作教学界面，暂不接收移动命令");
+            if (dodge && (skills.effects.HasRightThrowObject || (direction.y > 0 && skills.effects.HasRightHeldObject)))
+                return Reject("右手持球动作由投射物优先处理；先投掷或取消再闪避");
             return dodge ? locomotion.TryDebugDodge(direction, Time.realtimeSinceStartupAsDouble) :
                 locomotion.TryDebugStep(direction, Time.realtimeSinceStartupAsDouble);
         }
@@ -188,6 +227,7 @@ namespace NarutoVR.SealCombat.Rpg
             float applied = 0;
             if (remaining > 0) Player.ApplyDamage(hitId, remaining, GameTime, out applied);
             Status = $"受到 {amount:0} 伤害，护盾吸收 {amount - remaining:0}，生命损失 {applied:0}";
+            RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Damage, this);
             if (!Player.Alive)
             {
                 skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
@@ -207,6 +247,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!store.TrySave(candidate, out string reason)) return Reject(reason);
             Progress = candidate; lastCheckpoint = CloneProgress(candidate);
             Status = "检查点已保存（固定节点、角色进度、HP/MP和剩余CD）；临时效果与敌人血量不保存";
+            RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Progress, this);
             return true;
         }
 
@@ -225,6 +266,7 @@ namespace NarutoVR.SealCombat.Rpg
             Progress = restored; lastCheckpoint = CloneProgress(restored); SelectStageFromProgress(); ApplyUpgrades();
             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
             ApplyStage(); Status = "已恢复检查点；阶段目标重置，临时效果已清理";
+            RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Progress, this);
             return true;
         }
 
@@ -275,10 +317,16 @@ namespace NarutoVR.SealCombat.Rpg
             int level = Progress.skillLevels.FirstOrDefault(l => l.skillId == "fireball")?.level ?? 0;
             foreach (var pair in baseDamage) pair.Key.damage = pair.Value * (1 + level * .1f);
         }
-        void OnMoved(Vector3 delta) { skills.CancelInputOnly(); skills.effects.ResetPushInput(); }
+        void OnMoved(Vector3 delta)
+        {
+            if (!skills) return;
+            if (wristMenu) wristMenu.ResetForWorldChange();
+            skills.CancelInputOnly();
+            if (skills.effects) skills.effects.ResetPushInput();
+        }
         static string CooldownGroup(SkillDefinition s) => string.IsNullOrEmpty(s.cooldownGroup) ? s.skillId : s.cooldownGroup;
         NavigationNode FindCheckpoint(string id) => checkpointNodes.FirstOrDefault(n => n && n.nodeId == id);
-        bool Reject(string reason) { Status = reason; return false; }
+        bool Reject(string reason) { Status = reason; RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Blocked, this); return false; }
         static RpgProgressData CloneProgress(RpgProgressData p) => JsonUtility.FromJson<RpgProgressData>(JsonUtility.ToJson(p));
         bool ValidateProgress(RpgProgressData p)
         {
@@ -295,6 +343,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         void ValidateSetup()
         {
+            if (!handPoseSettings || handPoseSettings.Validate() is string) throw new InvalidOperationException("缺少或无效的官方基础手形配置");
             if (!skills || !skills.catalog || !skills.effects || !skills.lab || !locomotion || !locomotion.head) throw new InvalidOperationException("缺少技能、效果、骨骼或导航接线");
             var errors = skills.catalog.Validate(); if (errors.Count != 0) throw new InvalidOperationException(string.Join("；", errors));
             if (!skills.catalog.skills.Any(s => s.skillId == "fireball") || !skills.catalog.skills.Any(s => s.skillId == "buff.hidden")) throw new InvalidOperationException("缺少火球或隐藏法术配置");
@@ -311,17 +360,103 @@ namespace NarutoVR.SealCombat.Rpg
         NavigationHandInput ReadNavigationFrame(double now)
         {
             var result = new NavigationHandInput(); var frame = skills.lab.Frame;
-            if (frame == null) return result;
+            if (frame == null) { handPoses?.Reset(); return result; }
+            if (handPoses == null) handPoses = new OfficialHandPoseDetector(handPoseSettings);
+            handPoses.Update(frame, skills.lab.Features, now, locomotion.gestures.sampleMaxAge, locomotion.gestures.sampleMaxGap);
             result.leftObserved = frame.left.observedAt; result.rightObserved = frame.right.observedAt;
             result.leftValid = Wrist(frame.left, now, out result.leftWrist);
             result.rightValid = Wrist(frame.right, now, out result.rightWrist);
             int index = (int)HandJointId.HandIndexTip;
             if (result.leftValid && frame.left.jointValid[index]) result.leftIndex = World(frame.left.joints[index].position);
-            else result.leftValid = false;
-            result.leftPointing = result.leftValid && Curl("L.Index.Curl", false) && Curl("L.Middle.Curl", true) && Curl("L.Ring.Curl", true) && Curl("L.Pinky.Curl", true);
-            result.rightOpen = result.rightValid && Curl("R.Index.Curl", false) && Curl("R.Middle.Curl", false) && Curl("R.Ring.Curl", false) && Curl("R.Pinky.Curl", false);
+            result.leftPointing = result.leftValid && frame.left.jointValid[index] && handPoses.Left.pointing;
+            int indexBase = (int)HandJointId.HandIndex1;
+            if (result.leftPointing && frame.left.jointValid[indexBase])
+            {
+                Vector3 direction = result.leftIndex - World(frame.left.joints[indexBase].position);
+                float length = direction.magnitude;
+                result.leftRayValid = RpgGestureState.Finite(direction) && length >= .02f && length <= .16f;
+                if (result.leftRayValid)
+                {
+                    result.leftRayOrigin = result.leftIndex;
+                    result.leftRayDirection = direction / length;
+                }
+            }
+            result.rightOpen = result.rightValid && handPoses.Right.open;
+            result.rightMotionOwnedBySpell = skills.effects && skills.effects.HasRightThrowObject;
             result.bothHandsLow = result.leftValid && result.rightValid && Math.Abs(result.leftObserved - result.rightObserved) <= SealFeatureExtractor.MaximumHandSkew &&
                 result.leftWrist.y < locomotion.head.position.y - lowHandsBelowHead && result.rightWrist.y < locomotion.head.position.y - lowHandsBelowHead;
+            return result;
+        }
+        public static bool PointerPoseNearHand(Pose aim,Vector3 wrist) => NarutoVR.SealLab.SealLab.FinitePose(aim) &&
+            RpgGestureState.Finite(wrist) && Vector3.Distance(aim.position,wrist)<=.3f;
+        WristMenuInput ReadWristMenuFrame(NavigationHandInput navigation)
+        {
+            var f = new WristMenuInput { leftValid = navigation.leftValid, rightValid = navigation.rightValid,
+                leftObserved = navigation.leftObserved, rightObserved = navigation.rightObserved,
+                leftWrist = navigation.leftWrist, leftClosed = handPoses != null && handPoses.Left.valid && handPoses.Left.closed,
+                leftPointing = navigation.leftPointing, rightOpen = navigation.rightOpen,
+                rightPointing = handPoses != null && handPoses.Right.valid && handPoses.Right.pointing,
+                rightClosed = handPoses != null && handPoses.Right.valid && handPoses.Right.closed,
+                headPosition = locomotion.head.position, headForward = locomotion.head.forward };
+            var frame = skills.lab.Frame;
+            if (frame == null) return f;
+            f.source = frame.source;
+            int wrist = (int)HandJointId.HandWristRoot, index = (int)HandJointId.HandIndex1,
+                pinky = (int)HandJointId.HandPinky1, tip = (int)HandJointId.HandIndexTip, thumb = (int)HandJointId.HandThumbTip;
+            Quaternion origin = skills.lab.recordingOrigin ? skills.lab.recordingOrigin.rotation : Quaternion.identity;
+            if (f.leftValid)
+            {
+                f.leftRotation = origin*frame.left.joints[wrist].rotation;
+                if (frame.left.jointValid[index] && frame.left.jointValid[pinky])
+                {
+                    Vector3 normal = Vector3.Cross(World(frame.left.joints[index].position)-f.leftWrist, World(frame.left.joints[pinky].position)-f.leftWrist);
+                    // Both dorsal/palmar conventions are accepted; vendor-specific wrist axes stay in this adapter.
+                    f.wristFacing = normal.sqrMagnitude > .0000001f && Mathf.Abs(Vector3.Dot(normal.normalized,(f.headPosition-f.leftWrist).normalized)) >= .2f;
+                }
+            }
+            f.rightValid &= frame.right.jointValid[tip];
+            if (f.rightValid)
+            {
+                f.rightTip = World(frame.right.joints[tip].position);
+                if (frame.right.jointValid[index])
+                {
+                    f.rayOrigin = World(frame.right.joints[index].position);
+                    f.rayAnchorValid = WristMenuState.Finite(f.rayOrigin);
+                    // Prefer the provider pointer pose; finger-tip direction swings while pinching.
+                    IHand tracked=skills.lab.xrHandsSource ? skills.lab.xrHandsSource.rightHand : skills.lab.rightTrackedHand as IHand;
+                    Vector3 ray = f.rayOrigin-navigation.rightWrist; // Stable knuckle fallback, not the bending tip.
+                    if(tracked!=null && tracked.IsPointerPoseValid && tracked.GetPointerPose(out var aim) && PointerPoseNearHand(aim,navigation.rightWrist))
+                    { f.rayOrigin=aim.position; ray=aim.rotation*Vector3.forward*.1f; }
+
+                    f.rayValid = WristMenuState.Finite(ray) && ray.magnitude >= .02f && ray.magnitude <= .16f;
+                    f.rayDirection = ray.normalized;
+                }
+                if (frame.right.jointValid[thumb])
+                {
+                    f.pinchDistance = Vector3.Distance(f.rightTip,World(frame.right.joints[thumb].position));
+                    f.pinchValid = float.IsFinite(f.pinchDistance);
+                }
+            }
+            return f;
+        }
+        ThrowGripSample ReadThrowGrip(bool left, HandThrowSettings settings, double now)
+        {
+            var result = new ThrowGripSample(); var frame = skills.lab.Frame;
+            if (frame == null || handPoses == null) return result;
+            HandSnapshot hand = left ? frame.left : frame.right;
+            if (!Wrist(hand, now, out _)) return result;
+            var shape = left ? handPoses.Left : handPoses.Right;
+            result.observed = hand.observedAt;
+            result.fistValid = shape.valid; result.fistClosed = shape.closed;
+            result.fistOpen = settings.allowPartialFistRelease ? shape.releaseOpen : shape.open;
+            int thumb = (int)HandJointId.HandThumbTip, index = (int)HandJointId.HandIndexTip;
+            if (hand.jointValid[thumb] && hand.jointValid[index])
+            {
+                float distance = Vector3.Distance(World(hand.joints[thumb].position), World(hand.joints[index].position));
+                result.pinchValid = float.IsFinite(distance);
+                result.pinchClosed = distance <= settings.pinchCloseDistance;
+                result.pinchOpen = distance >= settings.pinchOpenDistance;
+            }
             return result;
         }
         bool Wrist(HandSnapshot h, double now, out Vector3 position)
@@ -332,28 +467,35 @@ namespace NarutoVR.SealCombat.Rpg
             position = World(h.joints[wrist].position); return float.IsFinite(position.x) && float.IsFinite(position.y) && float.IsFinite(position.z);
         }
         Vector3 World(Vector3 position) => skills.lab.recordingOrigin ? skills.lab.recordingOrigin.TransformPoint(position) : position;
-        bool Curl(string id, bool folded)
-        {
-            foreach (var f in skills.lab.Features) if (f.id == id) return f.valid && f.highConfidence && (folded ? f.value >= foldedCurl : f.value <= straightCurl);
-            return false;
-        }
         void OnApplicationPause(bool value)
         {
+            handPoses?.Reset();
+            if (wristMenu) wristMenu.ResetForWorldChange();
             paused = value;
             if (!initialized) return;
-            skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
+            if (skills) { skills.CancelInputOnly(); if (skills.effects) skills.effects.ClearAll(); }
+            if (locomotion) locomotion.ResetInput();
         }
         void OnDisable()
         {
+            handPoses?.Reset();
             if (!initialized) return;
-            skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
-            skills.enabled = false; skills.effects.enabled = false;
+            // Scene shutdown does not guarantee sibling component destruction order.
+            // Use Unity's alive-object checks before touching native Behaviour properties.
+            if (skills)
+            {
+                skills.CancelInputOnly();
+                if (skills.effects) { skills.effects.ClearAll(); skills.effects.enabled = false; }
+                skills.enabled = false;
+            }
+            if (locomotion) locomotion.ResetInput();
         }
         void OnEnable()
         {
+            handPoses?.Reset();
             if (!initialized) return;
-            skills.effects.enabled = true; skills.enabled = true;
-            locomotion.ResetInput();
+            if (skills) { if (skills.effects) skills.effects.enabled = true; skills.enabled = true; }
+            if (locomotion) locomotion.ResetInput();
         }
         void OnDestroy()
         {
@@ -362,9 +504,11 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 skills.enabled = false;
                 skills.ActivationOverride = null; skills.GestureInputBlocked = null; skills.VoiceInputBlocked = null; skills.CancelOverride = null;
+                if (ReferenceEquals(skills.ActivationPolicy,this)) skills.ActivationPolicy = null;
+                skills.ExclusiveInputBlocked = null;
                 skills.DeferVoiceUntilLateUpdate = false;
                 if (originalCatalog) skills.catalog = originalCatalog;
-                if (skills.effects) { skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; }
+                if (skills.effects) { skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; }
             }
             foreach (var asset in ownedAssets) if (asset) Destroy(asset);
         }

@@ -9,6 +9,7 @@ namespace NarutoVR.SealCombat.Rpg
         readonly RpgGestureSettings settings;
         double lastLeft = double.NegativeInfinity, lastRight = double.NegativeInfinity;
         double readySince = double.NaN, dwellSince = double.NaN;
+        double navigationDelta, lastPausedStamp = double.NegativeInfinity;
         Vector3 readyOrigin, leftOrigin, navigationForward = Vector3.forward;
         Vector2 selection;
         bool navigationSpent;
@@ -18,12 +19,19 @@ namespace NarutoVR.SealCombat.Rpg
         float rightPath;
         double lowSince = double.NaN, lastLowLeft = double.NegativeInfinity, lastLowRight = double.NegativeInfinity;
         bool lowLatched;
+        double sealSeparatedSince = double.NaN, lastSealLeft = double.NegativeInfinity, lastSealRight = double.NegativeInfinity;
+        Vector3 separatedLeftOrigin, separatedRightOrigin, ownershipOrigin;
+        bool allRightOwned;
+        double ownershipReleaseSince = double.NaN;
+
+        public bool SealProtectionActive { get; private set; }
 
         public bool NavigationActive { get; private set; }
         public bool NavigationNeedsNeutral => NavigationActive && navigationSpent;
         public Vector2 Selection => selection;
         public Vector3 NavigationForward => navigationForward;
         public float DwellProgress { get; private set; }
+        public Vector2 NavigationDisplacement { get; private set; }
 
         public RpgGestureState(RpgGestureSettings configuration = null)
         {
@@ -37,8 +45,9 @@ namespace NarutoVR.SealCombat.Rpg
             bool left = frame.leftValid && Fresh(frame.leftObserved, now) && Finite(frame.leftIndex) && Finite(frame.leftWrist);
             bool right = frame.rightValid && Fresh(frame.rightObserved, now) && Finite(frame.rightWrist);
             ProcessCancel(frame, left, right, ref intent);
+            bool releasedProtection = ProcessSealProtection(frame, left, right);
 
-            if (!left || blockActions || !frame.leftPointing || frame.bothHandsLow)
+            if (!left || blockActions || SealProtectionActive || !frame.leftPointing || frame.bothHandsLow)
                 ClearNavigation();
             else if (frame.leftObserved > lastLeft)
             {
@@ -52,10 +61,17 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 // Gameplay ownership can change between hand samples; it is not a movement observation.
                 if (rightStarted) forwardOwned |= forwardOwnedByHeldSpell;
+                if (frame.rightMotionOwnedBySpell) { allRightOwned = true; ownershipReleaseSince = double.NaN; }
                 if (frame.rightObserved > lastRight)
                 {
                     if (frame.rightObserved - lastRight > settings.sampleMaxGap) ClearRight();
-                    ProcessRight(frame.rightWrist, headForward, frame.rightObserved,
+                    bool recoveringThrow = RecoverThrowOwnership(frame);
+                    if (releasedProtection || SealProtectionActive || recoveringThrow)
+                    {
+                        // Separation itself is not a swipe. Keep spell ownership even if it fired during protection.
+                        BeginRight(frame.rightWrist, headForward, frame.rightObserved, forwardOwned || forwardOwnedByHeldSpell);
+                    }
+                    else ProcessRight(frame.rightWrist, headForward, frame.rightObserved,
                         frame.rightOpen, forwardOwnedByHeldSpell, blockActions || frame.bothHandsLow, ref intent);
                 }
             }
@@ -66,8 +82,44 @@ namespace NarutoVR.SealCombat.Rpg
             return intent;
         }
 
+        bool ProcessSealProtection(NavigationHandInput frame, bool left, bool right)
+        {
+            // Loss during a seal must not expose a partially occluded hand as a new dodge.
+            if (!left || !right || Math.Abs(frame.leftObserved - frame.rightObserved) > settings.sealMaximumSkew)
+            { sealSeparatedSince = double.NaN; return false; }
+            if (frame.leftObserved <= lastSealLeft || frame.rightObserved <= lastSealRight) return false;
+            bool gap = frame.leftObserved - lastSealLeft > settings.sampleMaxGap || frame.rightObserved - lastSealRight > settings.sampleMaxGap;
+            lastSealLeft = frame.leftObserved; lastSealRight = frame.rightObserved;
+            float distance = Vector3.Distance(frame.leftWrist, frame.rightWrist);
+            if (distance <= settings.sealEnterDistance)
+            { SealProtectionActive = true; sealSeparatedSince = double.NaN; return false; }
+            if (!SealProtectionActive) return false;
+            if (gap || distance < Mathf.Max(settings.sealExitDistance, settings.sealEnterDistance + .01f))
+            { sealSeparatedSince = double.NaN; return false; }
+            double stamp = Math.Min(frame.leftObserved, frame.rightObserved);
+            if (double.IsNaN(sealSeparatedSince) || Vector3.Distance(frame.leftWrist, separatedLeftOrigin) > settings.readyStability ||
+                Vector3.Distance(frame.rightWrist, separatedRightOrigin) > settings.readyStability)
+            { sealSeparatedSince = stamp; separatedLeftOrigin = frame.leftWrist; separatedRightOrigin = frame.rightWrist; }
+            if (stamp - sealSeparatedSince < settings.sealReleaseSeconds) return false;
+            SealProtectionActive = false;
+            sealSeparatedSince = double.NaN;
+            return true;
+        }
+
+        bool RecoverThrowOwnership(NavigationHandInput frame)
+        {
+            if (!allRightOwned) return false;
+            if (frame.rightMotionOwnedBySpell) return true;
+            if (frame.rightObserved - lastRight > settings.sampleMaxGap || double.IsNaN(ownershipReleaseSince) ||
+                Vector3.Distance(frame.rightWrist, ownershipOrigin) > settings.readyStability)
+            { ownershipReleaseSince = frame.rightObserved; ownershipOrigin = frame.rightWrist; }
+            if (frame.rightObserved - ownershipReleaseSince >= settings.sealReleaseSeconds) allRightOwned = false;
+            return true; // The rearming observation itself cannot also be a swipe.
+        }
+
         void ProcessNavigation(Vector3 index, Vector3 heading, double stamp, ref RpgGestureIntent intent)
         {
+            navigationDelta = double.IsFinite(lastLeft) ? Math.Max(0, stamp - lastLeft) : 0;
             if (!NavigationActive)
             {
                 if (double.IsNaN(readySince) || Vector3.Distance(index, readyOrigin) > settings.readyStability)
@@ -82,6 +134,7 @@ namespace NarutoVR.SealCombat.Rpg
                 navigationSpent = false;
             }
             Vector2 displacement = LocalPlanar(index - leftOrigin, navigationForward);
+            NavigationDisplacement = displacement;
             float neutral = Mathf.Min(settings.neutralDistance, settings.directionDistance * 0.8f);
             if (displacement.magnitude <= neutral)
             {
@@ -218,6 +271,15 @@ namespace NarutoVR.SealCombat.Rpg
             navigationSpent = false;
         }
 
+        /// <summary>Keep earned confirmation while a challenger is being checked. Duplicate observations cannot pause twice.</summary>
+        public void PauseDwell()
+        {
+            if (double.IsNaN(dwellSince) || lastLeft <= lastPausedStamp) return;
+            dwellSince = Math.Min(lastLeft, dwellSince + navigationDelta);
+            DwellProgress = Mathf.Clamp01((float)((lastLeft - dwellSince) / Math.Max(.01, settings.dwellSeconds)));
+            navigationSpent = false; lastPausedStamp = lastLeft;
+        }
+
         public void InterruptDwell()
         {
             selection = Vector2.zero;
@@ -233,6 +295,9 @@ namespace NarutoVR.SealCombat.Rpg
             leftOrigin += worldDelta;
             rightOrigin += worldDelta;
             previousRight += worldDelta;
+            separatedLeftOrigin += worldDelta;
+            separatedRightOrigin += worldDelta;
+            ownershipOrigin += worldDelta;
         }
 
         public void Reset()
@@ -242,6 +307,10 @@ namespace NarutoVR.SealCombat.Rpg
             lastLeft = lastRight = lastLowLeft = lastLowRight = double.NegativeInfinity;
             lowSince = double.NaN;
             lowLatched = false;
+            SealProtectionActive = false;
+            sealSeparatedSince = double.NaN;
+            lastSealLeft = lastSealRight = double.NegativeInfinity;
+            allRightOwned = false; ownershipReleaseSince = double.NaN;
         }
 
         void ClearNavigation()
@@ -251,6 +320,7 @@ namespace NarutoVR.SealCombat.Rpg
             selection = Vector2.zero;
             DwellProgress = 0;
             navigationSpent = false;
+            navigationDelta = 0; lastPausedStamp = double.NegativeInfinity; NavigationDisplacement = Vector2.zero;
         }
 
         void ClearRight()

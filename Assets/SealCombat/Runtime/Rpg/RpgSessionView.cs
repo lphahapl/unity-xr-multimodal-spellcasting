@@ -20,11 +20,28 @@ namespace NarutoVR.SealCombat.Rpg
         [Header("二、电脑调试显示")]
         [InspectorName("显示电脑调试按钮"), Tooltip("显示右侧可滚动的模拟输入面板；不会注册键盘快捷键。模拟施法仍检查能量、冷却和资格。")]
         public bool showDesktopControls = true;
+        [InspectorName("电脑调试面板宽度（像素）"), Range(320, 720)] public float desktopPanelWidth = 460;
+        [Header("三、调试分区（只影响电脑面板）")]
+        [InspectorName("展开运行状态")] public bool showRuntimeSection;
+        [InspectorName("展开移动输入与选点")] public bool showMovementSection = true;
+        [InspectorName("展开投掷输入与拟合")] public bool showThrowSection = true;
+        [InspectorName("展开麦克风与咒语诊断")] public bool showVoiceSection = true;
+        [InspectorName("展开结印评分与特征明细")] public bool showSealSection = true;
+        [InspectorName("展开模拟操作按钮")] public bool showSimulationSection;
+        [Header("四、投掷记录和世界调试面板")]
+        [InspectorName("投掷诊断记录器")] public ThrowDiagnosticRecorder throwRecorder;
+        [InspectorName("显示世界调试面板")] public bool showWorldDiagnostics;
+        [InspectorName("可开关的世界调试面板（不含腕饰子菜单）")] public GameObject[] diagnosticWorldPanels=Array.Empty<GameObject>();
+
+        void Start() => SetWorldDiagnostics(showWorldDiagnostics);
+        public void SetWorldDiagnostics(bool visible)
+        {
+            showWorldDiagnostics=visible;
+            foreach(var panel in diagnosticWorldPanels) if(panel) panel.SetActive(visible);
+        }
 
         double nextRefresh;
-        string cachedHud;
-        Vector2 scroll;
-        GUIStyle titleStyle, textStyle, buttonStyle;
+        RpgDesktopPanel desktop;
 
         void OnEnable()
         {
@@ -37,15 +54,80 @@ namespace NarutoVR.SealCombat.Rpg
             double now = Time.realtimeSinceStartupAsDouble;
             if (now < nextRefresh) return;
             nextRefresh = now + .1;
-            cachedHud = BuildHud();
-            if (statusText)
-            {
-                if (chineseFont && statusText.font != chineseFont) statusText.font = chineseFont;
-                statusText.text = cachedHud;
+            if(statusText && statusText.isActiveAndEnabled) {
+                if(chineseFont && statusText.font!=chineseFont)statusText.font=chineseFont;
+                statusText.text=BuildHud();
             }
+            if(showDesktopControls && controller && Screen.width>=160 && Screen.height>=100){
+                desktop??=new RpgDesktopPanel(this);
+                desktop.Refresh();
+            } else ReleaseDesktop();
         }
+        void OnDisable()=>ReleaseDesktop();
+        void ReleaseDesktop(){desktop?.Dispose();desktop=null;}
 
         public string BuildHud()
+        {
+            if (!controller) return "线性关卡 · 等待绑定关卡控制器";
+            var text = new StringBuilder();
+            text.AppendLine("线性关卡 · " + (string.IsNullOrEmpty(controller.StageName) ? "等待阶段" : controller.StageName));
+            var player = controller.Player;
+            var effects = controller.skills ? controller.skills.effects : null;
+            if (player != null)
+                text.AppendLine($"生命 {player.Health:0.#}/{player.MaxHealth:0.#}  能量 {player.Mana:0.#}/{player.MaxMana:0.#}  护盾 {(effects ? effects.ShieldPoints : 0):0.#}" + (player.Alive ? "" : "【已死亡】"));
+            else text.AppendLine("玩家数据：尚未就绪");
+            var movement = controller.locomotion;
+            if (movement)
+            {
+                text.AppendLine($"落点：{(movement.CandidateNode ? movement.CandidateNode.nodeId : "未选择")}  确认 {Mathf.Clamp01(movement.DwellProgress) * 100:0}%");
+                text.AppendLine($"闪避冷却 {movement.DodgeRemaining:0.0}秒｜{(movement.OnNode ? "预设点内" : "预设点外")}");
+                text.AppendLine(movement.SealProtectionActive ? "结印保护：分开双手并稳定" : movement.Status);
+            }
+            if (effects && effects.HasHeldObject) {
+                text.AppendLine($"持球剩余 {effects.HeldRemainingSeconds:0.0}s：{effects.ThrowStatus}");
+                text.AppendLine($"前送评分 {effects.CurrentThrowScore.total:0}/{effects.CurrentThrowScore.threshold:0}｜保持 {effects.CurrentThrowScore.holdProgress:P0}｜最近发射：{effects.LastReleaseMode}");
+            }
+            text.AppendLine("目标：" + controller.ObjectiveStatus);
+            var hazard = controller.GetComponent<RpgTrainingHazard>();
+            if (hazard && hazard.WarningActive) text.AppendLine($"【攻击预警】{hazard.WarningRemaining:0.0}秒，准备闪避或护盾");
+            var feedback = controller.GetComponent<RpgInteractionFeedback>();
+            text.AppendLine("提示：" + (feedback ? feedback.LastFeedback : controller.Status));
+            text.Append("详细输入、评分和投掷数据见电脑调试面板");
+            return text.ToString();
+        }
+
+        public string BuildSealDetails() {
+            var lab=controller && controller.skills ? controller.skills.lab : null;
+            if(!lab) return "尚未绑定结印实验台";
+            var b=new StringBuilder();
+            b.AppendLine("技能匹配："+controller.skills.Engine?.Status);
+            b.AppendLine(controller.skills.Engine?.ObservationDiagnostics);
+            b.AppendLine($"结印状态：{lab.RecognitionState}；已识别：{(lab.Recognized ? lab.Recognized.sealName : "无")}；保持 {lab.HoldProgress:P0}");
+            foreach(var score in lab.Scores) {
+                b.AppendLine($"{score.profile.sealName}：得分 {score.score:P1} / 门槛 {score.profile.threshold:P1}；覆盖 {score.coverage:P0}；{score.reason}");
+                foreach(var d in score.details) b.AppendLine($"  {d.rule.featureId}：{(d.available ? d.feature.value.ToString("F2") : "不可用")}，范围 {d.rule.min:F2}~{d.rule.max:F2}，权重 {d.rule.weight:F2}，匹配 {d.match:P0}{(d.rule.required ? " [必需]" : "")}");
+            }
+            if(lab.Scores.Count==0)b.AppendLine("尚无可评分数据："+lab.Status);
+            return b.ToString();
+        }
+        public string BuildVoiceDetails() {
+            if(!controller || !controller.skills) return "尚未绑定技能系统";
+            var s=controller.skills;
+            return (s.voice ? s.voice.BuildDebugDetails() : "未绑定语音接收器")+
+                "\n输入占用："+(controller.UiInputOwned?"UI操作中":controller.locomotion && controller.locomotion.NavigationActive?"移动中":"无")+
+                "\n待组合技能："+(s.Engine?.PendingSkillId ?? "无")+"\n结印："+(s.lab && s.lab.Recognized ? s.lab.Recognized.name : "未命中")+
+                "\n最近施法："+controller.Status;
+        }
+        public string BuildMovementDetails(double now) => controller && controller.locomotion
+            ? controller.locomotion.BuildDebugDetails(now) : "尚未绑定移动控制器";
+
+        public string BuildThrowDetails(double now) => controller && controller.skills && controller.skills.effects
+            ? controller.skills.effects.BuildThrowDebugDetails(now) : "尚未绑定投掷效果执行器";
+
+        public string BuildDesktopDebug(double now) => "【运行状态】\n" + BuildRuntimeDetails() +
+            "\n\n【移动输入与选点】\n" + BuildMovementDetails(now) + "\n\n【投掷输入与拟合】\n" + BuildThrowDetails(now);
+
+        public string BuildRuntimeDetails()
         {
             if (!controller) return "线性关卡 · 等待绑定关卡控制器";
             var builder = new StringBuilder();
@@ -71,6 +153,9 @@ namespace NarutoVR.SealCombat.Rpg
                 }
             }
             var locomotion = controller.locomotion;
+            builder.AppendLine(controller.HandPoseStatus);
+            if (controller.wristMenu) builder.AppendLine(controller.wristMenu.DebugDetails);
+            if (effects && effects.HasHeldObject && !string.IsNullOrEmpty(effects.ThrowStatus)) builder.AppendLine("持球：" + effects.ThrowStatus);
             if (locomotion)
             {
                 string candidate = locomotion.CandidateNode != null ? locomotion.CandidateNode.nodeId : "无";
@@ -78,6 +163,8 @@ namespace NarutoVR.SealCombat.Rpg
                 builder.AppendLine($"驻留：{Mathf.Clamp01(locomotion.DwellProgress) * 100:0}%  闪避冷却：{locomotion.DodgeRemaining:0.0}秒");
                 builder.AppendLine(locomotion.OnNode ? "位置：预设点内（" + locomotion.CurrentNodeId + "）" : "位置：预设点外");
                 builder.AppendLine("移动：" + locomotion.Status);
+                if (locomotion.CandidateNode != null) builder.AppendLine(locomotion.SelectionDetail);
+                builder.AppendLine(locomotion.SealProtectionActive ? "【结印保护】分开双手后重新划动" : "右掌张开＋四向划动＝闪避（无需左手指向）");
             }
             else builder.AppendLine("导航：尚未绑定移动控制器");
             builder.AppendLine("当前目标：" + controller.ObjectiveStatus);
@@ -85,87 +172,10 @@ namespace NarutoVR.SealCombat.Rpg
             var hazard = controller.GetComponent<RpgTrainingHazard>();
             if (hazard && hazard.WarningActive) builder.AppendLine($"【红圈攻击预警】{hazard.WarningRemaining:0.0} 秒后结算，请闪避或用护盾承受");
             builder.AppendLine("最近操作：" + controller.Status);
+            var feedback = controller.GetComponent<RpgInteractionFeedback>();
+            if (feedback) builder.AppendLine("操作提示：" + feedback.LastFeedback);
             builder.Append("存档：" + ShortSavePath(controller.SavePath));
             return builder.ToString();
-        }
-
-        void OnGUI()
-        {
-            if (!showDesktopControls || Screen.width < 160 || Screen.height < 100) return;
-            EnsureStyles();
-            float width = Mathf.Min(390, Screen.width - 20);
-            GUILayout.BeginArea(new Rect(Screen.width - width - 10, 10, width, Screen.height - 20), GUI.skin.box);
-            scroll = GUILayout.BeginScrollView(scroll);
-            GUILayout.Label("电脑调试（模拟输入）", titleStyle);
-            GUILayout.Label("模拟施法绕过结印与口令匹配，仍检查能量、冷却和解锁资格。火球需要有效的真实手部追踪与生成手。", textStyle);
-            if (!controller)
-            {
-                GUILayout.Label("尚未绑定关卡控制器。", textStyle);
-                GUILayout.EndScrollView(); GUILayout.EndArea(); return;
-            }
-            GUILayout.Label(cachedHud ?? BuildHud(), textStyle);
-            GUILayout.Space(8);
-            DrawSkillButtons();
-            if (GUILayout.Button("取消待施法输入", buttonStyle)) controller.CancelCasting();
-            GUILayout.Space(8);
-            GUILayout.Label("四向模拟步进", textStyle);
-            DrawMovementRow(false, Vector2.up, "向前", Vector2.down, "向后");
-            DrawMovementRow(false, Vector2.left, "向左", Vector2.right, "向右");
-            GUILayout.Label("四向模拟闪避", textStyle);
-            DrawMovementRow(true, Vector2.up, "向前闪避", Vector2.down, "向后闪避");
-            DrawMovementRow(true, Vector2.left, "向左闪避", Vector2.right, "向右闪避");
-            GUILayout.Space(8);
-            if (GUILayout.Button("模拟受到25点伤害", buttonStyle)) controller.DebugDamage(25);
-            if (GUILayout.Button("恢复检查点", buttonStyle)) controller.RestoreCheckpoint();
-            if (GUILayout.Button("保存当前检查点", buttonStyle)) controller.SaveCheckpoint();
-            if (GUILayout.Button("尝试进入下一阶段", buttonStyle)) controller.TryAdvanceStage();
-            if (GUILayout.Button("训练攻击：" + (controller.HazardsEnabled ? "开启（点击关闭）" : "关闭（点击开启）"), buttonStyle)) controller.ToggleHazards();
-            if (GUILayout.Button($"购买隐藏法术（{controller.hiddenSkillPrice}货币）", buttonStyle)) controller.PurchaseHiddenSkill();
-            if (GUILayout.Button($"升级火球（{controller.fireballUpgradePrice}货币）", buttonStyle)) controller.UpgradeFireball();
-            GUILayout.Space(8);
-            GUILayout.Label("作弊测试：下方按钮直接击破当前阶段的训练靶，用于检查关卡推进。", textStyle);
-            if (GUILayout.Button("【作弊测试】击破当前阶段全部训练靶", buttonStyle)) controller.DebugDefeatTargets();
-            GUILayout.EndScrollView();
-            GUILayout.EndArea();
-        }
-
-        void DrawSkillButtons()
-        {
-            var definitions = controller.skills ? controller.skills.ConfiguredSkills : null;
-            if (definitions == null || definitions.Count == 0)
-            { GUILayout.Label("尚未配置可模拟的法术。", textStyle); return; }
-            foreach (var definition in definitions)
-            {
-                if (!definition) continue;
-                bool unlocked = controller.Progress != null && controller.Progress.unlockedSkillIds != null &&
-                    controller.Progress.unlockedSkillIds.Contains(definition.skillId);
-                if (GUILayout.Button("模拟施放：" + SkillName(definition) + (unlocked ? "（已解锁）" : "（未解锁）"), buttonStyle)) controller.DebugCast(definition.skillId);
-            }
-        }
-
-        void DrawMovementRow(bool dodge, Vector2 firstDirection, string firstName, Vector2 secondDirection, string secondName)
-        {
-            bool previousEnabled = GUI.enabled;
-            GUI.enabled = previousEnabled && controller.locomotion;
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button(firstName, buttonStyle)) DebugMove(dodge, firstDirection);
-            if (GUILayout.Button(secondName, buttonStyle)) DebugMove(dodge, secondDirection);
-            GUILayout.EndHorizontal();
-            GUI.enabled = previousEnabled;
-        }
-
-        void DebugMove(bool dodge, Vector2 direction)
-        {
-            if (!controller) return;
-            controller.DebugMove(dodge, direction);
-        }
-
-        void EnsureStyles()
-        {
-            if (textStyle != null && textStyle.font == chineseFont) return;
-            titleStyle = new GUIStyle(GUI.skin.label) { font = chineseFont, fontSize = 18, wordWrap = true };
-            textStyle = new GUIStyle(GUI.skin.label) { font = chineseFont, fontSize = 14, wordWrap = true };
-            buttonStyle = new GUIStyle(GUI.skin.button) { font = chineseFont, fontSize = 14, wordWrap = true, padding = new RectOffset(8, 8, 7, 7) };
         }
 
         static string SkillName(SkillDefinition definition) => string.IsNullOrEmpty(definition.displayName) ? definition.skillId : definition.displayName;

@@ -52,7 +52,7 @@ namespace NarutoVR.SealCombat
         public float manaCost;
         [InspectorName("共享冷却组"), Tooltip("留空使用技能ID；同一法术的多个配方可填相同组。")]
         public string cooldownGroup;
-        [InspectorName("效果或持有时长（秒）"), Tooltip("自身加持持续时间，或手持物未发射的最长持有时间。"), Min(0)]
+        [InspectorName("效果持续时间（秒）"), Tooltip("自身加持等效果的生效时长；扩展武器可按此值定义持续时间。投射物未发射的储存超时由投射物效果单独配置。"), Min(0)]
         public float durationSeconds = 10;
 
         // A future sequence recipe can replace this single-seal input without changing effect execution.

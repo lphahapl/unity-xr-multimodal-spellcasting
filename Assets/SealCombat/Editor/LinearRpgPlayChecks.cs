@@ -7,9 +7,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using NarutoVR.SealCombat.Rpg;
+using NarutoVR.SealLab;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
+using UnityEngine.XR.Management;
 
 namespace NarutoVR.SealCombat.Editor
 {
@@ -37,10 +40,13 @@ namespace NarutoVR.SealCombat.Editor
             readonly StringBuilder results = new StringBuilder();
             readonly bool previousBackground;
             readonly IEnumerator steps;
+            readonly RpgPlayCheckDriver driver;
             readonly string runId = Guid.NewGuid().ToString("N");
             readonly List<KeyValuePair<Behaviour, bool>> disabledInputs = new List<KeyValuePair<Behaviour, bool>>();
             Func<bool, Pose?> previousWrist;
             bool wristCaptured, ended;
+            XRManagerSettings testXrManager;
+            bool restoreXr, exiting;
             int lastFrame = -1, passed;
 
             public Runner(LinearRpgController controller, Action<bool, string, int> completed)
@@ -48,9 +54,10 @@ namespace NarutoVR.SealCombat.Editor
                 this.controller = controller; this.completed = completed;
                 previousBackground = Application.runInBackground;
                 Application.runInBackground = true;
-                deadline = EditorApplication.timeSinceStartup + 45;
+                deadline = EditorApplication.timeSinceStartup + 90;
                 steps = Execute();
-                EditorApplication.update += Poll;
+                var runnerObject = new GameObject("RPG验收_逐帧驱动") { hideFlags = HideFlags.HideAndDontSave };
+                driver = runnerObject.AddComponent<RpgPlayCheckDriver>(); driver.Tick = Poll;
                 AssemblyReloadEvents.beforeAssemblyReload += Abort;
                 EditorApplication.playModeStateChanged += PlayStateChanged;
             }
@@ -61,6 +68,12 @@ namespace NarutoVR.SealCombat.Editor
                 Require(controller && controller.isActiveAndEnabled && controller.Player != null && controller.skills && controller.skills.Engine != null,
                     "主控、玩家或技能匹配器未初始化。");
                 Require(Time.timeScale > 0, "检查需要未暂停的游戏时钟。");
+                // SteamVR may throttle an idle/unworn headset below the real hand freshness budget.
+                // This synthetic lifecycle probe does not measure XR hardware; stop only its running session.
+                var displays = new List<XRDisplaySubsystem>(); SubsystemManager.GetSubsystems(displays);
+                testXrManager = XRGeneralSettings.Instance ? XRGeneralSettings.Instance.Manager : null;
+                restoreXr = testXrManager && testXrManager.isInitializationComplete && displays.Any(d => d.running);
+                if (restoreXr) { testXrManager.StopSubsystems(); yield return null; yield return null; }
                 var field = typeof(LinearRpgController).GetField("EditorTestSaveFile", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                 string probeName = field?.GetValue(null) as string;
                 Require(IsProbeName(probeName) && Path.GetFileName(controller.SavePath) == probeName &&
@@ -84,7 +97,73 @@ namespace NarutoVR.SealCombat.Editor
                     "新角色应只解锁fireball且位于首阶段。");
                 Record("初始仅解锁火球；真实手追踪/语音与自动攻击已隔离");
 
+                // Exercise real SDK extraction + the scene's real LateUpdate, not a pose bool override.
+                var lab = controller.skills.lab;
+                var previousFrame = lab.Frame;
+                var previousFeatures = new List<SealFeature>(lab.Features);
+                var frameProperty = typeof(NarutoVR.SealLab.SealLab).GetProperty("Frame");
+                var poseExtractor = new SealFeatureExtractor();
+                try
+                {
+                    // Keep synthetic hands stationary in the tracking origin; live HMD head bob must not move test hands.
+                    Vector3 fixtureHeadLocal = lab.recordingOrigin ? lab.recordingOrigin.InverseTransformPoint(locomotion.head.position) : locomotion.head.position;
+                    Vector3 fixtureOffset = fixtureHeadLocal - Vector3.up * 1.7f;
+                    Vector3 fixtureRight = RpgGestureState.ToWorld(Vector2.right, RpgGestureState.HorizontalForward(locomotion.head.forward, Vector3.forward));
+                    double poseUntil = Time.realtimeSinceStartupAsDouble + 5;
+                    int poseSamples = 0; double poseLast = -1, largestGap = 0;
+                    while (Time.realtimeSinceStartupAsDouble < poseUntil && (!locomotion.NavigationActive || poseSamples < 12))
+                    {
+                        double stamp = Time.realtimeSinceStartupAsDouble;
+                        if (poseLast >= 0) largestGap = Math.Max(largestGap,stamp-poseLast);
+                        poseLast=stamp; poseSamples++;
+                        var sample = RpgHandPoseChecks.Skeleton(stamp);
+                        foreach (var hand in new[] { sample.left, sample.right })
+                            for (int j = 0; j < hand.joints.Length; j++) hand.joints[j].position += fixtureOffset;
+                        frameProperty.SetValue(lab, sample); poseExtractor.Extract(sample, lab.Features);
+                        yield return null;
+                    }
+                    Require(locomotion.NavigationActive && controller.HandPoseStatus.Contains("指向通过") && controller.HandPoseStatus.Contains("张掌通过"),
+                        "真实LateUpdate未接通官方手形与导航：" + controller.HandPoseStatus + "；" + locomotion.Status + "; seal=" + locomotion.SealProtectionActive + $"; samples={poseSamples}, maxGap={largestGap:0.000}");
+                    Record("合成骨骼经真实SDK特征/官方状态引擎/场景LateUpdate进入导航，右掌同时通过");
+                    var feedback = controller.GetComponent<RpgInteractionFeedback>();
+                    Require(feedback && feedback.controller == controller, "新交互反馈未接入实际场景");
+                    int cueBefore = feedback.CueCount;
+                    double selectUntil = Time.realtimeSinceStartupAsDouble + .32;
+                    while (Time.realtimeSinceStartupAsDouble < selectUntil)
+                    {
+                        double stamp = Time.realtimeSinceStartupAsDouble;
+                        var sample = RpgHandPoseChecks.Skeleton(stamp);
+                        foreach (var hand in new[] { sample.left, sample.right })
+                            for (int j = 0; j < hand.joints.Length; j++) hand.joints[j].position += fixtureOffset;
+                        Vector3 selectionOffset = lab.recordingOrigin ? lab.recordingOrigin.InverseTransformVector(fixtureRight * .08f) : fixtureRight * .08f;
+                        for (int j = 0; j < sample.left.joints.Length; j++) sample.left.joints[j].position += selectionOffset;
+                        frameProperty.SetValue(lab,sample); poseExtractor.Extract(sample,lab.Features);
+                        yield return null;
+                    }
+                    Require(locomotion.CandidateNode && feedback.PathVisible && feedback.VisibleDwellProgress > .05f && feedback.VisibleDwellProgress < 1,
+                        "实际候选落点、路径或悬停进度未显示：" + locomotion.Status);
+                    Require(feedback.CueCount > cueBefore && feedback.SoundCount > 0,"选点缺少操作提示事件/音频播放调用");
+                    RpgInteractionPreview.Capture(controller, "Logs/direction-feedback/path-preview.png");
+                    Record("真实场景四向候选→路径/落点/悬停进度与选中提示音调用；生成路径预览");
+                    frameProperty.SetValue(lab, null); lab.Features.Clear();
+                    yield return null; yield return null;
+                    Require(!locomotion.NavigationActive, "空骨骼帧后实际场景导航必须退出");
+                    Require(!feedback.PathVisible && feedback.VisibleDwellProgress == 0,"追踪失效后必须隐藏路径并清零进度");
+                    Record("真实场景骨骼丢失撤销导航，恢复需要重新确认");
+                }
+                finally
+                {
+                    frameProperty.SetValue(lab, previousFrame); lab.Features.Clear(); lab.Features.AddRange(previousFeatures);
+                    locomotion.ResetInput();
+                }
+
                 SkillDefinition fire = Skill("fireball"), shield = Skill("buff.zi"), voiceShield = Skill("buff.voice");
+                var throwingProbe = HandThrowChecks.PlayProbe(Record);
+                try { while (throwingProbe.MoveNext()) yield return throwingProbe.Current; }
+                finally { (throwingProbe as IDisposable)?.Dispose(); }
+                var scoredProbe=ScoredThrowChecks.PlayProbe(Record);
+                try { while(scoredProbe.MoveNext()) yield return scoredProbe.Current; }
+                finally { (scoredProbe as IDisposable)?.Dispose(); }
                 Require(fire.manaCost > 0 && fire.cooldownSeconds > 0 && Group(shield) == Group(voiceShield), "需配置正数火球消耗/CD和护盾共享组。");
                 SkillCatalog original = typeof(LinearRpgController).GetField("originalCatalog", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(controller) as SkillCatalog;
                 Require(original, "无法取得原配置目录。");
@@ -106,6 +185,18 @@ namespace NarutoVR.SealCombat.Editor
                 effects.WristPoseOverride = _ => new Pose(locomotion.head.position + locomotion.head.forward * .45f - Vector3.up * .2f, locomotion.head.rotation);
                 mana = controller.Player.Mana;
                 Require(controller.DebugCast(fire.skillId) && effects.HasRightHeldObject, "注入模拟右手姿后应成功持球。");
+                // A seal often creates the held projectile before the two wrists have separated.
+                // Lost/hidden left hand must not leave seal protection suppressing an already-owned throw forever.
+                double sealTime=Time.realtimeSinceStartupAsDouble;
+                Vector3 sealWrist=locomotion.head.position+locomotion.head.forward*.4f-Vector3.up*.2f;
+                locomotion.ProcessInput(new NavigationHandInput { leftValid=true,rightValid=true,leftObserved=sealTime,rightObserved=sealTime,
+                    leftWrist=sealWrist,rightWrist=sealWrist+Vector3.right*.1f,leftIndex=sealWrist,rightMotionOwnedBySpell=true },false,false,sealTime);
+                Require(locomotion.SealProtectionActive,"复现前提：双腕靠近应激活结印保护");
+                typeof(LinearRpgController).GetMethod("LateUpdate",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(controller,null);
+                Require(!effects.ThrowInputSuppressed,"已持火球仍被结印保护压住，甩手轨迹会每帧清空");
+                Require(!controller.DebugMove(true,Vector2.right),"放开投掷门控不能放开持球时的闪避");
+                locomotion.ResetInput();
+                Record("已持球优先于残留结印保护，投掷可采样且右手闪避仍被阻断");
                 Equal(mana - fire.manaCost, controller.Player.Mana, "持球精确扣MP");
                 mana = controller.Player.Mana;
                 Require(!controller.DebugCast(fire.skillId), "重复持球应拒绝。");
@@ -152,6 +243,7 @@ namespace NarutoVR.SealCombat.Editor
                 Equal(mana, controller.Player.Mana, "共享CD拒绝不扣费");
                 controller.CancelCasting(); Equal(shieldPoints, effects.ShieldPoints, "取消保留护盾");
                 Record("共享CD阻止交替刷新；取消保留已生效护盾");
+                WristMenuPlayChecks.Run(controller,Record);
 
                 string hit = "probe." + runId + ".shield-hit";
                 Require(shieldPoints >= 25 && controller.ReceiveDamage(hit, 25), "首次模拟伤害应被护盾承接。");
@@ -365,7 +457,7 @@ namespace NarutoVR.SealCombat.Editor
                 try
                 {
                     if (!Application.isPlaying || !controller) throw new InvalidOperationException("播放模式或主控已结束。");
-                    if (EditorApplication.timeSinceStartup > deadline) throw new TimeoutException("真实Play检查超过45秒；见最后通过步骤。");
+                    if (EditorApplication.timeSinceStartup > deadline) throw new TimeoutException("真实Play检查超过90秒；见最后通过步骤。");
                     if (lastFrame == Time.frameCount) return;
                     lastFrame = Time.frameCount;
                     if (!steps.MoveNext()) Finish(true, "全部真实Play集成检查通过。");
@@ -373,11 +465,11 @@ namespace NarutoVR.SealCombat.Editor
                 catch (Exception error) { Finish(false, error.ToString()); }
             }
             void Abort() => Finish(false, "程序集重载，检查已中止。");
-            void PlayStateChanged(PlayModeStateChange state) { if (state == PlayModeStateChange.ExitingPlayMode) Finish(false, "退出播放模式，检查已中止。"); }
+            void PlayStateChanged(PlayModeStateChange state) { if (state == PlayModeStateChange.ExitingPlayMode) { exiting = true; Finish(false, "退出播放模式，检查已中止。"); } }
             void Finish(bool success, string detail)
             {
                 if (ended) return; ended = true;
-                EditorApplication.update -= Poll;
+                if (driver) { driver.Tick = null; UnityEngine.Object.Destroy(driver.gameObject); }
                 AssemblyReloadEvents.beforeAssemblyReload -= Abort;
                 EditorApplication.playModeStateChanged -= PlayStateChanged;
                 try { (steps as IDisposable)?.Dispose(); }
@@ -386,9 +478,10 @@ namespace NarutoVR.SealCombat.Editor
                 { controller.skills.effects.WristPoseOverride = previousWrist; controller.skills.effects.ClearAll(); }
                 foreach (var pair in disabledInputs) if (pair.Key) pair.Key.enabled = pair.Value;
                 Application.runInBackground = previousBackground;
+                if (restoreXr && !exiting && testXrManager && testXrManager.isInitializationComplete) testXrManager.StartSubsystems();
                 string text = (success ? "通过" : "失败") + "：" + detail + "\n" + results +
-                    "\n范围：Unity真实Play生命周期、游戏时钟、Physics落点及显式调试命令。手姿为WristPoseOverride模拟，发射通过反射Launch；击靶使用显式作弊。\n" +
-                    "未测：真机手追踪、结印/前推/导航手势识别、麦克风/真实语音、Quest/PICO体验。\n" +
+                    "\n范围：Unity真实Play生命周期、时钟、Physics与显式调试命令。测试临时停止XR子系统以隔离未佩戴头显的限帧，结束恢复；不改持久XR配置。合成骨骼经过SDK和LateUpdate验证导航路径；独立投掷实体使用WristPoseOverride与握持回调经过实际LateUpdate发射，其他资源测试使用反射Launch和作弊击靶。\n" +
+                    "未测：真机手追踪准确率、真人结印/投掷/导航、实际听到提示音、麦克风语音、Quest/PICO体验。\n" +
                     "保留测试存档：" + (controller ? controller.SavePath : "主控已销毁") + "；未删除档案、未保存场景或资产。";
                 try
                 {

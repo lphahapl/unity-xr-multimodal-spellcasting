@@ -313,12 +313,14 @@ namespace NarutoVR.SealCombat.Editor
             var root = new GameObject("线性RPG · 关卡与导航");
             SceneManager.MoveGameObjectToScene(root, scene);
             RpgLocomotionController locomotion = root.AddComponent<RpgLocomotionController>();
+            locomotion.useRayNavigation=true;
             locomotion.rigRoot = rig; locomotion.head = head;
             locomotion.rigFloorOffset = origin.y - rig.position.y;
             locomotion.floorLayers = 1 << floor.gameObject.layer;
             locomotion.obstacleLayers = ~(1 << 2);
             NavigationNode[,] grid = CreateGrid(root.transform, origin, floor, locomotion, configuration.markerMaterial);
             var controller = root.AddComponent<LinearRpgController>();
+            controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             controller.skills = skills;
             controller.locomotion = locomotion;
             controller.playerDefinition = configuration.player;
@@ -342,6 +344,7 @@ namespace NarutoVR.SealCombat.Editor
             view.chineseFont = font;
             view.showDesktopControls = true;
             view.statusText = WorldHud(root.transform, rig.position, font);
+            RpgInteractionSetup.Configure(controller);
             Selection.activeObject = root;
 
             // Independent service configuration; never replace the original training service's file.
@@ -430,7 +433,7 @@ namespace NarutoVR.SealCombat.Editor
             help.rectTransform.anchorMin = Vector2.zero; help.rectTransform.anchorMax = new Vector2(1, 0.3f);
             help.rectTransform.offsetMin = new Vector2(30, 20); help.rectTransform.offsetMax = new Vector2(-30, -10);
             help.color = new Color(0.4f, 0.9f, 1);
-            help.text = "左食指伸直并稳定准备，整手移动几厘米选四向邻点；停留确认，回中后再选。放下左手退出导航。\n" +
+            help.text = "左食指指向落点，短暂停留后传送；移开或放松后再次选择。放下左手退出导航。\n" +
                 "导航准备期间，右手张掌短划闪避；持火球前推优先发射，侧后闪保留手中火球。\n" +
                 "双手放低保持取消待施法与未发射物；已生效护盾和飞行火球保留。\n真实语音需加载本关卡独立语音配置。";
             return status;

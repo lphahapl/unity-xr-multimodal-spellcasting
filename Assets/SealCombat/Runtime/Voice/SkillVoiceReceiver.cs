@@ -12,6 +12,9 @@ namespace NarutoVR.SealCombat
     public sealed class SkillVoiceReceiver : MonoBehaviour
     {
         [Header("本机中文语音服务")]
+        [InspectorName("编辑器播放时自动启动与重连")] public bool autoStartInEditor = true;
+        public string LauncherStatus { get; set; } = "未请求自动启动";
+        public bool HasServiceHeartbeat => ready && Now-lastHeartbeat < heartbeatTimeout;
         [InspectorName("Unity 接收端口"), Range(1024, 65535)] public int receivePort = 47831;
         [InspectorName("Python 服务端口"), Range(1024, 65535)] public int servicePort = 47832;
         [InspectorName("心跳超时（秒）"), Min(1)] public float heartbeatTimeout = 3f;
@@ -22,12 +25,41 @@ namespace NarutoVR.SealCombat
 
         /// <summary>Second argument is estimated voice end mapped to Time.realtimeSinceStartupAsDouble.</summary>
         public event Action<string, double> PhraseReceived;
+        public event Action<string,string> Diagnostic;
+        void TracePacket(string reason,string phrase) {
+            if(Diagnostic==null)return;
+            foreach(Action<string,string> listener in Diagnostic.GetInvocationList())
+                try { listener(reason,phrase); } catch { }
+        }
         public string Status { get; private set; } = "语音未连接：请在电脑启动语音服务";
         public bool IsRunning { get; private set; }
         public double LastLatencyMilliseconds { get; private set; }
         public double ClockUncertaintyMilliseconds { get; private set; }
         public string LastCaptureBasis { get; private set; } = "尚无输入";
         public string LastPhrase { get; private set; } = "";
+        private Packet audioTelemetry;
+        private double audioTelemetryReceived;
+
+        /// <summary>Selected device is not proof of audible input. No model probability is fabricated.</summary>
+        public string BuildDebugDetails()
+        {
+            var p = audioTelemetry;
+            string prefix = $"启动管理：{LauncherStatus}\n语音：{Status}\n运行模式：{mode ?? "尚未连接"}\n";
+            if (p == null) return prefix + "输入遥测：尚未收到（旧服务需重启）\n短语匹配度：当前 KWS API 不提供概率";
+            double elapsed = Math.Max(0, Now - audioTelemetryReceived);
+            double age = p.audio_age < 0 ? -1 : p.audio_age + elapsed;
+            bool fresh = ready && mode == "microphone" && Now-lastHeartbeat < heartbeatTimeout && age >= 0 && age < 1;
+            string stream = fresh ? "采样持续更新" : "尚无样本或输入已过期";
+            string energy = !fresh ? "未知" : p.audio_rms >= p.audio_energy_threshold ? "有声能量（不代表口令匹配）" : "低能量/静音";
+            return prefix + $"选中输入：{p.audio_device} [{p.audio_backend}]\n" +
+                   $"设备索引：{p.audio_device_index} | 采样率：{p.audio_sample_rate} Hz\n" +
+                   $"音频流：{stream} | 最近样本：{(age < 0 ? "无" : age.ToString("F2") + " 秒前")}\n" +
+                   $"输入能量：{energy} | RMS {p.audio_rms:F4} / Peak {p.audio_peak:F4}\n" +
+                   $"能量门槛：{p.audio_energy_threshold:F4} | 有声帧/总帧：{p.audio_voiced_frames}/{p.audio_frames}\n" +
+                   $"服务最近命中：{(string.IsNullOrEmpty(p.audio_last_phrase) ? "未命中" : p.audio_last_phrase)} | 共 {p.audio_phrase_count} 次\n" +
+                   $"游戏已接收：{(string.IsNullOrEmpty(LastPhrase) ? "无" : LastPhrase)}\n" +
+                   "短语匹配度：当前 KWS API 不提供概率；能量不是匹配分数";
+        }
 
         // JsonUtility populates these wire-format fields by reflection.
 #pragma warning disable 0649
@@ -51,10 +83,16 @@ namespace NarutoVR.SealCombat
             public double sent_at;
             public string capture_basis;
             public string end_method;
+            public int audio_telemetry_version;
+            public string audio_device, audio_backend, audio_last_phrase;
+            public int audio_device_index, audio_sample_rate, audio_phrase_count;
+            public long audio_frames, audio_voiced_frames;
+            public double audio_age, audio_voice_age, audio_rms, audio_peak, audio_energy_threshold;
         }
 #pragma warning restore 0649
 
         private UdpClient socket;
+        private double nextBindRetry;
         private IPEndPoint service;
         private string session;
         private bool ready;
@@ -89,10 +127,18 @@ namespace NarutoVR.SealCombat
         private void OnEnable()
         {
             session = null;
+            audioTelemetry = null;
+            LastPhrase = "";
             ready = IsRunning = false;
             lastHeartbeat = lastSync = double.NegativeInfinity;
             nextPing = 0;
             bestRtt = double.PositiveInfinity;
+            OpenSocket();
+        }
+        void OpenSocket()
+        {
+            socket?.Close(); socket=null;
+            nextBindRetry=Now+2;
             try
             {
                 service = new IPEndPoint(IPAddress.Loopback, servicePort);
@@ -113,7 +159,7 @@ namespace NarutoVR.SealCombat
 
         private void Update()
         {
-            if (socket == null) return;
+            if (socket == null) { if(Now>=nextBindRetry) OpenSocket(); if(socket==null)return; }
             double now = Now;
             if (now >= nextPing)
             {
@@ -169,6 +215,8 @@ namespace NarutoVR.SealCombat
                 if (session != packet.session)
                 {
                     session = packet.session;
+                    audioTelemetry = null;
+                    LastPhrase = "";
                     sequence = 0;
                     bestRtt = double.PositiveInfinity;
                 }
@@ -184,21 +232,21 @@ namespace NarutoVR.SealCombat
                 return;
             }
             // A restarted server must complete a new handshake before its events are accepted.
-            if (packet.session != session) return;
+            if (packet.session != session) { if(packet.kind=="phrase")TracePacket("拒收：服务会话未同步",packet.phrase); return; }
             if (packet.kind == "heartbeat") { ReadStatus(packet, now); return; }
             if (packet.kind != "phrase" || !ready || now - lastHeartbeat > heartbeatTimeout ||
                 now - lastSync > 10 || packet.seq <= sequence ||
                 (packet.mode != "microphone" && packet.mode != "wav-replay" && packet.mode != "protocol-test") ||
                 (packet.mode == "protocol-test" && !allowProtocolTest) ||
-                (packet.mode == "wav-replay" && !allowWavReplay)) return;
+                (packet.mode == "wav-replay" && !allowWavReplay)) { if(packet.kind=="phrase")TracePacket($"拒收：ready={ready}, heartbeatAge={now-lastHeartbeat:F3}, syncAge={now-lastSync:F3}, seq={packet.seq}/{sequence}, mode={packet.mode}",packet.phrase); return; }
             string phrase=SkillPhrase.Normalize(packet.phrase);
-            if (!allowedPhrases.Contains(phrase)) return;
+            if (!allowedPhrases.Contains(phrase)) { TracePacket("拒收：口令不在当前目录",phrase); return; }
             if (!Finite(packet.ended_at) || !Finite(packet.sent_at) || packet.ended_at <= 0 ||
                 packet.sent_at < packet.ended_at ||
-                (packet.end_method != "rms-frame-end-estimate" && !(packet.mode == "protocol-test" && packet.end_method == "synthetic-test"))) return;
+                (packet.end_method != "rms-frame-end-estimate" && !(packet.mode == "protocol-test" && packet.end_method == "synthetic-test"))) { TracePacket("拒收：时间戳或词尾估计格式无效",phrase); return; }
             double endedAt = packet.ended_at + offset;
             double age = now - endedAt;
-            if (age < -.05 || age > maximumEventAge) return;
+            if (age < -.05 || age > maximumEventAge) { TracePacket($"拒收：口令年龄{age:F3}s，上限{maximumEventAge:F3}s",phrase); return; }
             sequence = packet.seq;
             LastPhrase = phrase;
             LastLatencyMilliseconds = age * 1000;
@@ -206,6 +254,7 @@ namespace NarutoVR.SealCombat
             if (logPhrases)
                 Debug.Log($"[中文语音] {packet.phrase} | 词尾能量估计至接收 {LastLatencyMilliseconds:F1} ms | " +
                           $"时钟 RTT/2 {ClockUncertaintyMilliseconds:F1} ms | {LastCaptureBasis} | {packet.mode}", this);
+            TracePacket($"接收：口令年龄{age:F3}s",phrase);
             PhraseReceived?.Invoke(phrase, endedAt);
         }
 
@@ -215,8 +264,19 @@ namespace NarutoVR.SealCombat
             ready = packet.ready;
             mode = packet.mode;
             serviceStatus = packet.status;
+            if (packet.audio_telemetry_version == 1 && packet.mode == "microphone" &&
+                Finite(packet.audio_rms) && packet.audio_rms >= 0 && packet.audio_rms <= 1 &&
+                Finite(packet.audio_peak) && packet.audio_peak >= 0 && packet.audio_peak <= 1 &&
+                Finite(packet.audio_age) && packet.audio_age >= -1 &&
+                Finite(packet.audio_energy_threshold) && packet.audio_energy_threshold > 0 &&
+                packet.audio_frames >= 0 && packet.audio_voiced_frames >= 0)
+            {
+                audioTelemetry = packet;
+                audioTelemetryReceived = now;
+            }
         }
 
+        private void OnDestroy() => OnDisable();
         private void OnDisable()
         {
             socket?.Close();

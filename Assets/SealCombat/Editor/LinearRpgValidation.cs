@@ -45,25 +45,106 @@ namespace NarutoVR.SealCombat.Editor
                 waitingForPlay = false;
                 try
                 {
-                    int effects = SkillEffectChecks.Run() + SkillEffectConfigurationChecks.Run();
-                    LinearRpgPlayChecks.Begin((ok, detail, count) =>
+                    int effects = SkillEffectChecks.Run() + SkillEffectConfigurationChecks.Run() + SkillArchitectureChecks.RunController() + SkillShowcaseChecks.ValidateRuntimePrefabs();
+                    SkillEffectChecks.Begin((sweepOk, sweepDetail) =>
                     {
-                        try { if (ok) CaptureHud(); }
-                        catch (Exception captureError) { ok = false; detail += "\n中文面板预览失败：" + captureError; }
-                        Write(new Report { action = "play-check", passed = ok, detail = detail, integrationChecks = count, effectChecks = effects });
-                        SessionState.EraseString(TestKey); EditorApplication.isPlaying = false;
+                        try
+                        {
+                            if (!sweepOk) throw new Exception(sweepDetail);
+                            LinearRpgPlayChecks.Begin((ok, detail, count) =>
+                            {
+                                try { if (ok) CaptureHud(); }
+                                catch (Exception captureError) { ok = false; detail += "\n中文面板预览失败：" + captureError; }
+                                Write(new Report { action = "play-check", passed = ok, detail = detail + "\n" + sweepDetail, integrationChecks = count, effectChecks = effects + 2 });
+                                SessionState.EraseString(TestKey); EditorApplication.isPlaying = false;
+                            });
+                        }
+                        catch (Exception e) { Write(new Report { action = "play-check", detail = e.ToString() }); SessionState.EraseString(TestKey); EditorApplication.isPlaying = false; }
                     });
                 }
                 catch (Exception e) { Write(new Report { action = "play-check", detail = e.ToString() }); SessionState.EraseString(TestKey); EditorApplication.isPlaying = false; }
             }
             if (EditorApplication.timeSinceStartup < nextPoll || !File.Exists(Request)) return;
             nextPoll = EditorApplication.timeSinceStartup + .5;
-            string action = File.ReadAllText(Request).Trim(); File.Delete(Request);
+            string action;
+            // A shell may still be closing a request file when EditorApplication.update polls it.
+            // Retry on the next tick; never turn a transient file lock into an editor exception.
+            try { action = File.ReadAllText(Request).Trim(); File.Delete(Request); }
+            catch (IOException) { return; }
             try
             {
                 switch (action)
                 {
+                    case "scored-throw-check": Write(new Report { action=action,passed=true,detail="评分投掷："+ScoredThrowChecks.Run()+"；表现："+ThrowPresentationChecks.Run() }); break;
+                    case "configure-scored-throw": Write(new Report { action=action,passed=true,detail=ScoredThrowSetup.Configure() }); break;
+                    case "score-ui-probe": Write(new Report { action=action,passed=true,detail="腕饰追踪表现检查："+ThrowPresentationChecks.Run() }); break;
+                    case "wrist-roots": Write(new Report { action=action,passed=true,detail=WristViewLifecycleChecks.Inspect() }); break;
+                    case "wrist-lifecycle": Write(new Report { action=action,passed=true,detail="腕饰生命周期检查："+WristViewLifecycleChecks.Run() }); break;
+                    case "throw-ease-probe": Write(new Report { action=action,passed=true,detail="小幅投掷检查："+ThrowEaseChecks.Run() }); break;
+                    case "wrist-tap-check": Write(new Report { action=action,passed=true,detail="点腕检查："+WristTapChecks.Run() }); break;
+                    case "wrist-tap": Write(new Report { action=action,passed=true,detail=WristMenuSetup.ConfigureTap() }); break;
+                    case "configure-wrist": Write(new Report { action=action,passed=true,detail=WristMenuSetup.Configure() }); break;
+                    case "wrist-ease": Write(new Report { action=action,passed=true,detail=WristMenuSetup.ConfigureEase() }); break;
+                    case "wrist-ray-probe": Write(new Report { action=action,passed=true,detail="腕部射线复现："+WristRayIssueProbe.Run() }); break;
+                    case "wrist-check": Write(new Report { action=action,passed=true,detail="腕饰检查："+WristMenuChecks.Run() }); break;
+                    case "wrist-preview": WristMenuSetup.Preview(); Write(new Report { action=action,passed=true }); break;
+                    case "clock-check": Write(new Report { action = action, passed = true, detail = "口令时钟：" + SkillClockRegressionChecks.Run() }); break;
+                    case "feel-check": Write(new Report { action = action, passed = true, detail = "输入手感："+InteractionFeelChecks.Run()+"；表现与调试："+InteractionFeelPresentationChecks.Run() }); break;
+                    case "configure-feel": Write(new Report { action = action, passed = true, detail = InteractionFeelSetup.Configure() }); break;
+                    case "navigation-check": Write(new Report { action = action, passed = true, detail = "导航评分：" + NavigationScoringChecks.Run() }); break;
+                    case "configure-navigation": Write(new Report { action = action, passed = true, detail = RpgNavigationScoringSetup.Configure() }); break;
+                    case "record-throws": HandThrowDiagnostics.Begin(); Write(new Report { action = action, passed = true, detail = HandThrowDiagnostics.LastPath }); break;
                     case "refresh": AssetDatabase.Refresh(); break;
+                    case "pose-regression": Write(new Report { action = action, passed = true, detail = "骨骼到手形检查：" + RpgHandPoseChecks.Run() }); break;
+                    case "configure-hand-poses": OfficialHandPoseSetup.Configure(); Write(new Report { action = action, passed = true }); break;
+                    case "configure-interactions": RpgInteractionSetup.Configure(); Write(new Report { action = action, passed = true }); break;
+                    case "interaction-check": Write(new Report { action = action, passed = true, detail = "四向交互：" + RpgDirectionalInteractionChecks.Run() + "；投掷：" + HandThrowChecks.Run() }); break;
+                    case "hand-stream-probe": EmptyStreamProbe.Begin(true); break;
+                    case "debug-text-comparison": DebugTextComparison.Begin(); break;
+                    case "cpu-stream-sample": StreamCpuProfile.Capture(); break;
+                    case "empty-stream-probe": EmptyStreamProbe.Begin(); break;
+                    case "play-user":
+                        if (SceneManager.GetActiveScene().path != LinearRpgSceneSetup.ScenePath || SceneManager.GetActiveScene().isDirty) throw new Exception("需要已保存的RPG场景");
+                        EditorApplication.isPlaying = true; break;
+                    case "full-editor-check": RpgRegressionSuite.Run(); Write(new Report { action = action, passed = true }); break;
+                    case "clear-console":
+                        typeof(EditorApplication).Assembly.GetType("UnityEditor.LogEntries")?.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public)?.Invoke(null, null);
+                        break;
+                    case "final-state":
+                        var counters = new object[] { 0, 0, 0 };
+                        var logEntries = typeof(EditorApplication).Assembly.GetType("UnityEditor.LogEntries");
+                        var counterMethod = logEntries?.GetMethod("GetCountsByType", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+                        counterMethod?.Invoke(null, counters);
+                        var activeScene = SceneManager.GetActiveScene();
+                        var sceneController = Object.FindFirstObjectByType<LinearRpgController>();
+                        bool ready = counterMethod != null && (int)counters[0] == 0 && !EditorApplication.isPlayingOrWillChangePlaymode && !activeScene.isDirty &&
+                            activeScene.path == LinearRpgSceneSetup.ScenePath && sceneController && sceneController.handPoseSettings && sceneController.handPoseSettings.Validate() == null;
+                        Write(new Report { action = action, passed = ready, detail = $"播放={EditorApplication.isPlaying}，未保存={activeScene.isDirty}，错误={counters[0]}，警告={counters[1]}，官方手形配置={(sceneController ? sceneController.handPoseSettings : null)}\n编辑器日志：{Application.consoleLogPath}" });
+                        break;
+                    case "console":
+                        var consoleType = typeof(EditorApplication).Assembly.GetType("UnityEditor.LogEntries");
+                        var entryType = typeof(EditorApplication).Assembly.GetType("UnityEditor.LogEntry");
+                        var flags = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static;
+                        var lines = new System.Text.StringBuilder();
+                        int length = (int)consoleType.GetMethod("StartGettingEntries", flags).Invoke(null, null);
+                        try
+                        {
+                            for (int i = Math.Max(0, length - 1000); i < length; i++)
+                            {
+                                var entry = Activator.CreateInstance(entryType);
+                                consoleType.GetMethod("GetEntryInternal", flags).Invoke(null, new[] { (object)i, entry });
+                                foreach (var field in entryType.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
+                                    if (field.FieldType == typeof(string) && field.GetValue(entry) is string value && !string.IsNullOrEmpty(value)) lines.AppendLine(field.Name + ": " + value);
+                            }
+                        }
+                        finally { consoleType.GetMethod("EndGettingEntries", flags).Invoke(null, null); }
+                        Directory.CreateDirectory("Logs/official-hand-poses"); File.WriteAllText("Logs/official-hand-poses/console.txt", lines.ToString());
+                        break;
+                    case "open-rpg":
+                    case "open-shield-trial":
+                        if (EditorApplication.isPlayingOrWillChangePlaymode || SceneManager.GetActiveScene().isDirty) throw new Exception("切换测试场景需要已保存的编辑模式");
+                        EditorSceneManager.OpenScene(action == "open-rpg" ? LinearRpgSceneSetup.ScenePath : "Assets/SealCombat/Scenes/ShieldTrial.unity");
+                        Write(new Report { action = action, passed = true }); break;
                     case "repair-incomplete": LinearRpgSceneSetup.RepairIncomplete(); Write(new Report { action = action, passed = true }); break;
                     case "build-check": BuildAndCheck(); break;
                     case "play-check": StartPlayCheck(); break;
@@ -76,6 +157,40 @@ namespace NarutoVR.SealCombat.Editor
                         help.text = help.text.Replace("右手张掌短划闪避；", "导航准备期间，右手张掌短划闪避；");
                         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene()); EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
                         Write(new Report { action = action, passed = true }); break;
+                    case "ray-ui-config":
+                        if(EditorApplication.isPlayingOrWillChangePlaymode || SceneManager.GetActiveScene().isDirty) throw new Exception("配置需要已保存的编辑模式");
+                        var rayMenu=Object.FindFirstObjectByType<WristMenuController>();
+                        rayMenu.settings.rayDistance=3;
+                        EditorUtility.SetDirty(rayMenu); EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene()); EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+                        Write(new Report{action=action,passed=true,detail="搜索射线范围3米"}); break;
+                    case "storage-timeout-check":
+                        Write(new Report{action=action,passed=true,effectChecks=ProjectileStorageChecks.Run()+ScoredThrowChecks.Run()+HandThrowChecks.Run(),detail="储存超时、单发限制、松手投掷、评分及保持、轻动作与误触检查通过"});break;
+                    case "architecture-interface-check":
+                        if(EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("接口回归需要编辑模式");
+                        int interfaceChecks=SkillActivationPolicyChecks.Run()+SkillCastTraceChecks.Run()+SkillClockRegressionChecks.Run()+SkillCoreChecks.Run();
+                        Write(new Report{action=action,passed=true,coreChecks=interfaceChecks,detail="新旧激活路径、日志隔离、口令时钟、核心匹配通过；未保存或切换用户场景"});break;
+                    case "performance-status":
+                    case "performance-reset":
+                        var profiler=typeof(EditorApplication).Assembly.GetType("UnityEditorInternal.ProfilerDriver");
+                        var profilingFlags=System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.NonPublic;
+                        string profilerDetail="Profiler录制="+profiler?.GetProperty("enabled",profilingFlags)?.GetValue(null)+
+                            "；深度分析="+profiler?.GetProperty("deepProfiling",profilingFlags)?.GetValue(null);
+                        if(action=="performance-reset") {
+                            profiler?.GetProperty("enabled",profilingFlags)?.SetValue(null,false);
+                            profiler?.GetMethod("ClearAllFrames",profilingFlags)?.Invoke(null,null);
+                        }
+                        Write(new Report{action=action,passed=true,detail=profilerDetail+"；帧间隔="+Time.unscaledDeltaTime.ToString("F4")+
+                            "；Unity已分配MB="+(UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong()/1048576)+
+                            "；保留MB="+(UnityEngine.Profiling.Profiler.GetTotalReservedMemoryLong()/1048576)}); break;
+                    case "record-input": InteractionInputTrace.Begin(); Write(new Report{action=action,passed=true,detail="开始30秒输入诊断"}); break;
+                    case "live-input":
+                        var live=Object.FindFirstObjectByType<LinearRpgController>();
+                        string detail="无主控";
+                        if(live) {
+                            var menu=live.wristMenu;
+                            detail="技能："+live.skills.LastMessage+"\n匹配器："+live.skills.Engine?.Status+"\n"+live.skills.Engine?.ObservationDiagnostics+"\n"+live.GetComponent<RpgSessionView>()?.BuildSealDetails()+"\n"+live.HandPoseStatus+"\n"+(menu?menu.DebugDetails:"无菜单")+"\n"+(menu?JsonUtility.ToJson(menu.LatestInput):"")+"\n"+(live.skills.voice?live.skills.voice.BuildDebugDetails():"无接收器");
+                        }
+                        Write(new Report{action=action,passed=live,detail=detail}); break;
                     case "state":
                         var rpg = Object.FindFirstObjectByType<LinearRpgController>();
                         Write(new Report { action = action, passed = rpg, detail = rpg ? rpg.Status + "\n" + rpg.ObjectiveStatus : "无RPG控制器" }); break;
@@ -134,13 +249,17 @@ namespace NarutoVR.SealCombat.Editor
         {
             var view = Object.FindFirstObjectByType<RpgSessionView>();
             if (!view || !view.statusText) throw new Exception("未找到RPG中文面板");
-            view.statusText.text = view.BuildHud(); Canvas.ForceUpdateCanvases();
-            var panel = view.statusText.canvas.transform;
+            var canvas=view.statusText.GetComponentInParent<Canvas>(true);
+            if(!canvas)throw new Exception("RPG文字缺少Canvas");
+            var panel=canvas.transform;
+            bool wasVisible=panel.gameObject.activeSelf;
             var go = new GameObject("RPG中文面板_验收相机") { hideFlags = HideFlags.HideAndDontSave };
             var texture = RenderTexture.GetTemporary(1200, 1500, 24); var previous = RenderTexture.active;
             Texture2D pixels = null;
             try
             {
+                panel.gameObject.SetActive(true);
+                view.statusText.text=view.BuildHud();Canvas.ForceUpdateCanvases();
                 var camera = go.AddComponent<Camera>(); camera.transform.SetPositionAndRotation(panel.position - panel.forward * 1.65f, panel.rotation);
                 camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.02f,.03f,.06f);
                 camera.fieldOfView = 52; camera.nearClipPlane = .05f; camera.targetTexture = texture;
@@ -148,7 +267,7 @@ namespace NarutoVR.SealCombat.Editor
                 pixels = new Texture2D(1200, 1500, TextureFormat.RGB24, false); pixels.ReadPixels(new Rect(0,0,1200,1500),0,0); pixels.Apply();
                 Directory.CreateDirectory("Logs/linear-rpg"); File.WriteAllBytes("Logs/linear-rpg/hud-preview.png", pixels.EncodeToPNG());
             }
-            finally { RenderTexture.active = previous; RenderTexture.ReleaseTemporary(texture); if (pixels) Object.DestroyImmediate(pixels); Object.DestroyImmediate(go); }
+            finally { panel.gameObject.SetActive(wasVisible); RenderTexture.active = previous; RenderTexture.ReleaseTemporary(texture); if (pixels) Object.DestroyImmediate(pixels); Object.DestroyImmediate(go); }
         }
     }
 }

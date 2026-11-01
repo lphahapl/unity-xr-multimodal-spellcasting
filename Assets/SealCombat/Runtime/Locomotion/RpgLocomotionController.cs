@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +19,20 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("导航手腕低于头部退出距离（米）"), Min(0.2f), Tooltip("左手独自放下也退出导航；不依赖双手低位取消条件。")]
         public float navigationDropBelowHead = 0.65f;
 
+        [Header("导航操作模式")]
+        [InspectorName("使用射线直接选点"), Tooltip("开启后只需左食指指向节点，无需先移动食指四方向。旧模式供历史回归使用。")]
+        public bool useRayNavigation;
+        [InspectorName("射线选点设置")] public RayNavigationSettings rayNavigation = new RayNavigationSettings();
+        readonly RayNavigationState rayState = new RayNavigationState();
+
         [Header("节点选择")]
         [InspectorName("在点水平容差（米）"), Min(0.03f)] public float nodeTolerance = 0.25f;
         [InspectorName("在点楼层容差（米）"), Min(0.02f)] public float nodeHeightTolerance = 0.18f;
         [InspectorName("最小选向点积"), Range(0.5f, 1f)] public float directionDot = 0.72f;
         [InspectorName("离点选向最大距离（米）"), Min(0.3f)] public float offNodeRange = 6f;
+        [Header("朝向、视线与手指融合选点")]
+        [InspectorName("导航评分设置")] public NavigationScoringSettings scoring = new NavigationScoringSettings();
+        [InspectorName("导航输入平滑")] public NavigationSmoothingSettings smoothing = new NavigationSmoothingSettings();
 
         [Header("瞬移闪避")]
         [InspectorName("闪避距离（米）"), Min(0.1f)] public float dodgeDistance = 0.8f;
@@ -47,15 +56,28 @@ namespace NarutoVR.SealCombat.Rpg
         RpgGestureState state;
         NavigationNode currentNode;
         Vector2 candidateDirection;
+        NavigationNode challenger;
+        double challengerSince = double.NaN;
+        bool selectionPending;
+        readonly NavigationInputSmoother inputSmoother = new();
+        NavigationHandInput rawInput, filteredInput;
+        readonly List<(string id, NavigationScore score, float distance)> debugCandidates = new(4);
+        int evaluated, invalidNodes, directionRejected, floorRejected, occupiedRejected, occludedRejected;
+        double inputNow;
+        double lastSelectionObserved = double.NegativeInfinity;
         double lastNow, nextDodgeAt = double.NegativeInfinity;
 
-        public bool NavigationActive => state != null && state.NavigationActive;
+        public bool NavigationActive => useRayNavigation ? rayState.Active : state != null && state.NavigationActive;
+        public bool SealProtectionActive => state != null && state.SealProtectionActive;
+        public Vector3 PlayerFloorPosition => ReferencesValid() ? ExpectedFloor : transform.position;
+        public event Action<RpgActionCue> Feedback;
         public string CurrentNodeId => currentNode == null ? string.Empty : currentNode.nodeId;
         public bool OnNode => currentNode != null;
         public float DodgeRemaining => (float)Math.Max(0, nextDodgeAt - lastNow);
         public string Status { get; private set; } = "等待手部输入";
-        public float DwellProgress => CandidateNode == null || state == null ? 0 : state.DwellProgress;
+        public float DwellProgress => CandidateNode == null ? 0 : useRayNavigation ? rayState.Progress : state == null ? 0 : state.DwellProgress;
         public NavigationNode CandidateNode { get; private set; }
+        public string SelectionDetail { get; private set; } = "尚未选点";
         public event Action CancelRequested;
         /// <summary>Successful rig translation in world space, including a successful dodge.</summary>
         public event Action<Vector3> Moved;
@@ -68,16 +90,21 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void ProcessInput(NavigationHandInput frame, bool forwardOwnedByHeldSpell, bool blockActions, double now)
         {
+            rawInput = frame; inputNow = now;
             if (!RpgGestureState.Finite(now)) { ResetInput(); Status = "输入时钟无效"; return; }
             lastNow = GameClock?.Invoke() ?? now;
             if (!RpgGestureState.Finite(lastNow)) { ResetInput(); Status = "闪避时钟无效"; return; }
             if (!ReferencesValid()) { ResetInput(); Status = "请指定有效的Rig根节点与头部锚点"; return; }
             RefreshCurrentNode();
             if (frame.leftWrist.y < head.position.y - navigationDropBelowHead) frame.leftPointing = false;
+            if (blockActions) inputSmoother.Reset();
+            else frame = inputSmoother.Process(frame, smoothing, gestures, now);
+            filteredInput = frame;
             RpgGestureIntent intent = State.Process(frame, head.forward, forwardOwnedByHeldSpell, blockActions, now);
             if (intent.cancel)
             {
                 CandidateNode = null;
+                ClearChallenger();
                 Status = "双手低位：已请求取消待施法与未发射物";
                 CancelRequested?.Invoke();
             }
@@ -85,54 +112,75 @@ namespace NarutoVR.SealCombat.Rpg
             if (intent.dodgeDirection != Vector3.zero)
             {
                 State.InterruptDwell();
+                rayState.Suspend();
                 CandidateNode = null;
+                ClearChallenger();
                 TryDodgeWorld(intent.dodgeDirection, now);
+                return;
+            }
+            if (useRayNavigation)
+            {
+                ProcessRayNavigation(frame, blockActions || intent.cancel, now);
                 return;
             }
             if (!NavigationActive || blockActions)
             {
+                debugCandidates.Clear();
                 CandidateNode = null;
                 candidateDirection = Vector2.zero;
-                if (!intent.cancel) Status = blockActions ? "动作暂不可用" : "左手食指伸直并稳定后导航";
+                ClearChallenger();
+                SelectionDetail = "尚未选点";
+                if (!intent.cancel) Status = blockActions ? "动作暂不可用" : SealProtectionActive ? "结印保护：双手分开并稳定后再移动或闪避" : "左食指四向选点；右掌可独立四向短划闪避";
                 return;
             }
             Vector2 direction = State.Selection;
             if (direction == Vector2.zero)
             {
+                debugCandidates.Clear();
                 CandidateNode = null;
                 candidateDirection = Vector2.zero;
+                ClearChallenger();
+                SelectionDetail = "尚未选点";
                 Status = State.NavigationNeedsNeutral ? "左食指回中立后可再次选择" : "导航已准备：移动左食指选择方向";
                 return;
             }
-            NavigationNode next = SelectNode(direction, State.NavigationForward);
+            NavigationNode next = SelectNode(direction, State.NavigationForward, frame, true);
             bool changed = next != CandidateNode || direction != candidateDirection;
             if (changed)
             {
                 CandidateNode = next;
                 candidateDirection = direction;
                 State.RestartDwell();
+                RpgFeedbackSignals.Raise(Feedback, CandidateNode ? RpgActionCue.TargetSelected : RpgActionCue.Blocked, this);
             }
-            if (intent.navigationStep != Vector2.zero && !changed)
+            // A deliberate new aim is being confirmed: do not commit the previous target during that interval.
+            if (selectionPending) State.PauseDwell();
+            if (intent.navigationStep != Vector2.zero && !changed && !selectionPending)
             {
-                if (CandidateNode == null) Status = "此方向无可用相邻落点；请回中立";
+                if (CandidateNode == null) { Status = "此方向无可用相邻落点；请回中立"; }
                 else TryMoveToNode(CandidateNode);
                 CandidateNode = null;
+                ClearChallenger();
                 State.InterruptDwell();
             }
-            else Status = CandidateNode == null ? "此方向无可用落点" : "驻留确认：" + CandidateNode.nodeId;
+            else Status = CandidateNode == null ? "此方向无可用落点" : (selectionPending ? "确认新瞄准：" : "驻留确认：") + CandidateNode.nodeId;
         }
 
         public void ResetInput()
         {
-            state?.Reset();
+            lastSelectionObserved = double.NegativeInfinity;
+            inputSmoother.Reset(); debugCandidates.Clear();
+            state?.Reset(); rayState.Reset();
             CandidateNode = null;
             candidateDirection = Vector2.zero;
+            ClearChallenger();
+            SelectionDetail = "尚未选点";
         }
 
         /// <summary>Cancel a pending node selection without rearming the held-low cancel gesture.</summary>
         public void CancelPendingNavigation()
         {
-            State.InterruptDwell(); CandidateNode = null; candidateDirection = Vector2.zero;
+            State.InterruptDwell(); rayState.Suspend(); CandidateNode = null; candidateDirection = Vector2.zero; ClearChallenger();
         }
 
         /// <summary>Safe respawn teleport. Requires a registered checkpoint in this scene; adjacency and line of sight do not apply.</summary>
@@ -166,7 +214,7 @@ namespace NarutoVR.SealCombat.Rpg
             RefreshCurrentNode();
             NavigationNode node = SelectNode(RpgGestureState.Cardinal(direction),
                 RpgGestureState.HorizontalForward(head.forward, Vector3.forward));
-            if (node == null) { Status = "模拟导航失败：此方向无可用落点"; return false; }
+            if (node == null) { Status = "模拟导航失败：此方向无可用落点"; RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Blocked, this); return false; }
             bool moved = TryMoveToNode(node);
             Status = "模拟导航：" + Status;
             State.InterruptDwell();
@@ -219,39 +267,163 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
 
-        NavigationNode SelectNode(Vector2 direction, Vector3 forward)
+        NavigationNode SelectNode(Vector2 direction, Vector3 forward) => SelectNode(direction, forward, default, false);
+
+        void ClearChallenger() { challenger = null; challengerSince = double.NaN; selectionPending = false; }
+
+        NavigationNode SelectNode(Vector2 direction, Vector3 forward, NavigationHandInput frame, bool stabilize)
         {
+            bool newEvidence = !stabilize || frame.leftObserved > lastSelectionObserved;
+            if (newEvidence && stabilize) lastSelectionObserved = frame.leftObserved;
+            debugCandidates.Clear(); evaluated = invalidNodes = directionRejected = floorRejected = occupiedRejected = occludedRejected = 0;
+            selectionPending = false;
+            if (scoring == null || !scoring.Valid) { ClearChallenger(); SelectionDetail = "导航评分参数无效"; return null; }
             IReadOnlyList<NavigationNode> candidates = currentNode != null ? currentNode.neighbors : NavigationNode.ActiveNodes;
-            if (candidates == null) return null;
+            if (candidates == null) { ClearChallenger(); SelectionDetail = "没有相邻节点"; return null; }
             Vector3 origin = ExpectedFloor;
             Vector3 desired = RpgGestureState.ToWorld(direction, forward).normalized;
-            float bestScore = float.PositiveInfinity;
+            float bestScore = float.NegativeInfinity;
             NavigationNode result = null;
+            NavigationScore bestDetail = default, currentDetail = default;
+            bool currentEligible = false;
             foreach (NavigationNode node in candidates)
             {
-                if (node == null || node.gameObject.scene != gameObject.scene || node == currentNode || !node.isActiveAndEnabled ||
-                    !RpgGestureState.Finite(node.floorPosition)) continue;
+                evaluated++;
+                if (node == null || node.gameObject.scene != gameObject.scene || node == currentNode || !node.isActiveAndEnabled || !Registered(node) ||
+                    !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
                 Vector3 delta = node.floorPosition - origin;
                 delta.y = 0;
                 float distance = delta.magnitude;
-                if (distance < nodeTolerance || (currentNode == null && distance > offNodeRange)) continue;
+                if (distance < nodeTolerance || (currentNode == null && distance > offNodeRange)) { directionRejected++; continue; }
                 float alignment = Vector3.Dot(delta / distance, desired);
-                if (alignment < directionDot) continue;
-                if (!TryFloor(origin, floorLayers, out RaycastHit from, out _)) continue;
-                if (!TryNodeDestination(node, from.point, out RaycastHit destination, out _)) continue;
+                if (alignment < directionDot) { directionRejected++; continue; }
+                if (!TryFloor(origin, floorLayers, out RaycastHit from, out _)) { floorRejected++; continue; }
+                if (!TryNodeDestination(node, from.point, out RaycastHit destination, out _)) { floorRejected++; continue; }
                 int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
-                if (!ClearCapsule(destination, from.point, obstacles, out _)) continue;
-                if (!Visible(from.point, destination.point, obstacles)) continue;
-                // Angular mismatch has a modest penalty; among aligned candidates prefer the nearest.
-                float score = distance * (1f + (1f - alignment) * 2f);
-                if (score >= bestScore) continue;
-                bestScore = score;
+                if (!ClearCapsule(destination, from.point, obstacles, out _)) { occupiedRejected++; continue; }
+                if (!Visible(from.point, destination.point, obstacles)) { occludedRejected++; continue; }
+                NavigationScore score = NavigationTargetScoring.Evaluate(scoring, origin, destination.point, desired,
+                    head.position, head.forward, frame.leftValid && frame.leftRayValid,
+                    frame.leftRayOrigin, frame.leftRayDirection, direction == Vector2.down);
+                int rank = 0;
+                while(rank < debugCandidates.Count && score.total <= debugCandidates[rank].score.total) rank++;
+                if (rank < 3) { debugCandidates.Insert(rank, (node.nodeId, score, distance)); if (debugCandidates.Count > 3) debugCandidates.RemoveAt(3); }
+                if (node == CandidateNode) { currentEligible = true; currentDetail = score; }
+                // Stable IDs break exact ties independently of scene registration order.
+                if (score.total < bestScore || (score.total == bestScore && result != null &&
+                    string.CompareOrdinal(node.nodeId, result.nodeId) >= 0)) continue;
+                bestScore = score.total;
+                bestDetail = score;
                 result = node;
             }
+            if (!newEvidence)
+            {
+                if (currentEligible) { selectionPending = challenger != null; return CandidateNode; }
+                ClearChallenger(); SelectionDetail = "当前点已失效，等待下一次新鲜手部观测"; return null;
+            }
+            if (!result) { ClearChallenger(); SelectionDetail = "无通过楼层、占位与通路检查的落点"; return null; }
+            if (stabilize && currentEligible && direction == candidateDirection && result != CandidateNode)
+            {
+                if (bestScore - currentDetail.total < scoring.switchAdvantage)
+                {
+                    ClearChallenger(); SelectionDetail = currentDetail.Describe() + "｜保持当前点"; return CandidateNode;
+                }
+                if (challenger != result || !double.IsFinite(challengerSince) || frame.leftObserved < challengerSince)
+                { challenger = result; challengerSince = frame.leftObserved; }
+                if (frame.leftObserved - challengerSince < scoring.switchSeconds)
+                {
+                    selectionPending = true;
+                    SelectionDetail = currentDetail.Describe() + "｜新候选 " + result.nodeId + " 优势 " + (bestScore - currentDetail.total).ToString("F2");
+                    return CandidateNode;
+                }
+            }
+            ClearChallenger();
+            SelectionDetail = bestDetail.Describe();
             return result;
         }
 
+        void ProcessRayNavigation(NavigationHandInput frame, bool blocked, double now)
+        {
+            bool fresh = double.IsFinite(frame.leftObserved) && frame.leftObserved <= now + .01 &&
+                now - frame.leftObserved <= gestures.sampleMaxAge;
+            bool observed = frame.leftValid && fresh && RpgGestureState.Finite(frame.leftIndex) && RpgGestureState.Finite(frame.leftWrist);
+            bool allowed = observed && !blocked && !SealProtectionActive && !frame.bothHandsLow;
+            debugCandidates.Clear(); evaluated = invalidNodes = directionRejected = floorRejected = occupiedRejected = occludedRejected = 0;
+            ClearChallenger();
+            NavigationNode next = null;
+            bool validRay = frame.leftRayValid && RpgGestureState.Finite(frame.leftRayOrigin) &&
+                RpgGestureState.Finite(frame.leftRayDirection) && frame.leftRayDirection.sqrMagnitude > .0001f;
+            if (allowed && frame.leftPointing && validRay && rayNavigation != null && rayNavigation.Valid)
+                next = SelectRayNode(frame);
+            else SelectionDetail = blocked ? "动作被界面或其他事件占用" : SealProtectionActive ? "双手结印保护" :
+                !observed ? "左手追踪失效或样本过期" : !frame.leftPointing ? "左手未作指向手型或已放下" : "射线无效或配置错误";
+            // Loss, ownership and malformed rays never count as a deliberate release.
+            bool release = allowed && (!frame.leftPointing || validRay && next == null);
+            bool changed = next != CandidateNode;
+            CandidateNode = next;
+            bool confirmed = rayState.Process(next, allowed && (!frame.leftPointing || validRay), release,
+                frame.leftObserved, now, rayNavigation, gestures);
+            if (changed && next != null) RpgFeedbackSignals.Raise(Feedback, RpgActionCue.TargetSelected, this);
+            if (confirmed && next != null)
+            {
+                TryMoveToNode(next);
+                CandidateNode = null;
+                Status += "；请移开射线或放松左手后再次选择";
+            }
+            else Status = SelectionDetail + "｜" + rayState.Status + (next ? "：" + next.nodeId : "");
+        }
+
+        NavigationNode SelectRayNode(NavigationHandInput frame)
+        {
+            IReadOnlyList<NavigationNode> candidates = currentNode != null ? currentNode.neighbors : NavigationNode.ActiveNodes;
+            if (candidates == null) { SelectionDetail = "没有相邻节点"; return null; }
+            if (!TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out string reason))
+            { SelectionDetail = "玩家地面无效：" + reason; return null; }
+            NavigationNode best = null;
+            NavigationScore bestScore = default, previousScore = default;
+            bool previousEligible = false;
+            foreach (NavigationNode node in candidates)
+            {
+                evaluated++;
+                if (node == null || node == currentNode || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene ||
+                    !Registered(node) || !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
+                float distance = Vector3.Distance(from.point, node.floorPosition);
+                if (distance < nodeTolerance || distance > offNodeRange ||
+                    !NavigationTargetScoring.TryEvaluateRay(node.floorPosition, frame.leftRayOrigin, frame.leftRayDirection,
+                        rayNavigation.hitRadius, out NavigationScore score)) { directionRejected++; continue; }
+                if (!TryNodeDestination(node, from.point, out RaycastHit destination, out _)) { floorRejected++; continue; }
+                int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
+                if (!ClearCapsule(destination, from.point, obstacles, out _)) { occupiedRejected++; continue; }
+                if (!Visible(from.point, destination.point, obstacles)) { occludedRejected++; continue; }
+                int rank = 0;
+                while (rank < debugCandidates.Count && score.total <= debugCandidates[rank].score.total) rank++;
+                if (rank < 3) { debugCandidates.Insert(rank, (node.nodeId, score, distance)); if (debugCandidates.Count > 3) debugCandidates.RemoveAt(3); }
+                if (node == CandidateNode) { previousEligible = true; previousScore = score; }
+                if (best == null || score.total > bestScore.total || score.total == bestScore.total && string.CompareOrdinal(node.nodeId,best.nodeId) < 0)
+                { best = node; bestScore = score; }
+            }
+            // Only a still-hit, still-reachable target may benefit from hysteresis.
+            if (previousEligible && best != CandidateNode && bestScore.total - previousScore.total < rayNavigation.switchAdvantage)
+            { best = CandidateNode; bestScore = previousScore; }
+            SelectionDetail = best ? $"射线命中：{best.nodeId}，总分 {bestScore.total:F2} / 射线 {bestScore.handRay:F2}" :
+                $"无可达命中：射线未命中/超距 {directionRejected}，楼层 {floorRejected}，占位 {occupiedRejected}，遮挡 {occludedRejected}";
+            return best;
+        }
+
+        static bool Registered(NavigationNode node)
+        {
+            foreach (NavigationNode active in NavigationNode.ActiveNodes) if (active == node) return true;
+            return false;
+        }
+
         bool TryMoveToNode(NavigationNode node)
+        {
+            bool success = MoveToNode(node);
+            RpgFeedbackSignals.Raise(Feedback, success ? RpgActionCue.Moved : RpgActionCue.Blocked, this);
+            return success;
+        }
+
+        bool MoveToNode(NavigationNode node)
         {
             // Revalidate current adjacency, dynamic occupancy and floors at the actual execution point.
             Physics.SyncTransforms();
@@ -267,11 +439,18 @@ namespace NarutoVR.SealCombat.Rpg
             if (!ClearCapsule(target, from.point, obstacles, out reason) || !Visible(from.point, target.point, obstacles))
             { Status = "导航失败：" + (reason ?? "目标不可见"); return false; }
             Translate(target.point - from.point);
-            Status = "已移动至 " + node.nodeId + "；左指回中立后可再次选择";
+            Status = "已移动至 " + node.nodeId + (useRayNavigation ? "" : "；左指回中立后可再次选择");
             return true;
         }
 
         bool TryDodgeWorld(Vector3 direction, double now)
+        {
+            bool success = DodgeWorld(direction, now);
+            RpgFeedbackSignals.Raise(Feedback, success ? RpgActionCue.Dodged : RpgActionCue.Blocked, this);
+            return success;
+        }
+
+        bool DodgeWorld(Vector3 direction, double now)
         {
             double cooldownNow = GameClock?.Invoke() ?? now;
             if (!RpgGestureState.Finite(cooldownNow)) { Status = "闪避时钟无效"; return false; }
@@ -375,12 +554,35 @@ namespace NarutoVR.SealCombat.Rpg
 
         void Translate(Vector3 delta)
         {
+            inputSmoother.Reset();
             // XZ delta is measured from the current HMD ground projection, preserving room-scale offset.
             rigRoot.position += delta;
             State.TranslateAnchors(delta);
             RefreshCurrentNode();
             Moved?.Invoke(delta);
         }
+
+        public string BuildDebugDetails(double now)
+        {
+            var b = new System.Text.StringBuilder();
+            b.AppendLine($"导航模式：{(useRayNavigation ? "射线直接选点（无需食指位移）" : "旧四向位移")}；候选 {(CandidateNode ? CandidateNode.nodeId : "无")}");
+            if (useRayNavigation) b.AppendLine($"射线状态：{rayState.Status}；准备 {rayNavigation?.readySeconds:F2}s / 驻留 {rayNavigation?.dwellSeconds:F2}s；等待重备={rayState.NeedsRelease}");
+            b.AppendLine($"左手：{(rawInput.leftValid ? "追踪有效" : "无效")} / 指向={rawInput.leftPointing}；样本年龄 {Age(now,rawInput.leftObserved):0} ms");
+            b.AppendLine($"右手：{(rawInput.rightValid ? "追踪有效" : "无效")} / 张掌={rawInput.rightOpen}；样本年龄 {Age(now,rawInput.rightObserved):0} ms");
+            if (!useRayNavigation) b.AppendLine($"导航位移 左右/前后：{State.NavigationDisplacement.x*100:0.0}/{State.NavigationDisplacement.y*100:0.0} cm；阈值 {gestures.directionDistance*100:0.0} cm");
+            b.AppendLine($"平滑：{inputSmoother.Status}；位置滞后 {inputSmoother.PositionLag*1000:0.0} mm / 射线差 {inputSmoother.RayLagDegrees:0.0}°");
+            b.AppendLine($"原始指尖 {rawInput.leftIndex:F3} → 导航指尖 {filteredInput.leftIndex:F3}");
+            b.AppendLine($"原始射线 {rawInput.leftRayDirection:F2} → 导航射线 {filteredInput.leftRayDirection:F2}；有效={filteredInput.leftRayValid}");
+            b.AppendLine($"驻留 {DwellProgress*100:0}% / {(useRayNavigation ? rayNavigation?.dwellSeconds ?? 0 : gestures.dwellSeconds):0.00}s；{(useRayNavigation ? rayState.Status : selectionPending ? "换点确认中，保留进度" : State.NavigationNeedsNeutral ? "等待左手回中" : "等待或累计有效输入")}");
+            if (!useRayNavigation) b.AppendLine($"换点候选 {(challenger ? challenger.nodeId : "无")}；优势要求 {scoring?.switchAdvantage:0.00}；已保持 {(challenger ? Math.Max(0,inputNow-challengerSince)*1000 : 0):0} ms");
+            b.AppendLine($"上次候选检查 {evaluated}：无效 {invalidNodes} / 方向距离 {directionRejected} / 地面楼层 {floorRejected} / 占位 {occupiedRejected} / 遮挡 {occludedRejected}");
+            foreach(var c in debugCandidates)
+                b.AppendLine(useRayNavigation ? $"{c.id} · {c.distance:0.0}m · 总分 {c.score.total:F2} / 射线 {c.score.handRay:F2}" :
+                    $"{c.id} · {c.distance:0.0}m · {c.score.Describe()}");
+            b.Append($"结印保护={SealProtectionActive}；右手技能占用={rawInput.rightMotionOwnedBySpell}；双手低位={rawInput.bothHandsLow}\n当前结果：{Status}");
+            return b.ToString();
+        }
+        static double Age(double now, double stamp) => double.IsFinite(now) && double.IsFinite(stamp) ? Math.Max(0,now-stamp)*1000 : -1;
 
         void OnDisable() { ResetInput(); }
     }
