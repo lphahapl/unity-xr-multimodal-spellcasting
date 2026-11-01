@@ -74,6 +74,21 @@ namespace NarutoVR.SealCombat.Editor
                 hold.rayDirection=drag.forward;
                 menu.Tick(hold,rpg,false,time); time+=.025;
                 if(next.position.x-before.x<.06f) throw new Exception("捏住拖动条未移动面板"); checks++;
+                var frozen=next.position;
+                var lost=hold;lost.rightValid=lost.rayValid=lost.pinchValid=false;lost.source=null;
+                menu.Tick(lost,rpg,false,time);time+=.025;
+                if(menu.DragStatus!="遮挡，保持原位" || Vector3.Distance(frozen,next.position)>.001f)throw new Exception("丢样应冻结面板");checks++;
+                hold.leftObserved=hold.rightObserved=time;hold.rayOrigin+=Vector3.right*.18f;
+                hold.systemPinch=hold.systemPressed=true;hold.pinchDistance=.08f;hold.tipUnavailable=true;
+                hold.pinchSource="测试系统捏合";
+                menu.Tick(hold,rpg,false,time);time+=.025;
+                if(menu.DragStatus!="拖动中" || Vector3.Distance(frozen,next.position)>.001f)throw new Exception("恢复或切换来源时不能跳位");checks++;
+                hold.leftObserved=hold.rightObserved=time;hold.rayOrigin+=Vector3.right*.05f;
+                menu.Tick(hold,rpg,false,time);time+=.025;
+                if(next.position.x-frozen.x<.04f)throw new Exception("系统捏住时移动不应依赖指尖距离");checks++;
+                hold.systemPressed=false;hold.rayValid=false;hold.pinchDistance=.01f;hold.leftObserved=hold.rightObserved=time;
+                menu.Tick(hold,rpg,false,time);time+=.025;
+                if(menu.DragStatus!="明确松手")throw new Exception("系统松手即使射线丢失也应结束");checks++;
                 var release=WristMenuChecks.Sample(time); menu.Tick(release,rpg,false,time); time+=.025;
                 // At arm's reach the fingertip can enter the poke volume before pinching the handle.
                 before=next.position;
@@ -106,7 +121,21 @@ namespace NarutoVR.SealCombat.Editor
                 Click("follow"); shifted.leftObserved=shifted.rightObserved=time;
                 menu.Tick(shifted,rpg,false,time); time+=.025;
                 if(Vector3.Dot(panel.forward,(panel.position-shifted.headPosition).normalized)<.999f) throw new Exception("跟随模式应持续朝向玩家"); checks++;
+                Click("drag");
+                var timeout=WristMenuChecks.Sample(time);timeout.rightValid=timeout.rayValid=timeout.pinchValid=false;
+                time+=menu.settings.dragLossGrace+.01;
+                menu.Tick(timeout,rpg,false,time);time+=.025;
+                if(menu.DragStatus!="追踪中断超时")throw new Exception("持续丢追踪必须结束拖动");checks++;
                 Click("close"); if(menu.PanelOpen) throw new Exception("拖动松开后面板无法关闭"); checks++;
+                var state=new WristRayPinchState();
+                var sys=WristMenuChecks.Sample(time);sys.rightValid=sys.rayValid=sys.pinchValid=sys.systemPinch=true;
+                sys.tipUnavailable=true;sys.pinchDistance=.01f;sys.pinchSource="系统";sys.raySource="骨骼";
+                void StepTime(){time+=.03;sys.rightObserved=time;}
+                for(int i=0;i<4;i++){StepTime();if(state.Step("next",Vector3.one,sys,time,menu.settings)!=null)throw new Exception("系统张开时不能由骨骼距离触发");}
+                sys.systemPressed=true;sys.pinchDistance=.09f;StepTime();
+                if(state.Step("close",Vector3.zero,sys,time,menu.settings)!="next")throw new Exception("捏合应选中弯指前锁定的目标");checks++;
+                sys.raySource="另一来源";StepTime();
+                if(state.Step("close",Vector3.zero,sys,time,menu.settings)!=null)throw new Exception("换源时不能重复点击");checks++;
                 return checks;
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }

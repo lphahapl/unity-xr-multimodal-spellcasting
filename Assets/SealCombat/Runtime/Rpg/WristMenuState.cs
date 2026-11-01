@@ -51,11 +51,16 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("射线最大距离（米）"), Range(.4f,3)] public float rayDistance = 2;
         [InspectorName("轻捏确认距离（米）"), Range(.01f,.04f)] public float pinchClose = .03f;
         [InspectorName("捏合松开距离（米）"), Range(.03f,.07f)] public float pinchOpen = .045f;
+        [InspectorName("拖动遮挡宽限（秒）"),Range(.05f,.75f)] public float dragLossGrace=.30f;
     }
 
     /// <summary>Platform adapter supplies world poses and observation timestamps. No Meta/XRI dependency.</summary>
     public struct WristMenuInput
     {
+        public bool tipUnavailable,systemPinch,systemPressed,pinchTransition;
+        public string raySource,pinchSource;
+        public bool PinchDown(WristMenuSettings s)=>pinchValid && !pinchTransition && (systemPinch?systemPressed:pinchDistance<=s.pinchClose);
+        public bool PinchUp(WristMenuSettings s)=>pinchValid && !pinchTransition && (systemPinch?!systemPressed:pinchDistance>=s.pinchOpen);
         public bool leftValid, leftClosed, rightValid, rightPointing, rightOpen, rightClosed, leftPointing, wristFacing;
         public double leftObserved, rightObserved;
         public Vector3 leftWrist, rightTip, rayOrigin, rayDirection, headPosition, headForward;
@@ -242,7 +247,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             Toggle=false;
             bool left=WristMenuState.Fresh(f.leftValid,f.leftObserved,now,s.maxAge);
-            bool pair=left && WristMenuState.Fresh(f.rightValid,f.rightObserved,now,s.maxAge) &&
+            bool pair=left && !f.tipUnavailable && WristMenuState.Fresh(f.rightValid,f.rightObserved,now,s.maxAge) &&
                 Math.Abs(f.leftObserved-f.rightObserved)<=.08 && WristMenuState.Finite(f.rightTip) && WristMenuState.Finite(center);
             Vector3 offset=center-f.headPosition;
             bool raised=left && WristMenuState.Finite(f.headForward) && f.headForward.sqrMagnitude>.1f &&
@@ -290,15 +295,18 @@ namespace NarutoVR.SealCombat.Rpg
         Vector3 anchor;
         public void ClearTarget() { Target=null; since=seen=-1; }
         public void Reset() { ClearTarget(); armed=Pressed=false; last=-1; }
+        string previousRaySource,previousPinchSource;
         public string Step(string hover,Vector3 point,WristMenuInput f,double now,WristMenuSettings s)
         {
+            if(previousRaySource!=f.raySource || previousPinchSource!=f.pinchSource)Reset();
+            previousRaySource=f.raySource;previousPinchSource=f.pinchSource;
             if (!WristMenuState.Fresh(f.rightValid,f.rightObserved,now,s.maxAge) || !f.pinchValid ||
-                !float.IsFinite(f.pinchDistance) || f.rightClosed || (!f.rayAnchorValid && !f.rayValid) || !WristMenuState.Finite(f.rayOrigin))
+                (!f.systemPinch && !float.IsFinite(f.pinchDistance)) || f.rightClosed || (!f.rayAnchorValid && !f.rayValid) || !WristMenuState.Finite(f.rayOrigin))
             { Reset(); Status="右手追踪或捏合不可用"; return null; }
             if(last>=0 && (f.rightObserved<last || f.rightObserved-last>s.maxGap)) Reset();
             if(f.rightObserved==last) return null;
             last=f.rightObserved;
-            if(f.pinchDistance>=s.pinchOpen)
+            if(f.PinchUp(s))
             {
                 armed=true; Pressed=false;
                 if(hover!=Target && (hover!=null || last-seen>s.rayTargetGrace || Vector3.Distance(anchor,f.rayOrigin)>s.rayCaptureDistance))
@@ -307,7 +315,7 @@ namespace NarutoVR.SealCombat.Rpg
                 Status=hover==null?"先指向按钮":"高亮后轻捏即可确认";
                 return null;
             }
-            if(f.pinchDistance>s.pinchClose || !armed) return null;
+            if(!f.PinchDown(s) || !armed) return null;
             armed=false; Pressed=true;
             string result=Target!=null && last-since+1e-6>=s.rayHoverHold && last-seen<=s.rayTargetGrace &&
                 Vector3.Distance(anchor,f.rayOrigin)<=s.rayCaptureDistance ? Target : null;

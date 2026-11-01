@@ -64,9 +64,10 @@ namespace NarutoVR.SealCombat
         public float ThrowReleaseProgress => ThrowInputValid ? throwState.ReleaseProgress : 0;
         public Vector3 HeldThrowPosition => heldObject ? heldObject.transform.position : Vector3.zero;
         private bool ReachPreview => ThrowInputValid && CurrentThrowScore.holdProgress>0;
-        public bool ThrowPreviewValid => ReachPreview || (ThrowInputValid && (throwState.ReleasePending ? releasePoseValid && throwState.Estimate.accepted : throwState.Armed && throwState.PreviewEstimate.accepted));
+        public bool WindupPreview => ThrowInputValid && !ReachPreview && !ReleasePending && CurrentThrowScore.windupDirection.sqrMagnitude>.5f;
+        public bool ThrowPreviewValid => WindupPreview || ReachPreview || (ThrowInputValid && (throwState.ReleasePending ? releasePoseValid && throwState.Estimate.accepted : throwState.Armed && throwState.PreviewEstimate.accepted));
         public Vector3 ThrowPreviewOrigin => releasePoseValid ? releasePose.position : HeldThrowPosition;
-        public Vector3 ThrowPreviewDirection => ReachPreview ? CurrentThrowScore.direction : ThrowPreviewValid ? (throwState.ReleasePending ? throwState.Estimate.velocity : throwState.PreviewEstimate.velocity).normalized : Vector3.zero;
+        public Vector3 ThrowPreviewDirection => WindupPreview ? CurrentThrowScore.windupDirection : ReachPreview ? CurrentThrowScore.direction : ThrowPreviewValid ? (throwState.ReleasePending ? throwState.Estimate.velocity : throwState.PreviewEstimate.velocity).normalized : Vector3.zero;
         public event Action<HandThrowObservation> ThrowObserved;
         public bool ThrowInputSuppressed { get; set; }
         public Func<bool, HandThrowSettings, ThrowGripSample> ThrowGripProvider { get; set; }
@@ -713,6 +714,7 @@ namespace NarutoVR.SealCombat
             double age=double.IsFinite(now)&&double.IsFinite(o.observed)?Math.Max(0,now-o.observed)*1000:0;
             var b=new System.Text.StringBuilder();
             var score=o.score;
+            if(score.windupDirection.sqrMagnitude>.5f)b.AppendLine($"前送瞄准（{score.windupAimSource}）：原轨迹 {score.rawWindupDirection:F2} → 合成方向 {score.windupDirection:F2}");
             b.AppendLine($"未发射储存剩余 {HeldRemainingSeconds:0.0} 秒");
             b.AppendLine($"通过候选：{ReleaseModeLabel(score.candidate.ToString())}；最近实际发射：{LastReleaseMode}");
             b.AppendLine($"动作评分 {(score.available?$"{score.total:0.0} / 100":"未计算")}；前送阈值 {score.threshold:0}（非置信概率）");

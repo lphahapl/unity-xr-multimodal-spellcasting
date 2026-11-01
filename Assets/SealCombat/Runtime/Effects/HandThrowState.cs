@@ -51,6 +51,7 @@ namespace NarutoVR.SealCombat
     {
         public double observed;
         public bool fistValid, fistClosed, fistOpen, pinchValid, pinchClosed, pinchOpen;
+        public Vector3 wristToKnucklesWorld; // Zero means missing or invalid.
     }
 
     [Serializable]

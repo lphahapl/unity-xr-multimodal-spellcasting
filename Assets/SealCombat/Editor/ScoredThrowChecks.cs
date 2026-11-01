@@ -96,6 +96,7 @@ namespace NarutoVR.SealCombat.Editor
             Require(!new HandThrowSettings{assisted=new AssistedThrowSettings{weights=Vector4.zero}}.Valid,"零权重不应允许除零");count++;
             count+=Recorder();
             count+=RelaxedFireball();
+            count+=WindupAimChecks();
             var disabledWindup=Settings();disabledWindup.assisted.windupEnabled=false;disabledWindup.assisted.reachEnabled=false;
             var disabledState=new HandThrowIntentState(disabledWindup);
             for(int i=0;i<40;i++) {
@@ -104,6 +105,35 @@ namespace NarutoVR.SealCombat.Editor
             }
             Require(!disabledState.ContradictsWindup(Vector3.back),"禁用后拉前送后不能拦截松手投掷方向");count++;
             Require(!new AssistedThrowSettings{motionConfirm=.2f}.Valid,"超过轨迹窗口的前送确认时间必须在配置阶段拒绝");count++;
+            return count;
+        }
+        static int WindupAimChecks()
+        {
+            int count=0;
+            foreach(float turn in new[]{0f,90f})foreach(int sampleMode in new[]{0,1,2}){
+                var rotation=Quaternion.AngleAxis(turn,Vector3.up);
+                var state=new HandThrowIntentState(Settings());
+                var heading=(Vector3.forward+Vector3.right*.45f).normalized;
+                var motion=new Vector3(-.18f,.35f,1f);
+                // Pre-windup jitter should not leak into this throw; the last samples can be occluded.
+                for(int i=0;i<150;i++){
+                    double t=i*.01;
+                    var grip=Grip(t);
+                    grip.wristToKnucklesWorld=sampleMode==2?Vector3.zero:
+                        sampleMode==1 && t>.32?Vector3.up:rotation*heading;
+                    var position=Wrist(.35f)-Vector3.forward*Mathf.Clamp((float)(t-.15)*.8f,0,.12f)
+                        +motion*Mathf.Clamp((float)(t-.30)*2,0,.4f);
+                    var candidate=state.Process(Head+rotation*(position-Head),Head,rotation*Vector3.forward,grip,t);
+                    if(candidate.kind==AssistedThrowKind.None)continue;
+                    var expected=sampleMode==2?motion.normalized:
+                        (heading*Vector3.Dot(motion,heading)+Vector3.up*motion.y).normalized;
+                    Require(candidate.kind==AssistedThrowKind.WindupThrow && Vector3.Angle(candidate.direction,rotation*expected)<2,"前送瞄准的水平角/仰角应随玩家旋转");
+                    Require(Vector3.Angle(candidate.direction,state.Score.windupDirection)<.1f,"候选与本帧预览必须一致");
+                    Require(state.Score.windupAimSource==(sampleMode==2?"轨迹回退":sampleMode==1?"近期手向":"本帧手向"),$"手向回退选择错误：模式{sampleMode}，t={t:F2}，来源={state.Score.windupAimSource}");
+                    count++;break;
+                }
+            }
+            Require(count==6,"六条真实状态机轨迹都应提交");
             return count;
         }
         static int RelaxedFireball()

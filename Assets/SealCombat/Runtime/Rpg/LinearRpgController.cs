@@ -404,6 +404,14 @@ namespace NarutoVR.SealCombat.Rpg
             int wrist = (int)HandJointId.HandWristRoot, index = (int)HandJointId.HandIndex1,
                 pinky = (int)HandJointId.HandPinky1, tip = (int)HandJointId.HandIndexTip, thumb = (int)HandJointId.HandThumbTip;
             Quaternion origin = skills.lab.recordingOrigin ? skills.lab.recordingOrigin.rotation : Quaternion.identity;
+            double menuNow=Time.realtimeSinceStartupAsDouble;
+            var leftHand=frame.left;
+            f.leftValid=leftHand.connected && leftHand.tracked && leftHand.jointValid[wrist] &&
+                WristMenuState.Fresh(leftHand.fresh,leftHand.observedAt,menuNow,wristMenu.settings.maxAge);
+            if(f.leftValid){
+                f.leftWrist=World(leftHand.joints[wrist].position);
+                f.leftValid=WristMenuState.Finite(f.leftWrist);
+            }
             if (f.leftValid)
             {
                 f.leftRotation = origin*frame.left.joints[wrist].rotation;
@@ -414,29 +422,37 @@ namespace NarutoVR.SealCombat.Rpg
                     f.wristFacing = normal.sqrMagnitude > .0000001f && Mathf.Abs(Vector3.Dot(normal.normalized,(f.headPosition-f.leftWrist).normalized)) >= .2f;
                 }
             }
-            f.rightValid &= frame.right.jointValid[tip];
-            if (f.rightValid)
-            {
-                f.rightTip = World(frame.right.joints[tip].position);
-                if (frame.right.jointValid[index])
-                {
-                    f.rayOrigin = World(frame.right.joints[index].position);
-                    f.rayAnchorValid = WristMenuState.Finite(f.rayOrigin);
-                    // Prefer the provider pointer pose; finger-tip direction swings while pinching.
-                    IHand tracked=skills.lab.xrHandsSource ? skills.lab.xrHandsSource.rightHand : skills.lab.rightTrackedHand as IHand;
-                    Vector3 ray = f.rayOrigin-navigation.rightWrist; // Stable knuckle fallback, not the bending tip.
-                    if(tracked!=null && tracked.IsPointerPoseValid && tracked.GetPointerPose(out var aim) && PointerPoseNearHand(aim,navigation.rightWrist))
-                    { f.rayOrigin=aim.position; ray=aim.rotation*Vector3.forward*.1f; }
-
-                    f.rayValid = WristMenuState.Finite(ray) && ray.magnitude >= .02f && ray.magnitude <= .16f;
-                    f.rayDirection = ray.normalized;
-                }
-                if (frame.right.jointValid[thumb])
-                {
-                    f.pinchDistance = Vector3.Distance(f.rightTip,World(frame.right.joints[thumb].position));
-                    f.pinchValid = float.IsFinite(f.pinchDistance);
+            // Menu input needs only the joints used by each channel. Navigation's confidence
+            // includes every finger and must not suppress a valid wrist when one tip is occluded.
+            var hand=frame.right;
+            f.rightValid=hand.connected && hand.tracked && hand.fresh && hand.jointValid[wrist] &&
+                WristMenuState.Fresh(true,hand.observedAt,menuNow,wristMenu.settings.maxAge);
+            f.tipUnavailable=true;
+            if(!f.rightValid)return f;
+            Vector3 wristWorld=World(hand.joints[wrist].position);
+            if(!WristMenuState.Finite(wristWorld)){f.rightValid=false;return f;}
+            if(hand.jointValid[tip]){
+                f.rightTip=World(hand.joints[tip].position);
+                f.tipUnavailable=!WristMenuState.Finite(f.rightTip);
+            }
+            int middle=(int)HandJointId.HandMiddle1;
+            bool hasIndex=hand.jointValid[index],hasMiddle=hand.jointValid[middle];
+            if(hasIndex || hasMiddle){
+                Vector3 basePoint=hasIndex && hasMiddle ? (hand.joints[index].position+hand.joints[middle].position)*.5f
+                    : hand.joints[hasIndex?index:middle].position;
+                Vector3 axis=World(basePoint)-wristWorld;
+                if(WristMenuState.Finite(axis) && axis.magnitude>=.02f && axis.magnitude<=.16f){
+                    f.rayOrigin=wristWorld;f.rayDirection=axis.normalized;f.rayValid=true;f.raySource=hasIndex && hasMiddle?"骨骼·腕到双指根":hasIndex?"骨骼·腕到食指根":"骨骼·腕到中指根";
                 }
             }
+            if(!f.tipUnavailable && hand.jointValid[thumb]){
+                f.pinchDistance=Vector3.Distance(f.rightTip,World(hand.joints[thumb].position));
+                f.pinchValid=float.IsFinite(f.pinchDistance);
+                if(f.pinchValid)f.pinchSource="骨骼·拇食指距离";
+            }
+            WristHandChannels.Apply(ref f,skills.lab.recordingOrigin,wristWorld,wristMenu.settings,
+                skills.lab.xrHandsSource,skills.lab.rightTrackedHand as IHand);
+            f.rayAnchorValid=f.rayValid;
             return f;
         }
         ThrowGripSample ReadThrowGrip(bool left, HandThrowSettings settings, double now)
@@ -444,7 +460,13 @@ namespace NarutoVR.SealCombat.Rpg
             var result = new ThrowGripSample(); var frame = skills.lab.Frame;
             if (frame == null || handPoses == null) return result;
             HandSnapshot hand = left ? frame.left : frame.right;
-            if (!Wrist(hand, now, out _)) return result;
+            if (!Wrist(hand, now, out var wrist)) return result;
+            int indexBase=(int)HandJointId.HandIndex1, middleBase=(int)HandJointId.HandMiddle1;
+            if(hand.jointValid[indexBase] && hand.jointValid[middleBase]) {
+                var midpoint=(hand.joints[indexBase].position+hand.joints[middleBase].position)*.5f;
+                var axis=World(midpoint)-wrist;
+                if(axis.sqrMagnitude>=.0004f && axis.sqrMagnitude<=.0256f) result.wristToKnucklesWorld=axis.normalized;
+            }
             var shape = left ? handPoses.Left : handPoses.Right;
             result.observed = hand.observedAt;
             result.fistValid = shape.valid; result.fistClosed = shape.closed;

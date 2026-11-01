@@ -67,7 +67,8 @@ namespace NarutoVR.SealCombat
         public float total, threshold, speedScore, distanceScore, directionScore, windupScore;
         public float speed, worldSpeed, forwardDistance, worldForwardDistance, windupDistance, consistency, fitError;
         public float headWristDistance, reachRequired, holdProgress;
-        public Vector3 direction, referenceForward;
+        public Vector3 direction, referenceForward,rawWindupDirection,windupDirection;
+        public string windupAimSource;
         public string phase, reason, holdReason;
         public AssistedThrowKind candidate;
     }
@@ -88,7 +89,8 @@ namespace NarutoVR.SealCombat
         readonly List<Point> points=new(48);
         double last=double.NegativeInfinity,gripSince=-1,windupAt=-1,holdSince=-1,epoch;
         Vector3 previousHand,previousHead,baseline,baselineWorld,forward,headStart,trough,troughWorld,stable,stableAim;
-        Vector3 reachBase,reachWorldBase;
+        Vector3 reachBase,reachWorldBase,lastWindupYaw;
+        double yawTime;
         bool armed,windup,extension,consumed,nearBaseline;
         float backDistance;
         public ThrowActionScore Score { get; private set; }
@@ -98,6 +100,7 @@ namespace NarutoVR.SealCombat
         public void Reset(string reason="等待握持确认")
         {
             last=double.NegativeInfinity; gripSince=windupAt=holdSince=-1;
+            yawTime=double.NegativeInfinity;lastWindupYaw=Vector3.zero;
             armed=windup=extension=consumed=nearBaseline=false; backDistance=0; points.Clear(); epoch++;
             Score=new ThrowActionScore{threshold=s.scoreThreshold,reachRequired=s.comfortableReach*s.reachRatio,phase=reason,reason=reason,actionEpoch=epoch};
         }
@@ -149,6 +152,10 @@ namespace NarutoVR.SealCombat
             }
             if(windup && time-windupAt>s.actionTimeout)
             { windup=false; backDistance=0; baseline=trough=relative; baselineWorld=troughWorld=hand; points.Clear(); }
+            if(s.windupEnabled && windup) ObserveYaw(input.wristToKnucklesWorld,time);
+            else yawTime=double.NegativeInfinity;
+            report.windupDirection=report.rawWindupDirection=Vector3.zero;
+            report.windupAimSource=null;
             points.Add(new Point{time=time,relative=relative,world=hand});
             while(points.Count>1 && time-points[0].time>AssistedThrowSettings.MotionWindowSeconds) points.RemoveAt(0);
             report.windupReady=windup; report.extensionReady=extension; report.windupDistance=backDistance;
@@ -174,10 +181,14 @@ namespace NarutoVR.SealCombat
                 report.total=100*(report.speedScore*s.weights.x+report.distanceScore*s.weights.y+report.directionScore*s.weights.z+report.windupScore*s.weights.w)/sum;
                 report.direction=worldDelta.sqrMagnitude>.00001f?worldDelta.normalized:forward;
                 report.available=true;
+                if(s.windupEnabled && windup && report.speed>0 && report.worldSpeed>0) {
+                    report.rawWindupDirection=report.direction;
+                    report.windupDirection=CombineWindupAim(report.direction,time,out report.windupAimSource);
+                }
                 bool hard=windup && report.forwardDistance>=s.forwardDistance && report.worldForwardDistance>=s.forwardDistance*s.worldMotionRatio &&
                     report.speed>=s.forwardSpeed && report.worldSpeed>=s.forwardSpeed*s.worldMotionRatio && report.consistency>=s.minimumConsistency && report.fitError<=tracking.maximumFitError;
                 if(s.windupEnabled && hard && report.total>=s.scoreThreshold)
-                    return Propose(AssistedThrowKind.WindupThrow,report,report.direction,"后拉前送评分通过");
+                    return Propose(AssistedThrowKind.WindupThrow,report,report.windupDirection,"后拉前送评分通过");
                 report.reason=!windup?"自动前送需要先后拉":report.forwardDistance<s.forwardDistance?"前送位移不足":report.worldForwardDistance<s.forwardDistance*s.worldMotionRatio?"世界手部前送位移不足":report.speed<s.forwardSpeed?"前送速度不足":
                     report.worldSpeed<s.forwardSpeed*s.worldMotionRatio?"世界手部运动不足，疑似头部补偿":report.fitError>tracking.maximumFitError?"前送轨迹抖动过大":
                     report.consistency<s.minimumConsistency?"前送方向不一致":$"前送分数 {report.total:0}/{s.scoreThreshold:0}";
@@ -202,6 +213,29 @@ namespace NarutoVR.SealCombat
                 if(report.holdProgress>=1) return Propose(AssistedThrowKind.ReachHold,report,aim,"伸手保持完成");
             }
             Score=report; return default;
+        }
+        void ObserveYaw(Vector3 axis,double time)
+        {
+            if(!Finite(axis) || axis.sqrMagnitude<.5f)return;
+            Vector3 horizontal=Vector3.ProjectOnPlane(axis.normalized,Vector3.up);
+            if(horizontal.sqrMagnitude<.04f)return; // A nearly vertical hand has unreliable yaw.
+            horizontal.Normalize();
+            if(time-yawTime<=AssistedThrowSettings.MotionWindowSeconds &&
+               Vector3.Angle(lastWindupYaw,horizontal)>60f)return;
+            lastWindupYaw=horizontal; yawTime=time;
+        }
+
+        Vector3 CombineWindupAim(Vector3 trajectory,double time,out string source)
+        {
+            if(time-yawTime<=AssistedThrowSettings.MotionWindowSeconds){
+                float depth=Vector3.Dot(trajectory,lastWindupYaw);
+                if(depth>.05f){
+                    source=time==yawTime?"本帧手向":"近期手向";
+                    return (lastWindupYaw*depth+Vector3.up*trajectory.y).normalized;
+                }
+            }
+            source="轨迹回退";
+            return trajectory;
         }
         AssistedThrowCandidate Propose(AssistedThrowKind kind,ThrowActionScore report,Vector3 direction,string reason)
         {

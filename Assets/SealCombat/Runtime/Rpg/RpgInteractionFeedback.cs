@@ -45,6 +45,7 @@ namespace NarutoVR.SealCombat.Rpg
         public int SoundCount { get; private set; }
         public Vector3 DisplayedTarget { get; private set; }
         public bool GripVisualVisible => throwGrip && throwGrip.enabled;
+        [InspectorName("调试：显示前送原始轨迹对照线")] public bool showRawWindupDirection;
         public bool ThrowDirectionVisible => throwDirection && throwDirection.enabled;
         public int GripCueCount { get; private set; }
         public int DwellCueCount { get; private set; }
@@ -52,7 +53,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         RpgLocomotionController movement;
         SkillEffects effects;
-        LineRenderer path, landing, progress, feet, pulse, flow, throwGrip, throwDirection;
+        LineRenderer path, landing, progress, feet, pulse, flow, throwGrip, throwDirection, rawWindupLine;
         Material pathMaterial, progressMaterial, pulseMaterial, throwMaterial;
         Transform visuals;
         AudioSource speaker;
@@ -111,7 +112,8 @@ namespace NarutoVR.SealCombat.Rpg
             pulse = Line("操作反馈扩散", pulseMaterial, .04f);
             flow = Line("路径流光", progressMaterial, .045f);
             throwGrip = Line("手边握持进度", throwMaterial, .007f);
-            throwDirection = Line("已锁定投掷方向", throwMaterial, .009f);
+            throwDirection = Line("投掷预览方向", throwMaterial, .009f);
+            rawWindupLine = Line("前送原轨迹（细线）", throwMaterial, .003f);
         }
 
         void LateUpdate()
@@ -211,6 +213,13 @@ namespace NarutoVR.SealCombat.Rpg
             bool valid = active && effects && effects.HasHeldObject && effects.ThrowInputValid;
             throwGrip.enabled = valid && showThrowGrip;
             throwDirection.enabled = valid && showThrowDirection && effects.ThrowPreviewValid;
+            rawWindupLine.enabled = throwDirection.enabled && showRawWindupDirection && effects.WindupPreview;
+            if(rawWindupLine.enabled){
+                var origin=effects.ThrowPreviewOrigin;
+                rawWindupLine.positionCount=2;
+                rawWindupLine.SetPosition(0,origin);
+                rawWindupLine.SetPosition(1,origin+effects.CurrentThrowScore.rawWindupDirection*Mathf.Clamp(throwDirectionLength,.1f,.6f));
+            }
             if (!valid) return;
             Color color = effects.ReleasePending ? releaseColor : effects.ThrowArmed ? gripReadyColor : pathColor;
             SetColor(throwMaterial, color);
@@ -329,6 +338,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (visuals) visuals.gameObject.SetActive(false);
             if (throwGrip) throwGrip.enabled = false;
             if (throwDirection) throwDirection.enabled = false;
+            if (rawWindupLine) rawWindupLine.enabled = false;
             if (speaker) speaker.Stop();
             VisibleDwellProgress = 0;
         }
