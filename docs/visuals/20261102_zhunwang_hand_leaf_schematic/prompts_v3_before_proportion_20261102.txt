@@ -1,0 +1,52 @@
+版本：V3｜原图外形基准、铜叶外露面小篆铭文与五种差异；沿用V2榫卯止退和外露拉环。04—05为已有V2图稿，尚未包含本轮铭文与外形修订。
+来源：既有规范与六槽交接；用户要求“外露面留字、每种铜叶有差别”，同意沿用五个既有名称作示意，并补充字体需类似小篆。用户贴图作为外形核对基准，保存在06_original_shape_reference.png。
+用途：设计预览与沟通示意；不是已经验证的工程图或运行时实现证明。
+执行：内置 image_gen；04综合结构图与05佩戴尺寸图的实际生成/局部编辑提示词分别见04_v2_tenon_pull_ring_generation.txt和05_v2_worn_dimensions_generation.txt。本目录01—03仍为V1历史稿，以下三张独立图提示词供后续细化使用。
+历史：首轮实际生成词见prompts_v1_generated_20261102.txt；本轮修改前的V2完整词见prompts_v2_before_inscriptions_20261102.txt。实际04/05出图词保留原文，不追改成V3。后续出图以本文件V3的外形/铭文约束优先于V2尺寸提案及历史参考。
+
+===== 三张图必须共同遵循的结构约束 =====
+1. EXACTLY SIX 独立薄片导轨仓。铜叶是细长矩形青铜范板，不是植物叶片或展开扇子。保留铜叶总长85mm（包含尾部15mm镂空拉环），前端15mm导向头＋中段55mm符铭身＋尾端15mm拉环＝85mm。22mm指板身基准宽，1.8mm指板身基础厚；双侧公滑棱局部凸出高度暂示0.8mm，不把22×1.8mm误当含滑棱的最大包络，也不标注未经核算的配合公差。
+2. 为造型紧凑，选择收短导轨仓，不加长铜叶。坐到底时，从该处外壳右端面到仓底止挡的概念插入深度约70mm，尾环段约15mm完整露在该端面之外。85＝70＋15，不能画成85mm板身再额外加15mm环。15mm为本轮概念比例，后续建模再校核。
+3. 机械示意统一导向头在画面左侧、尾环在右侧；插入由右向左，抽出由左向右。最重要：即使铜叶完全插入并锁住，尾环仍超出外壳右边界，超出的是整台匣在该处的最外轮廓，不只是内部槽口。禁止把右侧拉环画在匣内、凹槽深处、装饰边框以内，或只靠剖切透明才看得见。尾环与铜叶共面，边缘圆钝，避免巨大凸起把手破坏细长比例。
+4. 仓体右端与此处外壳同步内收，每槽右端设圆角U形避让缺口，向外敞开并局部退让上下口沿，显露拉环根部与两侧捏持面。拇指和食指可以从外侧夹住环的实体边缘，沿铜叶长轴直推直拉；不能画成封闭右端墙、挡住环的连续护边，或要求手指伸进薄仓深处。保留每仓的侧轨支撑；缺口不能把整段导轨切掉。六仓外露环与操作拨头应可辨认、彼此不穿插；用局部放大检查相邻层对捏持空间的遮挡，不以示意图宣称已经通过手部可达性验证。
+5. 锁止借鉴榫卯：沿长边设置滑动燕尾榫式公棱/母槽，约束铜叶横移和翘起；仓底止挡限定插入终点；仓口另设每仓独立的横向止退榫键，防止铜叶沿插入轴退出。不能把“燕尾导轨包住铜叶”单独当成轴向锁止，也不再使用前端定位孔加仓深处簧片的旧方案。
+6. 止退榫键是短小扁铜键，收在仓口侧框的横向导槽内，朝铜叶宽度方向移动，与插入轴垂直。铜叶70mm板身接近尾环根部的侧边设置止退榫口，位于仓口内侧、不可切断拉环连接桥；铜叶到位后，榫口与侧框横向导槽对齐。推动榫键进入榫口时，键同时搭接仓框和铜叶，形成清楚的实体止退肩；退回侧框时完全让开铜叶抽出路径。小型拨头露在仓口外侧，不藏在仓底；榫键有保留行程与端部限位，解锁后仍留在仓框内，不取下成散件。画成手指轻推的滑配合，不画成敲击木楔、强行挤入、隐藏弹簧或自动弹扣。榫键自身的抗误滑定位细节留待建模验证，不用悬浮零件掩盖缺失结构。
+7. 操作顺序明确：退榫让开 → 对准导轨 → 向左推到底 → 横推榫键合榫锁住；取出时先反向拨回榫键退榫 → 捏住外露尾环 → 向右直线抽出。拉环只用于推拉，不兼作旋拧解锁；不需要弯折铜叶或扳动整仓。朱砂按扣用于菜单交互，与机械退榫分开表达。
+8. 佩戴图将同一插入轴沿左前臂长轴布置，导向头朝肘、拉环朝腕；腕部25mm净空从包含外露拉环的最靠腕轮廓算起，避免环伸进腕横纹。机械放大图可以调整镜头，但不能翻转装配关系。菜单在匣顶上方，实体铜叶留在侧仓，不用悬浮菜单替代实体结构。
+
+9. 外形基准必须使用06_original_shape_reference.png中的准望匣，而不只是参考其材质。保留长八角平面轮廓、四角明确斜切、分层抬高边框、中央实体圆形测量度盘、度盘周围金石刻度与少量云雷边饰、侧立面朱砂圆按扣、两道紧贴前臂的短皮带。圆度盘是实体器件，不得只画成悬浮菜单；气泡管只能作为辅件，不能代替中央圆度盘；朱砂按扣不能移到顶面。避免直角长方盒/整面栅格抽屉柜取代原器物造型。更换镜头可改变透视，不能因此重做轮廓。允许为已授权的六仓、榫键、外露尾环与避让口做局部结构适配，不恢复原图中埋环、错误指环或不合理锁止。
+10. 铜叶完全收纳时，面向佩戴者且经侧仓开口可见的铜叶外露面上，必须留有清楚的名称铭文带。字刻在铜叶自身板面，不是只标在仓框/拉环旁的引线上，也不只藏在插入后不可见的内面。导轨接触面、止退榫口、尾环连接桥和指腹捏持边保持平顺；铭文字槽不得贯穿削弱薄板。若视角只能看见1.8mm薄端面，不把四字硬塞在端面上，改用能展示板面铭文的局部放大；侧仓可视窗、字高和遮挡仍需建模验证，不为展示刻字任意切断承力框架。
+11. 铜叶名称与其装饰铭文统一为接近小篆的篆体：字形纵长、圆转匀整、笔画近似等粗、章法疏朗，低对比阴刻/浅刻金石质感。强调真实可辨的字形，不能以伪汉字或随机符号替代；不使用黑体印刷贴字、发光字符或现代电路。五种共用书体与工艺。图标题、尺寸与说明保持清楚易读，铜叶小篆铭文与图外排版文字区分处理。
+12. 五种名称按用户本轮同意作为外观示意，不新增或确认战斗效果：方圆规印（同心圆＋内接方形）、勾股矩印（直角＋勾股三角线）、负衡律印（居中衡轴＋对称配重线）、平准水度（水平基准＋浅水纹）、直绳雷度（直绳中轴＋折雷纹）。每片在外露面刻其四字全名，纹样各异、密度克制；保留统一85×22×1.8mm、滑棱/榫口位置及可互换接口。尾环共用外部包络和圆钝捏持边，仅内部云雷镂空细节可呼应各片纹样；不能因类型改变拉环长度或形成割手尖角。六仓不等于六类：示意图用五片已命名铜叶＋第六备用空仓，不制造名为“备”的第六种能力。铜叶换仓后名称跟随叶片，不能只靠仓号辨认。
+
+===== 05 佩戴尺寸比例历史提案（未定稿，不可覆盖原图外形） =====
+05图曾试用匣体80×48×40mm、含环约95mm、六仓中心距5.5mm、绑带宽15mm作为建议值；其中40mm外形提案导致观感变厚，不能当作已接受的外形约束或为了凑数值画成方盒。V3保留原图外形特征，壳体长宽高与六仓层距需结合结构重新校核，当前标“待定”，不擅自声称原图能容纳全部尺寸。沿用的铜叶85/70/15mm及25mm腕部净空仍可在结构放大中标注。实际05出图词见05_v2_worn_dimensions_generation.txt，永久作为当时提案而非当前外形定稿。
+
+===== 01_zhunwang_worn_menu.png =====
+参考：D:\UnityProjects\NarutoVR\docs\visuals\protagonist_hands_model_sheet.jpg；D:\UnityProjects\NarutoVR\docs\visuals\zhunwang_xia_unified_concept.jpg
+Use case: stylized-concept / infographic-diagram. Create ONE landscape professional industrial concept sheet with three complementary views of the SAME wearable bronze instrument and restrained Chinese callouts. 《考工律度》先秦汉代工官机械幻想，克制的哑光冷铸青铜、极少氧化绿、深黛粗麻布、少量朱砂；沉静金石质感、结构可读，避免日式忍者、西式蒸汽朋克、现代智能手表、赛博霓虹、夸张光污染。参考角色以V3共用约束为准：06原图锁定准望匣外形，其余旧图只补充材料/手型；外露铭文和五种差异必须按V3执行。Concept illustration only, do not imply a fabricated object or verified engineering.
+主标题“准望匣｜佩戴与交互示意”。左侧占约60%的主图：成年男性勘律使的左手和完整前臂，五指自然放松伸展，手背朝上，尺骨背侧佩戴长八角青铜机械匣，腕横纹至包含外露尾环在内的装置最近轮廓保留明显25毫米活动空隙；双道短而紧的棕黑皮带固定在深黛粗麻布上，绝不跨手掌、腕关节和拇指根部。匣体顶面保留原图中央实体圆度盘、周围测量刻度和分层八角边框，气泡管只作辅件；边缘少量云雷纹，外侧立面可见单颗约20毫米朱砂圆按扣，禁止移到顶面。另一只 anatomically correct right hand uses index fingertip to press that button, with no interpenetration. 在匣体顶面正上方约10—15厘米出现薄而克制的青铜金线与浅玉色“方圆度盘”菜单，倾斜面向佩戴者，清楚可见其从匣顶发出的来源连线，低亮度且不遮挡手或插槽。菜单三个清晰类别标签“手印”“真言”“墨规”。
+右上局部放大：同一匣体的内侧侧壁，明确数得出的 EXACTLY SIX horizontal stacked slot mouths，左边编号1—6。第1—5仓依次装入方圆规印、勾股矩印、负衡律印、平准水度、直绳雷度，佩戴主图五片全部坐到底并合榫，尾环仍探出外壳右边界约15mm；第6仓留空显示导轨。局部教学图可将第4片半插并退榫，须与完全收纳状态分开展示。五片外露板面刻各自四字小篆感全名及对应差异纹样，铭文随叶片而非仓框，不能用引线标签替代板面刻字。六仓的右端均画圆角U形避让缺口，右端外壳向内退让，禁止留一面封闭外墙把尾环包住。画面明确以外壳最右边缘为基线，用一处尺寸线示意“尾环外露约15 mm”；轮廓线必须在实心外壳之外。所有铜叶沿自身长轴平推，共轴且没有金属穿插。用小引线指出仓口侧框里的横向止退榫键，让观者知道如何主动退榫；不要用朱砂按扣充当六仓共用解锁。右下简洁侧视小图：皮肤/麻布/双皮带分层佩戴，25mm腕部净空计入外露尾环，指环仅在左拇指和左食指各一枚。引线限于“朱砂按扣”“六联导轨仓”“尾环外露约15 mm”“仓口避让”“腕部留隙 25 mm”“方圆度盘”。中性暖灰背景、清楚的机械轮廓、柔光、博物馆器物级材质，所有手指正确、无多余手腕、无悬垂带、无装饰长刺。Rendering is concept art, callout arrows and cutaway legible, no dense paragraphs.
+
+===== 02_copper_leaf_rail.png =====
+参考：D:\UnityProjects\NarutoVR\docs\visuals\zhunwang_xia_leaf_slot.jpg
+Use case: stylized-concept / infographic-diagram. ONE landscape mechanical concept reference sheet. 《考工律度》先秦汉代工官机械幻想，克制的哑光冷铸青铜、极少氧化绿、深黛粗麻布、少量朱砂；沉静金石质感、结构可读，避免日式忍者、西式蒸汽朋克、现代智能手表、赛博霓虹、夸张光污染。参考角色以V3共用约束为准：06原图锁定准望匣外形，其余旧图只补充材料/手型；外露铭文和五种差异必须按V3执行。Concept illustration only, do not imply a fabricated object or verified engineering.
+标题“规度铜叶｜榫卯导轨与外露拉环”。严格遵守上面的共同结构约束，85mm总长包含15mm尾环，22mm板身基准宽、1.8mm板身基础厚。中段与收纳后仍可见的外露板面为接近小篆的浅刻名称铭文和各片对应几何纹样，尾环为薄而结实的圆钝云雷纹镂空环，与板身一体连接，保持细长比例。侧边止退榫口位于靠近尾环根部的板身，不在插入最深的导向头，不切断尾环连接桥。
+版式分为四个清楚的小区，不用装饰掩盖结构：
+A. 上方大幅3/4孤立视图＋下方俯视/薄侧视：整枚铜叶完整无遮挡，标“总长85 mm（含环）”“板身70 mm”“尾环15 mm”“基础厚1.8 mm”，公滑棱局部凸出0.8mm另注，不臆造槽宽公差。
+B. 左下导轨横截面：公棱被对应内凹燕尾母槽包住，颜色深浅区分铜叶/仓框，保留可读配合间隙；此图只解释导向与防翘，不用单个剖面冒充全部锁止。
+C. 右上仓口锁止放大：并排画“合榫”和“退榫”两状态的同一局部俯视剖切。合榫时短扁铜榫键从仓口侧框横向进入板身侧边榫口，跨接两者，沿轴向有实体止退肩；退榫时键退出榫口并收回侧框，其端部限位仍留在框内。两状态都要看得见外露尾环、U形缺口、横向拨头和仓框外轮廓，明确两种不同方向的动作箭头：铜叶左右平移，榫键上下横移。禁止把箭头画穿实体墙、把键画成穿过未开槽板身的实心钉，或省略侧框横向导槽。
+D. 右下六仓与抽取示意：EXACTLY SIX，编号1—6，四片已命名铜叶锁住、一片已命名铜叶半插、第六仓空置。另用一枚已坐到底的铜叶作单仓侧视，保留不透明仓体轮廓，画出仓右端的圆角U形退让、70mm插入段与越过整匣右边界的15mm尾环；不能靠透明渲染伪装外露。旁边用两步小箭头标“先退榫”“再向右抽出”，小型手指示意只夹住外露环边，不穿环、不钻入仓体。
+Callouts limited to“滑动燕尾榫”“止退榫口”“横向止退榫键”“仓口避让”“尾环外露”。Avoid metal clipping, hidden release linkages, spring snap latches, excessive gears and oversized ring handles. Keep generous framing, neutral warm gray background and fine dark technical linework. 同一铜叶与仓口结构在所有视图保持一致；06原图约束外壳轮廓，旧插槽图仅补充材质；锁止/拉环沿用V2功能，板面小篆铭文与类型差异按V3重建。
+
+===== 03_hands_reference.png =====
+参考：D:\UnityProjects\NarutoVR\docs\visuals\protagonist_hands_model_sheet.jpg
+Use case: stylized-concept. ONE landscape character hand reference sheet with clear aligned orthographic studies and three functional close-ups. 《考工律度》先秦汉代工官机械幻想，克制的哑光冷铸青铜、极少氧化绿、深黛粗麻布、少量朱砂；沉静金石质感、结构可读，避免日式忍者、西式蒸汽朋克、现代智能手表、赛博霓虹、夸张光污染。参考角色以V3共用约束为准：06原图锁定准望匣外形，其余旧图只补充材料/手型；外露铭文和五种差异必须按V3执行。Concept illustration only, do not imply a fabricated object or verified engineering.
+标题“勘律使｜手部造型示意”。遵循参考图同一个成年男性工匠手型、健康自然肤色、自然指甲、轻微常年劳动质感。深黛粗织麻布紧密交叠绑在手背外缘与前臂，指节和指尖裸露，手掌中央与腕部活动区保持灵活；同一拇指和食指各佩戴一枚窄薄哑光青铜规矩指环，浅云雷纹，绝不跨指关节，不增加其他首饰。所有绑带末端收紧压住，没有飘带、悬垂绳结或宽松袖口。
+上排三张同一左手的正交视图：掌心朝观者的掌面、手背面、拇指侧面，尺寸和姿势严格对应，手指自然伸直轻微分开，肘侧截面干净；每只手必须恰好五根手指，拇指位置解剖正确。标签“掌面”“手背”“侧面”。左前臂背侧仅以非常淡的虚线轮廓标示准望匣挂载范围，不遮挡主要手部、不要实际盖上巨型装置。下排三个顺序特写：同一右手食指伸直准备点按朱砂按扣；同一右手指腹在仓口外侧拨回小型止退榫键，标“先退榫”；同一右手拇指与食指轻捏铜叶尾环的实体边缘，沿长轴向右拉，标“再抽出”。后两幅保留一致的单仓不透明外壳局部，清楚展示右端U形避让缺口；已到底状态的尾环仍在外壳最右边界以外约15mm，手指不需要挤进薄仓，不能把“半抽出的环”当作“已收纳时也可捏住”的证明。余下三指自然弯曲，不穿环、不穿金属，不画一只手同时完成互相冲突的拨键与拉环姿势。手型有骨骼结构与足够体积，非机械手、非忍者手套，手掌不能反折。使用自然柔光、中性暖灰棚拍背景、简洁深灰引线，皮肤和粗麻布细节清楚但不是脏污伤痕展示。保持参考图的美术语言，并消除原图文字乱码；仅少量准确中文标签，没有虚构8K技术标记或骨骼技术认证。
+
+
+===== 对旧图进行局部编辑时的V3补充提示词（连同共用约束使用） =====
+Preserve the bronze material language, floating menu, two straps, correct anatomy and exactly six numbered bays. Rebuild the leaf storage and locking details according to V2. Keep the leaf total length 85 mm INCLUDING its 15 mm tail loop; shorten the local housing to an approximately 70 mm insertion depth. In the fully seated AND locked state, the complete tail-loop segment projects about 15 mm beyond the OUTERMOST RIGHT SILHOUETTE of the opaque device housing, not merely beyond an internal slot mouth. Cut an outward-open, round-cornered U-shaped finger-access relief in the right end of EACH bay and recess the adjacent casing lips so a thumb and index finger can pinch the exposed loop from outside. Do not enclose the loops behind a continuous right wall or ornamental rim. Use sliding dovetail rails for guidance plus a separate captive transverse bronze locking key near each bay mouth; show this key entering a matching notch in the leaf body just before the loop, and withdrawing fully clear before the leaf slides out. Remove the old deep front locating-hole spring latch. Head left, loop right, insert right-to-left, withdraw left-to-right; the locking key moves across that axis. Include a seated-state silhouette inset and a locked/unlocked detail. Keep 25 mm clear of the wrist measured from the nearest projection INCLUDING the exposed loop. This changes the concept mechanism; it is not proof of a fabricated or tested assembly.
+
+V3 appearance and inscription override: Treat 06_original_shape_reference.png as the SHAPE baseline, not only a material reference. Preserve its elongated clipped-eight-corner silhouette, layered raised bezel, central PHYSICAL CIRCULAR instrument dial and SIDE-FACE cinnabar button; no rectangular drawer cabinet, bubble-tube-only top or button moved onto the top. Keep the dovetail guidance, captive transverse retaining key, right-end reliefs and external seated pull loops required above. Do not force the unapproved 80x48x40 exterior or 5.5 pitch onto this silhouette; mark casing dimensions and pitch as pending reconciliation. Engrave the outward-facing exposed surface of each copper leaf itself with its exact four-character title using a coherent SMALL-SEAL-LIKE script (slender elongated glyphs, even rounded strokes, balanced spacing, shallow bronze inscription), not printed sans-serif labels or random pseudo-characters. Titles: 方圆规印, 勾股矩印, 负衡律印, 平准水度, 直绳雷度. Give these five leaves respectively circle-square, right-triangle, balanced-beam, level-wave and straight-line/thunder motifs, while keeping identical insertable dimensions, guide ridges, tail-loop exterior envelope and locking interface. Five named leaves plus one empty spare bay, not six new abilities. Keep naming panels visible when seated through appropriate camera close-ups; no need to pull a leaf out just to read its identity. Do not crowd four characters onto a 1.8mm edge or engrave rail contact/locking/pinch surfaces. Dimension labels and explanatory captions remain readily readable, separate from the small-seal-style inscriptions. The names and motifs are visual mockup choices, not new combat effects.

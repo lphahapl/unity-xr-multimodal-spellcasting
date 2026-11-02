@@ -113,11 +113,15 @@ namespace NarutoVR.SealCombat.Rpg
                 skills.GestureInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
                 skills.VoiceInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
                 skills.ExclusiveInputBlocked = () => UiInputOwned;
+                skills.VoiceOwnershipDetail = () => UiInputOwned ? "腕部界面：" + wristMenu.OwnershipReason :
+                    !CanAct ? (Player != null && !Player.Alive ? "角色已倒下" : "角色当前不能行动") : "节点移动占用输入";
                 skills.CancelOverride = CancelCasting;
                 skills.DeferVoiceUntilLateUpdate = true;
                 skills.effects.GameClock = () => GameTime;
                 skills.effects.ThrowGripProvider = (left, settings) => ReadThrowGrip(left, settings, Time.realtimeSinceStartupAsDouble);
                 locomotion.GameClock = () => GameTime;
+                locomotion.encounterModesEnabled = true;
+                skills.effects.ProjectileLaunched += OnProjectileLaunched;
                 locomotion.CancelRequested += CancelCasting;
                 locomotion.Moved += OnMoved;
                 initialized = true;
@@ -147,11 +151,7 @@ namespace NarutoVR.SealCombat.Rpg
             var frame = ReadNavigationFrame(Time.realtimeSinceStartupAsDouble);
             if (wristMenu && wristMenu.isActiveAndEnabled)
                 UpdateWristUi(frame,ReadWristMenuFrame(frame),!CanAct || skills.effects.HasHeldObject,Time.realtimeSinceStartupAsDouble);
-            if (UiInputOwned != wasUi)
-            {
-                skills.CancelInputOnly(); skills.InvalidateEarlierVoice(); locomotion.ResetInput();
-                wasUi = UiInputOwned;
-            }
+            else SyncWristOwnership(); // A menu disabled while active also returns gameplay ownership.
             // Skip the whole locomotion recognizer: its low-hands cancellation runs before blockActions.
             if (!UiInputOwned) locomotion.ProcessInput(frame, skills.effects.HasRightHeldObject && !skills.effects.HasRightThrowObject, !CanAct, Time.realtimeSinceStartupAsDouble);
             bool navigating = locomotion.NavigationActive;
@@ -164,20 +164,33 @@ namespace NarutoVR.SealCombat.Rpg
             skills.effects.ThrowInputSuppressed = !CanAct || UiInputOwned || (locomotion.SealProtectionActive && !skills.effects.HasHeldObject);
             if (CanAct && !CampaignComplete && targets.Length > 0 && targets.All(t => t && t.IsDefeated))
             {
-                if (completedSince < 0) completedSince = GameTime;
+                if (completedSince < 0) { completedSince = GameTime; SetEncounterCombat(false); }
                 if (autoAdvanceStages && GameTime - completedSince >= stageDelay) TryAdvanceStage();
             }
             else completedSince = -1;
         }
 
-        // Explicit UI intent may cancel an uncommitted navigation dwell, never a held spell.
+        // Let a confirmed wrist press interrupt pending navigation, never a held spell.
+        // The tap observer still receives approach samples so contact can be confirmed without
+        // reserving input in advance; all resets belong to the actual ownership transition.
         public void UpdateWristUi(NavigationHandInput frame,WristMenuInput ui,bool hardBlocked,double now)
         {
-            bool reserve=wristMenu.PrepareWristTap(ui,hardBlocked,now);
-            if(reserve && !UiInputOwned) locomotion.ResetInput();
-            bool sealBusy=!reserve && !UiInputOwned && !wristMenu.PanelOpen && !wristMenu.State.LauncherOpen && (locomotion.SealProtectionActive ||
+            bool confirmed=wristMenu.PrepareWristTap(ui,hardBlocked,now);
+            bool sealBusy=!confirmed && !UiInputOwned && !wristMenu.PanelOpen && !wristMenu.State.LauncherOpen && (locomotion.SealProtectionActive ||
                 (frame.leftValid && frame.rightValid && Vector3.Distance(frame.leftWrist,frame.rightWrist)<locomotion.gestures.sealEnterDistance));
-            wristMenu.Tick(ui,this,hardBlocked || (!reserve && locomotion.NavigationActive) || sealBusy,now);
+            string blocked = hardBlocked ? (skills && skills.effects && skills.effects.HasHeldObject ? "手上有持有物" : "角色当前不能行动") :
+                !confirmed && locomotion.NavigationActive ? "导航操作中" : sealBusy ? "双手处于结印保护范围" : null;
+            wristMenu.Tick(ui,this,blocked!=null,now,blocked);
+            SyncWristOwnership();
+        }
+
+        void SyncWristOwnership()
+        {
+            bool owns=UiInputOwned;
+            if(owns==wasUi)return;
+            wasUi=owns;
+            if(skills){skills.CancelInputOnly();skills.InvalidateEarlierVoice();}
+            locomotion.ResetInput();
         }
 
         public bool DebugCast(string skillId) => TryActivate(skills ? skills.ConfiguredSkills.FirstOrDefault(s => s && s.skillId == skillId) : null);
@@ -212,7 +225,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!CanAct) return Reject("死亡或暂停时不能移动");
             if (UiInputOwned) return Reject("正在操作教学界面，暂不接收移动命令");
-            if (dodge && (skills.effects.HasRightThrowObject || (direction.y > 0 && skills.effects.HasRightHeldObject)))
+            if (dodge && (skills.effects.HasRightHeldObject))
                 return Reject("右手持球动作由投射物优先处理；先投掷或取消再闪避");
             return dodge ? locomotion.TryDebugDodge(direction, Time.realtimeSinceStartupAsDouble) :
                 locomotion.TryDebugStep(direction, Time.realtimeSinceStartupAsDouble);
@@ -285,13 +298,21 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 StageIndex++; ApplyStage();
             }
-            else HazardsEnabled = false;
+            else { HazardsEnabled = false; SetEncounterCombat(false); }
             SaveCheckpoint();
             Status = (CampaignComplete ? "全部线性试炼完成" : "进入「" + StageName + "」") + $"；获得 {stage.rewardCurrency} 货币" +
                 (Status.StartsWith("检查点已保存", StringComparison.Ordinal) ? "；进度已保存" : "；" + Status);
             return true;
         }
 
+        // Encounter transitions are explicit; the hazard training switch is independent.
+        public void SetEncounterCombat(bool combat)
+        {
+            if (!initialized || !locomotion || locomotion.EncounterCombat == combat) return;
+            locomotion.SetEncounterCombat(combat);
+            skills.TraceCast("locomotion_mode",combat ? "进入战斗" : "进入探索");
+        }
+        void OnProjectileLaunched() => locomotion.NotifyProjectileLaunched(Time.realtimeSinceStartupAsDouble);
         public void ToggleHazards() { if (initialized) { HazardsEnabled = !HazardsEnabled; Status = HazardsEnabled ? "攻击预警已开启" : "攻击预警已关闭"; } }
         public bool PurchaseHiddenSkill()
         {
@@ -309,6 +330,7 @@ namespace NarutoVR.SealCombat.Rpg
         void ApplyStage()
         {
             foreach (var target in targets) { target.health = stages[StageIndex].targetHealth; target.resetAfterSeconds = 0; target.ResetTarget(); }
+            SetEncounterCombat(!CampaignComplete && stages[StageIndex].startsInCombat);
             HazardsEnabled = !CampaignComplete && stages[StageIndex].enableHazards; completedSince = -1;
         }
         void SelectStageFromProgress() { StageIndex = Array.FindIndex(stages, s => !Progress.completedStageIds.Contains(s.stageId)); if (StageIndex < 0) StageIndex = stages.Length - 1; }
@@ -320,7 +342,7 @@ namespace NarutoVR.SealCombat.Rpg
         void OnMoved(Vector3 delta)
         {
             if (!skills) return;
-            if (wristMenu) wristMenu.ResetForWorldChange();
+            if (wristMenu && !locomotion.ContinuousMotionActive) wristMenu.ResetForWorldChange();
             skills.CancelInputOnly();
             if (skills.effects) skills.effects.ResetPushInput();
         }
@@ -527,10 +549,10 @@ namespace NarutoVR.SealCombat.Rpg
                 skills.enabled = false;
                 skills.ActivationOverride = null; skills.GestureInputBlocked = null; skills.VoiceInputBlocked = null; skills.CancelOverride = null;
                 if (ReferenceEquals(skills.ActivationPolicy,this)) skills.ActivationPolicy = null;
-                skills.ExclusiveInputBlocked = null;
+                skills.ExclusiveInputBlocked = null; skills.VoiceOwnershipDetail = null;
                 skills.DeferVoiceUntilLateUpdate = false;
                 if (originalCatalog) skills.catalog = originalCatalog;
-                if (skills.effects) { skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; }
+                if (skills.effects) { skills.effects.ProjectileLaunched -= OnProjectileLaunched; skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; }
             }
             foreach (var asset in ownedAssets) if (asset) Destroy(asset);
         }

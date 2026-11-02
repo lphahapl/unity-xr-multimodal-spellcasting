@@ -42,6 +42,7 @@ namespace NarutoVR.SealCombat.Editor
             // One-frame hand-shape noise pauses, but contributes no positive hold evidence.
             state.Reset(false);
             Tick(2); Tick(2.05); Tick(2.10);
+            Check(!state.OwnsInput,"旧版抬腕保持未完成时也不能抢占战斗");
             float before=state.OpenProgress;
             Tick(2.15,closed:false); Tick(2.20);
             Check(Mathf.Abs(before-state.OpenProgress)<.0001f && !state.LauncherOpen,"短暂手形波动保留进度但不得计入保持时间");

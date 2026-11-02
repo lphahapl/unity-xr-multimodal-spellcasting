@@ -94,13 +94,55 @@ namespace NarutoVR.SealCombat.Editor
             { f.Emit(0); f.Version--; f.Emit(.08); Equal(0, f.Activations); }); passed++;
             Check("长保持只激活一次", SkillTriggerMode.GestureOnly, f =>
             { f.Hold(0); for (int i = 6; i <= 220; i++) f.Emit(i * .02); Equal(1, f.Activations); }); passed++;
-            Check("组合保持超过10秒仍能新念咒一次", SkillTriggerMode.VoiceAndGesture, f =>
+            Check("长时间持续保持只响应不同的新口令", SkillTriggerMode.VoiceAndGesture, f =>
             {
                 for (int i = 0; i <= 650; i++) f.Emit(i * .02);
                 f.Voice(13, 13.01); Equal(1, f.Activations);
+                f.Voice(13, 13.02); Equal(1, f.Activations);
                 for (int i = 651; i <= 1300; i++) f.Emit(i * .02);
-                f.Voice(26, 26.01); Equal(1, f.Activations);
+                Equal(1, f.Activations); f.Voice(26, 26.01); Equal(2, f.Activations);
             }, s => s.cooldownSeconds = 0); passed++;
+            Check("组合新口令先到也须等待连续一秒的同印", SkillTriggerMode.VoiceAndGesture, f =>
+            {
+                f.Hold(0); f.Voice(.1,.1);
+                for(int i=6;i<=30;i++)f.Emit(i*.02);
+                f.Voice(.6,.6);Equal(1,f.Activations);
+                True(f.Engine.ObservationDiagnostics.Contains("重备剩余 0.50"),"应显示当前重备倒计时");
+                for(int i=31;i<55;i++)f.Emit(i*.02);
+                Equal(1,f.Activations);f.Emit(1.1);Equal(2,f.Activations);
+                f.Voice(.6,1.11);for(int i=56;i<=115;i++)f.Emit(i*.02);
+                Equal(2,f.Activations);
+            },s=>s.cooldownSeconds=0);passed++;
+            Check("组合重备被遮挡、歧义和断帧打断", SkillTriggerMode.VoiceAndGesture,f=>
+            {
+                f.Hold(0);f.Voice(.1,.1);f.Voice(.12,.12);
+                for(int i=6;i<=40;i++)f.Emit(i*.02);
+                f.Emit(.82,.9f,false);
+                for(int i=42;i<=76;i++)f.Emit(i*.02);
+                f.Emit(1.54,.9f,true,1,.89f);
+                for(int i=78;i<=112;i++)f.Emit(i*.02);
+                for(int i=125;i<175;i++)f.Emit(i*.02); // gap at 2.50; no time during the gap counts.
+                Equal(1,f.Activations);f.Emit(3.5);Equal(2,f.Activations);
+            },s=>s.cooldownSeconds=0);passed++;
+            Check("取消清旧词而持续有效的新样本可重新就绪",SkillTriggerMode.VoiceAndGesture,f=>
+            {
+                f.Hold(0);f.Voice(.1,.1);
+                for(int i=6;i<=45;i++)f.Emit(i*.02);
+                f.Engine.Cancel(.91);f.Voice(.90,.92);
+                for(int i=47;i<=97;i++)f.Emit(i*.02);
+                Equal(1,f.Activations);f.Voice(.90,1.95);Equal(1,f.Activations);
+                f.Voice(1.96,1.96);Equal(2,f.Activations);
+            },s=>s.cooldownSeconds=0);passed++;
+            Check("持有物暂停并重置同印重备，松手后按配置计时",SkillTriggerMode.VoiceAndGesture,f=>
+            {
+                f.Hold(0);f.Voice(.1,.1);
+                for(int i=6;i<=15;i++)f.Emit(i*.02);
+                for(int i=16;i<=70;i++)f.Emit(i*.02,occupied:true);
+                True(f.Engine.ObservationDiagnostics.Contains("重备暂停"),"持有期间应说明暂停原因");
+                f.Voice(1.4,1.4);
+                for(int i=71;i<96;i++)f.Emit(i*.02);
+                Equal(1,f.Activations);f.Emit(1.92);Equal(2,f.Activations);
+            },s=>s.cooldownSeconds=0,new SkillMatchSettings{comboHeldRearmSeconds=.5f});passed++;
             Check("长保持恢复需重新完成保持才能滚动", SkillTriggerMode.VoiceAndGesture, f =>
             {
                 f.Hold(0); f.Emit(.2, .9f, false); f.Engine.Tick(11);
@@ -239,9 +281,9 @@ namespace NarutoVR.SealCombat.Editor
             engine.Tick(3); engine.Voice("护盾术", 3, 3); Equal(2, attempts);
         }
 
-        private static void Check(string name, SkillTriggerMode mode, Action<Fixture> action, Action<SkillDefinition> configure = null)
+        private static void Check(string name, SkillTriggerMode mode, Action<Fixture> action, Action<SkillDefinition> configure = null, SkillMatchSettings settings = null)
         {
-            using var fixture = new Fixture(mode, configure);
+            using var fixture = new Fixture(mode, configure, settings);
             try { action(fixture); }
             catch (Exception ex) { throw new InvalidOperationException("核心回归失败：" + name + "。" + ex.Message, ex); }
         }
@@ -257,11 +299,11 @@ namespace NarutoVR.SealCombat.Editor
             public int Version, Activations, Attempts;
             public bool Succeed = true;
             public List<SealScore> LastScores;
-            public Fixture(SkillTriggerMode mode, Action<SkillDefinition> configure = null)
+            public Fixture(SkillTriggerMode mode, Action<SkillDefinition> configure = null, SkillMatchSettings settings = null)
             {
                 Target = Profile("寅"); Competitor = Profile("子"); Other = Profile("丑");
                 Skill = MakeSkill("fire", "火球", mode, "火球术", "寅"); configure?.Invoke(Skill);
-                Engine = new SkillMatchEngine(new[] { Skill });
+                Engine = new SkillMatchEngine(new[] { Skill }, settings);
                 Engine.TryActivate = _ => { Attempts++; if (Succeed) Activations++; return Succeed; }; Engine.Tick(0);
             }
             public SkillDefinition MakeSkill(string id, string display, SkillTriggerMode mode, string phrase, string seal)
@@ -295,10 +337,10 @@ namespace NarutoVR.SealCombat.Editor
                     right = new HandSnapshot { version = version, connected = tracked, tracked = tracked, fresh = tracked, observedAt = time - skew, highConfidence = true }
                 };
             }
-            public SealFrame Emit(double time, float score = .9f, bool tracked = true, float coverage = 1, float competitor = .1f, double skew = 0, bool confidence = true, bool suppress = false)
+            public SealFrame Emit(double time, float score = .9f, bool tracked = true, float coverage = 1, float competitor = .1f, double skew = 0, bool confidence = true, bool suppress = false, bool occupied = false)
             {
                 Engine.Tick(time); var frame = Frame(time, tracked, skew); LastScores = Scores(score, coverage, competitor, confidence);
-                Engine.Observe(frame, LastScores, suppress); return frame;
+                Engine.Observe(frame, LastScores, suppress, occupied); return frame;
             }
             public void EmitMissing(double time)
             {

@@ -85,6 +85,8 @@ namespace NarutoVR.SealCombat.Editor
                     double t=11+i*.05; f=Sample(t); f.leftWrist.y=.9f;
                     f.rightPointing=f.rayValid=true; f.rayOrigin=panel.position-panel.forward*.5f; f.rayDirection=panel.forward;
                     f.pinchDistance=i==1?.015f:.06f; menu.Tick(f,rpg,false,t);
+                    if(i==0)Check(!menu.OwnsInput && menu.OwnershipReason.Contains("悬停"),"保留教学卡上射线高亮不独占输入");
+                    if(i==1)Check(menu.OwnsInput && menu.OwnershipReason.Contains("捏合"),"对稳定按钮实际捏合时才独占输入");
                 }
                 Check(menu.Page==1 && menu.PanelOpen,"保留面板可射线捏合翻页");
                 int beforeLostPinch=menu.ClickCount;

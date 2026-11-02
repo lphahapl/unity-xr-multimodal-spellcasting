@@ -12,9 +12,20 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("移开或放松后重备时间（秒）"), Min(.05f)] public float releaseSeconds = .12f;
         [InspectorName("节点射线命中半径（米）"), Min(.05f)] public float hitRadius = .35f;
         [InspectorName("换点评分滞后"), Range(0,.2f)] public float switchAdvantage = .04f;
+        [Header("战斗选点（头显主选，手指微调）")]
+        [InspectorName("头显视线权重"), Min(0)] public float combatGazeWeight = .60f;
+        [InspectorName("左食指方向权重"), Min(0)] public float combatHandWeight = .30f;
+        [InspectorName("近距离权重"), Min(0)] public float combatDistanceWeight = .10f;
+        [InspectorName("候选半角（度）"), Range(5,85), Tooltip("节点在头显或手指任一有效方向的半角内即可入围。")]
+        public float combatCandidateAngle = 50;
+        public bool CombatScoringValid => Nonnegative(combatGazeWeight) && Nonnegative(combatHandWeight) &&
+            Nonnegative(combatDistanceWeight) && Positive(combatGazeWeight + combatHandWeight) &&
+            float.IsFinite(combatGazeWeight + combatHandWeight + combatDistanceWeight) &&
+            float.IsFinite(combatCandidateAngle) && combatCandidateAngle >= 5 && combatCandidateAngle <= 85;
         public bool Valid => Positive(readySeconds) && Positive(dwellSeconds) && Positive(releaseSeconds) &&
             Positive(hitRadius) && float.IsFinite(switchAdvantage) && switchAdvantage >= 0 && switchAdvantage <= .2f;
         static bool Positive(float value) => float.IsFinite(value) && value > 0;
+        static bool Nonnegative(float value) => float.IsFinite(value) && value >= 0;
     }
 
     /// <summary>Only distinct fresh hand samples advance dwell. Loss cancels progress, never rearms a spent gesture.</summary>

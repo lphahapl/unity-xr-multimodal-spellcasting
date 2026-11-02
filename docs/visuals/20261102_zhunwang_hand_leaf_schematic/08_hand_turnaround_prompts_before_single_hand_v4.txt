@@ -1,0 +1,61 @@
+# 《考工律度》勘律使主角手模标准8面视图提示词全案 (V3.3)
+# 对应需求：顶图、左45°图、右45°图、正视图、左视图、右视图、背图、下图
+# 生成环境：内置 image_gen / batch-art-assets (ChatGPT)
+# 验收标准：纯正交无透视畸变、纯纯单色中性灰背景(#808080)、零文字、零标注、零水印、零外物
+
+===== 全局共享形体与材质约束 (Shared Structural Anchors) =====
+1. 骨骼与尺寸基准：骨架以本项目选用Meta/OpenXR SDK模板映射为准；标准26个手部关节点不规定统一毫米手长。本项目绘图参照为手长185mm（腕横纹至最长中指尖）、掌宽82mm、挂载处前臂宽约68-70mm，尚未从本地SDK FBX实测。可见前臂腕后150mm为本项目方案，平滑麻布收口；前臂/IK驱动仍须验证，不能仅凭截断长度保证无扭曲。
+2. 角色身份与肌理：成年男性先秦工官/勘律使双手，自然健康工匠肤色，指甲平整自然，肌腱与骨骼体积严谨扎实，轻微常年制器劳作质感，绝非机械仿生手、非日式忍者护手、非赛博义体。
+3. 包覆与绑带：深黛（深炭灰/靛青黑）粗织麻布紧密交叠绑在前臂与手背外缘，贴合肌肉轮廓，完全平顺收束；严禁飘带、悬垂绳结、绑带虚浮或宽松袖口。
+4. 指环细节：仅同一左手与右手的拇指、食指末节（指尖裸露）佩戴一枚窄薄哑光冷铸青铜“规矩指环”，表面阴刻浅细云雷纹，绝不跨越指骨关节；其余指节紧密包裹或自然活动，严禁额外佩戴多余首饰。
+5. 准望匣挂载示意：左前臂尺骨背侧仅以极淡的细虚线轮廓示意准望匣挂载区（距腕横纹严格保留 25mm 净空），严禁在图中渲染实体青铜重盒，确保手部与前臂 3D 轮廓 100% 清晰可见无遮挡。
+6. 渲染与背景：标准游戏 3D 资产建模多角度参考图（Turnaround Model Sheet），柔和中性漫射工作室布光。纯单色中性中度灰背景（#808080），完全平整无渐变、无投影、无地面、无阴影。
+7. 绝对负面提示（STRICT NEGATIVE）：严禁任何中英文字、严禁标签/标注/引线/箭头/尺寸数字、严禁水印/LOGO、严禁多余漂浮物体、严禁背景阴影、严禁多指或少指畸变（每只手必须且仅有五指）。
+
+============================================================
+视图一：顶图 (Top / Dorsal Plan View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic top-down plan view concept art model sheet of a pair of first-person VR game character hands and forearms, symmetrical composition, viewed directly from above looking down at the dorsal side (back of hands). Adult male ancient Chinese craftsman/engineer hands with realistic anatomical proportions (185mm hand length from wrist to middle fingertip, 82mm palm width, 68mm forearm width). Both hands positioned naturally flat, fingers extended straight forward and slightly parted in a relaxed neutral pose, forearms cleanly truncated at 150mm from wrists extending downward. Forearms and outer edges of dorsal hands are tightly wrapped in dark charcoal-grey coarse woven linen cloth bandages, neat and flat silhouette with NO dangling ribbons, NO cords, NO loose sleeves. Distal phalanges of thumbs and index fingers are exposed, each wearing a thin, matte cold-cast bronze measurement ring featuring faint, subtle cloud-thunder tally engravings (云雷纹). A very faint, subtle light-grey dotted outline on the dorsal left forearm indicates the 25mm-cleared Zhunwang Xia mounting zone (do NOT render any actual physical device). Crisp studio diffuse lighting, completely flat solid neutral medium grey background (#808080), zero background shadows, pure orthographic projection without perspective foreshortening. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimension numbers, NO watermarks, NO extra objects."
+
+============================================================
+视图二：左45°图 (Left 3/4 Oblique View)
+============================================================
+英文生成提示词 (Prompt):
+"Three-quarter left angled perspective (45-degree oblique view) concept art model sheet of a pair of first-person VR game character hands and forearms. Camera positioned at front-left 45 degrees, looking down at an angle showing the radial lateral profile of the left hand and the volumetric depth of both hands. Adult male ancient Chinese craftsman hands with realistic anatomical proportions (185mm hand length, 82mm palm width). Five fingers naturally relaxed and extended forward, forearms truncated at 150mm from wrists. Forearms and dorsal hands neatly wrapped in dark charcoal-grey coarse woven linen cloth, smooth tight wrap without loose fabric. Exposed thumbs and index fingers wearing thin matte bronze rings with faint cloud-thunder engravings. Clean 3D game asset turnaround presentation, neutral studio lighting showcasing muscular form, depth, and linen fabric weave. Pure solid neutral medium grey background (#808080), zero ground plane, zero background shadows. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图三：右45°图 (Right 3/4 Oblique View)
+============================================================
+英文生成提示词 (Prompt):
+"Three-quarter right angled perspective (45-degree oblique view) concept art model sheet of a pair of first-person VR game character hands and forearms. Camera positioned at front-right 45 degrees, looking down at an angle displaying the radial lateral profile of the right hand and medial profile of the left hand. Adult male ancient Chinese craftsman hands with realistic anatomical proportions (185mm hand length, 82mm palm width). Five fingers naturally relaxed and extended forward, forearms truncated at 150mm from wrists. Forearms and dorsal hands wrapped tightly in dark charcoal-grey coarse woven linen bandages, clean silhouette without any dangling ribbons or loose cords. Exposed thumbs and index fingers wearing thin matte bronze measurement rings with subtle cloud-thunder etchings. Clean production 3D asset turnaround style, neutral studio diffuse lighting. Pure solid neutral medium grey background (#808080), flat, zero shadows, no floor. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图四：正视图 / 掌心面 (Front / Anterior Palm View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic direct front view concept art model sheet of a pair of first-person VR game character hands and forearms, symmetrical composition, palms facing directly forward at the camera, fingers pointing straight upward, forearms extending vertically downward. Adult male ancient Chinese craftsman hands with realistic anatomical proportions (185mm hand length from wrist crease to middle fingertip, 82mm palm width). Natural skin texture, thenar and hypothenar palm muscles, lifelike palm creases, neatly trimmed natural fingernails visible on thumbs. Wrists and forearms tightly bound in dark charcoal-grey coarse woven linen cloth bandages, truncated cleanly at 150mm from wrists. Palm surface and wrist flexion area remain flexible and clear of bulky wraps. Exposed thumbs and index fingers wear thin matte cold-cast bronze rings with subtle cloud-thunder engravings. Completely flat orthographic projection, no perspective distortion, studio diffuse lighting. Pure solid neutral medium grey background (#808080), zero shadows on background. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimension numbers, NO watermarks."
+
+============================================================
+视图五：左视图 / 侧立面 (Left Profile / Lateral View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic left side profile view concept art model sheet of a first-person VR game character hand and forearm. Horizontal orientation, viewing the lateral side (thumb side / radial profile) of the left hand and forearm from the exact 90-degree left side. Realistic anatomical proportions of an adult male craftsman hand (185mm total length, 150mm truncated forearm). Clearly displaying the natural curvature of the hand, the arch of the thumb, the web space between thumb and index finger, and the profile thickness of the matte bronze measurement ring. Forearm tightly bound in dark charcoal-grey coarse linen bandages with smooth 150mm truncation. Pure flat orthographic projection with zero perspective foreshortening. Neutral studio diffuse lighting, solid flat neutral medium grey background (#808080), zero background shadows. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图六：右视图 / 侧立面 (Right Profile / Medial-Lateral View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic right side profile view concept art model sheet of a first-person VR game character hand and forearm. Horizontal orientation, viewing the lateral side of the right hand and forearm from the exact 90-degree right side. Adult male craftsman hand with realistic anatomical proportions (185mm length, 150mm truncated forearm). Displaying the natural relaxed curvature of the fingers, thumb knuckle profile, and forearm thickness. Forearm and wrist tightly bound in dark charcoal-grey coarse linen bandages, smooth clean cuff at 150mm. Exposed thumb and index finger wearing thin matte bronze rings with faint cloud-thunder engravings. Pure flat orthographic projection, no perspective distortion, neutral studio diffuse lighting. Pure solid flat neutral medium grey background (#808080), zero shadows, no floor. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图七：背图 / 手背面 (Back / Posterior Dorsal View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic direct rear/back view concept art model sheet of a pair of first-person VR game character hands and forearms, symmetrical composition, dorsal side (back of hands) facing directly at the camera, fingers pointing straight upward, forearms extending vertically downward. Adult male ancient Chinese craftsman hands with realistic anatomical proportions (185mm hand length, 82mm palm width). Visible dorsal hand veins, knuckles, and healthy natural fingernails on all five fingers. Forearms and outer dorsal hands wrapped in dark charcoal-grey coarse woven linen cloth bandages, smooth 150mm truncation. Exposed distal phalanges of thumbs and index fingers wear thin matte cold-cast bronze measurement rings with subtle cloud-thunder engravings. On the dorsal left forearm, a faint, subtle light-grey dotted outline marks the Zhunwang Xia mounting zone (25mm above wrist crease, no heavy device rendered). Pure flat orthographic projection, no perspective foreshortening, studio diffuse lighting. Pure solid flat neutral medium grey background (#808080), zero background shadows. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimension numbers, NO watermarks."
+
+============================================================
+视图八：下图 / 底视图 (Bottom / Inferior Underside View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic bottom-up inferior view concept art model sheet of a pair of first-person VR game character hands and forearms, viewed from directly below looking along the longitudinal axis of the forearms toward the fingertips, or looking straight up at the underside of the relaxed cupped hands. Realistic anatomical proportions of an adult male craftsman. Shows the transverse arch of the palms, cross-sectional oval profile of the 150mm linen-wrapped forearms, and the underside curvature of the fingers. Neutral studio lighting highlighting volumetric cross-section and linen layer thickness. Completely flat orthographic projection, no perspective distortion. Pure solid neutral medium grey background (#808080), zero background shadows, no ground plane. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."

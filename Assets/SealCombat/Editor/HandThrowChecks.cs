@@ -155,9 +155,11 @@ namespace NarutoVR.SealCombat.Editor
                     hand=origin + Vector3.up*(t*1.8f); closed=t<.13f;
                     yield return null;
                 }
-                Require(effect.LaunchCount==1 && !effect.HasHeldObject && Vector3.Dot(effect.LastLaunchDirection,Vector3.up)>.98f,
-                    "实际握持松手应向上飞出，不能用头向right瞄准；" + effect.ThrowStatus + "；记录见Logs/throw-probe.jsonl");
-                record("实际LateUpdate投掷：静止松手不发射，重新握持上甩松手只发射一次，方向与头向无关");
+                Vector3 gaze=(effect.GetAimPoint()-effect.LastLaunchPosition).normalized;
+                Require(effect.LaunchCount==1 && !effect.HasHeldObject && Vector3.Dot(effect.LastLaunchDirection,gaze)>.99999f &&
+                    Vector3.Dot(effect.LastLaunchDirection,Vector3.right)>.98f,
+                    "上甩松手只负责触发，火球应从手边飞向头显右方准星；" + effect.ThrowStatus);
+                record("实际LateUpdate投掷：静止松手不发射，重新握持上甩松手只发一次，沿头显准星飞行");
                 hand=origin; closed=true; bool open=false;
                 int secondTraceStart=trace.Count;
                 effect.ThrowGripProvider = (_,__) => { var sample=Grip(observedTime,closed); sample.fistOpen=open; return sample; };
@@ -170,14 +172,14 @@ namespace NarutoVR.SealCombat.Editor
                     hand=origin+Vector3.forward*(t<=.15f ? t*2 : .3f-(t-.15f)*2);
                     yield return null;
                 }
-                Require(effect.LaunchCount==2 && Vector3.Dot(effect.LastLaunchDirection,Vector3.forward)>.98f,
-                    "实际LateUpdate延迟Open不能让收手轨迹反向发射");
-                record("实际LateUpdate延迟张掌：先向前甩后收手，确认Open后仍沿冻结的前向轨迹发射");
+                Require(effect.LaunchCount==2 && Vector3.Dot(effect.LastLaunchDirection,(effect.GetAimPoint()-effect.LastLaunchPosition).normalized)>.99999f,
+                    "延迟Open确认时收手不能把弹道从准星改成回收方向");
+                record("实际LateUpdate延迟张掌：先向前甩后收手，确认Open后仍沿头显准星发射");
                 var secondRelease=trace.GetRange(secondTraceStart,trace.Count-secondTraceStart).Find(o=>o.pending&&o.estimate.accepted);
                 Require(Vector3.Distance(effect.LastLaunchPosition,secondRelease.releaseOrigin)<.002f &&
                     Vector3.Distance(effect.LastLaunchPosition,hand+rotation*definition.throwLocalOffset)>.05f,
                     "确认前已经收手时必须从冻结释放点发射，不从回收后的手位跳出");
-                record("投掷原点与速度同候选冻结：收手不会拖走发射点");
+                record("投掷候选冻结出手点：收手不会拖走发射点");
 
                 effect.ClearAll(); hand=origin;closed=true;open=false;effect.hitLayers=1<<30;
                 GameObject obstacle=null;

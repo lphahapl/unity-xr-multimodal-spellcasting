@@ -135,7 +135,7 @@ namespace NarutoVR.SealCombat
                 releaseOnset = releasedSince = double.NaN; pendingVelocity = Vector3.zero;
                 ReleaseProgress = 0;
                 PreviewEstimate = armed ? Fit(input.observed) : default;
-                Status = armed ? "已握住：甩手并松开，按手的运动方向发射" : "确认握持中";
+                Status = armed ? "已握住：甩手并松开，沿头向预测线发射" : "确认握持中";
                 return Vector3.zero;
             }
             if (!armed) { Reset(); return Vector3.zero; }

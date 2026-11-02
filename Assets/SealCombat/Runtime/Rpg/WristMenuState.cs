@@ -22,7 +22,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("腕饰相对腕骨偏移（米）")] public Vector3 decorationOffset;
         [InspectorName("接触半径（米）"), Range(.025f,.08f)] public float tapRadius = .055f;
         [InspectorName("离开后重备半径（米）"), Range(.07f,.15f)] public float tapReleaseRadius = .10f;
-        [InspectorName("点腕优先区域（米）"), Range(.12f,.3f)] public float tapReserveRadius = .22f;
+        [InspectorName("点腕靠近提示半径（米）"), Range(.12f,.3f),Tooltip("靠近仅提示；右指实际点按确认后才接管输入。")] public float tapReserveRadius = .22f;
         [InspectorName("点腕接触确认（秒）"), Range(.01f,.1f)] public float tapHold = .025f;
         [InspectorName("抬腕稳定确认（秒）"), Range(.04f,.25f)] public float tapReadyHold = .08f;
         [InspectorName("右指主动靠近距离（米）"), Range(.01f,.06f)] public float tapApproachDistance = .02f;
@@ -107,14 +107,14 @@ namespace NarutoVR.SealCombat.Rpg
         public void Tick(WristMenuInput f, bool busy, bool pointerOwns, double now, WristMenuSettings s, bool wristToggle = false)
         {
             if (s.activation == WristMenuActivation.TapWrist) { TickTap(f,busy,pointerOwns,now,s,wristToggle); return; }
-            if (!double.IsFinite(now) || (lastNow >= 0 && now < lastNow)) { Reset(); return; }
+            if (!double.IsFinite(now) || (lastNow >= 0 && now < lastNow)) { Reset(OwnsInput); return; }
             lastNow = now;
             bool valid = Fresh(f.leftValid, f.leftObserved, now, s.maxAge) && Finite(f.leftWrist) && Finite(f.headPosition) &&
                 Finite(f.headForward) && f.headForward.sqrMagnitude > .1f;
             bool right = Fresh(f.rightValid, f.rightObserved, now, s.maxAge);
             CanInteract = right && !busy; // A retained card remains operable with the left wrist out of view.
             bool newLeft = valid && f.leftObserved > lastLeft;
-            if (valid && f.leftObserved < lastLeft) { Reset(); return; }
+            if (valid && f.leftObserved < lastLeft) { Reset(OwnsInput); return; }
             Vector3 offset = f.leftWrist-f.headPosition;
             bool low = valid && offset.y < -Math.Max(s.lowerBelowHead,s.raiseBelowHead+.08f);
             bool continuity = valid && lostSince < 0 && (lastLeft < 0 || f.leftObserved-lastLeft <= s.maxGap);
@@ -191,7 +191,7 @@ namespace NarutoVR.SealCombat.Rpg
                 lastLeft = f.leftObserved;
             }
 
-            bool active = LauncherOpen || arming || pointerOwns;
+            bool active = LauncherOpen || pointerOwns;
             if (OwnsInput && !active) rearm = true;
             if (!active && rearm && exitQualified) { rearm = false; Status = "已交回战斗输入"; }
             OwnsInput = active || rearm;
@@ -199,7 +199,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         void TickTap(WristMenuInput f,bool busy,bool interacting,double now,WristMenuSettings s,bool toggle)
         {
-            if (!double.IsFinite(now) || (lastNow>=0 && now<lastNow)) { Reset(); return; }
+            if (!double.IsFinite(now) || (lastNow>=0 && now<lastNow)) { Reset(OwnsInput); return; }
             lastNow=now; OpenProgress=0;
             bool left=Fresh(f.leftValid,f.leftObserved,now,s.maxAge) && Finite(f.leftWrist) && Finite(f.headPosition);
             CanInteract=Fresh(f.rightValid,f.rightObserved,now,s.maxAge) && !busy;
@@ -214,7 +214,7 @@ namespace NarutoVR.SealCombat.Rpg
                 else { lowSince=-1; LeftLow=false; }
                 lastLeft=f.leftObserved; lostSince=-1;
             }
-            else if(f.leftObserved<lastLeft) { Reset(); return; }
+            else if(f.leftObserved<lastLeft) { Reset(OwnsInput); return; }
             if(busy || LeftLow || (!left && lostSince>=0 && now-lostSince>=s.lostGrace)) LauncherOpen=false;
             else if(toggle && CanInteract && left) { if(!LauncherOpen) tapOpenHeight=f.leftWrist.y-f.headPosition.y; LauncherOpen=!LauncherOpen; }
             bool active=LauncherOpen || (!busy && interacting);

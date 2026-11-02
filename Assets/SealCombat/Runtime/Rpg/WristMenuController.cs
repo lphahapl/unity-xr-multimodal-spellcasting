@@ -39,12 +39,14 @@ namespace NarutoVR.SealCombat.Rpg
         public string LastAction { get; private set; } = "等待腕部入口";
         public bool PointerVisible { get; private set; }
         public string PointerStatus { get; private set; } = "等待输入";
-        public string DebugDetails => $"腕部入口={State.LauncherOpen}，UI占用={OwnsInput}，唤起={State.OpenProgress:P0}\n" +
+        public string OwnershipReason { get; private set; } = "未操作腕部界面";
+        public string DebugDetails => $"腕部入口={State.LauncherOpen}，UI占用={OwnsInput}（{OwnershipReason}），唤起={State.OpenProgress:P0}\n" +
             $"子面板={(PanelOpen ? Title(PanelKind) : "无")}，页码={Page+1}，指针={pointer.Hover ?? ray.Target ?? "无"}，确认次数={ClickCount}\n" +
             $"点腕={tap.Status} 距离={tap.Distance*100:0.0}厘米；轻捏={PinchStatus(input)}\n{ray.Status}\n{PointerStatus}\n{State.Status}；{LastAction}";
         readonly WristPointerState pointer = new();
         readonly WristTapSwitch tap = new();
         readonly WristRayPinchState ray = new();
+        bool confirmedRayPress;
         double preparedAt = -1;
         WristMenuInput input;
         /// <summary>Value copy of the latest consumed input. Reading never advances or mutates interaction.</summary>
@@ -72,16 +74,17 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         Vector3 DecorationCenter(WristMenuInput f) => f.leftWrist+f.leftRotation*settings.decorationOffset;
-        // Called before navigation/proximity heuristics: a deliberate wrist tap owns this frame.
+        // Observe approach even during navigation/proximity protection. Only a confirmed tap
+        // may override those guards; raising or pointing toward the wrist owns no gameplay input.
         public bool PrepareWristTap(WristMenuInput sample,bool hardBlocked,double now)
         {
             preparedAt=now;
             if(dragging || settings.activation!=WristMenuActivation.TapWrist) { tap.Reset(); return false; }
             tap.Step(sample,DecorationCenter(sample),hardBlocked,now,settings);
-            return tap.Approaching;
+            return tap.Toggle;
         }
 
-        public void Tick(WristMenuInput sample, LinearRpgController controller, bool busy, double now)
+        public void Tick(WristMenuInput sample, LinearRpgController controller, bool busy, double now,string gameplayBlockReason=null)
         {
             if (!isActiveAndEnabled || !view || controller == null) return;
             owner = controller; input = sample;
@@ -121,7 +124,14 @@ namespace NarutoVR.SealCombat.Rpg
             else rayCommand=ray.Step(hit,point,sample,now,settings);
             if(rayCommand!=null && !RayTargetAvailable(rayCommand,sample,launcherClickable,lowered,ray.Point))
             { rayCommand=null; ray.ClearTarget(); }
-            bool pointerOwns = hit != null || pointer.Captured || rayCommand!=null || tap.Approaching || dragging || ray.Target!=null;
+            if(!ray.Pressed) confirmedRayPress=false;
+            if(rayCommand!=null) confirmedRayPress=true;
+            // Evaluate the near press before ownership, so a command claims its actual press
+            // frame without claiming the preceding hover. Execute commands only after arbitration.
+            string pokeCommand=null;
+            if(hadDrag || !right || busy || tap.Approaching || !near || hit==null) pointer.Reset();
+            else pokeCommand=pointer.Step(hit,true,depth,pinched,sample.PinchUp(settings),sample.rightObserved,settings.maxGap);
+            bool pointerOwns=pointer.Captured || confirmedRayPress || dragging;
             bool wasOpen = State.LauncherOpen;
             State.Tick(sample,busy,pointerOwns,now,settings,tap.Toggle);
             if (State.LauncherOpen)
@@ -134,15 +144,13 @@ namespace NarutoVR.SealCombat.Rpg
             if (State.LeftLow && PanelOpen && Policy(PanelKind).closeWithWrist) ClosePanel();
             // Opening guidance belongs to desktop Debug; ordinary hand actions must not summon a world hint.
             view.SetOpeningHint(Pose.identity,"",0,false);
-            // Busy, stale or disappeared targets abort instead of completing a release.
-            if (hadDrag || !State.CanInteract || tap.Approaching || !near || hit == null) pointer.Reset();
-            else
-            {
-                string command = pointer.Step(hit,near,depth,pinched,sample.PinchUp(settings),
-                    sample.rightObserved,settings.maxGap);
-                if (command != null && command!="drag") Execute(command);
-            }
+            if(State.CanInteract && pokeCommand!=null && pokeCommand!="drag")Execute(pokeCommand);
             if(State.CanInteract && !tap.Approaching && rayCommand!=null && !dragging){lastRayCommand=rayCommand;Execute(rayCommand);}
+            OwnershipReason = State.OwnsInput
+                ? dragging ? "教学卡拖动中" : confirmedRayPress ? "教学卡捏合已确认" : pokeCommand!=null ? "界面按钮按压已确认" :
+                  State.LauncherOpen ? "腕部主入口已打开" : "已确认的界面操作结束，正在交回输入"
+                : tap.Approaching ? "靠近腕饰，尚未确认（不占输入）" : hit!=null || ray.Target!=null ? "仅悬停高亮（不占输入）" :
+                  PanelOpen ? "教学卡闲置（不占输入）" : "未操作腕部界面";
             if(PanelOpen) view.SetPanelPose(panelPose);
             bool capturedHover=ray.Target!=null && sample.pinchValid && !sample.PinchUp(settings) && !dragging;
             view.SetHover(near ? pointer.Hover : capturedHover?ray.Target:hit ?? ray.Target, (near ? pointer.Pressed : ray.Pressed) ? 1 : .35f);
@@ -151,7 +159,7 @@ namespace NarutoVR.SealCombat.Rpg
             Vector3 displayPoint=dragging && !dragPaused ? sample.rayOrigin+sample.rayDirection.normalized*dragDistance : capturedHover ? ray.Point : hit!=null ? point : ray.Target!=null ? ray.Point : sample.rayOrigin+sample.rayDirection*settings.rayDistance;
             // Visible search ray is feedback only. Empty space never becomes an interactive target.
             view.SetPointer(near ? sample.rightTip : sample.rayOrigin,displayPoint,PointerVisible || (near && State.CanInteract),pointer.Pressed || ray.Pressed);
-            PointerStatus=$"射线来源={sample.raySource??"无"}；捏合来源={sample.pinchSource??"无"}；锁定目标={ray.Target??"无"}；上次确认={lastRayCommand??"无"}；拖动={DragStatus}\n射线显示={PointerVisible}，有效={sample.rayValid}，右手新鲜={right}，动作占用={busy}，UI可交互={State.CanInteract}，点腕占用={tap.Approaching}\n范围={settings.rayDistance:0.0}米，命中={hit ?? "无"}；轻捏={PinchStatus(sample)}";
+            PointerStatus=$"射线来源={sample.raySource??"无"}；捏合来源={sample.pinchSource??"无"}；锁定目标={ray.Target??"无"}；上次确认={lastRayCommand??"无"}；拖动={DragStatus}\n射线显示={PointerVisible}，右手新鲜={right}，外部门控={gameplayBlockReason??(busy?"其他操作占用":"无")}，UI可交互={State.CanInteract}，靠近腕饰={tap.Approaching}，点按已确认={tap.Toggle}\n范围={settings.rayDistance:0.0}米，命中={hit ?? "无"}；轻捏={PinchStatus(sample)}";
             if (wasOpen && !State.LauncherOpen) pointer.Reset();
             if (PanelOpen && now >= nextContent) { nextContent = now+.15; RefreshPanel(false); }
         }
@@ -281,8 +289,9 @@ namespace NarutoVR.SealCombat.Rpg
         public void ClosePanel() { if(dragging)EndDrag("面板关闭"); PanelOpen = false; pointer.Reset(); ray.ClearTarget(); if (view) view.HidePanel(); LastAction = "教学卡已关闭，技能效果保持"; }
         public void ResetForWorldChange()
         {
-            State.Reset(State.OwnsInput || PanelOpen || shown); pointer.Reset(); pinched = shown = false; frameEstablished = false;
+            State.Reset(State.OwnsInput); pointer.Reset(); confirmedRayPress = pinched = shown = false; frameEstablished = false;
             tap.Reset(); ray.Reset(); preparedAt=-1;
+            OwnershipReason=State.OwnsInput?"追踪变化，正在交回已占用的输入":"未操作腕部界面";
             if (view) { view.HideLauncher(); view.SetPointer(default,default,false,false); }
             if (view) view.SetOpeningHint(Pose.identity,"",0,false);
             ClosePanel(); LastAction = "追踪来源或空间改变，旧点击已作废，请重新抬腕";

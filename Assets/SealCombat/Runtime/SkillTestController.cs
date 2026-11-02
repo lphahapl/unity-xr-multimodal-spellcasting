@@ -95,11 +95,13 @@ namespace NarutoVR.SealCombat
         /// <summary>Preferred extension seam; legacy ActivationOverride retains priority when assigned.</summary>
         public ISkillActivationPolicy ActivationPolicy { get; set; }
         public Func<bool> GestureInputBlocked { get; set; }
+        public string LastVoiceBlock { get; private set; } = "无";
+        public Func<string> VoiceOwnershipDetail { get; set; }
         public Func<bool> VoiceInputBlocked { get; set; }
         // An exclusive local UI session consumes even cancel phrases. Separate from ordinary navigation gates.
         public Func<bool> ExclusiveInputBlocked { get; set; }
         double voiceNotBefore = double.NegativeInfinity;
-        public void InvalidateEarlierVoice() { voiceNotBefore = InputNow; deferredVoice.Clear(); }
+        public void InvalidateEarlierVoice() { voiceNotBefore = InputNow; RejectDeferredVoice("腕部界面切换使已排队口令失效"); }
         public Action CancelOverride { get; set; }
         public bool DeferVoiceUntilLateUpdate { get; set; }
         /// <summary>Monotonic realtime input clock; tests may supply a deterministic clock. Never use paused game time.</summary>
@@ -174,7 +176,7 @@ namespace NarutoVR.SealCombat
                     if(!cancelLatched&&now-openSince>=cancelHold){Cancel();cancelLatched=true;}
                 }
                 else {openSince=-1;cancelLatched=false;}
-                Engine.Observe(lab.Frame,lab.Scores,cancelLatched||(GestureInputBlocked?.Invoke()??false));
+                Engine.Observe(lab.Frame,lab.Scores,cancelLatched||(GestureInputBlocked?.Invoke()??false), effects && effects.HasHeldObject);
             }
             if(now>=nextCastSnapshot) {
                 nextCastSnapshot=now+Math.Max(.2,castTraceInterval);
@@ -206,33 +208,52 @@ namespace NarutoVR.SealCombat
                 if(!Feature(side+finger+".Curl",v=>v<25))return false;
             return true;
         }
+        void RejectVoice(string phrase, double endedAt, string reason)
+        {
+            LastVoiceBlock = $"{phrase}：{reason}";
+            TraceCast("voice_rejected",LastVoiceBlock,inputTime:endedAt);
+        }
+        void RejectDeferredVoice(string reason)
+        {
+            while (deferredVoice.Count>0) { var v=deferredVoice.Dequeue(); RejectVoice(v.phrase,v.endedAt,reason); }
+        }
+        bool VoiceGate(string phrase,double endedAt,string stage)
+        {
+            string reason=Engine==null?"技能系统未初始化":!isActiveAndEnabled?"技能组件未启用":
+                applicationPaused?"应用已暂停":inputSuspended?"输入暂停中":Time.timeScale<=0?"游戏时间暂停":
+                (ExclusiveInputBlocked?.Invoke()??false)?(VoiceOwnershipDetail?.Invoke()??"腕部菜单独占输入"):
+                endedAt<=voiceNotBefore?$"口令早于输入切换屏障（词尾 {endedAt:F3}，屏障 {voiceNotBefore:F3}）":null;
+            if(reason==null)return true;
+            RejectVoice(phrase,endedAt,stage+"："+reason);return false;
+        }
         public void ReceiveVoice(string phrase,double endedAt)
         {
             TraceCast("voice_received",phrase,inputTime:endedAt);
-            if(Engine==null||!isActiveAndEnabled||applicationPaused||inputSuspended||Time.timeScale<=0) { TraceCast("voice_rejected","未初始化、禁用或暂停",inputTime:endedAt); return; }
-            if((ExclusiveInputBlocked?.Invoke()??false)||endedAt<=voiceNotBefore) { TraceCast("voice_rejected","独占输入或口令早于失效屏障",inputTime:endedAt); return; }
+            if(!VoiceGate(phrase,endedAt,"接收"))return;
             if(DeferVoiceUntilLateUpdate)
             {
                 if(deferredVoice.Count<32) { deferredVoice.Enqueue((phrase,endedAt)); TraceCast("voice_queued",phrase,inputTime:endedAt); }
-                else TraceCast("voice_rejected","口令队列已满",inputTime:endedAt);
+                else RejectVoice(phrase,endedAt,"口令队列已满");
                 return;
             }
             ProcessVoice(phrase,endedAt);
         }
         private void ProcessVoice(string phrase,double endedAt)
         {
-            if((ExclusiveInputBlocked?.Invoke()??false)||endedAt<=voiceNotBefore) { TraceCast("voice_rejected","出队时输入已失效",inputTime:endedAt); return; }
+            if(!VoiceGate(phrase,endedAt,"处理"))return;
             TraceCast("voice_processing",phrase,inputTime:endedAt);
             VoiceEventCount++;
             if(SkillPhrase.Normalize(phrase)==Engine.CancelPhrase)
             {
                 bool pending=!string.IsNullOrEmpty(Engine.PendingSkillId);long epoch=Engine.Epoch;
                 Engine.Voice(phrase,endedAt,InputNow);
+                if(Engine.LastVoiceRejection!=null) RejectVoice(phrase,endedAt,Engine.LastVoiceRejection);
                 if(Engine.Epoch!=epoch){if(CancelOverride!=null)CancelOverride();else FinishCancel(pending);}
                 return;
             }
-            if(!(VoiceInputBlocked?.Invoke()??false))Engine.Voice(phrase,endedAt,InputNow);
-            else TraceCast("voice_rejected","语音输入被动作仲裁占用",inputTime:endedAt);
+            if(VoiceInputBlocked?.Invoke()??false) { RejectVoice(phrase,endedAt,VoiceOwnershipDetail?.Invoke()??"动作仲裁占用"); return; }
+            Engine.Voice(phrase,endedAt,InputNow);
+            if(Engine.LastVoiceRejection!=null) RejectVoice(phrase,endedAt,Engine.LastVoiceRejection);
         }
         public void ScheduleVoice(string phrase)
         {
@@ -251,7 +272,7 @@ namespace NarutoVR.SealCombat
         /// <summary>Invalidate pending evidence without cancelling already committed effects.</summary>
         public void CancelInputOnly()
         {
-            scheduledPhrase=null;deferredVoice.Clear();Engine?.Cancel(InputNow);ResetCancelGesture();
+            scheduledPhrase=null;RejectDeferredVoice("取消施法清除了队列");Engine?.Cancel(InputNow);ResetCancelGesture();
         }
         private void FinishCancel(bool wasPending)
         {
@@ -275,7 +296,7 @@ namespace NarutoVR.SealCombat
         private void ResetInputLifecycle()
         {
             TraceCast("input_reset","暂停、恢复或重新启用：清除旧输入与临时效果");
-            scheduledPhrase=null;deferredVoice.Clear();ResetCancelGesture();Engine?.Reset(InputNow);effects?.ClearAll();
+            scheduledPhrase=null;RejectDeferredVoice("输入生命周期重置");ResetCancelGesture();Engine?.Reset(InputNow);effects?.ClearAll();
         }
         private void OnApplicationPause(bool paused){applicationPaused=inputSuspended=paused;ResetInputLifecycle();}
         private void OnDisable()

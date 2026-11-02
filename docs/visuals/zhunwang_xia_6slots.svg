@@ -1,0 +1,94 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 560' width='1000' height='560'>
+  <rect width='1000' height='560' fill='#0f141c'/>
+  <defs>
+    <linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#1e293b'/>
+      <stop offset='100%' stop-color='#0f172a'/>
+    </linearGradient>
+    <linearGradient id='copperBar' x1='0%' y1='0%' x2='100%' y2='0%'>
+      <stop offset='0%' stop-color='#d97706'/>
+      <stop offset='50%' stop-color='#f59e0b'/>
+      <stop offset='100%' stop-color='#b45309'/>
+    </linearGradient>
+  </defs>
+
+  <text x='50' y='45' fill='#f3f4f6' font-size='22' font-family='sans-serif' font-weight='bold'>【准望匣】6 联精密阶梯式青铜滑轨插槽阵列（Stepped 6-Slot Guide Bay）</text>
+  <text x='50' y='70' fill='#94a3b8' font-size='13' font-family='sans-serif'>小臂内侧侧壁结构 ｜ 15° 喇叭口倒角导向槽 ｜ 弹簧锁销 SnapZone ｜ 六律分类预留插口</text>
+
+  <!-- Zhunwang Xia Forearm Housing Chassis (Side Cutaway) -->
+  <g transform='translate(50, 95)'>
+    <!-- Main Bronze Body Profile -->
+    <path d='M 30 10 L 870 10 L 890 380 L 10 380 Z' fill='url(#bgGrad)' stroke='#475569' stroke-width='2'/>
+    <text x='50' y='35' fill='#64748b' font-size='12' font-weight='bold'>准望匣青铜厚壳内侧立面（长八角硬质机体 · 佩戴于左小臂尺骨背侧）</text>
+
+    <!-- Slot 1: 规位 -->
+    <g transform='translate(60, 50)'>
+      <rect width='760' height='38' rx='3' fill='#090d16' stroke='#334155' stroke-width='1.5'/>
+      <!-- Chamfer funnel entry -->
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#334155'/>
+      <!-- Loaded Copper Leaf -->
+      <rect x='20' y='6' width='700' height='26' rx='2' fill='url(#copperBar)' stroke='#fbbf24' stroke-width='1.5'/>
+      <text x='45' y='24' fill='#1e293b' font-size='13' font-weight='bold'>【壹·规位】《方圆规印·离火》 ── [已锁止 · 离火火球术法范板]</text>
+      <!-- Pull ring at mouth -->
+      <circle cx='700' cy='19' r='8' fill='#1e293b' stroke='#fbbf24' stroke-width='2'/>
+      <circle cx='745' cy='19' r='5' fill='#22c55e'/>
+    </g>
+
+    <!-- Slot 2: 矩位 (缩进 25mm) -->
+    <g transform='translate(85, 95)'>
+      <rect width='735' height='38' rx='3' fill='#090d16' stroke='#334155' stroke-width='1.5'/>
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#334155'/>
+      <rect x='20' y='6' width='675' height='26' rx='2' fill='url(#copperBar)' stroke='#fbbf24' stroke-width='1.5'/>
+      <text x='45' y='24' fill='#1e293b' font-size='13' font-weight='bold'>【贰·矩位】《勾股矩印·巽风》 ── [已锁止 · 巽风风刃引斥范板]</text>
+      <circle cx='675' cy='19' r='8' fill='#1e293b' stroke='#fbbf24' stroke-width='2'/>
+      <circle cx='720' cy='19' r='5' fill='#22c55e'/>
+    </g>
+
+    <!-- Slot 3: 衡位 (缩进 50mm, 正在滑动插入) -->
+    <g transform='translate(110, 140)'>
+      <rect width='710' height='38' rx='3' fill='#090d16' stroke='#f59e0b' stroke-width='2' stroke-dasharray='4,2'/>
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#d97706'/>
+      <!-- Sliding plate -->
+      <rect x='250' y='6' width='445' height='26' rx='2' fill='url(#copperBar)' opacity='0.9' stroke='#fde047' stroke-width='2'/>
+      <text x='35' y='24' fill='#fde047' font-size='13' font-weight='bold'>【叁·衡位】《负衡律印·坤土》 ── [▶ 沿双向滑槽平推推进 40%...]</text>
+      <circle cx='675' cy='19' r='8' fill='#1e293b' stroke='#fbbf24' stroke-width='2'/>
+      <!-- Motion Arrow -->
+      <path d='M 240 19 L 205 19 M 215 12 L 205 19 L 215 26' stroke='#38bdf8' stroke-width='2.5' fill='none'/>
+      <text x='155' y='16' fill='#38bdf8' font-size='10'>滑动中</text>
+    </g>
+
+    <!-- Slot 4: 准位 (缩进 75mm, 空置) -->
+    <g transform='translate(135, 185)'>
+      <rect width='685' height='38' rx='3' fill='#090d16' stroke='#334155' stroke-width='1.5'/>
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#334155'/>
+      <text x='35' y='24' fill='#64748b' font-size='12'>【肆·准位】已就绪精密内凹滑道 ── (预留装配《平准水度·坎水》)</text>
+      <circle cx='665' cy='19' r='4' fill='#475569'/>
+    </g>
+
+    <!-- Slot 5: 绳位 (缩进 100mm, 空置) -->
+    <g transform='translate(160, 230)'>
+      <rect width='660' height='38' rx='3' fill='#090d16' stroke='#334155' stroke-width='1.5'/>
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#334155'/>
+      <text x='35' y='24' fill='#64748b' font-size='12'>【伍·绳位】已就绪精密内凹滑道 ── (预留装配《直绳雷度·震雷》)</text>
+      <circle cx='640' cy='19' r='4' fill='#475569'/>
+    </g>
+
+    <!-- Slot 6: 备位 (缩进 125mm, 空置) -->
+    <g transform='translate(185, 275)'>
+      <rect width='635' height='38' rx='3' fill='#090d16' stroke='#1e293b' stroke-width='1.5'/>
+      <path d='M 0 4 L 20 10 L 20 28 L 0 34 Z' fill='#1e293b'/>
+      <text x='35' y='24' fill='#475569' font-size='12'>【陆·备位】未铭刻扩展槽位 ── (备用高阶神工范板预留)</text>
+      <circle cx='615' cy='19' r='4' fill='#334155'/>
+    </g>
+
+    <!-- Callout: 阶梯缩进与防误触 -->
+    <path d='M 60 70 L 185 295' stroke='#38bdf8' stroke-width='1.5' stroke-dasharray='3,3'/>
+    <text x='30' y='350' fill='#38bdf8' font-size='12' font-weight='bold'>编钟式阶梯缩进：每层向后缩进 25mm，VR 视野中 6 个拉环一览无余，手指轻捏互不遮挡碰撞</text>
+  </g>
+
+  <!-- Engineering Specs -->
+  <g transform='translate(50, 490)'>
+    <text x='0' y='20' fill='#fbbf24' font-size='13' font-weight='bold'>工官制造说明：</text>
+    <text x='120' y='20' fill='#cbd5e1' font-size='12'>准望匣内侧侧壁采用一体冷铸 C 型双内凹滑道，单槽公差 ±0.1mm。配有青铜微型簧片锁，支持 6 联铜叶即插即用。</text>
+  </g>
+</svg>

@@ -1,0 +1,198 @@
+准望匣V3.1｜佩戴比例核对、器物造型与五种小篆铭文
+执行：内置image_gen；本轮实际2次生成＋4次编辑，用户指出上下图不一致后重新生成一体组件，随后调整前臂显示范围与比例，最后仅同步185mm项目参照标注。以下按实际顺序保留6份提示词，前两份输出弃用；项目仅另存选中的最终07图，不覆盖01—06。
+参考：06_original_shape_reference.png为设计家族；04_v2_tenon_pull_ring.png仅为功能关系，不复制其方柜外壳。
+选中输出：07_v3_worn_design_inscriptions.png。最终图已落盘；图中185mm为共享规范后来采用的项目参照，非Quest强制手尺寸。前期提示词里的190mm保留为实际执行历史，不伪改原生成词。
+
+===== 比例核对依据与边界 =====
+旧图：05_v2_worn_dimensions.png，1536×1024。
+目视选取近似点（像素原点左上）：匣体长轴(311,325)→(761,346)，长度450.5px；腕部(948,410)→最长指尖(1510,330)，手长轴567.7px。
+旧图匣长/手长≈450.5/567.7=0.794（79.4%）。
+选用绘图参照手长190mm，保留建议匣长80mm：目标80/190=0.421（42.1%）。
+两比例之比≈1.88；若旧图手长按190mm解释，其匣长外观相当于约150.8mm，而非标签80mm。
+这是透视插画的人工选点粗查，不是校准摄影测量；手、匣体轴不完全共面，结果只用于识别明显比例错配，不报告为人体实测或工程测量。
+
+本轮绘图参照选择：手长190mm、掌宽85mm、挂载处前臂宽约72mm；不是用户个人测量，也不称为人口平均数。
+当前185mm项目参照下：80/185≈43.2%，95/185≈51.4%，48/82≈58.5%。按新图粗选点：金属主体轴(544,263)→(782,274)约238.3px，腕部(910,286)→最长指尖(1475,254)约565.9px，比例约0.421，接近目标0.432；该选点仍有透视/解剖标点误差，不作为工程比例验收。最终图仍有尺寸线端点、仓位编号和篆字准确性需要3D与正式字稿复核。
+
+手长定义核对：美国Access Board所载手部人体尺寸图定义为腕部至最长指尖：
+https://www.access-board.gov/research/human/guidelines-aircraft/
+量级交叉核对：NASA-STD-3001 Vol2 RevD，表E.2-1（PDF第346页，零基页345）列手长15.8–22.1cm适配范围；仅作为190mm参照的量级核对，不把航天员适配数据外推为中国人群均值：
+https://standards.nasa.gov/sites/default/files/standards/NASA/D/nasa-std-3001-vol-2-rev-d-signature.pdf
+
+===== 本轮建议尺寸及算术检查 =====
+匣体长80×宽48×高40mm；外露尾环15mm；含环总长95mm=80+15。
+匣长/参照手长=42.1%；含环95/190=50%；匣宽48/参照掌宽85=56.5%。
+铜叶总长85mm=入仓板身70+尾环15，基准宽22、基础厚1.8、公棱局部凸出0.8mm；不要把85mm铜叶当作95mm整器包络。
+腕横纹→尾环末端25mm→仓口外端面15mm→匣后端80mm；故仓口距腕40mm，匣后端距腕120mm。
+六仓中心距5.5mm暂定：中心跨度5×5.5=27.5mm；将厚1.8及两侧棱高度各0.8保守计入，叠层包络约30.9mm，40mm高度中剩约9.1mm供外壳/鞍座/顶层分配。这只是概念包络粗查，未计算滑轨截面、公差、强度、质量、按钮/度盘干涉或指腹净空。
+保留40mm真实厚度，用切角、弧形鞍座、内收侧腰、斜肩和嵌入式圆度盘塑造器物感；不能通过假装很薄或把圆盘额外叠高来“满足”尺寸。
+
+===== 实际首轮生成提示词（已弃用） =====
+Use case: stylized-concept / infographic-diagram.
+Create ONE NEW polished landscape high-resolution concept sheet, title “准望匣｜佩戴比例与铜叶铭文”. This is a redesign refinement and scale correction, not a plain bronze storage box. The user authorizes keeping suggested dimensions while adding design character. All labels in Chinese, restrained warm light-gray background, natural soft studio light, matte aged bronze, deep indigo linen, dark brown leather, very sparse cinnabar accent, subtle cloud-thunder engraving. Accurate dimensions must agree with the DRAWN HUMAN SCALE, not merely be printed on an oversized prop.
+
+INPUT ROLES:
+Reference image 1, 06_original_shape_reference.png: PRIMARY DESIGN FAMILY. Preserve its ancient measuring-instrument identity, elongated clipped-octagonal footprint, physical central circular dial, layered bezel, side-face cinnabar button, tight linen and two short leather straps. You may refine the side-profile and silhouette, rather than copy the old image pixel-for-pixel. Do NOT copy its extra finger rings or buried pull loops.
+Reference image 2, 04_v2_tenon_pull_ring.png: FUNCTIONAL DETAIL reference for sliding dovetail rails, transverse captive key and exposed tail-loop/notch relationship ONLY. Its rectangular cabinet exterior is NOT the new housing design. Avoid a plain rectangular box, whole-side drawer grille, modern smartwatch, gears, cyberpunk glow, oversized gauntlet or jewelry-heavy ornament.
+
+CRITICAL SCALE CALIBRATION — MAKE THIS VISIBLE IN THE MAIN WORN VIEW:
+Use a left hand with a chosen DRAWING REFERENCE hand length190 mm, from wrist crease to longest/middle fingertip, palm width85 mm. These are illustration reference dimensions, not a measured user's hand or demographic average. Forearm width at mounting position about72 mm is also a drawing assumption. Main hand and device long axes must be nearly parallel to the image plane, with gentle camera elevation and little length foreshortening so their relative sizes can be judged.
+Main bronze housing80 LONG along forearm ×48 WIDE across forearm ×40 HIGH, suggested maximum envelope excluding external pull loops and straps/padding. Thus housing length is ONLY 42% of wrist-to-middle-fingertip hand length, NOT nearly as long as the hand. Including exposed loops the device is95 long, exactly HALF the190 reference hand length. Housing width48 is about56% of85 palm width. Show a compact object with a meaningful40 height, not an enormous cabinet covering most of the forearm and not a paper-thin watch.
+The earlier worn image exaggerated the apparent body length to nearly80% of hand length. Correct this: do not reproduce that overlarge object. Keep enough forearm and full hand in view to evaluate the half-hand-length overall device. Add two parallel clean comparison dimension brackets: “手长190（绘图参照）” over wrist-to-middle-tip and “匣长80（建议）” over the actual housing. The80 bracket should be about42% of the190 bracket under this low-perspective projection.
+
+DESIGN REFINEMENT WITHIN THAT80×48×40 ENVELOPE:
+A recognizable long octagonal instrument with boldly clipped corners and a gently narrowed waist. Shape its40-high body as three integrated masses: a curved forearm saddle at the bottom, a recessed rail core in the middle, and a sloping shoulder with a partly inset circular measuring dial on top. Keep the TOP OF THE DIAL WITHIN THE40 HEIGHT ENVELOPE, not perched on a huge extra tower. The dial is a real physical concentric brass/bronze measuring face, not merely a hologram; restrained geometric markings, small secondary bubble tube may sit beside it. A thin stepped raised octagonal bezel unifies it.
+Use bevels, diagonal end cheeks, a restrained pair of structural arch/rib shapes around the rail core, slim reveals/shadow seams and shallow negative-space cutouts away from load-bearing rails. Darkened recessed copper contrasts with touched bronze edges. The cheek and end profiles should look sculpted, purposeful and fitted to the arm, not a rectangle with decorative patterns pasted on. No extravagant horns or exposed sharp edges. Exactly TWO short15-wide leather straps, no wrist-joint strap.
+A single approximately20-diameter cinnabar button stays on an accessible SIDE FACE near an end cheek, not on the top dial. Side storage remains accessible without turning the whole side into six giant metal drawers.
+
+MECHANISM / PLACEMENT:
+Exactly SIX thin horizontal stacked leaf bays, paired sliding dovetail guides. Five engraved copper leaves fully seated and locked, sixth bay EMPTY as a spare, its paired rails legible. Same insertable dimensions and interfaces for all five leaves.
+Each copper leaf TOTAL85 including integral15 tail-loop segment; housed body70, nominal leaf width22, base thickness1.8, paired side ridge local projection0.8. The 70 insertion depth is measured from right mouth exterior plane to seated leading-tip stop;80 total casing length includes about10 behind that stop.
+For diagrams and main wearable orientation: elbow LEFT, wrist/hand RIGHT. Leaf leading head LEFT toward elbow, pull loop RIGHT toward wrist. Five seated loop segments project15 beyond the WHOLE local casing outer silhouette on the right, not just beyond an internal mouth. Make the casing end and each rounded U-shaped access relief recede behind the loops. No enclosing decorative wall around them. Tail loops lie FLAT in the leaf plane, with rounded pinch edges and consistent outside envelope; their internal openwork may vary subtly.
+Wrist crease to nearest fully seated loop TIP =25 clear. Thus wrist crease to casing's right-end plane =40, and to casing's left rear end =120. Keep these positions consistent, with no half-drawn leaf invading the wrist gap.
+Six bay center pitch5.5 is tentative: six centers span27.5; approximate outer leaf/ridge stack is30.9, leaving9.1 of the40 envelope for shell, saddle/top structure. This is only an envelope plausibility check, not tolerances or finger-access proof. Avoid bulky upright22-high plates; they are thin horizontal layers.
+Sliding dovetail ridges resist sideways/lift; near-mouth independent captive TRANSVERSE bronze key engages the leaf body's side notch close to the loop root to resist withdrawal. No hidden spring latch or front locating pin hole. Tiny exterior tab accessible, retract key before pulling. Show this as a small detail only, no huge new lever or added width.
+
+OUTWARD-FACING INSCRIPTIONS AND FIVE VARIANTS:
+Engrave a clearly intended name panel ON EACH LEAF'S OWN OUTWARD-FACING EXPOSED BROAD SURFACE, visible through the storage opening even when seated. Names must not exist only on the housing or in captions. Do not cram four characters on the1.8-mm edge; use an oblique close-up of the shallow exposed broad face as needed, without slicing away structural rails. Keep rail contact surfaces, locking notch, connecting bridge and rounded pinch edges smooth.
+ALL leaf inscriptions use the SAME coherent SMALL-SEAL-LIKE style: slender elongated glyphs, rounded even strokes, balanced composition, shallow incised bronze, like the existing archaic lettering. Not black printed labels, modern sans-serif, glowing script or random pseudo-Chinese. Do your best to retain the exact characters, no substitute titles.
+Five names and distinct restrained motif families:
+1 方圆规印 — concentric circle + inscribed square.
+2 勾股矩印 — right-angle and simple right-triangle measuring lines.
+3 负衡律印 — central balancing beam and symmetric weight marks.
+4 平准水度 — level horizontal reference and gentle water lines.
+5 直绳雷度 — taut straight centerline with angular thunder marks.
+These names are existing visual mockup choices, not new abilities. Keep same85×22×1.8 shape, guide/key interfaces and tail-loop outside dimensions. Differences are lettering, motif arrangement and subtle internal openwork, not incompatible insertable shapes. Sixth bay is EMPTY; do not invent a “备用” power leaf.
+
+COMPOSITION: exactly THREE large clear regions with generous space:
+A. Upper about55%: dominant full left-hand and forearm WORN VIEW, forearm entering LEFT, fingers RIGHT, dorsal hand up, relaxed five fingers, no second hand. Only thumb and index carry one narrow bronze ring each. Device correctly scaled to the190 reference hand, mounted dorsal-ulnar on forearm, never over the wrist crease, full hand visible. Two straps snug over linen. Show the physical round dial and sculpted shoulders. Neat dimension leaders “匣长80（建议）”, “尾环外露15”, “腕部净空25”, and the hand190 comparison bracket; clear endpoints on ACTUAL landmarks. No floating UI to hide geometry.
+B. Lower-left about55% width: a LARGE 3/4 close-up of SAME instrument off-arm with five differently engraved leaves seated, sixth empty. This is an enlarged detail, explicitly caption “结构放大（非同倍率）”, so it can be large without exaggerating the actual worn scale. It shows the original-design-family long octagonal silhouette, recessed round dial, sculpted cheeks, outer loop projection, U-reliefs, and small near-mouth captive key. Add orthographic dimension brackets80 length,48 width,40 height and overall95 including rings, all “建议”; one small note “六仓中心距5.5（暂定）”. No numeric engraving on housing substituting for leaf names.
+C. Lower-right about45% width: FIVE complete thin copper leaves in five parallel rows, all tipLEFT/loopRIGHT, five titles engraved ON the visible broad faces in small-seal-like script, motif clearly different. Use small plain readable captions alongside to transcribe each exact name for review, in addition to physical seal-script engraving. One shared85 total bracket split70+15, width22 and a thin sideview1.8 below, “铜叶85×22×1.8（含环）”. No fifth/sixth extra specimen, no fan.
+
+Title/captions/dimension numbers use legible restrained Chinese technical typography; ONLY the physical leaf inscriptions use the seal-style lettering. Footer “单位：mm｜人体为绘图参照；器具尺寸为建议，待建模验证”. Highest priorities: correct small device-to-hand SCALE, clearly more sculpted INSTRUMENT silhouette, readable planned small-seal inscriptions, actual projecting seated loops and exactly six bays/five named leaves.
+
+===== 上轮局部编辑提示词（已弃用，用户指出佩戴与放大造型不一致） =====
+Edit this EXACT sheet with ONE localized scale-and-dimension correction in the TOP WEARING PANEL ONLY. Preserve the WHOLE bottom half, all five small-seal-style engraved leaf examples, their names and motifs, enlarged sculpted instrument detail, palette, top dial and side button design, heading and all text content values. Do not redesign the hands, create new fingers, change skin size or relocate the panel divider.
+
+THE TOP DEVICE IS STILL TOO BIG. Actually RESIZE ITS GEOMETRY, do not simply redraw dimension lines.
+Keep the HUMAN ARM AND HAND at exactly their current pixel scale and relaxed pose. Scale the WHOLE top wearable assembly (bronze housing, dial, cheeks, five loops AND TWO leather straps/buckles) down to approximately 67% OF ITS CURRENT LINEAR SIZE, anchored near the current rightmost seated ring tip, and re-seat it naturally ON the same linen-covered forearm. Reconstruct unobstructed dark linen behind the portion vacated by the oversized housing and straps.
+Target physical/pixel landmarks in the ORIGINAL1536x1024 image:
+- actual wrist crease/forearm-hand transition approximately x900;
+- longest/middle fingertip approximately x1460;
+- thus true hand length190 is about560 pixels along the main image horizontal axis;
+- desired housing80 should therefore be about236 pixels along that axis, NOT the current~360;
+- desired fully seated external ring-tip to casing rear length95 should be about280 pixels, HALF the visible hand length;
+- make casing left rear approx x550, casing right mouth plane approx x787, ring tip approx x832, and wrist crease approx x906. This gives body237, loops45 and wrist clearance74 pixels, near the80:15:25 ratios.
+Use these as approximate visual targets, adjusting small amounts for natural perspective; do NOT relocate the human hand to fake compliance. The new compact housing should remain above the forearm before the wrist with two tight straps correctly scaled to the smaller assembly. Preserve its sculpted octagonal instrument design and visibly substantial height rather than flattening it into a watch. Any removed hardware must not remain as ghost outlines.
+
+DELETE AND REBUILD THE TOP PANEL'S DIMENSION LINES TO MATCH REAL LANDMARKS:
+1. “手长190（绘图参照）”: its LEFT extension line must fall on the ACTUAL WRIST CREASE at x~906, not at x509 over the bronze dial; right line at longest fingertip x~1460. This arrow must measure the HAND ONLY. Current x509-to1396 long arrow is WRONG and must be removed fully.
+2. “匣长80（建议）”: separate short double arrow above the scaled housing only, from rear exterior end~x550 to mouth exterior plane~x787. It must be roughly42% of the actual wrist-to-fingertip190 arrow in the SAME upper panel.
+3. “尾环外露15”: a short span from casing mouth plane~x787 to fully seated loop TIP~x832.
+4. “腕部净空25”: span from fully seated loop TIP~x832 to wrist crease~x906. Keep small clean extension lines to those landmarks, outside the body, not measuring from casing or halfway onto the hand.
+Place labels at different heights so arrows/text do not collide. The longest hand-length label belongs above the right-hand region; the80 label belongs above the instrument at left. Do not retain any old dimension witness lines pointing to vacated positions.
+
+The bottom “结构放大（非同倍率）” panel is intentionally enlarged and MUST REMAIN UNCHANGED. Its apparently larger body does not determine the worn size. Keep all bottom details and five leaf variants unchanged. Preserve the five-finger left hand and its current rings; the only geometry change is the top WEARABLE ASSEMBLY becoming genuinely smaller. No new text, no new parts.
+
+===== 用户指出上下图非同一物件后：完整组件重新生成词 =====
+Use case: stylized-concept / infographic-diagram.
+Generate a FRESH landscape concept sheet for “准望匣｜一体佩戴组件”. The user rejected the previous sheet because the small worn object and enlarged cabinet were two different designs, and straps were treated as generic clothing. FIX OBJECT IDENTITY AND ASSEMBLY COHERENCE ABOVE ALL ELSE.
+
+REFERENCE: Use ONLY the LOWER-LEFT enlarged bronze instrument in the provided sheet as the canonical METAL BODY design: clipped octagonal body, real circular dial centered on its top, small bubble window beside the dial, red round button on the wrist-side cheek, exactly six thin stacked guide bays, five seated engraved leaves and one empty bay, five flat openwork pull loops. The previous upper worn object is REJECTED and must not be copied. This is a new composition using the SAME LOWER-LEFT OBJECT consistently throughout, with new integrated straps.
+
+THE UNIT IS A COMPLETE ASSEMBLY:
+The “匣子” consists of metal body + integral strap mounting ears + TWO leather straps + TWO matching bronze buckles/retaining keepers. Straps are PART OF THIS PROP/ASSET, not loose arm clothing. Each strap end is mechanically connected to a clearly visible pivot/slot in the case's underside ears. Both straps wrap snugly around the SAME forearm and buckle underneath/near the visible side. Fixed positions along the case length, one near the elbow-side third and one near the wrist-side third, same width15 suggested. Do not wrap a strap OVER the round dial or in front of the six bay mouths. No detached bands, generic extra wrist band, single central strap, floating buckle, or bare body presented as the whole prop.
+The dark indigo linen underneath belongs to the arm and is separate from the TWO attached leather straps. Draw distinct metal ears, leather insertion through the ear, pivot pin and fold-back keeper so attachment is intelligible. Show the same ear/buckle count and strap placement in every visible depiction.
+
+ONE PHYSICAL OBJECT, ONE VIEWPOINT:
+There must be ONLY ONE whole-device design. Do NOT render an off-arm cabinet or a second standalone prop model anywhere.
+Use a TWO-PANEL layout:
+TOP about58%: one realistic adult male LEFT forearm and complete hand, elbow entering LEFT, hand/fingertips RIGHT, relaxed dorsal hand, exactly five fingers. The complete assembled device is worn on dorsal-ulnar forearm, two straps connected and wrapped. Medium high three-quarter camera, enough elevation to see the circular dial AND the full tall six-bay side. Keep the body a substantial40 high, with actual six-layer core, not a flattened watch.
+BOTTOM about42%: an enlarged MACRO CROP OF THE DEVICE AND STRAP ATTACHMENTS FROM THE SAME TOP IMAGE. It is NOT a new camera angle, NOT an off-arm render, NOT another model. Keep the SAME visible faces, SAME rotation and SAME distinctive geometry, plate arrangement, round dial, bubble window, side red button, two strap ears and two leather bands. Keep matching dark linen and the same FOREARM UNDERNEATH in the crop. Conceptually it is a magnified crop of that single wearable photograph. Caption “同一组件局部放大（非同倍率）”. A thin crop boundary on the top device and simple leader to the bottom panel make the linkage explicit. Do not substitute the original reference's cabinet pose. No separate row of full props. The lower panel must visibly remain ON THE ARM, with both connected straps extending around it, not end at the metal base.
+
+SINGLE CANONICAL METAL GEOMETRY:
+Suggested metal-body envelope80 long along forearm ×48 wide ×40 high, excluding projecting tail loops and leather beneath the arm. The complete prop INCLUDES the straps, but “80×48×40” labels ONLY the metal body; do not misleadingly label it as the bounding box of straps plus entire forearm loop.
+Keep the long clipped-octagonal top footprint, bold four corner cuts, recessed physical central circular measuring dial, stepped thin top bezel, sloped shoulder cheeks, a gently pinched side waist and curved arm saddle. Use two integrated diagonal structural ribs around the bay opening. This is an ancient measuring instrument with purposeful shaped planes, not a rectangular cabinet with decorations pasted on. Round dial remains within the40 envelope; no tall extra dial turret. One small bubble window beside it. Cinnabar round button stays on a SIDE CHEEK, not the top surface.
+The lower and upper panels must show exactly the same housing-height/length proportion and same top-to-side ratio. Do not depict a thin flat top wristwatch and a tall bottom cabinet.
+
+SCALE AND PLACEMENT:
+Choose an illustration hand reference length190 mm, wrist crease to longest fingertip, palm width85; not the user's personal measurements. Main body80 should be about42% of visible HAND length. Overall body plus seated15 loop length95 should be about HALF the visible hand. Human anatomy and device axes nearly parallel to image plane so this comparison is possible; do not shorten the hand by foreshortening. Keep full hand visible. The compact unit is narrow enough for the forearm, metal width48 about56% of reference palm width85. Do not make80 nearly as long as the entire hand.
+All five leaves fully seated. Metal case right end faces wrist, leaf tips point elbow/LEFT, loops toward wrist/RIGHT. Loops extend15 beyond the OUTERMOST opaque metal boundary. Each mouth has a round-ended U-shaped outward-open relief. No metal rim surrounding the external loops. The nearest seated loop TIP is25 clear of the wrist crease, not the case edge. TWO strapped mounting zones stay proximal to wrist, never over the wrist joint/palm.
+In the MAIN panel, make bracket “金属主体长80（建议）” span the actual casing ends, “尾环外露15” span mouth plane to loop tip, and “腕部净空25” span loop tip to actual wrist crease. DO NOT add a hand-length arrow that starts on the forearm; instead use a small text-only legend “人体绘图参照：手长190”. Dimension witness lines must target actual geometry.
+In the MAGNIFIED SAME-VIEW crop, annotate “金属主体80×48×40（建议）”, “双绑带宽15（建议）”, “连接耳／固定销”, and “六仓中心距5.5（暂定）”. Mark widths/heights only where geometrically clear; plain callouts can state the envelope rather than fictitious dimension arrows.
+Overall metal plus seated loops95=80+15; copper leaf total85=body70+loop15, width22, base thickness1.8, side ridge projection0.8. Caption “铜叶85×22×1.8（含环）”; do not draw a new isolated copper plate or whole case to explain this.
+
+SIX BAYS / FIVE INSCRIPTIONS:
+Exactly six horizontal layered bays in BOTH views, first five occupied, sixth empty, never four broad drawers. Identical order, occupancy and pull-loop shape in top and macro.
+Each occupied leaf has its own title engraved INTO its outward-visible broad naming face, not only on the casing. Exact five titles top to bottom:
+方圆规印
+勾股矩印
+负衡律印
+平准水度
+直绳雷度
+Use consistent SMALL-SEAL-LIKE lettering, slender vertically elongated rounded strokes, shallow engraved bronze, balanced archaic character spacing. No modern printed black labels on leaves, no meaningless glyph substitution. Distinct motifs: circle-square, right triangle, balanced beam, level/water lines, straight cord/angular thunder respectively, all understated. Caption transcription can be plain readable Chinese for review; physical engravings remain small-seal-like. Shared85×22×1.8 geometry, guide rails, locking notch and rounded loop exterior envelope, no incompatible shapes.
+Paired sliding dovetail rails plus a small captive transverse retaining key near each mouth. The key engages a side notch before the loop root, prevents axial removal, retracts across the insertion axis before pulling the loop. It stays captive. No spring latch, hidden front pin, enormous lever or hardware through the title.
+Do not engrave rail bearing faces, notch contact surfaces, ring connecting bridge or pinch edges. Sixth bay EMPTY, no “备用” ability plate.
+
+STYLE:
+Matte dark aged bronze with touched warm edges, small patina, restrained cloud-thunder trim; deep indigo coarse linen, attached dark brown leather. Natural skin, soft light, warm light-gray background, generous margins, legible restrained Chinese technical titles and numbers; only physical leaf inscriptions use seal script. Only thumb/index one narrow bronze ring each, no other jewelry. No holo menu, gears, horns, glow, second hand or clutter. Footer “单位：mm｜一体组件含双绑带；尺寸建议，待建模与佩戴验证”.
+MOST IMPORTANT: the lower enlargement is visibly the SAME worn object and SAME straps on the SAME forearm at the SAME angle. It must not become a different box.
+
+===== Quest手模显示范围与六仓完整性修订词 =====
+Revise this concept sheet into a FIRST-PERSON QUEST HAND-ASSET SCALE PROPOSAL, retaining the same bronze instrument design family and its complete attached two-strap assembly. This is one coherent object; never make the top a thin watch and the bottom a different cabinet.
+
+KEEP the recognizably SAME central physical round dial, bubble window beside it, sculpted clipped-octagonal cheeks, side red button, curved saddle, fixed strap ears/pins, TWO attached leather straps and TWO bronze buckles in BOTH the top wearing view and its same-viewpoint macro. Preserve small-seal-like engraved lettering and five distinct copper-leaf motifs. Preserve the warm gray/bronze/indigo palette. The lower close-up is a magnification of the same worn object with the same forearm/linen still underneath; not a new pose and not an off-arm box.
+
+CORRECT THE TOP HUMAN/DEVICE PROPORTION AND VISIBLE FOREARM:
+The current top bronze case is about two-thirds of visible hand length despite an80 label. It must actually be about42% of wrist-to-longest-fingertip hand length. Set hand190 as DRAWING REFERENCE, metal case80L×48W×40H as SUGGESTED, overall longitudinal metal+seated loop95, body-to-hand ratio80:190, overall-to-hand95:190. Maintain the true40-high/80-long geometry in the wearable body, not a flattened watch.
+Recompose the TOP as a complete left hand plus ONLY a150mm visible forearm stub from wrist crease toward elbow. This is a proposed MODEL DISPLAY LENGTH, not a claim about Quest tracking. No full bare forearm extending off left edge. Total visible hand+stub length is190+150=340; the forearm segment is visibly shorter than the hand. Elbow side LEFT, hand RIGHT; full five-finger hand relaxed and nearly parallel to image plane so lengths are comparable. A clean model cutoff at left is hidden by a tight indigo cuff/linen roll, without gore or an elbow. Only thumb/index carry one narrow bronze ring each.
+Along the forearm axis measured from wrist: nearest seated loop TIP25mm toward elbow, metal mouth40mm toward elbow, metal rear120mm toward elbow, model cutoff150mm toward elbow. So the assembled instrument fits completely on the stub with30mm spare at the proximal end. Body and BOTH attached straps must not be cut by the model boundary or cross the wrist.
+Use two NONOVERLAPPING short dimension brackets “金属主体长80（建议）” over actual body and “腕后可见150（建议）” over the actual wrist-to-model-cutoff forearm. Hand length190 stays TEXT-ONLY as “手长190为绘图参照”, with NO arrow starting on the case. Show “尾环外露15” at actual mouth-to-ring-tip, “腕部净空25” at actual ring-tip-to-wrist-crease. Leaders must reach those physical landmarks; don't reuse old witness lines.
+The straps, buckles and attachment ears are integral parts of the CASE ASSET. The80×48×40 is explicitly METAL-BODY envelope, not whole forearm-loop assembly envelope. Both straps attach to the same underbody ears and loop around the stub; not generic clothing bands and never cover the slots.
+
+SIX-LEVEL CORRECTION MUST APPLY IDENTICALLY TO TOP AND MACRO:
+Exactly SIX thin horizontal storage levels, numbered1,2,3,4,5,6 beside the actual openings; exactly FIVE seated named leaves, sixth EMPTY. The current image omitted the fifth named leaf in its case. Rebuild this consistently in both views:
+row1 方圆规印 + circle/square motif;
+row2 勾股矩印 + right-triangle motif;
+row3 负衡律印 + balanced-beam motif;
+row4 平准水度 + level/water motif;
+row5 直绳雷度 + straight cord/thunder motif;
+row6 EMPTY with paired guides visible, NO loop.
+Exactly FIVE visible external loop handles, flat and rounded,15mm beyond opaque casing boundary through U-shaped mouth reliefs. Keep all five original85×22×1.8 copper leaves and same guide/key geometry. No sixth “spare ability”. Show names engraved ON the visible copper faces in small-seal-like script, not only in the legend. Do not change exact name 平准水度 into 平准雷度. Captions can be plain readable Chinese.
+Near-mouth captive transverse bronze keys and sliding dovetail rails remain, no springs. Do not randomly add another level or close the empty one.
+
+LOWER MACRO must share EXACT same six-row arrangement, object proportions, dial/bubble/button positions, strap mounts and buckles as the top, same camera direction. Retain its “同一组件局部放大（非同倍率）” caption and both straps on the same linen-covered forearm. It may crop the stub's end/hand because it is a detail. Preserve the right-hand five-leaf sample strip if it fits, showing five different names/motifs with identical interfaces; do not enlarge the case merely to fit text.
+Keep clear dimensions “金属主体80×48×40（建议）”, “双绑带宽15（建议）”, “六仓中心距5.5（暂定）”, “铜叶85×22×1.8（含环）”, “连接耳／固定销”. Do not label the entire assembly as80×48×40.
+Footer “单位：mm｜腕后150为模型方案；人体仅绘图参照；需骨架/建模/头显验证”. No claim of full-arm tracking, no new gameplay abilities, no second hand. The goal is the same complete case assembly on a correctly shortened forearm model, not a generic new wristwatch.
+
+===== 可见前臂实际截断与主图比例的局部修订词 =====
+Precise localized EDIT of this1536×1024 sheet. KEEP THE ENTIRE BOTTOM PANEL EXACTLY UNCHANGED, including the same-object macro, straps, leaves, inscriptions, six bays, dimensions and layout. KEEP THE HUMAN HAND in the upper right (wrist through fingertips) at its CURRENT pixel size and pose. Do not stretch or relocate the hand or wrist.
+
+ONLY fix the TOP wearable assembly scale, proximal forearm cutoff, and the four related dimension lines. The current “腕后可见150” wrongly measures a long bare-arm segment BEFORE the device;150 must INCLUDE the device's mounting region.
+
+GEOMETRY TARGETS in the existing top panel:
+- Wrist crease stays at about x925.
+- Longest fingertip stays at about x1470; chosen hand reference190 thus about545pixels.
+- Body80 should be about229pixels (80/190 of the hand), not the current~330pixels.
+- Place the smaller metal body's rear at about x581, mouth at about x810, and five seated ring tips at about x853.
+- Uniformly reduce the CURRENT top whole-device assembly (case, dial, six bays, attached strap ears, BOTH leather straps and buckles) to about69% of its current LINEAR size, all axes uniformly, and re-seat it so these target landmarks are approximately met.
+- DO NOT flatten it, remove bays, change the design, or create a new watch. The top remains a uniformly smaller instance of the exact same large bottom macro object, with identical40:80 body-height:length proportions and same camera direction. Keep both connected straps visible.
+- Keep the same indigo linen beneath it, reconstructing cloth where oversized hardware was removed.
+
+MODEL CUTOFF, not a full arm:
+The proposed visible forearm150mm runs from WRIST x925 to PROXIMAL CUTOFF x495. Therefore REMOVE the long bare forearm and sleeve currently entering from the left edge of the TOP PANEL: replace the upper-panel area to the LEFT of approximately x495 with the same neutral background, leaving title intact. The forearm model starts at x~495 with a tight dark linen cuff and a clean oblique cutoff viewed from outside. No gore, elbow or long exposed arm at left. A tiny sealed end is hidden behind the cuff edge. Leave only about30mm /86px of cuff between cutoff x495 and device rear x581. The model must NOT extend to the left image border. Do not add150mm behind the case. Do not move the existing hand/wrist at x925.
+
+ERASE and REDRAW TOP dimension arrows, with witness lines on actual landmarks:
+“腕后可见150（建议）”: x495 cutoff to x925 WRIST, spanning the WHOLE retained forearm including the instrument. This arrow is430px, shorter than the~545px hand length.
+“金属主体长80（建议）”: x581 metal rear to x810 mouth.
+“尾环外露15”: x810 mouth to x853 ring tip.
+“腕部净空25”: x853 ring tip to x925 wrist.
+Use different heights so labels don't overlap. Delete the old lines and labels completely before redrawing; no ghost arrows at the old positions. Keep text-only “手长190为绘图参照（从腕横纹至中指指尖）” and title, no extra hand-length arrow.
+
+Do not modify ANY bottom pixels/content intentionally. Do not alter fingers, skin hand size, leaf names or color palette. The main result must clearly show a SHORT CUFFED HAND MODEL and a genuinely SMALLER complete instrument, with the same proportions/details as its unchanged larger macro.
+
+===== 最后仅同步项目手长185标注的实际编辑词 =====
+Edit ONLY ONE TEXT VALUE in this existing sheet. Preserve absolutely all object geometry, same-device wearing view and macro, forearm cutoff, two integrated straps/ears/buckles, six bays/five engraved leaves, dimensions, typography, title, colors and panel layout.
+At the TOP RIGHT the caption currently reads “手长190为绘图参照”. Change it to exactly “手长185为项目参照”. Keep its subtitle “（从腕横纹至中指指尖）” unchanged. The number185 is this project's chosen drawing/model reference, NOT a universal Quest requirement. Do not add any “官方标准” claim.
+Everything else, including forearm150 suggestion, metal-body80×48×40 suggestion, exposed loop15, wrist gap25 and all seal-style inscriptions, must remain unchanged. Do not regenerate or reshape any hands, instrument, strap or plate. One text substitution only.
+

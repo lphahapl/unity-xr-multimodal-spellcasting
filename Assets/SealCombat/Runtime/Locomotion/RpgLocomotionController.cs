@@ -6,7 +6,7 @@ namespace NarutoVR.SealCombat.Rpg
 {
     /// <summary>Explicitly driven by the hand adapter. Teleports only the assigned tracking-origin root.</summary>
     [DisallowMultipleComponent]
-    public sealed class RpgLocomotionController : MonoBehaviour
+    public sealed partial class RpgLocomotionController : MonoBehaviour
     {
         [Header("玩家引用（必须显式指定）")]
         [InspectorName("追踪原点根节点"), Tooltip("移动整个Rig，不直接修改相机。根节点的Y加地面偏移应为玩家脚下楼层。")]
@@ -67,7 +67,7 @@ namespace NarutoVR.SealCombat.Rpg
         double lastSelectionObserved = double.NegativeInfinity;
         double lastNow, nextDodgeAt = double.NegativeInfinity;
 
-        public bool NavigationActive => useRayNavigation ? rayState.Active : state != null && state.NavigationActive;
+        public bool NavigationActive => UsesEncounterModes && !EncounterCombat ? walking : (UsesEncounterModes || useRayNavigation) ? rayState.Active : state != null && state.NavigationActive;
         public bool SealProtectionActive => state != null && state.SealProtectionActive;
         public Vector3 PlayerFloorPosition => ReferencesValid() ? ExpectedFloor : transform.position;
         public event Action<RpgActionCue> Feedback;
@@ -75,7 +75,7 @@ namespace NarutoVR.SealCombat.Rpg
         public bool OnNode => currentNode != null;
         public float DodgeRemaining => (float)Math.Max(0, nextDodgeAt - lastNow);
         public string Status { get; private set; } = "等待手部输入";
-        public float DwellProgress => CandidateNode == null ? 0 : useRayNavigation ? rayState.Progress : state == null ? 0 : state.DwellProgress;
+        public float DwellProgress => CandidateNode == null ? 0 : (UsesEncounterModes || useRayNavigation) ? rayState.Progress : state == null ? 0 : state.DwellProgress;
         public NavigationNode CandidateNode { get; private set; }
         public string SelectionDetail { get; private set; } = "尚未选点";
         public event Action CancelRequested;
@@ -109,6 +109,12 @@ namespace NarutoVR.SealCombat.Rpg
                 CancelRequested?.Invoke();
             }
 
+            if (UsesEncounterModes)
+            {
+                if (ProcessEncounter(frame,forwardOwnedByHeldSpell,blockActions || intent.cancel,now)) return;
+                ProcessRayNavigation(frame,false,now);
+                return;
+            }
             if (intent.dodgeDirection != Vector3.zero)
             {
                 State.InterruptDwell();
@@ -168,6 +174,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void ResetInput()
         {
+            ResetEncounterMotion();
             lastSelectionObserved = double.NegativeInfinity;
             inputSmoother.Reset(); debugCandidates.Clear();
             state?.Reset(); rayState.Reset();
@@ -226,6 +233,17 @@ namespace NarutoVR.SealCombat.Rpg
         public bool TryDebugDodge(Vector2 direction, double now)
         {
             if (!DebugArgumentsValid(direction, now)) return false;
+            if (UsesEncounterModes)
+            {
+                // A fresh debug button press is a new action; it does not require a tracked wrist.
+                string gate=!EncounterCombat?"非战斗":rawInput.rightMotionOwnedBySpell?"持球":
+                    shotGuard && now-shotAt<throwDodgeRecovery?"发射保护计时未满":sliding?"正在滑退":
+                    lastNow<nextDodgeAt?"闪避冷却中":null;
+                if(gate!=null){Status="模拟闪避："+gate;return false;}
+                shotGuard=false;
+                if (!TryHorizontal(head.forward,out var look)) return false;
+                return StartSlide(look,now);
+            }
             bool moved = TryDodgeWorld(RpgGestureState.ToWorld(RpgGestureState.Cardinal(direction),
                 RpgGestureState.HorizontalForward(head.forward, Vector3.forward)), now);
             Status = "模拟闪避：" + Status;
@@ -375,6 +393,8 @@ namespace NarutoVR.SealCombat.Rpg
 
         NavigationNode SelectRayNode(NavigationHandInput frame)
         {
+            bool combat=UsesEncounterModes;
+            if (combat && !rayNavigation.CombatScoringValid) { SelectionDetail="战斗候选角或评分权重无效"; return null; }
             IReadOnlyList<NavigationNode> candidates = currentNode != null ? currentNode.neighbors : NavigationNode.ActiveNodes;
             if (candidates == null) { SelectionDetail = "没有相邻节点"; return null; }
             if (!TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out string reason))
@@ -382,19 +402,24 @@ namespace NarutoVR.SealCombat.Rpg
             NavigationNode best = null;
             NavigationScore bestScore = default, previousScore = default;
             bool previousEligible = false;
+            int rangeRejected=0, angleRejected=0;
             foreach (NavigationNode node in candidates)
             {
                 evaluated++;
                 if (node == null || node == currentNode || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene ||
                     !Registered(node) || !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
                 float distance = Vector3.Distance(from.point, node.floorPosition);
-                if (distance < nodeTolerance || distance > offNodeRange ||
-                    !NavigationTargetScoring.TryEvaluateRay(node.floorPosition, frame.leftRayOrigin, frame.leftRayDirection,
-                        rayNavigation.hitRadius, out NavigationScore score)) { directionRejected++; continue; }
+                if (distance < nodeTolerance || distance > offNodeRange) { rangeRejected++; directionRejected++; continue; }
+                NavigationScore score=default;
+                if (!combat && !NavigationTargetScoring.TryEvaluateRay(node.floorPosition, frame.leftRayOrigin,
+                    frame.leftRayDirection, rayNavigation.hitRadius, out score)) { angleRejected++; directionRejected++; continue; }
                 if (!TryNodeDestination(node, from.point, out RaycastHit destination, out _)) { floorRejected++; continue; }
                 int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
                 if (!ClearCapsule(destination, from.point, obstacles, out _)) { occupiedRejected++; continue; }
                 if (!Visible(from.point, destination.point, obstacles)) { occludedRejected++; continue; }
+                if (combat && !NavigationTargetScoring.TryEvaluateCombatRay(rayNavigation,destination.point,
+                    head.position,head.forward,frame.leftRayOrigin,frame.leftRayDirection,distance,offNodeRange,out score))
+                { angleRejected++; directionRejected++; continue; }
                 int rank = 0;
                 while (rank < debugCandidates.Count && score.total <= debugCandidates[rank].score.total) rank++;
                 if (rank < 3) { debugCandidates.Insert(rank, (node.nodeId, score, distance)); if (debugCandidates.Count > 3) debugCandidates.RemoveAt(3); }
@@ -402,11 +427,12 @@ namespace NarutoVR.SealCombat.Rpg
                 if (best == null || score.total > bestScore.total || score.total == bestScore.total && string.CompareOrdinal(node.nodeId,best.nodeId) < 0)
                 { best = node; bestScore = score; }
             }
-            // Only a still-hit, still-reachable target may benefit from hysteresis.
+            // Only a still-eligible, still-reachable target may benefit from hysteresis.
             if (previousEligible && best != CandidateNode && bestScore.total - previousScore.total < rayNavigation.switchAdvantage)
             { best = CandidateNode; bestScore = previousScore; }
-            SelectionDetail = best ? $"射线命中：{best.nodeId}，总分 {bestScore.total:F2} / 射线 {bestScore.handRay:F2}" :
-                $"无可达命中：射线未命中/超距 {directionRejected}，楼层 {floorRejected}，占位 {occupiedRejected}，遮挡 {occludedRejected}";
+            string result=best ? combat ? $"战斗候选 {best.nodeId}：{bestScore.DescribeCombatRay(rayNavigation)}" :
+                $"射线命中：{best.nodeId}，总分 {bestScore.total:F2} / 射线 {bestScore.handRay:F2}" : "无可达候选";
+            SelectionDetail=$"{result}｜排除：{(combat?"角度":"射线未命中")} {angleRejected}，距离 {rangeRejected}，楼层 {floorRejected}，占位 {occupiedRejected}，遮挡 {occludedRejected}";
             return best;
         }
 
@@ -565,19 +591,26 @@ namespace NarutoVR.SealCombat.Rpg
         public string BuildDebugDetails(double now)
         {
             var b = new System.Text.StringBuilder();
-            b.AppendLine($"导航模式：{(useRayNavigation ? "射线直接选点（无需食指位移）" : "旧四向位移")}；候选 {(CandidateNode ? CandidateNode.nodeId : "无")}");
-            if (useRayNavigation) b.AppendLine($"射线状态：{rayState.Status}；准备 {rayNavigation?.readySeconds:F2}s / 驻留 {rayNavigation?.dwellSeconds:F2}s；等待重备={rayState.NeedsRelease}");
+            bool combatRay=UsesEncounterModes && EncounterCombat;
+            bool rayMode=UsesEncounterModes ? combatRay : useRayNavigation;
+            string mode=UsesEncounterModes ? combatRay ? "战斗头向与手指融合选点" : "探索沿头显朝向行走" :
+                rayMode ? "射线直接选点（无需食指位移）" : "旧四向位移";
+            b.AppendLine($"导航模式：{mode}；候选 {(CandidateNode ? CandidateNode.nodeId : "无")}");
+            if (rayMode) b.AppendLine($"射线状态：{rayState.Status}；准备 {rayNavigation?.readySeconds:F2}s / 驻留 {rayNavigation?.dwellSeconds:F2}s；等待重备={rayState.NeedsRelease}");
             b.AppendLine($"左手：{(rawInput.leftValid ? "追踪有效" : "无效")} / 指向={rawInput.leftPointing}；样本年龄 {Age(now,rawInput.leftObserved):0} ms");
             b.AppendLine($"右手：{(rawInput.rightValid ? "追踪有效" : "无效")} / 张掌={rawInput.rightOpen}；样本年龄 {Age(now,rawInput.rightObserved):0} ms");
-            if (!useRayNavigation) b.AppendLine($"导航位移 左右/前后：{State.NavigationDisplacement.x*100:0.0}/{State.NavigationDisplacement.y*100:0.0} cm；阈值 {gestures.directionDistance*100:0.0} cm");
+            if (!UsesEncounterModes && !useRayNavigation) b.AppendLine($"导航位移 左右/前后：{State.NavigationDisplacement.x*100:0.0}/{State.NavigationDisplacement.y*100:0.0} cm；阈值 {gestures.directionDistance*100:0.0} cm");
             b.AppendLine($"平滑：{inputSmoother.Status}；位置滞后 {inputSmoother.PositionLag*1000:0.0} mm / 射线差 {inputSmoother.RayLagDegrees:0.0}°");
             b.AppendLine($"原始指尖 {rawInput.leftIndex:F3} → 导航指尖 {filteredInput.leftIndex:F3}");
             b.AppendLine($"原始射线 {rawInput.leftRayDirection:F2} → 导航射线 {filteredInput.leftRayDirection:F2}；有效={filteredInput.leftRayValid}");
-            b.AppendLine($"驻留 {DwellProgress*100:0}% / {(useRayNavigation ? rayNavigation?.dwellSeconds ?? 0 : gestures.dwellSeconds):0.00}s；{(useRayNavigation ? rayState.Status : selectionPending ? "换点确认中，保留进度" : State.NavigationNeedsNeutral ? "等待左手回中" : "等待或累计有效输入")}");
-            if (!useRayNavigation) b.AppendLine($"换点候选 {(challenger ? challenger.nodeId : "无")}；优势要求 {scoring?.switchAdvantage:0.00}；已保持 {(challenger ? Math.Max(0,inputNow-challengerSince)*1000 : 0):0} ms");
-            b.AppendLine($"上次候选检查 {evaluated}：无效 {invalidNodes} / 方向距离 {directionRejected} / 地面楼层 {floorRejected} / 占位 {occupiedRejected} / 遮挡 {occludedRejected}");
-            foreach(var c in debugCandidates)
-                b.AppendLine(useRayNavigation ? $"{c.id} · {c.distance:0.0}m · 总分 {c.score.total:F2} / 射线 {c.score.handRay:F2}" :
+            if (!UsesEncounterModes || combatRay) b.AppendLine($"驻留 {DwellProgress*100:0}% / {(rayMode ? rayNavigation?.dwellSeconds ?? 0 : gestures.dwellSeconds):0.00}s；{(rayMode ? rayState.Status : selectionPending ? "换点确认中，保留进度" : State.NavigationNeedsNeutral ? "等待左手回中" : "等待或累计有效输入")}");
+            if (!UsesEncounterModes && !useRayNavigation) b.AppendLine($"换点候选 {(challenger ? challenger.nodeId : "无")}；优势要求 {scoring?.switchAdvantage:0.00}；已保持 {(challenger ? Math.Max(0,inputNow-challengerSince)*1000 : 0):0} ms");
+            if (!UsesEncounterModes || combatRay) b.AppendLine($"上次候选检查 {evaluated}：无效 {invalidNodes} / 方向距离 {directionRejected} / 地面楼层 {floorRejected} / 占位 {occupiedRejected} / 遮挡 {occludedRejected}");
+            if (combatRay && rayNavigation!=null)
+                b.AppendLine($"候选半角 {rayNavigation.combatCandidateAngle:0}°；{SelectionDetail}");
+            if (!UsesEncounterModes || combatRay) foreach(var c in debugCandidates)
+                b.AppendLine(rayMode ? combatRay ? $"{c.id} · {c.distance:0.0}m · 可达 · {c.score.DescribeCombatRay(rayNavigation)}" :
+                    $"{c.id} · {c.distance:0.0}m · 总分 {c.score.total:F2} / 射线 {c.score.handRay:F2}" :
                     $"{c.id} · {c.distance:0.0}m · {c.score.Describe()}");
             b.Append($"结印保护={SealProtectionActive}；右手技能占用={rawInput.rightMotionOwnedBySpell}；双手低位={rawInput.bothHandsLow}\n当前结果：{Status}");
             return b.ToString();

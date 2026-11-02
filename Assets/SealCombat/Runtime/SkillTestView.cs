@@ -93,7 +93,7 @@ namespace NarutoVR.SealCombat
             b.AppendLine($"骨骼缓存：{engine.BufferCount} 帧 / {engine.BufferSeconds:F1} 秒（上限{engine.HistoryLimitSeconds:0.#}秒）");
             b.AppendLine("匹配："+engine.Status);
             if(!string.IsNullOrEmpty(engine.PendingSkillId))b.AppendLine($"等待：{engine.PendingSkillName} / 剩余 {Math.Max(0,engine.PendingDeadline-now):F1} 秒");
-            b.AppendLine("语音："+(controller.voice?controller.voice.Status:"未配置"));
+            b.AppendLine("语音："+(controller.voice?controller.voice.Status:"未配置")+"；最近拦截："+controller.LastVoiceBlock);
             if(controller.ScheduledPhrase!=null)b.AppendLine($"【模拟】{controller.ScheduledPhrase}：{Math.Max(0,controller.ScheduledAt-now):F1} 秒后输入");
             if(effects)
             {

@@ -72,14 +72,14 @@ namespace NarutoVR.SealCombat.Editor
                 f.Controller.ReceiveVoice("火球术",100.05);
                 f.Controller.ExclusiveInputBlocked = () => true;
                 f.Tick(); f.Controller.ReceiveVoice("取消施法",100.06); f.Tick();
-                Require(f.Controller.VoiceEventCount==0 && cancelled==0 && string.IsNullOrEmpty(f.Engine.PendingSkillId),
+                Require(f.Controller.LastVoiceBlock.Contains("腕部菜单独占输入") && f.Controller.VoiceEventCount==0 && cancelled==0 && string.IsNullOrEmpty(f.Engine.PendingSkillId),
                     "UI获得输入后，队列口令与取消口令均不可进入战斗"); passed++;
             }
             using (var f = new Fixture())
             {
                 f.Controller.InvalidateEarlierVoice();
                 f.Controller.ReceiveVoice("火球术",100.05); f.Tick();
-                Require(f.Controller.VoiceEventCount==0 && string.IsNullOrEmpty(f.Engine.PendingSkillId),"UI退出后迟到旧口令必须丢弃"); passed++;
+                Require(f.Controller.LastVoiceBlock.Contains("屏障") && f.Controller.VoiceEventCount==0 && string.IsNullOrEmpty(f.Engine.PendingSkillId),"UI退出后迟到旧口令必须丢弃"); passed++;
                 f.Controller.ReceiveVoice("火球术",100.102); f.Tick();
                 Require(f.Controller.VoiceEventCount==1 && f.Engine.PendingSkillId=="clock.fire","交接后新口令仍能进入匹配"); passed++;
             }

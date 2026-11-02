@@ -18,9 +18,9 @@ A Unity XR prototype combining skeletal hand gesture recognition and offline Chi
 | 离线语音 | Python + sherpa-onnx 中文关键词检测，本机回环 UDP、心跳、时钟映射与过期事件过滤 |
 | 多模态配方 | 纯手势、纯口令、手势与口令组合；组合支持先手势后口令或相反顺序 |
 | 技能系统 | ScriptableObject 配置、独立匹配器、效果定义与运行时生命周期；投射物、护盾、取消和冷却 |
-| 移动与关卡 | 手势节点导航、方向闪避、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |
-| 基础手形 | Meta官方状态引擎与默认阈值；左右手独立确认与失效撤销；[串流调试说明](docs/OFFICIAL_HAND_POSES_ZH.md) |
-| 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md#9-点腕开关与轻捏确认当前默认)。文字速查已实现，画符识别与完整课程未做 |
+| 移动与关卡 | 战斗视线选点传送、胸前快推后撤、探索视线行走、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |
+| 基础手形 | Meta官方状态引擎与默认阈值；左右手独立确认与失效撤销；[串流调试说明](docs/guides/OFFICIAL_HAND_POSES_ZH.md) |
+| 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。文字速查已实现，画符识别与完整课程未做 |
 | 开发支持 | 中文 Inspector / HUD、模拟输入入口、配置冲突检查、场景生成与编辑/播放模式检查 |
 
 手势采用**特征与规则评分**；语音采用**关键词检测（KWS）**。本仓库没有训练通用手势分类模型，也不把关键词命中当作整句语义理解。
@@ -51,15 +51,21 @@ flowchart TD
 - 默认保留最多 **10 秒 / 640 帧**的有界骨骼与评分缓存，默认组合窗口为 **8 秒**。时间和容量可配置，必须满足采样率及语音延迟预算。
 - 匹配器负责保持、歧义处理、输入消费与重新准备，避免一直保持同一手势造成重复施法。
 - 语音事件使用映射后的词尾时间估计参与匹配，不能直接把 UDP 到达时刻当作说话时刻。
-- 条件满足后激活技能；火球的“生成到手上”和“发射”是两个阶段。线性RPG使用握拳/捏合后甩手松开，沿手轨迹投掷；旧展示场景保留前推。见[四向操作与投掷](docs/DIRECTIONAL_INTERACTION_AND_THROW_ZH.md)。最新[投掷方向修复、导航融合评分和诊断录制](docs/THROW_DIRECTION_AND_NAV_SCORING_ZH.md)说明了延迟松手处理与5×5落点选择。
-- [移动、投掷手感与详细调试](docs/INTERACTION_FEEL_AND_DEBUG_ZH.md)补充导航平滑、驻留暂停、冻结释放点和手边提示；最新[动作评分与自动记录](docs/SCORED_THROW_DIAGNOSTICS_ZH.md)无需腾手操作。[腕饰入口与独立教学面板](docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md)已接入 RPG；[UI、MR/PICO 与多人文档核对](docs/UI_PLATFORM_MULTIPLAYER_AUDIT_ZH.md)列明输入仲裁、关闭语义、空间/时钟及已实现与设计契约的边界。
+- 条件满足后激活技能；火球生成到手与发射分开。当前 RPG 采用头向瞄准，手部动作触发发射；有效同印可配新口令重新就绪。见[火球配置与算法](docs/guides/FIREBALL_TUNING_ZH.md)。
+- 战斗选点、探索行走与腕部仲裁见[移动指南](docs/guides/ENCOUNTER_LOCOMOTION_ZH.md)；点腕、子卡射线轻捏、三维拖动与跟随见[腕饰指南](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。
+
+### 最近一次串流与下一版操作
+
+已验证：火球抬腕显示预测线，三种手势只负责发射；寅印可配合新的口令再次施法。Steam 串流中记录到 8 发成功发射，其中一次侧甩命中；也记录到一次玩家未主动操作菜单却被判为腕部独占。该次测试使用旧射线导航（手指 98%、距离 2%）。
+
+已接入线性 RPG：靠近腕饰或悬停只提示，不打断施法。战斗时左食指启用视线为主的节点传送，空手右手胸前快推触发向后滑退；探索时左食指沿水平视线走，收指即停，无闪避。见[战斗／探索移动与腕部仲裁](docs/guides/ENCOUNTER_LOCOMOTION_ZH.md)，包含实际默认参数、Debug 操作和真机验收步骤。2026-11-01 的既有报告记录 531 项编辑模式检查及 Play Mode 集成通过；报告时间与边界见[验证说明](docs/guides/VALIDATION_ZH.md)，本次文档整理未重跑这些检查。
 
 ### 本轮串流操作
 
 1. **菜单**：左腕抬到胸前，不要求握拳。右食指从腕饰外靠近并轻点；退开约 10 厘米，再点一次关闭小菜单。放下左腕也能收起入口。
-2. **子面板**：近距离食指点按钮，或指向按钮看到高亮后轻捏。确认发生在捏下时；松开才能再次点击。结印/咒语卡默认放腕保留，用卡片关闭键关闭；画符预览默认随腕收起。
-3. **移动冲突**：检测到右指主动点腕的意图后，取消尚未完成的选点驻留，暂时消费战斗输入。单纯抬腕/握拳不再自动弹出菜单；已生成的手持技能优先。
-4. **投掷**：火球在手上后先握住或捏住，支持原有甩手松开、后拉约7厘米再快速前送、主动伸手后稳定保持约0.6秒。绿色只表示握持确认；前送需动作分72及运动/追踪/碰撞门槛，伸手保持走独立距离和时长条件。生成时已远伸不能直接等到自动发射。见[评分算法、操作与日志](docs/SCORED_THROW_DIAGNOSTICS_ZH.md)。
+2. **子面板**：指向按钮看到高亮后轻捏；子面板只使用射线轻捏，主菜单保留近按。确认发生在捏下时；松开才能再次点击。结印/咒语卡默认放腕保留，用卡片关闭键关闭；画符预览默认随腕收起。
+3. **移动冲突**：仅靠近腕饰或悬停教学卡不取消结印、口令或选点；确认打开主菜单、点按钮或拖动才占用输入。单纯抬腕/握拳不再自动弹出菜单；已生成的手持技能优先。
+4. **投掷**：火球在手上后先握住或捏住，支持原有甩手松开、后拉约5厘米再快速前送约9厘米、主动伸手后稳定保持约0.45秒。绿色只表示握持确认；前送需动作分62及运动/追踪/碰撞门槛，伸手保持走独立距离和时长条件。生成时已远伸不能直接等到自动发射。见[评分算法、操作与日志](docs/guides/FIREBALL_TUNING_ZH.md)。
 5. **诊断**：进入Play自动记录投掷动作；右侧“投掷动作评分与发射诊断”实时显示分数、保持进度、各项数值和拒绝原因。日志位于 `Logs/throw-captures/throw-score-*.jsonl`，默认15分钟/64MB上限，可停止或开始新文件，无需腾手点击录制。电脑 Game 窗口右侧的结印、语音和投掷分区支持鼠标滚动及折叠，已展开的分区每秒更新10次。世界调试面板默认隐藏，可从电脑按钮切换；点腕前不再弹文字提示，关闭说明留在已打开的菜单里。
 
 在“左腕术式菜单与教学卡”的中文 Inspector 调整接触半径、腕饰偏移、轻捏距离与子面板策略；在“效果_fireball”调整投掷门槛。不要在手印模板里调这些基础操作。旧自动抬拳模式保留作对照，默认使用点腕模式。桌面合成检查不能代替本轮头显手感验收。
@@ -78,7 +84,7 @@ Hierarchy 中的“腕部界面 · 自有世界根”是程序生成的 UI 容�
 | `SkillEffects` / 效果实例 | 激活、更新、命中和资源清理 |
 | `Rpg/Data` | 玩家运行状态、成长、进度和检查点存档 |
 
-会话开始时复制匹配配置，施法时复制效果参数；共享 ScriptableObject 不保存玩家剩余 HP、运行对象或效果剩余时间。新增同类型技能可通过复制配置资产并加入目录完成；新增机制需实现新的效果定义。详细步骤见[配置与扩展指南](docs/CONFIGURATION_GUIDE_ZH.md)。
+会话开始时复制匹配配置，施法时复制效果参数；共享 ScriptableObject 不保存玩家剩余 HP、运行对象或效果剩余时间。新增同类型技能可通过复制配置资产并加入目录完成；新增机制需实现新的效果定义。详细步骤见[配置与扩展指南](docs/guides/CONFIGURATION_GUIDE_ZH.md)。
 
 ## 开发环境
 
@@ -113,7 +119,7 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 3. 在 Unity 选择 Windows 开发目标，使用 **Tools → NarutoVR → Steam Link → 打开独立实验场景**。
 4. 进入 Play，放下控制器，检查左右手追踪、关节版本、骨骼线和实际 Runtime。
 
-具体设置、质量标记和原生路线说明见 [Steam Link 开发指南](docs/STEAM_LINK_DEVELOPMENT_ZH.md)。系统菜单能用轻捏点击，不代表应用已经收到有效关节数据。
+具体设置、质量标记和原生路线说明见 [Steam Link 开发指南](docs/guides/STEAM_LINK_DEVELOPMENT_ZH.md)。系统菜单能用轻捏点击，不代表应用已经收到有效关节数据。
 
 ### 3. 选择演示场景
 
@@ -126,7 +132,7 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 | 组合施法 | `Assets/SealCombat/Scenes/ComboSanctum.unity` | 两种输入顺序、超时与取消 |
 | 线性 RPG | `Assets/SealCombat/Scenes/LinearRpgTest.unity` | 玩家资源、导航、闪避、关卡、升级与检查点 |
 
-默认训练配方示例：**子印 → 护盾**、**“护体咒” → 护盾**、**寅印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
+默认训练配方示例：**子印 → 护盾**、**“护体咒” → 护盾**、**寅印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
 
 ### 4. 启动离线中文口令（可选）
 
@@ -146,7 +152,7 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 & './Tools/SkillVoice/Stop.ps1'
 ```
 
-推理在电脑本地运行，正式接线使用 IPv4 loopback UDP。当前 PC 服务不能直接供独立 Quest Android 包使用。下载模型的来源及校验、麦克风选择、词表与时钟协议见[语音接入说明](docs/SKILL_VOICE_SETUP_ZH.md)。
+推理在电脑本地运行，正式接线使用 IPv4 loopback UDP。当前 PC 服务不能直接供独立 Quest Android 包使用。下载模型的来源及校验、麦克风选择、词表与时钟协议见[语音接入说明](docs/guides/SKILL_VOICE_SETUP_ZH.md)。
 
 ## 代码目录
 
@@ -166,7 +172,7 @@ Assets/
 Tools/SkillVoice/            # 离线 KWS 服务、下载器与测试
 Packages/                    # 包依赖与锁文件
 ProjectSettings/             # Unity 工程设置
-docs/                        # 操作、架构、设计与历史验收说明
+docs/                        # guides / architecture / research / world / 模型交火
 ```
 
 ## 验证方式与边界
@@ -180,7 +186,7 @@ docs/                        # 操作、架构、设计与历史验收说明
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/verify_fixtures.py'
 ```
 
-[架构重构记录](docs/ARCHITECTURE_REFACTOR_QA_ZH.md)和 [RPG 验收摘要](docs/LINEAR_RPG_QA_2026-10-30_ZH.md)记录了对应开发阶段的检查结果。历史结果不代表后续版本自动通过；原始日志、录音和本机备份不随仓库上传。
+验证入口、报告时间和覆盖范围见[验证说明](docs/guides/VALIDATION_ZH.md)。既有报告不代表后续版本自动通过；原始日志、录音和本机备份不随仓库上传。
 
 当前限制：
 
@@ -192,23 +198,20 @@ docs/                        # 操作、架构、设计与历史验收说明
 
 ## 文档导航
 
-- [画符接入待办与追加审阅](docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md)：两份临时仓库的源码结论与操作冲突；战斗外拿笔进入画符模式，期间禁止结印/攻击。P2 设计阶段，现有交互修复优先。其他 AI 可在文末追加审阅。
-- [配置与扩展指南](docs/CONFIGURATION_GUIDE_ZH.md)：技能资产、效果扩展、缓存、语音与详细操作。
-- [技术与开发索引](docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md)：当前实现、设计提案和后续顺序。
-- [手势采样与标定](docs/SEAL_LAB_QUICKSTART_ZH.md) / [识别测试](docs/RECOGNITION_TEST_ZH.md)。
-- [Steam Link 开发](docs/STEAM_LINK_DEVELOPMENT_ZH.md) / [中文语音](docs/SKILL_VOICE_SETUP_ZH.md)。
-- [试炼场景](docs/SKILL_SHOWCASES_ZH.md) / [线性 RPG 运行](docs/LINEAR_RPG_QUICKSTART_ZH.md)。
-- [技能架构](docs/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md) / [玩家数据设计](docs/PLAYER_DATA_DESIGN_ZH.md)。
+- [文档总索引](docs/README.md)：当前操作、架构设计、世界观和资料来源。
+- [配置与扩展](docs/guides/CONFIGURATION_GUIDE_ZH.md) · [RPG 场景与存档](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)。
+- [手势录制与标定](docs/guides/SEAL_LAB_QUICKSTART_ZH.md) · [中文口令](docs/guides/SKILL_VOICE_SETUP_ZH.md)。
+- [画符设计](docs/architecture/GLYPH_DESIGN_ZH.md)：战斗外抓笔进入，期间不结印/攻击，P2，尚未实现运行时。
+- [模型交火规则](docs/模型交火/README.md)：代码审阅、需求变更和世界观变更统一追加交接，逐项记录模型、时间及文件改动。
 
 ## 第三方资源与许可
 
 Unity 和 Meta SDK 由 Package Manager 获取，遵循各自条款；仓库不包含它们的包缓存或头显应用安装包。中文字体保留 [Noto 字体说明](Assets/SealLab/Resources/Fonts/NOTICE.txt)与 [SIL Open Font License](Assets/SealLab/Resources/Fonts/OFL.txt)。语音模型由下载器从 sherpa-onnx 官方发布获取，来源、校验与许可证处理见语音文档及下载脚本。项目自身尚未指定开源许可证，第三方许可证不自动适用于全部项目代码。
 
-本轮腕饰、射线选点与语音诊断操作：[交互修复与测试](docs/INTERACTION_REPAIR_20261031_ZH.md)。
-最新移动、子菜单射线轻捏、三维拖动和跟随规则：[11月1日交互修复](docs/INTERACTION_REPAIR_20261101_ZH.md)。
+追踪、语音与环境故障：[排障指南](docs/guides/TRACKING_TROUBLESHOOTING_ZH.md)。
 
-施法故障排查与自动日志：[通用施法调试链条](docs/SKILL_CAST_TRACE_ZH.md)。
+施法故障排查与自动日志：[通用施法调试链条](docs/guides/SKILL_CAST_TRACE_ZH.md)。
 
-扩展与调试接口：[保持行为的结构重构说明](docs/EXTENSION_INTERFACES_ZH.md)。
+扩展与调试接口：[保持行为的结构重构说明](docs/architecture/EXTENSION_INTERFACES_ZH.md)。
 
-火球储存与三种发射调参：[配置与算法说明](docs/FIREBALL_TUNING_ZH.md)。
+火球储存与三种发射调参：[配置与算法说明](docs/guides/FIREBALL_TUNING_ZH.md)。

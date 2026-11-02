@@ -1,0 +1,326 @@
+# 《考工律度》左右手分开生成：单手八视图提示词 V4
+
+状态：2026-11-02用户确认开始生成后，已生成并选取16张独立单手图，见 ../20261102_single_hand_16views/README.md；实际调用词与纠错记录见该目录generation_manifest.json。图间一致性和正交精度仍需建模复核。
+交付：左手8张＋右手8张＝16张独立PNG；每次调用只生成一张、每张只有一只手。
+背景：默认纯色中灰；允许另选真实透明背景。所有图片无文字、无数字、无标注、无挂载虚线。
+
+## 视角坐标约定
+正视＝掌心面，背视＝手背面；指尖向上、前臂收口向下。
+左右视角指正视相机坐标的左/右，不指换成左手或右手，不混用桡侧/尺侧。
+顶图＝从指尖端沿长轴观察；下图＝从前臂收口端沿长轴观察。这样避免旧版“顶图与背图”重复。
+端视图允许真实遮挡，禁止为了看清每指改变姿势或假造展开形体。
+
+## 一致性与执行
+分别先做左手背图、右手背图作为各自基准，再以对应手基准约束余下7图。
+左右手共享材质、尺度和造型语言，各自保持解剖手性；不得一图画双手或把双手图裁开冒充单独生成。
+图像文件名包含手侧和视角，名称不进入画面。建议单张高分辨率，实际像素以工具输出为准，不能把放大插值声称为新增细节。
+正交和一致性是生成目标，仍须目视验收；AI多视图不保证是同一三维网格投影，建模前核对指长、环位置与布带走向。
+本轮无文字约束限定本套手模参考图，不撤销准望匣铜叶已有小篆铭文设计。
+
+## 共用约束（各张完整词已经包含）
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT or RIGHT as specified hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+
+## 左手：8张独立出图
+
+===== left_01_top.png｜左手·顶图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: True superior END VIEW: camera at fingertip end looking along the forearm/hand longitudinal axis toward wrist and forearm cutoff. Show fingertip ends and hand thickness with physically correct depth occlusion. NOT a dorsal elevation.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_02_left45.png｜左手·左45°图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Orthographic left45-degree oblique: start at palmar FRONT, move camera toward the LEFT side of that front-view coordinate frame by45 degrees around the longitudinal axis. Show palm plus that side thickness. Fingers up and forearm cap down. Do not change pose.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_03_right45.png｜左手·右45°图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Orthographic right45-degree oblique: start at palmar FRONT, move camera toward the RIGHT side of that front-view coordinate frame by45 degrees around the longitudinal axis. Show palm plus opposite side thickness. Fingers up and forearm cap down. Do not change pose.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_04_front.png｜左手·正视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Direct palmar FRONT orthographic elevation. Palm faces camera squarely, fingers upward, forearm cutoff downward. Show palm creases and finger pads, not nails pasted on pads. Preserve correct anatomical handedness.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_05_left.png｜左手·左视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Exact LEFT SIDE orthographic elevation: camera90 degrees toward the LEFT of the palmar-front coordinate frame. Narrow true profile, not three-quarter. Fingers up, forearm down, natural depth overlap of fingers. Do not alter finger spread to expose hidden fingers.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_06_right.png｜左手·右视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Exact RIGHT SIDE orthographic elevation: camera90 degrees toward the RIGHT of the palmar-front coordinate frame, opposite left side. Narrow true profile, not three-quarter. Fingers up, forearm down, natural depth overlap.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_07_back.png｜左手·背图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Direct dorsal BACK orthographic elevation, camera180 degrees opposite palmar front. Back of hand faces camera squarely, fingers up and forearm cutoff down. Show nails, extensor tendons and knuckles, preserve handedness and pose.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+===== left_08_bottom.png｜左手·下图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical LEFT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: True inferior END VIEW: camera at forearm cutoff looking along the longitudinal axis toward wrist and fingertips. Show clean cloth-covered oval forearm end closest to camera, with wrist/hand/fingers behind in physically correct occlusion. NOT a palmar elevation. No wound, exposed bone or hollow sleeve.
+Final check: exactly one LEFT hand, no other hand, no lettering; same left hand as reference.
+
+## 右手：8张独立出图
+
+===== right_01_top.png｜右手·顶图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: True superior END VIEW: camera at fingertip end looking along the forearm/hand longitudinal axis toward wrist and forearm cutoff. Show fingertip ends and hand thickness with physically correct depth occlusion. NOT a dorsal elevation.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_02_left45.png｜右手·左45°图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Orthographic left45-degree oblique: start at palmar FRONT, move camera toward the LEFT side of that front-view coordinate frame by45 degrees around the longitudinal axis. Show palm plus that side thickness. Fingers up and forearm cap down. Do not change pose.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_03_right45.png｜右手·右45°图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Orthographic right45-degree oblique: start at palmar FRONT, move camera toward the RIGHT side of that front-view coordinate frame by45 degrees around the longitudinal axis. Show palm plus opposite side thickness. Fingers up and forearm cap down. Do not change pose.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_04_front.png｜右手·正视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Direct palmar FRONT orthographic elevation. Palm faces camera squarely, fingers upward, forearm cutoff downward. Show palm creases and finger pads, not nails pasted on pads. Preserve correct anatomical handedness.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_05_left.png｜右手·左视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Exact LEFT SIDE orthographic elevation: camera90 degrees toward the LEFT of the palmar-front coordinate frame. Narrow true profile, not three-quarter. Fingers up, forearm down, natural depth overlap of fingers. Do not alter finger spread to expose hidden fingers.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_06_right.png｜右手·右视图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Exact RIGHT SIDE orthographic elevation: camera90 degrees toward the RIGHT of the palmar-front coordinate frame, opposite left side. Narrow true profile, not three-quarter. Fingers up, forearm down, natural depth overlap.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_07_back.png｜右手·背图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: Direct dorsal BACK orthographic elevation, camera180 degrees opposite palmar front. Back of hand faces camera squarely, fingers up and forearm cutoff down. Show nails, extensor tendons and knuckles, preserve handedness and pose.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.
+
+===== right_08_bottom.png｜右手·下图 =====
+Asset type: high-detail single-hand 3D modeling reference.
+Render exactly ONE anatomical RIGHT hand and its attached short forearm, isolated and centered. Never show a pair, a second hand, a collage, multiple angles, inset details, or detached extra parts.
+Adult male ancient Chinese craftsman/engineer; realistic healthy warm skin, subtle pores, tendons, knuckles, palm creases and trimmed natural nails. Exactly five anatomically correct fingers.
+Project proportions, never printed in image: hand length185mm from wrist crease to middle fingertip; palm width82mm; visible forearm150mm from wrist; forearm width68-70mm. These are project references, not mandatory Meta dimensions.
+Fixed neutral modeling pose: wrist straight, four fingers comfortably extended with small natural gaps, thumb abducted approximately35 degrees. Keep identical joint pose and proportions in all eight views; only camera changes.
+Tight charcoal-indigo coarse linen wraps around forearm and wrist with a narrow extension along the outer dorsal edge. Keep main dorsal anatomy, palm, wrist flexion crease and fingers visible. Same wrap route, overlaps, edges and weave scale in every view. No hanging tails, cords or loose sleeves.
+Exactly TWO narrow matte bronze rings: one on thumb distal phalanx, one on index distal phalanx, below the nail without covering nail or fingertip or spanning a joint. Shallow geometric cloud-thunder ornament only; no letters or inscriptions. No other jewelry.
+No Zhunwang Xia box, no device straps or buckles, no mounting placeholder, dotted outline or bounding box.
+Orthographic projection for all views including45-degree views. No wide-angle distortion or perspective convergence. Consistent camera scale for front/back/side/oblique elevations. End views preserve physical scale; do not stretch them to fill the frame.
+Detailed realistic sculpt/PBR reference, crisp silhouette, neutral diffuse studio illumination. Fine restrained skin and textile detail, no extreme weathering or baked dramatic highlights.
+Full subject within frame, generous clean margins, no cropping at fingertips or forearm cutoff. Forearm end finished as a clean opaque dark cloth-covered cap, not a wound or hollow sleeve.
+Default background: uniform solid neutral grey #808080. No gradient, floor, horizon, environment, cast shadow, checkerboard or vignette. If a transparent variant is explicitly generated, request actual alpha transparency from the tool instead of painting a checkerboard.
+Absolutely NO text, numerals, captions, dimension marks, rulers, arrows, leaders, panel borders, logos, watermarks or other objects.
+Treat supplied reference as the same anatomical hand, not a style suggestion. Preserve handedness, digit lengths, nail shape, rings, wrap topology, skin tone and pose. Do not mirror an image as a substitute for generating the opposite hand.
+VIEW: True inferior END VIEW: camera at forearm cutoff looking along the longitudinal axis toward wrist and fingertips. Show clean cloth-covered oval forearm end closest to camera, with wrist/hand/fingers behind in physically correct occlusion. NOT a palmar elevation. No wound, exposed bone or hollow sleeve.
+Final check: exactly one RIGHT hand, no other hand, no lettering; same right hand as reference.

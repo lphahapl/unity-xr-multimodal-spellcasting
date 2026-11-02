@@ -32,6 +32,11 @@ namespace NarutoVR.SealCombat.Rpg
         public float total, direction, handRay, distance, headIntent;
         public bool handRayUsed, headIntentUsed;
         public string Describe() => $"评分 {total:F2}｜方向 {direction:F2}｜手指 {(handRayUsed ? handRay.ToString("F2") : "无有效射线")}｜距离 {distance:F2}｜头向 {(headIntentUsed ? headIntent.ToString("F2") : "后退不计")}";
+        public string DescribeCombatRay(RayNavigationSettings config)
+        {
+            float sum=config.combatGazeWeight+config.combatHandWeight+config.combatDistanceWeight;
+            return $"总分 {total:F3}｜头向 {headIntent:F2}×{config.combatGazeWeight/sum:P0}｜手指 {handRay:F2}×{config.combatHandWeight/sum:P0}｜距离 {distance:F2}×{config.combatDistanceWeight/sum:P0}";
+        }
     }
 
     /// <summary>Soft scores only. Registration, reachability, floors and occupancy remain mandatory controller checks.</summary>
@@ -67,7 +72,7 @@ namespace NarutoVR.SealCombat.Rpg
             return result;
         }
 
-        /// <summary>Ray mode has a hard hit gate; gaze/distance never select a missed node.</summary>
+        /// <summary>The original direct-ray mode requires a physical-radius hit.</summary>
         public static bool TryEvaluateRay(Vector3 target, Vector3 origin, Vector3 direction, float radius,
             out NavigationScore score)
         {
@@ -81,6 +86,30 @@ namespace NarutoVR.SealCombat.Rpg
             score.handRay = 1 - miss / radius;
             score.distance = 1 / (1 + along);
             score.total = .98f * score.handRay + .02f * score.distance;
+            return true;
+        }
+
+        /// <summary>In combat, looking toward a node is sufficient angular evidence; pointing still enables the gesture.</summary>
+        public static bool TryEvaluateCombatRay(RayNavigationSettings settings, Vector3 target,
+            Vector3 headPosition, Vector3 headDirection, Vector3 handPosition, Vector3 handDirection,
+            float floorDistance, float maximumDistance, out NavigationScore score)
+        {
+            score=default;
+            if(settings==null || !settings.CombatScoringValid || !RpgGestureState.Finite(target) ||
+                !ValidRay(headPosition,headDirection) || !ValidRay(handPosition,handDirection) ||
+                !float.IsFinite(maximumDistance) || maximumDistance<=0 || !float.IsFinite(floorDistance) ||
+                floorDistance<0 || floorDistance>maximumDistance) return false;
+            Vector3 fromHead=target-headPosition, fromHand=target-handPosition;
+            if(fromHead.sqrMagnitude<.0001f || fromHand.sqrMagnitude<.0001f) return false;
+            float gazeAngle=Vector3.Angle(headDirection,fromHead), handAngle=Vector3.Angle(handDirection,fromHand);
+            float limit=settings.combatCandidateAngle;
+            if((settings.combatGazeWeight<=0 || gazeAngle>limit) && (settings.combatHandWeight<=0 || handAngle>limit)) return false;
+            score.headIntentUsed=score.handRayUsed=true;
+            score.headIntent=Mathf.Clamp01(1-gazeAngle/limit);
+            score.handRay=Mathf.Clamp01(1-handAngle/limit);
+            score.distance=Mathf.Clamp01(1-floorDistance/maximumDistance);
+            score.total=(score.headIntent*settings.combatGazeWeight + score.handRay*settings.combatHandWeight +
+                score.distance*settings.combatDistanceWeight)/(settings.combatGazeWeight+settings.combatHandWeight+settings.combatDistanceWeight);
             return true;
         }
 

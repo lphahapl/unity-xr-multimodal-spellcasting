@@ -192,9 +192,13 @@ namespace NarutoVR.SealCombat.Editor
             effect.ThrowGripProvider=(_,__)=>{var grip=Grip(t);grip.fistClosed=!neutral;grip.fistOpen=false;return grip;};
             var trace=new System.Collections.Generic.List<HandThrowObservation>();effect.ThrowObserved+=o=>trace.Add(o);
             var recorder=root.AddComponent<ThrowDiagnosticRecorder>();recorder.effects=effect;recorder.autoRecord=false;recorder.BeginInDirectory(Path.GetFullPath("Logs/scored-throw-tests"));
-            GameObject obstacle=null;
+            GameObject obstacle=null, gazeTarget=null;
             try
             {
+                gazeTarget=new GameObject("头显准星近靶"){layer=30};
+                gazeTarget.transform.position=head.transform.position+Vector3.forward*1.6f;
+                gazeTarget.AddComponent<BoxCollider>().size=new Vector3(.3f,.3f,.1f);
+                gazeTarget.AddComponent<SkillTrainingTarget>(); effect.hitLayers=1<<30; Physics.SyncTransforms();
                 for(int trial=0;trial<3;trial++)
                 {
                     effect.ClearAll(); z=.35f; neutral=false; hand=head.transform.position+new Vector3(.18f,-.22f,z);
@@ -209,7 +213,13 @@ namespace NarutoVR.SealCombat.Editor
                         hand=head.transform.position+new Vector3(.18f,-.22f,z);yield return null;
                     }
                     if(trial<2)
-                    {Require(effect.LaunchCount==trial+1&&!effect.HasHeldObject,"不松手辅助发射失败，"+effect.BuildThrowDebugDetails(t));Require(Vector3.Dot(effect.LastLaunchDirection,Vector3.forward)>.98f,"实际发射方向不对");record(trial==0?"真实LateUpdate后拉前送评分发射；左手无追踪不阻挡右手":"真实LateUpdate主动伸手并保持发射");}
+                    {
+                        Require(effect.LaunchCount==trial+1&&!effect.HasHeldObject,"不松手辅助发射失败，"+effect.BuildThrowDebugDetails(t));
+                        Vector3 aim=(effect.GetAimPoint()-effect.LastLaunchPosition).normalized;
+                        Require(Vector3.Dot(effect.LastLaunchDirection,aim)>.99999f && Vector3.Angle(aim,Vector3.forward)>5,
+                            "辅助动作必须从偏置的手位飞向头向近靶，不采用手臂或前送轨迹。");
+                        record(trial==0?"真实后拉前送命中头向准星；左手无追踪不阻挡右手":"真实伸手保持触发，弹道从手边汇入头向准星");
+                    }
                     else {Require(effect.LaunchCount==2&&effect.HasHeldObject&&trace.Any(o=>o.eventType=="rejected"),"碰撞不得被高分绕过");record("高分候选仍受实际碰撞约束，记录拒绝原因");}
                 }
                 effect.ThrowInputSuppressed=true;t+=.01;yield return null;
@@ -218,7 +228,7 @@ namespace NarutoVR.SealCombat.Editor
                 Require(trace.Last().eventType=="tracking_lost","丢追踪早退也应记录");record("早退路径记录输入占用和追踪丢失，不以零分掩盖原因");
                 recorder.Stop();Require(File.ReadAllText(recorder.FilePath).Contains("shot_config"),"真实日志需要配置快照");
             }
-            finally {recorder.Stop();effect.ClearAll();if(obstacle)Object.Destroy(obstacle);Object.Destroy(root);Object.Destroy(definition);Object.Destroy(skill);}
+            finally {recorder.Stop();effect.ClearAll();if(obstacle)Object.Destroy(obstacle);if(gazeTarget)Object.Destroy(gazeTarget);Object.Destroy(root);Object.Destroy(definition);Object.Destroy(skill);}
         }
     }
 }

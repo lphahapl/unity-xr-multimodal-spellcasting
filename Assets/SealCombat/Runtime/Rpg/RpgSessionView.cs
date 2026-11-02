@@ -115,11 +115,11 @@ namespace NarutoVR.SealCombat.Rpg
             var s=controller.skills;
             return (s.voice ? s.voice.BuildDebugDetails() : "未绑定语音接收器")+
                 "\n输入占用："+(controller.UiInputOwned?"UI操作中":controller.locomotion && controller.locomotion.NavigationActive?"移动中":"无")+
-                "\n待组合技能："+(s.Engine?.PendingSkillId ?? "无")+"\n结印："+(s.lab && s.lab.Recognized ? s.lab.Recognized.name : "未命中")+
+                "\n最近拦截："+s.LastVoiceBlock+"\n待组合技能："+(s.Engine?.PendingSkillId ?? "无")+"\n结印："+(s.lab && s.lab.Recognized ? s.lab.Recognized.name : "未命中")+
                 "\n最近施法："+controller.Status;
         }
         public string BuildMovementDetails(double now) => controller && controller.locomotion
-            ? controller.locomotion.BuildDebugDetails(now) : "尚未绑定移动控制器";
+            ? controller.locomotion.EncounterDebugDetails + "\n" + controller.locomotion.BuildDebugDetails(now) : "尚未绑定移动控制器";
 
         public string BuildThrowDetails(double now) => controller && controller.skills && controller.skills.effects
             ? controller.skills.effects.BuildThrowDebugDetails(now) : "尚未绑定投掷效果执行器";

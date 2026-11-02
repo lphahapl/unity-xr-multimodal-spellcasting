@@ -108,7 +108,25 @@ namespace NarutoVR.SealCombat.Editor
                     // Keep synthetic hands stationary in the tracking origin; live HMD head bob must not move test hands.
                     Vector3 fixtureHeadLocal = lab.recordingOrigin ? lab.recordingOrigin.InverseTransformPoint(locomotion.head.position) : locomotion.head.position;
                     Vector3 fixtureOffset = fixtureHeadLocal - Vector3.up * 1.7f;
-                    Vector3 fixtureRight = RpgGestureState.ToWorld(Vector2.right, RpgGestureState.HorizontalForward(locomotion.head.forward, Vector3.forward));
+                    // Synthetic index points along +Y by default. Aim it at an actual nearby node,
+                    // as required by direct-ray navigation; translating an upward ray never selects a floor node.
+                    var node = NavigationNode.ActiveNodes.Where(n=>n && n.gameObject.scene==controller.gameObject.scene &&
+                            n.nodeId!=locomotion.CurrentNodeId && Vector3.Distance(n.floorPosition,locomotion.head.position)>.6f)
+                        .OrderBy(n=>Vector3.Distance(n.floorPosition,locomotion.head.position)).First();
+                    void AimSample(SealFrame sample)
+                    {
+                        foreach(var hand in new[]{sample.left,sample.right})
+                            for(int j=0;j<hand.joints.Length;j++) hand.joints[j].position+=fixtureOffset;
+                        var left=sample.left;
+                        Vector3 pivot=left.joints[(int)Oculus.Interaction.Input.HandJointId.HandIndex1].position;
+                        Vector3 target=lab.recordingOrigin ? lab.recordingOrigin.InverseTransformPoint(node.floorPosition) : node.floorPosition;
+                        var rotation=Quaternion.FromToRotation(Vector3.up,(target-pivot).normalized);
+                        for(int j=0;j<left.joints.Length;j++){
+                            var pose=left.joints[j];left.joints[j]=new Pose(pivot+rotation*(pose.position-pivot),rotation*pose.rotation);
+                        }
+                    }
+                    var feedback = controller.GetComponent<RpgInteractionFeedback>();
+                    int cueBefore=feedback.CueCount;
                     double poseUntil = Time.realtimeSinceStartupAsDouble + 5;
                     int poseSamples = 0; double poseLast = -1, largestGap = 0;
                     while (Time.realtimeSinceStartupAsDouble < poseUntil && (!locomotion.NavigationActive || poseSamples < 12))
@@ -117,26 +135,20 @@ namespace NarutoVR.SealCombat.Editor
                         if (poseLast >= 0) largestGap = Math.Max(largestGap,stamp-poseLast);
                         poseLast=stamp; poseSamples++;
                         var sample = RpgHandPoseChecks.Skeleton(stamp);
-                        foreach (var hand in new[] { sample.left, sample.right })
-                            for (int j = 0; j < hand.joints.Length; j++) hand.joints[j].position += fixtureOffset;
+                        AimSample(sample);
                         frameProperty.SetValue(lab, sample); poseExtractor.Extract(sample, lab.Features);
                         yield return null;
                     }
                     Require(locomotion.NavigationActive && controller.HandPoseStatus.Contains("指向通过") && controller.HandPoseStatus.Contains("张掌通过"),
                         "真实LateUpdate未接通官方手形与导航：" + controller.HandPoseStatus + "；" + locomotion.Status + "; seal=" + locomotion.SealProtectionActive + $"; samples={poseSamples}, maxGap={largestGap:0.000}");
                     Record("合成骨骼经真实SDK特征/官方状态引擎/场景LateUpdate进入导航，右掌同时通过");
-                    var feedback = controller.GetComponent<RpgInteractionFeedback>();
                     Require(feedback && feedback.controller == controller, "新交互反馈未接入实际场景");
-                    int cueBefore = feedback.CueCount;
                     double selectUntil = Time.realtimeSinceStartupAsDouble + .32;
-                    while (Time.realtimeSinceStartupAsDouble < selectUntil)
+                    while (Time.realtimeSinceStartupAsDouble < selectUntil && feedback.VisibleDwellProgress <= .05f)
                     {
                         double stamp = Time.realtimeSinceStartupAsDouble;
                         var sample = RpgHandPoseChecks.Skeleton(stamp);
-                        foreach (var hand in new[] { sample.left, sample.right })
-                            for (int j = 0; j < hand.joints.Length; j++) hand.joints[j].position += fixtureOffset;
-                        Vector3 selectionOffset = lab.recordingOrigin ? lab.recordingOrigin.InverseTransformVector(fixtureRight * .08f) : fixtureRight * .08f;
-                        for (int j = 0; j < sample.left.joints.Length; j++) sample.left.joints[j].position += selectionOffset;
+                        AimSample(sample);
                         frameProperty.SetValue(lab,sample); poseExtractor.Extract(sample,lab.Features);
                         yield return null;
                     }
@@ -274,9 +286,17 @@ namespace NarutoVR.SealCombat.Editor
                 Record("真实Physics落点检查下模拟导航成功，保持head.localPosition/Rotation");
 
                 localHead = locomotion.head.localPosition; rootBefore = locomotion.rigRoot.position;
+                // Stage transitions require a real neutral left sample; this probe isolated live tracking.
+                double recoverUntil=Time.realtimeSinceStartupAsDouble+locomotion.throwDodgeRecovery;
+                while(Time.realtimeSinceStartupAsDouble<recoverUntil) yield return null;
+                double neutralTime=Time.realtimeSinceStartupAsDouble;
+                locomotion.ProcessInput(new NavigationHandInput{leftValid=true,leftObserved=neutralTime,leftWrist=locomotion.head.position},false,false,neutralTime);
                 bool dodged = false;
                 foreach (Vector2 direction in new[] { Vector2.right, Vector2.left, Vector2.down, Vector2.up })
                     if (controller.DebugMove(true, direction)) { dodged = true; break; }
+                Require(!dodged || Vector3.Distance(rootBefore,locomotion.rigRoot.position)<.05f,"滑退不能在触发帧瞬移");
+                double slideDeadline=Time.realtimeSinceStartupAsDouble+2;
+                while(dodged && locomotion.EncounterSlideActive && Time.realtimeSinceStartupAsDouble<slideDeadline) yield return null;
                 Require(dodged && Vector3.Distance(rootBefore, locomotion.rigRoot.position) > .1f, "至少应有一个可用闪避方向：" + locomotion.Status);
                 Equal(localHead, locomotion.head.localPosition, "闪避保持头部局部位置");
                 Require(locomotion.DodgeRemaining > 0, "成功闪避应建立CD。");

@@ -14,8 +14,24 @@ namespace NarutoVR.SealCombat
         public bool ExternalCooldownAuthority { get; set; }
         public Action<string> Log;
         public string Status { get; private set; } = "等待技能输入";
-        public string ObservationDiagnostics { get; private set; } = "等待骨骼输入";
-        double nextObservationDiagnostic;
+        // The recorder and HUD ask for text on demand. Keeping string formatting out of Observe
+        // lets the warm, high-frequency skeleton path stay allocation-free.
+        public string ObservationDiagnostics
+        {
+            get
+            {
+                if (!hasPrevious || bufferCount == 0) return "等待骨骼输入";
+                if (lastSample >= nextObservationDiagnostic)
+                {
+                    diagnosticText = DescribeObservation();
+                    nextObservationDiagnostic = lastSample + .2;
+                }
+                return diagnosticText;
+            }
+        }
+        private string diagnosticText = "等待骨骼输入";
+        private double nextObservationDiagnostic = double.NegativeInfinity, diagnosticGap;
+        private bool diagnosticSuppressed, diagnosticHeld;
         public string PendingSkillName => pending < 0 ? "" : Name(recipes[pending].Definition);
         public string PendingSkillId => pending < 0 ? "" : recipes[pending].Id;
         public SkillDefinition PendingSkill => pending < 0 ? null : recipes[pending].Definition;
@@ -29,7 +45,7 @@ namespace NarutoVR.SealCombat
         public IReadOnlyList<SkillRecipeInfo> ActiveRecipes { get; }
 
         private readonly int Capacity;
-        private readonly double HistorySeconds, MaximumVoiceLatency, ExitSeconds, MaximumSampleGap;
+        private readonly double HistorySeconds, MaximumVoiceLatency, ExitSeconds, MaximumSampleGap, ComboHeldRearmSeconds;
         private const double Epsilon = 0.000001;
         private readonly float Margin;
         private readonly Recipe[] recipes;
@@ -57,6 +73,7 @@ namespace NarutoVR.SealCombat
             if(CancelPhrase.Length==0)throw new ArgumentException("取消口令不能为空",nameof(cancelPhrase));
             Capacity=config.capacity;HistorySeconds=config.historySeconds;MaximumVoiceLatency=config.maximumVoiceLatency;
             ExitSeconds=config.exitSeconds;MaximumSampleGap=config.maximumSampleGap;Margin=config.ambiguityMargin;
+            ComboHeldRearmSeconds=config.comboHeldRearmSeconds;
             slots=new Slot[Capacity];
             var errors=SkillConfigurationValidator.GetErrors(skills,config,CancelPhrase);
             var definitions = new SkillDefinition[skills.Count];
@@ -96,15 +113,14 @@ namespace NarutoVR.SealCombat
             if (expiredPending >= 0 && now > expiredProcessingDeadline + Epsilon) expiredPending = -1;
         }
 
-        public void Observe(SealFrame frame, IReadOnlyList<SealScore> scores, bool suppressActivation = false)
+        public void Observe(SealFrame frame, IReadOnlyList<SealScore> scores, bool suppressActivation = false, bool suppressHeldRearm = false)
         {
             if (!initialized || frame == null || frame.left == null || frame.right == null || scores == null || !Finite(frame.time)) return;
             if (frame.time <= barrier || frame.time + Epsilon < lastSample || frame.time > now + MaximumVoiceLatency) return;
             now = Math.Max(now, frame.time); Prune();
             int flags = Flags(frame.left) | (Flags(frame.right) << 3);
             if (hasPrevious && previousLeft == frame.left.version && previousRight == frame.right.version && previousFlags == flags) return;
-            bool diagnosticDue=frame.time>=nextObservationDiagnostic;
-            if(diagnosticDue) { nextObservationDiagnostic=frame.time+.2; ObservationDiagnostics=$"骨骼间隔 {frame.time-lastSample:F3}s / 上限 {MaximumSampleGap:F3}s；输入占用={suppressActivation}；双手有效={BothHandsValid(frame)}"; }
+            diagnosticGap=frame.time-lastSample;diagnosticSuppressed=suppressActivation;diagnosticHeld=suppressHeldRearm;
             bool contiguous = frame.time - lastSample <= MaximumSampleGap + Epsilon;
             previousLeft = frame.left.version; previousRight = frame.right.version; previousFlags = flags;
             hasPrevious = true; lastSample = frame.time;
@@ -113,10 +129,7 @@ namespace NarutoVR.SealCombat
             candidates.Clear();
             foreach (var state in seals.Values)
             {
-                ScoreFact target = default; bool found = false;
-                for (int i = 0; i < slot.ScoreCount; i++)
-                    if (slot.Scores[i].Seal == state.Seal)
-                    { if (found) { found = false; break; } target = slot.Scores[i]; found = true; }
+                bool found = TryGetScore(slot, state.Seal, out var target);
                 bool quality = valid && found && target.Quality;
                 float minimum = 1;
                 foreach (var tracker in state.Trackers) minimum = Math.Min(minimum, Threshold(recipes[tracker.Recipe], target));
@@ -128,21 +141,25 @@ namespace NarutoVR.SealCombat
                 }
                 else state.ExitSince = double.NaN;
                 if (!contiguous || !quality || suppressActivation) foreach (var tracker in state.Trackers) tracker.Start = double.NaN;
-                if (state.Blocked || suppressActivation) { if(diagnosticDue) ObservationDiagnostics+=$"\n{state.Seal}：动作已消耗={state.Blocked}，输入被占用={suppressActivation}"; continue; }
+                if (state.Blocked && (suppressHeldRearm || suppressActivation))
+                {
+                    // An occupied hand cannot bank another held-seal activation. Discard any
+                    // repeat already prepared in this cycle and start again after hand release.
+                    DiscardAction(state.Action);
+                    state.ResetTrackers();
+                }
+                if (suppressActivation || (state.Blocked && (suppressHeldRearm || frame.time < state.BlockedAt))) continue;
                 foreach (var tracker in state.Trackers)
                 {
                     var recipe = recipes[tracker.Recipe];
+                    if (state.Blocked && recipe.Mode != SkillTriggerMode.VoiceAndGesture) continue;
                     if (tracker.Complete && recipe.Mode == SkillTriggerMode.GestureOnly) continue;
                     bool qualifies = quality && target.Score + Epsilon >= Threshold(recipe, target) && Unambiguous(slot, target);
-                    if(diagnosticDue) {
-                        string other="无"; float best=-1;
-                        for(int j=0;j<slot.ScoreCount;j++) if(slot.Scores[j].Seal!=target.Seal && slot.Scores[j].Quality && slot.Scores[j].Score>best) {best=slot.Scores[j].Score;other=slot.Scores[j].Seal;}
-                        ObservationDiagnostics+=$"\n{recipe.Id}/{state.Seal}：分数 {target.Score:P1} / {Threshold(recipe,target):P1}，质量通过={quality}，歧义通过={Unambiguous(slot,target)}；竞争印 {other} {best:P1}，要求领先 {Margin:P0}；保持 {(double.IsNaN(tracker.Start)?0:frame.time-tracker.Start):F3}/{target.Hold:F3}s";
-                    }
                     if (!qualifies) { tracker.Start = double.NaN; continue; }
                     if (state.Action == 0) state.Action = ++nextAction;
                     if (double.IsNaN(tracker.Start)) tracker.Start = frame.time;
-                    if (frame.time - tracker.Start + Epsilon < target.Hold) continue;
+                    double requiredHold = state.Blocked ? Math.Max(ComboHeldRearmSeconds, target.Hold) : target.Hold;
+                    if (frame.time - tracker.Start + Epsilon < requiredHold) continue;
                     bool firstCompletion = !tracker.Complete;
                     // A still-unconsumed combination is usable while the player keeps the seal.
                     // Roll its interval, retaining the same physical action and allocation. A loss
@@ -167,19 +184,26 @@ namespace NarutoVR.SealCombat
             ResolveCandidates();
         }
 
+        public string LastVoiceRejection { get; private set; }
+        void RejectVoice(string reason) { LastVoiceRejection = reason; SetStatus(reason); }
+
         public void Voice(string phrase, double endedAt, double arrivedAt)
         {
-            if (!initialized || !Finite(endedAt) || !Finite(arrivedAt)) return;
-            if (endedAt > arrivedAt + Epsilon || arrivedAt - endedAt > MaximumVoiceLatency + Epsilon || arrivedAt > now + MaximumVoiceLatency + Epsilon)
-            { SetStatus($"语音时钟无效或结果延迟超过{MaximumVoiceLatency:0.#}秒，请重试"); return; }
+            LastVoiceRejection = null;
+            if (!initialized) { RejectVoice("匹配器尚未初始化"); return; }
+            if (!Finite(endedAt) || !Finite(arrivedAt)) { RejectVoice("口令时间戳无效"); return; }
+            if (endedAt > arrivedAt + Epsilon) { RejectVoice("口令结束时间晚于接收时间"); return; }
+            if (arrivedAt - endedAt > MaximumVoiceLatency + Epsilon) { RejectVoice($"口令延迟 {arrivedAt-endedAt:F2} 秒，超过上限 {MaximumVoiceLatency:F2} 秒"); return; }
+            if (arrivedAt > now + MaximumVoiceLatency + Epsilon) { RejectVoice("匹配器时钟落后于口令接收时间"); return; }
             now = Math.Max(now, arrivedAt); Prune();
-            if (endedAt <= barrier || endedAt <= lastVoiceEnd + Epsilon) { SetStatus("已忽略重复、过期或取消前的口令"); return; }
+            if (endedAt <= barrier) { RejectVoice("口令结束于取消或重置之前"); return; }
+            if (endedAt <= lastVoiceEnd + Epsilon) { RejectVoice("口令时间戳重复或早于已处理口令"); return; }
             string normalized = SkillPhrase.Normalize(phrase);
             if (normalized == CancelPhrase) { lastVoiceEnd = endedAt; Cancel(now); return; }
             int selected = -1;
             for (int i = 0; i < recipes.Length; i++)
                 if (recipes[i].Enabled && recipes[i].Mode != SkillTriggerMode.GestureOnly && recipes[i].Phrase == normalized) { selected = i; break; }
-            if (selected < 0) { SetStatus("未匹配完整技能口令" + (configurationError == null ? "" : "；" + configurationError)); return; }
+            if (selected < 0) { RejectVoice("未匹配完整技能口令" + (configurationError == null ? "" : "；" + configurationError)); return; }
             lastVoiceEnd = endedAt;
             expiredPending = -1;
             if (pending >= 0 && pending != selected) ClearContext(now, false);
@@ -188,14 +212,14 @@ namespace NarutoVR.SealCombat
             if (recipe.Mode == SkillTriggerMode.VoiceOnly) { Attempt(selected, null); return; }
             voiceEnd = endedAt; pending = selected;
             if (FindEvidence(selected, endedAt, out var match)) { Attempt(selected, match); return; }
-            if (now > PendingDeadline + Epsilon) { pending = -1; SetStatus("口令已超过组合窗口，请重新输入"); return; }
+            if (now > PendingDeadline + Epsilon) { pending = -1; RejectVoice("口令已超过组合窗口，请重新输入"); return; }
             SetStatus(Name(recipe.Definition) + "：口令已确认，等待" + recipe.Seal + "印");
         }
 
         public void Cancel(double time)
         {
             if (!Finite(time)) return;
-            ClearContext(time, false); SetStatus("已取消施法；旧口令与手印已清除，请退出原手印后重试");
+            ClearContext(time, false); SetStatus("已取消施法；旧输入已清除。可退出重结，组合技也可持续保持同印并重新念咒");
         }
 
         public void Reset(double time)
@@ -210,11 +234,11 @@ namespace NarutoVR.SealCombat
             pending = expiredPending = -1;
             foreach (var item in evidence) item.Buffered = false;
             evidence.Clear(); bufferHead = bufferCount = 0; hasPrevious = false; lastSample = double.NegativeInfinity;
+            nextObservationDiagnostic = double.NegativeInfinity;
             foreach (var state in seals.Values)
             {
                 state.Blocked |= state.Action != 0;
-                state.ExitSince = double.NaN;
-                foreach (var tracker in state.Trackers) { tracker.Start = double.NaN; tracker.Complete = false; tracker.Current = null; }
+                state.BlockedAt = now; state.ExitSince = double.NaN; state.ResetTrackers();
             }
             if (resetClock) { lastVoiceEnd = double.NegativeInfinity; lastAttemptTime = double.NegativeInfinity; }
         }
@@ -251,9 +275,22 @@ namespace NarutoVR.SealCombat
 
         private void Consume(Evidence item)
         {
+            DiscardAction(item.Action);
+            foreach (var state in seals.Values) if (state.Action == item.Action)
+            {
+                state.Blocked = true; state.BlockedAt = now; state.ExitSince = double.NaN;
+                // Only an actual, qualifying sample at the instant of consumption can seed
+                // the new interval. A delayed voice matched against history cannot backdate it.
+                state.ResetTrackers(Math.Abs(lastSample - now) <= Epsilon ? now : double.NaN);
+            }
+            nextObservationDiagnostic = double.NegativeInfinity;
+        }
+
+        private void DiscardAction(long action)
+        {
+            if (action == 0) return;
             for (int i = evidence.Count - 1; i >= 0; i--)
-                if (evidence[i].Action == item.Action) { evidence[i].Buffered = false; evidence.RemoveAt(i); }
-            foreach (var state in seals.Values) if (state.Action == item.Action) state.Blocked = true;
+                if (evidence[i].Action == action) { evidence[i].Buffered = false; evidence.RemoveAt(i); }
         }
 
         private bool FindEvidence(int recipe, double anchor, out Evidence found)
@@ -305,6 +342,40 @@ namespace NarutoVR.SealCombat
                 total += rule.weight;
             }
             return total > 0 && float.IsFinite(total);
+        }
+
+        private static bool TryGetScore(Slot slot, string seal, out ScoreFact target)
+        {
+            target=default;bool found=false;
+            for(int i=0;i<slot.ScoreCount;i++) if(slot.Scores[i].Seal==seal)
+            { if(found)return false; target=slot.Scores[i];found=true; }
+            return found;
+        }
+
+        private string DescribeObservation()
+        {
+            var slot=slots[(bufferHead+bufferCount-1)%Capacity];
+            bool valid=BothHandsValid(slot.Frame);
+            var text=new StringBuilder($"骨骼间隔 {diagnosticGap:F3}s / 上限 {MaximumSampleGap:F3}s；输入占用={diagnosticSuppressed}；双手有效={valid}");
+            foreach(var state in seals.Values)
+            {
+                bool found=TryGetScore(slot,state.Seal,out var target);
+                float best=-1;string other="无";
+                for(int i=0;i<slot.ScoreCount;i++) if(slot.Scores[i].Seal!=target.Seal && slot.Scores[i].Quality && slot.Scores[i].Score>best)
+                { best=slot.Scores[i].Score;other=slot.Scores[i].Seal; }
+                foreach(var tracker in state.Trackers)
+                {
+                    var recipe=recipes[tracker.Recipe];
+                    double held=double.IsNaN(tracker.Start)?0:Math.Max(0,lastSample-tracker.Start);
+                    text.Append($"\n{recipe.Id}/{state.Seal}：分数 {target.Score:P1} / {Threshold(recipe,target):P1}，质量通过={valid&&found&&target.Quality}，歧义通过={Unambiguous(slot,target)}；竞争印 {other} {best:P1}，要求领先 {Margin:P0}");
+                    if(!state.Blocked)text.Append($"；保持 {held:F3}/{target.Hold:F3}s");
+                    else if(recipe.Mode==SkillTriggerMode.GestureOnly)text.Append("；此动作已消耗，纯印须退出后重结");
+                    else if(diagnosticSuppressed||diagnosticHeld)text.Append($"；组合重备暂停（{(diagnosticHeld?"手上有持有物":"其他交互占用输入")}），松开后重新计时");
+                    else if(tracker.Current!=null && tracker.Current.Buffered)text.Append("；同印重备已就绪，需新的有效口令");
+                    else text.Append($"；同印重备剩余 {Math.Max(0,Math.Max(ComboHeldRearmSeconds,target.Hold)-held):F2} 秒，需新的有效口令");
+                }
+            }
+            return text.ToString();
         }
 
         private bool Unambiguous(Slot slot, ScoreFact target)
@@ -374,9 +445,15 @@ namespace NarutoVR.SealCombat
             public readonly List<Tracker> Trackers = new();
             public long Action;
             public bool Blocked;
+            public double BlockedAt;
             public double ExitSince = double.NaN;
             public SealState(string seal) { Seal = seal; }
-            public void Rearm() { Action = 0; Blocked = false; foreach (var item in Trackers) { item.Start = double.NaN; item.Complete = false; item.Current = null; } }
+            public void ResetTrackers(double seed = double.NaN)
+            {
+                Action=0;
+                foreach(var item in Trackers){item.Start=double.IsNaN(item.Start)?double.NaN:seed;item.Complete=false;item.Current=null;}
+            }
+            public void Rearm() { Blocked=false;ResetTrackers(); }
         }
         private sealed class Tracker
         {

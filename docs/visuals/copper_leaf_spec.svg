@@ -1,0 +1,84 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 450' width='1000' height='450'>
+  <rect width='1000' height='450' fill='#12161f'/>
+  <defs>
+    <linearGradient id='bronze' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#c69214'/>
+      <stop offset='30%' stop-color='#8c5e0f'/>
+      <stop offset='70%' stop-color='#4a330a'/>
+      <stop offset='100%' stop-color='#1f2937'/>
+    </linearGradient>
+    <linearGradient id='patina' x1='0%' y1='0%' x2='0%' y2='100%'>
+      <stop offset='0%' stop-color='#2dd4bf'/>
+      <stop offset='100%' stop-color='#0f766e'/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x='50' y='50' fill='#f3f4f6' font-size='22' font-family='sans-serif' font-weight='bold'>《考工律度》规度铜叶（Celestial Metric Bronze Leaf）独立资产蓝图</text>
+  <text x='50' y='75' fill='#9ca3af' font-size='13' font-family='sans-serif'>标准规格：长 85mm × 宽 22mm × 厚 1.8mm ｜ 双侧公滑棱 0.8mm ｜ 尾端云雷镂空捏环 ｜ 阳刻大篆符铭</text>
+
+  <!-- Main Leaf Plate (Top View) -->
+  <g transform='translate(60, 110)'>
+    <!-- Shadow -->
+    <rect x='10' y='10' width='700' height='120' rx='4' fill='#000' opacity='0.5'/>
+    <!-- Bronze Base -->
+    <rect x='0' y='0' width='700' height='120' rx='4' fill='url(#bronze)' stroke='#d97706' stroke-width='2'/>
+    
+    <!-- Top and Bottom Tongue Rails (公滑棱) -->
+    <rect x='0' y='0' width='700' height='10' fill='#78350f' stroke='#b45309' stroke-width='1'/>
+    <rect x='0' y='110' width='700' height='10' fill='#78350f' stroke='#b45309' stroke-width='1'/>
+    <text x='15' y='8' fill='#fef3c7' font-size='9' font-family='monospace'>▲ 上部双向嵌合滑棱（厚0.8mm）</text>
+    <text x='15' y='118' fill='#fef3c7' font-size='9' font-family='monospace'>▼ 下部双向嵌合滑棱（厚0.8mm）</text>
+
+    <!-- Front Chamfer and Locking Notch (前端半圆自锁孔) -->
+    <path d='M 0 0 L 45 0 L 45 35 A 16 16 0 0 0 45 85 L 45 120 L 0 120 Z' fill='#451a03' stroke='#d97706' stroke-width='1.5'/>
+    <circle cx='45' cy='60' r='16' fill='#12161f' stroke='#d97706' stroke-width='2'/>
+    <text x='12' y='64' fill='#fde68a' font-size='11' font-weight='bold'>导向头</text>
+
+    <!-- Middle Engraving Body (阳刻大篆) -->
+    <rect x='65' y='18' width='460' height='84' rx='3' fill='#1e293b' stroke='#334155' stroke-width='1.5'/>
+    <text x='95' y='64' fill='#fbbf24' font-size='26' font-family='serif' font-weight='bold' letter-spacing='6'>《規度·圓極離火範》</text>
+    <text x='95' y='88' fill='#6ee7b7' font-size='12' font-family='sans-serif'>工官周天三万六千刻度 ｜ 阳刻大篆金石文 ｜ 离火度力符印</text>
+    
+    <!-- Caliper Tick Marks -->
+    <g stroke='#f59e0b' stroke-width='1'>
+      <line x1='360' y1='18' x2='360' y2='30'/><line x1='375' y1='18' x2='375' y2='25'/><line x1='390' y1='18' x2='390' y2='25'/>
+      <line x1='405' y1='18' x2='405' y2='25'/><line x1='420' y1='18' x2='420' y2='30'/><line x1='435' y1='18' x2='435' y2='25'/>
+      <line x1='450' y1='18' x2='450' y2='25'/><line x1='465' y1='18' x2='465' y2='25'/><line x1='480' y1='18' x2='480' y2='30'/>
+      <text x='380' y='38' fill='#fcd34d' font-size='10'>寸·分·厘度量标</text>
+    </g>
+
+    <!-- Rear Pull Tab: Cloud-Thunder Motif (尾端云雷镂空捏环) -->
+    <g transform='translate(540, 8)'>
+      <rect x='0' y='0' width='150' height='104' rx='8' fill='#78350f' stroke='#f59e0b' stroke-width='2'/>
+      <!-- Hollow Ring -->
+      <rect x='30' y='20' width='90' height='64' rx='20' fill='#12161f' stroke='#fbbf24' stroke-width='3'/>
+      <circle cx='75' cy='52' r='18' fill='#1e293b' stroke='#d97706' stroke-width='2'/>
+      <text x='55' y='56' fill='#fbbf24' font-size='11' font-weight='bold'>云雷纹</text>
+      <text x='32' y='96' fill='#fef3c7' font-size='10'>VR大拇指与食指捏取环</text>
+    </g>
+  </g>
+
+  <!-- Cross-Section Detail (公母榫咬合截面) -->
+  <g transform='translate(800, 110)'>
+    <rect width='150' height='120' rx='4' fill='#1e293b' stroke='#475569' stroke-width='1.5'/>
+    <text x='15' y='25' fill='#94a3b8' font-size='12' font-weight='bold'>【公母榫导轨截面】</text>
+    <!-- Female Slot -->
+    <path d='M 25 40 L 40 40 L 40 50 L 35 50 L 35 80 L 40 80 L 40 90 L 25 90 Z' fill='#334155'/>
+    <!-- Male Leaf Tongue -->
+    <path d='M 35 48 L 125 48 L 125 82 L 35 82 Z' fill='#b45309' stroke='#fbbf24' stroke-width='1.5'/>
+    <circle cx='35' cy='52' r='3' fill='#fbbf24'/>
+    <circle cx='35' cy='78' r='3' fill='#fbbf24'/>
+    <text x='45' y='68' fill='#fff' font-size='11' font-weight='bold'>铜叶厚1.8</text>
+    <text x='15' y='110' fill='#38bdf8' font-size='10'>0.8mm凸滑棱双侧受力</text>
+  </g>
+
+  <!-- Technical Annotations -->
+  <g transform='translate(60, 270)'>
+    <rect width='890' height='140' rx='4' fill='#1e293b' stroke='#334155'/>
+    <text x='20' y='30' fill='#f59e0b' font-size='14' font-weight='bold'>【规度铜叶】VR 交互与工官机械特性规范：</text>
+    <text x='20' y='60' fill='#e2e8f0' font-size='12'>1. 尺寸与公差：全长 85mm（导向头15mm + 符铭身55mm + 云雷捏环15mm），宽度 22mm，厚度 1.8mm，单手握持时如握一柄古铜量尺。</text>
+    <text x='20' y='85' fill='#e2e8f0' font-size='12'>2. 燕尾滑道公榫：上下边沿具备 0.8mm 精密凸滑棱，仅以此棱与准望匣导轨接触滑动，阻尼平稳，防止大篆铭文刮伤磨损。</text>
+    <text x='20' y='110' fill='#e2e8f0' font-size='12'>3. 物理锁止咬合：进入槽底时，前端半圆定位孔与匣内青铜片簧销（Spring Detent）瞬间咬合锁死，伴随触觉微震与清脆铜簧咬鸣。</text>
+  </g>
+</svg>

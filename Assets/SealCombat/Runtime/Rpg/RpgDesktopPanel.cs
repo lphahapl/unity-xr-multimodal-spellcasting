@@ -61,14 +61,17 @@ namespace NarutoVR.SealCombat.Rpg
                 refresh.Add(()=>{if(view.showSimulationSection)SetCaption(button,$"模拟施放：{skill.displayName}（{(Owner.Progress?.unlockedSkillIds.Contains(skill.skillId)==true?"已解锁":"未解锁")}）");});
             }
             ActionButton(simulation,"取消待施法输入",()=>Owner.CancelCasting());
-            foreach(bool dodge in new[]{false,true})foreach(var dir in new[]{Vector2.up,Vector2.down,Vector2.left,Vector2.right}){
+            foreach(var dir in new[]{Vector2.up,Vector2.down,Vector2.left,Vector2.right}){
                 string label=dir==Vector2.up?"前":dir==Vector2.down?"后":dir==Vector2.left?"左":"右";
-                ActionButton(simulation,(dodge?"模拟闪避：":"模拟步进：")+label,()=>Owner.DebugMove(dodge,dir));
+                ActionButton(simulation,"模拟节点步进："+label,()=>Owner.DebugMove(false,dir));
             }
+            ActionButton(simulation,"模拟战斗后撤",()=>Owner.DebugMove(true,Vector2.down));
             ActionButton(simulation,"模拟受到25点伤害",()=>Owner.DebugDamage(25));
             ActionButton(simulation,"恢复检查点",()=>Owner.RestoreCheckpoint());
             ActionButton(simulation,"保存当前检查点",()=>Owner.SaveCheckpoint());
             ActionButton(simulation,"尝试进入下一阶段",()=>Owner.TryAdvanceStage());
+            ActionButton(simulation,"进入探索",()=>Owner.SetEncounterCombat(false));
+            ActionButton(simulation,"进入战斗",()=>Owner.SetEncounterCombat(true));
             var hazard=ActionButton(simulation,"训练攻击",()=>Owner.ToggleHazards());
             var buy=ActionButton(simulation,"购买隐藏法术",()=>Owner.PurchaseHiddenSkill());
             var upgrade=ActionButton(simulation,"升级火球",()=>Owner.UpgradeFireball());

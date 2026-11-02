@@ -15,11 +15,11 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var f=WristMenuChecks.Sample(t); f.leftClosed=false; f.leftPointing=true;
                 f.rightTip=f.leftWrist+Vector3.right*distance; f.rightValid=valid;
-                tap.Step(f,f.leftWrist,blocked,t,s); state.Tick(f,blocked,tap.Approaching,t,s,tap.Toggle);
+                tap.Step(f,f.leftWrist,blocked,t,s); state.Tick(f,blocked,false,t,s,tap.Toggle);
             }
             for(int i=0;i<20;i++) Tick(i*.02,.3f);
             Check(!state.LauncherOpen && !state.OwnsInput,"左食指或拳头抬腕不能自动开启或抢输入");
-            Tick(.4,.2f); Check(state.OwnsInput && !state.LauncherOpen,"有主动靠近后先保留UI输入，未接触不打开");
+            Tick(.4,.2f); Check(tap.Approaching && !state.OwnsInput && !state.LauncherOpen,"靠近仅提供提示，实际触腕确认之前不能抢输入");
             Tick(.42,.04f); Tick(.46,.04f);
             Check(state.LauncherOpen,"不握拳也能点腕打开");
             for(int i=0;i<8;i++) Tick(.48+i*.02,.04f);
@@ -60,18 +60,25 @@ namespace NarutoVR.SealCombat.Editor
                 double t=8+i*.02; var f=WristMenuChecks.Sample(t);
                 f.leftWrist=f.headPosition+new Vector3(0,-.1f,-.08f);
                 f.rightTip=f.leftWrist+Vector3.right*(i<8?.3f:.03f);
-                nearTap.Step(f,f.leftWrist,false,t,s); nearState.Tick(f,false,nearTap.Approaching,t,s,nearTap.Toggle);
+                nearTap.Step(f,f.leftWrist,false,t,s); nearState.Tick(f,false,false,t,s,nearTap.Toggle);
             }
             Check(nearState.LauncherOpen,"俯身看腕时靠近头部的显式点按不应被前向锥体拦截");
             var root=new GameObject("点腕仲裁回归"){hideFlags=HideFlags.HideAndDontSave}; root.SetActive(false);
+            var recipe=ScriptableObject.CreateInstance<SkillDefinition>();
             try
             {
                 var view=root.AddComponent<WristMenuView>(); view.audioFeedback=false;
                 var menu=root.AddComponent<WristMenuController>(); menu.view=view;
                 var rpg=root.AddComponent<LinearRpgController>(); var movement=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=movement; rpg.wristMenu=menu; movement.rigRoot=root.transform;
+                rpg.skills=root.AddComponent<SkillTestController>(); rpg.skills.InputClock=()=>10.5;
+                recipe.skillId="wrist.combo";recipe.displayName="腕饰回归";recipe.phrase="测试术";recipe.sealName="寅";recipe.triggerMode=SkillTriggerMode.VoiceAndGesture;
                 var head=new GameObject("测试头"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); movement.head=head.transform;
                 root.SetActive(true);
+                var matcher=new SkillMatchEngine(new[]{recipe}); matcher.Tick(9.6);matcher.Voice(recipe.phrase,9.6,9.6);
+                typeof(SkillTestController).GetProperty(nameof(SkillTestController.Engine)).SetValue(rpg.skills,matcher);
+                long epoch=matcher.Epoch;
+                Check(matcher.PendingSkillId==recipe.skillId,"前提：已收到有效口令，正在等待印");
                 var start=WristMenuChecks.Sample(9);
                 for(int i=0;i<15;i++)
                 {
@@ -88,13 +95,16 @@ namespace NarutoVR.SealCombat.Editor
                     // Both wrists are close: the normal seal proximity guard must not prevent deliberate contact.
                     var nav=new NavigationHandInput { leftValid=true,rightValid=true,leftWrist=f.leftWrist,rightWrist=f.leftWrist+Vector3.right*.12f };
                     rpg.UpdateWristUi(nav,f,false,t);
+                    if(i==8)Check(!menu.OwnsInput && menu.OwnershipReason.Contains("靠近") && movement.NavigationActive &&
+                        matcher.PendingSkillId==recipe.skillId && matcher.Epoch==epoch,"真实仲裁：点腕靠近阶段必须保留导航与待施法口令，不得触发取消屏障");
                 }
                 Check(menu.State.LauncherOpen && menu.OwnsInput,"通过实际RPG仲裁：点腕可越过双腕距离的结印启发式");
-                Check(!movement.NavigationActive && movement.CandidateNode==null && root.transform.position==rigBefore,"主动点腕清除导航驻留且不移动玩家");
+                Check(!movement.NavigationActive && movement.CandidateNode==null && root.transform.position==rigBefore && matcher.Epoch==epoch+1 &&
+                    string.IsNullOrEmpty(matcher.PendingSkillId),"点腕确认后仅一次接管输入、清除待施法与导航驻留，玩家不移动");
                 menu.Tick(WristMenuChecks.Sample(10.32),rpg,true,10.32);
                 Check(!menu.State.LauncherOpen,"硬阻断及时关闭入口");
             }
-            finally { UnityEngine.Object.DestroyImmediate(root); }
+            finally { UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(recipe); }
 
             var ray=new WristRayPinchState();
             WristMenuInput R(double t,float distance) { var f=WristMenuChecks.Sample(t); f.rayAnchorValid=true; f.rayOrigin=Vector3.zero; f.pinchDistance=distance; return f; }

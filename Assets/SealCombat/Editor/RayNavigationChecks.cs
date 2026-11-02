@@ -32,6 +32,24 @@ namespace NarutoVR.SealCombat.Editor
             state.Process(b,true,false,.7,1,config,timing); Check(!state.Active && state.Progress==0,"样本过期清空");
             Check(!NavigationTargetScoring.TryEvaluateRay(Vector3.forward*2,Vector3.up,Vector3.up,.35f,out _),"乱指不能靠距离或头向选点");
             Check(NavigationTargetScoring.TryEvaluateRay(Vector3.forward*2,Vector3.up,new Vector3(0,-1,2),.35f,out var score) && score.handRay>.999f,"正确指向命中");
+            Vector3 head=Vector3.up*1.7f, finger=new Vector3(-.3f,1.2f,.4f);
+            Vector3 looked=new Vector3(0,0,2), pointed=new Vector3(.9f,0,2);
+            bool Evaluate(Vector3 node,Vector3 gaze,Vector3 hand,out NavigationScore result) =>
+                NavigationTargetScoring.TryEvaluateCombatRay(config,node,head,gaze,finger,hand,node.magnitude,6,out result);
+            Check(!NavigationTargetScoring.TryEvaluateRay(looked,finger,pointed-finger,.35f,out _) &&
+                Evaluate(looked,looked-head,pointed-finger,out var primary) &&
+                Evaluate(pointed,looked-head,pointed-finger,out var other) && primary.total>other.total,
+                "两个可达点竞争时，准星中心应胜过单独的精准手指，即使旧半径完全未命中");
+            Evaluate(looked,looked-head,pointed-finger,out var parts);
+            Check(Mathf.Abs(parts.total-(.60f*parts.headIntent+.30f*parts.handRay+.10f*parts.distance))<.00001f &&
+                parts.headIntent>.999f && parts.handRay>0 && parts.handRay<1 && Mathf.Abs(parts.distance-2f/3)<.0001f,
+                "实际战斗总分必须能由视线、手指和距离分项按60/30/10还原");
+            Check(Evaluate(looked,looked-head,Vector3.back,out _) && Evaluate(looked,Vector3.back,looked-finger,out _) &&
+                !Evaluate(looked,Vector3.back,Vector3.back,out _) && !Evaluate(looked,looked-head,Vector3.zero,out _),
+                "任一有效方向可入围，但不能选双方都偏离的点或接受无效手射线");
+            config.combatGazeWeight=.1f;config.combatHandWeight=.8f;
+            Check(Evaluate(looked,looked-head,pointed-finger,out primary) && Evaluate(pointed,looked-head,pointed-finger,out other) &&
+                other.total>primary.total,"调节Inspector权重必须真正改变近邻候选顺序");
             count += Controller();
             return count;
         }
@@ -81,6 +99,45 @@ namespace NarutoVR.SealCombat.Editor
                 Samples(t=>c.ProcessInput(Frame(t),false,false,t)); Check(rig.transform.position==origin,"墙后节点禁止传送");
                 Object.DestroyImmediate(wall); target.transform.position+=Vector3.up; Physics.SyncTransforms(); Reset();
                 Samples(t=>c.ProcessInput(Frame(t),false,false,t)); Check(rig.transform.position==origin,"悬空节点禁止传送");
+                target.transform.position-=Vector3.up;
+                var alternative=Node("战斗手指对照",origin+new Vector3(.9f,0,2)); start.neighbors.Add(alternative);
+                c.encounterModesEnabled=true;c.SetEncounterCombat(true);
+                double clock=10;
+                void CombatSample(Vector3 gaze,Vector3 hand,bool point=true)
+                {
+                    clock+=.04;
+                    head.transform.forward=gaze;
+                    var frame=Frame(clock);frame.leftPointing=point;frame.leftRayDirection=hand;
+                    c.ProcessInput(frame,false,false,clock);
+                }
+                void BootCombat()
+                {
+                    Reset();
+                    for(int i=0;i<6;i++)CombatSample(target.floorPosition-head.transform.position,Vector3.forward,false);
+                }
+                BootCombat();
+                Vector3 look=target.floorPosition-head.transform.position, finger=alternative.floorPosition-Frame(clock).leftRayOrigin;
+                for(int i=0;i<6;i++)CombatSample(look,finger);
+                string detail=c.BuildDebugDetails(clock);
+                Check(c.CandidateNode==target && detail.Contains("头向") && detail.Contains("手指") &&
+                    detail.Contains("可达") && detail.Contains(alternative.nodeId),"真实战斗射线应显示可达候选各项分，并保留视线中心点");
+                for(int i=0;i<12;i++)CombatSample(look,finger);
+                Check(Vector3.Distance(rig.transform.position,target.floorPosition)<.01f,"手指偏移超过旧硬半径仍应驻留传送至视线目标");
+
+                start.neighbors.Clear(); start.neighbors.Add(target);
+                BootCombat();
+                for(int i=0;i<6;i++)CombatSample(Vector3.back,Vector3.back);
+                Check(!c.CandidateNode && c.BuildDebugDetails(clock).Contains("角度 1"),"两种方向均偏离时无候选且说明角度门槛");
+                wall=new GameObject("战斗近墙");wall.transform.SetParent(world.transform);wall.layer=layer;
+                wall.transform.position=origin+new Vector3(0,1,1);wall.AddComponent<BoxCollider>().size=new Vector3(.8f,2,.1f);
+                Physics.SyncTransforms();BootCombat();
+                for(int i=0;i<15;i++)CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
+                Check(!c.CandidateNode && rig.transform.position==origin && c.BuildDebugDetails(clock).Contains("遮挡 1"),
+                    "头向和手指满分仍不能传送到墙后；应报告遮挡");
+                Object.DestroyImmediate(wall);
+                target.transform.position=origin+Vector3.forward*8;Physics.SyncTransforms();BootCombat();
+                CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
+                Check(!c.CandidateNode && c.BuildDebugDetails(clock).Contains("距离 1"),"超距与偏离方向应显示独立的排除原因");
             }
             finally { foreach(var n in nodes) if(n) NavigationNodeFixture.SetRegistered(n,false); Object.DestroyImmediate(world);
                 SceneManager.SetActiveScene(previous); EditorSceneManager.CloseScene(temporary,true); }

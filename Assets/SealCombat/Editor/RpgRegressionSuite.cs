@@ -32,6 +32,8 @@ namespace NarutoVR.SealCombat.Editor
             Group("施法链日志与故障隔离", SkillCastTraceChecks.Run);
             Group("激活策略接口行为等价", SkillActivationPolicyChecks.Run);
             Group("独立储存超时与单发限制", ProjectileStorageChecks.Run);
+            Group("观众 Timeline 双镜头与头部姿态隔离", SpectatorTimelineChecks.Run);
+            Group("探索行走与战斗滑退", EncounterMovementChecks.Run);
             Group("射线直接选点", RayNavigationChecks.Run);
             Group("玩家数值与存档", RpgDataChecks.Run);
             Group("导航、闪避、碰撞与时钟", RpgLocomotionChecks.Run);

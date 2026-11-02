@@ -12,6 +12,8 @@ namespace NarutoVR.SealCombat
         public int capacity = 640;
         [InspectorName("最大语音结果延迟（秒）"), Range(.1f,2)] public float maximumVoiceLatency = 2;
         [InspectorName("退出旧印后重置保持（秒）"), Range(.05f,1)] public float exitSeconds = .15f;
+        [InspectorName("组合技能同印重新就绪（秒）"), Range(.1f,5), Tooltip("组合输入被消费或取消后，持续保持合格的同一印这么久可配合一道新口令再施法。持有手上物品时不计时；纯结印仍需退出原印。")]
+        public float comboHeldRearmSeconds = 1f;
         [InspectorName("连续骨骼最大间隔（秒）"), Range(.03f,.5f)] public float maximumSampleGap = .12f;
         [InspectorName("竞争印最低分差"), Range(0,1), Tooltip("0.05表示必须领先其他有效模板5分。")]
         public float ambiguityMargin = .05f;
@@ -23,6 +25,7 @@ namespace NarutoVR.SealCombat
             if(capacity<64 || capacity>4096)return "骨骼缓存容量必须为64至4096帧";
             if(!InRange(maximumVoiceLatency,.1f,2))return "最大语音延迟必须为0.1至2秒";
             if(!InRange(exitSeconds,.05f,1))return "退出旧印保持必须为0.05至1秒";
+            if(!InRange(comboHeldRearmSeconds,.1f,5))return "组合技能同印重新就绪时长必须为0.1至5秒";
             if(!InRange(maximumSampleGap,.03f,.5f))return "连续骨骼最大间隔必须为0.03至0.5秒";
             if(!InRange(ambiguityMargin,0,1))return "竞争印分差必须为0至1";
             return null;

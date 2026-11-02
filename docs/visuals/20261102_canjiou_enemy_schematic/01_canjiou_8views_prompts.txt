@@ -1,0 +1,64 @@
+# 《考工律度》基础人形小怪【残机偶】标准8面建模视图提示词全案 (V1.1)
+# 对应清单（共8张图）：前、后、左、右、左45、右45、上、下
+# 适用环境：内置 image_gen / batch-art-assets (ChatGPT) / 3D 建模师参考
+# 验收标准：纯正交/多角度无透视畸变、纯单色中性灰背景(#808080)、零文字、零标注、零水印、零外物
+
+===== 全局共享形体与材质约束 (Shared Structural Anchors) =====
+1. 角色本体与体量：【残机偶】（Can Ji Ou / Deranged Clockwork Automaton），先秦汉代天工司古代工奴机关傀儡。高 1.80 米，标准双足人形比例（Biped/Humanoid），站姿挺拔但带有发条人偶的刚性生硬感，无肌肉流线。
+2. 骨架与材质：深褐油浸青冈栎木榫卯骨架，关节处外露精密冷铸青铜销钉与圆柱转轴；身躯铆接冷铸哑光青铜护甲片（胸甲、护肩、小臂护甲、护腿板），表面带少量沉静的氧化深绿铜锈斑（Verdigris）与切石打磨刮痕，金石肃穆质感。
+3. 头部与致命弱点：
+   - 面部：圆筒形青铜无面仪容，中央嵌有一枚带金属光圈的黄铜游标单目镜（Caliper Eye）；
+   - 后脑（核心弱点）：后脑勺完全镂空敞开，内嵌一枚高速自旋的青铜螺旋主发条（Spiral Mainspring），中心有一抹呼吸式自发光的【熔核朱砂】能量晶核（#E65100，Emission），无外罩遮挡。
+4. 左右臂武器配置：
+   - 右手武器：握持一柄 65cm 长的厚背方头青铜【切石规刃】，刃背整齐刻有秦汉分寸刻度与云雷防滑纹，刀背厚重、刀刃锋利；
+   - 左手副手：左前臂连装青铜【游标卡尺爪】，双活动卡爪带有啮合锯齿与滑动轨道。
+5. 背景与渲染：3D 游戏角色建模标准多角度三视图（Model Sheet Turnaround），柔和中性漫射工作室布光。纯单色中性中度灰背景（#808080），完全平整无渐变、无投影、无地面、无阴影。
+6. 绝对负面提示（STRICT NEGATIVE）：严禁任何中英文字、严禁标签/标注/引线/箭头/尺寸数字、严禁水印/LOGO、严禁多余漂浮物体、严禁背景阴影、严禁日式忍者要素、严禁西式蒸汽朋克大黄铜管道或齿轮狂堆、严禁赛博朋克霓虹光管。
+
+============================================================
+视图一【前】：正视图 (Front View / Anterior Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic direct front view concept art model sheet of an ancient Chinese clockwork automaton humanoid mob named 'Can Ji Ou' (残机偶) for a VR game. Full-body character standing in a neutral A-pose on a completely flat solid neutral medium grey background (#808080). Height 1.80m, balanced bipedal mechanical proportions. Sturdy dark oiled oak timber (青冈栎木) armature with visible bronze joint pins, chest and waist clad in riveted matte cold-cast ancient bronze cuirass and tassets with subtle cloud-thunder bevels. Head is a cylindrical bronze faceless mask featuring a central brass vernier aperture monocle lens. Right hand holds a 65cm heavy-backed squared-tip bronze cutting ruler-blade pointing downward at a 45-degree angle. Left forearm is integrated with a bronze vernier caliper claw. Symmetrical composition, crisp diffuse studio lighting, pure flat orthographic projection without perspective distortion, zero background shadows, no ground plane. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimension numbers, NO watermarks, NO steam pipes, NO neon lights."
+
+============================================================
+视图二【后】：背视图 / 后脑弱点 (Back View / Posterior Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic direct back view concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full-body character standing in neutral A-pose seen from directly behind. Features the crucial critical weak point: the occiput and back of the head are completely hollow and openwork, displaying an exposed, intricate bronze spiral mainspring mechanism with a glowing cinnabar orange core (#E65100) at its hub. Back torso shows segmented bronze armor plates protecting the spine, mounted over dark oiled oak timber mortise-and-tenon ribs. Clean rear view of the limbs, bronze elbow hinges, and rear of the leg armor. Studio diffuse lighting highlighting the glowing cinnabar weak point, solid flat neutral medium grey background (#808080), pure flat orthographic projection, zero background shadows. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图三【左】：左侧视图 / 卡尺爪 (Left Profile / Lateral Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic 90-degree left side profile view concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full-body character standing horizontally facing left. Focuses clearly on the left profile of the body, showing the detailed side construction of the bronze vernier caliper claw on the left arm with its sliding rails and dual serrated jaws. Displays the lateral silhouette of the cylindrical bronze head, side profile of the monocle lens on the front and the openwork spring cavity at the rear. Solid dark oak frame visible beneath side gaps in the bronze shoulder pauldron and waist armor. Pure flat orthographic projection, no perspective foreshortening, crisp studio diffuse lighting, completely flat solid neutral medium grey background (#808080), zero shadows, no floor. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图四【右】：右侧视图 / 规刃侧视 (Right Profile / Lateral Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic 90-degree right side profile view concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full-body character standing horizontally facing right. Showcases the right profile of the character, particularly the 65cm heavy-backed squared-tip bronze cutting ruler-blade (切石规刃) held in the right hand, revealing its substantial blade thickness, straight cutting edge, and spine measurement graduations. Shows the right bronze shoulder guard, arm joints, right leg greaves, and the lateral depth of the chest armor. Crisp studio diffuse lighting, pure flat orthographic projection without perspective distortion. Solid flat neutral medium grey background (#808080), zero ground plane, zero background shadows. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图五【左45】：前左45°斜视图 (Front-Left 3/4 Oblique View)
+============================================================
+英文生成提示词 (Prompt):
+"Three-quarter front-left 45-degree angled perspective concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full-body character in a dynamic neutral pose, camera positioned at front-left 45 degrees. Displays the volumetric depth of the chest armor, the brass monocle eye, and the articulated mechanical joints of the left arm's vernier caliper claw. Shows the layered mortise-and-tenon wood-bronze construction with subtle verdigris patina and chisel scrapes. Clean 3D game asset turnaround presentation, neutral studio lighting showcasing form, volume, and material texture. Pure solid flat neutral medium grey background (#808080), flat, zero shadows, no floor. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图六【右45】：前右45°斜视图 (Front-Right 3/4 Oblique View)
+============================================================
+英文生成提示词 (Prompt):
+"Three-quarter front-right 45-degree angled perspective concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full-body character in a dynamic neutral pose, camera positioned at front-right 45 degrees. Highlights the powerful heavy cutting ruler-blade in the right hand, the right shoulder armor, the front bronze breastplate, and the front faceless mask. Subtle metallic edge highlights on patinated bronze surfaces contrasting with matte dark oak timber bones. High-resolution production concept art, crisp studio diffuse lighting. Pure solid flat neutral medium grey background (#808080), flat, zero background shadows, no ground plane. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图七【上】：顶图 / 俯视图 (Top-Down / Dorsal Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic top-down plan view concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full character viewed directly from above looking straight down at the head, shoulders, and horizontal weapon alignment. Shows the top of the cylindrical bronze head with the exposed rear clockwork spring cavity, the broad curved bronze shoulder pauldrons, the chest armor overhang, and the horizontal footprint of the hands holding the cutting ruler-blade and caliper claw. Perfectly flat orthographic top-down projection, clean geometric silhouette, studio diffuse lighting. Pure solid flat neutral medium grey background (#808080), zero background shadows, no ground plane. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
+
+============================================================
+视图八【下】：底图 / 仰视图 (Bottom-Up / Inferior Orthographic View)
+============================================================
+英文生成提示词 (Prompt):
+"Orthographic bottom-up inferior view concept art model sheet of the ancient Chinese clockwork automaton humanoid mob 'Can Ji Ou' (残机偶). Full character viewed directly from below looking straight up along the vertical body axis. Shows the bottom construction of the bronze-clad wooden square sandals/soles, the underside of the knee joint hinges, the pelvic undercarriage framing, and the downward-pointing tip profile of the cutting ruler-blade and caliper claw jaws. Crisp technical asset turnaround perspective, studio diffuse lighting. Perfectly flat orthographic bottom-up projection, no perspective distortion. Pure solid flat neutral medium grey background (#808080), zero background shadows, no ground plane. STRICT RULES: NO text, NO labels, NO annotations, NO arrows, NO dimensions, NO watermarks."
