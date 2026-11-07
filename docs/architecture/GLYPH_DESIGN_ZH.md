@@ -49,14 +49,14 @@
 
 | 当前代码入口 | 已核行为 | 画符接入必须处理 |
 |---|---|---|
-| [SkillDefinition](../../Assets/SealCombat/Runtime/Core/SkillDefinition.cs) | 只有纯结印、纯咒语、咒语＋单印三个模式；校验用 `!= GestureOnly/VoiceOnly` 判断字段 | 当前保留三模式；未来确有配方扩展需求时才一起迁移校验/匹配，保留旧枚举值 |
-| [SkillMatchEngine](../../Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs) | 骨骼历史、单印保持、语音窗口、Epoch、取消屏障和消费一次规则 | 产生独立会话事件，不伪装 `sealName`；首版不接战斗匹配器，不要求左手有效 |
-| [SkillMatchSettings](../../Assets/SealCombat/Runtime/Core/SkillMatchSettings.cs) | 默认 10 秒/640 帧缓存，最大语音延迟 2 秒 | 640 槽不保证高帧率下有完整 10 秒；画符使用独立会话/有界点集，不受战斗缓冲时长限制 |
-| [LinearRpgController](../../Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs) | 负责 UI/导航/技能仲裁；`TryActivate` 经解锁、MP/CD 和效果创建事务；UI 占用切换会清输入 | 由这里协调持笔模式和攻击阻断；战斗外交互独立提交，识别器不能直接生成攻击物 |
-| [WristMenuController](../../Assets/SealCombat/Runtime/Rpg/WristMenuController.cs) | 画符只是预览卡；默认放左腕关闭；教学筛选仍假设结印/语音二分 | 入口改由笔抓取提供；教学卡、画布、工具会话分别管理；将来扩配方才修改 `Eligible` |
-| [SkillTestController](../../Assets/SealCombat/Runtime/SkillTestController.cs) | `ExclusiveInputBlocked` 会在识别取消口令前拦截语音 | 不能把“绘制中”直接塞入这个布尔量，否则取消口令也失效；需单独处理工具退出/仪式命令，保持战斗语音隔离 |
-| [RpgGestureState](../../Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs) | 低位双手取消先于 `blockActions` 执行 | 绘制中不能仅传 `blockActions=true` 以为隔离完成；跳过移动识别时又必须提供独立取消入口 |
-| [SkillEffects](../../Assets/SealCombat/Runtime/Effects/SkillEffects.cs) | 现有松手投掷、动作评分、伸手保持；`ResetPushInput` 实际会重置运动历史与准备时间 | 持笔期间禁止攻击物生成与释放；放笔后不得继承笔画速度、握持或伸手进度 |
+| [SkillDefinition](../../Assets/scripts/data/Skills/Core/SkillDefinition.cs) | 只有纯结印、纯咒语、咒语＋单印三个模式；校验用 `!= GestureOnly/VoiceOnly` 判断字段 | 当前保留三模式；未来确有配方扩展需求时才一起迁移校验/匹配，保留旧枚举值 |
+| [SkillMatchEngine](../../Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs) | 骨骼历史、单印保持、语音窗口、Epoch、取消屏障和消费一次规则 | 产生独立会话事件，不伪装 `sealName`；首版不接战斗匹配器，不要求左手有效 |
+| [SkillMatchSettings](../../Assets/scripts/data/Skills/Core/SkillMatchSettings.cs) | 默认 10 秒/640 帧缓存，最大语音延迟 2 秒 | 640 槽不保证高帧率下有完整 10 秒；画符使用独立会话/有界点集，不受战斗缓冲时长限制 |
+| [LinearRpgController](../../Assets/scripts/logic/Rpg/LinearRpgController.cs) | 负责 UI/导航/技能仲裁；`TryActivate` 经解锁、MP/CD 和效果创建事务；UI 占用切换会清输入 | 由这里协调持笔模式和攻击阻断；战斗外交互独立提交，识别器不能直接生成攻击物 |
+| [WristMenuController](../../Assets/scripts/logic/Rpg/WristMenuController.cs) | 画符只是预览卡；默认放左腕关闭；教学筛选仍假设结印/语音二分 | 入口改由笔抓取提供；教学卡、画布、工具会话分别管理；将来扩配方才修改 `Eligible` |
+| [SkillTestController](../../Assets/scripts/logic/Skills/SkillTestController.cs) | `ExclusiveInputBlocked` 会在识别取消口令前拦截语音 | 不能把“绘制中”直接塞入这个布尔量，否则取消口令也失效；需单独处理工具退出/仪式命令，保持战斗语音隔离 |
+| [RpgGestureState](../../Assets/scripts/logic/Locomotion/RpgGestureState.cs) | 低位双手取消先于 `blockActions` 执行 | 绘制中不能仅传 `blockActions=true` 以为隔离完成；跳过移动识别时又必须提供独立取消入口 |
+| [SkillEffects](../../Assets/scripts/logic/Skills/Effects/SkillEffects.cs) | 现有松手投掷、动作评分、伸手保持；`ResetPushInput` 实际会重置运动历史与准备时间 | 持笔期间禁止攻击物生成与释放；放笔后不得继承笔画速度、握持或伸手进度 |
 
 时序现状：`SealLab` 执行顺序 200、`LinearRpgController` 300、`SkillEffects` 350、`SkillTestController` 400。未来 owner/采样/识别事件的提交阶段必须明确，防止同帧既画符又被其他状态机消费。仅调整脚本顺序不等于解决输入冲突。
 

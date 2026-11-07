@@ -28,7 +28,7 @@ for p in data['profiles']:
         r['required'] = False
         r['tolerance'] = 25 if fid.endswith(('Curl','Flexion','Abduction','Angle')) else 0.03 if ('Wrist' in fid) else 0.025
     overrides['profiles'].append(p)
-    asset = root / 'Assets/SealLab/Profiles' / (p['sealName'] + '.asset')
+    asset = root / 'Assets/ScriptableObjects/SealProfile' / (p['sealName'] + '.asset')
     shutil.copy2(asset, backup / asset.name)
     original = asset.read_text(encoding='utf-8-sig')
     config = {r['featureId']: r for r in p['rules']}

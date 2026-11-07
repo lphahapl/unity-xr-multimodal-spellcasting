@@ -67,7 +67,7 @@ flowchart TD
 | `SkillEffects`、`SkillProjectile` 等在 `Time.timeScale <= 0` 时清理效果；RPG 已注入 `GameTime`，旧场景缺省仍用 realtime | 不用全局暂停或慢放做演出/普通菜单。镜头和装饰动画有自己的播放节奏；原有战斗时钟保持不变 |
 | Editor 已有临时单目相机截图与视觉预览工具 | 只能复用部分捕获思路，不能把它们算作已实现观众镜头 |
 
-相关文件：[效果执行器](../../Assets/SealCombat/Runtime/Effects/SkillEffects.cs)、[火球](../../Assets/SealCombat/Runtime/Effects/SkillProjectile.cs)、[控制器](../../Assets/SealCombat/Runtime/SkillTestController.cs)、[场景工具](../../Assets/SealCombat/Editor/SkillTestSceneSetup.cs)。
+相关文件：[效果执行器](../../Assets/scripts/logic/Skills/Effects/SkillEffects.cs)、[火球](../../Assets/scripts/logic/Skills/Effects/SkillProjectile.cs)、[控制器](../../Assets/scripts/logic/Skills/SkillTestController.cs)、[场景工具](../../Assets/scripts/logic/Editor/Skills/Setup/SkillTestSceneSetup.cs)。
 
 ## 4. 相机与输出结构
 

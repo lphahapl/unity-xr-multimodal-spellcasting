@@ -44,7 +44,7 @@ class AudioTelemetry:
                                audio_device_index=int(index), audio_sample_rate=int(sample_rate),
                                audio_energy_threshold=float(threshold))
 
-    def observe(self, samples):
+    def observe(self, samples, captured_at=None):
         import numpy as np
         values = np.asarray(samples, dtype=np.float64)
         if not values.size:
@@ -54,14 +54,18 @@ class AudioTelemetry:
         # Float PCM should be in [-1,1]; bound diagnostic arithmetic without changing decoder input.
         values = np.clip(values, -1.0, 1.0)
         now = self.clock()
+        # Retain the original ADC/callback clock even if decoding has accumulated a backlog.
+        frame_end = now if captured_at is None else min(now, captured_at)
+        if captured_at is not None and not math.isfinite(captured_at):
+            raise ValueError("麦克风样本时间无效")
         with self.lock:
             self.frames += 1
-            self.last_frame = now
+            self.last_frame = frame_end
             self.rms = float(np.sqrt(np.mean(values * values)))
             self.peak = float(np.max(np.abs(values)))
             if self.rms >= self.device.get("audio_energy_threshold", .012):
                 self.voiced_frames += 1
-                self.last_voice = now
+                self.last_voice = frame_end
 
     def phrase(self, phrase):
         with self.lock:
@@ -71,7 +75,7 @@ class AudioTelemetry:
     def snapshot(self):
         now = self.clock()
         with self.lock:
-            return dict(audio_telemetry_version=1, **self.device,
+            return dict(audio_telemetry_version=1, audio_snapshot_at=now, **self.device,
                         audio_frames=self.frames, audio_voiced_frames=self.voiced_frames,
                         audio_age=-1.0 if self.last_frame is None else max(0.0, now-self.last_frame),
                         audio_voice_age=-1.0 if self.last_voice is None else max(0.0, now-self.last_voice),
@@ -137,7 +141,7 @@ class Bridge:
             except OSError:
                 if self.closed.is_set():
                     break
-            if time.perf_counter() - last_beat > 0.5:
+            if time.perf_counter() - last_beat > (0.1 if self.mode == "microphone" else 0.5):
                 last_beat = time.perf_counter()
                 self.send("heartbeat")
 
@@ -324,7 +328,7 @@ def run_microphone(args, kws):
                 if dropped.is_set():
                     # A discontinuity invalidates timestamps and acoustic context. Fail visibly.
                     raise RuntimeError("麦克风音频溢出/丢帧，已停止；关闭高负载应用或换输入设备后重启")
-                bridge.telemetry.observe(samples)
+                bridge.telemetry.observe(samples, captured_at=start + len(samples) / args.sample_rate)
                 if bridge.telemetry.log_due():
                     log("audio_input", **bridge.telemetry.snapshot(), audio_recorded=False)
                 decoder.accept(samples, args.sample_rate, start, basis)

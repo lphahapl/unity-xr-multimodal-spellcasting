@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet('debug-text-comparison','storage-timeout-check','architecture-interface-check','score-ui-probe','scored-throw-check','configure-scored-throw','wrist-roots','wrist-lifecycle','throw-ease-probe','wrist-tap','wrist-tap-check','wrist-ray-probe','wrist-ease','configure-wrist','wrist-check','wrist-preview','feel-check','configure-feel','configure-navigation','navigation-check','record-throws','clock-check','refresh','pose-regression','configure-hand-poses','configure-interactions','interaction-check','play-user','full-editor-check','play-check','stop','preview','state','final-state','console','clear-console','open-rpg','open-shield-trial')]
+    [ValidateSet('debug-text-comparison','storage-timeout-check','architecture-interface-check','score-ui-probe','scored-throw-check','configure-scored-throw','wrist-roots','wrist-lifecycle','throw-ease-probe','wrist-tap','wrist-tap-check','wrist-ray-probe','wrist-ease','configure-wrist','wrist-check','wrist-preview','feel-check','configure-feel','configure-navigation','navigation-check','record-throws','clock-check','refresh','pose-regression','configure-hand-poses','configure-interactions','interaction-check','play-user','full-editor-check','play-check','stop','preview','state','final-state','console','clear-console','open-rpg','open-shield-trial','open-p1','p1-check')]
     [string]$Action
 )
 $ErrorActionPreference = 'Stop'

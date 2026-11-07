@@ -36,7 +36,7 @@ XR Hands 的质量标记由关节姿态有效性推导，不是 Meta 原生置�
 
 ## 回到原生开发
 
-停止 Play，打开 `Assets/SealLab/Scenes/SealLab.unity`，选择 Android 目标；独立原生包不依赖 PC 当前 runtime。若要测试 Quest Link，还需把 PC runtime 设回 Meta，并检查 Windows Meta 功能配置；本次关闭的是 Windows MetaXRFeature / MetaHandTrackingAim，原生 Android 设置不受影响。
+停止 Play，打开 `Assets/Scene/SealLab.unity`，选择 Android 目标；独立原生包不依赖 PC 当前 runtime。若要测试 Quest Link，还需把 PC runtime 设回 Meta，并检查 Windows Meta 功能配置；本次关闭的是 Windows MetaXRFeature / MetaHandTrackingAim，原生 Android 设置不受影响。
 
 需要整体恢复修改前版本时，先正常关闭 Unity，再从上方备份目录恢复对应文件；不要在运行中的编辑器里删除整个工程。优先只恢复实际需要的脚本/配置，并保留后续新增录制。
 

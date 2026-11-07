@@ -1,0 +1,14 @@
+P1 已绑定 GameManager + EnemyManager + 怪物目录；单出生点使用canjiou；场景不直接依赖怪物模型；旧参数保留于预制体变体。
+Button: 1.500 mm; cap only, one press and one release; input wired.
+Exploration slot empty and fallback disabled.
+CanJiOu_AttackDownward: 2.27s; loop=False; controller=True; retarget max bone delta=101.08 deg
+CanJiOu_AttackSpin360: 3.17s; loop=False; controller=True; retarget max bone delta=90.27 deg
+CanJiOu_DazedSeated: 8.33s; loop=True; controller=True; retarget max bone delta=41.64 deg
+CanJiOu_HitReactAbdomen: 1.60s; loop=False; controller=True; retarget max bone delta=75.74 deg
+CanJiOu_Idle: 1.83s; loop=True; controller=True; retarget max bone delta=17.42 deg
+CanJiOu_ParalysisEnter: 3.47s; loop=False; controller=True; retarget max bone delta=105.80 deg
+CanJiOu_RunForward_InPlace: 0.73s; loop=True; controller=True; retarget max bone delta=70.19 deg
+CanJiOu_RunForward_RootMotion: 0.73s; loop=True; controller=False; retarget max bone delta=70.19 deg
+CanJiOu_TurnLeft90: 1.77s; loop=False; controller=True; retarget max bone delta=37.79 deg
+CanJiOu_TurnRight90: 1.63s; loop=False; controller=True; retarget max bone delta=30.76 deg
+CanJiOu_WalkForward_RootMotion: 1.40s; loop=True; controller=True; retarget max bone delta=44.01 deg

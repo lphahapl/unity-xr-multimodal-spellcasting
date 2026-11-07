@@ -1,0 +1,920 @@
+using System;
+using System.Collections.Generic;
+using Oculus.Interaction.Input;
+using NarutoVR.SealLab;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace NarutoVR.SealCombat
+{
+    /// <summary>保存头向瞄准点与手部发射点之间的飞行解算结果，包括遮挡信息。</summary>
+    public readonly struct FireballAim
+    {
+        public readonly Vector3 origin, direction, gazePoint, endpoint;
+        public readonly bool blocked;
+        public FireballAim(Vector3 origin, Vector3 direction, Vector3 gazePoint, Vector3 endpoint, bool blocked)
+        { this.origin=origin; this.direction=direction; this.gazePoint=gazePoint; this.endpoint=endpoint; this.blocked=blocked; }
+    }
+
+    /// <summary>持有护盾、手持物、飞行投射物和扩展效果的运行态，负责生成、使用、命中与清理。</summary>
+    [DefaultExecutionOrder(350)]
+    public sealed class SkillEffects : MonoBehaviour
+    {
+        [Header("一、玩家与当前追踪来源")]
+        [InspectorName("手印采样器")] public NarutoVR.SealLab.SealLab lab;
+        [InspectorName("头显视点")] public Transform head;
+        [InspectorName("玩家根节点（碰撞忽略）")] public Transform playerRoot;
+        [Header("二、旧场景兼容材质（技能绑定效果资产时不使用）")]
+        [InspectorName("火球材质")] public Material fireMaterial;
+        [InspectorName("护盾材质")] public Material buffMaterial;
+        [Header("二（补充）、旧场景兼容预置体")]
+        [InspectorName("火球视觉预置体")] public GameObject fireballPrefab;
+        [InspectorName("护盾视觉预置体")] public GameObject shieldPrefab;
+        [InspectorName("命中爆散预置体")] public GameObject impactPrefab;
+        [Header("命中特效对象池（可选）")]
+        [InspectorName("场景特效池"), Tooltip("留空时尝试使用同一物体的 VfxPoolManager。")] public VfxPoolManager vfxPool;
+        [Header("三、旧场景兼容护盾数值")]
+        [InspectorName("护盾上限"), Min(1)] public float shieldCapacity = 100;
+        [Header("四、旧场景兼容持握与轻推参数")]
+        [InspectorName("火球半径（米）"), Min(0.01f)] public float ballRadius = 0.065f;
+        [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, 0.05f, 0.08f);
+        [InspectorName("未发射储存超时（秒，旧配置）"), Min(0.1f)] public float heldLifetime = 60;
+        [InspectorName("生成和追踪恢复后的准备时间（秒）"), Min(0.25f)] public float armDelay = 0.25f;
+        [InspectorName("丢失追踪后的消散时间（秒）"), Min(0.05f)] public float trackingLossGrace = 0.5f;
+        [InspectorName("前推最小位移（米）"), Min(0.05f)] public float pushDistance = 0.12f;
+        [InspectorName("前推最短时长（秒）"), Min(0.05f)] public float pushMinimumSeconds = 0.15f;
+        [InspectorName("前推最长时长（秒）"), Min(0.1f)] public float pushMaximumSeconds = 0.6f;
+        [Header("五、飞行与碰撞")]
+        [InspectorName("飞行速度（米/秒）"), Min(0.1f)] public float projectileSpeed = 9;
+        [InspectorName("火球命中伤害"), Min(0)] public float projectileDamage = 25;
+        [InspectorName("飞行寿命（秒）"), Min(0.1f)] public float projectileLifetime = 4;
+        [InspectorName("头向瞄准最远距离（米）"), Min(1)] public float aimDistance = 30;
+        [InspectorName("显示瞄准时手腕最多低于头部（米）"), Range(.15f,.65f)] public float aimWristDrop = .4f;
+        [InspectorName("可碰撞层")] public LayerMask hitLayers = ~(1 << 2);
+        [InspectorName("玩家层（额外忽略）")] public LayerMask playerLayers;
+
+        public string Status { get; private set; } = "无生效技能";
+        public bool HasHeldObject => heldObject;
+        public float HeldRemainingSeconds => heldObject ? Mathf.Max(0,(float)(heldExpiresAt-Now)) : 0;
+        public bool HasRightHeldObject => heldObject && !heldInLeftHand;
+        public bool HasRightThrowObject => HasRightHeldObject && heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow;
+        public string ThrowStatus => heldObject && throwState != null ? throwBlockReason ?? (throwIntent != null ? throwIntent.Score.reason : throwState.Status) : string.Empty;
+        public ThrowActionScore CurrentThrowScore => throwIntent != null ? throwIntent.Score : default;
+        public string LastThrowOutcome { get; private set; } = "尚无发射或拒绝结果";
+        public string LastReleaseMode { get; private set; } = "尚未发射";
+        public static string ReleaseModeLabel(string mode) => mode=="GripRelease"?"松手投掷":mode=="WindupThrow"?"后拉前送":mode=="ReachHold"?"伸手保持":"尚无通过候选";
+        public HandThrowSettings ActiveThrowSettings => heldParameters.Throwing?.Copy();
+        public float ActiveProjectileSpeed => heldParameters.Speed;
+        public Vector3 LastLaunchDirection { get; private set; }
+        public Vector3 LastLaunchPosition { get; private set; }
+        public HandThrowObservation LastThrowObservation { get; private set; }
+        public bool HasThrowObservation { get; private set; }
+        public bool ThrowInputValid => heldObject && throwState != null && throwInputValid && !ThrowInputSuppressed && !PushInputSuppressed &&
+            HandNow >= LastThrowObservation.observed && HandNow - LastThrowObservation.observed <= heldParameters.Throwing.sampleMaxAge;
+        public bool ThrowArmed => ThrowInputValid && (throwState.Armed || (throwIntent?.Armed ?? false));
+        public bool ReleasePending => ThrowInputValid && throwState.ReleasePending && !(throwIntent?.ContradictsWindup(throwState.Estimate.velocity)??false);
+        public float ThrowGripProgress => ThrowInputValid ? throwState.GripProgress : 0;
+        public float ThrowReleaseProgress => ThrowInputValid ? throwState.ReleaseProgress : 0;
+        public Vector3 HeldThrowPosition => heldObject ? heldObject.transform.position : Vector3.zero;
+        public bool WindupPreview => ThrowInputValid && CurrentThrowScore.rawWindupDirection.sqrMagnitude>.5f;
+        public bool ThrowPreviewValid => TryGetThrowPreview(out _);
+        public Vector3 ThrowPreviewOrigin => releasePoseValid ? releasePose.position : HeldThrowPosition;
+        public Vector3 ThrowPreviewDirection => TryGetThrowPreview(out var aim) ? aim.direction : Vector3.zero;
+        public event Action<HandThrowObservation> ThrowObserved;
+        public event Action ProjectileLaunched;
+        public event Action<float> ShieldImpact;
+        public bool ProjectileHandIsLeft => heldInLeftHand;
+        public int HeldProjectileInstanceId => heldObject ? heldObject.GetInstanceID() : 0;
+        public bool ThrowInputSuppressed { get; set; }
+        public Func<bool, HandThrowSettings, ThrowGripSample> ThrowGripProvider { get; set; }
+        public int ActiveProjectileCount => projectiles.Count;
+        public int LaunchCount { get; private set; }
+        public bool PushInputSuppressed { get; set; }
+        public Func<double> GameClock { get; set; }
+        /// <summary>观测时钟注入点，用于确定性回放；正常流程使用追踪快照的实时时间。</summary>
+        public Func<double> HandInputClock { get; set; }
+        // 可为其他施法者注入腕部位姿；正常场景默认读取现有追踪来源。
+        public Func<bool, Pose?> WristPoseOverride { get; set; }
+        public float BuffRemaining => shieldPoints > 0 ? Mathf.Max(0, (float)(buffExpiresAt - Now)) : 0;
+        public float ShieldPoints => BuffRemaining > 0 ? shieldPoints : 0;
+        public float ShieldCapacity => activeShieldCapacity > 0 ? activeShieldCapacity : shieldCapacity;
+        public int ActivationCount { get; private set; }
+        public int HitCount { get; private set; }
+        public event Action<string> Message;
+
+        private double Now => GameClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
+        private double HandNow => HandInputClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
+        private float shieldPoints, activeShieldCapacity;
+        private double buffExpiresAt, heldExpiresAt, armAt, lostAt = -1;
+        private GameObject heldObject, buffObject;
+        private bool heldInLeftHand;
+        private ProjectileParameters heldParameters;
+        private GameObject activeShieldPrefab;
+        private Material activeShieldMaterial;
+        private Material ownedFireMaterial, ownedBuffMaterial;
+        private readonly List<SkillProjectile> projectiles = new();
+        private readonly List<GameObject> transientVisuals = new();
+        private readonly List<PushSample> pushSamples = new();
+        private readonly List<ExtensionLifetime> extensions = new();
+        private readonly List<ExtensionLifetime> tickingExtensions = new();
+        private bool clearing, activating, createdHeldThisActivation;
+        private int releasingExtensions;
+        private long nextExtensionId;
+        private double lastObserved = double.NegativeInfinity;
+        private double previewWristStamp = double.NegativeInfinity;
+        private Vector3 previewWrist;
+        private Vector3 lastHandPosition, lastHeadPosition;
+        private bool hasPreviousSample;
+        private HandThrowState throwState;
+        private HandThrowIntentState throwIntent;
+        private string shotId;
+        private string heldSource;
+        private string ThrowSource => WristPoseOverride!=null?"测试注入":lab?lab.TrackingSource:"无采样器";
+        private long observationSequence;
+        private bool throwInputValid, releasePoseValid, hasSafeHeldPoint;
+        private Pose releasePose;
+        private Vector3 safeHeldPoint;
+        private long releasePoseCandidate;
+        private readonly Collider[] throwOverlaps = new Collider[32];
+        private readonly RaycastHit[] throwSweeps = new RaycastHit[32];
+        private string throwBlockReason;
+
+        // 激活时冻结本发投射物的参数。之后编辑共享配置或激活其他技能，
+        // 都不会改变当前手持物的运动、伤害及发射后的飞行参数。
+        private readonly struct ProjectileParameters
+        {
+            public readonly float Radius, Damage, PoiseDamage, Speed, FlightLifetime, HeldLifetime, ArmDelay, LossGrace, PushDistance, PushMinimum, PushMaximum;
+            public readonly Vector3 Offset;
+            public readonly GameObject Visual, Impact;
+            public readonly Material Material;
+            public readonly ProjectileReleaseMode ReleaseMode;
+            public readonly HandThrowSettings Throwing;
+            public ProjectileParameters(ProjectileEffectDefinition definition, SkillEffects legacy)
+            {
+                Radius = definition ? definition.radius : Mathf.Max(.01f, legacy.ballRadius);
+                Damage = definition ? definition.damage : Mathf.Max(0, legacy.projectileDamage);
+                PoiseDamage = definition ? definition.poiseDamage : 20;
+                Speed = definition ? definition.speed : Mathf.Max(.1f, legacy.projectileSpeed);
+                FlightLifetime = definition ? definition.flightLifetime : Mathf.Max(.1f, legacy.projectileLifetime);
+                HeldLifetime = definition ? definition.heldLifetime : Mathf.Max(.1f, legacy.heldLifetime);
+                ArmDelay = definition ? definition.armDelay : Mathf.Max(.25f, legacy.armDelay);
+                LossGrace = definition ? definition.trackingLossGrace : Mathf.Max(.05f, legacy.trackingLossGrace);
+                PushDistance = definition ? definition.pushDistance : Mathf.Max(.05f, legacy.pushDistance);
+                PushMinimum = definition ? definition.pushMinimumSeconds : Mathf.Max(.05f, legacy.pushMinimumSeconds);
+                PushMaximum = definition ? definition.pushMaximumSeconds : Mathf.Max(PushMinimum, legacy.pushMaximumSeconds);
+                ReleaseMode = definition ? definition.releaseMode : ProjectileReleaseMode.ForwardPush;
+                Throwing = definition && definition.throwing != null ? definition.throwing.Copy() : new HandThrowSettings();
+                Offset = definition ? (ReleaseMode == ProjectileReleaseMode.GripThrow ? definition.throwLocalOffset : definition.heldOffset) : legacy.heldOffset;
+                Visual = definition ? definition.visualPrefab : legacy.fireballPrefab;
+                Impact = definition ? definition.impactPrefab : legacy.impactPrefab;
+                Material = definition ? definition.material : legacy.fireMaterial;
+            }
+        }
+
+        private sealed class ExtensionLifetime
+        {
+            public readonly ISkillEffectLifetime Value;
+            public readonly long Id;
+            public bool Cancelled;
+            public ExtensionLifetime(ISkillEffectLifetime value, long id) { Value = value; Id = id; }
+        }
+
+        private readonly struct PushSample
+        {
+            public readonly Vector3 Hand, Head, Forward;
+            public readonly double Time;
+            public PushSample(Vector3 hand, Vector3 headPosition, Vector3 forward, double time)
+            { Hand = hand; Head = headPosition; Forward = forward; Time = time; }
+        }
+
+        private void Awake()
+        {
+            if (!vfxPool) vfxPool = GetComponent<VfxPoolManager>();
+            if (!lab) lab = GetComponent<NarutoVR.SealLab.SealLab>();
+            if (!head && Camera.main) head = Camera.main.transform;
+            if (!playerRoot && head) playerRoot = head.root;
+            int playerLayer = LayerMask.NameToLayer("Player");
+            if (playerLayer >= 0) playerLayers = playerLayers.value | (1 << playerLayer);
+        }
+
+        /// <summary>统一效果激活入口，检查可用性与重入，失败时撤销本次新建的持握物和扩展生命周期。</summary>
+        public bool TryActivate(SkillDefinition skill)
+        {
+            if (!isActiveAndEnabled || Time.timeScale <= 0 || !skill || activating || clearing) return false;
+            long extensionStart = nextExtensionId;
+            bool activated = false;
+            createdHeldThisActivation = false;
+            activating = true;
+            try
+            {
+                if (skill.effectDefinition)
+                {
+                    string error = skill.effectDefinition.ValidateDefinition();
+                    if (error != null) { Report("效果配置无效：" + error); return false; }
+                    activated = skill.effectDefinition.TryActivate(this, skill);
+                }
+                else if (skill.effectKind == SkillEffectKind.SelfBuff) activated = TryApplyShield(null, skill);
+                else if (skill.effectKind == SkillEffectKind.HeldFireball) activated = TryCreateProjectile(null, skill);
+                if (activated) ++ActivationCount;
+                return activated;
+            }
+            catch (Exception error)
+            {
+                // 后续初始化可能在持握视觉已经创建后失败，需要清理本次生成物。
+                if (createdHeldThisActivation) ClearHeld();
+                Report("效果激活失败：" + error.Message); return false;
+            }
+            finally
+            {
+                // 自定义效果注册后再失败或抛错时，撤销本次激活新增的生命周期对象。
+                if (!activated)
+                    while (true)
+                    {
+                        ExtensionLifetime newest = null;
+                        for (int i = extensions.Count - 1; i >= 0; i--)
+                            if (extensions[i].Id > extensionStart) { newest = extensions[i]; break; }
+                        if (newest == null) break;
+                        RemoveExtension(newest);
+                    }
+                createdHeldThisActivation = false;
+                activating = false;
+            }
+        }
+
+        /// <summary>护盾配置的执行入口，设置容量与到期时间；成功次数由外层 TryActivate 统一统计。</summary>
+        public bool TryApplyShield(ShieldEffectDefinition definition, SkillDefinition skill)
+        {
+            if (!isActiveAndEnabled || Time.timeScale <= 0 || !skill || clearing || releasingExtensions > 0 ||
+                (definition && definition.ValidateDefinition() != null)) return false;
+            bool refreshing = BuffRemaining > 0;
+            float capacity = definition ? definition.capacity : (float.IsFinite(shieldCapacity) ? Mathf.Max(1, shieldCapacity) : 100);
+            GameObject visual = definition ? definition.visualPrefab : shieldPrefab;
+            Material material = definition ? definition.material : buffMaterial;
+            if (activeShieldPrefab != visual || activeShieldMaterial != material)
+            {
+                if (buffObject) { buffObject.SetActive(false); Destroy(buffObject); }
+                buffObject = null;
+            }
+            activeShieldPrefab = visual; activeShieldMaterial = material;
+            shieldPoints = activeShieldCapacity = capacity;
+            float duration = float.IsFinite(skill.durationSeconds) ? Mathf.Max(.1f, skill.durationSeconds) : 10;
+            buffExpiresAt = Now + duration;
+            // 护盾数值已经生效后，纯视觉创建失败只记录告警。
+            try { CreateBuffVisual(); }
+            catch (Exception error) { Debug.LogWarning("护盾已生效，但视觉创建失败：" + error.Message, this); }
+            Report($"{skill.displayName}：{(refreshing ? "已刷新" : "已获得")}护盾 {shieldPoints:0}，持续 {duration:0.#} 秒");
+            return true;
+        }
+
+        /// <summary>投射物配置的执行入口，先冻结参数，再占用持握槽并创建手持实例。</summary>
+        public bool TryCreateProjectile(ProjectileEffectDefinition definition, SkillDefinition skill)
+        {
+            if (!isActiveAndEnabled || Time.timeScale <= 0 || !skill || clearing || releasingExtensions > 0 ||
+                (definition && definition.ValidateDefinition() != null)) return false;
+            if (heldObject) { Report("手部技能槽已占用，请先发射或取消当前火球"); return false; }
+            if (!head || !TryGetWrist(skill.leftHand, out Pose wrist, out double observed))
+            { Report($"{(skill.leftHand ? "左" : "右")}手当前追踪无效，无法生成火球"); return false; }
+
+            var parameters = new ProjectileParameters(definition, this);
+            if (parameters.ReleaseMode == ProjectileReleaseMode.GripThrow && ThrowGripProvider == null)
+            { Report("投掷模式未连接握拳/捏合输入，无法生成"); return false; }
+            createdHeldThisActivation = true;
+            if (parameters.Visual) heldObject = Instantiate(parameters.Visual);
+            else
+            {
+                Material material = GetEffectMaterial(true, parameters.Material);
+                if (!material) { Report("火球材质不可用，生成失败"); return false; }
+                heldObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                Collider sphereCollider = heldObject.GetComponent<Collider>();
+                sphereCollider.enabled = false;
+                Destroy(sphereCollider);
+                var renderer = heldObject.GetComponent<Renderer>();
+                renderer.sharedMaterial = material;
+                renderer.shadowCastingMode = ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+            }
+            heldParameters = parameters;
+            throwState = parameters.ReleaseMode == ProjectileReleaseMode.GripThrow ? new HandThrowState(parameters.Throwing) : null;
+            heldObject.name = "技能火球_持握";
+            heldObject.transform.localScale = Vector3.one * parameters.Radius * 2;
+            DisableVisualColliders(heldObject);
+            heldObject.SetActive(true);
+            if (heldObject.TryGetComponent<SkillVisualMotion>(out var motion)) motion.SetFlying(false);
+            heldInLeftHand = skill.leftHand;
+            throwIntent = throwState != null && parameters.Throwing.assisted.enabled ? new HandThrowIntentState(parameters.Throwing,heldInLeftHand) : null;
+            shotId = Guid.NewGuid().ToString("N");
+            heldSource=ThrowSource;
+            heldExpiresAt = Now + parameters.HeldLifetime;
+            lostAt = -1;
+            ResetMotion(Now);
+            UpdateHeldPosition(wrist);
+            previewWrist=wrist.position; previewWristStamp=observed;
+            if (throwState != null) { safeHeldPoint = heldObject.transform.position; hasSafeHeldPoint = ThrowPathClear(safeHeldPoint,safeHeldPoint); }
+            ObserveThrow("spawn", "持球已生成，等待准备及握持", wrist, default, 0, false);
+            Report($"{skill.displayName}已在{(heldInLeftHand ? "左" : "右")}手生成，" +
+                (throwState != null ? "抬起持球手，看向目标；握住后甩手松开、后拉前送或伸手保持发射" : "看向目标，准备后向前轻推发射"));
+            return true;
+        }
+
+        private void LateUpdate()
+        {
+            if (Time.timeScale <= 0)
+            {
+                if (heldObject || shieldPoints > 0 || projectiles.Count > 0 || transientVisuals.Count > 0 || extensions.Count > 0) ClearAll();
+                return;
+            }
+            double now = Now;
+            TickExtensions(now);
+            transientVisuals.RemoveAll(item => !item);
+            if (shieldPoints > 0 && now >= buffExpiresAt)
+            {
+                ClearBuff();
+                Report("护盾持续时间已结束");
+            }
+            UpdateBuffVisual();
+            if (heldObject) UpdateHeld(now);
+        }
+
+        private void UpdateHeld(double now)
+        {
+            previewWristStamp=double.NegativeInfinity;
+            if (now >= heldExpiresAt) { ObserveThrow("expired","火球持握超时",default,default,0,false); ClearHeld(); Report("火球持握超时，已消散"); return; }
+            if (!head || !TryGetWrist(heldInLeftHand, out Pose wrist, out double observed))
+            {
+                throwInputValid = false; releasePoseValid = false;
+                heldObject.SetActive(false);
+                if (lostAt < 0) { lostAt = now; ResetMotion(now); Report("手部追踪丢失，火球已隐藏"); }
+                ObserveThrow("tracking_lost","持球手追踪缺失或过期",default,default,0,false);
+                if (now - lostAt >= heldParameters.LossGrace) { ClearHeld(); Report("手部追踪未恢复，火球已消散"); }
+                return;
+            }
+            if (lostAt >= 0) { lostAt = -1; ResetMotion(now); Report("手部追踪恢复，请重新握住再投掷"); }
+            heldObject.SetActive(true);
+            UpdateHeldPosition(wrist);
+            if(heldSource!=ThrowSource)
+            {
+                heldSource=ThrowSource;ResetMotion(now);
+                ObserveThrow("source_changed","手部来源已改变，请重新握住",wrist,default,observed,false);return;
+            }
+            if (PushInputSuppressed || (throwState != null && ThrowInputSuppressed))
+            {
+                ResetMotion(now);
+                ObserveThrow("suppressed","界面、角色状态或其他输入仲裁阻止投掷",wrist,default,observed,false);
+                return;
+            }
+            previewWrist=wrist.position; previewWristStamp=observed;
+            if (throwState == null) { TrackPush(wrist.position,observed,now); return; }
+            ThrowGripSample grip = ThrowGripProvider != null ? ThrowGripProvider(heldInLeftHand,heldParameters.Throwing) : default;
+            if (now < armAt) { ObserveThrow("warming_up","生成或恢复追踪后的准备时间",wrist,grip,observed,true); return; }
+            if (!double.IsFinite(grip.observed) || Math.Abs(grip.observed-observed) > .01)
+            {
+                ResetMotion(now);
+                ObserveThrow("sample_skew","手形与腕骨不在同一观测帧",wrist,grip,observed,true); return;
+            }
+            double handNow=HandNow;
+            Vector3 velocity=throwState.Process(wrist.position,head.position,grip,handNow);
+            AssistedThrowCandidate candidate=throwIntent?.Process(wrist.position,head.position,head.forward,grip,handNow) ?? default;
+            bool backwards = throwIntent != null && throwIntent.ContradictsWindup(throwState.Estimate.velocity);
+            if (velocity.sqrMagnitude>.0001f && throwIntent != null && throwIntent.ContradictsWindup(velocity)) velocity=Vector3.zero;
+            bool pending=throwState.ReleasePending && !backwards;
+            Vector3 currentCenter=heldObject.transform.position;
+            throwInputValid=(grip.fistValid||grip.pinchValid) && observed<=handNow && handNow-observed<=heldParameters.Throwing.sampleMaxAge;
+            throwBlockReason=null;
+            Physics.SyncTransforms();
+            // 已确认的物理松手优先；尚未确认的松手候选允许辅助动作继续竞争。
+            bool assisted = velocity.sqrMagnitude<=.0001f && candidate.kind!=AssistedThrowKind.None;
+            string mode=assisted?candidate.kind.ToString():"GripRelease";
+            if (assisted)
+            {
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("辅助发射路径或出手点被阻挡",wrist,grip,observed); return; }
+                releasePose=new Pose(currentCenter,wrist.rotation); releasePoseValid=true;
+                velocity=candidate.direction * heldParameters.Speed;
+            }
+            else if (pending && throwState.Estimate.accepted && (!releasePoseValid || releasePoseCandidate!=throwState.CandidateId))
+            {
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("释放位置或甩手路径被阻挡，请重新握住",wrist,grip,observed); return; }
+                releasePose=new Pose(currentCenter,wrist.rotation); releasePoseValid=true; releasePoseCandidate=throwState.CandidateId;
+            }
+            if (velocity.sqrMagnitude>.0001f)
+            {
+                if (!releasePoseValid || !ThrowPathClear(releasePose.position,releasePose.position))
+                { RejectThrow("释放点被障碍占据，未发射",wrist,grip,observed); return; }
+                if (!TryResolveAim(releasePose.position, out var aim))
+                { RejectThrow("头向瞄准点无效或位于出手点之后，未发射",wrist,grip,observed); return; }
+                heldObject.transform.SetPositionAndRotation(aim.origin,releasePose.rotation);
+                ObserveThrow("launched",assisted?(candidate.kind==AssistedThrowKind.ReachHold?"伸手保持发射":"后拉前送评分发射"):"握持松手投掷发射",wrist,grip,observed,true,aim.direction*heldParameters.Speed,mode);
+                Launch(aim.direction); return;
+            }
+            if (pending && releasePoseValid) heldObject.transform.SetPositionAndRotation(releasePose.position,releasePose.rotation);
+            else
+            {
+                releasePoseValid=false;
+                if (!ThrowPathClear(hasSafeHeldPoint?safeHeldPoint:currentCenter,currentCenter))
+                { RejectThrow("持球位置或移动路径被阻挡，请移回可用空间",wrist,grip,observed); return; }
+                safeHeldPoint=currentCenter; hasSafeHeldPoint=true;
+            }
+            string reason=throwIntent != null ? throwIntent.Score.reason+"；松手："+throwState.Status : throwState.Status;
+            if (backwards) reason="后拉阶段：不采用朝后的松手轨迹；"+reason;
+            ObserveThrow("frame",reason,wrist,grip,observed,true);
+        }
+
+        private void RejectThrow(string reason,Pose wrist,ThrowGripSample grip,double observed)
+        {
+            // 重置前保存本次候选和评分；同一个动作只尝试一次发射方式。
+            ObserveThrow("rejected",reason,wrist,grip,observed,true);
+            bool hadSafePoint=hasSafeHeldPoint;
+            ResetMotion(Now); hasSafeHeldPoint=hadSafePoint; throwBlockReason=reason;
+        }
+
+        private void ObserveThrow(string kind,string reason,Pose wrist,ThrowGripSample grip,double observed,bool hasSample,Vector3 velocity=default,string mode="")
+        {
+            if (throwState==null) return;
+            if(kind=="launched")LastReleaseMode=ReleaseModeLabel(mode);
+            bool gripTimeValid=double.IsFinite(grip.observed);
+            bool headValid=head&&NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position,head.rotation));
+            if(!gripTimeValid)grip.observed=0;
+            var observation=new HandThrowObservation
+            {
+                schemaVersion=2,shotId=shotId,sequence=++observationSequence,eventType=kind,releaseMode=mode,
+                source=ThrowSource,
+                hasSample=hasSample,suppressed=ThrowInputSuppressed||PushInputSuppressed,
+                gripTimestampValid=hasSample&&gripTimeValid,headPoseValid=headValid,
+                observed=hasSample&&double.IsFinite(grip.observed)?grip.observed:0,wristObserved=double.IsFinite(observed)?observed:0,
+                now=double.IsFinite(HandNow)?HandNow:0,hand=hasSample?wrist.position:Vector3.zero,head=headValid?head.position:Vector3.zero,headForward=headValid?head.forward:Vector3.zero,
+                grip=grip,score=CurrentThrowScore,estimate=throwState.PreviewEstimate.samples>0&&!throwState.ReleasePending?throwState.PreviewEstimate:throwState.Estimate,
+                status=reason,armed=throwState.Armed||(throwIntent?.Armed??false),launchVelocity=velocity,candidateId=throwState.CandidateId,
+                pending=throwState.ReleasePending,inputValid=throwInputValid,gripProgress=throwState.GripProgress,releaseProgress=throwState.ReleaseProgress,
+                releaseOrigin=releasePoseValid?releasePose.position:HeldThrowPosition,
+                storageRemainingSeconds=HeldRemainingSeconds,projectileSpeed=heldParameters.Speed
+            };
+            LastThrowObservation=observation; HasThrowObservation=true;
+            if (kind=="launched"||kind=="rejected"||kind=="expired"||kind=="tracking_lost"||kind=="sample_skew")
+                LastThrowOutcome=reason+"；动作分 "+(observation.score.available?$"{observation.score.total:0.0}/{observation.score.threshold:0}":"未计算");
+            if (ThrowObserved!=null) foreach(Action<HandThrowObservation> listener in ThrowObserved.GetInvocationList())
+                try { listener(observation); } catch(Exception error) { Debug.LogWarning("投掷诊断监听失败："+error.Message,this); }
+        }
+
+        private void UpdateHeldPosition(Pose wrist)
+        {
+            Vector3 offset = heldParameters.Offset;
+            if (heldInLeftHand) offset.x = -offset.x;
+            Quaternion basis = heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow ? wrist.rotation : head.rotation;
+            heldObject.transform.SetPositionAndRotation(wrist.position + basis * offset, wrist.rotation);
+        }
+
+        private bool TryGetWrist(bool leftHand, out Pose worldPose, out double observed)
+        {
+            worldPose = Pose.identity;
+            observed = 0;
+            if (WristPoseOverride != null)
+            {
+                Pose? supplied = WristPoseOverride(leftHand);
+                if (!supplied.HasValue || !NarutoVR.SealLab.SealLab.FinitePose(supplied.Value)) return false;
+                worldPose = supplied.Value; observed = HandNow; return true;
+            }
+            if (!lab || !lab.isActiveAndEnabled || !lab.recordingOrigin || lab.Frame == null) return false;
+            HandSnapshot hand = leftHand ? lab.Frame.left : lab.Frame.right;
+            int wristIndex = (int)HandJointId.HandWristRoot;
+            if (hand == null || !hand.connected || !hand.tracked || !hand.fresh ||
+                hand.joints == null || hand.jointValid == null || wristIndex >= hand.joints.Length ||
+                wristIndex >= hand.jointValid.Length || !hand.jointValid[wristIndex]) return false;
+            double age = HandNow - hand.observedAt;
+            if (age < -0.01 || age > Mathf.Max(0.04f, lab.staleAfterSeconds)) return false;
+            Pose localPose = hand.joints[wristIndex];
+            if (!NarutoVR.SealLab.SealLab.FinitePose(localPose)) return false;
+            worldPose = new Pose(lab.recordingOrigin.TransformPoint(localPose.position),
+                lab.recordingOrigin.rotation * localPose.rotation);
+            observed = hand.observedAt;
+            return NarutoVR.SealLab.SealLab.FinitePose(worldPose);
+        }
+
+        private void ResetMotion(double now)
+        {
+            throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwBlockReason = null;
+            pushSamples.Clear();
+            lastObserved = double.NegativeInfinity;
+            hasPreviousSample = false;
+            throwState?.Reset();
+            throwIntent?.Reset();
+            armAt = now + heldParameters.ArmDelay;
+        }
+
+        private void TrackPush(Vector3 handPosition, double observed, double now)
+        {
+            // 重复读取的骨骼快照不累计为新的手部运动。
+            if (observed <= lastObserved) return;
+            Vector3 headPosition = head.position;
+            if (hasPreviousSample && ((handPosition - lastHandPosition).sqrMagnitude > 0.35f * 0.35f ||
+                (headPosition - lastHeadPosition).sqrMagnitude > 0.35f * 0.35f)) ResetMotion(now);
+            lastObserved = observed;
+            lastHandPosition = handPosition;
+            lastHeadPosition = headPosition;
+            hasPreviousSample = true;
+            if (now < armAt) return;
+
+            float minSeconds = heldParameters.PushMinimum;
+            float maxSeconds = heldParameters.PushMaximum;
+            while (pushSamples.Count > 0 && observed - pushSamples[0].Time > maxSeconds)
+                pushSamples.RemoveAt(0);
+            foreach (PushSample start in pushSamples)
+            {
+                if (!IsForwardPush(start.Hand, handPosition, start.Head, headPosition, start.Forward,
+                    (float)(observed - start.Time), heldParameters.PushDistance, minSeconds, maxSeconds)) continue;
+                if (TryResolveAim(heldObject.transform.position, out var aim)) Launch(aim.direction);
+                return;
+            }
+            pushSamples.Add(new PushSample(handPosition, headPosition, head.forward, observed));
+        }
+
+        /// <summary>同时要求手在世界空间和相对头部的空间向前移动，避免转头或身体位移误触发。</summary>
+        public static bool IsForwardPush(Vector3 startWorld, Vector3 endWorld, Vector3 startHead,
+            Vector3 endHead, Vector3 referenceForward, float seconds, float distance = 0.12f,
+            float minimumSeconds = 0.15f, float maximumSeconds = 0.6f)
+        {
+            if (!float.IsFinite(seconds) || !float.IsFinite(distance) || seconds < minimumSeconds ||
+                seconds > maximumSeconds || distance <= 0 || referenceForward.sqrMagnitude < 0.0001f) return false;
+            Vector3 forward = referenceForward.normalized;
+            Vector3 worldDelta = endWorld - startWorld;
+            Vector3 relativeDelta = (endWorld - endHead) - (startWorld - startHead);
+            return Vector3.Dot(worldDelta, forward) >= distance && Vector3.Dot(relativeDelta, forward) >= distance;
+        }
+
+        /// <summary>头向准星射线给出目标点，投射物从手部实际位置朝该点飞行。</summary>
+        public Vector3 GetAimPoint()
+        {
+            if (!head) return transform.position + transform.forward * Mathf.Max(1, aimDistance);
+            float range = Mathf.Max(1, aimDistance);
+            Vector3 point = head.position + head.forward * range;
+            float nearest = range;
+            int mask=hitLayers.value & ~playerLayers.value;
+            int count=Physics.RaycastNonAlloc(head.position,head.forward,throwSweeps,range,mask,QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits=throwSweeps;
+            if(count==hits.Length) { hits=Physics.RaycastAll(head.position,head.forward,range,mask,QueryTriggerInteraction.Ignore); count=hits.Length; }
+            for(int i=0;i<count;i++)
+            {
+                var hit=hits[i];
+                if (IgnoreThrowCollider(hit.collider) || hit.distance >= nearest) continue;
+                point = hit.point;
+                nearest = hit.distance;
+            }
+            return point;
+        }
+
+        // 瞄准预览独立于握持和投掷评分，抬腕静止时也可预览，发射仍需通过动作检查。
+        public bool TryGetThrowPreview(out FireballAim aim)
+        {
+            aim=default;
+            if (!heldObject || !heldObject.activeSelf || !head || PushInputSuppressed || ThrowInputSuppressed ||
+                Time.timeScale<=0 || !double.IsFinite(previewWristStamp)) return false;
+            double age=HandNow-previewWristStamp;
+            if(!double.IsFinite(age) || age<-.01 || age>heldParameters.Throwing.sampleMaxAge ||
+                previewWrist.y<head.position.y-Mathf.Clamp(aimWristDrop,.15f,.65f)) return false;
+            return TryResolveAim(ThrowPreviewOrigin,out aim);
+        }
+
+        private bool TryResolveAim(Vector3 origin,out FireballAim aim)
+        {
+            aim=default;
+            if(!head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position,head.rotation))) return false;
+            Vector3 point=GetAimPoint(), delta=point-origin;
+            float distance=delta.magnitude;
+            // 头部与发射平面之间存在遮挡时，限制目标点，避免朝后发射或越过掩体。
+            if(!float.IsFinite(distance) || distance<.001f || Vector3.Dot(delta,head.forward)<=0) return false;
+            if(!ThrowPathClear(origin,origin)) return false;
+            Vector3 direction=delta/distance, endpoint=point; bool blocked=false;
+            int mask=hitLayers.value & ~playerLayers.value;
+            // 实际飞行使用有半径的球形扫掠，因此准星射线旁的墙体也可能挡住投射物。
+            int count=Physics.SphereCastNonAlloc(origin,heldParameters.Radius,direction,throwSweeps,distance,mask,QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits=throwSweeps;
+            if(count==hits.Length) { hits=Physics.SphereCastAll(origin,heldParameters.Radius,direction,distance,mask,QueryTriggerInteraction.Ignore); count=hits.Length; }
+            float nearest=distance;
+            for(int i=0;i<count;i++)
+            {
+                var hit=hits[i];
+                if(IgnoreThrowCollider(hit.collider) || hit.distance>nearest) continue;
+                nearest=hit.distance; endpoint=origin+direction*nearest;
+                blocked=!hit.collider.GetComponentInParent<SkillTrainingTarget>();
+            }
+            aim=new FireballAim(origin,direction,point,endpoint,blocked); return true;
+        }
+
+        private void Launch(Vector3 direction)
+        {
+            LastLaunchDirection = direction.normalized;
+            LastLaunchPosition = heldObject.transform.position;
+            throwInputValid = releasePoseValid = false;
+            GameObject ball = heldObject;
+            heldObject = null;
+            pushSamples.Clear();
+            lostAt = -1;
+            ball.name = "技能火球_飞行";
+            var projectile = ball.AddComponent<SkillProjectile>();
+            projectile.speed = heldParameters.Speed;
+            projectile.radius = heldParameters.Radius;
+            projectile.damage = heldParameters.Damage;
+            projectile.AttackerTarget = head;
+            projectile.poiseDamage = heldParameters.PoiseDamage;
+            projectile.lifetime = heldParameters.FlightLifetime;
+            projectile.impactPrefab = heldParameters.Impact;
+            if (vfxPool && vfxPool.Handles(heldParameters.Impact))
+            {
+                projectile.ImpactPool = vfxPool;
+                projectile.ImpactOwner = this;
+            }
+            else projectile.ImpactCreated = OnImpactCreated;
+            projectile.GameClock = GameClock;
+            if (ball.TryGetComponent<SkillVisualMotion>(out var motion)) motion.SetFlying(true);
+            projectiles.Add(projectile);
+            Report("火球已发射");
+            ++LaunchCount;
+            ProjectileLaunched?.Invoke();
+            projectile.Initialize(direction, playerRoot ? playerRoot : head.root, hitLayers, playerLayers,
+                OnTargetHit, OnProjectileFinished);
+        }
+
+        private void OnTargetHit(SkillTrainingTarget target)
+        {
+            ++HitCount;
+            Report($"命中训练靶：剩余生命 {target.CurrentHealth:0}，累计命中 {HitCount} 次");
+        }
+
+        private void OnProjectileFinished(SkillProjectile projectile) => projectiles.Remove(projectile);
+        private void OnImpactCreated(GameObject visual) { if (visual) transientVisuals.Add(visual); }
+
+        /// <summary>
+        /// 仅在返回 true 时接管生命周期；注册被拒绝时仍由调用方清理资源。
+        /// 同一对象只可注册一次；清理期间拒绝新注册。
+        /// </summary>
+        public bool RegisterEffectLifetime(ISkillEffectLifetime effect)
+        {
+            if (effect == null || !isActiveAndEnabled || Time.timeScale <= 0 || clearing || releasingExtensions > 0) return false;
+            if (effect is UnityEngine.Object unityObject && !unityObject) return false;
+            foreach (var entry in extensions) if (ReferenceEquals(entry.Value, effect)) return false;
+            try { if (!effect.IsAlive) return false; }
+            catch (Exception error) { Debug.LogWarning("扩展效果注册失败：" + error.Message, this); return false; }
+            extensions.Add(new ExtensionLifetime(effect, ++nextExtensionId));
+            return true;
+        }
+
+        private void TickExtensions(double now)
+        {
+            // 自定义效果可在 Tick 内注册或取消其他效果，因此遍历时使用登记项快照，
+            // 每次操作前重新确认登记项仍归本执行器管理。
+            tickingExtensions.Clear(); tickingExtensions.AddRange(extensions);
+            foreach (var entry in tickingExtensions)
+            {
+                if (entry.Cancelled || !extensions.Contains(entry)) continue;
+                try
+                {
+                    if (entry.Value.IsAlive) entry.Value.Tick(now);
+                    if (!entry.Cancelled && !entry.Value.IsAlive) RemoveExtension(entry);
+                }
+                catch (Exception error)
+                {
+                    Debug.LogWarning("扩展效果更新失败，已清理：" + error.Message, this);
+                    RemoveExtension(entry);
+                }
+            }
+            tickingExtensions.Clear();
+        }
+
+        private void RemoveExtension(ExtensionLifetime entry)
+        {
+            if (entry.Cancelled) return;
+            extensions.Remove(entry); entry.Cancelled = true;
+            releasingExtensions++;
+            try { entry.Value.Cancel(); }
+            catch (Exception error) { Debug.LogWarning("扩展效果结束时发生异常：" + error.Message, this); }
+            finally { releasingExtensions--; }
+        }
+
+        /// <returns>护盾吸收后剩余的伤害，由调用方继续扣除生命值。</returns>
+        public float AbsorbDamage(float damage)
+        {
+            if (!float.IsFinite(damage) || damage <= 0) return 0;
+            if (BuffRemaining <= 0) { ClearBuff(); return damage; }
+            float absorbed = Mathf.Min(shieldPoints, damage);
+            shieldPoints -= absorbed;
+            if (shieldPoints <= 0) { ClearBuff(); Report("护盾已被击破"); }
+            else Report($"护盾吸收 {absorbed:0} 点伤害，剩余 {shieldPoints:0}");
+            if (absorbed > 0 && ShieldImpact != null)
+                foreach (Action<float> listener in ShieldImpact.GetInvocationList())
+                    try { listener(absorbed); } catch (Exception e) { Debug.LogWarning("护盾受击反馈监听失败：" + e.Message, this); }
+            return damage - absorbed;
+        }
+
+        /// <summary>按手持投射物、最新自定义效果、护盾的优先级取消一项；飞行中的投射物继续运行。</summary>
+        public bool CancelLatest()
+        {
+            if (heldObject) { ClearHeld(); Report("已取消持握火球"); return true; }
+            while (extensions.Count > 0)
+            {
+                var entry = extensions[extensions.Count - 1]; bool alive = false;
+                try { alive = entry.Value.IsAlive; }
+                catch (Exception error) { Debug.LogWarning("扩展效果状态无效：" + error.Message, this); }
+                RemoveExtension(entry);
+                if (alive) { Report("已取消扩展效果"); return true; }
+            }
+            if (shieldPoints > 0) { ClearBuff(); Report("已取消护盾"); return true; }
+            Report("当前没有可取消的效果");
+            return false;
+        }
+
+        /// <summary>放低双手时取消尚未发射的物品，已生效护盾和飞行中的投射物继续运行。</summary>
+        public bool CancelUnreleased()
+        {
+            if (!heldObject) return false;
+            ClearHeld(); Report("已收起未发射火球，护盾与已发射效果保留"); return true;
+        }
+
+        public void ResetPushInput() => ResetMotion(Now);
+
+        /// <summary>统一释放本执行器拥有的效果、临时视觉和材料，供禁用、销毁及暂停清理使用。</summary>
+        public void ClearAll()
+        {
+            if (clearing) return;
+            clearing = true;
+            try
+            {
+                ClearHeld();
+                ClearBuff();
+                while (extensions.Count > 0) RemoveExtension(extensions[extensions.Count - 1]);
+                while (projectiles.Count > 0)
+                {
+                    var projectile = projectiles[projectiles.Count - 1];
+                    projectiles.RemoveAt(projectiles.Count - 1);
+                    if (projectile) projectile.Finish();
+                }
+                foreach (var visual in transientVisuals)
+                    if (visual) { visual.SetActive(false); Destroy(visual); }
+                transientVisuals.Clear();
+                if (vfxPool) vfxPool.CancelOwned(this);
+                ReleaseOwnedMaterials();
+                Status = "所有技能效果已清理";
+            }
+            finally { clearing = false; }
+        }
+
+        private void ClearHeld()
+        {
+            if (heldObject && throwState != null) ObserveThrow("cancelled", "持球结束或取消", default, default, 0, false);
+            throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwState?.Reset();
+            throwIntent?.Reset();
+            if (heldObject) { heldObject.SetActive(false); Destroy(heldObject); }
+            heldObject = null;
+            pushSamples.Clear();
+            lostAt = -1;
+            hasPreviousSample = false;
+        }
+
+        bool ThrowPathClear(Vector3 from, Vector3 to)
+        {
+            int mask = hitLayers.value & ~playerLayers.value;
+            int count = Physics.OverlapSphereNonAlloc(to, heldParameters.Radius, throwOverlaps, mask, QueryTriggerInteraction.Ignore);
+            if (count == throwOverlaps.Length) return false;
+            for (int i=0;i<count;i++) if (!IgnoreThrowCollider(throwOverlaps[i])) return false;
+            Vector3 delta = to-from; float distance=delta.magnitude;
+            if (distance < .0001f) return true;
+            count = Physics.SphereCastNonAlloc(from, heldParameters.Radius, delta/distance, throwSweeps,distance,mask,QueryTriggerInteraction.Ignore);
+            if (count == throwSweeps.Length) return false;
+            for(int i=0;i<count;i++) if(!IgnoreThrowCollider(throwSweeps[i].collider)) return false;
+            return true;
+        }
+        bool IgnoreThrowCollider(Collider c) => !c || !c.enabled || (heldObject && c.transform.IsChildOf(heldObject.transform)) ||
+            ((playerRoot ? playerRoot : head ? head.root : null) is Transform root && c.transform.IsChildOf(root));
+
+        public string BuildThrowDebugDetails(double now)
+        {
+            if (!HasThrowObservation) return "尚无投掷观察；先生成火球。\n抬起持球手显示瞄准线，视线选择目标，手部动作确认发射。";
+            var o=LastThrowObservation; var e=o.estimate;
+            double age=double.IsFinite(now)&&double.IsFinite(o.observed)?Math.Max(0,now-o.observed)*1000:0;
+            var b=new System.Text.StringBuilder();
+            var score=o.score;
+            b.AppendLine("准星采用头显正前方；三种动作只判定发射，火球从手边飞向准星。");
+            if(score.windupDirection.sqrMagnitude>.5f)b.AppendLine($"前送动作诊断（{score.windupAimSource}）：原轨迹 {score.rawWindupDirection:F2} / 判定参考 {score.windupDirection:F2}");
+            b.AppendLine($"未发射储存剩余 {HeldRemainingSeconds:0.0} 秒");
+            b.AppendLine($"通过候选：{ReleaseModeLabel(score.candidate.ToString())}；最近实际发射：{LastReleaseMode}");
+            b.AppendLine($"动作评分 {(score.available?$"{score.total:0.0} / 100":"未计算")}；前送阈值 {score.threshold:0}（非置信概率）");
+            b.AppendLine($"阶段：{score.phase}；判定：{score.reason}");
+            if(score.available) b.AppendLine($"速度项 {score.speedScore*100:0} / 位移项 {score.distanceScore*100:0} / 方向项 {score.directionScore*100:0} / 后拉项 {score.windupScore*100:0}");
+            b.AppendLine($"后拉 {score.windupDistance*100:0.0} cm；前送 {score.forwardDistance*100:0.0} cm；相对/世界前向速度 {score.speed:0.00}/{score.worldSpeed:0.00} m/s");
+            b.AppendLine($"头腕距离 {score.headWristDistance*100:0.0}/{score.reachRequired*100:0.0} cm；主动伸手={score.extensionReady}；保持 {score.holdProgress*100:0}%");
+            b.AppendLine("保持路径："+score.holdReason);
+            b.AppendLine($"采样 {score.samples}；方向一致性 {score.consistency:0.00}；前送误差 {score.fitError*1000:0.0} mm；动作轮次 {score.actionEpoch:0}");
+            var assist=heldParameters.Throwing?.assisted;
+            if(assist!=null && assist.enabled) {
+                b.AppendLine($"前送启用={assist.windupEnabled}：后拉≥{assist.windupDistance*100:0}cm / 前送≥{assist.forwardDistance*100:0}cm / 速度≥{assist.forwardSpeed:0.00}m/s / 一致性≥{assist.minimumConsistency:0.00} / 分数≥{assist.scoreThreshold:0}；期限{assist.actionTimeout:0.00}s");
+                b.AppendLine($"保持启用={assist.reachEnabled}：头腕≥{assist.comfortableReach*assist.reachRatio*100:0}cm / 主动前伸≥{assist.reachMotion*100:0}cm / 身前>{assist.minimumForwardReach*100:0}cm / 保持{assist.reachSeconds:0.00}s");
+                b.AppendLine($"稳定门控：位置≤{assist.reachStability*100:0}cm / 速度≤{assist.reachSpeed:0.00}m/s / 瞄准波动≤{assist.aimStability:0}° / 前方半角≤{assist.forwardCone:0}°");
+            }
+            b.AppendLine($"事件 {o.eventType}；手形/腕骨时间差 {Math.Abs(o.observed-o.wristObserved)*1000:0} ms；输入占用={o.suppressed}");
+            b.AppendLine("最近发射或拒绝："+LastThrowOutcome);
+            b.AppendLine($"持球={HasHeldObject}；当前输入有效={ThrowInputValid}；观察年龄 {age:0} ms");
+            b.AppendLine($"握拳 有效/闭合/张开={o.grip.fistValid}/{o.grip.fistClosed}/{o.grip.fistOpen}；捏合={o.grip.pinchValid}/{o.grip.pinchClosed}/{o.grip.pinchOpen}");
+            b.AppendLine($"握持 {ThrowGripProgress*100:0}%；已准备={ThrowArmed}；释放候选={ReleasePending}；松手确认 {ThrowReleaseProgress*100:0}%");
+            b.AppendLine($"候选编号 {o.candidateId}；样本 {e.samples}；轨迹跨度 {Math.Max(0,e.end-e.start)*1000:0} ms；确认延迟 {(e.onset>0?Math.Max(0,o.observed-e.onset)*1000:0):0} ms");
+            b.AppendLine($"拟合速度 {e.velocity.magnitude:0.00} m/s；相对位移 {e.relativeDistance*100:0.0} cm；RMS误差 {e.rmsError*1000:0.0} mm；通过={e.accepted}");
+            b.AppendLine($"释放位置 {o.releaseOrigin:F3}；输出速度 {o.launchVelocity:F2}");
+            b.AppendLine($"上次发射位置 {LastLaunchPosition:F3}；方向 {LastLaunchDirection:F2}；累计 {LaunchCount} 发 / {HitCount} 次命中");
+            if (heldParameters.Throwing != null) b.AppendLine($"配置：握持 {heldParameters.Throwing.gripSeconds*1000:0} ms / 松手 {heldParameters.Throwing.releaseSeconds*1000:0} ms / 最低速度 {heldParameters.Throwing.minimumSpeed:0.00} m/s / 误差上限 {heldParameters.Throwing.maximumFitError*1000:0} mm");
+            b.Append("最近结果："+o.status+"\n轨迹判定："+(string.IsNullOrEmpty(e.reason)?"尚无冻结轨迹":e.reason));
+            return b.ToString();
+        }
+
+        private void ClearBuff()
+        {
+            shieldPoints = 0;
+            buffExpiresAt = 0;
+            if (buffObject) { buffObject.SetActive(false); Destroy(buffObject); }
+            buffObject = null;
+        }
+
+        private void CreateBuffVisual()
+        {
+            if (buffObject) return;
+            if (activeShieldPrefab)
+            {
+                buffObject = Instantiate(activeShieldPrefab);
+                buffObject.name = "自身加持_青纹护腕";
+                DisableVisualColliders(buffObject);
+                UpdateBuffVisual();
+                return;
+            }
+            Material material = GetEffectMaterial(false, activeShieldMaterial);
+            if (!material) return;
+            buffObject = new GameObject("自身加持_护腕光环");
+            var ring = buffObject.AddComponent<LineRenderer>();
+            ring.sharedMaterial = material;
+            ring.useWorldSpace = false;
+            ring.loop = true;
+            ring.widthMultiplier = 0.008f;
+            ring.positionCount = 32;
+            ring.shadowCastingMode = ShadowCastingMode.Off;
+            ring.receiveShadows = false;
+            for (int i = 0; i < ring.positionCount; ++i)
+            {
+                float angle = 2 * Mathf.PI * i / ring.positionCount;
+                ring.SetPosition(i, new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * 0.055f);
+            }
+            UpdateBuffVisual();
+        }
+
+        private static void DisableVisualColliders(GameObject visual)
+        {
+            // 关闭纯视觉资源中的碰撞器，避免它们影响瞄准射线或额外参与伤害碰撞。
+            foreach (var collider in visual.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
+        }
+
+        private void UpdateBuffVisual()
+        {
+            if (!buffObject) return;
+            if (TryGetWrist(true, out Pose wrist, out _))
+            {
+                buffObject.SetActive(true);
+                buffObject.transform.SetPositionAndRotation(wrist.position, wrist.rotation);
+            }
+            else buffObject.SetActive(false);
+        }
+
+        private Material GetEffectMaterial(bool fire, Material configured)
+        {
+            if (configured) return configured;
+            if (fire && ownedFireMaterial) return ownedFireMaterial;
+            if (!fire && ownedBuffMaterial) return ownedBuffMaterial;
+            Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+            if (!shader) shader = Shader.Find("Unlit/Color");
+            if (!shader) shader = Shader.Find("Sprites/Default");
+            if (!shader) return null;
+            var material = new Material(shader) { name = fire ? "运行时火球材质" : "运行时护盾材质" };
+            Color color = fire ? new Color(1, 0.22f, 0.025f) : new Color(0.05f, 0.9f, 1f);
+            if (material.HasProperty("_BaseColor")) material.SetColor("_BaseColor", color);
+            if (material.HasProperty("_Color")) material.SetColor("_Color", color);
+            if (fire) ownedFireMaterial = material; else ownedBuffMaterial = material;
+            return material;
+        }
+
+        private void ReleaseOwnedMaterials()
+        {
+            if (ownedFireMaterial) Destroy(ownedFireMaterial);
+            if (ownedBuffMaterial) Destroy(ownedBuffMaterial);
+            ownedFireMaterial = ownedBuffMaterial = null;
+        }
+
+        private void Report(string message)
+        {
+            Status = message;
+            var listeners = Message;
+            if (listeners == null) return;
+            foreach (Action<string> listener in listeners.GetInvocationList())
+            {
+                try { listener(message); }
+                catch (Exception error) { Debug.LogWarning("效果通知监听失败，不影响效果结算：" + error.Message, this); }
+            }
+        }
+        private void OnDisable() => ClearAll();
+        private void OnDestroy() => ClearAll();
+        private void OnApplicationPause(bool paused) { if (paused) ClearAll(); }
+    }
+}

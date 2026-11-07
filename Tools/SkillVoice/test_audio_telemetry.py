@@ -37,6 +37,13 @@ class AudioTelemetryTests(unittest.TestCase):
         self.meter.phrase("火球术")
         self.assertEqual(self.meter.snapshot()["audio_last_phrase"], "火球术")
 
+    def test_queued_input_retains_capture_age_for_ducking(self):
+        self.meter.observe([.25, -.25], captured_at=self.now - 1.5)
+        p = self.meter.snapshot()
+        self.assertEqual(p["audio_snapshot_at"], self.now)
+        self.assertEqual(p["audio_voice_age"], 1.5)
+        self.assertEqual(p["audio_age"], 1.5)
+
     def test_invalid_audio_rejected_and_diagnostics_finite(self):
         for value in [float("nan"), float("inf"), -float("inf")]:
             with self.assertRaises(ValueError):

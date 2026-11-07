@@ -6,6 +6,8 @@
 > **运行平台**：Meta Quest 一体机 (VR 72/90fps) / Unity 6000.3.10f1 URP  
 > **关联文档**：[`docs/world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md`](../world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md) · [`docs/world/考工律度_世界观设定白皮书.md`](../world/考工律度_世界观设定白皮书.md) · [`docs/architecture/LINEAR_RPG_DESIGN_ZH.md`](LINEAR_RPG_DESIGN_ZH.md)
 
+> 2026-11-04 实现范围说明：EnemyController/EnemyObj 已分离决策与实体执行，包含巡逻、召唤追击、近距探测、受击锁定、首次发现与反应状态。逐招 AttackData 已接扇形挥砍（默认35伤害）、圆形转圈（默认25伤害）及玩家扣血；SO 驱动敌人生命/韧性，后脑弱点默认3倍削韧，额外HP倍率与固定伤害可配，削空进入Seated并按动画结束恢复。见[战斗配置](../guides/ENEMY_COMBAT_ZH.md)。下文蓄力危险区、特定时长的发条瘫痪、发条弱点位置和远程变种仍是设计目标；当前弱点按用户最新要求位于后脑，不能把下文全部机制视为已实现。
+
 ---
 
 ## 1. 世界观渊源与生态定位
@@ -169,7 +171,7 @@ Subject Details:
 
 ## 6. 与现有代码的接线与集成方案
 
-在当前工程 `Assets/SealCombat/Runtime/Rpg/` 体系中，残机偶的落地无须推翻既有架构，而是作为 `RpgTrainingHazard` 的完全进化版：
+在当前工程 `Assets/scripts/logic/Rpg/` 体系中，残机偶的落地无须推翻既有架构，而是作为 `RpgTrainingHazard` 的完全进化版：
 
 1. **替换目标**：
    - 将当前关卡中仅有红圈代码逻辑的 `RpgTrainingHazard.cs`，升级为承载实际 3D 网格、碰撞盒（Collider）与弱点判定区域（Weakpoint Box）的 `RpgEnemyController.cs`；

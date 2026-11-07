@@ -1,0 +1,2316 @@
+{
+ "scriptCount": 195,
+ "soCount": 44,
+ "files": [
+  {
+   "from": "Assets/Editor/QuestEnvironmentSetup.cs",
+   "to": "Assets/scripts/logic/Editor/Environment/QuestEnvironmentSetup.cs",
+   "guid": "b75700b1ab63e8349a5758f49b3e06e2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/Scenes/SampleScene.unity",
+   "to": "Assets/Scene/SampleScene.unity",
+   "guid": "99c9720ab356a0642a771bea13969a05",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu.controller",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller",
+   "guid": "b186b18d6031c6c4194973cafd0281d6",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackDownward.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackDownward.fbx",
+   "guid": "fd4b3e3333b682c46b1549948b49d5fc",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackSpin360.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackSpin360.fbx",
+   "guid": "6edaf7992ceec744883fd3fe542960d3",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_DazedSeated.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_DazedSeated.fbx",
+   "guid": "ddc1d9ae023cb8f459357baa42d9f7ed",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_HitReactAbdomen.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_HitReactAbdomen.fbx",
+   "guid": "f5427b8dd4df7d24db11eaf86a1fe9c1",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_Idle.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_Idle.fbx",
+   "guid": "27b92144ba1ffd44e97e45496c80ec54",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_ParalysisEnter.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_ParalysisEnter.fbx",
+   "guid": "152aa6dc9a8e5e2488e3dc0afd5cb58c",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_InPlace.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_InPlace.fbx",
+   "guid": "f61d6451d28d6094ab4419214571b734",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_RootMotion.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_RootMotion.fbx",
+   "guid": "f94eadedc710d7542965f4c16593ae69",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx",
+   "guid": "186d79c6368825e46aa7174c7fd00983",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx",
+   "guid": "61cd2ce07a5c1194fa2b9f81b6a66e75",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkForward_RootMotion.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkForward_RootMotion.fbx",
+   "guid": "78d17c3ebda040840aea6b8a3631a88e",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu.mat",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu.mat",
+   "guid": "f485a01ba5196774a955635be0ccb922",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab",
+   "guid": "bd7e52445124ba94d8a64bc8706c8d3d",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab",
+   "guid": "3a6c78476ea14064ba3f3f6fe8bafa4c",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx",
+   "guid": "7a854ed51d41cf1408a16cce0ad456e2",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_LOD1.fbx",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu_LOD1.fbx",
+   "guid": "8dd0a350219c79444b9ae2688f825aed",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_Room.prefab",
+   "to": "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab",
+   "guid": "f3e018d3130a4af41b0e8e6d6ca30331",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Textures/CanJiOu_BaseColor.png",
+   "to": "Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_BaseColor.png",
+   "guid": "3cad383e9255bb3449fe23838d1a984f",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Textures/CanJiOu_Mask.png",
+   "to": "Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Mask.png",
+   "guid": "b18830875996cc74faae0c9655d60417",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Enemies/CanJiOu/Textures/CanJiOu_Normal.png",
+   "to": "Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Normal.png",
+   "guid": "eeefca87657adfa4bb23aea6ff3d0676",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonInterior.mat",
+   "to": "Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonInterior.mat",
+   "guid": "2b6f08dad1ee9bb4fa403487fb135b84",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.fbx",
+   "to": "Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.fbx",
+   "guid": "13c4ea9faab5b7148a3dc111851709ed",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.prefab",
+   "to": "Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.prefab",
+   "guid": "c1eb1761084677d43afc9e01ce8c014b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/Materials/Zhunwang_URP.mat",
+   "to": "Assets/Art/Props/Zhunwang/Materials/Zhunwang_URP.mat",
+   "guid": "7435b9dbab05f854f82afe33124d14af",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/Textures/Zhunwang_BaseColor.png",
+   "to": "Assets/Art/Props/Zhunwang/Textures/Zhunwang_BaseColor.png",
+   "guid": "3bea138cbef2e6945bfe40d2f635e265",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/Textures/Zhunwang_MetallicSmoothness.png",
+   "to": "Assets/Art/Props/Zhunwang/Textures/Zhunwang_MetallicSmoothness.png",
+   "guid": "c3a303c2be229d443a6f0c64f9747b7b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/Textures/Zhunwang_Normal.png",
+   "to": "Assets/Art/Props/Zhunwang/Textures/Zhunwang_Normal.png",
+   "guid": "cb39118e1fab0494693193a3ef324350",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Art/Props/Zhunwang/使用说明.txt",
+   "to": "Assets/Art/Props/Zhunwang/使用说明.txt",
+   "guid": "143cd45008f30bf4a9fa0386c85ff0ac",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Audio/YicunShanhe_Credits.txt",
+   "to": "Assets/Audio/YicunShanhe_Credits.txt",
+   "guid": "3e4700984128b1040b40dd78ca15085a",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/Enemies/CanJiOu_Combat.asset",
+   "to": "Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset",
+   "guid": "3d684ba6a4d681d44a8b0287b9016c04",
+   "type": "EnemyCombatDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/Enemies/EnemyCatalog/本关怪物目录.asset",
+   "to": "Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset",
+   "guid": "7284e12a0a6d3754295334316c87940a",
+   "type": "EnemyCatalog",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/Enemies/EnemyDefinition/残机偶.asset",
+   "to": "Assets/ScriptableObjects/敌人定义配置/残机偶.asset",
+   "guid": "255c44f9f0294f148acf0660fcb9957e",
+   "type": "EnemyDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/Enemies/P1RoomNavMesh.asset",
+   "to": "Assets/Configuration/Enemies/P1RoomNavMesh.asset",
+   "guid": "a614198ee7bd012478d848d6ac427c4e",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/skill-voice-config.json",
+   "to": "Assets/Configuration/LinearRpg/skill-voice-config.json",
+   "guid": "4a1dd22b963c4a2499da41f1b175877d",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/官方基础手形.asset",
+   "to": "Assets/ScriptableObjects/基础手形配置/官方基础手形.asset",
+   "guid": "ae7515a825da2e749810851e94dcfd3a",
+   "type": "BasicHandPoseSettings",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/导航点标记.mat",
+   "to": "Assets/Configuration/LinearRpg/导航点标记.mat",
+   "guid": "a030134f2f8283549aa71257bfe7b65c",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/技能_buff.hidden.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/技能_buff.hidden.asset",
+   "guid": "8dba3622998bb26408ea6cb032eab90e",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/技能_buff.voice.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/技能_buff.voice.asset",
+   "guid": "65044659bc913ee44b72e5a117a166e9",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/技能_buff.zi.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/技能_buff.zi.asset",
+   "guid": "98f1aad44df71c44a9fbb723d4552174",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/技能_fireball.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/技能_fireball.asset",
+   "guid": "2c08484b43813aa42a18ab6aaab0d939",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/效果_buff.zi.asset",
+   "to": "Assets/ScriptableObjects/护盾效果配置/效果_buff.zi.asset",
+   "guid": "081c041630f0eef47ad3f5a33e978555",
+   "type": "ShieldEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/效果_fireball.asset",
+   "to": "Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset",
+   "guid": "9936677d747270249bdc057b84e3e2e1",
+   "type": "ProjectileEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/效果_金刚护体.asset",
+   "to": "Assets/ScriptableObjects/护盾效果配置/效果_金刚护体.asset",
+   "guid": "15ccb0e5420f9d940b439e4ac217e4ea",
+   "type": "ShieldEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/线性RPG技能目录.asset",
+   "to": "Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset",
+   "guid": "27743c64a07643b46a1de13e6162087d",
+   "type": "SkillCatalog",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/阶段_trial.01.asset",
+   "to": "Assets/ScriptableObjects/关卡阶段配置/阶段_trial.01.asset",
+   "guid": "1a882e2ff97663d4599541de6e583467",
+   "type": "RpgStageDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/阶段_trial.02.asset",
+   "to": "Assets/ScriptableObjects/关卡阶段配置/阶段_trial.02.asset",
+   "guid": "7d61a41af3f21a548b6262c5230aa353",
+   "type": "RpgStageDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/阶段_trial.03.asset",
+   "to": "Assets/ScriptableObjects/关卡阶段配置/阶段_trial.03.asset",
+   "guid": "610037eba651af247ad3150923bdd833",
+   "type": "RpgStageDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/LinearRpg/默认玩家.asset",
+   "to": "Assets/ScriptableObjects/玩家定义配置/默认玩家.asset",
+   "guid": "072add108bc83c7499152c051a0d8d51",
+   "type": "RpgPlayerDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/initial-migration-repaired.json",
+   "to": "Assets/Configuration/initial-migration-repaired.json",
+   "guid": "f9aba04cb5a1ed94380e7a6a91563742",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/试炼技能目录.asset",
+   "to": "Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset",
+   "guid": "e73ee21d9130aea44b1142df99b66ed0",
+   "type": "SkillCatalog",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-000.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-000.asset",
+   "guid": "0c0734896eb2fa84c92e5335917d113f",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-001.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-001.asset",
+   "guid": "244ff2b8b48a5b74790c8e1bec921f9c",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-002.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-002.asset",
+   "guid": "a9b8618408b02ec478ebe1ffeec589ac",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能目录.asset",
+   "to": "Assets/ScriptableObjects/技能目录配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能目录.asset",
+   "guid": "5471b2ef28da2384e8ff6f3e44097d33",
+   "type": "SkillCatalog",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景投射物.asset",
+   "to": "Assets/ScriptableObjects/投射物效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景投射物.asset",
+   "guid": "ac944951090921645b6a8b9367692242",
+   "type": "ProjectileEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景护盾.asset",
+   "to": "Assets/ScriptableObjects/护盾效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景护盾.asset",
+   "guid": "f660556dcf221d74c8c0ba3cd611f608",
+   "type": "ShieldEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/默认技能/子印加持.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/默认配置/子印加持.asset",
+   "guid": "5a127508a665fda4aa2aa59d11ec4767",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/默认技能/护体咒加持.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/默认配置/护体咒加持.asset",
+   "guid": "a16138459d93ed04baa4ab74f5ec3cc8",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/默认技能/火球术.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/默认配置/火球术.asset",
+   "guid": "f21103150942e3e468b6e23898bbba1e",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/默认护盾.asset",
+   "to": "Assets/ScriptableObjects/护盾效果配置/默认护盾.asset",
+   "guid": "f7d35c594c67d7c4196c25da1bb2ab41",
+   "type": "ShieldEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Configuration/默认火球.asset",
+   "to": "Assets/ScriptableObjects/投射物效果配置/默认火球.asset",
+   "guid": "3aae9872a187e404a88b2b8acd820803",
+   "type": "ProjectileEffectDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Editor/BgmLoopVerification.cs",
+   "to": "Assets/scripts/logic/Editor/BgmLoopVerification.cs",
+   "guid": "e6b6ce8cdeb216040beea20992524b70",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/BgmLoopVerificationEmpty.unity",
+   "to": "Assets/Scene/BgmLoopVerificationEmpty.unity",
+   "guid": "9c95f6e0169eddd47b711a745305b78f",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ConfigurationAssetOrganizer.cs",
+   "to": "Assets/scripts/data/Editor/ConfigurationAssetOrganizer.cs",
+   "guid": "58c5bd829565a234d8cb6d2a9a2ee270",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/DebugTextComparison.cs",
+   "to": "Assets/scripts/ui/Editor/DebugTextComparison.cs",
+   "guid": "2d250557001a1dc4aa9fe0f418812e90",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EmptyStreamProbe.cs",
+   "to": "Assets/scripts/logic/Editor/EmptyStreamProbe.cs",
+   "guid": "02196654f0b3d4242961eb94270f7715",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EncounterMovementChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EncounterMovementChecks.cs",
+   "guid": "b2ed988024a34403a859d27eb050db75",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemyAttackChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EnemyAttackChecks.cs",
+   "guid": "9222af2575964d9b936d2f41222bd038",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemyCombatChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EnemyCombatChecks.cs",
+   "guid": "597b7a2fd41a49d46b3c22e4da1b2a67",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemyDetectionChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EnemyDetectionChecks.cs",
+   "guid": "9a91a0c18be9049478b98bc4cee295a3",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemyPoolingChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EnemyPoolingChecks.cs",
+   "guid": "b348152c77914b94388ccecd891f3d2a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemyPoolingSetup.cs",
+   "to": "Assets/scripts/logic/Editor/EnemyPoolingSetup.cs",
+   "guid": "700f7c192e9850442a7de2a87db5c55c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EnemySetupAndChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EnemySetupAndChecks.cs",
+   "guid": "a02ee72d0c1e7f34ab8d620bab285722",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/EventCenterChecks.cs",
+   "to": "Assets/scripts/logic/Editor/EventCenterChecks.cs",
+   "guid": "e4eaf5ef18b346098d448504a027afd4",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/HandThrowChecks.cs",
+   "to": "Assets/scripts/logic/Editor/HandThrowChecks.cs",
+   "guid": "9d2853a107f97ae49ba583aef514dd29",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/HandThrowDiagnostics.cs",
+   "to": "Assets/scripts/logic/Editor/HandThrowDiagnostics.cs",
+   "guid": "eec0ac797e4afb04488da23da21357d1",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/Interaction/SnapZoneChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Interaction/SnapZoneChecks.cs",
+   "guid": "f4e27f7a1edbc5949ab66e1d9c85fe13",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/Interaction/SnapZoneEditor.cs",
+   "to": "Assets/scripts/logic/Editor/Interaction/SnapZoneEditor.cs",
+   "guid": "94d85cf59b44df84fb96835fc462f4d0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/InteractionFeelChecks.cs",
+   "to": "Assets/scripts/logic/Editor/InteractionFeelChecks.cs",
+   "guid": "07403189e5117d442ae359a7bdaaa5ee",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/InteractionFeelPresentationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/InteractionFeelPresentationChecks.cs",
+   "guid": "05455b4bd4ee444c9d6e9735999a7ef5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/InteractionFeelSetup.cs",
+   "to": "Assets/scripts/logic/Editor/InteractionFeelSetup.cs",
+   "guid": "cc68a5380e82436bb0e1c20976237a50",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/InteractionInputTrace.cs",
+   "to": "Assets/scripts/logic/Editor/InteractionInputTrace.cs",
+   "guid": "97e78c5843373a64eb57b918a55e121f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/LinearRpgPlayChecks.cs",
+   "to": "Assets/scripts/logic/Editor/LinearRpgPlayChecks.cs",
+   "guid": "d3f5932684323ce41828483015ce29c0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/LinearRpgSceneSetup.cs",
+   "to": "Assets/scripts/logic/Editor/LinearRpgSceneSetup.cs",
+   "guid": "cf9e1e56eb0e9584eae6798cbca020cd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/LinearRpgValidation.cs",
+   "to": "Assets/scripts/logic/Editor/LinearRpgValidation.cs",
+   "guid": "99e6a45cf0e88694d8ceda4a662d22a0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/NarrationControllerEditor.cs",
+   "to": "Assets/scripts/ui/Editor/NarrationControllerEditor.cs",
+   "guid": "9cec656ba5a56f44e8e54d543da70880",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/NarrationTable.cs",
+   "to": "Assets/scripts/logic/Editor/NarrationTable.cs",
+   "guid": "1be3dec5da50df4438de52853cce248a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/NavigationNodeFixture.cs",
+   "to": "Assets/scripts/logic/Editor/NavigationNodeFixture.cs",
+   "guid": "11f88a0c214a54f45a3dc2eaeae9d2f4",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/NavigationScoringChecks.cs",
+   "to": "Assets/scripts/logic/Editor/NavigationScoringChecks.cs",
+   "guid": "916cb5fec16a04d489f613db6b707865",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/OfficialHandPoseSetup.cs",
+   "to": "Assets/scripts/logic/Editor/OfficialHandPoseSetup.cs",
+   "guid": "de9955a652f61b44b82810b0e6581bc5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1AudioChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1AudioChecks.cs",
+   "guid": "e5012ccff57726e48bc3254020e1056f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1HapticChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1HapticChecks.cs",
+   "guid": "9c1958e7f0b154148b7900b09eaac1f9",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1RoomEncounterChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1RoomEncounterChecks.cs",
+   "guid": "a9e2cc4b626728546af2180bab873e32",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1RoomLayoutSetup.cs",
+   "to": "Assets/scripts/logic/Editor/P1RoomLayoutSetup.cs",
+   "guid": "184d32b208a2a414693c519303925258",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1RoomPlayChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1RoomPlayChecks.cs",
+   "guid": "9a6fb4b74208fbc429013582c9db02b4",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1TrialChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1TrialChecks.cs",
+   "guid": "2337734486474f97b0a5fca0a819d217",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/P1VfxChecks.cs",
+   "to": "Assets/scripts/logic/Editor/P1VfxChecks.cs",
+   "guid": "22771ed5c2a640fea48a2e8ff09d55fa",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/PlayerObjChecks.cs",
+   "to": "Assets/scripts/logic/Editor/PlayerObjChecks.cs",
+   "guid": "2cbe0efbafc099745a7b01084435351a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ProjectileStorageChecks.cs",
+   "to": "Assets/scripts/logic/Editor/ProjectileStorageChecks.cs",
+   "guid": "72353072c96c606408ed787acd73545b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RayNavigationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/RayNavigationChecks.cs",
+   "guid": "7d0e94c041344fc6a4fff253ac495738",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgDataChecks.cs",
+   "to": "Assets/scripts/logic/Editor/RpgDataChecks.cs",
+   "guid": "42833b521585bdf4da926a97a1886cbc",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs",
+   "to": "Assets/scripts/logic/Editor/RpgDirectionalInteractionChecks.cs",
+   "guid": "c8b59415cfb54f409ab04455e2077c4b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgHandPoseChecks.cs",
+   "to": "Assets/scripts/logic/Editor/RpgHandPoseChecks.cs",
+   "guid": "f9e7d87c144d2c04f8486c29868f5b23",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgInteractionPreview.cs",
+   "to": "Assets/scripts/logic/Editor/RpgInteractionPreview.cs",
+   "guid": "e2f87d951772a674fa8d2bb1d29b0402",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgInteractionSetup.cs",
+   "to": "Assets/scripts/logic/Editor/RpgInteractionSetup.cs",
+   "guid": "3fe24e95883c9e949bc7052194631b9c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgLocomotionChecks.cs",
+   "to": "Assets/scripts/logic/Editor/RpgLocomotionChecks.cs",
+   "guid": "f8cb860ed0965aa43bfec05d16e1715b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgNavigationScoringSetup.cs",
+   "to": "Assets/scripts/logic/Editor/RpgNavigationScoringSetup.cs",
+   "guid": "bc75600f41e1d0e41be3aca88ab9d07e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/RpgRegressionSuite.cs",
+   "to": "Assets/scripts/logic/Editor/RpgRegressionSuite.cs",
+   "guid": "f2b9574aa31a7cc429949c7458e372e8",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ScoredThrowChecks.cs",
+   "to": "Assets/scripts/logic/Editor/ScoredThrowChecks.cs",
+   "guid": "4c5e320de7a2bdf439d43e88646dd41e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ScoredThrowSetup.cs",
+   "to": "Assets/scripts/logic/Editor/ScoredThrowSetup.cs",
+   "guid": "60e9ddd6b7797a845ad05e8653966c6e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillActivationPolicyChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillActivationPolicyChecks.cs",
+   "guid": "59635b3c6b4c043419649104fc110397",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillArchitectureChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillArchitectureChecks.cs",
+   "guid": "d5be97f52fa01de42a8c6ab6f42c3af5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillCastTraceChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillCastTraceChecks.cs",
+   "guid": "b6c528e1695f03a4b9d9fb4fdff3bcdd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillClockRegressionChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs",
+   "guid": "1e439c913a754a47879226a1ed7bbcee",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillConfigurationSetup.cs",
+   "to": "Assets/scripts/data/Editor/Skills/Setup/SkillConfigurationSetup.cs",
+   "guid": "91e712d69d36e2c42bff090d3051d0c0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillCoreChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillCoreChecks.cs",
+   "guid": "1aa734c9d85c5274e83474b967dcf6b0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillEffectChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillEffectChecks.cs",
+   "guid": "3ebbf441a5245c742950aff7ddce399c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillEffectConfigurationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs",
+   "guid": "159122cffed038b42b5c2fe6c3e17cfe",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillMigrationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillMigrationChecks.cs",
+   "guid": "6f9d53503efb9e94e994db36a470ed82",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillParticleVelocityRepair.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Tools/SkillParticleVelocityRepair.cs",
+   "guid": "f9367b1e096e3f941833d143722a49a7",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillScenarioChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillScenarioChecks.cs",
+   "guid": "1b6bc876c577b5c4c9c0e2d88b841aa2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillShowcaseChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillShowcaseChecks.cs",
+   "guid": "7d890e2455086c34ea83e06a69cb8b27",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillShowcaseSetup.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Setup/SkillShowcaseSetup.cs",
+   "guid": "012eab87e052e8941afd8835bc33775f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillTestSceneSetup.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Setup/SkillTestSceneSetup.cs",
+   "guid": "541686ebb0651874a9643a91a69f72be",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillVisualAssets.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Setup/SkillVisualAssets.cs",
+   "guid": "585dd36f5b6997e42aa90ad11ef57752",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillVisualPreview.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Tools/SkillVisualPreview.cs",
+   "guid": "d7bce8b4bfe64ec4b855bebf6344de5a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillVoiceAutoStart.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Tools/SkillVoiceAutoStart.cs",
+   "guid": "60d1d6a61e6281544892305a3318e1e7",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SkillVoiceIntegrationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/Skills/Checks/SkillVoiceIntegrationChecks.cs",
+   "guid": "2e8261d099f6bbc4f9331f2dc5bc87ab",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/SpectatorTimelineChecks.cs",
+   "to": "Assets/scripts/logic/Editor/SpectatorTimelineChecks.cs",
+   "guid": "6a9cf500e16e4c8dad15c9e5e9b5309f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/StreamCpuProfile.cs",
+   "to": "Assets/scripts/logic/Editor/StreamCpuProfile.cs",
+   "guid": "611148b24bedf0146b76fd2427d67728",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/StreamHandLines.cs",
+   "to": "Assets/scripts/logic/Editor/StreamHandLines.cs",
+   "guid": "d3e60773a522cf84189bf2756aaaf705",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ThrowEaseChecks.cs",
+   "to": "Assets/scripts/logic/Editor/ThrowEaseChecks.cs",
+   "guid": "3f75ec8d74c46eb4182acd0045dfc346",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/ThrowPresentationChecks.cs",
+   "to": "Assets/scripts/logic/Editor/ThrowPresentationChecks.cs",
+   "guid": "8fb4c13e4270c4049a247810d960ab7f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/VoiceDiagnosticsChecks.cs",
+   "to": "Assets/scripts/logic/Editor/VoiceDiagnosticsChecks.cs",
+   "guid": "4bcf971ae1d84af0a65f93d8cab90261",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristMenuChecks.cs",
+   "to": "Assets/scripts/logic/Editor/WristMenuChecks.cs",
+   "guid": "ca8f0fa94696c0945850860d389e9940",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristMenuEaseChecks.cs",
+   "to": "Assets/scripts/logic/Editor/WristMenuEaseChecks.cs",
+   "guid": "909f444f5da433e42b17f6d15b3b356e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristMenuPlayChecks.cs",
+   "to": "Assets/scripts/logic/Editor/WristMenuPlayChecks.cs",
+   "guid": "f3bd7c48796ce7345b21038e1794c4c4",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristMenuSetup.cs",
+   "to": "Assets/scripts/logic/Editor/WristMenuSetup.cs",
+   "guid": "8afdcdc3d51a085459368a6dc44b7840",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristRayIssueProbe.cs",
+   "to": "Assets/scripts/logic/Editor/WristRayIssueProbe.cs",
+   "guid": "4dccc7a933e44c24899d05128657eb3e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristTapChecks.cs",
+   "to": "Assets/scripts/logic/Editor/WristTapChecks.cs",
+   "guid": "41bb9665c3ef1cb41a69fd1d263cc7a1",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristViewEditorLifetime.cs",
+   "to": "Assets/scripts/ui/Editor/WristViewEditorLifetime.cs",
+   "guid": "622efcc2f30d5314d81c3536c9ba05d0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/WristViewLifecycleChecks.cs",
+   "to": "Assets/scripts/logic/Editor/WristViewLifecycleChecks.cs",
+   "guid": "3e28adcd23824644b837c222c7e2db19",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs",
+   "to": "Assets/scripts/logic/Editor/YicunShanheV9AudioProbe.cs",
+   "guid": "e3019259d7f1422496b2046246cd6aba",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/低面环形.asset",
+   "to": "Assets/Materials/Showcase/低面环形.asset",
+   "guid": "8da077a4920a6ec4d90fe0db925656d3",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/月下青石.mat",
+   "to": "Assets/Materials/Showcase/月下青石.mat",
+   "guid": "7f2f39d553e67b743b25187dc4d8096c",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/橙红火纹.mat",
+   "to": "Assets/Materials/Showcase/橙红火纹.mat",
+   "guid": "b1735a8caa1fb844792b8b34382f13b9",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/淡青符光.mat",
+   "to": "Assets/Materials/Showcase/淡青符光.mat",
+   "guid": "2721204f0f733ff4486030c943504f09",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/玄色石面.mat",
+   "to": "Assets/Materials/Showcase/玄色石面.mat",
+   "guid": "d2862e6cbd8159b4fa5ef5e168b8aa50",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/石板银边.mat",
+   "to": "Assets/Materials/Showcase/石板银边.mat",
+   "guid": "e12d8b2674539ff4d90248e5b0939bba",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/紫色契纹.mat",
+   "to": "Assets/Materials/Showcase/紫色契纹.mat",
+   "guid": "dc1d19f68f925c343968e95c119442f5",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/Showcase/青色能量线.mat",
+   "to": "Assets/Materials/Showcase/青色能量线.mat",
+   "guid": "13e24a60e66bd30429f4cf8657297467",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/加持青色.mat",
+   "to": "Assets/Materials/加持青色.mat",
+   "guid": "dc949eb78df8fb54089d8c32752c5c2b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/火球橙色.mat",
+   "to": "Assets/Materials/火球橙色.mat",
+   "guid": "7a895f93c8a151143b92cdf415a7c893",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/护盾薄雾.mat",
+   "to": "Assets/Materials/程序能量/护盾薄雾.mat",
+   "guid": "86a24e7559491dc46a44e046f2c47fe4",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/护盾青光.mat",
+   "to": "Assets/Materials/程序能量/护盾青光.mat",
+   "guid": "70fc23cdf13d5bd43bf771f423bceff3",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/日心白金.mat",
+   "to": "Assets/Materials/程序能量/日心白金.mat",
+   "guid": "4b871b12764e9bd43b4c7fbcd36018e4",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/流火外壳.mat",
+   "to": "Assets/Materials/程序能量/流火外壳.mat",
+   "guid": "9930853fdcc9565448b7f9a10cfcff88",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/火星柔光.mat",
+   "to": "Assets/Materials/程序能量/火星柔光.mat",
+   "guid": "87b744d59ca715a4da35a6ae1ce8f468",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/焰轨橙金.mat",
+   "to": "Assets/Materials/程序能量/焰轨橙金.mat",
+   "guid": "2a8a9a4a358f5d54b8d385f58c24731b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/阵法刻金.mat",
+   "to": "Assets/Materials/程序能量/阵法刻金.mat",
+   "guid": "4c42e490489bac2498e9b20c8ace56db",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/程序能量/青色柔光.mat",
+   "to": "Assets/Materials/程序能量/青色柔光.mat",
+   "guid": "c646ca2252c25c848b1b5e3d492e5dc8",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Materials/训练靶蓝色.mat",
+   "to": "Assets/Materials/训练靶蓝色.mat",
+   "guid": "94bb1efb260a55c40840ceaef8c56c0f",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/单位能量球.asset",
+   "to": "Assets/Meshes/单位能量球.asset",
+   "guid": "a444732782e81dd428cc71169916614c",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/命中爆散_符纹层1.asset",
+   "to": "Assets/Meshes/命中爆散_符纹层1.asset",
+   "guid": "a37fcc520481bde4c975c9304c7473d1",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/命中爆散_符纹层2.asset",
+   "to": "Assets/Meshes/命中爆散_符纹层2.asset",
+   "guid": "432cd09ae34e0bd4ab6b143f0e0d078a",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层1.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层1.asset",
+   "guid": "7a629355a6363e34b96cd09b7591ea50",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层2.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层2.asset",
+   "guid": "a862f13bc4f6eb841bf1b08cea58e0f0",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层3.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层3.asset",
+   "guid": "9b1107a5fc887454fb3941f847a8f492",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层4.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层4.asset",
+   "guid": "bc6d9f1139f650b4a8b55388338e4a00",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层5.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层5.asset",
+   "guid": "0b1cb88c3155acc4591fe1d7d5fcf37e",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/地面阵法_符纹层6.asset",
+   "to": "Assets/Meshes/地面阵法_符纹层6.asset",
+   "guid": "420cd56f4b734a64da47c85b89bf2ab8",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/护盾_符纹层1.asset",
+   "to": "Assets/Meshes/护盾_符纹层1.asset",
+   "guid": "584543188fc67ac46a54b444678445de",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/护盾_符纹层2.asset",
+   "to": "Assets/Meshes/护盾_符纹层2.asset",
+   "guid": "b36d2f51f1ba0ff42b5f01d14258c285",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/护盾_符纹层3.asset",
+   "to": "Assets/Meshes/护盾_符纹层3.asset",
+   "guid": "91431a0ca737f744fa8f7d27d2a2a78d",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层1.asset",
+   "to": "Assets/Meshes/火球_符纹层1.asset",
+   "guid": "eb3b626a4694e2a48a768261571f9eb4",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层2.asset",
+   "to": "Assets/Meshes/火球_符纹层2.asset",
+   "guid": "ab30e721bb86a9b4293e0422dd610c69",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层3.asset",
+   "to": "Assets/Meshes/火球_符纹层3.asset",
+   "guid": "2d6a3fee2c730c64dbe9083d33b801df",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层4.asset",
+   "to": "Assets/Meshes/火球_符纹层4.asset",
+   "guid": "0cb2f0ef16bb879438c8ecd0233a3d82",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层5.asset",
+   "to": "Assets/Meshes/火球_符纹层5.asset",
+   "guid": "4394c3b8eb360fb41b6c0b8d781408bd",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Meshes/火球_符纹层6.asset",
+   "to": "Assets/Meshes/火球_符纹层6.asset",
+   "guid": "d1a4ea732a4435940b38da5785240ce1",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Prefabs/Interaction/SnapSequenceDemo.prefab",
+   "to": "Assets/Prefabs/Interaction/SnapSequenceDemo.prefab",
+   "guid": "860f78f45ef915c4992b68edfdd2f568",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Prefabs/命中爆散.prefab",
+   "to": "Assets/Prefabs/命中爆散.prefab",
+   "guid": "48098958a851e0945904bbcf5cd37b1f",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Prefabs/地面阵法.prefab",
+   "to": "Assets/Prefabs/地面阵法.prefab",
+   "guid": "24d91bfe21fb5de4eaf6ea227ee53b35",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Prefabs/护盾.prefab",
+   "to": "Assets/Prefabs/护盾.prefab",
+   "guid": "2c505620e9924e2468350cf891d79d9b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Prefabs/火球.prefab",
+   "to": "Assets/Prefabs/火球.prefab",
+   "guid": "56f11f328e7fd2747a0c29ea8b168863",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Profiles/子印加持.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/历史配置/子印加持.asset",
+   "guid": "a5440689fddc35047b7873e5a948bfd4",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Profiles/护体咒加持.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/历史配置/护体咒加持.asset",
+   "guid": "a9fb6e5fdf4357c4ab7ed8fda53812c4",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Profiles/火球术.asset",
+   "to": "Assets/ScriptableObjects/技能定义配置/历史配置/火球术.asset",
+   "guid": "9404f3362d2197c48b52a53f4039d269",
+   "type": "SkillDefinition",
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/ISkillActivationPolicy.cs",
+   "to": "Assets/scripts/logic/Skills/Core/ISkillActivationPolicy.cs",
+   "guid": "7a51a979a859fb0438039bcc86b0aa79",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillCastTrace.cs",
+   "to": "Assets/scripts/logic/Skills/Core/SkillCastTrace.cs",
+   "guid": "9a6093bd72a103f4692147087a081b4c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillCatalog.cs",
+   "to": "Assets/scripts/data/Skills/Core/SkillCatalog.cs",
+   "guid": "543bc525fac1e5140b9bcf9887a8055f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillConfigurationValidator.cs",
+   "to": "Assets/scripts/logic/Skills/Core/SkillConfigurationValidator.cs",
+   "guid": "d819c6b7d2ab95140a07143113726f0a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillDefinition.cs",
+   "to": "Assets/scripts/data/Skills/Core/SkillDefinition.cs",
+   "guid": "f7c6daacaa50c0845a2239c2c706d9c9",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs",
+   "to": "Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs",
+   "guid": "849a1e0a8e02aee48ba407d818149ab7",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillMatchSettings.cs",
+   "to": "Assets/scripts/data/Skills/Core/SkillMatchSettings.cs",
+   "guid": "315911babb3bb034f8af5cd70133128c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillPhrase.cs",
+   "to": "Assets/scripts/data/Skills/Core/SkillPhrase.cs",
+   "guid": "cb4763c210443594ba20b363f99d9863",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Core/SkillRecipeInfo.cs",
+   "to": "Assets/scripts/data/Skills/Core/SkillRecipeInfo.cs",
+   "guid": "bf1e48519b4705742b347ac8fe77dfc4",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/HandThrowIntentState.cs",
+   "guid": "4dc86c7a237fc884b9df5a3617c606f5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/HandThrowObservation.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/HandThrowObservation.cs",
+   "guid": "dcb428020e876f646bb476ca1d2265da",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/HandThrowState.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/HandThrowState.cs",
+   "guid": "22ea2ce462103a04b925c74d130ab72a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/ProjectileEffectDefinition.cs",
+   "to": "Assets/scripts/data/Skills/Effects/ProjectileEffectDefinition.cs",
+   "guid": "09d60cb3e0acbfd418e53f86b02275af",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/ShieldEffectDefinition.cs",
+   "to": "Assets/scripts/data/Skills/Effects/ShieldEffectDefinition.cs",
+   "guid": "139e2bab753b6814ba8da990ce7b3243",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/SkillEffectDefinition.cs",
+   "to": "Assets/scripts/data/Skills/Effects/SkillEffectDefinition.cs",
+   "guid": "60604f17dd739d2469596c0cd5c466b3",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/SkillEffects.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/SkillEffects.cs",
+   "guid": "73157a4af4d0cdd4e9069f10d6555a1c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/SkillProjectile.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/SkillProjectile.cs",
+   "guid": "a280f0ad260b37343a27ac9a538580f5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/SkillTrainingTarget.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/SkillTrainingTarget.cs",
+   "guid": "9a07bc6b9f635af498c0ccc967a431d2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Effects/ThrowDiagnosticRecorder.cs",
+   "to": "Assets/scripts/logic/Skills/Effects/ThrowDiagnosticRecorder.cs",
+   "guid": "6cf5d5f4a49862845a24457cce46d6cd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/AttackData.cs",
+   "to": "Assets/scripts/data/Enemies/AttackData.cs",
+   "guid": "22f9313ab4749444d98ce4459791c06b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/CombatDamageReceiver.cs",
+   "to": "Assets/scripts/logic/Enemies/CombatDamageReceiver.cs",
+   "guid": "b2e6ccf3b6f560640a5d7d026e3694f7",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyAttackExecution.cs",
+   "guid": "e89be16077d424f4abfb05439cf3fd11",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyCombatDefinition.cs",
+   "to": "Assets/scripts/data/Enemies/EnemyCombatDefinition.cs",
+   "guid": "0c1af0abb04c48c4f956e1eae7fe4899",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyCombatState.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyCombatState.cs",
+   "guid": "7ba34df88f1a1b74694f8a1ab08ac71d",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyController.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyController.cs",
+   "guid": "6503901a1e5c1ce4092b29703be68f55",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyDetectionSensor.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyDetectionSensor.cs",
+   "guid": "c4e9fbc441bb76547b85f7b5376c4f4b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyHitZone.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyHitZone.cs",
+   "guid": "e9a2711222ea36a4faf6602598710248",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyObj.cs",
+   "to": "Assets/scripts/logic/Enemies/EnemyObj.cs",
+   "guid": "b1137a8ae5f61af458afc836ab7d9592",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/EnemyPoiseBar.cs",
+   "to": "Assets/scripts/ui/Enemies/EnemyPoiseBar.cs",
+   "guid": "51326fb95bcc86848b9f026b1fb220af",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyCatalog.cs",
+   "to": "Assets/scripts/data/Enemies/Spawning/EnemyCatalog.cs",
+   "guid": "3f0f89c216e003b4c9934d7f01921110",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyDefinition.cs",
+   "to": "Assets/scripts/data/Enemies/Spawning/EnemyDefinition.cs",
+   "guid": "80f071c37b8510c49b05016ab08119d6",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyLease.cs",
+   "to": "Assets/scripts/logic/Enemies/Spawning/EnemyLease.cs",
+   "guid": "533427632d80d5543afa649020b30027",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs",
+   "to": "Assets/scripts/logic/Enemies/Spawning/EnemyManager.cs",
+   "guid": "2a6e7f4cb4604344499752c7f4697a6e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Events/EnemyEvents.cs",
+   "to": "Assets/scripts/logic/Events/EnemyEvents.cs",
+   "guid": "7e383d13c268f4744be8466ca6e1ab5d",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Events/EventCenter.cs",
+   "to": "Assets/scripts/logic/Events/EventCenter.cs",
+   "guid": "e6b12ee7fbea44b288132ff19f94eb30",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Events/NarrationEvents.cs",
+   "to": "Assets/scripts/logic/Events/NarrationEvents.cs",
+   "guid": "daae18ae1c619f04ebc574acdfce30b9",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Interaction/Snapping/SnapItem.cs",
+   "to": "Assets/scripts/logic/Interaction/Snapping/SnapItem.cs",
+   "guid": "b0ed932e6bca8334cac55f3eddbde73c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Interaction/Snapping/SnapZone.cs",
+   "to": "Assets/scripts/logic/Interaction/Snapping/SnapZone.cs",
+   "guid": "87454a17ac8b80841b5aaa0fddb69c1f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Interaction/ZhunwangPressButton.cs",
+   "to": "Assets/scripts/logic/Interaction/ZhunwangPressButton.cs",
+   "guid": "0d636c896efd0c94f83bb855688502fc",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/BasicHandPoseSettings.cs",
+   "to": "Assets/scripts/data/Locomotion/BasicHandPoseSettings.cs",
+   "guid": "5c82db45cb7953240808e71d99427dc8",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs",
+   "to": "Assets/scripts/logic/Locomotion/NavigationHandInput.cs",
+   "guid": "f45ed3a2d069f3646be10eea2779bf2a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/NavigationInputSmoother.cs",
+   "to": "Assets/scripts/logic/Locomotion/NavigationInputSmoother.cs",
+   "guid": "d8dd76f2b21289a4395cdea5825f021f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/NavigationNode.cs",
+   "to": "Assets/scripts/logic/Locomotion/NavigationNode.cs",
+   "guid": "90a7f2abd40a8db4792097e7c24be9c2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs",
+   "to": "Assets/scripts/logic/Locomotion/NavigationTargetScoring.cs",
+   "guid": "736a2672e4e10df489f611fd183eb828",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs",
+   "to": "Assets/scripts/logic/Locomotion/OfficialHandPoseDetector.cs",
+   "guid": "dbde6b656594d004ea2d09f13c0ff155",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/RayNavigationState.cs",
+   "to": "Assets/scripts/logic/Locomotion/RayNavigationState.cs",
+   "guid": "594401436f3b421aa3a049ab68d42812",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs",
+   "to": "Assets/scripts/logic/Locomotion/RpgGestureState.cs",
+   "guid": "c9f45b539561082438b10aeddf8def10",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.Encounter.cs",
+   "to": "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs",
+   "guid": "a6e6022c6b744953a78d7a80218f6bed",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs",
+   "to": "Assets/scripts/logic/Locomotion/RpgLocomotionController.cs",
+   "guid": "6293dab6631a2f64d9a96ea4f72fd67c",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.Spawning.cs",
+   "to": "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs",
+   "guid": "e2ef1ebb87c61c74fb51a7aa5e6a9c0f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.cs",
+   "to": "Assets/scripts/logic/Rpg/CombatRoomEncounter.cs",
+   "guid": "3941f4343fd0346468eebca6102e660b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/PlayerSO.cs",
+   "to": "Assets/scripts/data/Rpg/PlayerSO.cs",
+   "guid": "0d4f8054050bb934a87dc02c07fecbc0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs",
+   "to": "Assets/scripts/data/Rpg/RpgPlayerDefinition.cs",
+   "guid": "db8145a0d8c33ae4b95c29d443c59bcd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs",
+   "to": "Assets/scripts/data/Rpg/RpgPlayerState.cs",
+   "guid": "d937d47c082f7fd4c89e4863954c354a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/RpgProgressData.cs",
+   "to": "Assets/scripts/data/Rpg/RpgProgressData.cs",
+   "guid": "7421d4955ed661e4da6be3076dee11c3",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs",
+   "to": "Assets/scripts/data/Rpg/RpgSaveStore.cs",
+   "guid": "f3d7cae88965bc846a3950cc5347c567",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/Data/RpgStageDefinition.cs",
+   "to": "Assets/scripts/data/Rpg/RpgStageDefinition.cs",
+   "guid": "c75fe9d2a506b04409a70cb3479eabdd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs",
+   "to": "Assets/scripts/logic/Rpg/EditorBgmAudioCapture.cs",
+   "guid": "b173ec47bc9069a4b8cc73ad6187d51f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/GameManager.cs",
+   "to": "Assets/scripts/logic/Rpg/GameManager.cs",
+   "guid": "7bb04fb25a770e043bd56df8b51fb8de",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/HapticFeedbackService.cs",
+   "to": "Assets/scripts/logic/Rpg/HapticFeedbackService.cs",
+   "guid": "a47f3d1ac20d8a743905aeafc297e7af",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs",
+   "to": "Assets/scripts/logic/Rpg/LinearRpgController.cs",
+   "guid": "167e1d26b8b5db542a25938219e99a80",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/P1AudioManager.cs",
+   "to": "Assets/scripts/logic/Rpg/P1AudioManager.cs",
+   "guid": "2e9bcffe8aad48b45b0d60fc06f7153a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/P1FallbackAudio.cs",
+   "to": "Assets/scripts/logic/Rpg/P1FallbackAudio.cs",
+   "guid": "640b9912723443f48a07a53d4308466b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/PlayerObj.cs",
+   "to": "Assets/scripts/logic/Rpg/PlayerObj.cs",
+   "guid": "e477ca66e4aedd840a31a724b397ee75",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs",
+   "to": "Assets/scripts/logic/Rpg/RpgDamageReceiver.cs",
+   "guid": "a4016f448a5ee6740913a78d3e0b12aa",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgDesktopPanel.cs",
+   "to": "Assets/scripts/ui/Rpg/RpgDesktopPanel.cs",
+   "guid": "b5644666ae475a44ca982733e45ee7ae",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgFeedbackSignals.cs",
+   "to": "Assets/scripts/logic/Rpg/RpgFeedbackSignals.cs",
+   "guid": "a5f2eb2f4a5a21046909f7e579911ae9",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs",
+   "to": "Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs",
+   "guid": "f47fca4e381bbc440a8abfb01cb31da1",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgPlayCheckDriver.cs",
+   "to": "Assets/scripts/logic/Rpg/RpgPlayCheckDriver.cs",
+   "guid": "c46e34dec6027294b9db724b7b10493a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs",
+   "to": "Assets/scripts/ui/Rpg/RpgSessionView.cs",
+   "guid": "d9851893cd6b7f54bbf0d4b0c2804944",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/RpgTrainingHazard.cs",
+   "to": "Assets/scripts/logic/Rpg/RpgTrainingHazard.cs",
+   "guid": "286f1b9cd3938fb45a95ab0560aa2809",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/WristHandChannels.cs",
+   "to": "Assets/scripts/logic/Rpg/WristHandChannels.cs",
+   "guid": "1f2055a016914a749b51d494dc211c5a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/WristMenuController.cs",
+   "to": "Assets/scripts/logic/Rpg/WristMenuController.cs",
+   "guid": "d6903dfbe0d473a49a06df8211311028",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/WristMenuState.cs",
+   "to": "Assets/scripts/logic/Rpg/WristMenuState.cs",
+   "guid": "a1cae6d5dfa952f429635db49bb8be84",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Rpg/WristMenuView.cs",
+   "to": "Assets/scripts/ui/Rpg/WristMenuView.cs",
+   "guid": "603c63f6e2610df40a90fd962a6ca5bc",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/SkillScenario.cs",
+   "to": "Assets/scripts/logic/Skills/SkillScenario.cs",
+   "guid": "e10c81b4e6150694395bcf33cf5a951d",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/SkillTestController.cs",
+   "to": "Assets/scripts/logic/Skills/SkillTestController.cs",
+   "guid": "fc8640a823ad5204985044235f5ebb78",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/SkillTestView.cs",
+   "to": "Assets/scripts/ui/Skills/SkillTestView.cs",
+   "guid": "8936f55fc0b569c489c22dedf7f9089f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Visuals/SkillVisualLifetime.cs",
+   "to": "Assets/scripts/logic/Skills/Visuals/SkillVisualLifetime.cs",
+   "guid": "8bb75511bbd43f447b898f567ba91004",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Visuals/SkillVisualMotion.cs",
+   "to": "Assets/scripts/logic/Skills/Visuals/SkillVisualMotion.cs",
+   "guid": "dff381c4e14afbb408514b46ae3d6b60",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs",
+   "to": "Assets/scripts/logic/Skills/Visuals/VfxPoolManager.cs",
+   "guid": "6ec810ced8ca447993f8639fae35bbd0",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Voice/NarrationController.cs",
+   "to": "Assets/scripts/logic/Voice/NarrationController.cs",
+   "guid": "1cf42b940fdb4749a2365518df3ef00b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Runtime/Voice/SkillVoiceReceiver.cs",
+   "to": "Assets/scripts/logic/Skills/Voice/SkillVoiceReceiver.cs",
+   "guid": "dd611fc79133f1d4aad2bc8b07f71825",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/ComboSanctum.unity",
+   "to": "Assets/Scene/ComboSanctum.unity",
+   "guid": "d3dd3b3b16f305b47aefa1b8f21e0cb9",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/EmptyStreamProbe.unity",
+   "to": "Assets/Scene/EmptyStreamProbe.unity",
+   "guid": "2e1cb878c7d90024d9e9aec545b2f5de",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/EnemyNavigationTest.unity",
+   "to": "Assets/Scene/EnemyNavigationTest.unity",
+   "guid": "bd17a1c3d74310145ae7ff4fb81ba25a",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/FireballRange.unity",
+   "to": "Assets/Scene/FireballRange.unity",
+   "guid": "fee2e5fd9282f3c4c98b6a90b1fcc252",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/KaogongP1Trial.unity",
+   "to": "Assets/Scene/KaogongP1Trial.unity",
+   "guid": "54a5d7291da14ad7afd198e9a367428e",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/LinearRpgTest.unity",
+   "to": "Assets/Scene/LinearRpgTest.unity",
+   "guid": "e8cf45d740ced8b4698d92e885d74251",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/ShieldTrial.unity",
+   "to": "Assets/Scene/ShieldTrial.unity",
+   "guid": "5fdaa082a877069438697198f2072df6",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/SkillTest.unity",
+   "to": "Assets/Scene/SkillTest.unity",
+   "guid": "3968a700b32d6354384b16cf0d2a9fb9",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Scenes/SnapToolTest.unity",
+   "to": "Assets/Scene/SnapToolTest.unity",
+   "guid": "71de9ff18f96f5c4a9c6e7cb9f739c2b",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealCombat/Shaders/SkillEnergy.shader",
+   "to": "Assets/Shaders/SkillEnergy.shader",
+   "guid": "3e66f0b1a70e3d44d860055202c54b07",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Editor/OfficialHandVisualSetup.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/OfficialHandVisualSetup.cs",
+   "guid": "8473c6d507fb57e4fbc05d44640c6b83",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealChineseInspectors.cs",
+   "to": "Assets/scripts/ui/Editor/SealLab/SealChineseInspectors.cs",
+   "guid": "cd071365f2f73174dbf8192ac6e95776",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealChineseUISetup.cs",
+   "to": "Assets/scripts/ui/Editor/SealLab/SealChineseUISetup.cs",
+   "guid": "36bb75923474d6a479be0492d09fb8de",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealFeatureRuleDrawer.cs",
+   "to": "Assets/scripts/data/Editor/SealLab/SealFeatureRuleDrawer.cs",
+   "guid": "2f5dffc2b9027ca44b584924bc08d18a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealGuidedCapture.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealGuidedCapture.cs",
+   "guid": "bea5b81cd03a7f641a450eb9b33a8083",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealLabBuilder.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealLabBuilder.cs",
+   "guid": "79afe71f90a02b14d853f7b43c2bd2b8",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealLabChecks.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealLabChecks.cs",
+   "guid": "869f885474e736448b7441c76e10f736",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealLabDeviceBuild.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealLabDeviceBuild.cs",
+   "guid": "4daa69956eeb97c4c97b2135ffb5dce2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealLabWindow.cs",
+   "to": "Assets/scripts/ui/Editor/SealLab/SealLabWindow.cs",
+   "guid": "e9785b667e2510942bb6f334a9c436dd",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealRecognitionTestSetup.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealRecognitionTestSetup.cs",
+   "guid": "574cd5353d83813449d8891988972978",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealSteamLinkSetup.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealSteamLinkSetup.cs",
+   "guid": "22da88e32c2e7674bb269941899df6a5",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Editor/SealTrackingDiagnostics.cs",
+   "to": "Assets/scripts/logic/Editor/SealLab/SealTrackingDiagnostics.cs",
+   "guid": "cc650f00d319a9144a648c8238d3a83b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Profiles/丑.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/丑.asset",
+   "guid": "0b7971e0b085c094e9317db1e6cc7acb",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/亥.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/亥.asset",
+   "guid": "5c8e28d0d9520734cac49652460d00c8",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/午.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/午.asset",
+   "guid": "86c3602f75adbbb4fa5c03faaa51bd89",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/卯.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/卯.asset",
+   "guid": "73f4814901133574185e0802b55c104e",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/子.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/子.asset",
+   "guid": "18f748b511d540d4b98b4973636be1e1",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/寅.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/寅.asset",
+   "guid": "b0d19c69885729744adc10f17598df2c",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/巳.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/巳.asset",
+   "guid": "507a43e2544d5ad42ae780f616d06046",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/戌.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/戌.asset",
+   "guid": "13776311a4667bc40b417dfaa8be2e76",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/未.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/未.asset",
+   "guid": "55ecff9e3a42c0c49863f940057ac083",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/申.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/申.asset",
+   "guid": "fe8379952095bd8408a5d87aee7e379d",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/辰.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/辰.asset",
+   "guid": "530522cc50e829f47b6f609e6fbfe15f",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Profiles/酉.asset",
+   "to": "Assets/ScriptableObjects/手印识别配置/酉.asset",
+   "guid": "5986bd0f19395f24380b7db9e62ffe84",
+   "type": "SealProfile",
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Runtime/HandSnapshot.cs",
+   "to": "Assets/scripts/data/SealLab/HandSnapshot.cs",
+   "guid": "54cea906885f4ea40995041fde033d8e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/RecordingSchedule.cs",
+   "to": "Assets/scripts/logic/SealLab/RecordingSchedule.cs",
+   "guid": "91257708c896e2444b44b716a0937b4b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealChineseText.cs",
+   "to": "Assets/scripts/ui/SealLab/SealChineseText.cs",
+   "guid": "829e77b297c65074e8f5b3847541f747",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealDeviceDiagnostics.cs",
+   "to": "Assets/scripts/logic/SealLab/SealDeviceDiagnostics.cs",
+   "guid": "63755286f14391a4ca351679252a02b2",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealFeatureExtractor.cs",
+   "to": "Assets/scripts/logic/SealLab/SealFeatureExtractor.cs",
+   "guid": "d82383992b601ee4bab75dd650fdd05b",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealLab.cs",
+   "to": "Assets/scripts/logic/SealLab/SealLab.cs",
+   "guid": "4cb390fd33d5b7b40ae0090d5e836e2a",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealLabView.cs",
+   "to": "Assets/scripts/ui/SealLab/SealLabView.cs",
+   "guid": "788b7a443b3e53347ae88d8651dea01e",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealProfile.cs",
+   "to": "Assets/scripts/data/SealLab/SealProfile.cs",
+   "guid": "ded8d36033895084d9c31d38f587f102",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealRecognitionTest.cs",
+   "to": "Assets/scripts/logic/SealLab/SealRecognitionTest.cs",
+   "guid": "9d42b1eb254c65941ae7e2f112ae0bf6",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealRecognizer.cs",
+   "to": "Assets/scripts/logic/SealLab/SealRecognizer.cs",
+   "guid": "d84b72879e7159e4286b48f4a163690f",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealRecording.cs",
+   "to": "Assets/scripts/data/SealLab/SealRecording.cs",
+   "guid": "ac640c854fbd2114c8c19e8663555495",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealTemplateFromRecording.cs",
+   "to": "Assets/scripts/logic/SealLab/SealTemplateFromRecording.cs",
+   "guid": "7ed499b555a808b41b45f6fae2817b87",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealTestDiagnostics.cs",
+   "to": "Assets/scripts/logic/SealLab/SealTestDiagnostics.cs",
+   "guid": "8674fb21e891e9d4cb53878ee5581d82",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Runtime/SealXRHandsSource.cs",
+   "to": "Assets/scripts/logic/SealLab/SealXRHandsSource.cs",
+   "guid": "240b667eacd996b4bb95983d4c73e3aa",
+   "type": null,
+   "script": true
+  },
+  {
+   "from": "Assets/SealLab/Scenes/SealLab.unity",
+   "to": "Assets/Scene/SealLab.unity",
+   "guid": "4937b18745d20564593eba80001f8846",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Scenes/SealLabSteamLink.unity",
+   "to": "Assets/Scene/SealLabSteamLink.unity",
+   "guid": "63a7a912867331b4e900965cfd660709",
+   "type": null,
+   "script": false
+  },
+  {
+   "from": "Assets/SealLab/Scenes/SealRecognitionTest.unity",
+   "to": "Assets/Scene/SealRecognitionTest.unity",
+   "guid": "ac6037e10e0a4d24d8f58a94af156d38",
+   "type": null,
+   "script": false
+  },
+  {
+   "type": null,
+   "script": true,
+   "guid": "50bdfd4dd4a0b5d448995172d1180309",
+   "from": "Assets/Script/logic/Editor/DiskRecoveryChecks.cs",
+   "to": "Assets/scripts/logic/Editor/DiskRecoveryChecks.cs"
+  },
+  {
+   "type": null,
+   "script": true,
+   "guid": "13f2047da5d5f714dbe172a609c7e694",
+   "from": "Assets/Script/logic/Editor/ProjectLayoutOnce.cs",
+   "to": "Assets/scripts/logic/Editor/ProjectLayoutOnce.cs"
+  },
+  {
+   "type": null,
+   "script": true,
+   "guid": "fcf7219bab7fe46a1ad266029b2fee19",
+   "from": "Assets/TutorialInfo/Scripts/Readme.cs",
+   "to": "Assets/scripts/data/Tutorial/Readme.cs"
+  },
+  {
+   "type": null,
+   "script": true,
+   "guid": "476cc7d7cd9874016adc216baab94a0a",
+   "from": "Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs",
+   "to": "Assets/scripts/ui/Editor/Tutorial/ReadmeEditor.cs"
+  },
+  {
+   "type": "Readme",
+   "script": false,
+   "guid": "8105016687592461f977c054a80ce2f2",
+   "from": "Assets/Readme.asset",
+   "to": "Assets/ScriptableObjects/工程说明配置/Readme.asset"
+  }
+ ]
+}

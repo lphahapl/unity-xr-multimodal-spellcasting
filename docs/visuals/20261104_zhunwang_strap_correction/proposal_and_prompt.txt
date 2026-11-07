@@ -1,0 +1,26 @@
+准望匣绑带结构修正提案｜2026-11-04
+用户要求：检查准望匣带子为何诡异，提出修改。
+
+问题：
+旧02左前45度图把两道绑带画成下方叠置的篮式结构，带子在前后站位之间串接；旧08底图却表达横向两道，跨视图装配不一致。扣具左右侧、带尾回穿和固定环不明确。旧ZHUNWANG-MULTIVIEW-20261104中“已生成16图”的文件数量结论保留，但准望匣绑带不通过装配一致性验收；旧准望匣八图不建议继续直接用于重建。铜片八图不在本次修订范围，原有限制仍保留。
+
+修正方案（提案，未做3D验证）：
+1. 沿前臂轴线设置前、后两个固定站位；每站位左右各一个金属连接耳，共四耳。
+2. 每道带从同一站位的一侧连接耳下绕前臂，再回到该站位另一侧；两道独立U形皮带加匣底鞍座形成两处绕臂闭合路径。两带平面均垂直前臂轴，不能在竖直方向叠成篮子；没有前后串联的纵向皮条。
+3. 每道一套针扣和一只带尾固定环，短扣段/长打孔段合为一道功能绑带。总计两扣，两处尾端回穿；扣具固定在同一解剖侧，不能随镜头转动换边。
+4. 以匣长80mm为原概念包络，图示固定站位x=18/62、中心距约44、带宽15mm仅供起始布置；扣具、绕臂周长、手臂锥度与接触仍需建模。圆度盘、六空仓和朱砂按扣不受带子遮挡。
+5. 图中灰色透明支撑仅示意前臂方向，不属于最终资产或上传图。图中横截面表达单道绑带，而非另一件整体匣体。
+6. 后续应先固定单个简模的四耳、两带、两扣和鞍座，再从同一模型导出八视图。不要把本张解释图当成已经修完全部多视图或运行资产。
+
+验证：
+本轮image_gen调用1次；目视确认主图两道绕带前后分开、各自扣具、无原篮式纵向连接带，并给出单道截面。局部耳座/扣针细节、尺寸/比例、皮带网格连续性、实际佩戴与插拔碰撞未验证。结构图为待用户查看的修改提案。
+未修改原16PNG、原ZIP、铜片、Unity场景/代码。旧上传说明和索引增加问题提示。
+协作：本机账号额度查询ConnectionRefusedError，未能开展额外子代理复核；父代理完成视觉诊断和验收，内置image_gen出图，无外部模型调用。
+
+实际生成提示词：
+Create ONE NEW explanatory concept sheet correcting ONLY the LEATHER STRAP TOPOLOGY of the attached 准望匣 bronze instrument. The source's straps are WRONG: they form a basket/sling with two horizontal loops stacked below the front face and a shared vertical leather connector. Completely DISCARD that strap geometry. Keep the bronze case's six empty front slots, circular top dial, red side button, bronze material and clipped corner design family. NO leaves, no pull handles.
+CORRECT ASSEMBLY: Case long axis X follows wearer forearm from elbow to wrist,80mm long. Short48mm end with six empty slots points toward wrist. Two securing stations along X, rear/elbow-side at x18 and front/wrist-side at x62, approximately44mm apart. Each station has exactly ONE pair of short metal lugs: one on left lower side of case and matching one on right lower side at EXACTLY SAME X. Four metal lugs TOTAL. At each station, ONE15mm-wide leather strap extends from one lug, curves DOWN around forearm underside in a U, then rises to fasten at opposite lug at that SAME X. A short buckle-end piece and long perforated-end piece together form ONE functional strap assembly. There are exactly TWO such U-straps, isolated from each other. The case's curved underside closes the upper arc; do not make an extra free full loop around the top of case. Front U-ring and rear U-ring both lie in YZ CROSS-SECTION PLANES perpendicular to forearm axis X, are separated along X, and encircle the same imaginary forearm cylinder. Rear strap slightly larger circumference due forearm taper, NOT lower in height like a basket. NO longitudinal leather connector linking the two stations. NO strap from rear-left lug to front-right lug. NO straps covering six-slot face, dial, side button or wrist joint.
+Each independent strap has ONE simple rectangular matte bronze tang buckle, ONE short keeper for folded tail, believable5 small holes on long end and neat stitch lines. Both buckles occupy the same anatomical side at their respective X stations, not stacked one under another at the front face. Exactly2 buckles total, not4. No long dangling tail, bulky jewelry, multiple band layers or twisted leather.
+LAYOUT: landscape explanatory sheet with TWO clear areas. LEFT about65%: corrected whole unit in a SIDE-DOMINANT THREE-QUARTER VIEW from above and slightly toward front, camera mostly sees LONG side so the TWO different X stations are visibly separated left-right. Six-slot wrist end at imageRIGHT, elbow rear atLEFT. Render a LIGHT TRANSLUCENT NEUTRAL-GRAY FOREARM-SHAPED TAPERED MANDREL extending through BOTH strap openings left-to-right. This is only an explanatory ghost support, NO realistic skin/hand, no clothes. The two U-bands hug the SAME mandrel at two distinct longitudinal stations; a subtle dashed axis through mandrel makes circumferential strap direction unambiguous. Each band lies across width of mandrel, never along it. Case rests on mandrel TOP, not floating. Bronze underside saddle visibly curved transversely. LEFT small caption 两带沿前臂前后分开. The ghost mandrel is structural explanation, not part of asset.
+RIGHT about35%: ONE clear CROSS-SECTION VIEW OF A SINGLE STRAP STATION normal to X. Show simplified bronze case top as rectangular curved saddle, two lugs left/right, and ONE brown U-shaped strap curving below around ghost elliptical arm, with one buckle at right upper side. This is only ONE repeated section, NOT another whole-device design and not two stacked bands. Label 单道绑带截面 and use simple callouts 连接耳, 穿扣折返, 带尾固定环. The central opening must be visibly spacious and aligned below case, not leather glued flat against metal bottom. Keep body width48 vs band15 concept, no dense dimensions.
+Title 准望匣｜绑带结构修正. Footer 两条独立绕臂带 · 四个连接耳 · 两套扣具｜结构提案. White/light gray uncluttered backdrop, restrained clean Chinese labels, crisp technically intelligible render. Make the correct TWO front/rear loop topology unmistakable. Do not copy reference basket straps. Camera must expose both separate loop stations.

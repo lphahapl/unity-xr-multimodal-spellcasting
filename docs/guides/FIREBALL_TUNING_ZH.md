@@ -1,6 +1,6 @@
 # 火球储存、发射调参与算法依据（2026-11-01）
 
-当前场景参数：`Assets/SealCombat/Configuration/LinearRpg/效果_fireball.asset`。
+当前场景参数：`Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset`。
 
 - 「未发射储存超时（秒）」默认60，可填N秒（至少0.1）。不再与SkillDefinition.durationSeconds取最小值；修改配置只作用于下一次生成。手槽仍最多一发。
 - 「效果持续时间」用于护盾等效果，未来特殊武器需要在扩展效果里明确使用此值；并非已经实现特殊武器。

@@ -26,10 +26,10 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 
 | 场景 | 路径 | 用途 |
 |---|---|---|
-| 基础技能测试 | `Assets/SealCombat/Scenes/SkillTest.unity` | 最小接线与三种触发模式对照；菜单在 `Tools → NarutoVR → 技能` |
-| 焰道·火球靶场 | `Assets/SealCombat/Scenes/FireballRange.unity` | 右手生成、轻推发射、远近靶与墙体阻挡 |
-| 澄心·护盾试炼 | `Assets/SealCombat/Scenes/ShieldTrial.unity` | 子印/口令加持、四次有限伤害演示；F8 准备或停止 |
-| 合契·组合施法试炼 | `Assets/SealCombat/Scenes/ComboSanctum.unity` | 先印后咒、先咒后印、等待超时与取消 |
+| 基础技能测试 | `Assets/Scene/SkillTest.unity` | 最小接线与三种触发模式对照；菜单在 `Tools → NarutoVR → 技能` |
+| 焰道·火球靶场 | `Assets/Scene/FireballRange.unity` | 右手生成、轻推发射、远近靶与墙体阻挡 |
+| 澄心·护盾试炼 | `Assets/Scene/ShieldTrial.unity` | 子印/口令加持、四次有限伤害演示；F8 准备或停止 |
+| 合契·组合施法试炼 | `Assets/Scene/ComboSanctum.unity` | 先印后咒、先咒后印、等待超时与取消 |
 
 默认配方为：**子印 → 护盾；护体咒 → 护盾；火球术＋寅印 → 右手火球**。组合窗口默认 8 秒，先后不限。火球准备约 0.25 秒后，手向前轻推约 12 厘米发射；头向准星用于瞄准。**这四个旧训练场**使用 **Esc**、完整取消口令或张开双手分开保持约 0.5 秒取消（历史兼容行为）；新 RPG 场景采用下节规则。详细动作及取消优先级见 [试炼场景说明](SKILL_SHOWCASES_ZH.md)。
 
@@ -54,11 +54,11 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 
 | 配置 | 负责内容 | 默认位置 |
 |---|---|---|
-| `SealProfile` | 手印特征权重、范围、覆盖率、保持时间 | `Assets/SealLab/Profiles/` |
-| `SkillDefinition` | 稳定 ID、中文名、三种输入模式、单印、口令与拼音 tokens、窗口、冷却、时长、生成手、效果引用 | 从目录中的技能引用定位；默认在 `Assets/SealCombat/Configuration/默认技能/` |
-| `ShieldEffectDefinition` | 护盾容量、护腕视觉和基础材质 | `Assets/SealCombat/Configuration/默认护盾.asset` |
-| `ProjectileEffectDefinition` | 伤害、速度、半径、持握/飞行时长、轻推参数及视觉 | `Assets/SealCombat/Configuration/默认火球.asset` |
-| `SkillCatalog` | 本场可用技能、共享匹配参数、取消口令 | `Assets/SealCombat/Configuration/试炼技能目录.asset` |
+| `SealProfile` | 手印特征权重、范围、覆盖率、保持时间 | `Assets/ScriptableObjects/手印识别配置/` |
+| `SkillDefinition` | 稳定 ID、中文名、三种输入模式、单印、口令与拼音 tokens、窗口、冷却、时长、生成手、效果引用 | 从目录中的技能引用定位；默认在 `Assets/ScriptableObjects/技能定义配置/默认配置/` |
+| `ShieldEffectDefinition` | 护盾容量、护腕视觉和基础材质 | `Assets/ScriptableObjects/护盾效果配置/默认护盾.asset` |
+| `ProjectileEffectDefinition` | 伤害、速度、半径、持握/飞行时长、轻推参数及视觉 | `Assets/ScriptableObjects/投射物效果配置/默认火球.asset` |
+| `SkillCatalog` | 本场可用技能、共享匹配参数、取消口令 | `Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset` |
 | 场景组件 | 骨骼来源、相机/玩家引用、碰撞层、HUD、模拟快捷键及试炼规则 | 场景中的 `SkillTestController`、`SkillEffects`、`SkillTestView`、`SkillScenario` |
 
 同一个目录资产可被多个场景共享：改一次技能列表，各引用场景都会使用它。若某个场景需要不同技能集，复制 `SkillCatalog` 后重新绑定该场景控制器；不要在运行时往共享 SO 写玩家状态。旧序列化字段仅用于兼容，日常配置使用目录、效果资产与 View。
@@ -183,7 +183,7 @@ Unity 菜单 **Tools → NarutoVR → 技能配置 → 导出当前场景语音�
 - [技术与开发文档总索引](../README.md)
 - [镜头与技能演出方案](../architecture/CAMERA_PRESENTATION_DESIGN_ZH.md)
 
-录制与手印标定代码位于 `Assets/SealLab/`，技能模块位于 `Assets/SealCombat/`，本机语音位于 `Tools/SkillVoice/`。`Library`、`Temp` 和模型运行日志不属于手工配置入口；本次重构前备份路径记录在 `Logs/architecture-backup-path.txt`。
+录制与手印标定代码位于 `Assets/SealLab/`，技能模块位于 `Assets/`，本机语音位于 `Tools/SkillVoice/`。`Library`、`Temp` 和模型运行日志不属于手工配置入口；本次重构前备份路径记录在 `Logs/architecture-backup-path.txt`。
 
 ## 仓库与本机产物
 

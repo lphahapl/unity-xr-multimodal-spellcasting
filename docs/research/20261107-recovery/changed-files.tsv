@@ -1,0 +1,938 @@
+﻿Git状态	原路径	现路径	具体变更或用途
+A		ArtSource/Enemies/CanJiOu/CanJiOu_pipeline.blend	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Enemies/CanJiOu/build.py	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Enemies/CanJiOu/report.json	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/01_正面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/02_左前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/03_右前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/04_左面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/05_右面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/06_背面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/07_顶面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/Views/08_底面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/check.py	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/engraving_mask.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/mask.py	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/qa_preview.jpg	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/CopperLeafViews/render.py	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Previews/Unity_WristFit.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_AO.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_BaseColor.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_Metallic.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_MetallicSmoothness.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_Normal.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Textures/Zhunwang_Roughness.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Zhunwang_WristFit.blend	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/Zhunwang_WristFit.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/measure_quest_fit.py	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/report.json	本轮新增/恢复：制作源件、可复用资源或图稿
+A		ArtSource/Zhunwang/WristFit/使用说明.txt	本轮新增/恢复：制作源件、可复用资源或图稿
+R077	Assets/SealCombat.meta	Assets/AddressableAssetsData.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AddressableAssetSettings.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AddressableAssetSettings.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Configuration/迁移.meta	Assets/AddressableAssetsData/AssetGroupTemplates.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroupTemplates/Packed Assets.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroupTemplates/Packed Assets.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9.meta	Assets/AddressableAssetsData/AssetGroups.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Enemies_Local.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Enemies_Local.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Schemas.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_BundledAssetGroupSchema.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_BundledAssetGroupSchema.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_ContentUpdateGroupSchema.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_ContentUpdateGroupSchema.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Enemies_Local_BundledAssetGroupSchema.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Enemies_Local_BundledAssetGroupSchema.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Enemies_Local_ContentUpdateGroupSchema.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/AssetGroups/Schemas/Enemies_Local_ContentUpdateGroupSchema.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/DataBuilders.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptFastMode.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptFastMode.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedMode.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedMode.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedPlayMode.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedPlayMode.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/AddressableAssetsData/DefaultObject.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/AddressableAssetsData/DefaultObject.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackDownward.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackDownward.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackSpin360.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_AttackSpin360.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_DazedSeated.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_DazedSeated.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_HitReactAbdomen.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_HitReactAbdomen.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_Idle.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_Idle.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_ParalysisEnter.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_ParalysisEnter.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_InPlace.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_InPlace.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_RootMotion.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_RunForward_RootMotion.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkForward_RootMotion.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkForward_RootMotion.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu.mat	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Enemies/CanJiOu/CanJiOu.mat.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_LOD1.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_LOD1.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Textures.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_BaseColor.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_BaseColor.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Mask.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Mask.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Normal.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Enemies/CanJiOu/Textures/CanJiOu_Normal.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/ButtonSplit.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonInterior.mat	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonInterior.mat.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.fbx	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.fbx.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.prefab	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Props/Zhunwang/ButtonSplit/Zhunwang_ButtonSplit.prefab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Materials.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Materials/Zhunwang_URP.mat	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Art/Props/Zhunwang/Materials/Zhunwang_URP.mat.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Textures.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_BaseColor.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_BaseColor.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_MetallicSmoothness.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_MetallicSmoothness.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_Normal.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		Assets/Art/Props/Zhunwang/Textures/Zhunwang_Normal.png.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Art/Props/Zhunwang/使用说明.txt	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		Assets/Art/Props/Zhunwang/使用说明.txt.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Audio.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Audio/YicunShanhe_Credits.txt	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		Assets/Audio/YicunShanhe_Credits.txt.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Configuration.meta	Assets/Configuration.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Configuration/Enemies.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Configuration/Enemies/P1RoomNavMesh.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Configuration/Enemies/P1RoomNavMesh.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Configuration/LinearRpg.meta	Assets/Configuration/LinearRpg.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/skill-voice-config.json	Assets/Configuration/LinearRpg/skill-voice-config.json	保留 GUID/迁移目录：制作/运行工具、项目依赖或工程配置
+R100	Assets/SealCombat/Configuration/LinearRpg/skill-voice-config.json.meta	Assets/Configuration/LinearRpg/skill-voice-config.json.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/导航点标记.mat	Assets/Configuration/LinearRpg/导航点标记.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/导航点标记.mat.meta	Assets/Configuration/LinearRpg/导航点标记.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/initial-migration-repaired.json	Assets/Configuration/initial-migration-repaired.json	保留 GUID/迁移目录：制作/运行工具、项目依赖或工程配置
+R100	Assets/SealCombat/Configuration/initial-migration-repaired.json.meta	Assets/Configuration/initial-migration-repaired.json.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials.meta	Assets/Materials.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase.meta	Assets/Materials/Showcase.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/低面环形.asset	Assets/Materials/Showcase/低面环形.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/低面环形.asset.meta	Assets/Materials/Showcase/低面环形.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/月下青石.mat	Assets/Materials/Showcase/月下青石.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/月下青石.mat.meta	Assets/Materials/Showcase/月下青石.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/橙红火纹.mat	Assets/Materials/Showcase/橙红火纹.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/橙红火纹.mat.meta	Assets/Materials/Showcase/橙红火纹.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/淡青符光.mat	Assets/Materials/Showcase/淡青符光.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/淡青符光.mat.meta	Assets/Materials/Showcase/淡青符光.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/玄色石面.mat	Assets/Materials/Showcase/玄色石面.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/玄色石面.mat.meta	Assets/Materials/Showcase/玄色石面.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/石板银边.mat	Assets/Materials/Showcase/石板银边.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/石板银边.mat.meta	Assets/Materials/Showcase/石板银边.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/紫色契纹.mat	Assets/Materials/Showcase/紫色契纹.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/紫色契纹.mat.meta	Assets/Materials/Showcase/紫色契纹.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/Showcase/青色能量线.mat	Assets/Materials/Showcase/青色能量线.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/Showcase/青色能量线.mat.meta	Assets/Materials/Showcase/青色能量线.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/加持青色.mat	Assets/Materials/加持青色.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/加持青色.mat.meta	Assets/Materials/加持青色.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/火球橙色.mat	Assets/Materials/火球橙色.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/火球橙色.mat.meta	Assets/Materials/火球橙色.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量.meta	Assets/Materials/程序能量.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/护盾薄雾.mat	Assets/Materials/程序能量/护盾薄雾.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/护盾薄雾.mat.meta	Assets/Materials/程序能量/护盾薄雾.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/护盾青光.mat	Assets/Materials/程序能量/护盾青光.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/护盾青光.mat.meta	Assets/Materials/程序能量/护盾青光.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/日心白金.mat	Assets/Materials/程序能量/日心白金.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/日心白金.mat.meta	Assets/Materials/程序能量/日心白金.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/流火外壳.mat	Assets/Materials/程序能量/流火外壳.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/流火外壳.mat.meta	Assets/Materials/程序能量/流火外壳.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/火星柔光.mat	Assets/Materials/程序能量/火星柔光.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/火星柔光.mat.meta	Assets/Materials/程序能量/火星柔光.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/焰轨橙金.mat	Assets/Materials/程序能量/焰轨橙金.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/焰轨橙金.mat.meta	Assets/Materials/程序能量/焰轨橙金.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/阵法刻金.mat	Assets/Materials/程序能量/阵法刻金.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/阵法刻金.mat.meta	Assets/Materials/程序能量/阵法刻金.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/程序能量/青色柔光.mat	Assets/Materials/程序能量/青色柔光.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/程序能量/青色柔光.mat.meta	Assets/Materials/程序能量/青色柔光.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Materials/训练靶蓝色.mat	Assets/Materials/训练靶蓝色.mat	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Materials/训练靶蓝色.mat.meta	Assets/Materials/训练靶蓝色.mat.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes.meta	Assets/Meshes.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/单位能量球.asset	Assets/Meshes/单位能量球.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/单位能量球.asset.meta	Assets/Meshes/单位能量球.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/命中爆散_符纹层1.asset	Assets/Meshes/命中爆散_符纹层1.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/命中爆散_符纹层1.asset.meta	Assets/Meshes/命中爆散_符纹层1.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/命中爆散_符纹层2.asset	Assets/Meshes/命中爆散_符纹层2.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/命中爆散_符纹层2.asset.meta	Assets/Meshes/命中爆散_符纹层2.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层1.asset	Assets/Meshes/地面阵法_符纹层1.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层1.asset.meta	Assets/Meshes/地面阵法_符纹层1.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层2.asset	Assets/Meshes/地面阵法_符纹层2.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层2.asset.meta	Assets/Meshes/地面阵法_符纹层2.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层3.asset	Assets/Meshes/地面阵法_符纹层3.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层3.asset.meta	Assets/Meshes/地面阵法_符纹层3.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层4.asset	Assets/Meshes/地面阵法_符纹层4.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层4.asset.meta	Assets/Meshes/地面阵法_符纹层4.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层5.asset	Assets/Meshes/地面阵法_符纹层5.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层5.asset.meta	Assets/Meshes/地面阵法_符纹层5.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层6.asset	Assets/Meshes/地面阵法_符纹层6.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/地面阵法_符纹层6.asset.meta	Assets/Meshes/地面阵法_符纹层6.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/护盾_符纹层1.asset	Assets/Meshes/护盾_符纹层1.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/护盾_符纹层1.asset.meta	Assets/Meshes/护盾_符纹层1.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/护盾_符纹层2.asset	Assets/Meshes/护盾_符纹层2.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/护盾_符纹层2.asset.meta	Assets/Meshes/护盾_符纹层2.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/护盾_符纹层3.asset	Assets/Meshes/护盾_符纹层3.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/护盾_符纹层3.asset.meta	Assets/Meshes/护盾_符纹层3.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层1.asset	Assets/Meshes/火球_符纹层1.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层1.asset.meta	Assets/Meshes/火球_符纹层1.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层2.asset	Assets/Meshes/火球_符纹层2.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层2.asset.meta	Assets/Meshes/火球_符纹层2.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层3.asset	Assets/Meshes/火球_符纹层3.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层3.asset.meta	Assets/Meshes/火球_符纹层3.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层4.asset	Assets/Meshes/火球_符纹层4.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层4.asset.meta	Assets/Meshes/火球_符纹层4.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层5.asset	Assets/Meshes/火球_符纹层5.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层5.asset.meta	Assets/Meshes/火球_符纹层5.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Meshes/火球_符纹层6.asset	Assets/Meshes/火球_符纹层6.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Meshes/火球_符纹层6.asset.meta	Assets/Meshes/火球_符纹层6.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Prefabs.meta	Assets/Prefabs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Prefabs/Interaction.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/Prefabs/Interaction/SnapSequenceDemo.prefab	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/Prefabs/Interaction/SnapSequenceDemo.prefab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Prefabs/命中爆散.prefab	Assets/Prefabs/命中爆散.prefab	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Prefabs/命中爆散.prefab.meta	Assets/Prefabs/命中爆散.prefab.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Prefabs/地面阵法.prefab	Assets/Prefabs/地面阵法.prefab	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Prefabs/地面阵法.prefab.meta	Assets/Prefabs/地面阵法.prefab.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Prefabs/护盾.prefab	Assets/Prefabs/护盾.prefab	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Prefabs/护盾.prefab.meta	Assets/Prefabs/护盾.prefab.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Prefabs/火球.prefab	Assets/Prefabs/火球.prefab	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Prefabs/火球.prefab.meta	Assets/Prefabs/火球.prefab.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/Scenes.meta	Assets/Scene.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Scene/BgmLoopVerificationEmpty.unity	本轮新增/恢复：场景迁移或按历史布局/对象绑定重建
+A		Assets/Scene/BgmLoopVerificationEmpty.unity.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/ComboSanctum.unity	Assets/Scene/ComboSanctum.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/ComboSanctum.unity.meta	Assets/Scene/ComboSanctum.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/EmptyStreamProbe.unity	Assets/Scene/EmptyStreamProbe.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/EmptyStreamProbe.unity.meta	Assets/Scene/EmptyStreamProbe.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Scene/EnemyNavigationTest.unity	本轮新增/恢复：场景迁移或按历史布局/对象绑定重建
+A		Assets/Scene/EnemyNavigationTest.unity.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/FireballRange.unity	Assets/Scene/FireballRange.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/FireballRange.unity.meta	Assets/Scene/FireballRange.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Scene/KaogongP1Trial.unity	本轮新增/恢复：场景迁移或按历史布局/对象绑定重建
+A		Assets/Scene/KaogongP1Trial.unity.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/LinearRpgTest.unity	Assets/Scene/LinearRpgTest.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/LinearRpgTest.unity.meta	Assets/Scene/LinearRpgTest.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/Scenes/SampleScene.unity	Assets/Scene/SampleScene.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/Scenes/SampleScene.unity.meta	Assets/Scene/SampleScene.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Scenes/SealLab.unity	Assets/Scene/SealLab.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealLab/Scenes/SealLab.unity.meta	Assets/Scene/SealLab.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Scenes/SealLabSteamLink.unity	Assets/Scene/SealLabSteamLink.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealLab/Scenes/SealLabSteamLink.unity.meta	Assets/Scene/SealLabSteamLink.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Scenes/SealRecognitionTest.unity	Assets/Scene/SealRecognitionTest.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealLab/Scenes/SealRecognitionTest.unity.meta	Assets/Scene/SealRecognitionTest.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/ShieldTrial.unity	Assets/Scene/ShieldTrial.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/ShieldTrial.unity.meta	Assets/Scene/ShieldTrial.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Scenes/SkillTest.unity	Assets/Scene/SkillTest.unity	保留 GUID/迁移目录：场景迁移或按历史布局/对象绑定重建
+R100	Assets/SealCombat/Scenes/SkillTest.unity.meta	Assets/Scene/SkillTest.unity.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/Scene/SnapToolTest.unity	本轮新增/恢复：场景迁移或按历史布局/对象绑定重建
+A		Assets/Scene/SnapToolTest.unity.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/关卡阶段配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.01.asset	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.01.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.01.asset.meta	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.01.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.02.asset	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.02.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.02.asset.meta	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.02.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.03.asset	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.03.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/阶段_trial.03.asset.meta	Assets/ScriptableObjects/关卡阶段配置/阶段_trial.03.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/基础手形配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/官方基础手形.asset	Assets/ScriptableObjects/基础手形配置/官方基础手形.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/官方基础手形.asset.meta	Assets/ScriptableObjects/基础手形配置/官方基础手形.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/工程说明配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/Readme.asset	Assets/ScriptableObjects/工程说明配置/Readme.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/Readme.asset.meta	Assets/ScriptableObjects/工程说明配置/Readme.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/手印识别配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/丑.asset	Assets/ScriptableObjects/手印识别配置/丑.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/丑.asset.meta	Assets/ScriptableObjects/手印识别配置/丑.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/亥.asset	Assets/ScriptableObjects/手印识别配置/亥.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/亥.asset.meta	Assets/ScriptableObjects/手印识别配置/亥.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/午.asset	Assets/ScriptableObjects/手印识别配置/午.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/午.asset.meta	Assets/ScriptableObjects/手印识别配置/午.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/卯.asset	Assets/ScriptableObjects/手印识别配置/卯.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/卯.asset.meta	Assets/ScriptableObjects/手印识别配置/卯.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/子.asset	Assets/ScriptableObjects/手印识别配置/子.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/子.asset.meta	Assets/ScriptableObjects/手印识别配置/子.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/寅.asset	Assets/ScriptableObjects/手印识别配置/寅.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/寅.asset.meta	Assets/ScriptableObjects/手印识别配置/寅.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/巳.asset	Assets/ScriptableObjects/手印识别配置/巳.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/巳.asset.meta	Assets/ScriptableObjects/手印识别配置/巳.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/戌.asset	Assets/ScriptableObjects/手印识别配置/戌.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/戌.asset.meta	Assets/ScriptableObjects/手印识别配置/戌.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/未.asset	Assets/ScriptableObjects/手印识别配置/未.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/未.asset.meta	Assets/ScriptableObjects/手印识别配置/未.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/申.asset	Assets/ScriptableObjects/手印识别配置/申.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/申.asset.meta	Assets/ScriptableObjects/手印识别配置/申.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/辰.asset	Assets/ScriptableObjects/手印识别配置/辰.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/辰.asset.meta	Assets/ScriptableObjects/手印识别配置/辰.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Profiles/酉.asset	Assets/ScriptableObjects/手印识别配置/酉.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealLab/Profiles/酉.asset.meta	Assets/ScriptableObjects/手印识别配置/酉.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能定义配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能定义配置/历史配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Profiles/子印加持.asset	Assets/ScriptableObjects/技能定义配置/历史配置/子印加持.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Profiles/子印加持.asset.meta	Assets/ScriptableObjects/技能定义配置/历史配置/子印加持.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Profiles/护体咒加持.asset	Assets/ScriptableObjects/技能定义配置/历史配置/护体咒加持.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Profiles/护体咒加持.asset.meta	Assets/ScriptableObjects/技能定义配置/历史配置/护体咒加持.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Profiles/火球术.asset	Assets/ScriptableObjects/技能定义配置/历史配置/火球术.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Profiles/火球术.asset.meta	Assets/ScriptableObjects/技能定义配置/历史配置/火球术.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.hidden.asset	Assets/ScriptableObjects/技能定义配置/技能_buff.hidden.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.hidden.asset.meta	Assets/ScriptableObjects/技能定义配置/技能_buff.hidden.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.voice.asset	Assets/ScriptableObjects/技能定义配置/技能_buff.voice.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.voice.asset.meta	Assets/ScriptableObjects/技能定义配置/技能_buff.voice.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.zi.asset	Assets/ScriptableObjects/技能定义配置/技能_buff.zi.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_buff.zi.asset.meta	Assets/ScriptableObjects/技能定义配置/技能_buff.zi.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_fireball.asset	Assets/ScriptableObjects/技能定义配置/技能_fireball.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/技能_fireball.asset.meta	Assets/ScriptableObjects/技能定义配置/技能_fireball.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能定义配置/迁移配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-000.asset	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-000.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-000.asset.meta	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-000.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-001.asset	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-001.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-001.asset.meta	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-001.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-002.asset	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-002.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能-002.asset.meta	Assets/ScriptableObjects/技能定义配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能-002.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能定义配置/默认配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/默认技能/子印加持.asset	Assets/ScriptableObjects/技能定义配置/默认配置/子印加持.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/默认技能/子印加持.asset.meta	Assets/ScriptableObjects/技能定义配置/默认配置/子印加持.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/默认技能/护体咒加持.asset	Assets/ScriptableObjects/技能定义配置/默认配置/护体咒加持.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/默认技能/护体咒加持.asset.meta	Assets/ScriptableObjects/技能定义配置/默认配置/护体咒加持.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/默认技能/火球术.asset	Assets/ScriptableObjects/技能定义配置/默认配置/火球术.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/默认技能/火球术.asset.meta	Assets/ScriptableObjects/技能定义配置/默认配置/火球术.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能目录配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/线性RPG技能目录.asset	Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/线性RPG技能目录.asset.meta	Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/试炼技能目录.asset	Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/试炼技能目录.asset.meta	Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能目录配置/迁移配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/技能目录配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能目录.asset	Assets/ScriptableObjects/技能目录配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能目录.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/技能目录.asset.meta	Assets/ScriptableObjects/技能目录配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/技能目录.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/投射物效果配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_fireball.asset	Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_fireball.asset.meta	Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/投射物效果配置/迁移配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/投射物效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景投射物.asset	Assets/ScriptableObjects/投射物效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景投射物.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景投射物.asset.meta	Assets/ScriptableObjects/投射物效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景投射物.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/默认火球.asset	Assets/ScriptableObjects/投射物效果配置/默认火球.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/默认火球.asset.meta	Assets/ScriptableObjects/投射物效果配置/默认火球.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/护盾效果配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_buff.zi.asset	Assets/ScriptableObjects/护盾效果配置/效果_buff.zi.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_buff.zi.asset.meta	Assets/ScriptableObjects/护盾效果配置/效果_buff.zi.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_金刚护体.asset	Assets/ScriptableObjects/护盾效果配置/效果_金刚护体.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/效果_金刚护体.asset.meta	Assets/ScriptableObjects/护盾效果配置/效果_金刚护体.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/护盾效果配置/迁移配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/护盾效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景护盾.asset	Assets/ScriptableObjects/护盾效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景护盾.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/迁移/3968a700b32d6354384b16cf0d2a9fb9/旧场景护盾.asset.meta	Assets/ScriptableObjects/护盾效果配置/迁移配置/3968a700b32d6354384b16cf0d2a9fb9配置/旧场景护盾.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/默认护盾.asset	Assets/ScriptableObjects/护盾效果配置/默认护盾.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/默认护盾.asset.meta	Assets/ScriptableObjects/护盾效果配置/默认护盾.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人定义配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人定义配置/残机偶.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/ScriptableObjects/敌人定义配置/残机偶.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人战斗配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人目录配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset	本轮新增/恢复：配置、材质、控制器或预制体，支持资产引用
+A		Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/ScriptableObjects/玩家定义配置.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Configuration/LinearRpg/默认玩家.asset	Assets/ScriptableObjects/玩家定义配置/默认玩家.asset	保留 GUID/迁移目录：配置、材质、控制器或预制体，支持资产引用
+R100	Assets/SealCombat/Configuration/LinearRpg/默认玩家.asset.meta	Assets/ScriptableObjects/玩家定义配置/默认玩家.asset.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+D	Assets/SealCombat/Configuration/默认技能.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealCombat/Profiles.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealCombat/Runtime.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealCombat/Runtime/Core/ISkillActivationPolicy.cs		移除旧目录或旧文件：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+D	Assets/SealCombat/Runtime/Rpg/Data.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealCombat/Scenes.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealLab/Profiles.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealLab/Runtime.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/SealLab/Scenes.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Shaders.meta	Assets/Shaders.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Shaders/SkillEnergy.shader	Assets/Shaders/SkillEnergy.shader	保留 GUID/迁移目录：制作/运行工具、项目依赖或工程配置
+R100	Assets/SealCombat/Shaders/SkillEnergy.shader.meta	Assets/Shaders/SkillEnergy.shader.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+D	Assets/TutorialInfo/Scripts.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+D	Assets/TutorialInfo/Scripts/Editor.meta		移除旧目录或旧文件：Unity 资源或目录的导入元数据
+A		Assets/scripts.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/Editor.meta	Assets/scripts/data/Editor.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Editor/ConfigurationAssetOrganizer.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Editor/ConfigurationAssetOrganizer.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Editor/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealFeatureRuleDrawer.cs	Assets/scripts/data/Editor/SealLab/SealFeatureRuleDrawer.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealFeatureRuleDrawer.cs.meta	Assets/scripts/data/Editor/SealLab/SealFeatureRuleDrawer.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Editor/Skills.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Editor/Skills/Setup.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R091	Assets/SealCombat/Editor/SkillConfigurationSetup.cs	Assets/scripts/data/Editor/Skills/Setup/SkillConfigurationSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillConfigurationSetup.cs.meta	Assets/scripts/data/Editor/Skills/Setup/SkillConfigurationSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies/AttackData.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Enemies/AttackData.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies/EnemyCombatDefinition.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Enemies/EnemyCombatDefinition.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies/Spawning.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies/Spawning/EnemyCatalog.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Enemies/Spawning/EnemyCatalog.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Enemies/Spawning/EnemyDefinition.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Enemies/Spawning/EnemyDefinition.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Locomotion.meta	Assets/scripts/data/Locomotion.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/BasicHandPoseSettings.cs	Assets/scripts/data/Locomotion/BasicHandPoseSettings.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/BasicHandPoseSettings.cs.meta	Assets/scripts/data/Locomotion/BasicHandPoseSettings.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Rpg.meta	Assets/scripts/data/Rpg.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Rpg/PlayerSO.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/data/Rpg/PlayerSO.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R093	Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs	Assets/scripts/data/Rpg/RpgPlayerDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs.meta	Assets/scripts/data/Rpg/RpgPlayerDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs	Assets/scripts/data/Rpg/RpgPlayerState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs.meta	Assets/scripts/data/Rpg/RpgPlayerState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgProgressData.cs	Assets/scripts/data/Rpg/RpgProgressData.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgProgressData.cs.meta	Assets/scripts/data/Rpg/RpgProgressData.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs	Assets/scripts/data/Rpg/RpgSaveStore.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs.meta	Assets/scripts/data/Rpg/RpgSaveStore.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgStageDefinition.cs	Assets/scripts/data/Rpg/RpgStageDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/Data/RpgStageDefinition.cs.meta	Assets/scripts/data/Rpg/RpgStageDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/HandSnapshot.cs	Assets/scripts/data/SealLab/HandSnapshot.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/HandSnapshot.cs.meta	Assets/scripts/data/SealLab/HandSnapshot.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealProfile.cs	Assets/scripts/data/SealLab/SealProfile.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealProfile.cs.meta	Assets/scripts/data/SealLab/SealProfile.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealRecording.cs	Assets/scripts/data/SealLab/SealRecording.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealRecording.cs.meta	Assets/scripts/data/SealLab/SealRecording.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Skills.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Core.meta	Assets/scripts/data/Skills/Core.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Core/SkillCatalog.cs	Assets/scripts/data/Skills/Core/SkillCatalog.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillCatalog.cs.meta	Assets/scripts/data/Skills/Core/SkillCatalog.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R089	Assets/SealCombat/Runtime/Core/SkillDefinition.cs	Assets/scripts/data/Skills/Core/SkillDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillDefinition.cs.meta	Assets/scripts/data/Skills/Core/SkillDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Core/SkillMatchSettings.cs	Assets/scripts/data/Skills/Core/SkillMatchSettings.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillMatchSettings.cs.meta	Assets/scripts/data/Skills/Core/SkillMatchSettings.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R083	Assets/SealCombat/Runtime/Core/SkillPhrase.cs	Assets/scripts/data/Skills/Core/SkillPhrase.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillPhrase.cs.meta	Assets/scripts/data/Skills/Core/SkillPhrase.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R085	Assets/SealCombat/Runtime/Core/SkillRecipeInfo.cs	Assets/scripts/data/Skills/Core/SkillRecipeInfo.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillRecipeInfo.cs.meta	Assets/scripts/data/Skills/Core/SkillRecipeInfo.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Effects.meta	Assets/scripts/data/Skills/Effects.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R089	Assets/SealCombat/Runtime/Effects/ProjectileEffectDefinition.cs	Assets/scripts/data/Skills/Effects/ProjectileEffectDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/ProjectileEffectDefinition.cs.meta	Assets/scripts/data/Skills/Effects/ProjectileEffectDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Effects/ShieldEffectDefinition.cs	Assets/scripts/data/Skills/Effects/ShieldEffectDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/ShieldEffectDefinition.cs.meta	Assets/scripts/data/Skills/Effects/ShieldEffectDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R051	Assets/SealCombat/Runtime/Effects/SkillEffectDefinition.cs	Assets/scripts/data/Skills/Effects/SkillEffectDefinition.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/SkillEffectDefinition.cs.meta	Assets/scripts/data/Skills/Effects/SkillEffectDefinition.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/data/Tutorial.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/TutorialInfo/Scripts/Readme.cs	Assets/scripts/data/Tutorial/Readme.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/TutorialInfo/Scripts/Readme.cs.meta	Assets/scripts/data/Tutorial/Readme.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Editor.meta	Assets/scripts/logic/Editor.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/BgmLoopVerification.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/BgmLoopVerification.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/DiskRecoveryChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/DiskRecoveryChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/EmptyStreamProbe.cs	Assets/scripts/logic/Editor/EmptyStreamProbe.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/EmptyStreamProbe.cs.meta	Assets/scripts/logic/Editor/EmptyStreamProbe.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R089	Assets/SealCombat/Editor/EncounterMovementChecks.cs	Assets/scripts/logic/Editor/EncounterMovementChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/EncounterMovementChecks.cs.meta	Assets/scripts/logic/Editor/EncounterMovementChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemyAttackChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemyAttackChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemyCombatChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemyCombatChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemyDetectionChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemyDetectionChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemyPoolingChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemyPoolingChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemyPoolingSetup.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemyPoolingSetup.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EnemySetupAndChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EnemySetupAndChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Environment.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/Editor/QuestEnvironmentSetup.cs	Assets/scripts/logic/Editor/Environment/QuestEnvironmentSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/Editor/QuestEnvironmentSetup.cs.meta	Assets/scripts/logic/Editor/Environment/QuestEnvironmentSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/EventCenterChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/EventCenterChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/HandThrowChecks.cs	Assets/scripts/logic/Editor/HandThrowChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/HandThrowChecks.cs.meta	Assets/scripts/logic/Editor/HandThrowChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/HandThrowDiagnostics.cs	Assets/scripts/logic/Editor/HandThrowDiagnostics.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/HandThrowDiagnostics.cs.meta	Assets/scripts/logic/Editor/HandThrowDiagnostics.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Interaction.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Interaction/SnapZoneChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/Interaction/SnapZoneChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Interaction/SnapZoneEditor.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/Interaction/SnapZoneEditor.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/InteractionFeelChecks.cs	Assets/scripts/logic/Editor/InteractionFeelChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/InteractionFeelChecks.cs.meta	Assets/scripts/logic/Editor/InteractionFeelChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/InteractionFeelPresentationChecks.cs	Assets/scripts/logic/Editor/InteractionFeelPresentationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/InteractionFeelPresentationChecks.cs.meta	Assets/scripts/logic/Editor/InteractionFeelPresentationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/InteractionFeelSetup.cs	Assets/scripts/logic/Editor/InteractionFeelSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/InteractionFeelSetup.cs.meta	Assets/scripts/logic/Editor/InteractionFeelSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/InteractionInputTrace.cs	Assets/scripts/logic/Editor/InteractionInputTrace.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/InteractionInputTrace.cs.meta	Assets/scripts/logic/Editor/InteractionInputTrace.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R095	Assets/SealCombat/Editor/LinearRpgPlayChecks.cs	Assets/scripts/logic/Editor/LinearRpgPlayChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/LinearRpgPlayChecks.cs.meta	Assets/scripts/logic/Editor/LinearRpgPlayChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R092	Assets/SealCombat/Editor/LinearRpgSceneSetup.cs	Assets/scripts/logic/Editor/LinearRpgSceneSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/LinearRpgSceneSetup.cs.meta	Assets/scripts/logic/Editor/LinearRpgSceneSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R085	Assets/SealCombat/Editor/LinearRpgValidation.cs	Assets/scripts/logic/Editor/LinearRpgValidation.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/LinearRpgValidation.cs.meta	Assets/scripts/logic/Editor/LinearRpgValidation.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/NarrationTable.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/NarrationTable.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/NavigationNodeFixture.cs	Assets/scripts/logic/Editor/NavigationNodeFixture.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/NavigationNodeFixture.cs.meta	Assets/scripts/logic/Editor/NavigationNodeFixture.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/NavigationScoringChecks.cs	Assets/scripts/logic/Editor/NavigationScoringChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/NavigationScoringChecks.cs.meta	Assets/scripts/logic/Editor/NavigationScoringChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R097	Assets/SealCombat/Editor/OfficialHandPoseSetup.cs	Assets/scripts/logic/Editor/OfficialHandPoseSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/OfficialHandPoseSetup.cs.meta	Assets/scripts/logic/Editor/OfficialHandPoseSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1AudioChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1AudioChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1HapticChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1HapticChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1RoomEncounterChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1RoomEncounterChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1RoomLayoutSetup.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1RoomLayoutSetup.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1RoomPlayChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1RoomPlayChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1TrialChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1TrialChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/P1VfxChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/P1VfxChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/PlayerObjChecks.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/PlayerObjChecks.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/ProjectLayoutOnce.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/ProjectLayoutOnce.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/ProjectileStorageChecks.cs	Assets/scripts/logic/Editor/ProjectileStorageChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/ProjectileStorageChecks.cs.meta	Assets/scripts/logic/Editor/ProjectileStorageChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RayNavigationChecks.cs	Assets/scripts/logic/Editor/RayNavigationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RayNavigationChecks.cs.meta	Assets/scripts/logic/Editor/RayNavigationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgDataChecks.cs	Assets/scripts/logic/Editor/RpgDataChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgDataChecks.cs.meta	Assets/scripts/logic/Editor/RpgDataChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs	Assets/scripts/logic/Editor/RpgDirectionalInteractionChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs.meta	Assets/scripts/logic/Editor/RpgDirectionalInteractionChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgHandPoseChecks.cs	Assets/scripts/logic/Editor/RpgHandPoseChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgHandPoseChecks.cs.meta	Assets/scripts/logic/Editor/RpgHandPoseChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgInteractionPreview.cs	Assets/scripts/logic/Editor/RpgInteractionPreview.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgInteractionPreview.cs.meta	Assets/scripts/logic/Editor/RpgInteractionPreview.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgInteractionSetup.cs	Assets/scripts/logic/Editor/RpgInteractionSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgInteractionSetup.cs.meta	Assets/scripts/logic/Editor/RpgInteractionSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgLocomotionChecks.cs	Assets/scripts/logic/Editor/RpgLocomotionChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgLocomotionChecks.cs.meta	Assets/scripts/logic/Editor/RpgLocomotionChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgNavigationScoringSetup.cs	Assets/scripts/logic/Editor/RpgNavigationScoringSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgNavigationScoringSetup.cs.meta	Assets/scripts/logic/Editor/RpgNavigationScoringSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/RpgRegressionSuite.cs	Assets/scripts/logic/Editor/RpgRegressionSuite.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/RpgRegressionSuite.cs.meta	Assets/scripts/logic/Editor/RpgRegressionSuite.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/ScoredThrowChecks.cs	Assets/scripts/logic/Editor/ScoredThrowChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/ScoredThrowChecks.cs.meta	Assets/scripts/logic/Editor/ScoredThrowChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/ScoredThrowSetup.cs	Assets/scripts/logic/Editor/ScoredThrowSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/ScoredThrowSetup.cs.meta	Assets/scripts/logic/Editor/ScoredThrowSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/SealLab/OfficialHandVisualSetup.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/SealLab/OfficialHandVisualSetup.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R097	Assets/SealLab/Editor/SealGuidedCapture.cs	Assets/scripts/logic/Editor/SealLab/SealGuidedCapture.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealGuidedCapture.cs.meta	Assets/scripts/logic/Editor/SealLab/SealGuidedCapture.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R096	Assets/SealLab/Editor/SealLabBuilder.cs	Assets/scripts/logic/Editor/SealLab/SealLabBuilder.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealLabBuilder.cs.meta	Assets/scripts/logic/Editor/SealLab/SealLabBuilder.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealLabChecks.cs	Assets/scripts/logic/Editor/SealLab/SealLabChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealLabChecks.cs.meta	Assets/scripts/logic/Editor/SealLab/SealLabChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealLab/Editor/SealLabDeviceBuild.cs	Assets/scripts/logic/Editor/SealLab/SealLabDeviceBuild.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealLabDeviceBuild.cs.meta	Assets/scripts/logic/Editor/SealLab/SealLabDeviceBuild.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealLab/Editor/SealRecognitionTestSetup.cs	Assets/scripts/logic/Editor/SealLab/SealRecognitionTestSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealRecognitionTestSetup.cs.meta	Assets/scripts/logic/Editor/SealLab/SealRecognitionTestSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealLab/Editor/SealSteamLinkSetup.cs	Assets/scripts/logic/Editor/SealLab/SealSteamLinkSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealSteamLinkSetup.cs.meta	Assets/scripts/logic/Editor/SealLab/SealSteamLinkSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealTrackingDiagnostics.cs	Assets/scripts/logic/Editor/SealLab/SealTrackingDiagnostics.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealTrackingDiagnostics.cs.meta	Assets/scripts/logic/Editor/SealLab/SealTrackingDiagnostics.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Skills.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Skills/Checks.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R095	Assets/SealCombat/Editor/SkillActivationPolicyChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillActivationPolicyChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillActivationPolicyChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillActivationPolicyChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/SkillArchitectureChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillArchitectureChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillArchitectureChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillArchitectureChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R093	Assets/SealCombat/Editor/SkillCastTraceChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillCastTraceChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillCastTraceChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillCastTraceChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/SkillClockRegressionChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillClockRegressionChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/SkillCoreChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillCoreChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillCoreChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillCoreChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/SkillEffectChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillEffectChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillEffectChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillEffectChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/SkillEffectConfigurationChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillEffectConfigurationChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Editor/SkillMigrationChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillMigrationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillMigrationChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillMigrationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R097	Assets/SealCombat/Editor/SkillScenarioChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillScenarioChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillScenarioChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillScenarioChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/SkillShowcaseChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillShowcaseChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillShowcaseChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillShowcaseChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R094	Assets/SealCombat/Editor/SkillVoiceIntegrationChecks.cs	Assets/scripts/logic/Editor/Skills/Checks/SkillVoiceIntegrationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillVoiceIntegrationChecks.cs.meta	Assets/scripts/logic/Editor/Skills/Checks/SkillVoiceIntegrationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Skills/Setup.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/SkillShowcaseSetup.cs	Assets/scripts/logic/Editor/Skills/Setup/SkillShowcaseSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillShowcaseSetup.cs.meta	Assets/scripts/logic/Editor/Skills/Setup/SkillShowcaseSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R096	Assets/SealCombat/Editor/SkillTestSceneSetup.cs	Assets/scripts/logic/Editor/Skills/Setup/SkillTestSceneSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillTestSceneSetup.cs.meta	Assets/scripts/logic/Editor/Skills/Setup/SkillTestSceneSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R096	Assets/SealCombat/Editor/SkillVisualAssets.cs	Assets/scripts/logic/Editor/Skills/Setup/SkillVisualAssets.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillVisualAssets.cs.meta	Assets/scripts/logic/Editor/Skills/Setup/SkillVisualAssets.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/Skills/Tools.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R096	Assets/SealCombat/Editor/SkillParticleVelocityRepair.cs	Assets/scripts/logic/Editor/Skills/Tools/SkillParticleVelocityRepair.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillParticleVelocityRepair.cs.meta	Assets/scripts/logic/Editor/Skills/Tools/SkillParticleVelocityRepair.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/SkillVisualPreview.cs	Assets/scripts/logic/Editor/Skills/Tools/SkillVisualPreview.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillVisualPreview.cs.meta	Assets/scripts/logic/Editor/Skills/Tools/SkillVisualPreview.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R094	Assets/SealCombat/Editor/SkillVoiceAutoStart.cs	Assets/scripts/logic/Editor/Skills/Tools/SkillVoiceAutoStart.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SkillVoiceAutoStart.cs.meta	Assets/scripts/logic/Editor/Skills/Tools/SkillVoiceAutoStart.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/SpectatorTimelineChecks.cs	Assets/scripts/logic/Editor/SpectatorTimelineChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/SpectatorTimelineChecks.cs.meta	Assets/scripts/logic/Editor/SpectatorTimelineChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/StreamCpuProfile.cs	Assets/scripts/logic/Editor/StreamCpuProfile.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/StreamCpuProfile.cs.meta	Assets/scripts/logic/Editor/StreamCpuProfile.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/StreamHandLines.cs	Assets/scripts/logic/Editor/StreamHandLines.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/StreamHandLines.cs.meta	Assets/scripts/logic/Editor/StreamHandLines.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R095	Assets/SealCombat/Editor/ThrowEaseChecks.cs	Assets/scripts/logic/Editor/ThrowEaseChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/ThrowEaseChecks.cs.meta	Assets/scripts/logic/Editor/ThrowEaseChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/ThrowPresentationChecks.cs	Assets/scripts/logic/Editor/ThrowPresentationChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/ThrowPresentationChecks.cs.meta	Assets/scripts/logic/Editor/ThrowPresentationChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/VoiceDiagnosticsChecks.cs	Assets/scripts/logic/Editor/VoiceDiagnosticsChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/VoiceDiagnosticsChecks.cs.meta	Assets/scripts/logic/Editor/VoiceDiagnosticsChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristMenuChecks.cs	Assets/scripts/logic/Editor/WristMenuChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristMenuChecks.cs.meta	Assets/scripts/logic/Editor/WristMenuChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristMenuEaseChecks.cs	Assets/scripts/logic/Editor/WristMenuEaseChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristMenuEaseChecks.cs.meta	Assets/scripts/logic/Editor/WristMenuEaseChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristMenuPlayChecks.cs	Assets/scripts/logic/Editor/WristMenuPlayChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristMenuPlayChecks.cs.meta	Assets/scripts/logic/Editor/WristMenuPlayChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Editor/WristMenuSetup.cs	Assets/scripts/logic/Editor/WristMenuSetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristMenuSetup.cs.meta	Assets/scripts/logic/Editor/WristMenuSetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristRayIssueProbe.cs	Assets/scripts/logic/Editor/WristRayIssueProbe.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristRayIssueProbe.cs.meta	Assets/scripts/logic/Editor/WristRayIssueProbe.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristTapChecks.cs	Assets/scripts/logic/Editor/WristTapChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristTapChecks.cs.meta	Assets/scripts/logic/Editor/WristTapChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristViewLifecycleChecks.cs	Assets/scripts/logic/Editor/WristViewLifecycleChecks.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristViewLifecycleChecks.cs.meta	Assets/scripts/logic/Editor/WristViewLifecycleChecks.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Editor/YicunShanheV9AudioProbe.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Editor/YicunShanheV9AudioProbe.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/CombatDamageReceiver.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/CombatDamageReceiver.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyAttackExecution.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyAttackExecution.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyCombatState.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyCombatState.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyController.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyController.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyDetectionSensor.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyDetectionSensor.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyHitZone.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyHitZone.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/EnemyObj.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/EnemyObj.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/Spawning.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/Spawning/EnemyLease.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/Spawning/EnemyLease.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Enemies/Spawning/EnemyManager.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Enemies/Spawning/EnemyManager.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Events.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Events/EnemyEvents.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Events/EnemyEvents.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Events/EventCenter.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Events/EventCenter.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Events/NarrationEvents.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Events/NarrationEvents.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Interaction.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Interaction/Snapping.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Interaction/Snapping/SnapItem.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Interaction/Snapping/SnapItem.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Interaction/Snapping/SnapZone.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Interaction/Snapping/SnapZone.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Interaction/ZhunwangPressButton.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Interaction/ZhunwangPressButton.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Locomotion.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs	Assets/scripts/logic/Locomotion/NavigationHandInput.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs.meta	Assets/scripts/logic/Locomotion/NavigationHandInput.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationInputSmoother.cs	Assets/scripts/logic/Locomotion/NavigationInputSmoother.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationInputSmoother.cs.meta	Assets/scripts/logic/Locomotion/NavigationInputSmoother.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationNode.cs	Assets/scripts/logic/Locomotion/NavigationNode.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationNode.cs.meta	Assets/scripts/logic/Locomotion/NavigationNode.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs	Assets/scripts/logic/Locomotion/NavigationTargetScoring.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs.meta	Assets/scripts/logic/Locomotion/NavigationTargetScoring.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs	Assets/scripts/logic/Locomotion/OfficialHandPoseDetector.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs.meta	Assets/scripts/logic/Locomotion/OfficialHandPoseDetector.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/RayNavigationState.cs	Assets/scripts/logic/Locomotion/RayNavigationState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/RayNavigationState.cs.meta	Assets/scripts/logic/Locomotion/RayNavigationState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs	Assets/scripts/logic/Locomotion/RpgGestureState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs.meta	Assets/scripts/logic/Locomotion/RpgGestureState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.Encounter.cs	Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.Encounter.cs.meta	Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs	Assets/scripts/logic/Locomotion/RpgLocomotionController.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs.meta	Assets/scripts/logic/Locomotion/RpgLocomotionController.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/CombatRoomEncounter.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/CombatRoomEncounter.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/EditorBgmAudioCapture.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/EditorBgmAudioCapture.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/GameManager.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/GameManager.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/HapticFeedbackService.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/HapticFeedbackService.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R089	Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs	Assets/scripts/logic/Rpg/LinearRpgController.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs.meta	Assets/scripts/logic/Rpg/LinearRpgController.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/P1AudioManager.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/P1AudioManager.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/P1FallbackAudio.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/P1FallbackAudio.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/PlayerObj.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/PlayerObj.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Rpg/RpgDamageReceiver.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Rpg/RpgDamageReceiver.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/RpgFeedbackSignals.cs	Assets/scripts/logic/Rpg/RpgFeedbackSignals.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgFeedbackSignals.cs.meta	Assets/scripts/logic/Rpg/RpgFeedbackSignals.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/RpgPlayCheckDriver.cs	Assets/scripts/logic/Rpg/RpgPlayCheckDriver.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgPlayCheckDriver.cs.meta	Assets/scripts/logic/Rpg/RpgPlayCheckDriver.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/RpgTrainingHazard.cs	Assets/scripts/logic/Rpg/RpgTrainingHazard.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgTrainingHazard.cs.meta	Assets/scripts/logic/Rpg/RpgTrainingHazard.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/WristHandChannels.cs	Assets/scripts/logic/Rpg/WristHandChannels.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/WristHandChannels.cs.meta	Assets/scripts/logic/Rpg/WristHandChannels.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Runtime/Rpg/WristMenuController.cs	Assets/scripts/logic/Rpg/WristMenuController.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/WristMenuController.cs.meta	Assets/scripts/logic/Rpg/WristMenuController.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Runtime/Rpg/WristMenuState.cs	Assets/scripts/logic/Rpg/WristMenuState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/WristMenuState.cs.meta	Assets/scripts/logic/Rpg/WristMenuState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/RecordingSchedule.cs	Assets/scripts/logic/SealLab/RecordingSchedule.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/RecordingSchedule.cs.meta	Assets/scripts/logic/SealLab/RecordingSchedule.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealDeviceDiagnostics.cs	Assets/scripts/logic/SealLab/SealDeviceDiagnostics.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealDeviceDiagnostics.cs.meta	Assets/scripts/logic/SealLab/SealDeviceDiagnostics.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealFeatureExtractor.cs	Assets/scripts/logic/SealLab/SealFeatureExtractor.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealFeatureExtractor.cs.meta	Assets/scripts/logic/SealLab/SealFeatureExtractor.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealLab.cs	Assets/scripts/logic/SealLab/SealLab.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealLab.cs.meta	Assets/scripts/logic/SealLab/SealLab.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealRecognitionTest.cs	Assets/scripts/logic/SealLab/SealRecognitionTest.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealRecognitionTest.cs.meta	Assets/scripts/logic/SealLab/SealRecognitionTest.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealRecognizer.cs	Assets/scripts/logic/SealLab/SealRecognizer.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealRecognizer.cs.meta	Assets/scripts/logic/SealLab/SealRecognizer.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealTemplateFromRecording.cs	Assets/scripts/logic/SealLab/SealTemplateFromRecording.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealTemplateFromRecording.cs.meta	Assets/scripts/logic/SealLab/SealTemplateFromRecording.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealTestDiagnostics.cs	Assets/scripts/logic/SealLab/SealTestDiagnostics.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealTestDiagnostics.cs.meta	Assets/scripts/logic/SealLab/SealTestDiagnostics.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealXRHandsSource.cs	Assets/scripts/logic/SealLab/SealXRHandsSource.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealXRHandsSource.cs.meta	Assets/scripts/logic/SealLab/SealXRHandsSource.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Skills.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Skills/Core.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Skills/Core/ISkillActivationPolicy.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/ISkillActivationPolicy.cs.meta	Assets/scripts/logic/Skills/Core/ISkillActivationPolicy.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R094	Assets/SealCombat/Runtime/Core/SkillCastTrace.cs	Assets/scripts/logic/Skills/Core/SkillCastTrace.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillCastTrace.cs.meta	Assets/scripts/logic/Skills/Core/SkillCastTrace.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Core/SkillConfigurationValidator.cs	Assets/scripts/logic/Skills/Core/SkillConfigurationValidator.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillConfigurationValidator.cs.meta	Assets/scripts/logic/Skills/Core/SkillConfigurationValidator.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs	Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs.meta	Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Skills/Effects.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R095	Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs	Assets/scripts/logic/Skills/Effects/HandThrowIntentState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs.meta	Assets/scripts/logic/Skills/Effects/HandThrowIntentState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R087	Assets/SealCombat/Runtime/Effects/HandThrowObservation.cs	Assets/scripts/logic/Skills/Effects/HandThrowObservation.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/HandThrowObservation.cs.meta	Assets/scripts/logic/Skills/Effects/HandThrowObservation.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/Effects/HandThrowState.cs	Assets/scripts/logic/Skills/Effects/HandThrowState.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/HandThrowState.cs.meta	Assets/scripts/logic/Skills/Effects/HandThrowState.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R091	Assets/SealCombat/Runtime/Effects/SkillEffects.cs	Assets/scripts/logic/Skills/Effects/SkillEffects.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/SkillEffects.cs.meta	Assets/scripts/logic/Skills/Effects/SkillEffects.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R069	Assets/SealCombat/Runtime/Effects/SkillProjectile.cs	Assets/scripts/logic/Skills/Effects/SkillProjectile.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/SkillProjectile.cs.meta	Assets/scripts/logic/Skills/Effects/SkillProjectile.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R094	Assets/SealCombat/Runtime/Effects/SkillTrainingTarget.cs	Assets/scripts/logic/Skills/Effects/SkillTrainingTarget.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/SkillTrainingTarget.cs.meta	Assets/scripts/logic/Skills/Effects/SkillTrainingTarget.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R097	Assets/SealCombat/Runtime/Effects/ThrowDiagnosticRecorder.cs	Assets/scripts/logic/Skills/Effects/ThrowDiagnosticRecorder.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Effects/ThrowDiagnosticRecorder.cs.meta	Assets/scripts/logic/Skills/Effects/ThrowDiagnosticRecorder.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Runtime/SkillScenario.cs	Assets/scripts/logic/Skills/SkillScenario.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/SkillScenario.cs.meta	Assets/scripts/logic/Skills/SkillScenario.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R090	Assets/SealCombat/Runtime/SkillTestController.cs	Assets/scripts/logic/Skills/SkillTestController.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/SkillTestController.cs.meta	Assets/scripts/logic/Skills/SkillTestController.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Visuals.meta	Assets/scripts/logic/Skills/Visuals.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R072	Assets/SealCombat/Runtime/Visuals/SkillVisualLifetime.cs	Assets/scripts/logic/Skills/Visuals/SkillVisualLifetime.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Visuals/SkillVisualLifetime.cs.meta	Assets/scripts/logic/Skills/Visuals/SkillVisualLifetime.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R091	Assets/SealCombat/Runtime/Visuals/SkillVisualMotion.cs	Assets/scripts/logic/Skills/Visuals/SkillVisualMotion.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Visuals/SkillVisualMotion.cs.meta	Assets/scripts/logic/Skills/Visuals/SkillVisualMotion.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Skills/Visuals/VfxPoolManager.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Skills/Visuals/VfxPoolManager.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealCombat/Runtime/Voice.meta	Assets/scripts/logic/Skills/Voice.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R086	Assets/SealCombat/Runtime/Voice/SkillVoiceReceiver.cs	Assets/scripts/logic/Skills/Voice/SkillVoiceReceiver.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Voice/SkillVoiceReceiver.cs.meta	Assets/scripts/logic/Skills/Voice/SkillVoiceReceiver.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Voice.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/logic/Voice/NarrationController.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/logic/Voice/NarrationController.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R077	Assets/SealLab/Editor.meta	Assets/scripts/ui/Editor.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/DebugTextComparison.cs	Assets/scripts/ui/Editor/DebugTextComparison.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/DebugTextComparison.cs.meta	Assets/scripts/ui/Editor/DebugTextComparison.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Editor/NarrationControllerEditor.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/ui/Editor/NarrationControllerEditor.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Editor/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealChineseInspectors.cs	Assets/scripts/ui/Editor/SealLab/SealChineseInspectors.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealChineseInspectors.cs.meta	Assets/scripts/ui/Editor/SealLab/SealChineseInspectors.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealChineseUISetup.cs	Assets/scripts/ui/Editor/SealLab/SealChineseUISetup.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealChineseUISetup.cs.meta	Assets/scripts/ui/Editor/SealLab/SealChineseUISetup.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Editor/SealLabWindow.cs	Assets/scripts/ui/Editor/SealLab/SealLabWindow.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Editor/SealLabWindow.cs.meta	Assets/scripts/ui/Editor/SealLab/SealLabWindow.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Editor/Tutorial.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs	Assets/scripts/ui/Editor/Tutorial/ReadmeEditor.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta	Assets/scripts/ui/Editor/Tutorial/ReadmeEditor.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R100	Assets/SealCombat/Editor/WristViewEditorLifetime.cs	Assets/scripts/ui/Editor/WristViewEditorLifetime.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Editor/WristViewEditorLifetime.cs.meta	Assets/scripts/ui/Editor/WristViewEditorLifetime.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Enemies.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Enemies/EnemyPoiseBar.cs	本轮新增/恢复：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+A		Assets/scripts/ui/Enemies/EnemyPoiseBar.cs.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Rpg.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R092	Assets/SealCombat/Runtime/Rpg/RpgDesktopPanel.cs	Assets/scripts/ui/Rpg/RpgDesktopPanel.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgDesktopPanel.cs.meta	Assets/scripts/ui/Rpg/RpgDesktopPanel.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs	Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs.meta	Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R097	Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs	Assets/scripts/ui/Rpg/RpgSessionView.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs.meta	Assets/scripts/ui/Rpg/RpgSessionView.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R099	Assets/SealCombat/Runtime/Rpg/WristMenuView.cs	Assets/scripts/ui/Rpg/WristMenuView.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/Rpg/WristMenuView.cs.meta	Assets/scripts/ui/Rpg/WristMenuView.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/SealLab.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R100	Assets/SealLab/Runtime/SealChineseText.cs	Assets/scripts/ui/SealLab/SealChineseText.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealChineseText.cs.meta	Assets/scripts/ui/SealLab/SealChineseText.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+R098	Assets/SealLab/Runtime/SealLabView.cs	Assets/scripts/ui/SealLab/SealLabView.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealLab/Runtime/SealLabView.cs.meta	Assets/scripts/ui/SealLab/SealLabView.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+A		Assets/scripts/ui/Skills.meta	本轮新增/恢复：Unity 资源或目录的导入元数据
+R098	Assets/SealCombat/Runtime/SkillTestView.cs	Assets/scripts/ui/Skills/SkillTestView.cs	保留 GUID/迁移目录：C# 职责归类、恢复或路径适配；逐文件见 source-provenance.tsv
+R100	Assets/SealCombat/Runtime/SkillTestView.cs.meta	Assets/scripts/ui/Skills/SkillTestView.cs.meta	保留 GUID/迁移目录：Unity 资源或目录的导入元数据
+M	Packages/manifest.json	Packages/manifest.json	更新：制作/运行工具、项目依赖或工程配置
+M	Packages/packages-lock.json	Packages/packages-lock.json	更新：制作/运行工具、项目依赖或工程配置
+M	ProjectSettings/EditorBuildSettings.asset	ProjectSettings/EditorBuildSettings.asset	更新：配置、材质、控制器或预制体，支持资产引用
+M	ProjectSettings/ProjectSettings.asset	ProjectSettings/ProjectSettings.asset	更新：配置、材质、控制器或预制体，支持资产引用
+M	README.md	README.md	更新：制作/运行工具、项目依赖或工程配置
+M	Tools/Request-RpgCheck.ps1	Tools/Request-RpgCheck.ps1	更新：制作/运行工具、项目依赖或工程配置
+M	Tools/SkillVoice/skill_voice.py	Tools/SkillVoice/skill_voice.py	更新：制作/运行工具、项目依赖或工程配置
+M	Tools/SkillVoice/test_audio_telemetry.py	Tools/SkillVoice/test_audio_telemetry.py	更新：制作/运行工具、项目依赖或工程配置
+M	Tools/apply_visibility_weights.py	Tools/apply_visibility_weights.py	更新：制作/运行工具、项目依赖或工程配置
+M	docs/README.md	docs/README.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/CAMERA_PRESENTATION_DESIGN_ZH.md	docs/architecture/CAMERA_PRESENTATION_DESIGN_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/GLYPH_DESIGN_ZH.md	docs/architecture/GLYPH_DESIGN_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md	docs/architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/LINEAR_RPG_DESIGN_ZH.md	docs/architecture/LINEAR_RPG_DESIGN_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/MONSTER_DESIGN_CANJIOU_ZH.md	docs/architecture/MONSTER_DESIGN_CANJIOU_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/architecture/SEAL_SEQUENCE_REVIEW_20261104_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/architecture/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md	docs/architecture/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/architecture/SKILL_SYSTEM_CLASS_DIAGRAM_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/architecture/SKILL_SYSTEM_CLASS_DIAGRAM_ZH.png	本轮新增/恢复：制作源件、可复用资源或图稿
+M	docs/guides/CONFIGURATION_GUIDE_ZH.md	docs/guides/CONFIGURATION_GUIDE_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/ENCOUNTER_LOCOMOTION_ZH.md	docs/guides/ENCOUNTER_LOCOMOTION_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/ENEMY_COMBAT_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/ENEMY_NAVIGATION_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/ENEMY_SPAWNING_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/FIREBALL_TUNING_ZH.md	docs/guides/FIREBALL_TUNING_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/LINEAR_RPG_QUICKSTART_ZH.md	docs/guides/LINEAR_RPG_QUICKSTART_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/NARRATION_FLOW_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/OFFICIAL_HAND_POSES_ZH.md	docs/guides/OFFICIAL_HAND_POSES_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/P1_TRIAL_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/PROJECT_LAYOUT_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/QUEST_SETUP.md	docs/guides/QUEST_SETUP.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/RECOGNITION_TEST_ZH.md	docs/guides/RECOGNITION_TEST_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/SEAL_LAB.md	docs/guides/SEAL_LAB.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/SEAL_LAB_QUICKSTART_ZH.md	docs/guides/SEAL_LAB_QUICKSTART_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/SKILL_SHOWCASES_ZH.md	docs/guides/SKILL_SHOWCASES_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/guides/SNAP_TOOL_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/guides/STEAM_LINK_DEVELOPMENT_ZH.md	docs/guides/STEAM_LINK_DEVELOPMENT_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/animation-files.tsv	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/assets-check.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/dialogue-check.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/enemy-play.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/historical-record-index.tsv	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/layout-map.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/layout.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/room-play.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/skill-edit.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/snap-play.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/source-provenance.tsv	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/20261107-recovery/tool-source.tsv	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/DISK_RECOVERY_RESULT_20261107_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/research/MUSIC_WORKFLOW_TOOLS_20261104_ZH.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/SKILL.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/agents/openai.yaml	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/references/audio-review.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/references/game-delivery.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/references/planning.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/references/toolchain.md	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/skills/music-production/scripts/analyze_audio.py	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt	docs/visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt	更新：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_clearance/01_empty_clearance.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_clearance/02_leaf_three_views.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_clearance/generation.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview.zip	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/generation.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview/manifest.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview/上传说明.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/01_正面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/02_左前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/03_右前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/04_左面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/05_右面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/06_背面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/07_顶面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/准望匣_六仓全空/08_底面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/01_正面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/02_左前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/03_右前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/04_左面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/05_右面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/06_背面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/07_顶面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview/铜片_方圆规印/08_底面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2.zip	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/01_正面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/02_左前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/03_右前45度.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/04_左面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/05_右面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/06_背面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/07_顶面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/08_底面.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_multiview_v2/generation.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview_v2/manifest.json	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_multiview_v2/上传说明.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+A		docs/visuals/20261104_zhunwang_strap_correction/01_strap_structure_proposal.png	本轮新增/恢复：制作源件、可复用资源或图稿
+A		docs/visuals/20261104_zhunwang_strap_correction/proposal_and_prompt.txt	本轮新增/恢复：当前指南、历史材料、机器验收或取证清单
+M	docs/world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md	docs/world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md	更新：当前指南、历史材料、机器验收或取证清单
+M	docs/模型交火/世界观变更交接.md	docs/模型交火/世界观变更交接.md	更新：仅追加本轮交接
+M	docs/模型交火/代码审阅交接.md	docs/模型交火/代码审阅交接.md	更新：仅追加本轮交接
+M	docs/模型交火/需求变更交接.md	docs/模型交火/需求变更交接.md	更新：仅追加本轮交接
+A		scratch/audit_yicun_arrangement_v7.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/audit_yicun_dynamics_v8.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/audit_yicun_score_v8.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/audit_yicun_sources_v7.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/compose_yicun_shanhe.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/preview_guqin_winds.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/render_yicun_shanhe_ambient.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/render_yicun_shanhe_chamber.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/render_yicun_shanhe_guzheng.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/render_yicun_shanhe_pedalboard_v9.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/render_yicun_shanhe_shape_v8.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/run_bgm_unity_probe.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/test_yicun_pedalboard.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/yicun_dizi_phrases_v10.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		scratch/yicun_dizi_phrases_v11.py	本轮新增/恢复：制作/运行工具、项目依赖或工程配置
+A		docs/research/20261107-recovery/changed-files.tsv	本清单（不对自身取散列）

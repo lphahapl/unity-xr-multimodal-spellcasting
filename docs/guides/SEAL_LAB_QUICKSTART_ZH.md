@@ -22,7 +22,7 @@ MediaPipe等工具能从图片估计手关键点，但它们的关节定义、�
 
 以寅为例：
 
-1. 面板的“当前印模板”选择 `Assets/SealLab/Profiles/寅.asset`。
+1. 面板的“当前印模板”选择 `Assets/ScriptableObjects/手印识别配置/寅.asset`。
 2. “录制标签 / Seal label”填写 `寅`。模板选择和录制标签是两个独立字段，不会自动同步。
 3. 设置“准备倒计时”为5秒、“自动录制”为5秒。先点击“准备录制”，在倒计时期间摆好手印；开始提示音响起后保持，结束提示音响起后即可放松，文件已自动保存，不必伸手点停止。若准备时间不够，改成10～15秒。
 4. 每次先点击准备，再摆印；换少量位置、朝向、手部间距，录下一次。先收集10～20次独立尝试，作为原型调参的起点，不是准确率保证。准备时锁定本次标签；不需要录制时点“取消准备”。
@@ -93,14 +93,14 @@ Inspector中的自定义组件、印模板和特征规则已经添加中文Heade
 
 ## 代码对应关系
 
-- `Assets/SealLab/Runtime/SealLab.cs`：从实际IHand获取快照，检查新鲜度，驱动录制和实时识别。
+- `Assets/scripts/logic/SealLab/SealLab.cs`：从实际IHand获取快照，检查新鲜度，驱动录制和实时识别。
 - `HandSnapshot.cs`：原始数据结构，以及供SDK读取冻结快照的IHand包装。
 - `SealFeatureExtractor.cs`：调用SDK FingerShapes，追加双手相对几何，输出45项特征。
 - `SealProfile.cs`：ScriptableObject模板、参数合法性检查、加权评分。
 - `SealRecording.cs`：流式JSONL写入与校验读取。
 - `RecordingSchedule.cs`：准备倒计时、定时采集、到时停止；不依赖追踪是否产生新帧。
 - `SealLabView.cs`：头显内骨骼线条和数据摘要。
-- `Assets/SealLab/Editor/SealLabWindow.cs`：实时/回放面板、生成草稿、手动调参。
+- `Assets/scripts/ui/Editor/SealLab/SealLabWindow.cs`：实时/回放面板、生成草稿、手动调参。
 
 当前保存了12个空模板，不是已经训练完12个印。先用一个印验证“真实数值→录制→回放→草稿→调参→识别”，再扩展其他印。
 

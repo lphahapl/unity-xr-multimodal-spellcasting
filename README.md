@@ -100,6 +100,8 @@ Hierarchy 中的“腕部界面 · 自有世界根”是程序生成的 UI 容�
 
 以 [manifest.json](Packages/manifest.json)、[ProjectVersion.txt](ProjectSettings/ProjectVersion.txt) 和 [requirements.txt](Tools/SkillVoice/requirements.txt) 为准。语音依赖需要使用兼容这些固定版本的 Python 环境。
 
+P1 程序试炼使用独立靶场，集中测试命中特效复用、语音避让和触觉反馈。[场景与验收说明](docs/guides/P1_TRIAL_ZH.md)。
+
 ## 快速开始
 
 ### 1. 获取工程
@@ -125,12 +127,12 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 
 | 场景 | 路径 | 观察重点 |
 |---|---|---|
-| 手部实验台 | `Assets/SealLab/Scenes/SealLabSteamLink.unity` | 原始追踪、录制、特征和评分 |
-| 基础技能测试 | `Assets/SealCombat/Scenes/SkillTest.unity` | 三种配方与最小接线 |
-| 火球靶场 | `Assets/SealCombat/Scenes/FireballRange.unity` | 手持生成、前推发射、命中与遮挡 |
-| 护盾试炼 | `Assets/SealCombat/Scenes/ShieldTrial.unity` | 自身加持与有限伤害演示 |
-| 组合施法 | `Assets/SealCombat/Scenes/ComboSanctum.unity` | 两种输入顺序、超时与取消 |
-| 线性 RPG | `Assets/SealCombat/Scenes/LinearRpgTest.unity` | 玩家资源、导航、闪避、关卡、升级与检查点 |
+| 手部实验台 | `Assets/Scene/SealLabSteamLink.unity` | 原始追踪、录制、特征和评分 |
+| 基础技能测试 | `Assets/Scene/SkillTest.unity` | 三种配方与最小接线 |
+| 火球靶场 | `Assets/Scene/FireballRange.unity` | 手持生成、前推发射、命中与遮挡 |
+| 护盾试炼 | `Assets/Scene/ShieldTrial.unity` | 自身加持与有限伤害演示 |
+| 组合施法 | `Assets/Scene/ComboSanctum.unity` | 两种输入顺序、超时与取消 |
+| 线性 RPG | `Assets/Scene/LinearRpgTest.unity` | 玩家资源、导航、闪避、关卡、升级与检查点 |
 
 默认训练配方示例：**子印 → 护盾**、**“护体咒” → 护盾**、**寅印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
 
@@ -158,17 +160,18 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 
 ```text
 Assets/
-├── SealLab/                 # 追踪适配、采样、特征、模板、识别和诊断
-├── SealCombat/
-│   ├── Runtime/Core/        # 技能定义、目录、配置校验和匹配器
-│   ├── Runtime/Voice/       # 本机语音事件接收
-│   ├── Runtime/Effects/     # 火球、护盾及效果生命周期
-│   ├── Runtime/Locomotion/  # 手势导航与闪避
-│   ├── Runtime/Rpg/         # 玩家数据、关卡与检查点
-│   ├── Configuration/      # ScriptableObject 技能/效果/关卡资产
-│   ├── Scenes/             # 单机演示场景
-│   └── Editor/             # 配置、场景工具和回归检查
-└── XR/                      # XR Loader 与平台配置
+├── scripts/                 # 项目脚本，命名空间保持稳定
+│   ├── ui/                 # 视图、面板、反馈与 UI 编辑器
+│   ├── logic/              # 战斗、技能、交互、移动与 Editor 工具/回归
+│   └── data/               # SO 类型、状态、配置与数据编辑器
+├── Scene/                  # 正式场景、实验台与隔离测试场景
+├── ScriptableObjects/      # 每种 SO 单独放进中文“××配置”；同名版本再分默认、历史、迁移
+├── Art/                    # 角色、道具与贴图
+├── Audio/                  # 游戏音频
+├── Materials/ · Meshes/ · Prefabs/ · Shaders/
+├── Configuration/          # 非 SO 配置、语音 JSON 与导航数据
+├── SealLab/                # 实验台美术和 Resources 字体/参数
+└── XR/                     # XR Loader 与平台配置
 Tools/SkillVoice/            # 离线 KWS 服务、下载器与测试
 Packages/                    # 包依赖与锁文件
 ProjectSettings/             # Unity 工程设置

@@ -20,7 +20,7 @@
 
 备份：`Logs/BeforeVisibilityWeights-20261029-185848/`。一致性检查：`Logs/visibility-weights-check.json`，确认三个 SO 与测试 JSON 权重一致、目标范围未变化、其他九印配置未变化。
 
-场景：`Assets/SealLab/Scenes/SealRecognitionTest.unity`。
+场景：`Assets/Scene/SealRecognitionTest.unity`。
 入口：`Tools → NarutoVR → 测试 → 打开十二印测试场景`。沿用已验证的 Steam Link / SteamVR / OpenXR 手追踪。
 
 ## 录完后如何使用

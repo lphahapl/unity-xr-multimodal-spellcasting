@@ -1,0 +1,172 @@
+"""Reproducible 96-second narrative study for 一寸山河, using synthesized timbres.
+
+The six-note motif closes only after its first two incomplete statements.
+This is a musical narrative, independent of gameplay event timing.
+"""
+
+from pathlib import Path
+
+import numpy as np
+from scipy import signal
+from scipy.io import wavfile
+
+from compose_major_soothing_bgm import SR, synth_guqin_note
+from preview_guqin_winds import frequency, wind_note
+
+
+DURATION = 96
+SEED = 20261104
+OUTPUT = Path(__file__).resolve().parents[1] / "docs/audio/kaogong_yicun_shanhe_theme_v1.wav"
+SECTIONS = [(0, 16), (16, 40), (40, 64), (64, 80), (80, 96)]
+# At 60 BPM, these numbers are both beats and seconds. The D-to-G fourth
+# and the delayed falling answer identify the motif through its variations.
+MOTIF_PITCHES = [60, 62, 67, 64, 62, 60]
+MOTIF_ONSETS = [.25, 1.5, 2.25, 4.5, 6, 7]
+MOTIF_LENGTHS = [1.15, .65, 2.05, 1.3, .8, 1.3]
+
+
+def build_score():
+    score = {name: [] for name in ("qin", "dizi", "sheng", "bell")}
+    # Open phrases become answered phrases, then a complete guqin statement.
+    phrases = [
+        (0, MOTIF_PITCHES[:5], .112),
+        (8, MOTIF_PITCHES[:5], .104),
+        (16, MOTIF_PITCHES[:5], .118),
+        (24, [67, 69, 74, 72, 69, 67], .112),
+        (32, [64, 67, 72, 69, 67, 64], .116),
+        (40, MOTIF_PITCHES[:3], .092),
+        (48, MOTIF_PITCHES, .126),
+        (56, MOTIF_PITCHES, .119),
+        (64, [pitch + 12 for pitch in MOTIF_PITCHES], .087),
+        (72, MOTIF_PITCHES, .111),
+        (80, MOTIF_PITCHES, .101),
+        (88, MOTIF_PITCHES[:5], .104),
+    ]
+    strengths = [1.0, .83, 1.06, .94, .81, .91]
+    for start, pitches, amplitude in phrases:
+        for index, pitch in enumerate(pitches):
+            onset = start + MOTIF_ONSETS[index]
+            # Phrase-level breathing is deterministic, preserving the motif's rhythm.
+            timing = .018 * np.sin(start + index * 1.7)
+            score["qin"].append((onset + timing, pitch,
+                                 MOTIF_LENGTHS[index], amplitude * strengths[index]))
+    # Sparse lower-string answers belong to the same guqin performance.
+    accompaniment = [
+        (0.08, 48), (3.55, 55), (8.1, 48), (11.85, 55),
+        (16.1, 48), (19.62, 55), (24.1, 55), (27.63, 62),
+        (32.1, 48), (35.6, 55), (40.1, 55), (46.35, 62),
+        (48.1, 48), (51.65, 55), (54.15, 52),
+        (56.1, 48), (59.65, 55), (62.15, 52),
+        (64.1, 48), (67.68, 55), (70.2, 52),
+        (72.1, 48), (75.63, 55), (78.4, 52),
+        (80.1, 48), (83.65, 55), (88.1, 48), (91.68, 55), (95.25, 55),
+    ]
+    for onset, pitch in accompaniment:
+        score["qin"].append((onset, pitch, 1.65, .048))
+    # The flute first supplies the note withheld by the guqin at 7 and 15 s.
+    score["dizi"] = [
+        (23.02, 72, 1.05, .041),
+        (29.45, 76, .65, .037), (30.22, 74, .65, .034), (31.05, 72, .92, .038),
+        (37.3, 74, .7, .034), (38.25, 72, 1.15, .036),
+        (44.25, 76, 1.35, .032), (46, 74, 1.35, .030),
+        (61.4, 74, .7, .035), (62.25, 72, 1.1, .038),
+        (76.55, 76, .9, .031), (77.6, 74, .7, .029), (78.5, 72, 1.18, .032),
+    ]
+    # Shared C-G and C-E consonances express a small area becoming steady.
+    # Each dyad has breathing gaps. The sheng leaves before the last section.
+    for onset, pitches, duration, amplitude in [
+        (24.2, [55, 62], 3.1, .010),
+        (32.2, [60, 64], 3.6, .011),
+        (48.2, [60, 67], 3.4, .012),
+        (54.15, [60, 64], 3.4, .013),
+        (59.8, [60, 67], 3.3, .012),
+        (64.2, [60, 64], 3.7, .014),
+        (70.1, [60, 67], 3.6, .012),
+        (76.2, [60, 64], 3.0, .010),
+    ]:
+        for index, pitch in enumerate(pitches):
+            score["sheng"].append((onset + index * .055, pitch, duration, amplitude))
+    score["bell"] = [(55.02, 64, 3.2, .026)]
+    return {name: sorted(notes) for name, notes in score.items()}
+
+
+def bronze_note(pitch, duration, amplitude):
+    time = np.arange(round(duration * SR)) / SR
+    sound = np.zeros_like(time)
+    for ratio, level, decay in [(1, 1, .95), (2.37, .26, .6), (2.99, .15, .4), (4.23, .07, .24)]:
+        sound += level * np.sin(2 * np.pi * frequency(pitch) * ratio * time) * np.exp(-time / decay)
+    return amplitude * sound * (1 - np.exp(-time / .008))
+
+
+def render_stem(instrument, notes, rng):
+    length = DURATION * SR
+    stem = np.zeros(length)
+    for onset, pitch, duration, amplitude in notes:
+        if instrument == "qin":
+            # A soft release keeps the long string decay while preventing abrupt cuts.
+            sounding_duration = max(2.4, duration + 1.4)
+            sound = synth_guqin_note(frequency(pitch), sounding_duration, amplitude,
+                                     is_harmonic=pitch >= 72)
+        elif instrument == "bell":
+            sound = bronze_note(pitch, duration, amplitude)
+        else:
+            sound = wind_note(pitch, duration, instrument == "dizi", rng) * amplitude
+        release = min(round(.15 * SR), len(sound))
+        sound[-release:] *= np.linspace(1, 0, release)
+        start = round(onset * SR)
+        count = min(len(sound), length - start)
+        stem[start:start + count] += sound[:count]
+        # Preserve notes that cross the loop boundary, including the last low G.
+        stem[:len(sound) - count] += sound[count:]
+    return stem
+
+
+def circular_room(dry, rng):
+    stereo = dry.copy()
+    length = len(dry)
+    response_length = round(1.4 * SR)
+    time = np.arange(response_length) / SR
+    envelope = np.exp(-6.908 * time / 1.4)
+    envelope[:round(.033 * SR)] = 0
+    lowpass = signal.butter(2, 4200, fs=SR, output="sos")
+    for channel in range(2):
+        response = signal.sosfilt(lowpass, rng.normal(size=response_length)) * envelope
+        response *= .14 / np.linalg.norm(response)
+        for delay, amplitude in [(.027 + .008 * channel, .10), (.067 + .011 * channel, .055)]:
+            response[round(delay * SR)] += amplitude
+        # Folding a linear convolution gives the periodic steady-state reverberation.
+        wet = signal.fftconvolve(dry[:, channel], response)
+        stereo[:, channel] += wet[:length]
+        stereo[:len(wet) - length, channel] += wet[length:]
+    return stereo
+
+
+def render():
+    np.random.seed(SEED)
+    rng = np.random.default_rng(SEED)
+    score = build_score()
+    stems = {name: render_stem(name, notes, rng) for name, notes in score.items()}
+    mix = np.zeros((DURATION * SR, 2))
+    for name, pan in [("qin", -.07), ("dizi", .19), ("sheng", -.16), ("bell", .1)]:
+        angle = (pan + 1) * np.pi / 4
+        mix += stems[name][:, None] * np.array([np.cos(angle), np.sin(angle)])
+    mix = circular_room(mix, rng)
+    target_rms = 10 ** (-23 / 20)
+    gain = min(target_rms / np.sqrt(np.mean(mix**2)), .38 / np.max(np.abs(mix)))
+    mix *= gain
+    assert np.isfinite(mix).all() and np.max(np.abs(mix)) < 1
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    wavfile.write(OUTPUT, SR, np.rint(mix * 32767).astype(np.int16))
+    print(f"Wrote {OUTPUT}")
+    print(f"Peak {20 * np.log10(np.max(np.abs(mix))):.2f} dBFS")
+    print(f"RMS {20 * np.log10(np.sqrt(np.mean(mix**2))):.2f} dBFS")
+    for start, end in SECTIONS:
+        section = mix[start * SR:end * SR]
+        print(f"{start}-{end}s RMS {20 * np.log10(np.sqrt(np.mean(section**2))):.2f} dBFS")
+    print("Stem RMS dB", {name: round(float(20 * np.log10(np.sqrt(np.mean(stem**2)))), 2)
+                             for name, stem in stems.items()})
+    print("Events", {name: len(notes) for name, notes in score.items()})
+
+
+if __name__ == "__main__":
+    render()

@@ -5,7 +5,7 @@
 ## 打开与运行
 
 1. 保存当前场景，等 Unity 编译完成。
-2. 选择 **Tools → NarutoVR → 线性RPG → 创建或打开测试场景**。目标是 `Assets/SealCombat/Scenes/LinearRpgTest.unity`。构建器首次复制庭院并创建独立配置，之后只打开，不覆盖你调过的场景或资产。
+2. 选择 **Tools → NarutoVR → 线性RPG → 创建或打开测试场景**。目标是 `Assets/Scene/LinearRpgTest.unity`。构建器首次复制庭院并创建独立配置，之后只打开，不覆盖你调过的场景或资产。
 3. 按既有 Quest → Steam Link → SteamVR OpenXR 路径连接，进入 Play。当前语音在电脑运行，尚未打通 Android 一体机语音。
 4. 头显中保留左侧结印/语音诊断，庭院右侧增加中文角色与关卡面板。电脑 Game 窗口右侧有可滚动的模拟按钮。
 
@@ -45,7 +45,11 @@
 
 ## 修改配置
 
-配置集中在 `Assets/SealCombat/Configuration/LinearRpg/`，原训练场目录独立保留。
+配置集中在 `Assets/ScriptableObjects/`，原训练场目录独立保留。
+
+该目录从 2026-11-04 起按实际资产类分文件夹：`SkillDefinition`（技能配方）、`ProjectileEffectDefinition`（火球效果）、`ShieldEffectDefinition`（护盾效果）、`SkillCatalog`（技能目录）、`RpgStageDefinition`（阶段）、`RpgPlayerDefinition`（默认玩家）、`BasicHandPoseSettings`（基础手形）、`Material`（导航标记材质）。此次仅移动资产与 `.meta`，GUID、参数和引用不变；场景生成器及通过路径加载的检查工具已同步。根目录 `skill-voice-config.json` 是语音导出文件，继续保留原路径。
+
+`Configuration/迁移/` 是旧场景转换后仍在使用的独立配置，不是临时备份。其子目录使用场景 GUID，`SkillTest` 通过目录→三个技能→旧护盾/投射物效果引用六个资产，用来保留旧场景参数。迁移工具将旧版场景内字段转换成当前 SO 配置并重新接线；已有正确配置不会因再次迁移而覆盖手工调参。这里的资产及迁移兼容检查仍在使用，不应按名称删除。当前 LinearRpg 的十四个 SO/材质也都有引用，三个旧阶段仍被旧测试场景和检查点流程使用。
 
 | 修改内容 | 入口 |
 |---|---|
@@ -65,7 +69,7 @@
 新目录的独立词表包括“金刚护体”。启动本机服务时显式传配置，旧词表不被自动覆盖：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Tools\SkillVoice\Start.ps1 -Config .\Assets\SealCombat\Configuration\LinearRpg\skill-voice-config.json
+powershell -ExecutionPolicy Bypass -File .\Tools\SkillVoice\Start.ps1 -Config .\Assets\Configuration\LinearRpg\skill-voice-config.json
 ```
 
 先停止已有语音服务，避免端口占用。具体麦克风、依赖和原始录音验收见[语音设置](SKILL_VOICE_SETUP_ZH.md)。新增口令仅核对词表格式，不代表真实音频召回率已验证。

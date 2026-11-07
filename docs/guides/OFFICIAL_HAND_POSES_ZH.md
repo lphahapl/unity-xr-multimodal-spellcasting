@@ -23,9 +23,9 @@ Meta OVR 或 OpenXR/XR Hands 的实际骨骼
   → 原有移动、闪避、取消与持球优先级状态机
 ```
 
-[OfficialHandPoseDetector](../../Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs) 直接调用当前安装的 Meta Interaction SDK 207.0.1 状态引擎，这是官方 `FingerFeatureStateProvider` 内部使用的类。没有复制 SDK 的阈值算法，也没有引入另一个图像/神经网络识别器。项目适配层负责有效性与游戏手形组合；未挂载整套 `ShapeRecognizerActiveState` 预制体，也不调用其原生组件激活接口，因此不要求把 SteamVR 运行时切回 Meta Link。
+[OfficialHandPoseDetector](../../Assets/scripts/logic/Locomotion/OfficialHandPoseDetector.cs) 直接调用当前安装的 Meta Interaction SDK 207.0.1 状态引擎，这是官方 `FingerFeatureStateProvider` 内部使用的类。没有复制 SDK 的阈值算法，也没有引入另一个图像/神经网络识别器。项目适配层负责有效性与游戏手形组合；未挂载整套 `ShapeRecognizerActiveState` 预制体，也不调用其原生组件激活接口，因此不要求把 SteamVR 运行时切回 Meta Link。
 
-[官方基础手形配置](../../Assets/SealCombat/Configuration/LinearRpg/官方基础手形.asset) 分别引用官方食指、中指、无名指/小指的 `FingerFeatureStateThresholds`。当前 Curl 状态标识为 Open=`0`、Neutral=`1`、Closed=`2`。左指向要求食指 Open、其他三指 Closed；右张掌要求四指 Open；拇指忽略。
+[官方基础手形配置](../../Assets/ScriptableObjects/基础手形配置/官方基础手形.asset) 分别引用官方食指、中指、无名指/小指的 `FingerFeatureStateThresholds`。当前 Curl 状态标识为 Open=`0`、Neutral=`1`、Closed=`2`。左指向要求食指 Open、其他三指 Closed；右张掌要求四指 Open；拇指忽略。
 
 以当前安装资产为准：Open→Neutral 的边界为大于195度，反向为小于185度；Neutral→Closed 为大于245度，反向为小于225度。SDK 配置最短状态确认时间0.022秒。首次初始化的状态选择遵循SDK自身逻辑，不能将这些方向性边界当作一个无状态的角度区间。不要套用网上其他版本的示例阈值。
 
