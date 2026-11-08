@@ -1,0 +1,122 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyPoolingChecks.cs
++#if UNITY_EDITOR
++using System;
++using System.Linq;
++using System.Threading;
++using System.Threading.Tasks;
++using NarutoVR.SealCombat.Enemies;
++using NarutoVR.SealCombat.Rpg;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    public static class EnemyPoolingChecks
++    {
++        public static async Task WithTimeout(Task task)
++        {
++            if (await Task.WhenAny(task, Task.Delay(30000)) != task) throw new TimeoutException("敌人异步检查超过30秒");
++            await task;
++        }
++        public static async Task<string> Run()
++        {
++            var room = Object.FindFirstObjectByType<CombatRoomEncounter>();
++            var rpg = room.rpg; var move = rpg.locomotion;
++            room.ResetEncounter(); room.enabled = false;
++            var root = new GameObject("对象池回归临时服务"); root.SetActive(false);
++            var manager = root.AddComponent<EnemyManager>(); manager.catalog = room.enemyManager.catalog;
++            var catalog = ScriptableObject.CreateInstance<EnemyCatalog>();
++            int checks = 0;
++            void Check(bool ok, string message) { if (!ok) throw new Exception("对象池：" + message); checks++; }
++            async Task Reject<T>(Task task, string message) where T : Exception
++            { bool failed = false; try { await WithTimeout(task); } catch (T) { failed = true; } Check(failed, message); }
++            var spawn = room.spawnPoints.Single(); var pos = spawn.point.position; var rot = spawn.point.rotation;
++            string id = spawn.enemyId;
++            try
++            {
++                var definition = manager.catalog.enemies.Single();
++                catalog.enemies = new[] { definition, definition };
++                Check(!catalog.Validate(out var reason) && reason.Contains("重复"), "重复ID应报错");
++                catalog.enemies = new[] { definition };
++                Check(catalog.Validate(out _) && catalog.TryGet(id, out var lookup) && lookup == definition, "目录ID索引");
++                root.SetActive(true);
++                using (var cancelled = new CancellationTokenSource())
++                {
++                    cancelled.Cancel();
++                    await Reject<OperationCanceledException>(manager.SpawnEnemyAsync(id, pos, rot, move.head, false, cancelled.Token), "预取消请求不生成");
++                }
++                Check(manager.ActiveCount == 0 && manager.LoadedTypeCount == 0, "预取消不加载资源");
++                using (var cancel = new CancellationTokenSource())
++                {
++                    var first = manager.PreloadAsync(id, cancel.Token);
++                    var other = manager.PreloadAsync(id);
++                    cancel.Cancel();
++                    try { await WithTimeout(first); } catch (OperationCanceledException) { }
++                    await WithTimeout(other);
++                    Check(manager.LoadedTypeCount == 1, "一方取消不影响共享加载");
++                }
++                await WithTimeout(manager.PrewarmAsync(id, 2));
++                Check(manager.PooledCount == 2 && manager.ActiveCount == 0, "预热不激活敌人");
++                await Reject<ArgumentException>(manager.SpawnEnemyAsync("missing", pos, rot, move.head), "未知ID显式失败");
++                await Reject<InvalidOperationException>(manager.SpawnEnemyAsync(id, pos + Vector3.up * 100, rot, move.head), "无导航面不得生成");
++                Check(manager.PooledCount == 2 && manager.ActiveCount == 0, "无效出生不消耗池或登记实例");
++                var normal = await manager.SpawnEnemyAsync(id, pos, rot, move.head);
++                var controller = normal.Controller; controller.tickAutomatically = false;
++                Check(manager.IsCurrent(normal) && manager.TryGetActive(normal.Id, out var found) && ReferenceEquals(normal, found), "活跃注册与查询");
++                Check(!controller.isSpawnedEnemy && controller.Agent.isOnNavMesh, "普通敌人与导航接入");
++                float maxHp = controller.Entity.Combat.MaxHealth, maxPoise = controller.Entity.Combat.MaxPoise;
++                Check(controller.Entity.ReceiveHit("pooled-hit", 10, 20, null, move.head), "首轮受击");
++                Check(manager.Recycle(normal) && !controller.gameObject.activeSelf && controller.target == null && controller.Entity.ActiveAttackId == null, "回收停用、清目标与攻击");
++                Check(!manager.Recycle(normal), "重复回收被拒绝");
++                var summoned = await manager.SpawnEnemyAsync(id, pos, rot, move.head, true);
++                Check(summoned.Controller == controller && summoned.Id != normal.Id, "复用同对象但新出生ID");
++                Check(!manager.IsCurrent(normal) && !manager.Recycle(normal) && manager.IsCurrent(summoned), "旧租约不能回收新出生");
++                Check(controller.Entity.Combat.Health == maxHp && controller.Entity.Combat.Poise == maxPoise && !controller.HasEverDetectedPlayer && controller.CurrentAttack == -1, "新出生重置生命韧性和行为记录");
++                Check(controller.isSpawnedEnemy && controller.target == move.head && controller.Entity.ReceiveHit("pooled-hit", 1, 0, null, move.head), "召唤标志透传且受击去重集重置");
++                controller.SetTarget(null); controller.Tick(.1f);
++                Check(controller.CurrentBehaviour == EnemyController.Behaviour.Idle, "召唤敌人无目标待机");
++                controller.Entity.ReceiveHit("pool-lethal", 10000, 0);
++                Check(controller.IsDead, "死亡状态");
++                manager.Recycle(summoned);
++                var reborn = await manager.SpawnEnemyAsync(id, pos, rot, move.head);
++                Check(!reborn.Controller.IsDead && reborn.Controller.Entity.Combat.Health == maxHp, "死亡后池化重生");
++                manager.Recycle(reborn);
++                await WithTimeout(manager.PrewarmAsync(id, 20));
++                Check(manager.PooledCount == definition.maxInactive, "预热受闲置上限约束");
++                var many = new EnemyLease[definition.maxInactive + 1];
++                for (int i = 0; i < many.Length; i++) many[i] = await manager.SpawnEnemyAsync(id, pos, rot, null, true);
++                foreach (var lease in many) manager.Recycle(lease);
++                Check(manager.PooledCount == definition.maxInactive && manager.ActiveCount == 0, "回收超额销毁，不无界缓存");
++                var beforeDisable = await manager.SpawnEnemyAsync(id, pos, rot, null);
++                root.SetActive(false);
++                Check(manager.ActiveCount == 0 && manager.PooledCount == 0 && manager.LoadedTypeCount == 0 && !manager.Recycle(beforeDisable), "关闭服务清注册与失效租约");
++                root.SetActive(true);
++                var reopened = await manager.SpawnEnemyAsync(id, pos, rot, null);
++                Check(reopened.Id != beforeDisable.Id && manager.IsCurrent(reopened) && !manager.IsCurrent(beforeDisable), "新会话隔离旧租约");
++                manager.Recycle(reopened);
++                root.SetActive(false); root.SetActive(true);
++                var late = manager.SpawnEnemyAsync(id, pos, rot, null);
++                root.SetActive(false);
++                try { await WithTimeout(late); } catch (OperationCanceledException) { }
++                Check(manager.ActiveCount == 0, "加载过程中关闭无迟到活跃实例");
++
++                // Room cancellation uses its own manager and must not cancel that manager's shared cache.
++                room.enabled = true; rpg.RestoreCheckpoint();
++                move.rigRoot.position += new Vector3(0, -.03f, 20) - move.PlayerFloorPosition;
++                Physics.SyncTransforms(); room.TickEncounter(); var pending = room.SpawnTask;
++                room.ResetEncounter(); room.enabled = false;
++                await WithTimeout(pending);
++                Check(!room.HasStarted && room.enemyManager.ActiveCount == 0 && !room.IsLoadingEnemies, "重置在途房间批次后不留下敌人");
++                return $"对象池 {checks} 项通过：目录、共享异步加载、取消、预热上限、导航失败、出生类型、复用重置、旧租约、关闭重开与房间取消。";
++            }
++            finally
++            {
++                root.SetActive(false); Object.Destroy(root); Object.Destroy(catalog);
++                room.ResetEncounter(); room.enabled = true; rpg.RestoreCheckpoint();
++            }
++        }
++    }
++}
++#endif
+*** End Patch

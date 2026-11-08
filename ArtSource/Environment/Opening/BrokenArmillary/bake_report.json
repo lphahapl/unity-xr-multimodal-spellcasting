@@ -1,0 +1,59 @@
+{
+  "blender": "5.2.2 LTS",
+  "meters_per_unit": 1,
+  "source_parts_triangles": {
+    "01 Cast meridian, broken": 7708,
+    "02 Detached meridian sector": 972,
+    "03 Inclined equinoctial circle": 7464,
+    "04 Horizon bow": 3868,
+    "05 West bearing standard": 1340,
+    "06 East saddle": 1340,
+    "07 Lower meridian shoe": 1340,
+    "08 Survey axle, retained": 796,
+    "09 Survey axle, displaced": 796,
+    "10 Left trunnion": 1052,
+    "11 Center measuring boss": 1052,
+    "12 Displaced socket": 1052,
+    "13 Engraved pin head": 1052
+  },
+  "high_triangles": 29832,
+  "low_triangles": 1776,
+  "low_vertices": 912,
+  "baked_uv": "BakedUV",
+  "material_slots": 1,
+  "low_model_blender_xyz_m": [
+    2.552987575531006,
+    1.994645357131958,
+    2.7357029914855957
+  ],
+  "cage_extrusion_m": 0.018,
+  "ray_distance_m": 0.045,
+  "projection_pair_spacing_m": 3.5,
+  "projection": "Cycles selected high parts to active triangulated low, exploded pairs for color/tangent/PBR, assembled for AO",
+  "uv": "Unique metric strips and end caps, packed at 1K, tangent +X/+Y/+Z, 4px extend, .0036 pack margin",
+  "images": "BaseColor sRGB; Normal linear; Mask linear R=metal, G=AO, B=0, A=smoothness",
+  "axle_break_centerlines_blender_m": [
+    [
+      0.24,
+      -0.075,
+      1.57
+    ],
+    [
+      0.61,
+      -0.075,
+      1.89
+    ]
+  ],
+  "sha256": {
+    "BrokenArmillary.fbx": "22104d1f5340adf5a057414a681aec4d8135c551eca977d0d164072011828655",
+    "BrokenArmillary_BaseColor.png": "d8ba4cc39cc0b7f88fdaaac168f5740dfeffde0dcbd356bf7e6cf16e5ee9c8a9",
+    "BrokenArmillary_Mask.png": "504fb678d22f7dd21e0d2cb46fccbf694ee46be2988e98366c1ddc5d721e8d9c",
+    "BrokenArmillary_Normal.png": "3cea5442927f114ecaf9be07b3baf7dd0670ce73c2c74d19d9976614476d8ed6"
+  },
+  "existing_plinth_center_top_unity_m": [
+    2.6,
+    0.805,
+    64.65
+  ],
+  "approach_yaw_unity_deg": 180
+}

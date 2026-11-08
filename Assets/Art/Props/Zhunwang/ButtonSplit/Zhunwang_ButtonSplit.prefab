@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &568698384313192171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475399806829601040}
+  - component: {fileID: 1144914303905070783}
+  m_Layer: 0
+  m_Name: "\u5EA6\u529B"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1475399806829601040
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568698384313192171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6869088466266241084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -34}
+  m_SizeDelta: {x: 440, y: 62}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1144914303905070783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568698384313192171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f2aac67dd84f8d9745182562d9b250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGauge
+  cells:
+  - {fileID: 6011093159719998832}
+  - {fileID: 8868165017423071840}
+  - {fileID: 568036952817649792}
+  - {fileID: 4390021877286334228}
+  - {fileID: 4663980633880113395}
+  - {fileID: 2803432503364530181}
+  - {fileID: 4371283687411804692}
+  - {fileID: 1190251959101707860}
+  - {fileID: 5510305717159737611}
+  - {fileID: 8021491369281662638}
+  reading: {fileID: 0}
 --- !u!1 &2635539775903153077
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4190335315695736760}
   - component: {fileID: 1438754485859498317}
+  - component: {fileID: 3415012036416032677}
   m_Layer: 0
   m_Name: Zhunwang_ButtonSplit
   m_TagString: Untagged
@@ -31,6 +92,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 416179212492627215}
+  - {fileID: 5697787782806456940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1438754485859498317
@@ -46,16 +108,308 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.ZhunwangPressButton
   cap: {fileID: 3240415454711379207}
+  display: {fileID: 3415012036416032677}
   handInput: {fileID: 0}
   fingertip: {fileID: 0}
   travelMetres: 0.0015
-  touchRadius: 0.006
+  touchRadius: 0.022
   onPressed:
     m_PersistentCalls:
       m_Calls: []
   onReleased:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3415012036416032677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2635539775903153077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86744c2f9c7444598dda059c1a9749be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.ZhunwangWristDisplay
+  vitalsAnchor: {fileID: 6869088466266241084}
+  menuAnchor: {fileID: 7800154242901817349}
+  health: {fileID: 2659317902586880404}
+  power: {fileID: 1144914303905070783}
+  recoveryHint: {fileID: 8448482918008156836}
+--- !u!1 &4108152113300226649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5697787782806456940}
+  m_Layer: 0
+  m_Name: "\u51C6\u671B\u5323 \xB7 UI\u5B89\u88C5\u4F4D"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5697787782806456940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108152113300226649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6869088466266241084}
+  - {fileID: 7800154242901817349}
+  m_Father: {fileID: 4190335315695736760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4572485887404138491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7700153695018257066}
+  - component: {fileID: 1245836071807075995}
+  - component: {fileID: 8448482918008156836}
+  m_Layer: 0
+  m_Name: "\u5012\u4E0B\u63D0\u793A"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &7700153695018257066
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572485887404138491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6869088466266241084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 431, y: 65}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1245836071807075995
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572485887404138491}
+  m_CullTransparentMesh: 1
+--- !u!114 &8448482918008156836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572485887404138491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.97, g: 0.86, b: 0.69, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
+    m_FontSize: 36
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u6309\u6731\u7802\u6263 \xB7 \u6062\u590D\u68C0\u67E5\u70B9"
+--- !u!1 &6778111927129381592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448600930297307965}
+  - component: {fileID: 2659317902586880404}
+  m_Layer: 0
+  m_Name: "\u6C14\u8840"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1448600930297307965
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6778111927129381592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6869088466266241084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 34}
+  m_SizeDelta: {x: 440, y: 62}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2659317902586880404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6778111927129381592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f2aac67dd84f8d9745182562d9b250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGauge
+  cells:
+  - {fileID: 9123851323172596011}
+  - {fileID: 7862510131583104379}
+  - {fileID: 2741464675612926211}
+  - {fileID: 9102643755456214168}
+  - {fileID: 8289246195261300388}
+  - {fileID: 7658661846704562298}
+  - {fileID: 8219776138572188097}
+  - {fileID: 3060815472960666673}
+  - {fileID: 5347082520250806910}
+  - {fileID: 2856860094950919343}
+  reading: {fileID: 0}
+--- !u!1 &8328578313192621102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7800154242901817349}
+  m_Layer: 0
+  m_Name: "\u6559\u5B66\u9762\u677F\u6295\u5F71\u4F4D"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7800154242901817349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328578313192621102}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.195, z: 0.055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5697787782806456940}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9091449028348268591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6869088466266241084}
+  - component: {fileID: 5657105300887795483}
+  - component: {fileID: 3191489044863837709}
+  m_Layer: 0
+  m_Name: "\u8BFB\u6570\u4F4D \xB7 \u4E4C\u94DC\u53CC\u5C3A"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6869088466266241084
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091449028348268591}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.001965057}
+  m_LocalScale: {x: 0.0001334018, y: 0.0001334018, z: 0.0001334018}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1448600930297307965}
+  - {fileID: 1475399806829601040}
+  - {fileID: 7700153695018257066}
+  m_Father: {fileID: 5697787782806456940}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0069415346, y: 0.0842105}
+  m_SizeDelta: {x: 440, y: 156}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &5657105300887795483
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091449028348268591}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!222 &3191489044863837709
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091449028348268591}
+  m_CullTransparentMesh: 1
 --- !u!1001 &165553141880404708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64,6 +418,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4190335315695736760}
     m_Modifications:
+    - target: {fileID: -9187845316313124573, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -8988967928256075761, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
     - target: {fileID: -8679921383154817045, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10208139
@@ -116,6 +478,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7318717206306118965, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -7014108247672223653, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -6618194394594700825, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -6490041294519311100, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -6298053391412699366, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -5698409124469634821, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -4215024527589286328, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -2818717025924215538, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -2268840170777540457, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
     - target: {fileID: -1868137471631261058, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -124,10 +522,46 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 2b6f08dad1ee9bb4fa403487fb135b84, type: 2}
+    - target: {fileID: -1372668577383696280, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: -414321133063101123, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 874940195264153308, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
     - target: {fileID: 919132149155446097, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
       propertyPath: m_Name
       value: Zhunwang_ButtonSplit
       objectReference: {fileID: 0}
+    - target: {fileID: 2814589836403585623, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 2926657974427130023, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 4423370846432052517, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 4604851019925110177, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 5419001346089059576, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
+    - target: {fileID: 6602747412111477065, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aa9d6eab7834c52a2d40df3cdd88594, type: 2}
     - target: {fileID: 7185703617377902182, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -139,15 +573,615 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -1812629213288813520, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9123851323172596011}
+    - targetCorrespondingSourceObject: {fileID: -1799964737498197936, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7862510131583104379}
+    - targetCorrespondingSourceObject: {fileID: -2994305906796254003, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2741464675612926211}
+    - targetCorrespondingSourceObject: {fileID: -2506774190220352292, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9102643755456214168}
+    - targetCorrespondingSourceObject: {fileID: -505078212800138254, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8289246195261300388}
+    - targetCorrespondingSourceObject: {fileID: -1038117029073096937, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7658661846704562298}
+    - targetCorrespondingSourceObject: {fileID: -2539735001236369161, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8219776138572188097}
+    - targetCorrespondingSourceObject: {fileID: -4505755344709305599, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3060815472960666673}
+    - targetCorrespondingSourceObject: {fileID: -6217253264846201218, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5347082520250806910}
+    - targetCorrespondingSourceObject: {fileID: 7893497099773164183, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2856860094950919343}
+    - targetCorrespondingSourceObject: {fileID: 7583714706611670285, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6011093159719998832}
+    - targetCorrespondingSourceObject: {fileID: -369037806704502252, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8868165017423071840}
+    - targetCorrespondingSourceObject: {fileID: -3693344910892828004, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 568036952817649792}
+    - targetCorrespondingSourceObject: {fileID: -1835155026156286846, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4390021877286334228}
+    - targetCorrespondingSourceObject: {fileID: -4721635398318600209, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4663980633880113395}
+    - targetCorrespondingSourceObject: {fileID: 5637916209749279845, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2803432503364530181}
+    - targetCorrespondingSourceObject: {fileID: 5450661242933982752, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4371283687411804692}
+    - targetCorrespondingSourceObject: {fileID: 7925934931401339636, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1190251959101707860}
+    - targetCorrespondingSourceObject: {fileID: -1801033950090590482, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5510305717159737611}
+    - targetCorrespondingSourceObject: {fileID: -8382991012230302080, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8021491369281662638}
   m_SourcePrefab: {fileID: 100100000, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+--- !u!23 &75695877742777067 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8988967928256075761, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &158222925685607367 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -9187845316313124573, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &416179212492627215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
   m_PrefabInstance: {fileID: 165553141880404708}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &713129645880593508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8382991012230302080, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8021491369281662638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713129645880593508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 3086364854124930558}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!23 &1038150960223190072 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 874940195264153308, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1739120419730790447 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7318717206306118965, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2082008841291510463 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7014108247672223653, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2685068141678659763 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2814589836403585623, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2768406416384895747 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6618194394594700825, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2856008256356376544 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6490041294519311100, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3085452138620396099 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2926657974427130023, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3086364854124930558 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6298053391412699366, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3169347403896546458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6217253264846201218, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5347082520250806910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169347403896546458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 2768406416384895747}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
 --- !u!4 &3240415454711379207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5857937348872187933, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
   m_PrefabInstance: {fileID: 165553141880404708}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &3649893320863232543 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5698409124469634821, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4338453167868245259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4721635398318600209, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4663980633880113395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338453167868245259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 75695877742777067}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!23 &4443819379666192197 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4604851019925110177, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4552807092886306753 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4423370846432052517, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4842634958611907045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4505755344709305599, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3060815472960666673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842634958611907045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 3649893320863232543}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!23 &5173809356742878380 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4215024527589286328, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5293982151345946140 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5419001346089059576, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5325658502912969924 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5450661242933982752, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4371283687411804692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325658502912969924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 1038150960223190072}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &5508411828037680769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5637916209749279845, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2803432503364530181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508411828037680769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 4552807092886306753}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &5688807104375636088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3693344910892828004, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &568036952817649792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688807104375636088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 3085452138620396099}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &6070358689883428393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2994305906796254003, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2741464675612926211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070358689883428393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 4443819379666192197}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!23 &6479978913542173613 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6602747412111477065, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6534105649281382378 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2818717025924215538, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6813143371106036243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2539735001236369161, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8219776138572188097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813143371106036243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 1739120419730790447}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!1 &6879828506389732920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2506774190220352292, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9102643755456214168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879828506389732920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 6479978913542173613}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!23 &7120011060963193459 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2268840170777540457, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7247442856059049684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1812629213288813520, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9123851323172596011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247442856059049684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 158222925685607367}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!1 &7260947803413001830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1835155026156286846, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4390021877286334228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7260947803413001830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 6534105649281382378}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &7298386863361616564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1799964737498197936, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7862510131583104379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298386863361616564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 5173809356742878380}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!1 &7299588009842031626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1801033950090590482, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5510305717159737611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299588009842031626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 2685068141678659763}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &7742512311436687337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7583714706611670285, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6011093159719998832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742512311436687337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 7120011060963193459}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!23 &7980207595968201356 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1372668577383696280, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8048700436518160400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7925934931401339636, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1190251959101707860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048700436518160400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 8650324905196068825}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &8054543343456419955 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893497099773164183, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2856860094950919343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054543343456419955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 7980207595968201356}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!1 &8348538718871311859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1038117029073096937, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7658661846704562298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348538718871311859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 2082008841291510463}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}
+--- !u!23 &8650324905196068825 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -414321133063101123, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8695540096055337200 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -369037806704502252, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8868165017423071840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695540096055337200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 5293982151345946140}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.3, g: 0.77, b: 0.6, a: 1}
+--- !u!1 &8841045172322634006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -505078212800138254, guid: 13c4ea9faab5b7148a3dc111851709ed, type: 3}
+  m_PrefabInstance: {fileID: 165553141880404708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8289246195261300388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841045172322634006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  inlay: {fileID: 0}
+  glint: {fileID: 0}
+  insert: {fileID: 2856008256356376544}
+  fillAxis: {x: 1, y: 0.00000011920932, z: 0.00000011920929}
+  enamel: {r: 0.82, g: 0.215, b: 0.105, a: 1}

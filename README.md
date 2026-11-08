@@ -2,6 +2,8 @@
 
 **Unity XR 多模态施法交互原型：手部骨骼识别 × 离线中文口令 × 数据驱动技能。**
 
+《考工律度》的正式开场从封闭试炼室开始。玩家练习打靶与防护、击败一具残机偶，随后走出外门，到校规庭取得第一枚方圆规印。[打开首章场景](Assets/Scene/Chapter01_Awakening.unity) · [关卡与接线说明](docs/guides/CHAPTER01_AWAKENING_ZH.md)
+
 A Unity XR prototype combining skeletal hand gesture recognition and offline Chinese keyword spotting for configurable spellcasting, gesture locomotion, and a lightweight RPG demo.
 
 项目探索无需手柄的 VR 技能交互：从实际追踪的双手骨骼提取特征，以可配置规则识别固定手势，再与中文口令进行时间窗口匹配，驱动护盾、手持火球和战斗演示。仓库包含采样录制、识别诊断、技能配置、编辑器工具及单机关卡原型。

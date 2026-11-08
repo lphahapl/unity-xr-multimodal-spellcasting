@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fe9d2a506b04409a70cb3479eabdd, type: 3}
+  m_Name: CHAPTER_END
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgStageDefinition
+  stageId: opening.CHAPTER_END
+  displayName: "\u6D4B\u5019\u53F0"
+  instructions: "\u5230\u4E86\u3002\u987A\u7740\u5929\u4EEA\u90A3\u6839\u65AD\u8F74\u5F80\u8FDC\u5904\u770B\u3002\u6C88\u5546\uFF0C\u5E08\u5085\u6559\u5F97\u4E86\u4F60\u7528\u5C3A\uFF0C\u524D\u5934\u7684\u8DEF\uFF0C\u8FD8\u5F97\u4F60\u4EB2\u624B\u91CF\u3002"
+  targetHealth: 25
+  enableHazards: 0
+  startsInCombat: 1
+  rewardCurrency: 0
+  unlockSkillIds: []

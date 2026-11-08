@@ -1,0 +1,63 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+ using UnityEngine.Serialization;
++using NarutoVR.SealCombat.Events;
+@@
+-        [InspectorName("攻击接触回调时刻（动画归一化进度）"), Range(.01f, .95f)] public float contactNormalizedTime = .55f;
++        [HideInInspector] public float contactNormalizedTime = .55f; // 旧资产迁移入口，当前时间在 EnemyObj 逐招配置。
+@@
+-        [InspectorName("攻击接触时刻（仅事件，不自动扣血）")] public AttackEvent onAttackContact = new();
++        [InspectorName("进入生效窗口（通知，请勿重复绑定扣血）")] public AttackEvent onAttackContact = new();
+@@
+             enemyObj.Initialize();
++            enemyObj.EnsureAttackData(contactNormalizedTime);
+@@
+             // 池化重置不发出上一轮攻击结束业务事件。
++            enemyObj.EndStrike();
+@@
+-                        onFirstPlayerDetected.Invoke();
++                        Notify(EnemyEvents.FirstPlayerDetected, new EnemyDetectionNotice(this, seen), onFirstPlayerDetected.Invoke);
+@@
+             enemyObj.ClearAttackTriggers(); currentAttack = UnityEngine.Random.Range(0, Mathf.Max(1, attackCount));
++            if (!enemyObj.BeginStrike(currentAttack, out var failure))
++            { currentAttack = -1; cooldownUntil = clock + Mathf.Max(.1f, attackCooldown); SetBehaviour(Behaviour.Idle, failure); return; }
+@@
+-            onAttackStarted.Invoke(currentAttack);
++            int started = currentAttack;
++            Notify(EnemyEvents.AttackStarted, new EnemyAttackNotice(this, started, enemyObj.ActiveAttackId), () => onAttackStarted.Invoke(started));
+@@
+-                if (!contactSent && progress >= contactNormalizedTime)
++                int token = generation, attack = currentAttack;
++                string id = enemyObj.ActiveAttackId;
++                bool opened = enemyObj.EvaluateStrike(progress, checkLineOfSight, eyeHeight, obstructionMask);
++                // 扣血或回调可导致死亡、换目标、重生，不能继续提交旧攻击通知。
++                if (!this || generation != token || currentAttack != attack || suspended || !isActiveAndEnabled) return;
++                if (opened && !contactSent)
+                 {
+-                    contactSent = true; int token = generation, attack = currentAttack;
+-                    if (hasTarget && target && HasLineOfSight() &&
+-                        Vector3.ProjectOnPlane(target.position - transform.position, Vector3.up).magnitude <= attackDistance + .5f &&
+-                        Mathf.Abs(target.position.y - transform.position.y) <= navSampleRadius)
+-                        onAttackContact.Invoke(attack);
++                    contactSent = true;
++                    Notify(EnemyEvents.AttackWindowOpened, new EnemyAttackNotice(this, attack, id), () => onAttackContact.Invoke(attack));
+@@
+             if (currentAttack < 0) return;
++            string id = enemyObj ? enemyObj.ActiveAttackId : null;
++            if (enemyObj) enemyObj.EndStrike();
+@@
+-            onAttackFinished.Invoke(finished);
++            Notify(EnemyEvents.AttackFinished, new EnemyAttackNotice(this, finished, id), () => onAttackFinished.Invoke(finished));
+@@
+-        void SetBehaviour(Behaviour behaviour, string reason)
++        // 保留 Inspector 绑定，并桥接外部订阅；伤害不交给通知监听者执行。
++        static void Notify<T>(EventKey<T> key, T payload, Action configured)
++        {
++            try { configured?.Invoke(); }
++            catch (Exception error) { Debug.LogWarning("敌人配置事件回调异常：" + error); }
++            finally { EventCenter.Publish(key, payload); }
++        }
++
++        void SetBehaviour(Behaviour behaviour, string reason)
+*** End Patch

@@ -1,0 +1,340 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Events/EventCenter.cs
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Events
++{
++    /// <summary>
++    /// 类型安全的事件身份。名称仅用于诊断；同名新实例不是同一个事件，请集中声明 static readonly Key。
++    /// 多个参数使用一个不可变 payload 结构体承载，不复制不同参数数量的接口。
++    /// </summary>
++    public sealed class EventKey<T>
++    {
++        public string Name { get; }
++        public EventKey(string name = null) => Name = string.IsNullOrWhiteSpace(name) ? typeof(T).Name : name;
++        public override string ToString() => Name;
++    }
++
++    /// <summary>
++    /// 主线程同步事件入口，没有后台队列、场景单例或自动游戏对象。
++    /// 订阅者应在 OnEnable 订阅、OnDisable 释放 token；owner 只兜底过滤已销毁对象，不替代生命周期退订。
++    /// </summary>
++    public static class EventCenter
++    {
++        static readonly EventHub Shared = new();
++
++        public static IDisposable Subscribe<T>(EventKey<T> key, Action<T> handler, Object owner = null) =>
++            Shared.Subscribe(key, handler, owner);
++
++        public static void Unsubscribe<T>(EventKey<T> key, Action<T> handler) => Shared.Unsubscribe(key, handler);
++        public static void Publish<T>(EventKey<T> key, T payload) => Shared.Publish(key, payload);
++
++        // 禁用 Domain Reload 也会执行，防止上次 Play 的静态监听跨会话残留。
++        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
++        static void ResetStatics() => Shared.Clear();
++    }
++
++    /// <summary>
++    /// 可隔离使用的同步事件域，所有方法仅在 Unity 主线程调用。测试创建自己的实例，不清全局业务订阅。
++    /// 发布取快照：新增监听从下一次发布（含重入发布）生效；本轮尚未调用的已退订监听会跳过。
++    /// 同 Key、同 delegate 的重复订阅共享一个 token；任一持有者 Dispose 即取消唯一监听，Dispose 幂等。
++    /// 同一 delegate 不允许改绑不同 owner；需要先退订再重新订阅。
++    /// </summary>
++    public sealed class EventHub
++    {
++        readonly Dictionary<object, IBucket> buckets = new();
++        readonly Action<string, Exception> diagnostic;
++
++        /// <param name="diagnostic">监听者异常的诊断出口。默认写 Warning；异常不会中断后续监听者。</param>
++        public EventHub(Action<string, Exception> diagnostic = null) => this.diagnostic = diagnostic ?? DefaultDiagnostic;
++
++        public IDisposable Subscribe<T>(EventKey<T> key, Action<T> handler, Object owner = null)
++        {
++            if (key == null) throw new ArgumentNullException(nameof(key));
++            if (handler == null) throw new ArgumentNullException(nameof(handler));
++            if (handler.GetInvocationList().Length != 1)
++                throw new ArgumentException("请逐个订阅单一回调，以便分别隔离异常和管理生命周期。", nameof(handler));
++            if (ReferenceEquals(owner, null)) owner = handler.Target as Object;
++            if (!ReferenceEquals(owner, null) && !owner) return EmptySubscription.Instance;
++            if (!buckets.TryGetValue(key, out var untyped))
++            {
++                untyped = new Bucket<T>(this, key);
++                buckets.Add(key, untyped);
++            }
++            return ((Bucket<T>)untyped).Subscribe(handler, owner);
++        }
++
++        public void Unsubscribe<T>(EventKey<T> key, Action<T> handler)
++        {
++            if (key == null) throw new ArgumentNullException(nameof(key));
++            if (handler == null) throw new ArgumentNullException(nameof(handler));
++            if (buckets.TryGetValue(key, out var untyped)) ((Bucket<T>)untyped).Unsubscribe(handler);
++        }
++
++        public void Publish<T>(EventKey<T> key, T payload)
++        {
++            if (key == null) throw new ArgumentNullException(nameof(key));
++            if (buckets.TryGetValue(key, out var untyped)) ((Bucket<T>)untyped).Publish(payload);
++        }
++
++        /// <summary>仅清本事件域。先失效旧 token 和发布快照，再清表；旧 token 无法解除重置后的新订阅。</summary>
++        public void Clear()
++        {
++            foreach (var bucket in buckets.Values) bucket.Clear();
++            buckets.Clear();
++        }
++
++        void RemoveBucket(object key, IBucket bucket)
++        {
++            if (buckets.TryGetValue(key, out var current) && ReferenceEquals(current, bucket)) buckets.Remove(key);
++        }
++
++        void Report(string name, Exception error)
++        {
++            try { diagnostic(name, error); }
++            catch (Exception diagnosticError)
++            {
++                // 诊断出口自身失败也不能阻断游戏事件派发。
++                Debug.LogWarning($"事件 {name} 的诊断回调异常：{diagnosticError}\n原监听异常：{error}");
++            }
++        }
++
++        static void DefaultDiagnostic(string name, Exception error) =>
++            Debug.LogWarning($"事件 {name} 的监听回调异常，已继续通知其余监听者：{error}");
++
++        interface IBucket { void Clear(); }
++
++        sealed class EmptySubscription : IDisposable
++        {
++            internal static readonly EmptySubscription Instance = new();
++            public void Dispose() { }
++        }
++
++        sealed class Bucket<T> : IBucket
++        {
++            readonly EventHub hub;
++            readonly EventKey<T> key;
++            readonly List<Subscription> listeners = new();
++
++            public Bucket(EventHub hub, EventKey<T> key) { this.hub = hub; this.key = key; }
++
++            public IDisposable Subscribe(Action<T> handler, Object owner)
++            {
++                // 此处清理不能移除字典中的 bucket，否则新订阅会落入已被摘除的 bucket。
++                for (int i = listeners.Count - 1; i >= 0; i--)
++                    if (listeners[i].OwnerDestroyed) Remove(listeners[i], false);
++                foreach (var entry in listeners)
++                {
++                    if (!entry.Handler.Equals(handler)) continue;
++                    if (!ReferenceEquals(entry.Owner, owner))
++                        throw new ArgumentException("同一事件回调已绑定其他 owner，请先退订。", nameof(owner));
++                    return entry;
++                }
++                var subscription = new Subscription(this, handler, owner);
++                listeners.Add(subscription);
++                return subscription;
++            }
++
++            public void Unsubscribe(Action<T> handler)
++            {
++                for (int i = listeners.Count - 1; i >= 0; i--)
++                    if (listeners[i].Handler.Equals(handler)) Remove(listeners[i]);
++            }
++
++            public void Publish(T payload)
++            {
++                var snapshot = listeners.ToArray();
++                foreach (var entry in snapshot)
++                {
++                    if (!entry.Active) continue;
++                    if (entry.OwnerDestroyed) { Remove(entry); continue; }
++                    try { entry.Handler(payload); }
++                    catch (Exception error) { hub.Report(key.Name, error); }
++                }
++            }
++
++            void Remove(Subscription entry, bool removeEmptyBucket = true)
++            {
++                if (!entry.Active) return;
++                entry.Deactivate();
++                listeners.Remove(entry);
++                if (removeEmptyBucket && listeners.Count == 0) hub.RemoveBucket(key, this);
++            }
++
++            public void Clear()
++            {
++                foreach (var entry in listeners) entry.Deactivate();
++                listeners.Clear();
++            }
++
++            sealed class Subscription : IDisposable
++            {
++                Bucket<T> bucket;
++                public Action<T> Handler { get; private set; }
++                public Object Owner { get; private set; }
++                readonly bool hasOwner;
++                public bool Active => bucket != null;
++                public bool OwnerDestroyed => hasOwner && !Owner;
++
++                public Subscription(Bucket<T> bucket, Action<T> handler, Object owner)
++                { this.bucket = bucket; Handler = handler; Owner = owner; hasOwner = !ReferenceEquals(owner, null); }
++
++                public void Dispose() => bucket?.Remove(this);
++                public void Deactivate() { bucket = null; Handler = null; Owner = null; }
++            }
++        }
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Events/EventCenter.cs.meta
++fileFormatVersion: 2
++guid: e6b12ee7fbea44b288132ff19f94eb30
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EventCenterChecks.cs
++#if UNITY_EDITOR
++using System;
++using System.Collections.Generic;
++using NarutoVR.SealCombat.Events;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    /// <summary>全部使用独立事件域，不清理或替换正在运行的全局业务监听。</summary>
++    public static class EventCenterChecks
++    {
++        public static int Run()
++        {
++            int checks = 0;
++            void Check(bool passed, string reason) { if (!passed) throw new Exception("事件中心检查：" + reason); ++checks; }
++            var errors = new List<string>();
++            var hub = new EventHub((key, error) => errors.Add(key + ":" + error.Message));
++            var key = new EventKey<int>("独立测试事件");
++            var sameName = new EventKey<int>("独立测试事件");
++            int sum = 0;
++            Action<int> add = value => sum += value;
++            var token = hub.Subscribe(key, add);
++            hub.Publish(sameName, 9);
++            Check(sum == 0, "事件键按实例身份区分，不按名称合并");
++            hub.Publish(key, 3);
++            Check(sum == 3, "类型化 payload 原样传递");
++            var duplicate = hub.Subscribe(key, add);
++            Check(ReferenceEquals(token, duplicate), "重复回调共享同一取消 token");
++            hub.Publish(key, 2);
++            Check(sum == 5, "重复订阅不重复通知");
++            duplicate.Dispose(); token.Dispose(); token.Dispose(); hub.Publish(key, 8);
++            Check(sum == 5, "任一共享 token 取消唯一监听，重复 Dispose 幂等");
++
++            var resubscribe = hub.Subscribe(key, add);
++            token.Dispose(); hub.Publish(key, 1);
++            Check(sum == 6, "旧已取消 token 不移除后来同回调的订阅");
++            hub.Unsubscribe(key, add); hub.Unsubscribe(key, add); hub.Publish(key, 10);
++            Check(sum == 6, "显式退订与重复退订有效");
++            resubscribe.Dispose();
++
++            CheckSnapshotAndReentry(Check);
++            CheckReset(Check);
++
++            var badKey = new EventKey<int>("异常隔离");
++            int afterError = 0;
++            using var bad = hub.Subscribe<int>(badKey, _ => throw new InvalidOperationException("预期异常"));
++            using var good = hub.Subscribe<int>(badKey, _ => ++afterError);
++            hub.Publish(badKey, 0);
++            Check(errors.Count == 1 && errors[0].Contains("预期异常") && afterError == 1,
++                "监听异常送诊断回调且不阻断后续监听，不产生错误暂停日志");
++
++            var owner = new GameObject("事件测试_owner") { hideFlags = HideFlags.HideAndDontSave };
++            var otherOwner = new GameObject("事件测试_other_owner") { hideFlags = HideFlags.HideAndDontSave };
++            try
++            {
++                int ownedCalls = 0;
++                Action<int> owned = _ => ++ownedCalls;
++                var ownedKey = new EventKey<int>("生命周期");
++                var ownedToken = hub.Subscribe(ownedKey, owned, owner);
++                bool rejected = false;
++                try { hub.Subscribe(ownedKey, owned, otherOwner); }
++                catch (ArgumentException) { rejected = true; }
++                Check(rejected, "重复 delegate 换 owner 必须显式退订，不能暗改生命周期");
++                hub.Publish(ownedKey, 1);
++                Check(ownedCalls == 1, "有效 owner 正常接收");
++                Object.DestroyImmediate(owner);
++                hub.Publish(ownedKey, 1); ownedToken.Dispose();
++                Check(ownedCalls == 1, "已销毁 owner 自动跳过且 token 仍安全释放");
++                using var deadToken = hub.Subscribe(ownedKey, owned, owner);
++                hub.Publish(ownedKey, 1);
++                Check(ownedCalls == 1, "已经销毁的 owner 不建立新订阅");
++                using var freshToken = hub.Subscribe(ownedKey, owned, otherOwner);
++                hub.Publish(ownedKey, 1);
++                Check(ownedCalls == 2, "清理死亡监听后新 owner 可重新订阅同回调");
++            }
++            finally
++            {
++                if (owner) Object.DestroyImmediate(owner);
++                if (otherOwner) Object.DestroyImmediate(otherOwner);
++                hub.Clear();
++            }
++            bool rejectedNull = false, rejectedMulticast = false;
++            try { hub.Subscribe<int>(null, add); } catch (ArgumentNullException) { rejectedNull = true; }
++            try { hub.Subscribe(key, add + add); } catch (ArgumentException) { rejectedMulticast = true; }
++            Check(rejectedNull && rejectedMulticast, "无效键与多播复合委托明确拒绝");
++            return checks;
++        }
++
++        static void CheckSnapshotAndReentry(Action<bool, string> check)
++        {
++            var hub = new EventHub(); var key = new EventKey<int>("快照与重入");
++            var order = new List<string>();
++            IDisposable removed = null, added = null;
++            Action<int> third = value => order.Add("C" + value);
++            using var first = hub.Subscribe<int>(key, value =>
++            {
++                order.Add("A" + value);
++                if (value != 0) return;
++                removed.Dispose();
++                added = hub.Subscribe(key, third);
++                hub.Publish(key, 1);
++            });
++            removed = hub.Subscribe<int>(key, value => order.Add("B" + value));
++            hub.Publish(key, 0);
++            check(string.Join(",", order) == "A0,A1,C1", "退订跳过当前快照；新监听仅被后续重入发布看到");
++            hub.Publish(key, 2);
++            check(string.Join(",", order) == "A0,A1,C1,A2,C2", "重入完成后监听集合稳定");
++            added.Dispose(); removed.Dispose(); hub.Clear();
++            int selfCalls = 0; IDisposable self = null;
++            self = hub.Subscribe<int>(key, _ => { ++selfCalls; self.Dispose(); hub.Publish(key, 4); });
++            hub.Publish(key, 3);
++            check(selfCalls == 1, "回调可自退订并重入，不重复自己");
++        }
++
++        static void CheckReset(Action<bool, string> check)
++        {
++            var hub = new EventHub(); var key = new EventKey<int>("独立域重置");
++            int received = 0; Action<int> callback = _ => ++received;
++            var old = hub.Subscribe(key, callback);
++            hub.Clear();
++            var current = hub.Subscribe(key, callback);
++            old.Dispose(); hub.Publish(key, 1);
++            check(received == 1 && !ReferenceEquals(old, current), "Clear 后旧 token 无法移除新订阅");
++            current.Dispose(); hub.Clear();
++            int stale = 0, fresh = 0;
++            IDisposable replacement = null;
++            using var resetter = hub.Subscribe<int>(key, _ =>
++            {
++                hub.Clear();
++                replacement = hub.Subscribe<int>(key, __ => ++fresh);
++            });
++            using var staleToken = hub.Subscribe<int>(key, _ => ++stale);
++            hub.Publish(key, 0);
++            check(stale == 0 && fresh == 0, "派发期间 Clear 使旧快照失效，新订阅不混入旧派发");
++            resetter.Dispose(); staleToken.Dispose(); hub.Publish(key, 1);
++            check(fresh == 1, "清理旧快照 token 不影响新一代监听");
++            replacement.Dispose(); hub.Clear();
++        }
++    }
++}
++#endif
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EventCenterChecks.cs.meta
++fileFormatVersion: 2
++guid: 18212c356a414da7a2c23f405abdc852e
+*** End Patch

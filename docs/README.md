@@ -6,10 +6,11 @@
 
 | 要做的事 | 入口 |
 |---|---|
+| 试玩《考工律度》正式开场、配置教学与首谜 | [首章场景与接线](guides/CHAPTER01_AWAKENING_ZH.md) |
 | 接通头显 / 安装环境 / 排障 | [Steam Link](guides/STEAM_LINK_DEVELOPMENT_ZH.md) · [Unity/Quest 环境](guides/QUEST_SETUP.md) · [排障](guides/TRACKING_TROUBLESHOOTING_ZH.md) |
 | 开始 RPG 与操作 | [场景、资源和存档](guides/LINEAR_RPG_QUICKSTART_ZH.md) · [战斗/探索移动](guides/ENCOUNTER_LOCOMOTION_ZH.md) · [腕饰与教学卡](guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md) |
 | 火球与施法诊断 | [参数/算法](guides/FIREBALL_TUNING_ZH.md) · [施法链路](guides/SKILL_CAST_TRACE_ZH.md) |
-| 配置技能与展示 | [配置与扩展](guides/CONFIGURATION_GUIDE_ZH.md) · [旧四场景](guides/SKILL_SHOWCASES_ZH.md) · [中文 UI](guides/CHINESE_UI_ZH.md) |
+| 配置技能与展示 | [配置与扩展](guides/CONFIGURATION_GUIDE_ZH.md) · [雷光剑与可选近战判定](guides/CONFIGURATION_GUIDE_ZH.md#雷光剑与可选近战判定) · [旧四场景](guides/SKILL_SHOWCASES_ZH.md) · [中文 UI](guides/CHINESE_UI_ZH.md) |
 | 手势采样与识别 | [实验台](guides/SEAL_LAB.md) · [录制标定](guides/SEAL_LAB_QUICKSTART_ZH.md) · [识别测试](guides/RECOGNITION_TEST_ZH.md) · [官方基础手形](guides/OFFICIAL_HAND_POSES_ZH.md) |
 | 中文口令 | [接入配置](guides/SKILL_VOICE_SETUP_ZH.md) · [测试录音](guides/AUDIO_TEST_RECORDING_ZH.md) |
 | P1 反馈试炼 | [启动和操作](guides/P1_TRIAL_ZH.md) · [敌人战斗](guides/ENEMY_COMBAT_ZH.md) · [敌人加载](guides/ENEMY_SPAWNING_ZH.md) · [旁白](guides/NARRATION_FLOW_ZH.md) · [吸附工具](guides/SNAP_TOOL_ZH.md) |
@@ -19,6 +20,7 @@
 
 ## 架构与设计
 
+- 正式首章与首枚铜叶：[交接入口](architecture/开场教学与首枚铜叶/00_交接说明.md) · [室内教学](architecture/开场教学与首枚铜叶/01_室内教学流程.md) · [试炼室实景与交互](architecture/开场教学与首枚铜叶/08_试炼室制作与交互.md) · [外景路线与失度出图提示词](architecture/开场教学与首枚铜叶/04_室外场景与线性路线.md) · [同心合矩与方圆规印](architecture/开场教学与首枚铜叶/05_首枚铜叶解谜.md)。
 - [技能框架](architecture/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md) · [扩展接口](architecture/EXTENSION_INTERFACES_ZH.md) · [玩家数据](architecture/PLAYER_DATA_DESIGN_ZH.md) · [线性 RPG 范围](architecture/LINEAR_RPG_DESIGN_ZH.md)。
 - [画符设计](architecture/GLYPH_DESIGN_ZH.md)：战斗外有效抓笔进入，期间不结印/攻击，P2；运行时尚未实现。
 - [Quest/PICO 兼容](architecture/QUEST_PICO_COMPATIBILITY_PLAN_ZH.md) · [同房多人](architecture/MULTIPLAYER_LAN_PLAN_ZH.md) · [观众镜头](architecture/CAMERA_PRESENTATION_DESIGN_ZH.md)：设计契约，不是跨设备/联网已完成声明。
@@ -34,6 +36,8 @@
 - [程序需求](程序需求/考工律度_程序架构与交互底层技术需求规范.docx) · [策划需求](策划需求/考工律度_核心玩法机制与关卡首领数值策划案.docx) · [美术需求](美术需求/考工律度_美术资产与视效制作需求规范.docx) · [音频需求](音频音乐需求/考工律度_音频音效与离线语音工程需求规范.docx) · [跨专业交接](交接文档/考工律度_XR项目研发全景与跨专业交接指南.docx)。这些非 Markdown 资料本次保持原样，涉及变更同样要记录具体位置与内容。
 
 ## 调研与参考
+
+- [VR 游戏字幕的摆放与阅读](research/VR_CAPTIONS_PLACEMENT_ZH.md)，含已发售游戏、研究边界和首章验收用例。
 
 - [画符/移动来源](research/ROGUELITE_GLYPH_LOCOMOTION_SOURCES_ZH.md) · [设备来源](research/QUEST_PICO_COMPATIBILITY_SOURCES_ZH.md) · [多人来源](research/MULTIPLAYER_SOURCES_ZH.md)。
 - [语音方案比较](research/VOICE_GESTURE_RESEARCH_ZH.md) · [玩家音效](research/PLAYER_AUDIO_BASELINE_ZH.md) · [教学 UI](research/TUTORIAL_UI_RESEARCH_ZH.md) · [工具审阅](research/NEUGAMEMRTOOLS_REVIEW_ZH.md) · [历史跨系统审计](research/UI_PLATFORM_MULTIPLAYER_AUDIT_ZH.md)。

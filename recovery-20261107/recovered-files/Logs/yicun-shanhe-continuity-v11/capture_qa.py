@@ -1,0 +1,264 @@
+"""Compare an engine callback WAV with a periodic source; never claims device capture.
+
+Use only after capture has finished. Dependencies: NumPy, SciPy, SoundFile.
+All correlation and gain estimates use actual decoded PCM and WAV sample rates.
+"""
+import argparse
+from datetime import datetime
+import hashlib
+import json
+import math
+from pathlib import Path
+
+import numpy as np
+from scipy.signal import correlate, resample_poly
+import soundfile as sf
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def db(value):
+    return float(20*np.log10(value)) if value > 0 else None
+
+
+def rms(data):
+    return float(np.sqrt(np.mean(data*data))) if data.size else 0.0
+
+
+def normalized(a, b):
+    aa, bb = float(np.sum(a*a)), float(np.sum(b*b))
+    return float(np.sum(a*b)/math.sqrt(aa*bb)) if aa > 0 and bb > 0 else None
+
+
+def channel_map(source, capture):
+    if source.shape[1] == capture.shape[1]:
+        return source, capture, "matching channels, shared fitted gain"
+    if capture.shape[1] == 1:
+        return source.mean(axis=1, keepdims=True), capture, "source arithmetic channel mean to captured mono"
+    if source.shape[1] == 1:
+        return np.repeat(source, capture.shape[1], axis=1), capture, "mono source repeated to captured channels"
+    return source.mean(axis=1, keepdims=True), capture.mean(axis=1, keepdims=True), "unmatched multichannel layouts compared as arithmetic mono; channel routing unverified"
+
+
+def correlations(search, template):
+    numerator = sum(correlate(search[:, c], template[:, c], mode="valid", method="fft") for c in range(search.shape[1]))
+    power = np.sum(search*search, axis=1)
+    energy = np.r_[0.0, np.cumsum(power)]
+    denominator = np.sqrt(np.maximum(energy[len(template):]-energy[:-len(template)], 0)*np.sum(template*template))
+    return np.divide(numerator, denominator, out=np.zeros_like(numerator), where=denominator > 1e-30)
+
+
+def align(source, capture, sr, max_head):
+    stride = max(1, round(sr/2000))
+    width = min(round(12*sr), round(.75*len(source)))
+    width = max(stride*8, (width//stride)*stride)
+    anchor = min(round(.2*sr), len(source)-width)
+    anchor = (anchor//stride)*stride
+    template = source[anchor:anchor+width]
+    search_end = min(len(capture), round(max_head*sr)+anchor+width)
+    if search_end < anchor+width:
+        raise ValueError("Capture is too short for the alignment template")
+    rough = correlations(resample_poly(capture[:search_end], 1, stride, axis=0),
+                         resample_poly(template, 1, stride, axis=0))
+    positions = np.arange(len(rough))*stride-anchor
+    eligible = (positions >= 0) & (positions <= round(max_head*sr))
+    if not np.any(eligible):
+        raise ValueError("No permitted alignment offset")
+    # First equally good match avoids choosing a later full cycle in short fixtures.
+    best = np.max(np.abs(rough[eligible]))
+    candidates = np.flatnonzero(eligible & (np.abs(rough) >= best-1e-5))
+    coarse = int(positions[candidates[0]])
+    # A musical held tone can put the decimated maximum on a nearby pitch period.
+    # Search the full-resolution neighborhood broadly enough to distinguish it.
+    margin = max(3*stride, round(.1*sr))
+    low = max(0, coarse+anchor-margin)
+    high = min(len(capture), coarse+anchor+width+margin)
+    fine = correlations(capture[low:high], template)
+    point = int(np.argmax(np.abs(fine)))
+    offset = low+point-anchor
+    if offset < 0:
+        raise ValueError("Fine alignment begins before capture; this script requires the scheduled first loop to be captured")
+    return offset, {"offset_frames": offset, "offset_seconds": offset/sr,
+                    "template_source_start_seconds": anchor/sr, "template_seconds": width/sr,
+                    "normalized_uncentered_correlation": float(fine[point]),
+                    "coarse_step_frames": stride, "fine_search_radius_seconds": margin/sr,
+                    "max_head_search_seconds": max_head}
+
+
+def repeated(source, start, count):
+    return source[np.arange(start, start+count, dtype=np.int64) % len(source)]
+
+
+def block_sums(source, capture, offset, sr):
+    rows = []
+    for begin in range(offset, len(capture), sr):
+        end = min(begin+sr, len(capture))
+        actual = capture[begin:end]
+        reference = repeated(source, begin-offset, end-begin)
+        rows.append({"capture_start_frame": begin, "capture_end_frame": end,
+                     "source_elapsed_seconds": (begin-offset)/sr, "count": actual.size,
+                     "source_energy": float(np.sum(reference*reference)),
+                     "capture_energy": float(np.sum(actual*actual)), "dot": float(np.sum(actual*reference))})
+    return rows
+
+
+def aggregate(rows, gain):
+    aa, bb, dot = (sum(x[k] for x in rows) for k in ("source_energy", "capture_energy", "dot"))
+    count = sum(x["count"] for x in rows)
+    error = max(0.0, bb-2*gain*dot+gain*gain*aa)
+    return {"normalized_uncentered_correlation": dot/math.sqrt(aa*bb) if aa*bb > 0 else None,
+            "rms_error_dbfs": db(math.sqrt(error/count)) if count else None,
+            "error_rms_over_expected_rms": math.sqrt(error/(gain*gain*aa)) if gain*gain*aa else None,
+            "capture_rms_dbfs": db(math.sqrt(bb/count)) if count else None}
+
+
+def local_window(source, capture, offset, gain, sr, start, end):
+    first, last = max(offset, round(start*sr)), min(len(capture), round(end*sr))
+    if last-first < round(.05*sr):
+        return {"available": False}
+    actual = capture[first:last]
+    reference = repeated(source, first-offset, len(actual))
+    error = actual-gain*reference
+    margin = round(.1*sr)
+    # Template includes +/-100 ms, allowing a detected insertion or dropped block.
+    extended = repeated(source, first-offset-margin, len(actual)+2*margin)
+    correlations_by_lag = correlations(extended, actual)
+    best = int(np.argmax(np.abs(correlations_by_lag)))
+    # Positive lag means captured content is later (delayed) relative to source time.
+    delay = margin-best
+    return {"available": True, "capture_start_seconds": first/sr, "capture_end_seconds": last/sr,
+            "fixed_alignment_correlation": normalized(actual, reference),
+            "fixed_alignment_error_rms_dbfs": db(rms(error)),
+            "fixed_alignment_error_over_expected_rms": rms(error)/rms(gain*reference) if rms(gain*reference) else None,
+            "best_local_additional_delay_frames": delay, "best_local_additional_delay_seconds": delay/sr,
+            "best_local_correlation": float(correlations_by_lag[best]),
+            "lag_search_seconds_each_side": .1}
+
+
+def audit(source_path, capture_path, max_head=20, expected_sha=None):
+    source_hash, capture_hash = sha(source_path), sha(capture_path)
+    if expected_sha and expected_sha != source_hash:
+        raise ValueError("Source hash differs from the expected frozen file")
+    source, source_sr = sf.read(source_path, always_2d=True, dtype="float64")
+    captured, sr = sf.read(capture_path, always_2d=True, dtype="float64")
+    if not source.size or not captured.size or not np.isfinite(source).all() or not np.isfinite(captured).all():
+        raise ValueError("Empty or non-finite audio")
+    source_channels, captured_channels = source.shape[1], captured.shape[1]
+    duration = len(source)/source_sr
+    rational_period = len(source)*sr/source_sr
+    period = round(rational_period)
+    divisor = math.gcd(sr, source_sr)
+    if sr != source_sr:
+        source = resample_poly(source, sr//divisor, source_sr//divisor, axis=0, padtype="wrap")
+    source = source[:period]
+    source, captured, mapping = channel_map(source, captured)
+    offset, alignment = align(source, captured, sr, max_head)
+    rows = block_sums(source, captured, offset, sr)
+    gain = sum(x["dot"] for x in rows)/sum(x["source_energy"] for x in rows)
+    # Stable-block median is resistant to a damaged loop and does not assume AudioSource.volume staging.
+    adequate = [x for x in rows if x["source_energy"]/x["count"] > np.mean(source*source)*.03
+                and x["capture_energy"] > 0
+                and abs(x["dot"])/math.sqrt(x["source_energy"]*x["capture_energy"]) > .98]
+    if adequate:
+        gain = float(np.median([x["dot"]/x["source_energy"] for x in adequate]))
+    global_match = aggregate(rows, gain)
+    windows = [{"capture_start_seconds": x["capture_start_frame"]/sr, "source_elapsed_seconds": x["source_elapsed_seconds"],
+                **aggregate([x], gain)} for x in rows]
+    available = len(captured)-offset-period
+    periodicity = {"available": available > 0, "expected_period_frames": period,
+                   "expected_period_seconds": period/sr, "paired_seconds": max(available, 0)/sr}
+    if available > 0:
+        first, second = captured[offset:offset+available], captured[offset+period:]
+        delta = second-first
+        periodicity.update({"correlation": normalized(first, second), "difference_rms_dbfs": db(rms(delta)),
+                            "difference_peak": float(np.abs(delta).max()),
+                            "difference_rms_over_pair_rms": rms(delta)/rms(first) if rms(first) else None})
+    seams = []
+    for number in (1, 2):
+        at = (offset+number*period)/sr
+        seams.append({"loop_number": number, "predicted_capture_seconds": at,
+                      "source_loop_elapsed_seconds": number*duration,
+                      "whole_plus_minus_two_seconds": local_window(source, captured, offset, gain, sr, at-2, at+2),
+                      "before": local_window(source, captured, offset, gain, sr, at-2, at-.25),
+                      "after": local_window(source, captured, offset, gain, sr, at+.25, at+2)})
+    zero_mask = np.all(captured[offset:] == 0, axis=1)
+    changes = np.diff(np.r_[False, zero_mask, False].astype(np.int8))
+    zero_runs = []
+    for start, end in zip(np.flatnonzero(changes == 1), np.flatnonzero(changes == -1)):
+        if end-start < round(.005*sr):
+            continue
+        reference = repeated(source, int(start), int(end-start))
+        source_level = rms(reference)
+        active = source_level > rms(source)*10**(-35/20) and abs(gain)*source_level > 1e-7
+        zero_runs.append({"capture_start_seconds": (offset+int(start))/sr, "capture_end_seconds": (offset+int(end))/sr,
+                          "seconds": int(end-start)/sr, "expected_source_rms_dbfs": db(source_level),
+                          "expected_captured_rms_dbfs": db(abs(gain)*source_level),
+                          "source_is_above_quiet_review_floor": active,
+                          "suspected_extra_dropout": bool(active and end-start >= round(.01*sr))})
+    issues = []
+    if abs(alignment["normalized_uncentered_correlation"]) < .8:
+        issues.append("weak_initial_content_alignment")
+    if global_match["normalized_uncentered_correlation"] is None or abs(global_match["normalized_uncentered_correlation"]) < .98:
+        issues.append("global_capture_differs_from_resampled_loop")
+    if periodicity.get("difference_rms_over_pair_rms", 0) > .001:
+        issues.append("successive_periods_are_not_equal_within_0_1_percent_rms")
+    if any(x["suspected_extra_dropout"] for x in zero_runs):
+        issues.append("extra_all_zero_audio_where_reference_is_active")
+    for seam in seams:
+        before, after = seam["before"], seam["after"]
+        if before["available"] and after["available"]:
+            shift = after["best_local_additional_delay_frames"]-before["best_local_additional_delay_frames"]
+            seam["local_delay_change_frames"] = shift
+            if abs(shift) > max(2, round(.0001*sr)):
+                issues.append(f"timing_shift_across_loop_{seam['loop_number']}")
+    complete_seams = all(x["before"]["available"] and x["after"]["available"] for x in seams)
+    stable = source_hash == sha(source_path) and capture_hash == sha(capture_path)
+    if not stable:
+        issues.append("input_changed_during_analysis")
+    return {"status": "needs_review" if issues else "numeric_capture_checks_passed" if complete_seams else "partial_capture_checks_passed",
+            "timestamp": datetime.now().astimezone().isoformat(), "issues": issues,
+            "source": {"path": str(source_path), "sha256": source_hash, "sample_rate": source_sr, "channels": source_channels,
+                       "duration_seconds": duration},
+            "capture": {"path": str(capture_path), "sha256": capture_hash, "sample_rate": sr, "channels": captured_channels,
+                        "duration_seconds": len(captured)/sr, "subtype": sf.info(capture_path).subtype},
+            "alignment": alignment, "channel_comparison": mapping, "fitted_signed_gain": gain,
+            "gain_db": db(abs(gain)), "gain_method": "Median per-second least-squares gain over reference-active blocks; no assumption about Source.volume staging.",
+            "head_before_aligned_start": {"seconds": offset/sr, "rms_dbfs": db(rms(captured[:offset]))},
+            "resampling": {"method": "scipy.signal.resample_poly with wrap padding, then periodic indexing",
+                           "period_frames_exact_before_rounding": rational_period, "period_frames_used": period},
+            "global_match": global_match, "periodicity": periodicity, "natural_loop_seams": seams,
+            "all_zero_intervals_at_least_5ms": zero_runs, "one_second_windows": windows,
+            "inputs_unchanged": stable, "script_sha256": sha(Path(__file__)),
+            "limits": ["Engine callback WAV verification, not physical output-device or headset recording and not subjective listening.",
+                       "Exact first-loop scheduling is inferred from content; search permits nonnegative head delay up to the stated limit.",
+                       "The resampler is an independent approximation of engine interpolation; residual waveform differences may be codec/resampler differences.",
+                       "Source quietness alone is not dropout. All-zero intervals are flagged only when source RMS exceeds whole-source RMS minus35dB and predicted capture RMS exceeds1e-7.",
+                       "Loop periodicity and local offset are numerical evidence, not an automatic musical or perceptual loop verdict.",
+                       "The output period is rounded to the nearest frame; noninteger source-duration/output-rate products need separate timing interpretation."]}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument("--capture", type=Path, required=True)
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--expected-source-sha")
+    parser.add_argument("--max-head-seconds", type=float, default=20)
+    args = parser.parse_args()
+    if args.out.exists() or args.out.resolve() in (args.source.resolve(), args.capture.resolve()):
+        parser.error("Output must be a new file distinct from both inputs")
+    if args.max_head_seconds < 0 or not math.isfinite(args.max_head_seconds):
+        parser.error("max-head-seconds must be finite and nonnegative")
+    result = audit(args.source, args.capture, args.max_head_seconds, args.expected_source_sha)
+    result["command"] = sys.argv
+    with args.out.open("x", encoding="utf-8") as file:
+        json.dump(result, file, ensure_ascii=False, allow_nan=False, indent=2)
+    print(json.dumps({"status": result["status"], "issues": result["issues"], "alignment": result["alignment"],
+                      "gain": result["fitted_signed_gain"], "periodicity": result["periodicity"]}, indent=2))
+
+
+if __name__ == "__main__":
+    import sys
+    main()

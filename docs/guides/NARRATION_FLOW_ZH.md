@@ -2,7 +2,7 @@
 
 `NarrationController` 按 `lines` 的顺序逐句播放。`CurrentStep` 暴露当前步骤，`CurrentStep.Id` 就是列表下标，从 0 开始；未开始、停止和全部完成后为 null。Inspector 显示中文字段和当前状态。
 
-音频放在 `Resources/Narration`，每句填写音频文件名、说话者、推进方式及“到下一句的间隔（秒）”。只挂 `NarrationController` 即可，Unity 自动补上所需的 AudioSource，不需要独立计时组件。目前没有选项树和字幕 UI。
+音频放在 `Resources/Narration`。在 Inspector 展开每句，填写音频文件名、说话者、多行台词正文、推进方式和句间隔。游戏代码可在本句开始时从 `CurrentLine.text` 读取当前正文，停止后 `CurrentLine` 为空。Unity 在同一物体上补齐所需的 AudioSource。
 
 ## 一句怎么推进
 
@@ -66,25 +66,30 @@ UnityAction onOperationSucceeded = () =>
 
 ## 导入、调试和验证
 
-CSV/XLSX 支持以下三列，Excel 只读取第一张工作表，CSV 使用 UTF-8。表头保留英文，顺序可以调换。
+CSV/XLSX 支持以下四列，Excel 读取第一张工作表，CSV 使用 UTF-8。具名列可调换顺序。
 
-| audioFileName | speaker | delayAfter |
-|---|---|---|
-| intro_01.wav | 老师 | 0.5 |
-| fireball_hint.wav | 老师 | 2 |
-| training_complete.wav | 老师 | 0 |
+| audioFileName | speaker | delayAfter | text |
+|---|---|---|---|
+| Chapter01/WK01.wav | 申屠（老考工官） | 0.8 | 沈商，醒醒。听听你左腕上的声音。是我，师傅申屠。 |
+| Chapter01/PZ01.wav | 申屠（老考工官） | 0.5 | 你看，台上的盘错了位。瞧瞧左边的石刻，再用右手捏住铜耳，转一转。 |
 
 `audioFileName`、`speaker` 必填；`delayAfter` 为到下一句的间隔秒数，可以填 0 或非负小数，小数使用英文句点。负数、非数字、NaN、Infinity 或重复表头会拒绝导入并显示错误。所有行通过校验后才更新配置，不会因后面某行错误而改掉前面的旧间隔。
 
-重导入按音频文件名与说话者及出现顺序复用旧句，保留推进方式和句事件。**表内有 delayAfter 列时覆盖间隔，空白按 0；旧表没有该列时保留已有间隔，新句默认 0。**空音频的纯操作句仍在 Inspector 手动添加；推进方式和 UnityEvent 仍在 Inspector 配置。
+重导入按音频文件名、说话者和出现顺序复用旧句，保留推进方式和句事件。表中带 `delayAfter` 时按单元格更新间隔，空白按 0。带 `text` 时按单元格写入完整正文，空白可以清除该句正文。缺省列保留同一句的已有值。新句没有间隔时取 0。纯操作句可在 Inspector 直接添加。
 
-桌面示例：`对话导入示例.csv`、`对话导入示例.xlsx`；Excel 第一页是导入数据，第二页是填写说明。项目副本位于 `outputs/narration-import-20261105/`。示例音频名是占位，需换成自己的实际音频，示例文件本身不包含音频。
+无表头旧数据按“音频文件名、说话者、可选间隔秒数”固定顺序识别，各行使用相同的列数。添加正文请用具名表头。CSV 中含半角逗号、双引号或换行的字段要用双引号包裹，字段内的双引号写成两个连续双引号。可直接导入[苏醒组两句示例](../architecture/开场教学与首枚铜叶/ImportGroups/ROOM_WAKE.csv)或[首章主线导入表](../architecture/开场教学与首枚铜叶/03_Unity旁白导入.csv)。
+
+要复验导入器，Unity 批处理命令的 `-executeMethod` 可填 `NarutoVR.SealCombat.Editor.NarrationTableChecks.Run`。该检查覆盖新旧 CSV、正文转义、重复音频、事件保留及错误行回滚。
+
+2026-11-07 的桌面示例为 `对话导入示例.csv` 与 `对话导入示例.xlsx`。选任一份导入即可。Excel 第一页是导入数据，第二页是填写说明。三个音频文件名是占位，试播前请换成实际录音。
+
+以第二句“请把铜叶装入导轨”为例，在 Inspector 选“音频和操作都完成”。把场景中对应的 `SnapZone → 整条吸附完成` 绑定到“对话”物体的 `NarrationController → PublishCurrentOperation()`。用“本句开始”开启这一步的交互，使玩家能在这句提示音播放期间动手。提示音播完、铜叶也吸附到最后一点后，才开始计表中填写的 2 秒，然后播放第三句。
 
 ## Inspector 从零配置
 
 1. 新建空物体“教学对话”，挂 `NarrationController`，Unity 自动补上 AudioSource。无需额外挂发布器或计时器。
 2. 把音频放在 `Assets/Resources/Narration/`，例如 `intro_01.wav`。若尚无目录先创建。表格中的音频名必须与资源对应。
-3. 点击“从 CSV / Excel 导入旁白”，选择示例或自己的表格。“逐句配置”会出现每句的音频名、说话者和间隔；新句默认自动继续。
+3. 点击“从 CSV / Excel 导入旁白”，选择示例或自己的表格。展开“逐句配置”，可查看每句的音频名、说话者、正文与间隔。新句默认自动继续。
 4. 按需求设置每句推进方式：自动继续、等待操作、音频和操作都完成。间隔可在 Inspector 临时调整，下次带 delayAfter 列重导入会以表格为准。
 5. 需要操作时，把实际操作成功事件绑定到这个控制器的 `PublishCurrentOperation()`。仅在对应教学步骤启用监听，条件通过后解绑或关闭，避免其它操作完成当前步骤。无需另填步骤 ID。
 6. 在触发区域、按钮等事件中绑定 `StartDialogue()` 启动；也可进入 Play 后用 Inspector 的“开始旁白”测试。最后保存场景或 Prefab。

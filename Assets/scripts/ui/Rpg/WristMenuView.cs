@@ -65,7 +65,9 @@ namespace NarutoVR.SealCombat.Rpg
             Muted,
             Cyan,
             Violet,
-            Gold
+            Gold,
+            Lacquer,
+            Brass
         }
 
         private sealed class GraphicBinding
@@ -100,9 +102,16 @@ namespace NarutoVR.SealCombat.Rpg
         private Transform _decoration;
         private Transform _reticle;
         private LineRenderer _pointer;
+        private Text _launcherVitals, _launcherProgress;
+        private string _launcherIdleHint;
+        int shownHp, shownMp;
         private Text _panelTitle;
         private Text _panelBody;
         private Text _panelFooter;
+        private RectTransform _lessonSurface, _statusMark, _statusHollow;
+        private Text _lessonState, _lessonMethod, _lessonCost, _lessonVoiceLabel, _lessonVoice, _lessonAction, _sealCaption, _sealSequence, _wordFace;
+        private RawImage _sealArt;
+        private readonly Dictionary<string, Texture> _sealTextures = new();
 
         private Material _cyanMaterial;
         private Material _violetMaterial;
@@ -172,11 +181,82 @@ namespace NarutoVR.SealCombat.Rpg
         public void ShowPanel(Pose pose, string title, string body, string footer)
         {
             EnsureBuilt();
+            _lessonSurface.gameObject.SetActive(false);
+            _panelBody.gameObject.SetActive(true);
             _panelTitle.text = title ?? string.Empty;
             _panelBody.text = body ?? string.Empty;
             _panelFooter.text = footer ?? string.Empty;
             Place(_panel, pose);
             _panel.gameObject.SetActive(true);
+        }
+
+        internal void ShowLesson(Pose pose, WristTeachingLesson lesson, int step, bool voiceIndex,
+            TechniqueLearningState state, bool available, bool permanent, bool savePending, string footer)
+        {
+            EnsureBuilt();
+            _panelBody.gameObject.SetActive(false);
+            _lessonSurface.gameObject.SetActive(true);
+            _panelTitle.text = lesson.Name;
+            _panelFooter.text = footer;
+
+            bool hasImage = !voiceIndex && lesson.Seals.Count > 0;
+            var reference = voiceIndex && lesson.Voice ? lesson.Voice : lesson.Reference;
+            bool pendingLeaf = state == TechniqueLearningState.LeafCollected;
+            _lessonState.text = state switch {
+                TechniqueLearningState.LeafCollected => "已取铜叶\n待入匣",
+                TechniqueLearningState.LeafRegistered => available ? "已入匣\n已解锁" : "已入匣\n待校验",
+                TechniqueLearningState.Locked => "待解锁",
+                _ => available ? (permanent ? "已解锁" : "试炼可用") : "已习得\n当前未启用"
+            };
+            bool leafState = pendingLeaf || state == TechniqueLearningState.LeafRegistered;
+            if (leafState && savePending) _lessonState.text += "\n待存档";
+            _statusMark.localRotation = Quaternion.Euler(0, 0, leafState ? 45 : 0);
+            _statusHollow.gameObject.SetActive(!available || pendingLeaf);
+            _lessonMethod.text = lesson.HasAlternative ? "结印 或 念咒" : reference.triggerMode == SkillTriggerMode.VoiceAndGesture ? "结印 ＋ 念咒" : hasImage ? "双手结印" : "念出口令";
+            _lessonCost.text = $"度力  {reference.manaCost:0.#}\n冷却  {reference.cooldownSeconds:0.#} 秒";
+            _lessonVoiceLabel.text = hasImage && lesson.Voice ? (lesson.HasAlternative ? "另一种施放方式" : "配合口令") : hasImage ? "施放" : "施放条件";
+            _lessonVoice.text = hasImage && lesson.Voice ? lesson.Voice.phrase : hasImage ? "保持手印" : lesson.Gesture && !lesson.HasAlternative ? SealName(lesson.Seals[0]) : "完整念出";
+            _lessonAction.text = reference.effectKind == SkillEffectKind.HeldFireball || reference.effectDefinition is ProjectileEffectDefinition ? "成形后握住火球\n向前甩手，松开" : lesson.HasAlternative ? "两种方式任选其一" : "";
+            string name = hasImage ? lesson.Seals[step] : null;
+            Texture texture = hasImage ? LoadSeal(name) : null;
+            _sealArt.texture = texture;
+            _sealArt.gameObject.SetActive(texture);
+            if (texture)
+            {
+                float ratio = (float)texture.width / texture.height;
+                _sealArt.rectTransform.sizeDelta = ratio > 430f/320f ? new Vector2(430,430/ratio) : new Vector2(320*ratio,320);
+            }
+            _wordFace.gameObject.SetActive(!texture);
+            _wordFace.text = hasImage ? SealName(name) : lesson.Voice ? lesson.Voice.phrase : "";
+            _sealCaption.text = hasImage ? SealName(name) : "口令";
+            _sealSequence.text = hasImage && lesson.Seals.Count > 1 ? Sequence(lesson.Seals, step) : "";
+            Place(_panel, pose); _panel.gameObject.SetActive(true);
+        }
+
+        static string SealName(string value) => string.IsNullOrEmpty(value) || value.EndsWith("印") ? value : value+"印";
+        static string Sequence(IReadOnlyList<string> seals, int active)
+        {
+            var s = new System.Text.StringBuilder();
+            int first = Mathf.Clamp(active-1,0,Mathf.Max(0,seals.Count-3));
+            if (first > 0) s.Append("…  ");
+            for (int i=first;i<Mathf.Min(seals.Count,first+3);i++)
+            {
+                if (i>first) s.Append("  →  ");
+                if (i==active) s.Append('【');
+                s.Append(SealName(seals[i]));
+                if (i==active) s.Append('】');
+            }
+            if (first+3<seals.Count) s.Append("  …");
+            return s.ToString();
+        }
+
+        Texture LoadSeal(string seal)
+        {
+            string key=(seal??string.Empty).Trim();
+            if (_sealTextures.TryGetValue(key,out var result)) return result;
+            if (key.Length>0) result=Resources.Load<Texture2D>("Teaching/Seals/"+key);
+            _sealTextures[key]=result;
+            return result;
         }
 
         public void HidePanel()
@@ -332,17 +412,42 @@ namespace NarutoVR.SealCombat.Rpg
             _launcher = NewCanvas("术式启动器", LauncherWidth, LauncherHeight, 20);
             AddPlate(_launcher, LauncherWidth, LauncherHeight);
 
-            AddText("启动器标题", _launcher, 202f, 35f, 340f, 54f,
-                "腕上术式", 30, TextAnchor.MiddleLeft, Ink.Text);
-            AddText("抬腕提示", _launcher, 545f, 35f, 290f, 40f,
-                "再点左腕饰关闭", 24, TextAnchor.MiddleRight, Ink.Muted);
+            bool usesCase = TryGetComponent<WristMenuController>(out var controller) && controller.wornDevice;
+            AddText("启动器标题", _launcher, 142f, 35f, 225f, 54f,
+                usesCase ? "准望匣" : "腕上术式", 33, TextAnchor.MiddleLeft, Ink.Text);
+            _launcherIdleHint=usesCase ? "再按朱砂扣收起" : "再点左腕饰关闭";
+            _launcherProgress=AddText("腕匣课数与铜叶", _launcher, 459f, 35f, 465f, 56f,
+                _launcherIdleHint, 26, TextAnchor.MiddleRight, Ink.Gold);
 
-            AddButton(_launcher, "seal", 134f, 149f, 210f, 150f, "结印", "手印", 40);
+            AddButton(_launcher, "seal", 134f, 149f, 210f, 150f, "术式教学", null, 36);
             AddButton(_launcher, "glyph", 360f, 149f, 210f, 150f, "画符", "符纹", 40);
             AddButton(_launcher, "voice", 586f, 149f, 210f, 150f, "咒语", "言灵", 40);
 
-            AddText("交互提示", _launcher, 360f, 263f, 660f, 42f,
-                "右手食指轻触 · 远指捏合", 24, TextAnchor.MiddleCenter, Ink.Muted);
+            if (usesCase)
+                _launcherVitals=AddText("气血与度力 · 大字读数",_launcher,360f,262f,670f,68f,
+                    "",46,TextAnchor.MiddleCenter,Ink.Text);
+            else
+                AddText("交互提示", _launcher, 360f, 263f, 660f, 42f,
+                    "右手食指轻触 · 远指捏合", 24, TextAnchor.MiddleCenter, Ink.Muted);
+        }
+
+        public void SetLauncherVitals(WristGauge health,WristGauge power)
+        {
+            if (health && power) SetLauncherVitals(health.Value,power.Value);
+        }
+
+        internal void SetLauncherVitals(float health, float mana)
+        {
+            if (!_launcherVitals) return;
+            int hp=Mathf.CeilToInt(health),mp=Mathf.CeilToInt(mana);
+            if (hp==shownHp && mp==shownMp && _launcherVitals.text.Length!=0) return;
+            shownHp=hp; shownMp=mp;
+            _launcherVitals.text=$"气血 {hp}    度力 {mp}";
+        }
+        internal void SetLauncherProgress(string progress)
+        {
+            string value=string.IsNullOrEmpty(progress)?_launcherIdleHint:progress;
+            if (_launcherProgress && _launcherProgress.text!=value) _launcherProgress.text=value;
         }
 
         public void SetPanelPose(Pose pose) { if(_panel) Place(_panel,pose); }
@@ -356,22 +461,47 @@ namespace NarutoVR.SealCombat.Rpg
 
             AddButton(_panel,"follow",650f,72f,290f,72f,"跟随 / 固定",null,27);
             AddButton(_panel,"drag",950f,72f,260f,72f,"捏住拖动",null,27);
-            AddImage("标题分隔线", _panel, 560f, 128f, 1000f, 2f, Ink.Cyan, 0.35f);
+            AddImage("标题分隔线", _panel, 560f, 128f, 1000f, 2f, Ink.Brass, 0.7f);
 
             // 固定页高，不自行翻页、不滚动、不修改父系统提供的内容。
             _panelBody = AddText("分页正文", _panel, 560f, 366f, 1000f, 444f,
                 string.Empty, 36, TextAnchor.UpperLeft, Ink.Text);
             _panelBody.lineSpacing = 1.05f;
+            BuildLessonSurface();
 
             _panelFooter = AddText("页脚", _panel, 560f, 628f, 1000f, 80f,
                 string.Empty, 25, TextAnchor.MiddleLeft, Ink.Muted);
 
-            AddImage("操作分隔线", _panel, 560f, 672f, 1000f, 2f, Ink.Violet, 0.35f);
+            AddImage("操作分隔线", _panel, 560f, 672f, 1000f, 2f, Ink.Brass, 0.55f);
 
             AddButton(_panel, "previous", 179f, 731f, 240f, 100f, "上一页", null, 32);
             AddButton(_panel, "next", 433f, 731f, 240f, 100f, "下一页", null, 32);
             AddButton(_panel, "relocate", 687f, 731f, 240f, 100f, "重新定位", null, 32);
             AddButton(_panel, "close", 941f, 731f, 240f, 100f, "关闭", null, 32);
+        }
+
+        private void BuildLessonSurface()
+        {
+            _lessonSurface=NewRect("铜叶教学卡",_panel,560,400,1120,800);
+            var paper=_lessonSurface;
+            AddImage("图版底",paper,560,369,470,426,Ink.Muted,.11f);
+            AddImage("图版上沿",paper,560,157,470,3,Ink.Gold,.72f);
+            AddImage("图版下沿",paper,560,581,470,2,Ink.Gold,.48f);
+            var artRect=NewRect("本印手形",paper,560,337,430,320);
+            _sealArt=artRect.gameObject.AddComponent<RawImage>(); _sealArt.raycastTarget=false;
+            _wordFace=AddText("中心口令或印名",paper,560,342,440,166,"",60,TextAnchor.MiddleCenter,Ink.Text);
+            _sealCaption=AddText("图注",paper,560,517,444,64,"",41,TextAnchor.MiddleCenter,Ink.Gold);
+            _sealSequence=AddText("印序",paper,560,557,454,40,"",24,TextAnchor.MiddleCenter,Ink.Text);
+            _statusMark=AddImage("状态印外形",paper,70,201,18,18,Ink.Gold).rectTransform;
+            _statusHollow=AddImage("空心状态",_statusMark,9,9,10,10,Ink.Plate).rectTransform;
+            _lessonState=AddText("习得状态",paper,201,210,216,136,"",28,TextAnchor.MiddleLeft,Ink.Gold);
+            AddText("术式方式标签",paper,176,306,230,45,"触发方式",25,TextAnchor.MiddleLeft,Ink.Muted);
+            _lessonMethod=AddText("术式方式",paper,181,356,240,66,"",34,TextAnchor.MiddleLeft,Ink.Text);
+            _lessonCost=AddText("消耗与冷却",paper,180,483,240,120,"",28,TextAnchor.MiddleLeft,Ink.Muted);
+            _lessonVoiceLabel=AddText("提示标题",paper,951,247,230,55,"",26,TextAnchor.MiddleLeft,Ink.Gold);
+            _lessonVoice=AddText("提示内容",paper,951,307,238,78,"",39,TextAnchor.MiddleLeft,Ink.Text);
+            _lessonAction=AddText("施法动作",paper,951,453,240,120,"",28,TextAnchor.MiddleLeft,Ink.Muted);
+            paper.gameObject.SetActive(false);
         }
 
         private RectTransform NewCanvas(string name, float width, float height, int order)
@@ -394,19 +524,20 @@ namespace NarutoVR.SealCombat.Rpg
 
         private void AddPlate(RectTransform parent, float width, float height)
         {
+            bool card = parent == _panel;
             Image shadow = AddImage("轻薄背影", parent,
                 width * 0.5f + 5f, height * 0.5f + 7f,
                 width + 8f, height + 8f, Ink.Plate, 0.5f);
             shadow.rectTransform.localPosition += Vector3.forward * 0.5f;
 
             AddImage("青色细边", parent, width * 0.5f, height * 0.5f,
-                width, height, Ink.Cyan, 0.38f);
+                width, height, card ? Ink.Brass : Ink.Cyan, card ? .85f : .38f);
             AddImage("深色内板", parent, width * 0.5f, height * 0.5f,
-                width - 4f, height - 4f, Ink.Plate);
+                width - 4f, height - 4f, card ? Ink.Lacquer : Ink.Plate);
 
             AddImage("左上金纹", parent, 66f, 2f, 128f, 3f, Ink.Gold, 0.85f);
             AddImage("右下紫纹", parent, width - 82f, height - 2f,
-                160f, 3f, Ink.Violet, 0.8f);
+                160f, 3f, card ? Ink.Brass : Ink.Violet, 0.8f);
 
             Image diamond = AddImage("角部菱印", parent,
                 width - 13f, 13f, 7f, 7f, Ink.Gold, 0.9f);
@@ -426,7 +557,7 @@ namespace NarutoVR.SealCombat.Rpg
             outline.useGraphicAlpha = false;
 
             AddImage("青色侧纹", rect, 3f, height * 0.5f,
-                3f, height - 24f, Ink.Cyan, 0.45f);
+                3f, height - 24f, parent == _panel ? Ink.Brass : Ink.Cyan, 0.45f);
 
             bool hasCaption = !string.IsNullOrEmpty(caption);
             Text labelText = AddText("按钮文字", rect,
@@ -654,6 +785,8 @@ namespace NarutoVR.SealCombat.Rpg
                 case Ink.Cyan: return cyanColor;
                 case Ink.Violet: return violetColor;
                 case Ink.Gold: return goldColor;
+                case Ink.Lacquer: return new Color(.055f,.098f,.094f,.98f);
+                case Ink.Brass: return new Color(.74f,.63f,.39f,1f);
                 default: return textColor;
             }
         }
@@ -661,15 +794,18 @@ namespace NarutoVR.SealCombat.Rpg
         private void PaintButton(ButtonVisual button)
         {
             bool hovered = button == _hovered;
+            bool card = _panel && button.rect.IsChildOf(_panel);
+            var accent=card ? ResolveInk(Ink.Brass) : cyanColor;
+            var regular=card ? new Color(.11f,.165f,.15f,buttonColor.a) : buttonColor;
             Color background = hovered
-                ? Color.Lerp(buttonColor, cyanColor, 0.18f)
-                : buttonColor;
+                ? Color.Lerp(regular, accent, 0.28f)
+                : regular;
             background.a = buttonColor.a;
 
             if (button.background.color != background)
                 button.background.color = background;
 
-            Color edge = cyanColor;
+            Color edge = accent;
             edge.a *= hovered ? 0.95f : 0.28f;
             if (button.outline.effectColor != edge)
                 button.outline.effectColor = edge;
@@ -870,12 +1006,13 @@ namespace NarutoVR.SealCombat.Rpg
             _cyanMaterial=_violetMaterial=_goldMaterial=_pointerMaterial=null;
             _acceptedClip=_rejectedClip=null;
             _launcher=_panel=_openingHint=_openingFill=null;
-            _panelTitle=_panelBody=_panelFooter=_openingText=null;
+            _launcherVitals=_panelTitle=_panelBody=_panelFooter=_openingText=null;
             _decoration=_reticle=null; _pointer=null;
 
             // UI / LineRenderer 的内部网格由对应组件管理。
             // 不销毁用户字体、Resources 字体、内置字体或 Unity 默认 UI 材质。
             _targets.Clear();
+            _sealTextures.Clear();
             _buttons.Clear();
             _graphics.Clear();
             _texts.Clear();

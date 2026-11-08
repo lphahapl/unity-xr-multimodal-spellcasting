@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/ConfigurationAssetOrganizer.cs
+@@
+-            if (count != 14 || !File.Exists(LinearRpgSceneSetup.VoiceConfigurationPath)) throw new Exception("配置数量或语音导出缺失");
++            if (count == 0 || !File.Exists(LinearRpgSceneSetup.VoiceConfigurationPath)) throw new Exception("配置或语音导出缺失");
+*** End Patch

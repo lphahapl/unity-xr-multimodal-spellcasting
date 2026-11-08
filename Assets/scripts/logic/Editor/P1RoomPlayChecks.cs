@@ -92,7 +92,20 @@ namespace NarutoVR.SealCombat.Editor
             Position(17); Check(!room.HasStarted, "通廊不唤醒敌人");
             Position(20); await EnemyPoolingChecks.WithTimeout(room.SpawnTask); enemy = room.enemies.Single();
             Check(room.HasStarted && move.EncounterCombat && enemy.isActiveAndEnabled && enemy.Agent.isOnNavMesh, "进入房间激活敌人与真实导航面");
-            enemy.Tick(.1f); Check(enemy.HasEverDetectedPlayer, "房间内敌人视野能够发现玩家");
+            enemy.Tick(.1f);
+            Check(Vector3.Distance(move.PlayerFloorPosition, enemy.transform.position) > 8f && enemy.HasTarget,
+                "P1 房间残机偶能从九米左右看见刚进门的玩家");
+            Position(24.18f);
+            Vector3 headPosition = move.head.position;
+            try
+            {
+                move.head.position = move.PlayerFloorPosition + Vector3.up * 2.13f;
+                enemy.Tick(enemy.repathSeconds + .05f);
+                Check(enemy.CurrentBehaviour == Enemies.EnemyController.Behaviour.Chase && enemy.Agent.hasPath &&
+                    enemy.Agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathComplete,
+                    "实机高头位超出导航采样半径时仍按玩家所在楼层追击");
+            }
+            finally { move.head.position = headPosition; }
             Check(enemy.Entity.ReceiveHit("room-test-hit", 10, 0, null, move.head), "室内命中可扣血");
             float hp = enemy.Entity.Combat.Health;
             rpg.targets[0].ResetTarget(); rpg.DebugDefeatTargets();
@@ -107,7 +120,7 @@ namespace NarutoVR.SealCombat.Editor
             enemy.Entity.ReceiveHit("room-test-lethal", 10000, 0, null, move.head); room.TickEncounter();
             Check(room.IsComplete && !move.EncounterCombat, "全灭完成恢复探索");
             Position(17); Position(20); Check(room.IsComplete && enemy.Entity.Combat.Dead, "完成后重进不刷怪");
-            return $"实际 P1 场景 {checks} 项通过：靶场/通廊隔离、入房、真实导航与发现、扣血、靶击破不覆盖战斗、退出暂停/免疫、保血重入、检查点重置、全灭。";
+            return $"实际 P1 场景 {checks} 项通过：靶场/通廊隔离、入房、约九米视野发现、高头位按脚下寻路、扣血、靶击破不覆盖战斗、退出暂停/免疫、保血重入、检查点重置、全灭。";
         }
     }
 }

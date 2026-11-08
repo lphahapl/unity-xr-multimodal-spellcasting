@@ -1,0 +1,17 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/yicun_dizi_phrases_v11.py
+@@
+ CHANGES = [
+     "39.80 E4 guzheng bridges the descent into the string-free section.",
++    "42.35 E4, 44.00 E4 and 46.65 D4 add quiet connections inside the open-space phrase.",
+@@
+     guzheng += [
+         (39.80, 64, 1.35, .22, "transition"),
++        (42.35, 64, .60, .20, "transition"),
++        (44.00, 64, .85, .23, "transition"),
++        (46.65, 62, .35, .21, "transition"),
+@@
+         (39.8, [64], [0], [1.35], [.22], "connection into open space"),
++        (42.35, [64, 64, 62], [0, 1.65, 4.3], [.6, .85, .35],
++         [.20, .23, .21], "subdued connections inside the open-space phrase"),
+*** End Patch

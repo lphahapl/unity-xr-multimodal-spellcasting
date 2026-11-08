@@ -1,0 +1,29 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Logs/narration-gates-20261105/VerifyNarrationGates.cs
+@@
+         using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+         {
+             f.Controller.lines[0].onStarted.AddListener(f.Controller.StopDialogue);
+@@
+             Check(f.Controller.CurrentLine == null && f.Advanced == 0, "onStarted停止不会复活旧句");
+         }
++        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
++        {
++            bool restarted = false;
++            f.Controller.lines[0].onStarted.AddListener(() => { if (!restarted) { restarted = true; f.Controller.RestartDialogue(); } });
++            f.Controller.StartDialogue(); await Wait(() => f.Started == 2 && f.Controller.CurrentLine != null, "本句开始事件重启");
++            Check(f.DialogueStarted == 2 && f.Advanced == 0 && !f.Controller.OperationCompleted,
++                "onStarted重启建立独立首句，不沿用旧门控");
++        }
+@@
+         using (var f = new Fixture(Line(), Line()))
+@@
+             Check(f.Advanced == 0 && f.Ended == 0 && f.Controller.CurrentLine == null, "onCompleted停止阻止旧句通过/整段完成");
+         }
++        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
++        {
++            f.Controller.lines[0].onCompleted.AddListener(f.Controller.CompleteCurrentOperation);
++            f.Controller.StartDialogue(); await Wait(() => f.Ended == 1, "音频结束回调完成操作");
++            Check(f.Completed == 1 && f.Advanced == 1, "音频结束回调内完成操作不重复完成/推进");
++        }
+*** End Patch

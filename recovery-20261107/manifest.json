@@ -1,0 +1,1332 @@
+{
+  "generated": "2026-11-07",
+  "source": "Codex session logs",
+  "last_commit": "96f0a20",
+  "files": [
+    {
+      "path": "Assets/SealCombat/Art/Props/Zhunwang/使用说明.txt",
+      "patches": 3,
+      "last_patch": "2026-11-05T10:41:57.598Z"
+    },
+    {
+      "path": "Assets/SealCombat/Audio/YicunShanhe_Credits.txt",
+      "patches": 6,
+      "last_patch": "2026-11-04T12:24:30.594Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/BgmLoopVerification.cs",
+      "patches": 4,
+      "last_patch": "2026-11-05T10:46:16.046Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/ConfigurationAssetOrganizer.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T11:53:28.482Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyAttackChecks.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T10:35:43.611Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyAttackChecks.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:28:06.256Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyCombatChecks.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T10:52:35.810Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyDetectionChecks.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T10:58:46.556Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyPoolingChecks.cs",
+      "patches": 6,
+      "last_patch": "2026-11-04T13:13:28.467Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemyPoolingSetup.cs",
+      "patches": 3,
+      "last_patch": "2026-11-05T06:30:48.336Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EnemySetupAndChecks.cs",
+      "patches": 5,
+      "last_patch": "2026-11-04T09:57:31.597Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EventCenterChecks.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T10:19:02.225Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/EventCenterChecks.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:17:26.672Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/Interaction/SnapZoneChecks.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T11:09:30.927Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/Interaction/SnapZoneEditor.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T11:07:07.916Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/NavGatePlayOnce.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T08:11:41.816Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1AudioChecks.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T09:53:48.819Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1HapticChecks.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T09:54:02.292Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1RoomEncounterChecks.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T11:19:42.877Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1RoomLayoutSetup.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T12:57:39.102Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1RoomPlayChecks.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T13:08:59.430Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1VfxChecks.cs",
+      "patches": 2,
+      "last_patch": "2026-11-02T09:54:09.378Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/P1VfxChecks.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-02T09:53:54.511Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/PlayerObjChecks.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T10:35:58.269Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs",
+      "patches": 5,
+      "last_patch": "2026-11-05T06:37:39.628Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-05T05:57:06.537Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/Zhunwang10kUpdateOnce.cs",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:04:34.690Z"
+    },
+    {
+      "path": "Assets/SealCombat/Editor/ZhunwangImportOnce.cs",
+      "patches": 2,
+      "last_patch": "2026-11-05T09:42:29.923Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/AttackData.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:22:13.496Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/CombatDamageReceiver.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T10:24:40.778Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T10:25:55.623Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyCombatDefinition.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:29:30.542Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyCombatState.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:29:30.542Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyController.cs",
+      "patches": 8,
+      "last_patch": "2026-11-04T04:04:59.780Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyDetectionSensor.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:43:57.835Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyHitZone.cs",
+      "patches": 3,
+      "last_patch": "2026-11-04T10:43:57.835Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyObj.cs",
+      "patches": 10,
+      "last_patch": "2026-11-04T10:45:06.854Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/EnemyPoiseBar.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:29:30.542Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyCatalog.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T12:52:24.780Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyDefinition.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T12:52:24.780Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyLease.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T12:52:24.780Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs",
+      "patches": 5,
+      "last_patch": "2026-11-04T12:59:26.157Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Events/EnemyEvents.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T10:30:34.888Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Events/EventCenter.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:17:26.672Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Events/EventCenter.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:17:26.672Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Events/NarrationEvents.cs",
+      "patches": 2,
+      "last_patch": "2026-11-05T07:39:21.805Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Interaction/Snapping/SnapItem.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T11:04:59.508Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Interaction/Snapping/SnapZone.cs",
+      "patches": 2,
+      "last_patch": "2026-11-04T11:07:07.916Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.Spawning.cs",
+      "patches": 3,
+      "last_patch": "2026-11-04T13:02:04.452Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.cs",
+      "patches": 3,
+      "last_patch": "2026-11-04T12:48:52.078Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/Data/PlayerSO.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:34:44.524Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:27:55.436Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/GameManager.cs",
+      "patches": 4,
+      "last_patch": "2026-11-04T13:04:20.523Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/HapticFeedbackService.cs",
+      "patches": 4,
+      "last_patch": "2026-11-02T09:55:34.019Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/P1AudioManager.cs",
+      "patches": 2,
+      "last_patch": "2026-11-02T09:53:48.819Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/P1FallbackAudio.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T09:53:15.833Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/PlayerObj.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:34:44.524Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs",
+      "patches": 3,
+      "last_patch": "2026-11-04T10:34:44.524Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs",
+      "patches": 4,
+      "last_patch": "2026-11-02T09:54:09.378Z"
+    },
+    {
+      "path": "Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs.meta",
+      "patches": 1,
+      "last_patch": "2026-11-02T09:53:54.511Z"
+    },
+    {
+      "path": "Assets/SealLab/Editor/OfficialHandVisualSetup.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T07:45:40.036Z"
+    },
+    {
+      "path": "Assets/SealLab/Editor/WrapHandPlayCheck.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T07:07:21.746Z"
+    },
+    {
+      "path": "Assets/SealLab/Editor/WrapHandReplayCheck.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T07:27:40.123Z"
+    },
+    {
+      "path": "Assets/SealLab/Editor/WrapHandSetup.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T07:00:36.478Z"
+    },
+    {
+      "path": "Assets/SealLab/Runtime/TrackedWrapHand.cs",
+      "patches": 1,
+      "last_patch": "2026-11-02T07:00:04.367Z"
+    },
+    {
+      "path": "Campus仓库发布/audit_index.py",
+      "patches": 3,
+      "last_patch": "2026-10-23T11:06:31.366Z"
+    },
+    {
+      "path": "Campus仓库发布/commit-message.txt",
+      "patches": 1,
+      "last_patch": "2026-10-23T11:07:07.948Z"
+    },
+    {
+      "path": "Campus仓库发布/flatten_standards.py",
+      "patches": 1,
+      "last_patch": "2026-10-23T11:05:41.697Z"
+    },
+    {
+      "path": "Campus仓库发布/prepare_publish.py",
+      "patches": 1,
+      "last_patch": "2026-10-23T11:02:04.246Z"
+    },
+    {
+      "path": "Campus仓库发布/verify_remote_clone.py",
+      "patches": 1,
+      "last_patch": "2026-10-23T11:08:33.449Z"
+    },
+    {
+      "path": "Logs/camera-design/review-prompt.txt",
+      "patches": 1,
+      "last_patch": "2026-10-30T07:44:52.652Z"
+    },
+    {
+      "path": "Logs/canjiou-animation-import-20261104/CanJiOuAnimationImportJob.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T02:48:43.741Z"
+    },
+    {
+      "path": "Logs/canjiou-animation-import-20261104/copy_sources.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T02:47:45.769Z"
+    },
+    {
+      "path": "Logs/canjiou-animation-import-20261104/inspect_sources.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T02:46:38.722Z"
+    },
+    {
+      "path": "Logs/diagnose-upm-path.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-27T16:48:59.154Z"
+    },
+    {
+      "path": "Logs/docs-cleanup-work/finish.py",
+      "patches": 1,
+      "last_patch": "2026-11-01T13:06:04.398Z"
+    },
+    {
+      "path": "Logs/docs-cleanup-work/organize.py",
+      "patches": 2,
+      "last_patch": "2026-11-01T13:00:58.828Z"
+    },
+    {
+      "path": "Logs/docs-cleanup-work/verify.py",
+      "patches": 2,
+      "last_patch": "2026-11-01T13:06:04.398Z"
+    },
+    {
+      "path": "Logs/hand-feasibility-20261102/pose.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:03:47.879Z"
+    },
+    {
+      "path": "Logs/hand-feasibility-20261102/probe.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:03:13.002Z"
+    },
+    {
+      "path": "Logs/hand-reference-probe/extract.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:49:41.491Z"
+    },
+    {
+      "path": "Logs/hand-reference-probe/project.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:50:33.403Z"
+    },
+    {
+      "path": "Logs/interaction-feel-20261030/tutorial-source-pack.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T15:24:10.530Z"
+    },
+    {
+      "path": "Logs/music-production-tools/sampler-research.json",
+      "patches": 1,
+      "last_patch": "2026-11-04T14:03:07.787Z"
+    },
+    {
+      "path": "Logs/narration-gates-20261105/VerifyNarrationGates.cs",
+      "patches": 4,
+      "last_patch": "2026-11-05T06:37:11.229Z"
+    },
+    {
+      "path": "Logs/official-hand-poses/review-task.txt",
+      "patches": 1,
+      "last_patch": "2026-10-30T12:06:00.101Z"
+    },
+    {
+      "path": "Logs/read-crash-exception.py",
+      "patches": 7,
+      "last_patch": "2026-10-27T18:07:40.718Z"
+    },
+    {
+      "path": "Logs/scored-throw-20261031/integrate.py",
+      "patches": 1,
+      "last_patch": "2026-10-30T18:52:36.544Z"
+    },
+    {
+      "path": "Logs/scored-throw-20261031/review-prompt.txt",
+      "patches": 1,
+      "last_patch": "2026-10-30T18:39:51.230Z"
+    },
+    {
+      "path": "Logs/skill-organization-20261104/TokenCheck/Program.cs",
+      "patches": 1,
+      "last_patch": "2026-11-04T03:10:32.886Z"
+    },
+    {
+      "path": "Logs/skill-organization-20261104/TokenCheck/TokenCheck.csproj",
+      "patches": 1,
+      "last_patch": "2026-11-04T03:10:32.886Z"
+    },
+    {
+      "path": "Logs/skill-organization-20261104/annotate.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T03:06:20.259Z"
+    },
+    {
+      "path": "Logs/skill-organization-20261104/annotate_editor.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T03:11:46.492Z"
+    },
+    {
+      "path": "Logs/skill-organization-20261104/organize.ps1",
+      "patches": 1,
+      "last_patch": "2026-11-04T03:07:14.591Z"
+    },
+    {
+      "path": "Logs/watch-native-exception.py",
+      "patches": 1,
+      "last_patch": "2026-10-27T17:55:07.011Z"
+    },
+    {
+      "path": "Logs/wrist-menu-20261030/task.txt",
+      "patches": 1,
+      "last_patch": "2026-10-30T15:47:50.359Z"
+    },
+    {
+      "path": "Logs/wrist-wrap-150/build.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:53:45.466Z"
+    },
+    {
+      "path": "Logs/wrist-wrap-150/preview.py",
+      "patches": 1,
+      "last_patch": "2026-11-02T06:54:19.242Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-continuity-v11/capture_qa.py",
+      "patches": 3,
+      "last_patch": "2026-11-05T10:56:33.256Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-continuity-v11/capture_validate_synthetic.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T10:35:26.531Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-continuity-v11/finalize_acceptance.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:50:44.329Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-continuity-v11/qa_signal.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T10:24:37.304Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-continuity-v11/transition-analysis.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:15:41.197Z"
+    },
+    {
+      "path": "Logs/yicun-shanhe-phrased-v10/audit_signal.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T06:25:58.846Z"
+    },
+    {
+      "path": "Logs/zhunwang-10k-20261105/finalize.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:15:26.030Z"
+    },
+    {
+      "path": "Logs/zhunwang-10k-20261105/record_handoff.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:17:04.752Z"
+    },
+    {
+      "path": "Logs/zhunwang-inscription-20261105/finalize.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:43:10.417Z"
+    },
+    {
+      "path": "Logs/zhunwang-inscription-20261105/record_handoff.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:45:29.949Z"
+    },
+    {
+      "path": "Logs/zhunwang-unity-20261105/finalize.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T09:45:51.565Z"
+    },
+    {
+      "path": "Logs/zhunwang-unity-20261105/quest-assessment.json",
+      "patches": 1,
+      "last_patch": "2026-11-05T09:51:36.590Z"
+    },
+    {
+      "path": "docs/ARCHITECTURE_REFACTOR_QA_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-29T14:58:25.626Z"
+    },
+    {
+      "path": "docs/AUDIO_TEST_RECORDING_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-29T12:58:33.796Z"
+    },
+    {
+      "path": "docs/CAMERA_PRESENTATION_DESIGN_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-10-30T15:54:40.244Z"
+    },
+    {
+      "path": "docs/CHINESE_UI_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-29T10:09:54.748Z"
+    },
+    {
+      "path": "docs/DIRECTIONAL_INTERACTION_AND_THROW_ZH.md",
+      "patches": 7,
+      "last_patch": "2026-10-30T19:01:15.177Z"
+    },
+    {
+      "path": "docs/DIRECTIONAL_INTERACTION_QA_2026-10-30_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T14:03:17.755Z"
+    },
+    {
+      "path": "docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T19:33:52.225Z"
+    },
+    {
+      "path": "docs/HAND_TRACKING_AB_TEST_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-28T12:38:17.821Z"
+    },
+    {
+      "path": "docs/HAND_TRACKING_ENVIRONMENT_REPAIR_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-28T13:39:47.858Z"
+    },
+    {
+      "path": "docs/INTERACTION_FEEL_AND_DEBUG_ZH.md",
+      "patches": 6,
+      "last_patch": "2026-10-30T19:00:46.213Z"
+    },
+    {
+      "path": "docs/INTERACTION_REPAIR_20261101_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-31T17:24:02.303Z"
+    },
+    {
+      "path": "docs/KAO_GONG_LU_DU_TECH_CONFLICT_REVIEW_20261101_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-11-01T12:27:39.213Z"
+    },
+    {
+      "path": "docs/KAO_GONG_LU_DU_V15_REVIEW_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-11-01T11:50:40.130Z"
+    },
+    {
+      "path": "docs/KAO_GONG_LU_DU_V1_REVIEW_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T19:35:23.638Z"
+    },
+    {
+      "path": "docs/LINEAR_RPG_DESIGN_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-30T15:54:40.244Z"
+    },
+    {
+      "path": "docs/LINEAR_RPG_QA_2026-10-30_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-30T12:26:04.622Z"
+    },
+    {
+      "path": "docs/LINEAR_RPG_QUICKSTART_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-30T17:31:39.179Z"
+    },
+    {
+      "path": "docs/LINK_HAND_TRACKING_CASES_SOURCE_NOTES.md",
+      "patches": 2,
+      "last_patch": "2026-10-28T13:46:36.949Z"
+    },
+    {
+      "path": "docs/MULTIPLAYER_LAN_PLAN_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-30T15:55:56.245Z"
+    },
+    {
+      "path": "docs/NEUGAMEMRTOOLS_REVIEW_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-28T08:22:47.657Z"
+    },
+    {
+      "path": "docs/OFFICIAL_HAND_POSES_ZH.md",
+      "patches": 5,
+      "last_patch": "2026-10-30T17:25:53.473Z"
+    },
+    {
+      "path": "docs/QUEST_FIRMWARE_UPDATE_GEMINI_HANDOFF_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-28T14:05:47.767Z"
+    },
+    {
+      "path": "docs/QUEST_PICO_COMPATIBILITY_PLAN_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-29T16:21:56.700Z"
+    },
+    {
+      "path": "docs/QUEST_PICO_COMPATIBILITY_SOURCES_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-29T16:18:41.895Z"
+    },
+    {
+      "path": "docs/QUEST_SETUP.md",
+      "patches": 7,
+      "last_patch": "2026-10-28T02:25:40.034Z"
+    },
+    {
+      "path": "docs/RECOGNITION_TEST_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-30T07:56:27.024Z"
+    },
+    {
+      "path": "docs/ROGUELITE_GLYPH_LOCOMOTION_SOURCES_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T09:35:04.469Z"
+    },
+    {
+      "path": "docs/SCORED_THROW_DIAGNOSTICS_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-30T19:13:22.204Z"
+    },
+    {
+      "path": "docs/SEAL_LAB.md",
+      "patches": 4,
+      "last_patch": "2026-10-28T03:02:07.201Z"
+    },
+    {
+      "path": "docs/SEAL_LAB_QUICKSTART_ZH.md",
+      "patches": 5,
+      "last_patch": "2026-10-30T07:56:27.024Z"
+    },
+    {
+      "path": "docs/SKILL_CAST_TRACE_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-31T22:10:23.071Z"
+    },
+    {
+      "path": "docs/SKILL_DELIVERY_QA_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-29T13:50:22.008Z"
+    },
+    {
+      "path": "docs/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-29T12:14:43.382Z"
+    },
+    {
+      "path": "docs/SKILL_TEST_GUIDE_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-10-29T14:50:38.295Z"
+    },
+    {
+      "path": "docs/STEAM_LINK_DEVELOPMENT_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-29T03:28:13.927Z"
+    },
+    {
+      "path": "docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md",
+      "patches": 8,
+      "last_patch": "2026-10-31T11:49:50.595Z"
+    },
+    {
+      "path": "docs/THROW_DIRECTION_AND_NAV_SCORING_ZH.md",
+      "patches": 7,
+      "last_patch": "2026-10-30T15:20:06.781Z"
+    },
+    {
+      "path": "docs/UI_PLATFORM_MULTIPLAYER_AUDIT_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-10-30T15:53:40.550Z"
+    },
+    {
+      "path": "docs/VOICE_GESTURE_RESEARCH_ZH.md",
+      "patches": 4,
+      "last_patch": "2026-10-30T07:54:52.709Z"
+    },
+    {
+      "path": "docs/WORLD_BUILDING_AND_ART_DIRECTION_BRIEF_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-10-30T17:38:21.222Z"
+    },
+    {
+      "path": "docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md",
+      "patches": 5,
+      "last_patch": "2026-10-30T17:48:54.570Z"
+    },
+    {
+      "path": "docs/architecture/SEAL_SEQUENCE_REVIEW_20261104_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T04:00:36.791Z"
+    },
+    {
+      "path": "docs/architecture/SKILL_SYSTEM_CLASS_DIAGRAM_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-11-04T03:16:31.844Z"
+    },
+    {
+      "path": "docs/guides/ENEMY_COMBAT_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-11-04T11:00:12.861Z"
+    },
+    {
+      "path": "docs/guides/ENEMY_NAVIGATION_ZH.md",
+      "patches": 5,
+      "last_patch": "2026-11-04T10:48:44.811Z"
+    },
+    {
+      "path": "docs/guides/ENEMY_SPAWNING_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-11-05T06:30:48.338Z"
+    },
+    {
+      "path": "docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md",
+      "patches": 3,
+      "last_patch": "2026-11-05T06:24:07.848Z"
+    },
+    {
+      "path": "docs/guides/NARRATION_FLOW_ZH.md",
+      "patches": 5,
+      "last_patch": "2026-11-05T07:43:51.593Z"
+    },
+    {
+      "path": "docs/guides/SNAP_TOOL_ZH.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T11:17:17.197Z"
+    },
+    {
+      "path": "docs/hand-seal-technology-research.md",
+      "patches": 2,
+      "last_patch": "2026-10-27T15:55:01.788Z"
+    },
+    {
+      "path": "docs/research/MUSIC_WORKFLOW_TOOLS_20261104_ZH.md",
+      "patches": 2,
+      "last_patch": "2026-11-04T14:05:58.609Z"
+    },
+    {
+      "path": "docs/shared-editor-crash-research.md",
+      "patches": 5,
+      "last_patch": "2026-10-28T01:59:27.467Z"
+    },
+    {
+      "path": "docs/skills/music-production/SKILL.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T13:20:41.501Z"
+    },
+    {
+      "path": "docs/skills/music-production/references/audio-review.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T13:20:41.501Z"
+    },
+    {
+      "path": "docs/skills/music-production/references/game-delivery.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T13:20:41.501Z"
+    },
+    {
+      "path": "docs/skills/music-production/references/planning.md",
+      "patches": 1,
+      "last_patch": "2026-11-04T13:20:41.501Z"
+    },
+    {
+      "path": "docs/skills/music-production/references/toolchain.md",
+      "patches": 4,
+      "last_patch": "2026-11-05T06:08:58.405Z"
+    },
+    {
+      "path": "docs/skills/music-production/scripts/analyze_audio.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T13:23:31.978Z"
+    },
+    {
+      "path": "gear-workshop/.qa/polish.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:39:26.339Z"
+    },
+    {
+      "path": "gear-workshop/README.md",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:34:56.097Z"
+    },
+    {
+      "path": "gear-workshop/dist/app.js",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:34:56.097Z"
+    },
+    {
+      "path": "gear-workshop/dist/core.js",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:32:13.671Z"
+    },
+    {
+      "path": "gear-workshop/dist/index.html",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:32:13.671Z"
+    },
+    {
+      "path": "gear-workshop/dist/style.css",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:32:13.671Z"
+    },
+    {
+      "path": "gear-workshop/tests/core.test.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:34:56.097Z"
+    },
+    {
+      "path": "innovation-2026/build_apps.py",
+      "patches": 4,
+      "last_patch": "2026-10-20T12:41:21.074Z"
+    },
+    {
+      "path": "innovation-2026/build_materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T12:38:58.556Z"
+    },
+    {
+      "path": "innovation-2026/package.py",
+      "patches": 2,
+      "last_patch": "2026-10-20T12:43:18.597Z"
+    },
+    {
+      "path": "innovation-2026/qa.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T12:31:15.846Z"
+    },
+    {
+      "path": "innovation-2026/record.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T12:34:02.726Z"
+    },
+    {
+      "path": "innovation-2026/test_core.cjs",
+      "patches": 2,
+      "last_patch": "2026-10-20T12:41:21.074Z"
+    },
+    {
+      "path": "innovation-2026/verify_materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T12:40:00.169Z"
+    },
+    {
+      "path": "outputs/narration-import-20261105/build.mjs",
+      "patches": 1,
+      "last_patch": "2026-11-05T10:09:01.255Z"
+    },
+    {
+      "path": "scratch/audit_yicun_arrangement_v7.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T12:40:38.429Z"
+    },
+    {
+      "path": "scratch/audit_yicun_dynamics_v8.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T13:04:11.811Z"
+    },
+    {
+      "path": "scratch/audit_yicun_score_v8.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T13:05:37.261Z"
+    },
+    {
+      "path": "scratch/audit_yicun_sources_v7.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T12:43:46.491Z"
+    },
+    {
+      "path": "scratch/compose_yicun_shanhe.py",
+      "patches": 1,
+      "last_patch": "2026-11-04T10:41:43.486Z"
+    },
+    {
+      "path": "scratch/render_yicun_shanhe_ambient.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T11:01:12.463Z"
+    },
+    {
+      "path": "scratch/render_yicun_shanhe_chamber.py",
+      "patches": 2,
+      "last_patch": "2026-11-04T11:26:09.750Z"
+    },
+    {
+      "path": "scratch/render_yicun_shanhe_guzheng.py",
+      "patches": 5,
+      "last_patch": "2026-11-04T11:55:23.878Z"
+    },
+    {
+      "path": "scratch/render_yicun_shanhe_pedalboard_v9.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T05:53:20.089Z"
+    },
+    {
+      "path": "scratch/render_yicun_shanhe_shape_v8.py",
+      "patches": 5,
+      "last_patch": "2026-11-04T13:02:04.252Z"
+    },
+    {
+      "path": "scratch/run_bgm_unity_probe.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T10:37:07.223Z"
+    },
+    {
+      "path": "scratch/test_yicun_pedalboard.py",
+      "patches": 1,
+      "last_patch": "2026-11-05T05:49:09.392Z"
+    },
+    {
+      "path": "scratch/yicun_dizi_phrases_v10.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T06:24:23.935Z"
+    },
+    {
+      "path": "scratch/yicun_dizi_phrases_v11.py",
+      "patches": 2,
+      "last_patch": "2026-11-05T10:21:41.774Z"
+    },
+    {
+      "path": "tonight-scenes/.qa/deliver.py",
+      "patches": 2,
+      "last_patch": "2026-10-20T02:19:05.064Z"
+    },
+    {
+      "path": "tonight-scenes/.qa/embed-poster.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T01:54:02.529Z"
+    },
+    {
+      "path": "tonight-scenes/使用说明.txt",
+      "patches": 3,
+      "last_patch": "2026-10-20T02:19:05.064Z"
+    },
+    {
+      "path": "tonight-scenes/商业策划/.build/build-plan-deck.mjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T02:15:24.898Z"
+    },
+    {
+      "path": "tonight-scenes/商业策划/.build/build-workbook.mjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T02:13:07.117Z"
+    },
+    {
+      "path": "tonight-scenes/商业策划/.build/create-project.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T02:10:51.094Z"
+    },
+    {
+      "path": "tonight-scenes/商业策划/.build/patch-workbook.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T02:18:08.863Z"
+    },
+    {
+      "path": "tonight-scenes/商业策划/.build/verify-native.ps1",
+      "patches": 2,
+      "last_patch": "2026-10-20T02:18:08.863Z"
+    },
+    {
+      "path": "tonight-scenes/打开网页.html",
+      "patches": 1,
+      "last_patch": "2026-10-19T14:09:16.272Z"
+    },
+    {
+      "path": "tonight-scenes/材料目录.txt",
+      "patches": 1,
+      "last_patch": "2026-10-20T02:19:05.064Z"
+    },
+    {
+      "path": "tonight-scenes/海报/生成提示词.txt",
+      "patches": 1,
+      "last_patch": "2026-10-20T01:52:14.169Z"
+    },
+    {
+      "path": "tonight-scenes/网页/app.js",
+      "patches": 3,
+      "last_patch": "2026-10-20T01:54:02.529Z"
+    },
+    {
+      "path": "tonight-scenes/网页/index.html",
+      "patches": 1,
+      "last_patch": "2026-10-19T14:07:21.268Z"
+    },
+    {
+      "path": "tonight-scenes/网页/style.css",
+      "patches": 3,
+      "last_patch": "2026-10-20T01:54:51.732Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/assets.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:32:35.084Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/build.py",
+      "patches": 2,
+      "last_patch": "2026-10-20T13:17:21.690Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/content.py",
+      "patches": 3,
+      "last_patch": "2026-10-20T13:28:50.071Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/forms.mjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:20:26.527Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:27:41.814Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/package.py",
+      "patches": 2,
+      "last_patch": "2026-10-20T13:33:50.778Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/qa-docs.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:30:06.507Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/qa.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:16:43.740Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/record.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:18:28.258Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/base.html",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:09:50.507Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/collab-body.html",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:12:00.305Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/collab-core.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:07:31.397Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/collab-ui.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:12:00.305Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/common.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:07:31.397Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/delivery-body.html",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:14:34.808Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/delivery-core.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:07:31.397Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/delivery-ui.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:14:34.808Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/event-body.html",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:12:00.305Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/event-core.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:07:31.397Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/event-ui.js",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:12:00.305Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/layout-fixes.css",
+      "patches": 2,
+      "last_patch": "2026-10-20T13:32:35.084Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/style.css",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:09:50.507Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/src/ui-common.js",
+      "patches": 2,
+      "last_patch": "2026-10-20T13:14:34.808Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/test.cjs",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:16:43.740Z"
+    },
+    {
+      "path": "zhiqixinsheng-2026/verify.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T13:30:06.507Z"
+    },
+    {
+      "path": "棋盘模型-v1/Unity/Assets/ModularBoard/Editor/ModularBoardBatch.cs",
+      "patches": 2,
+      "last_patch": "2026-10-20T05:19:47.709Z"
+    },
+    {
+      "path": "棋盘模型-v1/Unity/Assets/ModularBoard/Editor/ModularBoardSetup.cs",
+      "patches": 2,
+      "last_patch": "2026-10-20T05:17:18.754Z"
+    },
+    {
+      "path": "棋盘模型-v1/Unity/Packages/manifest.json",
+      "patches": 1,
+      "last_patch": "2026-10-20T05:17:18.754Z"
+    },
+    {
+      "path": "棋盘模型-v1/Unity/ProjectSettings/ProjectVersion.txt",
+      "patches": 1,
+      "last_patch": "2026-10-20T05:17:18.754Z"
+    },
+    {
+      "path": "棋盘模型-v1/使用说明.md",
+      "patches": 2,
+      "last_patch": "2026-10-20T05:20:50.745Z"
+    },
+    {
+      "path": "棋盘模型-v3-格子轴统一/使用说明-v3.md",
+      "patches": 1,
+      "last_patch": "2026-10-21T09:39:59.259Z"
+    },
+    {
+      "path": "棋盘模型-v3-格子轴统一/使用说明.md",
+      "patches": 1,
+      "last_patch": "2026-10-21T09:39:11.115Z"
+    },
+    {
+      "path": "棋盘模型概念图/audit_tile_part_axes.py",
+      "patches": 2,
+      "last_patch": "2026-10-21T09:36:40.471Z"
+    },
+    {
+      "path": "棋盘模型概念图/audit_urp_materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T08:45:59.573Z"
+    },
+    {
+      "path": "棋盘模型概念图/build_models.py",
+      "patches": 5,
+      "last_patch": "2026-10-21T09:32:45.270Z"
+    },
+    {
+      "path": "棋盘模型概念图/change_camera_drag.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T10:58:51.143Z"
+    },
+    {
+      "path": "棋盘模型概念图/finalize_xforward.py",
+      "patches": 2,
+      "last_patch": "2026-10-21T09:36:40.471Z"
+    },
+    {
+      "path": "棋盘模型概念图/fix_urp_materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T08:46:38.417Z"
+    },
+    {
+      "path": "棋盘模型概念图/package_models.py",
+      "patches": 1,
+      "last_patch": "2026-10-20T05:20:19.869Z"
+    },
+    {
+      "path": "棋盘模型概念图/sync_xforward_models.py",
+      "patches": 2,
+      "last_patch": "2026-10-21T09:36:40.471Z"
+    },
+    {
+      "path": "棋盘模型概念图/verify_exports.py",
+      "patches": 4,
+      "last_patch": "2026-10-21T09:35:15.049Z"
+    },
+    {
+      "path": "棋盘模型概念图/verify_v2_appearance.py",
+      "patches": 2,
+      "last_patch": "2026-10-21T09:35:15.049Z"
+    },
+    {
+      "path": "棋盘移动整合/ChessBoard.cs",
+      "patches": 1,
+      "last_patch": "2026-10-21T10:59:14.194Z"
+    },
+    {
+      "path": "棋盘移动整合/ChessBoardContorllor.cs",
+      "patches": 1,
+      "last_patch": "2026-10-21T10:59:14.194Z"
+    },
+    {
+      "path": "棋盘移动整合/ChessBoardSlotSetup.cs",
+      "patches": 1,
+      "last_patch": "2026-10-21T10:59:14.194Z"
+    },
+    {
+      "path": "相机代码整合/CameraIntegrationCheck.cs",
+      "patches": 1,
+      "last_patch": "2026-10-20T11:43:20.331Z"
+    },
+    {
+      "path": "相机代码整合/ChessBoardCamera.cs",
+      "patches": 1,
+      "last_patch": "2026-10-20T11:43:20.331Z"
+    },
+    {
+      "path": "相机代码整合/ExtraScriptsCheck.cs",
+      "patches": 3,
+      "last_patch": "2026-10-21T10:45:03.186Z"
+    },
+    {
+      "path": "相机代码整合/Extra脚本检查报告-2026-10-21.md",
+      "patches": 1,
+      "last_patch": "2026-10-21T10:42:20.628Z"
+    },
+    {
+      "path": "齿轮工坊参赛材料/.build/archive-to-desktop.py",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:48:45.977Z"
+    },
+    {
+      "path": "齿轮工坊参赛材料/.build/build-deck.mjs",
+      "patches": 2,
+      "last_patch": "2026-10-18T07:44:47.757Z"
+    },
+    {
+      "path": "齿轮工坊参赛材料/.build/create-statement.py",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:43:41.129Z"
+    },
+    {
+      "path": "齿轮工坊参赛材料/.build/package-materials.py",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:47:17.865Z"
+    },
+    {
+      "path": "齿轮工坊参赛材料/申报信息.json",
+      "patches": 1,
+      "last_patch": "2026-10-18T07:40:05.334Z"
+    }
+  ]
+}

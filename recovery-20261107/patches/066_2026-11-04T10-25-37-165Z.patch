@@ -1,0 +1,42 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyObj.cs
+@@
+         public bool BeginStrike(int index, out string reason)
+@@
+             strike.Begin(index, attacks[index]); return true;
+         }
++        public bool ValidateAttacks(int count, out string reason)
++        {
++            if (attacks == null || attacks.Length < count) { reason = "AttackData 数量少于独立攻击动作总数"; return false; }
++            for (int i = 0; i < count; i++)
++            {
++                if (attacks[i] == null) { reason = "AttackData 为空：" + i; return false; }
++                if (!attacks[i].Validate(out reason)) { reason = "攻击 " + i + "：" + reason; return false; }
++            }
++            reason = "配置有效"; return true;
++        }
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-            return enemyObj.ValidateAnimator(attackCount, out reason);
++            return enemyObj.ValidateAnimator(attackCount, out reason) && enemyObj.ValidateAttacks(attackCount, out reason);
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs
+@@
+-                    if (!receiver || !receiver.isActiveAndEnabled || hitReceivers.Contains(receiver) || !receiver.CanReceiveDamage ||
++                    if (!receiver || !receiver.isActiveAndEnabled || receiver.transform == owner.transform || receiver.transform.IsChildOf(owner.transform) ||
++                        hitReceivers.Contains(receiver) || !receiver.CanReceiveDamage ||
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+ using NarutoVR.SealCombat.Enemies;
++using NarutoVR.SealCombat.Events;
+@@
+                 int first = 0, began = 0, ended = 0, contacts = 0;
++                int busFirst = 0, busBegan = 0, busEnded = 0, busContacts = 0;
++                using var firstSubscription = EventCenter.Subscribe(EnemyEvents.FirstPlayerDetected, e => { if (e.Enemy == enemy) ++busFirst; });
++                using var beginSubscription = EventCenter.Subscribe(EnemyEvents.AttackStarted, e => { if (e.Enemy == enemy) { ++busBegan; Check(!string.IsNullOrEmpty(e.AttackId), "开始通知携带攻击唯一ID"); } });
++                using var endSubscription = EventCenter.Subscribe(EnemyEvents.AttackFinished, e => { if (e.Enemy == enemy) ++busEnded; });
++                using var contactSubscription = EventCenter.Subscribe(EnemyEvents.AttackWindowOpened, e => { if (e.Enemy == enemy) ++busContacts; });
+@@
+-                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；隔离 Play 合成输入测试，非头显验收。";
++                Check(busFirst == first && busBegan == began && busEnded == ended && busContacts == contacts, "Inspector 事件与事件中心逐次一致");
++                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {EventCenterChecks.Run()} 项通过；隔离 Play 合成输入测试，非头显验收。";
+*** End Patch

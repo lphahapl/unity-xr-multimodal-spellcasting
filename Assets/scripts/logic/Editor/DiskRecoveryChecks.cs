@@ -48,6 +48,13 @@ public static class DiskRecoveryChecks
             var r = new List<string>{EnemyPoolingSetup.Validate()};
             var button=Obj.FindFirstObjectByType<ZhunwangPressButton>();
             Check(button && button.handInput && button.cap,"P1 button or input missing");
+            var display=button.display;
+            Check(button.handInput.wornDevice==button && button.touchRadius>=.02f,
+                "P1 worn button must be linked to the menu with a reachable contact area");
+            Check(display && display.vitalsAnchor && display.menuAnchor && display.recoveryHint &&
+                display.health && display.power && display.health.Cells.Count==10 && display.power.Cells.Count==10 &&
+                display.health.Cells.Concat(display.power.Cells).All(cell=>cell) &&
+                display.health.Cells.Concat(display.power.Cells).Distinct().Count()==20,"Missing prefab gauge cells or anchors");
             var cap=button.cap;var body=button.GetComponentsInChildren<MeshFilter>().Single(m=>m.name=="Zhunwang_Body");
             var bodyRest=body.transform.position;var rest=cap.position;var bounds=cap.GetComponent<MeshFilter>().sharedMesh.bounds;
             var front=cap.TransformPoint(new Vector3(bounds.center.x,bounds.center.y,bounds.min.z));

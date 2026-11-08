@@ -1,0 +1,31 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                var agent = go.GetComponent<NavMeshAgent>() ?? go.AddComponent<NavMeshAgent>();
++                var agent = go.GetComponent<NavMeshAgent>();
++                if (!agent) agent = go.AddComponent<NavMeshAgent>();
+@@
+-                var enemy = go.GetComponent<EnemyController>() ?? go.AddComponent<EnemyController>();
++                var enemy = go.GetComponent<EnemyController>();
++                if (!enemy) enemy = go.AddComponent<EnemyController>();
+@@
+-                void Step(int frames = 1) { for (int i = 0; i < frames; i++) { enemy.Tick(.05f); enemy.animator.Update(.05f); } }
++                var actualAttacks = new HashSet<int>();
++                void Step(int frames = 1)
++                {
++                    for (int i = 0; i < frames; i++)
++                    {
++                        enemy.Tick(.05f); enemy.animator.Update(.05f);
++                        var state = enemy.animator.GetCurrentAnimatorStateInfo(0);
++                        if (enemy.CurrentAttack >= 0 && state.IsTag("EnemyAttack") && !enemy.animator.IsInTransition(0))
++                        {
++                            int expected = Animator.StringToHash(enemy.CurrentAttack == 0 ? "挥砍" : "转圈");
++                            if (state.shortNameHash != expected) throw new Exception("随机攻击编号与实际动画不符");
++                            actualAttacks.Add(enemy.CurrentAttack);
++                        }
++                    }
++                }
+@@
+-                Check(seen.Count == 2, "0默认攻击与1Trigger攻击均可运行");
++                Check(actualAttacks.Count == 2, "0默认挥砍与1Trigger转圈均实际播放");
+*** End Patch

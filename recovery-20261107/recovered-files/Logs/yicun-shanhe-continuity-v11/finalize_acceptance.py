@@ -1,0 +1,74 @@
+"""Bind final acceptance to the actual published audio and completed Unity capture."""
+import hashlib
+import json
+from datetime import datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = Path(__file__).resolve().parent
+EXPECTED = '4d893f2962f3fa5e4e29e2679aff39d90a5ca2005f3022972660daf1549314a9'
+
+def read(path):
+    return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def main():
+    run_path = OUT/'runtime-runs/v11-full-two-loops-01/result.json'
+    run = read(run_path)
+    capture = read(OUT/'capture-qa.json')
+    signal = read(OUT/'qa-summary.json')
+    unlocked = read(OUT/'runtime-runs/v11-reload-unlocked-02/result.json')
+    locked = read(OUT/'runtime-runs/v11-reload-locked-01/result.json')
+    assert run['complete'] and run['passed'] and run['fullLoopCompleted'] and run['wraps'] == 2
+    assert run['sceneRestored'] and run['locksReleased']
+    assert capture['status'] == 'numeric_capture_checks_passed' and not capture['issues']
+    assert not signal['failed_checks']
+    assert unlocked['injectionRequested'] and not unlocked['passed'] and 'Assembly reload interrupted' in unlocked['reason']
+    assert locked['injectionRequested'] and locked['diagnosticPassed'] and locked['sceneRestored'] and locked['locksReleased']
+    formal = ROOT/'Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav'
+    assert digest(formal) == EXPECTED == run['asset']['sha256'] == signal['final_wav_sha256']
+    files = [formal, Path(run['captureWav']), run_path, OUT/'capture-qa.json', OUT/'qa-summary.json',
+             ROOT/'Assets/SealCombat/Editor/BgmLoopVerification.cs',
+             ROOT/'Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs',
+             ROOT/'Assets/SealCombat/Editor/BgmLoopVerificationEmpty.unity',
+             ROOT/'Assets/SealCombat/Editor/LinearRpgValidation.cs',
+             ROOT/'scratch/run_bgm_unity_probe.py',
+             ROOT/'scratch/render_yicun_shanhe_continuity_v11.py',
+             ROOT/'scratch/yicun_dizi_phrases_v11.py']
+    result = {
+        'status': 'desktop_unity_two_full_natural_loops_and_pcm_checks_passed',
+        'timestamp': datetime.now().astimezone().isoformat(), 'unity': '6000.3.10f1',
+        'source_sha256': EXPECTED, 'run_id': run['requestId'],
+        'clip_seconds': run['clipSeconds'], 'natural_wraps': run['wraps'],
+        'captured_seconds': run['capturedFrames']/run['outputSampleRate'],
+        'callback_buffers': run['callbackBuffers'], 'output_rate': run['outputSampleRate'],
+        'max_callback_wall_overrun_seconds': run['maxCallbackWallOverrun'],
+        'max_callback_dsp_excess_seconds': run['maxCallbackDspExcess'],
+        'volume': run['nominalVolume'], 'max_volume_deviation': run['maxVolumeDeviation'],
+        'scene_restored': run['sceneRestored'], 'locks_released': run['locksReleased'],
+        'original_scenes': run['originalScenes'], 'restored_scenes': run['restoredScenes'],
+        'regressions': {'unlocked_reload_classified_as_interruption': True,
+                        'locked_reload_request_did_not_interrupt_audio': True,
+                        'normal_entry_delayed_recovery_guard': True},
+        'historical_diagnosis': [
+            'Old probe treated one equal main-thread DSP snapshot as failure; this cannot establish an audible dropout.',
+            'Old probe lost its static deadline on assembly reload while SessionState remained running, allowing a false timeout. Vulnerability confirmed; historical second-run attribution strongly supported but not fully timestamp-proven.',
+            'Historical third early Play exit initiator remains unknown. Current probe records lifecycle and shared command provenance; XR quit was not inferred merely from an initialization error.'
+        ],
+        'music_fix': 'Replace long all-stem holes with quiet melodic links; E4-G4-A4 guzheng leads into C5 dizi, soften re-entry, remove same-note doubling near 78s and connect 88s return.',
+        'limits': ['OnAudioFilterRead source capture is not a physical output recording.',
+                   'Desktop isolated AudioSource test uses actual project imported clip, Streaming/PCM and volume 0.28; not a Quest or full gameplay/voice-mix acceptance.',
+                   'Subjective musical continuity still requires listening; score and PCM checks do not claim a human hearing verdict.',
+                   'Existing Package Manager / XR initialization messages are retained; no claim of an error-free editor.'],
+        'evidence': {str(p.relative_to(ROOT)): digest(p) for p in files}
+    }
+    (OUT/'unity-playback-summary.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    publication = read(OUT/'publication.json')
+    publication.update(runtime_validation=result['status'], runtime_summary='unity-playback-summary.json')
+    (OUT/'publication.json').write_text(json.dumps(publication, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    print(json.dumps({k:result[k] for k in ('status','captured_seconds','natural_wraps','scene_restored')}, ensure_ascii=False))
+
+if __name__ == '__main__':
+    main()

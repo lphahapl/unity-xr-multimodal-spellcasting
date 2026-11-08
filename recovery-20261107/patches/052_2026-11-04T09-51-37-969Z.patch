@@ -1,0 +1,164 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyObj.cs
++using System;
++using UnityEngine;
++using UnityEngine.AI;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>
++    /// 敌人在场景中的执行对象。封装组件、导航、视线与动画细节，不决定目标、攻击或事件。
++    /// 无自主 Update，所有操作由 EnemyController 调度，避免出现两个行为状态来源。
++    /// </summary>
++    [DisallowMultipleComponent, RequireComponent(typeof(NavMeshAgent))]
++    public sealed class EnemyObj : MonoBehaviour
++    {
++        [Header("一、实体组件")]
++        [SerializeField, InspectorName("动画控制器")] Animator animator;
++        public Animator Animator { get => animator; set => animator = value; }
++        public NavMeshAgent Agent => agent;
++        public bool AnimationActive => animator && animator.isActiveAndEnabled;
++        public Vector3 DesiredVelocity => agent.desiredVelocity;
++
++        NavMeshAgent agent;
++        NavMeshPath path;
++        bool initialized, hasNavigationDestination;
++        Vector3 navigationDestination;
++        float nextPathAt;
++        readonly RaycastHit[] sightHits = new RaycastHit[32];
++        static readonly int Found = UnityEngine.Animator.StringToHash("isFindPlayer"),
++            Attacking = UnityEngine.Animator.StringToHash("isAttacking"),
++            AngleParameter = UnityEngine.Animator.StringToHash("angle"),
++            Motion = UnityEngine.Animator.StringToHash("motionState");
++
++        /// <summary>只初始化执行资源；不重置 Controller 的生成记录或业务事件。</summary>
++        public void Initialize()
++        {
++            path ??= new NavMeshPath(); // 原生资源只能在主线程调用期创建。
++            if (initialized) return;
++            agent = GetComponent<NavMeshAgent>();
++            if (!animator) animator = GetComponentInChildren<Animator>();
++            agent.updateRotation = false;
++            if (animator) animator.applyRootMotion = false;
++            initialized = true;
++        }
++
++        public bool ValidateAnimator(int attackCount, out string reason)
++        {
++            if (!animator || !animator.runtimeAnimatorController) { reason = "未绑定 Animator Controller"; return false; }
++            var parameters = animator.parameters;
++            bool Has(string n, AnimatorControllerParameterType type) => Array.Exists(parameters, p => p.name == n && p.type == type);
++            if (!Has("isFindPlayer", AnimatorControllerParameterType.Bool) || !Has("isAttacking", AnimatorControllerParameterType.Bool) ||
++                !Has("angle", AnimatorControllerParameterType.Float) || !Has("motionState", AnimatorControllerParameterType.Int))
++            { reason = "Animator 缺少基础参数或参数类型不符"; return false; }
++            if (attackCount < 1 || !animator.HasState(0, UnityEngine.Animator.StringToHash("Base Layer.Attack.挥砍")))
++            { reason = "攻击总数或默认攻击状态无效"; return false; }
++            for (int i = 1; i < attackCount; i++)
++                if (!Has("attack" + i, AnimatorControllerParameterType.Trigger))
++                { reason = "缺少攻击 Trigger：attack" + i; return false; }
++            reason = "配置有效"; return true;
++        }
++
++        public void ResetAnimation()
++        {
++            ClearAttackTriggers(); animator.SetBool(Attacking, false); animator.SetBool(Found, false);
++            animator.SetInteger(Motion, 0); animator.SetFloat(AngleParameter, 0);
++            if (animator.isActiveAndEnabled) animator.Play("Base Layer.CanJiOu_Idle", 0, 0);
++        }
++
++        public void SetTargetAnimation(bool found, float angle)
++        { animator.SetBool(Found, found); animator.SetFloat(AngleParameter, angle); }
++
++        public void SetMotionAnimation(int motion, float angle)
++        {
++            if (!animator) return;
++            animator.SetInteger(Motion, motion); animator.SetFloat(AngleParameter, angle);
++        }
++
++        public bool CanStartAttackAnimation => !animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack");
++
++        public void StartAttackAnimation(int attack)
++        {
++            if (attack > 0) animator.SetTrigger("attack" + attack);
++            animator.SetBool(Attacking, true);
++        }
++
++        public void StopAttackAnimation()
++        {
++            if (!animator) return;
++            animator.SetBool(Attacking, false); ClearAttackTriggers();
++        }
++
++        /// <summary>返回动画观测，攻击完成、接触时间和超时仍由 Controller 决定。</summary>
++        public void ReadAttackAnimation(out bool isAttack, out bool inTransition, out float progress)
++        {
++            var state = animator.GetCurrentAnimatorStateInfo(0);
++            isAttack = state.IsTag("EnemyAttack"); progress = state.normalizedTime;
++            inTransition = animator.IsInTransition(0);
++        }
++
++        public void ClearAttackTriggers()
++        {
++            if (!animator) return;
++            foreach (var parameter in animator.parameters)
++                if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name.StartsWith("attack", StringComparison.Ordinal))
++                    animator.ResetTrigger(parameter.nameHash);
++        }
++
++        public bool HasLineOfSight(Transform target, bool checkOcclusion, float eyeHeight, LayerMask obstructionMask)
++        {
++            if (!target) return false;
++            if (!checkOcclusion) return true;
++            Vector3 start = transform.position + Vector3.up * eyeHeight, delta = target.position - start;
++            int count = Physics.RaycastNonAlloc(start, delta.normalized, sightHits, delta.magnitude, obstructionMask, QueryTriggerInteraction.Ignore);
++            if (count == sightHits.Length) return false;
++            for (int i = 0; i < count; i++)
++            {
++                Transform hit = sightHits[i].transform;
++                if (hit == transform || hit.IsChildOf(transform) || hit == target || hit.IsChildOf(target) || target.IsChildOf(hit)) continue;
++                return false;
++            }
++            return true;
++        }
++
++        public void RotateTowards(Vector3 direction, float degreesPerSecond, float deltaTime)
++        {
++            direction.y = 0;
++            if (direction.sqrMagnitude > .0001f)
++                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), degreesPerSecond * deltaTime);
++        }
++
++        public bool HasArrived(float tolerance) => !agent.pathPending && hasNavigationDestination &&
++            (Vector3.Distance(transform.position, navigationDestination) <= tolerance || (agent.hasPath && agent.remainingDistance <= tolerance));
++
++        /// <summary>完整路径才移动；重算节流和路径缓存由实体自己维护，失败原因供 Controller 展示。</summary>
++        public bool TryMoveTo(Vector3 destination, float speed, float stopping, float now, float repathSeconds,
++            float sampleRadius, out string failure)
++        {
++            failure = null;
++            if (!agent || !agent.isActiveAndEnabled || !agent.isOnNavMesh)
++            { failure = "未处于有效 NavMesh，停止移动"; return false; }
++            agent.speed = speed; agent.stoppingDistance = stopping;
++            if (now < nextPathAt) return hasNavigationDestination &&
++                ((agent.hasPath && agent.pathStatus == NavMeshPathStatus.PathComplete) || Vector3.Distance(transform.position, navigationDestination) <= stopping + .05f);
++            nextPathAt = now + Mathf.Max(.05f, repathSeconds);
++            if (!NavMesh.SamplePosition(destination, out var hit, sampleRadius, agent.areaMask) ||
++                !agent.CalculatePath(hit.position, path) || path.status != NavMeshPathStatus.PathComplete)
++            { StopNavigation(false); failure = "目标无完整导航路径，等待重试"; return false; }
++            agent.isStopped = false;
++            if (agent.SetPath(path)) { navigationDestination = hit.position; hasNavigationDestination = true; return true; }
++            StopNavigation(false); failure = "导航路径提交失败"; return false;
++        }
++
++        public void RequestRepath() => nextPathAt = 0;
++
++        public void StopNavigation(bool resetRepath = true)
++        {
++            hasNavigationDestination = false;
++            if (agent && agent.isActiveAndEnabled && agent.isOnNavMesh)
++            { agent.isStopped = true; agent.ResetPath(); agent.velocity = Vector3.zero; }
++            if (resetRepath) RequestRepath();
++        }
++    }
++}
+*** End Patch

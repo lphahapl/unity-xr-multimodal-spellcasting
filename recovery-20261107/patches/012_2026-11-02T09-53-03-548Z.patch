@@ -1,0 +1,212 @@
+*** Begin Patch
+*** Add File: Assets/SealCombat/Runtime/Rpg/P1AudioManager.cs
++using System;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Rpg
++{
++    /// <summary>Scene-owned presentation. Music and ambience duck; warnings, spells and wrist cues keep their gain.</summary>
++    [DisallowMultipleComponent]
++    public sealed class P1AudioManager : MonoBehaviour
++    {
++        [Header("音乐与环境（未配置音乐时使用程序生成的钟磬循环）")]
++        [InspectorName("探索音乐")] public AudioClip explorationMusic;
++        [InspectorName("战斗音乐")] public AudioClip combatMusic;
++        [InspectorName("环境底声（可选）")] public AudioClip ambience;
++        [InspectorName("音乐音量"), Range(0,1)] public float musicVolume = .28f;
++        [InspectorName("环境音量"), Range(0,1)] public float ambienceVolume = .2f;
++        [InspectorName("探索与战斗交叉淡化秒数"), Min(.05f)] public float crossfadeSeconds = 1.2f;
++        [Header("语音避让（只影响音乐和环境声）")]
++        [InspectorName("衰减分贝"), Range(-24,0)] public float duckDecibels = -8f;
++        [InspectorName("有声帧保持秒数"), Range(.1f,.6f)] public float voiceHoldSeconds = .24f;
++        [InspectorName("压低时间（秒）"), Min(.01f)] public float duckAttack = .06f;
++        [InspectorName("回升时间（秒）"), Min(.01f)] public float duckRelease = .4f;
++        [Header("空间音效（留空时使用现有提示音或短钟声）")]
++        [InspectorName("施法")] public AudioClip castSound;
++        [InspectorName("发射")] public AudioClip launchSound;
++        [InspectorName("命中")] public AudioClip impactSound;
++        [InspectorName("腕饰确认")] public AudioClip uiAcceptSound;
++        [InspectorName("腕饰拒绝")] public AudioClip uiRejectSound;
++
++        public float CombatMix { get; private set; }
++        public float DuckGain { get; private set; } = 1;
++        public bool VoiceDucking { get; private set; }
++        public bool MusicReady => explorationSource && combatSource && explorationSource.clip && combatSource.clip;
++        public int SpatialCueCount { get; private set; }
++        public int UiCueCount { get; private set; }
++        public Vector3 LastCuePosition { get; private set; }
++        public string Status => $"音乐 {(MusicReady ? "已就绪" : "未启动")} · 战斗混合 {CombatMix:P0} · 麦克风避让 {(VoiceDucking ? "开" : "关")} · 背景增益 {DuckGain:0.00}";
++
++        LinearRpgController controller;
++        WristMenuView wristView;
++        GameObject audioRoot;
++        AudioSource explorationSource, combatSource, ambientSource;
++        readonly AudioSource[] effectsSources = new AudioSource[8];
++        readonly bool[] duckable = new bool[8];
++        readonly float[] voiceVolume = new float[8];
++        readonly AudioClip[] ownedClips = new AudioClip[4];
++        int[] targetHits = Array.Empty<int>();
++        int nextChannel;
++        bool appPaused;
++
++        void OnEnable()
++        {
++            if (!Application.isPlaying) return;
++            controller = GetComponent<LinearRpgController>();
++            if (!controller) { Debug.LogWarning("P1 音频管理器需要挂在线性关卡控制器同一物体。", this); return; }
++            audioRoot = new GameObject("P1 音轨与空间声源");
++            audioRoot.transform.SetParent(transform, false);
++            explorationSource = Source("探索", false, true);
++            combatSource = Source("战斗", false, true);
++            explorationSource.clip = explorationMusic ? explorationMusic : ownedClips[0] = P1FallbackAudio.Music(false);
++            combatSource.clip = combatMusic ? combatMusic : ownedClips[1] = P1FallbackAudio.Music(true);
++            if (ambience) { ambientSource = Source("环境", false, true); ambientSource.clip = ambience; }
++            ownedClips[2] = P1FallbackAudio.Chime(true);
++            ownedClips[3] = P1FallbackAudio.Chime(false);
++            for (int i = 0; i < effectsSources.Length; ++i) effectsSources[i] = Source("空间声道 " + (i+1), true, false);
++            targetHits = new int[controller.targets?.Length ?? 0];
++            for (int i=0; i<targetHits.Length; ++i) targetHits[i] = controller.targets[i] ? controller.targets[i].HitCount : 0;
++            CombatMix = IsCombat ? 1 : 0;
++            ApplyVolumes();
++            double start = AudioSettings.dspTime + .05;
++            explorationSource.PlayScheduled(start); combatSource.PlayScheduled(start);
++            if (ambientSource) ambientSource.PlayScheduled(start);
++            BindWrist();
++        }
++        bool IsCombat => controller && controller.locomotion && controller.locomotion.EncounterCombat;
++        AudioSource Source(string label, bool spatial, bool loop)
++        {
++            var go = new GameObject(label);
++            go.transform.SetParent(audioRoot.transform, false);
++            var source = go.AddComponent<AudioSource>();
++            source.playOnAwake = false; source.loop = loop; source.spatialBlend = spatial ? 1 : 0;
++            source.dopplerLevel = 0; source.minDistance = .7f; source.maxDistance = 18;
++            source.rolloffMode = AudioRolloffMode.Linear;
++            return source;
++        }
++        void BindWrist()
++        {
++            var view = controller && controller.wristMenu ? controller.wristMenu.view : null;
++            if (view == wristView) return;
++            if (wristView && wristView.P1Audio == this) wristView.P1Audio = null;
++            wristView = view;
++            if (wristView) wristView.P1Audio = this;
++        }
++        void Update()
++        {
++            if (!MusicReady || !controller) return;
++            BindWrist();
++            var receiver = controller.skills ? controller.skills.voice : null;
++            VoiceDucking = !appPaused && Time.timeScale > 0 && receiver && receiver.HasRecentMicrophoneSpeech(voiceHoldSeconds);
++            CombatMix = MoveMix(CombatMix, IsCombat, Time.unscaledDeltaTime, crossfadeSeconds);
++            DuckGain = MoveDuck(DuckGain, VoiceDucking, Time.unscaledDeltaTime, duckDecibels, duckAttack, duckRelease);
++            ApplyVolumes();
++        }
++        public static float MoveMix(float value, bool combat, float delta, float duration) =>
++            Mathf.MoveTowards(value, combat ? 1 : 0, Mathf.Max(0, delta) / Mathf.Max(.01f,duration));
++        public static float MoveDuck(float value, bool active, float delta, float db, float attack, float release)
++        {
++            float low = Mathf.Pow(10, Mathf.Clamp(db,-24,0) / 20f);
++            return Mathf.MoveTowards(value, active ? low : 1, (1-low)*Mathf.Max(0,delta)/Mathf.Max(.01f, active ? attack : release));
++        }
++        void ApplyVolumes()
++        {
++            explorationSource.volume = musicVolume * DuckGain * Mathf.Sqrt(1-CombatMix);
++            combatSource.volume = musicVolume * DuckGain * Mathf.Sqrt(CombatMix);
++            if (ambientSource) ambientSource.volume = ambienceVolume * DuckGain;
++            for (int i=0; i<effectsSources.Length; ++i)
++                if (effectsSources[i] && duckable[i]) effectsSources[i].volume = voiceVolume[i] * DuckGain;
++        }
++
++        // Called by the existing presentation route after its cooldown. Returning true consumes the cue.
++        internal bool TryPlayAction(RpgActionCue cue, AudioClip configured, float volume)
++        {
++            if (!isActiveAndEnabled || !MusicReady) return false;
++            var fx = controller.skills ? controller.skills.effects : null;
++            var head = fx ? fx.head : null;
++            Vector3 position = head ? head.position : transform.position;
++            AudioClip clip = configured;
++            switch (cue)
++            {
++                case RpgActionCue.CastReady: case RpgActionCue.Shield:
++                    if (castSound) clip = castSound;
++                    if (fx && fx.HasHeldObject) position = fx.HeldThrowPosition;
++                    break;
++                case RpgActionCue.Launched:
++                    if (launchSound) clip = launchSound;
++                    if (fx) position = fx.LastLaunchPosition;
++                    break;
++                case RpgActionCue.Hit:
++                    if (impactSound) clip = impactSound;
++                    position = HitPosition(position);
++                    break;
++                case RpgActionCue.Moved: case RpgActionCue.Dodged:
++                    if (controller.locomotion) position = controller.locomotion.PlayerFloorPosition;
++                    break;
++            }
++            return PlayAt(clip ? clip : ownedClips[2], position, volume, false);
++        }
++        Vector3 HitPosition(Vector3 fallback)
++        {
++            var targets = controller.targets;
++            if (targets == null) return fallback;
++            if (targetHits.Length != targets.Length) targetHits = new int[targets.Length];
++            for (int i=0; i<targets.Length; ++i)
++            {
++                if (!targets[i]) continue;
++                int hits = targets[i].HitCount;
++                if (hits > targetHits[i]) fallback = targets[i].transform.position;
++                targetHits[i] = hits;
++            }
++            return fallback;
++        }
++        internal bool TryPlayUi(bool accepted, Vector3 position, float volume)
++        {
++            var clip = accepted ? uiAcceptSound : uiRejectSound;
++            if (!PlayAt(clip ? clip : ownedClips[accepted ? 2 : 3], position, volume, false)) return false;
++            ++UiCueCount;
++            return true;
++        }
++        /// <summary>For authored ambient emitters (e.g. distant mechanism/footstep). Critical cues use the unattenuated effect route.</summary>
++        public bool PlayAmbienceAt(AudioClip clip, Vector3 position, float volume) => PlayAt(clip,position,volume,true);
++        bool PlayAt(AudioClip clip, Vector3 position, float volume, bool environmental)
++        {
++            if (!isActiveAndEnabled || !MusicReady || !clip || appPaused) return false;
++            int channel = nextChannel;
++            for (int offset=0; offset<effectsSources.Length; ++offset)
++            {
++                int candidate = (nextChannel + offset) % effectsSources.Length;
++                if (!effectsSources[candidate].isPlaying) { channel = candidate; break; }
++            }
++            nextChannel = (channel+1) % effectsSources.Length;
++            var source = effectsSources[channel];
++            source.Stop(); source.transform.position = position; source.clip = clip;
++            duckable[channel] = environmental; voiceVolume[channel] = Mathf.Clamp01(volume);
++            source.volume = voiceVolume[channel] * (environmental ? DuckGain : 1); source.Play();
++            LastCuePosition = position; ++SpatialCueCount;
++            return true;
++        }
++        void OnApplicationPause(bool paused)
++        {
++            appPaused = paused;
++            if (!MusicReady) return;
++            if (paused)
++            {
++                VoiceDucking = false; DuckGain = 1; ApplyVolumes();
++                explorationSource.Pause(); combatSource.Pause(); if (ambientSource) ambientSource.Pause();
++                foreach (var source in effectsSources) if (source) source.Stop();
++            }
++            else { explorationSource.UnPause(); combatSource.UnPause(); if (ambientSource) ambientSource.UnPause(); }
++        }
++        void OnDisable()
++        {
++            if (wristView && wristView.P1Audio == this) wristView.P1Audio = null;
++            wristView = null; VoiceDucking = appPaused = false; DuckGain = 1;
++            if (audioRoot) { audioRoot.SetActive(false); Destroy(audioRoot); }
++            audioRoot = null; explorationSource = combatSource = ambientSource = null;
++            for (int i=0; i<ownedClips.Length; ++i) { if (ownedClips[i]) Destroy(ownedClips[i]); ownedClips[i] = null; }
++            Array.Clear(effectsSources,0,effectsSources.Length); Array.Clear(duckable,0,duckable.Length);
++        }
++    }
++}
+*** End Patch

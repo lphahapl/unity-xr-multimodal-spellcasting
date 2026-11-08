@@ -1,0 +1,69 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using NarutoVR.SealCombat.Enemies;
+using UnityEngine;
+
+namespace NarutoVR.SealCombat.Rpg
+{
+    /// <summary>当前场景/游戏会话的启动协调器；不拥有敌人行为或生命数据。</summary>
+    [DefaultExecutionOrder(-50), DisallowMultipleComponent]
+    public sealed class GameManager : MonoBehaviour
+    {
+        [Serializable] public sealed class EnemyPreparation
+        {
+            [InspectorName("怪物ID")] public string enemyId = "canjiou";
+            [InspectorName("预热数量（0仅加载模型）"), Min(0)] public int count = 1;
+        }
+        [Header("一、游戏会话服务")]
+        [InspectorName("敌人管理器")] public EnemyManager enemyManager;
+        [Header("二、本关预加载（不加载所有怪物模型）")]
+        [InspectorName("怪物预加载列表")] public EnemyPreparation[] prepareEnemies = Array.Empty<EnemyPreparation>();
+        [Header("三、启动状态")]
+        [SerializeField, InspectorName("准备状态（只读）")] string status = "未启动";
+        public string Status => status;
+        public bool IsReady { get; private set; }
+        public Task Ready { get; private set; } = Task.CompletedTask;
+        CancellationTokenSource lifetime;
+        int generation;
+        bool started;
+        void Start() { started = true; BeginPreparation(); }
+        void OnEnable() { if (started) BeginPreparation(); }
+        void OnDisable()
+        {
+            ++generation; lifetime?.Cancel(); lifetime = null; IsReady = false; status = "启动协调已停止";
+        }
+        [ContextMenu("准备本关资源")]
+        public void BeginPreparation()
+        {
+            if (!Application.isPlaying || !isActiveAndEnabled || lifetime != null) return;
+            var source = new CancellationTokenSource(); lifetime = source; Ready = PrepareAsync(++generation, source);
+        }
+        async Task PrepareAsync(int token, CancellationTokenSource source)
+        {
+            IsReady = false;
+            try
+            {
+                // Re-enabling the coordinator can precede EnemyManager.OnEnable on the same root.
+                await Task.Yield();
+                source.Token.ThrowIfCancellationRequested();
+                if (!this || generation != token || !isActiveAndEnabled) return;
+                if (!enemyManager) throw new InvalidOperationException("未绑定敌人管理器");
+                var manager = enemyManager;
+                var batch = (EnemyPreparation[])(prepareEnemies ?? Array.Empty<EnemyPreparation>()).Clone();
+                foreach (var item in batch)
+                {
+                    if (item == null || string.IsNullOrWhiteSpace(item.enemyId)) throw new InvalidOperationException("本关预加载条目缺少怪物ID");
+                    status = "正在准备：" + item.enemyId;
+                    await manager.PrewarmAsync(item.enemyId, Mathf.Max(0, item.count), source.Token);
+                    if (!this || generation != token || source.IsCancellationRequested) return;
+                }
+                IsReady = true; status = "本关敌人资源已准备";
+            }
+            catch (OperationCanceledException) { if (this && generation == token) status = "本关资源准备已取消"; }
+            catch (Exception error)
+            { if (this && generation == token) { status = "准备失败：" + error.Message; Debug.LogWarning(status, this); } }
+            finally { if (ReferenceEquals(lifetime, source)) lifetime = null; source.Dispose(); }
+        }
+    }
+}

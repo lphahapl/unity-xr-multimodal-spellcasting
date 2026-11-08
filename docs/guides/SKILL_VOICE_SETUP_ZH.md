@@ -1,6 +1,8 @@
 # 中文口令测试：本机 sherpa-onnx KWS
 
-配置更新：当前默认口令仍为下述三项，但已支持从 Unity `SkillCatalog` 导出 `Tools/SkillVoice/skill-voice-config.json`，新增口令不必改 Python 或接收器源码。最新配置步骤见 [项目 README](../../README.md)；变更后需要重新导出、重启服务并重新进入 Play。显式实验词表不会自动修改 Unity 的允许口令。
+在 Windows 编辑器进入 Play 时，自动启动器按场景里绑定到语音接收器的 `SkillTestController.catalog` 生成本次词表，写入 `Library/SkillVoice/play-config.json` 并交给本机服务。P1 使用「护体咒」「火球术」「金刚护体」「取消施法」。修改目录后重新进入 Play 即可加载。退出播放会停止该编辑器启动的服务。
+
+手动启动服务时可以给 `Start.ps1` 传 `-Config 'Assets/Configuration/LinearRpg/skill-voice-config.json'` 以使用随工程提供的 P1 词表。手动服务由启动者负责停止和重启，Unity 会使用已经在运行的服务。手动命令默认读 `Tools/SkillVoice/skill-voice-config.json`，也可通过 Unity 菜单导出当前场景目录覆盖该文件。[配置指南](CONFIGURATION_GUIDE_ZH.md)
 
 本功能用中文关键词识别模型匹配「护体咒」「火球术」「取消施法」。不是录一段声音后做波形模板比对，也不是通用语音转写。PC 上的 Python 进程采集选定麦克风，离线推理，只把口令事件发到 Unity 的 `127.0.0.1`。不上传音频，不自动保存麦克风录音。Steam Link 场景需要 Windows 能收到头显的麦克风输入；Quest 独立 APK 不能直接使用这套 PC 回环服务。
 

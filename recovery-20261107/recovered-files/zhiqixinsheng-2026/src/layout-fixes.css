@@ -1,0 +1,4 @@
+.event-layout > *{min-width:0}
+.event-list{min-width:0}
+@media(max-width:800px){.event-card:nth-child(n+3){display:block}}
+@media(max-width:800px){.headerend .extra{display:inline-block}}

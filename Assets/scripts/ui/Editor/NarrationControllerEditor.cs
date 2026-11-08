@@ -18,7 +18,7 @@ namespace NarutoVR.SealCombat.Editor
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            EditorGUILayout.HelpBox("表头：audioFileName、speaker、delayAfter（可选，秒）。有间隔列时按表格覆盖，空白按 0；旧表无此列时保留原间隔。重导入保留同名音频与说话者的推进方式和事件。音频放在 Resources/Narration；操作成功可直接绑定 PublishCurrentOperation。", MessageType.Info);
+            EditorGUILayout.HelpBox("音频和说话者使用 audioFileName、speaker 列。可选 text 填写台词正文，delayAfter 填写间隔秒数。有该列时按单元格更新，空正文清空，空间隔按 0。缺列保留原值。按同名音频和说话者保留已绑事件及推进方式。", MessageType.Info);
             var controller = (NarrationController)target;
             using (new EditorGUI.DisabledScope(Application.isPlaying))
             {
@@ -29,7 +29,7 @@ namespace NarutoVR.SealCombat.Editor
                     if (path.Length == 0) return;
                     try
                     {
-                        // Read 会在整表校验通过后更新原句间隔，必须在它之前记录 Undo。
+                        // Read 在全表校验成功后更新复用的句子，先登记 Undo。
                         Undo.RecordObject(controller, "导入旁白表");
                         var imported = NarrationTable.Read(path, controller.lines);
                         controller.lines = imported;
@@ -55,6 +55,55 @@ namespace NarutoVR.SealCombat.Editor
                     EditorGUILayout.FloatField("句间剩余秒数", controller.RemainingDelay);
                 }
             }
+        }
+    }
+
+    [CustomPropertyDrawer(typeof(NarrationLine))]
+    public sealed class NarrationLineDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            float height = EditorGUIUtility.singleLineHeight;
+            if (!property.isExpanded) return height;
+            foreach (var child in Children(property))
+                height += EditorGUIUtility.standardVerticalSpacing + EditorGUI.GetPropertyHeight(child, true);
+            return height;
+        }
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            using (new EditorGUI.PropertyScope(position, label, property))
+            {
+                Rect rect = position;
+                rect.height = EditorGUIUtility.singleLineHeight;
+                string who = property.FindPropertyRelative("speaker").stringValue;
+                string file = property.FindPropertyRelative("audioFileName").stringValue;
+                string title = string.IsNullOrEmpty(file) ? label.text : file;
+                property.isExpanded = EditorGUI.Foldout(rect, property.isExpanded,
+                    string.IsNullOrEmpty(who) ? title : who + " · " + title, true);
+                if (!property.isExpanded) return;
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    foreach (var child in Children(property))
+                    {
+                        rect.y += rect.height + EditorGUIUtility.standardVerticalSpacing;
+                        rect.height = EditorGUI.GetPropertyHeight(child, true);
+                        EditorGUI.PropertyField(rect, child, true);
+                    }
+                }
+            }
+        }
+
+        static System.Collections.Generic.IEnumerable<SerializedProperty> Children(SerializedProperty parent)
+        {
+            using var child = parent.Copy();
+            using var end = child.GetEndProperty();
+            if (!child.NextVisible(true)) yield break;
+            do
+            {
+                if (SerializedProperty.EqualContents(child, end)) yield break;
+                yield return child;
+            } while (child.NextVisible(false));
         }
     }
 }

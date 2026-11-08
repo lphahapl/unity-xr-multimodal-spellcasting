@@ -16,6 +16,10 @@ namespace NarutoVR.SealCombat.Editor
     public sealed class EnemyAttackCheckReceiver : CombatDamageReceiver
     {
         public bool allowed = true;
+        public Transform rig;
+        public Transform head;
+        public override Transform HitTransform => head ? head : transform;
+        public override Transform DetectionColliderRoot => rig ? rig : transform;
         public readonly List<EnemyAttackHit> hits = new();
         public Action<EnemyAttackHit> afterHit;
         public override Vector3 HitPosition => transform.position;

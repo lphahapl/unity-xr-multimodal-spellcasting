@@ -30,3 +30,7 @@
 44 个 SO 中含 43 个游戏配置和 1 个教程工程说明。Unity 与 SDK 管理的 XR、URP 和 Addressables 设置，以及烘焙的 NavMesh 数据，保留各自目录。新增项目配置应使用对应的创建工具；配置整理与验证共用 `ConfigurationAssetOrganizer.FolderName` 的类型命名映射。
 
 [当前 GUID 映射](../research/20261107-recovery/layout-map.json) · [恢复结果和逐文件源码核对](../research/DISK_RECOVERY_RESULT_20261107_ZH.md)。
+
+## 新建模型的源文件与 Unity 交付
+
+新模型先制作高模，再制作保留轮廓、可用于实时渲染的低模。Blender 工程保留两者及可重烘的对应关系，放在 `ArtSource`；混元生成的高模也进入这一步。给低模展开 UV、固定导出三角化，从高模烘焙底色、切线空间法线与材质需要的遮蔽或金属度等通道。在 `Assets/Art` 交付低模 FBX、烘焙贴图和 Unity 材质。多处重复出现的器物使用同一网格与材质。用回读的尺寸、三角数、UV、Unity 法线导入设置和实机画面验证交付。[室内规靶与壁灯样例](../architecture/开场教学与首枚铜叶/08_试炼室制作与交互.md)

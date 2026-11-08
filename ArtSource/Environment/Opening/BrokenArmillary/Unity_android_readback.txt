@@ -1,0 +1,8 @@
+Unity 6000.3.10f1 / target Android
+Renderers=1, submeshes=1, material=Assets/Art/Environment/Opening/BrokenArmillary/BrokenArmillary.mat, vertices=2531, tris=1776, normals=Import, tangents=CalculateMikk, bottom=0.0000, world size=(2.5530, 2.7357, 1.9946)
+Feet at Y=0: negative X -1.0833..-0.6767; positive X 0.8171..1.2329; taller bearing is source X=-1.025.
+_BaseMap = BrokenArmillary_BaseColor, 1024x1024, 11 mips, RGBA_ASTC6X6_UNorm, sRGB=True, type=Default, readable=False
+_BumpMap = BrokenArmillary_Normal, 1024x1024, 11 mips, RGBA_ASTC6X6_UNorm, sRGB=False, type=NormalMap, readable=False
+_MetallicGlossMap = BrokenArmillary_Mask, 1024x1024, 11 mips, RGBA_ASTC6X6_UNorm, sRGB=False, type=Default, readable=False
+Keywords _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP, AO = metallic atlas, one opaque material
+PASS

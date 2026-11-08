@@ -1,0 +1,325 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using NarutoVR.SealCombat;
+using NarutoVR.SealCombat.Events;
+using NarutoVR.SealCombat.Editor;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+[InitializeOnLoad]
+public static class VerifyNarrationGates
+{
+    const string Key = "NarutoVR.NarrationGateTests";
+    const string Output = "D:/UnityProjects/NarutoVR/Logs/narration-gates-20261105";
+    static readonly List<string> passed = new();
+    static bool running;
+    static double deadline;
+    static VerifyNarrationGates() { EditorApplication.update += Poll; }
+    static void Check(bool value, string description)
+    {
+        if (!value) throw new Exception(description);
+        passed.Add(description); Debug.Log("NARRATION GATE PASS " + description);
+    }
+    public static void Run()
+    {
+        EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+        SessionState.SetBool(Key, true);
+        EditorApplication.EnterPlaymode();
+    }
+    static async void Poll()
+    {
+        if (!SessionState.GetBool(Key, false) || !Application.isPlaying || !EditorApplication.isPlaying) return;
+        if (running)
+        {
+            if (EditorApplication.timeSinceStartup > deadline) Finish(new TimeoutException("测试总计超过120秒"));
+            return;
+        }
+        running = true; deadline = EditorApplication.timeSinceStartup + 120;
+        try { await TestAll(); Finish(null); }
+        catch (Exception error) { Finish(error); }
+    }
+    static void Finish(Exception error)
+    {
+        if (!SessionState.GetBool(Key, false)) return;
+        SessionState.EraseBool(Key);
+        Directory.CreateDirectory(Output);
+        File.WriteAllText(Output + "/play-result.txt", DateTimeOffset.Now.ToString("O") + "\n" +
+            (error == null ? "PASSED" : "FAILED\n" + error) + "\nchecks=" + passed.Count + "\n" + string.Join("\n", passed));
+        if (error != null) Debug.LogException(error); else Debug.Log("NARRATION GATES VERIFIED " + passed.Count);
+        EditorApplication.Exit(error == null ? 0 : 1);
+    }
+    static async Task Frame(int count = 1)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            int frame = Time.frameCount;
+            do { await Task.Yield(); } while (Time.frameCount <= frame);
+        }
+    }
+    static async Task Wait(Func<bool> condition, string why, double timeout = 3)
+    {
+        double start = Time.realtimeSinceStartupAsDouble;
+        while (!condition())
+        {
+            if (Time.realtimeSinceStartupAsDouble - start > timeout) throw new TimeoutException(why);
+            await Frame();
+        }
+    }
+    static async Task Delay(double seconds)
+    {
+        double end = Time.realtimeSinceStartupAsDouble + seconds;
+        while (Time.realtimeSinceStartupAsDouble < end) await Frame();
+    }
+    static NarrationLine Line(NarrationAdvanceMode mode = NarrationAdvanceMode.AudioFinished, string id = "fireball", string file = "a.wav") =>
+        new() { audioFileName = file, speaker = "测试", advanceMode = mode, operationId = id };
+    sealed class Fixture : IDisposable
+    {
+        public readonly GameObject Root;
+        public readonly NarrationController Controller;
+        public int Completed, Advanced, Started, Ended, DialogueStarted;
+        public readonly List<string> Order = new();
+        public Fixture(params NarrationLine[] lines)
+        {
+            Root = new GameObject("旁白独立回归");
+            Controller = Root.AddComponent<NarrationController>();
+            Controller.lines = lines.ToList();
+            Root.GetComponent<AudioSource>().playOnAwake = false;
+            Controller.onDialogueStarted.AddListener(() => { DialogueStarted++; Order.Add("dialogue-start"); });
+            for (int i = 0; i < lines.Length; i++)
+            {
+                int index = i;
+                lines[i].onStarted.AddListener(() => { Started++; Order.Add("start" + index); });
+                lines[i].onCompleted.AddListener(() => { Completed++; Order.Add("audio" + index); });
+                lines[i].onAdvanced.AddListener(() => { Advanced++; Order.Add("pass" + index); });
+            }
+            Controller.onDialogueCompleted.AddListener(() => { Ended++; Order.Add("end"); });
+        }
+        public void Dispose() { if (Root) Object.DestroyImmediate(Root); }
+    }
+    static async Task TestAll()
+    {
+        Application.runInBackground = true;
+        var listener = new GameObject("测试AudioListener").AddComponent<AudioListener>();
+        Check(Resources.Load<AudioClip>("Narration/a").length >= .24f, "使用真实0.25秒测试音频");
+        TestTables();
+        using (var f = new Fixture(Line(), Line(file: "b.wav")))
+        {
+            f.Controller.StartDialogue(); f.Controller.StartDialogue();
+            Check(f.Started == 1 && f.DialogueStarted == 1 && f.Controller.CurrentLineIndex == 0, "开始幂等，不重播首句/整段开始事件");
+            double start = Time.realtimeSinceStartupAsDouble;
+            await Wait(() => f.Ended == 1, "自动播放两句");
+            Check(Time.realtimeSinceStartupAsDouble - start >= .35, "自动模式实际等待音频时长");
+            Check(string.Join(",", f.Order) == "dialogue-start,start0,audio0,pass0,start1,audio1,pass1,end", "自动模式整段/单句回调顺序及每句完成一次");
+            await Frame(3); Check(f.Ended == 1 && f.Controller.CurrentLine == null, "整段结束不重复");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
+        {
+            f.Controller.StartDialogue(); long token = f.Controller.CurrentStepToken;
+            NarrationEvents.PublishOperation("wrong", f.Controller, token);
+            Check(!f.Controller.OperationCompleted, "错误操作ID不计入");
+            NarrationEvents.PublishOperation("fireball", f.Controller, token);
+            NarrationEvents.PublishOperation("fireball", f.Controller, token);
+            Check(f.Controller.OperationCompleted && !f.Controller.AudioCompleted && f.Advanced == 0, "提前操作记在当前句，重复信号不立即推进");
+            await Wait(() => f.Ended == 1, "提前操作等待音频完成");
+            Check(f.Completed == 1 && f.Advanced == 1, "双条件全部满足只通过一次");
+            Check(!f.Controller.CompleteOperation(token), "整段结束拒绝旧token");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
+        {
+            f.Controller.StartDialogue(); await Wait(() => f.Controller.AudioCompleted, "先播完音频");
+            await Frame(4);
+            Check(f.Completed == 1 && f.Advanced == 0 && f.Controller.CurrentLine != null, "音频完成后继续等待操作，音频回调不重复");
+            f.Controller.CompleteCurrentOperation(); await Wait(() => f.Ended == 1, "回调操作通过");
+            Check(f.Advanced == 1, "无参UnityEvent入口推进");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation)))
+        {
+            f.Controller.StartDialogue(); f.Controller.CompleteCurrentOperation();
+            await Wait(() => f.Ended == 1, "只等待操作");
+            Check(f.Completed == 0 && f.Advanced == 1 && !f.Root.GetComponent<AudioSource>().isPlaying,
+                "操作模式可提前中断音频，不伪造音频完成回调");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: ""), Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.StartDialogue(); long token = f.Controller.CurrentStepToken;
+            for (int i = 0; i < 10; i++) NarrationEvents.PublishOperation("fireball", f.Controller);
+            Check(f.Controller.CurrentLineIndex == 0, "事件回调只记状态，不同步跳句");
+            await Wait(() => f.Controller.CurrentLineIndex == 1, "切到相同ID的第二句");
+            Check(f.Advanced == 1 && !f.Controller.OperationCompleted, "同帧重复事件不穿透到相邻同ID句");
+            Check(!f.Controller.CompleteOperation(token), "旧句token不能通过新句");
+            NarrationEvents.PublishOperation("fireball", f.Controller, token);
+            await Frame(2); Check(f.Advanced == 1, "带旧token的事件被拒绝");
+            NarrationEvents.PublishOperation("fireball", f.Controller, f.Controller.CurrentStepToken);
+            await Wait(() => f.Ended == 1, "新句独立信号");
+            Check(f.Completed == 0 && f.Advanced == 2, "无音频操作句两次独立通过");
+        }
+        using (var a = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        using (var b = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            a.Controller.StartDialogue(); b.Controller.StartDialogue();
+            NarrationEvents.PublishOperation("fireball", b.Controller);
+            Check(!a.Controller.OperationCompleted && b.Controller.OperationCompleted, "目标控制器隔离，同名操作不串台");
+            await Wait(() => b.Ended == 1, "目标B通过");
+            NarrationEvents.PublishOperation("fireball"); await Wait(() => a.Ended == 1, "广播操作匹配当前句");
+            Check(a.Advanced == 1 && b.Advanced == 1, "广播不重开已完成对话");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: ""), Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.StartDialogue();
+            var notice = new NarrationOperationNotice("fireball", f.Controller);
+            EventCenter.Publish(NarrationEvents.OperationCompleted, notice);
+            await Wait(() => f.Controller.CurrentLineIndex == 1, "第一句消费通知");
+            EventCenter.Publish(NarrationEvents.OperationCompleted, notice);
+            await Frame(2); Check(f.Advanced == 1 && !f.Controller.OperationCompleted, "重发同一通知不能通过之后开始的同ID句");
+            var publisher = f.Root.AddComponent<NarrationOperationPublisher>(); publisher.operationId = "fireball"; publisher.target = f.Controller;
+            publisher.Publish(); await Wait(() => f.Ended == 1, "Inspector事件发布器完成当前句");
+            Check(f.Advanced == 2, "新的操作发布器通知可通过下一句");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.StartDialogue(); var captured = f.Controller.CaptureOperationCompletion();
+            f.Controller.RestartDialogue(); captured(); await Frame(2);
+            Check(!f.Controller.OperationCompleted && f.Advanced == 0, "捕获的Action不能完成重启后的新步骤");
+            AudioListener.pause = true;
+            try
+            {
+                f.Controller.CompleteCurrentOperation(); await Frame(3);
+                Check(f.Controller.OperationCompleted && f.Advanced == 0, "音频全局暂停时记录操作但不推进");
+            }
+            finally { AudioListener.pause = false; }
+            await Wait(() => f.Ended == 1, "解除暂停继续门控");
+            Check(f.Advanced == 1, "恢复暂停后消费已记录操作一次");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
+        {
+            NarrationEvents.PublishOperation("fireball", f.Controller);
+            f.Controller.StartDialogue(); Check(!f.Controller.OperationCompleted, "开始前操作不算当前句提前完成");
+            long token = f.Controller.CurrentStepToken;
+            f.Controller.CompleteCurrentOperation(); f.Controller.RestartDialogue();
+            Check(f.Controller.CurrentStepToken != token && !f.Controller.OperationCompleted, "重新开始清除旧句完成状态");
+            Check(!f.Controller.CompleteOperation(token), "重启拒绝旧回调");
+            f.Controller.StopDialogue(); NarrationEvents.PublishOperation("fireball", f.Controller);
+            await Frame(2); Check(f.Advanced == 0 && f.Completed == 0 && f.Ended == 0, "停止取消完成与后续事件");
+            f.Controller.StartDialogue(); f.Controller.enabled = false;
+            NarrationEvents.PublishOperation("fireball", f.Controller);
+            f.Controller.enabled = true; Check(f.Controller.CurrentLine == null, "禁用停止，重新启用不自动开播");
+            f.Controller.StartDialogue(); Check(!f.Controller.OperationCompleted, "禁用期间事件不残留");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: ""), Line(NarrationAdvanceMode.Operation, id: "second", file: "")))
+        {
+            f.Controller.lines[0].onStarted.AddListener(f.Controller.CompleteCurrentOperation);
+            f.Controller.StartDialogue(); Check(f.Controller.OperationCompleted && f.Advanced == 0, "onStarted可立即完成操作且不重入推进");
+            await Wait(() => f.Controller.CurrentLineIndex == 1, "开始回调完成操作");
+            Check(f.Advanced == 1 && !f.Controller.OperationCompleted, "新句不会继承onStarted操作");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.lines[0].onStarted.AddListener(f.Controller.StopDialogue);
+            f.Controller.StartDialogue(); await Frame(2);
+            Check(f.Controller.CurrentLine == null && f.Advanced == 0, "onStarted停止不会复活旧句");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            bool restarted = false;
+            f.Controller.lines[0].onStarted.AddListener(() => { if (!restarted) { restarted = true; f.Controller.RestartDialogue(); } });
+            f.Controller.StartDialogue(); await Wait(() => f.Started == 2 && f.Controller.CurrentLine != null, "本句开始事件重启");
+            Check(f.DialogueStarted == 2 && f.Advanced == 0 && !f.Controller.OperationCompleted,
+                "onStarted重启建立独立首句，不沿用旧门控");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: ""), Line(NarrationAdvanceMode.Operation, id: "next", file: "")))
+        {
+            bool restarted = false;
+            f.Controller.lines[0].onAdvanced.AddListener(() => { if (!restarted) { restarted = true; f.Controller.RestartDialogue(); } });
+            f.Controller.StartDialogue(); long before = f.Controller.CurrentStepToken;
+            f.Controller.CompleteCurrentOperation(); await Wait(() => restarted, "通过回调内重启");
+            await Wait(() => f.Controller.CurrentLine != null && f.Controller.CurrentStepToken != before, "重启请求开始新首句");
+            Check(f.Controller.CurrentLineIndex == 0 && f.Controller.CurrentStepToken != before && f.Advanced == 1 && !f.Controller.OperationCompleted,
+                "onAdvanced重启时旧推进不得跳过新首句");
+        }
+        using (var f = new Fixture(Line(), Line()))
+        {
+            f.Controller.lines[0].onCompleted.AddListener(f.Controller.StopDialogue);
+            f.Controller.StartDialogue(); await Wait(() => f.Completed == 1, "音频回调停止");
+            Check(f.Advanced == 0 && f.Ended == 0 && f.Controller.CurrentLine == null, "onCompleted停止阻止旧句通过/整段完成");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
+        {
+            f.Controller.lines[0].onCompleted.AddListener(f.Controller.CompleteCurrentOperation);
+            f.Controller.StartDialogue(); await Wait(() => f.Ended == 1, "音频结束回调完成操作");
+            Check(f.Completed == 1 && f.Advanced == 1, "音频结束回调内完成操作不重复完成/推进");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.onDialogueStarted.AddListener(f.Controller.CompleteCurrentOperation);
+            f.Controller.StartDialogue();
+            Check(f.Controller.OperationCompleted && f.DialogueStarted == 1 && f.Started == 1, "整段开始时已建立首句token，可提前完成操作");
+            await Wait(() => f.Ended == 1, "整段开始直接完成首句");
+            Check(f.Advanced == 1, "整段开始操作只推进一次");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            f.Controller.onDialogueStarted.AddListener(f.Controller.StopDialogue);
+            f.Controller.StartDialogue(); await Frame(2);
+            Check(f.DialogueStarted == 1 && f.Started == 0 && f.Advanced == 0 && f.Controller.CurrentLine == null,
+                "整段开始事件停止后不触发单句开始");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            bool restarted = false;
+            f.Controller.onDialogueStarted.AddListener(() => { if (!restarted) { restarted = true; f.Controller.RestartDialogue(); } });
+            f.Controller.StartDialogue(); await Wait(() => f.DialogueStarted == 2 && f.Controller.CurrentLine != null, "整段开始事件重启");
+            Check(f.Started == 1 && f.Advanced == 0, "整段开始重启不会执行旧首句开始回调");
+        }
+        await TestTimers();
+        using (var f = new Fixture(Line(file: "missing.wav")))
+        {
+            f.Controller.StartDialogue(); await Frame(2);
+            Check(f.Controller.CurrentLine == null && f.Advanced == 0 && f.Ended == 0, "缺失音频停止且不跳过句子");
+        }
+        Object.DestroyImmediate(listener.gameObject);
+    }
+    static async Task TestTimers()
+    {
+        using (var f = new Fixture(Line(NarrationAdvanceMode.AudioAndOperation)))
+        {
+            var timer = f.Root.AddComponent<NarrationOperationTimer>(); timer.controller = f.Controller; timer.seconds = .06f;
+            f.Controller.lines[0].onStarted.AddListener(timer.Begin);
+            f.Controller.StartDialogue(); await Wait(() => f.Controller.OperationCompleted, "计时操作提前完成");
+            Check(!f.Controller.AudioCompleted && f.Advanced == 0, "计时完成沿用当前句提前完成锁存");
+            await Wait(() => f.Ended == 1, "计时与音频双条件");
+            Check(f.Completed == 1 && f.Advanced == 1, "计时回调和音频只推进一次");
+        }
+        using (var f = new Fixture(Line(NarrationAdvanceMode.Operation, file: "")))
+        {
+            var timer = f.Root.AddComponent<NarrationOperationTimer>(); timer.controller = f.Controller; timer.seconds = .07f;
+            f.Controller.StartDialogue(); timer.Begin(); f.Controller.RestartDialogue();
+            await Delay(.15);
+            Check(f.Advanced == 0 && !f.Controller.OperationCompleted, "旧计时器不能通过重启后的同名新句");
+            timer.Begin(); timer.Cancel(); await Delay(.12);
+            Check(f.Advanced == 0, "主动取消计时器不完成操作");
+            timer.useUnscaledTime = true; Time.timeScale = 0;
+            try { timer.Begin(); await Wait(() => f.Ended == 1, "不受时间缩放的计时"); }
+            finally { Time.timeScale = 1; }
+            Check(f.Advanced == 1, "非缩放计时回调可用");
+        }
+    }
+    static void TestTables()
+    {
+        var seed = Line(NarrationAdvanceMode.AudioAndOperation, "table.operation"); seed.speaker = "乙";
+        foreach (var file in new[] { "lines.csv", "inline.xlsx", "shared.xlsx" })
+        {
+            var found = NarrationTable.Read(file, new[] { seed });
+            Check(found.Count == 2 && found[0].speaker == "甲,老师" && found[1] == seed &&
+                found[1].advanceMode == NarrationAdvanceMode.AudioAndOperation && found[1].operationId == "table.operation",
+                file + "重排导入保留原门控/事件对象");
+            Check(found[0].advanceMode == NarrationAdvanceMode.AudioFinished, file + "新行默认自动播放兼容旧数据");
+        }
+        bool failed = false; try { NarrationTable.Read("bad.csv", new[] { seed }); } catch (InvalidDataException) { failed = true; }
+        Check(failed, "导入坏行仍拒绝");
+    }
+}

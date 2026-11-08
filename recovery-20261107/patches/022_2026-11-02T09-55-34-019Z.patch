@@ -1,0 +1,32 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/HapticFeedbackService.cs
+@@
+         public static bool Eligible(InputDeviceCharacteristics flags, bool left, bool tracked, bool hasImpulse,
+             uint channels, bool gripPressed, float grip)
++            => PhysicalController(flags, left) && tracked && hasImpulse && channels > 0 &&
++               (gripPressed || (float.IsFinite(grip) && grip >= .12f));
++
++        static bool PhysicalController(InputDeviceCharacteristics flags, bool left)
+         {
+             var required = InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.HeldInHand |
+                 (left ? InputDeviceCharacteristics.Left : InputDeviceCharacteristics.Right);
+             var excluded = InputDeviceCharacteristics.HandTracking | (left ? InputDeviceCharacteristics.Right : InputDeviceCharacteristics.Left);
+-            return (flags & required) == required && (flags & excluded) == 0 &&
+-                tracked && hasImpulse && channels > 0 && (gripPressed || (float.IsFinite(grip) && grip >= .12f));
++            return (flags & required) == required && (flags & excluded) == 0;
+@@
+-            reason = "无已追踪、正握持且支持脉冲的本侧物理手柄";
++            reason = left ? "未找到左侧物理手柄" : "未找到右侧物理手柄";
+@@
+-                if (!device.isValid || !device.TryGetHapticCapabilities(out var caps)) continue;
++                if (!device.isValid || !PhysicalController(device.characteristics, left)) continue;
++                if (!device.TryGetHapticCapabilities(out var caps) || !caps.supportsImpulse || caps.numChannels == 0)
++                { reason = "当前手柄运行时未报告可用脉冲通道"; continue; }
+@@
+-                if (!Eligible(device.characteristics, left, tracked, caps.supportsImpulse, caps.numChannels, pressed, grip)) continue;
++                if (!Eligible(device.characteristics, left, tracked, caps.supportsImpulse, caps.numChannels, pressed, grip))
++                { reason = tracked ? "手柄已连接，等待握把按压" : "手柄已连接，追踪不可用"; continue; }
+@@
+-                if (!device.SendHapticImpulse(0, amplitude, seconds)) continue;
++                if (!device.SendHapticImpulse(0, amplitude, seconds)) { reason = "手柄运行时拒绝脉冲"; continue; }
+*** End Patch

@@ -1,0 +1,273 @@
+"""Render the approved theme as a quiet, periodic chamber BGM.
+
+Guqin and dizi use credited recorded samples. Sheng remains modeled.
+Requires numpy, scipy, soundfile and pyloudnorm. Sources are project-local.
+"""
+
+import json
+from pathlib import Path
+
+import numpy as np
+import pyloudnorm as pyln
+import soundfile as sf
+from scipy import signal
+
+from compose_yicun_shanhe import (
+    DURATION, MOTIF_LENGTHS, MOTIF_ONSETS, MOTIF_PITCHES, SR,
+    bronze_note, circular_room,
+)
+from preview_guqin_winds import frequency
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SAMPLES = ROOT / "ArtSource/Audio/YicunShanhe"
+OUTPUT = ROOT / "Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav"
+SEED = 202611042
+
+
+def build_score():
+    score = {name: [] for name in ("qin", "dizi", "sheng", "bell")}
+    # Timbre changes carry the existing theme. Notes stay in C pentatonic.
+    phrases = [
+        (0, "qin", MOTIF_PITCHES[:5], -12, .91),
+        (8, "dizi", MOTIF_PITCHES[:5], 12, .78),
+        (16, "dizi", MOTIF_PITCHES, 12, .88),
+        (24, "dizi", [67, 69, 74, 72, 69, 67], 0, .81),
+        (32, "dizi", [64, 67, 72, 69, 67, 64], 0, .79),
+        (40, "sheng", MOTIF_PITCHES[:5], 0, .8),
+        (48, "qin", MOTIF_PITCHES, -12, .86),
+        (56, "dizi", MOTIF_PITCHES, 12, .83),
+        (64, "sheng", MOTIF_PITCHES, 0, .83),
+        (72, "dizi", MOTIF_PITCHES, 12, .83),
+        (80, "qin", MOTIF_PITCHES, -12, .76),
+        (88, "dizi", MOTIF_PITCHES[:5], 12, .77),
+    ]
+    strengths = [1, .88, .98, .91, .82, .88]
+    for start, name, pitches, transpose, dynamic in phrases:
+        for index, pitch in enumerate(pitches):
+            onset = start + MOTIF_ONSETS[index] + .025 * np.sin(start * .6 + index * 1.5)
+            length = MOTIF_LENGTHS[index]
+            technique = "ordinary"
+            if name == "qin":
+                length += .55
+                technique = "slide" if index == 3 else "open"
+            score[name].append((onset, pitch + transpose, length, dynamic * strengths[index], technique))
+    # A different answering pattern in each phrase avoids a continuous ostinato.
+    patterns = [
+        [(3.7, 43), (6.85, 48)],
+        [(0.08, 48), (3.8, 55), (5.7, 52)],
+        [(0.08, 48), (4.15, 55), (6.7, 60)],
+        [(0.1, 43), (3.45, 50)],
+        [(0.12, 48), (3.7, 55), (7.35, 60)],
+        [(2.9, 55)],
+        [(0.08, 43), (3.9, 55)],
+        [(0.08, 48), (4.0, 55), (6.8, 60)],
+        [(3.75, 55)],
+        [(0.11, 48), (3.9, 55), (6.8, 60)],
+        [(3.7, 43), (6.8, 55)],
+        [(0.1, 48), (4.15, 55), (7.7, 55)],
+    ]
+    for phrase, pattern in enumerate(patterns):
+        for offset, pitch in pattern:
+            technique = "harmonic" if pitch == 60 else "open"
+            score["qin"].append((phrase * 8 + offset, pitch, 1.5, .52, technique))
+    # Sheng breathing groups are staggered with the flute's phrases.
+    for onset, pitches, duration, level in [
+        (3.9, [60, 67], 3.25, .45), (11.4, [60, 67], 3.9, .54),
+        (19.7, [60, 64], 4.0, .61), (27.8, [55, 62], 3.8, .60),
+        (35.7, [60, 67], 3.6, .56), (43.0, [55], 3.7, .37),
+        (50.0, [60, 67], 3.4, .53), (54.2, [60, 64], 2.9, .57),
+        (59.7, [60, 67], 3.4, .60), (67.1, [55], 3.5, .36),
+        (75.7, [60, 64], 3.5, .53), (83.1, [60, 67], 3.8, .44),
+        (91.5, [60, 67], 4.8, .46),
+    ]:
+        for index, pitch in enumerate(pitches):
+            score["sheng"].append((onset + index * .075, pitch, duration, level, "reed"))
+    score["bell"] = [(55.02, 64, 3.2, .6, "bronze")]
+    return {name: sorted(events) for name, events in score.items()}
+
+
+def read_mono(path):
+    data, rate = sf.read(path)
+    if data.ndim == 2:
+        data = data.mean(axis=1)
+    assert rate == SR, (path, rate)
+    return data
+
+
+def load_guqin():
+    recording = read_mono(SAMPLES / "guqin_open_strings_RafaelCaro.mp3")
+    # The seven recorded open strings are C2 D2 F2 G2 A2 C3 D3.
+    cuts = [(36, .125, .94), (38, .965, 1.84), (41, 1.86, 2.67),
+            (43, 2.68, 3.62), (45, 3.64, 4.54), (48, 4.555, 5.61), (50, 5.625, 7.10)]
+    bank = {}
+    for pitch, start, end in cuts:
+        sample = recording[round(start * SR):round(end * SR)].copy()
+        # Reduce the other strings still ringing under each subsequent pluck.
+        freqs, _, spectrum = signal.stft(sample, SR, nperseg=8192, noverlap=7680)
+        fundamental = frequency(pitch)
+        harmonic_distance = np.abs(freqs / fundamental - np.round(freqs / fundamental)) * fundamental
+        width = np.maximum(5.0, freqs * .007)
+        mask = .035 + .965 * np.exp(-.5 * (harmonic_distance / width)**2)
+        _, isolated = signal.istft(spectrum * mask[:, None], SR, nperseg=8192, noverlap=7680)
+        isolated = isolated[:len(sample)]
+        # Keep the finger/string transient from the recording itself.
+        attack = np.exp(-np.arange(len(sample)) / (SR * .018))
+        sample = sample * attack + isolated * (1 - attack)
+        sample -= sample.mean()
+        sample /= max(np.sqrt(np.mean(sample[:SR//3]**2)), 1e-8)
+        bank[pitch] = sample
+    return bank
+
+
+def load_dizi():
+    bank = {}
+    for pitch in [67, 69, 72, 74, 76, 79]:
+        sample = read_mono(SAMPLES / f"dizi_{pitch}_Hypnotriod.mp3")
+        # Estimate actual tuning from the full sustained recording, retaining its vibrato.
+        freqs, power = signal.welch(sample[SR:4*SR], SR, nperseg=32768)
+        expected = frequency(pitch)
+        indices = np.flatnonzero((freqs > expected * .975) & (freqs < expected * 1.025))
+        peak = indices[np.argmax(power[indices])]
+        log_power = np.log(power[peak-1:peak+2] + 1e-20)
+        offset = .5 * (log_power[0]-log_power[2]) / (log_power[0]-2*log_power[1]+log_power[2])
+        tuned_frequency = (peak + offset) * SR / 32768
+        sample -= sample.mean()
+        sample /= np.sqrt(np.mean(sample[SR:4*SR]**2))
+        bank[pitch] = sample, tuned_frequency
+    return bank
+
+
+def sampled_qin(bank, pitch, duration, technique, rng):
+    root = min(bank, key=lambda candidate: abs(candidate-pitch))
+    sample = bank[root]
+    ratio = 2 ** ((pitch-root)/12)
+    stretched = signal.resample_poly(sample, 1000, round(ratio * 1000))
+    count = round((duration + .5) * SR)
+    time = np.arange(count) / SR
+    # Pressed notes approach the pitch once, then settle. No continuous synthetic vibrato.
+    bend = np.ones(count)
+    if technique == "slide":
+        bend = 2 ** (-.7 * np.exp(-time / .11) / 12)
+    positions = np.cumsum(bend) - 1
+    sound = np.interp(positions, np.arange(len(stretched)), stretched, right=0)
+    if technique == "harmonic":
+        sound = signal.sosfilt(signal.butter(2, 1600, fs=SR, output="sos"), sound)
+    sound *= np.exp(-time / rng.uniform(1.25, 1.6))
+    source_end = int(np.searchsorted(positions, len(stretched) - 1))
+    release = min(source_end, round(.12 * SR))
+    sound[source_end-release:source_end] *= np.linspace(1, 0, release)
+    sound[source_end:] = 0
+    sound[:round(.002*SR)] *= np.linspace(0, 1, round(.002*SR))
+    return sound
+
+
+def sampled_dizi(bank, pitch, duration, rng):
+    root = min(bank, key=lambda candidate: abs(candidate-pitch))
+    sample, recorded_frequency = bank[root]
+    ratio = frequency(pitch) / recorded_frequency
+    count = round((duration + .14) * SR)
+    time = np.arange(count) / SR
+    # Use different parts of a long held note, keeping the player's natural air and membrane sound.
+    start = rng.uniform(.18, 2.2) * SR
+    positions = start + np.arange(count) * ratio
+    assert positions[-1] < len(sample)
+    sound = np.interp(positions, np.arange(len(sample)), sample)
+    attack = np.minimum(1, time / rng.uniform(.055, .085))
+    release = np.minimum(1, (time[-1]-time) / .20)
+    phrasing = .80 + .20 * np.sin(np.pi * np.minimum(time/duration, 1))
+    sound *= attack * release * phrasing
+    return signal.sosfilt(signal.butter(2, 5200, fs=SR, output="sos"), sound)
+
+
+def modeled_sheng(pitch, duration, rng):
+    count = round((duration + .20) * SR)
+    time = np.arange(count) / SR
+    breath_noise = signal.sosfilt(signal.butter(2, 8, fs=SR, output="sos"), rng.normal(size=count))
+    breath_noise /= max(np.std(breath_noise), 1e-8)
+    frequency_drift = .00065 * np.sin(2*np.pi*rng.uniform(4.0, 4.6)*time) + .0003*breath_noise
+    phase = np.cumsum(2*np.pi*frequency(pitch)*(1+frequency_drift))/SR
+    pressure = np.minimum(time/.13, 1) * np.minimum((time[-1]-time)/.22, 1)
+    pressure *= .9 + .06*np.sin(2*np.pi*.37*time + rng.uniform(0, 3)) + .012*breath_noise
+    sound = np.zeros(count)
+    # Time-varying reed harmonics and resonances replace the former static organ-like sum.
+    for harmonic in range(1, 18):
+        partial_frequency = frequency(pitch) * harmonic
+        colour = 1 + .9*np.exp(-((partial_frequency-950)/420)**2)
+        level = colour * np.exp(-harmonic/7) / harmonic**.72
+        brightness = np.power(np.maximum(pressure, 0), 1 + harmonic*.045)
+        sound += level * np.sin(harmonic*phase + .16*np.sin(time*1.4)/harmonic) * brightness
+    air = signal.sosfilt(signal.butter(2, [900, 4500], btype="bandpass", fs=SR, output="sos"), rng.normal(size=count))
+    sound += air * pressure * .012
+    return sound
+
+
+def render():
+    rng = np.random.default_rng(SEED)
+    guqin, dizi = load_guqin(), load_dizi()
+    score = build_score()
+    stems = {}
+    length = DURATION * SR
+    for instrument, events in score.items():
+        stem = np.zeros(length)
+        for onset, pitch, duration, velocity, technique in events:
+            if instrument == "qin":
+                note = sampled_qin(guqin, pitch, duration, technique, rng)
+            elif instrument == "dizi":
+                note = sampled_dizi(dizi, pitch, duration, rng)
+            elif instrument == "sheng":
+                note = modeled_sheng(pitch, duration, rng)
+            else:
+                note = bronze_note(pitch, duration, 1)
+            note *= velocity
+            start = round(onset * SR)
+            count = min(len(note), length-start)
+            stem[start:start+count] += note[:count]
+            stem[:len(note)-count] += note[count:]
+        stems[instrument] = stem
+    # Dry-stem energy shares provide a reproducible balance, not a perceptual claim.
+    shares = {"qin": .30, "dizi": .43, "sheng": .269, "bell": .001}
+    pans = {"qin": -.13, "dizi": .17, "sheng": -.06, "bell": .10}
+    mix = np.zeros((length, 2))
+    for instrument, stem in stems.items():
+        stem *= np.sqrt(shares[instrument]) / np.sqrt(np.mean(stem**2))
+        angle = (pans[instrument]+1)*np.pi/4
+        mix += stem[:, None] * [np.cos(angle), np.sin(angle)]
+    mix = circular_room(mix, rng)
+    # A periodic high-pass filter removes rumble without resetting at the loop boundary.
+    response_frequency = np.fft.rfftfreq(length, 1/SR)
+    highpass = response_frequency**2 / (response_frequency**2 + 85**2)
+    for channel in range(2):
+        mix[:, channel] = np.fft.irfft(np.fft.rfft(mix[:, channel])*highpass, n=length)
+    meter = pyln.Meter(SR)
+    gain = 10 ** ((-29.0-meter.integrated_loudness(mix))/20)
+    mix *= gain
+    assert np.isfinite(mix).all() and np.max(np.abs(mix)) < .5
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    sf.write(OUTPUT, mix, SR, subtype="PCM_16")
+    # Inspect the delivered PCM, including the boundary as it will actually be played.
+    pcm, _ = sf.read(OUTPUT)
+    steps = np.abs(np.diff(pcm, axis=0))
+    report = {
+        "sample_rate": SR, "duration_seconds": DURATION,
+        "lufs": float(meter.integrated_loudness(pcm)),
+        "rms_dbfs": float(20*np.log10(np.sqrt(np.mean(pcm**2)))),
+        "sample_peak_dbfs": float(20*np.log10(np.max(np.abs(pcm)))),
+        "boundary_jump": float(np.max(np.abs(pcm[0]-pcm[-1]))),
+        "ordinary_step_p99": float(np.quantile(steps,.99)),
+        "events": {name:len(events) for name, events in score.items()},
+        "dry_stem_energy_share": shares,
+        "section_rms_dbfs": [float(20*np.log10(np.sqrt(np.mean(pcm[a*SR:b*SR]**2))))
+                             for a,b in [(0,16),(16,40),(40,64),(64,80),(80,96)]],
+        "seed": SEED,
+        "timbres": {"qin":"recording-derived multisamples", "dizi":"recorded single-note samples",
+                    "sheng":"modeled free reed", "bell":"modeled bronze"},
+    }
+    log = ROOT / "Logs/yicun-shanhe-ambient-v2"
+    log.mkdir(parents=True, exist_ok=True)
+    (log/"render.json").write_text(json.dumps(report, ensure_ascii=False, indent=2),encoding="utf-8")
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    render()

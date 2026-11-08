@@ -41,6 +41,7 @@ namespace NarutoVR.SealCombat.Enemies
         {
             public string Id;
             public object Key;
+            public EnemyDefinition Definition;
             public EnemyCombatDefinition Combat;
             public int Limit;
             public AsyncOperationHandle<GameObject> Handle;
@@ -132,7 +133,7 @@ namespace NarutoVR.SealCombat.Enemies
             { status = "敌人目录无效：" + (catalog ? reason : "未绑定目录"); throw new InvalidOperationException(status); }
             if (!catalog.TryGet(id, out var definition))
             { status = "未知敌人编号：" + id; throw new ArgumentException(status, nameof(id)); }
-            var entry = new Load { Id = id, Key = definition.prefab.RuntimeKey, Combat = definition.combatDefinition, Limit = definition.maxInactive };
+            var entry = new Load { Id = id, Key = definition.prefab.RuntimeKey, Definition = definition, Combat = definition.combatDefinition, Limit = definition.maxInactive };
             // 先公开完整 promise，Addressables 同步抛错或初始化回调停用管理器时也不会观察到空 Task。
             var completion = new TaskCompletionSource<GameObject>(TaskCreationOptions.RunContinuationsAsynchronously);
             entry.Task = completion.Task;
@@ -278,7 +279,9 @@ namespace NarutoVR.SealCombat.Enemies
             var root = Instantiate(prefab, current.InactiveRoot.transform, false);
             root.SetActive(false);
             var controller = root.GetComponent<EnemyController>();
-            var instance = new Instance { Root = root, Controller = controller, Type = entry, OriginalCombat = root.GetComponent<EnemyObj>().CombatDefinition };
+            var entity = root.GetComponent<EnemyObj>();
+            entity.Definition = entry.Definition;
+            var instance = new Instance { Root = root, Controller = controller, Type = entry, OriginalCombat = entity.CombatDefinition };
             current.AllInstances.Add(instance);
             createdCount++;
             return instance;

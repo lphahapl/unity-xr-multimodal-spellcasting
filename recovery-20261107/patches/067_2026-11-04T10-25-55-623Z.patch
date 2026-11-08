@@ -1,0 +1,19 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs
+@@
+-            if (!Active || evaluating || !float.IsFinite(progress) || progress < 0) return false;
++            if (!Active || evaluating || !float.IsFinite(progress) || progress < 0 || progress < previousProgress) return false;
+@@
+-            bool overlaps = progress >= Data.activeStart && previousProgress <= Data.activeEnd;
++            bool overlaps = progress >= Data.activeStart && (progress <= Data.activeEnd || previousProgress < Data.activeEnd);
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+                 int busFirst = 0, busBegan = 0, busEnded = 0, busContacts = 0;
++                bool allAttackIdsPresent = true;
+@@
+-                using var beginSubscription = EventCenter.Subscribe(EnemyEvents.AttackStarted, e => { if (e.Enemy == enemy) { ++busBegan; Check(!string.IsNullOrEmpty(e.AttackId), "开始通知携带攻击唯一ID"); } });
++                using var beginSubscription = EventCenter.Subscribe(EnemyEvents.AttackStarted, e => { if (e.Enemy == enemy) { ++busBegan; allAttackIdsPresent &= !string.IsNullOrEmpty(e.AttackId); } });
+@@
+                 Check(busFirst == first && busBegan == began && busEnded == ended && busContacts == contacts, "Inspector 事件与事件中心逐次一致");
++                Check(allAttackIdsPresent && busBegan > 0, "开始通知携带攻击唯一ID");
+*** End Patch

@@ -1,0 +1,8 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs
+@@
+         }
+         sample.wraps = run.boundaries.Count; run.samples.Add(sample);
++        if (run.samples.Count % 50 == 0) Write(ResultPath, run);
+         if (run.boundaries.Count >= 2)
+*** End Patch

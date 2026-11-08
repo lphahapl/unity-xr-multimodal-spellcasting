@@ -1,4 +1,5 @@
 using System;
+using NarutoVR.Audio;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -15,7 +16,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("音乐音量"), Range(0,1)] public float musicVolume = .28f;
         [InspectorName("环境音量"), Range(0,1)] public float ambienceVolume = .2f;
         [InspectorName("探索与战斗交叉淡化秒数"), Min(.05f)] public float crossfadeSeconds = 1.2f;
-        [Header("语音避让（只影响音乐和环境声）")]
+        [Header("语音避让（音乐、环境声和玩家脚步）")]
         [InspectorName("衰减分贝"), Range(-24,0)] public float duckDecibels = -8f;
         [InspectorName("有声帧保持秒数"), Range(.1f,.6f)] public float voiceHoldSeconds = .24f;
         [InspectorName("压低时间（秒）"), Min(.01f)] public float duckAttack = .06f;
@@ -26,6 +27,15 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("命中")] public AudioClip impactSound;
         [InspectorName("腕饰确认")] public AudioClip uiAcceptSound;
         [InspectorName("腕饰拒绝")] public AudioClip uiRejectSound;
+        [Header("火球空间音效变奏")]
+        [InspectorName("掌心成形")] public AudioClip[] fireballFormed = Array.Empty<AudioClip>();
+        [InspectorName("脱手发射")] public AudioClip[] fireballLaunched = Array.Empty<AudioClip>();
+        [InspectorName("碰撞爆散")] public AudioClip[] fireballImpact = Array.Empty<AudioClip>();
+        [InspectorName("火球空间音量"), Range(0,1)] public float fireballVolume = .7f;
+        // Serialized compatibility for existing scenes. New scenes author the FootstepPlayer directly.
+        [HideInInspector] public AudioClip[] footstepClips = Array.Empty<AudioClip>();
+        [HideInInspector] public float footstepVolume = .22f;
+        [HideInInspector] public float footstepSpacing = .55f;
 
         public float CombatMix { get; private set; }
         public float DuckGain { get; private set; } = 1;
@@ -33,13 +43,20 @@ namespace NarutoVR.SealCombat.Rpg
         public bool MusicReady => explorationSource && combatSource && (explorationSource.clip || keepExplorationSilent) && combatSource.clip;
         public int SpatialCueCount { get; private set; }
         public int UiCueCount { get; private set; }
+        public int FootstepCount { get; private set; }
         public Vector3 LastCuePosition { get; private set; }
         public string Status => $"音乐 {(MusicReady ? "已就绪" : "未启动")} · 战斗混合 {CombatMix:P0} · 麦克风避让 {(VoiceDucking ? "开" : "关")} · 背景增益 {DuckGain:0.00}";
 
         LinearRpgController controller;
+        RpgInteractionFeedback actionFeedback;
+        SkillEffects projectileEffects;
+        readonly int[] lastVariant = { -1, -1, -1 };
+        readonly System.Random variationRandom = new();
         WristMenuView wristView;
         GameObject audioRoot;
         AudioSource explorationSource, combatSource, ambientSource;
+        FootstepPlayer footsteps;
+        RpgLocomotionController walking;
         readonly AudioSource[] effectsSources = new AudioSource[8];
         readonly bool[] duckable = new bool[8];
         readonly float[] voiceVolume = new float[8];
@@ -53,6 +70,9 @@ namespace NarutoVR.SealCombat.Rpg
             if (!Application.isPlaying) return;
             controller = GetComponent<LinearRpgController>();
             if (!controller) { Debug.LogWarning("P1 音频管理器需要挂在线性关卡控制器同一物体。", this); return; }
+            actionFeedback = GetComponent<RpgInteractionFeedback>();
+            projectileEffects = controller.skills ? controller.skills.effects : null;
+            if (projectileEffects) projectileEffects.ProjectileStageChanged += OnProjectileStage;
             audioRoot = new GameObject("P1 音轨与空间声源");
             audioRoot.transform.SetParent(transform, false);
             explorationSource = Source("探索", false, true);
@@ -70,6 +90,22 @@ namespace NarutoVR.SealCombat.Rpg
             double start = AudioSettings.dspTime + .05;
             if (explorationSource.clip) explorationSource.PlayScheduled(start); combatSource.PlayScheduled(start);
             if (ambientSource) ambientSource.PlayScheduled(start);
+            if (controller.openingChapter && controller.locomotion)
+            {
+                walking = controller.locomotion;
+                footsteps = walking.GetComponent<FootstepPlayer>();
+                if (!footsteps) footsteps = walking.gameObject.AddComponent<FootstepPlayer>();
+                if (!footsteps.HasClips)
+                {
+                    footsteps.variations = HasVariants(footstepClips) ? footstepClips : Resources.LoadAll<AudioClip>("Audio/Footsteps");
+                    footsteps.stepDistance = footstepSpacing;
+                    footsteps.volume = footstepVolume;
+                }
+                footsteps.UseReportedTravel(true);
+                footsteps.SetGain(DuckGain);
+                footsteps.Stepped += OnFootstep;
+                walking.ExplorationTravelled += OnExplorationTravelled;
+            }
             BindWrist();
         }
         bool IsCombat => controller && controller.locomotion && controller.locomotion.EncounterCombat;
@@ -96,7 +132,9 @@ namespace NarutoVR.SealCombat.Rpg
             if (!MusicReady || !controller) return;
             BindWrist();
             var receiver = controller.skills ? controller.skills.voice : null;
-            VoiceDucking = !appPaused && Time.timeScale > 0 && receiver && receiver.HasRecentMicrophoneSpeech(voiceHoldSeconds);
+            VoiceDucking = !appPaused && Time.timeScale > 0 &&
+                ((receiver && receiver.HasRecentMicrophoneSpeech(voiceHoldSeconds)) ||
+                 (controller && controller.openingChapter && controller.openingChapter.Speaking));
             CombatMix = MoveMix(CombatMix, IsCombat, Time.unscaledDeltaTime, crossfadeSeconds);
             DuckGain = MoveDuck(DuckGain, VoiceDucking, Time.unscaledDeltaTime, duckDecibels, duckAttack, duckRelease);
             ApplyVolumes();
@@ -114,6 +152,7 @@ namespace NarutoVR.SealCombat.Rpg
             explorationSource.volume = musicVolume * DuckGain * Mathf.Sqrt(1-CombatMix);
             combatSource.volume = musicVolume * DuckGain * Mathf.Sqrt(CombatMix);
             if (ambientSource) ambientSource.volume = ambienceVolume * DuckGain;
+            if (footsteps) footsteps.SetGain(DuckGain);
             for (int i=0; i<effectsSources.Length; ++i)
                 if (effectsSources[i] && duckable[i]) effectsSources[i].volume = voiceVolume[i] * DuckGain;
         }
@@ -122,6 +161,11 @@ namespace NarutoVR.SealCombat.Rpg
         internal bool TryPlayAction(RpgActionCue cue, AudioClip configured, float volume)
         {
             if (!isActiveAndEnabled || !MusicReady) return false;
+            // Gameplay events already played at the palm or collision. Keep the HUD cue, consume its sound.
+            if (projectileEffects &&
+                (cue == RpgActionCue.CastReady && controller.LastCastCreatedProjectile && HasVariants(fireballFormed) ||
+                 cue == RpgActionCue.Launched && HasVariants(fireballLaunched) ||
+                 cue == RpgActionCue.Hit && HasVariants(fireballImpact))) return true;
             var fx = controller.skills ? controller.skills.effects : null;
             var head = fx ? fx.head : null;
             Vector3 position = head ? head.position : transform.position;
@@ -145,6 +189,44 @@ namespace NarutoVR.SealCombat.Rpg
                     break;
             }
             return PlayAt(clip ? clip : ownedClips[2], position, volume, false);
+        }
+
+        void OnExplorationTravelled(float distance)
+        {
+            float travel = appPaused || !controller.CanAct || controller.UiInputOwned ? 0 : distance;
+            footsteps.ReportTravel(travel,walking.PlayerFloorPosition,walking.head ? walking.head.right : walking.transform.right);
+        }
+
+        void OnFootstep(Vector3 position)
+        {
+            LastCuePosition = position;
+            ++SpatialCueCount;
+            ++FootstepCount;
+        }
+
+        static bool HasVariants(AudioClip[] clips) => clips != null && Array.Exists(clips, clip => clip);
+
+        void OnProjectileStage(ProjectileStage stage, Vector3 position)
+        {
+            if (fireballVolume <= 0 || actionFeedback && (!actionFeedback.isActiveAndEnabled || !actionFeedback.playSounds || actionFeedback.volume <= 0)) return;
+            var clips = stage == ProjectileStage.Formed ? fireballFormed :
+                stage == ProjectileStage.Launched ? fireballLaunched : fireballImpact;
+            if (!HasVariants(clips)) return;
+            // Reservoir sampling skips missing entries and the last played clip without allocating.
+            int pick = PickVariant(clips, lastVariant[(int)stage]);
+            if (PlayAt(clips[pick], position, fireballVolume, false)) lastVariant[(int)stage] = pick;
+        }
+
+        int PickVariant(AudioClip[] clips, int previous)
+        {
+            AudioClip last = previous >= 0 && previous < clips.Length ? clips[previous] : null;
+            int pick = -1, candidates = 0;
+            for (int i = 0; i < clips.Length; ++i)
+            {
+                if (!clips[i] || clips[i] == last) continue;
+                if (variationRandom.Next(++candidates) == 0) pick = i;
+            }
+            return pick < 0 ? previous : pick;
         }
         Vector3 HitPosition(Vector3 fallback)
         {
@@ -192,6 +274,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!MusicReady) return;
             if (paused)
             {
+                if (footsteps) footsteps.ResetTracking();
                 VoiceDucking = false; DuckGain = 1; ApplyVolumes();
                 explorationSource.Pause(); combatSource.Pause(); if (ambientSource) ambientSource.Pause();
                 foreach (var source in effectsSources) if (source) source.Stop();
@@ -200,6 +283,16 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDisable()
         {
+            if (walking) walking.ExplorationTravelled -= OnExplorationTravelled;
+            walking = null;
+            if (footsteps)
+            {
+                footsteps.Stepped -= OnFootstep;
+                footsteps.ResetTracking();
+            }
+            footsteps = null;
+            if (projectileEffects) projectileEffects.ProjectileStageChanged -= OnProjectileStage;
+            projectileEffects = null;
             if (wristView && wristView.P1Audio == this) wristView.P1Audio = null;
             wristView = null; VoiceDucking = appPaused = false; DuckGain = 1;
             if (audioRoot) { audioRoot.SetActive(false); Destroy(audioRoot); }

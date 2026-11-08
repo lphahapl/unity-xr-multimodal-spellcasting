@@ -1,0 +1,157 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/scratch/audit_yicun_score_v8.py
++"""Read-only independent v8 score audit; writes only the authorized score-review.json."""
++import hashlib
++import json
++import math
++from collections import defaultdict
++from datetime import datetime, timedelta, timezone
++from pathlib import Path
++
++import numpy as np
++import soundfile as sf
++
++from audit_yicun_arrangement_v7 import audit, note_name
++
++ROOT = Path(__file__).resolve().parents[1]
++FOLDER = ROOT / "Logs/yicun-shanhe-shape-v8"
++
++
++def rms_db(signal):
++    return float(20*np.log10(max(float(np.sqrt(np.mean(signal*signal))), 1e-15)))
++
++
++def main():
++    report_path = FOLDER / "render.json"
++    raw = report_path.read_bytes()
++    report = json.loads(raw)
++    score = report["score"]
++    counts, events = defaultdict(int), []
++    for note in report["all_rendered_notes"]:
++        inst = note["instrument"]
++        index = counts[inst]
++        counts[inst] += 1
++        nominal = score[inst][index]
++        assert abs(nominal[0]-note["onset"]) < 1e-9 and nominal[1] == note["pitch"]
++        events.append({"id": f"{inst}:{index}", "instrument": inst,
++                       "onset": note["onset"], "midi": note["pitch"],
++                       "note": note_name(note["pitch"]), "nominal_duration": nominal[2],
++                       "dry_duration": note["duration_seconds"],
++                       "dry_end": note["onset"]+note["duration_seconds"],
++                       "velocity": note["velocity"], "technique": note["role"]})
++    observed = audit(events, period=104)
++    main_close_pairs = [p for p in observed["literal_adjacent_intervals"]
++                        if not (p["first"].startswith("bell:") or p["second"].startswith("bell:"))]
++    assert not main_close_pairs
++    assert not observed["semitone_or_tritone_overlaps"]
++    assert observed["dizi_overlap_count"] == 0
++    assert observed["pitch_classes"] == [0, 2, 4, 7, 9]
++    string_breath_overlap = [e for e in events if e["instrument"] == "viola" and min(e["dry_end"],52)>max(e["onset"],40)]
++    assert not string_breath_overlap
++    first_entrances = {i: min(e["onset"] for e in events if e["instrument"] == i) for i in counts}
++    introductory_events = [e for e in events if e["onset"] < 8]
++    assert sum(e["instrument"] == "guzheng" for e in introductory_events) == 4
++    assert not any(e["instrument"] == "dizi" for e in introductory_events)
++
++    # Read actual dry PCM gaps rather than relying only on the metadata.
++    rate = report["sample_rate"]
++    flute, stem_rate = sf.read(FOLDER / "dry_dizi.wav", always_2d=True)
++    assert stem_rate == rate and len(flute) == 104*rate
++    wind = sorted((e for e in events if e["instrument"] == "dizi"), key=lambda e:e["onset"])
++    flute_gaps = []
++    for first, second in zip(wind, wind[1:]):
++        begin = round(first["onset"]*rate)+round(first["dry_duration"]*rate)
++        end = round(second["onset"]*rate)
++        peak = float(np.max(np.abs(flute[begin:end])))
++        assert end-begin >= round(.04*rate)-1 and peak == 0
++        flute_gaps.append({"after": first["id"], "before": second["id"],
++                           "frames": end-begin, "seconds": (end-begin)/rate, "pcm_peak": peak})
++    del flute
++
++    bell_windows = []
++    for start, end in ((60.075,60.575),(60.075,62.35),(62.1,62.35)):
++        levels = {}
++        for inst in ("bell","viola","dizi"):
++            data, _ = sf.read(FOLDER / f"dry_{inst}.wav", start=round(start*rate), stop=round(end*rate), always_2d=True)
++            levels[inst] = rms_db(data)
++        bell_windows.append({"start": start, "end": end, "dry_rms_dbfs": levels,
++                             "bell_relative_to_strings_db": levels["bell"]-levels["viola"],
++                             "bell_relative_to_flute_db": levels["bell"]-levels["dizi"]})
++
++    wave_path = FOLDER / "yicun_shanhe_shape_v8.wav"
++    wav_hash = hashlib.sha256(wave_path.read_bytes()).hexdigest()
++    assert wav_hash == report["wav_sha256"]
++    pcm, pcm_rate = sf.read(wave_path, always_2d=True)
++    assert pcm_rate == rate and pcm.shape == (104*rate,2)
++    boundary_windows = []
++    for start,end in ((99,100),(100,101),(101,102),(102,103),(103,104),(0,.95),(0,4),(100,104)):
++        signal = pcm[round(start*rate):round(end*rate)]
++        boundary_windows.append({"start": start, "end": end, "rms_dbfs": rms_db(signal),
++                                 "peak_dbfs": 20*math.log10(max(float(np.max(np.abs(signal))),1e-15))})
++    signature_without_velocity = {
++        inst: [[e[0],e[1],e[2],e[4]] for e in notes] for inst,notes in score.items()
++    }
++    signature_hash = hashlib.sha256(json.dumps(signature_without_velocity,sort_keys=True,separators=(",",":")).encode()).hexdigest()
++    assert report_path.read_bytes() == raw and hashlib.sha256(wave_path.read_bytes()).hexdigest() == wav_hash, "Candidate changed while reading; rerun"
++
++    result = {
++        "status": "core_score_pass_with_loop_feel_and_analysis_wording_notes",
++        "scope": "Independent full 104-second score and selected PCM checks; no listening and no rendered-source reapproval.",
++        "model": "GPT-6 / Codex; exact submodel not supplied",
++        "created_at": datetime.now(timezone(timedelta(hours=8))).isoformat(),
++        "render_json_sha256": hashlib.sha256(raw).hexdigest(), "wav_sha256": wav_hash,
++        "score_signature_without_velocity_sha256": signature_hash,
++        "velocity_and_loudness_are_snapshot": True,
++        "full_score_audit": observed,
++        "main_instrument_literal_adjacent_overlap_count": len(main_close_pairs),
++        "flute_pcm_gaps": flute_gaps,
++        "first_entrances_seconds": first_entrances,
++        "intro_actual_notes": introductory_events,
++        "intro_assessment": "Real prelude: first guzheng C4 at 0.95, followed by G4/E4/D4; only a very soft G3 string support enters at 4.8. The five-note open theme starts at 8.253, its first full six-note answer at 16.245. It does not launch the full theme at zero.",
++        "motif_development": [
++            {"seconds":"8-16", "degrees":"1 2 5 3 2", "operation":"theme with final tonic withheld/open question"},
++            {"seconds":"16-24", "degrees":"1 2 5 3 2 1", "operation":"upper-octave completion/answer"},
++            {"seconds":"24-32", "degrees":"5 6 2 1 6 5", "operation":"pentatonic sequence plus changed rhythmic emphasis"},
++            {"seconds":"32-40", "degrees":"3 5 1 6 5 3", "operation":"second pentatonic sequence with broader onset spacing"},
++            {"seconds":"40-52", "degrees":"1 2 5 3 / 5 3", "operation":"fragment with call/response and complete string withdrawal"},
++            {"seconds":"52-60", "degrees":"1 2 5 3 2 1", "operation":"recognizable recap with modified timing"},
++            {"seconds":"60-68", "degrees":"5 6 2 1 6 5", "operation":"return of 24-second sequence with compressed opening spacing"},
++            {"seconds":"68-76", "degrees":"3 2 1 5 3", "operation":"cadential tail extracted and extended downward"},
++            {"seconds":"76-84", "degrees":"1 2 5 3 2 1", "operation":"original-register complete recap"},
++            {"seconds":"84-92", "degrees":"3 2 1", "operation":"expanded/spacious cadential answer, not strict proportional augmentation"}
++        ],
++        "harmony_assessment": {
++            "pitch_material": "All events remain C,D,E,G,A. No semitone or tritone overlaps.",
++            "24_to_40": "24-second G3/D4 supports G/A/D melody as open Gsus2; 33.2 A3/E4 plus the melodic C5 implies Am. G natural adds mild seventh colour without adjacent-register clustering.",
++            "60_to_68": "G3 pedal persists through 67 seconds. After D4 support ends at 63.575, C4/C5 response implies C over G; 'Gsus2 to C/G colour' is more precise than a full root-position G-to-C cadence.",
++            "wide_colours": "Compound ninths/sevenths are preserved as pentatonic colour; the audit does not classify them as mistakes.",
++            "strings_absent_dry_40_to_52": True,
++            "intro_label": "Intro includes E4, so describe C-centred pentatonic hints over a C/G skeleton rather than exclusively an open-fifth pitch collection."
++        },
++        "bell_adjacent_notes": {
++            "pairs": observed["literal_adjacent_intervals"], "level_windows": bell_windows,
++            "assessment": "Low-salience review note, not a blocking wrong-note judgment. E4 modeled bell tail overlaps D4 strings 60.075-62.35 and guzheng D4 62.1-62.35. During the latter it is roughly 26dB below the string stem; onset of the earlier interval is also during the slow string attack. Retaining the single quiet bell is reasonable."
++        },
++        "cycle_assessment": {
++            "dry_wrap_notes": observed["wrapped_notes"],
++            "last_note": [e for e in events if e["onset"]>100],
++            "actual_dry_end": max(e["dry_end"] for e in events),
++            "windows": boundary_windows,
++            "boundary_step": np.abs(pcm[0]-pcm[-1]).tolist(),
++            "risk": "No pitch conflict or waveform jump at boundary. However 103-104 and 0-0.95 are near-silent: around two seconds of perceived rest may make the cycle feel restarted. Last C4 at 101.6 ends dry at 102.95 and is deliberately damped, not an uninterrupted natural tail across the seam. This can remain an intentional breathing space but needs loop audition; equal endpoint samples alone cannot approve continuity of musical flow.",
++            "minimum_change_if_reset_is_heard": "One quiet C/G-family tail crossing the boundary could bridge the rest; do not add a new motif or whole-track fade. No timing change made by this review."
++        },
++        "current_section_loudness_snapshot": [{"name":s["name"],"start":s["start"],"end":s["end"],"lufs":s["lufs"],"rms_dbfs":s["rms_dbfs"]} for s in report["sections"]],
++        "limits": ["No listening, no headset test.","Parent is adjusting velocities/gain; this report identifies its exact snapshot via hashes.","No final asset or renderer modified.","Existing finite source-EQ evidence remains owned by v7/source audit."]
++    }
++    (FOLDER / "score-review.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
++    print(json.dumps({"output":str(FOLDER/"score-review.json"),"wav_sha256":wav_hash,
++                      "main_instrument_close_second_pairs":len(main_close_pairs),
++                      "bell_close_second_pairs":len(observed["literal_adjacent_intervals"]),
++                      "flute_gap_count":len(flute_gaps),"minimum_flute_gap_seconds":min(g["seconds"] for g in flute_gaps),
++                      "strings_absent_40_52":not string_breath_overlap,"dry_wrap_note_count":len(observed["wrapped_notes"])}))
++
++
++if __name__ == "__main__":
++    main()
+*** End Patch

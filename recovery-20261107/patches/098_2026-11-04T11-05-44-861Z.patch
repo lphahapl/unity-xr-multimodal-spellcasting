@@ -1,0 +1,50 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/P1RoomLayoutSetup.cs
++#if UNITY_EDITOR
++using System;
++using System.IO;
++using System.Linq;
++using System.Text;
++using NarutoVR.SealCombat.Rpg;
++using NarutoVR.SealCombat.Enemies;
++using UnityEditor;
++using UnityEditor.SceneManagement;
++using UnityEngine;
++using UnityEngine.SceneManagement;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    public static class P1RoomLayoutSetup
++    {
++        public const string LogFolder = "Logs/p1-room-20261104";
++        static T[] Components<T>(Scene scene) where T : Component => scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<T>(true)).ToArray();
++        public static string Inspect()
++        {
++            var scene = SceneManager.GetActiveScene();
++            var text = new StringBuilder($"scene={scene.path} dirty={scene.isDirty} playing={Application.isPlaying}\n");
++            foreach (var root in scene.GetRootGameObjects()) text.AppendLine($"ROOT {root.name} active={root.activeSelf} pos={root.transform.position}");
++            foreach (var group in Components<Renderer>(scene).Where(r => !(r is ParticleSystemRenderer)).GroupBy(r => r.name))
++            {
++                Bounds bounds = group.First().bounds; foreach (var r in group.Skip(1)) bounds.Encapsulate(r.bounds);
++                text.AppendLine($"GEOMETRY {group.Key} count={group.Count()} min={bounds.min} max={bounds.max}");
++            }
++            foreach (var node in Components<NavigationNode>(scene)) text.AppendLine($"NODE {node.nodeId} pos={node.transform.position} neighbors={node.neighbors.Count} active={node.gameObject.activeInHierarchy}");
++            foreach (var target in Components<SkillTrainingTarget>(scene)) text.AppendLine($"TARGET {target.name} pos={target.transform.position} parent={target.transform.parent?.name} active={target.gameObject.activeInHierarchy}");
++            foreach (var enemy in Components<EnemyController>(scene)) text.AppendLine($"ENEMY {enemy.name} pos={enemy.transform.position} active={enemy.gameObject.activeInHierarchy} prefab={PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(enemy)}");
++            foreach (var rpg in Components<LinearRpgController>(scene))
++            {
++                text.AppendLine($"RPG {rpg.name} targets={rpg.targets.Length} autoAdvance={rpg.autoAdvanceStages} head={rpg.locomotion.head.position} rig={rpg.locomotion.rigRoot.position}");
++                foreach (var stage in rpg.stages) text.AppendLine($"STAGE {stage.stageId} combat={stage.startsInCombat} hazards={stage.enableHazards} path={AssetDatabase.GetAssetPath(stage)}");
++            }
++            Directory.CreateDirectory(LogFolder); File.WriteAllText(LogFolder + "/inspect.txt", text.ToString());
++            return text.ToString();
++        }
++    }
++}
++#endif
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/LinearRpgValidation.cs
+@@
+                     case "p1-check":
+                         Write(new Report {action=action,passed=true,detail=P1TrialChecks.Run()}); break;
++                    case "p1-room-inspect": Write(new Report { action=action, passed=true, detail=P1RoomLayoutSetup.Inspect() }); break;
+*** End Patch

@@ -1,0 +1,15 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Logs/yicun-shanhe-continuity-v11/capture_qa.py
+@@
+-    low = max(0, coarse+anchor-3*stride)
+-    high = min(len(capture), coarse+anchor+width+3*stride)
++    # A musical held tone can put the decimated maximum on a nearby pitch period.
++    # Search the full-resolution neighborhood broadly enough to distinguish it.
++    margin = max(3*stride, round(.1*sr))
++    low = max(0, coarse+anchor-margin)
++    high = min(len(capture), coarse+anchor+width+margin)
+@@
+-                    "coarse_step_frames": stride, "max_head_search_seconds": max_head}
++                    "coarse_step_frames": stride, "fine_search_radius_seconds": margin/sr,
++                    "max_head_search_seconds": max_head}
+*** End Patch

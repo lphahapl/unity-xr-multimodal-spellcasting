@@ -189,6 +189,7 @@ namespace NarutoVR.SealCombat.Editor
                 AssetDatabase.CreateAsset(definition, path);
             }
             if (!entity.CombatDefinition) entity.CombatDefinition = definition;
+            if (!entity.Definition) entity.Definition = AssetDatabase.LoadAssetAtPath<EnemyDefinition>(EnemyPoolingSetup.DefinitionPath);
             if (!entity.DetectionSensor)
             {
                 var sensorObject = root.transform.Find("近距探测范围");
@@ -223,7 +224,12 @@ namespace NarutoVR.SealCombat.Editor
             }
             HeadZone("头部受击区", false, root.transform.up * .04f, .16f);
             HeadZone("后脑弱点", true, root.transform.up * .04f - root.transform.forward * .16f, .11f);
-            if (!root.TryGetComponent<EnemyPoiseBar>(out var bar)) bar = root.AddComponent<EnemyPoiseBar>();
+            if (!root.TryGetComponent<EnemyPoiseBar>(out var bar))
+            {
+                bar = root.AddComponent<EnemyPoiseBar>();
+                bar.anchor = head.Find("头部受击区");
+                bar.offset = Vector3.up * .29f;
+            }
             bar.enemy = entity;
             EditorUtility.SetDirty(entity); EditorUtility.SetDirty(bar);
         }

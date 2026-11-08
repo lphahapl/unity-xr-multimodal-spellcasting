@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-        void OnDisable() { CancelAttack(); StopNavigation(); }
++        void OnDisable() { StopNavigation(); CancelAttack(); }
+@@
+-            target = assignedTarget = player;
++            ++generation; target = assignedTarget = player;
+             hasTarget = false; nextPathAt = 0;
+-            CancelAttack(); StopNavigation();
++            StopNavigation(); CancelAttack();
+@@
+-        { suspended = value; if (value) { CancelAttack(); StopNavigation(); SetBehaviour(Behaviour.Suspended, "外部暂停"); } }
++        {
++            ++generation; suspended = value;
++            if (value) { StopNavigation(); CancelAttack(); if (this && suspended) SetBehaviour(Behaviour.Suspended, "外部暂停"); }
++        }
+@@
+             if (assignedTarget != target) SetTarget(target);
++            if (!this || !isActiveAndEnabled) return;
++            int tickGeneration = generation;
+@@
+-            { CancelAttack(); StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; return; }
++            { StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; CancelAttack(); return; }
+@@
+-                        if (!this || !isActiveAndEnabled || suspended || generation != token || target != seen) return;
++                        if (!this || !isActiveAndEnabled || suspended || generation != token || target != seen) return;
++                        if (!target || !target.gameObject.activeInHierarchy) { hasTarget = false; StopNavigation(); return; }
+@@
+-                { hasTarget = false; CancelAttack(); StopNavigation(); }
++                { hasTarget = false; StopNavigation(); CancelAttack(); }
+             }
++            if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
+@@
+             if (state.IsTag("EnemyAttack") && !animator.IsInTransition(0))
+@@
+                 if (state.normalizedTime >= .98f) { CancelAttack(); return; }
+             }
++            else if (attackEntered && !animator.IsInTransition(0)) { CancelAttack(); return; }
+@@
+-            { CancelAttack(); status = "攻击动画未进入或超时，已复位"; }
++            { CancelAttack(); if (this && currentAttack < 0) status = "攻击动画未进入或超时，已复位"; }
+*** End Patch

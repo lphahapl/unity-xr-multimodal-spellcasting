@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fe9d2a506b04409a70cb3479eabdd, type: 3}
+  m_Name: ROOM_FIGHT
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgStageDefinition
+  stageId: opening.ROOM_FIGHT
+  displayName: "\u8BD5\u70BC\u6218\u6597"
+  instructions: "\u5F53\u5FC3\u90A3\u5177\u6B8B\u673A\u5076\u3002\u542C\uFF0C\u5B83\u8EAB\u4E0A\u7684\u673A\u7C27\u4E00\u7D27\uFF0C\u5C31\u8981\u51FA\u624B\u4E86\u3002\u62A4\u4F4F\u81EA\u5DF1\uFF0C\u6216\u662F\u5F80\u540E\u64A4\u3002"
+  targetHealth: 25
+  enableHazards: 0
+  startsInCombat: 1
+  rewardCurrency: 0
+  unlockSkillIds: []

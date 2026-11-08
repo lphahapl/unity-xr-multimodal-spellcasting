@@ -1,0 +1,42 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Events/NarrationEvents.cs
++using System;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Events
++{
++    /// <summary>一次操作的完成通知。保存同一份通知重发不会通过之后才开始的句子。</summary>
++    public readonly struct NarrationOperationNotice
++    {
++        public string OperationId { get; }
++        public NarrationController Target { get; }
++        public bool HasTarget { get; }
++        public long StepToken { get; }
++        public long Sequence { get; }
++        public NarrationOperationNotice(string operationId, NarrationController target = null, long stepToken = 0)
++        {
++            OperationId = (operationId ?? "").Trim();
++            Target = target; HasTarget = !ReferenceEquals(target, null);
++            StepToken = stepToken;
++            Sequence = NarrationEvents.NextSequence();
++        }
++    }
++
++    public static class NarrationEvents
++    {
++        public static readonly EventKey<NarrationOperationNotice> OperationCompleted = new("旁白等待的操作完成");
++        internal static long LatestSequence { get; private set; }
++        internal static long NextSequence() => ++LatestSequence;
++
++        /// <summary>Unity主线程调用。无target向当前所有匹配句广播；延迟任务应带target及开始时捕获的stepToken。</summary>
++        public static void PublishOperation(string operationId, NarrationController target = null, long stepToken = 0)
++        {
++            if (string.IsNullOrWhiteSpace(operationId)) throw new ArgumentException("操作标识不能为空", nameof(operationId));
++            EventCenter.Publish(OperationCompleted, new NarrationOperationNotice(operationId, target, stepToken));
++        }
++
++        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
++        static void ResetSequence() => LatestSequence = 0;
++    }
++}
+*** End Patch

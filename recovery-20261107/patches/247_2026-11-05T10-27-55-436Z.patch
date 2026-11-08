@@ -1,0 +1,203 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs
++#if UNITY_EDITOR
++using System;
++using System.Diagnostics;
++using System.Threading;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Rpg
++{
++    // Editor-only audio-thread capture. The callback never allocates or writes files.
++    public sealed class EditorBgmAudioCapture : MonoBehaviour
++    {
++        [Serializable] public struct BufferStamp
++        {
++            public int index, sampleOffset, sampleCount, frameCount, channels;
++            public long stopwatchTicks;
++            public double dspTime, stopwatchSeconds, dspDelta, stopwatchDelta, rms, peak;
++        }
++        public sealed class Snapshot
++        {
++            public float[] samples;
++            public BufferStamp[] buffers;
++            public int sampleCount, bufferCount, channels, sampleRate, errorFlags;
++            public long clockOriginTicks, clockFrequency;
++        }
++        float[] samples;
++        BufferStamp[] buffers;
++        int recording, publishedBuffers, expectedChannels, sampleRate, errorFlags;
++        long origin;
++
++        public int BufferCount => Volatile.Read(ref publishedBuffers);
++        public int ErrorFlags => Volatile.Read(ref errorFlags);
++        public long LastCallbackTicks => BufferCount > 0 ? buffers[BufferCount - 1].stopwatchTicks : 0;
++        public int CapturedSamples => BufferCount > 0 ? buffers[BufferCount - 1].sampleOffset + buffers[BufferCount - 1].sampleCount : 0;
++
++        public void Configure(int rate, int channels, double seconds, int dspBufferSize)
++        {
++            if (rate <= 0 || channels < 1 || channels > 8 || seconds <= 0)
++                throw new ArgumentOutOfRangeException(nameof(seconds));
++            long count = (long)Math.Ceiling(rate * seconds) * channels;
++            if (count > 64L * 1024 * 1024) throw new InvalidOperationException("Capture exceeds the 256 MiB sample budget.");
++            sampleRate = rate; expectedChannels = channels;
++            samples = new float[(int)count];
++            int minFrames = Math.Max(32, dspBufferSize / 4);
++            buffers = new BufferStamp[(int)Math.Ceiling(rate * seconds / minFrames) + 256];
++            publishedBuffers = errorFlags = 0;
++            origin = Stopwatch.GetTimestamp();
++            Volatile.Write(ref recording, 1);
++        }
++        public Snapshot Seal()
++        {
++            Volatile.Write(ref recording, 0);
++            // Only the already-published prefix is read. An in-flight callback can
++            // append another buffer, but cannot modify any part of this prefix.
++            int count = BufferCount;
++            return new Snapshot { samples = samples, buffers = buffers, bufferCount = count,
++                sampleCount = count == 0 ? 0 : buffers[count - 1].sampleOffset + buffers[count - 1].sampleCount,
++                channels = expectedChannels, sampleRate = sampleRate, errorFlags = ErrorFlags,
++                clockOriginTicks = origin, clockFrequency = Stopwatch.Frequency };
++        }
++        void OnDisable() => Volatile.Write(ref recording, 0);
++        void OnAudioFilterRead(float[] data, int channels)
++        {
++            if (Volatile.Read(ref recording) == 0 || samples == null) return;
++            int index = Volatile.Read(ref publishedBuffers);
++            if (channels != expectedChannels) { Volatile.Write(ref errorFlags, errorFlags | 1); return; }
++            int offset = index == 0 ? 0 : buffers[index - 1].sampleOffset + buffers[index - 1].sampleCount;
++            if (index >= buffers.Length || offset + data.Length > samples.Length)
++            { Volatile.Write(ref errorFlags, errorFlags | 2); Volatile.Write(ref recording, 0); return; }
++            long ticks = Stopwatch.GetTimestamp();
++            double dsp = AudioSettings.dspTime, sum = 0, peak = 0;
++            for (int i = 0; i < data.Length; i++)
++            {
++                float value = data[i]; samples[offset + i] = value;
++                if (float.IsNaN(value) || float.IsInfinity(value)) Volatile.Write(ref errorFlags, errorFlags | 4);
++                sum += (double)value * value; peak = Math.Max(peak, Math.Abs(value));
++            }
++            buffers[index] = new BufferStamp { index = index, sampleOffset = offset, sampleCount = data.Length,
++                frameCount = data.Length / channels, channels = channels, stopwatchTicks = ticks,
++                dspTime = dsp, stopwatchSeconds = (double)(ticks - origin) / Stopwatch.Frequency,
++                dspDelta = index == 0 ? 0 : dsp - buffers[index - 1].dspTime,
++                stopwatchDelta = index == 0 ? 0 : (double)(ticks - buffers[index - 1].stopwatchTicks) / Stopwatch.Frequency,
++                rms = Math.Sqrt(sum / data.Length), peak = peak };
++            Volatile.Write(ref publishedBuffers, index + 1);
++        }
++    }
++}
++#endif
+*** Add File: D:/UnityProjects/NarutoVR/scratch/run_bgm_unity_probe.py
++#!/usr/bin/env python3
++"""Submit bounded Unity BGM requests. A polling timeout never stops Unity."""
++import argparse
++import hashlib
++import json
++import os
++from pathlib import Path
++import re
++import sys
++import time
++import uuid
++
++ROOT = Path(__file__).resolve().parents[1]
++OUTPUT = ROOT / "Logs/yicun-shanhe-continuity-v11"
++REQUEST = OUTPUT / "runtime-request.json"
++
++
++def read_json(path):
++    try:
++        return json.loads(path.read_text(encoding="utf-8-sig"))
++    except (OSError, ValueError):
++        return None
++
++
++def summary(request_id):
++    result_path = OUTPUT / "runtime-runs" / request_id / "result.json"
++    response_path = OUTPUT / "runtime-responses" / (request_id + ".json")
++    value = read_json(result_path) or read_json(response_path)
++    if not value:
++        return {"requestId": request_id, "status": "pending", "complete": False,
++                "resultPath": str(result_path), "responsePath": str(response_path)}
++    keys = ("requestId", "status", "complete", "passed", "diagnosticPassed", "fullLoopCompleted",
++            "reason", "detail", "sceneRestored", "wraps", "capturedFrames", "captureWav", "utc")
++    answer = {key: value[key] for key in keys if key in value}
++    answer.update(resultPath=str(result_path), responsePath=str(response_path))
++    return answer
++
++
++def submit(payload):
++    OUTPUT.mkdir(parents=True, exist_ok=True)
++    lock = OUTPUT / "runtime-submit.lock"
++    temp = OUTPUT / ("runtime-submit-" + uuid.uuid4().hex + ".tmp")
++    with lock.open("x", encoding="utf-8") as stream:
++        stream.write(str(os.getpid()))
++    try:
++        if REQUEST.exists():
++            raise RuntimeError("Another Unity request is pending; it was not overwritten.")
++        with temp.open("x", encoding="utf-8", newline="\n") as stream:
++            json.dump(payload, stream, ensure_ascii=False, allow_nan=False)
++            stream.flush()
++            os.fsync(stream.fileno())
++        # A hard link publishes the complete file atomically and refuses overwrite.
++        os.link(temp, REQUEST)
++    finally:
++        if temp.exists():
++            temp.unlink()
++        lock.unlink()
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("action", choices=("status", "import", "run", "poll"))
++    parser.add_argument("--id", dest="request_id")
++    parser.add_argument("--sha256")
++    parser.add_argument("--asset", default="Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav")
++    parser.add_argument("--guid", default="ad629548de0b8db45a1a011d0f5dcd53")
++    parser.add_argument("--duration", type=float, default=0)
++    parser.add_argument("--volume", type=float, default=.28)
++    parser.add_argument("--full-loops", type=int, default=2)
++    parser.add_argument("--diagnostic-seconds", type=float, default=0)
++    parser.add_argument("--lock-reload", action=argparse.BooleanOptionalAction, default=True)
++    parser.add_argument("--capture", action=argparse.BooleanOptionalAction, default=True)
++    parser.add_argument("--inject-reload-at-seconds", type=float, default=-1)
++    parser.add_argument("--wait-seconds", type=float, default=10)
++    args = parser.parse_args()
++    if not 0 <= args.wait_seconds <= 55:
++        parser.error("--wait-seconds must be between 0 and 55; poll again for unfinished work")
++    request_id = args.request_id or (time.strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
++    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,95}", request_id):
++        parser.error("invalid request ID")
++    if args.action == "poll" and not args.request_id:
++        parser.error("poll requires --id")
++    if args.action in ("import", "run") and not re.fullmatch(r"[0-9A-Fa-f]{64}", args.sha256 or ""):
++        parser.error("import/run requires the expected --sha256")
++    if args.action != "poll":
++        existing = summary(request_id)
++        if existing["status"] != "pending":
++            print(json.dumps(existing, ensure_ascii=False)); return 0
++        submit(dict(action=args.action, requestId=request_id, expectedSha256=args.sha256 or "",
++                    assetPath=args.asset, expectedGuid=args.guid, expectedDurationSeconds=args.duration,
++                    volume=args.volume, fullLoops=args.full_loops, diagnosticSeconds=args.diagnostic_seconds,
++                    lockReload=args.lock_reload, capture=args.capture, injectReloadAtSeconds=args.inject_reload_at_seconds,
++                    submittedUtc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), submittedBy="run_bgm_unity_probe.py", submitterPid=os.getpid()))
++    until = time.monotonic() + args.wait_seconds
++    while True:
++        value = summary(request_id)
++        if value.get("complete") or time.monotonic() >= until:
++            break
++        time.sleep(min(.25, max(0, until - time.monotonic())))
++    if not value.get("complete"):
++        value["nextCommand"] = f'python -X utf8 scratch/run_bgm_unity_probe.py poll --id {request_id} --wait-seconds 30'
++        value["unityStopped"] = False
++    print(json.dumps(value, ensure_ascii=False, allow_nan=False))
++    return 2 if value.get("complete") and not (value.get("passed") or value.get("diagnosticPassed")) else 0
++
++
++if __name__ == "__main__":
++    try:
++        sys.exit(main())
++    except (OSError, ValueError, RuntimeError) as error:
++        print(json.dumps({"status": "request_error", "error": str(error)}, ensure_ascii=False))
++        sys.exit(2)
+*** End Patch

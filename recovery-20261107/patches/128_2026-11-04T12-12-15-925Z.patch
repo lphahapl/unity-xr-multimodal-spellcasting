@@ -1,0 +1,40 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md
+@@
+-##### 当前替换试听 v4，2026-11-04
++##### 当前修正试听 v5，2026-11-04
++
++用户反馈约20秒的短促金属拨弦及开头几秒和音违和。定位为古筝G3伴奏：20.15秒、3.7秒和95.7秒循环尾部都使用同一录音。原切片在682.992秒处，G3之外还残留明显A3谐波族，先前只排除了后续拨弦，漏查起音已有的串音。
++
++v5用原录音235.945秒处的A3单音前1.0秒（校准-9音分）下降两个半音替代全部十五次G3；原旋律、各声部事件、竹笛与弦乐配置不变。其余音源沿用v4。该候选的多音残留较少，仍保留实录共振与偏亮的起音，不宣称完全无杂音。
++
++当前[96秒循环WAV](../../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)由[修正版脚本](../../scratch/render_yicun_shanhe_guzheng_v5.py)生成，约-29.00 LUFS、-12.26 dBTP。已核十五个替换事件、乐谱不变、削波与周期边界；主观听感待试听。v4备份至 `Logs/yicun-shanhe-pluck-v5/previous_guzheng_v4.wav`，同目录保留开头及18–24秒前后对照。
++
++##### v4 历史替换试听，2026-11-04
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96秒轻声循环，v4改为实录古筝与竹笛，弦乐只轻铺底，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
++- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96秒轻声循环，实录古筝与竹笛、轻弦乐铺底；v5替换低G拨弦串音采样，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
+@@
+-- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前96秒循环BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v4使用真实古筝录音替换竖琴，保留竹笛、减弱弦乐，-29 LUFS，沿用P1探索音乐引用，音色待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
++- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前96秒循环BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v5修正开头及20秒附近的古筝伴奏串音，保留竹笛与轻弦乐，约-29 LUFS，沿用P1探索音乐引用，音色待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Audio/YicunShanhe_Credits.txt
+@@
+-一寸山河 / Yicun Shanhe — ambient loop, revision 4
++一寸山河 / Yicun Shanhe — ambient loop, revision 5
+@@
+-Ten directly recut recorded plucks at eight MIDI roots: 50,53,55,60,62,67,72,74.
++Ten directly recut recorded plucks at eight MIDI roots: 50,53,57,60,62,67,72,74.
++Revision 5 replaces the contaminated G3 take with source A3 at 235.945 seconds,
++using the first 1.0 second, tuning -9 cents and transposing down two semitones.
++All fifteen G3 events use this replacement, including the wraparound note.
+@@
+-The viola supplies background harmony only in revision 4. No game OST was sampled.
++The viola supplies background harmony only. No game OST was sampled.
+@@
+-Rebuild revision 4 with scratch/render_yicun_shanhe_guzheng.py, which imports
++Rebuild revision 5 with scratch/render_yicun_shanhe_guzheng_v5.py, which imports
+@@
+-The renderer writes a candidate under Logs/yicun-shanhe-guzheng-v4.
++The renderer writes a candidate under Logs/yicun-shanhe-pluck-v5.
+*** End Patch

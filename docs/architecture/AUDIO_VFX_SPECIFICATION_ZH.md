@@ -7,3 +7,7 @@
 - 房间战斗曲《断榫破律·残机初遇》的旧交接列为 37.5 秒、5/8 拍、24 小节；其他时长或只有同名的 WAV 不自动作为旧母带。残机偶瘫痪与乐段联动不算已交付。
 
 历史定位：第一账号音频会话 <code>01a19bb1</code>，原 JSONL 第 553、5299 行可见原文行号；第二账号迁移会话 <code>01a199d5</code> 第 332 行可见战斗曲交接。历史改稿的行号会变化，不把不同版本拼成一份伪原稿。当前实现与空缺见[恢复验收](../research/DISK_RECOVERY_RESULT_20261107_ZH.md)。
+
+## 首章与 P1 试玩当前播放的音乐
+
+两场景的探索轨均留空并启用「探索音乐未指定时保持静音」。战斗轨也留空，进入遭遇战时混入运行时生成的《法阵 · 战斗钟列》：单声道 16 kHz，8 个音，每半秒一个，4 秒循环。两场景的音乐音量均为 0.28，完整交叉渐变为 1.2 秒。环境声、脚步和旁白有各自的播放通道。[首章场景](../../Assets/Scene/Chapter01_Awakening.unity) · [P1 场景](../../Assets/Scene/KaogongP1Trial.unity) · [音乐源选择](../../Assets/scripts/logic/Rpg/P1AudioManager.cs) · [备用钟列生成](../../Assets/scripts/logic/Rpg/P1FallbackAudio.cs)

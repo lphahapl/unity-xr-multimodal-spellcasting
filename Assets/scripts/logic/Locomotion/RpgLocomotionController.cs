@@ -77,6 +77,24 @@ namespace NarutoVR.SealCombat.Rpg
         public string Status { get; private set; } = "等待手部输入";
         public float DwellProgress => CandidateNode == null ? 0 : (UsesEncounterModes || useRayNavigation) ? rayState.Progress : state == null ? 0 : state.DwellProgress;
         public NavigationNode CandidateNode { get; private set; }
+        // Presentation reads the same adjacency and landing checks used for ray navigation.
+        internal IReadOnlyList<NavigationNode> NearbyNavigationNodes => currentNode ? currentNode.neighbors : NavigationNode.ActiveNodes;
+        internal bool PreviewNavigationOrigin(out RaycastHit floor)
+        {
+            floor = default;
+            return ReferencesValid() && TryFloor(ExpectedFloor, floorLayers, out floor, out _);
+        }
+        internal bool PreviewNavigationLanding(NavigationNode node, Vector3 from, out RaycastHit landing)
+        {
+            landing = default;
+            if (!node || node == currentNode || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene ||
+                !RpgGestureState.Finite(node.floorPosition)) return false;
+            float distance = Vector3.Distance(from, node.floorPosition);
+            if (distance < nodeTolerance || distance > offNodeRange ||
+                !TryNodeDestination(node, from, out landing, out _)) return false;
+            int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
+            return ClearCapsule(landing, from, obstacles, out _) && Visible(from, landing.point, obstacles);
+        }
         public string SelectionDetail { get; private set; } = "尚未选点";
         public event Action CancelRequested;
         /// <summary>Successful rig translation in world space, including a successful dodge.</summary>
@@ -296,7 +314,7 @@ namespace NarutoVR.SealCombat.Rpg
             debugCandidates.Clear(); evaluated = invalidNodes = directionRejected = floorRejected = occupiedRejected = occludedRejected = 0;
             selectionPending = false;
             if (scoring == null || !scoring.Valid) { ClearChallenger(); SelectionDetail = "导航评分参数无效"; return null; }
-            IReadOnlyList<NavigationNode> candidates = currentNode != null ? currentNode.neighbors : NavigationNode.ActiveNodes;
+            IReadOnlyList<NavigationNode> candidates = NearbyNavigationNodes;
             if (candidates == null) { ClearChallenger(); SelectionDetail = "没有相邻节点"; return null; }
             Vector3 origin = ExpectedFloor;
             Vector3 desired = RpgGestureState.ToWorld(direction, forward).normalized;

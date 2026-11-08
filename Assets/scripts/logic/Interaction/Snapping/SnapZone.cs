@@ -35,6 +35,8 @@ namespace NeuGameMRTools.Runtime.Components
         [SerializeField] Transform _snapTarget;
         [SerializeField] Transform _snapRotationTarget;
         [SerializeField] List<SnapWaypoint> _snapPoints = new();
+        [SerializeField, Tooltip("将路径记录在本区域局部空间，适用于移动的腕匣导轨。")]
+        bool _followZoneDuringSnap;
         [SerializeField] bool _requireNameMatch = true;
         [SerializeField] string _targetObjectName = "";
         [SerializeField, Min(0)] float _snapDuration = .5f;
@@ -73,6 +75,7 @@ namespace NeuGameMRTools.Runtime.Components
         Segment[] route;
         AnimationCurve curve;
         Vector3 segmentStartPosition;
+        bool relativeRoute;
         Quaternion segmentStartRotation;
         double elapsed;
         Rigidbody body;
@@ -162,7 +165,9 @@ namespace NeuGameMRTools.Runtime.Components
                 foreach (var driver in item.GetPositionDrivers())
                     if (driver) drivers.Add(new DriverState { value = driver, enabled = driver.enabled });
             IsSnapping = true; CurrentPointIndex = 0; elapsed = 0;
-            segmentStartPosition = obj.transform.position; segmentStartRotation = obj.transform.rotation;
+            relativeRoute = _followZoneDuringSnap;
+            segmentStartPosition = relativeRoute ? transform.InverseTransformPoint(obj.transform.position) : obj.transform.position;
+            segmentStartRotation = relativeRoute ? Quaternion.Inverse(transform.rotation) * obj.transform.rotation : obj.transform.rotation;
             foreach (var state in drivers)
             {
                 if (state.value) state.value.enabled = false;
@@ -180,7 +185,7 @@ namespace NeuGameMRTools.Runtime.Components
 
         bool Fail(string reason) { LastFailure = reason; return false; }
 
-        /// <summary>启动时冻结全部点的世界姿态和时长，编辑列表不会改变正在执行的路径。</summary>
+        /// <summary>冻结各点在所选参考空间的姿态和时长，编辑列表不会改变正在执行的路径。</summary>
         bool BuildRoute(Transform moving, out Segment[] result, out string error)
         {
             result = null; error = null;
@@ -201,7 +206,11 @@ namespace NeuGameMRTools.Runtime.Components
                 if (target.IsChildOf(moving) || rotation.IsChildOf(moving)) { error = "吸附目标点不能属于被移动道具"; return false; }
                 if (!float.IsFinite(duration) || duration < 0 || !Finite(target.position) || !Finite(rotation.rotation))
                 { error = $"第 {i + 1} 个点的姿态或时长无效"; return false; }
-                result[i] = new Segment { position = target.position, rotation = rotation.rotation, duration = duration };
+                result[i] = new Segment {
+                    position = _followZoneDuringSnap ? transform.InverseTransformPoint(target.position) : target.position,
+                    rotation = _followZoneDuringSnap ? Quaternion.Inverse(transform.rotation) * rotation.rotation : rotation.rotation,
+                    duration = duration
+                };
             }
             return true;
         }
@@ -220,9 +229,10 @@ namespace NeuGameMRTools.Runtime.Components
                 float curvedT = curve.Evaluate(t);
                 if (!float.IsFinite(curvedT)) { LastFailure = "动画曲线输出无效，已释放道具"; ReleaseObject(); return; }
                 // 保持原版的钳制型 Lerp/Slerp，而不是擅自换成 Unclamped 或 Tween 插值。
-                obj.transform.SetPositionAndRotation(
-                    finished ? segment.position : Vector3.Lerp(segmentStartPosition, segment.position, curvedT),
-                    finished ? segment.rotation : Quaternion.Slerp(segmentStartRotation, segment.rotation, curvedT));
+                Vector3 position = finished ? segment.position : Vector3.Lerp(segmentStartPosition, segment.position, curvedT);
+                Quaternion rotation = finished ? segment.rotation : Quaternion.Slerp(segmentStartRotation, segment.rotation, curvedT);
+                obj.transform.SetPositionAndRotation(relativeRoute ? transform.TransformPoint(position) : position,
+                    relativeRoute ? transform.rotation * rotation : rotation);
                 if (!finished) return;
                 int completed = CurrentPointIndex;
                 elapsed -= segment.duration;

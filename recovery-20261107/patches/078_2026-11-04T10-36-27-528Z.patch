@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {EventCenterChecks.Run()} 项通过；" + EnemyAttackChecks.Run() + "；" + EnemyCombatChecks.Run() + "；隔离 Play 合成输入测试，非头显验收。";
++                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {EventCenterChecks.Run()} 项通过；" + EnemyAttackChecks.Run() + "；" + EnemyCombatChecks.Run() + "；" + PlayerObjChecks.Run() + "；隔离 Play 合成输入测试，非头显验收。";
+*** End Patch

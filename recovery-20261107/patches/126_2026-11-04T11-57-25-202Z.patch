@@ -1,0 +1,71 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md
+@@
+-##### 当前替换试听 v3，2026-11-04
++##### 当前替换试听 v4，2026-11-04
++
++用户明确要求竖琴换成真实古筝音源、笛子保留、弦乐只轻铺底，维持明亮安静的常态 BGM。当前采用**实录古筝＋实录竹笛＋低动态中提琴长音**，保留《一寸山河》主题和一次编钟。
++
++- **古筝来源**　[Pufermufin 的古筝原录音](https://freesound.org/people/Pufermufin/sounds/396868/)为 CC0。使用作者公开提供的双声道 HQ MP3（有损试听源，不称无损母带），从中直接截取十段拨弦，覆盖八个根音；C4、D4各两段轮替，目标音最多移调两个半音并做小幅音准校正。切片候选位置来自 [XSXB-Band-Samples 的来源映射](https://github.com/sparklecatta-lang/XSXB-Band-Samples/blob/4ce222ecff5f6f1e38470b1e8b22eb31b1a3a040/instrument.json)。已避开重复拨音、异音、滑变候选；重新截取原录音，未使用该库加工后的 FLAC 尾音渲染，也未用竖琴模拟古筝。
++- **角色与留白**　竹笛保留 v3 的四十次发音、旋律和采样气息处理。古筝承担原竖琴主题与疏奏，接过原弦乐的两处领句：40秒附近只弹三音片段，64秒附近补成完整主题。弦乐取消旋律，只剩二十四次和声长音，渐入约0.9秒。干声能量配额为古筝30%、竹笛64%、弦乐5.9%、编钟0.1%；弦乐平均电平比笛子低约10.35dB，此数值不是听觉占比。最低G拨弦移高一八度，避开不稳定的低音采样；全曲仍是C宫五声。
++- **响度与循环**　96秒、60 BPM、4/4，-29.00 LUFS、-32.34 dBFS RMS、-12.58 dBTP；保留自然拨弦起音，在下一次杂音进入前做短缓释。音符尾部与混响跨边界折回，未加结尾淡出。运行资产的GUID、PCM16、44100Hz、双声道、Streaming和P1探索引用保留。
++- **交付与边界**　[当前完整WAV](../../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)、[复现脚本](../../scratch/render_yicun_shanhe_guzheng.py)、[音源说明](../../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。原始录音哈希、逐音范围、响度、削波、接缝与弦乐分工已检查；试听源是有限的拨弦录音，不是完整专业古筝技法库。主观音色、久听疲劳与头显混播仍待试听，数值检查不代替听感。
++
++##### v3 历史替换试听，2026-11-04
+@@
+-- **交付与验收**　[当前 WAV](../../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)、[复现脚本](../../scratch/render_yicun_shanhe_chamber.py)。已检查实际根音、削波、四倍过采样真峰值和循环接缝；修复 VSCO 中提琴文件名与实际音高差一八度的映射。数字检查不能证明音色自然或旋律耐听，本版作为更换配器的试听；未做真人耳听、连续 Unity 播放或头显混音验收。
++- **历史交付与验收**　v3原件备份至 `Logs/yicun-shanhe-guzheng-v4/previous_chamber_v3.wav`，[复现脚本](../../scratch/render_yicun_shanhe_chamber.py)保留。该版当时已检查实际根音、削波、四倍过采样真峰值和循环接缝，并修复VSCO中提琴八度映射。用户随后明确改为真实古筝，运行文件已由v4替换。
+@@
+-- **历史交付与验收**　v2 原件保存在 `Logs/yicun-shanhe-chamber-v3/previous_ambient_v2.wav`，当前运行资产已换为 v3。[v2 复现脚本](../../scratch/render_yicun_shanhe_ambient.py)保留，但直接运行会覆盖当前运行 WAV。v2 当时已检查响度、4 倍过采样峰值、边界相邻样本和源音尾部；用户随后否定其古琴音色，故不作为当前听感验收通过的版本。
++- **历史交付与验收**　v2 原件保存在 `Logs/yicun-shanhe-chamber-v3/previous_ambient_v2.wav`，当前运行资产已换为 v4。[v2 复现脚本](../../scratch/render_yicun_shanhe_ambient.py)保留，但直接运行会覆盖当前运行 WAV。v2 当时已检查响度、4 倍过采样峰值、边界相邻样本和源音尾部；用户随后否定其古琴音色，故不作为当前听感验收通过的版本。
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96 秒轻声循环，v3 改为竹笛、竖琴与轻中提琴声部，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
++- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96秒轻声循环，v4改为实录古筝与竹笛，弦乐只轻铺底，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
+@@
+-- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前 96 秒循环 BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v3 使用竹笛、竖琴、中提琴实录采样，-29 LUFS，沿用 P1 探索音乐引用，替换配器待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
++- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前96秒循环BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v4使用真实古筝录音替换竖琴，保留竹笛、减弱弦乐，-29 LUFS，沿用P1探索音乐引用，音色待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Audio/YicunShanhe_Credits.txt
+@@
+-一寸山河 / Yicun Shanhe — ambient loop, revision 3
++一寸山河 / Yicun Shanhe — ambient loop, revision 4
+@@
+-96 seconds, 60 BPM. Dizi, harp and viola section use recorded samples.
+-The bronze bell is synthesized. This revision contains no guqin or modeled sheng.
++96 seconds, 60 BPM. Guzheng, dizi and viola section use recorded samples.
++The bronze bell is synthesized. No harp, guqin or modeled sheng in this revision.
++
++Guzheng recording by Pufermufin
++"LOVELY CHINESE GUZHENG PLUCKED.wav"
++https://freesound.org/people/Pufermufin/sounds/396868/
++Licensed CC0 1.0 Universal
++https://creativecommons.org/publicdomain/zero/1.0/
++Source: https://cdn.freesound.org/previews/396/396868_6977826-hq.mp3
++This is the author's public stereo HQ MP3 preview, not the original lossless WAV.
++SHA256: 5cc564e192e7372fc11858db32e73fd7054a8791e57464863786c8b7dcc23374
++Ten directly recut recorded plucks at eight MIDI roots: 50,53,55,60,62,67,72,74.
++Candidate cut positions and tuning metadata from XSXB-Band-Samples (CC0):
++https://github.com/sparklecatta-lang/XSXB-Band-Samples
++Commit: 4ce222ecff5f6f1e38470b1e8b22eb31b1a3a040
++Author: sparklecatta-lang. Local source license: ArtSource/Audio/YicunShanhe/Guzheng/LICENSE.txt
++Processed FLAC files were reviewed but are not rendered in the delivered track.
++Changes: recutting original stereo audio, rejecting contaminated/unstable plucks,
++shortening before later plucks, recording gain balancing, root/tuning correction,
++transposition within two semitones, varied C4/D4 takes, smooth release, mix/reverb.
+@@
+-Harp and viola recordings: VSCO 2 Community Edition
++Viola recordings (and historical revision 3 harp): VSCO 2 Community Edition
+@@
+-Harp: Strings/Harp/KSHarp_{A2,C3,E3,G3,B3,D4,F4,A4,C5,E5}_mf.wav
++Historical harp only: Strings/Harp/KSHarp_{A2,C3,E3,G3,B3,D4,F4,A4,C5,E5}_mf.wav
+@@
+-The harp is a harp, not a guzheng. No source game recording was sampled.
++The viola supplies background harmony only in revision 4. No game OST was sampled.
+@@
+-Rebuild revision 3 with scratch/render_yicun_shanhe_chamber.py, which imports
++Rebuild revision 4 with scratch/render_yicun_shanhe_guzheng.py, which imports
++the viola loader from render_yicun_shanhe_chamber.py,
+@@
+-The renderer writes a candidate under Logs/yicun-shanhe-chamber-v3.
++The renderer writes a candidate under Logs/yicun-shanhe-guzheng-v4.
+*** End Patch

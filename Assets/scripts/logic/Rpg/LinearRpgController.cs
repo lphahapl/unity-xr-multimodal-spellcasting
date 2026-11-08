@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NarutoVR.SealLab;
+using NarutoVR.SealCombat.Enemies;
 using Oculus.Interaction.Input;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
+    internal enum LeafRecordResult { Rejected, Saved, PendingSave }
+
     /// <summary>Single-player session adapter. Recognition, resources, effects and locomotion retain separate owners.</summary>
     [DefaultExecutionOrder(300), RequireComponent(typeof(PlayerObj))]
     public sealed class LinearRpgController : MonoBehaviour, ISkillActivationPolicy
@@ -35,6 +38,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("击破全部靶后自动推进")] public bool autoAdvanceStages = true;
         [InspectorName("战斗由房间区域管理"), Tooltip("本场景练习靶3秒恢复；不以练习靶推进关卡或结束战斗，禁用训练预警攻击。旧场景保持关闭。")]
         public bool roomControlsEncounter;
+        [InspectorName("正式首章流程")] public OpeningTrialChapter openingChapter;
         [InspectorName("推进等待秒数"), Min(.5f)] public float stageDelay = 3;
         [InspectorName("隐藏法术购买价格"), Min(0)] public int hiddenSkillPrice = 60;
         [InspectorName("每次火球升级价格"), Min(0)] public int fireballUpgradePrice = 30;
@@ -43,6 +47,40 @@ namespace NarutoVR.SealCombat.Rpg
         public PlayerObj Entity => playerObject;
         public RpgPlayerState Player => playerObject ? playerObject.State : null;
         public RpgProgressData Progress { get; private set; }
+        public int TechniqueRevision { get; private set; }
+        public bool LeafSavePending => pendingLeafCheckpoint != null;
+        RpgProgressData pendingLeafCheckpoint;
+        double nextLeafSaveRetry;
+        OpeningTechniqueProgression Curriculum => openingChapter ? openingChapter.techniques : null;
+
+        public TechniqueLearningState GetTechniqueLearningState(string skillId) => Curriculum
+            ? Curriculum.State(Progress, skillId) : Progress != null && Progress.unlockedSkillIds.Contains(skillId)
+                ? TechniqueLearningState.Learned : TechniqueLearningState.Locked;
+
+        public bool IsTechniqueLearned(string skillId) => GetTechniqueLearningState(skillId) != TechniqueLearningState.Locked;
+
+        public bool IsTechniqueAvailable(string skillId)
+        {
+            bool trial = openingChapter && openingChapter.AllowsTrialSkill(skillId);
+            return Curriculum ? Curriculum.Available(Progress, skillId, trial) :
+                Progress != null && (Progress.unlockedSkillIds.Contains(skillId) || trial);
+        }
+
+        internal void RefreshTechniques() => TechniqueRevision++;
+
+        internal LeafRecordResult RecordLeaf(string id, bool register)
+        {
+            if (!CanAct || !Curriculum || !Curriculum.Record(Progress, id, register, out bool changed)) return LeafRecordResult.Rejected;
+            if (changed)
+            {
+                RefreshTechniques();
+                var candidate = CaptureSaveCandidate();
+                pendingLeafCheckpoint = candidate;
+                nextLeafSaveRetry = Time.realtimeSinceStartupAsDouble + 2;
+                if (!PersistCheckpoint(candidate, false)) return LeafRecordResult.PendingSave;
+            }
+            return LeafSavePending ? LeafRecordResult.PendingSave : LeafRecordResult.Saved;
+        }
         public string Status { get; private set; } = "等待初始化";
         public string StageName => stages.Length > StageIndex && stages[StageIndex] ? stages[StageIndex].displayName : "未配置阶段";
         public string SavePath { get; private set; }
@@ -50,7 +88,9 @@ namespace NarutoVR.SealCombat.Rpg
         public double GameTime { get; private set; }
         public bool HazardsEnabled { get; private set; }
         public bool CanAct => isActiveAndEnabled && Player != null && Player.Alive && !paused && Time.timeScale > 0;
-        public string ObjectiveStatus => roomControlsEncounter ? "练习靶自动恢复；进入尽头战斗房间迎敌，击败房间全部敌人后返回探索" : CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点" :
+        public bool LastCastCreatedProjectile { get; private set; }
+        public string ObjectiveStatus => openingChapter ? openingChapter.ObjectiveText :
+            roomControlsEncounter ? "练习靶自动恢复；进入尽头战斗房间迎敌，击败房间全部敌人后返回探索" : CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点" :
             $"击破训练靶 {targets.Count(t => t && t.IsDefeated)}/{targets.Length} · {(stages.Length > StageIndex && stages[StageIndex] ? stages[StageIndex].instructions : "")}";
         public bool CampaignComplete => Progress != null && stages.Length > 0 && stages.All(s => s && Progress.completedStageIds.Contains(s.stageId));
 
@@ -112,8 +152,8 @@ namespace NarutoVR.SealCombat.Rpg
                 store = new RpgSaveStore(SavePath, "linear-rpg-player", runtimeCatalog.skills.Select(s => s.skillId),
                     Player.MaxHealth, Player.MaxMana, runtimeCatalog.skills.Select(CooldownGroup).Distinct());
                 Progress = new RpgProgressData { checkpoint = Player.CaptureCheckpoint(GameTime), checkpointId = checkpointNodes[0].nodeId };
-                Progress.unlockedSkillIds.Add("fireball");
-                Status = "新角色：先练习火球与节点移动";
+                if (!openingChapter) Progress.unlockedSkillIds.Add("fireball");
+                Status = openingChapter ? "试炼室 · 等待腕匣引导" : "新角色：先练习火球与节点移动";
                 if (autoLoad && (File.Exists(SavePath) || File.Exists(SavePath + ".bak")))
                 {
                     if (store.TryLoad(out var loaded, out string reason) && ValidateProgress(loaded))
@@ -121,6 +161,7 @@ namespace NarutoVR.SealCombat.Rpg
                     else { saveBlocked = true; Status = "读取失败，当前使用临时新角色，已禁止覆盖原存档：" + (reason ?? "阶段、奖励或检查点不属于当前关卡"); }
                 }
                 lastCheckpoint = CloneProgress(Progress);
+                RefreshTechniques();
                 SelectStageFromProgress();
                 Player.RestoreCheckpoint(Progress.checkpoint, GameTime, out _);
                 ApplyUpgrades();
@@ -135,6 +176,8 @@ namespace NarutoVR.SealCombat.Rpg
                 skills.CancelOverride = CancelCasting;
                 skills.DeferVoiceUntilLateUpdate = true;
                 skills.effects.GameClock = () => GameTime;
+                skills.effects.RightHandActionPolicy = () => CanAct && skills.isActiveAndEnabled && !UiInputOwned &&
+                    !locomotion.NavigationActive && !locomotion.EncounterSlideActive;
                 skills.effects.ThrowGripProvider = (left, settings) => ReadThrowGrip(left, settings, Time.realtimeSinceStartupAsDouble);
                 locomotion.GameClock = () => GameTime;
                 locomotion.encounterModesEnabled = true;
@@ -165,10 +208,15 @@ namespace NarutoVR.SealCombat.Rpg
         void LateUpdate()
         {
             if (!initialized) return;
+            if (LeafSavePending && !saveBlocked && Time.realtimeSinceStartupAsDouble >= nextLeafSaveRetry)
+            {
+                nextLeafSaveRetry = Time.realtimeSinceStartupAsDouble + 2;
+                PersistCheckpoint(pendingLeafCheckpoint, true);
+            }
             if (!paused && Time.timeScale > 0) { GameTime += Time.deltaTime; Player.Tick(GameTime); }
             var frame = ReadNavigationFrame(Time.realtimeSinceStartupAsDouble);
             if (wristMenu && wristMenu.isActiveAndEnabled)
-                UpdateWristUi(frame,ReadWristMenuFrame(frame),!CanAct || skills.effects.HasHeldObject,Time.realtimeSinceStartupAsDouble);
+                UpdateWristUi(frame,ReadWristMenuFrame(frame),paused || Time.timeScale <= 0 || skills.effects.HasOccupiedHand || (!Player.Alive && !wristMenu.wornDevice),Time.realtimeSinceStartupAsDouble);
             else SyncWristOwnership(); // A menu disabled while active also returns gameplay ownership.
             var gate = MovementBlockReason;
             if (gate != lastMovementGate)
@@ -202,7 +250,7 @@ namespace NarutoVR.SealCombat.Rpg
             bool confirmed=wristMenu.PrepareWristTap(ui,hardBlocked,now);
             bool sealBusy=!confirmed && !UiInputOwned && !wristMenu.PanelOpen && !wristMenu.State.LauncherOpen && (locomotion.SealProtectionActive ||
                 (frame.leftValid && frame.rightValid && Vector3.Distance(frame.leftWrist,frame.rightWrist)<locomotion.gestures.sealEnterDistance));
-            string blocked = hardBlocked ? (skills && skills.effects && skills.effects.HasHeldObject ? "手上有持有物" : "角色当前不能行动") :
+            string blocked = hardBlocked ? (skills && skills.effects && skills.effects.HasOccupiedHand ? "手上有持有物" : "角色当前不能行动") :
                 !confirmed && locomotion.NavigationActive ? "导航操作中" : sealBusy ? "双手处于结印保护范围" : null;
             wristMenu.Tick(ui,this,blocked!=null,now,blocked);
             SyncWristOwnership();
@@ -228,10 +276,14 @@ namespace NarutoVR.SealCombat.Rpg
             if (!CanAct || !skill || !skills.ConfiguredSkills.Contains(skill)) return Reject("当前无法施法");
             if (UiInputOwned) return Reject("正在操作教学界面；手部恢复中立后再施法");
             if (locomotion.NavigationActive) return Reject("导航准备中：放下左手后再开始结印或吟唱");
-            if (!Progress.unlockedSkillIds.Contains(skill.skillId)) return Reject("尚未解锁：" + skill.displayName);
+            if (!IsTechniqueAvailable(skill.skillId))
+                return Reject((Curriculum && IsTechniqueLearned(skill.skillId) ? "此阶段暂不能施放：" : "尚未解锁：") + skill.displayName);
             string request = sessionId + ":cast:" + (++activationSequence);
+            int previousProjectile = skills.effects.HeldProjectileInstanceId;
             bool accepted = Player.TryActivate(request, skill.skillId, CooldownGroup(skill), skill.manaCost, skill.cooldownSeconds,
                 GameTime, () => skills.effects.TryActivate(skill), out string reason);
+            LastCastCreatedProjectile = accepted && skills.effects.HeldProjectileInstanceId != 0 &&
+                skills.effects.HeldProjectileInstanceId != previousProjectile;
             Status = accepted ? $"{skill.displayName}已准备，消耗 {skill.manaCost:0} MP" : reason + "；" + skills.effects.Status;
             RpgFeedbackSignals.Raise(Feedback, accepted ? RpgActionCue.CastReady : RpgActionCue.Blocked, this);
             return accepted;
@@ -241,7 +293,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!initialized) return;
             skills.CancelInputOnly(); skills.effects.CancelUnreleased(); locomotion.CancelPendingNavigation();
-            Status = "已取消待施法输入与未发射火球；已生效护盾和飞行火球保留。已消耗MP和CD不返还。";
+            Status = "已取消待施法输入并收起手中法宝。已消耗MP和CD不返还。";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Cancelled, this);
         }
 
@@ -249,7 +301,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             string reason = MovementBlockReason;
             if (reason == null && dodge && skills.effects.HasRightHeldObject)
-                reason = "右手持球动作由投射物优先处理；先投掷或取消再闪避";
+                reason = "右手正在持有法宝，先释放或收起再闪避";
             bool moved = reason != null ? Reject(reason) : dodge
                 ? locomotion.TryDebugDodge(direction, Time.realtimeSinceStartupAsDouble)
                 : locomotion.TryDebugStep(direction, Time.realtimeSinceStartupAsDouble);
@@ -258,14 +310,36 @@ namespace NarutoVR.SealCombat.Rpg
             return moved;
         }
 
-        public bool ReceiveDamage(string hitId, float amount)
+        public bool ReceiveDamage(string hitId, float amount) => ReceiveDamage(hitId, amount, null);
+
+        internal bool ReceiveDamage(string hitId, float amount, EnemyAttackHit? attack)
         {
-            if (!CanAct || !playerObject.TryReceiveDamage(hitId, amount, GameTime, skills.effects, out var damage)) return false;
+            bool canAct = CanAct;
+            PlayerDamageResult damage = default;
+            bool accepted = canAct && playerObject.TryReceiveDamage(hitId, amount, GameTime, skills.effects, out damage);
+            if (skills && skills.enableCastTrace)
+            {
+                float after = Player?.Health ?? 0;
+                string source = "直接伤害";
+                if (attack is EnemyAttackHit hit && hit.Source)
+                {
+                    var attacks = hit.Source.Attacks;
+                    string move = attacks != null && hit.AttackIndex >= 0 && hit.AttackIndex < attacks.Length
+                        ? attacks[hit.AttackIndex]?.displayName : null;
+                    source = $"{hit.Source.name}/{move ?? hit.AttackIndex.ToString()}";
+                }
+                string outcome = accepted ? "已结算" : playerObject && playerObject.HasReceivedDamage(hitId) ? "重复命中" :
+                    canAct ? "未接受" : "玩家不可行动";
+                skills.TraceCast(accepted ? "player_damage" : "player_damage_rejected",
+                    $"来源={source} 结果={outcome} 原始={amount:0.##} 护盾吸收={damage.Absorbed:0.##} " +
+                    $"HP={after + damage.HealthLost:0.##}→{after:0.##} hitId={hitId}");
+            }
+            if (!accepted) return false;
             Status = $"受到 {damage.Requested:0} 伤害，护盾吸收 {damage.Absorbed:0}，生命损失 {damage.HealthLost:0}";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Damage, this);
             if (!Player.Alive)
             {
-                skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
+                skills.CancelInputOnly(); skills.effects.ClearOnPlayerDeath(); locomotion.ResetInput();
                 Status = "角色已倒下。恢复检查点后重试；头部追踪保持正常。";
             }
             return true;
@@ -275,12 +349,31 @@ namespace NarutoVR.SealCombat.Rpg
         public bool SaveCheckpoint()
         {
             if (!CanAct) return Reject("仅存活且未暂停时可保存检查点");
-            if (saveBlocked) return Reject("启动时存档验证失败；为保留原文件，本次临时会话禁止写入");
+            var candidate = CaptureSaveCandidate();
+            if (LeafSavePending) pendingLeafCheckpoint = candidate;
+            return PersistCheckpoint(candidate, false);
+        }
+
+        RpgProgressData CaptureSaveCandidate()
+        {
             var candidate = CloneProgress(Progress);
-            candidate.checkpointId = checkpointNodes[StageIndex].nodeId;
+            candidate.checkpointId = SaveNode(StageIndex, CampaignComplete).nodeId;
             candidate.checkpoint = Player.CaptureCheckpoint(GameTime);
-            if (!store.TrySave(candidate, out string reason)) return Reject(reason);
-            Progress = candidate; lastCheckpoint = CloneProgress(candidate);
+            return candidate;
+        }
+
+        bool PersistCheckpoint(RpgProgressData candidate, bool retry)
+        {
+            if (saveBlocked) return Reject("启动时存档验证失败；为保留原文件，本次临时会话禁止写入");
+            if (!store.TrySave(candidate, out string reason))
+            {
+                if (retry) return false;
+                return Reject(LeafSavePending ? "铜叶在本次游戏中已生效，等待存档：" + reason : reason);
+            }
+            // A delayed write checkpoints the snapshot without reverting changes made since the failed save.
+            if (!retry) Progress = candidate;
+            lastCheckpoint = CloneProgress(candidate);
+            if (LeafSavePending) { pendingLeafCheckpoint = null; RefreshTechniques(); }
             Status = "检查点已保存（固定节点、角色进度、HP/MP和剩余CD）；临时效果与敌人血量不保存";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Progress, this);
             return true;
@@ -289,8 +382,8 @@ namespace NarutoVR.SealCombat.Rpg
         public bool RestoreCheckpoint()
         {
             if (!initialized || paused || Time.timeScale <= 0) return Reject("暂停时不能恢复检查点");
-            var restored = CloneProgress(lastCheckpoint);
-            if (File.Exists(SavePath) || File.Exists(SavePath + ".bak"))
+            var restored = CloneProgress(pendingLeafCheckpoint ?? lastCheckpoint);
+            if (!LeafSavePending && (File.Exists(SavePath) || File.Exists(SavePath + ".bak")))
             {
                 if (!store.TryLoad(out restored, out string reason)) return Reject(reason);
             }
@@ -299,6 +392,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!node || !locomotion.TryRestoreCheckpoint(node)) return Reject("检查点落地失败：" + locomotion.Status);
             if (!Player.RestoreCheckpoint(restored.checkpoint, GameTime, out string error)) return Reject(error);
             Progress = restored; lastCheckpoint = CloneProgress(restored); SelectStageFromProgress(); ApplyUpgrades();
+            RefreshTechniques();
             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
             ApplyStage(); Status = "已恢复检查点；阶段目标重置，临时效果已清理";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Progress, this);
@@ -315,11 +409,23 @@ namespace NarutoVR.SealCombat.Rpg
             var stage = stages[StageIndex];
             if (StageIndex + 1 < stages.Length && !locomotion.TryRestoreCheckpoint(checkpointNodes[StageIndex + 1]))
                 return Reject("下一检查点被阻挡，阶段与奖励保持原样：" + locomotion.Status);
+            return CommitStage(stage);
+        }
+
+        internal bool CompleteOpeningObjective(OpeningTrialChapter source)
+        {
+            if (source != openingChapter || !source || !CanAct || CampaignComplete || !source.ObjectiveMet) return false;
+            return CommitStage(stages[StageIndex]);
+        }
+
+        bool CommitStage(RpgStageDefinition stage)
+        {
             if (!Progress.TryGrantReward("reward." + stage.stageId, stage.rewardCurrency, null)) return Reject("此阶段奖励已领取或进度已达上限");
             Progress.completedStageIds.Add(stage.stageId);
             foreach (string id in stage.unlockSkillIds) if (!Progress.unlockedSkillIds.Contains(id)) Progress.unlockedSkillIds.Add(id);
+            RefreshTechniques();
             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
-            Player.Respawn(GameTime); // A completed encounter is a rest checkpoint; cooldowns still persist.
+            if (!openingChapter) Player.Respawn(GameTime);
             if (!CampaignComplete)
             {
                 StageIndex++; ApplyStage();
@@ -346,8 +452,10 @@ namespace NarutoVR.SealCombat.Rpg
         }
         public bool PurchaseHiddenSkill()
         {
+            if (Curriculum && Curriculum.IncludesLeafSkill("buff.hidden")) return Reject("此术式由铜叶入匣登记");
             if (!CanAct || !Progress.completedStageIds.Contains(stages[0].stageId)) return Reject("先完成第一阶段，再购买隐藏法术");
             if (!Progress.TryPurchaseSkill("buff.hidden", hiddenSkillPrice)) return Reject($"购买失败：需要 {hiddenSkillPrice} 货币，且不能重复购买");
+            RefreshTechniques();
             SaveCheckpoint(); return true;
         }
         public bool UpgradeFireball()
@@ -377,20 +485,23 @@ namespace NarutoVR.SealCombat.Rpg
             if (skills.effects) skills.effects.ResetPushInput();
         }
         static string CooldownGroup(SkillDefinition s) => string.IsNullOrEmpty(s.cooldownGroup) ? s.skillId : s.cooldownGroup;
-        NavigationNode FindCheckpoint(string id) => checkpointNodes.FirstOrDefault(n => n && n.nodeId == id);
+        NavigationNode SaveNode(int stage, bool complete) => complete && openingChapter && openingChapter.finalCheckpoint
+            ? openingChapter.finalCheckpoint : checkpointNodes[stage];
+        NavigationNode FindCheckpoint(string id) => openingChapter && openingChapter.finalCheckpoint && openingChapter.finalCheckpoint.nodeId == id
+            ? openingChapter.finalCheckpoint : checkpointNodes.FirstOrDefault(n => n && n.nodeId == id);
         bool Reject(string reason) { Status = reason; RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Blocked, this); return false; }
         static RpgProgressData CloneProgress(RpgProgressData p) => JsonUtility.FromJson<RpgProgressData>(JsonUtility.ToJson(p));
         bool ValidateProgress(RpgProgressData p)
         {
-            if (p == null || !FindCheckpoint(p.checkpointId) || p.checkpoint.health <= 0 || !p.unlockedSkillIds.Contains("fireball") ||
+            if (p == null || !FindCheckpoint(p.checkpointId) || p.checkpoint.health <= 0 || (!openingChapter && !p.unlockedSkillIds.Contains("fireball")) ||
                 !p.completedStageIds.SequenceEqual(stages.Take(p.completedStageIds.Count).Select(s => s.stageId))) return false;
             int stageIndex = Math.Min(p.completedStageIds.Count, stages.Length - 1);
-            if (p.checkpointId != checkpointNodes[stageIndex].nodeId) return false;
+            if (p.checkpointId != SaveNode(stageIndex, p.completedStageIds.Count == stages.Length).nodeId) return false;
             var rewards = p.completedStageIds.Select(id => "reward." + id).ToArray();
             if (p.claimedRewardIds.Count != rewards.Length || rewards.Any(id => !p.claimedRewardIds.Contains(id))) return false;
             foreach (var stage in stages.Take(p.completedStageIds.Count))
                 if (stage.unlockSkillIds.Any(id => !p.unlockedSkillIds.Contains(id))) return false;
-            return true;
+            return !Curriculum || Curriculum.Restore(p);
         }
 
         void ValidateSetup()
@@ -398,6 +509,8 @@ namespace NarutoVR.SealCombat.Rpg
             if (!handPoseSettings || handPoseSettings.Validate() is string) throw new InvalidOperationException("缺少或无效的官方基础手形配置");
             if (!skills || !skills.catalog || !skills.effects || !skills.lab || !locomotion || !locomotion.head) throw new InvalidOperationException("缺少技能、效果、骨骼或导航接线");
             var errors = skills.catalog.Validate(); if (errors.Count != 0) throw new InvalidOperationException(string.Join("；", errors));
+            if (openingChapter && (!Curriculum || !openingChapter.puzzle)) throw new InvalidOperationException("首章铜叶成长配置或实物机关缺失");
+            if (Curriculum) Curriculum.ValidateSetup(skills.catalog.skills.Select(s => s.skillId), stages, openingChapter.puzzle.leafId);
             if (!skills.catalog.skills.Any(s => s.skillId == "fireball") || !skills.catalog.skills.Any(s => s.skillId == "buff.hidden")) throw new InvalidOperationException("缺少火球或隐藏法术配置");
             if (stages.Length == 0 || checkpointNodes.Length != stages.Length || targets.Length == 0 || targets.Any(t => !t)) throw new InvalidOperationException("阶段、检查点或训练靶配置不完整");
             var ids = new HashSet<string>();
@@ -434,7 +547,7 @@ namespace NarutoVR.SealCombat.Rpg
                 }
             }
             result.rightOpen = result.rightValid && handPoses.Right.open;
-            result.rightMotionOwnedBySpell = skills.effects && skills.effects.HasRightThrowObject;
+            result.rightMotionOwnedBySpell = skills.effects && skills.effects.RightMotionOwnedBySpell;
             result.bothHandsLow = result.leftValid && result.rightValid && Math.Abs(result.leftObserved - result.rightObserved) <= SealFeatureExtractor.MaximumHandSkew &&
                 result.leftWrist.y < locomotion.head.position.y - lowHandsBelowHead && result.rightWrist.y < locomotion.head.position.y - lowHandsBelowHead;
             return result;
@@ -470,6 +583,9 @@ namespace NarutoVR.SealCombat.Rpg
                 if (frame.left.jointValid[index] && frame.left.jointValid[pinky])
                 {
                     Vector3 normal = Vector3.Cross(World(frame.left.joints[index].position)-f.leftWrist, World(frame.left.joints[pinky].position)-f.leftWrist);
+                    Vector3 fingers = (World(frame.left.joints[index].position) + World(frame.left.joints[pinky].position)) * .5f - f.leftWrist;
+                    f.mountValid = normal.sqrMagnitude > .0000001f && fingers.sqrMagnitude > .0001f;
+                    if (f.mountValid) f.mountRotation = Quaternion.LookRotation(fingers, -normal);
                     // Both dorsal/palmar conventions are accepted; vendor-specific wrist axes stay in this adapter.
                     f.wristFacing = normal.sqrMagnitude > .0000001f && Mathf.Abs(Vector3.Dot(normal.normalized,(f.headPosition-f.leftWrist).normalized)) >= .2f;
                 }
@@ -582,7 +698,7 @@ namespace NarutoVR.SealCombat.Rpg
                 skills.ExclusiveInputBlocked = null; skills.VoiceOwnershipDetail = null;
                 skills.DeferVoiceUntilLateUpdate = false;
                 if (originalCatalog) skills.catalog = originalCatalog;
-                if (skills.effects) { skills.effects.ProjectileLaunched -= OnProjectileLaunched; skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; }
+                if (skills.effects) { skills.effects.ProjectileLaunched -= OnProjectileLaunched; skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; skills.effects.RightHandActionPolicy = null; }
             }
             foreach (var asset in ownedAssets) if (asset) Destroy(asset);
         }

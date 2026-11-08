@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_ambient.py
+@@
+-    source_end = min(len(stretched), count)
++    source_end = int(np.searchsorted(positions, len(stretched) - 1))
+     release = min(source_end, round(.12 * SR))
+     sound[source_end-release:source_end] *= np.linspace(1, 0, release)
++    sound[source_end:] = 0
+*** End Patch

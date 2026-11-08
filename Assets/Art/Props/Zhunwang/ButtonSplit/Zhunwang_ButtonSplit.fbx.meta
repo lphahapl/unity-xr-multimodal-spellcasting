@@ -3,7 +3,47 @@ guid: 13c4ea9faab5b7148a3dc111851709ed
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_Atlas
+    second: {fileID: 2100000, guid: 7435b9dbab05f854f82afe33124d14af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_ButtonInterior
+    second: {fileID: 2100000, guid: 2b6f08dad1ee9bb4fa403487fb135b84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_BurnishedBronze
+    second: {fileID: 2100000, guid: a6996f08dcc24da686abc3dcdf19596d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_BurnishedRim
+    second: {fileID: 2100000, guid: a6996f08dcc24da686abc3dcdf19596d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_PatinatedBronze
+    second: {fileID: 2100000, guid: dbf20bc3406f4d95917788375860a534, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_NeutralInlay
+    second: {fileID: 2100000, guid: dbf20bc3406f4d95917788375860a534, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_DarkRecess
+    second: {fileID: 2100000, guid: 2b6f08dad1ee9bb4fa403487fb135b84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zhunwang_KeyInterior
+    second: {fileID: 2100000, guid: 2b6f08dad1ee9bb4fa403487fb135b84, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

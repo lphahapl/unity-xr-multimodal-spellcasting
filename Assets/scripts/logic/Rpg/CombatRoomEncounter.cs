@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NarutoVR.SealCombat.Enemies;
+using NarutoVR.SealCombat.Events;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -20,6 +21,7 @@ namespace NarutoVR.SealCombat.Rpg
         public string Status => status;
         public bool HasStarted => started;
         public bool IsComplete => complete;
+        public event Action Cleared;
         public bool PlayerInside => inside;
 
         struct Spawn
@@ -31,14 +33,25 @@ namespace NarutoVR.SealCombat.Rpg
         }
         readonly List<Spawn> spawns = new();
         LinearRpgController subscribed;
+        IDisposable enemyVitalsSubscription;
+        IDisposable detectionSubscription;
         bool captured, started, complete, inside, pausedEnemies = true, resetting, ticking;
         int revision;
 
         void Awake() => EnsureSetup();
-        void OnEnable() => EnsureSetup();
+        void OnEnable()
+        {
+            EnsureSetup();
+            enemyVitalsSubscription = EventCenter.Subscribe(EnemyEvents.VitalsChanged, TraceEnemyDamage, this);
+            detectionSubscription = EventCenter.Subscribe(EnemyEvents.FirstPlayerDetected, TraceFirstDetection, this);
+        }
         void Update() => TickEncounter();
         void OnDisable()
         {
+            enemyVitalsSubscription?.Dispose();
+            enemyVitalsSubscription = null;
+            detectionSubscription?.Dispose();
+            detectionSubscription = null;
             CancelPendingSpawns();
             ++revision;
             if (subscribed) subscribed.CheckpointRestored -= ResetEncounter;
@@ -48,6 +61,41 @@ namespace NarutoVR.SealCombat.Rpg
             if (rpg) rpg.SetEncounterCombat(false);
         }
         void OnDestroy() => RecycleRoomLeases();
+
+        bool TracesEnemy(EnemyObj entity, out long leaseId)
+        {
+            leaseId = 0;
+            if (!entity || !rpg || !rpg.skills || !rpg.skills.enableCastTrace) return false;
+            if (!UsesEnemyManager)
+                return enemies != null && Array.Exists(enemies, enemy => enemy && enemy.Entity == entity);
+            foreach (var lease in roomLeases)
+                if (enemyManager.IsCurrent(lease) && lease.Controller.Entity == entity)
+                {
+                    leaseId = lease.Id;
+                    return true;
+                }
+            return false;
+        }
+
+        void TraceFirstDetection(EnemyDetectionNotice notice)
+        {
+            if (!notice.Enemy || !TracesEnemy(notice.Enemy.Entity, out long lease)) return;
+            var entity = notice.Enemy.Entity;
+            rpg.skills.TraceCast("enemy_detected", $"敌人={entity.name}#{entity.GetInstanceID()} " +
+                $"租约={lease} 目标={(notice.Target ? notice.Target.name : "未指定")} 来源={notice.Enemy.DetectionReason}");
+        }
+
+        void TraceEnemyDamage(EnemyVitalsNotice hit)
+        {
+            // Regeneration and spawn resets also publish vitals. Only settled, identified hits belong here.
+            if (string.IsNullOrEmpty(hit.HitId) || !TracesEnemy(hit.Enemy, out long lease)) return;
+            string weapon = hit.HitId.StartsWith("projectile:", StringComparison.Ordinal) ? "投射物" : "其他攻击";
+            string attacker = hit.Attacker ? hit.Attacker.name : "未指定";
+            string zone = hit.HitZone ? hit.HitZone.name : "本体";
+            rpg.skills.TraceCast("enemy_damage", $"敌人={hit.Enemy.name}#{hit.Enemy.GetInstanceID()} 租约={lease} 来源={attacker}/{weapon} " +
+                $"部位={zone} 弱点={hit.WeakPoint} HP={hit.Health + hit.HealthDamage:0.##}→{hit.Health:0.##} " +
+                $"削韧={hit.PoiseDamage:0.##} 死亡={hit.Dead} hitId={hit.HitId}");
+        }
 
         bool EnsureSetup()
         {
@@ -93,8 +141,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if (complete) { rpg.SetEncounterCombat(false); status = "房间已完成，探索中"; return; }
                 if (started && AllDefeated())
                 {
-                    complete = true; inside = false; pausedEnemies = true;
-                    rpg.SetEncounterCombat(false); status = "房间敌人已全部击败"; return;
+                    FinishEncounter(); return;
                 }
                 bool nextInside = ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside);
                 if (!nextInside)
@@ -129,6 +176,14 @@ namespace NarutoVR.SealCombat.Rpg
                 rpg.SetEncounterCombat(true); status = "房间战斗中";
             }
             finally { ticking = false; }
+        }
+
+        void FinishEncounter()
+        {
+            complete = true; inside = false; pausedEnemies = true;
+            rpg.SetEncounterCombat(false);
+            status = "房间敌人已全部击败";
+            Cleared?.Invoke();
         }
 
         bool ContainsFloor(Vector3 world, bool wasInside)

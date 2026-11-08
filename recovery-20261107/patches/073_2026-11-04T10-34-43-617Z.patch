@@ -1,0 +1,110 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyCombatChecks.cs
++#if UNITY_EDITOR
++using System;
++using System.Linq;
++using System.Reflection;
++using NarutoVR.SealCombat.Enemies;
++using UnityEditor;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    public static class EnemyCombatChecks
++    {
++        public static string Run()
++        {
++            int count = 0;
++            void Check(bool condition, string message) { if (!condition) throw new Exception("削韧检查：" + message); count++; }
++            var config = ScriptableObject.CreateInstance<EnemyCombatDefinition>();
++            GameObject enemyGo = null, projectileGo = null, obstacle = null;
++            try
++            {
++                config.maxHealth = 1000; config.maxPoise = 100; config.recoveryDelay = 4; config.recoveryPerSecond = 10;
++                var state = new EnemyCombatState(config);
++                Check(state.Apply("a", 10, 30) && state.Health == 990 && state.Poise == 70, "生命与削韧同时提交");
++                Check(!state.Apply("a", 10, 30) && state.Poise == 70, "同一命中去重");
++                state.Tick(3); Check(state.Poise == 70, "恢复延迟期间不回韧");
++                state.Apply("b", 0, 10); state.Tick(3); Check(state.Poise == 60, "再次削韧重新等待");
++                state.Tick(2); Check(state.Poise == 70, "跨过等待仅计剩余一秒恢复");
++                state.Apply("c", 1, 100); state.Tick(100);
++                Check(state.Broken && state.Poise == 0, "削空立即标记瘫痪且期间不自然恢复");
++                state.CompleteSeated(); Check(!state.Broken && state.Poise == 100, "瘫痪动画完成才回韧");
++                config.maxPoise = 200; Check(state.MaxPoise == 100 && new EnemyCombatState(config).MaxPoise == 200, "SO 与每只运行态隔离");
++                config.maxPoise = 100;
++                Check(!state.Apply("invalid", -1, 20) && !state.Apply("nan", 1, float.NaN), "无效输入不扣血削韧");
++                Check(state.Apply("dead", 1000, 100) && state.Dead, "死亡优先");
++                state.CompleteSeated(); state.Tick(100); Check(state.Poise == 0 && state.Dead, "死亡不回韧或复活");
++
++                Vector3 origin = new(6500, 0, 6500);
++                enemyGo = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(EnemySetupAndChecks.PrefabPath), origin, Quaternion.identity);
++                var enemy = enemyGo.GetComponent<EnemyController>(); enemy.tickAutomatically = false;
++                enemy.Agent.enabled = false; enemy.checkLineOfSight = false; enemy.reactionTimeout = 100;
++                var entity = enemy.Entity; entity.CombatDefinition = config;
++                enemy.InitializeSpawn(null, true); enemy.animator.Rebind(); enemy.animator.Update(0);
++                var weak = enemyGo.GetComponentsInChildren<EnemyHitZone>().Single(z => z.isWeakPoint);
++                Check(weak.Owner == entity && weak.GetComponent<Collider>().isTrigger && weak.transform.parent.name == "mixamorig:Head", "后脑弱点跟随头骨且不附加物理阻挡");
++                Check(enemyGo.GetComponent<EnemyPoiseBar>() && entity.Combat.MaxPoise == 100, "预制体韧性条与SO接线");
++                weak.poiseMultiplier = 3; weak.damageMultiplier = 1; weak.bonusDamage = 0;
++                Check(weak.TryApplyHit("weak1", 10, 20) && entity.Combat.Health == 990 && entity.Combat.Poise == 40, "默认弱点只放大削韧");
++                weak.damageMultiplier = 2; weak.bonusDamage = 7;
++                Check(weak.TryApplyHit("weak2", 10, 20) && entity.Combat.Health == 963 && entity.Combat.Broken, "倍率和固定额外伤害可配置");
++                Check(enemy.CurrentBehaviour == EnemyController.Behaviour.Seated && enemy.CurrentAttack < 0, "本次削空立即进入Seated并停止攻击");
++                Check(!weak.TryApplyHit("weak2", 10, 20) && entity.Combat.Health == 963, "多个身体区域不重复结算同一hitId");
++                bool entered = false;
++                for (int i = 0; i < 300; i++)
++                {
++                    enemy.Tick(.05f); enemy.animator.Update(.05f);
++                    entered |= enemy.animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Seated");
++                    if (entered && !entity.Combat.Broken) break;
++                }
++                Check(entered && !entity.Combat.Broken && entity.Combat.Poise == 100 && !enemy.IsDead, "真实Seated动画自然结束后恢复韧性及行动");
++
++                // 实际球形扫掠：从后脑方向先撞弱点；正面则由头部实体挡住。
++                weak.damageMultiplier = 1; weak.bonusDamage = 0;
++                void Shoot(Vector3 start, Vector3 direction)
++                {
++                    projectileGo = new GameObject("削韧投射物检查"); projectileGo.transform.position = start;
++                    var projectile = projectileGo.AddComponent<SkillProjectile>(); projectile.damage = 10; projectile.poiseDamage = 20;
++                    projectile.speed = 1000; projectile.radius = .02f; projectile.GameClock = () => 0;
++                    Physics.SyncTransforms(); projectile.Initialize(direction, null, ~0, 0, null, null);
++                    typeof(SkillProjectile).GetMethod("Update", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(projectile, null);
++                    Check(projectile.IsFinished, "实际扫掠完成命中");
++                    if (projectileGo) Object.DestroyImmediate(projectileGo); projectileGo = null;
++                }
++                enemy.ResetForSpawn(); enemy.animator.Rebind(); enemy.animator.Update(0);
++                Vector3 weakCenter = weak.GetComponent<SphereCollider>().bounds.center;
++                Shoot(weakCenter - Vector3.forward * 2, Vector3.forward);
++                Check(entity.Combat.Poise == 40, "背后火球实际命中后脑并三倍削韧");
++                enemy.ResetForSpawn(); enemy.animator.Rebind(); enemy.animator.Update(0);
++                weakCenter = weak.GetComponent<SphereCollider>().bounds.center;
++                Shoot(weakCenter + Vector3.forward * 2, Vector3.back);
++                Check(entity.Combat.Poise == 80, "正面火球不穿透头部领取后脑加成");
++                enemy.ResetForSpawn();
++                obstacle = GameObject.CreatePrimitive(PrimitiveType.Cube); obstacle.transform.position = weakCenter - Vector3.forward;
++                obstacle.transform.localScale = new Vector3(1, 1, .2f);
++                Shoot(weakCenter - Vector3.forward * 2, Vector3.forward);
++                Check(entity.Combat.Poise == 100, "墙体先命中时不能隔墙削韧");
++                obstacle.GetComponent<Collider>().isTrigger = true;
++                Shoot(weakCenter - Vector3.forward * 2, Vector3.forward);
++                Check(entity.Combat.Poise == 40, "无关Trigger不会挡住火球");
++                Check(entity.ReceiveHit("kill", 10000, 100) && enemy.IsDead && entity.Combat.Dead, "实际生命归零进入死亡状态");
++                return $"敌人SO/韧性/瘫痪/弱点/实际投射物 {count} 项通过";
++            }
++            finally
++            {
++                if (projectileGo) Object.DestroyImmediate(projectileGo);
++                if (obstacle) Object.DestroyImmediate(obstacle);
++                if (enemyGo) Object.DestroyImmediate(enemyGo);
++                Object.DestroyImmediate(config);
++            }
++        }
++    }
++}
++#endif
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {EventCenterChecks.Run()} 项通过；" + EnemyAttackChecks.Run() + "；隔离 Play 合成输入测试，非头显验收。";
++                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {EventCenterChecks.Run()} 项通过；" + EnemyAttackChecks.Run() + "；" + EnemyCombatChecks.Run() + "；隔离 Play 合成输入测试，非头显验收。";
+*** End Patch

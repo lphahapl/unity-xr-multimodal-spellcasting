@@ -1,0 +1,30 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+             int token = ++generation;
+             reaction = requested; reactionStartedAt = clock; reactionEntered = false;
+-            StopNavigation(); CancelAttack();
+-            if (!this || !isActiveAndEnabled || generation != token) return false;
++            StopNavigation();
++            // 先同时提交动作与行动锁；结束攻击回调若重生，会完整重置二者。
+             enemyObj.StartReactionAnimation(requested);
+-            SetReactionBehaviour();
+-            return true;
++            CancelAttack();
++            if (!this || !isActiveAndEnabled) return false;
++            if (generation == token) SetReactionBehaviour();
++            return reaction == requested;
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+                 wall.SetActive(false); Physics.SyncTransforms(); enemy.checkLineOfSight = false;
++                enemy.reactionTimeout = 100; // 证明由动画退出恢复，而非较短超时掩盖连线错误。
+@@
+                 target.position = origin + Vector3.forward; go.transform.rotation = Quaternion.identity;
+                 enemy.InitializeSpawn(target, true); Step(6);
++                UnityEngine.Events.UnityAction<int> clearTargetOnEnd = _ => enemy.SetTarget(null);
++                enemy.onAttackFinished.AddListener(clearTargetOnEnd);
+                 Check(enemy.CurrentAttack >= 0 && enemy.TryDie(), "死亡打断正在执行的攻击");
++                enemy.onAttackFinished.RemoveListener(clearTargetOnEnd);
+                 Check(enemy.CurrentAttack == -1 && enemy.IsDead && !agent.hasPath, "死亡停止攻击和导航");
++                Check(enemy.animator.GetBool("dead"), "攻击结束回调换目标不破坏死亡动画与行动锁一致性");
+*** End Patch

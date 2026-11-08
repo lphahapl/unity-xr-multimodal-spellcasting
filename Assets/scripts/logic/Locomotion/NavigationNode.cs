@@ -24,6 +24,10 @@ namespace NarutoVR.SealCombat.Rpg
 
         void OnDrawGizmos()
         {
+#if UNITY_EDITOR
+            if (gameObject.scene.path == "Assets/Scene/Chapter01_Awakening.unity" &&
+                !UnityEditor.Selection.Contains(gameObject)) return;
+#endif
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(floorPosition + Vector3.up * 0.03f, 0.15f);
             if (neighbors == null) return;

@@ -52,7 +52,7 @@ namespace NarutoVR.SealCombat.Rpg
                 status = "房间实例已被外部回收或管理器重启，请重置遭遇"; return;
             }
             if (started && roomLeases.Count > 0 && roomLeases.All(l => Defeated(l.Controller)))
-            { complete = true; inside = false; rpg.SetEncounterCombat(false); status = "房间敌人已全部击败"; return; }
+            { FinishEncounter(); return; }
             if (!ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside))
             {
                 inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.SetEncounterCombat(false);

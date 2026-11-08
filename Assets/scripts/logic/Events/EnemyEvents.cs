@@ -9,8 +9,11 @@ namespace NarutoVR.SealCombat.Events
         public readonly string HitId;
         public readonly float Health, Poise, HealthDamage, PoiseDamage;
         public readonly bool WeakPoint, Broken, Dead;
-        public EnemyVitalsNotice(EnemyObj enemy, string hitId, float hp, float poise, float healthDamage, float poiseDamage, bool weak, bool broken, bool dead)
-        { Enemy = enemy; HitId = hitId; Health = hp; Poise = poise; HealthDamage = healthDamage; PoiseDamage = poiseDamage; WeakPoint = weak; Broken = broken; Dead = dead; }
+        public readonly EnemyHitZone HitZone;
+        public readonly Transform Attacker;
+        public EnemyVitalsNotice(EnemyObj enemy, string hitId, float hp, float poise, float healthDamage, float poiseDamage, bool weak, bool broken, bool dead,
+            EnemyHitZone hitZone = null, Transform attacker = null)
+        { Enemy = enemy; HitId = hitId; Health = hp; Poise = poise; HealthDamage = healthDamage; PoiseDamage = poiseDamage; WeakPoint = weak; Broken = broken; Dead = dead; HitZone = hitZone; Attacker = attacker; }
     }
     public readonly struct EnemyAttackNotice
     {

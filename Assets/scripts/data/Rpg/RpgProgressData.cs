@@ -23,6 +23,12 @@ namespace NarutoVR.SealCombat.Rpg
         public int level;
     }
 
+    [Serializable] public sealed class RpgCopperLeafData
+    {
+        public string leafId;
+        public bool registered;
+    }
+
     [Serializable] public sealed class SaveEnvelope
     {
         public int version = RpgSaveStore.CurrentVersion;
@@ -34,6 +40,7 @@ namespace NarutoVR.SealCombat.Rpg
     [Serializable] public sealed class RpgProgressData
     {
         public List<string> unlockedSkillIds = new List<string>();
+        public List<RpgCopperLeafData> copperLeaves = new List<RpgCopperLeafData>();
         public List<RpgSkillLevelData> skillLevels = new List<RpgSkillLevelData>();
         public int currency;
         public List<string> completedStageIds = new List<string>();

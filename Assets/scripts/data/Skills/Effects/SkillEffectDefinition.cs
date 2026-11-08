@@ -21,4 +21,10 @@ namespace NarutoVR.SealCombat
         void Tick(double now);
         void Cancel();
     }
+
+    /// <summary>收回手中物时，已发出的效果仍由原生命周期管理。</summary>
+    internal interface IReleasableHandEffect : ISkillEffectLifetime
+    {
+        void ReleaseHand();
+    }
 }

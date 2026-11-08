@@ -15,6 +15,10 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("恢复等待秒数"), Tooltip("成功消耗能量后等待多久开始恢复；暂停不推进游戏时钟。"), Range(0, 86400)]
         public float regenDelay = 2;
 
+        [Header("受击反馈")]
+        [InspectorName("视口边缘提示强度"), Range(0, 1), Tooltip("实际损失生命时在视野边缘显示短暂朱砂色。设为 0 可关闭。")]
+        public float hitVignetteIntensity = 1;
+
         public RpgPlayerState CreateState() => new RpgPlayerState(maxHealth, maxMana, manaRegen, regenDelay);
     }
 }

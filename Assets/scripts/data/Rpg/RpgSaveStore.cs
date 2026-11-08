@@ -92,6 +92,10 @@ namespace NarutoVR.SealCombat.Rpg
                 !ValidIds(progress.claimedRewardIds, null) ||
                 (!string.IsNullOrEmpty(progress.checkpointId) && !RpgDataRules.ValidId(progress.checkpointId)) ||
                 progress.skillLevels == null || progress.skillLevels.Count > RpgDataRules.MaximumEntries) return false;
+            if (progress.copperLeaves == null || progress.copperLeaves.Count > RpgDataRules.MaximumEntries) return false;
+            var leaves = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var leaf in progress.copperLeaves)
+                if (leaf == null || !RpgDataRules.ValidId(leaf.leafId) || !leaves.Add(leaf.leafId)) return false;
             var levels = new HashSet<string>(StringComparer.Ordinal);
             foreach (var item in progress.skillLevels)
                 if (item == null || !RpgDataRules.ValidId(item.skillId) || !knownSkills.Contains(item.skillId) ||
@@ -131,6 +135,8 @@ namespace NarutoVR.SealCombat.Rpg
                 if (header.version != CurrentVersion) { reason = "不支持的存档版本：" + header.version; return false; }
                 envelope = JsonUtility.FromJson<SaveEnvelope>(json);
                 if (envelope == null) { reason = "JSON内容为空或无效"; return false; }
+                // This optional v1 field is absent in saves written before the opening chapter tracked copper leaves.
+                if (envelope.progress != null) envelope.progress.copperLeaves ??= new List<RpgCopperLeafData>();
                 if (envelope.profileId != profileId) { reason = "存档档案ID不匹配"; return false; }
                 return Validate(envelope.progress, out reason);
             }

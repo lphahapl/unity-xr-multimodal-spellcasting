@@ -29,7 +29,10 @@ namespace NarutoVR.SealCombat.Rpg
         public bool UsesEncounterModes=>encounterModesEnabled;
         public bool EncounterCombat { get; private set; }
         public bool EncounterSlideActive=>sliding;
-        public bool ContinuousMotionActive=>walking || sliding;
+        // Pointing still owns the input at a wall. Motion reports only successful travel.
+        public bool ContinuousMotionActive => (walking && movedThisAction) || sliding;
+        /// <summary>Committed horizontal exploration travel in metres. Zero ends the current stride.</summary>
+        public event Action<float> ExplorationTravelled;
         public string EncounterDebugDetails=>$"模式：{(EncounterCombat?"战斗":"探索")}；等待收指={needNeutral}；步速倍率 {pitchFactor:F2}\n闪避：{motionReason}；发射保护 {(shotGuard?Math.Max(0,throwDodgeRecovery-(inputNow-shotAt)):0):F2}s；冷却 {DodgeRemaining:F2}s";
 
         public void SetEncounterCombat(bool combat)
@@ -49,8 +52,15 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void ResetEncounterMotion()
         {
+            EndWalkStride();
             lastProcess=lastWristStamp=double.NaN; armed=sliding=walking=movedThisAction=false;
             slideRemaining=0; remoteRearm=false;
+        }
+        void EndWalkStride()
+        {
+            if (!walking || !movedThisAction) return;
+            movedThisAction = false;
+            ExplorationTravelled?.Invoke(0f);
         }
         static bool TryHorizontal(Vector3 forward,out Vector3 heading)
         {
@@ -79,13 +89,29 @@ namespace NarutoVR.SealCombat.Rpg
                 motionReason="非战斗：禁用闪避";
                 bool go=left && rawInput.leftPointing && f.leftPointing && !SealProtectionActive && !f.bothHandsLow;
                 if(!go || !TryHorizontal(head.forward,out var heading))
-                { walking=movedThisAction=false; Status=go?"头向接近垂直，停止探索移动":"收指、追踪无效或结印：停止探索移动";return true; }
+                {
+                    EndWalkStride();
+                    walking = false;
+                    Status=go?"头向接近垂直，停止探索移动":"收指、追踪无效或结印：停止探索移动";return true;
+                }
                 float pitch=Mathf.Abs(Mathf.Asin(Mathf.Clamp(head.forward.y,-1,1))*Mathf.Rad2Deg);
                 float t=Mathf.InverseLerp(pitchSlowStart,Math.Max(pitchSlowStart+1,pitchSlowEnd),pitch);
                 pitchFactor=pitchSlowsWalk?Mathf.Lerp(1,minimumPitchFactor,Mathf.SmoothStep(0,1,t)):1;
                 walking=true;
-                if(dt>0 && !TrySmoothStep(heading*dt*Mathf.Max(.05f,exploreSpeed)*pitchFactor,out _,out string reason))
-                { Status="探索停止："+reason;return true; }
+                if (dt <= 0)
+                {
+                    EndWalkStride();
+                    Status = "探索：等待连续手势采样";
+                    return true;
+                }
+                if (!TrySmoothStep(heading * (dt * Mathf.Max(.05f, exploreSpeed) * pitchFactor), out var travel, out string reason))
+                {
+                    EndWalkStride();
+                    Status = "探索停止：" + reason;
+                    return true;
+                }
+                if (walking && movedThisAction)
+                    ExplorationTravelled?.Invoke(new Vector2(travel.x, travel.z).magnitude);
                 Status="探索：沿水平视线行走";return true;
             }
             if(sliding)
@@ -192,7 +218,16 @@ namespace NarutoVR.SealCombat.Rpg
             int count=Physics.CapsuleCastNonAlloc(bottom,top,radius,moved.normalized,smoothHits,moved.magnitude,obstacleLayers,QueryTriggerInteraction.Ignore);
             if(count==smoothHits.Length){reason="路径碰撞密集";return false;}
             for(int i=0;i<count;i++)if(!Ignored(smoothHits[i].collider)){reason="路径有障碍";return false;}
-            rigRoot.position+=moved;State.TranslateAnchors(moved);
+            var previous = rigRoot.position;
+            rigRoot.position += moved;
+            if (walking)
+                moved = rigRoot.position - previous;
+            State.TranslateAnchors(moved);
+            if (walking && moved.x == 0f && moved.z == 0f)
+            {
+                reason = "没有水平位移";
+                return false;
+            }
             if(!movedThisAction){movedThisAction=true;Moved?.Invoke(moved);}
             reason=null;return true;
         }

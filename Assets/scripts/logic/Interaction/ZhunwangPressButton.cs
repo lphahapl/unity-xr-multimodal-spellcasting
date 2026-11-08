@@ -7,15 +7,17 @@ namespace NarutoVR.SealCombat.Rpg
     public sealed class ZhunwangPressButton : MonoBehaviour
     {
         public Transform cap;
+        [InspectorName("匣面与教学投影位")] public ZhunwangWristDisplay display;
         [Tooltip("场景中的右食指输入；独立展台也可指定 fingertip。")] public WristMenuController handInput;
         public Transform fingertip;
         [Min(.0001f)] public float travelMetres = .0015f;
-        [Min(.001f)] public float touchRadius = .006f;
+        [Min(.001f)] public float touchRadius = .022f;
         public UnityEvent onPressed = new();
         public UnityEvent onReleased = new();
         public bool IsPressed { get; private set; }
         Vector3 rest, surface;
         bool ready, armed;
+        public Vector3 RestSurface => ready && cap ? cap.parent.TransformPoint(rest)+cap.TransformVector(surface) : transform.position;
         void OnEnable() { if (cap) Prepare(); }
         void Prepare()
         {
@@ -24,6 +26,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void LateUpdate()
         {
+            // Worn buttons are sampled once before gameplay arbitrates this same hand frame.
+            if (handInput && handInput.wornDevice == this) return;
             if(fingertip){Sample(fingertip.position);return;}
             if(handInput&&handInput.isActiveAndEnabled){
                 var frame=handInput.LatestInput;
@@ -47,7 +51,7 @@ namespace NarutoVR.SealCombat.Rpg
             if(!IsPressed&&displacement>=travelMetres*.85f){IsPressed=true;onPressed.Invoke();}
             else if(IsPressed&&displacement<=travelMetres*.20f){IsPressed=false;onReleased.Invoke();}
         }
-        void ResetContact(){if(ready&&cap)cap.localPosition=rest;armed=false;if(IsPressed){IsPressed=false;onReleased.Invoke();}}
+        public void ResetContact(){if(ready&&cap)cap.localPosition=rest;armed=false;if(IsPressed){IsPressed=false;onReleased.Invoke();}}
         void OnDisable(){ResetContact();ready=false;}
     }
 }

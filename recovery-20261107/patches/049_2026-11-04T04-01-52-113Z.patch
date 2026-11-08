@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                    File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\nRUNNING 40 项逻辑完成，等待真实帧导航移动\n");
++                    File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\nRUNNING 逻辑检查完成，等待真实帧导航移动\n");
+@@
+-                agent.enabled = false; enemy.SetTarget(target); Step();
+-                Check(!agent.enabled, "禁用导航组件不抛异常");
++                agent.enabled = false; target.position = origin + Vector3.forward * 5;
++                enemy.InitializeSpawn(target, true); Step();
++                Check(!agent.enabled && enemy.Status.Contains("NavMesh"), "禁用导航组件不抛异常并说明原因");
++                agent.enabled = true; agent.Warp(origin); go.transform.rotation = Quaternion.identity;
++                enemy.checkLineOfSight = true; enemy.InitializeSpawn(target, false);
++                var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
++                SceneManager.MoveGameObjectToScene(wall, scene);
++                wall.transform.position = origin + new Vector3(0, 1, 2.5f); wall.transform.localScale = new Vector3(3, 3, .5f);
++                Physics.SyncTransforms(); before = first; Step();
++                Check(!enemy.HasTarget && first == before, "实体遮挡阻止首次发现");
++                wall.SetActive(false); Physics.SyncTransforms(); Step();
++                Check(enemy.HasTarget && first == before + 1, "解除遮挡后首次发现");
++                wall.SetActive(true); Physics.SyncTransforms(); Step(4);
++                Check(!enemy.HasTarget, "已发现目标被遮挡超过宽限后丢失");
+*** End Patch

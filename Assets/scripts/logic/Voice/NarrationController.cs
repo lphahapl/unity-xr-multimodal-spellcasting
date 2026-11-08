@@ -22,6 +22,8 @@ namespace NarutoVR.SealCombat
         public string audioFileName;
         [InspectorName("说话者")]
         public string speaker;
+        [TextArea(2, 6), InspectorName("台词正文")]
+        public string text;
         [Header("二、推进条件")]
         [InspectorName("推进方式")] public NarrationAdvanceMode advanceMode;
         [InspectorName("到下一句的间隔（秒）"), Min(0), Tooltip("本句条件满足后再等这些秒数。0 表示立即继续；使用游戏时间，最后一句忽略此项。")]

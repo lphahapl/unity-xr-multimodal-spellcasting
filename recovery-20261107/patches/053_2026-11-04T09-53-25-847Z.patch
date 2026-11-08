@@ -1,0 +1,33 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+                 if (!enemy) enemy = go.AddComponent<EnemyController>();
+                 enemy.animator = anim;
++                enemy.BindEntityComponents();
+                 PrefabUtility.SaveAsPrefabAsset(go, PrefabPath);
+@@
+             Debug.Log("敌人 Animator 已修复；独立预制体已生成，当前场景未保存或替换。");
+         }
++
++        [MenuItem("Tools/NarutoVR/敌人/仅迁移 EnemyObj 组件")]
++        public static void MigrateEntityPrefab()
++        {
++            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请退出 Play 后迁移。");
++            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
++            try
++            {
++                var controller = root.GetComponent<EnemyController>();
++                if (!controller) throw new InvalidOperationException("敌人 prefab 缺少 Controller。");
++                controller.BindEntityComponents();
++                PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
++            }
++            finally { PrefabUtility.UnloadPrefabContents(root); }
++            Debug.Log("EnemyObj 接线迁移完成，未重建 Animator 或保存当前场景。");
++        }
+@@
+                 Check(enemy.ValidateAnimator(out _), "Animator 参数与默认攻击状态");
++                Check(enemy.Entity && enemy.Entity == go.GetComponent<EnemyObj>() &&
++                    enemy.Entity.Animator == enemy.animator && enemy.Entity.Agent == agent, "实体组件与兼容入口使用同一引用");
++                enemy.BindEntityComponents(); enemy.BindEntityComponents();
++                Check(go.GetComponents<EnemyObj>().Length == 1, "重复接线不增加组件或重置业务事件");
+*** End Patch

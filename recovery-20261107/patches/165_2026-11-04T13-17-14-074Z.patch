@@ -1,0 +1,7 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/ENEMY_SPAWNING_ZH.md
+@@
+ 实现借鉴 Practice 的按 ID 配置与分类型池，但不照搬加载失败后继续访问 Result、重复 ID 分支误查其它字典的逻辑。句柄与实例的所有权参考 [Unity Addressables 内存管理说明](https://docs.unity3d.com/Packages/com.unity.addressables@2.7/manual/MemoryManagement.html)。本模块不依赖 Meta/PICO 输入 SDK；未来多人仍需由权威方调用生成接口并另加网络出生 ID。
++
++2026-11-04 本轮验证：Unity 6000.3.10f1，实际房间14项、旧预置房间22项、池与异步生命周期45项通过；后者含可控延迟 ResourceProvider、单请求取消、关闭重开、资源恰好释放、攻击结束回调重置房间。Android 本地内容构建通过。桌面测试使用 Asset Database 加载，未构建完整 APK、未做头显真机或大批量怪物性能测试；报告见上述日志目录。
+*** End Patch

@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs
+@@
+-        public string ObjectiveStatus => CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点" :
++        public string ObjectiveStatus => roomControlsEncounter ? "练习靶自动恢复；进入尽头战斗房间迎敌，击败房间全部敌人后返回探索" : CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点" :
+@@
+-                    try { listener(); } catch (Exception error) { Debug.LogWarning("检查点恢复监听异常：" + error, this); }
++                    try { listener(); } catch (Exception listenerError) { Debug.LogWarning("检查点恢复监听异常：" + listenerError, this); }
+*** End Patch

@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/P1RoomPlayChecks.cs
+@@
+-            Check(rpg.CanAct && !move.EncounterCombat && !enemy.gameObject.activeSelf, "靶场开局应为探索且敌人未激活");
++            Check(rpg.CanAct && !move.EncounterCombat && !enemy.gameObject.activeSelf, $"靶场开局应为探索且敌人未激活；canAct={rpg.CanAct},enabled={rpg.isActiveAndEnabled},player={rpg.Player != null},alive={rpg.Player?.Alive},combat={move.EncounterCombat},enemyActive={enemy.gameObject.activeSelf},timeScale={Time.timeScale},paused={typeof(LinearRpgController).GetField(\"paused\",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(rpg)},rpg={rpg.Status},room={room.Status}");
+*** End Patch

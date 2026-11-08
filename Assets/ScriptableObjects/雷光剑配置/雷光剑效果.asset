@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f3af33667444e68da77b47f01a9f1f, type: 3}
+  m_Name: "\u96F7\u5149\u5251\u6548\u679C"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.ThunderSwordEffectDefinition
+  swordPrefab: {fileID: 4602954251851788563, guid: 207b6449bbd4937408ee0db2379405aa, type: 3}
+  wavePrefab: {fileID: 5887895601346589728, guid: 755d45ade9248eb47877f44f0efe80bc, type: 3}
+  lightningPrefab: {fileID: 7907060931470957039, guid: 288601adb71cc944083b08e6e154195b, type: 3}
+  gripOffset: {x: 0, y: 0, z: 0}
+  gripEuler: {x: 0, y: 0, z: 0}
+  swingDistance: 0.14
+  minSwingSpeed: 0.75
+  waveInterval: 0.45
+  contactWindow: 0.12
+  directDamage: 6
+  directPoise: 2
+  waveSpeed: 10
+  waveLifetime: 1.2
+  waveRadius: 0.055
+  lightningDamage: 7
+  lightningPoise: 2
+  lightningCooldown: 2

@@ -69,7 +69,7 @@ MonoBehaviour:
   owner: {fileID: 2761040995786366426}
   isWeakPoint: 1
   poiseMultiplier: 3
-  damageMultiplier: 1
+  damageMultiplier: 2
   bonusDamage: 0
 --- !u!1 &2290254375704562300
 GameObject:
@@ -354,7 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyDetectionSensor
   owner: {fileID: 2761040995786366426}
-  ignoreOcclusion: 0
 --- !u!1 &8624150521684831295
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,12 +684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1137a8ae5f61af458afc836ab7d9592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyObj
+  definition: {fileID: 11400000, guid: 255c44f9f0294f148acf0660fcb9957e, type: 2}
   animator: {fileID: 7313174513721522091}
   detectionSensor: {fileID: 2717304971428337494}
   attacks:
   - displayName: "\u6325\u780D"
     shape: 0
-    damage: 35
+    damage: 8
     radius: 2.1
     angle: 100
     centerOffset: {x: 0, y: 1, z: 0}
@@ -699,7 +699,7 @@ MonoBehaviour:
     activeEnd: 0.70000005
   - displayName: "\u8F6C\u5708"
     shape: 1
-    damage: 25
+    damage: 6
     radius: 2.3
     angle: 100
     centerOffset: {x: 0, y: 1, z: 0}
@@ -788,7 +788,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyPoiseBar
   enemy: {fileID: 2761040995786366426}
-  offset: {x: 0, y: 2.15, z: 0}
+  anchor: {fileID: 1173446222948819120}
+  offset: {x: 0, y: 0.29, z: 0}
   width: 0.55
   height: 0.045
   normalColor: {r: 1, g: 0.65, b: 0.1, a: 1}

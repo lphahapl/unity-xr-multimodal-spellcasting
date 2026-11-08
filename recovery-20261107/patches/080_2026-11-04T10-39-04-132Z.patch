@@ -1,0 +1,22 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyObj.cs
+@@
+         public EnemyCombatState Combat { get; private set; }
++        int combatMutation;
+@@
+             Combat = new EnemyCombatState(combatDefinition);
++            ++combatMutation;
+@@
+-            if (Combat.Poise != before) PublishVitals(null, 0, 0, false);
++            if (Combat.Poise != before) { ++combatMutation; PublishVitals(null, 0, 0, false); }
+@@
+-            Combat.CompleteSeated(); SyncCombatFields(); PublishVitals(null, 0, 0, false);
++            Combat.CompleteSeated(); ++combatMutation; SyncCombatFields(); PublishVitals(null, 0, 0, false);
+@@
+             if (!state.Apply(hitId, hpDamage, poiseLoss)) return false;
++            int mutation = ++combatMutation;
+@@
+-            bool CurrentLife() => this && isActiveAndEnabled && controller && controller.isActiveAndEnabled && ReferenceEquals(Combat, state);
++            bool CurrentLife() => this && isActiveAndEnabled && controller && controller.isActiveAndEnabled &&
++                ReferenceEquals(Combat, state) && combatMutation == mutation;
+*** End Patch

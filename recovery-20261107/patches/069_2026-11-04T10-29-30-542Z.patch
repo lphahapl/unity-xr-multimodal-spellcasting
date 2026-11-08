@@ -1,0 +1,163 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyCombatDefinition.cs
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>共享静态配置；每只敌人拥有独立运行状态，绝不在资产上扣血或削韧。</summary>
++    [CreateAssetMenu(menuName = "NarutoVR/敌人/生命与韧性配置")]
++    public sealed class EnemyCombatDefinition : ScriptableObject
++    {
++        [Header("生命与韧性")]
++        [InspectorName("最大生命"), Min(1)] public float maxHealth = 150;
++        [InspectorName("最大韧性"), Min(1)] public float maxPoise = 100;
++        [Header("自然恢复（从最后一次有效削韧开始等待）")]
++        [InspectorName("恢复等待秒数"), Min(0)] public float recoveryDelay = 4;
++        [InspectorName("每秒恢复韧性（0 为不自然恢复）"), Min(0)] public float recoveryPerSecond = 15;
++        [Header("瘫痪恢复")]
++        [InspectorName("Seated 动画结束后恢复比例"), Range(.01f, 1)] public float recoveryAfterSeated = 1;
++        public bool Valid => float.IsFinite(maxHealth) && maxHealth >= 1 && float.IsFinite(maxPoise) && maxPoise >= 1 &&
++            float.IsFinite(recoveryDelay) && recoveryDelay >= 0 && float.IsFinite(recoveryPerSecond) && recoveryPerSecond >= 0 &&
++            float.IsFinite(recoveryAfterSeated) && recoveryAfterSeated > 0 && recoveryAfterSeated <= 1;
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyCombatState.cs
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>纯数据运行态。先原子结算生命/韧性，再由实体通知 Controller 和外部观察者。</summary>
++    public sealed class EnemyCombatState
++    {
++        readonly HashSet<string> received = new(StringComparer.Ordinal);
++        readonly float recoveryDelay, recoveryRate, recoveryFraction;
++        float recoveryRemaining;
++        public float MaxHealth { get; }
++        public float MaxPoise { get; }
++        public float Health { get; private set; }
++        public float Poise { get; private set; }
++        public bool Broken { get; private set; }
++        public bool Dead => Health <= 0;
++        public EnemyCombatState(EnemyCombatDefinition definition)
++        {
++            if (definition && !definition.Valid) throw new ArgumentException("敌人生命/韧性配置无效");
++            MaxHealth = definition ? definition.maxHealth : 150; MaxPoise = definition ? definition.maxPoise : 100;
++            recoveryDelay = definition ? definition.recoveryDelay : 4;
++            recoveryRate = definition ? definition.recoveryPerSecond : 15;
++            recoveryFraction = definition ? definition.recoveryAfterSeated : 1;
++            Health = MaxHealth; Poise = MaxPoise;
++        }
++        public bool Apply(string id, float damage, float poiseDamage)
++        {
++            if (Dead || string.IsNullOrWhiteSpace(id) || !float.IsFinite(damage) || damage < 0 || damage > 10000 ||
++                !float.IsFinite(poiseDamage) || poiseDamage < 0 || poiseDamage > 100000 ||
++                (damage == 0 && poiseDamage == 0) || !received.Add(id)) return false;
++            Health = Mathf.Max(0, Health - damage);
++            if (!Broken && poiseDamage > 0)
++            {
++                Poise = Mathf.Max(0, Poise - poiseDamage); recoveryRemaining = recoveryDelay;
++                if (Poise <= 0) Broken = true;
++            }
++            return true;
++        }
++        public void Tick(float dt)
++        {
++            if (Dead || Broken || !float.IsFinite(dt) || dt <= 0) return;
++            float recoveryTime = Mathf.Max(0, dt - recoveryRemaining);
++            recoveryRemaining = Mathf.Max(0, recoveryRemaining - dt);
++            Poise = Mathf.Min(MaxPoise, Poise + recoveryRate * recoveryTime);
++        }
++        public void CompleteSeated()
++        {
++            if (!Broken || Dead) return;
++            Broken = false; Poise = MaxPoise * recoveryFraction; recoveryRemaining = recoveryDelay;
++        }
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyHitZone.cs
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>身体/弱点碰撞区。弱点使用 Trigger，不给角色附加物理阻挡，不依赖全局 Tag。</summary>
++    [DisallowMultipleComponent, RequireComponent(typeof(Collider))]
++    public sealed class EnemyHitZone : MonoBehaviour
++    {
++        [Header("命中区域")]
++        [InspectorName("所属敌人")] public EnemyObj owner;
++        [InspectorName("是弱点")] public bool isWeakPoint;
++        [InspectorName("弱点削韧倍率"), Min(1)] public float poiseMultiplier = 3;
++        public EnemyObj Owner => owner ? owner : GetComponentInParent<EnemyObj>();
++        public float PoiseMultiplier => isWeakPoint && isActiveAndEnabled && float.IsFinite(poiseMultiplier)
++            ? Mathf.Clamp(poiseMultiplier, 1, 100) : 1;
++        void OnDrawGizmosSelected()
++        {
++            var sphere = GetComponent<SphereCollider>();
++            if (!sphere) return;
++            Gizmos.color = isWeakPoint ? Color.magenta : Color.cyan;
++            var scale = transform.lossyScale;
++            Gizmos.DrawWireSphere(transform.TransformPoint(sphere.center), sphere.radius * Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.y), Mathf.Abs(scale.z)));
++        }
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyPoiseBar.cs
++using UnityEngine;
++using UnityEngine.UI;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>只观察 EnemyObj 的韧性，显示层不驱动状态或扣血。</summary>
++    [DisallowMultipleComponent]
++    public sealed class EnemyPoiseBar : MonoBehaviour
++    {
++        [Header("削韧条显示")]
++        [InspectorName("敌人实体")] public EnemyObj enemy;
++        [InspectorName("根物体上方偏移（米）")] public Vector3 offset = new(0, 2.15f, 0);
++        [InspectorName("条宽（米）"), Min(.05f)] public float width = .55f;
++        [InspectorName("条高（米）"), Min(.01f)] public float height = .045f;
++        [InspectorName("正常颜色")] public Color normalColor = new(1, .65f, .1f);
++        [InspectorName("瘫痪颜色")] public Color brokenColor = new(.65f, .25f, 1);
++        RectTransform root, fill;
++        Image fillImage, background;
++        Camera viewer;
++        void Awake()
++        {
++            if (!enemy) enemy = GetComponent<EnemyObj>();
++            var canvasObject = new GameObject("削韧条（运行时）", typeof(RectTransform), typeof(Canvas));
++            root = (RectTransform)canvasObject.transform; root.SetParent(transform, false);
++            canvasObject.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
++            root.localScale = Vector3.one * .01f;
++            background = MakeImage("背景", root, new Color(.08f, .08f, .08f, .9f));
++            fillImage = MakeImage("剩余韧性", root, normalColor); fill = fillImage.rectTransform;
++            fill.pivot = new Vector2(0, .5f); fill.anchorMin = new Vector2(0, 0); fill.anchorMax = new Vector2(0, 1);
++        }
++        static Image MakeImage(string name, Transform parent, Color color)
++        {
++            var go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
++            var rect = (RectTransform)go.transform; rect.SetParent(parent, false); rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
++            rect.offsetMin = rect.offsetMax = Vector2.zero;
++            var image = go.GetComponent<Image>(); image.color = color; image.raycastTarget = false; return image;
++        }
++        void LateUpdate()
++        {
++            if (!root || !enemy) return;
++            bool visible = enemy.isActiveAndEnabled && enemy.Combat != null && !enemy.Combat.Dead;
++            if (root.gameObject.activeSelf != visible) root.gameObject.SetActive(visible);
++            if (!visible) return;
++            if (!viewer || !viewer.isActiveAndEnabled) viewer = Camera.main;
++            root.position = enemy.transform.position + offset;
++            if (viewer) root.rotation = viewer.transform.rotation;
++            float w = Mathf.Max(.05f, width) * 100;
++            root.sizeDelta = new Vector2(w, Mathf.Max(.01f, height) * 100);
++            float ratio = enemy.Combat.Poise / enemy.Combat.MaxPoise;
++            fill.sizeDelta = new Vector2(w * ratio, 0); fill.anchoredPosition = Vector2.zero;
++            fillImage.color = enemy.Combat.Broken ? brokenColor : normalColor;
++            background.color = enemy.Combat.Broken ? new Color(brokenColor.r * .4f, brokenColor.g * .4f, brokenColor.b * .4f, .9f) : new Color(.08f, .08f, .08f, .9f);
++        }
++        void OnDisable() { if (root) root.gameObject.SetActive(false); }
++        void OnDestroy() { if (root) Destroy(root.gameObject); }
++    }
++}
+*** End Patch

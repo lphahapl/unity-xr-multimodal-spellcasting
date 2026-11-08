@@ -1,0 +1,107 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
+
+// 更新现有美术资产并检查引用；执行后归档，不作为项目常驻工具。
+[InitializeOnLoad]
+public static class Zhunwang10kUpdateOnce
+{
+    const string Root = "Assets/SealCombat/Art/Props/Zhunwang";
+    const string Log = "Logs/zhunwang-10k-20261105";
+    const string PrefabPath = Root + "/Zhunwang.prefab";
+    const string ModelPath = Root + "/Zhunwang_Low.fbx";
+    [Serializable] sealed class Report
+    {
+        public bool passed, scenePreserved, materialBound, meshReferenceValid, normalsImported, tangentsMikk, hardwareTested;
+        public string utc, unity, sceneBefore, sceneAfter, error, prefabGuid, fbxGuid, materialGuid, meshName, meshGuid;
+        public long meshLocalId;
+        public int triangles, vertices, meshCount, rendererCount;
+        public Vector3 rootScale, visualScale, bounds;
+        public string[] textures, dependencies;
+    }
+    static Zhunwang10kUpdateOnce()
+    {
+        Directory.CreateDirectory(Log); File.WriteAllText(Log + "/tool-ready.txt", "Zhunwang10kUpdateOnce-v1 " + DateTime.UtcNow.ToString("O"));
+        EditorApplication.update += Poll;
+    }
+    static string SceneState()
+    {
+        var lines = new List<string>();
+        for (int i = 0; i < SceneManager.sceneCount; i++) { var s = SceneManager.GetSceneAt(i); lines.Add(s.path + "|dirty=" + s.isDirty); }
+        return "active=" + SceneManager.GetActiveScene().path + "\n" + string.Join("\n", lines);
+    }
+    static void Require(bool condition, string message) { if (!condition) throw new InvalidOperationException(message); }
+    static void Poll()
+    {
+        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode || !File.Exists(Log + "/update.request")) return;
+        File.Delete(Log + "/update.request");
+        var report = new Report { utc = DateTime.UtcNow.ToString("O"), unity = Application.unityVersion, sceneBefore = SceneState() };
+        try { UpdateAsset(report); report.passed = true; }
+        catch (Exception e) { report.error = e.ToString(); Debug.LogException(e); }
+        finally
+        {
+            report.sceneAfter = SceneState(); report.scenePreserved = report.sceneBefore == report.sceneAfter; report.passed &= report.scenePreserved;
+            File.WriteAllText(Log + "/unity-result.json", JsonUtility.ToJson(report, true));
+        }
+    }
+    static void UpdateAsset(Report report)
+    {
+        var textureRows = new List<string>();
+        foreach (string file in Directory.GetFiles(Root + "/Textures", "*.png"))
+        {
+            string path = file.Replace('\\', '/'); AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
+            var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path); var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+            Require(texture && texture.width == 2048 && texture.height == 2048, "贴图导入失败：" + path);
+            bool normal = path.EndsWith("_Normal.png"), color = path.EndsWith("_BaseColor.png");
+            Require(importer.sRGBTexture == color && (importer.textureType == TextureImporterType.NormalMap) == normal, "贴图类型/色彩空间错误：" + path);
+            textureRows.Add(path + "|" + texture.format + "|sRGB=" + importer.sRGBTexture + "|" + importer.textureType);
+        }
+        report.textures = textureRows.ToArray();
+        AssetDatabase.ImportAsset(ModelPath, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
+        var meshes = AssetDatabase.LoadAllAssetsAtPath(ModelPath).OfType<Mesh>().ToArray(); Require(meshes.Length == 1, "FBX 网格数量变化"); var mesh = meshes[0];
+        int triangles = 0; for (int i = 0; i < mesh.subMeshCount; i++) triangles += (int)mesh.GetIndexCount(i) / 3;
+        Require(triangles == 10000, "导入的不是10k新版本：" + triangles);
+        var mat = AssetDatabase.LoadAssetAtPath<Material>(Root + "/Materials/Zhunwang_URP.mat"); Require(mat && mat.shader.name == "Universal Render Pipeline/Lit" && !ShaderUtil.ShaderHasError(mat.shader), "材质或shader异常");
+        foreach (var pair in new[] { new[] { "_BaseMap", "BaseColor" }, new[] { "_BumpMap", "Normal" }, new[] { "_MetallicGlossMap", "MetallicSmoothness" }, new[] { "_OcclusionMap", "AO" } })
+            Require(mat.GetTexture(pair[0]) == AssetDatabase.LoadAssetAtPath<Texture2D>(Root + "/Textures/Zhunwang_" + pair[1] + ".png"), "材质贴图引用改变：" + pair[0]);
+        // 仅在网格子资产ID变化时修正引用，保留用户已有的节点、组件和变换。
+        var contents = PrefabUtility.LoadPrefabContents(PrefabPath);
+        try
+        {
+            var filters = contents.GetComponentsInChildren<MeshFilter>(true); Require(filters.Length == 1, "Prefab结构与预期不符");
+            if (filters[0].sharedMesh != mesh) { filters[0].sharedMesh = mesh; PrefabUtility.SaveAsPrefabAsset(contents, PrefabPath); }
+        }
+        finally { PrefabUtility.UnloadPrefabContents(contents); }
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath); var mf = prefab.GetComponentsInChildren<MeshFilter>(true); var renderers = prefab.GetComponentsInChildren<Renderer>(true);
+        report.triangles = triangles; report.vertices = mesh.vertexCount; report.meshCount = mf.Length; report.rendererCount = renderers.Length;
+        report.rootScale = prefab.transform.localScale; report.visualScale = mf[0].transform.localScale; report.bounds = renderers[0].bounds.size;
+        report.meshReferenceValid = mf[0].sharedMesh == mesh; report.materialBound = renderers.All(r => r.sharedMaterials.All(m => m == mat));
+        var modelImporter = (ModelImporter)AssetImporter.GetAtPath(ModelPath); report.normalsImported = modelImporter.importNormals == ModelImporterNormals.Import; report.tangentsMikk = modelImporter.importTangents == ModelImporterTangents.CalculateMikk;
+        report.meshName = mesh.name; AssetDatabase.TryGetGUIDAndLocalFileIdentifier(mesh, out string meshGuid, out long meshId); report.meshGuid = meshGuid; report.meshLocalId = meshId;
+        report.prefabGuid = AssetDatabase.AssetPathToGUID(PrefabPath); report.fbxGuid = AssetDatabase.AssetPathToGUID(ModelPath); report.materialGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(mat)); report.dependencies = AssetDatabase.GetDependencies(PrefabPath, true);
+        Require(report.meshReferenceValid && report.materialBound && report.normalsImported && report.tangentsMikk, "Prefab或法线验收失败");
+        Preview(prefab); Selection.activeObject = prefab; EditorGUIUtility.PingObject(prefab);
+    }
+    static void Preview(GameObject prefab)
+    {
+        var p = new PreviewRenderUtility();
+        try
+        {
+            var instance = p.InstantiatePrefabInScene(prefab); var renderers = instance.GetComponentsInChildren<Renderer>(); var bounds = renderers[0].bounds;
+            foreach (var r in renderers.Skip(1)) bounds.Encapsulate(r.bounds);
+            float size = bounds.size.magnitude;
+            p.camera.transform.position = bounds.center + new Vector3(1.3f, 1.1f, 1.7f).normalized * size * 1.5f; p.camera.transform.LookAt(bounds.center);
+            p.camera.nearClipPlane = .001f; p.camera.farClipPlane = size * 10; p.camera.orthographic = true; p.camera.orthographicSize = size * .48f;
+            p.camera.clearFlags = CameraClearFlags.SolidColor; p.camera.backgroundColor = new Color(.12f, .14f, .17f);
+            p.lights[0].intensity = 1.4f; p.lights[0].transform.rotation = Quaternion.Euler(40, 40, 0); p.lights[1].intensity = 1; p.lights[1].transform.rotation = Quaternion.Euler(340, 220, 0); p.ambientColor = new Color(.32f, .32f, .32f);
+            p.BeginStaticPreview(new Rect(0, 0, 1000, 1000)); p.Render(true); var image = p.EndStaticPreview(); File.WriteAllBytes(Log + "/Unity_10k.png", image.EncodeToPNG()); Object.DestroyImmediate(image);
+        }
+        finally { p.Cleanup(); }
+    }
+}

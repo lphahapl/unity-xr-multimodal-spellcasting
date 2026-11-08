@@ -15,6 +15,19 @@
 7. `throw_spawn / throw_frame / throw_launched / throw_rejected / throw_cancelled / throw_expired`：payload保留现有投掷观察对象、评分、握持和释放方式。原有详细投掷录制继续保留。
 8. `status / input_reset / session_end`：取消、超时、暂停、退出等终止原因。
 
+## P1 房间与伤害
+
+开启施法链条日志后，房间和玩家会在同一个 JSONL 中记录以下事件。按 `sequence` 与进出房间、投掷记录对齐即可查看同一轮战斗。
+
+| 事件 | 可核对的内容 |
+|---|---|
+| `enemy_detected` | 该敌人本轮首次发现的目标、发现来源、敌人实例和房间租约 |
+| `enemy_damage` | 实际接受的命中、攻击者、身体或弱点、HP 前后值、削韧、死亡状态和命中 ID |
+| `player_damage` | 玩家接受的伤害、来源招式、原始伤害、护盾吸收和 HP 前后值 |
+| `player_damage_rejected` | 该次伤害尝试被拒的原因及命中 ID，可用于排查重复命中 |
+
+只有 `throw_launched` 时只能确认火球已投出。确认房间敌人扣血要找到对应的 `enemy_damage`，训练靶扣血在靶自身的命中记录中查看。
+
 快速查看最新日志：`powershell -File Tools/Read-SkillCastTrace.ps1`。指定历史文件加 `-Path`。脚本只读取，不改变游戏状态。
 
 ## 性能与边界

@@ -1,0 +1,57 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_guzheng.py
+@@
+-Uses selected CC0 Pufermufin recordings prepared by XSXB-Band-Samples.
+-These mono FLAC slices derive from an HQ MP3 preview, not lossless masters.
++Uses CC0 Pufermufin recordings; XSXB-Band-Samples supplies candidate cut times.
++Recuts the original stereo HQ MP3 directly, avoiding processed FLAC tails.
+@@
+-    excluded = {"guzheng-53-v1-rr3", "guzheng-60-v1-rr3", "guzheng-65-v1-rr1"}
++    excluded = {"guzheng-53-v1-rr3", "guzheng-60-v1-rr3", "guzheng-65-v1-rr1",
++                "guzheng-72-v1-rr3"}
++    source, rate = sf.read(SAMPLE_DIR / "Pufermufin_396868_original_hq.mp3")
++    assert source.ndim == 2 and source.shape[1] == 2 and rate == SR
+@@
+-        sample, rate = sf.read(SAMPLE_DIR / entry["local_file"])
+-        assert sample.ndim == 1 and rate == 48000
+         cut = cut_by_name[name]
+@@
+-        clean_seconds = min([len(sample)/rate]+[t-.15 for t in later])
+-        sample = sample[:int(clean_seconds*rate)]
+-        sample -= np.mean(sample[-min(len(sample), rate//5):])
+-        sample = signal.resample_poly(sample, 147, 160)
+-        sample *= 10**(entry.get("gainDb", 0)/20)
++        clean_seconds = min([cut["length"], 2.4]+[t-.22 for t in later])
++        start = round(cut["start"]*rate)
++        sample = source[start:start+round(clean_seconds*rate)].copy()
++        sample -= np.mean(sample, axis=0)
++        # Balance recording gain while retaining note dynamics in the score.
++        level = np.sqrt(np.mean(sample[:round(.5*SR)]**2))
++        sample /= max(level, 1e-7)
+@@
+-                        "tune_cents": record["tune"], "clean_source_seconds": clean_seconds})
+-    for recordings in bank.values():
+-        # Normalize each root as a group, retaining the round-robin gain variation.
+-        level = np.median([np.sqrt(np.mean(r["sample"][:round(.5*SR)]**2)) for r in recordings])
+-        for recording in recordings:
+-            recording["sample"] /= max(level, 1e-7)
++                        "source_start": cut["start"], "tune_cents": record["tune"],
++                        "clean_source_seconds": clean_seconds})
+@@
+-    sound = signal.resample_poly(choice["sample"], 10000, round(ratio*10000))
++    sound = signal.resample_poly(choice["sample"], 10000, round(ratio*10000), axis=0)
+@@
+-    sound[:attack] *= .5-.5*np.cos(np.linspace(0, np.pi, attack))
+-    sound[-release:] *= .5+.5*np.cos(np.linspace(0, np.pi, release))
++    sound[:attack] *= (.5-.5*np.cos(np.linspace(0, np.pi, attack)))[:, None]
++    sound[-release:] *= (.5+.5*np.cos(np.linspace(0, np.pi, release)))[:, None]
+@@
+-                mono, details = guzheng_note(guzheng, pitch, duration, counters)
++                stereo, details = guzheng_note(guzheng, pitch, duration, counters)
+@@
+-                note = mono[:, None]*np.array([.76, .65])
++                note = stereo*np.array([1.04, .96])
+@@
+-        "timbres": {"guzheng": "Pufermufin recorded guzheng, XSXB mono MP3-derived slices",
++        "timbres": {"guzheng": "Pufermufin original recorded stereo HQ MP3, directly recut",
+*** End Patch

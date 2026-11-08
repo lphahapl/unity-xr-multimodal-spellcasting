@@ -1,0 +1,85 @@
+*** Begin Patch
+*** Delete File: D:/UnityProjects/NarutoVR/docs/guides/NARRATION_FLOW_ZH.md
+*** Add File: D:/UnityProjects/NarutoVR/docs/guides/NARRATION_FLOW_ZH.md
++# 线性旁白流程
++
++`NarrationController` 按 `lines` 的顺序逐句播放。`CurrentStep` 暴露当前步骤，`CurrentStep.Id` 就是列表下标，从 0 开始；未开始、停止和全部完成后为 null。Inspector 显示中文字段和当前状态。
++
++音频放在 `Resources/Narration`，每句填写音频文件名、说话者与推进方式。控制器需要独立的 AudioSource。目前没有选项树和字幕 UI。
++
++## 一句怎么推进
++
++| 推进方式 | 条件 |
++|---|---|
++| 自动继续（音频播完） | 音频结束，忽略操作通知。新导入行默认使用此模式。 |
++| 等待操作 | 操作完成就继续，仍在播放的本句音频会停止；允许不填音频。 |
++| 音频和操作都完成 | 音频与操作都结束才继续，谁先完成都记住。 |
++
++当前步骤只记录音频完成和操作完成。操作通知先设置 `OperationDone`，`Update` 判断条件并进入下一句；重复通知不会让同一句连续推进。这里的“提前完成”指本句已经开始、音频还没播完时完成操作，不记录尚未进入的后续步骤。
++
++## 操作成功后怎么通知
++
++有 UnityEvent 的组件直接把“操作成功”事件绑定到对话组件的 **`PublishCurrentOperation()`**，无需额外挂发布组件、填写操作字符串。
++
++代码中可以按用户的 UnityAction 写法绑定：
++
++```csharp
++using NarutoVR.SealCombat.Events;
++using UnityEngine.Events;
++
++// narration 是这一段对话的控制器；把该回调绑定到实际的操作成功事件。
++UnityAction onOperationSucceeded = () =>
++{
++    if (!narration) return;
++    var step = narration.CurrentStep;
++    if (step != null)
++        NarrationEvents.PublishOperation(narration, step.Id);
++};
++```
++
++事件中心携带“目标对话 + 步骤 ID”。控制器核对自己和当前 ID 后记录操作完成。也可直接调用 `narration.CompleteOperation(step.Id)`，或在 Inspector 绑定 `CompleteCurrentOperation()`。事件中心与直接调用二选一即可。
++
++业务必须在真正成功时通知，例如击中指定靶子，而不是刚识别到口令就通知。**只在相关教学步骤启用或绑定对应操作回调，结束后解绑。**读取“当前 ID”代表完成当前步骤，系统不会猜测击中靶子是否属于正在等待的移动教学。
++
++步骤 ID 是普通列表下标，不是每次播放的唯一身份。同一对话重启后会再次出现 ID 0；跨重启的自定义异步任务需由业务取消，不提供跨轮次旧事件过滤。没有 Token、SignalFloor、通知序号和广播匹配。
++
++## 开始、结束与回调顺序
++
++`StartDialogue()` 从首句开始，运行中重复调用无效；`RestartDialogue()` 停止后重播；`StopDialogue()` 停止且不触发全部完成。禁用组件会停止，重新启用不会自动播放。
++
++每轮顺序：准备第 0 句 → 整段开始事件 → 本句开始事件 → 等待推进条件 → 本句条件通过事件 → 下一句；最后一句通过后触发整段完成事件。
++
++| Inspector 事件 | 作用 |
++|---|---|
++| 对话开始 | 每轮一次，首句状态已经可读。 |
++| 本句开始 | 每句一次，可启动计时、提示或绑定本步骤操作。 |
++| 本句音频自然播完（`onCompleted`） | 音频自然结束时一次；停止、提前打断和无音频句不触发。 |
++| 本句条件通过（`onAdvanced`） | 推进前一次，仍可读取刚完成的步骤。 |
++| 对话全部完成 | 最后一句通过后一次；主动停止不触发。 |
++
++音频完成回调和条件通过回调不同。例如组合模式音频先结束时，会发音频完成事件但继续等待操作。回调里停止或重启会终止原来的推进；回调里的重新开始留到下一帧，避免递归触发开始事件。
++
++## 等待 N 秒
++
++需要计时才添加 `NarrationOperationTimer`，指定控制器、秒数。本句选等待操作或双条件，将“本句开始”绑定 `Begin()`；想在音频后再等 N 秒则绑定到“本句音频自然播完”。
++
++计时器保存开始时的步骤对象。换句、停止或重启后原计时取消；到时只提交对应步骤 ID。`Cancel()` 主动取消，禁用计时器也取消。默认不受 `Time.timeScale` 影响，可以切换为游戏时间。再次 `Begin()` 会替换上次计时。
++
++这是“经过 N 秒视为操作完成”，不是失败超时。成功事件和计时器同时存在时，任意一个都能满足操作条件；不表示必须同时成功并等满 N 秒。
++
++## 导入、调试和验证
++
++CSV/XLSX 仍使用 `audioFileName,speaker` 两列；Excel 读取第一工作表。重导入按音频文件名与说话者及出现顺序复用旧句，保留推进方式和句事件。空音频的纯操作句在 Inspector 手动添加。
++
++运行时 Inspector 显示步骤 ID、音频/操作完成状态，提供开始、重启、停止和调试完成操作按钮，每秒刷新 5 次。资源缺失或音频来源异常会停止并输出错误，不当作成功。
++
++本次线性简化的验证记录放在 `Logs/narration-linear-20261105`。旧版 `Logs/narration-gates-20261105` 是移除 Token 前的历史测试，不能代替当前实现验证。主场景教学事件仍需按具体玩法绑定；隔离测试不代表头显或关卡实测。
+*** Update File: D:/UnityProjects/NarutoVR/README.md
+@@
+-| 旁白与教学推进 | 每句自动、等待操作或音频与操作双条件；整段/单句开始事件、事件中心接入、步骤令牌和可绑定计时器。[操作指南](docs/guides/NARRATION_FLOW_ZH.md) |
++| 旁白与教学推进 | 线性逐句流程，公开当前步骤 ID；每句自动、等待操作或音频与操作双条件，直接绑定完成回调、事件中心及可选计时器。[操作指南](docs/guides/NARRATION_FLOW_ZH.md) |
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-| 旁白与操作教学 | [逐句条件、开始/完成回调、计时器与事件中心](guides/NARRATION_FLOW_ZH.md) |
++| 旁白与操作教学 | [线性步骤 ID、三种推进条件、直接回调与可选计时器](guides/NARRATION_FLOW_ZH.md) |
+*** End Patch

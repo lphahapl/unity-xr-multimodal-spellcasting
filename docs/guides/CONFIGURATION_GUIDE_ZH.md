@@ -58,6 +58,7 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 | `SkillDefinition` | 稳定 ID、中文名、三种输入模式、单印、口令与拼音 tokens、窗口、冷却、时长、生成手、效果引用 | 从目录中的技能引用定位；默认在 `Assets/ScriptableObjects/技能定义配置/默认配置/` |
 | `ShieldEffectDefinition` | 护盾容量、护腕视觉和基础材质 | `Assets/ScriptableObjects/护盾效果配置/默认护盾.asset` |
 | `ProjectileEffectDefinition` | 伤害、速度、半径、持握/飞行时长、轻推参数及视觉 | `Assets/ScriptableObjects/投射物效果配置/默认火球.asset` |
+| `ThunderSwordEffectDefinition` | 右手雷光剑的握姿、挥动阈值、直击、剑波与落雷 | `Assets/ScriptableObjects/雷光剑配置/雷光剑效果.asset` |
 | `SkillCatalog` | 本场可用技能、共享匹配参数、取消口令 | `Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset` |
 | 场景组件 | 骨骼来源、相机/玩家引用、碰撞层、HUD、模拟快捷键及试炼规则 | 场景中的 `SkillTestController`、`SkillEffects`、`SkillTestView`、`SkillScenario` |
 
@@ -82,6 +83,25 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 口令会去除空白与标点后比较，不能重复或互相包含。例如已有“火球术”时，不要再加“大火球术”；也不能占用取消口令。纯结印配方与其他配方共用同一个印会形成冲突。当前只支持**单印配方**，不支持在字段中填一串印来表示序列。
 
 ## 代码职责与新增效果类型
+
+### 雷光剑与可选近战判定
+
+1. 复制基础技能场景 `Assets/Scene/SkillTest.unity` 作为测试场景。给其中的 `SkillTestController.catalog` 指定 `Assets/ScriptableObjects/雷光剑配置/雷光剑测试目录.asset`。把 `SkillTestView` 上旧技能的模拟快捷键列表清空，控制台会按目录生成“模拟雷光剑”按钮。
+2. 进入 Play，保持右腕可追踪，在电脑操作台点模拟按钮。剑生成后看向目标，右手做一次利落的横挥。剑波从手前飞向出波瞬间的头向准星。测试目录以“雷光剑”作为纯口令配方。真人语音需要另行导出当前场景词表并重启本机服务。
+3. 要启用剑身接触，在法宝预制体挂一个 `MeleeHitDetector`，把刃根和剑尖两个子节点拖给 `bladeBase`、`bladeTip`。雷光剑的两个节点位于本地 +Z 的 0.10 和 0.62 米。接触半径初值为 0.035 米。移除或禁用该组件即可单独测试剑波。出波与落雷继续由技能运行态管理。
+4. 用可受击的敌人检查紫色落雷。近战和蓝色剑波共用本次挥动的直击 ID；剑先打中前排，波实际接触前排后可穿过并直击后排。每波最多触发一次落雷，同时受施法者冷却限制。训练靶可测直击，墙体可测阻挡。触碰剑身、打靶和击墙均不触发落雷。
+
+火球和雷光波的飞行实例根节点都使用 `SkillProjectile`。火球在脱手时加上该脚本，使用其中的伤害与削韧字段。剑波优先取预制体上的脚本，缺少时在发射时加上。剑波命中后由本挥的 `SkillStrike` 提交直击，它与剑身共享去重状态，因此只改飞行组件的 `damage` 字段不会改变剑波伤害。当前雷光波在其有效射程内使用固定基础直击。
+
+| 测试配置 | 初值 | 修改位置 |
+|---|---|---|
+| 持有 / 召剑冷却 / RPG 法力 | 8 秒 / 12 秒 / 20 MP | 雷光剑.asset |
+| 挥动位移 / 速度 / 出波间隔 | 0.14 米 / 0.75 米每秒 / 0.45 秒 | 雷光剑效果.asset |
+| 身体直击 / 独立落雷 / 落雷冷却 | 6 / 7 / 每施法者 2 秒 | 雷光剑效果.asset |
+
+攻击窗口仅由连续有效腕部样本开启。剑自然到期后释放右手，让在途剑波飞完。RPG 中双腕放低也可收剑，暂停、死亡和清场会同时回收剑波。当前测试配方与美术用于独立试验，正式铜叶归属、课程和数值仍待确定。
+
+### 匹配与执行
 
 ```text
 Meta / OpenXR 手部来源
@@ -118,9 +138,17 @@ void Cancel();
 
 工程使用现有 MonoBehaviour 接线、纯逻辑匹配器和 ScriptableObject 配置，未引入额外 DI/ECS 框架。
 
+## P1 的护体反馈与火球音效
+
+护体成功时，左腕的青玉符弧合拢；护盾实际吸收伤害时，铜色刻度短暂亮起。普通吸收的光效持续约 0.22 秒，破盾余光约 0.32 秒。常驻护盾外观仍由护盾效果配置的「护盾视觉预置体」指定。短闪材质是 `Assets/Resources/ShieldWristPulse.mat`。[P1 护体与破盾动图](../visuals/20261107_skill_feedback/shield-play.gif)
+
+展开 P1 场景中 `P1AudioManager` 的「掌心成形」「脱手发射」「碰撞爆散」，每组可替换三段音频。「火球空间音量」控制三组的整体音量。成形声来自生成点，发射声来自脱手处，撞击声来自碰撞位置；同阶段连续触发会换一条变奏。实际资源位于 `Assets/Audio/Fireball/`。[依次试听成形、发射、撞击](../visuals/20261107_skill_feedback/fireball-form-release-impact.wav)
+
 ## 中文语音配置与测试
 
-Unity 菜单 **Tools → NarutoVR → 技能配置 → 导出当前场景语音配置** 将当前目录的有效口令、拼音 tokens、取消词和端口写到 `Tools/SkillVoice/skill-voice-config.json`。修改口令后需要**重新导出、重启服务，并重新进入 Play**，使声学词表与 Unity 接收白名单一致。
+Windows 编辑器自动启动语音时，会从当前接收器关联的技能目录导出当次词表及收发端口。修改口令后重新进入 Play；P1 的词表包含「金刚护体」。本次配置可在 `Library/SkillVoice/play-config.json` 检查。
+
+手动运行服务时，Unity 菜单 **Tools → NarutoVR → 技能配置 → 导出当前场景语音配置** 可将有效口令、拼音 tokens、取消词和端口写到 `Tools/SkillVoice/skill-voice-config.json`。修改口令后重新导出并重启手动服务，使它和游戏读取同一份目录。
 
 ```powershell
 # 在工程根目录执行；首次安装见 docs/SKILL_VOICE_SETUP_ZH.md

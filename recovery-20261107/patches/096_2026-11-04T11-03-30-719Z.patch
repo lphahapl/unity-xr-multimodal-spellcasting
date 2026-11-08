@@ -1,0 +1,26 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Audio/YicunShanhe_Credits.txt
+@@
+-Sheng and bronze bell are synthesized. No recorded sheng is used.
++Sheng and bronze bell are synthesized.
+@@
+-The author is not affiliated with and does not endorse this game or arrangement.
+@@
+-This file records source attribution; it makes no claim of live instrumental performance.
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md
+@@
+-#### 1. BGM 01《一寸山河》常态探索主题提案
++#### 1. BGM 01《一寸山河》常态探索 BGM
++
++##### 当前版本 v2，2026-11-04
++
++用户已接受主题，并要求更真实的音色、更低音量、无缝循环，以及减少古琴、增加笛子和笙。本版按普通探索背景音乐处理，五段平均电平差约 1.44 dB，三件乐器交替领句。
++
++- **配器**　保留 `1 2 5｜3 2 1` 动机及缺句到补全的叙事。古琴发音从 94 次减为 45 次，主句移入较低音区，伴奏使用不同疏密的拨弦、模拟按音滑奏和泛音色彩。笛子从 13 次增至 40 次，承担更多完整旋律。笙从 16 次增至 35 次，兼任呼吸式和音与两段主题，编钟仍为一记。渲染前各干声能量配额为古琴 30%、笛子 43%、笙 26.9%、编钟 0.1%，此数值用于复现混音，听觉显著程度须实际试听。
++- **音源**　古琴使用 RafaelCaro 的开放弦实录，经切分、共振隔离、移调、滤波与包络处理。竹笛使用 Hypnotriod 的六个逐音素材，实测音高后校准，并交替截取不同长音区段。两者使用公开 HQ MP3 来源。笙采用改进的簧片建模，加入气压变化、簧片谐波与换气包络。编钟采用既有合成模型。来源及使用修改详见随资产提供的[署名文件](../../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
++- **电平**　成品约 -29.00 LUFS、-32.12 dBFS RMS、-12.27 dBTP，相比 v1 的 -20.80 LUFS 下降约 8.20 LU。Unity 导入关闭归一化，保留文件内的低电平。
++- **循环**　96 秒、60 BPM、4/4、24 小节。跨越 96 秒的笙、琴尾音与混响周期折回开头，保留接缝两侧的能量。PCM 音频采用 Streaming，按原 44.1 kHz 双声道导入。P1 试炼的探索音乐字段绑定本文件，现有 P1AudioManager 创建的 2D 探索 AudioSource 已开启 loop。
++- **交付与验收**　[常态循环 WAV](../../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)与[复现脚本](../../scratch/render_yicun_shanhe_ambient.py)。已核对响度、4 倍过采样峰值、边界相邻样本和源音尾部，已修复并复核滑音缓释后的残留。音色自然度、长期聆听与旁白共存效果仍需听感确认。
++
++##### v1 主题叙事依据与历史试听
+*** End Patch

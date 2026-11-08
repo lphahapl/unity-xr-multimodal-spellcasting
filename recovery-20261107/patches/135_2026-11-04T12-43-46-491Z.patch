@@ -1,0 +1,48 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/audit_yicun_sources_v7.py
+@@
+         if root in EQ:
+             row["bounded_eq_trial"] = eq_trial(sample, root, 221.1 if root == 57 else 391.2)
++        row["median_tuning_error_after_metadata_correction_cents"] = (
++            row["pitch_track_before_metadata_tuning"].get("median_cents", 0) + meta["tune_cents"])
++        row["interpretation"] = {
++            53: "Independent G3-family residue (about196.7/393Hz) remains under F3. When transposed to the sole E3 accompaniment at13.7s it becomes F-sharp-related residue. Removing this one optional event avoids further processing.",
++            57: "Independent G3-family residue under A3 is supported by196.7/393/787Hz components. It becomes F3-related residue when transposed to G3. Apply only the three bounded trial cuts; weaker C4-like components do not justify additional cuts in this pass.",
++            60: "Preferred C4 take remains coherent; no comparably strong independent residual family was established. Retain its natural partials.",
++            62: "Preferred D4 take remains coherent; no comparably strong independent residual family was established. Natural inharmonicity and late room components do not justify generic harmonic extraction.",
++            67: "An independent A4 family near440/882/1322Hz is present under G4. It is weaker in stereo-power measurements than a mono collapse suggests. The three small finite cuts reduce it without materially changing G4 partials.",
++            72: "The near504Hz side component has no correspondingly strong stable1008/1512Hz family established here. Treat it as an ambiguous string/body/sideband feature, not a confirmed second note; do not notch the main note broadly.",
++            74: "The near570Hz/other side components do not establish a strong separate fundamental family in the retained0.84s. Keep the31.8s E5 decoration; lack of evidence does not justify deleting it.",
++        }[root]
+         guzheng.append(row)
+@@
+-    report = {"status": "numeric_source_audit_complete_pending_musical_audition",
++    dizi_medians = [e["rendered_pitch"]["median_cents"] for e in dizi_events
++                   if "median_cents" in e["rendered_pitch"]]
++    viola_medians = [e["rendered_pitch"]["median_cents"] for e in viola_events
++                    if "median_cents" in e["rendered_pitch"]]
++    report = {"status": "numeric_source_audit_complete_pending_musical_audition",
+@@
+-        "recommendations": [],
++        "recommendations": [
++            {"priority": 1, "action": "Apply the validated three finite bell cuts to root57 before transposition, with30-120ms wet ramp.",
++             "affected_events": 15, "reason": "Repeated G3-family residue in the A3 source becomes F3 residue under the rendered G3, including the loop-opening tail.",
++             "parameters_frequency_bandwidth_gain_db": EQ[57]},
++            {"priority": 2, "action": "Remove only the13.7s E3 optional accompaniment and stop loading root53.",
++             "affected_events": 1, "reason": "Avoid its independent G3 residue, shifted to F-sharp under E3, with no need to filter or rewrite the theme."},
++            {"priority": 3, "action": "Apply the validated three finite bell cuts to root67; preserve its G4 theme notes and normal partials.",
++             "affected_events": 5, "reason": "Reduce the confirmed440/882/1322Hz A4 family without changing the musical line.",
++             "parameters_frequency_bandwidth_gain_db": EQ[67]},
++        ],
++        "dizi_and_viola_conclusion": {
++            "severe_mapping_or_octave_error_found": False,
++            "dizi_event_median_cents_range": [min(dizi_medians), max(dizi_medians)],
++            "viola_event_median_cents_range": [min(viola_medians), max(viola_medians)],
++            "dizi_conclusion": "All6 sources and40 actual crops were checked. Existing tuning correction keeps event median fundamentals within about3.5cents. Stable off-family peaks in representative source windows are at least about31.8dB below the intended family; no severe independent pitched spill is established. Preserve breath and membrane harmonics.",
++            "viola_conclusion": "The4 used source roots are55/59/62/65; the old filename-octave correction is correct. All24 actual pads were measured. The roughly-11 to+3cent median range does not justify flattening natural ensemble vibrato. Representative off-family peaks are about23dB or more below the intended family, with no comparably strong second-note family established.",
++            "no_further_dizi_or_viola_cleanup_recommended": True},
++        "v7_implementation_inspection": {
++            "path": str(ROOT / "scratch/render_yicun_shanhe_guzheng_v7.py"),
++            "conclusion": "Inspected reduce_confirmed_spill: normalized RBJ coefficients, causal per-channel lfilter, exact proposed centers/bandwidths/gains, and30-120ms half-cosine wet ramp match the in-memory experiment. The pre-EQ RMS normalization reference is preserved, so removed residue is not immediately amplified back by re-normalizing the cleaned source.",
++            "scope_limit": "This is an implementation/source comparison; the parent owns final v7 artifact validation and listening."},
+*** End Patch

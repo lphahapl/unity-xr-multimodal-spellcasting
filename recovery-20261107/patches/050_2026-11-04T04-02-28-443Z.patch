@@ -1,0 +1,14 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-        const string TestKey = "NarutoVR.Enemy.CheckRunning", PreviousStart = "NarutoVR.Enemy.PreviousStartScene";
++        const string TestKey = "NarutoVR.Enemy.CheckRunning", PreviousStart = "NarutoVR.Enemy.PreviousStartScene", PreviousPause = "NarutoVR.Enemy.PreviousPause";
+@@
+                     EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(SessionState.GetString(PreviousStart, ""));
++                    EditorApplication.isPaused = SessionState.GetBool(PreviousPause, false);
++                    SessionState.EraseBool(PreviousPause);
+@@
+             SessionState.SetBool(TestKey, true);
++            SessionState.SetBool(PreviousPause, EditorApplication.isPaused);
++            EditorApplication.isPaused = false;
+*** End Patch

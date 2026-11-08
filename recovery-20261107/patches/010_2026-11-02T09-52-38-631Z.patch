@@ -1,0 +1,25 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Effects/SkillEffects.cs
+@@
+         public event Action ProjectileLaunched;
++        public event Action<float> ShieldImpact;
++        public bool ProjectileHandIsLeft => heldInLeftHand;
++        public int HeldProjectileInstanceId => heldObject ? heldObject.GetInstanceID() : 0;
+@@
+             if (shieldPoints <= 0) { ClearBuff(); Report("护盾已被击破"); }
+             else Report($"护盾吸收 {absorbed:0} 点伤害，剩余 {shieldPoints:0}");
++            if (absorbed > 0 && ShieldImpact != null)
++                foreach (Action<float> listener in ShieldImpact.GetInvocationList())
++                    try { listener(absorbed); } catch (Exception e) { Debug.LogWarning("护盾受击反馈监听失败：" + e.Message, this); }
+             return damage - absorbed;
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/WristMenuController.cs
+@@
+         public WristMenuState State { get; } = new();
++        public event Action<bool> WristTapConfirmed;
+@@
+             bool wasOpen = State.LauncherOpen;
+             State.Tick(sample,busy,pointerOwns,now,settings,tap.Toggle);
++            if (tap.Toggle && wasOpen != State.LauncherOpen && WristTapConfirmed != null)
++                foreach (Action<bool> listener in WristTapConfirmed.GetInvocationList())
++                    try { listener(State.LauncherOpen); } catch (Exception e) { Debug.LogWarning("点腕反馈监听失败：" + e.Message, this); }
+*** End Patch

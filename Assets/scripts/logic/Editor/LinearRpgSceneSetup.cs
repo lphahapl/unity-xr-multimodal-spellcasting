@@ -65,7 +65,7 @@ namespace NarutoVR.SealCombat.Editor
                 if (!EditorSceneManager.SaveScene(scene, ScenePath))
                     throw new InvalidOperationException("无法保存独立RPG场景：" + ScenePath);
                 foreach (Object asset in configuration.created) AssetDatabase.SaveAssetIfDirty(asset);
-                Debug.Log("[线性RPG] 独立庭院关卡已创建：" + ScenePath + "。语音服务需加载独立配置：" + VoiceConfigurationPath + "。尚未进行真机验证。");
+                Debug.Log("[线性RPG] 独立庭院关卡已创建：" + ScenePath + "。编辑器播放时自动读取场景技能目录；手动启动语音服务可使用 " + VoiceConfigurationPath + "。");
             }
             catch (Exception error)
             {

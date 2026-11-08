@@ -41,6 +41,7 @@ namespace NarutoVR.SealCombat.Rpg
             }
             return Create(accepted ? "扣腕 · 清音" : "收腕 · 低音", samples);
         }
+
         static AudioClip Create(string name,float[] samples)
         {
             var clip = AudioClip.Create(name,samples.Length,1,Rate,false);

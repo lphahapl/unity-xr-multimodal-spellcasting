@@ -1829,13 +1829,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristMenuView
   font: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
   canvasScale: 0.0005
-  plateColor: {r: 0.025, g: 0.04, b: 0.065, a: 0.96}
-  buttonColor: {r: 0.055, g: 0.085, b: 0.12, a: 0.98}
-  textColor: {r: 0.91, g: 0.96, b: 1, a: 1}
-  mutedTextColor: {r: 0.62, g: 0.73, b: 0.81, a: 1}
-  cyanColor: {r: 0.22, g: 0.88, b: 0.95, a: 1}
-  violetColor: {r: 0.61, g: 0.45, b: 0.92, a: 1}
-  goldColor: {r: 0.96, g: 0.76, b: 0.36, a: 1}
+  plateColor: {r: 0.105, g: 0.084, b: 0.063, a: 0.96}
+  buttonColor: {r: 0.21, g: 0.16, b: 0.11, a: 0.98}
+  textColor: {r: 0.96, g: 0.88, b: 0.73, a: 1}
+  mutedTextColor: {r: 0.78, g: 0.69, b: 0.54, a: 1}
+  cyanColor: {r: 0.47, g: 0.76, b: 0.65, a: 1}
+  violetColor: {r: 0.68, g: 0.34, b: 0.24, a: 1}
+  goldColor: {r: 0.86, g: 0.68, b: 0.43, a: 1}
   audioFeedback: 1
   cueVolume: 0.18
 --- !u!114 &121289191
@@ -1881,7 +1881,7 @@ MonoBehaviour:
     pinchOpen: 0.045
     dragLossGrace: 0.3
   sealPolicy:
-    closeWithWrist: 0
+    closeWithWrist: 1
     allowRay: 1
     allowPoke: 1
   glyphPolicy:
@@ -1889,9 +1889,10 @@ MonoBehaviour:
     allowRay: 1
     allowPoke: 1
   voicePolicy:
-    closeWithWrist: 0
+    closeWithWrist: 1
     allowRay: 1
     allowPoke: 1
+  wornDevice: {fileID: 505742256}
   launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
   panelDistance: 0.65
   panelLower: 0.12
@@ -8030,6 +8031,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491500122}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &505742256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1438754485859498317, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
+  m_PrefabInstance: {fileID: 505742255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d636c896efd0c94f83bb855688502fc, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &505742255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14471,6 +14483,19 @@ MonoBehaviour:
   castSound: {fileID: 0}
   launchSound: {fileID: 0}
   impactSound: {fileID: 0}
+  fireballFormed:
+  - {fileID: 8300000, guid: 5bec9bce8f9247fe8655eba55c500a6e, type: 3}
+  - {fileID: 8300000, guid: 83d37bf3950d4468948c799d5f4875fd, type: 3}
+  - {fileID: 8300000, guid: 6a129a6dc8674e9d90863cb4b814fcca, type: 3}
+  fireballLaunched:
+  - {fileID: 8300000, guid: cb9775c8101a475e8a18e49a406fa404, type: 3}
+  - {fileID: 8300000, guid: c99267ab46d947d585c29afcbaf3464f, type: 3}
+  - {fileID: 8300000, guid: 81d6656a979d4cdda18ee0ffa049d43f, type: 3}
+  fireballImpact:
+  - {fileID: 8300000, guid: 4291aed65e664d7bb6dad03bad882ba4, type: 3}
+  - {fileID: 8300000, guid: 08bf160b70474787b4d6ba905e6dbf29, type: 3}
+  - {fileID: 8300000, guid: 798cc49879d94c07aa25f3188e69236c, type: 3}
+  fireballVolume: 0.7
   uiAcceptSound: {fileID: 0}
   uiRejectSound: {fileID: 0}
 --- !u!114 &901000003

@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+         bool initialized, suspended, waitingAtPatrol, attackEntered, contactSent, animationValid;
++        bool inTick;
+@@
+         public void Tick(float deltaTime)
++        {
++            if (inTick) return;
++            inTick = true;
++            try { TickCore(deltaTime); }
++            finally { inTick = false; }
++        }
++
++        void TickCore(float deltaTime)
+*** End Patch

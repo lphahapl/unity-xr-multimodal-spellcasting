@@ -1,0 +1,7 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/NARRATION_FLOW_ZH.md
+@@
+ 本次句间隔的验证记录放在 `Logs/narration-gap-20261105`。`Logs/narration-linear-20261105` 与 `Logs/narration-gates-20261105` 是之前版本的历史测试，不能代替当前实现验证。主场景教学事件仍需按具体玩法绑定；隔离测试不代表头显或关卡实测。
++
++2026-11-05 使用 Unity 6000.3.10f1 独立播放测试，97 项通过，退出码 0；包括三模式、各句独立间隔、重复通知、停止/重启/禁用、回调重入、末句忽略间隔、游戏时间暂停、非法数值及重导入保留间隔。5 份源码与主工程一致，主工程刷新编译完成。现有 UPM 错误和隔离工程 UnityEditor.Search 索引异常仍在，不表示整个 Console 无错误。
+*** End Patch

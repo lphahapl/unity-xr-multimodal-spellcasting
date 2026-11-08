@@ -1,0 +1,7 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/NARRATION_FLOW_ZH.md
+@@
+ 本轮测试代码与证据位于 `Logs/narration-gates-20261105`；使用独立临时 Unity 工程、真实短 WAV 和事件中心验证，不修改主场景，不代表头显听感或完整关卡教学已验收。
++
++2026-11-05 在 Unity 6000.3.10f1 隔离播放测试中通过54项：三模式、提前/迟到操作、整段与逐句开始、重复/过期/错目标通知、回调中停止/重启、计时器、全局音频暂停与CSV/XLSX重导入。7份相关源码与主工程逐字节一致。首次启动被本机UPM的 `path argument undefined` 环境错误阻断；测试进程单独使用 `-noUpm` 后完成编译及真实AudioSource播放，未修改全局包配置。最终报告为 `play-result.txt` 与 `test-summary.json`。
+*** End Patch

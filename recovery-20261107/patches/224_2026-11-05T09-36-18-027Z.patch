@@ -1,0 +1,156 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/ZhunwangImportOnce.cs
++using System;
++using System.IO;
++using System.Linq;
++using System.Collections.Generic;
++using UnityEditor;
++using UnityEditor.SceneManagement;
++using UnityEngine;
++using UnityEngine.Rendering;
++using UnityEngine.SceneManagement;
++using Object = UnityEngine.Object;
++
++// 本次资产导入使用的一次性编辑器工具，执行后归档到 Logs。
++[InitializeOnLoad]
++public static class ZhunwangImportOnce
++{
++    const string Root = "Assets/SealCombat/Art/Props/Zhunwang";
++    const string Log = "Logs/zhunwang-unity-20261105";
++    const string Request = Log + "/import.request";
++    const string ModelPath = Root + "/Zhunwang_Low.fbx";
++    const string MaterialPath = Root + "/Materials/Zhunwang_URP.mat";
++    const string PrefabPath = Root + "/Zhunwang.prefab";
++    [Serializable] sealed class TextureRow
++    {
++        public string path, type, format;
++        public bool sRGB, mipmaps, readable, flipGreen;
++        public int width, height;
++    }
++    [Serializable] sealed class Report
++    {
++        public bool passed, sceneStatePreserved, headMountedTested;
++        public string utc, unity, pipeline, error, sceneBefore, sceneAfter, prefab, material;
++        public int meshes, renderers, triangles, vertices;
++        public Vector3 bounds, rootScale;
++        public bool importNormals, mikkTangents, sourceScale, materialBound, shaderSupported;
++        public TextureRow[] textures;
++        public string[] dependencies;
++    }
++    static ZhunwangImportOnce() { EditorApplication.update += Poll; }
++    static void Poll()
++    {
++        if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode || !File.Exists(Request)) return;
++        File.Delete(Request);
++        var report = new Report { utc = DateTime.UtcNow.ToString("O"), unity = Application.unityVersion, sceneBefore = SceneState(), prefab = PrefabPath, material = MaterialPath };
++        try { Run(report); report.passed = true; }
++        catch (Exception e) { report.error = e.ToString(); Debug.LogException(e); }
++        finally
++        {
++            report.sceneAfter = SceneState(); report.sceneStatePreserved = report.sceneBefore == report.sceneAfter;
++            report.passed &= report.sceneStatePreserved;
++            File.WriteAllText(Log + "/import-result.json", JsonUtility.ToJson(report, true));
++        }
++    }
++    static string SceneState()
++    {
++        var rows = new List<string>();
++        for (int i = 0; i < SceneManager.sceneCount; i++) { var s = SceneManager.GetSceneAt(i); rows.Add(s.path + "|dirty=" + s.isDirty); }
++        return "active=" + SceneManager.GetActiveScene().path + "\n" + string.Join("\n", rows);
++    }
++    static void Require(bool value, string error) { if (!value) throw new InvalidOperationException(error); }
++    static Texture2D Texture(string channel) => AssetDatabase.LoadAssetAtPath<Texture2D>(Root + "/Textures/Zhunwang_" + channel + ".png");
++    static void Run(Report report)
++    {
++        var rows = new List<TextureRow>();
++        foreach (string channel in new[] { "BaseColor", "Normal", "Roughness", "Metallic", "AO", "MetallicSmoothness" })
++        {
++            string path = Root + "/Textures/Zhunwang_" + channel + ".png";
++            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
++            var importer = (TextureImporter)AssetImporter.GetAtPath(path);
++            importer.textureType = channel == "Normal" ? TextureImporterType.NormalMap : TextureImporterType.Default;
++            importer.convertToNormalmap = false; importer.flipGreenChannel = false;
++            importer.sRGBTexture = channel == "BaseColor"; importer.alphaIsTransparency = false;
++            importer.alphaSource = channel == "MetallicSmoothness" ? TextureImporterAlphaSource.FromInput : TextureImporterAlphaSource.None;
++            importer.maxTextureSize = 2048; importer.mipmapEnabled = true; importer.isReadable = false;
++            importer.wrapMode = TextureWrapMode.Clamp; importer.filterMode = FilterMode.Trilinear; importer.anisoLevel = 4;
++            importer.textureCompression = TextureImporterCompression.CompressedHQ; importer.crunchedCompression = false;
++            importer.SaveAndReimport();
++            var texture = Texture(channel); Require(texture && texture.width == 2048 && texture.height == 2048, "贴图导入失败：" + channel);
++            rows.Add(new TextureRow { path = path, type = importer.textureType.ToString(), format = texture.format.ToString(), sRGB = importer.sRGBTexture, mipmaps = importer.mipmapEnabled, readable = importer.isReadable, flipGreen = importer.flipGreenChannel, width = texture.width, height = texture.height });
++        }
++        report.textures = rows.ToArray();
++        if (!AssetDatabase.IsValidFolder(Root + "/Materials")) AssetDatabase.CreateFolder(Root, "Materials");
++        var shader = Shader.Find("Universal Render Pipeline/Lit"); Require(shader && shader.isSupported, "URP Lit shader 不可用");
++        var material = AssetDatabase.LoadAssetAtPath<Material>(MaterialPath);
++        if (!material) { material = new Material(shader); AssetDatabase.CreateAsset(material, MaterialPath); }
++        material.shader = shader; material.name = "Zhunwang_URP";
++        material.SetTexture("_BaseMap", Texture("BaseColor")); material.SetColor("_BaseColor", Color.white);
++        material.SetTexture("_BumpMap", Texture("Normal")); material.SetFloat("_BumpScale", 1);
++        material.SetTexture("_MetallicGlossMap", Texture("MetallicSmoothness")); material.SetFloat("_Metallic", 1); material.SetFloat("_Smoothness", 1);
++        material.SetTexture("_OcclusionMap", Texture("AO")); material.SetFloat("_OcclusionStrength", 1);
++        material.SetFloat("_WorkflowMode", 1); material.SetFloat("_SmoothnessTextureChannel", 0); material.SetFloat("_Surface", 0); material.SetFloat("_AlphaClip", 0);
++        material.SetFloat("_Cull", 2); material.SetFloat("_ZWrite", 1); material.SetFloat("_SrcBlend", 1); material.SetFloat("_DstBlend", 0);
++        material.EnableKeyword("_NORMALMAP"); material.EnableKeyword("_METALLICSPECGLOSSMAP"); material.EnableKeyword("_OCCLUSIONMAP");
++        material.DisableKeyword("_SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A"); material.DisableKeyword("_ALPHATEST_ON"); material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
++        material.SetOverrideTag("RenderType", "Opaque"); material.renderQueue = -1; material.enableInstancing = true;
++        EditorUtility.SetDirty(material); AssetDatabase.SaveAssetIfDirty(material);
++
++        AssetDatabase.ImportAsset(ModelPath, ImportAssetOptions.ForceSynchronousImport);
++        var modelImporter = (ModelImporter)AssetImporter.GetAtPath(ModelPath);
++        modelImporter.importNormals = ModelImporterNormals.Import; modelImporter.importTangents = ModelImporterTangents.CalculateMikk;
++        modelImporter.importAnimation = false; modelImporter.animationType = ModelImporterAnimationType.None;
++        modelImporter.meshCompression = ModelImporterMeshCompression.Off; modelImporter.optimizeMeshPolygons = false; modelImporter.optimizeMeshVertices = false;
++        modelImporter.isReadable = false; modelImporter.addCollider = false; modelImporter.generateSecondaryUV = false;
++        modelImporter.globalScale = 1; modelImporter.useFileScale = true; modelImporter.materialImportMode = ModelImporterMaterialImportMode.ImportStandard;
++        modelImporter.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material), "Zhunwang_Baked_URP"), material);
++        modelImporter.SaveAndReimport();
++        var model = AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath); Require(model, "FBX 无法载入");
++        var scene = EditorSceneManager.NewPreviewScene();
++        try
++        {
++            var instance = (GameObject)PrefabUtility.InstantiatePrefab(model, scene);
++            PrefabUtility.UnpackPrefabInstance(instance, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
++            instance.name = "Zhunwang";
++            foreach (var renderer in instance.GetComponentsInChildren<Renderer>(true)) renderer.sharedMaterials = Enumerable.Repeat(material, renderer.sharedMaterials.Length).ToArray();
++            var prefab = PrefabUtility.SaveAsPrefabAsset(instance, PrefabPath, out bool ok); Require(ok && prefab, "Prefab 保存失败");
++        }
++        finally { EditorSceneManager.ClosePreviewScene(scene); }
++        var asset = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
++        var filters = asset.GetComponentsInChildren<MeshFilter>(true); var renderers = asset.GetComponentsInChildren<Renderer>(true);
++        report.meshes = filters.Length; report.renderers = renderers.Length;
++        foreach (var f in filters) { report.vertices += f.sharedMesh.vertexCount; for (int i = 0; i < f.sharedMesh.subMeshCount; i++) report.triangles += (int)f.sharedMesh.GetIndexCount(i) / 3; }
++        report.bounds = renderers[0].bounds.size; report.rootScale = asset.transform.localScale;
++        report.materialBound = renderers.All(r => r.sharedMaterials.All(m => m == material));
++        report.importNormals = modelImporter.importNormals == ModelImporterNormals.Import; report.mikkTangents = modelImporter.importTangents == ModelImporterTangents.CalculateMikk;
++        report.sourceScale = modelImporter.globalScale == 1 && modelImporter.useFileScale;
++        report.shaderSupported = material.shader.isSupported; report.pipeline = GraphicsSettings.currentRenderPipeline ? GraphicsSettings.currentRenderPipeline.GetType().FullName : "Built-in";
++        report.dependencies = AssetDatabase.GetDependencies(PrefabPath, true);
++        Require(report.meshes == 1 && report.triangles == 23998 && report.materialBound && report.importNormals && report.mikkTangents, "模型或材质验收不符");
++        Require(!ShaderUtil.ShaderHasError(material.shader), "URP shader 编译错误");
++        RenderPreview(asset, Log + "/Unity_Preview.png");
++        Selection.activeObject = asset; EditorGUIUtility.PingObject(asset);
++    }
++    static void RenderPreview(GameObject prefab, string path)
++    {
++        var preview = new PreviewRenderUtility();
++        try
++        {
++            var instance = preview.InstantiatePrefabInScene(prefab);
++            var renderers = instance.GetComponentsInChildren<Renderer>(); var bounds = renderers[0].bounds;
++            foreach (var r in renderers.Skip(1)) bounds.Encapsulate(r.bounds);
++            float radius = bounds.size.magnitude;
++            preview.camera.transform.position = bounds.center + new Vector3(1.3f, 1.1f, 1.7f).normalized * radius * 1.5f;
++            preview.camera.transform.LookAt(bounds.center); preview.camera.nearClipPlane = .001f; preview.camera.farClipPlane = radius * 10;
++            preview.camera.orthographic = true; preview.camera.orthographicSize = bounds.size.magnitude * .48f;
++            preview.camera.clearFlags = CameraClearFlags.SolidColor; preview.camera.backgroundColor = new Color(.12f, .14f, .17f);
++            preview.lights[0].intensity = 1.4f; preview.lights[0].transform.rotation = Quaternion.Euler(40, 40, 0);
++            preview.lights[1].intensity = 1.0f; preview.lights[1].transform.rotation = Quaternion.Euler(340, 220, 0);
++            preview.ambientColor = new Color(.32f, .32f, .32f);
++            preview.BeginStaticPreview(new Rect(0, 0, 1000, 1000)); preview.Render(true);
++            var image = preview.EndStaticPreview(); File.WriteAllBytes(path, image.EncodeToPNG()); Object.DestroyImmediate(image);
++        }
++        finally { preview.Cleanup(); }
++    }
++}
+*** End Patch

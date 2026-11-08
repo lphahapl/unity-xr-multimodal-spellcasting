@@ -1,0 +1,28 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs
+@@
+         nextPoll = EditorApplication.timeSinceStartup + .25;
+         if (!File.Exists(RequestPath)) return;
++        string payload;
++        try { payload = File.ReadAllText(RequestPath); File.Delete(RequestPath); }
++        catch (IOException) { return; }
+         Request req = null;
+         try
+         {
+-            req = JsonUtility.FromJson<Request>(File.ReadAllText(RequestPath));
+-            File.Delete(RequestPath);
++            req = JsonUtility.FromJson<Request>(payload);
+@@
+-        catch (IOException) { /* A request may still be closing; retry the next poll. */ }
+         catch (Exception e) { StatusFor(req ?? new Request { action = "invalid" }, false, e.ToString()); }
+@@
+         Validate(InspectAsset(), req);
+         Snapshot snapshot = Capture();
++        request = req;
++        run = new RunReport { requestId = req.requestId, startedUtc = Utc(), status = "armed",
++            requestedVolume = req.volume, originalSceneSetup = snapshot, asset = InspectAsset() };
++        Write(ResultPath, run);
+@@
+-        if (!source || !run?.asset?.path.Equals(AssetPath) == true) { Finish(false, "Probe source/state lost."); return; }
++        if (!source || run == null || run.asset == null || run.asset.path != AssetPath) { Finish(false, "Probe source/state lost."); return; }
+*** End Patch

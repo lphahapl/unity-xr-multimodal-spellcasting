@@ -1,0 +1,410 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyDefinition.cs
++using UnityEngine;
++using UnityEngine.AddressableAssets;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    [CreateAssetMenu(menuName = "NarutoVR/敌人/异步敌人定义")]
++    public sealed class EnemyDefinition : ScriptableObject
++    {
++        [Header("敌人身份")]
++        [InspectorName("稳定敌人编号")] public string enemyId;
++        [InspectorName("显示名称")] public string displayName;
++        [Header("加载与战斗配置")]
++        [InspectorName("Addressables 敌人预置体")] public AssetReferenceGameObject prefab;
++        [InspectorName("战斗数值覆盖（空则保留预置体配置）")] public EnemyCombatDefinition combatDefinition;
++        [InspectorName("最多缓存的闲置实例"), Min(0)] public int maxInactive = 4;
++
++        public bool Validate(out string reason)
++        {
++            if (string.IsNullOrWhiteSpace(enemyId) || enemyId != enemyId.Trim()) reason = "敌人编号不能为空或含首尾空格";
++            else if (prefab == null || !prefab.RuntimeKeyIsValid()) reason = "敌人预置体 Addressables 引用无效：" + enemyId;
++            else if (maxInactive < 0) reason = "闲置实例上限不能为负：" + enemyId;
++            else if (combatDefinition && !combatDefinition.Valid) reason = "敌人战斗数值无效：" + enemyId;
++            else { reason = null; return true; }
++            return false;
++        }
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyCatalog.cs
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    [CreateAssetMenu(menuName = "NarutoVR/敌人/敌人目录")]
++    public sealed class EnemyCatalog : ScriptableObject
++    {
++        [Header("敌人目录")]
++        [InspectorName("敌人定义列表")] public EnemyDefinition[] enemies = Array.Empty<EnemyDefinition>();
++        Dictionary<string, EnemyDefinition> index;
++
++        /// <summary>验证全部定义并重建索引；运行中主动改变目录后需再次调用。</summary>
++        public bool Validate(out string reason)
++        {
++            index = null;
++            if (enemies == null) { reason = "敌人定义列表为空引用"; return false; }
++            var next = new Dictionary<string, EnemyDefinition>(StringComparer.Ordinal);
++            foreach (var definition in enemies)
++            {
++                if (!definition) { reason = "敌人目录包含空定义"; return false; }
++                if (!definition.Validate(out reason)) return false;
++                if (next.ContainsKey(definition.enemyId)) { reason = "重复敌人编号：" + definition.enemyId; return false; }
++                next.Add(definition.enemyId, definition);
++            }
++            index = next; reason = null; return true;
++        }
++        public bool TryGet(string id, out EnemyDefinition definition)
++        {
++            definition = null;
++            if (id == null || index == null && !Validate(out _)) return false;
++            return index.TryGetValue(id, out definition) && definition;
++        }
++        void OnValidate() => index = null;
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyLease.cs
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>一次出生的不可变租约。回收后再次出生会得到新编号；禁止用旧租约回收新的敌人。</summary>
++    public sealed class EnemyLease
++    {
++        public long Id { get; }
++        public EnemyController Controller { get; }
++        public string EnemyId { get; }
++        internal EnemyManager Owner { get; }
++        internal long SessionId { get; }
++        internal EnemyLease(long id, EnemyController controller, string enemyId, EnemyManager owner, long sessionId)
++        { Id = id; Controller = controller; EnemyId = enemyId; Owner = owner; SessionId = sessionId; }
++    }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs
++using System;
++using System.Collections.Generic;
++using System.Collections.ObjectModel;
++using System.Threading;
++using System.Threading.Tasks;
++using UnityEngine;
++using UnityEngine.AddressableAssets;
++using UnityEngine.AI;
++using UnityEngine.ResourceManagement.AsyncOperations;
++using UnityEngine.SceneManagement;
++
++namespace NarutoVR.SealCombat.Enemies
++{
++    /// <summary>
++    /// 场景/会话拥有的敌人加载与对象池。所有公开方法限 Unity 主线程调用。
++    /// 加载由会话共享，调用者取消不取消其他调用者；关闭会话后销毁全部克隆，再释放资源句柄。
++    /// </summary>
++    [DisallowMultipleComponent]
++    public sealed class EnemyManager : MonoBehaviour
++    {
++        [Header("一、敌人资源")]
++        [InspectorName("敌人目录")] public EnemyCatalog catalog;
++        [InspectorName("出生点导航采样半径（米）"), Min(.01f)] public float sampleRadius = 1;
++        [Header("二、运行状态")]
++        [SerializeField, InspectorName("加载与对象池状态（运行时）")] string status = "等待启动";
++        [SerializeField, InspectorName("已加载类型数（运行时）")] int loadedTypeCount;
++        [SerializeField, InspectorName("活跃敌人数（运行时）")] int activeCount;
++        [SerializeField, InspectorName("闲置池数量（运行时）")] int pooledCount;
++        public string Status => status;
++        public int LoadedTypeCount => loadedTypeCount;
++        public int ActiveCount => activeCount;
++        public int PooledCount => pooledCount;
++        readonly ReadOnlyDictionary<long, EnemyLease> empty = new(new Dictionary<long, EnemyLease>());
++        public IReadOnlyDictionary<long, EnemyLease> ActiveEnemies => session != null ? session.View : empty;
++
++        sealed class Load
++        {
++            public string Id;
++            public object Key;
++            public EnemyCombatDefinition Combat;
++            public int Limit;
++            public AsyncOperationHandle<GameObject> Handle;
++            public bool HasHandle, Released;
++            public Task<GameObject> Task;
++            public readonly Stack<Instance> Pool = new();
++        }
++        sealed class Instance
++        {
++            public GameObject Root;
++            public EnemyController Controller;
++            public EnemyCombatDefinition OriginalCombat;
++            public Load Type;
++            public bool Transitioning, RecyclePending;
++        }
++        sealed class Session
++        {
++            public long Id;
++            public bool Closed;
++            public GameObject Root, InactiveRoot;
++            public readonly CancellationTokenSource Stop = new();
++            public readonly Dictionary<string, Load> Loads = new(StringComparer.Ordinal);
++            public readonly Dictionary<long, EnemyLease> Active = new();
++            public readonly Dictionary<long, Instance> Instances = new();
++            public readonly ReadOnlyDictionary<long, EnemyLease> View;
++            public Session() => View = new ReadOnlyDictionary<long, EnemyLease>(Active);
++        }
++        Session session;
++        int mainThread;
++        long nextSession, nextLease;
++        readonly List<long> destroyed = new();
++
++        void Awake() => mainThread = Thread.CurrentThread.ManagedThreadId;
++        void OnEnable()
++        {
++            if (mainThread == 0) mainThread = Thread.CurrentThread.ManagedThreadId;
++            if (session != null) return;
++            var current = new Session { Id = ++nextSession };
++            current.Root = new GameObject(name + "·敌人会话");
++            SceneManager.MoveGameObjectToScene(current.Root, gameObject.scene);
++            current.InactiveRoot = new GameObject("闲置实例（不激活）");
++            current.InactiveRoot.transform.SetParent(current.Root.transform, false);
++            current.InactiveRoot.SetActive(false);
++            session = current; status = "敌人会话已就绪"; UpdateCounts();
++        }
++        void OnDisable() => CloseSession();
++        void OnDestroy() => CloseSession();
++        void Update()
++        {
++            if (session == null) return;
++            destroyed.Clear();
++            foreach (var pair in session.Active) if (!pair.Value.Controller) destroyed.Add(pair.Key);
++            foreach (long id in destroyed) { session.Active.Remove(id); session.Instances.Remove(id); }
++            UpdateCounts();
++        }
++        void RequireMainThread()
++        {
++            if (mainThread == 0 || mainThread != Thread.CurrentThread.ManagedThreadId)
++                throw new InvalidOperationException("EnemyManager 只能在 Unity 主线程调用");
++        }
++        Session RequireSession(CancellationToken cancellation)
++        {
++            RequireMainThread(); cancellation.ThrowIfCancellationRequested();
++            if (!this || !isActiveAndEnabled || session == null || session.Closed)
++                throw new InvalidOperationException("敌人管理器会话已关闭");
++            return session;
++        }
++        void RequireCurrent(Session current, CancellationToken cancellation)
++        {
++            cancellation.ThrowIfCancellationRequested();
++            if (!this || !isActiveAndEnabled || current.Closed || !ReferenceEquals(session, current))
++                throw new OperationCanceledException("敌人加载所属会话已结束");
++        }
++
++        Load GetLoad(Session current, string id)
++        {
++            if (id != null && current.Loads.TryGetValue(id, out var existing)) return existing;
++            if (!catalog || !catalog.Validate(out string reason))
++                throw new InvalidOperationException("敌人目录无效：" + (catalog ? reason : "未绑定目录"));
++            if (!catalog.TryGet(id, out var definition)) throw new ArgumentException("未知敌人编号：" + id, nameof(id));
++            var entry = new Load { Id = id, Key = definition.prefab.RuntimeKey, Combat = definition.combatDefinition, Limit = definition.maxInactive };
++            current.Loads.Add(id, entry);
++            entry.Task = LoadPrefab(current, entry);
++            _ = ObserveFailure(entry.Task); // 取消全部调用者后，后台共享任务的失败仍被观察；LoadPrefab负责状态与日志。
++            return entry;
++        }
++        static async Task ObserveFailure(Task task) { try { await task; } catch { } }
++        async Task<GameObject> LoadPrefab(Session current, Load entry)
++        {
++            try
++            {
++                entry.Handle = Addressables.LoadAssetAsync<GameObject>(entry.Key); entry.HasHandle = true;
++                var prefab = await entry.Handle.Task;
++                RequireCurrent(current, default);
++                if (entry.Handle.Status != AsyncOperationStatus.Succeeded || !prefab)
++                    throw new InvalidOperationException("Addressables 未返回敌人预置体", entry.Handle.OperationException);
++                if (!prefab.GetComponent<EnemyController>() || !prefab.GetComponent<EnemyObj>() || !prefab.GetComponent<NavMeshAgent>())
++                    throw new InvalidOperationException("预置体根节点需要 EnemyController、EnemyObj、NavMeshAgent：" + entry.Id);
++                status = "已加载敌人：" + entry.Id; UpdateCounts(); return prefab;
++            }
++            catch (Exception error)
++            {
++                if (!current.Closed)
++                {
++                    current.Loads.Remove(entry.Id); Release(entry);
++                    if (this && ReferenceEquals(session, current))
++                    { status = "敌人加载失败：" + entry.Id + "；" + error.Message; Debug.LogWarning(status, this); UpdateCounts(); }
++                }
++                throw;
++            }
++        }
++        static async Task<T> WaitForCaller<T>(Task<T> shared, CancellationToken caller, CancellationToken closed)
++        {
++            using var linked = CancellationTokenSource.CreateLinkedTokenSource(caller, closed);
++            var cancelled = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
++            using var registration = linked.Token.Register(() => cancelled.TrySetResult(true));
++            await Task.WhenAny(shared, cancelled.Task);
++            linked.Token.ThrowIfCancellationRequested();
++            return await shared;
++        }
++
++        public async Task PreloadAsync(string enemyId, CancellationToken ct = default)
++        {
++            var current = RequireSession(ct); var entry = GetLoad(current, enemyId);
++            await WaitForCaller(entry.Task, ct, current.Stop.Token); RequireCurrent(current, ct); UpdateCounts();
++        }
++        public async Task PrewarmAsync(string id, int count, CancellationToken ct = default)
++        {
++            var current = RequireSession(ct);
++            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));
++            var entry = GetLoad(current, id);
++            var prefab = await WaitForCaller(entry.Task, ct, current.Stop.Token); RequireCurrent(current, ct);
++            int target = Mathf.Min(count, entry.Limit);
++            while (entry.Pool.Count < target)
++            {
++                RequireCurrent(current, ct);
++                var instance = CreateInstance(current, entry, prefab);
++                entry.Pool.Push(instance);
++            }
++            status = $"预热完成：{id}，闲置 {entry.Pool.Count}/{entry.Limit}"; UpdateCounts();
++        }
++
++        public async Task<EnemyLease> SpawnEnemyAsync(string id, Vector3 pos, Quaternion rot, Transform target,
++            bool isSummoned = false, CancellationToken ct = default)
++        {
++            var current = RequireSession(ct); var entry = GetLoad(current, id);
++            var prefab = await WaitForCaller(entry.Task, ct, current.Stop.Token); RequireCurrent(current, ct);
++            if (!Finite(pos) || !float.IsFinite(rot.x) || !float.IsFinite(rot.y) || !float.IsFinite(rot.z) || !float.IsFinite(rot.w) ||
++                rot.x * rot.x + rot.y * rot.y + rot.z * rot.z + rot.w * rot.w < .00001f)
++                throw SpawnFailure(id, "出生位置或旋转无效");
++            var templateAgent = prefab.GetComponent<NavMeshAgent>();
++            var filter = new NavMeshQueryFilter { agentTypeID = templateAgent.agentTypeID, areaMask = templateAgent.areaMask };
++            if (!float.IsFinite(sampleRadius) || sampleRadius <= 0 || !NavMesh.SamplePosition(pos, out var sampled, sampleRadius, filter))
++                throw SpawnFailure(id, "出生位置附近没有匹配代理类型的 NavMesh");
++            Instance instance = null;
++            while (entry.Pool.Count > 0 && instance == null) { var candidate = entry.Pool.Pop(); if (candidate.Root && candidate.Controller) instance = candidate; }
++            instance ??= CreateInstance(current, entry, prefab);
++            EnemyLease lease = null;
++            instance.Transitioning = true;
++            try
++            {
++                instance.Root.SetActive(false);
++                instance.Controller.BindEntityComponents();
++                instance.Controller.Entity.CombatDefinition = entry.Combat ? entry.Combat : instance.OriginalCombat;
++                instance.Controller.target = target; instance.Controller.isSpawnedEnemy = isSummoned;
++                instance.Root.transform.SetParent(current.Root.transform, false);
++                instance.Root.transform.SetPositionAndRotation(sampled.position, rot.normalized);
++                lease = new EnemyLease(++nextLease, instance.Controller, id, this, current.Id);
++                current.Active.Add(lease.Id, lease); current.Instances.Add(lease.Id, instance);
++                instance.Root.SetActive(true);
++                RequireCurrent(current, ct);
++                if (!IsCurrent(lease)) throw new OperationCanceledException("出生过程中租约已被回收");
++                instance.Controller.InitializeSpawn(target, isSummoned);
++                RequireCurrent(current, ct);
++                if (!IsCurrent(lease)) throw new OperationCanceledException("初始化回调结束了本次出生");
++                var agent = instance.Controller.Agent;
++                if (!agent || !agent.enabled || !agent.isOnNavMesh || !instance.Controller.ValidateAnimator(out var animationReason))
++                    throw SpawnFailure(id, "导航代理或动画接线无效");
++                status = "敌人已出生：" + id + " #" + lease.Id; UpdateCounts(); return lease;
++            }
++            catch
++            {
++                if (lease == null || CurrentRecord(current, lease))
++                {
++                    if (lease != null) { current.Active.Remove(lease.Id); current.Instances.Remove(lease.Id); }
++                    DestroyInstance(instance);
++                }
++                throw;
++            }
++            finally
++            {
++                instance.Transitioning = false;
++                if (instance.RecyclePending) { instance.RecyclePending = false; FinishRecycle(current, instance); }
++                UpdateCounts();
++            }
++        }
++
++        Exception SpawnFailure(string id, string reason)
++        { status = "敌人出生失败：" + id + "；" + reason; Debug.LogWarning(status, this); return new InvalidOperationException(status); }
++        static bool Finite(Vector3 p) => float.IsFinite(p.x) && float.IsFinite(p.y) && float.IsFinite(p.z);
++        Instance CreateInstance(Session current, Load entry, GameObject prefab)
++        {
++            var root = Instantiate(prefab, current.InactiveRoot.transform, false);
++            root.SetActive(false);
++            var controller = root.GetComponent<EnemyController>();
++            return new Instance { Root = root, Controller = controller, Type = entry, OriginalCombat = root.GetComponent<EnemyObj>().CombatDefinition };
++        }
++        bool CurrentRecord(Session current, EnemyLease lease) => !current.Closed && lease != null && lease.Owner == this &&
++            lease.SessionId == current.Id && current.Active.TryGetValue(lease.Id, out var owned) && ReferenceEquals(owned, lease);
++        public bool IsCurrent(EnemyLease lease)
++        {
++            RequireMainThread();
++            return session != null && CurrentRecord(session, lease) && lease.Controller && lease.Controller.gameObject.activeInHierarchy;
++        }
++        public bool TryGetActive(long id, out EnemyLease lease)
++        {
++            RequireMainThread(); lease = null;
++            return session != null && session.Active.TryGetValue(id, out lease) && IsCurrent(lease);
++        }
++        public bool Recycle(EnemyLease lease)
++        {
++            RequireMainThread(); var current = session;
++            if (current == null || !CurrentRecord(current, lease)) return false;
++            var instance = current.Instances[lease.Id];
++            current.Active.Remove(lease.Id); current.Instances.Remove(lease.Id);
++            if (instance.Transitioning) instance.RecyclePending = true;
++            else FinishRecycle(current, instance);
++            UpdateCounts(); return true;
++        }
++        void FinishRecycle(Session current, Instance instance)
++        {
++            if (!instance.Root || !instance.Controller) return;
++            if (current.Closed) { DestroyInstance(instance); return; }
++            instance.Controller.SetSuspended(true);
++            if (current.Closed || !instance.Root) { DestroyInstance(instance); return; }
++            instance.Controller.SetTarget(null);
++            if (current.Closed || !instance.Root) { DestroyInstance(instance); return; }
++            instance.Root.SetActive(false);
++            if (current.Closed || !instance.Root) { DestroyInstance(instance); return; }
++            if (instance.Type.Pool.Count >= instance.Type.Limit) { DestroyInstance(instance); return; }
++            instance.Root.transform.SetParent(current.InactiveRoot.transform, false);
++            instance.Type.Pool.Push(instance);
++        }
++        static void DestroyInstance(Instance instance)
++        {
++            if (!instance.Root) return;
++            instance.Root.SetActive(false); Destroy(instance.Root);
++        }
++        void CloseSession()
++        {
++            var current = session; if (current == null) return;
++            session = null; current.Closed = true; status = "敌人会话关闭，正在释放实例与加载资源";
++            current.Stop.Cancel(); current.Active.Clear(); current.Instances.Clear();
++            foreach (var entry in current.Loads.Values) entry.Pool.Clear();
++            if (current.Root) { current.Root.SetActive(false); Destroy(current.Root); }
++            UpdateCounts(); _ = ReleaseClosedSession(current);
++        }
++        static async Task ReleaseClosedSession(Session current)
++        {
++            try
++            {
++                foreach (var entry in current.Loads.Values) try { await entry.Task; } catch { }
++                while (current.Root) await Task.Yield(); // Destroy 在帧末执行；不能先卸掉仍被克隆引用的资源。
++                foreach (var entry in current.Loads.Values) Release(entry);
++            }
++            catch (Exception error) { Debug.LogWarning("敌人会话资源释放失败：" + error); }
++            finally { current.Stop.Dispose(); }
++        }
++        static void Release(Load entry)
++        {
++            if (!entry.HasHandle || entry.Released) return;
++            entry.Released = true;
++            if (entry.Handle.IsValid()) Addressables.Release(entry.Handle);
++        }
++        void UpdateCounts()
++        {
++            loadedTypeCount = activeCount = pooledCount = 0;
++            if (session == null) return;
++            activeCount = session.Active.Count;
++            foreach (var entry in session.Loads.Values)
++            {
++                if (entry.Task != null && entry.Task.Status == TaskStatus.RanToCompletion) loadedTypeCount++;
++                pooledCount += entry.Pool.Count;
++            }
++        }
++    }
++}
+*** End Patch

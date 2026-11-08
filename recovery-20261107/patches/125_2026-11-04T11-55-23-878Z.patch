@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_guzheng.py
+@@
+-                "guzheng-62-v1-rr2", "guzheng-65-v1-rr2", "guzheng-67-v1-rr2",
++                "guzheng-62-v1-rr2", "guzheng-67-v1-rr2",
+                 "guzheng-72-v1-rr2", "guzheng-74-v1-rr1"}
++    # Audited on the original recording; several later plucks are absent from metadata.
++    clean_limits = {"guzheng-50-v1-rr1": .70, "guzheng-55-v1-rr2": .50,
++                    "guzheng-62-v1-rr2": 2.20, "guzheng-74-v1-rr1": .84}
+@@
+-        clean_seconds = min([cut["length"], 2.4]+[t-.22 for t in later])
++        clean_seconds = min([cut["length"], 2.4, clean_limits.get(name, 2.4)]+[t-.22 for t in later])
+@@
+-    release = min(count, round(.35*SR))
++    release = min(round(count*.25), round(.35*SR))
+*** End Patch

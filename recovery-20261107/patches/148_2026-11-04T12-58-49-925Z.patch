@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs
+@@
+         [SerializeField, InspectorName("闲置池数量（运行时）")] int pooledCount;
++        [SerializeField, InspectorName("本会话累计创建实例")] int createdCount;
++        [SerializeField, InspectorName("本会话累计从池取出")] int reusedCount;
+@@
+         public int PooledCount => pooledCount;
++        public int CreatedCount => createdCount;
++        public int ReusedCount => reusedCount;
+@@
+-            session = current; status = "敌人会话已就绪"; UpdateCounts();
++            session = current; createdCount = reusedCount = 0; status = "敌人会话已就绪"; UpdateCounts();
+@@
+             var entry = new Load { Id = id, Key = definition.prefab.RuntimeKey, Combat = definition.combatDefinition, Limit = definition.maxInactive };
++            // 先公开完整 promise，Addressables 同步抛错或初始化回调停用管理器时也不会观察到空 Task。
++            var completion = new TaskCompletionSource<GameObject>(TaskCreationOptions.RunContinuationsAsynchronously);
++            entry.Task = completion.Task;
+             current.Loads.Add(id, entry);
+-            entry.Task = LoadPrefab(current, entry);
++            _ = LoadPrefab(current, entry, completion);
+@@
+-        async Task<GameObject> LoadPrefab(Session current, Load entry)
++        async Task LoadPrefab(Session current, Load entry, TaskCompletionSource<GameObject> completion)
+@@
+-                status = "已加载敌人：" + entry.Id; UpdateCounts(); return prefab;
++                completion.TrySetResult(prefab);
++                status = "已加载敌人：" + entry.Id; UpdateCounts();
+@@
+-                throw;
++                completion.TrySetException(error);
+@@
+                 var instance = CreateInstance(current, entry, prefab);
+                 entry.Pool.Push(instance);
++                UpdateCounts();
++                await Task.Yield(); // 每帧至多为本次预热创建一个实例，避免集中 Instantiate 抢占手部追踪帧。
+@@
+-                if (candidate.Root && candidate.Controller) instance = candidate;
++                if (candidate.Root && candidate.Controller) { instance = candidate; reusedCount++; }
+@@
+             current.AllInstances.Add(instance);
++            createdCount++;
+*** End Patch

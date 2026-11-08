@@ -22,6 +22,8 @@ namespace NarutoVR.SealCombat.Rpg
         public RpgPlayerState State { get; private set; }
         public bool IsInitialized => State != null;
         public int ReceivedHitCount => receivedDamage.Count;
+        public PlayerDamageResult LastSettledDamage { get; private set; }
+        internal bool HasReceivedDamage(string hitId) => hitId != null && receivedDamage.Contains(hitId);
 
         /// <summary>首次创建独立状态；重复接线不重置生命、冷却或命中账本。配置由控制器的玩家基础定义提供。</summary>
         public RpgPlayerState Initialize(RpgPlayerDefinition definition)
@@ -49,6 +51,7 @@ namespace NarutoVR.SealCombat.Rpg
             float applied = 0;
             if (remaining > 0) State.ApplyDamage(hitId, remaining, gameNow, out applied);
             result = new PlayerDamageResult(amount, amount - remaining, applied);
+            LastSettledDamage = result;
             return true;
         }
     }

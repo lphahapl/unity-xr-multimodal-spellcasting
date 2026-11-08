@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_shape_v8.py
+@@
+-GAIN_DB = [-5, -4, -1.7, -.5, 0, .3, -.8, -2.6, -3.2, -2.3, -1.1, .8, 1.1, .6, -.4, -.8, -1.8, -3.4, -4.5, -5, -5]
++GAIN_DB = [-2.5, -1.8, -.8, -.5, 0, .2, -.5, -1, -.8, -.8, -.5, -.1, .1, -.3, -.5, -.6, -.6, -1.5, -2, -2.5, -2.5]
++BALANCE_DB = {"guzheng": 2, "dizi": 0, "viola": -1, "bell": 0}
+@@
+-    for event in [(.95, 60, 1.65, .30), (3.45, 67, 1.75, .34),
+-                  (5.95, 64, 1.10, .27), (7.20, 62, .55, .24)]:
++    for event in [(.95, 60, 1.65, .38), (3.45, 67, 1.75, .44),
++                  (5.95, 64, 1.10, .37), (7.20, 62, .55, .33)]:
+@@
+-    for event in [(92.6, 60, 1.6, .40), (95.25, 67, 1.3, .34),
+-                  (97.65, 64, 1.15, .29), (101.6, 60, 1.35, .24)]:
++    for event in [(92.6, 60, 1.6, .46), (95.25, 67, 1.3, .40),
++                  (97.65, 64, 1.15, .35), (101.6, 60, 1.35, .30)]:
+@@
+-        stem *= calibration[name]*automation[:, None]
++        stem *= calibration[name]*10**(BALANCE_DB[name]/20)*automation[:, None]
+@@
+               "reference_instrument_gains": calibration,
++              "instrument_balance_db": BALANCE_DB,
+*** End Patch

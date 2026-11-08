@@ -1,0 +1,72 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyCombatChecks.cs
+@@
+ using NarutoVR.SealCombat.Enemies;
++using NarutoVR.SealCombat.Events;
+@@
+                 Shoot(weakCenter - Vector3.forward * 2, Vector3.forward);
+                 Check(entity.Combat.Poise == 40, "无关Trigger不会挡住火球");
++                CheckReentrantHits(enemy, Check);
+                 Check(entity.ReceiveHit("kill", 10000, 100) && enemy.IsDead && entity.Combat.Dead, "实际生命归零进入死亡状态");
+@@
+         }
++
++        static void CheckReentrantHits(EnemyController enemy, Action<bool, string> check)
++        {
++            var entity = enemy.Entity;
++            var target = new GameObject("削韧重入检查目标");
++            try
++            {
++                target.transform.position = enemy.transform.position + enemy.transform.forward;
++                int died = 0, broken = 0, vitals = 0;
++                using var deathToken = EventCenter.Subscribe(EnemyEvents.Died, notice => { if (notice.Enemy == entity) died++; });
++                using var brokenToken = EventCenter.Subscribe(EnemyEvents.PoiseBroken, notice => { if (notice.Enemy == entity) broken++; });
++                using var vitalsToken = EventCenter.Subscribe(EnemyEvents.VitalsChanged, notice => { if (notice.Enemy == entity) vitals++; });
++                foreach (bool lethal in new[] { true, false })
++                {
++                    enemy.InitializeSpawn(target.transform, true); enemy.animator.Rebind(); enemy.animator.Update(0);
++                    for (int i = 0; i < 40 && enemy.CurrentAttack < 0; i++)
++                    { enemy.Tick(.05f); enemy.animator.Update(.05f); }
++                    check(enemy.CurrentAttack >= 0, "重入检查先进入真实攻击流程");
++                    var previous = entity.Combat;
++                    int resets = 0;
++                    UnityEngine.Events.UnityAction<int> resetOnFinished = _ => { resets++; enemy.InitializeSpawn(null, true); };
++                    enemy.onAttackFinished.AddListener(resetOnFinished);
++                    bool accepted;
++                    died = broken = vitals = 0;
++                    try { accepted = entity.ReceiveHit(lethal ? "reset-from-death" : "reset-from-break", lethal ? 10000 : 0, 100000); }
++                    finally { enemy.onAttackFinished.RemoveListener(resetOnFinished); }
++                    check(accepted && resets == 1 && !ReferenceEquals(previous, entity.Combat),
++                        lethal ? "致死打断攻击的结束回调可重生" : "削空打断攻击的结束回调可重生");
++                    check(enemy.CanReceiveHit && !enemy.IsDead && !entity.Combat.Broken &&
++                        entity.Combat.Health == entity.Combat.MaxHealth && entity.Combat.Poise == entity.Combat.MaxPoise,
++                        "旧命中返回后不暂停或破坏新生命周期");
++                    check(died == 0 && broken == 0 && vitals == 0, "重生后不发布旧生命的数值、死亡或破韧通知");
++                }
++
++                enemy.InitializeSpawn(null, true); enemy.animator.Rebind(); enemy.animator.Update(0);
++                died = broken = vitals = 0;
++                bool nestedAccepted = false, correctDeathPayload = true;
++                using var payloadToken = EventCenter.Subscribe(EnemyEvents.Died, notice =>
++                {
++                    if (notice.Enemy == entity)
++                        correctDeathPayload &= notice.Dead && notice.Health == 0 && notice.HitId == "nested-lethal";
++                });
++                using var nestedToken = EventCenter.Subscribe(EnemyEvents.VitalsChanged, notice =>
++                {
++                    if (notice.Enemy == entity && notice.HitId == "outer-hit")
++                        nestedAccepted = entity.ReceiveHit("nested-lethal", 10000, 0);
++                });
++                check(entity.ReceiveHit("outer-hit", 1, 1) && nestedAccepted && enemy.IsDead,
++                    "数值监听中另一个命中可完成致死结算");
++                check(died == 1 && correctDeathPayload && vitals == 2 && broken == 0,
++                    "嵌套致死只发布一次死亡且快照为生命零，外层不追加错误死亡通知");
++            }
++            finally
++            {
++                enemy.InitializeSpawn(null, true); enemy.animator.Rebind(); enemy.animator.Update(0);
++                Object.DestroyImmediate(target);
++            }
++        }
+     }
+*** End Patch

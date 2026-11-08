@@ -1,0 +1,64 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-        public bool NotifyHit() => TryReact(EnemyReaction.Hit);
+-        public bool EnterSeated() => TryReact(EnemyReaction.Seated);
+-        public bool Die() => TryReact(EnemyReaction.Dead);
++        public void NotifyHit() => TryNotifyHit();
++        public void EnterSeated() => TryEnterSeated();
++        public void Die() => TryDie();
++        public bool TryNotifyHit() => TryReact(EnemyReaction.Hit);
++        public bool TryEnterSeated() => TryReact(EnemyReaction.Seated);
++        public bool TryDie() => TryReact(EnemyReaction.Dead);
+@@
+-                reaction >= requested) return false;
++                (int)reaction >= (int)requested) return false;
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+             var root = controller.layers[0].stateMachine;
++            if (root.states.Any(s => s.state.name != "CanJiOu_Idle" && s.state.name != "Run"))
++                throw new InvalidOperationException("检测到扩展状态，禁止旧两招生成器重建。请使用增量适配新反应状态或仅迁移 EnemyObj。");
+@@
+         public static void MigrateEntityPrefab()
+@@
+             Debug.Log("EnemyObj 接线迁移完成，未重建 Animator 或保存当前场景。");
+         }
++
++        [MenuItem("Tools/NarutoVR/敌人/增量适配 Hit Seated Dead")]
++        public static void AdaptReactionStates()
++        {
++            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请退出 Play 后适配。");
++            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
++            var root = controller.layers[0].stateMachine;
++            var idle = root.states.Single(s => s.state.name == "CanJiOu_Idle").state;
++            var hit = root.states.Single(s => s.state.name == "Hit").state;
++            var seated = root.states.Single(s => s.state.name == "Seated").state;
++            var dead = root.states.Single(s => s.state.name == "Dead").state;
++            EnsureParameter(controller, "dead", AnimatorControllerParameterType.Bool);
++            EnsureParameter(controller, "Hit", AnimatorControllerParameterType.Trigger);
++            EnsureParameter(controller, "isSeated", AnimatorControllerParameterType.Trigger);
++            foreach (var state in new[] { dead, seated, hit })
++            {
++                // 只调整已命名的反应入口，保留其它 AnyState/普通移动/攻击连线与全部剪辑引用。
++                foreach (var old in root.anyStateTransitions.Where(t => t.destinationState == state).ToArray()) root.RemoveAnyStateTransition(old);
++                var transition = root.AddAnyStateTransition(state); ConfigureTransition(transition);
++                if (state == dead) transition.AddCondition(AnimatorConditionMode.If, 0, "dead");
++                else
++                {
++                    transition.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
++                    transition.AddCondition(AnimatorConditionMode.If, 0, state == hit ? "Hit" : "isSeated");
++                    foreach (var old in state.transitions.Where(t => t.destinationState == idle).ToArray()) state.RemoveTransition(old);
++                    var exit = state.AddTransition(idle); ConfigureTransition(exit);
++                    exit.hasExitTime = true; exit.exitTime = .98f;
++                    exit.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
++                }
++                state.tag = state == dead ? "EnemyDead" : "EnemyReaction";
++                EditorUtility.SetDirty(state);
++            }
++            root.anyStateTransitions = root.anyStateTransitions.OrderBy(t => t.destinationState == dead ? 0 : t.destinationState == seated ? 1 : t.destinationState == hit ? 2 : 3).ToArray();
++            EditorUtility.SetDirty(root); EditorUtility.SetDirty(controller);
++            AssetDatabase.SaveAssetIfDirty(controller);
++            MigrateEntityPrefab();
++            Debug.Log("新反应状态已增量适配，原移动与攻击连线保持。");
++        }
+*** End Patch

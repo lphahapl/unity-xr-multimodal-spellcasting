@@ -1,0 +1,13 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/skills/music-production/references/toolchain.md
+@@
+ ## 从可发现到可用
+ 
++本机若已有 `~/.codex/tools/music-production/runtime.json`，先读取其中的解释器路径、版本与已测能力，验证路径仍有效后复用。该文件只是本机环境清单，不是所有安装都必需的配置；效果处理测通不代表第三方VST或新音源也测通。
++
+ 1. 读当前工程与环境：所选Python的包版本、可执行文件的绝对路径、已安装宿主/插件、实际音源。缺少PATH命令只说明该搜索未找到，继续查明确的安装位置，不宣称整台电脑没有安装。
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md
+@@
+ - 隔离Python：`C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe`，Python3.13.5，不继承全局site-packages。
++- 本机环境清单：`C:/Users/鲁迅/.codex/tools/music-production/runtime.json`，记录已测能力和解释器位置，技能选择渲染路线时优先复用。
+*** End Patch

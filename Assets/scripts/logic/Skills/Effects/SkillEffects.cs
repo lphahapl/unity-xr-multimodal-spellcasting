@@ -16,9 +16,11 @@ namespace NarutoVR.SealCombat
         { this.origin=origin; this.direction=direction; this.gazePoint=gazePoint; this.endpoint=endpoint; this.blocked=blocked; }
     }
 
+    public enum ProjectileStage { Formed, Launched, Impact }
+
     /// <summary>持有护盾、手持物、飞行投射物和扩展效果的运行态，负责生成、使用、命中与清理。</summary>
     [DefaultExecutionOrder(350)]
-    public sealed class SkillEffects : MonoBehaviour
+    public sealed partial class SkillEffects : MonoBehaviour
     {
         [Header("一、玩家与当前追踪来源")]
         [InspectorName("手印采样器")] public NarutoVR.SealLab.SealLab lab;
@@ -55,9 +57,17 @@ namespace NarutoVR.SealCombat
 
         public string Status { get; private set; } = "无生效技能";
         public bool HasHeldObject => heldObject;
+        public bool HasOccupiedHand => heldObject || rightHandEffect != null;
         public float HeldRemainingSeconds => heldObject ? Mathf.Max(0,(float)(heldExpiresAt-Now)) : 0;
-        public bool HasRightHeldObject => heldObject && !heldInLeftHand;
-        public bool HasRightThrowObject => HasRightHeldObject && heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow;
+        public bool HasRightHeldObject => rightHandEffect != null || (heldObject && !heldInLeftHand);
+        public bool HasRightThrowObject => heldObject && !heldInLeftHand && heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow;
+        public bool RightMotionOwnedBySpell => rightHandEffect != null || HasRightThrowObject;
+        public Func<bool> RightHandActionPolicy { get; set; }
+        public bool RightHandActionAllowed => isActiveAndEnabled && Time.timeScale > 0 &&
+            !PushInputSuppressed && (RightHandActionPolicy?.Invoke() ?? true);
+        public int WeaponHitMask => hitLayers.value & ~playerLayers.value;
+        public Transform WeaponOwnerRoot => playerRoot ? playerRoot : head ? head.root : null;
+        public Transform WeaponAttacker => head;
         public string ThrowStatus => heldObject && throwState != null ? throwBlockReason ?? (throwIntent != null ? throwIntent.Score.reason : throwState.Status) : string.Empty;
         public ThrowActionScore CurrentThrowScore => throwIntent != null ? throwIntent.Score : default;
         public string LastThrowOutcome { get; private set; } = "尚无发射或拒绝结果";
@@ -82,6 +92,8 @@ namespace NarutoVR.SealCombat
         public Vector3 ThrowPreviewDirection => TryGetThrowPreview(out var aim) ? aim.direction : Vector3.zero;
         public event Action<HandThrowObservation> ThrowObserved;
         public event Action ProjectileLaunched;
+        public event Action<SkillTrainingTarget> ProjectileHitTarget;
+        public event Action<ProjectileStage, Vector3> ProjectileStageChanged;
         public event Action<float> ShieldImpact;
         public bool ProjectileHandIsLeft => heldInLeftHand;
         public int HeldProjectileInstanceId => heldObject ? heldObject.GetInstanceID() : 0;
@@ -111,11 +123,13 @@ namespace NarutoVR.SealCombat
         private ProjectileParameters heldParameters;
         private GameObject activeShieldPrefab;
         private Material activeShieldMaterial;
+        private ShieldWristPulse shieldPulse;
         private Material ownedFireMaterial, ownedBuffMaterial;
         private readonly List<SkillProjectile> projectiles = new();
         private readonly List<GameObject> transientVisuals = new();
         private readonly List<PushSample> pushSamples = new();
         private readonly List<ExtensionLifetime> extensions = new();
+        private ISkillEffectLifetime rightHandEffect;
         private readonly List<ExtensionLifetime> tickingExtensions = new();
         private bool clearing, activating, createdHeldThisActivation;
         private int releasingExtensions;
@@ -215,7 +229,12 @@ namespace NarutoVR.SealCombat
                 }
                 else if (skill.effectKind == SkillEffectKind.SelfBuff) activated = TryApplyShield(null, skill);
                 else if (skill.effectKind == SkillEffectKind.HeldFireball) activated = TryCreateProjectile(null, skill);
-                if (activated) ++ActivationCount;
+                if (activated)
+                {
+                    ++ActivationCount;
+                    if (createdHeldThisActivation && heldObject)
+                        PublishProjectileStage(ProjectileStage.Formed, heldObject.transform.position);
+                }
                 return activated;
             }
             catch (Exception error)
@@ -260,7 +279,11 @@ namespace NarutoVR.SealCombat
             float duration = float.IsFinite(skill.durationSeconds) ? Mathf.Max(.1f, skill.durationSeconds) : 10;
             buffExpiresAt = Now + duration;
             // 护盾数值已经生效后，纯视觉创建失败只记录告警。
-            try { CreateBuffVisual(); }
+            try
+            {
+                CreateBuffVisual();
+                PlayShieldPulse(ShieldPulseKind.Cast, 1);
+            }
             catch (Exception error) { Debug.LogWarning("护盾已生效，但视觉创建失败：" + error.Message, this); }
             Report($"{skill.displayName}：{(refreshing ? "已刷新" : "已获得")}护盾 {shieldPoints:0}，持续 {duration:0.#} 秒");
             return true;
@@ -271,7 +294,7 @@ namespace NarutoVR.SealCombat
         {
             if (!isActiveAndEnabled || Time.timeScale <= 0 || !skill || clearing || releasingExtensions > 0 ||
                 (definition && definition.ValidateDefinition() != null)) return false;
-            if (heldObject) { Report("手部技能槽已占用，请先发射或取消当前火球"); return false; }
+            if (HasOccupiedHand) { Report("手部技能槽已占用，请先释放当前持物"); return false; }
             if (!head || !TryGetWrist(skill.leftHand, out Pose wrist, out double observed))
             { Report($"{(skill.leftHand ? "左" : "右")}手当前追踪无效，无法生成火球"); return false; }
 
@@ -313,6 +336,7 @@ namespace NarutoVR.SealCombat
             ObserveThrow("spawn", "持球已生成，等待准备及握持", wrist, default, 0, false);
             Report($"{skill.displayName}已在{(heldInLeftHand ? "左" : "右")}手生成，" +
                 (throwState != null ? "抬起持球手，看向目标；握住后甩手松开、后拉前送或伸手保持发射" : "看向目标，准备后向前轻推发射"));
+            if (!activating && heldObject) PublishProjectileStage(ProjectileStage.Formed, heldObject.transform.position);
             return true;
         }
 
@@ -320,7 +344,7 @@ namespace NarutoVR.SealCombat
         {
             if (Time.timeScale <= 0)
             {
-                if (heldObject || shieldPoints > 0 || projectiles.Count > 0 || transientVisuals.Count > 0 || extensions.Count > 0) ClearAll();
+                if (heldObject || shieldPoints > 0 || shieldPulse?.IsPlaying == true || projectiles.Count > 0 || transientVisuals.Count > 0 || extensions.Count > 0) ClearAll();
                 return;
             }
             double now = Now;
@@ -329,6 +353,7 @@ namespace NarutoVR.SealCombat
             if (shieldPoints > 0 && now >= buffExpiresAt)
             {
                 ClearBuff();
+                shieldPulse?.Stop();
                 Report("护盾持续时间已结束");
             }
             UpdateBuffVisual();
@@ -464,6 +489,15 @@ namespace NarutoVR.SealCombat
             heldObject.transform.SetPositionAndRotation(wrist.position + basis * offset, wrist.rotation);
         }
 
+        public bool TryGetRightWeaponWrist(out Pose worldPose, out double observed)
+        {
+            if (TryGetWrist(false, out worldPose, out observed) && double.IsFinite(observed) &&
+                (WristPoseOverride != null || lab.Frame.right.highConfidence)) return true;
+            worldPose = Pose.identity;
+            observed = 0;
+            return false;
+        }
+
         private bool TryGetWrist(bool leftHand, out Pose worldPose, out double observed)
         {
             worldPose = Pose.identity;
@@ -574,6 +608,17 @@ namespace NarutoVR.SealCombat
             return TryResolveAim(ThrowPreviewOrigin,out aim);
         }
 
+        public bool TryGetWeaponWaveDirection(Vector3 origin, out Vector3 direction)
+        {
+            direction = Vector3.zero;
+            if (!RightHandActionAllowed || !head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position, head.rotation))) return false;
+            Vector3 delta = GetAimPoint() - origin;
+            float distance = delta.magnitude;
+            if (!float.IsFinite(distance) || distance < .001f || Vector3.Dot(delta, head.forward) <= 0f) return false;
+            direction = delta / distance;
+            return true;
+        }
+
         private bool TryResolveAim(Vector3 origin,out FireballAim aim)
         {
             aim=default;
@@ -624,11 +669,13 @@ namespace NarutoVR.SealCombat
                 projectile.ImpactOwner = this;
             }
             else projectile.ImpactCreated = OnImpactCreated;
+            projectile.SurfaceHit = point => PublishProjectileStage(ProjectileStage.Impact, point);
             projectile.GameClock = GameClock;
             if (ball.TryGetComponent<SkillVisualMotion>(out var motion)) motion.SetFlying(true);
             projectiles.Add(projectile);
             Report("火球已发射");
             ++LaunchCount;
+            PublishProjectileStage(ProjectileStage.Launched, LastLaunchPosition);
             ProjectileLaunched?.Invoke();
             projectile.Initialize(direction, playerRoot ? playerRoot : head.root, hitLayers, playerLayers,
                 OnTargetHit, OnProjectileFinished);
@@ -637,11 +684,35 @@ namespace NarutoVR.SealCombat
         private void OnTargetHit(SkillTrainingTarget target)
         {
             ++HitCount;
+            ProjectileHitTarget?.Invoke(target);
             Report($"命中训练靶：剩余生命 {target.CurrentHealth:0}，累计命中 {HitCount} 次");
         }
 
         private void OnProjectileFinished(SkillProjectile projectile) => projectiles.Remove(projectile);
+        void PublishProjectileStage(ProjectileStage stage, Vector3 point)
+        {
+            if (ProjectileStageChanged == null) return;
+            foreach (Action<ProjectileStage, Vector3> listener in ProjectileStageChanged.GetInvocationList())
+                try { listener(stage, point); }
+                catch (Exception e) { Debug.LogWarning("火球表现监听失败：" + e.Message, this); }
+        }
         private void OnImpactCreated(GameObject visual) { if (visual) transientVisuals.Add(visual); }
+
+        /// <summary>Acquire the hand and register the same lifetime for tick and cleanup in one operation.</summary>
+        public bool TryRegisterRightHandEffect(ISkillEffectLifetime effect)
+        {
+            if (effect == null || HasOccupiedHand || !RightHandActionAllowed) return false;
+            rightHandEffect = effect;
+            if (RegisterEffectLifetime(effect)) return true;
+            ReleaseRightHandEffect(effect);
+            return false;
+        }
+
+        /// <summary>An effect can free the hand while its released visuals run to completion.</summary>
+        public void ReleaseRightHandEffect(ISkillEffectLifetime effect)
+        {
+            if (ReferenceEquals(rightHandEffect, effect)) rightHandEffect = null;
+        }
 
         /// <summary>
         /// 仅在返回 true 时接管生命周期；注册被拒绝时仍由调用方清理资源。
@@ -684,6 +755,7 @@ namespace NarutoVR.SealCombat
         {
             if (entry.Cancelled) return;
             extensions.Remove(entry); entry.Cancelled = true;
+            ReleaseRightHandEffect(entry.Value);
             releasingExtensions++;
             try { entry.Value.Cancel(); }
             catch (Exception error) { Debug.LogWarning("扩展效果结束时发生异常：" + error.Message, this); }
@@ -694,11 +766,19 @@ namespace NarutoVR.SealCombat
         public float AbsorbDamage(float damage)
         {
             if (!float.IsFinite(damage) || damage <= 0) return 0;
-            if (BuffRemaining <= 0) { ClearBuff(); return damage; }
+            if (BuffRemaining <= 0)
+            {
+                if (shieldPoints > 0) shieldPulse?.Stop();
+                ClearBuff();
+                return damage;
+            }
             float absorbed = Mathf.Min(shieldPoints, damage);
             shieldPoints -= absorbed;
-            if (shieldPoints <= 0) { ClearBuff(); Report("护盾已被击破"); }
+            bool broken = shieldPoints <= 0;
+            if (broken) { ClearBuff(); Report("护盾已被击破"); }
             else Report($"护盾吸收 {absorbed:0} 点伤害，剩余 {shieldPoints:0}");
+            if (absorbed > 0)
+                PlayShieldPulse(broken ? ShieldPulseKind.Break : ShieldPulseKind.Impact, absorbed / ShieldCapacity);
             if (absorbed > 0 && ShieldImpact != null)
                 foreach (Action<float> listener in ShieldImpact.GetInvocationList())
                     try { listener(absorbed); } catch (Exception e) { Debug.LogWarning("护盾受击反馈监听失败：" + e.Message, this); }
@@ -717,7 +797,7 @@ namespace NarutoVR.SealCombat
                 RemoveExtension(entry);
                 if (alive) { Report("已取消扩展效果"); return true; }
             }
-            if (shieldPoints > 0) { ClearBuff(); Report("已取消护盾"); return true; }
+            if (shieldPoints > 0) { ClearBuff(); shieldPulse?.Stop(); Report("已取消护盾"); return true; }
             Report("当前没有可取消的效果");
             return false;
         }
@@ -725,6 +805,24 @@ namespace NarutoVR.SealCombat
         /// <summary>放低双手时取消尚未发射的物品，已生效护盾和飞行中的投射物继续运行。</summary>
         public bool CancelUnreleased()
         {
+            if (rightHandEffect != null)
+            {
+                var held = extensions.Find(entry => ReferenceEquals(entry.Value, rightHandEffect));
+                if (held != null)
+                {
+                    if (held.Value is IReleasableHandEffect releasable)
+                    {
+                        try { releasable.ReleaseHand(); }
+                        catch (Exception error)
+                        {
+                            Debug.LogWarning("右手效果收起失败，已清理：" + error.Message, this);
+                            RemoveExtension(held);
+                        }
+                    }
+                    else RemoveExtension(held);
+                    Report("已收起右手法宝"); return true;
+                }
+            }
             if (!heldObject) return false;
             ClearHeld(); Report("已收起未发射火球，护盾与已发射效果保留"); return true;
         }
@@ -732,7 +830,12 @@ namespace NarutoVR.SealCombat
         public void ResetPushInput() => ResetMotion(Now);
 
         /// <summary>统一释放本执行器拥有的效果、临时视觉和材料，供禁用、销毁及暂停清理使用。</summary>
-        public void ClearAll()
+        public void ClearAll() => ClearEffects(false);
+
+        /// <summary>倒下时立即清掉玩法状态，已触发的破盾余光按原有时长结束。</summary>
+        public void ClearOnPlayerDeath() => ClearEffects(shieldPulse?.IsBreaking == true);
+
+        private void ClearEffects(bool keepBreakAfterglow)
         {
             if (clearing) return;
             clearing = true;
@@ -740,6 +843,11 @@ namespace NarutoVR.SealCombat
             {
                 ClearHeld();
                 ClearBuff();
+                if (!keepBreakAfterglow)
+                {
+                    shieldPulse?.Dispose();
+                    shieldPulse = null;
+                }
                 while (extensions.Count > 0) RemoveExtension(extensions[extensions.Count - 1]);
                 while (projectiles.Count > 0)
                 {
@@ -869,13 +977,25 @@ namespace NarutoVR.SealCombat
 
         private void UpdateBuffVisual()
         {
-            if (!buffObject) return;
-            if (TryGetWrist(true, out Pose wrist, out _))
+            if (!buffObject && shieldPulse?.IsPlaying != true) return;
+            bool tracked = TryGetWrist(true, out Pose wrist, out _);
+            if (buffObject)
             {
-                buffObject.SetActive(true);
-                buffObject.transform.SetPositionAndRotation(wrist.position, wrist.rotation);
+                buffObject.SetActive(tracked);
+                if (tracked) buffObject.transform.SetPositionAndRotation(wrist.position, wrist.rotation);
             }
-            else buffObject.SetActive(false);
+            shieldPulse?.UpdatePose(Now, tracked, wrist, head);
+        }
+
+        private void PlayShieldPulse(ShieldPulseKind kind, float strength)
+        {
+            try
+            {
+                shieldPulse ??= ShieldWristPulse.Create(gameObject);
+                shieldPulse?.Play(kind, strength, Now);
+                UpdateBuffVisual();
+            }
+            catch (Exception error) { Debug.LogWarning("护盾瞬态反馈失败：" + error.Message, this); }
         }
 
         private Material GetEffectMaterial(bool fire, Material configured)

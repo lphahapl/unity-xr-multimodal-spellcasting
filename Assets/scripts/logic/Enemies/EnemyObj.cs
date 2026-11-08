@@ -18,6 +18,8 @@ namespace NarutoVR.SealCombat.Enemies
     public sealed class EnemyObj : MonoBehaviour
     {
         [Header("一、实体组件")]
+        [SerializeField, InspectorName("敌人身份（直接摆放时使用）")] EnemyDefinition definition;
+        public EnemyDefinition Definition { get => definition; set => definition = value; }
         [SerializeField, InspectorName("动画控制器")] Animator animator;
         [SerializeField, InspectorName("近距探测器（身体碰撞之外的 Trigger）")] EnemyDetectionSensor detectionSensor;
         public EnemyDetectionSensor DetectionSensor { get => detectionSensor; set => detectionSensor = value; }
@@ -144,7 +146,7 @@ namespace NarutoVR.SealCombat.Enemies
             if (!state.Dead && attacker) controller.NotifyAttackedBy(attacker);
             int mutation = ++combatMutation;
             SyncCombatFields();
-            var notice = new EnemyVitalsNotice(this, hitId, state.Health, state.Poise, hpBefore - state.Health, poiseBefore - state.Poise, weak, state.Broken, state.Dead);
+            var notice = new EnemyVitalsNotice(this, hitId, state.Health, state.Poise, hpBefore - state.Health, poiseBefore - state.Poise, weak, state.Broken, state.Dead, zone, attacker);
             // 先提交状态机，防止通知回调中继续攻击已死亡/瘫痪的对象。
             bool CurrentLife() => this && isActiveAndEnabled && controller && controller.isActiveAndEnabled &&
                 ReferenceEquals(Combat, state) && combatMutation == mutation;

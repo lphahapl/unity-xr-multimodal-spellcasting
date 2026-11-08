@@ -1,4 +1,4 @@
-准望匣 · 绑带适配与深槽版
+准望匣 · 顶面双尺与侧面铭文转盘
 
 Zhunwang_WristFit.blend 为可编辑源文件，四张着色贴图已打包。
 Zhunwang_WristFit.fbx 为同版交换文件，Textures 为原图集副本。
@@ -8,3 +8,6 @@ Unity 工程内复用原分件 Prefab，模型组按 0.10208139 佩戴比例。
 保留五个槽口，参考截面 25×3 mm 抽测净深约 73.7 mm。为 70 mm 插入段预留约 3.7 mm。
 最终导轨、止退榫键与真实铜叶全行程配合待后续验证。
 朱砂扣帽沿局部 +Z 向内，佩戴比例下按压约 1.5 mm。
+StatusPanel 含青铜阳文及固定格框。HP_Slots 和 MP_Slots 各有十枚独立的本色镶芯，名称末尾的 01 至 10 对应从左到右的填充顺序。Unity 的气血尺与度力尺分别引用这十枚镶芯。
+SideDialSeat 为固定座，SideDialRotor 以局部 +Z 为转轴，KeySocket 位于中心方口。按佩戴比例，固定座外径为 27.13 mm，五字铭文面为 20.77 × 23.92 mm。铭文面沿盘面两轴各放大 25%，沿用原五字字形与贴图坐标。圆盘总成下移 3.06 mm，外座与顶板留出 1.03 mm 高差。
+从工程根目录打开 docs/visuals/20261107_zhunwang_vitals/side-dial-enlargement-comparison.png 查看前后对照。Previews/Unity_WristFit.png 保存早期腕匣外观。

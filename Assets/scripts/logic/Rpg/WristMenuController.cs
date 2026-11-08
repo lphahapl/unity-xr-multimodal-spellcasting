@@ -22,6 +22,12 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("教学卡距头部（米）"), Range(.4f,1.2f)] public float panelDistance = .65f;
         [InspectorName("教学卡低于头部（米）"), Range(0,.4f)] public float panelLower = .12f;
 
+        [Header("准望匣佩戴与读数")]
+        [InspectorName("左腕准望匣")] public ZhunwangPressButton wornDevice;
+        [InspectorName("腕骨至匣原点（米）")] public Vector3 deviceOffset = new(-.003f,-.020f,-.052f);
+        [InspectorName("匣体佩戴角度")] public Vector3 deviceEuler;
+        bool deviceToggle, waitForWithdrawal, recoveryFailed;
+        bool TogglePressed => wornDevice ? deviceToggle : tap.Toggle;
         public WristMenuState State { get; } = new();
         public event Action<bool> WristTapConfirmed;
         public bool OwnsInput => isActiveAndEnabled && State.OwnsInput;
@@ -43,7 +49,7 @@ namespace NarutoVR.SealCombat.Rpg
         public string OwnershipReason { get; private set; } = "未操作腕部界面";
         public string DebugDetails => $"腕部入口={State.LauncherOpen}，UI占用={OwnsInput}（{OwnershipReason}），唤起={State.OpenProgress:P0}\n" +
             $"子面板={(PanelOpen ? Title(PanelKind) : "无")}，页码={Page+1}，指针={pointer.Hover ?? ray.Target ?? "无"}，确认次数={ClickCount}\n" +
-            $"点腕={tap.Status} 距离={tap.Distance*100:0.0}厘米；轻捏={PinchStatus(input)}\n{ray.Status}\n{PointerStatus}\n{State.Status}；{LastAction}";
+            $"{WristContactDebug()}；轻捏={PinchStatus(input)}\n{ray.Status}\n{PointerStatus}\n{State.Status}；{LastAction}";
         readonly WristPointerState pointer = new();
         readonly WristTapSwitch tap = new();
         readonly WristRayPinchState ray = new();
@@ -60,12 +66,27 @@ namespace NarutoVR.SealCombat.Rpg
         Quaternion rigRotation;
         double nextContent;
         string lastBody, lastFooter;
+        readonly WristTeachingLibrary teaching = new();
+        WristTeachingLesson shownLesson;
+        int shownStep, shownRevision;
+        int launcherRevision = -1;
+        LinearRpgController launcherOwner;
+        string launcherProgress;
         readonly List<XRInputSubsystem> originSources = new();
         readonly List<XRInputSubsystem> foundSources = new();
         readonly RaycastHit[] occlusionHits = new RaycastHit[32];
         double nextOriginScan;
 
         public WristPanelPolicy Policy(WristPanelKind kind) => kind == WristPanelKind.Seal ? sealPolicy : kind == WristPanelKind.Glyph ? glyphPolicy : voicePolicy;
+
+        string WristContactDebug()
+        {
+            if (!wornDevice) return $"点腕={tap.Status} 距离={tap.Distance*100:0.0}厘米";
+            if (!wornDevice.gameObject.activeInHierarchy) return "准望匣未定位";
+            if (!input.rightValid || input.tipUnavailable) return "朱砂扣等待右食指追踪";
+            float distance = Vector3.Distance(input.rightTip, wornDevice.RestSurface);
+            return $"朱砂扣={(waitForWithdrawal ? "等待退指" : "待按")}，指尖距扣面中心 {distance*1000:0} 毫米";
+        }
 
         string PinchStatus(WristMenuInput f)
         {
@@ -80,6 +101,38 @@ namespace NarutoVR.SealCombat.Rpg
         public bool PrepareWristTap(WristMenuInput sample,bool hardBlocked,double now)
         {
             preparedAt=now;
+            deviceToggle=false;
+            if (wornDevice)
+            {
+                bool tracked = sample.mountValid && WristMenuState.Fresh(sample.leftValid,sample.leftObserved,now,settings.maxAge);
+                if (wornDevice.gameObject.activeSelf != tracked) wornDevice.gameObject.SetActive(tracked);
+                if (tracked)
+                    wornDevice.transform.SetPositionAndRotation(sample.leftWrist + sample.mountRotation * deviceOffset,
+                        sample.mountRotation * Quaternion.Euler(deviceEuler));
+                bool right = !sample.tipUnavailable && WristMenuState.Finite(sample.rightTip) &&
+                    WristMenuState.Fresh(sample.rightValid,sample.rightObserved,now,settings.maxAge) &&
+                    Math.Abs(sample.leftObserved-sample.rightObserved)<=.08;
+                if (!tracked || !right || hardBlocked || dragging || sample.leftWrist.y < sample.headPosition.y-settings.raiseBelowHead)
+                {
+                    wornDevice.ResetContact();
+                    return false;
+                }
+                if (waitForWithdrawal)
+                {
+                    if (Vector3.Distance(wornDevice.RestSurface, sample.rightTip) < wornDevice.touchRadius+.012f)
+                    {
+                        if (wornDevice.IsPressed) wornDevice.Sample(sample.rightTip);
+                        return false;
+                    }
+                    wornDevice.ResetContact();
+                    waitForWithdrawal=false;
+                }
+                bool before=wornDevice.IsPressed;
+                wornDevice.Sample(sample.rightTip);
+                deviceToggle=!before && wornDevice.IsPressed;
+                if (deviceToggle) waitForWithdrawal=true;
+                return deviceToggle;
+            }
             if(dragging || settings.activation!=WristMenuActivation.TapWrist) { tap.Reset(); return false; }
             tap.Step(sample,DecorationCenter(sample),hardBlocked,now,settings);
             return tap.Toggle;
@@ -88,6 +141,8 @@ namespace NarutoVR.SealCombat.Rpg
         public void Tick(WristMenuInput sample, LinearRpgController controller, bool busy, double now,string gameplayBlockReason=null)
         {
             if (!isActiveAndEnabled || !view || controller == null) return;
+            // A visible wrist joint alone cannot place the device if its finger-base joints are lost.
+            if (wornDevice && !sample.mountValid) sample.leftValid=false;
             owner = controller; input = sample;
             if (now >= nextOriginScan)
             {
@@ -104,9 +159,27 @@ namespace NarutoVR.SealCombat.Rpg
             view.EnsureBuilt();
             bool left = WristMenuState.Fresh(sample.leftValid,sample.leftObserved,now,settings.maxAge);
             bool right = WristMenuState.Fresh(sample.rightValid,sample.rightObserved,now,settings.maxAge);
-            view.SetDecoration(new Pose(DecorationCenter(sample),sample.leftRotation),left);
+            view.SetDecoration(new Pose(DecorationCenter(sample),sample.leftRotation),left && !wornDevice);
             if(preparedAt!=now) PrepareWristTap(sample,busy,now);
             preparedAt=-1;
+            if (wornDevice)
+            {
+                var player=controller.Player;
+                if (player!=null && player.Alive) recoveryFailed=false;
+                if (wornDevice.display) wornDevice.display.Present(player,left && sample.mountValid,recoveryFailed);
+                if (player!=null && !player.Alive)
+                {
+                    if (State.LauncherOpen || PanelOpen) ResetForWorldChange();
+                    view.SetPointer(default,default,false,false);
+                    if (!busy && deviceToggle)
+                    {
+                        recoveryFailed=!controller.RestoreCheckpoint();
+                        LastAction=controller.Status;
+                        waitForWithdrawal=true;
+                    }
+                    return;
+                }
+            }
             if(right && sample.PinchDown(settings))pinched=true;
             else if(right && sample.PinchUp(settings) || !dragging && (!right || !sample.pinchValid))pinched=false;
 
@@ -114,14 +187,15 @@ namespace NarutoVR.SealCombat.Rpg
             // Never click launcher through a tracking loss, or on the frame the wrist is lowered.
             bool lowered = left && sample.leftWrist.y < sample.headPosition.y-settings.lowerBelowHead;
             bool launcherClickable = left && !lowered && State.LauncherOpen;
-            if (right && !busy && !dragging)
+            bool hasMount = !wornDevice || left;
+            if (right && hasMount && !busy && !dragging)
                 FindTarget(sample,launcherClickable,lowered,out hit,out near,out depth,out point);
             if(PanelOpen && FollowPlayer && rig && !dragging)
                 panelPose=Facing(rig.TransformPoint(localPanelPose.position),sample.headPosition);
             bool hadDrag=dragging;
             if(dragging) UpdateDrag(sample,right,busy,now);
             string rayCommand=null;
-            if(busy || tap.Approaching || near || hadDrag) ray.Reset();
+            if(busy || !hasMount || tap.Approaching || near || hadDrag) ray.Reset();
             else rayCommand=ray.Step(hit,point,sample,now,settings);
             if(rayCommand!=null && !RayTargetAvailable(rayCommand,sample,launcherClickable,lowered,ray.Point))
             { rayCommand=null; ray.ClearTarget(); }
@@ -134,18 +208,22 @@ namespace NarutoVR.SealCombat.Rpg
             else pokeCommand=pointer.Step(hit,true,depth,pinched,sample.PinchUp(settings),sample.rightObserved,settings.maxGap);
             bool pointerOwns=pointer.Captured || confirmedRayPress || dragging;
             bool wasOpen = State.LauncherOpen;
-            State.Tick(sample,busy,pointerOwns,now,settings,tap.Toggle);
-            if (tap.Toggle && left && State.CanInteract && !State.LeftLow && wasOpen != State.LauncherOpen && WristTapConfirmed != null)
+            State.Tick(sample,busy,pointerOwns,now,settings,TogglePressed);
+            if (TogglePressed && left && State.CanInteract && !State.LeftLow && wasOpen != State.LauncherOpen && WristTapConfirmed != null)
                 foreach (Action<bool> listener in WristTapConfirmed.GetInvocationList())
                     try { listener(State.LauncherOpen); } catch (Exception e) { Debug.LogWarning("点腕反馈监听失败：" + e.Message, this); }
-            if (State.LauncherOpen)
+            if (State.LauncherOpen && hasMount)
             {
                 Vector3 f = Horizontal(sample.headForward);
-                Vector3 position = sample.leftWrist + Quaternion.LookRotation(f)*launcherOffset;
-                view.ShowLauncher(Facing(position,sample.headPosition)); if(!shown) { shown = true; }
+                Vector3 position = wornDevice && wornDevice.display && wornDevice.display.menuAnchor
+                    ? wornDevice.display.menuAnchor.position
+                    : sample.leftWrist + Quaternion.LookRotation(f)*launcherOffset;
+                view.ShowLauncher(Facing(position,sample.headPosition));
+                RefreshLauncherReadout();
+                if(!shown) { shown = true; }
             }
-            if (!State.LauncherOpen && shown) { view.HideLauncher(); shown = false; view.PlayCue(false); }
-            if (State.LeftLow && PanelOpen && Policy(PanelKind).closeWithWrist) ClosePanel();
+            if ((!State.LauncherOpen || !hasMount) && shown) { view.HideLauncher(); shown = false; if (!State.LauncherOpen) view.PlayCue(false); }
+            if (PanelOpen && (State.LeftLow && Policy(PanelKind).closeWithWrist || wornDevice && !State.LauncherOpen)) ClosePanel();
             // Opening guidance belongs to desktop Debug; ordinary hand actions must not summon a world hint.
             view.SetOpeningHint(Pose.identity,"",0,false);
             if(State.CanInteract && pokeCommand!=null && pokeCommand!="drag")Execute(pokeCommand);
@@ -159,11 +237,11 @@ namespace NarutoVR.SealCombat.Rpg
             bool capturedHover=ray.Target!=null && sample.pinchValid && !sample.PinchUp(settings) && !dragging;
             view.SetHover(near ? pointer.Hover : capturedHover?ray.Target:hit ?? ray.Target, (near ? pointer.Pressed : ray.Pressed) ? 1 : .35f);
             bool uiAvailable=State.LauncherOpen || PanelOpen;
-            PointerVisible=right && sample.rayValid && State.CanInteract && !tap.Approaching && uiAvailable && !sample.rightClosed;
+            PointerVisible=right && hasMount && sample.rayValid && State.CanInteract && !tap.Approaching && uiAvailable && !sample.rightClosed;
             Vector3 displayPoint=dragging && !dragPaused ? sample.rayOrigin+sample.rayDirection.normalized*dragDistance : capturedHover ? ray.Point : hit!=null ? point : ray.Target!=null ? ray.Point : sample.rayOrigin+sample.rayDirection*settings.rayDistance;
             // Visible search ray is feedback only. Empty space never becomes an interactive target.
             view.SetPointer(near ? sample.rightTip : sample.rayOrigin,displayPoint,PointerVisible || (near && State.CanInteract),pointer.Pressed || ray.Pressed);
-            PointerStatus=$"射线来源={sample.raySource??"无"}；捏合来源={sample.pinchSource??"无"}；锁定目标={ray.Target??"无"}；上次确认={lastRayCommand??"无"}；拖动={DragStatus}\n射线显示={PointerVisible}，右手新鲜={right}，外部门控={gameplayBlockReason??(busy?"其他操作占用":"无")}，UI可交互={State.CanInteract}，靠近腕饰={tap.Approaching}，点按已确认={tap.Toggle}\n范围={settings.rayDistance:0.0}米，命中={hit ?? "无"}；轻捏={PinchStatus(sample)}";
+            PointerStatus=$"射线来源={sample.raySource??"无"}；捏合来源={sample.pinchSource??"无"}；锁定目标={ray.Target??"无"}；上次确认={lastRayCommand??"无"}；拖动={DragStatus}\n射线显示={PointerVisible}，右手新鲜={right}，外部门控={gameplayBlockReason??(busy?"其他操作占用":"无")}，UI可交互={State.CanInteract}，点按已确认={TogglePressed}\n范围={settings.rayDistance:0.0}米，命中={hit ?? "无"}；轻捏={PinchStatus(sample)}";
             if (wasOpen && !State.LauncherOpen) pointer.Reset();
             if (PanelOpen && now >= nextContent) { nextContent = now+.15; RefreshPanel(false); }
         }
@@ -247,7 +325,10 @@ namespace NarutoVR.SealCombat.Rpg
             ClickCount++; LastAction = "已确认：" + command; view.PlayCue(true);
             switch (command)
             {
-                case "seal": OpenPanel(WristPanelKind.Seal); break;
+                case "seal":
+                    OpenPanel(WristPanelKind.Seal);
+                    if (owner && owner.openingChapter) owner.openingChapter.ReplayGuidance();
+                    break;
                 case "glyph": OpenPanel(WristPanelKind.Glyph); break;
                 case "voice": OpenPanel(WristPanelKind.Voice); break;
                 case "previous": Page = (Page+PageCount()-1)%PageCount(); RefreshPanel(true); break;
@@ -264,6 +345,13 @@ namespace NarutoVR.SealCombat.Rpg
             }
             pointer.Reset(); ray.ClearTarget(); // Keep the pinch latch: a held pinch cannot click the new page.
         }
+        internal bool OpenTeachingFromLauncher()
+        {
+            if (!isActiveAndEnabled || !State.LauncherOpen) return false;
+            OpenPanel(WristPanelKind.Seal);
+            return PanelOpen && PanelKind == WristPanelKind.Seal;
+        }
+
         void OpenPanel(WristPanelKind kind)
         {
             bool same = PanelOpen && PanelKind == kind;
@@ -273,8 +361,8 @@ namespace NarutoVR.SealCombat.Rpg
         void UpdateDrag(WristMenuInput f,bool right,bool busy,double now)
         {
             if(busy){EndDrag("其他操作占用");return;}
-            if(right && f.PinchUp(settings)){EndDrag("明确松手");return;}
-            if(now-dragLastGood>settings.dragLossGrace){EndDrag("追踪中断超时");return;}
+            if(right && f.PinchUp(settings)){ReleaseDraggedPanel("明确松手");return;}
+            if(now-dragLastGood>settings.dragLossGrace){ReleaseDraggedPanel("追踪中断超时");return;}
             bool valid=right && f.pinchValid && f.rayValid && WristMenuState.Finite(f.rayOrigin)
                 && WristMenuState.Finite(f.rayDirection) && f.rayDirection.sqrMagnitude>=.5f;
             if(!valid){dragPaused=true;DragStatus="遮挡，保持原位";return;}
@@ -290,11 +378,20 @@ namespace NarutoVR.SealCombat.Rpg
             DragStatus="拖动中";
         }
         void EndDrag(string reason){dragging=dragPaused=false;DragStatus=reason;}
+        void ReleaseDraggedPanel(string reason)
+        {
+            EndDrag(reason);
+            if (!wornDevice) return;
+            State.DismissLauncher();
+            ClosePanel();
+            LastAction = "教学卡已收回准望匣 · " + reason;
+        }
         public void ClosePanel() { if(dragging)EndDrag("面板关闭"); PanelOpen = false; pointer.Reset(); ray.ClearTarget(); if (view) view.HidePanel(); LastAction = "教学卡已关闭，技能效果保持"; }
         public void ResetForWorldChange()
         {
             State.Reset(State.OwnsInput); pointer.Reset(); confirmedRayPress = pinched = shown = false; frameEstablished = false;
-            tap.Reset(); ray.Reset(); preparedAt=-1;
+            tap.Reset(); ray.Reset(); preparedAt=-1; deviceToggle=false;
+            if (wornDevice) wornDevice.ResetContact();
             OwnershipReason=State.OwnsInput?"追踪变化，正在交回已占用的输入":"未操作腕部界面";
             if (view) { view.HideLauncher(); view.SetPointer(default,default,false,false); }
             if (view) view.SetOpeningHint(Pose.identity,"",0,false);
@@ -307,49 +404,76 @@ namespace NarutoVR.SealCombat.Rpg
         Pose NewPanelPose() => Facing(input.headPosition+Horizontal(input.headForward)*panelDistance-Vector3.up*panelLower,input.headPosition);
         static Pose Facing(Vector3 position,Vector3 eye) => new(position,Quaternion.LookRotation((position-eye).normalized,Vector3.up));
         static Vector3 Horizontal(Vector3 value) { value.y = 0; return value.sqrMagnitude > .001f ? value.normalized : Vector3.forward; }
-        static string Title(WristPanelKind kind) => kind == WristPanelKind.Seal ? "结印教学" : kind == WristPanelKind.Glyph ? "画符预览" : "咒语速查";
+        static string Title(WristPanelKind kind) => kind == WristPanelKind.Seal ? "术式教学" : kind == WristPanelKind.Glyph ? "画符预览" : "咒语速查";
+        void RefreshLauncherReadout()
+        {
+            if (owner && wornDevice && owner.Player!=null) view.SetLauncherVitals(owner.Player.Health,owner.Player.Mana);
+            if (!owner || !owner.openingChapter || owner.Progress==null) { view.SetLauncherProgress(null); return; }
+            if (launcherOwner!=owner || launcherRevision!=owner.TechniqueRevision)
+            {
+                teaching.Sync(owner);
+                int collected=0, registered=0;
+                foreach (var leaf in owner.Progress.copperLeaves) { collected++; if (leaf.registered) registered++; }
+                string leaves=collected>registered ? $"{collected-registered} 枚铜叶待入匣" : registered>0 ? $"已入匣 {registered} 枚" : "铜叶 0 枚";
+                launcherProgress=owner.LeafSavePending ? $"已学 {teaching.CourseCount} 课 · {(collected>registered?"待入匣":"已入匣")} · 待存档" : $"已学 {teaching.CourseCount} 课　·　{leaves}";
+                launcherOwner=owner;launcherRevision=owner.TechniqueRevision;
+            }
+            view.SetLauncherProgress(launcherProgress);
+        }
         int PageCount()
         {
-            if (PanelKind == WristPanelKind.Glyph || owner == null || !owner.skills) return 2;
-            int count = 1;
-            foreach (var skill in owner.skills.ConfiguredSkills) if (Eligible(skill)) count++;
-            return count;
+            if (PanelKind == WristPanelKind.Glyph) return owner && owner.openingChapter ? 1 : 2;
+            if (owner == null || !owner.skills) return 2;
+            teaching.Sync(owner);
+            return Mathf.Max(1, teaching.PageCount(PanelKind == WristPanelKind.Voice));
         }
-        bool Eligible(SkillDefinition skill) => skill && (PanelKind == WristPanelKind.Seal ? skill.triggerMode != SkillTriggerMode.VoiceOnly : skill.triggerMode != SkillTriggerMode.GestureOnly);
         void RefreshPanel(bool force)
         {
             if (!PanelOpen || !view) return;
-            Page = Mathf.Clamp(Page,0,PageCount()-1);
+            int count = PageCount();
+            Page = Mathf.Clamp(Page,0,count-1);
+            if (PanelKind!=WristPanelKind.Glyph && owner && owner.skills)
+            {
+                bool voice = PanelKind==WristPanelKind.Voice;
+                var lesson = teaching.PageAt(Page,voice,out int step);
+                if (lesson!=null)
+                {
+                    if (!force && shownLesson==lesson && shownStep==step && shownRevision==owner.TechniqueRevision) return;
+                    var primary = lesson.Reference;
+                    string id = primary.skillId;
+                    bool available = owner.IsTechniqueAvailable(id) || (lesson.Voice && owner.IsTechniqueAvailable(lesson.Voice.skillId));
+                    bool permanent = owner.Progress!=null && (owner.Progress.unlockedSkillIds.Contains(id) || (lesson.Voice && owner.Progress.unlockedSkillIds.Contains(lesson.Voice.skillId)));
+                    string lessonFooter = $"{Title(PanelKind)}　{Page+1} / {count}　　　　　　{(FollowPlayer?"跟随玩家":"固定位置")} · 远指后轻捏";
+                    view.ShowLesson(panelPose,lesson,step,voice,owner.GetTechniqueLearningState(id),available,permanent,owner.LeafSavePending,lessonFooter);
+                    shownLesson=lesson; shownStep=step; shownRevision=owner.TechniqueRevision;return;
+                }
+            }
+            shownLesson=null;
             string body = BuildPage();
             var policy = Policy(PanelKind);
-            string footer = $"{Page+1} / {PageCount()}　{(policy.closeWithWrist ? "放腕收起" : "放腕保留")}" +
-                (policy.allowRay ? " · 高亮后轻捏确认" : "") + "\n"+(FollowPlayer?"跟随玩家坐标":"固定世界位置")+" · 顶部捏住拖动；速查卡不暂停战斗";
+            string footer = $"{Page+1} / {count}　{(policy.closeWithWrist ? "放腕收起" : "放腕保留")}" +
+                (policy.allowRay ? " · 高亮后轻捏确认" : "") + "\n"+(FollowPlayer?"跟随玩家坐标":"固定世界位置")+
+                (wornDevice ? " · 捏住顶部拖动，松手收回匣中" : " · 顶部捏住拖动；速查卡不暂停战斗");
             if (force || body != lastBody || footer != lastFooter) { view.ShowPanel(panelPose,Title(PanelKind),body,footer); lastBody = body; lastFooter = footer; }
         }
         public string BuildPage()
         {
             if (PanelKind == WristPanelKind.Glyph)
-                return Page == 0 ? "画符识别尚未实现\n本页为交互说明预览，不显示虚构得分。\n规划：战斗外拿笔进入画符，暂停结印与攻击。\n可在 Inspector 关闭“放下左腕时关闭”。" :
-                    "后续画符交互\n进入专用绘制状态，再开始收集轨迹。\n退出绘制只取消未完成轨迹。\nMR / PICO 将复用内容，分别验证手部输入。";
+                return Page == 0 ? "此处尚未开放画符。\n请到「术式教学」查看已习得的术式。" : "收起预览，返回腕匣后可选择「术式教学」或「咒语」。";
+            if (owner && owner.skills)
+            {
+                teaching.Sync(owner);
+                var course=teaching.PageAt(Page,PanelKind==WristPanelKind.Voice,out int index);
+                if (course==null) return "当前没有已习得的对应术式";
+                var content=new StringBuilder(course.Name);
+                if (course.Seals.Count>0) content.Append("\n").Append(string.Join(" → ",course.Seals));
+                if (course.Voice) content.Append("\n").Append(course.Voice.phrase);
+                return content.ToString();
+            }
             if (Page == 0)
                 return PanelKind == WristPanelKind.Seal ? "结印与施法\n按右侧箭头查看当前技能配方。\n双手做印；参考卡保留时可正常施法。\n双手低位保持可取消未发射火球。\n移动：左食指指向落点，短暂停留确认。\n投掷：握住火球，甩手后松开。" :
                     "中文咒语\n按下一页查看当前目录中的完整口令。\n组合技允许先结印或先念咒。\n取消口令：" + (owner && owner.skills ? owner.skills.CancelPhrase : "取消施法") +
                     "\n当前没有示范语音播放；不会自动念出技能。\n本页是实战速查，不是无伤害练习模式。";
-            int index = 0;
-            if (owner && owner.skills) foreach (var skill in owner.skills.ConfiguredSkills)
-            {
-                if (!Eligible(skill) || ++index != Page) continue;
-                bool unlocked = owner.Progress != null && owner.Progress.unlockedSkillIds.Contains(skill.skillId);
-                string mode = skill.triggerMode == SkillTriggerMode.GestureOnly ? "纯结印" : skill.triggerMode == SkillTriggerMode.VoiceOnly ? "纯咒语" : "咒语＋结印";
-                var b = new StringBuilder();
-                b.AppendLine(skill.displayName + (unlocked ? " · 已解锁" : " · 尚未解锁"));
-                b.AppendLine("触发方式：" + mode);
-                if (skill.triggerMode != SkillTriggerMode.VoiceOnly) b.AppendLine("需要结印：" + skill.sealName);
-                if (skill.triggerMode != SkillTriggerMode.GestureOnly) b.AppendLine("完整口令：" + skill.phrase);
-                if (skill.triggerMode == SkillTriggerMode.VoiceAndGesture) b.AppendLine($"组合窗口：{skill.matchWindow:0.#} 秒；顺序不限");
-                b.AppendLine($"消耗 {skill.manaCost:0.#} MP · 冷却 {skill.cooldownSeconds:0.#} 秒");
-                b.Append(skill.EffectSummary); return b.ToString();
-            }
             return "当前目录没有对应配方";
         }
         void OnOriginChanged(XRInputSubsystem subsystem) => ResetForWorldChange();
@@ -357,7 +481,9 @@ namespace NarutoVR.SealCombat.Rpg
         {
             foreach (var subsystem in originSources) subsystem.trackingOriginUpdated -= OnOriginChanged;
             originSources.Clear(); nextOriginScan = 0;
-            ResetForWorldChange(); if (view) view.SetDecoration(Pose.identity,false);
+            ResetForWorldChange();
+            if (wornDevice) { wornDevice.ResetContact(); wornDevice.gameObject.SetActive(false); }
+            if (view) view.SetDecoration(Pose.identity,false);
         }
     }
 }

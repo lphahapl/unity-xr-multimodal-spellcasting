@@ -7,17 +7,51 @@ namespace NarutoVR.SealCombat.Enemies
     [DisallowMultipleComponent]
     public abstract class CombatDamageReceiver : MonoBehaviour
     {
-        static readonly HashSet<CombatDamageReceiver> Active = new();
+        // XR 代表点可能与接收器分属两棵对象树。组件禁用时仍保留身份，防止将其当成旧版裸目标。
+        static readonly HashSet<CombatDamageReceiver> Known = new();
         public abstract Vector3 HitPosition { get; }
         public virtual Transform HitTransform => transform;
+        public virtual Transform DetectionColliderRoot => transform;
+        public virtual Vector3 NavigationPosition => HitTransform.position;
         public abstract bool CanReceiveDamage { get; }
         public abstract bool TryReceiveDamage(EnemyAttackHit hit);
-        protected virtual void OnEnable() => Active.Add(this);
-        protected virtual void OnDisable() => Active.Remove(this);
+        protected virtual void Awake() => Known.Add(this);
+        protected virtual void OnEnable() => Known.Add(this);
+        protected virtual void OnDestroy() => Known.Remove(this);
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics() => Active.Clear();
+        static void ResetStatics() => Known.Clear();
         internal static void CopyActive(List<CombatDamageReceiver> destination)
-        { destination.Clear(); foreach (var item in Active) if (item && item.isActiveAndEnabled) destination.Add(item); }
+        { destination.Clear(); foreach (var item in Known) if (item && item.isActiveAndEnabled) destination.Add(item); }
+
+        internal static CombatDamageReceiver FromCollider(Collider collider)
+        {
+            var attached = collider.GetComponentInParent<CombatDamageReceiver>();
+            if (attached) return attached;
+            foreach (var receiver in Known)
+            {
+                if (!receiver || !receiver.isActiveAndEnabled) continue;
+                var root = receiver.DetectionColliderRoot;
+                if (root && collider.transform.IsChildOf(root)) return receiver;
+            }
+            return null;
+        }
+
+        internal static Vector3 GetNavigationPosition(Transform target)
+        {
+            foreach (var receiver in Known)
+                if (receiver && receiver.isActiveAndEnabled && receiver.HitTransform == target) return receiver.NavigationPosition;
+            return target.position;
+        }
+
+        internal static bool IsDetectable(Transform target)
+        {
+            if (!target || !target.gameObject.activeInHierarchy) return false;
+            foreach (var receiver in Known)
+                if (receiver && receiver.HitTransform == target) return receiver.isActiveAndEnabled && receiver.CanReceiveDamage;
+            // 旧场景允许直接指定代表点。挂有接收器的角色仍须遵守其死亡/暂停门控。
+            return !target.TryGetComponent<CombatDamageReceiver>(out var attached) ||
+                (attached.isActiveAndEnabled && attached.CanReceiveDamage);
+        }
     }
 
     public readonly struct EnemyAttackHit

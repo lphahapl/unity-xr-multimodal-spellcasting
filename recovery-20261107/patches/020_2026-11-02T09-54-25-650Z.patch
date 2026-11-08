@@ -1,0 +1,34 @@
+*** Begin Patch
+*** Update File: Tools/SkillVoice/skill_voice.py
+@@
+-    def observe(self, samples):
++    def observe(self, samples, captured_at=None):
+@@
+-        now = self.clock()
++        now = self.clock()
++        # Retain the original ADC/callback clock even if decoding has accumulated a backlog.
++        frame_end = now if captured_at is None else min(now, captured_at)
++        if captured_at is not None and not math.isfinite(captured_at):
++            raise ValueError("麦克风样本时间无效")
+@@
+-            self.last_frame = now
++            self.last_frame = frame_end
+@@
+-                self.last_voice = now
++                self.last_voice = frame_end
+@@
+-                bridge.telemetry.observe(samples)
++                bridge.telemetry.observe(samples, captured_at=start + len(samples) / args.sample_rate)
+*** Update File: Tools/SkillVoice/test_audio_telemetry.py
+@@
+     def test_signal_and_phrase_are_distinct(self):
+@@
+         self.assertEqual(self.meter.snapshot()["audio_last_phrase"], "火球术")
++
++    def test_queued_input_retains_capture_age_for_ducking(self):
++        self.meter.observe([.25, -.25], captured_at=self.now - 1.5)
++        p = self.meter.snapshot()
++        self.assertEqual(p["audio_snapshot_at"], self.now)
++        self.assertEqual(p["audio_voice_age"], 1.5)
++        self.assertEqual(p["audio_age"], 1.5)
+*** End Patch

@@ -1,0 +1,14 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-            if (!suspended && !IsDead && enemyObj.DetectionSensor)
++            if (!suspended && !IsDead && !isSpawnedEnemy && enemyObj.DetectionSensor)
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyDetectionChecks.cs
+@@
+                 Check(enemy.Entity.DetectionSensor && enemy.Entity.DetectionSensor.GetComponent<SphereCollider>().isTrigger,
+                     "独立近距Trigger接线");
++                enemy.InitializeSpawn(null, true); enemy.Tick(.05f);
++                Check(!enemy.HasTarget && !enemy.target && enemy.CurrentBehaviour == EnemyController.Behaviour.Idle,
++                    "召唤敌人没有指定目标时保持待机，不被近距自动搜索改变契约");
+                 enemy.InitializeSpawn(null, false); enemy.Tick(.05f);
+*** End Patch

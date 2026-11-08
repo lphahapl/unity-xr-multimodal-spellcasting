@@ -1,0 +1,232 @@
+*** Begin Patch
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
++#if UNITY_EDITOR
++using System;
++using System.Collections.Generic;
++using System.IO;
++using System.Linq;
++using NarutoVR.SealCombat.Enemies;
++using UnityEditor;
++using UnityEditor.Animations;
++using UnityEditor.SceneManagement;
++using UnityEngine;
++using UnityEngine.AI;
++using UnityEngine.SceneManagement;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    /// <summary>保留用户动画剪辑，修正状态连线；生成独立敌人预制体，不保存当前场景。</summary>
++    public static class EnemySetupAndChecks
++    {
++        public const string ControllerPath = "Assets/SealCombat/Art/Enemies/CanJiOu/Animations/CanJiOu.controller";
++        public const string PrefabPath = "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab";
++        const string ArtPrefab = "Assets/SealCombat/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab";
++
++        [MenuItem("Tools/NarutoVR/敌人/修复动画并生成敌人预制体")]
++        public static void Setup()
++        {
++            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出 Play 再配置敌人资产。");
++            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
++            if (!controller) throw new InvalidOperationException("找不到残机偶 Animator Controller");
++            Directory.CreateDirectory("Logs/enemy-fsm-20261104/before");
++            string backup = "Logs/enemy-fsm-20261104/before/CanJiOu.controller";
++            if (!File.Exists(backup)) File.Copy(ControllerPath, backup);
++            Undo.RegisterCompleteObjectUndo(controller, "修复敌人 Animator");
++            var root = controller.layers[0].stateMachine;
++            var patrol = root.stateMachines.Single(s => s.stateMachine.name == "patrol").stateMachine;
++            var turn = root.stateMachines.Single(s => s.stateMachine.name == "Turn").stateMachine;
++            var attacks = root.stateMachines.Single(s => s.stateMachine.name == "Attack").stateMachine;
++            var idle = root.states.Single(s => s.state.name == "CanJiOu_Idle").state;
++            var run = root.states.Single(s => s.state.name == "Run").state;
++            var walk = patrol.states.Single(s => s.state.name == "walk").state;
++            var patrolIdle = patrol.states.Single(s => s.state.name == "CanJiOu_Idle").state;
++            var left = turn.states.Single(s => s.state.name.Contains("Left")).state;
++            var right = turn.states.Single(s => s.state.name.Contains("Right")).state;
++            var basic = attacks.states.Single(s => s.state.name == "挥砍").state;
++            var spin = attacks.states.Single(s => s.state.name == "转圈").state;
++            foreach (var machine in new[] { root, patrol, turn, attacks })
++            {
++                foreach (var state in machine.states)
++                    foreach (var transition in state.state.transitions) state.state.RemoveTransition(transition);
++                foreach (var transition in machine.entryTransitions) machine.RemoveEntryTransition(transition);
++                foreach (var transition in machine.anyStateTransitions) machine.RemoveAnyStateTransition(transition);
++                foreach (var child in machine.stateMachines)
++                    foreach (var transition in machine.GetStateMachineTransitions(child.stateMachine)) machine.RemoveStateMachineTransition(child.stateMachine, transition);
++                EditorUtility.SetDirty(machine);
++            }
++            EnsureParameter(controller, "isFindPlayer", AnimatorControllerParameterType.Bool);
++            EnsureParameter(controller, "angle", AnimatorControllerParameterType.Float);
++            EnsureParameter(controller, "isAttacking", AnimatorControllerParameterType.Bool);
++            EnsureParameter(controller, "attack1", AnimatorControllerParameterType.Trigger);
++            EnsureParameter(controller, "motionState", AnimatorControllerParameterType.Int);
++            root.defaultState = idle; patrol.defaultState = walk; turn.defaultState = right; attacks.defaultState = basic;
++            var entry = attacks.AddEntryTransition(spin);
++            entry.AddCondition(AnimatorConditionMode.If, 0, "attack1");
++            var leftEntry = turn.AddEntryTransition(left);
++            leftEntry.AddCondition(AnimatorConditionMode.Less, -3, "angle");
++            var moving = new[] { idle, patrolIdle, walk, run, left, right };
++            foreach (var state in moving)
++            {
++                state.writeDefaultValues = false;
++                var attack = state.AddTransition(attacks);
++                ConfigureTransition(attack);
++                attack.AddCondition(AnimatorConditionMode.If, 0, "isAttacking");
++                AddMotionTransition(state, idle, 0);
++                AddMotionTransition(state, walk, 1);
++                AddMotionTransition(state, run, 2);
++                AddMotionTransition(state, left, 3, -1);
++                AddMotionTransition(state, right, 3, 1);
++                EditorUtility.SetDirty(state);
++            }
++            foreach (var state in new[] { basic, spin })
++            {
++                state.tag = "EnemyAttack"; state.writeDefaultValues = false;
++                var exit = state.AddTransition(idle); ConfigureTransition(exit);
++                exit.AddCondition(AnimatorConditionMode.IfNot, 0, "isAttacking");
++                EditorUtility.SetDirty(state);
++            }
++            EditorUtility.SetDirty(controller);
++            AssetDatabase.SaveAssetIfDirty(controller);
++            // 原美术 prefab 保留。新 prefab 增加导航和 AI，不触碰正在编辑的场景实例。
++            var go = PrefabUtility.LoadPrefabContents(File.Exists(PrefabPath) ? PrefabPath : ArtPrefab);
++            try
++            {
++                go.name = "残机偶_导航敌人";
++                var anim = go.GetComponent<Animator>();
++                anim.runtimeAnimatorController = controller; anim.applyRootMotion = false;
++                anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
++                var agent = go.GetComponent<NavMeshAgent>() ?? go.AddComponent<NavMeshAgent>();
++                agent.radius = .3f; agent.height = 1.8f; agent.speed = 2; agent.angularSpeed = 120;
++                agent.acceleration = 8; agent.stoppingDistance = 1.36f; agent.updateRotation = false;
++                var enemy = go.GetComponent<EnemyController>() ?? go.AddComponent<EnemyController>();
++                enemy.animator = anim;
++                PrefabUtility.SaveAsPrefabAsset(go, PrefabPath);
++            }
++            finally { PrefabUtility.UnloadPrefabContents(go); }
++            Debug.Log("敌人 Animator 已修复；独立预制体已生成，当前场景未保存或替换。");
++        }
++
++        static void EnsureParameter(AnimatorController controller, string name, AnimatorControllerParameterType type)
++        {
++            var existing = controller.parameters.FirstOrDefault(p => p.name == name);
++            if (existing != null && existing.type != type) throw new InvalidOperationException("Animator 参数类型错误：" + name);
++            if (existing == null) controller.AddParameter(name, type);
++        }
++
++        static void ConfigureTransition(AnimatorStateTransition transition)
++        {
++            transition.hasExitTime = false; transition.duration = .08f;
++            transition.hasFixedDuration = true; transition.canTransitionToSelf = false;
++            transition.interruptionSource = TransitionInterruptionSource.None;
++        }
++
++        static void AddMotionTransition(AnimatorState from, AnimatorState to, int motion, int side = 0)
++        {
++            if (from == to) return;
++            var transition = from.AddTransition(to); ConfigureTransition(transition);
++            transition.AddCondition(AnimatorConditionMode.IfNot, 0, "isAttacking");
++            transition.AddCondition(AnimatorConditionMode.Equals, motion, "motionState");
++            if (side < 0) transition.AddCondition(AnimatorConditionMode.Less, -3, "angle");
++            if (side > 0) transition.AddCondition(AnimatorConditionMode.Greater, 3, "angle");
++        }
++
++        [MenuItem("Tools/NarutoVR/敌人/验证导航与攻击状态")]
++        public static void RunMenu() => Debug.Log(Run());
++
++        public static string Run()
++        {
++            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("此检查在编辑模式运行。");
++            int count = 0;
++            void Check(bool ok, string reason) { if (!ok) throw new Exception("敌人检查失败：" + reason); ++count; }
++            var originalScene = SceneManager.GetActiveScene();
++            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
++            var data = default(NavMeshDataInstance);
++            NavMeshData navData = null;
++            GameObject go = null;
++            var randomState = UnityEngine.Random.state;
++            try
++            {
++                Vector3 origin = new(4000, 0, 4000);
++                var sources = new List<NavMeshBuildSource> { new() { shape = NavMeshBuildSourceShape.Box,
++                    size = new Vector3(30, .2f, 30), transform = Matrix4x4.TRS(origin + Vector3.down * .1f, Quaternion.identity, Vector3.one), area = 0 } };
++                var settings = NavMesh.GetSettingsByIndex(0);
++                navData = NavMeshBuilder.BuildNavMeshData(settings, sources, new Bounds(origin, new Vector3(40, 10, 40)), Vector3.zero, Quaternion.identity);
++                Check(navData, "构建隔离导航网格"); data = NavMesh.AddNavMeshData(navData);
++                go = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath), scene);
++                var enemy = go.GetComponent<EnemyController>();
++                var agent = go.GetComponent<NavMeshAgent>();
++                enemy.tickAutomatically = false; enemy.checkLineOfSight = false;
++                go.transform.position = origin;
++                Check(agent.Warp(origin), "敌人可放置在导航面");
++                enemy.ResetForSpawn(); enemy.animator.Rebind(); enemy.animator.Update(0);
++                Check(enemy.ValidateAnimator(out _), "Animator 参数与默认攻击状态");
++                Check(!enemy.animator.applyRootMotion && !agent.updateRotation, "单一位移转向所有者");
++                Check(EnemyController.HorizontalAngle(Vector3.forward, Vector3.left) < -89, "左转有符号角");
++                Check(EnemyController.HorizontalAngle(Vector3.forward, Vector3.right + Vector3.up * 10) > 89, "右转角忽略高度");
++                int first = 0, began = 0, ended = 0, contacts = 0;
++                enemy.onFirstPlayerDetected.AddListener(() => ++first);
++                enemy.onAttackStarted.AddListener(_ => ++began);
++                enemy.onAttackFinished.AddListener(_ => ++ended);
++                enemy.onAttackContact.AddListener(_ => ++contacts);
++                var target = new GameObject("检查目标").transform; SceneManager.MoveGameObjectToScene(target.gameObject, scene);
++                target.position = origin + Vector3.forward * 5;
++                var patrol = new GameObject("检查巡逻点").transform; SceneManager.MoveGameObjectToScene(patrol.gameObject, scene);
++                patrol.position = origin + Vector3.right * 4; enemy.patrolPoints = new[] { patrol };
++                void Step(int frames = 1) { for (int i = 0; i < frames; i++) { enemy.Tick(.05f); enemy.animator.Update(.05f); } }
++                enemy.InitializeSpawn(null, true); Step();
++                Check(enemy.CurrentBehaviour == EnemyController.Behaviour.Idle && !agent.hasPath, "召唤无目标不使用已配巡逻点");
++                enemy.SetTarget(target); Step(4);
++                Check(enemy.HasTarget && first == 1 && enemy.CurrentBehaviour == EnemyController.Behaviour.Chase, "召唤直接追击并触发一次首次事件");
++                Check(agent.pathStatus == NavMeshPathStatus.PathComplete && agent.hasPath, "追击路径完整");
++                enemy.SetTarget(null); Step(); enemy.SetTarget(target); Step();
++                Check(first == 1, "换目标与重新发现不重复首次事件");
++                enemy.SetSuspended(true); Step(); Check(!agent.hasPath && enemy.CurrentBehaviour == EnemyController.Behaviour.Suspended, "外部暂停停导航");
++                enemy.SetSuspended(false); enemy.InitializeSpawn(null, false); Step(4);
++                Check(enemy.CurrentBehaviour == EnemyController.Behaviour.Patrol && agent.hasPath, "普通敌人未发现时巡逻");
++                target.position = origin - Vector3.forward * 5; go.transform.rotation = Quaternion.identity;
++                enemy.SetTarget(target); Step(); Check(!enemy.HasTarget, "背后目标不通过首次视野");
++                target.position = origin + Vector3.forward * 5; Step(); Check(enemy.HasTarget && first == 2, "正前方发现事件新轮可重触发");
++                enemy.loseSightSeconds = .1f; target.position = origin + Vector3.forward * 100; Step(4);
++                Check(!enemy.HasTarget && enemy.CurrentBehaviour == EnemyController.Behaviour.Patrol, "普通敌人丢失后恢复巡逻");
++                enemy.InitializeSpawn(target, true); target.position = origin + Vector3.forward * 1.2f + Vector3.up * 1.6f;
++                go.transform.rotation = Quaternion.identity;
++                // 固定种子重跑，覆盖两个实际动画入口及每轮冷却。
++                UnityEngine.Random.InitState(31); var seen = new HashSet<int>();
++                for (int attack = 0; attack < 12; attack++)
++                {
++                    int prior = began; Step(100);
++                    if (enemy.CurrentAttack >= 0) seen.Add(enemy.CurrentAttack);
++                    Check(began > prior, "攻击周期可重复 " + attack);
++                }
++                Check(ended > 0 && contacts > 0, "实际动画完成、接触与冷却后重攻击");
++                Check(seen.Count == 2, "0默认攻击与1Trigger攻击均可运行");
++                enemy.SetTarget(null); Step(); Check(enemy.CurrentAttack == -1 && !enemy.animator.GetBool("isAttacking"), "丢目标取消攻击并清标志");
++                enemy.InitializeSpawn(target, true);
++                UnityEngine.Events.UnityAction pause = () => enemy.SetSuspended(true);
++                enemy.onFirstPlayerDetected.AddListener(pause); int before = began; Step(10);
++                Check(began == before && enemy.CurrentBehaviour == EnemyController.Behaviour.Suspended, "首次事件暂停不漏出攻击");
++                enemy.onFirstPlayerDetected.RemoveListener(pause);
++                enemy.InitializeSpawn(null, false); enemy.patrolPoints = new Transform[] { null }; Step();
++                Check(enemy.CurrentBehaviour == EnemyController.Behaviour.Idle, "全空巡逻点安全待机");
++                agent.enabled = false; enemy.SetTarget(target); Step();
++                Check(!agent.enabled, "禁用导航组件不抛异常");
++                string report = $"敌人状态/动画/导航 {count} 项通过；隔离编辑器测试，非头显验收。";
++                Directory.CreateDirectory("Logs/enemy-fsm-20261104");
++                File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\n" + report);
++                return report;
++            }
++            finally
++            {
++                UnityEngine.Random.state = randomState;
++                if (go) Object.DestroyImmediate(go);
++                if (data.valid) data.Remove();
++                if (navData) Object.DestroyImmediate(navData);
++                EditorSceneManager.CloseScene(scene, true);
++                if (originalScene.IsValid()) SceneManager.SetActiveScene(originalScene);
++            }
++        }
++    }
++}
++#endif
+*** End Patch

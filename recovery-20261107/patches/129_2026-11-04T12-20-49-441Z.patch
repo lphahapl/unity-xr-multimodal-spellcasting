@@ -1,0 +1,62 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_guzheng_v6.py
+@@
+-"""Revision 5: replace the contaminated low-G guzheng recording.
++"""Revision 6: remove contaminated low fills and damp the melodic plucks.
+@@
+-LOG = ROOT / "Logs/yicun-shanhe-pluck-v5"
++LOG = ROOT / "Logs/yicun-shanhe-quiet-v6"
+@@
+     score = {"guzheng": [], "dizi": old["dizi"], "viola": [], "bell": old["bell"]}
+     for onset, pitch, duration, velocity, technique in old["qin"]:
+-        if velocity > .6 or technique == "harmonic":
++        melody = velocity > .6
++        if melody:
++            duration -= .55  # Restore the accepted motif's original note values.
++        if melody or technique == "harmonic":
+             pitch += 12
++        if pitch in (48, 50):
++            continue  # This low-D recording carries other strings; leave space instead.
+@@
+-        score["guzheng"].append((onset, pitch, duration, velocity, "pluck"))
++        score["guzheng"].append((onset, pitch, duration, velocity, "melody" if melody else "pluck"))
+@@
+-            score["guzheng"].append((onset, pitch, duration, velocity*.83, "pluck"))
++            score["guzheng"].append((onset, pitch, duration, velocity*.83, "melody"))
+@@
+-    selected = {"guzheng-50-v1-rr1", "guzheng-53-v1-rr2", "guzheng-57-v1-rr1",
+-                "guzheng-60-v1-rr1", "guzheng-60-v1-rr2", "guzheng-62-v1-rr1",
+-                "guzheng-62-v1-rr2", "guzheng-67-v1-rr2",
++    selected = {"guzheng-53-v1-rr2", "guzheng-57-v1-rr1",
++                "guzheng-60-v1-rr2", "guzheng-62-v1-rr1", "guzheng-67-v1-rr2",
+                 "guzheng-72-v1-rr2", "guzheng-74-v1-rr1"}
+@@
+-    clean_limits = {"guzheng-50-v1-rr1": .70, "guzheng-57-v1-rr1": 1.00,
+-                    "guzheng-62-v1-rr2": 2.20, "guzheng-74-v1-rr1": .84}
++    clean_limits = {"guzheng-57-v1-rr1": 1.00, "guzheng-74-v1-rr1": .84}
+@@
+-def guzheng_note(bank, pitch, duration, counters):
++def guzheng_note(bank, pitch, duration, counters, damped=False):
+@@
+-    # Let the recorded string decay; do not sustain-loop or synthesize its body.
+-    count = min(len(sound), round(max(2.2, duration+2.0)*SR))
++    # Melody damping respects its note value; accompaniment may ring naturally.
++    # The recorded body is neither sustain-looped nor synthesized.
++    maximum = duration if damped else max(2.2, duration+2.0)
++    count = min(len(sound), round(maximum*SR))
+@@
+-    return sound, {"pitch": pitch, "root": root, "sample": choice["file"],
++    return sound, {"pitch": pitch, "root": root, "sample": choice["file"], "damped": damped,
+@@
+-        for onset, pitch, duration, velocity, _ in events:
++        for onset, pitch, duration, velocity, technique in events:
+             if instrument == "guzheng":
+-                stereo, details = guzheng_note(guzheng, pitch, duration, counters)
++                stereo, details = guzheng_note(guzheng, pitch, duration, counters, technique == "melody")
+@@
+-    output = LOG / "yicun_shanhe_guzheng_v5.wav"
++    output = LOG / "yicun_shanhe_guzheng_v6.wav"
+@@
+-        "version": 5, "seed": SEED, "duration_seconds": DURATION, "sample_rate": SR,
++        "version": 6, "seed": SEED, "duration_seconds": DURATION, "sample_rate": SR,
+*** End Patch

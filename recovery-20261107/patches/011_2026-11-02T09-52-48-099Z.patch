@@ -1,0 +1,36 @@
+*** Begin Patch
+*** Update File: Assets/SealCombat/Runtime/Visuals/SkillVisualMotion.cs
+@@
+-        private void Prepare()
++        internal void Prepare()
+*** Update File: Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs
+@@
+         private Slot[] slots = Array.Empty<Slot>();
+         private ulong nextGeneration;
++        private int returning;
+@@
+                     foreach (var timer in visual.GetComponentsInChildren<SkillVisualLifetime>(true)) timer.enabled = false;
+                     foreach (var collider in visual.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
++                    foreach (var motion in visual.GetComponentsInChildren<SkillVisualMotion>(true)) motion.Prepare();
+@@
+-            if (!isActiveAndEnabled || !poolRoot || !Handles(prefab) || Time.timeScale <= 0) return false;
++            if (!isActiveAndEnabled || !poolRoot || !Handles(prefab) || returning != 0 || Time.timeScale <= 0) return false;
+@@
+             slot.owner = null;
+             ActiveCount--;
+-            if (slot.visual)
++            returning++;
++            try
+             {
+-                foreach (var particle in slot.particles)
+-                    if (particle) particle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+-                slot.visual.SetActive(false);
++                if (slot.visual)
++                {
++                    foreach (var particle in slot.particles)
++                        if (particle) particle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
++                    slot.visual.SetActive(false);
++                }
+             }
++            finally { returning--; }
+*** End Patch

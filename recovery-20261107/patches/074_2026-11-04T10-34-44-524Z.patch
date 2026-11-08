@@ -1,0 +1,102 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs
+@@
+-    public sealed class RpgPlayerDefinition : ScriptableObject
++    public class RpgPlayerDefinition : ScriptableObject
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/Data/PlayerSO.cs
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Rpg
++{
++    /// <summary>新玩家配置入口；沿用旧玩家定义字段，旧资产和引用无需迁移。</summary>
++    [CreateAssetMenu(menuName = "NarutoVR/线性RPG/玩家配置 PlayerSO", fileName = "玩家配置")]
++    public sealed class PlayerSO : RpgPlayerDefinition { }
++}
+*** Add File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/PlayerObj.cs
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Rpg
++{
++    public readonly struct PlayerDamageResult
++    {
++        public readonly float Requested, Absorbed, HealthLost;
++        public PlayerDamageResult(float requested, float absorbed, float healthLost)
++        { Requested = requested; Absorbed = absorbed; HealthLost = healthLost; }
++    }
++
++    /// <summary>
++    /// 玩家实体拥有唯一运行态和会话命中账本。没有自主 Update/生命周期重置；
++    /// 控制器负责暂停、反馈与死亡流程，外部攻击应经控制器/伤害接收器进入。
++    /// </summary>
++    [DisallowMultipleComponent, AddComponentMenu("NarutoVR/线性RPG/玩家实体 PlayerObj")]
++    public sealed class PlayerObj : MonoBehaviour
++    {
++        readonly HashSet<string> receivedDamage = new(StringComparer.Ordinal);
++        public RpgPlayerState State { get; private set; }
++        public bool IsInitialized => State != null;
++        public int ReceivedHitCount => receivedDamage.Count;
++
++        /// <summary>首次创建独立状态；重复接线不重置生命、冷却或命中账本。配置由控制器的玩家基础定义提供。</summary>
++        public RpgPlayerState Initialize(RpgPlayerDefinition definition)
++        {
++            if (State != null) return State;
++            var state = definition ? definition.CreateState() : new RpgPlayerState();
++            state.Tick(0);
++            State = state;
++            return State;
++        }
++
++        /// <summary>
++        /// 主线程同步伤害管线；调用方先检查游戏暂停/输入门控。
++        /// 会话内同一命中先去重再消耗护盾；复活和恢复检查点也不允许重放旧命中。
++        /// 返回 true 表示该次命中已接收，完全吸收时仍为 true，与旧控制器入口一致。
++        /// </summary>
++        public bool TryReceiveDamage(string hitId, float amount, double gameNow, SkillEffects effects,
++            out PlayerDamageResult result)
++        {
++            result = default;
++            if (State == null || !State.Alive || !effects || string.IsNullOrWhiteSpace(hitId) ||
++                !float.IsFinite(amount) || amount <= 0 || amount > 10000 ||
++                receivedDamage.Count >= 65536 || !receivedDamage.Add(hitId)) return false;
++            float remaining = effects.AbsorbDamage(amount);
++            float applied = 0;
++            if (remaining > 0) State.ApplyDamage(hitId, remaining, gameNow, out applied);
++            result = new PlayerDamageResult(amount, amount - remaining, applied);
++            return true;
++        }
++    }
++}
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs
+@@
+-    [DefaultExecutionOrder(300)]
++    [DefaultExecutionOrder(300), RequireComponent(typeof(PlayerObj))]
+@@
+-        public RpgPlayerState Player { get; private set; }
++        PlayerObj playerObject;
++        public PlayerObj Entity => playerObject;
++        public RpgPlayerState Player => playerObject ? playerObject.State : null;
+@@
+-        readonly HashSet<string> receivedDamage = new(StringComparer.Ordinal);
+@@
+-                Player = playerDefinition ? playerDefinition.CreateState() : new RpgPlayerState();
+-                Player.Tick(0);
++                playerObject = GetComponent<PlayerObj>();
++                if (!playerObject) playerObject = gameObject.AddComponent<PlayerObj>(); // 兼容旧场景/预制体。
++                playerObject.Initialize(playerDefinition);
+@@
+-            // Deduplicate before touching the shield. Absorbed hits must not be replayable either.
+-            if (!CanAct || string.IsNullOrWhiteSpace(hitId) || !float.IsFinite(amount) || amount <= 0 || amount > 10000 ||
+-                receivedDamage.Count >= 65536 || !receivedDamage.Add(hitId)) return false;
+-            float remaining = skills.effects.AbsorbDamage(amount);
+-            float applied = 0;
+-            if (remaining > 0) Player.ApplyDamage(hitId, remaining, GameTime, out applied);
+-            Status = $"受到 {amount:0} 伤害，护盾吸收 {amount - remaining:0}，生命损失 {applied:0}";
++            if (!CanAct || !playerObject.TryReceiveDamage(hitId, amount, GameTime, skills.effects, out var damage)) return false;
++            Status = $"受到 {damage.Requested:0} 伤害，护盾吸收 {damage.Absorbed:0}，生命损失 {damage.HealthLost:0}";
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs
+@@
+-    /// <summary>敌人攻击复用 RPG 伤害入口，保留护盾、去重、死亡和暂停规则。</summary>
++    /// <summary>敌人攻击经控制器的暂停/死亡门控，再进入 PlayerObj 伤害管线；不直接绕过游戏状态。</summary>
+*** End Patch

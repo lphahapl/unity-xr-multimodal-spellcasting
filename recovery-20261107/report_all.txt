@@ -1,0 +1,1166 @@
+PATCH BLOCKS AFTER LAST COMMIT: 1254
+OK: 404  CONFLICT: 466  SKIP(OUTSIDE): 378  EMPTY: 6
+
+CHANGED FILES: 312   +23845 / -234
+
+=== CHANGED FILES ===
+added                                                                                              +0     -0    
+modified .gitignore                                                                                 +3     -0    
+added   Assets/SealCombat/Art/Props/Zhunwang/使用说明.txt                                              +30    -0    
+added   Assets/SealCombat/Audio/YicunShanhe_Credits.txt                                            +53    -0    
+modified Assets/SealCombat/Configuration/LinearRpg/效果_fireball.asset                                +12    -0    
+added   Assets/SealCombat/Editor/BgmLoopVerification.cs                                            +590   -0    
+added   Assets/SealCombat/Editor/ConfigurationAssetOrganizer.cs                                    +92    -0    
+modified Assets/SealCombat/Editor/EncounterMovementChecks.cs                                        +8     -1    
+added   Assets/SealCombat/Editor/EnemyAttackChecks.cs                                              +281   -0    
+added   Assets/SealCombat/Editor/EnemyAttackChecks.cs.meta                                         +2     -0    
+added   Assets/SealCombat/Editor/EnemyCombatChecks.cs                                              +169   -0    
+added   Assets/SealCombat/Editor/EnemyDetectionChecks.cs                                           +59    -0    
+added   Assets/SealCombat/Editor/EnemyPoolingChecks.cs                                             +236   -0    
+added   Assets/SealCombat/Editor/EnemyPoolingSetup.cs                                              +114   -0    
+added   Assets/SealCombat/Editor/EnemySetupAndChecks.cs                                            +289   -0    
+added   Assets/SealCombat/Editor/EventCenterChecks.cs                                              +166   -0    
+added   Assets/SealCombat/Editor/EventCenterChecks.cs.meta                                         +2     -0    
+modified Assets/SealCombat/Editor/HandThrowChecks.cs                                                +57    -0    
+added   Assets/SealCombat/Editor/Interaction/SnapZoneChecks.cs                                     +263   -0    
+added   Assets/SealCombat/Editor/Interaction/SnapZoneEditor.cs                                     +121   -0    
+modified Assets/SealCombat/Editor/LinearRpgPlayChecks.cs                                            +35    -0    
+modified Assets/SealCombat/Editor/LinearRpgSceneSetup.cs                                            +9     -0    
+modified Assets/SealCombat/Editor/LinearRpgValidation.cs                                            +88    -3    
+added   Assets/SealCombat/Editor/NarrationControllerEditor.cs                                      +60    -0    
+added   Assets/SealCombat/Editor/NarrationTable.cs                                                 +149   -0    
+added   Assets/SealCombat/Editor/NavGatePlayOnce.cs                                                +0     -0    
+added   Assets/SealCombat/Editor/P1AudioChecks.cs                                                  +70    -0    
+added   Assets/SealCombat/Editor/P1HapticChecks.cs                                                 +92    -0    
+added   Assets/SealCombat/Editor/P1RoomEncounterChecks.cs                                          +140   -0    
+added   Assets/SealCombat/Editor/P1RoomLayoutSetup.cs                                              +233   -0    
+added   Assets/SealCombat/Editor/P1RoomPlayChecks.cs                                               +102   -0    
+added   Assets/SealCombat/Editor/P1VfxChecks.cs                                                    +114   -0    
+added   Assets/SealCombat/Editor/P1VfxChecks.cs.meta                                               +2     -0    
+added   Assets/SealCombat/Editor/PlayerObjChecks.cs                                                +91    -0    
+modified Assets/SealCombat/Editor/RayNavigationChecks.cs                                            +57    -0    
+modified Assets/SealCombat/Editor/RpgHandPoseChecks.cs                                              +15    -0    
+modified Assets/SealCombat/Editor/RpgRegressionSuite.cs                                             +3     -0    
+modified Assets/SealCombat/Editor/ScoredThrowChecks.cs                                              +22    -0    
+modified Assets/SealCombat/Editor/SkillConfigurationSetup.cs                                        +9     -0    
+modified Assets/SealCombat/Editor/SkillEffectChecks.cs                                              +16    -0    
+modified Assets/SealCombat/Editor/SkillScenarioChecks.cs                                            +12    -0    
+modified Assets/SealCombat/Editor/SkillShowcaseSetup.cs                                             +108   -0    
+modified Assets/SealCombat/Editor/SkillTestSceneSetup.cs                                            +12    -0    
+modified Assets/SealCombat/Editor/WristMenuChecks.cs                                                +16    -0    
+modified Assets/SealCombat/Editor/WristMenuSetup.cs                                                 +2     -0    
+modified Assets/SealCombat/Editor/WristRayIssueProbe.cs                                             +14    -0    
+modified Assets/SealCombat/Editor/WristTapChecks.cs                                                 +5     -0    
+added   Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs                                        +390   -0    
+added   Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs.meta                                   +2     -0    
+added   Assets/SealCombat/Editor/Zhunwang10kUpdateOnce.cs                                          +107   -0    
+added   Assets/SealCombat/Editor/ZhunwangImportOnce.cs                                             +157   -0    
+modified Assets/SealCombat/Runtime/Core/SkillDefinition.cs                                          +7     -0    
+modified Assets/SealCombat/Runtime/Core/SkillMatchSettings.cs                                       +3     -0    
+modified Assets/SealCombat/Runtime/Effects/HandThrowObservation.cs                                  +7     -0    
+modified Assets/SealCombat/Runtime/Effects/HandThrowState.cs                                        +3     -0    
+modified Assets/SealCombat/Runtime/Effects/SkillEffects.cs                                          +17    -1    
+modified Assets/SealCombat/Runtime/Effects/SkillProjectile.cs                                       +18    -1    
+added   Assets/SealCombat/Runtime/Enemies/AttackData.cs                                            +56    -0    
+added   Assets/SealCombat/Runtime/Enemies/CombatDamageReceiver.cs                                  +35    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs                                  +65    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyCombatDefinition.cs                                 +21    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyCombatState.cs                                      +54    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyController.cs                                       +373   -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyDetectionSensor.cs                                  +61    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyHitZone.cs                                          +32    -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyObj.cs                                              +336   -0    
+added   Assets/SealCombat/Runtime/Enemies/EnemyPoiseBar.cs                                         +57    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyCatalog.cs                                 +37    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyDefinition.cs                              +27    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyLease.cs                                   +14    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs                                 +386   -0    
+added   Assets/SealCombat/Runtime/Events/EnemyEvents.cs                                            +41    -0    
+added   Assets/SealCombat/Runtime/Events/EventCenter.cs                                            +188   -0    
+added   Assets/SealCombat/Runtime/Events/EventCenter.cs.meta                                       +2     -0    
+added   Assets/SealCombat/Runtime/Events/NarrationEvents.cs                                        +25    -0    
+added   Assets/SealCombat/Runtime/Interaction/Snapping/SnapItem.cs                                 +39    -0    
+added   Assets/SealCombat/Runtime/Interaction/Snapping/SnapZone.cs                                 +319   -0    
+modified Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs                                +1     -0    
+modified Assets/SealCombat/Runtime/Locomotion/RayNavigationState.cs                                 +11    -0    
+modified Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs                                    +3     -0    
+added   Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.Spawning.cs                              +156   -0    
+added   Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.cs                                       +190   -0    
+added   Assets/SealCombat/Runtime/Rpg/Data/PlayerSO.cs                                             +8     -0    
+modified Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs                                  +1     -1    
+modified Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs                                       +2     -0    
+added   Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs                                     +87    -0    
+added   Assets/SealCombat/Runtime/Rpg/GameManager.cs                                               +69    -0    
+added   Assets/SealCombat/Runtime/Rpg/HapticFeedbackService.cs                                     +255   -0    
+modified Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs                                       +91    -24   
+added   Assets/SealCombat/Runtime/Rpg/P1AudioManager.cs                                            +210   -0    
+added   Assets/SealCombat/Runtime/Rpg/P1FallbackAudio.cs                                           +52    -0    
+added   Assets/SealCombat/Runtime/Rpg/PlayerObj.cs                                                 +55    -0    
+added   Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs                                         +17    -0    
+modified Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs                                    +7     -1    
+modified Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs                                            +3     -0    
+modified Assets/SealCombat/Runtime/Rpg/WristMenuController.cs                                       +4     -0    
+modified Assets/SealCombat/Runtime/Rpg/WristMenuView.cs                                             +3     -1    
+modified Assets/SealCombat/Runtime/SkillTestController.cs                                           +24    -149  
+modified Assets/SealCombat/Runtime/Visuals/SkillVisualLifetime.cs                                   +3     -2    
+modified Assets/SealCombat/Runtime/Visuals/SkillVisualMotion.cs                                     +4     -1    
+added   Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs                                        +203   -0    
+added   Assets/SealCombat/Runtime/Visuals/VfxPoolManager.cs.meta                                   +2     -0    
+added   Assets/SealCombat/Runtime/Voice/NarrationController.cs                                     +259   -0    
+modified Assets/SealCombat/Runtime/Voice/SkillVoiceReceiver.cs                                      +59    -0    
+added   Assets/SealLab/Editor/OfficialHandVisualSetup.cs                                           +0     -0    
+modified Assets/SealLab/Editor/SealChineseInspectors.cs                                             +2     -0    
+modified Assets/SealLab/Editor/SealChineseUISetup.cs                                                +10    -0    
+modified Assets/SealLab/Editor/SealLabDeviceBuild.cs                                                +4     -0    
+modified Assets/SealLab/Editor/SealSteamLinkSetup.cs                                                +18    -0    
+added   Assets/SealLab/Editor/WrapHandPlayCheck.cs                                                 +0     -0    
+added   Assets/SealLab/Editor/WrapHandReplayCheck.cs                                               +0     -0    
+added   Assets/SealLab/Editor/WrapHandSetup.cs                                                     +0     -0    
+added   Assets/SealLab/Runtime/TrackedWrapHand.cs                                                  +0     -0    
+added   Campus仓库发布/audit_index.py                                                                  +55    -0    
+added   Campus仓库发布/commit-message.txt                                                              +9     -0    
+added   Campus仓库发布/flatten_standards.py                                                            +36    -0    
+added   Campus仓库发布/prepare_publish.py                                                              +55    -0    
+added   Campus仓库发布/verify_remote_clone.py                                                          +20    -0    
+added   Logs/camera-design/review-prompt.txt                                                       +16    -0    
+added   Logs/canjiou-animation-import-20261104/CanJiOuAnimationImportJob.cs                        +182   -0    
+added   Logs/canjiou-animation-import-20261104/copy_sources.py                                     +32    -0    
+added   Logs/canjiou-animation-import-20261104/inspect_sources.py                                  +36    -0    
+added   Logs/diagnose-upm-path.cjs                                                                 +21    -0    
+added   Logs/docs-cleanup-work/finish.py                                                           +76    -0    
+added   Logs/docs-cleanup-work/organize.py                                                         +639   -0    
+added   Logs/docs-cleanup-work/verify.py                                                           +74    -0    
+added   Logs/hand-feasibility-20261102/pose.py                                                     +0     -0    
+added   Logs/hand-feasibility-20261102/probe.py                                                    +0     -0    
+added   Logs/hand-reference-probe/extract.py                                                       +0     -0    
+added   Logs/hand-reference-probe/project.py                                                       +0     -0    
+added   Logs/interaction-feel-20261030/tutorial-source-pack.md                                     +83    -0    
+added   Logs/music-production-tools/sampler-research.json                                          +86    -0    
+added   Logs/narration-gates-20261105/VerifyNarrationGates.cs                                      +325   -0    
+added   Logs/official-hand-poses/review-task.txt                                                   +9     -0    
+added   Logs/read-crash-exception.py                                                               +159   -0    
+added   Logs/scored-throw-20261031/integrate.py                                                    +112   -0    
+added   Logs/scored-throw-20261031/review-prompt.txt                                               +12    -0    
+added   Logs/skill-organization-20261104/TokenCheck/Program.cs                                     +40    -0    
+added   Logs/skill-organization-20261104/TokenCheck/TokenCheck.csproj                              +15    -0    
+added   Logs/skill-organization-20261104/annotate.py                                               +207   -0    
+added   Logs/skill-organization-20261104/annotate_editor.py                                        +43    -0    
+added   Logs/skill-organization-20261104/organize.ps1                                              +38    -0    
+added   Logs/watch-native-exception.py                                                             +23    -0    
+added   Logs/wrist-menu-20261030/task.txt                                                          +19    -0    
+added   Logs/wrist-wrap-150/build.py                                                               +0     -0    
+added   Logs/wrist-wrap-150/preview.py                                                             +0     -0    
+added   Logs/yicun-shanhe-continuity-v11/capture_qa.py                                             +264   -0    
+added   Logs/yicun-shanhe-continuity-v11/capture_validate_synthetic.py                             +92    -0    
+added   Logs/yicun-shanhe-continuity-v11/finalize_acceptance.py                                    +74    -0    
+added   Logs/yicun-shanhe-continuity-v11/qa_signal.py                                              +202   -0    
+added   Logs/yicun-shanhe-continuity-v11/transition-analysis.py                                    +152   -0    
+added   Logs/yicun-shanhe-phrased-v10/audit_signal.py                                              +172   -0    
+added   Logs/zhunwang-10k-20261105/finalize.py                                                     +85    -0    
+added   Logs/zhunwang-10k-20261105/record_handoff.py                                               +57    -0    
+added   Logs/zhunwang-inscription-20261105/finalize.py                                             +54    -0    
+added   Logs/zhunwang-inscription-20261105/record_handoff.py                                       +59    -0    
+added   Logs/zhunwang-unity-20261105/finalize.py                                                   +54    -0    
+added   Logs/zhunwang-unity-20261105/quest-assessment.json                                         +49    -0    
+modified README.md                                                                                  +18    -42   
+modified Tools/SkillVoice/skill_voice.py                                                            +10    -6    
+modified Tools/SkillVoice/test_audio_telemetry.py                                                   +7     -0    
+added   docs/ARCHITECTURE_REFACTOR_QA_ZH.md                                                        +50    -0    
+added   docs/AUDIO_TEST_RECORDING_ZH.md                                                            +20    -0    
+added   docs/CAMERA_PRESENTATION_DESIGN_ZH.md                                                      +130   -0    
+added   docs/CHINESE_UI_ZH.md                                                                      +38    -0    
+added   docs/DIRECTIONAL_INTERACTION_AND_THROW_ZH.md                                               +64    -0    
+added   docs/DIRECTIONAL_INTERACTION_QA_2026-10-30_ZH.md                                           +32    -0    
+added   docs/ENCOUNTER_LOCOMOTION_ZH.md                                                            +32    -0    
+added   docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md                                               +159   -0    
+added   docs/HAND_TRACKING_AB_TEST_ZH.md                                                           +44    -0    
+added   docs/HAND_TRACKING_ENVIRONMENT_REPAIR_ZH.md                                                +47    -0    
+added   docs/INTERACTION_FEEL_AND_DEBUG_ZH.md                                                      +54    -0    
+added   docs/INTERACTION_REPAIR_20261101_ZH.md                                                     +33    -0    
+added   docs/KAO_GONG_LU_DU_TECH_CONFLICT_REVIEW_20261101_ZH.md                                    +201   -0    
+added   docs/KAO_GONG_LU_DU_V15_REVIEW_ZH.md                                                       +204   -0    
+added   docs/KAO_GONG_LU_DU_V1_REVIEW_ZH.md                                                        +267   -0    
+added   docs/LINEAR_RPG_DESIGN_ZH.md                                                               +129   -0    
+added   docs/LINEAR_RPG_QUICKSTART_ZH.md                                                           +79    -0    
+added   docs/LINK_HAND_TRACKING_CASES_SOURCE_NOTES.md                                              +39    -0    
+added   docs/MULTIPLAYER_LAN_PLAN_ZH.md                                                            +185   -0    
+added   docs/NEUGAMEMRTOOLS_REVIEW_ZH.md                                                           +32    -0    
+added   docs/OFFICIAL_HAND_POSES_ZH.md                                                             +86    -0    
+added   docs/QUEST_FIRMWARE_UPDATE_GEMINI_HANDOFF_ZH.md                                            +173   -0    
+added   docs/QUEST_PICO_COMPATIBILITY_PLAN_ZH.md                                                   +166   -0    
+added   docs/QUEST_PICO_COMPATIBILITY_SOURCES_ZH.md                                                +60    -0    
+modified docs/README.md                                                                             +5     -1    
+added   docs/ROGUELITE_GLYPH_LOCOMOTION_SOURCES_ZH.md                                              +122   -0    
+added   docs/SCORED_THROW_DIAGNOSTICS_ZH.md                                                        +74    -0    
+added   docs/SEAL_LAB.md                                                                           +60    -0    
+added   docs/SEAL_LAB_QUICKSTART_ZH.md                                                             +109   -0    
+added   docs/SKILL_DELIVERY_QA_ZH.md                                                               +48    -0    
+added   docs/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md                                                 +332   -0    
+added   docs/SKILL_TEST_GUIDE_ZH.md                                                                +64    -0    
+added   docs/STEAM_LINK_DEVELOPMENT_ZH.md                                                          +49    -0    
+added   docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md                                                     +55    -0    
+added   docs/THROW_DIRECTION_AND_NAV_SCORING_ZH.md                                                 +77    -0    
+added   docs/UI_PLATFORM_MULTIPLAYER_AUDIT_ZH.md                                                   +57    -0    
+added   docs/VOICE_GESTURE_RESEARCH_ZH.md                                                          +142   -0    
+added   docs/WORLD_BUILDING_AND_ART_DIRECTION_BRIEF_ZH.md                                          +278   -0    
+added   docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md                                                   +101   -0    
+modified docs/architecture/MONSTER_DESIGN_CANJIOU_ZH.md                                             +2     -0    
+added   docs/architecture/SEAL_SEQUENCE_REVIEW_20261104_ZH.md                                      +66    -0    
+added   docs/architecture/SKILL_SYSTEM_CLASS_DIAGRAM_ZH.md                                         +200   -0    
+modified docs/guides/ENCOUNTER_LOCOMOTION_ZH.md                                                     +4     -0    
+added   docs/guides/ENEMY_COMBAT_ZH.md                                                             +85    -0    
+added   docs/guides/ENEMY_NAVIGATION_ZH.md                                                         +81    -0    
+added   docs/guides/ENEMY_SPAWNING_ZH.md                                                           +66    -0    
+modified docs/guides/LINEAR_RPG_QUICKSTART_ZH.md                                                    +4     -0    
+added   docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md                                                 +40    -0    
+added   docs/guides/NARRATION_FLOW_ZH.md                                                           +75    -0    
+added   docs/guides/SNAP_TOOL_ZH.md                                                                +98    -0    
+added   docs/hand-seal-technology-research.md                                                      +115   -0    
+added   docs/research/MUSIC_WORKFLOW_TOOLS_20261104_ZH.md                                          +40    -0    
+added   docs/shared-editor-crash-research.md                                                       +41    -0    
+added   docs/skills/music-production/scripts/analyze_audio.py                                      +255   -0    
+added   gear-workshop/.qa/polish.cjs                                                               +8     -0    
+added   gear-workshop/README.md                                                                    +38    -0    
+added   gear-workshop/dist/app.js                                                                  +48    -0    
+added   gear-workshop/dist/core.js                                                                 +11    -0    
+added   gear-workshop/dist/index.html                                                              +13    -0    
+added   gear-workshop/dist/style.css                                                               +5     -0    
+added   gear-workshop/tests/core.test.cjs                                                          +17    -0    
+added   innovation-2026/build_apps.py                                                              +166   -0    
+added   innovation-2026/build_materials.py                                                         +153   -0    
+added   innovation-2026/package.py                                                                 +56    -0    
+added   innovation-2026/qa.cjs                                                                     +29    -0    
+added   innovation-2026/record.cjs                                                                 +29    -0    
+added   innovation-2026/test_core.cjs                                                              +33    -0    
+added   innovation-2026/verify_materials.py                                                        +39    -0    
+added   outputs/narration-import-20261105/build.mjs                                                +64    -0    
+added   scratch/audit_yicun_arrangement_v7.py                                                      +282   -0    
+added   scratch/audit_yicun_dynamics_v8.py                                                         +262   -0    
+added   scratch/audit_yicun_score_v8.py                                                            +165   -0    
+added   scratch/audit_yicun_sources_v7.py                                                          +251   -0    
+added   scratch/compose_yicun_shanhe.py                                                            +172   -0    
+added   scratch/preview_guqin_winds.py                                                             +105   -0    
+added   scratch/render_yicun_shanhe_ambient.py                                                     +273   -0    
+added   scratch/render_yicun_shanhe_chamber.py                                                     +136   -0    
+added   scratch/render_yicun_shanhe_guzheng.py                                                     +198   -0    
+added   scratch/render_yicun_shanhe_pedalboard_v9.py                                               +271   -0    
+added   scratch/render_yicun_shanhe_shape_v8.py                                                    +240   -0    
+added   scratch/run_bgm_unity_probe.py                                                             +112   -0    
+added   scratch/test_yicun_pedalboard.py                                                           +156   -0    
+added   scratch/yicun_dizi_phrases_v10.py                                                          +123   -0    
+added   scratch/yicun_dizi_phrases_v11.py                                                          +114   -0    
+added   tonight-scenes/.qa/deliver.py                                                              +19    -0    
+added   tonight-scenes/.qa/embed-poster.py                                                         +8     -0    
+added   tonight-scenes/使用说明.txt                                                                    +38    -0    
+added   tonight-scenes/商业策划/.build/build-plan-deck.mjs                                             +24    -0    
+added   tonight-scenes/商业策划/.build/build-workbook.mjs                                              +46    -0    
+added   tonight-scenes/商业策划/.build/create-project.py                                               +183   -0    
+added   tonight-scenes/商业策划/.build/patch-workbook.py                                               +11    -0    
+added   tonight-scenes/商业策划/.build/verify-native.ps1                                               +41    -0    
+added   tonight-scenes/打开网页.html                                                                   +1     -0    
+added   tonight-scenes/材料目录.txt                                                                    +21    -0    
+added   tonight-scenes/海报/生成提示词.txt                                                                +4     -0    
+added   tonight-scenes/网页/app.js                                                                   +26    -0    
+added   tonight-scenes/网页/index.html                                                               +13    -0    
+added   tonight-scenes/网页/style.css                                                                +7     -0    
+added   zhiqixinsheng-2026/assets.cjs                                                              +3     -0    
+added   zhiqixinsheng-2026/build.py                                                                +24    -0    
+added   zhiqixinsheng-2026/content.py                                                              +73    -0    
+added   zhiqixinsheng-2026/forms.mjs                                                               +24    -0    
+added   zhiqixinsheng-2026/materials.py                                                            +81    -0    
+added   zhiqixinsheng-2026/package.py                                                              +51    -0    
+added   zhiqixinsheng-2026/qa-docs.cjs                                                             +3     -0    
+added   zhiqixinsheng-2026/qa.cjs                                                                  +18    -0    
+added   zhiqixinsheng-2026/record.cjs                                                              +14    -0    
+added   zhiqixinsheng-2026/src/base.html                                                           +1     -0    
+added   zhiqixinsheng-2026/src/collab-body.html                                                    +1     -0    
+added   zhiqixinsheng-2026/src/collab-core.js                                                      +7     -0    
+added   zhiqixinsheng-2026/src/collab-ui.js                                                        +14    -0    
+added   zhiqixinsheng-2026/src/common.js                                                           +17    -0    
+added   zhiqixinsheng-2026/src/delivery-body.html                                                  +1     -0    
+added   zhiqixinsheng-2026/src/delivery-core.js                                                    +7     -0    
+added   zhiqixinsheng-2026/src/delivery-ui.js                                                      +15    -0    
+added   zhiqixinsheng-2026/src/event-body.html                                                     +1     -0    
+added   zhiqixinsheng-2026/src/event-core.js                                                       +8     -0    
+added   zhiqixinsheng-2026/src/event-ui.js                                                         +11    -0    
+added   zhiqixinsheng-2026/src/layout-fixes.css                                                    +4     -0    
+added   zhiqixinsheng-2026/src/style.css                                                           +1     -0    
+added   zhiqixinsheng-2026/src/ui-common.js                                                        +23    -0    
+added   zhiqixinsheng-2026/test.cjs                                                                +39    -0    
+added   zhiqixinsheng-2026/verify.py                                                               +41    -0    
+added   棋盘模型-v1/Unity/Assets/ModularBoard/Editor/ModularBoardBatch.cs                              +66    -0    
+added   棋盘模型-v1/Unity/Assets/ModularBoard/Editor/ModularBoardSetup.cs                              +160   -0    
+added   棋盘模型-v1/Unity/Packages/manifest.json                                                       +5     -0    
+added   棋盘模型-v1/Unity/ProjectSettings/ProjectVersion.txt                                           +1     -0    
+added   棋盘模型-v1/使用说明.md                                                                            +49    -0    
+added   棋盘模型-v3-格子轴统一/使用说明-v3.md                                                                   +38    -0    
+added   棋盘模型概念图/audit_tile_part_axes.py                                                            +52    -0    
+added   棋盘模型概念图/audit_urp_materials.py                                                             +18    -0    
+added   棋盘模型概念图/build_models.py                                                                    +328   -0    
+added   棋盘模型概念图/change_camera_drag.py                                                              +38    -0    
+added   棋盘模型概念图/finalize_xforward.py                                                               +123   -0    
+added   棋盘模型概念图/fix_urp_materials.py                                                               +37    -0    
+added   棋盘模型概念图/package_models.py                                                                  +22    -0    
+added   棋盘模型概念图/sync_xforward_models.py                                                            +33    -0    
+added   棋盘模型概念图/verify_exports.py                                                                  +33    -0    
+added   棋盘模型概念图/verify_v2_appearance.py                                                            +31    -0    
+added   棋盘移动整合/ChessBoard.cs                                                                       +68    -0    
+added   棋盘移动整合/ChessBoardContorllor.cs                                                             +114   -0    
+added   棋盘移动整合/ChessBoardSlotSetup.cs                                                              +122   -0    
+added   相机代码整合/CameraIntegrationCheck.cs                                                           +73    -0    
+added   相机代码整合/ChessBoardCamera.cs                                                                 +95    -0    
+added   相机代码整合/ExtraScriptsCheck.cs                                                                +129   -0    
+added   相机代码整合/Extra脚本检查报告-2026-10-21.md                                                           +37    -0    
+added   齿轮工坊参赛材料/.build/archive-to-desktop.py                                                      +23    -0    
+added   齿轮工坊参赛材料/.build/build-deck.mjs                                                             +26    -0    
+added   齿轮工坊参赛材料/.build/create-statement.py                                                        +37    -0    
+added   齿轮工坊参赛材料/.build/package-materials.py                                                       +30    -0    
+added   齿轮工坊参赛材料/申报信息.json                                                                         +9     -0    
+
+=== CONFLICTS (466) ===
+2026-10-20T01:52:53.710Z rollout-2026-10-14T11-38-55-01 tonight-scenes/海报/生成提示词.txt already exists with content
+2026-10-20T08:52:40.091Z rollout-2026-10-20T13-07-21-01 棋盘模型-v2-X轴前进/Unity/Assets/ModularBoard/Editor/ModularBoardSetup.cs missing
+2026-10-20T08:54:29.737Z rollout-2026-10-20T13-07-21-01 棋盘模型-v2-X轴前进/Unity/Assets/ModularBoard/Editor/ModularBoardSetup.cs missing
+2026-10-20T08:56:06.377Z rollout-2026-10-20T13-07-21-01 hunk not found in 棋盘模型概念图/verify_exports.py: '                assert actual.dot(expected_direction)>.99999,(path.nam'
+2026-10-21T09:34:35.776Z rollout-2026-10-20T13-07-21-01 棋盘模型-v3-格子轴统一/Unity/Assets/ModularBoard/Editor/ModularBoardSetup.cs missing
+2026-10-21T09:35:15.049Z rollout-2026-10-20T13-07-21-01 hunk not found in 棋盘模型概念图/verify_exports.py: "                expected_dot=-1 if ext=='fbx' else 1"
+2026-10-21T09:39:11.115Z rollout-2026-10-20T13-07-21-01 棋盘模型-v3-格子轴统一/使用说明.md missing
+2026-10-21T10:43:01.214Z rollout-2026-10-20T13-07-21-01 hunk not found in 相机代码整合/Extra脚本检查报告-2026-10-21.md: '2. **ChessBoard.cs:14、25：列表顺序与 index 没有建立一致关系。**'
+2026-10-27T16:30:11.924Z rollout-2026-10-27T23-28-06-01 hunk not found in Packages/manifest.json: '    "com.meta.xr.simulator": "81.0.1",'
+2026-10-27T17:02:07.355Z rollout-2026-10-27T23-28-06-01 hunk not found in Packages/manifest.json: '  }'
+2026-10-27T17:08:29.398Z rollout-2026-10-27T23-28-06-01 Assets/Editor/QuestEnvironmentSetup.cs already exists with content
+2026-10-27T17:12:00.806Z rollout-2026-10-27T23-28-06-01 Tools/Start-Unity.ps1 already exists with content
+2026-10-27T17:18:48.021Z rollout-2026-10-27T23-28-06-01 hunk not found in Tools/Start-Unity.ps1: '}'
+2026-10-27T17:24:50.729Z rollout-2026-10-27T23-28-06-01 docs/QUEST_SETUP.md missing
+2026-10-27T17:27:23.061Z rollout-2026-10-27T23-28-06-01 hunk not found in Packages/manifest.json: '    "com.meta.xr.sdk.core": "203.0.0",'
+2026-10-27T17:40:02.260Z rollout-2026-10-27T23-28-06-01 docs/QUEST_SETUP.md missing
+2026-10-27T18:14:51.905Z rollout-2026-10-27T23-28-06-01 Tools/Use-UnityAdb.ps1 already exists with content
+2026-10-28T01:54:16.077Z rollout-2026-10-27T23-28-06-01 Tools/Use-UnityAdb.ps1 already exists with content
+2026-10-28T01:58:37.369Z rollout-2026-10-27T23-28-06-01 docs/QUEST_SETUP.md missing
+2026-10-28T01:59:27.467Z rollout-2026-10-27T23-28-06-01 docs/QUEST_SETUP.md missing
+2026-10-28T02:04:09.164Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/HandSnapshot.cs already exists with content
+2026-10-28T02:06:04.152Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/SealRecording.cs already exists with content
+2026-10-28T02:08:16.290Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealLabWindow.cs already exists with content
+2026-10-28T02:09:22.261Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealLabChecks.cs already exists with content
+2026-10-28T02:14:33.308Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabBuilder.cs: '                var actualHands = sources.GetComponentsInChildren<Hand'
+2026-10-28T02:21:32.188Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabWindow.cs: '            if (replay != null)'
+2026-10-28T02:25:40.034Z rollout-2026-10-27T23-28-06-01 docs/QUEST_SETUP.md missing
+2026-10-28T02:39:30.647Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/RecordingSchedule.cs already exists with content
+2026-10-28T02:40:22.408Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealLab.cs: '            if (now < nextSample) return;'
+2026-10-28T02:41:50.653Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/SEAL_LAB.md: '2026-10-28本机验收：Unity实际编译通过，22项自动检查通过；编辑器已重启并打开实验场景与面板。修正了首次Play时脚本重载把空'
+2026-10-28T02:52:42.233Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/SealRecognizer.cs already exists with content
+2026-10-28T02:53:40.925Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabWindow.cs: '                if (GUILayout.Button("实时模式")) { replay = null; playRep'
+2026-10-28T02:55:37.155Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealLab.cs: '        [HideInInspector, SerializeField] private bool testMode;'
+2026-10-28T02:57:44.968Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealLab.cs: '            double now = Time.realtimeSinceStartupAsDouble;'
+2026-10-28T02:58:39.761Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/SEAL_LAB.md: '当前保存了12个空模板，不是已经训练完12个印。先用一个印验证“真实数值→录制→回放→草稿→调参→识别”，再扩展其他印。'
+2026-10-28T03:00:45.387Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealLab.cs: '        [Tooltip("Assign the actual Hand on OVRHandDataSourceLeft, bef'
+2026-10-28T03:01:18.950Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabWindow.cs: '                    bool calibrated = EditorGUILayout.ToggleLeft("已人工校'
+2026-10-28T03:02:07.201Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabWindow.cs: '                    bool calibrated = EditorGUILayout.ToggleLeft("已人工校'
+2026-10-28T10:28:22.436Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealTrackingDiagnostics.cs already exists with content
+2026-10-28T10:28:42.948Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealTrackingDiagnostics.cs: '                    configuredSkeleton = OVRHand.GlobalHandSkeletonVer'
+2026-10-28T12:32:56.222Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/XR/Settings/OpenXR Package Settings.asset: '  m_Name: MetaHandTrackingAim Standalone'
+2026-10-28T12:36:50.589Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/XR/Settings/OpenXR Package Settings.asset: '  m_Name: HandTracking Standalone'
+2026-10-28T13:05:09.024Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/SealDeviceDiagnostics.cs already exists with content
+2026-10-28T13:23:56.299Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabDeviceBuild.cs: '                string originalId = PlayerSettings.GetApplicationIdent'
+2026-10-29T02:59:07.947Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/HandSnapshot.cs: '        public string skeleton = Constants.NUM_HAND_JOINTS + "-joint M'
+2026-10-29T03:00:02.175Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealSteamLinkSetup.cs already exists with content
+2026-10-29T03:05:55.881Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealXRHandsSource.cs: '        public string Status => subsystem == null ? "XRHandSubsystem m'
+2026-10-29T03:07:35.679Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealXRHandsSource.cs: 'using UnityEngine.XR.OpenXR;'
+2026-10-29T03:13:24.494Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealSteamLinkSetup.cs: '            if (!File.Exists(ScenePath)) Prepare();'
+2026-10-29T03:28:13.927Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealSteamLinkSetup.cs: '            perTarget.InitManagerOnStart = true;'
+2026-10-29T03:34:41.497Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Runtime/SealChineseText.cs already exists with content
+2026-10-29T03:35:52.671Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealLabWindow.cs: '        public static void Open() => GetWindow<SealLabWindow>("Seal La'
+2026-10-29T03:37:52.687Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealChineseUISetup.cs already exists with content
+2026-10-29T03:38:55.999Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealLab.cs: '        [Header("一 B、Steam Link / 通用 OpenXR 输入（可选）")]'
+2026-10-29T03:48:44.736Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealChineseInspectors.cs already exists with content
+2026-10-29T03:52:11.293Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealChineseUISetup.cs: '        { public bool passed; public string utc, error, font; public s'
+2026-10-29T10:23:38.040Z rollout-2026-10-27T23-28-06-01 Tools/extract_test_weights.py already exists with content
+2026-10-29T10:24:47.640Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealRecognitionTestSetup.cs already exists with content
+2026-10-29T10:26:32.025Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealRecognitionTest.cs: '                foreach (var score in lab.Scores)'
+2026-10-29T10:58:46.166Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Runtime/SealChineseText.cs: '            { "Thumb" => "拇指", "Index" => "食指", "Middle" => "中指", "Rin'
+2026-10-29T11:00:56.886Z rollout-2026-10-27T23-28-06-01 docs/RECOGNITION_TEST_ZH.md missing
+2026-10-29T11:05:16.442Z rollout-2026-10-27T23-28-06-01 Assets/SealLab/Editor/SealGuidedCapture.cs already exists with content
+2026-10-29T11:09:30.762Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealLab/Editor/SealGuidedCapture.cs: '        [Serializable] private sealed class Request { public string ac'
+2026-10-29T11:26:15.955Z rollout-2026-10-27T23-28-06-01 hunk not found in Tools/apply_visibility_weights.py: "    '子': {'L.Index.Curl':2, 'R.Index.Curl':1, 'L.Middle.Curl':0.5, 'R."
+2026-10-29T12:22:11.253Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/SkillTestController.cs already exists with content
+2026-10-29T12:23:39.388Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillTestSceneSetup.cs already exists with content
+2026-10-29T12:27:19.177Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        private double scheduledAt, nextUI, openSince = -1;'
+2026-10-29T12:28:09.424Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '                    var effects=lab.gameObject.AddComponent<SkillEffec'
+2026-10-29T12:33:16.528Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '            b.AppendLine($"加持剩余：{effects.BuffRemaining:F1} 秒  |  {effe'
+2026-10-29T12:35:23.439Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '                if (!cancelLatched) Engine.Observe(lab.Frame, lab.Scor'
+2026-10-29T12:35:55.853Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        private double scheduledAt, nextUI, nextDiagnostic, openSince '
+2026-10-29T12:36:39.762Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        private bool cancelWasPending;'
+2026-10-29T12:40:57.687Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '        [Serializable] private sealed class Report { public bool passe'
+2026-10-29T12:47:10.930Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '                    panel.transform.SetParent(camera.transform,false);'
+2026-10-29T12:51:37.332Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '            if(comboScore!=null) b.AppendLine($"{combo.displayName}：口令'
+2026-10-29T12:54:07.441Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Voice/SkillVoiceReceiver.cs: '        public string Status { get; private set; } = "语音未启动：请运行 Tools/'
+2026-10-29T13:16:57.672Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillShowcaseChecks.cs already exists with content
+2026-10-29T13:18:30.734Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '        [Serializable] private sealed class Report { public bool passe'
+2026-10-29T13:23:59.865Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseChecks.cs: '            GameObject root=null,held=null,shield=null;SkillDefinition'
+2026-10-29T13:31:12.151Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillProjectile.cs: '                if (!visual.TryGetComponent<SkillVisualLifetime>(out _'
+2026-10-29T13:38:34.795Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseChecks.cs: '            GameObject root=null,held=null,shield=null,targetObject=nu'
+2026-10-29T13:39:31.686Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillScenarioChecks.cs already exists with content
+2026-10-29T13:47:45.214Z rollout-2026-10-27T23-28-06-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:02:20.941Z rollout-2026-10-29T22-02-20-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseChecks.cs: '            GameObject root=null,held=null,shield=null,targetObject=nu'
+2026-10-29T14:02:20.941Z rollout-2026-10-29T22-02-20-01 Assets/SealCombat/Editor/SkillScenarioChecks.cs already exists with content
+2026-10-29T14:02:20.949Z rollout-2026-10-29T22-02-20-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:02:20.950Z rollout-2026-10-29T22-02-20-01 docs/SKILL_DELIVERY_QA_ZH.md already exists with content
+2026-10-29T14:03:05.161Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseChecks.cs: '            GameObject root=null,held=null,shield=null,targetObject=nu'
+2026-10-29T14:03:05.161Z rollout-2026-10-29T22-03-05-01 Assets/SealCombat/Editor/SkillScenarioChecks.cs already exists with content
+2026-10-29T14:03:05.166Z rollout-2026-10-29T22-03-05-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:03:05.166Z rollout-2026-10-29T22-03-05-01 docs/SKILL_DELIVERY_QA_ZH.md already exists with content
+2026-10-29T14:03:37.223Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseChecks.cs: '            GameObject root=null,held=null,shield=null,targetObject=nu'
+2026-10-29T14:03:37.223Z rollout-2026-10-29T22-03-37-01 Assets/SealCombat/Editor/SkillScenarioChecks.cs already exists with content
+2026-10-29T14:03:37.229Z rollout-2026-10-29T22-03-37-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:03:37.230Z rollout-2026-10-29T22-03-37-01 docs/SKILL_DELIVERY_QA_ZH.md already exists with content
+2026-10-29T14:06:31.933Z rollout-2026-10-29T22-03-05-01 Assets/SealCombat/Runtime/Effects/SkillEffectDefinition.cs already exists with content
+2026-10-29T14:06:38.641Z rollout-2026-10-29T22-02-20-01 Tools/SkillVoice/configuration.py already exists with content
+2026-10-29T14:06:39.862Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Core/SkillPhrase.cs already exists with content
+2026-10-29T14:07:14.820Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs: '        private const int Capacity = 640;'
+2026-10-29T14:07:34.899Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        [Header("二、效果材质")]'
+2026-10-29T14:08:20.214Z rollout-2026-10-29T22-02-20-01 hunk not found in Tools/SkillVoice/skill_voice.py: 'from configuration import load_configuration, materialize_keywords, no'
+2026-10-29T14:08:40.392Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        private bool clearing;'
+2026-10-29T14:09:26.778Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Core/SkillRecipeInfo.cs already exists with content
+2026-10-29T14:09:31.387Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                // A custom definition which registers then rejects/th'
+2026-10-29T14:11:38.201Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/SkillTestView.cs already exists with content
+2026-10-29T14:11:41.404Z rollout-2026-10-29T22-03-05-01 Assets/SealCombat/Editor/SkillEffectConfigurationChecks.cs already exists with content
+2026-10-29T14:13:09.944Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/SkillTestView.cs already exists with content
+2026-10-29T14:13:29.527Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                try'
+2026-10-29T14:15:39.591Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        private void Report(string message) { Status = message; Messag'
+2026-10-29T14:18:35.656Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillConfigurationSetup.cs already exists with content
+2026-10-29T14:19:11.773Z rollout-2026-10-29T22-02-20-01 README.md already exists with content
+2026-10-29T14:20:23.804Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '        [Serializable] private sealed class Report { public bool passe'
+2026-10-29T14:25:06.848Z rollout-2026-10-27T23-28-06-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:31:22.441Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/SKILL_TEST_GUIDE_ZH.md: '技能 SO 在进入播放时成为匹配配方；修改触发配方后停止再运行。效果材质、碰撞和轻推参数由执行器管理。语音词表暂固定三个口令；增加口令需同步'
+2026-10-29T14:33:19.232Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestView.cs: '            if(controller.lab)'
+2026-10-29T14:33:51.833Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestView.cs: '            int index=0;'
+2026-10-29T14:36:25.759Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillShowcaseSetup.cs: '            var controller = scene.GetRootGameObjects().SelectMany(x ='
+2026-10-29T14:41:00.856Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillConfigurationSetup.cs: '            if (controller.statusText != view.statusText) { controller'
+2026-10-29T14:42:43.347Z rollout-2026-10-29T22-03-37-01 Assets/SealCombat/Editor/SkillMigrationChecks.cs already exists with content
+2026-10-29T14:43:42.013Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillTestSceneSetup.cs: '                    case "architecture-migrate":'
+2026-10-29T14:44:05.606Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '2. 已有技能场景升级配置时，退出 Play、保存场景，执行 **Tools → NarutoVR → 技能配置 → 迁移现有技能场景**。'
+2026-10-29T14:45:25.410Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs: '            { SetStatus("语音时钟无效或结果延迟超过2秒，请重试"); return; }'
+2026-10-29T14:45:53.137Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillMigrationChecks.cs: '                var peer = new GameObject("相同配置的第二场景等价对象").AddComponen'
+2026-10-29T14:46:24.399Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillMigrationChecks.cs: '                    string.Join("\\n", controller.skills.Select((old, i'
+2026-10-29T14:46:26.548Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/SkillArchitectureChecks.cs: '                Require(view.BuildHUD(Time.realtimeSinceStartupAsDoubl'
+2026-10-29T14:47:31.793Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestView.cs: '                if(Keyboard.current.escapeKey.wasPressedThisFrame)cont'
+2026-10-29T14:49:23.129Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillConfigurationSetup.cs: '        private static bool SameRecipe(SkillDefinition a, SkillDefinit'
+2026-10-29T14:50:22.498Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '2. 本工程的四个技能场景已经迁移。以后接入旧场景时，退出 Play、保存场景，执行 **Tools → NarutoVR → 技能配置 →'
+2026-10-29T14:50:38.295Z rollout-2026-10-27T23-28-06-01 docs/SKILL_SHOWCASES_ZH.md missing
+2026-10-29T14:54:04.691Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '配置修改后先执行 **Tools → NarutoVR → 技能配置 → 验证当前场景**；**运行架构检查** 用于配置及模块契约回归。实'
+2026-10-29T14:55:46.335Z rollout-2026-10-29T22-03-05-01 hunk not found in Assets/SealCombat/Editor/SkillVisualAssets.cs: '            var velocity = p.velocityOverLifetime; velocity.enabled = '
+2026-10-29T15:15:52.592Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '玩家生命、能量、解锁、装备、版本存档仍处于 [玩家数据设计](docs/PLAYER_DATA_DESIGN_ZH.md)阶段。现在只有自身'
+2026-10-29T16:20:10.898Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '## 后续局域网多人'
+2026-10-29T16:23:10.950Z rollout-2026-10-27T23-28-06-01 docs/MULTIPLAYER_SOURCES_ZH.md missing
+2026-10-30T07:54:52.709Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '本 README 是当前配置方式的入口。`docs/` 中较早的安装、技术选型和测试记录保留历史背景；涉及技能配置时，以这里及当前 Insp'
+2026-10-30T07:56:27.024Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/SEAL_LAB_QUICKSTART_ZH.md: '# 结印实验台：使用、录制、调试与图片数据'
+2026-10-30T10:28:09.658Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs already exists with content
+2026-10-30T10:28:45.511Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs already exists with content
+2026-10-30T10:29:54.374Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Editor/RpgDataChecks.cs already exists with content
+2026-10-30T10:31:05.990Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs: '                bool primaryValid = Read(path, out _, out bool future,'
+2026-10-30T10:31:34.590Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Runtime/Rpg/Data/RpgSaveStore.cs: '        [Serializable] sealed class VersionHeader { public int version'
+2026-10-30T10:31:39.805Z rollout-2026-10-30T18-28-04-01 Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs already exists with content
+2026-10-30T10:32:48.919Z rollout-2026-10-30T18-28-04-01 Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs already exists with content
+2026-10-30T10:35:32.914Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs: '        bool rightStarted, rightSpent, forwardOwned;'
+2026-10-30T10:36:20.046Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs already exists with content
+2026-10-30T10:36:58.760Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '                string candidate = locomotion.CandidateNode ? locomoti'
+2026-10-30T10:37:10.584Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs: '            if (cooldowns.TryGetValue(recipe.Id, out double deadline) '
+2026-10-30T10:38:09.598Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs: '        double rightSince;'
+2026-10-30T10:39:49.350Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs: '            // Ownership survives firing and pose changes until the sa'
+2026-10-30T10:40:57.993Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '        void RefreshCurrentNode()'
+2026-10-30T10:41:30.724Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            if (!ReferencesValid()) { ResetInput(); Status = "请指定有效的Ri'
+2026-10-30T10:45:13.164Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '                        builder.AppendLine($"{SkillName(definition)} 冷'
+2026-10-30T10:47:00.710Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Rpg/Data/RpgStageDefinition.cs already exists with content
+2026-10-30T10:47:59.110Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Rpg/RpgTrainingHazard.cs already exists with content
+2026-10-30T10:48:00.423Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            candidateDirection = Vector2.zero;'
+2026-10-30T10:48:27.653Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            lastNow = now;'
+2026-10-30T10:48:29.573Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        private bool clearing, activating;'
+2026-10-30T10:49:48.033Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '        RpgSaveStore store;'
+2026-10-30T10:50:47.428Z rollout-2026-10-30T18-28-04-01 Assets/SealCombat/Editor/LinearRpgSceneSetup.cs already exists with content
+2026-10-30T10:51:30.963Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        public Action CancelOverride { get; set; }'
+2026-10-30T10:56:51.220Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '    public sealed class LinearRpgController : MonoBehaviour'
+2026-10-30T10:59:05.290Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Editor/LinearRpgPlayChecks.cs already exists with content
+2026-10-30T10:59:55.631Z rollout-2026-10-30T18-26-50-01 Assets/SealCombat/Editor/LinearRpgPlayChecks.cs already exists with content
+2026-10-30T11:00:48.370Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs: '    public sealed class RpgGestureSettings'
+2026-10-30T11:01:22.984Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                Require(controller.ReceiveDamage("probe." + runId + ".'
+2026-10-30T11:01:58.395Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Editor/RpgLocomotionChecks.cs: '                Box("Floor", origin + Vector3.down * 0.1f, new Vector3'
+2026-10-30T11:03:25.893Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '            if (GUILayout.Button("领取／购买隐藏法术（60货币）", buttonStyle)) cont'
+2026-10-30T11:06:48.495Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Editor/RpgLocomotionChecks.cs: '            var world = new GameObject("RpgLocomotionChecks_Temporary"'
+2026-10-30T11:07:13.995Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Editor/RpgLocomotionChecks.cs: '                a.neighbors.Add(b); b.neighbors.Add(a);'
+2026-10-30T11:10:13.845Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            candidateDirection = Vector2.zero;'
+2026-10-30T11:11:05.289Z rollout-2026-10-30T18-28-04-01 hunk not found in Assets/SealCombat/Editor/RpgLocomotionChecks.cs: '                Scene foreignScene = EditorSceneManager.NewScene(NewSc'
+2026-10-30T11:16:06.628Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgSceneSetup.cs: '            Configuration configuration = CreateConfiguration(source);'
+2026-10-30T11:29:42.124Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                EditorApplication.update -= Poll;'
+2026-10-30T11:30:22.198Z rollout-2026-10-30T18-26-50-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                int testFunding = Math.Max(0, controller.hiddenSkillPr'
+2026-10-30T11:30:48.340Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgSceneSetup.cs: '                "右手张掌短划闪避；持火球前推优先发射，侧后闪保留手中火球。\\n" +'
+2026-10-30T11:31:11.175Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                        if (ok) CaptureHud();'
+2026-10-30T11:32:39.986Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: 'Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合释放技能。当前方向调整为 **线性关卡＋轻量 RPG**；节点导航、闪避和玩'
+2026-10-30T11:33:13.516Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md: '**2026-10-30 当前方向：线性关卡＋轻量 RPG。** 已确定规则、候选设计、分阶段交付与验收见 [线性 RPG 方案](LINE'
+2026-10-30T11:34:19.349Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md: '> **2026-10-30 当前规则优先入口：** [线性 RPG 方案](LINEAR_RPG_DESIGN_ZH.md)。首个新场景切'
+2026-10-30T11:36:47.305Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '                builder.AppendLine(locomotion.OnNode ? "OnNode（节点内）：" '
+2026-10-30T11:37:51.048Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '检查记录在 [编辑模式结果](Logs/linear-rpg/build-check.json) 与 [真实Play结果](Logs/lin'
+2026-10-30T11:48:58.664Z rollout-2026-10-28T16-28-22-01 .gitignore already exists with content
+2026-10-30T11:49:49.954Z rollout-2026-10-28T16-28-22-01 .gitignore already exists with content
+2026-10-30T12:04:51.727Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/RpgHandPoseChecks.cs already exists with content
+2026-10-30T12:09:05.861Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Locomotion/BasicHandPoseSettings.cs already exists with content
+2026-10-30T12:09:42.987Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/OfficialHandPoseSetup.cs already exists with content
+2026-10-30T12:11:25.089Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs: '                last = double.NegativeInfinity; sequence = 0; clock = '
+2026-10-30T12:14:01.459Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/RpgHandPoseChecks.cs: '        public static int Run()'
+2026-10-30T12:16:01.703Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/RpgHandPoseChecks.cs: '                catch (Exception e) { throw new Exception("基础手形回归失败：" '
+2026-10-30T12:16:55.880Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs: '                ids = new[] { prefix + ".Index.Curl", prefix + ".Middl'
+2026-10-30T12:18:32.740Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/RpgRegressionSuite.cs already exists with content
+2026-10-30T12:18:53.467Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/RpgRegressionSuite.cs: '                NarutoVR.SealLab.Editor.SealLabChecks.Run();'
+2026-10-30T12:19:52.920Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                Record("初始仅解锁火球；真实手追踪/语音与自动攻击已隔离");'
+2026-10-30T12:26:04.622Z rollout-2026-10-27T23-28-06-01 docs/LINEAR_RPG_QA_2026-10-30_ZH.md missing
+2026-10-30T12:29:19.559Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                    "\\n范围：Unity真实Play生命周期、游戏时钟、Physics落点及显式调试命令。手姿为Wri'
+2026-10-30T12:31:08.604Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '            string action = File.ReadAllText(Request).Trim(); File.Del'
+2026-10-30T12:43:08.564Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '        void OnMoved(Vector3 delta) { skills.CancelInputOnly(); skills'
+2026-10-30T13:29:46.978Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/NavigationHandInput.cs: '        [InspectorName("仅导航准备时允许右掌闪避"), Tooltip("默认先以左手进入导航准备，再用张开的右掌短'
+2026-10-30T13:31:01.999Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '        public bool NavigationActive => state != null && state.Navigat'
+2026-10-30T13:32:09.447Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs already exists with content
+2026-10-30T13:37:13.227Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgGestureState.cs: '                if (rightStarted) forwardOwned |= forwardOwnedByHeldSp'
+2026-10-30T13:38:14.065Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Effects/HandThrowState.cs already exists with content
+2026-10-30T13:38:55.726Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Offset = definition ? definition.heldOffset : legacy.h'
+2026-10-30T13:38:59.218Z rollout-2026-10-30T21-35-23-01 Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs already exists with content
+2026-10-30T13:40:00.770Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs: '            // Six .04s intervals give .20s after the first separated '
+2026-10-30T13:40:10.446Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/RpgInteractionSetup.cs already exists with content
+2026-10-30T13:40:48.932Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Editor/RpgDirectionalInteractionChecks.cs: '        static void CheckAsynchronousPairs()'
+2026-10-30T13:40:49.701Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/HandThrowChecks.cs already exists with content
+2026-10-30T13:43:34.784Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/RpgInteractionPreview.cs already exists with content
+2026-10-30T13:45:32.972Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md: '本次基础操作更新：官方逐指状态引擎、Curl尺度与小指ID修复、端到端回归及串流排查见[官方基础手形](OFFICIAL_HAND_POSE'
+2026-10-30T13:46:57.810Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                try'
+2026-10-30T13:48:03.175Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '            locomotion.ProcessInput(frame, skills.effects.HasRightHeld'
+2026-10-30T13:48:47.241Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                    double poseUntil = Time.realtimeSinceStartupAsDoub'
+2026-10-30T13:49:14.932Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/LINEAR_RPG_DESIGN_ZH.md: '默认在左手导航准备期间，右手张掌后向方向短划发起闪避，方向来自有效的新手部动作。保持普通结印状态时不接受闪避，减少挥手误触发。先明确前、后、'
+2026-10-30T13:53:14.196Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                EditorApplication.update += Poll;'
+2026-10-30T13:53:55.137Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgPlayChecks.cs: '                if (driver) { driver.Tick = null; Object.Destroy(drive'
+2026-10-30T13:55:32.633Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '                skills.effects.ThrowGripProvider = ReadThrowGrip;'
+2026-10-30T13:59:14.021Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/RpgHandPoseChecks.cs: '                f.Tick(10.2);f.Tick(10.24);f.Tick(10.28);'
+2026-10-30T14:03:40.649Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/TECHNICAL_DEVELOPMENT_INDEX_ZH.md: '后续交互更新：独立右掌闪避、结印保护、路径/落点/悬停反馈，以及握拳或捏合后按手轨迹投掷火球，见[四向操作与骨骼投掷](DIRECTIONA'
+2026-10-30T14:30:53.748Z rollout-2026-10-30T22-28-29-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        public bool DeferVoiceUntilLateUpdate { get; set; }'
+2026-10-30T14:34:11.565Z rollout-2026-10-27T23-28-06-01 hunk not found in Tools/Request-RpgCheck.ps1: "    [ValidateSet('refresh','pose-regression','configure-hand-poses','c"
+2026-10-30T14:37:23.663Z rollout-2026-10-30T22-28-29-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '            if(Engine==null)return;'
+2026-10-30T14:45:06.819Z rollout-2026-10-30T22-43-12-01 Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs already exists with content
+2026-10-30T14:45:43.170Z rollout-2026-10-30T22-43-12-01 Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs already exists with content
+2026-10-30T14:46:31.210Z rollout-2026-10-30T22-43-12-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '                CandidateNode = null;'
+2026-10-30T14:46:43.335Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(velocityWindow) && velocityWindow >= .06f &'
+2026-10-30T14:47:22.936Z rollout-2026-10-30T22-43-12-01 Assets/SealCombat/Editor/NavigationScoringChecks.cs already exists with content
+2026-10-30T14:47:26.999Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T14:48:20.556Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '            Require(!new HandThrowSettings { minimumSpeed=float.NaN }.'
+2026-10-30T14:49:19.842Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T14:52:17.698Z rollout-2026-10-27T23-28-06-01 hunk not found in Tools/Request-RpgCheck.ps1: "    [ValidateSet('record-throws','clock-check','refresh','pose-regress"
+2026-10-30T14:53:54.946Z rollout-2026-10-30T22-43-12-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs: '        public bool Valid => Weight(directionWeight) && Weight(handRay'
+2026-10-30T14:54:34.788Z rollout-2026-10-30T22-43-12-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs: '            bool handRayValid, Vector3 handRayOrigin, Vector3 handRayD'
+2026-10-30T14:56:02.076Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(minimumMotionSeconds) && minimumMotionSecon'
+2026-10-30T14:59:31.464Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T15:01:29.275Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T15:14:23.612Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(velocityWindow) && velocityWindow >= .06f &'
+2026-10-30T15:14:23.612Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T15:14:23.613Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '            Require(!new HandThrowSettings { minimumSpeed=float.NaN }.'
+2026-10-30T15:14:23.613Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T15:14:23.614Z rollout-2026-10-30T23-14-23-01 docs/THROW_DIRECTION_AND_NAV_SCORING_ZH.md already exists with content
+2026-10-30T15:14:23.614Z rollout-2026-10-30T23-14-23-01 hunk not found in Tools/Request-RpgCheck.ps1: "    [ValidateSet('record-throws','clock-check','refresh','pose-regress"
+2026-10-30T15:14:23.615Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(minimumMotionSeconds) && minimumMotionSecon'
+2026-10-30T15:14:23.617Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T15:14:23.619Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T15:15:35.520Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '        public bool showDesktopControls = true;'
+2026-10-30T15:15:36.800Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Locomotion/NavigationInputSmoother.cs already exists with content
+2026-10-30T15:16:34.643Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgFeedbackSignals.cs: '    public enum RpgActionCue { NavigationReady, TargetSelected, Blocke'
+2026-10-30T15:16:56.917Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            if (selectionPending) State.RestartDwell();'
+2026-10-30T15:17:12.555Z rollout-2026-10-30T23-14-23-01 Assets/SealCombat/Editor/InteractionFeelSetup.cs already exists with content
+2026-10-30T15:18:26.450Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs: '            if (throwGrip.enabled)'
+2026-10-30T15:19:59.361Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Editor/InteractionFeelSetup.cs: '    /// <summary>Explicit balanced feel preset; does not rebuild the s'
+2026-10-30T15:20:06.766Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(velocityWindow) && velocityWindow >= .06f &'
+2026-10-30T15:20:06.766Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T15:20:06.766Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '            Require(!new HandThrowSettings { minimumSpeed=float.NaN }.'
+2026-10-30T15:20:06.767Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T15:20:06.769Z rollout-2026-10-30T23-20-06-01 docs/THROW_DIRECTION_AND_NAV_SCORING_ZH.md already exists with content
+2026-10-30T15:20:06.770Z rollout-2026-10-30T23-20-06-01 hunk not found in Tools/Request-RpgCheck.ps1: "    [ValidateSet('record-throws','clock-check','refresh','pose-regress"
+2026-10-30T15:20:06.772Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '            float.IsFinite(minimumMotionSeconds) && minimumMotionSecon'
+2026-10-30T15:20:06.775Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==1 && !effect.HasHeldObject'
+2026-10-30T15:20:06.776Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                Vector3 velocity = throwState.Process(wrist.position, '
+2026-10-30T15:20:06.783Z rollout-2026-10-30T23-20-06-01 Assets/SealCombat/Runtime/Locomotion/NavigationInputSmoother.cs already exists with content
+2026-10-30T15:20:06.783Z rollout-2026-10-30T23-20-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '            if (selectionPending) State.RestartDwell();'
+2026-10-30T15:20:57.713Z rollout-2026-10-30T23-14-23-01 hunk not found in Assets/SealCombat/Editor/InteractionFeelSetup.cs: '            if (!movement || movement.gestures == null || movement.smo'
+2026-10-30T15:22:52.733Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowState.cs: '                if (double.IsNaN(heldSince)) heldSince = input.observe'
+2026-10-30T15:23:53.392Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        public string ThrowStatus => heldObject && throwState != null '
+2026-10-30T15:26:28.677Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/InteractionFeelChecks.cs already exists with content
+2026-10-30T15:27:06.976Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/HandThrowChecks.cs: '                Require(effect.LaunchCount==2 && Vector3.Dot(effect.La'
+2026-10-30T15:28:03.180Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/InteractionFeelChecks.cs: '            Feed(0,0);Feed(.1,0);Feed(.15,.08f);Feed(.25,.08f);'
+2026-10-30T15:29:12.231Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/InteractionFeelSetup.cs: '            if (EditorApplication.isPlayingOrWillChangePlaymode || sce'
+2026-10-30T15:34:27.221Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '- 条件满足后激活技能；火球的“生成到手上”和“发射”是两个阶段。线性RPG使用握拳/捏合后甩手松开，沿手轨迹投掷；旧展示场景保留前推。见['
+2026-10-30T15:36:39.437Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs: '        [InspectorName("显示已锁定投掷方向"), Tooltip("仅在轨迹有效且等待松手确认时显示短线；不修正发射'
+2026-10-30T15:54:40.244Z rollout-2026-10-27T23-28-06-01 docs/TUTORIAL_UI_RESEARCH_ZH.md missing
+2026-10-30T15:55:56.245Z rollout-2026-10-27T23-28-06-01 docs/PLAYER_DATA_DESIGN_ZH.md missing
+2026-10-30T15:56:41.141Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '- [移动、投掷手感与详细调试](docs/INTERACTION_FEEL_AND_DEBUG_ZH.md)补充导航平滑、驻留暂停、冻结释'
+2026-10-30T16:07:13.407Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Rpg/WristMenuState.cs already exists with content
+2026-10-30T16:08:42.343Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Rpg/WristMenuController.cs already exists with content
+2026-10-30T16:09:53.939Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '        bool paused, initialized, wasNavigation, saveBlocked;'
+2026-10-30T16:10:33.874Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '            State.Reset(); pointer.Reset(); pinched = shown = false; f'
+2026-10-30T16:11:24.561Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuView.cs: '            RefreshStyle();'
+2026-10-30T16:12:28.305Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/WristMenuChecks.cs already exists with content
+2026-10-30T16:14:57.634Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuView.cs: '            AddText("启动器标题", _launcher, 202f, 35f, 340f, 42f,'
+2026-10-30T16:16:05.495Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: 'using System;'
+2026-10-30T16:16:51.745Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/WristMenuPlayChecks.cs already exists with content
+2026-10-30T16:18:30.058Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 基础手形 | Meta官方状态引擎与默认阈值；左右手独立确认与失效撤销；[串流调试说明](docs/OFFICIAL_HAND_POSE'
+2026-10-30T16:20:41.573Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '            if (!State.CanInteract || hit == null) pointer.Reset();'
+2026-10-30T16:26:23.485Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuView.cs: '            Place(_decoration, pose);'
+2026-10-30T16:27:08.014Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '                { since = -1; reopenBlocked = true; }'
+2026-10-30T16:41:33.790Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '        [InspectorName("开启保持秒数"), Range(.15f,.8f)] public float openHo'
+2026-10-30T16:42:30.215Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '            if (lowered && PanelOpen && Policy(PanelKind).closeWithWri'
+2026-10-30T16:43:59.343Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '            view.SetOpeningHint(Facing(sample.leftWrist+Vector3.up*.08'
+2026-10-30T16:45:28.160Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '            if (!valid || !continuity)'
+2026-10-30T16:49:12.213Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md: '本轮自动验收：313 项编辑模式检查（含 33 项腕饰与指针检查）、37 项效果检查、30 项真实 Play 集成检查，共 380 项通过。'
+2026-10-30T16:51:38.499Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '            bool hint = left && !busy && !State.LauncherOpen && sample'
+2026-10-30T17:08:52.160Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/WristRayIssueProbe.cs already exists with content
+2026-10-30T17:15:50.804Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '        [InspectorName("捏合闭合距离（米）"), Range(.01f,.04f)] public float pi'
+2026-10-30T17:21:16.652Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '    /// <summary>Deliberate release clicks. Entering a target already '
+2026-10-30T17:21:48.009Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '            if (wristMenu && wristMenu.isActiveAndEnabled)'
+2026-10-30T17:22:31.767Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/ThrowEaseChecks.cs already exists with content
+2026-10-30T17:23:14.099Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/WristTapChecks.cs already exists with content
+2026-10-30T17:23:59.657Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/OfficialHandPoseDetector.cs: '            public readonly bool pointing, open, closed, valid;'
+2026-10-30T17:24:22.960Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/WristMenuPlayChecks.cs: '                for(int i=0;i<10;i++) { double t=now-.5+i*.05; menu.Ti'
+2026-10-30T17:25:53.473Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 腕饰教学卡 | 左拳抬腕三入口、近按/射线捏合、分页和独立放腕关闭策略；[操作与配置](docs/WRIST_MENU_INTERACT'
+2026-10-30T17:28:56.192Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md: '应用入口：`Tools/NarutoVR/线性RPG/应用易操作抬腕配置`（后台 `wrist-ease`）。仅调整抬腕阈值；不覆盖子面板关'
+2026-10-30T17:29:23.680Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '            skills.effects.ThrowInputSuppressed = !CanAct || UiInputOw'
+2026-10-30T17:31:21.912Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '        [Header("握拳抬腕唤起")]'
+2026-10-30T17:34:10.344Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/NavigationNodeFixture.cs already exists with content
+2026-10-30T17:36:05.718Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/WRIST_MENU_INTERACTION_DESIGN_ZH.md: '真机需验收：各10次开关/轻捏翻页，持续接触不连点；点腕时不传送、不闪避；结印过渡不误点腕；放腕后保留卡可以关闭且能恢复移动；持球投掷不唤起'
+2026-10-30T17:39:19.856Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/WristViewLifecycleChecks.cs already exists with content
+2026-10-30T17:42:40.003Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuView.cs: '    [DisallowMultipleComponent]'
+2026-10-30T17:43:32.260Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/WristViewLifecycleChecks.cs: '            if(after!=0) throw new InvalidOperationException($"腕饰销毁后仍残'
+2026-10-30T17:45:33.769Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuView.cs: '            if (!_built)'
+2026-10-30T17:46:32.082Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/WristViewEditorLifetime.cs: '                if(view.TryGetComponent<WristMenuController>(out var c'
+2026-10-30T17:47:46.717Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/WristViewLifecycleChecks.cs: 'using System.Reflection;'
+2026-10-30T17:48:08.234Z rollout-2026-10-27T23-28-06-01 hunk not found in Tools/Request-RpgCheck.ps1: "    [ValidateSet('wrist-roots','wrist-lifecycle','wrist-cleanup','thro"
+2026-10-30T17:48:54.570Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '在“左腕术式菜单与教学卡”的中文 Inspector 调整接触半径、腕饰偏移、轻捏距离与子面板策略；在“效果_fireball”调整投掷门槛'
+2026-10-30T18:45:31.453Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/ThrowPresentationChecks.cs already exists with content
+2026-10-30T18:47:16.646Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs already exists with content
+2026-10-30T18:51:50.962Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        public string ThrowStatus => heldObject && throwState != null '
+2026-10-30T18:53:31.858Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Effects/ThrowDiagnosticRecorder.cs already exists with content
+2026-10-30T18:54:32.172Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Effects/ThrowDiagnosticRecorder.cs already exists with content
+2026-10-30T18:54:58.873Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        public bool ThrowPreviewValid => ThrowInputValid && (throwStat'
+2026-10-30T18:56:28.018Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/ScoredThrowChecks.cs already exists with content
+2026-10-30T18:56:59.193Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/ScoredThrowSetup.cs already exists with content
+2026-10-30T18:58:34.558Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/ScoredThrowChecks.cs: '                var state=new HandThrowIntentState(Settings()); int fi'
+2026-10-30T19:00:46.213Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '4. **投掷**：火球在手上后，握住或捏住，再甩手松开。RPG 当前门槛为握持 0.04 秒、最低手速 0.45 米/秒、有效轨迹相对身体'
+2026-10-30T19:01:15.177Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '4. **投掷**：火球在手上后，握住或捏住，再甩手松开。RPG 当前门槛为握持 0.04 秒、最低手速 0.45 米/秒、有效轨迹相对身体'
+2026-10-30T19:04:11.197Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '            view.statusText.text = view.BuildHud(); Canvas.ForceUpdate'
+2026-10-30T19:07:41.268Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs: '        public string phase, reason;'
+2026-10-30T19:08:24.005Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '- [移动、投掷手感与详细调试](docs/INTERACTION_FEEL_AND_DEBUG_ZH.md)补充导航平滑、驻留暂停、冻结释'
+2026-10-30T20:01:19.846Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '- 关联待办/旧审阅：GLY-01, GLY-06'
+2026-10-31T06:26:58.042Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '先做 **2–3 个单笔、形状差异明显的符号**；比较圆、折线、三角形等候选，实际模板用头显录制，不把示例 XML 当最终校准数据。先接一个'
+2026-10-31T11:49:17.485Z rollout-2026-10-31T19-49-17-01 docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md already exists with content
+2026-10-31T11:49:17.487Z rollout-2026-10-31T19-49-17-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '- 关联待办/旧审阅：GLY-01, GLY-06'
+2026-10-31T11:49:17.488Z rollout-2026-10-31T19-49-17-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '先做 **2–3 个单笔、形状差异明显的符号**；比较圆、折线、三角形等候选，实际模板用头显录制，不把示例 XML 当最终校准数据。先接一个'
+2026-10-31T11:49:40.045Z rollout-2026-10-31T19-49-39-01 docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md already exists with content
+2026-10-31T11:49:40.048Z rollout-2026-10-31T19-49-39-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '- 关联待办/旧审阅：GLY-01, GLY-06'
+2026-10-31T11:49:40.049Z rollout-2026-10-31T19-49-39-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '先做 **2–3 个单笔、形状差异明显的符号**；比较圆、折线、三角形等候选，实际模板用头显录制，不把示例 XML 当最终校准数据。先接一个'
+2026-10-31T11:49:50.595Z rollout-2026-10-31T19-49-50-01 docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md already exists with content
+2026-10-31T11:49:50.598Z rollout-2026-10-31T19-49-50-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '- 关联待办/旧审阅：GLY-01, GLY-06'
+2026-10-31T11:49:50.599Z rollout-2026-10-31T19-49-50-01 hunk not found in docs/GLYPH_INTEGRATION_TODO_AND_REVIEW_ZH.md: '先做 **2–3 个单笔、形状差异明显的符号**；比较圆、折线、三角形等候选，实际模板用头显录制，不把示例 XML 当最终校准数据。先接一个'
+2026-10-31T11:51:42.262Z rollout-2026-10-31T19-49-17-01 hunk not found in Tools/SkillVoice/skill_voice.py: '    def send(self, kind, destination=None, **data):'
+2026-10-31T11:52:35.595Z rollout-2026-10-31T19-49-17-01 Assets/SealCombat/Editor/VoiceDiagnosticsChecks.cs already exists with content
+2026-10-31T13:54:13.028Z rollout-2026-10-27T23-28-06-01 docs/INTERACTION_REPAIR_20261031_ZH.md missing
+2026-10-31T17:16:24.247Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuState.cs: '                if(lastLeft>=0 && f.leftObserved-lastLeft>s.maxGap) lo'
+2026-10-31T17:21:45.146Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '        Vector3 dragAnchor, dragPanelStart;'
+2026-10-31T17:21:56.980Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/WristRayIssueProbe.cs: '                var panel=view.OwnedRoot.GetComponentsInChildren<RectT'
+2026-10-31T17:24:02.303Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '本轮腕饰、射线选点与语音诊断操作：[交互修复与测试](docs/INTERACTION_REPAIR_20261031_ZH.md)。'
+2026-10-31T18:18:36.260Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Core/SkillCastTrace.cs already exists with content
+2026-10-31T22:08:01.444Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillCastTraceChecks.cs already exists with content
+2026-10-31T22:10:23.071Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '        private void ResetInputLifecycle()'
+2026-10-31T22:17:27.173Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Core/ISkillActivationPolicy.cs already exists with content
+2026-10-31T22:17:48.936Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/SkillTestController.cs: '                TraceCast(accepted?"activation_accepted":"activation_r'
+2026-10-31T22:18:11.455Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/SkillActivationPolicyChecks.cs already exists with content
+2026-10-31T22:28:23.629Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Editor/ProjectileStorageChecks.cs already exists with content
+2026-10-31T22:31:05.097Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/HandThrowIntentState.cs: '                    reachSpeed,aimStability,forwardCone,maxHeadMove,ma'
+2026-10-31T22:31:54.917Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '                releaseOrigin=releasePoseValid?releasePose.position:He'
+2026-10-31T22:34:08.777Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/ScoredThrowChecks.cs: '            count+=Recorder();'
+2026-10-31T22:37:51.515Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/ScoredThrowChecks.cs: '            count+=RelaxedFireball();'
+2026-11-01T11:35:23.719Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Runtime/Effects/SkillEffects.cs: '        private bool ReachPreview => ThrowInputValid && CurrentThrowSc'
+2026-11-01T11:35:33.777Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs: '        [InspectorName("显示投掷方向提示"), Tooltip("握持中显示有效轨迹估计；松手候选确定后显示冻结方向'
+2026-11-01T11:35:56.606Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Runtime/Core/SkillMatchEngine.cs: '            ClearContext(time, false); SetStatus("已取消施法；旧口令与手印已清除，请退出原'
+2026-11-01T11:36:13.897Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/SkillCoreChecks.cs: '            Check("组合保持超过10秒仍能新念咒一次", SkillTriggerMode.VoiceAndGesture'
+2026-11-01T11:36:31.882Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Editor/ThrowPresentationChecks.cs: '                return 2;'
+2026-11-01T11:37:06.572Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgInteractionFeedback.cs: '            throwDirection.enabled = aimReticle.enabled = active && sh'
+2026-11-01T12:14:36.543Z rollout-2026-11-01T20-14-36-01 docs/ENCOUNTER_LOCOMOTION_ZH.md already exists with content
+2026-11-01T12:14:42.304Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/NavigationTargetScoring.cs: '        /// <summary>Ray mode has a hard hit gate; gaze/distance never'
+2026-11-01T12:15:33.818Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Runtime/Rpg/WristMenuController.cs: '        public bool PointerVisible { get; private set; }'
+2026-11-01T12:15:58.846Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs: '                skills.VoiceOwnershipDetail = () => UiInputOwned ? "腕部'
+2026-11-01T12:16:09.478Z rollout-2026-10-30T21-35-23-01 hunk not found in Assets/SealCombat/Runtime/Locomotion/RpgLocomotionController.cs: '        public string BuildDebugDetails(double now)'
+2026-11-01T12:16:33.913Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/WristTapChecks.cs: '                tap.Step(f,f.leftWrist,blocked,t,s); state.Tick(f,bloc'
+2026-11-01T12:17:04.783Z rollout-2026-10-29T22-03-37-01 hunk not found in Assets/SealCombat/Editor/WristTapChecks.cs: '                var matcher=new SkillMatchEngine(new[]{recipe}); match'
+2026-11-01T13:04:00.553Z rollout-2026-10-28T16-28-22-01 hunk not found in docs/architecture/LINEAR_RPG_DESIGN_ZH.md: '| A：首个可玩切片 | 新 `LinearRpgTest` 场景；玩家 HP/MP/CD/检查点；节点导航、方向闪避、低位取消；复用火球/'
+2026-11-01T13:04:59.180Z rollout-2026-10-28T16-28-22-01 hunk not found in README.md: '本轮已接入线性 RPG：靠近腕饰或悬停只提示，不打断施法。战斗时左食指启用视线为主的节点传送，空手右手胸前快推触发向后滑退；探索时左食指沿水'
+2026-11-02T07:08:14.376Z rollout-2026-10-28T16-28-22-01 hunk not found in docs/architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md: '\\`SealXRHandsSource\\`读取XRHand关节并映射Wrist/Palm；\\`WristMenuController\\`按腕'
+2026-11-02T07:31:04.663Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Editor/WrapHandReplayCheck.cs: '                        var original=Bake();'
+2026-11-02T07:31:45.675Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Runtime/TrackedWrapHand.cs: '                j.bone.SetPositionAndRotation(origin.TransformPoint(p.'
+2026-11-02T07:32:34.297Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Editor/WrapHandReplayCheck.cs: '                            passed &= p99<2 && angle<25 && drift<.01f;'
+2026-11-02T07:33:13.107Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Editor/WrapHandReplayCheck.cs: '                                cuff.BakeMesh(mesh);'
+2026-11-02T07:33:51.579Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Runtime/TrackedWrapHand.cs: '        [Min(.01f)] public float lowerLength = .26f;'
+2026-11-02T07:35:03.629Z rollout-2026-10-28T16-28-22-01 hunk not found in docs/architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md: '连接 Steam Link 后打开上述任一场景，进入 Play，依次伸掌、轻捏、握拳、屈腕，再短暂遮住一只手后恢复。观察指尖是否对齐、袖口是'
+2026-11-02T07:39:56.208Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealLab/Editor/WrapHandReplayCheck.cs: '            var scene=EditorSceneManager.OpenPreviewScene(SealSteamLin'
+2026-11-02T08:09:34.570Z rollout-2026-10-28T16-28-22-01 hunk not found in Assets/SealCombat/Runtime/Rpg/RpgSessionView.cs: '            ? controller.locomotion.EncounterDebugDetails + "\\\\n" + co'
+2026-11-03T11:53:59.424Z rollout-2026-10-29T23-05-30-01 Assets/Scripts/Board/ChessBoardController.cs missing
+2026-11-03T11:54:51.726Z rollout-2026-10-29T23-05-30-01 Assets/Scripts/Board/ChessBoardController.cs missing
+2026-11-03T11:55:03.442Z rollout-2026-10-29T23-05-30-01 Assets/Scripts/Editor/Board/TempBoardSetup.cs missing
+2026-11-03T12:26:07.067Z rollout-2026-10-29T23-05-30-01 Assets/Scripts/Editor/Board/TempMigrateRoutes.cs missing
+2026-11-04T03:09:53.823Z rollout-2026-10-28T16-28-22-01 hunk not found in README.md: 'docs/                        # guides / architecture / research / worl'
+2026-11-04T03:56:20.698Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 移动与关卡 | 战斗视线选点传送、胸前快推后撤、探索视线行走、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |'
+2026-11-04T03:59:39.451Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                try { string report = Run(); Debug.Log(report); }'
+2026-11-04T04:00:36.791Z rollout-2026-10-28T16-28-22-01 hunk not found in docs/README.md: '- [技能系统中文类图与代码阅读入口](architecture/SKILL_SYSTEM_CLASS_DIAGRAM_ZH.md)覆盖当前'
+2026-11-04T04:01:35.048Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '            GameObject go = null, point = null;'
+2026-11-04T04:01:52.113Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                    File.WriteAllText("Logs/enemy-fsm-20261104/check.t'
+2026-11-04T04:02:28.443Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '        const string TestKey = "NarutoVR.Enemy.CheckRunning", Previous'
+2026-11-04T04:04:59.780Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                                throw new Exception("失去目标后未停稳待机");'
+2026-11-04T09:56:46.945Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            get => enemyObj ? enemyObj.Animator : legacyAnimator;'
+2026-11-04T09:57:31.597Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '        public bool NotifyHit() => TryReact(EnemyReaction.Hit);'
+2026-11-04T09:58:17.967Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                wall.SetActive(true); Physics.SyncTransforms(); Step(4'
+2026-11-04T09:59:10.699Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            int token = ++generation;'
+2026-11-04T10:02:06.048Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 敌人 AI | 场景点巡逻、视野/遮挡发现、NavMesh 追击、随机独立攻击与首次发现事件；召唤敌人无目标待机。[接线与边界](doc'
+2026-11-04T10:24:03.884Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: 'using UnityEngine.Serialization;'
+2026-11-04T10:24:40.778Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            if (!animationValid || !enemyObj.AnimationActive)'
+2026-11-04T10:25:37.165Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            return enemyObj.ValidateAnimator(attackCount, out reason);'
+2026-11-04T10:25:55.623Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                int busFirst = 0, busBegan = 0, busEnded = 0, busConta'
+2026-11-04T10:30:34.888Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '        public bool IsDead => reaction == EnemyReaction.Dead;'
+2026-11-04T10:32:35.129Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Skills/Effects/ProjectileEffectDefinition.cs missing
+2026-11-04T10:33:24.000Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                if (ConfigOnly(before) != ConfigOnly(after) || (oldAni'
+2026-11-04T10:34:43.617Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {'
+2026-11-04T10:36:27.528Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {'
+2026-11-04T10:38:09.122Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyObj.cs: '            if (state.Dead) { if (!controller.TryDie()) controller.Set'
+2026-11-04T10:39:04.132Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyObj.cs: '            bool CurrentLife() => this && isActiveAndEnabled && contro'
+2026-11-04T10:43:41.813Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T10:43:57.835Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '        bool reactionEntered;'
+2026-11-04T10:45:06.854Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '            if (!entity.CombatDefinition) entity.CombatDefinition = de'
+2026-11-04T10:45:37.995Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                string report = $"PASSED 敌人状态/动画/导航 {count} 项通过；事件中心 {'
+2026-11-04T10:48:44.811Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 敌人 AI | EnemyController 决策与 EnemyObj 实体执行分离；巡逻/追击、随机攻击、首次发现事件、Hit/Se'
+2026-11-04T10:49:56.021Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            pendingAttacker = null; provokedUntil = -1;'
+2026-11-04T10:52:35.810Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/EnemySetupAndChecks.cs: '                            Finish(null); return;'
+2026-11-04T10:58:46.556Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Runtime/Enemies/EnemyController.cs: '            if (!suspended && !IsDead && enemyObj.DetectionSensor)'
+2026-11-04T11:03:30.719Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T11:05:44.861Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                    case "p1-check":'
+2026-11-04T11:17:46.053Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                    case "p1-room-inspect": Write(new Report { action='
+2026-11-04T11:20:59.171Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                    case "p1-room-preview": Write(new Report { action='
+2026-11-04T11:22:12.174Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: 'P1 程序试炼使用独立靶场，集中测试命中特效复用、语音避让和触觉反馈。[场景与验收说明](docs/guides/P1_TRIAL_ZH.m'
+2026-11-04T11:23:48.803Z rollout-2026-10-27T23-28-06-01 docs/guides/P1_TRIAL_ZH.md missing
+2026-11-04T11:28:01.717Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T11:48:41.701Z rollout-2026-11-04T18-52-20-01 hunk not found in docs/README.md: '- 准望匣新预览：[六仓全空与隐藏净空剖面](visuals/20261104_zhunwang_clearance/01_empty_cl'
+2026-11-04T11:51:00.371Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                    case "p1-room-inspect": Write(new Report { action='
+2026-11-04T11:52:16.417Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: 'P1 程序试炼使用独立场景：单个可重复练习靶、8 米通廊、14×16 米战斗房间，共 70 个导航点。越过房间内入口线才唤醒残机偶；退出暂停'
+2026-11-04T11:57:25.202Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T12:09:12.514Z rollout-2026-11-02T17-57-51-01 scratch/render_yicun_shanhe_guzheng_v5.py missing
+2026-11-04T12:12:15.925Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T12:20:49.441Z rollout-2026-11-02T17-57-51-01 scratch/render_yicun_shanhe_guzheng_v6.py missing
+2026-11-04T12:21:53.799Z rollout-2026-11-04T18-52-20-01 hunk not found in docs/visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt: '版本：V3.4修订｜增加空仓内部净空与插入避碰约束；保留V3.3人体参照、一体双绑带、小篆铭文与尺寸建议。'
+2026-11-04T12:24:30.594Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T12:53:02.995Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/LinearRpgValidation.cs: '                    case "organize-rpg-config": Write(new Report { act'
+2026-11-04T12:58:07.870Z rollout-2026-10-27T23-28-06-01 hunk not found in Assets/SealCombat/Editor/P1RoomPlayChecks.cs: '            Check(rpg.CanAct && !move.EncounterCombat && !enemy.gameOb'
+2026-11-04T13:03:42.343Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/README.md: '- [敌人异步生成与对象池](guides/ENEMY_SPAWNING_ZH.md)：GameManager、EnemyManager、怪'
+2026-11-04T13:20:41.501Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:01:30.137Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:03:13.635Z rollout-2026-11-02T17-57-51-01 hunk not found in docs/README.md: '| 音乐创作、重编与验收 | [音乐制作 skill](skills/music-production/SKILL.md)：用途、主题、曲式'
+2026-11-04T14:04:20.868Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/toolchain.md missing
+2026-11-04T14:05:01.249Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:07:38.061Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-05T06:01:07.062Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-05T06:08:58.405Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/toolchain.md missing
+2026-11-05T06:22:29.638Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/audio-review.md missing
+2026-11-05T06:30:48.331Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Runtime/Rpg/GameManager.cs: '        int generation;'
+2026-11-05T06:30:48.331Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/P1RoomPlayChecks.cs: '            Check(rpg.CanAct && !move.EncounterCombat && !enemy.gameOb'
+2026-11-05T06:30:48.331Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Editor/EnemyPoolingChecks.cs already exists with content
+2026-11-05T06:30:48.332Z rollout-2026-11-05T14-30-48-01 docs/guides/ENEMY_SPAWNING_ZH.md already exists with content
+2026-11-05T06:30:48.332Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.Spawning.cs: '                inside = false; CancelPendingSpawns(); PauseManagedEne'
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/EnemyPoolingChecks.cs: '                Check(controller.Entity.ReceiveHit("pooled-hit", 10, 2'
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 hunk not found in docs/README.md: '- [敌人异步生成与对象池](guides/ENEMY_SPAWNING_ZH.md)：GameManager、EnemyManager、怪'
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Runtime/Rpg/GameManager.cs: '            IsReady = false;'
+2026-11-05T06:30:48.334Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/EnemyPoolingChecks.cs: '                    await WithTimeout(other);'
+2026-11-05T06:30:48.335Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/P1RoomPlayChecks.cs: '            var manager = XRGeneralSettings.Instance ? XRGeneralSettin'
+2026-11-05T06:30:48.336Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/EnemyPoolingChecks.cs: '                try { await WithTimeout(late); } catch (OperationCance'
+2026-11-05T06:30:48.337Z rollout-2026-11-05T14-30-48-01 hunk not found in Assets/SealCombat/Editor/EnemyPoolingChecks.cs: '                Check(!late.IsCompleted, "在途关闭测试必须确实处于等待阶段");'
+2026-11-05T07:39:21.805Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Voice/NarrationOperationPublisher.cs.meta missing
+2026-11-05T07:42:33.568Z rollout-2026-10-27T23-28-06-01 hunk not found in README.md: '| 旁白与教学推进 | 每句自动、等待操作或音频与操作双条件；整段/单句开始事件、事件中心接入、步骤令牌和可绑定计时器。[操作指南](doc'
+2026-11-05T09:58:21.553Z rollout-2026-10-27T23-28-06-01 Assets/SealCombat/Runtime/Voice/NarrationOperationTimer.cs.meta missing
+2026-11-05T10:00:01.346Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/guides/NARRATION_FLOW_ZH.md: '当前步骤记录音频完成和操作完成。操作通知先设置 `OperationDone`，`Update` 判断条件并进入下一句；重复通知不会让同一句'
+2026-11-05T10:01:21.254Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/guides/NARRATION_FLOW_ZH.md: '本次句间隔的验证记录放在 `Logs/narration-gap-20261105`。`Logs/narration-linear-2026'
+2026-11-05T10:11:45.298Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/guides/NARRATION_FLOW_ZH.md: '## 导入、调试和验证'
+2026-11-05T10:12:09.981Z rollout-2026-10-27T23-28-06-01 hunk not found in docs/guides/NARRATION_FLOW_ZH.md: '本次句间隔的验证记录放在 `Logs/narration-gap-20261105`。`Logs/narration-linear-2026'
+
+=== SKIPPED ===
+2026-10-10T02:25:22.231Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:31:54.288Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:35:13.430Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:36:24.589Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:38:01.523Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:39:00.428Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:41:47.066Z rollout-2026-10-10T10-15-59-01
+2026-10-14T00:43:18.992Z rollout-2026-10-10T10-15-59-01
+2026-10-14T02:33:26.755Z rollout-2026-10-14T10-22-07-01
+2026-10-14T02:34:25.248Z rollout-2026-10-14T10-22-07-01
+2026-10-14T02:38:25.866Z rollout-2026-10-14T10-22-07-01
+2026-10-14T02:38:39.657Z rollout-2026-10-14T10-22-07-01
+2026-10-14T02:40:15.645Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:04:06.482Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:09:15.206Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:14:05.427Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:18:40.490Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:22:09.258Z rollout-2026-10-14T10-22-07-01
+2026-10-14T03:44:09.625Z rollout-2026-10-14T11-38-55-01
+2026-10-14T03:49:29.051Z rollout-2026-10-14T11-38-55-01
+2026-10-14T03:55:33.690Z rollout-2026-10-14T11-38-55-01
+2026-10-16T02:58:49.277Z rollout-2026-10-10T10-15-59-01
+2026-10-16T09:44:26.616Z rollout-2026-10-14T11-38-55-01
+2026-10-16T09:45:13.671Z rollout-2026-10-14T11-38-55-01
+2026-10-16T09:46:38.195Z rollout-2026-10-14T11-38-55-01
+2026-10-16T09:47:03.840Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:17:03.085Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:20:00.717Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:20:43.301Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:24:03.465Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:33:33.617Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:41:42.299Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:45:06.767Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:46:18.916Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:48:36.936Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:52:22.735Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:56:27.139Z rollout-2026-10-14T11-38-55-01
+2026-10-16T10:56:40.943Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:02:54.698Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:07:20.049Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:08:52.802Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:09:58.777Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:11:47.558Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:12:29.965Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:15:10.577Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:18:24.453Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:19:46.292Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:21:00.572Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:22:16.468Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:23:05.936Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:26:24.358Z rollout-2026-10-14T11-38-55-01
+2026-10-16T11:30:14.013Z rollout-2026-10-14T11-38-55-01
+2026-10-20T13:38:41.734Z rollout-2026-10-14T11-38-55-01
+2026-10-20T13:39:01.358Z rollout-2026-10-14T11-38-55-01
+2026-10-20T13:39:40.330Z rollout-2026-10-14T11-38-55-01
+2026-10-20T13:39:59.162Z rollout-2026-10-14T11-38-55-01
+2026-10-21T02:17:36.176Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:22:02.127Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:23:50.512Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:24:29.827Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:25:04.509Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:26:20.852Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:26:37.720Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:36:07.290Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:38:46.858Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:40:34.751Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:41:08.655Z rollout-2026-10-14T10-22-07-01
+2026-10-21T02:46:48.923Z rollout-2026-10-14T10-22-07-01
+2026-10-21T03:04:38.479Z rollout-2026-10-14T10-22-07-01
+2026-10-21T03:06:11.500Z rollout-2026-10-14T10-22-07-01
+2026-10-21T03:07:46.196Z rollout-2026-10-14T10-22-07-01
+2026-10-21T03:09:46.328Z rollout-2026-10-14T10-22-07-01
+2026-10-21T03:10:49.998Z rollout-2026-10-14T10-22-07-01
+2026-10-21T11:01:53.371Z rollout-2026-10-20T13-07-21-01
+2026-10-21T11:14:19.479Z rollout-2026-10-20T13-07-21-01
+2026-10-21T11:52:01.231Z rollout-2026-10-14T11-38-55-01
+2026-10-21T11:54:34.515Z rollout-2026-10-14T11-38-55-01
+2026-10-21T11:56:31.618Z rollout-2026-10-14T11-38-55-01
+2026-10-23T02:35:52.089Z rollout-2026-10-10T10-15-59-01
+2026-10-23T02:36:33.921Z rollout-2026-10-10T10-15-59-01
+2026-10-23T02:41:09.449Z rollout-2026-10-10T10-15-59-01
+2026-10-23T07:34:17.014Z rollout-2026-10-20T13-07-21-01
+2026-10-23T07:37:18.134Z rollout-2026-10-20T13-07-21-01
+2026-10-23T07:39:44.819Z rollout-2026-10-20T13-07-21-01
+2026-10-23T07:40:53.989Z rollout-2026-10-20T13-07-21-01
+2026-10-23T09:47:36.144Z rollout-2026-10-20T13-07-21-01
+2026-10-23T09:52:17.481Z rollout-2026-10-20T13-07-21-01
+2026-10-23T09:54:07.417Z rollout-2026-10-20T13-07-21-01
+2026-10-23T09:57:15.474Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:25:25.586Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:27:34.272Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:30:45.557Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:32:56.698Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:37:17.359Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:39:22.413Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:42:58.315Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:45:20.069Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:51:01.987Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:52:35.930Z rollout-2026-10-20T13-07-21-01
+2026-10-23T10:54:01.883Z rollout-2026-10-20T13-07-21-01
+2026-10-25T06:44:31.573Z rollout-2026-10-25T01-17-19-01
+2026-10-25T12:11:19.990Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:11:48.164Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:17:32.116Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:22:24.876Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:23:10.210Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:29:22.495Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:30:30.408Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:31:04.150Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:32:35.415Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:34:19.262Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:35:15.630Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:36:20.966Z rollout-2026-10-14T11-38-55-01
+2026-10-25T12:59:21.580Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:20:28.390Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:20:42.134Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:21:43.826Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:22:21.583Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:24:47.037Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:25:32.789Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:26:34.045Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:27:46.726Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:28:32.669Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:29:43.725Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:31:25.001Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:31:53.324Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:36:19.281Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:38:30.531Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:39:00.708Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:41:02.379Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:41:20.051Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:41:36.167Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:55:11.518Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:56:46.462Z rollout-2026-10-14T11-38-55-01
+2026-10-25T13:59:15.882Z rollout-2026-10-14T11-38-55-01
+2026-10-25T14:00:27.193Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:20:08.785Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:21:53.142Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:22:49.456Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:28:44.172Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:29:17.452Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:36:49.124Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:38:44.487Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:39:09.709Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:39:59.219Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:40:33.206Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:41:12.278Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:47:59.709Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:50:04.274Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:51:44.643Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:52:19.496Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:53:07.601Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:53:58.338Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:54:14.519Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:56:04.590Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:56:35.797Z rollout-2026-10-14T11-38-55-01
+2026-10-29T13:57:05.877Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:08:22.203Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:08:57.751Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:10:24.666Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:11:32.704Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:12:19.007Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:32:10.521Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:32:50.324Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:35:33.032Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:36:50.597Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:37:40.633Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:38:24.216Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:42:22.486Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:44:36.540Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:46:50.194Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:49:12.781Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:50:31.561Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:51:23.011Z rollout-2026-10-14T11-38-55-01
+2026-10-29T14:53:08.761Z rollout-2026-10-14T11-38-55-01
+2026-10-29T15:14:42.014Z rollout-2026-10-29T23-05-30-01
+2026-10-29T15:15:29.342Z rollout-2026-10-29T23-05-30-01
+2026-10-29T15:19:44.731Z rollout-2026-10-14T11-38-55-01
+2026-10-29T15:22:35.443Z rollout-2026-10-14T11-38-55-01
+2026-10-29T15:24:26.701Z rollout-2026-10-14T11-38-55-01
+2026-10-29T15:27:48.549Z rollout-2026-10-14T11-38-55-01
+2026-10-29T15:30:38.184Z rollout-2026-10-14T11-38-55-01
+2026-10-30T04:27:50.247Z rollout-2026-10-30T12-22-23-01
+2026-10-30T04:28:35.399Z rollout-2026-10-30T12-22-23-01
+2026-10-30T08:13:21.074Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:15:51.102Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:16:18.552Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:17:12.273Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:18:12.589Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:19:39.262Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:31:24.500Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:42:28.213Z rollout-2026-10-25T01-17-19-01
+2026-10-30T08:43:27.871Z rollout-2026-10-30T16-21-38-01
+2026-10-30T08:46:56.806Z rollout-2026-10-30T16-21-38-01
+2026-10-30T08:47:46.083Z rollout-2026-10-30T16-21-38-01
+2026-10-30T08:52:16.714Z rollout-2026-10-30T16-21-38-01
+2026-10-30T08:55:37.905Z rollout-2026-10-25T01-17-19-01
+2026-10-30T09:48:43.677Z rollout-2026-10-25T01-17-19-01
+2026-10-30T09:51:17.438Z rollout-2026-10-25T01-17-19-01
+2026-10-30T09:52:50.044Z rollout-2026-10-25T01-17-19-01
+2026-10-30T09:54:46.938Z rollout-2026-10-25T01-17-19-01
+2026-10-30T09:55:01.045Z rollout-2026-10-25T01-17-19-01
+2026-10-30T12:24:41.784Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:25:16.100Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:26:06.530Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:27:24.934Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:27:47.397Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:29:50.320Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:30:32.171Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:30:38.996Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:31:03.517Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:36:47.123Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:37:36.908Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:45:02.132Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:45:28.889Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:45:47.864Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:46:00.561Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:46:37.243Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:47:11.088Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:47:40.391Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:50:49.860Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:52:01.675Z rollout-2026-10-14T11-38-55-01
+2026-10-30T12:54:22.433Z rollout-2026-10-14T11-38-55-01
+2026-10-30T13:01:42.111Z rollout-2026-10-14T11-38-55-01
+2026-10-30T13:54:28.348Z rollout-2026-10-14T11-38-55-01
+2026-10-30T19:33:52.225Z rollout-2026-10-27T23-28-06-01
+2026-11-01T08:05:39.478Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.480Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.480Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.480Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.481Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.481Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.481Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.482Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.482Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.483Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.483Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.484Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.503Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.504Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.504Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.505Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:05:39.505Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:06:31.863Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:07:28.370Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:08:42.768Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:11:04.998Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:12:07.579Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:12:29.587Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:13:59.904Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:16:03.078Z rollout-2026-11-01T16-05-39-01
+2026-11-01T08:16:12.232Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:17:06.155Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:17:20.691Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:18:22.410Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:22:45.664Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:23:44.291Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:25:28.993Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:27:07.558Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:29:11.089Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:31:37.985Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:32:10.513Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:33:39.811Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:34:40.021Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:35:24.458Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:37:06.241Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:38:08.384Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:39:02.597Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:40:11.092Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:40:36.363Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:41:22.670Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:42:01.200Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:43:02.606Z rollout-2026-10-14T10-22-07-01
+2026-11-01T08:45:42.559Z rollout-2026-10-14T10-22-07-01
+2026-11-02T01:50:40.576Z rollout-2026-10-20T13-07-21-01
+2026-11-02T01:51:48.369Z rollout-2026-10-20T13-07-21-01
+2026-11-02T01:52:11.940Z rollout-2026-10-20T13-07-21-01
+2026-11-02T01:52:53.273Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:19:18.666Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:19:27.967Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:20:24.982Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:20:36.413Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:21:46.501Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:23:07.766Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:24:25.009Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:25:53.579Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:26:21.260Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:27:25.759Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:28:27.383Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:29:37.167Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:35:03.494Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:35:50.411Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:36:03.288Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:44:26.076Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:44:37.684Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:46:03.813Z rollout-2026-10-20T13-07-21-01
+2026-11-02T09:47:07.756Z rollout-2026-10-20T13-07-21-01
+2026-11-02T10:51:48.510Z rollout-2026-10-20T13-07-21-01
+2026-11-02T11:07:56.752Z rollout-2026-10-20T13-07-21-01
+2026-11-03T09:47:18.864Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:48:53.433Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:50:04.854Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:50:54.870Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:52:02.179Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:54:46.892Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:55:13.662Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:55:57.892Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:56:58.851Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:57:53.925Z rollout-2026-10-29T23-05-30-01
+2026-11-03T09:59:06.278Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:01:09.001Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:12:32.339Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:16:13.204Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:16:58.382Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:19:09.801Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:20:03.410Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:22:49.901Z rollout-2026-10-20T13-07-21-01
+2026-11-03T10:23:51.401Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:24:12.985Z rollout-2026-10-20T13-07-21-01
+2026-11-03T10:27:52.824Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:36:30.008Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:44:40.548Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:47:56.018Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:50:20.673Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:52:03.525Z rollout-2026-10-29T23-05-30-01
+2026-11-03T10:56:31.898Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:05:23.621Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:07:01.860Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:16:24.859Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:17:56.379Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:21:41.178Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:24:21.903Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:32:32.376Z rollout-2026-10-29T23-05-30-01
+2026-11-03T11:44:02.640Z rollout-2026-10-29T23-05-30-01
+2026-11-04T02:06:13.317Z rollout-2026-10-10T10-15-59-01
+2026-11-04T02:08:24.477Z rollout-2026-10-10T10-15-59-01
+2026-11-04T02:10:06.134Z rollout-2026-10-10T10-15-59-01
+2026-11-04T02:10:52.532Z rollout-2026-10-10T10-15-59-01
+2026-11-04T02:11:50.461Z rollout-2026-10-10T10-15-59-01
+2026-11-05T05:56:33.976Z rollout-2026-11-04T18-52-20-01
+2026-11-05T05:59:56.435Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:02:49.882Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:09:27.832Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:10:30.935Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:12:49.301Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:14:48.543Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:19:22.650Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:20:45.639Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:22:21.416Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:23:25.106Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:24:12.243Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:25:01.439Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:25:54.344Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:26:37.363Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:27:31.945Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:29:13.701Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:29:53.273Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:31:01.403Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:32:29.181Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:33:40.793Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:34:42.407Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:36:57.024Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:38:41.573Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:39:34.849Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:41:06.865Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:42:47.792Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:02:10.254Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:09:39.634Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:26:13.518Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:28:42.507Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:31:32.414Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:32:47.427Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:34:02.480Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:35:34.870Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:36:09.078Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:37:03.538Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:38:24.196Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:40:51.538Z rollout-2026-11-04T18-52-20-01

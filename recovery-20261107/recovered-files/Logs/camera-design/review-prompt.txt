@@ -1,0 +1,16 @@
+你是本地 Unity VR/MR 项目的独立架构复核者，只返回文本，不具有联网或工程工具。父代理负责最终决定。请仅基于以下已核对事实和拟定方案指出真实缺口，限 2000 中文字，区分必要改进与以后再做，不能宣称任何接口已实现。任务难点是 XR 头姿/瞄准不受演出相机污染，以及演出生命周期与实时战斗的时钟/取消分离。
+
+用户目标：Quest 优先结印+中文口令技能游戏，后续 PICO、同房间两人 PvE，目前网络仅设计。现在问以往决定是否已写技术开发文档，以及能否采用 Cinemachine 做摄像头演出。本轮只写文档，不装包不改场景代码。
+工程事实：Unity 6000.3.10f1、URP17.3.0、Meta XR207.0.1、OpenXR1.15.1、XRHands1.7.2、Timeline1.8.10；没有 Cinemachine/Recorder/NGO。Quest经SteamLink/SteamVR OpenXR调试已成功；原生Quest手追踪曾正常，PC语音Python sherpa-onnx+UDP，原生语音未做。当前有SealLab骨骼/特征/加权评分；SkillMatchEngine三模式、10秒640帧历史、默认8秒先后不限组合、取消/冷却/去重；单印配方，纯子印/护体咒=护盾，火球术+寅=右手火球轻推发射。PlayerRuntime、激活事务、存档、武器、领域环境/移动限制、跨设备接口、多人是设计。
+当前代码：SkillTestController把Engine.TryActivate直接绑定effects.TryActivate；effects.TryActivate同步bool，无结构化Committed事件。effects.Awake在未显式head时取Camera.main.transform，并把head.root当玩家根；GetAimPoint用head位置朝向。effects.Launch、OnTargetHit、OnProjectileFinished、OnImpactCreated是内部回调；Message事件仅中文字符串日志。SkillEffects.Update在Time.timeScale<=0时ClearAll，SkillProjectile在timeScale<=0或realtime过期时Finish，其移动使用deltaTime。暂停因此会清当前效果。Editor的SkillTestSceneSetup用Single(c=>c.enabled)定位相机，还有临时单目RT截图Camera，这都不是运行时观众镜头。
+已核对官方事实：Unity6000.3列Cinemachine3.1.7 released；Brain控制其所在Unity Camera的姿态/镜头；Cinemachine Output Channels+Brain mask用于多Camera分流，和Unity渲染layer不同。Timeline Cinemachine Track能覆盖普通优先级、片段相邻切镜/重叠混合。Sequencer适合简单自动切镜，Impulse默认可能影响范围内监听者需channel过滤。URP独立Base camera可输出RT，TargetEye None禁XR，Overlay不提供同样输出设置。Recorder只支持UnityEditor Play，不是Android/独立Player录屏库。Meta舒适规范避免非自然镜头运动，遮住透视的头锁内容应慎用。
+
+拟定方案：
+1. HMD玩家视角永远由XR头部追踪驱动，不装CinemachineBrain，不强制环绕、FOV拉伸、roll、camera shake。领域演出围绕玩家展开世界VFX/角色/音效；可选世界空间屏幕播放电影仍允许转头。暂不改变玩家位置/暂停输入。
+2. PC观众/比赛录像独立mono Base Camera + Cinemachine3 Brain + RT，明确桌面显示出口，不假定XR镜像自动替换。观众不标MainCamera、不加AudioListener，HMD/瞄准显式绑定；修改单相机验证器再加第二相机。OutputChannel隔离、culling/volume layers隔离、Impulse仅观众。虚拟相机多不等于每个都render，但多一个实际Camera有GPU成本；PC初始720p30为待测预算，Android默认关闭。
+3. PresentationCoordinator（拟建）订阅玩法成功事实，按阶段/优先级/冷却/最大时长调度镜头；简单火球跟拍不用强制Timeline，复杂领域/Boss登场用Timeline编排音效、VFX、相机。配置SO映射skillId和阶段到镜头/Timeline，中文Inspector。先仅在同步TryActivate成功后发布一次结构化事件，再补launch/impact/end；不解析日志。后续接AbilityRuntime成功提交事件。跳过/禁用镜头不改伤害/冷却，不由Timeline Signal发起权威伤害、结算或退款。
+4. 每个演出有cueId/castId/effectId、独立可停止句柄；目标销毁/场景卸载/失焦/抢占/重复事件处理，结束仅清自己拥有的对象、轨道绑定、volume与镜头，不调用combat.ClearAll。输入取消与演出跳过是不同动作，交给效果最终状态决定结束哪个镜头。Timeline多段抢占统一仲裁，不把Blend或Deactivate当万能restore。不得使用全局Time.timeScale=0/慢放做现有战斗演出；可单独调整装饰动画/展示场景播放节奏，实际投射物不被镜头拖慢。
+5. 玩家HP/资源等仍沿现有计划先做，演出作为可选模块。PICO共用非厂商镜头规则，透视/遮罩/性能单独适配；Cinemachine不能自动把MR透视合成进第三人称RT。未来同房间PvE每端自行选择镜头，房主同步玩法事件不强迫其他人的头显视角。10秒骨骼缓存不等于世界状态回放；后续真正回放另做状态/事件记录。
+6. 首个未来切片为火球靶场独立观众镜头，核验镜头开关前后瞄准/伤害/取消一致、快速转头手追踪正常、丢目标回退、连续多技能不抢控制、异常退出恢复、GPU预算。之后才做复杂Timeline和录像。
+
+请给出：必要修正（最多5项，说明触发条件/后果/最小修正）、可推迟事项、验收遗漏。若无法证实某API配置请写待验证，不猜。

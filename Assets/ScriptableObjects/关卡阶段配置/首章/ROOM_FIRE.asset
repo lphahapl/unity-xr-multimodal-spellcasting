@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fe9d2a506b04409a70cb3479eabdd, type: 3}
+  m_Name: ROOM_FIRE
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgStageDefinition
+  stageId: opening.ROOM_FIRE
+  displayName: "\u8FD1\u9776"
+  instructions: "\u5728\u8FD9\u95F4\u8BD5\u70BC\u5BA4\u91CC\uFF0C\u4F60\u53EF\u4EE5\u5148\u8BD5\u706B\u6838\u4E4B\u6CD5\u3002\u7167\u56FE\u7ED3\u4E2A\u5BC5\u5370\uFF0C\u518D\u5FF5\u4E00\u58F0\u201C\u706B\u7403\u672F\u201D\u3002"
+  targetHealth: 25
+  enableHazards: 0
+  startsInCombat: 1
+  rewardCurrency: 0
+  unlockSkillIds: []

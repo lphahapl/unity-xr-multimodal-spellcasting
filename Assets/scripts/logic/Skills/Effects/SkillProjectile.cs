@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NarutoVR.SealCombat.Enemies;
@@ -19,6 +20,9 @@ namespace NarutoVR.SealCombat
         public VfxPoolManager ImpactPool { get; set; }
         public Component ImpactOwner { get; set; }
         public Action<GameObject> ImpactCreated;
+        internal Action<Vector3> SurfaceHit { get; set; }
+        public SkillStrike Strike { get; set; }
+        public Action<SkillHitResult> StrikeResolved { get; set; }
         public Func<double> GameClock { get; set; }
         public Transform AttackerTarget { get; set; }
         private double Now => GameClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
@@ -32,6 +36,10 @@ namespace NarutoVR.SealCombat
         private Action<SkillTrainingTarget> onTargetHit;
         private Action<SkillProjectile> onFinished;
         readonly string hitId = "projectile:" + Guid.NewGuid().ToString("N");
+        HashSet<EnemyCombatState> passedLives;
+        bool lightningOffered;
+        Collider[] waveOverlaps;
+        RaycastHit[] waveSweeps;
 
         public void Initialize(Vector3 flightDirection, Transform ignoredPlayerRoot, LayerMask hitMask,
             LayerMask playerLayers, Action<SkillTrainingTarget> targetHit, Action<SkillProjectile> finished)
@@ -44,7 +52,13 @@ namespace NarutoVR.SealCombat
             expiresAt = Now + Mathf.Max(0.1f, lifetime);
             initialized = true;
             // SphereCast 无法覆盖发射时已经重叠的表面，需先做重叠检测。
-            CheckInitialOverlap();
+            if (Strike != null)
+            {
+                waveOverlaps = new Collider[16];
+                waveSweeps = new RaycastHit[16];
+                AdvanceWave(0);
+            }
+            else CheckInitialOverlap();
         }
 
         private void Update()
@@ -55,22 +69,26 @@ namespace NarutoVR.SealCombat
             float distance = Mathf.Max(0, speed) * Time.deltaTime;
             if (distance <= 0) return;
 
+            if (Strike != null) { AdvanceWave(distance); return; }
+
             // 每步重查重叠，覆盖两次物理更新之间主动移入球体的障碍。
             if (CheckInitialOverlap()) return;
             RaycastHit[] hits = Physics.SphereCastAll(start, radius, direction, distance,
                 collisionMask, QueryTriggerInteraction.Collide);
             Collider closest = null;
+            Vector3 contact = default;
             float closestDistance = float.PositiveInfinity;
             foreach (RaycastHit hit in hits)
             {
                 if (ShouldIgnore(hit.collider) || hit.distance >= closestDistance) continue;
                 closest = hit.collider;
                 closestDistance = hit.distance;
+                contact = hit.point;
             }
             if (closest)
             {
                 transform.position = start + direction * Mathf.Max(0, closestDistance);
-                Hit(closest);
+                Hit(closest, contact);
             }
             else transform.position = start + direction * distance;
         }
@@ -84,7 +102,7 @@ namespace NarutoVR.SealCombat
             foreach (Collider candidate in overlaps)
             {
                 if (ShouldIgnore(candidate)) continue;
-                if (!candidate.GetComponentInParent<SkillTrainingTarget>() && !ResolveEnemy(candidate)) { Hit(candidate); return true; }
+                if (!new SkillHitTarget(candidate).IsTarget) { Hit(candidate); return true; }
                 if (!target) target = candidate;
             }
             if (!target) return false;
@@ -92,25 +110,121 @@ namespace NarutoVR.SealCombat
             return true;
         }
 
-        private bool ShouldIgnore(Collider candidate) => !candidate || !candidate.enabled ||
-            (candidate.isTrigger && (!candidate.TryGetComponent<EnemyHitZone>(out var zone) || !zone.isActiveAndEnabled || !zone.Owner)) ||
-            candidate.transform.IsChildOf(transform) ||
-            (playerRoot && candidate.transform.IsChildOf(playerRoot));
+        private bool ShouldIgnore(Collider candidate) => SkillHitTarget.Ignore(candidate, transform, playerRoot);
 
-        static EnemyObj ResolveEnemy(Collider collider) => collider.TryGetComponent<EnemyHitZone>(out var zone) && zone.Owner
-            ? zone.Owner : collider.GetComponentInParent<EnemyObj>();
+        // A piercing contact can synchronously move, recycle, or create another enemy
+        // or close a door. Re-query the remaining path after dispatching that contact.
+        void AdvanceWave(float remaining)
+        {
+            while (!IsFinished && Strike != null)
+            {
+                Vector3 origin = transform.position;
+                Collider collider = WaveOverlap(origin);
+                Vector3 point = origin;
+                if (!collider)
+                {
+                    if (remaining <= 0) return;
+                    if (!WaveSweep(origin, remaining, out var hit))
+                    {
+                        transform.position = origin + direction * remaining;
+                        return;
+                    }
+                    float travelled = Mathf.Clamp(hit.distance, 0, remaining);
+                    transform.position = origin + direction * travelled;
+                    remaining -= travelled;
+                    collider = hit.collider;
+                    point = hit.point;
+                }
 
-        private void Hit(Collider collider)
+                var target = new SkillHitTarget(collider);
+                if (!Strike.AlreadyHit(target.Enemy))
+                {
+                    Hit(collider, point);
+                    return;
+                }
+                passedLives ??= new HashSet<EnemyCombatState>();
+                passedLives.Add(target.Enemy.Combat);
+                try { ReportStrike(target, point); }
+                catch { Finish(); throw; }
+                if (!IsFinished) Physics.SyncTransforms();
+            }
+        }
+
+        bool IgnoreWaveCollider(Collider c)
+        {
+            if (ShouldIgnore(c)) return true;
+            if (passedLives == null) return false;
+            var target = new SkillHitTarget(c);
+            return target.Enemy && passedLives.Contains(target.Enemy.Combat);
+        }
+
+        Collider WaveOverlap(Vector3 origin)
+        {
+            var buffer = waveOverlaps;
+            int count = Physics.OverlapSphereNonAlloc(origin, radius, buffer, collisionMask, QueryTriggerInteraction.Collide);
+            if (count == buffer.Length)
+            {
+                buffer = Physics.OverlapSphere(origin, radius, collisionMask, QueryTriggerInteraction.Collide);
+                count = buffer.Length;
+            }
+            Collider first = null;
+            float firstDepth = float.PositiveInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                var c = buffer[i];
+                if (IgnoreWaveCollider(c)) continue;
+                if (!new SkillHitTarget(c).IsTarget) return c;
+                float depth = Vector3.Dot(c.bounds.center - origin, direction);
+                if (depth < firstDepth) { first = c; firstDepth = depth; }
+            }
+            return first;
+        }
+
+        bool WaveSweep(Vector3 from, float distance, out RaycastHit closest)
+        {
+            var buffer = waveSweeps;
+            int count = Physics.SphereCastNonAlloc(from, radius, direction, buffer, distance, collisionMask, QueryTriggerInteraction.Collide);
+            if (count == buffer.Length)
+            {
+                buffer = Physics.SphereCastAll(from, radius, direction, distance, collisionMask, QueryTriggerInteraction.Collide);
+                count = buffer.Length;
+            }
+            closest = default;
+            float nearest = float.PositiveInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                var candidate = buffer[i];
+                if (candidate.distance > nearest || IgnoreWaveCollider(candidate.collider)) continue;
+                // A wall at exactly the same distance takes priority.
+                if (candidate.distance == nearest && new SkillHitTarget(candidate.collider).IsTarget) continue;
+                nearest = candidate.distance;
+                closest = candidate;
+            }
+            return closest.collider;
+        }
+
+        void ReportStrike(SkillHitTarget target, Vector3 point)
+        {
+            var result = Strike.Resolve(target, point, !lightningOffered);
+            if (result.CanTriggerLightning) lightningOffered = true;
+            if (result.DirectApplied && result.TrainingTarget) onTargetHit?.Invoke(result.TrainingTarget);
+            StrikeResolved?.Invoke(result);
+        }
+
+        private void Hit(Collider collider, Vector3? contact = null)
         {
             if (IsFinished) return;
             // 先锁定本次命中，再扣血及回调，避免多碰撞器或重入造成重复伤害。
             IsFinished = true;
-            var target = collider.GetComponentInParent<SkillTrainingTarget>();
-            var enemy = ResolveEnemy(collider);
+            var target = new SkillHitTarget(collider);
+            var point = contact ?? transform.position;
             try
             {
-                if (enemy) enemy.ReceiveHit(hitId, damage, poiseDamage, collider.GetComponent<EnemyHitZone>(), AttackerTarget ? AttackerTarget : playerRoot);
-                else if (target && target.ApplyHit(damage)) onTargetHit?.Invoke(target);
+                SurfaceHit?.Invoke(point);
+                if (Strike != null)
+                    ReportStrike(target, point);
+                else if (target.Apply(hitId, damage, poiseDamage, AttackerTarget ? AttackerTarget : playerRoot) &&
+                    target.TrainingTarget) onTargetHit?.Invoke(target.TrainingTarget);
             }
             finally { SpawnImpact(); Dispose(); }
         }
@@ -166,6 +280,9 @@ namespace NarutoVR.SealCombat
             onTargetHit = null;
             onFinished = null;
             ImpactCreated = null;
+            SurfaceHit = null;
+            StrikeResolved = null;
+            Strike = null;
             callback?.Invoke(this);
             if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject);
         }

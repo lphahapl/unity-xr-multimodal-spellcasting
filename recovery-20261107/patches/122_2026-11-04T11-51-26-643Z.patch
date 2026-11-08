@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_guzheng.py
+@@
+ import json
++import hashlib
+@@
+-    source, rate = sf.read(SAMPLE_DIR / "Pufermufin_396868_original_hq.mp3")
++    source_path = SAMPLE_DIR / "Pufermufin_396868_original_hq.mp3"
++    assert hashlib.sha256(source_path.read_bytes()).hexdigest() == metadata["upstream"]["sha256"], "Source download incomplete or unexpected"
++    source, rate = sf.read(source_path)
+     assert source.ndim == 2 and source.shape[1] == 2 and rate == SR
++    assert abs(len(source)/rate-1474) < 1
+@@
+         sample = source[start:start+round(clean_seconds*rate)].copy()
++        assert len(sample) == round(clean_seconds*rate) and np.isfinite(sample).all()
+*** End Patch

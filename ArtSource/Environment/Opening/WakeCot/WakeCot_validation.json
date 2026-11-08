@@ -1,0 +1,99 @@
+{
+  "blender": "5.2.2 LTS",
+  "high_tri": 118704,
+  "high_editable_parts": 23,
+  "low_tri": 1184,
+  "material": "WakeCot_Baked",
+  "meters_blender_xyz": [
+    2.450000047683716,
+    1.0299999713897705,
+    0.7337278127670288
+  ],
+  "atlas": 1024,
+  "bake": "Cycles selected high → active low",
+  "normal": "tangent +X +Y +Z, OpenGL",
+  "mask": "R metallic (wood/rush/linen=0), G assembled AO, A smoothness",
+  "project": "isolated 3.5m per CotBakePart, except assembled AO; 0.014 m projection cage, 0.033 m ray, 5px dilation",
+  "files": {
+    "WakeCot.fbx": "237f21d3ea6a0808c25e8b7019b0eb9da374bdb6928b51d7df319d81853de179",
+    "WakeCot_BaseColor.png": "573282a29e913812dd348b935f4d727fa82faf40813855f0ea8652163794dd42",
+    "WakeCot_Mask.png": "36a68f5dd829fc80ea183fd6a5338211c6df9c35673a20b101c40eba183be810",
+    "WakeCot_Normal.png": "7baa12882adc8d4b64a782c2751ccb4d6df42f8062c2076d53956b99fd31a74e"
+  },
+  "fbx_readback": {
+    "WakeCot": {
+      "triangles": 1184,
+      "material": "WakeCot_Baked",
+      "bounds_world_blender": [
+        [
+          -1.225,
+          1.225
+        ],
+        [
+          -0.515,
+          0.515
+        ],
+        [
+          -0.0,
+          0.733728
+        ]
+      ],
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0
+    },
+    "uv_atlas": {
+      "triangles": 1184,
+      "coverage": 0.5305289702162328,
+      "overlap_pairs": []
+    }
+  },
+  "repeat_bake": {
+    "samples_inside_uv": 555792,
+    "median_degrees": 0.0,
+    "p99_degrees": 0.02797645330429077,
+    "negative_z_percent": 0.0,
+    "distinct_high_surfaces": 23
+  },
+  "scene_anchor_unity": {
+    "legacy_solid_center": [
+      -4.5,
+      0.3,
+      -1.48
+    ],
+    "solid_size": [
+      2.45,
+      0.62,
+      1.03
+    ],
+    "legacy_folded_cloth_center": [
+      -4.94,
+      0.65,
+      -1.48
+    ],
+    "new_ground_root": [
+      -4.5,
+      -0.01,
+      -1.48
+    ]
+  },
+  "source_sha256": "66df63e192a9bd7733473bc9821ca869530d22da0c6c61debb5881d0fc68250c",
+  "photographs": [
+    "assembly_high.png",
+    "assembly_baked.png",
+    "weave_high.png",
+    "weave_baked.png",
+    "reverse_high.png",
+    "reverse_baked.png"
+  ],
+  "unity_meta": "URP/Lit external remap; sRGB BaseColor; OpenGL normal, Flip Green off; linear packed mask shared by metallic and occlusion; ASTC 6x6 Android override.",
+  "actual_android_import": [
+    "Unity 6000.3.10f1 target Android",
+    "PASS one renderer/material/submesh, tris=1184, bounds=(2.4500, 0.7337, 1.0300), bottom=0.0000, normals=Import, tangents=CalculateMikk",
+    "PASS headrest on negative X; upper bounds midpoint -0.6838m",
+    "PASS BaseColor 1024x1024, ASTC_6x6, sRGB=True, type=Default, flipGreen=False, mips=11",
+    "PASS Normal 1024x1024, ASTC_6x6, sRGB=False, type=NormalMap, flipGreen=False, mips=11",
+    "PASS Mask 1024x1024, ASTC_6x6, sRGB=False, type=Default, flipGreen=False, mips=11",
+    "PASS shared mask G=AO R=nonmetal A=smoothness, three URP variants active, no emission",
+    "PASS END"
+  ]
+}

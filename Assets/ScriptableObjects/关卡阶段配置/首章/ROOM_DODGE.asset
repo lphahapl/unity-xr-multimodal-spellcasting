@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fe9d2a506b04409a70cb3479eabdd, type: 3}
+  m_Name: ROOM_DODGE
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgStageDefinition
+  stageId: opening.ROOM_DODGE
+  displayName: "\u540E\u64A4"
+  instructions: "\u9047\u4E0A\u786C\u63A5\u4E0D\u4F4F\u7684\u62DB\uFF0C\u5C31\u8981\u8BA9\u5F00\u3002\u5148\u653E\u4F4E\u53CC\u624B\uFF0C\u628A\u67B6\u52BF\u6536\u4E86\uFF0C\u53F3\u624B\u4E5F\u817E\u51FA\u6765\u3002"
+  targetHealth: 25
+  enableHazards: 0
+  startsInCombat: 1
+  rewardCurrency: 0
+  unlockSkillIds: []

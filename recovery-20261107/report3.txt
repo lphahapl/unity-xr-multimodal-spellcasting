@@ -1,0 +1,141 @@
+PATCH BLOCKS AFTER LAST COMMIT: 174
+OK: 102  CONFLICT: 29  SKIP(OUTSIDE): 39  EMPTY: 4
+
+CHANGED FILES: 63   +8568 / -22
+
+=== CHANGED FILES ===
+added   Assets/SealCombat/Art/Props/Zhunwang/使用说明.txt                                              +30    -0    
+added   Assets/SealCombat/Audio/YicunShanhe_Credits.txt                                            +53    -0    
+added   Assets/SealCombat/Editor/BgmLoopVerification.cs                                            +590   -0    
+added   Assets/SealCombat/Editor/EnemyAttackChecks.cs                                              +278   -0    
+added   Assets/SealCombat/Editor/EnemyAttackChecks.cs.meta                                         +2     -0    
+added   Assets/SealCombat/Editor/EnemyPoolingChecks.cs                                             +235   -0    
+added   Assets/SealCombat/Editor/EventCenterChecks.cs                                              +166   -0    
+added   Assets/SealCombat/Editor/EventCenterChecks.cs.meta                                         +2     -0    
+modified Assets/SealCombat/Editor/LinearRpgValidation.cs                                            +25    -3    
+added   Assets/SealCombat/Editor/NarrationControllerEditor.cs                                      +41    -0    
+added   Assets/SealCombat/Editor/NarrationTable.cs                                                 +131   -0    
+added   Assets/SealCombat/Editor/P1RoomEncounterChecks.cs                                          +140   -0    
+added   Assets/SealCombat/Editor/PlayerObjChecks.cs                                                +91    -0    
+added   Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs                                        +390   -0    
+added   Assets/SealCombat/Editor/YicunShanheV9AudioProbe.cs.meta                                   +2     -0    
+added   Assets/SealCombat/Editor/Zhunwang10kUpdateOnce.cs                                          +107   -0    
+added   Assets/SealCombat/Editor/ZhunwangImportOnce.cs                                             +157   -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyCatalog.cs                                 +37    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyDefinition.cs                              +27    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyLease.cs                                   +14    -0    
+added   Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs                                 +386   -0    
+added   Assets/SealCombat/Runtime/Events/EventCenter.cs                                            +188   -0    
+added   Assets/SealCombat/Runtime/Events/EventCenter.cs.meta                                       +2     -0    
+added   Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.cs                                       +184   -0    
+added   Assets/SealCombat/Runtime/Rpg/Data/PlayerSO.cs                                             +8     -0    
+modified Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerDefinition.cs                                  +1     -1    
+added   Assets/SealCombat/Runtime/Rpg/EditorBgmAudioCapture.cs                                     +87    -0    
+modified Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs                                       +26    -18   
+added   Assets/SealCombat/Runtime/Rpg/PlayerObj.cs                                                 +55    -0    
+added   Assets/SealCombat/Runtime/Voice/NarrationController.cs                                     +129   -0    
+added   Logs/music-production-tools/sampler-research.json                                          +86    -0    
+added   Logs/narration-gates-20261105/VerifyNarrationGates.cs                                      +325   -0    
+added   Logs/yicun-shanhe-continuity-v11/capture_qa.py                                             +264   -0    
+added   Logs/yicun-shanhe-continuity-v11/capture_validate_synthetic.py                             +92    -0    
+added   Logs/yicun-shanhe-continuity-v11/finalize_acceptance.py                                    +74    -0    
+added   Logs/yicun-shanhe-continuity-v11/qa_signal.py                                              +202   -0    
+added   Logs/yicun-shanhe-continuity-v11/transition-analysis.py                                    +152   -0    
+added   Logs/yicun-shanhe-phrased-v10/audit_signal.py                                              +172   -0    
+added   Logs/zhunwang-10k-20261105/finalize.py                                                     +85    -0    
+added   Logs/zhunwang-10k-20261105/record_handoff.py                                               +57    -0    
+added   Logs/zhunwang-inscription-20261105/finalize.py                                             +54    -0    
+added   Logs/zhunwang-inscription-20261105/record_handoff.py                                       +59    -0    
+added   Logs/zhunwang-unity-20261105/finalize.py                                                   +54    -0    
+added   Logs/zhunwang-unity-20261105/quest-assessment.json                                         +49    -0    
+added   docs/guides/ENEMY_SPAWNING_ZH.md                                                           +64    -0    
+added   docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md                                                 +40    -0    
+added   docs/research/MUSIC_WORKFLOW_TOOLS_20261104_ZH.md                                          +40    -0    
+added   docs/skills/music-production/scripts/analyze_audio.py                                      +255   -0    
+added   scratch/audit_yicun_arrangement_v7.py                                                      +282   -0    
+added   scratch/audit_yicun_dynamics_v8.py                                                         +262   -0    
+added   scratch/audit_yicun_score_v8.py                                                            +165   -0    
+added   scratch/audit_yicun_sources_v7.py                                                          +251   -0    
+added   scratch/compose_yicun_shanhe.py                                                            +172   -0    
+added   scratch/preview_guqin_winds.py                                                             +105   -0    
+added   scratch/render_yicun_shanhe_ambient.py                                                     +273   -0    
+added   scratch/render_yicun_shanhe_chamber.py                                                     +136   -0    
+added   scratch/render_yicun_shanhe_guzheng.py                                                     +198   -0    
+added   scratch/render_yicun_shanhe_pedalboard_v9.py                                               +271   -0    
+added   scratch/render_yicun_shanhe_shape_v8.py                                                    +240   -0    
+added   scratch/run_bgm_unity_probe.py                                                             +112   -0    
+added   scratch/test_yicun_pedalboard.py                                                           +156   -0    
+added   scratch/yicun_dizi_phrases_v10.py                                                          +123   -0    
+added   scratch/yicun_dizi_phrases_v11.py                                                          +114   -0    
+
+=== CONFLICTS (29) ===
+2026-11-04T10:34:44.524Z rollout-2026-11-04T11-46-53-01 Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs missing
+2026-11-04T10:39:32.522Z rollout-2026-11-04T11-46-53-01 Assets/SealCombat/Editor/EnemyCombatChecks.cs missing
+2026-11-04T10:43:41.813Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T11:03:30.719Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T11:28:01.717Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T11:48:41.701Z rollout-2026-11-04T18-52-20-01 hunk not found in docs/README.md: '- 准望匣新预览：[六仓全空与隐藏净空剖面](visuals/20261104_zhunwang_clearance/01_empty_cl'
+2026-11-04T11:57:25.202Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T12:09:12.514Z rollout-2026-11-02T17-57-51-01 scratch/render_yicun_shanhe_guzheng_v5.py missing
+2026-11-04T12:12:15.925Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T12:20:49.441Z rollout-2026-11-02T17-57-51-01 scratch/render_yicun_shanhe_guzheng_v6.py missing
+2026-11-04T12:21:53.799Z rollout-2026-11-04T18-52-20-01 hunk not found in docs/visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt: '版本：V3.4修订｜增加空仓内部净空与插入避碰约束；保留V3.3人体参照、一体双绑带、小篆铭文与尺寸建议。'
+2026-11-04T12:24:30.594Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-04T13:20:41.501Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:01:30.137Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:03:13.635Z rollout-2026-11-02T17-57-51-01 hunk not found in docs/README.md: '| 音乐创作、重编与验收 | [音乐制作 skill](skills/music-production/SKILL.md)：用途、主题、曲式'
+2026-11-04T14:04:20.868Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/toolchain.md missing
+2026-11-04T14:05:01.249Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-04T14:07:38.061Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/SKILL.md missing
+2026-11-05T06:01:07.062Z rollout-2026-11-02T17-57-51-01 docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md missing
+2026-11-05T06:08:58.405Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/toolchain.md missing
+2026-11-05T06:22:29.638Z rollout-2026-11-02T17-57-51-01 docs/skills/music-production/references/audio-review.md missing
+2026-11-05T06:30:48.331Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Runtime/Rpg/GameManager.cs missing
+2026-11-05T06:30:48.331Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Editor/P1RoomPlayChecks.cs missing
+2026-11-05T06:30:48.332Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.Spawning.cs missing
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Runtime/Rpg/GameManager.cs missing
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 hunk not found in docs/README.md: '- [敌人异步生成与对象池](guides/ENEMY_SPAWNING_ZH.md)：GameManager、EnemyManager、怪'
+2026-11-05T06:30:48.333Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Runtime/Rpg/GameManager.cs missing
+2026-11-05T06:30:48.335Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Editor/P1RoomPlayChecks.cs missing
+2026-11-05T06:30:48.336Z rollout-2026-11-05T14-30-48-01 Assets/SealCombat/Editor/EnemyPoolingSetup.cs missing
+
+=== SKIPPED ===
+2026-11-05T05:56:33.976Z rollout-2026-11-04T18-52-20-01
+2026-11-05T05:59:56.435Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:02:49.882Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:09:27.832Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:10:30.935Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:12:49.301Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:14:48.543Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:19:22.650Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:20:45.639Z rollout-2026-11-04T18-52-20-01
+2026-11-05T06:22:21.416Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:23:25.106Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:24:12.243Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:25:01.439Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:25:54.344Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:26:37.363Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:27:31.945Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:29:13.701Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:29:53.273Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:31:01.403Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:32:29.181Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:33:40.793Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:34:42.407Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:36:57.024Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:38:41.573Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:39:34.849Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:41:06.865Z rollout-2026-11-04T18-52-20-01
+2026-11-05T07:42:47.792Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:02:10.254Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:09:39.634Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:26:13.518Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:28:42.507Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:31:32.414Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:32:47.427Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:34:02.480Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:35:34.870Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:36:09.078Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:37:03.538Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:38:24.196Z rollout-2026-11-04T18-52-20-01
+2026-11-05T10:40:51.538Z rollout-2026-11-04T18-52-20-01

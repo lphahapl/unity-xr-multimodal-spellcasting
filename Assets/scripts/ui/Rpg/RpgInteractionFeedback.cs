@@ -39,7 +39,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("启用投掷拒绝音")] public bool playThrowRejectedCue = true;
 
         public string LastFeedback { get; private set; } = "左食指伸直后移动选方向，保持至金圈填满；右掌独立短划闪避";
-        public bool PathVisible => path && path.enabled;
+        public bool PathVisible => openingMarks?.HasFocus == true || (path && path.enabled);
         public float VisibleDwellProgress { get; private set; }
         public int CueCount { get; private set; }
         public int SoundCount { get; private set; }
@@ -52,6 +52,7 @@ namespace NarutoVR.SealCombat.Rpg
         public int ThrowRejectedCueCount { get; private set; }
 
         RpgLocomotionController movement;
+        OpeningNavigationMarks openingMarks;
         SkillEffects effects;
         LineRenderer path, landing, progress, feet, pulse, flow, throwGrip, throwDirection, aimReticle, rawWindupLine;
         Material pathMaterial, progressMaterial, pulseMaterial, throwMaterial;
@@ -115,13 +116,19 @@ namespace NarutoVR.SealCombat.Rpg
             throwDirection = Line("火球瞄准线", throwMaterial, .009f);
             aimReticle = Line("火球落点准星", throwMaterial, .009f);
             rawWindupLine = Line("前送原轨迹（细线）", throwMaterial, .003f);
+            if (controller.openingChapter)
+                openingMarks = new OpeningNavigationMarks(visuals,movement,
+                    MakeMaterial(new Color(.27f,.24f,.19f)),MakeMaterial(new Color(.78f,.75f,.63f)),
+                    MakeMaterial(new Color(1f,.67f,.30f)));
         }
 
         void LateUpdate()
         {
             if (!controller || !movement || !visuals) return;
             bool active = controller.CanAct;
-            if (active && movement.NavigationActive && !wasNavigating) Present(RpgActionCue.NavigationReady);
+            bool chapterWalking = controller.openingChapter && movement.UsesEncounterModes && !movement.EncounterCombat;
+            if (active && !chapterWalking && movement.NavigationActive && !wasNavigating)
+                Present(RpgActionCue.NavigationReady);
             if (active && movement.SealProtectionActive && !wasProtected)
                 LastFeedback = "结印保护中：分开双手并稳定后，重新张掌划动";
             wasNavigating = movement.NavigationActive; wasProtected = movement.SealProtectionActive;
@@ -179,6 +186,16 @@ namespace NarutoVR.SealCombat.Rpg
         void RefreshVisuals(bool active)
         {
             bool visible = showVisuals && active;
+            if (openingMarks != null)
+            {
+                openingMarks.Refresh(visible && movement.EncounterCombat && !movement.EncounterSlideActive &&
+                    !movement.SealProtectionActive && !controller.UiInputOwned);
+                VisibleDwellProgress = openingMarks.HasFocus ? Mathf.Clamp01(movement.DwellProgress) : 0;
+                if (openingMarks.HasFocus) DisplayedTarget = movement.CandidateNode.floorPosition;
+                RefreshPulse(visible);
+                RefreshThrowVisuals(active);
+                return;
+            }
             Vector3 origin = movement.PlayerFloorPosition + Vector3.up * floorLift;
             feet.enabled = visible;
             if (visible) Ring(feet, origin, .22f, 1);
@@ -199,6 +216,12 @@ namespace NarutoVR.SealCombat.Rpg
                 flow.SetPosition(0, PathPoint(origin, destination, phase));
                 flow.SetPosition(1, PathPoint(origin, destination, Mathf.Min(1, phase + .075f)));
             }
+            RefreshPulse(visible);
+            RefreshThrowVisuals(active);
+        }
+
+        void RefreshPulse(bool visible)
+        {
             pulse.enabled = visible && Time.realtimeSinceStartupAsDouble < pulseUntil;
             if (pulse.enabled)
             {
@@ -206,7 +229,6 @@ namespace NarutoVR.SealCombat.Rpg
                 Ring(pulse, pulseCenter, .2f + elapsed * .45f, 1);
                 pulse.widthMultiplier = .045f * (1 - elapsed);
             }
-            RefreshThrowVisuals(active);
         }
 
         void RefreshThrowVisuals(bool active)
@@ -249,6 +271,7 @@ namespace NarutoVR.SealCombat.Rpg
         public void Present(RpgActionCue cue)
         {
             if (!isActiveAndEnabled || !movement || !speaker) return;
+            if (cue == RpgActionCue.Damage && controller && controller.Entity && controller.Entity.LastSettledDamage.HealthLost <= 0) return;
             double now = Time.realtimeSinceStartupAsDouble;
             int key = (int)cue;
             if (now - lastCue[key] < minimumCueInterval) return;
@@ -257,9 +280,13 @@ namespace NarutoVR.SealCombat.Rpg
             Color color = pathColor;
             switch (cue)
             {
-                case RpgActionCue.NavigationReady: LastFeedback = "导航已准备：左食指前后左右移动选择落点"; break;
+                case RpgActionCue.NavigationReady:
+                    LastFeedback = openingMarks != null ? "左食指指向地面尺刻，铜色开口围住当前落点" : "导航已准备：左食指前后左右移动选择落点";
+                    break;
                 case RpgActionCue.TargetSelected: LastFeedback = "落点已选中：保持方向至金色进度圈填满"; break;
-                case RpgActionCue.Moved: LastFeedback = "已到达落点：左食指回到起点后可再次选择"; tone = 1; break;
+                case RpgActionCue.Moved:
+                    LastFeedback = openingMarks != null ? "已到达落点，放松左食指后可再次选择" : "已到达落点：左食指回到起点后可再次选择";
+                    tone = 1; break;
                 case RpgActionCue.Dodged: LastFeedback = "闪避成功：右手回位后可再次划动（仍需冷却结束）"; tone = 1; break;
                 case RpgActionCue.Cancelled: LastFeedback = "已取消待施法与未发射物"; tone = 3; color = new Color(.65f,.45f,1); break;
                 case RpgActionCue.Blocked: LastFeedback = "操作未通过：查看移动或最近操作中的原因"; tone = 4; color = new Color(1,.25f,.08f); break;
@@ -279,6 +306,8 @@ namespace NarutoVR.SealCombat.Rpg
                     speaker.PlayOneShot(sound, volume);
                 SoundCount++;
             }
+            if (openingMarks != null && (cue == RpgActionCue.NavigationReady || cue == RpgActionCue.TargetSelected ||
+                cue == RpgActionCue.Moved || cue == RpgActionCue.DwellNearComplete)) return;
             pulseCenter = movement.PlayerFloorPosition + Vector3.up * floorLift;
             pulseUntil = now + .45;
             SetColor(pulseMaterial, color);
@@ -341,6 +370,7 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDisable()
         {
+            openingMarks?.Refresh(false);
             if (movement) movement.Feedback -= Present;
             if (controller) controller.Feedback -= Present;
             if (visuals) visuals.gameObject.SetActive(false);
@@ -353,6 +383,7 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDestroy()
         {
+            openingMarks?.Dispose();
             if (visuals) Destroy(visuals.gameObject);
             if (speaker) Destroy(speaker);
             foreach (var clip in generated) if (clip) Destroy(clip);

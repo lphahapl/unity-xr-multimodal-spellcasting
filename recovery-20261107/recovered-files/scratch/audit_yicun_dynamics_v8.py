@@ -1,0 +1,262 @@
+"""Read-only, reproducible PCM and arrangement verification of the v8 candidate.
+
+Writes only Logs/yicun-shanhe-shape-v8/audio-review.json. It does not render or
+publish assets. Numeric verification is not a subjective listening verdict.
+"""
+import copy
+import hashlib
+import json
+from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+import pyloudnorm as pyln
+import soundfile as sf
+from scipy import signal
+from scipy.interpolate import CubicSpline
+
+import render_yicun_shanhe_shape_v8 as candidate
+
+ROOT = Path(__file__).resolve().parents[1]
+LOG = ROOT / "Logs/yicun-shanhe-shape-v8"
+SR = candidate.SR
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def db(value):
+    return None if value <= 0 else float(20*np.log10(value))
+
+
+def stats(x):
+    return {"rms_dbfs": db(np.sqrt(np.mean(x*x))),
+            "peak_dbfs": db(np.max(np.abs(x)))}
+
+
+def plain(x):
+    return json.loads(json.dumps(x))
+
+
+def independent_room(dry, rng):
+    """Recreate linear convolution and record the actual tail folded at the seam."""
+    length = len(dry)
+    ir_length = round(1.4*SR)
+    t = np.arange(ir_length)/SR
+    decay = np.exp(-6.908*t/1.4)
+    decay[:round(.033*SR)] = 0
+    sos = signal.butter(2, 4200, fs=SR, output="sos")
+    result = dry.copy()
+    folded = np.zeros((ir_length-1, 2))
+    for ch in range(2):
+        ir = signal.sosfilt(sos, rng.normal(size=ir_length))*decay
+        ir *= .14/np.linalg.norm(ir)
+        for seconds, level in [(.027+.008*ch, .10), (.067+.011*ch, .055)]:
+            ir[round(seconds*SR)] += level
+        linear = signal.fftconvolve(dry[:, ch], ir)
+        folded[:, ch] = linear[length:]
+        result[:, ch] += linear[:length]
+        result[:len(folded), ch] += folded[:, ch]
+    return result, folded
+
+
+def main():
+    report_path = LOG/"render.json"
+    wav_path = LOG/"yicun_shanhe_shape_v8.wav"
+    baseline_path = ROOT/"Logs/yicun-shanhe-quiet-v7/yicun_shanhe_guzheng_v7.wav"
+    hashes_before = {str(p.relative_to(ROOT)): digest(p) for p in
+                     [report_path, wav_path, Path(candidate.__file__)]}
+    report = json.loads(report_path.read_text(encoding="utf-8-sig"))
+    old_report = json.loads((baseline_path.parent/"render.json").read_text(encoding="utf-8-sig"))
+    pcm, rate = sf.read(wav_path, always_2d=True)
+    previous, previous_rate = sf.read(baseline_path, always_2d=True)
+    meter = pyln.Meter(rate)
+    checks = {}
+    checks["format_finite_no_clipping"] = bool(rate == SR == 44100 and
+        pcm.shape == (104*SR, 2) and np.isfinite(pcm).all() and np.max(np.abs(pcm)) < 1)
+    checks["wav_matches_renderer_hash"] = digest(wav_path) == report["wav_sha256"]
+    checks["previous_pcm_same_rate"] = previous_rate == rate
+    whole = {**stats(pcm), "lufs": float(meter.integrated_loudness(pcm)),
+             "frames": len(pcm), "channels": pcm.shape[1], "sample_rate": rate,
+             "subtype": sf.info(wav_path).subtype}
+    # Chunk margins eliminate FIR edge artifacts in a 4x intersample peak estimate.
+    peak4 = 0.
+    for start in range(0, len(pcm), 8*SR):
+        end = min(len(pcm), start+8*SR)
+        left, right = max(0, start-64), min(len(pcm), end+64)
+        for ch in range(2):
+            up = signal.resample_poly(pcm[left:right, ch], 4, 1)
+            peak4 = max(peak4, float(np.max(np.abs(up[(start-left)*4:(end-left)*4]))))
+    whole["fourfold_oversampled_peak_dbfs_estimate"] = db(peak4)
+    checks["whole_loudness_target"] = abs(whole["lufs"]+29) < .1
+
+    sections = []
+    for row in report["sections"]:
+        start, end = row["start"], row["end"]
+        x = pcm[round(start*SR):round(end*SR)]
+        sections.append({"name": row["name"], "start": start, "end": end,
+                         **stats(x), "lufs": float(meter.integrated_loudness(x))})
+    checks["section_metrics_match_report"] = all(
+        abs(a["lufs"]-b["lufs"]) < 1e-8 and abs(a["rms_dbfs"]-b["rms_dbfs"]) < 1e-8
+        for a, b in zip(sections, report["sections"]))
+    active = [s for s in sections if s["name"] not in
+              {"introduction", "breathing_space", "link_to_introduction"}]
+    active_spread = max(s["lufs"] for s in active)-min(s["lufs"] for s in active)
+    active_rms_spread = max(s["rms_dbfs"] for s in active)-min(s["rms_dbfs"] for s in active)
+    checks["active_sections_three_to_five_db_lufs_spread"] = 3 <= active_spread <= 5
+    windows = []
+    for start in range(0, 104, 4):
+        x = pcm[start*SR:(start+4)*SR]
+        windows.append({"start": start, "end": start+4, **stats(x),
+                        "lufs": float(meter.integrated_loudness(x))})
+    first = {str(t): {"v8": stats(pcm[:round(t*SR)]),
+                     "v7": stats(previous[:round(t*SR)])}
+             for t in [.1, .5, .9, 1, 2]}
+    theme = next(s for s in sections if s["name"] == "theme_and_answer")
+    first_to_theme = first["0.9"]["v8"]["rms_dbfs"]-theme["rms_dbfs"]
+    checks["opening_background_at_least_18db_below_theme_rms"] = first_to_theme <= -18
+    intro = next(s for s in sections if s["name"] == "introduction")
+    checks["intro_quieter_than_theme"] = intro["lufs"] < theme["lufs"]-3
+    del previous
+    print("Full PCM, dynamics, opening and intersample-peak scan complete.", flush=True)
+
+    # Reconstruct from unchanged source recordings; never call candidate.render().
+    guzheng, mapping = candidate.v7.load_guzheng()
+    banks = (guzheng, candidate.v7.load_stereo_bank("viola"), candidate.v7.load_dizi())
+    checks["source_mapping_matches_v7"] = plain(mapping) == old_report["guzheng_mapping"]
+    checks["source_mapping_matches_v8_report"] = plain(mapping) == report["guzheng_mapping"]
+    checks["six_clean_sources_only"] = sorted(guzheng) == [57, 60, 62, 67, 72, 74]
+    reference, _, _ = candidate.render_raw(candidate.v7.build_guzheng_score(), 96,
+                                            banks, candidate.v7.SEED, damp_all=False)
+    calibration = {name: float(np.sqrt(candidate.v7.SHARES[name]/np.mean(x*x)))
+                   for name, x in reference.items()}
+    del reference
+    checks["historical_calibration_reproduced"] = all(
+        abs(calibration[n]-report["reference_instrument_gains"][n]) < 1e-10 for n in calibration)
+    score, phrases = candidate.build_score()
+    checks["score_and_phrases_match_report"] = (plain(score) == report["score"] and
+                                                   plain(phrases) == report["phrases"])
+    stems, details, rng = candidate.render_raw(score, candidate.DURATION, banks, candidate.SEED)
+    checks["all_actual_note_mappings_and_lengths_match_report"] = plain(details) == report["all_rendered_notes"]
+    notes = [d for d in details if d["instrument"] == "guzheng"]
+    checks["guzheng_damped_and_within_two_semitones"] = all(d["damped"] and abs(d["semitones"]) <= 2 for d in notes)
+    checks["c4_and_d4_clean_takes_fixed"] = all(
+        d["sample"] == ("guzheng-60-v1-rr2.flac" if d["root"] == 60 else "guzheng-62-v1-rr1.flac")
+        for d in notes if d["root"] in [60, 62])
+    counters = defaultdict(int)
+    endpoint_peak = {"guzheng": 0., "viola": 0.}
+    for name in endpoint_peak:
+        for onset, pitch, duration, velocity, role in score[name]:
+            if name == "guzheng":
+                note, _ = candidate.v7.guzheng_note(guzheng, pitch, duration, counters, True)
+            else:
+                note = candidate.v7.viola_pad(banks[1], pitch, duration)
+            endpoint_peak[name] = max(endpoint_peak[name], float(np.abs(note[[0, -1]]).max()))
+    checks["pluck_and_string_envelopes_zero_at_edges"] = max(endpoint_peak.values()) < 1e-12
+
+    # Note scheduling is checked on integer PCM frames, including the 140ms release.
+    wind = [d for d in details if d["instrument"] == "dizi"]
+    gaps = []
+    for current, following in zip(wind, wind[1:]):
+        start = round(current["onset"]*SR)+round(current["duration_seconds"]*SR)
+        end = round(following["onset"]*SR)
+        gap = stems["dizi"][start:end]
+        gaps.append({"after_onset": current["onset"], "next_onset": following["onset"],
+                     "frames": end-start, "seconds": (end-start)/SR,
+                     "raw_gap_peak": float(np.abs(gap).max()) if len(gap) else None})
+    checks["dizi_at_least_40ms_gap_with_one_sample_tolerance"] = all(g["frames"] >= round(.04*SR)-1 for g in gaps)
+    checks["dizi_all_gap_pcm_is_silent"] = all(g["raw_gap_peak"] == 0 for g in gaps)
+    checks["no_strings_in_40_to_52_seconds"] = bool(np.max(np.abs(stems["viola"][40*SR:52*SR])) == 0)
+    checks["intro_four_plucks_first_at_095"] = (len([n for n in notes if n["onset"] < 8]) == 4 and
+                                                   min(n["onset"] for n in notes) == .95)
+    overflow = [{**d, "folded_seconds": (round(d["onset"]*SR)+round(d["duration_seconds"]*SR)-len(pcm))/SR}
+                for d in details if round(d["onset"]*SR)+round(d["duration_seconds"]*SR) > len(pcm)]
+    checks["only_intended_soft_viola_tail_crosses_loop"] = all(
+        d["instrument"] == "viola" and d["pitch"] == 55 and d["velocity"] <= .13 and
+        abs(d["onset"]-101.8) < 1e-9 for d in overflow)
+
+    spline = CubicSpline(candidate.GAIN_TIMES, candidate.GAIN_DB, bc_type="periodic")
+    envelope_db = spline(np.arange(len(pcm))/SR)
+    automation = 10**(envelope_db/20)
+    for name, stem in stems.items():
+        stem *= calibration[name]*10**(candidate.BALANCE_DB[name]/20)*automation[:, None]
+    summed = sum(stems.values())
+    mix, wet_fold = independent_room(summed, copy.deepcopy(rng))
+    del summed
+    frequency = np.fft.rfftfreq(len(mix), 1/SR)
+    highpass = frequency**2/(frequency**2+70**2)
+    for ch in range(2):
+        mix[:, ch] = np.fft.irfft(np.fft.rfft(mix[:, ch])*highpass, n=len(mix))
+    master_gain = 10**((-29-meter.integrated_loudness(mix))/20)
+    mix *= master_gain
+    error = pcm-mix
+    pcm_error_max = float(np.max(np.abs(error)))
+    checks["full_mix_reproduced_with_pcm16_quantization_tolerance"] = pcm_error_max <= 1/32768+1e-10
+    dry_results = {}
+    for name, raw in stems.items():
+        actual, stem_rate = sf.read(LOG/f"dry_{name}.wav", always_2d=True)
+        expected = raw*master_gain
+        fit = float(np.einsum("ij,ij->", actual, raw)/np.einsum("ij,ij->", raw, raw))
+        maximum_error = float(np.max(np.abs(actual-expected)))
+        dry_results[name] = {**stats(actual), "fitted_global_gain": fit,
+                             "max_absolute_reconstruction_error": maximum_error,
+                             "same_shape_and_rate": bool(actual.shape == pcm.shape and stem_rate == SR)}
+    checks["all_full_stems_match_single_global_gain"] = all(
+        s["same_shape_and_rate"] and s["max_absolute_reconstruction_error"] <= 1/8388608+1e-10
+        for s in dry_results.values())
+    checks["gain_contour_continuous_at_loop"] = bool(abs(spline(0)-spline(104)) < 1e-12 and
+        abs(spline(0, 1)-spline(104, 1)) < 1e-12)
+    boundary_jump = np.abs(pcm[0]-pcm[-1])
+    neighborhood = np.concatenate((pcm[-round(.05*SR):], pcm[:round(.05*SR)]))
+    adjacent = np.abs(np.diff(neighborhood, axis=0))
+    boundary = {"jump": boundary_jump.tolist(), "jump_dbfs": db(np.max(boundary_jump)),
+                "local_adjacent_difference_p99": float(np.quantile(adjacent, .99)),
+                "local_adjacent_difference_max": float(adjacent.max()),
+                "last_090_seconds": stats(pcm[-round(.9*SR):]),
+                "folded_reverb_before_highpass": stats(wet_fold*master_gain),
+                "dry_notes_crossing_boundary": overflow}
+    checks["seam_jump_not_outlier"] = bool(np.max(boundary_jump) <=
+        max(2/32768, 2*np.quantile(adjacent, .99)))
+    checks["inputs_unchanged_during_audit"] = all(digest(ROOT/path) == h for path, h in hashes_before.items())
+    result = {
+        "status": "pass" if all(checks.values()) else "needs_review",
+        "created_at": datetime.now().astimezone().isoformat(),
+        "scope": "Full 104-second PCM, all four complete dry stems, source mapping, dynamics, scheduling and seam; no subjective listening.",
+        "files": hashes_before, "previous_pcm_sha256": digest(baseline_path),
+        "checks": checks, "failed_checks": [k for k, ok in checks.items() if not ok],
+        "full_pcm": whole, "sections": sections, "four_second_windows": windows,
+        "dynamics": {"active_section_lufs_spread": active_spread,
+                     "active_section_rms_spread_db": active_rms_spread,
+                     "active_definition": "All named sections except introduction, deliberate breathing space and final link.",
+                     "intro_minus_theme_lu": intro["lufs"]-theme["lufs"],
+                     "opening_090_minus_theme_rms_db": first_to_theme,
+                     "viola_minus_dizi_dry_rms_db": dry_results["viola"]["rms_dbfs"]-dry_results["dizi"]["rms_dbfs"],
+                     "automation_db_extrema": [float(envelope_db.min()), float(envelope_db.max())]},
+        "first_seconds_comparison": first,
+        "dizi": {"note_count": len(wind), "first_onset": wind[0]["onset"],
+                 "minimum_gap_seconds": min(g["seconds"] for g in gaps), "gaps": gaps,
+                 "gap_definition": "After the complete rendered dry note including its 140ms release; room reverb may bridge these breaths."},
+        "source_mapping": plain(mapping),
+        "actual_guzheng_roots_used": sorted(set(d["root"] for d in notes)),
+        "event_counts": {name: len(events) for name, events in score.items()},
+        "envelope_endpoints_max_absolute": endpoint_peak,
+        "reference_calibration": calibration, "single_master_gain": float(master_gain),
+        "dry_stem_reconstruction": dry_results,
+        "full_mix_max_absolute_error": pcm_error_max, "loop_boundary": boundary,
+        "playback": {"whole_clip_loop_seconds": 104, "intro_repeats_each_loop": True,
+                     "csharp_change_needed": False},
+        "limitations": ["Numeric/spectral/code verification does not replace human listening or headset playback.",
+                        "4x oversampled peak is a practical estimate, not a certified true-peak meter.",
+                        "No new source-cleanliness research: six sources retain the v7 audit-approved selection, tuning and finite-depth EQ.",
+                        "The opening's deliberately quiet G3 background is a continuous folded string tail, not a new attack."]}
+    (LOG/"audio-review.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps({"status": result["status"], "failed_checks": result["failed_checks"],
+                      "pcm": whole, "dynamics": result["dynamics"], "seam": boundary,
+                      "dizi_min_gap": result["dizi"]["minimum_gap_seconds"],
+                      "full_mix_error": pcm_error_max}, ensure_ascii=False, indent=2), flush=True)
+
+
+if __name__ == "__main__":
+    main()

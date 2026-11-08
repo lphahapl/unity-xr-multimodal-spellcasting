@@ -1,0 +1,86 @@
+{
+  "checked_date": "2026-11-04",
+  "scope": "Primary-source research only; no installation, executable/sample-bank downloads, local renders, subjective listening or project/skill edits.",
+  "access": {
+    "chrome_cdp": "127.0.0.1:9222 refused connection; built-in web tool opened official pages instead.",
+    "github_api": "Initial unauthenticated metadata requests returned HTTP 403 rate limit; not retried. Public HTML and PyPI metadata were accessible.",
+    "external_accounts_used": false
+  },
+  "tools": [
+    {
+      "name": "sfizz / sfizz-ui",
+      "repositories": ["https://github.com/sfztools/sfizz", "https://github.com/sfztools/sfizz-ui"],
+      "role": "sfizz is the SFZ parser/sample-synthesis library and JACK client. sfizz-ui supplies instrument plugins including VST3; neither is a DAW or a complete recorded instrument collection.",
+      "windows": "Official downloads list Windows 7+ 32/64-bit installers. Match the VST3 architecture to the Windows host; AU is macOS-specific.",
+      "windows_source": "https://sfz.tools/sfizz/downloads/",
+      "license": "BSD-2-Clause for both repositories; samples and third-party dependencies have separate terms.",
+      "license_sources": ["https://github.com/sfztools/sfizz/blob/develop/LICENSE", "https://github.com/sfztools/sfizz-ui/blob/develop/LICENSE"],
+      "latest_engine_release": {"version": "1.2.3", "published_utc": "2024-01-14T21:32:13Z", "url": "https://github.com/sfztools/sfizz/releases/tag/1.2.3"},
+      "latest_ui_release": {"version": "1.2.3", "published_utc": "2024-01-15T09:56:58Z", "url": "https://github.com/sfztools/sfizz-ui/releases/tag/1.2.3"},
+      "maintenance": "Both GitHub repositories explicitly show archived/read-only since 2026-06-21. Latest release links resolve to 1.2.3.",
+      "source_requirement": "Supply a licensed SFZ and its referenced recordings. Official documentation states SFZv1 and partial SFZv2 support; verify required opcodes/articulations.",
+      "feature_sources": ["https://sfz.tools/sfizz/", "https://sfz.tools/sfizz/development/status/"],
+      "recommendation": "Conditional fixed-version SFZ candidate after host and instrument tests; do not describe the archived upstream as an actively maintained default.",
+      "not_tested": ["Windows installer", "Hosting in DawDreamer or Pedalboard", "SFZ path/state persistence", "Required articulations and repeatability"]
+    },
+    {
+      "name": "FluidSynth",
+      "repository": "https://github.com/FluidSynth/fluidsynth",
+      "role": "SoundFont MIDI synthesizer with command-line offline/fast rendering and C API. It includes reverb/chorus but is not a VST3 host; SFZ is not its native format.",
+      "windows": "Official download page provides automatically built Windows binary releases; its CLI does not require Python.",
+      "windows_source": "https://www.fluidsynth.org/download/",
+      "license": "LGPL; repository LICENSE contains version 2.1. The official FAQ permits commercial music while requiring checks of MIDI and SoundFont input licenses. Bundling/linking software is a separate question.",
+      "license_sources": ["https://github.com/FluidSynth/fluidsynth/blob/master/LICENSE", "https://github.com/FluidSynth/fluidsynth/blob/master/doc/wiki/LicensingFAQ.md"],
+      "latest_release": {"version": "2.6.2", "date": "2026-11-01", "url": "https://github.com/FluidSynth/fluidsynth/releases/tag/v2.6.2"},
+      "maintenance": "Recent release fixes note-onset, MIDI, reverb and DSP issues; official news also lists 2.6.1 on 2026-09-19 and 2.6.0 on 2026-08-11.",
+      "source_requirement": "Official SoundFont documentation explicitly requires an external SoundFont. Generic GM bank availability does not establish authentic ethnic-instrument quality or rights.",
+      "feature_sources": ["https://www.fluidsynth.org/wiki/UserManual/", "https://www.fluidsynth.org/wiki/SoundFont/", "https://www.fluidsynth.org/wiki/usage/multi-channel/"],
+      "stem_plan": "Render each isolated instrument/channel MIDI to a stem, or explicitly configure the documented multichannel API. Default stereo rendering is not automatic stem separation. Make chorus/reverb settings explicit.",
+      "recommendation": "First lightweight MIDI renderer candidate when an appropriate licensed SF2/SF3 bank already exists; do not blindly convert SFZ or substitute generic GM timbres for authentic instruments.",
+      "not_tested": ["Windows executable", "Selected SoundFont", "Stem/channel routing", "Tails and repeated-render consistency"]
+    },
+    {
+      "name": "DawDreamer",
+      "repository": "https://github.com/DBraun/DawDreamer",
+      "role": "Python processor graphs with MIDI, plugin instruments/effects, automation, state saving/loading and simultaneous processor recording. Official example saves dry instrument output and wet graph output.",
+      "windows": "Windows x86-64 Python 3.11–3.14; current PyPI metadata includes dawdreamer-0.9.0-cp313-cp313-win_amd64.whl, matching the reported local Python 3.13 architecture family.",
+      "windows_sources": ["https://dirt.design/DawDreamer/installation.html", "https://pypi.org/project/dawdreamer/0.9.0/"],
+      "license": "GPL-3.0; hosted plugins, samples and third-party dependencies retain separate terms.",
+      "license_source": "https://github.com/DBraun/DawDreamer/blob/main/LICENSE",
+      "latest_release": {"version": "0.9.0", "published_utc": "2026-08-12T17:01:55Z", "url": "https://github.com/DBraun/DawDreamer/releases/tag/v0.9.0", "pypi_verified_version": "0.9.0", "metadata_url": "https://pypi.org/pypi/dawdreamer/json"},
+      "maintenance": "Release adds rendering/concurrency and platform-wheel changes; current repository shows 12 commits since release. Documentation header is 0.9.1, ahead of released 0.9.0; pin APIs to the installed release.",
+      "source_requirement": "The desired recorded instruments require supplied sample audio or external plugins/sample libraries; the framework is not a guzheng/dizi/string recording collection.",
+      "feature_sources": ["https://github.com/DBraun/DawDreamer", "https://dirt.design/DawDreamer/user_guide/plugin_processor.html"],
+      "recommendation": "Preferred candidate for Python-controlled multitrack graphs when independent stems, automation, presets and return effects are central. Begin with one known instrument and test timing/state/tails.",
+      "not_tested": ["Local installation/import", "Specific instrument compatibility", "Plugin state or GUI", "Full multitrack rendering and repeatability"]
+    },
+    {
+      "name": "Pedalboard",
+      "repository": "https://github.com/spotify/pedalboard",
+      "role": "Python audio I/O and effects, plus Windows VST3 instrument/effect hosting. MIDI-to-instrument rendering exists since 0.7.4: describing it as effects-only is incorrect.",
+      "windows": "Windows amd64 wheels and automated VST tests; current release has Python 3.10–3.15 wheels, including pedalboard-0.9.26-cp313-cp313-win_amd64.whl.",
+      "windows_sources": ["https://github.com/spotify/pedalboard#compatibility", "https://pypi.org/project/pedalboard/0.9.26/"],
+      "license": "GPL-3.0; README lists statically included third-party libraries separately. External instruments and samples are not relicensed by the host.",
+      "license_sources": ["https://github.com/spotify/pedalboard/blob/master/LICENSE", "https://github.com/spotify/pedalboard#license"],
+      "latest_release": {"version": "0.9.26", "published_utc": "2026-10-07T19:48:04Z", "url": "https://github.com/spotify/pedalboard/releases/tag/v0.9.26", "metadata_url": "https://pypi.org/pypi/pedalboard/json"},
+      "maintenance": "Current release fixes Linux wheel CPU compatibility; current documentation, Windows wheels and Windows VST test claims are present.",
+      "source_requirement": "Built-in effects process supplied audio. Recorded-instrument MIDI rendering requires a separately supplied compatible VST3 instrument and authorized sample library.",
+      "feature_sources": ["https://spotify.github.io/pedalboard/reference/pedalboard.html", "https://spotify.github.io/pedalboard/faq.html", "https://github.com/spotify/pedalboard/blob/master/COMPATIBILITY.md"],
+      "state_and_tail_caveat": "Successive chunks of the same stream need reset=False to preserve internal state. Render duration must include releases/tails; MIDI timestamps outside it are ignored. Per-part dry stems and routing remain application responsibilities.",
+      "recommendation": "Preferred lightweight addition for processing existing stems; also viable for simple per-part MIDI/VST3 rendering. DawDreamer's processor graph/recording model is more explicit for complex routing.",
+      "not_tested": ["Local installation/import", "Chosen VST3 instruments", "Real tail/chunk behavior", "Plugin-specific crash/GUI behavior and determinism"]
+    }
+  ],
+  "skill_routing_recommendations": [
+    "Licensed SF2/SF3 plus MIDI: evaluate FluidSynth; export aligned per-instrument dry stems.",
+    "Licensed VST3 plus score/automation: evaluate DawDreamer; Pedalboard is an alternative for simple per-part renders.",
+    "Existing dry WAV stems: evaluate Pedalboard for parameterized effects/shared returns; retain originals.",
+    "Licensed SFZ multisamples: sfizz-ui remains conditional, pinned and archived; validate required opcodes and the chosen host.",
+    "Record score/MIDI, tempo, note durations, velocities, CC/articulations and explicit sample mappings.",
+    "Record engine/plugin versions, architecture, presets/state, sample hashes and separate license evidence.",
+    "Record sample rate, block size, dry/wet routing and tail allowance; verify a repeated short render before full export.",
+    "Keep numerical/source checks separate from listening. Better tools do not establish natural timbre or repair poor source recordings."
+  ],
+  "runtime_status": "None of these tools was installed, imported or rendered in this research. Published wheels and documentation are capability evidence, not local runtime acceptance.",
+  "date_method": "Release timestamps were read from public GitHub HTML relative-time datetime attributes. Latest links and PyPI JSON corroborated tags; no GitHub API retry was used."
+}

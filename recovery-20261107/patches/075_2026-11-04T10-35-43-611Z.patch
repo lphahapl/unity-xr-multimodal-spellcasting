@@ -1,0 +1,17 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyAttackChecks.cs
+@@
+             paused.SetValue(rpg.Controller, false);
++            check(rpg.Receiver.TryReceiveDamage(new EnemyAttackHit(f.Owner, rpg.Receiver, "death-probe", 0, 100, rpg.Receiver.HitPosition)) &&
++                rpg.Controller.Player.Health == 0 && !rpg.Controller.CanAct && !rpg.Receiver.CanReceiveDamage,
++                "致死命中保留原RPG死亡与受击准入关闭流程");
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemyCombatChecks.cs
+@@
+                 enemy.ResetForSpawn(); enemy.animator.Rebind(); enemy.animator.Update(0);
++                Physics.SyncTransforms();
+                 Vector3 weakCenter = weak.GetComponent<SphereCollider>().bounds.center;
+@@
+                 enemy.ResetForSpawn(); enemy.animator.Rebind(); enemy.animator.Update(0);
++                Physics.SyncTransforms();
+                 weakCenter = weak.GetComponent<SphereCollider>().bounds.center;
+*** End Patch

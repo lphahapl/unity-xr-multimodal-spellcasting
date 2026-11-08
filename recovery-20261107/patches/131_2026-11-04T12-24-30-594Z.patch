@@ -1,0 +1,42 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/AUDIO_VFX_SPECIFICATION_ZH.md
+@@
+-##### 当前修正试听 v5，2026-11-04
++##### 当前减法试听 v6，2026-11-04
++
++用户继续反馈约第7秒不和。该处6.85秒C3补奏使用原录音361.416秒的低D采样下移，采样含明显非本音成分；此前5.993秒D4干声还持续到8.382秒，与低音叠加。v6撤掉使用该低D采样的全部八条伴奏（6.85、8.08、16.08、27.45、32.12、56.08、72.11、88.10秒），其余主题音高、起点与力度保留。主题拨弦恢复原动机时值并在句内缓释，5.993秒D4现长0.8秒，约6.793秒收住；6.8–8.2秒古筝干声为零，混响自然衰减。
++
++同时固定较干净的C4录音43.995秒与D4录音38.207秒，停用有A3/F4串音的另两条轮替。当前七条实录来源仍可能有较弱共振，不宣称完全纯净。古筝47次、竹笛40次、弦乐铺底24次、编钟1次；笛子/弦乐/编钟乐谱与配置沿用v5。
++
++[当前96秒循环WAV](../../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)与[复现脚本](../../scratch/render_yicun_shanhe_guzheng_v6.py)。约-29.00 LUFS、-10.79 dBTP，削波、删除集合、保留音高/起点及循环接缝数值已核；听感待试听。v5原件保存于 `Logs/yicun-shanhe-quiet-v6/previous_guzheng_v5.wav`，同目录提供开头12秒前后对照。
++
++##### v5 历史修正试听，2026-11-04
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96秒轻声循环，实录古筝与竹笛、轻弦乐铺底；v5替换低G拨弦串音采样，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
++- [全场景视效VFX、音效SFX与BGM规范](architecture/AUDIO_VFX_SPECIFICATION_ZH.md) · [游戏音频流水线技能](skills/game-audio-pipeline/SKILL.md) · [当前常态 BGM《一寸山河》](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。96秒轻声循环，实录古筝与竹笛、轻弦乐铺底；v6撤去串音低音补奏并收短主题尾音，编钟单记。[历史《春水玉律》](audio/kaogong_bgm_soothing_major.wav)作为早期版本保留。
+@@
+-- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前96秒循环BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v5修正开头及20秒附近的古筝伴奏串音，保留竹笛与轻弦乐，约-29 LUFS，沿用P1探索音乐引用，音色待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
++- [《一寸山河》常态探索主题](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)与[当前96秒循环BGM](../Assets/SealCombat/Audio/kaogong_yicun_shanhe_ambient_loop.wav)。主题已接受；v6针对第7秒叠音做减法，清除同源低音补奏并固定较干净主题采样，保留竹笛与轻弦乐，约-29 LUFS，沿用P1探索音乐引用，音色待试听。[音源署名](../Assets/SealCombat/Audio/YicunShanhe_Credits.txt)。
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Audio/YicunShanhe_Credits.txt
+@@
+-一寸山河 / Yicun Shanhe — ambient loop, revision 5
++一寸山河 / Yicun Shanhe — ambient loop, revision 6
+@@
+-Ten directly recut recorded plucks at eight MIDI roots: 50,53,57,60,62,67,72,74.
++Seven directly recut recorded plucks at seven MIDI roots: 53,57,60,62,67,72,74.
+@@
+ All fifteen G3 events use this replacement, including the wraparound note.
++Revision 6 removes all eight low fills using the contaminated D3 take.
++C4 uses source 43.995 seconds; D4 uses source 38.207 seconds, without alternating
++to their noisier takes. Melody releases follow the motif's original note values.
+@@
+-transposition within two semitones, varied C4/D4 takes, smooth release, mix/reverb.
++transposition within two semitones, selected C4/D4 takes, smooth release, mix/reverb.
+@@
+-Rebuild revision 5 with scratch/render_yicun_shanhe_guzheng_v5.py, which imports
++Rebuild revision 6 with scratch/render_yicun_shanhe_guzheng_v6.py, which imports
+@@
+-The renderer writes a candidate under Logs/yicun-shanhe-pluck-v5.
++The renderer writes a candidate under Logs/yicun-shanhe-quiet-v6.
+*** End Patch

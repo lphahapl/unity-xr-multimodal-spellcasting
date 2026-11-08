@@ -1,0 +1,11 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-            if (agent && agent.isActiveAndEnabled && agent.isOnNavMesh) { agent.isStopped = true; agent.ResetPath(); }
++            if (agent && agent.isActiveAndEnabled && agent.isOnNavMesh)
++            { agent.isStopped = true; agent.ResetPath(); agent.velocity = Vector3.zero; }
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                                throw new Exception("失去目标后未停稳待机");
++                                throw new Exception($"失去目标后未停稳待机 distance={Vector3.Distance(go.transform.position, before):F4}, state={enemy.CurrentBehaviour}, velocity={enemy.Agent.velocity}, reason={enemy.Status}");
+*** End Patch

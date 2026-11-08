@@ -1,0 +1,31 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-        public enum Behaviour { Idle, Patrol, Chase, Turn, Attack, Suspended }
++        public enum Behaviour
++        {
++            [InspectorName("待机")] Idle, [InspectorName("巡逻")] Patrol,
++            [InspectorName("追击")] Chase, [InspectorName("转向")] Turn,
++            [InspectorName("攻击")] Attack, [InspectorName("暂停")] Suspended
++        }
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+ using UnityEngine.SceneManagement;
++using UnityEngine.XR;
++using UnityEngine.XR.Management;
+@@
+             GameObject go = null, point = null;
++            bool previousBackground = Application.runInBackground;
++            Application.runInBackground = true;
++            var xrManager = XRGeneralSettings.Instance ? XRGeneralSettings.Instance.Manager : null;
++            var displays = new List<XRDisplaySubsystem>(); SubsystemManager.GetSubsystems(displays);
++            bool restoreXr = xrManager && xrManager.isInitializationComplete && displays.Any(d => d.running);
++            if (restoreXr) xrManager.StopSubsystems();
+@@
+                 if (nav) Object.DestroyImmediate(nav);
++                Application.runInBackground = previousBackground;
++                if (restoreXr && xrManager) xrManager.StartSubsystems();
+@@
+-                            throw new Exception("真实帧导航被中断或超时");
++                            throw new Exception($"真实帧导航被中断或超时 stage={stage}, gameTime={Time.time}, stageAt={stageAt}, paused={EditorApplication.isPaused}, timeScale={Time.timeScale}");
+*** End Patch

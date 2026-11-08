@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/ZhunwangImportOnce.cs
+@@
+-            instance.name = "Zhunwang";
++            instance.name = "Visual";
+             foreach (var renderer in instance.GetComponentsInChildren<Renderer>(true)) renderer.sharedMaterials = Enumerable.Repeat(material, renderer.sharedMaterials.Length).ToArray();
+-            var prefab = PrefabUtility.SaveAsPrefabAsset(instance, PrefabPath, out bool ok); Require(ok && prefab, "Prefab 保存失败");
++            // 把 FBX 的厘米换算留在 Visual 子节点，使用者操作的根节点保持单位缩放。
++            var root = EditorUtility.CreateGameObjectWithHideFlags("Zhunwang", HideFlags.HideAndDontSave);
++            SceneManager.MoveGameObjectToScene(root, scene); root.hideFlags = HideFlags.None;
++            instance.transform.SetParent(root.transform, true);
++            var prefab = PrefabUtility.SaveAsPrefabAsset(root, PrefabPath, out bool ok); Require(ok && prefab, "Prefab 保存失败");
+@@
+-        Require(report.meshes == 1 && report.triangles == 23998 && report.materialBound && report.importNormals && report.mikkTangents, "模型或材质验收不符");
++        Require(report.meshes == 1 && report.triangles == 23998 && report.materialBound && report.importNormals && report.mikkTangents && report.rootScale == Vector3.one, "模型或材质验收不符");
+*** End Patch

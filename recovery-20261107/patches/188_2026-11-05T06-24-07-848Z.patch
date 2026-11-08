@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/MUSIC_PRODUCTION_RUNTIME_ZH.md
+@@
+-## 复现当前v9
++## 复现当前v10
+@@
+-& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'scratch/render_yicun_shanhe_pedalboard_v9.py'
++& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'scratch/render_yicun_shanhe_phrased_v10.py'
+@@
+-输出到`Logs/yicun-shanhe-pedalboard-v9/`，会重写该目录的同名候选及报告，先另存需要保留的候选。脚本不自动覆盖Unity正式音频。
++输出到`Logs/yicun-shanhe-phrased-v10/`，会重写该目录的同名候选及报告，先另存需要保留的候选。脚本不自动覆盖Unity正式音频。v9及工具安装测试保留在原目录。
++
++v10针对用户“笛子离散、没有主题”的试听反馈重写乐句：8.25秒与16.25秒完整陈述同一个六音主题，再模进、换尾与再现。`scratch/yicun_dizi_phrases_v10.py`将实录持音按24ms等功率交接连接，整句连续力度、句首起音和句尾收气，句间至少约0.65秒换气。它是持音采样编程连接，并非录制了真实连奏过渡；JSON保存逐句表达控制点，MIDI保留音高、名义时值和力度，不能单独复现全部奏法。
+@@
+-固定音源校准保留减法编曲和逐音力度，只在最终混音施加一次整体增益。母带目标约-29LUFS用于当前轻声常态场景，不作为其他作品的统一标准。真实音源、代码和输出hash见[render.json](../../Logs/yicun-shanhe-pedalboard-v9/render.json)。
++固定音源校准保留减法编曲与乐句动态，只在最终混音施加一次整体增益。母带目标约-29LUFS用于当前轻声常态场景，不作为其他作品的统一标准。真实音源、代码和输出hash见[render.json](../../Logs/yicun-shanhe-phrased-v10/render.json)。
+@@
+-& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'C:/Users/鲁迅/.codex/skills/music-production/scripts/analyze_audio.py' 'Logs/yicun-shanhe-pedalboard-v9/yicun_shanhe_pedalboard_v9.wav' --loop --sections 'Logs/yicun-shanhe-pedalboard-v9/sections.json' --out 'Logs/yicun-shanhe-pedalboard-v9/new-audio-review.json'
++& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'C:/Users/鲁迅/.codex/skills/music-production/scripts/analyze_audio.py' 'Logs/yicun-shanhe-phrased-v10/yicun_shanhe_phrased_v10.wav' --loop --sections 'Logs/yicun-shanhe-phrased-v10/sections.json' --out 'Logs/yicun-shanhe-phrased-v10/new-audio-review.json'
+@@
+-谱面检查实际note尾部、换气与主题；信号检查分轨相加、削波、动态和接缝；听感另行试听。固定音源清理不等于所有录音纯净：G4古筝仍保留有限处理后的自然共振，需要结合整曲听辨。
++谱面检查实际note尾部、换气与主题；信号检查分轨相加、削波、动态和接缝；听感另行试听。v10句内短交接是有意奏法，需查电平与音高平台，不要求每音之间静音。固定音源清理不等于所有录音纯净：G4古筝仍保留有限处理后的自然共振，需要结合整曲听辨。
+*** End Patch

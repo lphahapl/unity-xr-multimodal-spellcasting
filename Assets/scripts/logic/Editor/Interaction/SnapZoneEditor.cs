@@ -53,6 +53,7 @@ namespace NeuGameMRTools.Editor.Editors
                 }
             }
             Field("_snapDuration", "默认每段时长（秒）");
+            Field("_followZoneDuringSnap", "吸附过程中跟随区域移动");
             Field("_snapCurve", "原版动画曲线（每段使用）");
             EditorGUILayout.Space();
             Field("_requireSnapItem", "自动触发要求 SnapItem 标记");
@@ -60,7 +61,7 @@ namespace NeuGameMRTools.Editor.Editors
             Field("_requireNameMatch", "要求名称匹配");
             if (P("_requireNameMatch").boolValue) Field("_targetObjectName", "根物体名称包含（空为不限）");
             Field("_disableCollidersOnSnap", "整条完成后禁用道具碰撞体");
-            EditorGUILayout.HelpBox("接管期间暂停道具物理及已发现的 Meta 抓取驱动，释放后恢复原状态。曲线与目标世界姿态在启动时冻结；路径不改变父级或缩放。", MessageType.Info);
+            EditorGUILayout.HelpBox("路径点与曲线在启动时冻结。启用跟随时，整段路径随区域移动。释放后恢复道具的物理与抓取驱动。", MessageType.Info);
             EditorGUILayout.Space();
             Field("_onEnterEvent", "开始吸附");
             Field("_onPointReachedEvent", "到达路径点（物体、零起始序号）");

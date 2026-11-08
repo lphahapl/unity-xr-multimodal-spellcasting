@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/LinearRpgValidation.cs
+@@
+-                            activeScene.path == LinearRpgSceneSetup.ScenePath && sceneController && sceneController.handPoseSettings && sceneController.handPoseSettings.Validate() == null;
++                            (activeScene.path == LinearRpgSceneSetup.ScenePath || activeScene.path == P1ScenePath) && sceneController && sceneController.handPoseSettings && sceneController.handPoseSettings.Validate() == null;
+*** End Patch

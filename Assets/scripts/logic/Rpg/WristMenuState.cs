@@ -64,7 +64,8 @@ namespace NarutoVR.SealCombat.Rpg
         public bool leftValid, leftClosed, rightValid, rightPointing, rightOpen, rightClosed, leftPointing, wristFacing;
         public double leftObserved, rightObserved;
         public Vector3 leftWrist, rightTip, rayOrigin, rayDirection, headPosition, headForward;
-        public Quaternion leftRotation;
+        public Quaternion leftRotation, mountRotation;
+        public bool mountValid;
         public bool rayValid, rayAnchorValid, pinchValid;
         public float pinchDistance;
         public string source;
@@ -92,6 +93,8 @@ namespace NarutoVR.SealCombat.Rpg
         bool rearm, reopenBlocked, arming, previousPose, exitQualified;
         double tapHandoff = -1;
         float tapOpenHeight;
+
+        internal void DismissLauncher() => LauncherOpen = false;
 
         public void Reset(bool requireNeutral = true)
         {

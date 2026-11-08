@@ -1,0 +1,261 @@
+{
+  "blender": "5.2.2 LTS",
+  "atlas": [
+    1024,
+    1024
+  ],
+  "emission": [
+    256,
+    256
+  ],
+  "normal": "MikkTSpace tangent +X +Y +Z (OpenGL)",
+  "cage_m": 0.012,
+  "ray_m": 0.032,
+  "projection_groups": {
+    "Gauge plate": 1,
+    "Splayed shoe": 2,
+    "Sloping upright": 3,
+    "Back stay": 4,
+    "Foot bronze strap": 5,
+    "Tie stretcher": 6,
+    "Head crossrail": 7,
+    "Axle yoke": 8,
+    "Wall plate": 9,
+    "Stepped plate": 10,
+    "Lower corbel": 11,
+    "Wick arm": 12,
+    "Flared wick bowl": 13,
+    "Octagonal eave": 14,
+    "Amber mica chimney": 15,
+    "Shade guard": 16
+  },
+  "projection": "WorkshopBakePart * 1.5 m X in bake space. AO uses assembled parts.",
+  "channels": "R metallic, G Cycles AO, B wick mask, A smoothness",
+  "meshes": {
+    "TargetGaugeFace": {
+      "high_tri": 22944,
+      "low_tri": 320,
+      "low_vertices": 162,
+      "materials": 1,
+      "dims_blender": [
+        0.6150000095367432,
+        0.0560000017285347,
+        0.6150000095367432
+      ],
+      "fbx_sha256": "6c83358dd060a9020337a9e519eb4fef9a41f3785a98828dfc4ae3c42b91c630"
+    },
+    "TargetTrestle": {
+      "high_tri": 5868,
+      "low_tri": 356,
+      "low_vertices": 200,
+      "materials": 1,
+      "dims_blender": [
+        0.6929999589920044,
+        0.4699999988079071,
+        1.7637630701065063
+      ],
+      "fbx_sha256": "c8f51b7404d1a2965fbb8298b93f1562679717d23292c6a715d27c5ba4a1ac23"
+    },
+    "WorkshopWallLamp": {
+      "high_tri": 5600,
+      "low_tri": 528,
+      "low_vertices": 286,
+      "materials": 1,
+      "dims_blender": [
+        0.32600000500679016,
+        0.39899998903274536,
+        0.37400001287460327
+      ],
+      "fbx_sha256": "950f4a00bc7ec8a1a0df6bbf3e4c5cd77925c4289b1c1d07d671110b2b36b0ae"
+    }
+  },
+  "fbx_reimport": {
+    "TargetGaugeFace": {
+      "triangles": 320,
+      "material": "GaugeWorkshop_Baked",
+      "bounds_world_blender": [
+        [
+          -0.3075,
+          0.3075
+        ],
+        [
+          -0.0,
+          0.056
+        ],
+        [
+          -0.3075,
+          0.3075
+        ]
+      ]
+    },
+    "TargetTrestle": {
+      "triangles": 356,
+      "material": "GaugeWorkshop_Baked",
+      "bounds_world_blender": [
+        [
+          -0.3465,
+          0.3465
+        ],
+        [
+          -0.235,
+          0.235
+        ],
+        [
+          -0.0,
+          1.763763
+        ]
+      ]
+    },
+    "WorkshopWallLamp": {
+      "triangles": 528,
+      "material": "GaugeWorkshop_Baked",
+      "bounds_world_blender": [
+        [
+          -0.163,
+          0.163
+        ],
+        [
+          -0.399,
+          0.0
+        ],
+        [
+          -0.18,
+          0.194
+        ]
+      ]
+    },
+    "uv_atlas": {
+      "triangles": 1204,
+      "coverage": 0.49776310637203197,
+      "overlap_pairs": []
+    }
+  },
+  "independent_rebake": {
+    "TargetGaugeFace": {
+      "covered_texels": 196408,
+      "overlap_texels_in_mesh": 0,
+      "rebake_mean_abs_error_0_to_255": 0.01338200752175743,
+      "rebake_angle_deg_p95": 1.2074182697257333e-06,
+      "rebake_angle_deg_p99": 0.4493452636604512,
+      "facing_away_normal_percent": 0.0,
+      "normal_R_G_std_on_surface": [
+        14.95775080859789,
+        15.041818180887295
+      ],
+      "albedo_std_on_surface": [
+        58.26413269316862,
+        61.50533853610328,
+        58.014938050534354
+      ],
+      "packed_R_G_A_range": [
+        [
+          8,
+          189
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          66,
+          122
+        ]
+      ]
+    },
+    "TargetTrestle": {
+      "covered_texels": 245145,
+      "overlap_texels_in_mesh": 0,
+      "rebake_mean_abs_error_0_to_255": 0.07387464561789961,
+      "rebake_angle_deg_p95": 0.8987181675727884,
+      "rebake_angle_deg_p99": 0.8987181675727884,
+      "facing_away_normal_percent": 0.0,
+      "normal_R_G_std_on_surface": [
+        16.870136486337053,
+        6.902489313075353
+      ],
+      "albedo_std_on_surface": [
+        12.217195058371539,
+        11.522870252902113,
+        7.529420742952341
+      ],
+      "packed_R_G_A_range": [
+        [
+          8,
+          189
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          66,
+          122
+        ]
+      ]
+    },
+    "WorkshopWallLamp": {
+      "covered_texels": 81407,
+      "overlap_texels_in_mesh": 0,
+      "rebake_mean_abs_error_0_to_255": 0.031434643212500155,
+      "rebake_angle_deg_p95": 0.4460529377259621,
+      "rebake_angle_deg_p99": 0.766512097053559,
+      "facing_away_normal_percent": 0.0,
+      "normal_R_G_std_on_surface": [
+        23.91538483791295,
+        13.805533104413305
+      ],
+      "albedo_std_on_surface": [
+        35.87535656564269,
+        29.968236098566994,
+        19.083960048725665
+      ],
+      "packed_R_G_A_range": [
+        [
+          8,
+          189
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          66,
+          122
+        ]
+      ]
+    },
+    "mesh_to_mesh_overlap_texels": 0
+  },
+  "android_unity_readback": [
+    "Unity 6000.3.10f1 active build target Android Android subtarget=Generic",
+    "TargetGaugeFace faces=320 vertices=570 slots=1 sharedMat=Assets/Art/Environment/Opening/Interior/GaugeWorkshop_Baked.mat importNormals=Import importTangents=CalculateMikk local-center=(0.00000, 0.00000, -0.02800) local-size=(0.61500, 0.61500, 0.05600) world center=(0.00000, 0.00000, -0.02800) world size=(0.61500, 0.61500, 0.05600)",
+    "TargetTrestle faces=356 vertices=774 slots=1 sharedMat=Assets/Art/Environment/Opening/Interior/GaugeWorkshop_Baked.mat importNormals=Import importTangents=CalculateMikk local-center=(0.00000, 0.88188, 0.00000) local-size=(0.69300, 1.76376, 0.47000) world center=(0.00000, 0.88188, 0.00000) world size=(0.69300, 1.76376, 0.47000)",
+    "WorkshopWallLamp faces=528 vertices=1004 slots=1 sharedMat=Assets/Art/Environment/Opening/Interior/GaugeWorkshop_Baked.mat importNormals=Import importTangents=CalculateMikk local-center=(0.00000, 0.00700, 0.19950) local-size=(0.32600, 0.37400, 0.39900) world center=(0.00000, 0.00700, 0.19950) world size=(0.32600, 0.37400, 0.39900)",
+    "_BaseMap -> GaugeWorkshop_BaseColor | 1024x1024 format=ASTC_6x6 sRGB=True type=Default flipG=False mip=11 androidOverride=True GPUformat=RGBA_ASTC6X6_UNorm readable=False",
+    "_BumpMap -> GaugeWorkshop_Normal | 1024x1024 format=ASTC_6x6 sRGB=False type=NormalMap flipG=False mip=11 androidOverride=True GPUformat=RGBA_ASTC6X6_UNorm readable=False",
+    "_MetallicGlossMap -> GaugeWorkshop_Mask | 1024x1024 format=ASTC_6x6 sRGB=False type=Default flipG=False mip=11 androidOverride=True GPUformat=RGBA_ASTC6X6_UNorm readable=False",
+    "_OcclusionMap -> GaugeWorkshop_Mask | 1024x1024 format=ASTC_6x6 sRGB=False type=Default flipG=False mip=11 androidOverride=True GPUformat=RGBA_ASTC6X6_UNorm readable=False",
+    "_EmissionMap -> GaugeWorkshop_Emission | 256x256 format=ASTC_6x6 sRGB=True type=Default flipG=False mip=9 androidOverride=True GPUformat=RGBA_ASTC6X6_UNorm readable=False",
+    "Active keywords: _NORMALMAP _EMISSION _METALLICSPECGLOSSMAP _OCCLUSIONMAP",
+    "PASS"
+  ],
+  "units": "metres",
+  "unity_local_front": "+Z; face rear extends to -Z; lamp projects from wall towards +Z",
+  "workflow": "Procedural high master first; independent silhouette meshes, triangulated before baking. High to low grouped cages; AO computed in assembly. Blender +Y tangents, Unity Mikk; 1 material shared across all meshes. Quest head-mounted visual/performance test pending.",
+  "tools": {
+    "blender": "5.2.2 LTS isolated background process",
+    "MCP": "Configured; add-on file present. Live MCP get_scene_info returned not connected at preflight; background Blender used for all model and bake work."
+  },
+  "hashes_sha256": {
+    "ArtSource/Environment/Opening/Interior/WorkshopProps_pipeline.blend": "885478604cc48f524b80c0275f72045f368025b7a298f9d15419eaee7d5e2515",
+    "ArtSource/Environment/Opening/Interior/WorkshopProps_review.jpg": "a7854321a9562e4d303991cc646bef989572ddfb9e68e89f1b684b110fb486b4",
+    "Assets/Art/Environment/Opening/Interior/TargetGaugeFace.fbx": "6c83358dd060a9020337a9e519eb4fef9a41f3785a98828dfc4ae3c42b91c630",
+    "Assets/Art/Environment/Opening/Interior/TargetTrestle.fbx": "c8f51b7404d1a2965fbb8298b93f1562679717d23292c6a715d27c5ba4a1ac23",
+    "Assets/Art/Environment/Opening/Interior/WorkshopWallLamp.fbx": "950f4a00bc7ec8a1a0df6bbf3e4c5cd77925c4289b1c1d07d671110b2b36b0ae",
+    "Assets/Art/Environment/Opening/Interior/Textures/GaugeWorkshop_BaseColor.png": "13fdd0f0ea318ab211387603c5b627166087ce2e1bff114d6e403b7a588023e6",
+    "Assets/Art/Environment/Opening/Interior/Textures/GaugeWorkshop_Emission.png": "b5ae006acf557376180e16f64268913cbdd39e91ac0a33ea861d042ea660cc04",
+    "Assets/Art/Environment/Opening/Interior/Textures/GaugeWorkshop_Mask.png": "11762a4de1967c947893005f624d11ae6c6ac797c58fd28ebf720493fafe6aca",
+    "Assets/Art/Environment/Opening/Interior/Textures/GaugeWorkshop_Normal.png": "ff314362093485ac9eacbe3852153448e23524c8df2d3189104148a93058115e",
+    "Assets/Art/Environment/Opening/Interior/GaugeWorkshop_Baked.mat": "725f9d2bb666ec7d9672eeaf01db9b150e914e31b16f05e95c87ca13e2db6c3b"
+  }
+}

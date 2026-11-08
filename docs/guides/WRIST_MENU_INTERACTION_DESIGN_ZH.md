@@ -1,6 +1,30 @@
 # 腕饰菜单与独立教学卡：当前操作
 
-操作核对：2026-11-01。已接入 `LinearRpgTest`；文字速查已实现，画符识别、动作示范与完整课程尚未完成。默认入口为 `TapWrist`；`RaiseFist` 仅留作配置对照。旧演进过程归入模型交火，不再作为默认操作。
+首章与 P1 均使用右手轻按朱砂扣打开教学的 `TapWrist` 入口。`RaiseFist` 可在配置中切换。
+
+## 首章《苏醒》的课程
+
+新档打开腕匣可读火球术与护盾。火球课显示寅印手图和配套口令；护盾课给出子印、口令“护体咒”两种起手方法。首枚方圆规印取到后，腕匣开放纯口令课「金刚护体」。教学状态随领取、入匣、校验而变，具体施法条件见[首章指南](CHAPTER01_AWAKENING_ZH.md)。
+
+入口同时显示已学课程数、铜叶数和当前气血、度力。新课状态区可直接看到“已取叶／待入匣”和“已入匣／待校验”。若写盘暂时失败，原位置显示“待存档”，补写成功后自动清除。[新档入口](../visuals/20261108_trial_interior/Unity_腕匣入口.jpg) · [火球手图](../visuals/20261108_trial_interior/Unity_火球教学.jpg) · [取叶后](../visuals/20261108_trial_interior/Unity_取叶后教学.jpg)
+
+结印图按真实配方的 `sealName` 从 [Teaching/Seals](../../Assets/Resources/Teaching/Seals) 加载。新增配方时须把印名与同名透明 Sprite 对齐。纯口令只显示念法，顺序与组合方式以技能配置为准。十二印均取自提供的真人照片；丑、辰、午、未、戌、亥采用十二印合照中的完整手形，另六印取自单张。[十二印与照片来源](../visuals/20261108_trial_interior/十二印透明手图.jpg)
+
+## P1 的准望匣
+
+抬起左腕，顶面两行青铜阳文分别标记气血和度力。上排十格以朱砂色显示生命，下排十格以青玉色显示度力。满尺对应玩家当前上限，单格也可以部分填充。精确数字可在展开的教学入口查看。倒下时匣面提示「按朱砂扣 · 恢复检查点」，右指按扣请求恢复。
+
+存活时，用右食指按一次朱砂扣打开术式入口，退指后再按一次收起。点扣后松开，面板保持可读。可以打开结印、画符或咒语卡。捏住教学卡拖动条移动后松手，或放低左腕，P1 面板会收起，下次打开回到默认位置。红扣接触半径为 22 mm，佩戴时帽体行程约 1.5 mm。在场景腕部控制器微调佩戴姿态，在预制体的「教学面板投影位」调整面板出现的位置。
+
+每把尺的 Inspector 列表从左到右绑定十个真实模型子物体。模型提供中性镶芯和固定铜框，脚本控制每一格的颜色、填充和余光。回复扫光约 0.34 秒，消散约 0.42 秒；连续反向变化从当时可见的边缘继续。隐藏时结束动效，重新显示时直接同步玩家状态，并复用同一批子物体。[顶面双尺外观（侧盘放大前）](../visuals/20261107_zhunwang_vitals/top-status-side-dial.png)
+
+按预制体佩戴比例，每枚镶芯约 4.03 × 6.48 mm，列中心距约 5.87 mm。距眼 45 cm 正对时，每枚镶芯约占 0.51° × 0.83°。以单眼 2048 × 2048、视场 90°、距离 45 cm、偏角约 20° 渲染，朱砂八格、青玉四格可辨，铜字笔画较细。镜片与人手抬腕效果待 Quest 实测。[45 cm 模拟视图](../visuals/20261107_zhunwang_vitals/gauge-eye45.png) · [刻格动效](../visuals/20261107_zhunwang_vitals/gauge-vfx.gif) · [运行静帧](../visuals/20261107_zhunwang_vitals/gauge-play-80-40.png)
+
+玩家侧圆盘沿用原五字篆纹「規、矩、律、準、繩」。按佩戴比例，铭文面为 20.77 × 23.92 mm，两轴各放大了 25%。圆形外座直径为 27.13 mm。`SideDialRotor` 的局部 +Z 是转轴，中心方口 `KeySocket` 为解谜接口预留。[侧盘放大前后对照](../visuals/20261107_zhunwang_vitals/side-dial-enlargement-comparison.png)
+
+业务读取 Prefab 根组件 `ZhunwangWristDisplay`。调用 `SetHealth(current, maximum)` 和 `SetPower(current, maximum)` 更新表现。单把尺的 `WristGauge.SetCurrentValue(float)` 可直接绑定单浮点 UnityEvent；`SetImmediate(current, maximum)` 可无动画同步。以上入口只更新 UI。调整每格的颜色和引用在 `WristGaugeCell`；调整刻格顺序在 `WristGauge` 的 Cells 列表。
+
+以下旧腕饰操作与独立教学卡保留策略适用于 LinearRpgTest。
 
 ## 打开、确认与关闭
 

@@ -1,0 +1,24 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/CombatDamageReceiver.cs
+@@
+         public abstract Vector3 HitPosition { get; }
++        public virtual Transform HitTransform => transform;
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/RpgDamageReceiver.cs
+@@
+-        public override Vector3 HitPosition => Player && Player.locomotion && Player.locomotion.headTransform
+-            ? Player.locomotion.headTransform.position : transform.position;
++        public override Transform HitTransform => Player && Player.locomotion && Player.locomotion.head ? Player.locomotion.head : transform;
++        public override Vector3 HitPosition => HitTransform.position;
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyAttackExecution.cs
+@@
+-                        !owner.HasLineOfSightTo(receiver.transform, receiver.HitPosition, checkOcclusion, eyeHeight, obstructionMask)) continue;
++                        !owner.HasLineOfSightTo(receiver.HitTransform, receiver.HitPosition, checkOcclusion, eyeHeight, obstructionMask)) continue;
+@@
+-                    if (receiver.TryReceiveDamage(hit)) EventCenter.Publish(EnemyEvents.DamageAccepted, hit);
++                    try { if (receiver.TryReceiveDamage(hit)) EventCenter.Publish(EnemyEvents.DamageAccepted, hit); }
++                    catch (Exception error) { Debug.LogWarning("敌人受击接收器异常，已跳过本次目标：" + error, receiver); }
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+-            if (!animationValid || !enemyObj.AnimationActive)
++            if (!animationValid || !enemyObj.isActiveAndEnabled || !enemyObj.AnimationActive)
+*** End Patch

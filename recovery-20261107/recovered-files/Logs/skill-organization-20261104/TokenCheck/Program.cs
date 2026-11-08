@@ -1,0 +1,40 @@
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using System.Text.Json;
+
+var project = Path.GetFullPath(args[0]);
+var log = Path.Combine(project, "Logs/skill-organization-20261104");
+var baseline = Path.Combine(log, "before");
+var moves = JsonDocument.Parse(File.ReadAllText(Path.Combine(log, "moves.json")))
+    .RootElement.EnumerateArray()
+    .Select(x => (Before: x.GetProperty("before").GetString(), After: x.GetProperty("after").GetString()))
+    .OrderByDescending(x => x.Before.Length).ToArray();
+var result = new List<object>();
+var errors = new List<string>();
+foreach (string before in Directory.GetFiles(baseline, "*.cs", SearchOption.AllDirectories))
+{
+    string relative = Path.GetRelativePath(baseline, before).Replace('\\', '/');
+    var move = moves.FirstOrDefault(x => relative == x.Before || relative.StartsWith(x.Before + "/"));
+    string afterRelative = move.Before == null ? relative : move.After + relative[move.Before.Length..];
+    string after = Path.Combine(project, afterRelative);
+    if (!File.Exists(after)) { errors.Add("Missing " + afterRelative); continue; }
+    foreach (string[] symbols in new[] { Array.Empty<string>(), new[] { "UNITY_EDITOR", "UNITY_6000_0_OR_NEWER" } })
+    {
+        var options = new CSharpParseOptions(LanguageVersion.Latest, preprocessorSymbols: symbols);
+        var oldTree = CSharpSyntaxTree.ParseText(File.ReadAllText(before), options);
+        var newTree = CSharpSyntaxTree.ParseText(File.ReadAllText(after), options);
+        string[] oldTokens = oldTree.GetRoot().DescendantTokens().Select(x => x.RawKind + ":" + x.Text).ToArray();
+        string[] newTokens = newTree.GetRoot().DescendantTokens().Select(x => x.RawKind + ":" + x.Text).ToArray();
+        if (!oldTokens.SequenceEqual(newTokens)) errors.Add("Changed code tokens " + afterRelative);
+        foreach (var error in newTree.GetDiagnostics().Where(x => x.Severity == DiagnosticSeverity.Error))
+            errors.Add(afterRelative + " " + error);
+    }
+    bool metaEqual = !File.Exists(before + ".meta") || File.ReadAllBytes(before + ".meta").SequenceEqual(File.ReadAllBytes(after + ".meta"));
+    if (!metaEqual) errors.Add("Changed meta " + afterRelative);
+    result.Add(new { before = relative, after = afterRelative, metaEqual });
+}
+var report = new { checkedFiles = result.Count, passed = errors.Count == 0, errors, files = result };
+File.WriteAllText(Path.Combine(log, "token-verification.json"), JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true }));
+Console.WriteLine($"Checked {result.Count} C# files in two preprocessor configurations. Errors: {errors.Count}");
+foreach (var error in errors) Console.WriteLine(error);
+Environment.ExitCode = errors.Count == 0 ? 0 : 1;

@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -24,8 +25,25 @@ namespace NarutoVR.SealCombat.Editor
             EditorApplication.playModeStateChanged+=s=> { if(s==PlayModeStateChange.ExitingPlayMode) StopOwned(); if(s==PlayModeStateChange.EnteredPlayMode) {shuttingDown=false;next=0;} };
             EditorApplication.quitting+=StopOwned;
         }
-        static Process Run(string file,string token,bool capture) {
-            var info=new ProcessStartInfo("powershell.exe", "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \""+Path.Combine(Root,file)+"\" -OwnerToken \""+token+"\"") {
+        static string WritePlayConfiguration(SkillVoiceReceiver receiver)
+        {
+            foreach (var controller in UnityEngine.Object.FindObjectsByType<SkillTestController>(FindObjectsSortMode.None))
+            {
+                if (controller.voice != receiver || !controller.catalog) continue;
+                string json = SkillConfigurationSetup.BuildVoiceJson(controller.catalog, receiver.receivePort, receiver.servicePort);
+                string directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../Library/SkillVoice"));
+                Directory.CreateDirectory(directory);
+                string path = Path.Combine(directory, "play-config.json");
+                File.WriteAllText(path, json, new UTF8Encoding(false));
+                return path;
+            }
+            return null;
+        }
+
+        static Process Run(string file,string token,bool capture,string config = null) {
+            string arguments = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File \""+Path.Combine(Root,file)+"\" -OwnerToken \""+token+"\"";
+            if (config != null) arguments += " -Config \"" + config + "\"";
+            var info=new ProcessStartInfo("powershell.exe", arguments) {
                 UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Root,RedirectStandardError=capture
             };
             var p=new Process {StartInfo=info};
@@ -47,7 +65,7 @@ namespace NarutoVR.SealCombat.Editor
                 string token=SessionState.GetString(Key,"");
                 if(token.Length==0) {token=Guid.NewGuid().ToString("N");SessionState.SetString(Key,token);}
                 lock(Gate)error="";
-                launcher=Run("Start.ps1",token,true);
+                launcher=Run("Start.ps1",token,true,WritePlayConfiguration(receiver));
                 receiver.LauncherStatus="已请求自动启动；等待设备和心跳";
                 next=EditorApplication.timeSinceStartup+10;
             } catch(Exception e) {receiver.LauncherStatus="启动失败，15秒后重试："+e.Message;next=EditorApplication.timeSinceStartup+15;}

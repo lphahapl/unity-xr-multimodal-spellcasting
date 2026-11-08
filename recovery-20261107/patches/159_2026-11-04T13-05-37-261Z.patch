@@ -1,0 +1,37 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/scratch/audit_yicun_score_v8.py
+@@
+     assert not observed["semitone_or_tritone_overlaps"]
++    assert not observed["loop_boundary_adjacent_intervals"]
+@@
+     for start,end in ((99,100),(100,101),(101,102),(102,103),(103,104),(0,.95),(0,4),(100,104)):
+@@
+         boundary_windows.append({"start": start, "end": end, "rms_dbfs": rms_db(signal),
+                                  "peak_dbfs": 20*math.log10(max(float(np.max(np.abs(signal))),1e-15))})
++    bridge_rms = rms_db(pcm[:round(.9*rate)])
++    theme_rms = rms_db(pcm[8*rate:24*rate])
++    assert bridge_rms-theme_rms < -20
++    assert len(observed["wrapped_notes"]) == 1 and observed["wrapped_notes"][0]["note"] == "G3"
++    assert observed["loop_boundary_dry_overlaps"][0]["semitones"] == 5
++    edge_pcm = np.concatenate((pcm[-round(.05*rate):], pcm[:round(.05*rate)]))
++    local_derivative_p99 = np.percentile(np.abs(np.diff(edge_pcm,axis=0)),99,axis=0).tolist()
+@@
+-        "status": "core_score_pass_with_loop_feel_and_analysis_wording_notes",
++        "status": "score_and_pcm_checks_pass_with_low_level_bell_colour_retained",
+@@
+-        "intro_assessment": "Real prelude: first guzheng C4 at 0.95, followed by G4/E4/D4; only a very soft G3 string support enters at 4.8. The five-note open theme starts at 8.253, its first full six-note answer at 16.245. It does not launch the full theme at zero.",
++        "intro_assessment": "Real prelude: first guzheng C4 at 0.95, followed by G4/E4/D4; a very soft G3 string support enters at 4.8. An additional extremely quiet G3 carry from the preceding cycle ends at 1.1. The five-note open theme starts at 8.253, its first full six-note answer at 16.245. It does not launch the full theme at zero.",
+@@
+             "windows": boundary_windows,
+             "boundary_step": np.abs(pcm[0]-pcm[-1]).tolist(),
+-            "risk": "No pitch conflict or waveform jump at boundary. However 103-104 and 0-0.95 are near-silent: around two seconds of perceived rest may make the cycle feel restarted. Last C4 at 101.6 ends dry at 102.95 and is deliberately damped, not an uninterrupted natural tail across the seam. This can remain an intentional breathing space but needs loop audition; equal endpoint samples alone cannot approve continuity of musical flow.",
+-            "minimum_change_if_reset_is_heard": "One quiet C/G-family tail crossing the boundary could bridge the rest; do not add a new motif or whole-track fade. No timing change made by this review."
++            "local_50ms_derivative_p99_per_channel": local_derivative_p99,
++            "first_0_9_seconds_rms_dbfs": bridge_rms,
++            "theme_8_24_seconds_rms_dbfs": theme_rms,
++            "bridge_relative_to_theme_db": bridge_rms-theme_rms,
++            "assessment": "The final candidate resolves the previous near-silence seam with G3 from 101.8 through 1.1 of the next cycle. It overlaps the last C4 and next opening C4 as a perfect fourth; no adjacent pitch conflict crosses the seam. The bridge remains more than 20dB below the theme, so it does not turn the opening breath into full-level accompaniment. Last C4 at 101.6 ends dry at 102.95; continuity is supplied by the quiet G3 carry and room tail. Boundary sample steps are tiny. Numerical checks pass; listening is still required to judge perceived musical flow."
+@@
+-        "limits": ["No listening, no headset test.","Parent is adjusting velocities/gain; this report identifies its exact snapshot via hashes.","No final asset or renderer modified.","Existing finite source-EQ evidence remains owned by v7/source audit."]
++        "limits": ["No listening, no headset test.","This report identifies the final candidate snapshot via hashes; later edits require rerunning it.","No final asset or renderer modified.","Existing finite source-EQ evidence remains owned by v7/source audit."]
+*** End Patch

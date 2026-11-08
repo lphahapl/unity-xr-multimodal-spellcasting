@@ -1,0 +1,14 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/README.md
+@@
+-| 敌人 AI | 场景点巡逻、视野/遮挡发现、NavMesh 追击、随机独立攻击与首次发现事件；召唤敌人无目标待机。[接线与边界](docs/guides/ENEMY_NAVIGATION_ZH.md)，伤害尚待绑定 |
++| 敌人 AI | EnemyController 决策与 EnemyObj 实体执行分离；巡逻/追击、随机攻击、首次发现事件、Hit/Seated 恢复和 Dead 锁止；召唤敌人无目标待机。[接线与边界](docs/guides/ENEMY_NAVIGATION_ZH.md)，伤害尚待绑定 |
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-| 敌人导航与动画 | [巡逻、召唤追击、攻击和首次发现事件](guides/ENEMY_NAVIGATION_ZH.md) |
++| 敌人导航与动画 | [EnemyObj 分工、巡逻/召唤追击、攻击、受击/坐地/死亡和首次发现事件](guides/ENEMY_NAVIGATION_ZH.md) |
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/MONSTER_DESIGN_CANJIOU_ZH.md
+@@
+-> 2026-11-04 实现范围说明：当前导航 AI 已按用户确认的巡逻、召唤追击、随机独立攻击和首次发现事件方案接入，见[敌人接线指南](../guides/ENEMY_NAVIGATION_ZH.md)。下文的蓄力危险区、35 点伤害、瘫痪、发条弱点和远程变种仍是设计目标，不能视作当前脚本已经实现的效果。
++> 2026-11-04 实现范围说明：当前导航 AI 已按用户确认的巡逻、召唤追击、随机独立攻击和首次发现事件方案接入，EnemyController 与 EnemyObj 分别负责决策与实体执行；Hit/Seated 播完恢复、Dead 持续锁止到重生，见[敌人接线指南](../guides/ENEMY_NAVIGATION_ZH.md)。下文的蓄力危险区、35 点伤害、特定时长的发条瘫痪、发条弱点和远程变种仍是设计目标，不能视作当前脚本已经实现的效果。
+*** End Patch

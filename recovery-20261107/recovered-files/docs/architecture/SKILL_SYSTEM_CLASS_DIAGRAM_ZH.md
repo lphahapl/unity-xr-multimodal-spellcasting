@@ -1,0 +1,200 @@
+# 技能系统类图与代码阅读入口
+
+本文对应 2026-11-04 整理后的代码。技能运行时代码集中在 `Assets/SealCombat/Runtime/Skills`，命名空间为 `NarutoVR.SealCombat`。RPG 资源结算适配位于 `Runtime/Rpg`，骨骼采集与手印评分位于 `Assets/SealLab`。
+
+当前实现支持纯结印、纯口令、口令与单印组合。匹配器产生激活请求，RPG 会话检查输入占用、解锁、法力和冷却，效果执行器管理护盾、手持投射物及扩展效果的生命周期。投射物技能激活成功后产生手持火球，后续投掷属于该物品的使用过程。
+
+## 核心类图
+
+类名与源码一致，中文说明表示职责。空心三角表示继承或接口实现，菱形表示持有关系，普通箭头表示引用，虚线普通箭头表示调用或事件依赖。为控制图的规模，图中仅展示主要成员。
+
+不支持 Mermaid 的阅读器可以打开[类图图片](SKILL_SYSTEM_CLASS_DIAGRAM_ZH.png)。
+
+```mermaid
+classDiagram
+    direction TB
+    class SkillCatalog {
+        <<技能目录资产>>
+        +List~SkillDefinition~ skills
+        +SkillMatchSettings matching
+        +Validate()
+        +GetVoicePhrases()
+    }
+    class SkillDefinition {
+        <<单技能配置资产>>
+        +SkillTriggerMode triggerMode
+        +string phrase
+        +string sealName
+        +SkillEffectDefinition effectDefinition
+    }
+    class SkillMatchSettings {
+        <<匹配规则快照>>
+        +Snapshot()
+        +Validate()
+    }
+    class SkillConfigurationValidator {
+        <<配方冲突校验>>
+        +GetErrors()
+    }
+    class SealLab {
+        <<骨骼采样与手印评分>>
+        +Frame
+        +Scores
+    }
+    class SkillVoiceReceiver {
+        <<本机语音事件入口>>
+        +PhraseReceived
+        +ConfigurePhrases()
+    }
+    class SkillTestController {
+        <<施法输入接线>>
+        +SkillMatchEngine Engine
+        +ISkillActivationPolicy ActivationPolicy
+        +ReceiveVoice()
+        +CancelInputOnly()
+    }
+    class SkillTestView {
+        <<状态与调试界面>>
+    }
+    class SkillMatchEngine {
+        <<单印和口令匹配>>
+        +TryActivate
+        +Tick()
+        +Observe()
+        +Voice()
+        +Cancel()
+    }
+    class ISkillActivationPolicy {
+        <<interface>>
+        +TryActivate()
+        +ActivationStatus
+        +OwnsCooldowns
+    }
+    class LinearRpgController {
+        <<RPG准入与输入仲裁>>
+        +RpgPlayerState Player
+        +CancelCasting()
+    }
+    class RpgPlayerState {
+        <<法力与共享冷却>>
+        +TryActivate()
+        +GetCooldown()
+    }
+    class SkillEffects {
+        <<效果运行态执行器>>
+        +TryActivate()
+        +TryCreateProjectile()
+        +TryApplyShield()
+        +RegisterEffectLifetime()
+        +ClearAll()
+    }
+    class SkillEffectDefinition {
+        <<abstract>>
+        +ValidateDefinition()
+        +TryActivate()
+    }
+    class ProjectileEffectDefinition {
+        <<投射物配置>>
+        +HandThrowSettings throwing
+    }
+    class ShieldEffectDefinition {
+        <<护盾配置>>
+        +float capacity
+    }
+    class ISkillEffectLifetime {
+        <<interface>>
+        +IsAlive
+        +Tick()
+        +Cancel()
+    }
+    class SkillProjectile {
+        <<飞行与扫掠命中>>
+    }
+    class SkillTrainingTarget {
+        <<有限生命靶子>>
+    }
+    class HandThrowState {
+        <<握持与松手轨迹>>
+        +Process()
+        +HandThrowEstimate Estimate
+    }
+    class HandThrowIntentState {
+        <<辅助发射动作评分>>
+        +Process()
+        +ThrowActionScore Score
+    }
+    class VfxPoolManager {
+        <<场景命中特效池>>
+        +TryPlayImpact()
+        +CancelOwned()
+    }
+
+    SkillCatalog o-- SkillDefinition : 引用多个技能
+    SkillCatalog *-- SkillMatchSettings : 持有匹配规则
+    SkillCatalog ..> SkillConfigurationValidator : 配置校验
+    SkillMatchEngine ..> SkillConfigurationValidator : 启动校验
+    SkillDefinition --> SkillEffectDefinition : 引用效果资产
+    SkillTestController --> SkillCatalog : 读取配置
+    SkillTestController --> SealLab : 读取帧和评分
+    SkillVoiceReceiver ..> SkillTestController : 发布完整口令
+    SkillTestController *-- SkillMatchEngine : 创建并推进
+    SkillTestView --> SkillTestController : 读取状态并提交调试命令
+    SkillMatchEngine ..> SkillTestController : 激活回调
+    SkillTestController --> ISkillActivationPolicy : 调用玩法策略
+    ISkillActivationPolicy <|.. LinearRpgController
+    LinearRpgController *-- RpgPlayerState : 创建玩家运行态
+    LinearRpgController --> SkillEffects : 效果执行回调
+    LinearRpgController --> SkillTestController : 注入输入占用和取消策略
+    SkillTestController --> SkillEffects : 训练场直接执行
+    SkillEffects --> SkillEffectDefinition : 调用配置的激活实现
+    SkillEffectDefinition <|-- ProjectileEffectDefinition
+    SkillEffectDefinition <|-- ShieldEffectDefinition
+    ProjectileEffectDefinition ..> SkillEffects : 创建手持投射物
+    ShieldEffectDefinition ..> SkillEffects : 刷新自身护盾
+    SkillEffects o-- ISkillEffectLifetime : 管理注册成功的扩展效果
+    SkillEffects *-- HandThrowState : 握持松手检测
+    SkillEffects *-- HandThrowIntentState : 辅助动作检测
+    SkillEffects *-- SkillProjectile : 生成并跟踪
+    SkillProjectile --> SkillTrainingTarget : 单次命中扣血
+    SkillProjectile --> VfxPoolManager : 租用命中视觉
+```
+
+## 一次施法如何经过这些类
+
+1. `SkillTestController.Start` 读取技能目录、校验配方并创建 `SkillMatchEngine`。RPG 场景在更早的 `LinearRpgController.Awake` 中注入 `ISkillActivationPolicy`。
+2. 骨骼来源经过 `SealLab` 形成 `SealFrame` 和评分。控制器将新鲜帧交给匹配器 `Observe`，同时将本机语音接收器发布的完整口令交给 `Voice`。
+3. 匹配器同时支持先印后咒与先咒后印。有效保持区间需要完整落在组合窗口内，断帧、追踪丢失、质量不足及歧义会影响证据成立。默认缓存上限为 10 秒、640 槽，实际保留时长还取决于采样频率。
+4. 候选唯一时，匹配器先消费本次证据，再通过回调申请激活。因此准入失败或冷却中也需要重新输入，不会在冷却结束时自动补发旧动作。
+5. RPG 路径由 `LinearRpgController` 检查行动、界面和导航占用、技能解锁，再调用 `RpgPlayerState.TryActivate`。玩家状态预扣法力，调用效果回调，失败时恢复法力，成功才提交共享冷却。
+6. `SkillEffects` 调用效果配置的 `TryActivate`。护盾刷新数值与期限，投射物冻结该发参数并生成手持物。训练场可以直接走效果执行器，使用匹配器本地冷却。
+7. 手持物通过握持松手、辅助动作或旧版前推规则释放。`SkillProjectile` 用球形扫掠查找实际命中，并在回调前锁定单次命中。命中特效池容量耗尽时可以跳过视觉，伤害仍正常结算。
+
+## 阅读顺序与目录
+
+| 目录或文件 | 职责与阅读重点 |
+|---|---|
+| [Skills/SkillTestController.cs](../../Assets/SealCombat/Runtime/Skills/SkillTestController.cs) | 入口接线、事件订阅、输入门禁、暂停恢复、取消及日志编号 |
+| [Skills/Core/SkillDefinition.cs](../../Assets/SealCombat/Runtime/Skills/Core/SkillDefinition.cs) | 技能身份、配方、效果引用、法力与冷却配置 |
+| [Skills/Core/SkillMatchEngine.cs](../../Assets/SealCombat/Runtime/Skills/Core/SkillMatchEngine.cs) | 历史缓存、保持证据、双向匹配、Epoch 屏障及一次性消费 |
+| [Skills/Core/ISkillActivationPolicy.cs](../../Assets/SealCombat/Runtime/Skills/Core/ISkillActivationPolicy.cs) | 将匹配结果接入不同玩法的策略接口 |
+| [Rpg/LinearRpgController.cs](../../Assets/SealCombat/Runtime/Rpg/LinearRpgController.cs) | 当前 RPG 的资源和输入仲裁适配 |
+| [Rpg/Data/RpgPlayerState.cs](../../Assets/SealCombat/Runtime/Rpg/Data/RpgPlayerState.cs) | 请求去重、法力预扣与失败恢复、成功冷却提交 |
+| [Skills/Effects/SkillEffects.cs](../../Assets/SealCombat/Runtime/Skills/Effects/SkillEffects.cs) | 护盾、手持物、发射、扩展生命周期与资源清理 |
+| [Skills/Effects/SkillEffectDefinition.cs](../../Assets/SealCombat/Runtime/Skills/Effects/SkillEffectDefinition.cs) | 扩展效果配置与可注册生命周期接口 |
+| [Skills/Effects/HandThrowState.cs](../../Assets/SealCombat/Runtime/Skills/Effects/HandThrowState.cs) | 松手边沿、采样去重、轨迹拟合与速度质量 |
+| [Skills/Effects/HandThrowIntentState.cs](../../Assets/SealCombat/Runtime/Skills/Effects/HandThrowIntentState.cs) | 后拉前送、伸手保持和动作评分 |
+| [Skills/Voice](../../Assets/SealCombat/Runtime/Skills/Voice) | 本机语音协议、握手、时钟映射和口令白名单 |
+| [Skills/Visuals](../../Assets/SealCombat/Runtime/Skills/Visuals) | 纯视觉动画、短时视觉寿命和命中特效对象池 |
+| [Editor/Skills/Checks](../../Assets/SealCombat/Editor/Skills/Checks) | 配方、时钟、语音、场景与效果相关检查 |
+| [Editor/Skills/Setup](../../Assets/SealCombat/Editor/Skills/Setup) | 场景、配置与默认视觉资产的创建入口 |
+| [Editor/Skills/Tools](../../Assets/SealCombat/Editor/Skills/Tools) | 特效预览、定向修复与语音服务启动工具 |
+
+`SkillTestController` 虽保留训练时期的类名，当前 RPG 也使用它作为施法入口。`SkillScenario`、`SkillTestView`、旧式效果枚举及隐藏序列化字段仍有训练场、迁移或检查入口使用。目录整理通过移动原 `.cs` 和 `.meta` 完成，脚本 GUID 随原文件保留。
+
+## 修改时需要理解的约束
+
+- 输入时间使用实时单调时钟，判断语音延迟和追踪新鲜度。RPG 的法力、冷却和效果期限使用会暂停的游戏时间，两种时间分别服务各自职责。
+- `CancelInputOnly` 清除匹配上下文。RPG 的 `CancelCasting` 另外取消未发射物及待导航，已经消费的法力和冷却沿用既定规则。
+- 组合技能持续保持同印后的再次就绪有独立计时。手部占用时清除该轮准备，避免释放占用后自动补发。
+- `ISkillEffectLifetime` 注册成功才转移清理责任。执行器处理重复注册、清理期间注册以及 Tick 中增删效果的情况。任意多效果的通用原子事务仍属后续设计。
+- 多印序列、画符触发、领域与移动约束见[架构设计基线](SKILL_FRAMEWORK_AND_INTERACTION_ZH.md)。当前类图只画已有实现，新增能力应同步更新配置校验、运行时匹配及检查入口。

@@ -32,22 +32,37 @@ namespace NarutoVR.SealCombat.Editor
                 .ToDictionary(group => group.Key, group => new Queue<NarrationLine>(group));
             var result = new List<NarrationLine>();
             var delays = new List<float>();
-            int audio = -1, speaker = -1, delay = -1, rowNumber = 0;
+            var captions = new List<string>();
+            int audio = -1, speaker = -1, delay = -1, caption = -1, rowNumber = 0;
+            bool positional = false;
             foreach (var row in rows)
             {
                 ++rowNumber;
                 if (row.All(string.IsNullOrWhiteSpace)) continue;
                 if (audio < 0)
                 {
-                    audio = Header(row, "audioFileName");
-                    speaker = Header(row, "speaker");
+                    audio = Header(row, "audioFileName", required: false);
+                    speaker = Header(row, "speaker", required: false);
                     delay = Header(row, "delayAfter", required: false);
-                    continue;
+                    caption = Header(row, "text", required: false);
+                    if (audio >= 0 || speaker >= 0 || delay >= 0 || caption >= 0)
+                    {
+                        if (audio < 0 || speaker < 0) throw new InvalidDataException("表头必须包含 audioFileName 和 speaker。");
+                        continue;
+                    }
+                    // 无表头旧数据只有「文件名、说话者、可选间隔」，正文使用具名列。
+                    if (row.Count < 2 || row.Count > 3) throw new InvalidDataException("无表头行须填写音频、说话者和可选间隔。");
+                    positional = true;
+                    audio = 0; speaker = 1;
+                    delay = row.Count == 3 ? 2 : -1;
                 }
+                if (positional && row.Count != (delay >= 0 ? 3 : 2))
+                    throw new InvalidDataException($"第 {rowNumber} 条无表头记录的列数与首行不同。");
                 string file = row.ElementAtOrDefault(audio)?.Trim();
                 string who = row.ElementAtOrDefault(speaker)?.Trim();
                 if (string.IsNullOrEmpty(file) || string.IsNullOrEmpty(who))
                     throw new InvalidDataException($"第 {rowNumber} 条记录缺少 audioFileName 或 speaker。");
+                if (caption >= 0) captions.Add(row.ElementAtOrDefault(caption) ?? "");
                 if (delay >= 0)
                 {
                     string value = row.ElementAtOrDefault(delay)?.Trim();
@@ -64,8 +79,11 @@ namespace NarutoVR.SealCombat.Editor
             if (result.Count == 0) throw new InvalidDataException("表格没有旁白数据。");
             // 整张表验证成功后才修改复用的对象，避免后面坏行导致前面的旧配置被部分改写。
             // 旧表没有 delayAfter 列时保留已有间隔，新句依旧默认 0。
-            if (delay >= 0)
-                for (int i = 0; i < result.Count; ++i) result[i].delayAfter = delays[i];
+            for (int i = 0; i < result.Count; ++i)
+            {
+                if (delay >= 0) result[i].delayAfter = delays[i];
+                if (caption >= 0) result[i].text = captions[i];
+            }
             return result;
         }
 

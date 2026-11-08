@@ -1,0 +1,69 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/BgmLoopVerification.cs
+@@
+     const string RootName = "__BgmLoopVerification_";
++    const string EmptyScenePath = "Assets/SealCombat/Editor/BgmLoopVerificationEmpty.unity";
+@@
+-    [Serializable] public sealed class SceneInfo { public string path; public bool isLoaded, isActive; }
++    [Serializable] public sealed class SceneInfo { public string path; public bool isLoaded, isActive, isDirty; }
+@@
+-    static List<SceneInfo> Scenes() => EditorSceneManager.GetSceneManagerSetup().Select(s => new SceneInfo { path = s.path, isLoaded = s.isLoaded, isActive = s.isActive }).ToList();
++    static List<SceneInfo> Scenes()
++    {
++        var setup = EditorSceneManager.GetSceneManagerSetup();
++        var result = new List<SceneInfo>();
++        for (int i = 0; i < setup.Length; i++)
++        {
++            var item = setup[i];
++            var scene = string.IsNullOrEmpty(item.path) && i < SceneManager.sceneCount
++                ? SceneManager.GetSceneAt(i) : SceneManager.GetSceneByPath(item.path);
++            result.Add(new SceneInfo { path = item.path, isLoaded = item.isLoaded, isActive = item.isActive,
++                isDirty = scene.IsValid() && scene.isDirty });
++        }
++        return result;
++    }
+@@
+-        if (Dirty() || EditorApplication.isPaused) throw new InvalidOperationException("Saved, unpaused edit mode is required.");
++        if (EditorApplication.isPaused) throw new InvalidOperationException("Unpaused edit mode is required.");
++        var emptyScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(EmptyScenePath);
++        if (!emptyScene) throw new InvalidOperationException("The dedicated empty verification scene has not been imported.");
+@@
+-            EditorSceneManager.playModeStartScene = null;
+-            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+-            Respond(request, "armed", true, "Isolated unsaved scene prepared; Play entry requested.", false);
++            // Unity preserves the current editor scenes, including their in-memory
++            // unsaved changes, while entering Play with this separate SceneAsset.
++            EditorSceneManager.playModeStartScene = emptyScene;
++            Respond(request, "armed", true, "Dedicated empty Play scene selected; open editor scenes and dirty state are retained.", false);
+@@
+         if (run == null) run = JsonUtility.FromJson<Report>(File.ReadAllText(ResultPath));
++        if (SceneManager.sceneCount != 1 || SceneManager.GetActiveScene().path != EmptyScenePath)
++            throw new InvalidOperationException("Unity did not enter the dedicated empty verification scene.");
+         Validate(session.request, Inspect(session.request));
+@@
+             RestoreListeners(); Application.runInBackground = session.originalBackground;
+             ReleaseLocks();
+-            if (session.blankScene) EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+-            else EditorSceneManager.RestoreSceneManagerSetup(session.scenes.Select(s => new SceneSetup { path = s.path, isLoaded = s.isLoaded, isActive = s.isActive }).ToArray());
+             EditorSceneManager.playModeStartScene = string.IsNullOrEmpty(session.originalStartScene) ? null : AssetDatabase.LoadAssetAtPath<SceneAsset>(session.originalStartScene);
+             run.restoredScenes = Scenes();
+-            run.sceneRestored = !Dirty() && SameScenes(session.scenes, run.restoredScenes) && AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene) == session.originalStartScene;
++            if (!SameScenes(session.scenes, run.restoredScenes))
++            {
++                // Never reload over either original or newly-created unsaved work.
++                if (session.scenes.Any(s => s.isDirty) || run.restoredScenes.Any(s => s.isDirty))
++                    throw new InvalidOperationException("Scene setup differs while unsaved work exists. No scenes were saved, closed, or reloaded; manual inspection is required.");
++                if (session.blankScene) EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
++                else EditorSceneManager.RestoreSceneManagerSetup(session.scenes.Select(s => new SceneSetup { path = s.path, isLoaded = s.isLoaded, isActive = s.isActive }).ToArray());
++                run.restoredScenes = Scenes();
++            }
++            if (!SameScenes(session.scenes, run.restoredScenes) || !SameDirtyState(session.scenes, run.restoredScenes))
++                throw new InvalidOperationException("Unity did not restore the original scene setup and dirty flags. No further scene reload was attempted.");
++            run.sceneRestored = AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene) == session.originalStartScene;
+@@
+-            run.passed = run.diagnosticPassed = false; run.complete = true; run.status = "restore_failed"; run.reason += "\n" + e;
++            run.passed = run.diagnosticPassed = run.sceneRestored = false; run.complete = true; run.status = "restore_failed"; run.reason += "\n" + e;
+@@
+     static bool SameScenes(List<SceneInfo> left, List<SceneInfo> right) => left.Count == right.Count && left.Zip(right, (a, b) => a.path == b.path && a.isLoaded == b.isLoaded && a.isActive == b.isActive).All(v => v);
++    static bool SameDirtyState(List<SceneInfo> left, List<SceneInfo> right) => left.Count == right.Count && left.Zip(right, (a, b) => a.isDirty == b.isDirty).All(v => v);
+*** End Patch

@@ -1,0 +1,38 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Audio/YicunShanhe_Credits.txt
+@@
+-一寸山河 / Yicun Shanhe — ambient loop, revision 2
++一寸山河 / Yicun Shanhe — ambient loop, revision 3
+@@
+-96 seconds, 60 BPM. Guqin and dizi use recording-derived samples.
+-Sheng and bronze bell are synthesized.
++96 seconds, 60 BPM. Dizi, harp and viola section use recorded samples.
++The bronze bell is synthesized. This revision contains no guqin or modeled sheng.
++
++Harp and viola recordings: VSCO 2 Community Edition
++Versilian Studios / Sam Gossner; Ivy Audio / Simon Dalzell
++https://github.com/sgossner/VSCO-2-CE
++Samples pinned to commit 440300901dfe9275fd84e0b7763af1f8443ae62e.
++Licensed CC0 1.0 Universal; local license: ArtSource/Audio/YicunShanhe/VSCO/LICENSE.txt
++https://creativecommons.org/publicdomain/zero/1.0/
++Harp: Strings/Harp/KSHarp_{A2,C3,E3,G3,B3,D4,F4,A4,C5,E5}_mf.wav
++Viola: Strings/Viola Section/susvib/ViolaEns_susvib_{G2,B2,D3,F3,A3}_v1_1.wav
++Note mapping was checked against measured fundamentals and official SFZ files
++at commit 6dd651d55dde97fd4028699be9d4481f26917891.
++The viola filenames use a different octave convention: G2/B2/D3/F3/A3 map
++to MIDI 55/59/62/65/69. Harp filenames use C4 = MIDI 60.
++Changes: gain balancing, limited resampling (within three semitones),
++attack/release envelopes, composition, periodic high-pass and reverberation.
++The harp is a harp, not a guzheng. No source game recording was sampled.
+@@
+-Guqin sample credit (retain with distribution of this music)
++Historical revision 2 guqin credit (retain when distributing revision 2)
+@@
+-Rebuild from scratch/render_yicun_shanhe_ambient.py and the source recordings
+-in ArtSource/Audio/YicunShanhe. NumPy, SciPy, SoundFile and pyloudnorm are required.
++Rebuild revision 3 with scratch/render_yicun_shanhe_chamber.py, which imports
++score/dizi helpers from render_yicun_shanhe_ambient.py and periodic reverb/bell
++helpers from compose_yicun_shanhe.py. Source recordings are in
++ArtSource/Audio/YicunShanhe. NumPy, SciPy, SoundFile and pyloudnorm are required.
++The renderer writes a candidate under Logs/yicun-shanhe-chamber-v3.
+*** End Patch

@@ -1,0 +1,40 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EventCenterChecks.cs
+@@
+     public static class EventCenterChecks
+     {
++        sealed class OwnerProbe : ScriptableObject
++        {
++            public Action<int> received;
++            public void Receive(int value) => received(value);
++        }
++
+@@
+                 var ownedKey = new EventKey<int>("生命周期");
+                 var ownedToken = hub.Subscribe(ownedKey, owned, owner);
++                int pruneCalls = 0;
++                var pruneKey = new EventKey<int>("订阅时清理死亡 owner");
++                Action<int> pruneHandler = _ => ++pruneCalls;
++                using var staleOwnerToken = hub.Subscribe(pruneKey, pruneHandler, owner);
+@@
+                 Check(ownedCalls == 1, "有效 owner 正常接收");
+                 Object.DestroyImmediate(owner);
++                using var replacedOwnerToken = hub.Subscribe(pruneKey, pruneHandler, otherOwner);
++                staleOwnerToken.Dispose(); hub.Publish(pruneKey, 0);
++                Check(pruneCalls == 1, "发布前重新订阅可清理死亡 owner，不丢失新监听的事件桶");
+                 hub.Publish(ownedKey, 1); ownedToken.Dispose();
+@@
+                 hub.Clear();
+             }
++            var inferredOwner = ScriptableObject.CreateInstance<OwnerProbe>();
++            inferredOwner.hideFlags = HideFlags.HideAndDontSave;
++            int inferredCalls = 0;
++            inferredOwner.received = _ => ++inferredCalls;
++            try
++            {
++                using var inferred = hub.Subscribe(key, inferredOwner.Receive);
++                hub.Publish(key, 1); Object.DestroyImmediate(inferredOwner); hub.Publish(key, 1);
++                Check(inferredCalls == 1, "实例方法自动推断 Unity owner，销毁后跳过");
++            }
++            finally { if (inferredOwner) Object.DestroyImmediate(inferredOwner); hub.Clear(); }
+*** End Patch

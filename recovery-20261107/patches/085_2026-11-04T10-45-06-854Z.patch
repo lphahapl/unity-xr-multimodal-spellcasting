@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+             if (!entity.CombatDefinition) entity.CombatDefinition = definition;
++            if (!entity.DetectionSensor)
++            {
++                var sensorObject = root.transform.Find("近距探测范围");
++                if (!sensorObject) { sensorObject = new GameObject("近距探测范围").transform; sensorObject.SetParent(root.transform, false); }
++                var sphere = sensorObject.GetComponent<SphereCollider>();
++                if (!sphere) { sphere = sensorObject.gameObject.AddComponent<SphereCollider>(); sphere.radius = 2.5f; sphere.center = Vector3.up; }
++                sphere.isTrigger = true;
++                var body = sensorObject.GetComponent<Rigidbody>();
++                if (!body) body = sensorObject.gameObject.AddComponent<Rigidbody>();
++                body.isKinematic = true; body.useGravity = false;
++                var sensor = sensorObject.GetComponent<EnemyDetectionSensor>();
++                if (!sensor) sensor = sensorObject.gameObject.AddComponent<EnemyDetectionSensor>();
++                sensor.owner = entity; entity.DetectionSensor = sensor;
++            }
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyObj.cs
+@@
+             if (!animator) animator = GetComponentInChildren<Animator>();
++            if (!detectionSensor) detectionSensor = GetComponentInChildren<EnemyDetectionSensor>();
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+                 Transform attacker = pendingAttacker; pendingAttacker = null;
+-                SetTarget(attacker); provokedUntil = clock + Mathf.Max(.01f, provokedLockSeconds);
++                if (!AssignSensedTarget(attacker)) return;
++                provokedUntil = clock + Mathf.Max(.01f, provokedLockSeconds);
+@@
+-                    if (close) SetTarget(close);
++                    if (close && !AssignSensedTarget(close)) return;
+@@
+         public static float HorizontalAngle(Vector3 forward, Vector3 direction)
+@@
+         }
++
++        bool AssignSensedTarget(Transform candidate)
++        {
++            int expected = generation + (target == candidate && assignedTarget == candidate ? 0 : 1);
++            SetTarget(candidate);
++            return this && isActiveAndEnabled && !suspended && !IsDead && generation == expected && target == candidate;
++        }
+*** End Patch

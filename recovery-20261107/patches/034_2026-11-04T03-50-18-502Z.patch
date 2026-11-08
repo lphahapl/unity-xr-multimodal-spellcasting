@@ -1,0 +1,22 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/EnemyController.cs
+@@
+             clock += deltaTime;
++            lastDelta = deltaTime;
+@@
+-            { StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; return; }
++            { CancelAttack(); StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; return; }
+@@
+-                bool visible = delta.magnitude <= detectionDistance && Mathf.Abs(angle) <= fieldOfView * .5f && HasLineOfSight();
++                bool visible = delta.magnitude <= (hasTarget ? Mathf.Max(detectionDistance, loseDistance) : detectionDistance) &&
++                    (hasTarget || Mathf.Abs(angle) <= fieldOfView * .5f) && HasLineOfSight();
+@@
+-                    hasTarget = true; lastSeenAt = clock;
++                    if (!hasTarget) { waitingAtPatrol = false; StopNavigation(); }
++                    hasTarget = true; lastSeenAt = clock;
+@@
+-                    if (hasTarget && target && HasLineOfSight() && Vector3.Distance(transform.position, target.position) <= attackDistance + .5f)
++                    if (hasTarget && target && HasLineOfSight() &&
++                        Vector3.ProjectOnPlane(target.position - transform.position, Vector3.up).magnitude <= attackDistance + .5f &&
++                        Mathf.Abs(target.position.y - transform.position.y) <= navSampleRadius)
+*** End Patch

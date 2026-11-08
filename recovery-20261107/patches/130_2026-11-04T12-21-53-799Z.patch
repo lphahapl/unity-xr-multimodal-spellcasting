@@ -1,0 +1,27 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt
+@@
+-版本：V3.4修订｜增加空仓内部净空与插入避碰约束；保留V3.3人体参照、一体双绑带、小篆铭文与尺寸建议。
++版本：V3.5修订｜明确两道独立绕臂带与跨视图投影；保留V3.4空仓净空、人体参照、小篆铭文与尺寸建议。
++绑带优先约束（2026-11-04用户要求重画）：以前臂/匣体长轴为X，前后两固定站位各左右一耳，共四耳；每道U形带连接同一X处的左右两耳，下绕同一前臂空间，匣底鞍座闭合上弧。两道平面垂直X，绝不可上下叠成提篮或由纵向皮条串接。每道一套针扣、一只带尾固定环，扣具均固定在朱砂按扣同一物理侧，随视图变化投影左右也必须变化。端视前后环重叠，正侧视为两个独立薄带轮廓，底视为前后两个位置的横向带投影。15mm带宽、x=18/62mm站位仅建模起始建议。修正八视图见../20261104_zhunwang_multiview_v2/；这是图像生成参考，非统一3D模型渲染，局部耳座/孔位/尺度仍需校正。旧20261104_zhunwang_multiview中的准望匣绑带不作为结构依据，铜片不在本次修改范围。
+*** Update File: D:/UnityProjects/NarutoVR/docs/architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md
+@@
+-## 骨架与模型交付
++## 绑带装配与多视图（2026-11-04修正）
++
++用户指出旧八视图绕带诡异并要求重画。统一为沿前臂前后两站位各一对连接耳，共四耳；每道U形皮带连接同站位左右耳并下绕前臂，匣底鞍座闭合上弧，两道互不串接。每道一扣及一带尾固定环，均固定朱砂按扣同一物理侧。前后站位x=18/62、中心距44、带宽15mm仅起始布置，尚未做佩戴、网格/碰撞校核。正/背端视的带环前后重叠，侧视为两条独立窄轮廓，底视两横带处于不同前后站位。
++
++[新版八视图](../visuals/20261104_zhunwang_multiview_v2.zip)与[选择/限制说明](../visuals/20261104_zhunwang_multiview_v2/上传说明.txt)为本次重绘交付。初稿断带和背视环差已分别重画，未采用。此次仍是image_gen参考图，非同一3D模型导出；耳座、纹饰、孔位和投影尺度仍有偏差。旧准望匣八图不继续作为绑带结构依据，原图和ZIP保留历史；铜片图未变。运行资产没有修改。
++
++## 骨架与模型交付
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-- [准望匣绑带结构修正提案](visuals/20261104_zhunwang_strap_correction/01_strap_structure_proposal.png) · [问题、装配方案及实际词](visuals/20261104_zhunwang_strap_correction/proposal_and_prompt.txt)：四耳、前后两道独立绕臂带、两套扣具；灰色支撑仅解释前臂方向。尚未更新八视图或验证3D。
++- [准望匣绑带结构修正示意](visuals/20261104_zhunwang_strap_correction/01_strap_structure_proposal.png) · [问题、装配方案及实际词](visuals/20261104_zhunwang_strap_correction/proposal_and_prompt.txt)：四耳、前后两道独立绕臂带、两套扣具；灰色支撑仅解释前臂方向。八视图已按下列V2另存，尚未验证3D。
++- [准望匣V2重绘八视图](visuals/20261104_zhunwang_multiview_v2.zip) · [上传说明与限制](visuals/20261104_zhunwang_multiview_v2/上传说明.txt) · [10次实际生成/编辑记录](visuals/20261104_zhunwang_multiview_v2/generation.json)。两道带前后独立、扣具固定按扣同侧；铜片不变。图像生成预览，非同模渲染；共用提示词已更新为V3.5。
+*** Update File: D:/UnityProjects/NarutoVR/docs/visuals/20261104_zhunwang_multiview/上传说明.txt
+@@
+-准望匣与铜片：两套8视图上传参考
++准望匣与铜片：两套8视图上传参考
++后续交付：准望匣已另存重绘V2八视图，见../20261104_zhunwang_multiview_v2/及同名ZIP；本目录旧匣图仍保留，铜片沿用本目录。V2仍为概念图，不是同模渲染或工程验收。
+*** End Patch

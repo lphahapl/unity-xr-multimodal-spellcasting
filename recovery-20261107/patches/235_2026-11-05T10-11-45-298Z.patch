@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/docs/guides/NARRATION_FLOW_ZH.md
+@@
+ ## 导入、调试和验证
+ 
+-CSV/XLSX 仍使用 `audioFileName,speaker` 两列；Excel 读取第一工作表。重导入按音频文件名与说话者及出现顺序复用旧句，保留推进方式、句间隔和句事件。间隔在 Inspector 配置，不新增表格列。空音频的纯操作句在 Inspector 手动添加。
++CSV/XLSX 支持以下三列，Excel 只读取第一张工作表，CSV 使用 UTF-8。表头保留英文，顺序可以调换。
++
++| audioFileName | speaker | delayAfter |
++|---|---|---|
++| intro_01.wav | 老师 | 0.5 |
++| fireball_hint.wav | 老师 | 2 |
++| training_complete.wav | 老师 | 0 |
++
++`audioFileName`、`speaker` 必填；`delayAfter` 为到下一句的间隔秒数，可以填 0 或非负小数，小数使用英文句点。负数、非数字、NaN、Infinity 或重复表头会拒绝导入并显示错误。所有行通过校验后才更新配置，不会因后面某行错误而改掉前面的旧间隔。
++
++重导入按音频文件名与说话者及出现顺序复用旧句，保留推进方式和句事件。**表内有 delayAfter 列时覆盖间隔，空白按 0；旧表没有该列时保留已有间隔，新句默认 0。**空音频的纯操作句仍在 Inspector 手动添加；推进方式和 UnityEvent 仍在 Inspector 配置。
++
++桌面示例：`对话导入示例.csv`、`对话导入示例.xlsx`；Excel 第一页是导入数据，第二页是填写说明。项目副本位于 `outputs/narration-import-20261105/`。示例音频名是占位，需换成自己的实际音频，示例文件本身不包含音频。
++
++## Inspector 从零配置
++
++1. 新建空物体“教学对话”，挂 `NarrationController`，Unity 自动补上 AudioSource。无需额外挂发布器或计时器。
++2. 把音频放在 `Assets/Resources/Narration/`，例如 `intro_01.wav`。若尚无目录先创建。表格中的音频名必须与资源对应。
++3. 点击“从 CSV / Excel 导入旁白”，选择示例或自己的表格。“逐句配置”会出现每句的音频名、说话者和间隔；新句默认自动继续。
++4. 按需求设置每句推进方式：自动继续、等待操作、音频和操作都完成。间隔可在 Inspector 临时调整，下次带 delayAfter 列重导入会以表格为准。
++5. 需要操作时，把实际操作成功事件绑定到这个控制器的 `PublishCurrentOperation()`。仅在对应教学步骤启用监听，条件通过后解绑或关闭，避免其它操作完成当前步骤。无需另填步骤 ID。
++6. 在触发区域、按钮等事件中绑定 `StartDialogue()` 启动；也可进入 Play 后用 Inspector 的“开始旁白”测试。最后保存场景或 Prefab。
++
++控制器的“对话开始”用于整段初始化，“对话全部完成”用于后续流程；每句“本句开始”用于提示与开启操作监听，“本句音频自然播完”只在自然播完时触发，“本句条件通过”用于结束本步骤交互，之后才等待间隔。没有绑定事件也可以自动逐句播放。
++
++运行时不再读桌面表格，而是读取已保存的 `lines`。每句通过 `Resources.Load<AudioClip>` 加载音频，再交给 AudioSource 播放。
+@@
+ 本次句间隔的验证记录放在 `Logs/narration-gap-20261105`。`Logs/narration-linear-20261105` 与 `Logs/narration-gates-20261105` 是之前版本的历史测试，不能代替当前实现验证。主场景教学事件仍需按具体玩法绑定；隔离测试不代表头显或关卡实测。
+*** Update File: D:/UnityProjects/NarutoVR/README.md
+@@
+-| 旁白与教学推进 | 线性逐句流程，公开当前步骤 ID；每句自动、等待操作或音频与操作双条件，直接绑定完成回调与事件中心，句间隔由控制器协程处理。[操作指南](docs/guides/NARRATION_FLOW_ZH.md) |
++| 旁白与教学推进 | 线性逐句流程，公开当前步骤 ID；每句自动、等待操作或音频与操作双条件，句间隔由控制器协程处理，支持 CSV/Excel 导入音频、说话者及间隔。[操作指南](docs/guides/NARRATION_FLOW_ZH.md) |
+*** Update File: D:/UnityProjects/NarutoVR/docs/README.md
+@@
+-| 旁白与操作教学 | [线性步骤 ID、三种推进条件、直接回调与每句间隔](guides/NARRATION_FLOW_ZH.md) |
++| 旁白与操作教学 | [完整线性流程、Inspector 配置、CSV/Excel 导入间隔](guides/NARRATION_FLOW_ZH.md) |
+*** End Patch

@@ -1,0 +1,17 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Art/Props/Zhunwang/使用说明.txt
+@@
+ 几何：10,000 个三角面，Unity 导入后 10,382 个顶点；1 个网格、1 个 Renderer、1 个材质。
+ 相比上一版 23,998 三角面减少约 58.3%，新 UV 与贴图均从原高模重新制作。
++圆盘铭文：按用户确定的“规、矩、律、准、绳”环排小篆风格字形，已烘焙进颜色/法线/粗糙度/AO；没有增加几何或材质。
+@@
+-C:/Users/鲁迅/Downloads/Zhunwang_10k_20261105/
+-本次 Unity 验证记录：Logs/zhunwang-10k-20261105/unity-result.json
++C:/Users/鲁迅/Downloads/Zhunwang_Inscribed_20261105/
++本次铭文 Unity 验证记录：Logs/zhunwang-inscription-20261105/unity-result.json
++无铭文的一万面版本备份：Logs/zhunwang-inscription-20261105/before/
++一万面减面验证记录：Logs/zhunwang-10k-20261105/unity-result.json
+ 上一版 Unity 资产备份：Logs/zhunwang-10k-20261105/before/
+-本次原位替换 FBX 与六张贴图，保留 Prefab、材质及所有 .meta 引用。
++本次铭文更新五张贴图，FBX、独立 Metallic、Prefab、材质及所有 .meta 保持不变。
+*** End Patch

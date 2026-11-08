@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -89,6 +90,7 @@ namespace NarutoVR.SealCombat.Enemies
         public NavMeshAgent Agent => enemyObj ? enemyObj.Agent : null;
 
         float clock, waitUntil, cooldownUntil, attackStartedAt, lastSeenAt;
+        readonly List<CombatDamageReceiver> visibleCandidates = new();
         int patrolIndex, generation;
         bool suspended, waitingAtPatrol, attackEntered, contactSent, animationValid;
         bool inTick;
@@ -237,21 +239,40 @@ namespace NarutoVR.SealCombat.Enemies
             if (!suspended && !IsDead && pendingAttacker)
             {
                 Transform attacker = pendingAttacker; pendingAttacker = null;
-                if (!AssignSensedTarget(attacker)) return;
-                provokedUntil = clock + Mathf.Max(.01f, provokedLockSeconds);
+                if (CombatDamageReceiver.IsDetectable(attacker))
+                {
+                    if (!AssignSensedTarget(attacker)) return;
+                    provokedUntil = clock + Mathf.Max(.01f, provokedLockSeconds);
+                    if (!ConfirmDetection("受击锁定")) return;
+                }
             }
             if (assignedTarget != target) SetTarget(target);
             if (!this || !isActiveAndEnabled) return;
+            bool validTarget = CombatDamageReceiver.IsDetectable(target);
             bool nearby = false;
             if (!suspended && !IsDead && !isSpawnedEnemy && enemyObj.DetectionSensor)
             {
                 var sensor = enemyObj.DetectionSensor;
                 if (!hasTarget && clock > provokedUntil)
                 {
-                    var close = sensor.FindNearby(target, checkLineOfSight, eyeHeight, obstructionMask);
-                    if (close && !AssignSensedTarget(close)) return;
+                    var close = sensor.FindNearby(validTarget ? target : null);
+                    if (close)
+                    {
+                        if (!AssignSensedTarget(close)) return;
+                        validTarget = true;
+                    }
                 }
-                nearby = sensor.Contains(target, checkLineOfSight, eyeHeight, obstructionMask);
+                nearby = validTarget && sensor.Contains(target);
+            }
+            if (!suspended && !IsDead && !isSpawnedEnemy && !hasTarget && !nearby &&
+                (!validTarget || !IsVisible(target, false)))
+            {
+                var seen = FindVisiblePlayer();
+                if (seen)
+                {
+                    if (!AssignSensedTarget(seen)) return;
+                    validTarget = true;
+                }
             }
             if (!this || !isActiveAndEnabled) return;
             int tickGeneration = generation;
@@ -262,27 +283,20 @@ namespace NarutoVR.SealCombat.Enemies
             if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
             if (TickReaction()) return;
 
-            bool validTarget = target && target.gameObject.activeInHierarchy;
-            if (!validTarget) { hasTarget = false; CancelAttack(); }
+            if (!validTarget || !target || !target.gameObject.activeInHierarchy)
+            {
+                if (hasTarget) StopNavigation();
+                hasTarget = false; provokedUntil = -1; CancelAttack();
+            }
             else
             {
                 Vector3 delta = target.position - transform.position;
                 angle = HorizontalAngle(transform.forward, delta);
-                bool visible = delta.magnitude <= (hasTarget ? Mathf.Max(detectionDistance, loseDistance) : detectionDistance) &&
-                    (hasTarget || Mathf.Abs(angle) <= fieldOfView * .5f) && HasLineOfSight();
+                bool visible = IsVisible(target, hasTarget);
                 if (isSpawnedEnemy || visible || nearby || clock <= provokedUntil)
                 {
-                    detectionReason = isSpawnedEnemy ? "召唤目标" : clock <= provokedUntil ? "受击锁定" : nearby ? "近距Trigger兜底" : "视野或已发现目标持续追踪";
-                    if (!hasTarget) { waitingAtPatrol = false; StopNavigation(); }
-                    hasTarget = true; lastSeenAt = clock;
-                    if (!hasEverDetectedPlayer)
-                    {
-                        hasEverDetectedPlayer = true; int token = generation; Transform seen = target;
-                        Notify(EnemyEvents.FirstPlayerDetected, new EnemyDetectionNotice(this, seen), onFirstPlayerDetected.Invoke);
-                        // 回调可以开演出、换目标、销毁/禁用敌人或重新生成。
-                        if (!this || !isActiveAndEnabled || suspended || generation != token || target != seen) return;
-                        if (!target || !target.gameObject.activeInHierarchy) { hasTarget = false; StopNavigation(); return; }
-                    }
+                    if (hasTarget) lastSeenAt = clock;
+                    else if (!ConfirmDetection(isSpawnedEnemy ? "召唤目标" : nearby ? "近身范围" : "巡逻视野")) return;
                 }
                 else if (hasTarget && (delta.magnitude > Mathf.Max(detectionDistance, loseDistance) || clock - lastSeenAt >= loseSightSeconds))
                 { hasTarget = false; StopNavigation(); CancelAttack(); }
@@ -292,7 +306,9 @@ namespace NarutoVR.SealCombat.Enemies
             if (currentAttack >= 0) { TickAttack(); return; }
             if (!hasTarget) { TickPatrol(); return; }
 
-            Vector3 toTarget = target.position - transform.position;
+            // VR 目标的头部用于视线与受击，寻路和跨层判断使用角色的地面位置。
+            Vector3 navigationTarget = CombatDamageReceiver.GetNavigationPosition(target);
+            Vector3 toTarget = navigationTarget - transform.position;
             var flat = Vector3.ProjectOnPlane(toTarget, Vector3.up);
             if (flat.magnitude <= attackDistance && Mathf.Abs(toTarget.y) <= navSampleRadius)
             {
@@ -306,7 +322,7 @@ namespace NarutoVR.SealCombat.Enemies
             }
             else
             {
-                if (MoveTo(target.position, chaseSpeed, attackDistance * .85f))
+                if (MoveTo(navigationTarget, chaseSpeed, attackDistance * .85f))
                 { enemyObj.RotateTowards(enemyObj.DesiredVelocity.sqrMagnitude > .001f ? enemyObj.DesiredVelocity : flat, turnSpeed, deltaTime); SetBehaviour(Behaviour.Chase, "追击玩家"); }
                 else SetBehaviour(Behaviour.Idle, status);
             }
@@ -323,6 +339,63 @@ namespace NarutoVR.SealCombat.Enemies
             int expected = generation + (target == candidate && assignedTarget == candidate ? 0 : 1);
             SetTarget(candidate);
             return this && isActiveAndEnabled && !suspended && !IsDead && generation == expected && target == candidate;
+        }
+
+        internal void DetectProximity(Transform player)
+        {
+            if (!CanReceiveHit || !enemyObj || !enemyObj.isActiveAndEnabled || isSpawnedEnemy ||
+                !player || !player.gameObject.activeInHierarchy || player.IsChildOf(transform)) return;
+            if (hasTarget)
+            {
+                if (target == player) lastSeenAt = clock;
+                return;
+            }
+            if (AssignSensedTarget(player)) ConfirmDetection("近身Trigger接触");
+        }
+
+        bool ConfirmDetection(string reason)
+        {
+            detectionReason = reason;
+            if (!hasTarget) { waitingAtPatrol = false; StopNavigation(); }
+            hasTarget = true;
+            lastSeenAt = clock;
+            if (hasEverDetectedPlayer) return true;
+            hasEverDetectedPlayer = true;
+            int token = generation;
+            Transform seen = target;
+            Notify(EnemyEvents.FirstPlayerDetected, new EnemyDetectionNotice(this, seen), onFirstPlayerDetected.Invoke);
+            if (!this || !isActiveAndEnabled || suspended || generation != token || target != seen) return false;
+            if (target && target.gameObject.activeInHierarchy) return true;
+            hasTarget = false;
+            StopNavigation();
+            return false;
+        }
+
+        bool IsVisible(Transform candidate, bool tracking)
+        {
+            if (!candidate || !candidate.gameObject.activeInHierarchy) return false;
+            Vector3 delta = candidate.position - transform.position;
+            float radius = tracking ? Mathf.Max(detectionDistance, loseDistance) : detectionDistance;
+            return delta.sqrMagnitude <= radius * radius &&
+                (tracking || Mathf.Abs(HorizontalAngle(transform.forward, delta)) <= fieldOfView * .5f) &&
+                enemyObj.HasLineOfSight(candidate, checkLineOfSight, eyeHeight, obstructionMask);
+        }
+
+        Transform FindVisiblePlayer()
+        {
+            CombatDamageReceiver.CopyActive(visibleCandidates);
+            Transform best = null;
+            float closest = float.PositiveInfinity;
+            foreach (var receiver in visibleCandidates)
+            {
+                var candidate = receiver.HitTransform;
+                if (!receiver.CanReceiveDamage || !candidate || candidate == target || candidate.IsChildOf(transform)) continue;
+                float distance = (candidate.position - transform.position).sqrMagnitude;
+                if (distance >= closest || !IsVisible(candidate, false)) continue;
+                closest = distance;
+                best = candidate;
+            }
+            return best;
         }
 
         bool HasLineOfSight() => enemyObj.HasLineOfSight(target, checkLineOfSight, eyeHeight, obstructionMask);

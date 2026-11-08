@@ -1,0 +1,87 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/EnemySetupAndChecks.cs
+@@
+-                try { string report = Run(); Debug.Log(report); }
++                try
++                {
++                    string report = Run();
++                    File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\nRUNNING 40 项逻辑完成，等待真实帧导航移动\n");
++                    BeginMovementProbe(report);
++                }
+@@
+                     File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\nFAILED\n" + e);
+                     Debug.LogException(e);
++                    EditorApplication.isPlaying = false;
+                 }
+-                finally { EditorApplication.isPlaying = false; }
+@@
+         public static void StartChecks()
+@@
+             EditorApplication.isPlaying = true;
+         }
++
++        static void BeginMovementProbe(string logicReport)
++        {
++            Vector3 origin = new(5000, 0, 5000);
++            var sources = new List<NavMeshBuildSource> { new() { shape = NavMeshBuildSourceShape.Box,
++                size = new Vector3(30, .2f, 30), transform = Matrix4x4.TRS(origin + Vector3.down * .1f, Quaternion.identity, Vector3.one), area = 0 } };
++            NavMeshData nav = null; NavMeshDataInstance registration = default;
++            GameObject go = null, point = null;
++            EditorApplication.CallbackFunction update = null;
++            void Finish(Exception error)
++            {
++                EditorApplication.update -= update;
++                if (go) Object.DestroyImmediate(go);
++                if (point) Object.DestroyImmediate(point);
++                if (registration.valid) registration.Remove();
++                if (nav) Object.DestroyImmediate(nav);
++                string result = error == null ? logicReport + "\n真实帧导航 3 项通过（巡逻位移及转向、召唤追击位移、目标丢失停稳）。" : "FAILED\n" + error;
++                File.WriteAllText("Logs/enemy-fsm-20261104/check.txt", DateTimeOffset.Now.ToString("O") + "\n" + result);
++                if (error == null) Debug.Log(result); else Debug.LogException(error);
++                EditorApplication.isPlaying = false;
++            }
++            try
++            {
++                nav = NavMeshBuilder.BuildNavMeshData(NavMesh.GetSettingsByIndex(0), sources,
++                    new Bounds(origin, new Vector3(40, 10, 40)), Vector3.zero, Quaternion.identity);
++                registration = NavMesh.AddNavMeshData(nav);
++                go = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath), origin, Quaternion.identity);
++                point = new GameObject("运动测试目标"); point.transform.position = origin + Vector3.right * 4;
++                var enemy = go.GetComponent<EnemyController>();
++                enemy.InitializeSpawn(null, false); enemy.patrolPoints = new[] { point.transform };
++                double deadline = EditorApplication.timeSinceStartup + 20;
++                float stageAt = Time.time; int stage = 0; Vector3 before = go.transform.position;
++                update = () =>
++                {
++                    try
++                    {
++                        if (!Application.isPlaying || !go || EditorApplication.timeSinceStartup > deadline)
++                            throw new Exception("真实帧导航被中断或超时");
++                        if (Time.time - stageAt < (stage == 2 ? .5f : 1.5f)) return;
++                        if (stage == 0)
++                        {
++                            if (go.transform.position.x - before.x < .3f || Vector3.Dot(go.transform.forward, Vector3.right) < .7f)
++                                throw new Exception("真实帧巡逻没有移动或转向");
++                            point.transform.position = origin + Vector3.forward * 8;
++                            enemy.InitializeSpawn(point.transform, true);
++                        }
++                        else if (stage == 1)
++                        {
++                            if (go.transform.position.z - before.z < .3f) throw new Exception("真实帧召唤追击没有移动");
++                            enemy.SetTarget(null);
++                        }
++                        else
++                        {
++                            if (Vector3.Distance(go.transform.position, before) > .02f || enemy.CurrentBehaviour != EnemyController.Behaviour.Idle)
++                                throw new Exception("失去目标后未停稳待机");
++                            Finish(null); return;
++                        }
++                        ++stage; stageAt = Time.time; before = go.transform.position;
++                    }
++                    catch (Exception e) { Finish(e); }
++                };
++                EditorApplication.update += update;
++            }
++            catch (Exception e) { Finish(e); }
++        }
+*** End Patch

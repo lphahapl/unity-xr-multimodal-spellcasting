@@ -1,0 +1,33 @@
+*** Begin Patch
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/WristMenuController.cs
+@@
+-            if (tap.Toggle && wasOpen != State.LauncherOpen && WristTapConfirmed != null)
++            if (tap.Toggle && left && State.CanInteract && !State.LeftLow && wasOpen != State.LauncherOpen && WristTapConfirmed != null)
+*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/HapticFeedbackService.cs
+@@
+-            return (flags & required) == required && (flags & InputDeviceCharacteristics.HandTracking) == 0 &&
++            var excluded = InputDeviceCharacteristics.HandTracking | (left ? InputDeviceCharacteristics.Right : InputDeviceCharacteristics.Left);
++            return (flags & required) == required && (flags & excluded) == 0 &&
+@@
+-        public string Status => !isActiveAndEnabled || !enableControllerHaptics || intensity <= 0 ? "手柄触觉关闭" :
+-            suspended || !focused ? "手柄触觉暂停" : driver?.Status ?? "等待触觉服务";
++        public string Status => !isActiveAndEnabled || !enableControllerHaptics || intensity <= 0 ? "手柄触觉关闭" :
++            IsolatedTest ? "隔离回归，物理输出静默" : suspended || !focused ? "手柄触觉暂停" : driver?.Status ?? "等待触觉服务";
+@@
+-        bool Active => isActiveAndEnabled && enableControllerHaptics && !suspended && focused && intensity > 0 && Time.timeScale > 0;
++        static bool IsolatedTest
++        {
++            get
++            {
++#if UNITY_EDITOR
++                return !string.IsNullOrEmpty(LinearRpgController.EditorTestSaveFile);
++#else
++                return false;
++#endif
++            }
++        }
++        bool Active => isActiveAndEnabled && enableControllerHaptics && !IsolatedTest && !suspended && focused && intensity > 0 && Time.timeScale > 0;
+@@
+-            if (Active && owner && owner.isActiveAndEnabled) driver.Pulse(cue, left, intensity, Time.realtimeSinceStartupAsDouble);
++            if (Active && owner && owner.CanAct) driver.Pulse(cue, left, intensity, Time.realtimeSinceStartupAsDouble);
+*** End Patch
