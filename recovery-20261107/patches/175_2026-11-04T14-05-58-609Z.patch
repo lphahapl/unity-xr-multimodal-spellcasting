@@ -1,7 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/docs/research/MUSIC_WORKFLOW_TOOLS_20261104_ZH.md
-@@
- | [sirruf/music-gen-skill](https://github.com/sirruf/music-gen-skill) | Mido→FluidSynth/TiMidity→SoundFont，本地可编辑源与依赖探测；MIT | 借鉴明确的MIDI/音源接口。Bash路径、固定44.1k与仅检查输出存在不足以直接覆盖Windows游戏交付 |
-+| [glincker/ableton-skills](https://github.com/glincker/ableton-skills) | 现有会话读取、快照、可撤销MIDI编辑；MIT | 需要另装Ableton与兼容MCP；保留操作思路，不沿用统一流行曲式、EQ或响度规则 |
-+| [cclawton/music21-mcp](https://github.com/cclawton/music21-mcp) | 符号MIDI解析、移调与模式搜索；MIT | 有具体符号处理需求再接。其曲式实现使用简单音高窗口，不作为音乐结构或听感的自动验收 |
-*** End Patch

@@ -1,9 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_chamber.py
-@@
-     if instrument == "viola":
--        pitches = {"A3":57, "C4":60, "E4":64, "G4":67}
-+        # Viola filenames use an octave convention below the harp bank's.
-+        # Verified against ViolaEnsSusVib.sfz and each recording's fundamental.
-+        pitches = {"G2":55, "B2":59, "D3":62, "F3":65, "A3":69}
-*** End Patch

@@ -1,8 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/BgmLoopVerification.cs
-@@
-     static void Recover()
-     {
-+        if (!recoveryPending) return;
-         recoveryPending = false;
-*** End Patch

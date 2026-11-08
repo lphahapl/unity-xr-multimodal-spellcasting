@@ -1,7 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Logs/yicun-shanhe-continuity-v11/qa_signal.py
-@@
--    checks["wind_note_pitches_and_offsets_preserved"] = all(a[k] == b[k] for a, b in zip(phrases, previous["phrases"]) for k in ("start", "end", "pitches", "offsets"))
-+    old_phrases = sorted((p for p in previous["phrases"] if p["instrument"] == "dizi"), key=lambda p: p["start"])
-+    checks["wind_note_pitches_and_offsets_preserved"] = len(phrases) == len(old_phrases) and all(a[k] == b[k] for a, b in zip(phrases, old_phrases) for k in ("start", "end", "pitches", "offsets"))
-*** End Patch

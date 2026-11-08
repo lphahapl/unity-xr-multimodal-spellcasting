@@ -1,6 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/scratch/render_yicun_shanhe_shape_v8.py
-@@
--                         "events": {inst: sum(start <= e[0] < end for e in events)
-+                         "events": {inst: int(sum(start <= e[0] < end for e in events))
-*** End Patch

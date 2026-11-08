@@ -1,7 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/docs/guides/ENEMY_NAVIGATION_ZH.md
-@@
- - 当前资产只有两种独立攻击。增加第三种时须同时加动作、`attack2` Trigger 和 Attack Entry 条件，并将总数设为 3；只改总数不会凭空生成动画。运行时基础验证能拦缺参数，编辑器回归核对现有两招的实际入口。
-+- 攻击总数和 Animator Controller 请退出 Play 后修改，再开始新一轮；生成时会重新验证配置。移动速度、攻击距离、冷却等数值可在 Play 中调试。
-+- 关闭 Root Motion 后，转向/转圈素材是否仍有期望的视觉旋转需要 Game/头显验收；动画入口通过不等于视觉表现已验收。若素材主要通过根旋转表现转圈，应制作原地版本或隔离模型子节点旋转，不同时恢复导航根节点的动画位移。
-*** End Patch

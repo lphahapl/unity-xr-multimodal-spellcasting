@@ -1,9 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Enemies/Spawning/EnemyManager.cs
-@@
-         void FinishRecycle(Session current, Instance instance)
-         {
--            if (!instance.Root || !instance.Controller) return;
-+            if (!instance.Root) return;
-+            if (!instance.Controller) { DestroyInstance(instance); return; }
-*** End Patch

@@ -1,8 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/P1RoomPlayChecks.cs
-@@
-             var room = UnityEngine.Object.FindFirstObjectByType<CombatRoomEncounter>(); var rpg = room.rpg; var move = rpg.locomotion; var enemy = room.enemies.Single();
-+            // Desktop-only synthetic input: an unavailable/unworn XR runtime pauses the app.
-+            // Exercise its normal resume callback instead of weakening the production pause gate.
-+            typeof(LinearRpgController).GetMethod("OnApplicationPause", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, new object[] { false });
-*** End Patch

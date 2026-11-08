@@ -1,8 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/scratch/yicun_dizi_phrases_v10.py
-@@
--    # Avoid sustained same-register second with the newly connected low answer.
--    score['guzheng'] = [(t, 60 if 26 < t < 27 else p, d, v, role)
-+    # Delay the G4 reply until the connected wind A4 has resolved to G4.
-+    score['guzheng'] = [(77.98 if abs(t-77.35)<.001 else t, p, d, v, role)
-*** End Patch

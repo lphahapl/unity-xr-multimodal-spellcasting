@@ -1,6 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Editor/PlayerObjChecks.cs
-@@
--                Action<float> replay = _ => replayAccepted = first.TryReceiveDamage("shielded", 15, 0, effects, out _);
-+                Action<float> replay = absorbed => replayAccepted = first.TryReceiveDamage("shielded", 15, 0, effects, out _);
-*** End Patch

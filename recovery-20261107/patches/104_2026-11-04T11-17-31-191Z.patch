@@ -1,9 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/Assets/SealCombat/Runtime/Rpg/CombatRoomEncounter.cs
-@@
--                if (!rpg.Player || !rpg.locomotion || !rpg.locomotion.head) return;
-+                if (rpg.Player == null || !rpg.locomotion || !rpg.locomotion.head) return;
-@@
--                    started = true;
-+                    started = true; pausedEnemies = false;
-*** End Patch

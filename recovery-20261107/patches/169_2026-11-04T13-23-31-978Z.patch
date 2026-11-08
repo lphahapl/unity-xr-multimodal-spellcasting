@@ -1,6 +1,0 @@
-*** Begin Patch
-*** Update File: D:/UnityProjects/NarutoVR/docs/skills/music-production/scripts/analyze_audio.py
-@@
--    except (AnalysisError, OSError, ValueError, MemoryError) as exc:
-+    except (AnalysisError, OSError, ValueError, OverflowError, MemoryError) as exc:
-*** End Patch
