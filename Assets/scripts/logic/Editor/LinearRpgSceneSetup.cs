@@ -26,6 +26,7 @@ namespace NarutoVR.SealCombat.Editor
         sealed class Configuration
         {
             public SkillCatalog catalog;
+            public SkillShopCatalog shop;
             public RpgPlayerDefinition player;
             public RpgStageDefinition[] stages;
             public Material markerMaterial;
@@ -170,13 +171,20 @@ namespace NarutoVR.SealCombat.Editor
             result.player = NewAsset<RpgPlayerDefinition>(ConfigurationRoot + "/玩家定义配置/默认玩家.asset", null, result);
             result.stages = new[]
             {
-                Stage("trial.01", "火球基础", "寅印与“火球术”匹配后，右手轻推发射。击破本阶段训练靶，再前往下一阶段。", 60, 40,
+                Stage("trial.01", "火球基础", "寅印与“火球术”匹配后，右手轻推发射。击破本阶段训练靶，再前往下一阶段。", 40,
                     new[] { "buff.zi", "buff.voice" }, false, result),
-                Stage("trial.02", "护盾与闪避", "子印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 90, 40,
+                Stage("trial.02", "护盾与闪避", "子印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 40,
                     Array.Empty<string>(), true, result),
-                Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单购买隐藏法术及升级火球。", 120, 60,
+                Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单购买隐藏法术及升级火球。", 60,
                     Array.Empty<string>(), true, result)
             };
+            result.shop = NewAsset<SkillShopCatalog>(ConfigurationRoot + "/技能商店配置/训练场技能商店.asset", shop =>
+            {
+                shop.offers = new[] {
+                    new SkillShopOffer { offerId="unlock.hidden", displayName="购买隐藏术式", skillId="buff.hidden", kind=SkillOfferKind.Unlock, cost=60, requiredStage=result.stages[0] },
+                    new SkillShopOffer { offerId="upgrade.fireball", displayName="升级火球", skillId="fireball", kind=SkillOfferKind.Upgrade, cost=30, maximumLevel=3 }
+                };
+            }, result);
             result.markerMaterial = NewAsset<Material>("Assets/Materials/LinearRpg/导航点标记.mat", null, result,
                 () =>
                 {
@@ -192,7 +200,7 @@ namespace NarutoVR.SealCombat.Editor
             return result;
         }
 
-        static RpgStageDefinition Stage(string id, string name, string instructions, float health, int reward,
+        static RpgStageDefinition Stage(string id, string name, string instructions, int reward,
             string[] unlocks, bool hazards, Configuration configuration)
         {
             return NewAsset<RpgStageDefinition>(ConfigurationRoot + "/关卡阶段配置/阶段_" + id + ".asset", stage =>
@@ -200,7 +208,6 @@ namespace NarutoVR.SealCombat.Editor
                 stage.stageId = id;
                 stage.displayName = name;
                 stage.instructions = instructions;
-                stage.targetHealth = health;
                 stage.rewardCurrency = reward;
                 stage.unlockSkillIds = unlocks;
                 stage.enableHazards = hazards;
@@ -327,18 +334,21 @@ namespace NarutoVR.SealCombat.Editor
             locomotion.obstacleLayers = ~(1 << 2);
             NavigationNode[,] grid = CreateGrid(root.transform, origin, floor, locomotion, configuration.markerMaterial);
             var controller = root.AddComponent<LinearRpgController>();
+                controller.chapter = root.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)controller.chapter).rpg = controller; ((TrainingChapterFlow)controller.chapter).initialSkills = new[]{"fireball"};
             controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             controller.skills = skills;
             controller.locomotion = locomotion;
             controller.playerDefinition = configuration.player;
             controller.stages = configuration.stages;
-            controller.targets = targets;
+            controller.GetComponent<TrainingTargetGroup>().targets = targets;
+            controller.GetComponent<TrainingTargetGroup>().healthByStage = new[] {60f, 90f, 120f};
             controller.checkpointNodes = new[] { grid[1, 1], grid[1, 2], grid[2, 2] };
             controller.autoLoad = true;
             controller.lowHandsBelowHead = 0.55f;
-            controller.saveFileName = "linear-rpg-v1.json";
-            controller.hiddenSkillPrice = 60;
-            controller.fireballUpgradePrice = 30;
+            controller.saveFileName = "linear-rpg-v2.json";
+            var shop = root.AddComponent<RpgSkillShop>();
+            shop.catalog = configuration.shop;
             var hazard = root.AddComponent<RpgTrainingHazard>();
             hazard.controller = controller;
             hazard.interval = 6;

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3698a33a03004d8ab08fb2011c2b41ea, type: 3}
+  m_Name: 训练场技能商店
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.SkillShopCatalog
+  offers:
+  - offerId: unlock.hidden
+    displayName: 购买隐藏术式
+    skillId: buff.hidden
+    kind: 0
+    cost: 60
+    maximumLevel: 3
+    requiredStage: {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
+  - offerId: upgrade.fireball
+    displayName: 升级火球
+    skillId: fireball
+    kind: 1
+    cost: 30
+    maximumLevel: 3
+    requiredStage: {fileID: 0}

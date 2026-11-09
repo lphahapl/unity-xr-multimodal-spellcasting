@@ -13,8 +13,17 @@ namespace NarutoVR.SealCombat.Rpg
         public GameObject leaf, lid;
         [InspectorName("实物铜叶标识")] public string leafId = "leaf.fangyuan";
         public SnapZone slot;
-        public RpgStageDefinition solvedStage, collectedStage, seatedStage;
+        /// <summary>机关解开后的完成阶段，用于恢复开盖状态；铜叶归属只读取实际持有记录。</summary>
+        public RpgStageDefinition solvedStage;
+        /// <summary>实际物品进度的来源，机关不读取通用会话内部存档结构。</summary>
+        public RpgItemInventory inventory;
         [Min(.005f)] public float grabRadius = .055f, slotRadius = .026f, verifyRadius = .14f;
+        [Header("铜叶入匣手感")]
+        [InspectorName("导向头本地坐标（米）")] public Vector3 leafGuideLocal = new Vector3(0, .07f, 0);
+        [InspectorName("铜叶松手指距（米）"), Min(.01f)] public float leafReleaseDistance = .035f;
+        [InspectorName("入槽后松手宽限（秒）"), Min(0)] public float slotReleaseGrace = .25f;
+        [InspectorName("松手时指尖退让距离（米）"), Min(.01f)] public float releaseFingerTravel = .10f;
+        [InspectorName("短暂追踪丢失宽限（秒）"), Min(0)] public float leafTrackingGrace = .35f;
         [Range(1,15)] public float tolerance = 5;
         public float outerStartDegrees = 45, innerStartDegrees = 20;
         [Min(.1f)] public float settleSeconds = .6f;
@@ -27,15 +36,17 @@ namespace NarutoVR.SealCombat.Rpg
         Grip grip;
         float outerAngle, innerAngle, lastAngle, stable, dropTime;
         bool activePuzzle, solved, canCollect, taken, canInsert, pinchReleased, discReleased;
+        double trackingLostAt = double.NaN, slotContactAt = double.NegativeInfinity;
+        Vector3 slotContactLocal;
 
         public void Restore(List<string> completed)
         {
             if (slot.SnappedObject) slot.ReleaseObject();
             solved = completed.Contains(solvedStage.stageId);
-            var owned = rpg ? rpg.Progress?.copperLeaves?.Find(item => item.leafId == leafId) : null;
-            taken = owned != null || completed.Contains(collectedStage.stageId);
-            IsSeated = owned?.registered == true || completed.Contains(seatedStage.stageId);
-            grip = Grip.None;
+            var state = inventory ? inventory.GetState(leafId) : ProgressionItemState.Missing;
+            taken = state != ProgressionItemState.Missing;
+            IsSeated = state == ProgressionItemState.Activated;
+            DropTracking();
             activePuzzle = canCollect = canInsert = pinchReleased = discReleased = false;
             stable = dropTime = 0;
             outerAngle = solved ? 0 : outerStartDegrees;
@@ -45,6 +56,9 @@ namespace NarutoVR.SealCombat.Rpg
             leaf.SetActive(true);
             PoseLeaf(IsSeated ? slot.transform : prizeRest);
             slot.enabled = false;
+            // The leaf is moved by this custom pinch driver, not a Meta Grabbable.
+            // Trigger auto-snap cannot infer its held state; only this driver's release may insert it.
+            slot.AutomaticSnapping = false;
         }
 
         public void EnablePuzzle() { activePuzzle = true; }
@@ -55,7 +69,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!IsEarnedLeaf(item)) return;
             IsSeated = true;
-            grip = Grip.None;
+            DropTracking();
             PoseLeaf(slot.transform);
         }
 
@@ -84,17 +98,29 @@ namespace NarutoVR.SealCombat.Rpg
             }
             if (!rpg || !rpg.CanAct || !rpg.wristMenu || rpg.UiInputOwned) { DropTracking(); return; }
             var hand = rpg.wristMenu.LatestInput;
+            double now = Time.realtimeSinceStartupAsDouble;
             bool valid = !hand.tipUnavailable && WristMenuState.Fresh(hand.rightValid, hand.rightObserved,
-                Time.realtimeSinceStartupAsDouble, rpg.wristMenu.settings.maxAge);
-            if (!valid) { DropTracking(); CheckAlignment(); Recall(); return; }
+                now, rpg.wristMenu.settings.maxAge);
+            if (!valid)
+            {
+                if (grip == Grip.Leaf)
+                {
+                    if (double.IsNaN(trackingLostAt)) trackingLostAt = now;
+                    // Freeze the last valid pose. Missing samples are neither release nor movement.
+                    if (now - trackingLostAt <= leafTrackingGrace) return;
+                }
+                DropTracking(); CheckAlignment(); Recall(); return;
+            }
+            if (!double.IsNaN(trackingLostAt) && now - trackingLostAt > leafTrackingGrace) DropTracking();
+            trackingLostAt = double.NaN;
             var tip = hand.rightTip;
-            bool release = hand.PinchUp(rpg.wristMenu.settings);
+            bool release = grip == Grip.Leaf ? LeafReleased(hand) : hand.PinchUp(rpg.wristMenu.settings);
             if (release)
             {
                 if (grip == Grip.Outer || grip == Grip.Inner) discReleased = true;
-                if (grip == Grip.Leaf && canInsert && slot.isActiveAndEnabled &&
-                    Vector3.Distance(tip, slotEntry.position) <= slotRadius) slot.TrySnapObject(leaf);
+                if (grip == Grip.Leaf) TryInsertReleasedLeaf(tip, now);
                 grip = Grip.None;
+                slotContactAt = double.NegativeInfinity;
                 pinchReleased = true;
             }
             else if (pinchReleased && hand.PinchDown(rpg.wristMenu.settings))
@@ -110,6 +136,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if ((canCollect || canInsert) && solved && !slot.SnappedObject && Near(tip, leaf.transform))
                 {
                     grip = Grip.Leaf;
+                    slotContactAt = double.NegativeInfinity;
                     if (!taken) { taken = true; Collected?.Invoke(); }
                 }
             }
@@ -127,6 +154,16 @@ namespace NarutoVR.SealCombat.Rpg
                 leaf.transform.position = tip;
                 if (canInsert && slot.isActiveAndEnabled && Vector3.Distance(tip, slotEntry.position) <= grabRadius * 2)
                     leaf.transform.rotation = slot.transform.rotation;
+                if (canInsert && slot.isActiveAndEnabled)
+                {
+                    if (AtSlot(leaf.transform.position))
+                    {
+                        slotContactAt = now;
+                        slotContactLocal = slot.transform.InverseTransformPoint(leaf.transform.position);
+                    }
+                    else if (Vector3.Distance(tip, slot.transform.TransformPoint(slotContactLocal)) > releaseFingerTravel)
+                        slotContactAt = double.NegativeInfinity;
+                }
                 dropTime = 0;
             }
             else Recall();
@@ -147,7 +184,36 @@ namespace NarutoVR.SealCombat.Rpg
             Solved?.Invoke();
         }
 
-        void DropTracking() { grip = Grip.None; pinchReleased = false; }
+        bool LeafReleased(WristMenuInput hand) => hand.systemPinch
+            ? hand.PinchUp(rpg.wristMenu.settings)
+            : hand.pinchValid && !hand.pinchTransition &&
+              hand.pinchDistance >= Mathf.Max(leafReleaseDistance, rpg.wristMenu.settings.pinchClose + .005f);
+
+        // Both the guide head and the existing root-at-entry gesture are valid. The renderer's
+        // position is the last held pose, which should not jump when the fingers spread to release.
+        bool AtSlot(Vector3 rootPosition)
+        {
+            Vector3 guideOffset = leaf.transform.TransformVector(leafGuideLocal);
+            return (rootPosition - slotEntry.position).sqrMagnitude <= slotRadius * slotRadius ||
+                (rootPosition + guideOffset - slotEntry.position).sqrMagnitude <= slotRadius * slotRadius;
+        }
+
+        void TryInsertReleasedLeaf(Vector3 finger, double now)
+        {
+            if (!canInsert || !slot.isActiveAndEnabled || slot.SnappedObject) return;
+            float reach = releaseFingerTravel + .0001f;
+            bool lastHeldPose = AtSlot(leaf.transform.position) && Vector3.Distance(finger, leaf.transform.position) <= reach;
+            bool recentContact = now - slotContactAt <= slotReleaseGrace &&
+                Vector3.Distance(finger, slot.transform.TransformPoint(slotContactLocal)) <= reach;
+            if (AtSlot(finger) || lastHeldPose || recentContact) slot.TrySnapObject(leaf);
+        }
+
+        void DropTracking()
+        {
+            grip = Grip.None; pinchReleased = false;
+            trackingLostAt = double.NaN; slotContactAt = double.NegativeInfinity;
+        }
+        void OnDisable() => DropTracking();
         void Recall()
         {
             if (!taken || IsSeated || slot.SnappedObject || Vector3.Distance(leaf.transform.position, prizeRest.position) < .01f) return;

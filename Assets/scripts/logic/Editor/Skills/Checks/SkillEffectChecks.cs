@@ -60,10 +60,13 @@ namespace NarutoVR.SealCombat.Editor
                 ball = f.Held();
                 f.RefreshHands(rightTracked: false);
                 Invoke(f.Effects, "LateUpdate");
-                True(!ball.activeSelf && f.Effects.HasHeldObject, "追踪丢失应立即隐藏，宽限期间仍占用槽位");
-                Set(f.Effects, "lostAt", Time.realtimeSinceStartupAsDouble - .6);
+                True(ball.activeSelf && f.Effects.HasHeldObject && !f.Effects.ThrowInputValid, "短暂丢追保留视觉与槽位，停止投掷判定");
+                Set(f.Effects, "lostAt", Time.realtimeSinceStartupAsDouble - 3);
                 Invoke(f.Effects, "LateUpdate");
-                True(!f.Effects.HasHeldObject, "追踪丢失超时必须消散");
+                True(!ball.activeSelf && f.Effects.HasHeldObject, "持续丢追只隐藏，不能当作取消施法");
+                f.RefreshHands(); Invoke(f.Effects, "LateUpdate");
+                True(ball.activeSelf && f.Effects.HasHeldObject, "新鲜追踪恢复后原火球继续持握");
+                True(f.Effects.CancelUnreleased() && !f.Effects.HasHeldObject, "明确取消仍收起保留的火球");
                 passed++;
 
                 True(f.Effects.TryActivate(f.Buff), "护盾激活失败"); f.TrackBuff();

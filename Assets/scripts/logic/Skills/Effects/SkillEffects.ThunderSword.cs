@@ -18,11 +18,12 @@ namespace NarutoVR.SealCombat
             if (!TryGetSwordGrip(out var grip, out var stamp, out bool hasPalm))
             { Report("请让头显追踪到右手，再召出雷光剑"); return false; }
             if (!ThunderSwordCast.TryStart(this, settings, skill.durationSeconds, grip, stamp, hasPalm)) return false;
-            Report("雷光剑已在右手生成。看向目标，挥动右手出波。");
+            Report("雷光剑已在右手生成。看向目标，横挥出横波、竖挥出竖波；取消施法可收剑。");
             return true;
         }
 
-        // The sword follows the palm centre while preserving the tracked wrist orientation.
+        // Build a grip from the rigid palm bones, not the SDK wrist's arbitrary local +Z.
+        // Blade exits the thumb/index side of the fist; curled fingertips cannot flip it.
         internal bool TryGetSwordGrip(out Pose pose, out double stamp, out bool hasPalm)
         {
             hasPalm = false;
@@ -30,14 +31,27 @@ namespace NarutoVR.SealCombat
             if (WristPoseOverride == null)
             {
                 var hand = lab.Frame.right;
+                bool Joint(HandJointId id, out Vector3 point)
+                {
+                    int i=(int)id; point=default;
+                    if(i>=hand.jointValid.Length || i>=hand.joints.Length || !hand.jointValid[i] ||
+                        !NarutoVR.SealLab.SealLab.FinitePose(hand.joints[i])) return false;
+                    point=lab.recordingOrigin.TransformPoint(hand.joints[i].position); return true;
+                }
+                if(!Joint(HandJointId.HandIndex1,out var index) || !Joint(HandJointId.HandPinky1,out var pinky)) return false;
+                Vector3 blade=index-pinky, fingers=(index+pinky)*.5f-pose.position;
+                Vector3 normal=Vector3.Cross(blade,fingers);
+                if(blade.sqrMagnitude<.0001f || normal.sqrMagnitude<1e-8f) return false;
+                pose.rotation=Quaternion.LookRotation(blade,normal);
+                pose.position+=(fingers*.5f);
+                hasPalm=true;
                 int palm = (int)HandJointId.HandPalm;
                 if (palm < hand.jointValid.Length && palm < hand.joints.Length && hand.jointValid[palm] &&
                     NarutoVR.SealLab.SealLab.FinitePose(hand.joints[palm]))
                 {
                     pose.position = lab.recordingOrigin.TransformPoint(hand.joints[palm].position);
-                    hasPalm = true;
-                    return true;
                 }
+                return true;
             }
             pose.position += pose.rotation * new Vector3(0, 0, .04f);
             return true;
@@ -54,6 +68,26 @@ namespace NarutoVR.SealCombat
                 settings.lightningDamage, settings.lightningPoise, null, WeaponAttacker)) return true;
             nextSwordLightningAt = previous;
             return false;
+        }
+
+        internal bool TryGetWeaponWavePreview(Vector3 origin, float radius, out FireballAim aim)
+        {
+            aim = default;
+            if (!TryGetWeaponWaveDirection(origin, out var direction)) return false;
+            Vector3 point=GetAimPoint(), endpoint=point;
+            bool originBlocked=!WeaponOriginClear(origin,radius), blocked=originBlocked;
+            float distance=Vector3.Distance(origin,point), nearest=distance;
+            int count=Physics.SphereCastNonAlloc(origin,radius,direction,throwSweeps,distance,WeaponHitMask,QueryTriggerInteraction.Collide);
+            bool incomplete=count==throwSweeps.Length;
+            if(incomplete) blocked=true;
+            for(int i=0;i<count;i++)
+            {
+                var hit=throwSweeps[i];
+                if(IgnoreThrowCollider(hit.collider) || hit.distance>nearest) continue;
+                nearest=hit.distance; endpoint=origin+direction*nearest;
+                blocked=originBlocked || incomplete || !new SkillHitTarget(hit.collider).IsTarget;
+            }
+            aim=new FireballAim(origin,direction,point,endpoint,blocked); return true;
         }
 
         internal bool WeaponOriginClear(Vector3 origin, float radius)

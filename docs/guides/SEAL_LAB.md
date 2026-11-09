@@ -1,7 +1,7 @@
 # 结印数据与权重实验台
 
 入口：Unity 菜单 `Tools > NarutoVR > Open Seal Lab Scene`、`Tools > NarutoVR > Seal Lab`。
-实验场景为 `Assets/Scene/SealLab.unity`，原 SampleScene 保留。此工具是采集、调参和验证原型，尚未用 Quest 真机验证识别效果。
+实验场景为 `Assets/Scene/SealLab.unity`，初始 SampleScene 已于 2026-11-08 清理。此工具是采集、调参和验证原型，尚未用 Quest 真机验证识别效果。
 
 ## 数据链路
 

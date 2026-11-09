@@ -54,7 +54,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var view=cold.AddComponent<WristMenuView>();
                 view.SetDecoration(Pose.identity,false); view.SetPointer(default,default,false,false);
-                view.SetOpeningHint(Pose.identity,"",0,false); view.HideLauncher(); view.HidePanel(); view.SetHover(null,0);
+                view.SetWristActivationHint(Pose.identity,"",0,false); view.HideLauncher(); view.HidePanel(); view.SetHover(null,0);
                 if(Roots().Any(x=>!before.Contains(x.GetInstanceID()))) throw new InvalidOperationException("只调用隐藏操作却新建了腕部世界根");
             }
             finally { Object.DestroyImmediate(cold); }
@@ -67,8 +67,8 @@ namespace NarutoVR.SealCombat.Editor
                 for(int i=0;i<3;i++)
                 {
                     view.EnsureBuilt(); view.EnsureBuilt();
-                    if(Roots().Count(x=>!before.Contains(x.GetInstanceID()))!=1 || view.Targets.Count!=9)
-                        throw new InvalidOperationException("重复构建只能有一套根和七个交互目标");
+                    if(Roots().Count(x=>!before.Contains(x.GetInstanceID()))!=1 || view.Targets.Count!=10)
+                        throw new InvalidOperationException("重复构建只能有一套根和十个交互目标");
                     WristViewEditorLifetime.ReleaseView(view); WristViewEditorLifetime.ReleaseView(view);
                     if(Roots().Any(x=>!before.Contains(x.GetInstanceID()))) throw new InvalidOperationException("重载清理钩子未释放世界根");
                     count++;

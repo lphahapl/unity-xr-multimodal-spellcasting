@@ -8,6 +8,8 @@ Shader "NarutoVR/Canal Flow"
         _CrestColor ("泡沫颜色", Color) = (0.80, 0.85, 0.80, 1)
         _FlowSpeed ("渠面流速（米/秒）", Range(0, 2)) = 0.62
         _WaveHeight ("逆流水面起伏上限（米）", Range(0, 0.03)) = 0.023
+        _FoamStrength ("流动碎沫强度", Range(0, 1.5)) = 1.08
+        _GlintStrength ("宽水光强度", Range(0, 1)) = 0.48
     }
     SubShader
     {
@@ -36,6 +38,8 @@ Shader "NarutoVR/Canal Flow"
                 half4 _CrestColor;
                 float _FlowSpeed;
                 float _WaveHeight;
+                half _FoamStrength;
+                half _GlintStrength;
             CBUFFER_END
 
             struct Attributes
@@ -56,7 +60,7 @@ Shader "NarutoVR/Canal Flow"
                 half4 normalAndAir : TEXCOORD1;
                 half4 tangentAndSign : TEXCOORD2;
                 half4 viewAndFoam : TEXCOORD3;
-                half fog : TEXCOORD4;
+                half2 fogAndBank : TEXCOORD4;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -86,7 +90,9 @@ Shader "NarutoVR/Canal Flow"
                 float lateralShape=saturate(lateral/max(input.channel.x,.15)+.5);
                 output.flowUV=float2(lateral*1.18+.035*primary+.025*sin(input.channel.w*1.7),
                                      travelled*.49+.065*(lateralShape-.5)*(lateralShape-.5));
-                output.fog=ComputeFogFactor(p.positionCS.z);
+                // A narrow bank ribbon uses the existing interpolator and texture channels.
+                output.fogAndBank=half2(ComputeFogFactor(p.positionCS.z),
+                    saturate((abs(across-.5)-.38)*8.33)*(1.0-air));
                 return output;
             }
 
@@ -108,15 +114,19 @@ Shader "NarutoVR/Canal Flow"
                 // A broad sky lobe is stable at long distances. Local wave normals break it into small moving glints.
                 half3 halfVector=SafeNormalize(view+half3(-.44h,.78h,.44h));
                 half light=saturate(abs(dot(n,halfVector)));
-                half glint=light*light;
-                glint*=glint;glint*=glint;glint*=glint;
+                half broad=light*light;
+                broad*=broad;
+                half glint=broad*broad;glint*=glint;
                 color*=.94h+.18h*slope.x+.19h*slope.y;
-                color+=_SkyWaterColor.rgb*glint*.39h;
+                // Broad lobe remains readable on Quest; the small lobe breaks into moving highlights.
+                color+=_SkyWaterColor.rgb*(.26h*broad+.74h*glint)*_GlintStrength;
                 half turbulence=input.viewAndFoam.w;
                 half foam=saturate(pattern.b*(.72h+.29h*air+.85h*turbulence)
                                   +pattern.a*(.40h+.44h*air+1.15h*turbulence));
+                half bankFoam=input.fogAndBank.y*(pattern.b*.28h+pattern.a*.46h);
+                foam=saturate((foam+bankFoam)*_FoamStrength);
                 color=lerp(color,_CrestColor.rgb,foam);
-                return half4(MixFog(color,input.fog),1.0h);
+                return half4(MixFog(color,input.fogAndBank.x),1.0h);
             }
             ENDHLSL
         }

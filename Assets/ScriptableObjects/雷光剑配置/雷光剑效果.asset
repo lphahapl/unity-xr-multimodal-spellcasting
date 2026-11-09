@@ -12,15 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f3af33667444e68da77b47f01a9f1f, type: 3}
   m_Name: "\u96F7\u5149\u5251\u6548\u679C"
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.ThunderSwordEffectDefinition
-  swordPrefab: {fileID: 4602954251851788563, guid: 207b6449bbd4937408ee0db2379405aa, type: 3}
-  wavePrefab: {fileID: 5887895601346589728, guid: 755d45ade9248eb47877f44f0efe80bc, type: 3}
-  lightningPrefab: {fileID: 7907060931470957039, guid: 288601adb71cc944083b08e6e154195b, type: 3}
+  audioProfile: {fileID: 11400000, guid: eb6b9f3d5e2955f3ba11a7aafe2aaebf, type: 2}
+  swordPrefab: {fileID: 3789736212876852280, guid: 4bc7e6bf44d2f8c4f984bdec6ff3afe9, type: 3}
+  wavePrefab: {fileID: 6960722283530420855, guid: 073fad2b49e96c34da822b5c0e836f0f, type: 3}
+  lightningPrefab: {fileID: 3874508700290417344, guid: 5f4778fc544e5f7459bdf29154b15612, type: 3}
+  slashPrefab: {fileID: 6011006205303133948, guid: f7fa25ba70c7b90429fb88d700a775ee, type: 3}
+  impactPrefab: {fileID: 4394510270193781046, guid: 5b60017b8be3c8e41bf1cebae90bf7fd, type: 3}
+  slashVisualLifetime: 0.32
+  impactVisualLifetime: 0.45
+  lightningVisualLifetime: 0.65
   gripOffset: {x: 0, y: 0, z: 0}
   gripEuler: {x: 0, y: 0, z: 0}
-  swingDistance: 0.14
-  minSwingSpeed: 0.75
-  waveInterval: 0.45
+  bladeTrailMaterial: {fileID: 2100000, guid: e871ad2e0e9f4cb8a162e5840703de9c, type: 2}
+  bladeTrailLifetime: 0.14
+  swingDistance: 0.4
+  minSwingSpeed: 1.8
+  minimumHandTravel: 0.16
+  waveInterval: 0.85
   contactWindow: 0.12
+  rearmDelay: 0.25
+  directionHysteresis: 1.25
+  showWavePreview: 1
   directDamage: 6
   directPoise: 2
   waveSpeed: 10

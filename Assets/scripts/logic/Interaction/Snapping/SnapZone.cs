@@ -53,6 +53,8 @@ namespace NeuGameMRTools.Runtime.Components
 
         public GameObject SnappedObject { get; private set; }
         public bool IsSnapping { get; private set; }
+        /// <summary>自定义抓取可关闭触发器自动接管，在确认松手后显式调用 TrySnapObject。已开始的路径仍继续。</summary>
+        public bool AutomaticSnapping { get; set; } = true;
         /// <summary>当前段的零起始索引；没有吸附任务时为 -1。</summary>
         public int CurrentPointIndex { get; private set; } = -1;
         public int PointCount => route?.Length ?? (_snapMode == SnapMode.Sequence ? _snapPoints?.Count ?? 0 : 1);
@@ -108,7 +110,7 @@ namespace NeuGameMRTools.Runtime.Components
             if (!ReferenceEquals(SnappedObject, null) && (!SnappedObject || !SnappedObject.activeInHierarchy))
                 ReleaseObject();
             if (IsSnapping) Advance(Time.deltaTime);
-            if (SnappedObject || Time.timeScale <= 0) return;
+            if (SnappedObject || Time.timeScale <= 0 || !AutomaticSnapping) return;
             candidates.Clear(); staleContacts.Clear();
             foreach (var pair in contacts)
             {

@@ -1,0 +1,23 @@
+第三方候选资源（2026-11-08）
+
+EpicToonFX：Epic Toon FX 1.71，源包 D:/BaiduNetdiskDownload/特效。
+应用随包 ETFX 2019.2.3f1 LWRP Upgrade + ETFX 2019.3 URP Fix 的材质补丁。
+不导入旧版本、演示场景或嵌套升级包。Demo 下仅保留正式预置体引用的 card 材质和贴图。
+
+MasterMagicFX：Master MagicFX Bundle 1.0，源包 D:/BaiduNetdiskDownload/特效。
+不导入演示场景；保留库资源和随包脚本。
+BillBoardParticle.cs 改为 BillBoardParticles.cs，保留脚本 GUID，以匹配类名。
+两个材质编辑器的默认输出目录调整到当前导入目录。
+移除 BulletShooter.MappingTexture 计算属性上非法的 SerializeField 标记，修复 Unity 6 编译错误。
+34 个旧 Particles/Standard Unlit 材质转换为 URP/Particles/Unlit，保留贴图、颜色和透明混合。
+跨包重复贴图 GUID 仅在 MasterMagicFX 副本内重映射，原包不改：
+64f13eb4d14d52f45a75c9e741dbbf8e -> c0d38bf68c7b4abb8b9d27c7d2723790
+
+BattleSoundLibrary：Battle Sound Library - Magic Melee - Fantasy RPG 4.2.0.1。
+导入 4,145 个 WAV（含 45 个 CombinerSamples），不导入音频工具、编辑器、SO 或字体。
+
+本目录为待挑选素材库，不表示已经接入正式玩法。已确定使用的项目特效在 Assets/Art/VFX。
+原始下载包保留原位。导入、编译与引用检查记录见 docs/模型交火/需求变更交接.md 的 ASSET-IMPORT-VFX-20261108。
+实际风格、效果参数、透明叠加开销和头显帧率仍需在选用后验收。
+
+源包缺件处理：Master MagicFX 中 11 个缺少必要依赖的资产（8 个预置体、2 个材质、1 个旧后处理配置）及其 meta 已移至 D:/Temp/NarutoVR-AssetImport-20261108/QuarantinedImported，源包不变。清除未被当前着色器使用的旧贴图引用，透明 NullParticle 占位材质保留零 alpha。

@@ -1,0 +1,561 @@
+{
+  "kind": "instrument",
+  "id": "guzheng",
+  "name": "古筝",
+  "englishName": "Guzheng",
+  "family": "chinese",
+  "description": "中国古筝实录拨弦（Freesound · Pufermufin「LOVELY CHINESE GUZHENG PLUCKED」· CC0，D 羽五声定弦 D F G A C）。从 24 分钟整段演奏中自动挑出单音拨弦，按弦分两档力度、多条轮替；连续演奏中截出的较短样本带自然淡出。使用公开试听版（有损 MP3）。",
+  "icon": "harp",
+  "color": "#A4462E",
+  "license": "CC0-1.0",
+  "author": "像素小宝 (sparklecatta-lang)",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "gmProgram": 107,
+  "attack": 0.001,
+  "release": 0.5,
+  "volumeDb": 0,
+  "articulations": [
+    {
+      "id": "pluck",
+      "name": "拨弦"
+    }
+  ],
+  "defaultArticulation": "pluck",
+  "derivedFrom": {
+    "source": "https://cdn.freesound.org/previews/396/396868_6977826-hq.mp3",
+    "sha256": "5cc564e192e7372fc11858db32e73fd7054a8791e57464863786c8b7dcc23374",
+    "script": "data/research/guzheng_slice.py",
+    "cuts": [
+      {
+        "file": "guzheng-38-v1-rr1.wav",
+        "start": 658.596,
+        "length": 3.179,
+        "midi": 38,
+        "cents": -39
+      },
+      {
+        "file": "guzheng-43-v1-rr1.wav",
+        "start": 749.044,
+        "length": 2.976,
+        "midi": 43,
+        "cents": -10
+      },
+      {
+        "file": "guzheng-45-v1-rr1.wav",
+        "start": 319.503,
+        "length": 5.442,
+        "midi": 45,
+        "cents": 21
+      },
+      {
+        "file": "guzheng-50-v1-rr1.wav",
+        "start": 361.416,
+        "length": 3.259,
+        "midi": 50,
+        "cents": 5
+      },
+      {
+        "file": "guzheng-53-v1-rr1.wav",
+        "start": 496.383,
+        "length": 4.002,
+        "midi": 53,
+        "cents": 4
+      },
+      {
+        "file": "guzheng-53-v1-rr2.wav",
+        "start": 80.898,
+        "length": 5.272,
+        "midi": 53,
+        "cents": 19
+      },
+      {
+        "file": "guzheng-53-v1-rr3.wav",
+        "start": 673.624,
+        "length": 3.141,
+        "midi": 53,
+        "cents": 12
+      },
+      {
+        "file": "guzheng-55-v1-rr1.wav",
+        "start": 677.096,
+        "length": 3.169,
+        "midi": 55,
+        "cents": 3
+      },
+      {
+        "file": "guzheng-55-v1-rr2.wav",
+        "start": 682.992,
+        "length": 3.083,
+        "midi": 55,
+        "cents": 3
+      },
+      {
+        "file": "guzheng-55-v2-rr1.wav",
+        "start": 728.749,
+        "length": 3.036,
+        "midi": 55,
+        "cents": -43
+      },
+      {
+        "file": "guzheng-55-v2-rr2.wav",
+        "start": 761.01,
+        "length": 2.99,
+        "midi": 55,
+        "cents": -23
+      },
+      {
+        "file": "guzheng-57-v1-rr1.wav",
+        "start": 235.945,
+        "length": 4.005,
+        "midi": 57,
+        "cents": 9
+      },
+      {
+        "file": "guzheng-57-v1-rr2.wav",
+        "start": 670.663,
+        "length": 3.275,
+        "midi": 57,
+        "cents": 9
+      },
+      {
+        "file": "guzheng-57-v1-rr3.wav",
+        "start": 262.905,
+        "length": 2.426,
+        "midi": 57,
+        "cents": 4
+      },
+      {
+        "file": "guzheng-60-v1-rr1.wav",
+        "start": 50.988,
+        "length": 5.332,
+        "midi": 60,
+        "cents": 9
+      },
+      {
+        "file": "guzheng-60-v1-rr2.wav",
+        "start": 43.995,
+        "length": 5.075,
+        "midi": 60,
+        "cents": 9
+      },
+      {
+        "file": "guzheng-60-v1-rr3.wav",
+        "start": 202.277,
+        "length": 3.858,
+        "midi": 60,
+        "cents": 28
+      },
+      {
+        "file": "guzheng-62-v1-rr1.wav",
+        "start": 38.207,
+        "length": 5.363,
+        "midi": 62,
+        "cents": -8
+      },
+      {
+        "file": "guzheng-62-v1-rr2.wav",
+        "start": 280.276,
+        "length": 4.589,
+        "midi": 62,
+        "cents": -17
+      },
+      {
+        "file": "guzheng-62-v1-rr3.wav",
+        "start": 255.544,
+        "length": 3.079,
+        "midi": 62,
+        "cents": -8
+      },
+      {
+        "file": "guzheng-65-v1-rr1.wav",
+        "start": 449.079,
+        "length": 3.226,
+        "midi": 65,
+        "cents": -29
+      },
+      {
+        "file": "guzheng-65-v1-rr2.wav",
+        "start": 559.112,
+        "length": 3.011,
+        "midi": 65,
+        "cents": -10
+      },
+      {
+        "file": "guzheng-67-v1-rr1.wav",
+        "start": 273.045,
+        "length": 4.905,
+        "midi": 67,
+        "cents": -4
+      },
+      {
+        "file": "guzheng-67-v1-rr2.wav",
+        "start": 21.922,
+        "length": 2.273,
+        "midi": 67,
+        "cents": -1
+      },
+      {
+        "file": "guzheng-67-v2-rr1.wav",
+        "start": 24.282,
+        "length": 2.473,
+        "midi": 67,
+        "cents": -4
+      },
+      {
+        "file": "guzheng-67-v2-rr2.wav",
+        "start": 814.449,
+        "length": 3.686,
+        "midi": 67,
+        "cents": 12
+      },
+      {
+        "file": "guzheng-72-v1-rr1.wav",
+        "start": 19.252,
+        "length": 5.148,
+        "midi": 72,
+        "cents": -8
+      },
+      {
+        "file": "guzheng-72-v1-rr2.wav",
+        "start": 17.24,
+        "length": 4.295,
+        "midi": 72,
+        "cents": -1
+      },
+      {
+        "file": "guzheng-72-v1-rr3.wav",
+        "start": 688.993,
+        "length": 3.187,
+        "midi": 72,
+        "cents": -1
+      },
+      {
+        "file": "guzheng-74-v1-rr1.wav",
+        "start": 286.76,
+        "length": 3.35,
+        "midi": 74,
+        "cents": -2
+      },
+      {
+        "file": "guzheng-74-v1-rr2.wav",
+        "start": 348.919,
+        "length": 2.672,
+        "midi": 74,
+        "cents": -2
+      },
+      {
+        "file": "guzheng-74-v1-rr3.wav",
+        "start": 301.502,
+        "length": 3.198,
+        "midi": 74,
+        "cents": 5
+      },
+      {
+        "file": "guzheng-79-v1-rr1.wav",
+        "start": 1084.621,
+        "length": 3.199,
+        "midi": 79,
+        "cents": 14
+      },
+      {
+        "file": "guzheng-86-v1-rr1.wav",
+        "start": 988.701,
+        "length": 3.573,
+        "midi": 86,
+        "cents": 29
+      }
+    ]
+  },
+  "upstreamSource": "https://freesound.org/people/Pufermufin/sounds/396868/",
+  "upstreamLicense": "CC0 1.0",
+  "samples": [
+    {
+      "midi": 38,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 39,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-38-v1-rr1.flac"
+    },
+    {
+      "midi": 43,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 10,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-43-v1-rr1.flac"
+    },
+    {
+      "midi": 45,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -21,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-45-v1-rr1.flac"
+    },
+    {
+      "midi": 50,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -5,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-50-v1-rr1.flac"
+    },
+    {
+      "midi": 53,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -4,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-53-v1-rr1.flac"
+    },
+    {
+      "midi": 53,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": -19,
+      "gainDb": -0.6,
+      "file": "samples/guzheng/guzheng-53-v1-rr2.flac"
+    },
+    {
+      "midi": 53,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": -12,
+      "gainDb": -0.2,
+      "file": "samples/guzheng/guzheng-53-v1-rr3.flac"
+    },
+    {
+      "midi": 55,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -3,
+      "gainDb": -0.8,
+      "velocityMin": 0,
+      "velocityMax": 0.55,
+      "file": "samples/guzheng/guzheng-55-v1-rr1.flac"
+    },
+    {
+      "midi": 55,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": -3,
+      "gainDb": -2.0,
+      "velocityMin": 0,
+      "velocityMax": 0.55,
+      "file": "samples/guzheng/guzheng-55-v1-rr2.flac"
+    },
+    {
+      "midi": 55,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 43,
+      "gainDb": -0.8,
+      "velocityMin": 0.55,
+      "velocityMax": 1,
+      "file": "samples/guzheng/guzheng-55-v2-rr1.flac"
+    },
+    {
+      "midi": 55,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 23,
+      "gainDb": 0.0,
+      "velocityMin": 0.55,
+      "velocityMax": 1,
+      "file": "samples/guzheng/guzheng-55-v2-rr2.flac"
+    },
+    {
+      "midi": 57,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -9,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-57-v1-rr1.flac"
+    },
+    {
+      "midi": 57,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": -9,
+      "gainDb": -0.5,
+      "file": "samples/guzheng/guzheng-57-v1-rr2.flac"
+    },
+    {
+      "midi": 57,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": -4,
+      "gainDb": -2.1,
+      "file": "samples/guzheng/guzheng-57-v1-rr3.flac"
+    },
+    {
+      "midi": 60,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -9,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-60-v1-rr1.flac"
+    },
+    {
+      "midi": 60,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": -9,
+      "gainDb": -2.2,
+      "file": "samples/guzheng/guzheng-60-v1-rr2.flac"
+    },
+    {
+      "midi": 60,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": -28,
+      "gainDb": -0.8,
+      "file": "samples/guzheng/guzheng-60-v1-rr3.flac"
+    },
+    {
+      "midi": 62,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 8,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-62-v1-rr1.flac"
+    },
+    {
+      "midi": 62,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 17,
+      "gainDb": -4.3,
+      "file": "samples/guzheng/guzheng-62-v1-rr2.flac"
+    },
+    {
+      "midi": 62,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": 8,
+      "gainDb": -7.9,
+      "file": "samples/guzheng/guzheng-62-v1-rr3.flac"
+    },
+    {
+      "midi": 65,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 29,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-65-v1-rr1.flac"
+    },
+    {
+      "midi": 65,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 10,
+      "gainDb": -7.0,
+      "file": "samples/guzheng/guzheng-65-v1-rr2.flac"
+    },
+    {
+      "midi": 67,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 4,
+      "gainDb": -5.8,
+      "velocityMin": 0,
+      "velocityMax": 0.55,
+      "file": "samples/guzheng/guzheng-67-v1-rr1.flac"
+    },
+    {
+      "midi": 67,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 1,
+      "gainDb": -2.6,
+      "velocityMin": 0,
+      "velocityMax": 0.55,
+      "file": "samples/guzheng/guzheng-67-v1-rr2.flac"
+    },
+    {
+      "midi": 67,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 4,
+      "gainDb": 0.0,
+      "velocityMin": 0.55,
+      "velocityMax": 1,
+      "file": "samples/guzheng/guzheng-67-v2-rr1.flac"
+    },
+    {
+      "midi": 67,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": -12,
+      "gainDb": -1.1,
+      "velocityMin": 0.55,
+      "velocityMax": 1,
+      "file": "samples/guzheng/guzheng-67-v2-rr2.flac"
+    },
+    {
+      "midi": 72,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 8,
+      "gainDb": -5.2,
+      "file": "samples/guzheng/guzheng-72-v1-rr1.flac"
+    },
+    {
+      "midi": 72,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 1,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-72-v1-rr2.flac"
+    },
+    {
+      "midi": 72,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": 1,
+      "gainDb": -2.9,
+      "file": "samples/guzheng/guzheng-72-v1-rr3.flac"
+    },
+    {
+      "midi": 74,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": 2,
+      "gainDb": -3.1,
+      "file": "samples/guzheng/guzheng-74-v1-rr1.flac"
+    },
+    {
+      "midi": 74,
+      "articulation": "pluck",
+      "roundRobin": 2,
+      "tuneCents": 2,
+      "gainDb": -3.2,
+      "file": "samples/guzheng/guzheng-74-v1-rr2.flac"
+    },
+    {
+      "midi": 74,
+      "articulation": "pluck",
+      "roundRobin": 3,
+      "tuneCents": -5,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-74-v1-rr3.flac"
+    },
+    {
+      "midi": 79,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -14,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-79-v1-rr1.flac"
+    },
+    {
+      "midi": 86,
+      "articulation": "pluck",
+      "roundRobin": 1,
+      "tuneCents": -29,
+      "gainDb": 0.0,
+      "file": "samples/guzheng/guzheng-86-v1-rr1.flac"
+    }
+  ]
+}

@@ -5,8 +5,14 @@ namespace NarutoVR.SealCombat
     /// <summary>共享效果配置的扩展基类；持续时间、生成物等可变状态由执行器或注册的生命周期对象持有。</summary>
     public abstract class SkillEffectDefinition : ScriptableObject
     {
+        [Header("技能音频")]
+        [InspectorName("音频配置（可选）")] public SkillAudioProfile audioProfile;
         public virtual string Summary => GetType().Name;
         public virtual string ValidateDefinition() => null;
+        /// <summary>本效果是否实现可购买的等级成长；商店不能向无等级规则的效果出售升级。</summary>
+        public virtual bool SupportsLevels => false;
+        /// <summary>在玩家副本上从原始配置重建等级参数，不能修改 original 或累乘本次副本。</summary>
+        public virtual void ApplyLevelFrom(SkillEffectDefinition original, int level) { }
         /// <summary>效果成功生效后才返回 true；返回 false 时应清理本次创建的效果资源。</summary>
         public abstract bool TryActivate(SkillEffects executor, SkillDefinition skill);
     }

@@ -1,0 +1,63 @@
+{
+  "model": "sherpa-onnx-kws-zipformer-zh-en-3M-2025-12-20",
+  "release_url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/kws-models/sherpa-onnx-kws-zipformer-zh-en-3M-2025-12-20.tar.bz2",
+  "archive_bytes": 32885699,
+  "archive_sha256": "68447f4fbc67e70eee3a93961f36e81e98f47aef73ce7e7ca00885c6cd3616a6",
+  "sha256_note": "Matched SHA-256 displayed by the official GitHub release expanded_assets/kws-models (checked 2026-10-29). Not a signed provenance attestation.",
+  "upstream": "https://github.com/k2-fsa/sherpa-onnx",
+  "documentation": "https://k2-fsa.github.io/sherpa/onnx/kws/pretrained_models/index.html",
+  "runtime_license": "Apache-2.0, copied verbatim into SHERPA_ONNX_LICENSE.txt",
+  "model_license_note": "Original release contents retained. Repository license is not an independent model-rights warranty.",
+  "native_runtime_version": "2.0.1",
+  "installed_files": [
+    {
+      "path": "Assets/Plugins/Android/arm64-v8a/libsherpa-onnx-c-api.so",
+      "bytes": 4303136,
+      "sha256": "0eadae93c4d595a26584d7eebde7b397b9a36d01eee3ebc7262e0d34df2fce10",
+      "platform": "android"
+    },
+    {
+      "path": "Assets/Plugins/Android/arm64-v8a/libonnxruntime.so",
+      "bytes": 22249560,
+      "sha256": "33847ad43bffe204699fd4a27f7f3603452a8cdaf2f9a44983a0bc31ffcf2da1",
+      "platform": "android"
+    },
+    {
+      "path": "Assets/Plugins/SherpaOnnx/Editor/x86_64/sherpa-onnx-c-api.dll",
+      "bytes": 3667968,
+      "sha256": "ee2af9f49b8fc5dae135ad20c0b955cbab90d17b79cc1ad0db91e03b24962f68",
+      "platform": "windows"
+    },
+    {
+      "path": "Assets/Plugins/SherpaOnnx/Editor/x86_64/onnxruntime.dll",
+      "bytes": 17799168,
+      "sha256": "7f66f939a881baf4f46a2216496798edf4a1429878b646d12674aa62f27d8a25",
+      "platform": "windows"
+    },
+    {
+      "path": "Assets/Plugins/SherpaOnnx/Editor/x86_64/onnxruntime_providers_shared.dll",
+      "bytes": 104960,
+      "sha256": "551d0e1fe4c227d8542314ba718d52f4379e0c7bfe729a37c59833a884e27b4d",
+      "platform": "windows"
+    }
+  ],
+  "licenses": [
+    {
+      "path": "Assets/StreamingAssets/SkillVoice/SHERPA_ONNX_LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/v2.0.1/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "Assets/StreamingAssets/SkillVoice/ONNXRUNTIME_LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/main/LICENSE",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "Assets/StreamingAssets/SkillVoice/ONNXRUNTIME_THIRD_PARTY_NOTICES.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/main/ThirdPartyNotices.txt",
+      "sha256": "1624b71afb8ec44bd85fd7a8c0e84d4ac0d74de3b56aa6b04005443e1cf4a300"
+    }
+  ],
+  "runtime_release": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/v2.0.1",
+  "package_scope": "Android ARM64 offline KWS; Windows DLLs are Editor-only for identical C API fixture checks."
+}

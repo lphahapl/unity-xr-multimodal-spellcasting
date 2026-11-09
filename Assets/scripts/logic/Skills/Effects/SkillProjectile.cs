@@ -21,6 +21,8 @@ namespace NarutoVR.SealCombat
         public Component ImpactOwner { get; set; }
         public Action<GameObject> ImpactCreated;
         internal Action<Vector3> SurfaceHit { get; set; }
+        /// <summary>终止于非战斗目标表面；剑波用它反馈撞墙，敌人反馈走去重后的 StrikeResolved。</summary>
+        internal Action<Vector3> WorldHit { get; set; }
         public SkillStrike Strike { get; set; }
         public Action<SkillHitResult> StrikeResolved { get; set; }
         public Func<double> GameClock { get; set; }
@@ -221,6 +223,7 @@ namespace NarutoVR.SealCombat
             try
             {
                 SurfaceHit?.Invoke(point);
+                if (!target.IsTarget) WorldHit?.Invoke(point);
                 if (Strike != null)
                     ReportStrike(target, point);
                 else if (target.Apply(hitId, damage, poiseDamage, AttackerTarget ? AttackerTarget : playerRoot) &&

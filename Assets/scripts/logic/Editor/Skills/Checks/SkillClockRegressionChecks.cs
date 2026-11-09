@@ -83,6 +83,66 @@ namespace NarutoVR.SealCombat.Editor
                 f.Controller.ReceiveVoice("火球术",100.102); f.Tick();
                 Require(f.Controller.VoiceEventCount==1 && f.Engine.PendingSkillId=="clock.fire","交接后新口令仍能进入匹配"); passed++;
             }
+            // Synthetic timing regression through the real controller's deferred queue.
+            // Real DLL/WAV fixtures separately demonstrate that two words can share EndedAt.
+            using (var f = new Fixture())
+            {
+                long epoch = f.Engine.Epoch; int cancelled = 0;
+                f.Controller.CancelOverride = () => cancelled++;
+                f.Controller.ReceiveVoice("火球术", 100.05);
+                f.Controller.ReceiveVoice("取消施法", 100.05);
+                f.Tick();
+                Require(f.Controller.VoiceEventCount == 2 && cancelled == 1 && f.Engine.Epoch == epoch + 1 &&
+                    string.IsNullOrEmpty(f.Engine.PendingSkillId) && f.Engine.LastVoiceRejection == null,
+                    "不同合法口令共享词尾估计时，真实队列中的火球→取消必须仅取消一次");
+                passed++;
+                f.Controller.ReceiveVoice("取消施法", 100.05);
+                f.Controller.ReceiveVoice("火球术", 100.05);
+                f.Tick();
+                Require(f.Controller.VoiceEventCount == 4 && cancelled == 1 && f.Engine.Epoch == epoch + 1 &&
+                    string.IsNullOrEmpty(f.Engine.PendingSkillId) && f.Engine.LastVoiceRejection.Contains("取消或重置之前"),
+                    "取消后的同词尾旧取消和旧技能仍须被时间屏障拒绝");
+                passed++;
+            }
+            using (var f = new Fixture())
+            {
+                long epoch = f.Engine.Epoch;
+                f.Controller.ReceiveVoice("火球术", 100.05);
+                f.Controller.ReceiveVoice("火 球术！", 100.05);
+                f.Tick();
+                Require(f.Controller.VoiceEventCount == 2 && f.Engine.Epoch == epoch && f.Engine.PendingSkillId == "clock.fire" &&
+                    f.Engine.LastVoiceRejection.Contains("重复"), "相同归一化口令与词尾的重放仍必须拒收");
+                passed++;
+            }
+            using (var f = new Fixture())
+            {
+                long epoch = f.Engine.Epoch; int cancelled = 0;
+                f.Controller.CancelOverride = () => cancelled++;
+                f.Controller.ReceiveVoice("火球术", 100.05);
+                f.Controller.ReceiveVoice("取消施法", 100.04);
+                f.Tick();
+                Require(cancelled == 0 && f.Engine.Epoch == epoch && f.Engine.PendingSkillId == "clock.fire" &&
+                    f.Engine.LastVoiceRejection.Contains("早于"), "真正更早的口令仍须拒收，不能借不同口令绕过时序");
+                passed++;
+            }
+            using (var f = new Fixture())
+            {
+                f.Controller.ReceiveVoice("未知口令", 100.06);
+                f.Controller.ReceiveVoice("火球术", 100.05);
+                f.Tick();
+                Require(f.Controller.VoiceEventCount == 2 && f.Engine.PendingSkillId == "clock.fire" && f.Engine.LastVoiceRejection == null,
+                    "非法口令不能推进合法词尾去重状态");
+                passed++;
+            }
+            using (var f = new Fixture())
+            {
+                f.Engine.Voice("火球术", 100.05, 100.06);
+                f.Engine.Reset(100.01);
+                f.Engine.Voice("火球术", 100.05, 100.07);
+                Require(f.Engine.PendingSkillId == "clock.fire" && f.Engine.LastVoiceRejection == null,
+                    "显式时钟重置须清空词尾口令集合，并保持新屏障之前输入不可用");
+                passed++;
+            }
             return passed;
         }
 

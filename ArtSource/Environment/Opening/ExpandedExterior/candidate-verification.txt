@@ -1,0 +1,42 @@
+2026-11-08T18:54:45.8425716+08:00 Unity 6000.3.10f1
+PASS serialized exterior prefab resolves
+PASS new environment has no behaviours
+PASS no added cameras or lights
+PASS all new meshes resolve
+PASS all new materials and shaders resolve
+PASS no missing scripts in candidate scene
+PASS four full wall colliders disabled
+PASS four distant boundaries serialized
+PASS court floor 6,40.2
+PASS court floor 9,40.2
+PASS court floor 11.5,40.2
+PASS court floor 6,43
+PASS court floor 9,43
+PASS court floor 11.5,43
+PASS court floor 6,47.5
+PASS court floor 9,47.5
+PASS court floor 11.5,47.5
+PASS gate cannot be bypassed at 6
+PASS gate cannot be bypassed at 9
+PASS gate cannot be bypassed at 11.5
+PASS east rail 40.5
+PASS east rail 43.3
+PASS east rail 47.5
+PASS clear window sightline -6.38,0.2
+PASS clear window sightline -6.38,3.6
+PASS clear window sightline -6.38,7
+PASS clear window sightline 6.38,1.2
+PASS clear window sightline 6.38,6.5
+PASS clear window sightline 7.2,20.8
+PASS clear window sightline 7.2,26
+PASS clear window sightline 7.2,31.2
+PASS clear window sightline -7.2,21.7
+PASS clear window sightline -7.2,29.7
+PASS distant boundary (57.00, 12.00, 32.00)
+PASS distant boundary (-57.00, 12.00, 32.00)
+PASS distant boundary (0.00, 12.00, 97.00)
+PASS distant boundary (0.00, 12.00, -33.00)
+New static triangles=3026
+New renderers=5 material slots=8
+New colliders=82
+PASS END

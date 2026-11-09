@@ -7,14 +7,31 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat
 {
-    /// <summary>接收本机 sherpa-onnx 口令事件，校验传输状态后在 Unity 主线程发布。</summary>
+    /// <summary>统一口令门面：编辑器接收电脑服务，Quest包在设备内离线识别，主线程发布。</summary>
     [DisallowMultipleComponent]
     public sealed class SkillVoiceReceiver : MonoBehaviour
     {
         [Header("本机中文语音服务")]
         [InspectorName("编辑器播放时自动启动与重连")] public bool autoStartInEditor = true;
+#if UNITY_EDITOR
+        [InspectorName("编辑器显式测试原生麦克风")] public bool useNativeInEditor;
+#endif
         public string LauncherStatus { get; set; } = "未请求自动启动";
-        public bool HasServiceHeartbeat => ready && Now-lastHeartbeat < heartbeatTimeout;
+        public bool UsesNativeBackend
+        {
+            get
+            {
+#if UNITY_ANDROID && !UNITY_EDITOR
+                return true;
+#elif UNITY_EDITOR
+                return useNativeInEditor;
+#else
+                return false;
+#endif
+            }
+        }
+        public bool HasServiceHeartbeat => UsesNativeBackend ? nativeReady && Now - nativeAudioAt < 1 : ready && Now-lastHeartbeat < heartbeatTimeout;
+        public bool NativeNeedsRetry => UsesNativeBackend && nativeSource && nativeSource.NeedsRetry;
         [InspectorName("Unity 接收端口"), Range(1024, 65535)] public int receivePort = 47831;
         [InspectorName("Python 服务端口"), Range(1024, 65535)] public int servicePort = 47832;
         [InspectorName("心跳超时（秒）"), Min(1)] public float heartbeatTimeout = 3f;
@@ -39,10 +56,22 @@ namespace NarutoVR.SealCombat
         public string LastPhrase { get; private set; } = "";
         private Packet audioTelemetry;
         private double audioTelemetryReceived;
+        private NativeSkillVoiceSource nativeSource;
+        private SkillCatalog nativeCatalog;
+        private long nativeGeneration, nativeFrames, nativeVoicedFrames;
+        private bool nativeReady;
+        private double nativeAudioAt = double.NegativeInfinity, nativeVoiceAt = double.NegativeInfinity;
+        private double nativeStartedAt, nativeLastEndedAt = double.NegativeInfinity;
+        private readonly HashSet<string> nativePhrasesAtEnd = new(StringComparer.Ordinal);
+        private float nativeRms, nativePeak;
+        private string nativeDevice = "尚未启动";
+        private int nativeSampleRate;
 
         /// <summary>根据采集端上报的音量及时间，判断所选麦克风最近是否出现过阈值以上的声音。</summary>
         public bool HasRecentMicrophoneSpeech(float holdSeconds = .24f)
         {
+            if (UsesNativeBackend)
+                return HasServiceHeartbeat && nativeVoicedFrames > 0 && Now >= nativeVoiceAt && Now - nativeVoiceAt <= Math.Max(.01, holdSeconds);
             var p = audioTelemetry;
             double now = Now;
             if (!HasServiceHeartbeat || mode != "microphone" || now - lastSync >= 10 || p == null ||
@@ -59,6 +88,12 @@ namespace NarutoVR.SealCombat
         /// <summary>展示设备、音量和心跳诊断；选中设备本身不能证明已经采到声音。</summary>
         public string BuildDebugDetails()
         {
+            if (UsesNativeBackend)
+                return $"启动管理：{LauncherStatus}\n语音：{Status}\n运行模式：设备内离线KWS\n" +
+                    $"选中输入：{nativeDevice} | {nativeSampleRate} Hz\n音频流：{(HasServiceHeartbeat ? "采样持续更新" : "尚无样本或输入已过期")}\n" +
+                    $"输入能量：RMS {nativeRms:F4} / Peak {nativePeak:F4} | 门槛0.012\n有声帧/总帧：{nativeVoicedFrames}/{nativeFrames}\n" +
+                    $"游戏已接收：{(string.IsNullOrEmpty(LastPhrase) ? "无" : LastPhrase)}\n词尾估计至接收：{LastLatencyMilliseconds:F1}ms\n" +
+                    "短语匹配度：KWS API不提供概率；能量不是匹配分数；采集时间为Unity环形缓冲估计";
             var p = audioTelemetry;
             string prefix = $"启动管理：{LauncherStatus}\n语音：{Status}\n运行模式：{mode ?? "尚未连接"}\n";
             if (p == null) return prefix + "输入遥测：尚未收到（旧服务需重启）\n短语匹配度：当前 KWS API 不提供概率";
@@ -137,6 +172,89 @@ namespace NarutoVR.SealCombat
         }
         public bool AcceptsPhrase(string phrase)=>allowedPhrases.Contains(SkillPhrase.Normalize(phrase));
 
+        /// <summary>与白名单同时提供当前目录的声学拼音；不会使用电脑上的旧JSON配置。</summary>
+        public void ConfigureNativeCatalog(SkillCatalog catalog)
+        {
+            nativeCatalog = catalog;
+            if (UsesNativeBackend && Application.isPlaying && isActiveAndEnabled)
+            {
+                EnsureNativeSource();
+                nativeSource.Configure(catalog);
+            }
+        }
+        void EnsureNativeSource()
+        {
+            if (!nativeSource) nativeSource = GetComponent<NativeSkillVoiceSource>();
+            if (!nativeSource) nativeSource = gameObject.AddComponent<NativeSkillVoiceSource>();
+            nativeSource.enabled = true;
+            nativeSource.Bind(this);
+        }
+        public void RetryNativeMicrophone()
+        {
+            if (!UsesNativeBackend || !Application.isPlaying || !isActiveAndEnabled) return;
+            EnsureNativeSource(); nativeSource.Retry();
+        }
+        internal long NativeBeginSession()
+        {
+            ++nativeGeneration;
+            nativeReady = IsRunning = false;
+            nativeAudioAt = nativeVoiceAt = nativeLastEndedAt = double.NegativeInfinity;
+            nativeFrames = nativeVoicedFrames = 0;
+            nativePhrasesAtEnd.Clear();
+            nativeRms = nativePeak = 0;
+            nativeStartedAt = Now;
+            LastPhrase = "";
+            ClockUncertaintyMilliseconds = 0;
+            LastCaptureBasis = "unity-microphone-ring-position-estimate";
+            return nativeGeneration;
+        }
+        internal void NativeStatus(string status, bool running, long generation)
+        {
+            if (generation != nativeGeneration || !isActiveAndEnabled) return;
+            nativeReady = IsRunning = running;
+            Status = status;
+            LauncherStatus = "设备内 sherpa-onnx；无需电脑Python服务";
+        }
+        internal void NativeAudio(double endedAt, float rms, float peak, long frames, long voicedFrames, string device, int rate, long generation)
+        {
+            if (generation != nativeGeneration || !isActiveAndEnabled || !Finite(endedAt) || endedAt < nativeStartedAt ||
+                endedAt > Now + .05 || !Finite(rms) || !Finite(peak) || rms < 0 || rms > 1 || peak < 0 || peak > 1 ||
+                frames < nativeFrames || voicedFrames < 0 || voicedFrames > frames || rate <= 0) return;
+            nativeAudioAt = endedAt;
+            if (rms >= .012f) nativeVoiceAt = endedAt;
+            nativeFrames = frames; nativeVoicedFrames = voicedFrames;
+            nativeRms = rms; nativePeak = peak; nativeDevice = device; nativeSampleRate = rate;
+        }
+        internal void NativePhrase(NativeKeywordHit hit, long generation)
+        {
+            if (!UsesNativeBackend || generation != nativeGeneration || !isActiveAndEnabled || !HasServiceHeartbeat) return;
+            string phrase = SkillPhrase.Normalize(hit.Phrase);
+            double age = Now - hit.EndedAt;
+            if (!allowedPhrases.Contains(phrase)) { TracePacket("拒收：口令不在当前目录", phrase); return; }
+            if (!Finite(hit.EndedAt) || !Finite(hit.DetectedAt) || hit.EndedAt < nativeStartedAt ||
+                hit.EndedAt < nativeLastEndedAt ||
+                (hit.EndedAt == nativeLastEndedAt && nativePhrasesAtEnd.Contains(phrase)) ||
+                age < -.05 || age > maximumEventAge)
+            { TracePacket("拒收：原生口令过期、重复或属于旧采集", phrase); return; }
+            // Energy segmentation can give adjacent, distinct words the same end estimate.
+            // Keep that capture time intact; deduplicate the phrase within this time bucket.
+            if (hit.EndedAt > nativeLastEndedAt) nativePhrasesAtEnd.Clear();
+            nativePhrasesAtEnd.Add(phrase);
+            nativeLastEndedAt = hit.EndedAt;
+            LastPhrase = phrase;
+            LastLatencyMilliseconds = age * 1000;
+            if (logPhrases) Debug.Log($"[原生语音] {phrase} | 词尾能量估计至接收 {LastLatencyMilliseconds:F1} ms | {LastCaptureBasis}", this);
+            TracePacket($"接收：原生口令年龄{age:F3}s", phrase);
+            PhraseReceived?.Invoke(phrase, hit.EndedAt);
+        }
+        internal void NativeEndSession(string status)
+        {
+            ++nativeGeneration;
+            nativeReady = IsRunning = false;
+            nativeAudioAt = nativeVoiceAt = double.NegativeInfinity;
+            Status = status;
+        }
+
         private static double Now => Time.realtimeSinceStartupAsDouble;
         private static bool Finite(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
 
@@ -149,6 +267,11 @@ namespace NarutoVR.SealCombat
             lastHeartbeat = lastSync = double.NegativeInfinity;
             nextPing = 0;
             bestRtt = double.PositiveInfinity;
+            if (UsesNativeBackend)
+            {
+                if (Application.isPlaying) { EnsureNativeSource(); nativeSource.Configure(nativeCatalog); }
+                return;
+            }
             OpenSocket();
         }
         void OpenSocket()
@@ -175,6 +298,7 @@ namespace NarutoVR.SealCombat
 
         private void Update()
         {
+            if (UsesNativeBackend) return;
             if (socket == null) { if(Now>=nextBindRetry) OpenSocket(); if(socket==null)return; }
             double now = Now;
             if (now >= nextPing)
@@ -297,6 +421,8 @@ namespace NarutoVR.SealCombat
         private void OnDestroy() => OnDisable();
         private void OnDisable()
         {
+            if (nativeSource) nativeSource.enabled = false;
+            NativeEndSession("语音接收已关闭");
             socket?.Close();
             socket = null;
             ready = IsRunning = false;

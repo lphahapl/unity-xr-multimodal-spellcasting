@@ -133,10 +133,10 @@ namespace NarutoVR.SealCombat.Editor
             }); passed++;
             Check("奖励购买升级幂等与上限", () =>
             {
-                var p = new RpgProgressData(); True(p.TryGrantReward("hidden.1", 100, "fireball"), "首次奖励");
-                True(!p.TryGrantReward("hidden.1", 100, "fireball"), "重复奖励拒绝"); Equal(100, p.currency); Equal(1, p.unlockedSkillIds.Count);
-                True(p.TryPurchaseSkill("buff.zi", 20), "购买成功"); True(!p.TryPurchaseSkill("buff.zi", 20), "重复购买拒绝");
-                True(p.TryUpgradeSkill("fireball", 10, 1), "升级成功"); True(!p.TryUpgradeSkill("fireball", 10, 1), "超等级拒绝"); Equal(70, p.currency);
+                var p = new RpgProgressData(); True(RpgRewards.Grant(p, "hidden.1", 100, new[]{"fireball"}), "首次奖励");
+                True(!RpgRewards.Grant(p, "hidden.1", 100, new[]{"fireball"}), "重复奖励拒绝"); Equal(100, p.currency); Equal(1, p.unlockedSkillIds.Count);
+                True(SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="buff.zi",cost=20,kind=SkillOfferKind.Unlock},out _), "购买成功"); True(!SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="buff.zi",cost=20,kind=SkillOfferKind.Unlock},out _), "重复购买拒绝");
+                True(SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="fireball",cost=10,kind=SkillOfferKind.Upgrade,maximumLevel=1},out _), "升级成功"); True(!SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="fireball",cost=10,kind=SkillOfferKind.Upgrade,maximumLevel=1},out _), "超等级拒绝"); Equal(70, p.currency);
             }); passed++;
             Check("会话账本到上限不淘汰旧ID", () =>
             {
@@ -189,7 +189,7 @@ namespace NarutoVR.SealCombat.Editor
                 True(!store.TryLoad(out _, out reason) && reason.Contains("较新"), "未知新版本不能退回旧备份");
                 True(!store.TrySave(data, out reason), "未知新版本禁止覆盖"); True(File.ReadAllText(path) == future, "新版本原文必须保留");
                 True(File.ReadAllText(path + ".bak") == backupBeforeFutureSave, "拒绝新版覆盖也不能改备份");
-                File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { version = 1, profileId = "test-profile", progress = data }));
+                File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { version = RpgSaveStore.CurrentVersion, profileId = "test-profile", progress = data }));
                 var other = new RpgSaveStore(path, "other-profile", new[] { "fireball", "buff.zi" });
                 True(!other.TryLoad(out _, out _), "不能加载其他档案");
                 True(!other.TrySave(data, out _), "不能覆写其他档案");
@@ -198,7 +198,7 @@ namespace NarutoVR.SealCombat.Editor
                 File.WriteAllText(path, "{\"profileId\":\"test-profile\"}");
                 File.WriteAllText(path + ".bak", "bad backup");
                 True(!store.TryLoad(out _, out _), "缺失版本不得隐式当作当前版本");
-                File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { version = 1, profileId = "test-profile", progress = new RpgProgressData { unlockedSkillIds = new System.Collections.Generic.List<string> { "unknown" } } }));
+                File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { version = RpgSaveStore.CurrentVersion, profileId = "test-profile", progress = new RpgProgressData { unlockedSkillIds = new System.Collections.Generic.List<string> { "unknown" } } }));
                 File.WriteAllText(path + ".bak", "bad backup");
                 True(!store.TryLoad(out _, out _), "未知技能载入应拒绝");
             }

@@ -68,7 +68,7 @@ namespace NarutoVR.SealCombat.Rpg
             if(Owner && Owner.skills)foreach(var skill in Owner.skills.ConfiguredSkills){
                 if(!skill)continue;
                 var button=ActionButton(simulation,"",()=>Owner.DebugCast(skill.skillId));
-                refresh.Add(()=>{if(view.showSimulationSection)SetCaption(button,$"模拟施放：{skill.displayName}（{(Owner.Progress?.unlockedSkillIds.Contains(skill.skillId)==true?"已解锁":"未解锁")}）");});
+                refresh.Add(()=>{if(view.showSimulationSection)SetCaption(button,$"模拟施放：{skill.displayName}（{(Owner.chapter && Owner.chapter.AllowsTrialSkill(skill.skillId)?"练习授权":Owner.IsSkillUnlocked(skill.skillId)?"已解锁":"未解锁")}）");});
             }
             ActionButton(simulation,"取消待施法输入",()=>Owner.CancelCasting());
             foreach(var dir in new[]{Vector2.up,Vector2.down,Vector2.left,Vector2.right}){
@@ -83,10 +83,18 @@ namespace NarutoVR.SealCombat.Rpg
             ActionButton(simulation,"进入探索",()=>Owner.SetEncounterCombat(false));
             ActionButton(simulation,"进入战斗",()=>Owner.SetEncounterCombat(true));
             var hazard=ActionButton(simulation,"训练攻击",()=>Owner.ToggleHazards());
-            var buy=ActionButton(simulation,"购买隐藏法术",()=>Owner.PurchaseHiddenSkill());
-            var upgrade=ActionButton(simulation,"升级火球",()=>Owner.UpgradeFireball());
-            refresh.Add(()=>{if(view.showSimulationSection && Owner){SetCaption(hazard,"训练攻击："+(Owner.HazardsEnabled?"开启":"关闭"));SetCaption(buy,$"购买隐藏法术（{Owner.hiddenSkillPrice}货币）");SetCaption(upgrade,$"升级火球（{Owner.fireballUpgradePrice}货币）");}});
-            ActionButton(simulation,"【作弊测试】击破当前阶段全部训练靶",()=>Owner.DebugDefeatTargets());
+            refresh.Add(()=>{if(view.showSimulationSection && Owner)SetCaption(hazard,"训练攻击："+(Owner.HazardsEnabled?"开启":"关闭"));});
+            // 商品按钮由独立商店目录生成；没有商店组件的关卡不展示购买操作。
+            var shop = Owner ? Owner.GetComponent<RpgSkillShop>() : null;
+            if (shop && shop.catalog)
+            {
+                foreach (var offer in shop.catalog.offers)
+                    ActionButton(simulation,$"{offer.displayName}（{offer.cost}货币）",()=>shop.TryPurchase(offer.offerId));
+                var shopStatus=AddLabel(simulation,shop.Status);
+                refresh.Add(()=>{if(view.showSimulationSection && shop)SetLabel(shopStatus,shop.Status);});
+            }
+            var targets = Owner ? Owner.GetComponent<TrainingTargetGroup>() : null;
+            if (targets) ActionButton(simulation,"【作弊测试】击破本组训练靶",()=>{if (Owner.CanAct) targets.DebugDefeatAll();});
         }
         static RectTransform Child(Transform parent,string name) {
             var go=new GameObject(name,typeof(RectTransform));go.transform.SetParent(parent,false);

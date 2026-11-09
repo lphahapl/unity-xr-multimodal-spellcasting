@@ -89,7 +89,7 @@ zone.ReleaseObject();
 - [SnapZoneEditor.cs](../../Assets/scripts/logic/Editor/Interaction/SnapZoneEditor.cs)：中文配置、可撤销路径点创建和 Play 测试。
 - [SnapZoneChecks.cs](../../Assets/scripts/logic/Editor/Interaction/SnapZoneChecks.cs)：隔离 Play 检查与示例生成。
 
-菜单 **Tools → NarutoVR → 交互 → 验证吸附与序列** 从编辑模式启动独立的 `SnapToolTest` 空场景，在退出后恢复原 Play 启动场景配置。结果写入 `Logs/snap-tool-adaptation-20261104/check.txt`，只把最终 PASS 视为通过；包含合成 Meta 选择事件和真实物理触发，不等于头显手感测试。
+菜单 **Tools → NarutoVR → 交互 → 验证吸附与序列** 从编辑模式启动按需重建独立的 `SnapToolTest` 空场景（不保留已生成的闲置场景），在退出后恢复原 Play 启动场景配置。结果写入 `Logs/snap-tool-adaptation-20261104/check.txt`，只把最终 PASS 视为通过；包含合成 Meta 选择事件和真实物理触发，不等于头显手感测试。
 
 ## 来源与适配范围
 

@@ -24,6 +24,7 @@ namespace NarutoVR.SealCombat.Editor
             "SealProfile" => "手印识别配置",
             "ShieldEffectDefinition" => "护盾效果配置",
             "SkillCatalog" => "技能目录配置",
+            "SkillAudioProfile" => "技能音频配置",
             "SkillDefinition" => "技能定义配置",
             "Readme" => "工程说明配置",
             _ => className + "配置"

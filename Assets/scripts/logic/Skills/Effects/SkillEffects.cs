@@ -42,7 +42,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, 0.05f, 0.08f);
         [InspectorName("未发射储存超时（秒，旧配置）"), Min(0.1f)] public float heldLifetime = 60;
         [InspectorName("生成和追踪恢复后的准备时间（秒）"), Min(0.25f)] public float armDelay = 0.25f;
-        [InspectorName("丢失追踪后的消散时间（秒）"), Min(0.05f)] public float trackingLossGrace = 0.5f;
+        [HideInInspector] public float trackingLossGrace = .5f; // Legacy serialization only; loss no longer cancels.
         [InspectorName("前推最小位移（米）"), Min(0.05f)] public float pushDistance = 0.12f;
         [InspectorName("前推最短时长（秒）"), Min(0.05f)] public float pushMinimumSeconds = 0.15f;
         [InspectorName("前推最长时长（秒）"), Min(0.1f)] public float pushMaximumSeconds = 0.6f;
@@ -157,14 +157,16 @@ namespace NarutoVR.SealCombat
         // 都不会改变当前手持物的运动、伤害及发射后的飞行参数。
         private readonly struct ProjectileParameters
         {
-            public readonly float Radius, Damage, PoiseDamage, Speed, FlightLifetime, HeldLifetime, ArmDelay, LossGrace, PushDistance, PushMinimum, PushMaximum;
+            public readonly float Radius, Damage, PoiseDamage, Speed, FlightLifetime, HeldLifetime, ArmDelay, PushDistance, PushMinimum, PushMaximum;
             public readonly Vector3 Offset;
             public readonly GameObject Visual, Impact;
             public readonly Material Material;
             public readonly ProjectileReleaseMode ReleaseMode;
             public readonly HandThrowSettings Throwing;
+            public readonly SkillAudioProfile Audio;
             public ProjectileParameters(ProjectileEffectDefinition definition, SkillEffects legacy)
             {
+                Audio = definition ? definition.audioProfile : null;
                 Radius = definition ? definition.radius : Mathf.Max(.01f, legacy.ballRadius);
                 Damage = definition ? definition.damage : Mathf.Max(0, legacy.projectileDamage);
                 PoiseDamage = definition ? definition.poiseDamage : 20;
@@ -172,7 +174,6 @@ namespace NarutoVR.SealCombat
                 FlightLifetime = definition ? definition.flightLifetime : Mathf.Max(.1f, legacy.projectileLifetime);
                 HeldLifetime = definition ? definition.heldLifetime : Mathf.Max(.1f, legacy.heldLifetime);
                 ArmDelay = definition ? definition.armDelay : Mathf.Max(.25f, legacy.armDelay);
-                LossGrace = definition ? definition.trackingLossGrace : Mathf.Max(.05f, legacy.trackingLossGrace);
                 PushDistance = definition ? definition.pushDistance : Mathf.Max(.05f, legacy.pushDistance);
                 PushMinimum = definition ? definition.pushMinimumSeconds : Mathf.Max(.05f, legacy.pushMinimumSeconds);
                 PushMaximum = definition ? definition.pushMaximumSeconds : Mathf.Max(PushMinimum, legacy.pushMaximumSeconds);
@@ -215,6 +216,8 @@ namespace NarutoVR.SealCombat
         public bool TryActivate(SkillDefinition skill)
         {
             if (!isActiveAndEnabled || Time.timeScale <= 0 || !skill || activating || clearing) return false;
+            LastActivationAudioHandled = false;
+            activationAudioAnchor = null;
             long extensionStart = nextExtensionId;
             bool activated = false;
             createdHeldThisActivation = false;
@@ -232,6 +235,7 @@ namespace NarutoVR.SealCombat
                 if (activated)
                 {
                     ++ActivationCount;
+                    CompleteActivationAudio(skill);
                     if (createdHeldThisActivation && heldObject)
                         PublishProjectileStage(ProjectileStage.Formed, heldObject.transform.position);
                 }
@@ -317,6 +321,7 @@ namespace NarutoVR.SealCombat
                 renderer.receiveShadows = false;
             }
             heldParameters = parameters;
+            SetActivationAudioAnchor(heldObject.transform);
             throwState = parameters.ReleaseMode == ProjectileReleaseMode.GripThrow ? new HandThrowState(parameters.Throwing) : null;
             heldObject.name = "技能火球_持握";
             heldObject.transform.localScale = Vector3.one * parameters.Radius * 2;
@@ -336,7 +341,11 @@ namespace NarutoVR.SealCombat
             ObserveThrow("spawn", "持球已生成，等待准备及握持", wrist, default, 0, false);
             Report($"{skill.displayName}已在{(heldInLeftHand ? "左" : "右")}手生成，" +
                 (throwState != null ? "抬起持球手，看向目标；握住后甩手松开、后拉前送或伸手保持发射" : "看向目标，准备后向前轻推发射"));
-            if (!activating && heldObject) PublishProjectileStage(ProjectileStage.Formed, heldObject.transform.position);
+            if (!activating && heldObject)
+            {
+                CompleteActivationAudio(skill);
+                PublishProjectileStage(ProjectileStage.Formed, heldObject.transform.position);
+            }
             return true;
         }
 
@@ -367,10 +376,9 @@ namespace NarutoVR.SealCombat
             if (!head || !TryGetWrist(heldInLeftHand, out Pose wrist, out double observed))
             {
                 throwInputValid = false; releasePoseValid = false;
-                heldObject.SetActive(false);
-                if (lostAt < 0) { lostAt = now; ResetMotion(now); Report("手部追踪丢失，火球已隐藏"); }
+                if (lostAt < 0) { lostAt = now; ResetMotion(now); Report("手部追踪暂失，保留火球并暂停投掷"); }
+                if (now - lostAt >= .18) heldObject.SetActive(false);
                 ObserveThrow("tracking_lost","持球手追踪缺失或过期",default,default,0,false);
-                if (now - lostAt >= heldParameters.LossGrace) { ClearHeld(); Report("手部追踪未恢复，火球已消散"); }
                 return;
             }
             if (lostAt >= 0) { lostAt = -1; ResetMotion(now); Report("手部追踪恢复，请重新握住再投掷"); }
@@ -651,6 +659,8 @@ namespace NarutoVR.SealCombat
             LastLaunchPosition = heldObject.transform.position;
             throwInputValid = releasePoseValid = false;
             GameObject ball = heldObject;
+            StopHeldAudio(ball.transform);
+            var projectileAudio = heldParameters.Audio;
             heldObject = null;
             pushSamples.Clear();
             lostAt = -1;
@@ -669,12 +679,17 @@ namespace NarutoVR.SealCombat
                 projectile.ImpactOwner = this;
             }
             else projectile.ImpactCreated = OnImpactCreated;
-            projectile.SurfaceHit = point => PublishProjectileStage(ProjectileStage.Impact, point);
+            projectile.SurfaceHit = point =>
+            {
+                LastImpactAudioHandled = PlayAudio(projectileAudio, SkillAudioCue.Impact, point);
+                PublishProjectileStage(ProjectileStage.Impact, point);
+            };
             projectile.GameClock = GameClock;
             if (ball.TryGetComponent<SkillVisualMotion>(out var motion)) motion.SetFlying(true);
             projectiles.Add(projectile);
             Report("火球已发射");
             ++LaunchCount;
+            LastLaunchAudioHandled = PlayAudio(projectileAudio, SkillAudioCue.Released, LastLaunchPosition);
             PublishProjectileStage(ProjectileStage.Launched, LastLaunchPosition);
             ProjectileLaunched?.Invoke();
             projectile.Initialize(direction, playerRoot ? playerRoot : head.root, hitLayers, playerLayers,
@@ -860,6 +875,7 @@ namespace NarutoVR.SealCombat
                 transientVisuals.Clear();
                 if (vfxPool) vfxPool.CancelOwned(this);
                 ReleaseOwnedMaterials();
+                StopAllAudio();
                 Status = "所有技能效果已清理";
             }
             finally { clearing = false; }
@@ -870,7 +886,12 @@ namespace NarutoVR.SealCombat
             if (heldObject && throwState != null) ObserveThrow("cancelled", "持球结束或取消", default, default, 0, false);
             throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwState?.Reset();
             throwIntent?.Reset();
-            if (heldObject) { heldObject.SetActive(false); Destroy(heldObject); }
+            if (heldObject)
+            {
+                StopHeldAudio(heldObject.transform);
+                if (!clearing) PlayAudio(heldParameters.Audio, SkillAudioCue.Ended, heldObject.transform.position);
+                heldObject.SetActive(false); Destroy(heldObject);
+            }
             heldObject = null;
             pushSamples.Clear();
             lostAt = -1;

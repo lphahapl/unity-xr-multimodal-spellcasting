@@ -255,10 +255,12 @@ namespace NarutoVR.SealCombat.Editor
                     stage = ScriptableObject.CreateInstance<RpgStageDefinition>(); stage.stageId = "enemy-damage-check";
                     skills.effects = Effects; skills.lab = lab;
                     skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>("Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset");
-                    Controller = root.AddComponent<LinearRpgController>(); Controller.skills = skills; Controller.locomotion = locomotion;
+                    Controller = root.AddComponent<LinearRpgController>();
+                Controller.chapter = root.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball"}; Controller.skills = skills; Controller.locomotion = locomotion;
                     Controller.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
-                    Controller.stages = new[] { stage }; Controller.targets = new[] { target }; Controller.checkpointNodes = new[] { node };
-                    Controller.autoLoad = false; Controller.autoAdvanceStages = false;
+                    Controller.stages = new[] { stage }; Controller.GetComponent<TrainingTargetGroup>().targets = new[] { target }; Controller.GetComponent<TrainingTargetGroup>().healthByStage = new[]{60f}; Controller.checkpointNodes = new[] { node };
+                    Controller.autoLoad = false; Controller.GetComponent<TrainingChapterFlow>().autoAdvance = false;
                     Controller.saveFileName = "enemy-damage-probe-" + Guid.NewGuid().ToString("N") + ".json";
                     Receiver = root.AddComponent<RpgDamageReceiver>();
                     Shield = ScriptableObject.CreateInstance<ShieldEffectDefinition>(); Shield.capacity = 50;

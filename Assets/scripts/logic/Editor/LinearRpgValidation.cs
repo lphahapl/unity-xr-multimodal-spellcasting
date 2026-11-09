@@ -119,10 +119,6 @@ namespace NarutoVR.SealCombat.Editor
                     case "configure-hand-poses": OfficialHandPoseSetup.Configure(); Write(new Report { action = action, passed = true }); break;
                     case "configure-interactions": RpgInteractionSetup.Configure(); Write(new Report { action = action, passed = true }); break;
                     case "interaction-check": Write(new Report { action = action, passed = true, detail = "四向交互：" + RpgDirectionalInteractionChecks.Run() + "；投掷：" + HandThrowChecks.Run() }); break;
-                    case "hand-stream-probe": EmptyStreamProbe.Begin(true); break;
-                    case "debug-text-comparison": DebugTextComparison.Begin(); break;
-                    case "cpu-stream-sample": StreamCpuProfile.Capture(); break;
-                    case "empty-stream-probe": EmptyStreamProbe.Begin(); break;
                     case "play-user":
                         if (SceneManager.GetActiveScene().path != LinearRpgSceneSetup.ScenePath || SceneManager.GetActiveScene().isDirty) throw new Exception("需要已保存的RPG场景");
                         EditorApplication.isPlaying = true; break;
@@ -245,7 +241,7 @@ namespace NarutoVR.SealCombat.Editor
             LinearRpgSceneSetup.Build();
             var scene = SceneManager.GetActiveScene();
             var rpg = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<LinearRpgController>(true)).Single();
-            if (rpg.stages.Length != 3 || rpg.checkpointNodes.Length != 3 || rpg.targets.Length != 3 || !rpg.GetComponent<RpgTrainingHazard>()) throw new Exception("新场景阶段、靶子或攻击接线不全");
+            if (rpg.stages.Length != 3 || rpg.checkpointNodes.Length != 3 || rpg.GetComponent<TrainingTargetGroup>().targets.Length != 3 || !rpg.GetComponent<RpgTrainingHazard>()) throw new Exception("新场景阶段、靶子或攻击接线不全");
             if (rpg.skills.catalog.Validate().Count > 0 || rpg.skills.ConfigurationErrors().Count > 0) throw new Exception("新场景技能配置无效：" + string.Join("；",rpg.skills.ConfigurationErrors()));
             Write(new Report { passed = true, action = "build-check", dataChecks = data, locomotionChecks = locomotion, coreChecks = core,
                 detail = "新RPG场景与独立配置创建并验证；未进行头显测试。" });

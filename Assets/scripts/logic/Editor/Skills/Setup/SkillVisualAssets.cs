@@ -12,20 +12,20 @@ namespace NarutoVR.SealCombat.Editor
     /// <summary>创建缺失的默认视觉预置体和材质，已有资源交由使用者编辑维护。</summary>
     public static class SkillVisualAssets
     {
-        public const string FireballPath = "Assets/Prefabs/火球.prefab";
-        public const string ShieldPath = "Assets/Prefabs/护盾.prefab";
-        public const string ImpactPath = "Assets/Prefabs/命中爆散.prefab";
-        public const string SigilPath = "Assets/Prefabs/地面阵法.prefab";
-        private const string MaterialRoot = "Assets/Materials/程序能量";
-        private const string MeshPath = "Assets/Meshes/单位能量球.asset";
+        public const string FireballPath = "Assets/Art/VFX/Skills/Prefabs/火球.prefab";
+        public const string ShieldPath = "Assets/Art/VFX/Skills/Prefabs/护盾.prefab";
+        public const string ImpactPath = "Assets/Art/VFX/Skills/Prefabs/命中爆散.prefab";
+        public const string SigilPath = "Assets/Art/VFX/Skills/Prefabs/地面阵法.prefab";
+        private const string MaterialRoot = "Assets/Art/VFX/Skills/Materials";
+        private const string MeshPath = "Assets/Art/VFX/Skills/Meshes/单位能量球.asset";
         private static Material ember, core, shell, cyan, cyanSoft, gold, fireParticle, cyanParticle;
         private static Mesh sphere;
 
         [MenuItem("Tools/NarutoVR/技能/创建缺失的华丽特效预置体")]
         public static void EnsureAssets()
         {
-            Folder("Assets/Prefabs"); Folder(MaterialRoot); Folder("Assets/Meshes");
-            var shader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/Shaders/SkillEnergy.shader");
+            Folder("Assets/Art/VFX/Skills/Prefabs"); Folder(MaterialRoot); Folder("Assets/Art/VFX/Skills/Meshes");
+            var shader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/Art/VFX/Shaders/SkillEnergy.shader");
             if (!shader) throw new InvalidOperationException("请先等待技能能量着色器导入完成。");
             core = Material("日心白金", shader, new Color(3.2f, 2.1f, .65f), 0, .9f);
             ember = Material("焰轨橙金", shader, new Color(2.6f, .55f, .035f), 0, .9f);
@@ -230,7 +230,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             for (int i = 0; i < batches.Count; ++i)
             {
-                var batch = batches[i]; string path = $"Assets/Meshes/{assetName}_符纹层{i + 1}.asset";
+                var batch = batches[i]; string path = $"Assets/Art/VFX/Skills/Meshes/{assetName}_符纹层{i + 1}.asset";
                 var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
                 if (!mesh)
                 {

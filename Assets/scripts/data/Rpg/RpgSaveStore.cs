@@ -6,16 +6,18 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    /// <summary>Explicit-path, versioned JSON store. Call on one thread; multiple writers to the same path are not supported.</summary>
+    /// <summary>按明确路径读写版本化 JSON，校验数据并保留有效备份；同一路径只允许单线程写入。</summary>
     public sealed class RpgSaveStore
     {
-        public const int CurrentVersion = 1;
+        /// <summary>版本 2 使用通用物品与技能了解记录，不自动迁移旧铜叶格式。</summary>
+        public const int CurrentVersion = 2;
         const int MaximumFileBytes = 1024 * 1024;
         readonly string path, profileId;
         readonly HashSet<string> knownSkills, knownCooldownGroups;
         readonly float maxHealth, maxMana;
         [Serializable] sealed class VersionHeader { public int version = 0; }
 
+        /// <summary>注入保存路径、档案身份、技能/冷却白名单和资源上限，不读取具体章节规则。</summary>
         public RpgSaveStore(string path, string profileId, IEnumerable<string> knownSkills,
             float maxHealth = 100, float maxMana = 100, IEnumerable<string> knownCooldownGroups = null)
         {
@@ -34,6 +36,7 @@ namespace NarutoVR.SealCombat.Rpg
             this.maxHealth = maxHealth; this.maxMana = maxMana;
         }
 
+        /// <summary>优先读取主文件，损坏时尝试有效备份；未知较新版本不回退也不覆盖。</summary>
         public bool TryLoad(out RpgProgressData progress, out string reason)
         {
             progress = null;
@@ -46,6 +49,7 @@ namespace NarutoVR.SealCombat.Rpg
             return false;
         }
 
+        /// <summary>校验快照后写临时文件并复读，再原子替换主文件；失败保留已有文件。</summary>
         public bool TrySave(RpgProgressData progress, out string reason)
         {
             string temporary = path + ".tmp";
@@ -84,18 +88,19 @@ namespace NarutoVR.SealCombat.Rpg
             { reason = "保存失败，保留原存档与备份：" + ex.GetType().Name + "：" + ex.Message; return false; }
         }
 
+        /// <summary>检查格式层的标识、白名单、重复项和数值范围；模块专属关系由会话另行验证。</summary>
         public bool Validate(RpgProgressData progress, out string reason)
         {
             reason = "进度字段缺失或超出合法范围";
             if (progress == null || progress.currency < 0 || progress.currency > RpgDataRules.MaximumCurrency ||
-                !ValidIds(progress.unlockedSkillIds, knownSkills) || !ValidIds(progress.completedStageIds, null) ||
+                !ValidIds(progress.discoveredSkillIds, knownSkills) || !ValidIds(progress.unlockedSkillIds, knownSkills) || !ValidIds(progress.completedStageIds, null) ||
                 !ValidIds(progress.claimedRewardIds, null) ||
                 (!string.IsNullOrEmpty(progress.checkpointId) && !RpgDataRules.ValidId(progress.checkpointId)) ||
                 progress.skillLevels == null || progress.skillLevels.Count > RpgDataRules.MaximumEntries) return false;
-            if (progress.copperLeaves == null || progress.copperLeaves.Count > RpgDataRules.MaximumEntries) return false;
-            var leaves = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var leaf in progress.copperLeaves)
-                if (leaf == null || !RpgDataRules.ValidId(leaf.leafId) || !leaves.Add(leaf.leafId)) return false;
+            if (progress.items == null || progress.items.Count > RpgDataRules.MaximumEntries) return false;
+            var items = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var item in progress.items)
+                if (item == null || !RpgDataRules.ValidId(item.itemId) || !items.Add(item.itemId)) return false;
             var levels = new HashSet<string>(StringComparer.Ordinal);
             foreach (var item in progress.skillLevels)
                 if (item == null || !RpgDataRules.ValidId(item.skillId) || !knownSkills.Contains(item.skillId) ||
@@ -127,7 +132,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if (!File.Exists(file)) { reason = "文件不存在"; return false; }
                 if (new FileInfo(file).Length > MaximumFileBytes) { reason = "文件超过大小上限"; return false; }
                 string json = File.ReadAllText(file, Encoding.UTF8);
-                // A separate header with no initializer ensures a missing version cannot inherit the DTO's v1 default.
+                // 独立头部不使用 DTO 的默认版本，避免缺失 version 的文件被当成当前格式。
                 var header = JsonUtility.FromJson<VersionHeader>(json);
                 if (header == null) { reason = "缺少存档版本"; return false; }
                 if (header.version > CurrentVersion)
@@ -135,8 +140,6 @@ namespace NarutoVR.SealCombat.Rpg
                 if (header.version != CurrentVersion) { reason = "不支持的存档版本：" + header.version; return false; }
                 envelope = JsonUtility.FromJson<SaveEnvelope>(json);
                 if (envelope == null) { reason = "JSON内容为空或无效"; return false; }
-                // This optional v1 field is absent in saves written before the opening chapter tracked copper leaves.
-                if (envelope.progress != null) envelope.progress.copperLeaves ??= new List<RpgCopperLeafData>();
                 if (envelope.profileId != profileId) { reason = "存档档案ID不匹配"; return false; }
                 return Validate(envelope.progress, out reason);
             }

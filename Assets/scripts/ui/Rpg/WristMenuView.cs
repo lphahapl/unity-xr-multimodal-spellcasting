@@ -11,7 +11,9 @@ namespace NarutoVR.SealCombat.Rpg
     [ExecuteAlways, DisallowMultipleComponent]
     public sealed class WristMenuView : MonoBehaviour
     {
-        internal P1AudioManager P1Audio { get; set; }
+        [InspectorName("确认音效（可选）")] public AudioClip acceptedSound;
+        [InspectorName("拒绝音效（可选）")] public AudioClip rejectedSound;
+        public int AudioCueCount { get; private set; }
         [Header("字体与世界尺寸")]
         [InspectorName("中文字体（留空自动回退）")]
         public Font font;
@@ -89,14 +91,15 @@ namespace NarutoVR.SealCombat.Rpg
             public Image progressImage;
         }
 
-        private readonly List<WristUiTarget> _targets = new List<WristUiTarget>(7);
-        private readonly List<ButtonVisual> _buttons = new List<ButtonVisual>(7);
+        private readonly List<WristUiTarget> _targets = new List<WristUiTarget>(10);
+        private readonly List<ButtonVisual> _buttons = new List<ButtonVisual>(10);
         private readonly List<GraphicBinding> _graphics = new List<GraphicBinding>(48);
         private readonly List<Text> _texts = new List<Text>(24);
 
         private GameObject _ownedRoot;
         private RectTransform _launcher;
         private RectTransform _panel;
+        private RectTransform _microphoneRetry;
         private RectTransform _openingHint, _openingFill;
         private Text _openingText;
         private Transform _decoration;
@@ -133,7 +136,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void EnsureBuilt()
         {
-            if (!_built || !_ownedRoot || _targets.Count != 9)
+            if (!_built || !_ownedRoot || _targets.Count != 10)
             {
                 ReleaseVisuals();
                 try { Build(); _built = true; }
@@ -158,7 +161,8 @@ namespace NarutoVR.SealCombat.Rpg
             _launcher.gameObject.SetActive(true);
         }
 
-        public void SetOpeningHint(Pose pose, string hint, float progress, bool visible)
+        /// <summary>控制抬腕开启提示的呈现，与首章剧情无关；隐藏时不隐式创建 UI。</summary>
+        public void SetWristActivationHint(Pose pose, string hint, float progress, bool visible)
         {
             if (!_built && !visible) return;
             EnsureBuilt(); _openingHint.gameObject.SetActive(visible);
@@ -181,6 +185,7 @@ namespace NarutoVR.SealCombat.Rpg
         public void ShowPanel(Pose pose, string title, string body, string footer)
         {
             EnsureBuilt();
+            SetMicrophoneRetry(false);
             _lessonSurface.gameObject.SetActive(false);
             _panelBody.gameObject.SetActive(true);
             _panelTitle.text = title ?? string.Empty;
@@ -190,33 +195,30 @@ namespace NarutoVR.SealCombat.Rpg
             _panel.gameObject.SetActive(true);
         }
 
+        /// <summary>显示已解析的教学条目和通用技能状态，不推断奖励物品或章节业务。</summary>
         internal void ShowLesson(Pose pose, WristTeachingLesson lesson, int step, bool voiceIndex,
-            TechniqueLearningState state, bool available, bool permanent, bool savePending, string footer)
+            bool discovered, bool available, bool permanent, bool savePending, string footer)
         {
             EnsureBuilt();
+            SetMicrophoneRetry(false);
             _panelBody.gameObject.SetActive(false);
             _lessonSurface.gameObject.SetActive(true);
             _panelTitle.text = lesson.Name;
             _panelFooter.text = footer;
 
-            bool hasImage = !voiceIndex && lesson.Seals.Count > 0;
             var reference = voiceIndex && lesson.Voice ? lesson.Voice : lesson.Reference;
-            bool pendingLeaf = state == TechniqueLearningState.LeafCollected;
-            _lessonState.text = state switch {
-                TechniqueLearningState.LeafCollected => "已取铜叶\n待入匣",
-                TechniqueLearningState.LeafRegistered => available ? "已入匣\n已解锁" : "已入匣\n待校验",
-                TechniqueLearningState.Locked => "待解锁",
-                _ => available ? (permanent ? "已解锁" : "试炼可用") : "已习得\n当前未启用"
-            };
-            bool leafState = pendingLeaf || state == TechniqueLearningState.LeafRegistered;
-            if (leafState && savePending) _lessonState.text += "\n待存档";
-            _statusMark.localRotation = Quaternion.Euler(0, 0, leafState ? 45 : 0);
-            _statusHollow.gameObject.SetActive(!available || pendingLeaf);
+            // Voice+gesture recipes still require the seal when opened from the voice index.
+            bool hasImage = lesson.Seals.Count > 0 && (!voiceIndex || reference.triggerMode == SkillTriggerMode.VoiceAndGesture);
+            _lessonState.text = available ? (permanent ? "已解锁" : "临时可用") :
+                permanent ? "已解锁\n当前受限" : discovered ? "已了解\n待解锁" : "尚未了解";
+            if (savePending) _lessonState.text += "\n待存档";
+            _statusMark.localRotation = Quaternion.Euler(0, 0, permanent ? 45 : 0);
+            _statusHollow.gameObject.SetActive(!available);
             _lessonMethod.text = lesson.HasAlternative ? "结印 或 念咒" : reference.triggerMode == SkillTriggerMode.VoiceAndGesture ? "结印 ＋ 念咒" : hasImage ? "双手结印" : "念出口令";
             _lessonCost.text = $"度力  {reference.manaCost:0.#}\n冷却  {reference.cooldownSeconds:0.#} 秒";
             _lessonVoiceLabel.text = hasImage && lesson.Voice ? (lesson.HasAlternative ? "另一种施放方式" : "配合口令") : hasImage ? "施放" : "施放条件";
             _lessonVoice.text = hasImage && lesson.Voice ? lesson.Voice.phrase : hasImage ? "保持手印" : lesson.Gesture && !lesson.HasAlternative ? SealName(lesson.Seals[0]) : "完整念出";
-            _lessonAction.text = reference.effectKind == SkillEffectKind.HeldFireball || reference.effectDefinition is ProjectileEffectDefinition ? "成形后握住火球\n向前甩手，松开" : lesson.HasAlternative ? "两种方式任选其一" : "";
+            _lessonAction.text = !string.IsNullOrEmpty(lesson.ActionHint) ? lesson.ActionHint : lesson.HasAlternative ? "两种方式任选其一" : "";
             string name = hasImage ? lesson.Seals[step] : null;
             Texture texture = hasImage ? LoadSeal(name) : null;
             _sealArt.texture = texture;
@@ -257,6 +259,15 @@ namespace NarutoVR.SealCombat.Rpg
             if (key.Length>0) result=Resources.Load<Texture2D>("Teaching/Seals/"+key);
             _sealTextures[key]=result;
             return result;
+        }
+
+        /// <summary>Transient player-facing recovery prompt; no diagnostics or raw error details.</summary>
+        public void SetMicrophoneRetry(bool visible)
+        {
+            if (!_microphoneRetry) return;
+            if (!visible) ClearHoverWithin(_microphoneRetry);
+            _microphoneRetry.gameObject.SetActive(visible);
+            _panelFooter.gameObject.SetActive(!visible);
         }
 
         public void HidePanel()
@@ -344,14 +355,15 @@ namespace NarutoVR.SealCombat.Rpg
             else if (_decoration.gameObject.activeInHierarchy)
                 position = _decoration.position;
 
-            if (P1Audio && P1Audio.TryPlayUi(accepted, position, cueVolume)) return;
             EnsureAudio();
             _audioSource.transform.position = position;
             _audioSource.volume = Mathf.Clamp01(cueVolume);
 
             // 不叠加无上限的音源或声音。
             _audioSource.Stop();
-            _audioSource.clip = accepted ? _acceptedClip : _rejectedClip;
+            _audioSource.clip = accepted ? (acceptedSound ? acceptedSound : _acceptedClip) :
+                (rejectedSound ? rejectedSound : _rejectedClip);
+            AudioCueCount++;
             _audioSource.Play();
         }
 
@@ -471,6 +483,12 @@ namespace NarutoVR.SealCombat.Rpg
 
             _panelFooter = AddText("页脚", _panel, 560f, 628f, 1000f, 80f,
                 string.Empty, 25, TextAnchor.MiddleLeft, Ink.Muted);
+
+            _microphoneRetry = NewRect("麦克风恢复提示", _panel, 560f, 628f, 1000f, 80f);
+            AddText("麦克风状态", _microphoneRetry, 340f, 40f, 660f, 80f,
+                "麦克风暂不可用\n若未授权，请在系统允许麦克风后返回", 25, TextAnchor.MiddleLeft, Ink.Muted);
+            AddButton(_microphoneRetry, "retry-microphone", 850f, 40f, 280f, 76f, "重试麦克风", null, 29);
+            _microphoneRetry.gameObject.SetActive(false);
 
             AddImage("操作分隔线", _panel, 560f, 672f, 1000f, 2f, Ink.Brass, 0.55f);
 
@@ -961,7 +979,7 @@ namespace NarutoVR.SealCombat.Rpg
         private void OnEnable()
         {
             // Managed lists are not restored by a script reload; discard partial old views.
-            if (_ownedRoot && (!_built || _targets.Count != 9)) ReleaseVisuals();
+            if (_ownedRoot && (!_built || _targets.Count != 10)) ReleaseVisuals();
             if (_ownedRoot != null)
             {
                 _ownedRoot.SetActive(true);
@@ -1005,7 +1023,7 @@ namespace NarutoVR.SealCombat.Rpg
             _ownedRoot=null; _audioSource=null;
             _cyanMaterial=_violetMaterial=_goldMaterial=_pointerMaterial=null;
             _acceptedClip=_rejectedClip=null;
-            _launcher=_panel=_openingHint=_openingFill=null;
+            _launcher=_panel=_microphoneRetry=_openingHint=_openingFill=null;
             _launcherVitals=_panelTitle=_panelBody=_panelFooter=_openingText=null;
             _decoration=_reticle=null; _pointer=null;
 

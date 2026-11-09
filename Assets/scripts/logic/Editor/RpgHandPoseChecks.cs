@@ -229,7 +229,9 @@ namespace NarutoVR.SealCombat.Editor
                 var head = new GameObject("合成头部"); head.transform.SetParent(root.transform); head.transform.position = Vector3.up * 1.7f;
                 Lab = root.AddComponent<Lab>(); var skills = root.AddComponent<SkillTestController>(); skills.lab = Lab;
                 Movement = root.AddComponent<RpgLocomotionController>(); Movement.head = head.transform;
-                Controller = root.AddComponent<LinearRpgController>(); Controller.skills = skills; Controller.locomotion = Movement;
+                Controller = root.AddComponent<LinearRpgController>();
+                Controller.chapter = root.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball"}; Controller.skills = skills; Controller.locomotion = Movement;
                 Controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             }
             public NavigationHandInput Warm(bool pointing = true, Action<SealFrame> mutate = null, Action<List<SealFeature>> features = null)

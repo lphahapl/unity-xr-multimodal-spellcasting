@@ -3,110 +3,60 @@ using System.Collections.Generic;
 
 namespace NarutoVR.SealCombat.Rpg
 {
+    /// <summary>单个冷却组在检查点保存时的剩余秒数。</summary>
     [Serializable] public sealed class RpgCooldownData
     {
         public string group;
         public float remainingSeconds;
     }
-
+    /// <summary>检查点资源快照，不包含临时效果或敌人状态。</summary>
     [Serializable] public sealed class RpgCheckpointData
     {
         public float health = 100;
         public float mana = 100;
         public float manaRegenDelayRemaining;
-        public List<RpgCooldownData> cooldowns = new List<RpgCooldownData>();
+        public List<RpgCooldownData> cooldowns = new();
     }
-
+    /// <summary>技能 ID 与已获得等级；实际数值由该技能效果解释。</summary>
     [Serializable] public sealed class RpgSkillLevelData
     {
         public string skillId;
         public int level;
     }
-
-    [Serializable] public sealed class RpgCopperLeafData
+    /// <summary>成长物品的实际持有记录；记录存在表示已收集，activated 表示激活完成。</summary>
+    [Serializable] public sealed class RpgItemProgressData
     {
-        public string leafId;
-        public bool registered;
+        public string itemId;
+        public bool activated;
     }
-
+    /// <summary>磁盘信封，仅包含格式版本、档案身份及进度数据。</summary>
     [Serializable] public sealed class SaveEnvelope
     {
         public int version = RpgSaveStore.CurrentVersion;
         public string profileId;
         public RpgProgressData progress;
     }
-
-    /// <summary>Serializable value DTO. Loading must pass RpgSaveStore's catalogue validation before use.</summary>
+    /// <summary>纯序列化进度 DTO。交易、奖励和技能规则由专门模块执行，本类不包含业务操作。</summary>
     [Serializable] public sealed class RpgProgressData
     {
-        public List<string> unlockedSkillIds = new List<string>();
-        public List<RpgCopperLeafData> copperLeaves = new List<RpgCopperLeafData>();
-        public List<RpgSkillLevelData> skillLevels = new List<RpgSkillLevelData>();
+        /// <summary>已了解但不一定能施放的技能；可用于开放教学内容。</summary>
+        public List<string> discoveredSkillIds = new();
+        /// <summary>永久解锁技能；当前能否施放还需章节许可和资源检查。</summary>
+        public List<string> unlockedSkillIds = new();
+        /// <summary>通用成长物品的收集与激活记录，不编码铜叶等具体物品类型。</summary>
+        public List<RpgItemProgressData> items = new();
+        /// <summary>技能升级等级。</summary>
+        public List<RpgSkillLevelData> skillLevels = new();
+        /// <summary>可用于交易的当前货币。</summary>
         public int currency;
-        public List<string> completedStageIds = new List<string>();
-        public List<string> claimedRewardIds = new List<string>();
+        /// <summary>按实际完成顺序记录的阶段 ID。</summary>
+        public List<string> completedStageIds = new();
+        /// <summary>已经领取的一次性奖励 ID，用于防止重复发奖。</summary>
+        public List<string> claimedRewardIds = new();
+        /// <summary>保存时对应的安全落点 ID。</summary>
         public string checkpointId;
-        public RpgCheckpointData checkpoint = new RpgCheckpointData();
-
-        public bool TryGrantReward(string rewardId, int currency, string skillId)
-        {
-            if (!RpgDataRules.ValidId(rewardId) || currency < 0 || currency > RpgDataRules.MaximumCurrency ||
-                this.currency < 0 || this.currency > RpgDataRules.MaximumCurrency - currency ||
-                (!string.IsNullOrEmpty(skillId) && !RpgDataRules.ValidId(skillId)) ||
-                claimedRewardIds == null || unlockedSkillIds == null || claimedRewardIds.Contains(rewardId) ||
-                claimedRewardIds.Count >= RpgDataRules.MaximumEntries ||
-                (!string.IsNullOrEmpty(skillId) && !unlockedSkillIds.Contains(skillId) && unlockedSkillIds.Count >= RpgDataRules.MaximumEntries)) return false;
-            claimedRewardIds.Add(rewardId);
-            this.currency += currency;
-            if (!string.IsNullOrEmpty(skillId) && !unlockedSkillIds.Contains(skillId)) unlockedSkillIds.Add(skillId);
-            return true;
-        }
-
-        public bool TryPurchaseSkill(string skillId, int fixedCost)
-        {
-            if (!RpgDataRules.ValidId(skillId) || fixedCost < 0 || fixedCost > RpgDataRules.MaximumCurrency ||
-                currency < fixedCost || unlockedSkillIds == null || unlockedSkillIds.Contains(skillId) ||
-                unlockedSkillIds.Count >= RpgDataRules.MaximumEntries) return false;
-            currency -= fixedCost; unlockedSkillIds.Add(skillId); return true;
-        }
-
-        public bool TryUpgradeSkill(string skillId, int fixedCost, int maximumLevel = 3)
-        {
-            if (!RpgDataRules.ValidId(skillId) || fixedCost < 0 || fixedCost > RpgDataRules.MaximumCurrency || currency < fixedCost ||
-                maximumLevel < 1 || maximumLevel > RpgDataRules.MaximumSkillLevel || unlockedSkillIds == null ||
-                !unlockedSkillIds.Contains(skillId) || skillLevels == null) return false;
-            var item = skillLevels.Find(x => x != null && x.skillId == skillId);
-            if (item != null && (item.level < 0 || item.level >= maximumLevel)) return false;
-            if (item == null)
-            {
-                if (skillLevels.Count >= RpgDataRules.MaximumEntries) return false;
-                item = new RpgSkillLevelData { skillId = skillId }; skillLevels.Add(item);
-            }
-            item.level++; currency -= fixedCost; return true;
-        }
+        /// <summary>该落点的角色资源快照。</summary>
+        public RpgCheckpointData checkpoint = new();
     }
 
-    internal static class RpgDataRules
-    {
-        internal const float MaximumStat = 10000, MaximumDuration = 86400;
-        internal const int MaximumEntries = 2048, MaximumCurrency = 1000000, MaximumSkillLevel = 10;
-        internal static bool Finite(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
-        internal static bool InRange(float value, float min, float max) => Finite(value) && value >= min && value <= max;
-        internal static bool ValidId(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id) || id.Length > 128 || id != id.Trim()) return false;
-            foreach (char c in id) if (char.IsControl(c)) return false;
-            return true;
-        }
-        internal static bool ValidateCheckpoint(RpgCheckpointData data, float maxHealth, float maxMana, out string reason)
-        {
-            reason = "检查点生命、能量或冷却无效";
-            if (data == null || !InRange(data.health, 0, maxHealth) || !InRange(data.mana, 0, maxMana) ||
-                !InRange(data.manaRegenDelayRemaining, 0, MaximumDuration) || data.cooldowns == null || data.cooldowns.Count > MaximumEntries) return false;
-            var groups = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var cd in data.cooldowns)
-                if (cd == null || !ValidId(cd.group) || !groups.Add(cd.group) || !InRange(cd.remainingSeconds, 0, MaximumDuration)) return false;
-            reason = null; return true;
-        }
-    }
 }

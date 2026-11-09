@@ -54,7 +54,7 @@ namespace NarutoVR.SealCombat.Editor
             if(shuttingDown || !EditorApplication.isPlaying || EditorApplication.isCompiling || EditorApplication.timeSinceStartup<next)return;
             next=EditorApplication.timeSinceStartup+1;
             var receiver=UnityEngine.Object.FindFirstObjectByType<SkillVoiceReceiver>();
-            if(!receiver || !receiver.isActiveAndEnabled || !receiver.autoStartInEditor)return;
+            if(!receiver || !receiver.isActiveAndEnabled || !receiver.autoStartInEditor || receiver.UsesNativeBackend)return;
             if(receiver.HasServiceHeartbeat) {receiver.LauncherStatus="已连接本机服务";return;}
             if(launcher!=null && !launcher.HasExited) {receiver.LauncherStatus="正在启动中文语音服务";return;}
             if(launcher!=null) {

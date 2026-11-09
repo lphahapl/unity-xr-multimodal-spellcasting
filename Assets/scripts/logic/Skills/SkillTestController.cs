@@ -223,9 +223,12 @@ namespace NarutoVR.SealCombat
         /// <summary>拒绝独占界面期间或输入时间屏障之前的口令，并记录具体拦截原因。</summary>
         bool VoiceGate(string phrase,double endedAt,string stage)
         {
+            // A fresh cancel is allowed to release an existing spell even while a UI owns new casts.
+            // Pause and timestamp barriers still apply; opening a menu must not replay stale commands.
+            bool cancel=Engine!=null && SkillPhrase.Normalize(phrase)==Engine.CancelPhrase;
             string reason=Engine==null?"技能系统未初始化":!isActiveAndEnabled?"技能组件未启用":
                 applicationPaused?"应用已暂停":inputSuspended?"输入暂停中":Time.timeScale<=0?"游戏时间暂停":
-                (ExclusiveInputBlocked?.Invoke()??false)?(VoiceOwnershipDetail?.Invoke()??"腕部菜单独占输入"):
+                !cancel && (ExclusiveInputBlocked?.Invoke()??false)?(VoiceOwnershipDetail?.Invoke()??"腕部菜单独占输入"):
                 endedAt<=voiceNotBefore?$"口令早于输入切换屏障（词尾 {endedAt:F3}，屏障 {voiceNotBefore:F3}）":null;
             if(reason==null)return true;
             RejectVoice(phrase,endedAt,stage+"："+reason);return false;
@@ -296,7 +299,7 @@ namespace NarutoVR.SealCombat
         private void Subscribe()
         {
             if(effects){effects.Message-=EffectReport;effects.Message+=EffectReport;effects.ThrowObserved-=TraceThrow;effects.ThrowObserved+=TraceThrow;}
-            if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.Diagnostic+=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.PhraseReceived+=ReceiveVoice;voice.ConfigurePhrases(voicePhrases);}
+            if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.Diagnostic+=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.PhraseReceived+=ReceiveVoice;voice.ConfigurePhrases(voicePhrases);voice.ConfigureNativeCatalog(catalog);}
         }
         private void OnEnable(){if(Engine!=null){ResetInputLifecycle();Subscribe();}}
         /// <summary>清理排队口令和取消手势状态，使恢复后的输入从新的时间边界开始。</summary>
@@ -309,7 +312,7 @@ namespace NarutoVR.SealCombat
         private void OnDisable()
         {
             scheduledPhrase=null;deferredVoice.Clear();ResetCancelGesture();
-            if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.ConfigurePhrases(null);}
+            if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.ConfigurePhrases(null);voice.ConfigureNativeCatalog(null);}
             if(effects){effects.ClearAll();effects.Message-=EffectReport;effects.ThrowObserved-=TraceThrow;}
             Engine?.Reset(InputNow);
             TraceCast("session_end","组件停用或退出Play");castTrace?.Dispose();castTrace=null;

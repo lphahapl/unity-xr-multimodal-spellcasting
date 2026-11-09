@@ -1850,6 +1850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6903dfbe0d473a49a06df8211311028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristMenuController
+  teachingCatalog: {fileID: 0}
+  showUndiscoveredEntries: 1
   view: {fileID: 121289190}
   settings:
     activation: 0
@@ -1881,21 +1883,23 @@ MonoBehaviour:
     pinchOpen: 0.045
     dragLossGrace: 0.3
   sealPolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   glyphPolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   voicePolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
-  wornDevice: {fileID: 505742256}
   launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
   panelDistance: 0.65
   panelLower: 0.12
+  wornDevice: {fileID: 505742256}
+  deviceOffset: {x: -0.003, y: -0.02, z: -0.052}
+  deviceEuler: {x: 0, y: 0, z: 0}
 --- !u!4 &121289192
 Transform:
   m_ObjectHideFlags: 0
@@ -7353,7 +7357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestController
-  catalog: {fileID: 11400000, guid: 27743c64a07643b46a1de13e6162087d, type: 2}
+  catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
   voice: {fileID: 436909647}
@@ -8031,17 +8035,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491500122}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &505742256 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1438754485859498317, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
-  m_PrefabInstance: {fileID: 505742255}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d636c896efd0c94f83bb855688502fc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
 --- !u!1001 &505742255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8103,6 +8096,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
+--- !u!114 &505742256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1438754485859498317, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
+  m_PrefabInstance: {fileID: 505742255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d636c896efd0c94f83bb855688502fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.ZhunwangPressButton
 --- !u!1 &507568658
 GameObject:
   m_ObjectHideFlags: 0
@@ -14441,6 +14445,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889323491}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &900000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd50356fb0c4e8c8726d14cab0e243e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingChapterFlow
+  rpg: {fileID: 1147475783}
+  initialSkills:
+  - fireball
+  trialSkills:
+  - thunder.sword
+  autoAdvance: 0
+  advanceDelay: 3
+--- !u!114 &900010000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4a915dcbd04e0c8f030a09a0cffc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
+  targets:
+  - {fileID: 907908521}
+  healthByStage:
+  - 60
+  - 90
+  - 120
+  resetAfterSeconds: 3
+--- !u!114 &900010001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbf709d894f46c7be4946285bdd03e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgSkillShop
+  catalog: {fileID: 11400000, guid: d2bfd484939543e5b9394f661d35ec8f, type: 2}
 --- !u!114 &901000001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14469,9 +14524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9bcffe8aad48b45b0d60fc06f7153a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.P1AudioManager
-  explorationMusic: {fileID: 0}
-  keepExplorationSilent: 1
-  combatMusic: {fileID: 0}
+  explorationMusic: {fileID: 8300000, guid: 6b5271a650bc6bd42bba69f84849a867, type: 3}
+  keepExplorationSilent: 0
+  combatMusic: {fileID: 8300000, guid: 7da01d4da958b704ea5438a032e74fe3, type: 3}
   ambience: {fileID: 0}
   musicVolume: 0.28
   ambienceVolume: 0.2
@@ -14480,24 +14535,9 @@ MonoBehaviour:
   voiceHoldSeconds: 0.24
   duckAttack: 0.06
   duckRelease: 0.4
-  castSound: {fileID: 0}
-  launchSound: {fileID: 0}
-  impactSound: {fileID: 0}
-  fireballFormed:
-  - {fileID: 8300000, guid: 5bec9bce8f9247fe8655eba55c500a6e, type: 3}
-  - {fileID: 8300000, guid: 83d37bf3950d4468948c799d5f4875fd, type: 3}
-  - {fileID: 8300000, guid: 6a129a6dc8674e9d90863cb4b814fcca, type: 3}
-  fireballLaunched:
-  - {fileID: 8300000, guid: cb9775c8101a475e8a18e49a406fa404, type: 3}
-  - {fileID: 8300000, guid: c99267ab46d947d585c29afcbaf3464f, type: 3}
-  - {fileID: 8300000, guid: 81d6656a979d4cdda18ee0ffa049d43f, type: 3}
-  fireballImpact:
-  - {fileID: 8300000, guid: 4291aed65e664d7bb6dad03bad882ba4, type: 3}
-  - {fileID: 8300000, guid: 08bf160b70474787b4d6ba905e6dbf29, type: 3}
-  - {fileID: 8300000, guid: 798cc49879d94c07aa25f3188e69236c, type: 3}
-  fireballVolume: 0.7
-  uiAcceptSound: {fileID: 0}
-  uiRejectSound: {fileID: 0}
+  footstepClips: []
+  footstepVolume: 0.22
+  footstepSpacing: 0.55
 --- !u!114 &901000003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15217,7 +15257,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 52
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -19986,6 +20026,9 @@ GameObject:
   - component: {fileID: 901000002}
   - component: {fileID: 901000003}
   - component: {fileID: 1147475787}
+  - component: {fileID: 900000001}
+  - component: {fileID: 900010000}
+  - component: {fileID: 900010001}
   m_Layer: 0
   m_Name: "\u7EBF\u6027RPG \xB7 \u5173\u5361\u4E0E\u5BFC\u822A"
   m_TagString: Untagged
@@ -20060,8 +20103,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
   - {fileID: 11400000, guid: 7d61a41af3f21a548b6262c5230aa353, type: 2}
   - {fileID: 11400000, guid: 610037eba651af247ad3150923bdd833, type: 2}
-  targets:
-  - {fileID: 907908521}
   checkpointNodes:
   - {fileID: 1253936422}
   - {fileID: 2045226543}
@@ -20069,12 +20110,9 @@ MonoBehaviour:
   lowHandsBelowHead: 0.55
   handPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
   autoLoad: 0
-  saveFileName: kaogong-p1-trial.json
-  autoAdvanceStages: 0
+  saveFileName: kaogong-p1-trial-v2.json
   roomControlsEncounter: 1
-  stageDelay: 3
-  hiddenSkillPrice: 60
-  fireballUpgradePrice: 30
+  chapter: {fileID: 900000001}
 --- !u!114 &1147475784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29361,7 +29399,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 52
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -38589,3 +38627,17 @@ SceneRoots:
   - {fileID: 91120495}
   - {fileID: 1847491376}
   - {fileID: 505742255}
+  - component: {fileID: 991080001}
+--- !u!114 &991080001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436909642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5303935c858eca4d10461386dcbd5, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillAudioPlayer
+  masterVolume: 1

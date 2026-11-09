@@ -108,10 +108,10 @@ F8 或右上方按钮可停止/重新准备一轮；“首次获得护盾后自�
 
 | 预置体路径 | 当前用途与约定 |
 |---|---|
-| `Assets/Prefabs/火球.prefab` | 白金核心、流火外壳、旋转能量弧、火星与飞行尾迹；由技能生成和发射控制 |
-| `Assets/Prefabs/护盾.prefab` | 青色护腕符环与薄层辉光；当前优先跟随左腕，左腕不可用时使用头前的提示位置 |
-| `Assets/Prefabs/命中爆散.prefab` | 火球碰撞时的一次性震环与火星；具有自动结束生命周期 |
-| `Assets/Prefabs/地面阵法.prefab` | 场景装饰用的双层旋转几何印与浮尘，不参与伤害、识别或移动限制 |
+| `Assets/Art/VFX/Skills/Prefabs/火球.prefab` | 白金核心、流火外壳、旋转能量弧、火星与飞行尾迹；由技能生成和发射控制 |
+| `Assets/Art/VFX/Skills/Prefabs/护盾.prefab` | 青色护腕符环与薄层辉光；当前优先跟随左腕，左腕不可用时使用头前的提示位置 |
+| `Assets/Art/VFX/Skills/Prefabs/命中爆散.prefab` | 火球碰撞时的一次性震环与火星；具有自动结束生命周期 |
+| `Assets/Art/VFX/Skills/Prefabs/地面阵法.prefab` | 场景装饰用的双层旋转几何印与浮尘，不参与伤害、识别或移动限制 |
 
 菜单 **Tools → NarutoVR → 技能 → 创建缺失的华丽特效预置体** 调用 `SkillVisualAssets.EnsureAssets()`，只创建缺失资产；现有 Prefab、材质及手工编辑不会被该入口重写。
 

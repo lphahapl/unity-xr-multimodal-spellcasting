@@ -6,7 +6,7 @@
 >
 > 新导航与闪避只改变虚拟玩家根节点，不改变真实头姿，不自动平滑镜头，也不等于同房现实空间重标定。`OnNode/OffNode` 是玩法位置状态；未来空间映射仍需独立坐标/对齐契约。下文“环境/装备/领域”等是长期扩展，不应排在首个节点移动＋玩家数值＋火球护盾切片之前。
 
-日期：2026-10-29。状态：**调研与设计，本文接口尚未写入运行代码。** 最新约束：先做好 Quest 各系统，PICO 为后续比赛适配目标；多人暂定同房间 PvE，目前只预留契约。官方事实见 [来源核对](../research/QUEST_PICO_COMPATIBILITY_SOURCES_ZH.md)。
+设计基线日期：2026-10-29；语音接入状态更新：2026-11-08。**本文提出的设备无关接口和跨平台划分仍是设计契约；Android 原生语音已通过现有 `SkillVoiceReceiver` 门面接入，P1 APK 已在 Quest 3 完成部分真人链路验证。** 这不代表 `IVoiceCommandSource` 等接口、PICO 或多人已实现；真机已验与待验范围见第 6 节。最新约束：先做好 Quest 各系统，PICO 为后续比赛适配目标；多人暂定同房间 PvE，目前只预留契约。官方事实见 [来源核对](../research/QUEST_PICO_COMPATIBILITY_SOURCES_ZH.md)，当前语音操作见[PC/Quest 离线口令指南](../guides/SKILL_VOICE_SETUP_ZH.md)。
 
 ## 1. 决定与开发优先级
 
@@ -25,7 +25,7 @@
 | SDK 手指特征＋自定义双手特征 | Meta FingerShapes 的数值不能直接替换成另一个公式后沿用旧范围 |
 | 子/丑/寅与十二印配置资产 | 设备/提取器/标定版本尚未成为模板兼容条件；不能承诺复制到 PICO 即准确 |
 | 技能 Catalog、效果 SO、独立 View | 效果还直接访问唯一 lab、相机和 Meta 腕索引；应逐步改成按 Actor 取姿态 |
-| PC 中文 KWS | 原生 Android 音频采集和推理桥接未做；PC 成功不是一体机验收 |
+| PC 中文 KWS 与 Android 原生 C API 后端 | P1 APK 已安装 Quest 3；真人雷光剑/火球识别与激活、一次火球发射、首次授权和两次失焦释放/恢复已验；现场取消、拒绝/撤回权限恢复、噪声/准确率和长时性能待验 |
 | 火球、护盾、试炼靶、`RpgPlayerState` 与节点/闪避 | 已有本地 HP/MP/CD、受伤与检查点；领域/可组合移动约束、正式 Actor 姿态契约、PICO 适配、网络和空间对齐仍未实现 |
 
 这些是从当前源代码得出的工程判断，不是 PICO 或 Quest 的硬件性能排名。
@@ -51,7 +51,7 @@ flowchart TD
 |---|---|---|
 | `IHandFrameSource` | 最新冻结双手帧、左右独立序号/采样状态；无数据也能表达丢失 | 先封装现有 Meta 采样，再做直接 XR Hands 和回放；不返回 `IHand` |
 | `ISealFeatureExtractor` | 带固定版本和单位的特征集合，声明每项所需关节/质量 | MetaLegacy 保持旧结果；GeometryV1 并行验证，不能偷偷替代 |
-| `IVoiceCommandSource` | 带会话、序号、输入代次、采样时间依据的口令事件 | 先包装现有 PC 接收器；Android 原生桥在后续实现 |
+| `IVoiceCommandSource`（拟议接口，未实现） | 带会话、序号、输入代次、采样时间依据的口令事件 | 当前由 `SkillVoiceReceiver` 统一 PC UDP 与 Android `NativeSkillVoiceSource`，保留主线程事件、白名单/时效与取消代次；后续再评估抽取接口 |
 | `IActorPoseSource` | 本地角色头/腕姿态、有效性、空间 ID 与原点代次 | 与多人文档共用同一契约，避免重复新增一套手腕接口 |
 | 能力快照＋`IEnvironmentPresentation` | 能力支持/可用/失效原因；申请和释放环境表现句柄 | 先简单 VR 表现，再做 Meta/PICO 透视/遮罩实现；逻辑不持有厂商对象 |
 
@@ -120,7 +120,15 @@ HUD 后续增加：来源/provider、关节缺失与陈旧原因、特征版本/
 
 构建配置分 Quest Android、PICO Android、PC OpenXR。**Unity Build Profile 本身不等于自动隔离 Packages 或厂商构建处理器。** PICO 首次接入放在独立验证工程/隔离副本，记录 manifest/lock、Loader/Features、Gradle/AndroidManifest、图形 API、权限和 Shader；确认两家包能共存且未产生构建副作用后再决定共用工程方式。不升级主工程来追逐 latest。
 
-语音保持 `IVoiceCommandSource` 事件协议；后续优先评估 sherpa-onnx Android ARM64 原生库＋C#/JNI 桥接。要保留会话、序号、取消代次和事件时效，麦克风/重采样/权限/后台恢复单独验收。当前“不要释放火球术”会命中关键词的限制未解决，下一步应在 Quest 单机先解决口令确认/否定策略和 UI 反馈，再迁移。
+**语音当前实现（2026-11-08）：** Android 非 Editor 自动选择 sherpa-onnx 2.0.1 ARM64 C API，以 C# P/Invoke 和显式 UTF-8 路径调用；PC 编辑器默认保持 Python/UDP，只有显式 `useNativeInEditor` 才在 Play 中试用原生后端。使用原版约 5.45 MB 的 chunk-8 模型，随 APK 携带并按清单的长度/SHA-256 从 `StreamingAssets` 复制到应用私有持久目录；词表取实际场景 Catalog 的全部语音技能与取消项，校验 token，不运行网络文本转拼音。
+
+运行代码已包含录音权限申请/撤回处理、暂停/失焦释放、恢复新流、队列积压与采集断流停止；`RetryNativeMicrophone()` 提供主动重试。故障不回退到云端/PC/模拟识别，语音数据不上传。原生结果和音频遥测经主线程递交，门面保持当前白名单、时间新鲜度、重复与代次校验；取消/重启后旧流不得继续释放技能。原生采样时间来自 Unity 麦克风环形位置估计，不是硬件 ADC 时间；PC 使用 PortAudio 时间映射和四时间戳握手，两者不能把“时钟不确定度为 0”或低 RTT 当作端到端无误差。
+
+自动检查已通过：独立 .NET 真实 Windows DLL/WAV 26 项、最终 Unity Mono 132 项（含 14 项时钟回归）、Quest ARM64 C API 当前 P1 五词 7/7 项及 14 项文件哈希核对、APK 内容审核 23 项。Unity 检查入口为 `NarutoVR.SealCombat.Editor.NativeVoiceChecks.ExecuteBatch`；本次用户选择 P1，构建入口为 `NarutoVR.SealCombat.Editor.QuestVoiceBuild.RunP1`，原 `Run` 首章入口保留。报告分别为 `Logs/quest-native-voice-20261108/` 下 `engine-tests-result.json`、`build-native-checks-r5.json`、`quest-arm64-smoke/five-keywords/result.json`、`apk-audit.json` 和 `build-p1-final-result.json`。APK 中 ONNX Runtime 的 NDK strip 结果已重现并逐字节匹配。
+
+最终 `Builds/Quest/Kaogong-P1-Quest-Voice.apk` 已构建并以独立 ID `com.kaogonglvdu.p1.voicecheck` 安装在 Quest 3（Android 12 / SDK 32）。用户确认进入 P1，16 kHz 麦克风持续更新。`device-summary.json` 截至运行时 520.620 秒：收到真人「雷光剑」6 次、「火球术」4 次，成功召剑 4 次、生成火球 3 次并发射 1 次；首个火球被腕匣主入口占用输入阻止，2 个火球因追踪丢失消散，2 次剑口令因冷却拒绝，均按原玩法规则。首次麦克风授权已记录，`RECORD_AUDIO` 为 granted；58.986→69.008 秒、207.581→211.594 秒两次失焦释放及恢复识别已验证。10 个匹配样本的词尾估计至接收为 315.16–500.74 ms，仅代表本次样本。现场取消、权限拒绝/撤回及恢复、断网冷启动、长期性能和噪声/准确率未验。包哈希、运行日志与复现命令见[语音指南](../guides/SKILL_VOICE_SETUP_ZH.md)。
+
+`IVoiceCommandSource` 仍为拟议契约，未因这次接入自动形成共享 Core/Meta/PICO 模块。当前“不要释放火球术”会命中关键词的限制未解决，口令确认/否定策略与 UI 反馈继续列为后续工作。
 
 同房间还会有另一个人的喊话被本机麦克风听到的问题。事件标记 actorId 不能证明声音来自该玩家；未来需验证施法意图门控、组合手印/按住说话或明确的纯咒模式规则。说话人验证是可选后续工作，不默认为已有能力。
 
@@ -151,10 +159,10 @@ p_S   = T_S_L × p_L
 
 | 顺序 | 做什么 | 完成证据 |
 |---|---|---|
-| 当前设计 | 本文、来源记录、多人与玩家文档同步 | 没有更改 SDK/场景/录制/运行代码 |
+| 2026-10-29 设计基线 | 本文、来源记录、多人与玩家文档同步 | 当时仅文档工作，没有更改 SDK/场景/录制/运行代码；不描述后续实施状态 |
 | Quest 输入收口 | 包装现有来源/口令，版本化快照和回放，效果改用 Actor 姿态 | 原模板与匹配/取消事件回放一致；切来源、失效、左右时差、重定中心不误触发 |
 | Quest 单机系统 | 玩家数值/效果账本/事务、敌人、装备存档、领域规则 | 按玩家设计逐项验收，不引入网络依赖；UI/Inspector 全中文 |
-| 原生与性能 | Quest 原生 KWS、权限/恢复、粒子质量档与真机帧耗 | 真实麦克风正负例、持续运行、遮挡和串流/原生对照 |
+| 原生与性能 | 原生 KWS、权限/恢复已接入，Unity/APK 自动检查及 P1 部分现场链路已通过；继续系统性真机验收、粒子质量档与帧耗 | .NET 26、Unity 132、Quest C API 7/7＋14 哈希、APK 23 项通过；真人技能激活/发射、首次授权及两次焦点恢复已验；现场取消、拒绝/撤回权限、噪声/准确率、长时运行和串流/原生对照待验 |
 | PICO 技术样机 | 独立构建探针：头手、关节质量、手模型、录制、语音、必要 MR 能力 | 记录实际型号/地区/固件/SDK/provider，先能采样再做标定，不先搬全部复杂场景 |
 | PICO 玩法验证 | 逐印重标定，三种模式、取消、生成手、火球护盾、存档与领域回退 | 按人/录制会话划分数据；误报次数/分钟、混淆矩阵、漏检、延迟分位数、有效覆盖率与性能 |
 | 未来多人 | 单机系统稳定后才接 NGO/UTP，再做同房间标定/漂移和双人 PvE | 两端数值一致＋真实空间对齐均通过，才扩四人/混合设备 |
@@ -165,10 +173,10 @@ PICO 探针进入前再确认比赛实际设备与是否必须纯一体机、断
 
 本文没有承诺 PICO 精度、帧率、发布可用性或同房空间安全。现阶段可继续开发 Quest，后续通过明确的数据与能力适配减少迁移范围。
 
-## 9. 独立审查与本次验收边界
+## 9. 历史独立审查与验收边界（2026-10-29）
 
 使用 [chatgpt-account-api Skill](C:/Users/鲁迅/.agents/skills/chatgpt-account-api/SKILL.md) 调用用户确认的 `second` 账号、`gpt-6-astra`、`high`。第一次请求网络/TLS 失败；用户明确授权一次重试，重新读取额度后重试返回 `completed`。该完成结果用量为输入 6,961、输出 3,380、合计 10,341 tokens；这不是两次请求的套餐总消耗保证。原始结果保存在 `Logs/pico-compat-research/astra-result-retry.json`。
 
 Astra 只收到本任务必要的代码片段和父代理已核验的来源摘要，负责文本架构审查，没有本机工具，也未独立浏览或实测。父代理逐项审核后采纳了显式关节/局部轴映射、原子采样、质量语义分离、强制模板兼容检查、对齐失效和 revision 隔离；没有把其建议的实验误差数字设成产品安全阈值。
 
-本次只写 README 与设计/来源文档，未修改 Unity 运行代码、场景、模板或包配置。文档修改前备份路径记录于 `Logs/pico-compat-research/backup-path.txt`；链接检查与受保护文件哈希结果也在该目录。PICO 实机、Android 语音、网络与同房间测试仍待各自实施阶段完成。
+该次设计任务只写 README 与设计/来源文档，未修改 Unity 运行代码、场景、模板或包配置。文档修改前备份路径记录于 `Logs/pico-compat-research/backup-path.txt`；链接检查与受保护文件哈希结果也在该目录。当时 PICO 实机、Android 语音、网络与同房间测试均待实施；Android 语音的后续源码接入以第 6 节 2026-11-08 状态和语音指南为准，其余跨平台/联网计划没有因本次语音接入而完成。

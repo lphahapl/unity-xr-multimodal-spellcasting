@@ -55,6 +55,7 @@ namespace NarutoVR.SealCombat
         private readonly Slot[] slots;
         private readonly Dictionary<string, double> cooldowns = new(StringComparer.Ordinal);
         private readonly HashSet<string> validationIds = new(StringComparer.Ordinal);
+        private readonly HashSet<string> voicePhrasesAtLastEnd = new(StringComparer.Ordinal);
         private int bufferHead, bufferCount, pending = -1, expiredPending = -1, previousLeft, previousRight, previousFlags;
         private int lastAttemptFrame = -1;
         private long nextAction;
@@ -201,14 +202,18 @@ namespace NarutoVR.SealCombat
             if (arrivedAt > now + MaximumVoiceLatency + Epsilon) { RejectVoice("匹配器时钟落后于口令接收时间"); return; }
             now = Math.Max(now, arrivedAt); Prune();
             if (endedAt <= barrier) { RejectVoice("口令结束于取消或重置之前"); return; }
-            if (endedAt <= lastVoiceEnd + Epsilon) { RejectVoice("口令时间戳重复或早于已处理口令"); return; }
+            if (endedAt < lastVoiceEnd) { RejectVoice("口令时间戳早于已处理口令"); return; }
             string normalized = SkillPhrase.Normalize(phrase);
-            if (normalized == CancelPhrase) { lastVoiceEnd = endedAt; Cancel(now); return; }
+            // Energy segmentation may give different recognized words the same end time.
+            // Preserve capture time and reject only a replay of the same normalized word.
+            if (endedAt == lastVoiceEnd && voicePhrasesAtLastEnd.Contains(normalized))
+            { RejectVoice("相同口令时间戳重复"); return; }
+            if (normalized == CancelPhrase) { RecordVoiceEnd(normalized, endedAt); Cancel(now); return; }
             int selected = -1;
             for (int i = 0; i < recipes.Length; i++)
                 if (recipes[i].Enabled && recipes[i].Mode != SkillTriggerMode.GestureOnly && recipes[i].Phrase == normalized) { selected = i; break; }
             if (selected < 0) { RejectVoice("未匹配完整技能口令" + (configurationError == null ? "" : "；" + configurationError)); return; }
-            lastVoiceEnd = endedAt;
+            RecordVoiceEnd(normalized, endedAt);
             expiredPending = -1;
             if (pending >= 0 && pending != selected) ClearContext(now, false);
             var recipe = recipes[selected];
@@ -218,6 +223,14 @@ namespace NarutoVR.SealCombat
             if (FindEvidence(selected, endedAt, out var match)) { Attempt(selected, match); return; }
             if (now > PendingDeadline + Epsilon) { pending = -1; RejectVoice("口令已超过组合窗口，请重新输入"); return; }
             SetStatus(Name(recipe.Definition) + "：口令已确认，等待" + recipe.Seal + "印");
+        }
+
+        private void RecordVoiceEnd(string phrase, double endedAt)
+        {
+            if (endedAt > lastVoiceEnd) voicePhrasesAtLastEnd.Clear();
+            lastVoiceEnd = endedAt;
+            // Only enabled catalog phrases and the configured cancel phrase reach this point.
+            voicePhrasesAtLastEnd.Add(phrase);
         }
 
         /// <summary>设置取消时间屏障并清除证据，使旧口令或旧手印无法在取消后补发。</summary>
@@ -247,7 +260,7 @@ namespace NarutoVR.SealCombat
                 state.Blocked |= state.Action != 0;
                 state.BlockedAt = now; state.ExitSince = double.NaN; state.ResetTrackers();
             }
-            if (resetClock) { lastVoiceEnd = double.NegativeInfinity; lastAttemptTime = double.NegativeInfinity; }
+            if (resetClock) { lastVoiceEnd = double.NegativeInfinity; voicePhrasesAtLastEnd.Clear(); lastAttemptTime = double.NegativeInfinity; }
         }
 
         /// <summary>多个不同技能同时满足时拒绝本轮输入；唯一技能才进入激活尝试。</summary>

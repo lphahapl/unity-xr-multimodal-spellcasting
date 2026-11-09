@@ -1,14 +1,18 @@
+using System;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat
 {
-    /// <summary>The owning skill samples tracked poses and opens its own strike window.</summary>
+    /// <summary>按所属技能提供的挥击窗口扫掠剑刃；成功直击后通知视觉层，不自行创建特效。</summary>
     [DisallowMultipleComponent]
     public sealed class MeleeHitDetector : MonoBehaviour
     {
         [InspectorName("剑身起点")] public Transform bladeBase;
         [InspectorName("剑尖")] public Transform bladeTip;
         [InspectorName("剑身接触半径（米）"), Min(.005f)] public float radius = .035f;
+
+        /// <summary>本次直击已经成功结算时触发；同一挥击对同一敌人只通知一次。</summary>
+        public event Action<SkillHitResult> HitResolved;
 
         readonly Collider[] contacts = new Collider[48], originChecks = new Collider[32];
         readonly RaycastHit[] sweeps = new RaycastHit[48], walls = new RaycastHit[32];
@@ -97,7 +101,9 @@ namespace NarutoVR.SealCombat
             if (!target.IsTarget || swing.AlreadyHit(target.Enemy) ||
                 (swing.Attacker && Blocked(swing.Attacker.position, grip, .005f, player, mask)) ||
                 Blocked(grip, point, r, player, mask)) return;
-            swing.Resolve(target, point);
+            var hit = swing.Resolve(target, point);
+            // 伤害回调可能立即禁用或销毁武器；只有仍然有效的采样才能继续通知视觉层。
+            if (this && isActiveAndEnabled && hasPose && hit.DirectApplied) HitResolved?.Invoke(hit);
         }
 
         bool Blocked(Vector3 from, Vector3 to, float r, Transform player, int mask)

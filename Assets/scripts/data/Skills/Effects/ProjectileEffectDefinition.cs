@@ -9,6 +9,8 @@ namespace NarutoVR.SealCombat
         [Header("一、飞行与伤害")]
         [InspectorName("碰撞半径（米）"), Tooltip("视觉按两倍半径缩放；纯视觉粒子不负责伤害。"), Min(.01f)] public float radius = .065f;
         [InspectorName("命中伤害"), Tooltip("每个投射物只结算一次。"), Min(0)] public float damage = 25;
+        /// <summary>本技能每级增加的基础伤害比例；只影响该技能的运行时效果副本。</summary>
+        [InspectorName("每级伤害增幅"), Min(0)] public float damagePerLevel = .1f;
         [InspectorName("基础削韧值"), Tooltip("对敌人的削韧；弱点倍率由命中区域配置，不改变玩家技能消耗。"), Min(0)] public float poiseDamage = 20;
         [InspectorName("飞行速度（米/秒）"), Min(.1f)] public float speed = 9;
         [InspectorName("飞行寿命（秒）"), Min(.1f)] public float flightLifetime = 4;
@@ -20,7 +22,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("未发射储存超时（秒）"), Tooltip("生成后开始计时；超时消散。独立于技能效果持续时间和发射后的飞行寿命。每个执行器最多储存一发。"), Min(.1f)] public float heldLifetime = 60;
         [InspectorName("持握偏移（头显朝向坐标）")] public Vector3 heldOffset = new(0, .05f, .08f);
         [InspectorName("生成及追踪恢复准备时间（秒）"), Min(.25f)] public float armDelay = .25f;
-        [InspectorName("追踪丢失消散时间（秒）"), Min(.05f)] public float trackingLossGrace = .5f;
+        [HideInInspector] public float trackingLossGrace = .5f; // Retained for old assets; tracking loss never cancels.
         [Header("三、轻推发射")]
         [InspectorName("前推最小位移（米）"), Min(.05f)] public float pushDistance = .12f;
         [InspectorName("前推最短时长（秒）"), Min(.05f)] public float pushMinimumSeconds = .15f;
@@ -33,10 +35,19 @@ namespace NarutoVR.SealCombat
         [InspectorName("基础球体材质"), Tooltip("没有视觉预置体时使用；留空自动创建基础材质。")]
         public Material material;
         public override string Summary => $"手持投射物 · {damage:0} 伤害 / {speed:0.#} 米每秒";
+        /// <inheritdoc/>
+        public override bool SupportsLevels => true;
+        /// <inheritdoc/>
+        public override void ApplyLevelFrom(SkillEffectDefinition original, int level)
+        {
+            var source = (ProjectileEffectDefinition)original;
+            damage = source.damage * (1 + Mathf.Max(0, level) * source.damagePerLevel);
+        }
         public override string ValidateDefinition()
         {
+            if (!AtLeast(damagePerLevel, 0) || damagePerLevel > 10) return "每级伤害增幅无效";
             if (!AtLeast(radius,.01f) || !AtLeast(damage,0) || !AtLeast(poiseDamage,0) || poiseDamage > 100000 || !AtLeast(speed,.1f) || !AtLeast(flightLifetime,.1f)) return "投射物半径、伤害、削韧、速度或飞行寿命无效";
-            if (!AtLeast(heldLifetime,.1f) || !AtLeast(armDelay,.25f) || !AtLeast(trackingLossGrace,.05f)) return "持握时间、准备时间或追踪丢失宽限无效";
+            if (!AtLeast(heldLifetime,.1f) || !AtLeast(armDelay,.25f)) return "持握时间或准备时间无效";
             if (!float.IsFinite(heldOffset.x) || !float.IsFinite(heldOffset.y) || !float.IsFinite(heldOffset.z)) return "持握偏移包含非有限数值";
             if (!AtLeast(pushDistance,.05f) || !AtLeast(pushMinimumSeconds,.05f) || !AtLeast(pushMaximumSeconds,.1f) || pushMaximumSeconds < pushMinimumSeconds) return "轻推距离或时间区间无效";
             if (!System.Enum.IsDefined(typeof(ProjectileReleaseMode), releaseMode)) return "未知释放方式";

@@ -17,6 +17,8 @@ namespace NarutoVR.SealCombat.Rpg
         public bool IsPressed { get; private set; }
         Vector3 rest, surface;
         bool ready, armed;
+        Vector3 previousDelta;
+        bool hasPrevious;
         public Vector3 RestSurface => ready && cap ? cap.parent.TransformPoint(rest)+cap.TransformVector(surface) : transform.position;
         void OnEnable() { if (cap) Prepare(); }
         void Prepare()
@@ -37,13 +39,37 @@ namespace NarutoVR.SealCombat.Rpg
         }
         public void Sample(Vector3 tip)
         {
+            if (!WristMenuState.Finite(tip)) { ResetContact(); return; }
             if(!cap)return;
             if(!ready)Prepare(); if(!ready)return;
             Vector3 axis=cap.TransformVector(Vector3.forward).normalized;
             Vector3 origin=cap.parent.TransformPoint(rest)+cap.TransformVector(surface);
             Vector3 delta=tip-origin;float depth=Vector3.Dot(delta,axis);
+            // Track in cap orientation, in metres, so movement of the worn device does not
+            // leave a stale world-space press plane. A real fast poke may cross it between frames.
+            Vector3 relative=Quaternion.Inverse(cap.rotation)*delta;
+            float pressDepth=travelMetres*.85f;
+            bool crossed=false;
+            if(armed && hasPrevious && previousDelta.z<=pressDepth && relative.z>=pressDepth &&
+                relative.z>previousDelta.z && (relative-previousDelta).sqrMagnitude<=.08f*.08f)
+            {
+                Vector3 contact=Vector3.Lerp(previousDelta,relative,(pressDepth-previousDelta.z)/(relative.z-previousDelta.z));
+                crossed=contact.x*contact.x+contact.y*contact.y<=touchRadius*touchRadius;
+            }
+            previousDelta=relative;hasPrevious=true;
+            if(crossed)
+            {
+                cap.localPosition=rest+cap.parent.InverseTransformVector(axis*travelMetres);
+                if(!IsPressed){IsPressed=true;onPressed.Invoke();}
+                return;
+            }
             bool inside=(delta-depth*axis).sqrMagnitude<=touchRadius*touchRadius;
-            if(!inside||depth<-.003f||depth>.015f){ResetContact();if(inside&&depth<0)armed=true;return;}
+            if(!inside||depth<-.003f||depth>.015f)
+            {
+                ResetContact();
+                if(inside&&depth<0){armed=true;previousDelta=relative;hasPrevious=true;}
+                return;
+            }
             if(depth<=0)armed=true;
             if(!armed)return;
             float displacement=Mathf.Clamp(depth,0,travelMetres);
@@ -51,7 +77,7 @@ namespace NarutoVR.SealCombat.Rpg
             if(!IsPressed&&displacement>=travelMetres*.85f){IsPressed=true;onPressed.Invoke();}
             else if(IsPressed&&displacement<=travelMetres*.20f){IsPressed=false;onReleased.Invoke();}
         }
-        public void ResetContact(){if(ready&&cap)cap.localPosition=rest;armed=false;if(IsPressed){IsPressed=false;onReleased.Invoke();}}
+        public void ResetContact(){if(ready&&cap)cap.localPosition=rest;armed=hasPrevious=false;if(IsPressed){IsPressed=false;onReleased.Invoke();}}
         void OnDisable(){ResetContact();ready=false;}
     }
 }

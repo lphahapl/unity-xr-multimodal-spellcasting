@@ -14,9 +14,9 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var view=root.AddComponent<WristMenuView>(); view.audioFeedback=false;
-                var menu=root.AddComponent<WristMenuController>(); menu.view=view;
+                var menu=root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
                 menu.settings.activation=WristMenuActivation.RaiseFist; // Isolate ray regression from entry gestures.
-                var rpg=root.AddComponent<LinearRpgController>(); var movement=root.AddComponent<RpgLocomotionController>(); rpg.locomotion=movement;
+                var rpg=root.AddComponent<LinearRpgController>(); rpg.chapter=root.AddComponent<TrainingChapterFlow>(); ((TrainingChapterFlow)rpg.chapter).rpg=rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var movement=root.AddComponent<RpgLocomotionController>(); rpg.locomotion=movement;
                 movement.rigRoot=root.transform; var head=new GameObject("测试头部"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); movement.head=head.transform;
                 root.SetActive(true); view.EnsureBuilt();
                 for(int i=0;i<10;i++) menu.Tick(WristMenuChecks.Sample(20+i*.05),rpg,false,20+i*.05);

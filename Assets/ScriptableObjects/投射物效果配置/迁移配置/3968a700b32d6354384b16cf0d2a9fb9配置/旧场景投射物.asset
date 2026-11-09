@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d60cb3e0acbfd418e53f86b02275af, type: 3}
   m_Name: "\u65E7\u573A\u666F\u6295\u5C04\u7269"
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.ProjectileEffectDefinition
+  audioProfile: {fileID: 11400000, guid: f1118e25be6952b688e0693b19f58bc8, type: 2}
   radius: 0.065
   damage: 25
   speed: 9

@@ -59,14 +59,16 @@ namespace NarutoVR.SealCombat.Editor
             root.SetActive(false);
             try
             {
-                var view = root.AddComponent<WristMenuView>(); var menu = root.AddComponent<WristMenuController>(); menu.view=view;
+                var view = root.AddComponent<WristMenuView>(); var menu = root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
                 menu.settings.activation=WristMenuActivation.RaiseFist;
-                var rpg = root.AddComponent<LinearRpgController>(); var locomotion=root.AddComponent<RpgLocomotionController>();
+                var rpg = root.AddComponent<LinearRpgController>();
+                rpg.chapter = root.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)rpg.chapter).rpg = rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var locomotion=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=locomotion; locomotion.rigRoot=root.transform;
                 var head=new GameObject("头部"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); locomotion.head=head.transform;
                 root.SetActive(true); view.EnsureBuilt(); view.audioFeedback=false;
                 int targetCount=view.Targets.Count; view.EnsureBuilt();
-                Check(targetCount==9 && view.Targets.Count==9,"视图重复构建不能复制九个目标");
+                Check(targetCount==10 && view.Targets.Count==10,"视图重复构建不能复制十个目标（含故障时才显示的麦克风重试）");
                 for (int i=0;i<10;i++) menu.Tick(Sample(10+i*.05),rpg,false,10+i*.05);
                 Check(menu.State.LauncherOpen,"完整控制器可通过输入DTO开启入口");
                 RectTransform seal=view.Targets.Single(t=>t.id=="seal").rect;
@@ -126,6 +128,55 @@ namespace NarutoVR.SealCombat.Editor
                 Check(materialCount>=3,"程序化腕饰材质已建立");
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
+            return checks + CheckNativeMicrophoneRecovery();
+        }
+        static int CheckNativeMicrophoneRecovery()
+        {
+            // Keep all gameplay/capture components inactive: this is a UI state check,
+            // never a microphone or native-engine test.
+            var root = new GameObject("腕匣麦克风恢复检查") { hideFlags=HideFlags.HideAndDontSave };
+            root.SetActive(false);
+            var skill = ScriptableObject.CreateInstance<SkillDefinition>();
+            int checks = 0;
+            void Check(bool ok,string message) { if (!ok) throw new Exception("腕匣麦克风检查："+message); checks++; }
+            const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            void Field(object target,string name,object value) => target.GetType().GetField(name,flags).SetValue(target,value);
+            try
+            {
+                var view = root.AddComponent<WristMenuView>(); view.audioFeedback=false;
+                var menu = root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
+                var rpg = root.AddComponent<LinearRpgController>(); rpg.wristMenu=menu;
+                rpg.locomotion=root.AddComponent<RpgLocomotionController>();
+                rpg.skills=root.AddComponent<SkillTestController>();
+                var receiver=root.AddComponent<SkillVoiceReceiver>(); rpg.skills.voice=receiver;
+                var capture=root.AddComponent<NativeSkillVoiceSource>();
+                Field(receiver,"nativeSource",capture); Field(menu,"owner",rpg);
+                skill.skillId="retry.check"; skill.displayName="恢复检查"; skill.phrase="测试口令";
+                skill.triggerMode=SkillTriggerMode.VoiceOnly; rpg.skills.skills.Add(skill);
+                var execute=typeof(WristMenuController).GetMethod("Execute",flags);
+                var refresh=typeof(WristMenuController).GetMethod("RefreshPanel",flags);
+                void Open(string command) => execute.Invoke(menu,new object[]{command});
+                void Refresh() => refresh.Invoke(menu,new object[]{false});
+                view.EnsureBuilt(); view.OwnedRoot.SetActive(true);
+                var retry=view.Targets.Single(t=>t.id=="retry-microphone").rect;
+                Check(!retry.gameObject.activeInHierarchy,"默认不显示恢复按钮");
+                Field(capture,"needsRetry",true);
+                receiver.useNativeInEditor=false; Open("voice");
+                Check(!receiver.NativeNeedsRetry && !retry.gameObject.activeInHierarchy,"PC服务不显示原生麦克风按钮");
+                receiver.useNativeInEditor=true; Refresh();
+                Check(receiver.NativeNeedsRetry && retry.gameObject.activeInHierarchy,"缓存中的咒语卡也能显示新故障");
+                Check(retry.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="重试麦克风"),"显示中文重试入口");
+                Field(capture,"needsRetry",false); Refresh();
+                Check(!retry.gameObject.activeInHierarchy,"恢复后无需翻页即隐藏按钮");
+                Field(capture,"needsRetry",true); Refresh(); Open("seal");
+                Check(!retry.gameObject.activeInHierarchy,"结印卡不显示麦克风恢复");
+                Open("glyph"); Check(!retry.gameObject.activeInHierarchy,"画符卡不显示麦克风恢复");
+                Open("voice"); Check(retry.gameObject.activeInHierarchy,"返回咒语卡保留待重试状态");
+                menu.ClosePanel(); Check(!retry.gameObject.activeInHierarchy,"关闭面板后恢复目标不可交互");
+                Check(!root.activeInHierarchy,"检查未启用麦克风及玩法组件");
+                view.ReleaseVisuals(true);
+            }
+            finally { UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(skill); }
             return checks;
         }
         public static WristMenuInput Sample(double time) => new()

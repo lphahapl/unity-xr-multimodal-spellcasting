@@ -68,8 +68,8 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var view=root.AddComponent<WristMenuView>(); view.audioFeedback=false;
-                var menu=root.AddComponent<WristMenuController>(); menu.view=view;
-                var rpg=root.AddComponent<LinearRpgController>(); var movement=root.AddComponent<RpgLocomotionController>();
+                var menu=root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
+                var rpg=root.AddComponent<LinearRpgController>(); rpg.chapter=root.AddComponent<TrainingChapterFlow>(); ((TrainingChapterFlow)rpg.chapter).rpg=rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var movement=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=movement; rpg.wristMenu=menu; movement.rigRoot=root.transform;
                 rpg.skills=root.AddComponent<SkillTestController>(); rpg.skills.InputClock=()=>10.5;
                 recipe.skillId="wrist.combo";recipe.displayName="腕饰回归";recipe.phrase="测试术";recipe.sealName="寅";recipe.triggerMode=SkillTriggerMode.VoiceAndGesture;

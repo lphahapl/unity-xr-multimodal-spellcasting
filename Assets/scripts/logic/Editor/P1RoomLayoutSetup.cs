@@ -58,7 +58,7 @@ namespace NarutoVR.SealCombat.Editor
                 else if (child.name == "背墙" || child.name.Contains("后庭台阶")) Object.DestroyImmediate(child.gameObject);
             }
             kept.name = "练习靶 · 5米 · 可重复练习"; kept.resetAfterSeconds = 3;
-            rpg.targets = new[] { kept }; rpg.autoAdvanceStages = false; rpg.roomControlsEncounter = true;
+            rpg.GetComponent<TrainingTargetGroup>().targets = new[] { kept }; rpg.GetComponent<TrainingTargetGroup>().resetAfterSeconds=3; rpg.GetComponent<TrainingChapterFlow>().autoAdvance = false; rpg.roomControlsEncounter = true;
             var root = new GameObject(RootName).transform;
             var hall = new GameObject("连接通廊 · 8米").transform; hall.SetParent(root, false);
             var room = new GameObject("战斗房间 · 14×16米").transform; room.SetParent(root, false);
@@ -161,8 +161,8 @@ namespace NarutoVR.SealCombat.Editor
             var scene = RequireScene(); var rpg = Components<LinearRpgController>(scene).Single();
             var nodes = Components<NavigationNode>(scene); var encounter = Components<CombatRoomEncounter>(scene).Single();
             void Assert(bool ok, string why) { if (!ok) throw new Exception(why); }
-            Assert(Components<SkillTrainingTarget>(scene).Length == 1 && rpg.targets.Length == 1, "练习靶必须仅一个");
-            Assert(rpg.roomControlsEncounter && !rpg.autoAdvanceStages, "靶场阶段仍在控制战斗");
+            Assert(Components<SkillTrainingTarget>(scene).Length == 1 && rpg.GetComponent<TrainingTargetGroup>().targets.Length == 1, "练习靶必须仅一个");
+            Assert(rpg.roomControlsEncounter && !rpg.GetComponent<TrainingChapterFlow>().autoAdvance, "靶场阶段仍在控制战斗");
             Assert(nodes.Length >= 65 && nodes.Select(n => n.nodeId).Distinct().Count() == nodes.Length, "导航点不足或编号重复");
             Assert(encounter.UsesEnemyManager
                 ? encounter.spawnPoints.Length > 0 && encounter.spawnPoints.All(p => p != null && p.point) && Components<EnemyController>(scene).Length == 0
@@ -222,7 +222,7 @@ namespace NarutoVR.SealCombat.Editor
             foreach (var enemy in Components<EnemyController>(scene)) text.AppendLine($"ENEMY {enemy.name} pos={enemy.transform.position} active={enemy.gameObject.activeInHierarchy} prefab={PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(enemy)}");
             foreach (var rpg in Components<LinearRpgController>(scene))
             {
-                text.AppendLine($"RPG {rpg.name} targets={rpg.targets.Length} autoAdvance={rpg.autoAdvanceStages} head={rpg.locomotion.head.position} rig={rpg.locomotion.rigRoot.position}");
+                text.AppendLine($"RPG {rpg.name} targets={rpg.GetComponent<TrainingTargetGroup>().targets.Length} autoAdvance={rpg.GetComponent<TrainingChapterFlow>().autoAdvance} head={rpg.locomotion.head.position} rig={rpg.locomotion.rigRoot.position}");
                 foreach (var stage in rpg.stages) text.AppendLine($"STAGE {stage.stageId} combat={stage.startsInCombat} hazards={stage.enableHazards} path={AssetDatabase.GetAssetPath(stage)}");
             }
             Directory.CreateDirectory(LogFolder); File.WriteAllText(LogFolder + "/inspect.txt", text.ToString());

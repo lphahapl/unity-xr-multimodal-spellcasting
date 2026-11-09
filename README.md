@@ -2,7 +2,7 @@
 
 **Unity XR 多模态施法交互原型：手部骨骼识别 × 离线中文口令 × 数据驱动技能。**
 
-《考工律度》的正式开场从封闭试炼室开始。玩家练习打靶与防护、击败一具残机偶，随后走出外门，到校规庭取得第一枚方圆规印。[打开首章场景](Assets/Scene/Chapter01_Awakening.unity) · [关卡与接线说明](docs/guides/CHAPTER01_AWAKENING_ZH.md)
+《考工律度》的正式开场从设木格窗的试炼室开始。玩家练习打靶与防护、击败一具残机偶，随后走出外门，到校规庭取得第一枚方圆规印。[打开首章场景](Assets/Scene/Chapter01_Awakening.unity) · [关卡与接线说明](docs/guides/CHAPTER01_AWAKENING_ZH.md) · [外景全景与美术配置](docs/guides/CHAPTER01_EXTERIOR_VISUALS_ZH.md)
 
 A Unity XR prototype combining skeletal hand gesture recognition and offline Chinese keyword spotting for configurable spellcasting, gesture locomotion, and a lightweight RPG demo.
 
@@ -17,13 +17,14 @@ A Unity XR prototype combining skeletal hand gesture recognition and offline Chi
 | 手部接入 | Meta OVR 与 OpenXR / XR Hands 两条输入路径；Steam Link → SteamVR → Unity 的 PC 调试路线 |
 | 手势识别 | 骨骼快照、逐关节有效性与过期检查、手指/双手特征、模板加权评分、覆盖率、稳定保持和竞争姿态消歧 |
 | 数据工具 | 倒计时采样、带标签 JSONL 录制、回放、模板草稿生成、骨骼与评分可视化 |
-| 离线语音 | Python + sherpa-onnx 中文关键词检测，本机回环 UDP、心跳、时钟映射与过期事件过滤 |
+| 离线语音 | 编辑器使用 Python + sherpa-onnx 回环服务；Quest Android 包使用 ARM64 原生 KWS 与设备麦克风，统一口令白名单、采集时间与过期过滤 |
 | 多模态配方 | 纯手势、纯口令、手势与口令组合；组合支持先手势后口令或相反顺序 |
 | 技能系统 | ScriptableObject 配置、独立匹配器、效果定义与运行时生命周期；投射物、护盾、取消和冷却 |
 | 移动与关卡 | 战斗视线选点传送、胸前快推后撤、探索视线行走、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |
 | 基础手形 | Meta官方状态引擎与默认阈值；左右手独立确认与失效撤销；[串流调试说明](docs/guides/OFFICIAL_HAND_POSES_ZH.md) |
 | 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。文字速查已实现，画符识别与完整课程未做 |
 | 开发支持 | 中文 Inspector / HUD、模拟输入入口、配置冲突检查、场景生成与编辑/播放模式检查 |
+| 天空原型 | 青灰底色与两层缓慢薄云、中文材质参数、独立预览；[使用与性能边界](docs/guides/THIN_CLOUD_SKY_ZH.md)，正式首章未应用 |
 
 手势采用**特征与规则评分**；语音采用**关键词检测（KWS）**。本仓库没有训练通用手势分类模型，也不把关键词命中当作整句语义理解。
 
@@ -35,9 +36,11 @@ flowchart TD
     XR[Steam Link / SteamVR OpenXR / XR Hands] --> H
     H --> LAB[SealLab：骨骼快照、特征与评分]
     LAB --> CTRL[SkillTestController：输入接线与生命周期]
-    MIC[麦克风] --> KWS[Python / sherpa-onnx KWS]
+    MIC[电脑麦克风] --> KWS[Python / sherpa-onnx KWS]
     KWS --> UDP[回环 UDP / 时间映射]
     UDP --> VOICE[SkillVoiceReceiver]
+    QMIC[Quest 麦克风] --> NATIVE[Android ARM64 / sherpa-onnx C API]
+    NATIVE --> VOICE
     VOICE --> CTRL
     CONFIG[ScriptableObject 技能目录与匹配配置] --> MATCH[SkillMatchEngine]
     CTRL --> MATCH
@@ -84,9 +87,13 @@ Hierarchy 中的“腕部界面 · 自有世界根”是程序生成的 UI 容�
 | `ProjectileEffectDefinition` / `ShieldEffectDefinition` | 投射物或护盾的数值与基础视觉 |
 | `SkillMatchEngine` | 输入缓存、配方匹配与消费，不创建场景物体 |
 | `SkillEffects` / 效果实例 | 激活、更新、命中和资源清理 |
-| `Rpg/Data` | 玩家运行状态、成长、进度和检查点存档 |
+| `TeachingCatalog` / 腕匣教学 | 内容、配方分组与展示，独立于技能解锁 |
+| `SkillProgression` / 物品与商店模块 | 技能知识、永久解锁、物品奖励和配置商品交易 |
+| `RpgChapterFlow` / `TrainingTargetGroup` | 章节目标与授权；独立训练设施 |
+| `RuntimeSkillCatalog` | 玩家独立技能副本，按各自技能 ID 应用等级 |
+| `RpgProgressData` / `RpgSaveStore` | 纯进度数据、v2 检查点保存和失败重试 |
 
-会话开始时复制匹配配置，施法时复制效果参数；共享 ScriptableObject 不保存玩家剩余 HP、运行对象或效果剩余时间。新增同类型技能可通过复制配置资产并加入目录完成；新增机制需实现新的效果定义。详细步骤见[配置与扩展指南](docs/guides/CONFIGURATION_GUIDE_ZH.md)。
+会话开始时复制匹配配置，施法时复制效果参数；共享 ScriptableObject 不保存玩家剩余 HP、运行对象或效果剩余时间。新增同类型技能可通过复制配置资产并加入目录完成；新增机制需实现新的效果定义。详细步骤见[配置与扩展指南](docs/guides/CONFIGURATION_GUIDE_ZH.md)和[成长职责划分](docs/architecture/PROGRESSION_RESPONSIBILITIES_ZH.md)。
 
 ## 开发环境
 
@@ -99,6 +106,7 @@ Hierarchy 中的“腕部界面 · 自有世界根”是程序生成的 UI 容�
 | Input System | `1.18.0` |
 | Meta XR Core / Interaction / Interaction OVR | `207.0.1` |
 | PC 语音服务 | Python、`sherpa-onnx==2.0.1`、`sounddevice==0.5.6`、`numpy==2.4.4` |
+| Quest 原生口令 | `sherpa-onnx 2.0.1` C API、官方 Android ARM64 运行库、随包 3M KWS 模型 |
 
 以 [manifest.json](Packages/manifest.json)、[ProjectVersion.txt](ProjectSettings/ProjectVersion.txt) 和 [requirements.txt](Tools/SkillVoice/requirements.txt) 为准。语音依赖需要使用兼容这些固定版本的 Python 环境。
 
@@ -112,7 +120,7 @@ P1 程序试炼使用独立靶场，集中测试命中特效复用、语音避�
 git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 ```
 
-在 Unity Hub 中添加克隆目录，使用上述 Unity 版本打开，等待 Package Manager 还原依赖。仓库保留 `Assets`、`Packages`、`ProjectSettings` 及 Unity `.meta`；缓存、构建产物、语音虚拟环境和下载模型不随仓库分发。
+在 Unity Hub 中添加克隆目录，使用上述 Unity 版本打开，等待 Package Manager 还原依赖。工程保留 `Assets`、`Packages`、`ProjectSettings` 及 Unity `.meta`；Quest 语音运行库在 `Assets/Plugins`，随包模型在 `Assets/StreamingAssets/SkillVoice`。缓存、构建产物和电脑语音虚拟环境不作为运行资产分发。
 
 代码命名空间、部分菜单及历史文档仍保留原名 **`NarutoVR`**。这是现有工具入口，和仓库名称不同；本次展示名称调整未批量重命名序列化类型或场景引用。
 
@@ -156,7 +164,7 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 & './Tools/SkillVoice/Stop.ps1'
 ```
 
-推理在电脑本地运行，正式接线使用 IPv4 loopback UDP。当前 PC 服务不能直接供独立 Quest Android 包使用。下载模型的来源及校验、麦克风选择、词表与时钟协议见[语音接入说明](docs/guides/SKILL_VOICE_SETUP_ZH.md)。
+以上步骤用于电脑编辑器，使用 IPv4 loopback UDP。Quest 独立 Android 包自动使用设备内原生识别，模型随 APK 提供，无需启动电脑服务；首次使用需允许麦克风。构建、权限恢复、实测状态及来源校验见[语音接入说明](docs/guides/SKILL_VOICE_SETUP_ZH.md)。代码接入不等于头显真人与性能验收。
 
 ## 代码目录
 

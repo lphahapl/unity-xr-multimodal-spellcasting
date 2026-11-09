@@ -50,7 +50,7 @@ Unity 自带 AndroidPlayer 中已有 SDK platforms android-34/35/36、adb、NDK 
 
 诊断期间SDK203/83的批处理曾经通过，但交互启动失败，因此没有用批处理退出码替代实际窗口验收。最新安装在已打开的编辑器内导入，正常重启加载原生插件；早先 `Logs/quest-setup-current.log` 的退出码1来自工程已打开导致的重复启动，不是本次SDK安装失败。
 
-后续已创建独立 `Assets/Scene/SealLab.unity`：玩家Rig、实际IHand骨骼线条、特征HUD、Editor特征/录制回放窗口与手动加权评分。默认SampleScene保留；十二印模板尚未校准。使用方式、软件测试和真机验证边界见 `docs/guides/SEAL_LAB.md`。
+后续已创建独立 `Assets/Scene/SealLab.unity`：玩家Rig、实际IHand骨骼线条、特征HUD、Editor特征/录制回放窗口与手动加权评分。初始 SampleScene 已于 2026-11-08 清理；这不改变上文 2026-10-28 的历史验收记录。十二印模板校准状态见现行手印指南。使用方式、软件测试和真机验证边界见 `docs/guides/SEAL_LAB.md`。
 原生 Quest 手探针后来已构建并观察到有效追踪；这不代表完整技能、原生语音和性能已经验证。PC 当前使用 Steam Link，现行入口见[Steam Link 指南](STEAM_LINK_DEVELOPMENT_ZH.md)，历史环境故障结论见[排障指南](TRACKING_TROUBLESHOOTING_ZH.md)。
 
 ## 协作

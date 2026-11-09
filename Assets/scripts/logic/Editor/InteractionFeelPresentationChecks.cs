@@ -22,6 +22,8 @@ namespace NarutoVR.SealCombat.Editor
                 Require(view.BuildHud().Contains("等待绑定") && view.BuildDesktopDebug(10).Contains("【投掷输入与拟合】"),
                     "未接线调试面板必须提供缺失信息，不能异常"); count++;
                 var controller = root.AddComponent<LinearRpgController>();
+                controller.chapter = root.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)controller.chapter).rpg = controller; ((TrainingChapterFlow)controller.chapter).initialSkills = new[]{"fireball"};
                 var movement = root.AddComponent<RpgLocomotionController>();
                 var skills = root.AddComponent<SkillTestController>();
                 var effects = root.AddComponent<SkillEffects>();

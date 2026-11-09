@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc20b50587750d0ba0354811255dc3d, type: 3}
+  m_Name: "\u96f7\u5149\u5251\u97f3\u9891"
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillAudioProfile
+  activated:
+    clips:
+    - {fileID: 8300000, guid: e64bb2ce614e579590cb33872ee62b03, type: 3}
+    - {fileID: 8300000, guid: ab00a22c8d5a5df5ad8a3c9b28d0995c, type: 3}
+    - {fileID: 8300000, guid: 4b3c3ce0c7f55b24999baac6263dab3a, type: 3}
+    volume: 0.7
+    pitchVariation: 0.025
+  released:
+    clips:
+    - {fileID: 8300000, guid: 88a1894b41835b3a8c807b6cdc5754b6, type: 3}
+    - {fileID: 8300000, guid: 31d8eb8d243b55bb8e5cb847507dd748, type: 3}
+    volume: 0.7
+    pitchVariation: 0.025
+  swing:
+    clips:
+    - {fileID: 8300000, guid: 02b6caeaef885b52a4a41d48c39f2c9a, type: 3}
+    - {fileID: 8300000, guid: c73558254d1f5fb6b8d9957bdac55f99, type: 3}
+    volume: 0.7
+    pitchVariation: 0.025
+  impact:
+    clips:
+    - {fileID: 8300000, guid: 2e15203cb744568a8841d2dd045ff2c7, type: 3}
+    - {fileID: 8300000, guid: 3fdc7c3b53ef5dacb4c69a3d9ccbd526, type: 3}
+    volume: 0.7
+    pitchVariation: 0.025
+  lightning:
+    clips:
+    - {fileID: 8300000, guid: 135853a2fb295a25a2cfa90d9adc5f29, type: 3}
+    - {fileID: 8300000, guid: 51787a1043635d498ddee3a4cbc50068, type: 3}
+    volume: 0.7
+    pitchVariation: 0.025
+  ended:
+    clips: []
+    volume: 0.7
+    pitchVariation: 0.025
+  heldLoop: {fileID: 0}
+  heldLoopVolume: 0.12
+  minDistance: 0.7
+  maxDistance: 18

@@ -18,15 +18,15 @@ RenderSettings:
   m_FogColor: {r: 0.58, g: 0.66, b: 0.66, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 40
-  m_LinearFogEnd: 140
-  m_AmbientSkyColor: {r: 0.72, g: 0.77, b: 0.8, a: 1}
-  m_AmbientEquatorColor: {r: 0.54, g: 0.51, b: 0.45, a: 1}
-  m_AmbientGroundColor: {r: 0.34, g: 0.3, b: 0.24, a: 1}
-  m_AmbientIntensity: 1
+  m_LinearFogStart: 45
+  m_LinearFogEnd: 185
+  m_AmbientSkyColor: {r: 0.479999989, g: 0.569999993, b: 0.639999986, a: 1}
+  m_AmbientEquatorColor: {r: 0.300000012, g: 0.340000004, b: 0.349999994, a: 1}
+  m_AmbientGroundColor: {r: 0.170000002, g: 0.159999996, b: 0.140000001, a: 1}
+  m_AmbientIntensity: 0.8
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 018fefc9becbb9f48aed86db0c87d04f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1838,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 521555727555064242, guid: f9f107e8ecae49048bda9d4fd7e1d1ec, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 521555727555064242, guid: f9f107e8ecae49048bda9d4fd7e1d1ec, type: 3}
       propertyPath: m_BackGroundColor.a
@@ -2460,7 +2460,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97740891}
-  m_Mesh: {fileID: 4300000, guid: d1d84b6093dc27248b1242106aff512b, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bd49faeeff0a26a41af32e9561f3005f, type: 2}
 --- !u!1001 &102285830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3057,6 +3057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6903dfbe0d473a49a06df8211311028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristMenuController
+  teachingCatalog: {fileID: 11400000, guid: e070a250224846459a36a908f35a8347, type: 2}
+  showUndiscoveredEntries: 0
   view: {fileID: 121289190}
   settings:
     activation: 0
@@ -3088,15 +3090,15 @@ MonoBehaviour:
     pinchOpen: 0.045
     dragLossGrace: 0.3
   sealPolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   glyphPolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   voicePolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
@@ -4273,8 +4275,8 @@ Transform:
   m_GameObject: {fileID: 167320596}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.15643448, z: -0, w: 0.98768836}
-  m_LocalPosition: {x: -4.2, y: -0.8, z: 69.8}
-  m_LocalScale: {x: 1.58, y: 1.65, z: 0.9}
+  m_LocalPosition: {x: -10.5, y: -1.4000001, z: 81.8}
+  m_LocalScale: {x: 2.528, y: 2.64, z: 1.4399999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 779077723}
@@ -4997,8 +4999,8 @@ Transform:
   m_GameObject: {fileID: 201925873}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.64278764, z: -0, w: 0.7660445}
-  m_LocalPosition: {x: 6.6, y: -0.7, z: 55.3}
-  m_LocalScale: {x: 1.65, y: 0.75, z: 1}
+  m_LocalPosition: {x: 20, y: -2.7, z: 55.3}
+  m_LocalScale: {x: 2.7224998, y: 1.2375, z: 1.65}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1397671144}
@@ -6515,6 +6517,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7392,8 +7398,8 @@ Transform:
   m_GameObject: {fileID: 295562243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.13917312, z: -0, w: 0.9902681}
-  m_LocalPosition: {x: 5.5, y: -0.85, z: 73.7}
-  m_LocalScale: {x: 1.94, y: 1.95, z: 1.2}
+  m_LocalPosition: {x: 13.75, y: -1.45, z: 85.7}
+  m_LocalScale: {x: 3.104, y: 3.1200001, z: 1.9200001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1319302715}
@@ -12895,6 +12901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 428582727}
   - component: {fileID: 428582728}
+  - component: {fileID: 428582729}
   m_Layer: 0
   m_Name: "\u6696\u706F"
   m_TagString: Untagged
@@ -12982,6 +12989,35 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &428582729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428582726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &428747522
 GameObject:
   m_ObjectHideFlags: 0
@@ -13528,8 +13564,8 @@ Transform:
   m_GameObject: {fileID: 435814125}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.2, y: -0.15, z: 50.7}
-  m_LocalScale: {x: 0.94, y: 0.78, z: 1}
+  m_LocalPosition: {x: -20, y: -2.15, z: 50.7}
+  m_LocalScale: {x: 1.551, y: 1.287, z: 1.65}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 733447191}
@@ -13552,6 +13588,7 @@ GameObject:
   - component: {fileID: 436909649}
   - component: {fileID: 436909650}
   - component: {fileID: 901000001}
+  - component: {fileID: 991080001}
   m_Layer: 0
   m_Name: "\u6280\u80FD\u8BAD\u7EC3\u53F0"
   m_TagString: Untagged
@@ -13676,6 +13713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillVoiceReceiver
   autoStartInEditor: 1
+  useNativeInEditor: 0
   receivePort: 47831
   servicePort: 47832
   heartbeatTimeout: 3
@@ -14532,8 +14570,8 @@ Transform:
   m_GameObject: {fileID: 465022395}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.45, y: -0.28, z: 50.55}
-  m_LocalScale: {x: 0.63, y: 0.8, z: 0.75}
+  m_LocalPosition: {x: 20, y: -2.28, z: 50.55}
+  m_LocalScale: {x: 1.0395, y: 1.32, z: 1.2375}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1004927186}
@@ -21513,7 +21551,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -22113,8 +22151,8 @@ Transform:
   m_GameObject: {fileID: 712596407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.6755902, z: -0, w: 0.7372774}
-  m_LocalPosition: {x: -2.2, y: -0.4, z: 55.6}
-  m_LocalScale: {x: 1.6, y: 1, z: 1}
+  m_LocalPosition: {x: -20, y: -2.4, z: 55.6}
+  m_LocalScale: {x: 2.64, y: 1.65, z: 1.65}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2023166399}
@@ -22471,6 +22509,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22959,6 +23001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 757157594}
   - component: {fileID: 757157595}
+  - component: {fileID: 757157596}
   m_Layer: 0
   m_Name: "\u6696\u706F"
   m_TagString: Untagged
@@ -23046,6 +23089,35 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &757157596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757157593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &758826366
 GameObject:
   m_ObjectHideFlags: 0
@@ -23697,6 +23769,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27033,6 +27109,69 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898810571}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &900010000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4a915dcbd04e0c8f030a09a0cffc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
+  targets:
+  - {fileID: 907908521}
+  - {fileID: 1769737437}
+  healthByStage:
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  resetAfterSeconds: 0
+--- !u!114 &900010001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbf709d894f46c7be4946285bdd03e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgSkillShop
+  catalog: {fileID: 11400000, guid: 7b76c304cf8340ba9e70a7eb79109a40, type: 2}
+--- !u!114 &900010002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f543b679df4056801ec58531e1cdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgItemInventory
+  catalog: {fileID: 11400000, guid: 19807d0097244664a2b535b014dde286, type: 2}
 --- !u!114 &901000001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27061,9 +27200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9bcffe8aad48b45b0d60fc06f7153a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.P1AudioManager
-  explorationMusic: {fileID: 0}
-  keepExplorationSilent: 1
-  combatMusic: {fileID: 0}
+  explorationMusic: {fileID: 8300000, guid: 6b5271a650bc6bd42bba69f84849a867, type: 3}
+  keepExplorationSilent: 0
+  combatMusic: {fileID: 8300000, guid: 7da01d4da958b704ea5438a032e74fe3, type: 3}
   ambience: {fileID: 0}
   musicVolume: 0.28
   ambienceVolume: 0.2
@@ -27072,24 +27211,9 @@ MonoBehaviour:
   voiceHoldSeconds: 0.24
   duckAttack: 0.06
   duckRelease: 0.4
-  castSound: {fileID: 0}
-  launchSound: {fileID: 0}
-  impactSound: {fileID: 0}
-  uiAcceptSound: {fileID: 0}
-  uiRejectSound: {fileID: 0}
-  fireballFormed:
-  - {fileID: 8300000, guid: 5bec9bce8f9247fe8655eba55c500a6e, type: 3}
-  - {fileID: 8300000, guid: 83d37bf3950d4468948c799d5f4875fd, type: 3}
-  - {fileID: 8300000, guid: 6a129a6dc8674e9d90863cb4b814fcca, type: 3}
-  fireballLaunched:
-  - {fileID: 8300000, guid: cb9775c8101a475e8a18e49a406fa404, type: 3}
-  - {fileID: 8300000, guid: c99267ab46d947d585c29afcbaf3464f, type: 3}
-  - {fileID: 8300000, guid: 81d6656a979d4cdda18ee0ffa049d43f, type: 3}
-  fireballImpact:
-  - {fileID: 8300000, guid: 4291aed65e664d7bb6dad03bad882ba4, type: 3}
-  - {fileID: 8300000, guid: 08bf160b70474787b4d6ba905e6dbf29, type: 3}
-  - {fileID: 8300000, guid: 798cc49879d94c07aa25f3188e69236c, type: 3}
-  fireballVolume: 0.7
+  footstepClips: []
+  footstepVolume: 0.22
+  footstepSpacing: 0.55
 --- !u!114 &901000003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27509,19 +27633,19 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.88, b: 0.69, a: 1}
-  m_Intensity: 1.45
+  m_Color: {r: 1, g: 0.930000007, b: 0.819999993, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Strength: 0.7
+    m_Bias: 0.035
+    m_NormalBias: 0.2
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -30785,6 +30909,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31378,8 +31506,8 @@ Transform:
   m_GameObject: {fileID: 1012278105}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -5.55, y: -0.4, z: 43.8}
-  m_LocalScale: {x: 1.5, y: 0.96, z: 0.85}
+  m_LocalPosition: {x: -24, y: -2.4, z: 43.8}
+  m_LocalScale: {x: 2.475, y: 1.584, z: 1.4025}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1319235324}
@@ -34727,7 +34855,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -35576,6 +35704,9 @@ GameObject:
   - component: {fileID: 901000003}
   - component: {fileID: 1147475787}
   - component: {fileID: 1615112774}
+  - component: {fileID: 900010000}
+  - component: {fileID: 900010001}
+  - component: {fileID: 900010002}
   m_Layer: 0
   m_Name: "\u7EBF\u6027RPG \xB7 \u5173\u5361\u4E0E\u5BFC\u822A"
   m_TagString: Untagged
@@ -35667,9 +35798,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0521bc29ea2ecbc4fb85ccf64f9ab4db, type: 2}
   - {fileID: 11400000, guid: b60126bafda8aeb4aa0173c5af6095a8, type: 2}
   - {fileID: 11400000, guid: b9380f0b56e6d30429b4a2765c026a5a, type: 2}
-  targets:
-  - {fileID: 907908521}
-  - {fileID: 1769737437}
   checkpointNodes:
   - {fileID: 1052005104}
   - {fileID: 1052005104}
@@ -35693,14 +35821,10 @@ MonoBehaviour:
   - {fileID: 2101688089}
   lowHandsBelowHead: 0.55
   handPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
-  autoLoad: 1
-  saveFileName: kaogong-chapter01.json
-  autoAdvanceStages: 0
+  autoLoad: 0
+  saveFileName: kaogong-chapter01-v2.json
   roomControlsEncounter: 1
-  openingChapter: {fileID: 1916039957}
-  stageDelay: 3
-  hiddenSkillPrice: 60
-  fireballUpgradePrice: 30
+  chapter: {fileID: 1916039957}
 --- !u!114 &1147475784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35800,25 +35924,6 @@ MonoBehaviour:
   pushWindow: 0.34
   slideDuration: 0.25
   throwDodgeRecovery: 0.65
---- !u!114 &1615112774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc1dffa0c2d583f9b63a699bdecbcd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.Audio.FootstepPlayer
-  clip: {fileID: 8300000, guid: 4fd91fa58fc750e88147b00a1d317940, type: 3}
-  variations:
-  - {fileID: 8300000, guid: bacb1d7bc62c5d7599811e0eba0bc525, type: 3}
-  - {fileID: 8300000, guid: 2e393a25c6df5a538b12b4b6b7e86710, type: 3}
-  volume: 0.22
-  stepDistance: 0.55
-  includeParentMotion: 0
 --- !u!4 &1147475785
 Transform:
   m_ObjectHideFlags: 0
@@ -41578,6 +41683,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41643,6 +41752,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43772,7 +43885,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.28, y: 0.94, z: 5.4}
   m_Center: {x: 0, y: 0, z: 0}
@@ -44081,6 +44194,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44609,6 +44726,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45807,8 +45928,8 @@ Transform:
   m_GameObject: {fileID: 1432478212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: -1.79, z: 52}
-  m_LocalScale: {x: 24, y: 2.3, z: 44}
+  m_LocalPosition: {x: 0, y: -5.4, z: 33}
+  m_LocalScale: {x: 98, y: 8, z: 130}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1248282625}
@@ -45820,7 +45941,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432478212}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -46738,6 +46859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u65AD\u8F74\u5929\u4EEA \xB7 \u94DC\u4EEA"
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c70d089cd4885880a25d532d0f7e2705, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -47273,7 +47398,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.28, y: 0.94, z: 5.4}
   m_Center: {x: 0, y: 0, z: 0}
@@ -47367,7 +47492,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457449805}
-  m_Mesh: {fileID: 4300000, guid: aa2bc3210a691b542b04b45f8b14fda8, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b0bb8dcb12c42f14ea168f69213f44fb, type: 2}
 --- !u!1 &1459202902
 GameObject:
   m_ObjectHideFlags: 0
@@ -51503,8 +51628,8 @@ Transform:
   m_GameObject: {fileID: 1544716175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.26, y: -0.5, z: 44}
-  m_LocalScale: {x: 1.46, y: 0.85, z: 0.8}
+  m_LocalPosition: {x: 24, y: -2.5, z: 44}
+  m_LocalScale: {x: 2.409, y: 1.4025, z: 1.32}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 251331708}
@@ -52040,7 +52165,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -52062,6 +52187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564523685}
   - component: {fileID: 1564523686}
+  - component: {fileID: 1564523687}
   m_Layer: 0
   m_Name: "\u6696\u706F"
   m_TagString: Untagged
@@ -52149,6 +52275,35 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &1564523687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564523684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1574824898
 GameObject:
   m_ObjectHideFlags: 0
@@ -53285,6 +53440,25 @@ MonoBehaviour:
   onDialogueCompleted:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1615112774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc1dffa0c2d583f9b63a699bdecbcd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.Audio.FootstepPlayer
+  clip: {fileID: 8300000, guid: 4fd91fa58fc750e88147b00a1d317940, type: 3}
+  variations:
+  - {fileID: 8300000, guid: bacb1d7bc62c5d7599811e0eba0bc525, type: 3}
+  - {fileID: 8300000, guid: 2e393a25c6df5a538b12b4b6b7e86710, type: 3}
+  volume: 0.22
+  stepDistance: 0.55
+  includeParentMotion: 0
 --- !u!1 &1616630703
 GameObject:
   m_ObjectHideFlags: 0
@@ -54928,7 +55102,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669311266}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -56502,6 +56676,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57532,8 +57710,8 @@ Transform:
   m_GameObject: {fileID: 1741837069}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.3007058, z: -0, w: 0.95371693}
-  m_LocalPosition: {x: 9.3, y: -0.5, z: 65}
-  m_LocalScale: {x: 1.15, y: 1.32, z: 0.85}
+  m_LocalPosition: {x: 23.25, y: -1.1, z: 77}
+  m_LocalScale: {x: 1.84, y: 2.1120002, z: 1.36}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1376805235}
@@ -61848,8 +62026,8 @@ Transform:
   m_GameObject: {fileID: 1840118844}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -1.25, z: 70.2}
-  m_LocalScale: {x: 1.5, y: 0.88, z: 1}
+  m_LocalPosition: {x: 0.625, y: -1.85, z: 82.2}
+  m_LocalScale: {x: 2.4, y: 1.408, z: 1.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1703852435}
@@ -64591,6 +64769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.OpeningTrialChapter
   rpg: {fileID: 1147475783}
+  explorationWalkSpeed: 1.25
   encounter: {fileID: 967869935}
   sections:
   - stage: {fileID: 11400000, guid: 740d0cfd81dd6f043a2abd259ce763a3, type: 2}
@@ -64606,7 +64785,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64626,7 +64806,8 @@ MonoBehaviour:
       action: 1
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64646,7 +64827,8 @@ MonoBehaviour:
       action: 11
       area: {fileID: 1236046661}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64668,6 +64850,7 @@ MonoBehaviour:
       target: {fileID: 907908521}
     trialSkills:
     - fireball
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64687,6 +64870,7 @@ MonoBehaviour:
       target: {fileID: 1769737437}
     trialSkills:
     - fireball
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64708,6 +64892,7 @@ MonoBehaviour:
       target: {fileID: 0}
     trialSkills:
     - fireball
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64731,6 +64916,7 @@ MonoBehaviour:
     - fireball
     - buff.zi
     - buff.voice
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64754,6 +64940,7 @@ MonoBehaviour:
     - fireball
     - buff.zi
     - buff.voice
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 1439885473}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64780,6 +64967,7 @@ MonoBehaviour:
     - fireball
     - buff.zi
     - buff.voice
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 1488639143}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64806,6 +64994,7 @@ MonoBehaviour:
     - fireball
     - buff.zi
     - buff.voice
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64820,7 +65009,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64835,7 +65025,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 906306591}
     alignDiscs: 0
@@ -64850,7 +65041,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 1010775360}
     alignDiscs: 1
@@ -64874,7 +65066,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64889,7 +65082,8 @@ MonoBehaviour:
       action: 7
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64904,7 +65098,8 @@ MonoBehaviour:
       action: 6
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64922,7 +65117,8 @@ MonoBehaviour:
       action: 10
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 303298069}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64937,7 +65133,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 0}
     alignDiscs: 0
@@ -64952,7 +65149,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 230736555}
     alignDiscs: 0
@@ -64967,7 +65165,8 @@ MonoBehaviour:
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
-    trialSkills: []
+    trialSkills:
+    - thunder.sword
     doorOpenedOnCompletion: {fileID: 0}
     entryArea: {fileID: 1280429133}
     alignDiscs: 0
@@ -64976,8 +65175,15 @@ MonoBehaviour:
     sidePatrolVisible: 0
   subtitle: {fileID: 1464352574}
   interiorGuidance: {fileID: 1916039960}
-  techniques: {fileID: 11400000, guid: 0cc2b7d34d67459f8cb843fa50082661, type: 2}
   puzzle: {fileID: 2027629104}
+  inventory: {fileID: 900010002}
+  targetGroup: {fileID: 900010000}
+  initialDiscoveries:
+  - fireball
+  - buff.zi
+  - buff.voice
+  - thunder.sword
+  permanentSkillGate: {fileID: 11400000, guid: 0e9efa4872ea8634a9a10d63d89a6805, type: 2}
   wristSlot: {fileID: 516507891}
   defense: {fileID: 957810356}
   secondTarget: {fileID: 1769737432}
@@ -66328,7 +66534,7 @@ Transform:
   m_GameObject: {fileID: 1964386320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.45, y: 0.41, z: 44}
+  m_LocalPosition: {x: 12.15, y: 0.41, z: 44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67661,7 +67867,7 @@ Transform:
   m_GameObject: {fileID: 1996512808}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.45, y: 0.40499997, z: 44}
+  m_LocalPosition: {x: 12.15, y: 0.40499997, z: 44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68699,6 +68905,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 261a2d2778a24536b1341126be1bf7a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -68748,10 +68958,10 @@ MonoBehaviour:
   slotEntry: {fileID: 116978614}
   leaf: {fileID: 461754020}
   lid: {fileID: 891330737}
+  leafId: leaf.fangyuan
   slot: {fileID: 516507891}
   solvedStage: {fileID: 11400000, guid: 47b049c02c9afae4a93aca354e7c3c00, type: 2}
-  collectedStage: {fileID: 11400000, guid: c96c9ede6b8efe84b806c3fa34e02bdb, type: 2}
-  seatedStage: {fileID: 11400000, guid: a86ad73440649d94fa1377b1e51b3615, type: 2}
+  inventory: {fileID: 900010002}
   grabRadius: 0.055
   slotRadius: 0.042
   verifyRadius: 0.14
@@ -71285,7 +71495,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -72906,6 +73116,65 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141291640}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &9001701001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4574377991329588923, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_Name
+      value: "\u9996\u7AE0\u5916\u666F\u62D3\u5C55 \xB7 \u7A97\u5EAD\u8FDC\u5C71"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045074495595146901, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6272993404336336409, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322501685984575674, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056411271597247150, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878178593891915182, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 559f376d6e8f4994eb661517505714a2, type: 3}
+--- !u!1001 &9001711001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3987719820337981229, guid: 2227c84a8a62ad44fa9feb5ca06efdda, type: 3}
+      propertyPath: m_Name
+      value: 首章外景细化
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2227c84a8a62ad44fa9feb5ca06efdda, type: 3}
+--- !u!4 &9001711002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1673368411700932853, guid: 2227c84a8a62ad44fa9feb5ca06efdda, type: 3}
+  m_PrefabInstance: {fileID: 9001711001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -72920,3 +73189,19 @@ SceneRoots:
   - {fileID: 91120495}
   - {fileID: 505742255}
   - {fileID: 1916039958}
+  - {fileID: 9001701001}
+  - component: {fileID: 991080001}
+  - {fileID: 9001711002}
+--- !u!114 &991080001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436909642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5303935c858eca4d10461386dcbd5, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillAudioPlayer
+  masterVolume: 1

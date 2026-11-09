@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "version": "sherpa-onnx-2.0.1-zh-en-3M-chunk8-v1",
+  "encoder": "encoder-epoch-13-avg-2-chunk-8-left-64.int8.onnx",
+  "decoder": "decoder-epoch-13-avg-2-chunk-8-left-64.onnx",
+  "joiner": "joiner-epoch-13-avg-2-chunk-8-left-64.int8.onnx",
+  "tokens": "tokens.txt",
+  "files": [
+    {
+      "name": "encoder-epoch-13-avg-2-chunk-8-left-64.int8.onnx",
+      "sha256": "2ca84d6bfe73e1ea3c9c49f600f7cad1c9ddd423c53c906b8bfe802444dd78d5",
+      "bytes": 4600657
+    },
+    {
+      "name": "decoder-epoch-13-avg-2-chunk-8-left-64.onnx",
+      "sha256": "63a22dd60f40fff082ac3e09afa507f6787da36df76ded2fbe145fa233e22c21",
+      "bytes": 759829
+    },
+    {
+      "name": "joiner-epoch-13-avg-2-chunk-8-left-64.int8.onnx",
+      "sha256": "190d4067b4cc20b72a42a1916e69d92052000fb7051a427ebb1bc72a69207dc1",
+      "bytes": 86629
+    },
+    {
+      "name": "tokens.txt",
+      "sha256": "2d3f32311f9b692b964da3c90e830258d3e78e013cb0c992dbfb15cd5a1a71b0",
+      "bytes": 1928
+    }
+  ]
+}

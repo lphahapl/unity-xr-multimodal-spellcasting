@@ -77,7 +77,7 @@ namespace NarutoVR.SealCombat.Editor
                 var field = typeof(LinearRpgController).GetField("EditorTestSaveFile", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                 string probeName = field?.GetValue(null) as string;
                 Require(IsProbeName(probeName) && Path.GetFileName(controller.SavePath) == probeName &&
-                    !controller.autoLoad && !controller.autoAdvanceStages,
+                    !controller.autoLoad && !controller.GetComponent<TrainingChapterFlow>().autoAdvance,
                     "父桥接必须在Awake前注入唯一EditorTestSaveFile，并禁用自动读档/推进；拒绝操作用户档案。");
                 Require(Path.GetFullPath(controller.SavePath) == Path.GetFullPath(Path.Combine(Application.persistentDataPath, probeName)),
                     "测试路径不属于约定的唯一probe文件。");
@@ -252,7 +252,7 @@ namespace NarutoVR.SealCombat.Editor
                 Require(effects.ActiveProjectileCount > 0, "飞行火球应跨真实帧持续存在。");
                 Record("反射Launch模拟发射：取消保留飞行对象（未测试真实前推识别）");
 
-                controller.DebugDefeatTargets();
+                controller.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
                 Require(controller.TryAdvanceStage(), "作弊击破后应允许推进：" + controller.Status);
                 Require(controller.StageIndex == 1 && controller.Progress.unlockedSkillIds.Contains(shield.skillId) && controller.Progress.unlockedSkillIds.Contains(voiceShield.skillId),
                     "第一阶段完成后应解锁两个护盾。");
@@ -266,13 +266,14 @@ namespace NarutoVR.SealCombat.Editor
                 Equal(mana, controller.Player.Mana, "共享CD拒绝不扣费");
                 controller.CancelCasting(); Equal(shieldPoints, effects.ShieldPoints, "取消保留护盾");
                 Record("共享CD阻止交替刷新；取消保留已生效护盾");
-                int uiCues = p1Audio ? p1Audio.UiCueCount : 0;
+                int uiCues = controller.wristMenu.view.AudioCueCount;
                 WristMenuPlayChecks.Run(controller,Record);
                 if(p1)
                 {
-                    Require(p1Audio.SpatialCueCount>0 && p1Audio.UiCueCount>uiCues,
-                        "P1 火核／护盾的空间音效与点腕音效应经过场景音频服务");
-                    Record("P1 真场景施法与点腕均收到音效事件；未监听实际设备输出");
+                    Require(effects.AudioPlayer && effects.AudioPlayer.PlayCount > 0 &&
+                        controller.wristMenu.view.AudioCueCount > uiCues,
+                        "技能空间音效应经过技能播放器，腕部音效应由腕部视图播放");
+                    Record("真场景技能与腕部各自收到音效事件；未监听实际设备输出");
                 }
 
                 string hit = "probe." + runId + ".shield-hit";
@@ -325,8 +326,8 @@ namespace NarutoVR.SealCombat.Editor
                 Record("真实Physics检查下模拟闪避成功，保持head.localPosition并建立CD");
 
                 float baseRuntimeDamage = runtimeEffect.damage;
-                Require(controller.Progress.currency >= controller.fireballUpgradePrice, "首关奖励应足以支付一次火球升级。");
-                Require(controller.UpgradeFireball(), "升级应成功：" + controller.Status);
+                Require(controller.Progress.currency >= controller.GetComponent<RpgSkillShop>().catalog.Find("upgrade.fireball").cost, "首关奖励应足以支付一次火球升级。");
+                Require(controller.GetComponent<RpgSkillShop>().TryPurchase("upgrade.fireball"), "升级应成功：" + controller.Status);
                 Require(runtimeEffect.damage > baseRuntimeDamage, "升级应增加运行态火球伤害。");
                 Require(JsonUtility.ToJson(diskEffect) == originalJson && File.ReadAllBytes(diskPath).SequenceEqual(originalBytes), "升级不得修改原SO内存或磁盘。");
                 Record("升级增加运行态伤害；原SO内存与磁盘字节未改变");
@@ -401,7 +402,7 @@ namespace NarutoVR.SealCombat.Editor
                 int currencyBeforeSecondStage = controller.Progress.currency;
                 int secondReward = controller.stages[controller.StageIndex].rewardCurrency;
                 int rewardCountBefore = controller.Progress.claimedRewardIds.Count;
-                controller.DebugDefeatTargets();
+                controller.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
                 Require(controller.TryAdvanceStage() && controller.StageIndex == 2, "第二阶段作弊击靶后应推进至最终阶段。");
                 Equal(currencyBeforeSecondStage + secondReward, controller.Progress.currency, "第二阶段首次奖励");
                 Require(controller.Progress.claimedRewardIds.Count == rewardCountBefore + 1, "第二阶段只能新增一个奖励ID。");
@@ -409,13 +410,13 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!controller.TryAdvanceStage(), "最终阶段新训练靶尚未击破，不应再次推进领奖。");
                 Equal(currencyAfterSecondStage, controller.Progress.currency, "重复推进不追加奖励");
                 Equal(50, currencyAfterSecondStage, "正常奖励与先前升级后的货币余额");
-                Require(!controller.PurchaseHiddenSkill() && !controller.Progress.unlockedSkillIds.Contains("buff.hidden"), "50货币不足以购买60货币隐藏术。");
+                Require(!controller.GetComponent<RpgSkillShop>().TryPurchase("unlock.hidden") && !controller.Progress.unlockedSkillIds.Contains("buff.hidden"), "50货币不足以购买60货币隐藏术。");
                 Equal(currencyAfterSecondStage, controller.Progress.currency, "购买资金不足不扣货币");
                 Record("第二阶段奖励仅一次；正常奖励减升级支出后余额50，购买60货币隐藏术失败且不扣钱");
 
                 int finalCurrency = controller.Progress.currency;
                 int finalReward = controller.stages[controller.StageIndex].rewardCurrency;
-                controller.DebugDefeatTargets();
+                controller.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
                 Require(controller.TryAdvanceStage() && controller.CampaignComplete, "最终阶段作弊击靶后应完成全部关卡。");
                 Equal(finalCurrency + finalReward, controller.Progress.currency, "最终阶段首次奖励");
                 Require(controller.Progress.completedStageIds.Count == controller.stages.Length, "全部阶段完成标识应完整。");
@@ -423,10 +424,10 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!controller.TryAdvanceStage(), "CampaignComplete后不能再次推进领奖。");
                 Equal(completedCurrency, controller.Progress.currency, "最终关不能重复领奖");
                 Require(controller.Progress.claimedRewardIds.Count == completedRewards && !controller.HazardsEnabled, "最终奖励ID不重复且完成后停止自动攻击。");
-                Require(controller.PurchaseHiddenSkill() && controller.Progress.unlockedSkillIds.Contains("buff.hidden"), "最终正常奖励到账后应能购买隐藏术。");
-                Equal(completedCurrency - controller.hiddenSkillPrice, controller.Progress.currency, "隐藏术只扣一次价格");
+                Require(controller.GetComponent<RpgSkillShop>().TryPurchase("unlock.hidden") && controller.Progress.unlockedSkillIds.Contains("buff.hidden"), "最终正常奖励到账后应能购买隐藏术。");
+                Equal(completedCurrency - controller.GetComponent<RpgSkillShop>().catalog.Find("unlock.hidden").cost, controller.Progress.currency, "隐藏术只扣一次价格");
                 int currencyAfterPurchase = controller.Progress.currency;
-                Require(!controller.PurchaseHiddenSkill(), "重复购买隐藏术必须被拒绝。");
+                Require(!controller.GetComponent<RpgSkillShop>().TryPurchase("unlock.hidden"), "重复购买隐藏术必须被拒绝。");
                 Equal(currencyAfterPurchase, controller.Progress.currency, "重复购买不扣货币");
                 var hidden = Skill("buff.hidden");
                 Equal(25, hidden.manaCost, "隐藏术配置消耗");

@@ -23,7 +23,7 @@ namespace NarutoVR.SealCombat.Editor
                     if (GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(item.gameObject) != 0)
                         throw new Exception("场景有缺失脚本：" + item.name);
             var rpg = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LinearRpgController>(true)).Single();
-            if (rpg.saveFileName != "kaogong-p1-trial.json" || rpg.autoLoad || !rpg.skills ||
+            if (rpg.saveFileName != "kaogong-p1-trial-v2.json" || rpg.autoLoad || !rpg.skills ||
                 !rpg.skills.lab || !rpg.skills.voice || !rpg.skills.effects || !rpg.locomotion || !rpg.wristMenu)
                 throw new Exception("P0 接线或试炼存档隔离失败");
             var pool = rpg.skills.effects.GetComponent<VfxPoolManager>();

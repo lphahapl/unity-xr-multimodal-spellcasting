@@ -87,7 +87,7 @@ namespace NarutoVR.SealCombat.Editor
             void Position(float z) { move.rigRoot.position += new Vector3(0, -.03f, z) - move.PlayerFloorPosition; Physics.SyncTransforms(); room.TickEncounter(); }
             Position(0);
             Check(rpg.CanAct && !move.EncounterCombat && NoActiveEnemy(), $"靶场开局应为探索且敌人未激活；rpg={rpg.Status},room={room.Status}");
-            rpg.DebugDefeatTargets(); typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null); room.TickEncounter();
+            rpg.GetComponent<TrainingTargetGroup>().DebugDefeatAll(); typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null); room.TickEncounter();
             Check(!move.EncounterCombat && NoActiveEnemy() && !room.HasStarted, "击破练习靶不触发战斗");
             Position(17); Check(!room.HasStarted, "通廊不唤醒敌人");
             Position(20); await EnemyPoolingChecks.WithTimeout(room.SpawnTask); enemy = room.enemies.Single();
@@ -108,7 +108,7 @@ namespace NarutoVR.SealCombat.Editor
             finally { move.head.position = headPosition; }
             Check(enemy.Entity.ReceiveHit("room-test-hit", 10, 0, null, move.head), "室内命中可扣血");
             float hp = enemy.Entity.Combat.Health;
-            rpg.targets[0].ResetTarget(); rpg.DebugDefeatTargets();
+            rpg.GetComponent<TrainingTargetGroup>().targets[0].ResetTarget(); rpg.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
             typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null);
             Check(move.EncounterCombat, "室内击破练习靶不得覆盖房间战斗状态");
             Position(17); Check(!move.EncounterCombat && !enemy.CanReceiveHit, "退出暂停战斗与受击");

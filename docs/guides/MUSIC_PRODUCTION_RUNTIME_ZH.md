@@ -1,41 +1,44 @@
-# 本机音乐制作环境
+# 《一寸山河》制作与循环验收
 
-2026-11-05安装并测通。[music-production技能](../skills/music-production/SKILL.md)负责用途、编曲和验收；[Pedalboard](https://github.com/spotify/pedalboard)负责本轮离线共享混响。当前采样仍由项目已有实录音源渲染，未安装新的古筝/笛子音色库或VST宿主插件。Unity只播放导出的音频，不承担Pedalboard计算。
+2026-11-08恢复并重新验收。正式文件为[112秒v11](../../Assets/Audio/kaogong_yicun_shanhe_ambient_loop.wav)，与故障前v11逐字节一致，SHA256：`4d893f2962f3fa5e4e29e2679aff39d90a5ca2005f3022972660daf1549314a9`。原录音、切点与必要源码均已恢复；没有换用合成乐器。
 
-## 已安装与已验证
+## 当前音乐与工程引用
 
-- 隔离Python：`C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe`，Python3.13.5，不继承全局site-packages。
-- 本机环境清单：`C:/Users/鲁迅/.codex/tools/music-production/runtime.json`，记录已测能力和解释器位置，技能选择渲染路线时优先复用。
-- Pedalboard0.9.26、NumPy2.5.4、SciPy1.18.1、SoundFile0.14.0、pyloudnorm0.2.0、Mido1.3.3；完整依赖见冻结清单（历史路径：`../../Logs/yicun-shanhe-pedalboard-v9/tool-setup/freeze.txt`）。
-- 官方PyPI wheel安装；安装记录（历史路径：`../../Logs/yicun-shanhe-pedalboard-v9/tool-setup/setup-summary.json`）保留初次临时文件占用失败与成功重试。全局Python未修改，`pip check`通过。
-- [真实分轨片段测试](../../scratch/test_yicun_pedalboard.py)13项通过，包括格式、非静音、参数生效、尾音、重复渲染，以及124个不等长块与整段结果相同。测试用混响参数不是正式曲目的参数。
+60BPM、4/4、28小节。古筝、竹笛与轻中提琴，约−28.991 LUFS，峰值−12.823dBFS。保留8秒前奏和笛子完整主题两次陈述。40–56秒保留弦乐退出，但以弱古筝连接过长空隙；53.35/54.25/55.15秒的E–G–A引向56.25秒笛子C；去掉约78秒的同音重叠，G–A引向88.25秒再现，笛子再入起音较轻。
 
-## 复现当前v10
+首章和P1的`explorationMusic`已指向正式文件，音乐音量仍为0.28；探索不再使用恢复期的空槽静音。正式文件保留当前GUID `6b5271a650bc6bd42bba69f84849a867`，导入为立体声44.1kHz PCM/Streaming、关闭归一化、后台加载。8秒前奏属于整曲，每轮都会重播。战斗音乐现已按用户选择接入A，见下节。
 
-在项目根目录执行：
+## 战斗曲A接入（2026-11-08）
 
-```powershell
-& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'scratch/render_yicun_shanhe_phrased_v10.py'
-```
+用户选择[方案A](../../Assets/Audio/kaogong_combat_opt_a_taut_clockwork.wav)，首章和P1的`combatMusic`均已绑定GUID `7da01d4da958b704ea5438a032e74fe3`。母带未改：37.5秒、44.1kHz双声道PCM16、−22.994LUFS；SHA256 `2d4a31fa3ed9d57199dffdf491ee82662e92f125205d6476855066106175f8d5`。导入改为PCM/Streaming、关闭归一化、后台加载。音量0.28与1.2秒交叉淡化保持原配置；两条音乐从场景启动开始循环，进入战斗时混入A，并非每次从头播放。
 
-输出到`Logs/yicun-shanhe-phrased-v10/`，会重写该目录的同名候选及报告，先另存需要保留的候选。脚本不自动覆盖Unity正式音频。v9及工具安装测试保留在原目录。
+Unity6000.3.10f1逐场景读回引用通过，仅替换两场景各一条战斗引用，导航和探索引用保留。已有交叉淡化/语音避让13项检查通过；独立空场景从零播放A两轮，捕获76.757秒、3598个音频回调、两次自然回绕，PCM比对未见额外静音或接缝时间跳变。[接入验收](../../Logs/combat-a-integration-20261108/integration-summary.json) · [波形比对](../../Logs/combat-a-integration-20261108/capture-qa.json)。未测正式场景完整遭遇流程、Quest及物理混播听感。
 
-v10针对用户“笛子离散、没有主题”的试听反馈重写乐句：8.25秒与16.25秒完整陈述同一个六音主题，再模进、换尾与再现。`scratch/yicun_dizi_phrases_v10.py`将实录持音按24ms等功率交接连接，整句连续力度、句首起音和句尾收气，句间至少约0.65秒换气。它是持音采样编程连接，并非录制了真实连奏过渡；JSON保存逐句表达控制点，MIDI保留音高、名义时值和力度，不能单独复现全部奏法。
+A的28–31.5秒并无历史说明所称静音，文件最长全零休止为32.400–32.812秒的约412ms；此次保留原编曲。破韧音乐联动尚未实现，详见[音画规范](../architecture/AUDIO_VFX_SPECIFICATION_ZH.md#21-破韧留白属于尚未实现的设计)。B/C保留候选，未接线。
 
-产物包括112秒WAV、三个同起点/长度的dry分轨、共享混响return、可编辑MIDI、源音符/音源映射/参数/hash报告、开头32秒和跨接缝20秒试听。MIDI不放入GM替代program；loop marker在112秒，持音可延伸到marker之后。JSON与脚本保存真实采样映射和尾部，直接用通用MIDI播放器不等于复现原音色。
+## 复现
 
-正式混响为短而轻的共享空间：room_size0.36、damping0.64，湿声通道105Hz高通/6200Hz低通；干声保留现有实录处理。输出以`(channels, frames)`连续float32传入Pedalboard；同一流的后续块/轮保留状态。连续三轮渲染时第三轮与第二轮逐样本差为0，取稳定一轮保留跨缝混响，未给首尾机械清零。
-
-固定音源校准保留减法编曲与乐句动态，只在最终混音施加一次整体增益。母带目标约-29LUFS用于当前轻声常态场景，不作为其他作品的统一标准。真实音源、代码和输出hash见render.json（历史路径：`../../Logs/yicun-shanhe-phrased-v10/render.json`）。
-
-## 验收与发布
-
-用已安装skill的只读分析器检查候选，`--out`使用未存在的新文件：
+原Python3.13解释器已丢失；旧venv保留，新隔离解释器为`C:/Users/鲁迅/.codex/tools/music-production/.venv-rebuild-311/Scripts/python.exe`（Python3.11.9）。Pedalboard0.9.26、NumPy2.4.6、SciPy1.17.1、SoundFile0.14.0、pyloudnorm0.2.0、Mido1.3.3，安装使用本机配置的PyPI镜像。实际依赖见[freeze](../../Logs/yicun-shanhe-continuity-v11-rebuild-20261108/freeze-311.txt)。
 
 ```powershell
-& 'C:/Users/鲁迅/.codex/tools/music-production/.venv/Scripts/python.exe' -X utf8 'C:/Users/鲁迅/.codex/skills/music-production/scripts/analyze_audio.py' 'Logs/yicun-shanhe-phrased-v10/yicun_shanhe_phrased_v10.wav' --loop --sections 'Logs/yicun-shanhe-phrased-v10/sections.json' --out 'Logs/yicun-shanhe-phrased-v10/new-audio-review.json'
+& 'C:/Users/鲁迅/.codex/tools/music-production/.venv-rebuild-311/Scripts/python.exe' -X utf8 'scratch/render_yicun_shanhe_continuity_v11.py'
 ```
 
-谱面检查实际note尾部、换气与主题；信号检查分轨相加、削波、动态和接缝；听感另行试听。v10句内短交接是有意奏法，需查电平与音高平台，不要求每音之间静音。固定音源清理不等于所有录音纯净：G4古筝仍保留有限处理后的自然共振，需要结合整曲听辨。
+渲染写到`Logs/yicun-shanhe-continuity-v11-rebuild-20261108/`，不自动发布Assets；重跑前先另存需要保留的同名产物。v7只恢复了v11所需音源/音符函数和旧v6乐谱依赖，不承诺旧v7独立入口可运行。原音源哈希、干轨重构与周期混响10项检查见[重建验收](../../Logs/yicun-shanhe-continuity-v11-rebuild-20261108/rebuild-qa.json)。谱面与奏法以脚本/JSON为准；MIDI不包含全部实录采样奏法。
 
-发布前保存旧WAV和.meta，核验正式文件与候选hash相同，保留GUID和PCM/Streaming导入设置。P1播放器使用完整AudioClip的loop，前奏每轮都会经过；一次性前奏需要另行改变播放结构。目标设备的听感、性能及与旁白/SFX混播不能由桌面波形检查代替。
+## Unity完整测试
+
+在已打开本项目的编辑器中运行，每次用新的ID：
+
+```powershell
+python -X utf8 scratch/run_bgm_unity_probe.py run --id my-bgm-check --sha256 4d893f2962f3fa5e4e29e2679aff39d90a5ca2005f3022972660daf1549314a9 --duration 112 --full-loops 2 --wait-seconds 10
+python -X utf8 scratch/run_bgm_unity_probe.py poll --id my-bgm-check --wait-seconds 30
+```
+
+CLI等待超时只返回pending，不停止Unity。默认锁定程序集重载，独立空启动场景保留原编辑场景及未保存状态；测试从零自然播放两轮，不跳播。结束后需同时检查`passed`、`sceneRestored`和`locksReleased`。本次接线使用的一次性Editor工具已归档到`Logs/bgm-resume-20261108/`；普通run不保存场景。接线时发现共用导航数据的两个场景不可同时加载保存，P1导航引用已逐字段还原，未留下延迟接线请求。
+
+本次两轮捕获226.645秒、10624个音频回调，通过[运行与PCM验收](../../Logs/bgm-resume-20261108/unity-playback-summary.json)。3秒时主动申请脚本重载，保护开启后仍完成两轮；关闭保护的负例准确记录重载中断。原测试的单次DSP快照、静态截止时间跨重载归零都不能作为音频掉线证据。
+
+捕获校验工具为[verify_bgm_capture.py](../../scratch/verify_bgm_capture.py)：全采样率相关搜索、独立时间锚、两个接缝、额外静音与回调序列。正例及两种50ms掉音负例见[合成回归](../../Logs/bgm-capture-verifier-20261108/test-01/validation.json)。重采样后不要求两轮逐样本相等；保留差异指标，并核时间连续性，不以更改对齐掩盖真实插入静音。
+
+这是桌面音频线程和正式资源接线验收，不是物理设备录音；Quest、旁白/SFX混播和主观听感尚未验收。故障前第三次提前退出的发起者仍无法追溯，没有仅凭XR初始化报错作归因。11月5日旧日志已丢失，不作为本次通过证据。

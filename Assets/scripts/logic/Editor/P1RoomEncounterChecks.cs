@@ -22,7 +22,7 @@ namespace NarutoVR.SealCombat.Editor
             void Move(float z) { f.Rig.transform.position = f.Origin + Vector3.forward * z; Physics.SyncTransforms(); room.TickEncounter(); }
             room.TickEncounter();
             Check(!room.HasStarted && !enemy.gameObject.activeSelf && !rpg.locomotion.EncounterCombat, "开局练习区敌人关闭且探索");
-            Check(rpg.targets.Length == 1 && f.Target.resetAfterSeconds == 3 && !rpg.HazardsEnabled, "单练习靶三秒恢复且预警关闭");
+            Check(rpg.GetComponent<TrainingTargetGroup>().targets.Length == 1 && f.Target.resetAfterSeconds == 3 && !rpg.HazardsEnabled, "单练习靶三秒恢复且预警关闭");
             f.Target.ApplyHit(10000); rpg.ToggleHazards();
             Check(!rpg.TryAdvanceStage() && !rpg.HazardsEnabled, "手动推进和训练预警也不能绕过房间模式");
             Move(10);
@@ -111,10 +111,12 @@ namespace NarutoVR.SealCombat.Editor
                     stage.startsInCombat = true; stage.enableHazards = true; // 区域模式必须覆盖旧阶段设置。
                     skills.effects = effects; skills.lab = lab;
                     skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>("Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset");
-                    Rpg = Rig.AddComponent<LinearRpgController>(); Rpg.skills = skills; Rpg.locomotion = locomotion;
+                    Rpg = Rig.AddComponent<LinearRpgController>();
+                Rpg.chapter = Rig.AddComponent<TrainingChapterFlow>();
+                ((TrainingChapterFlow)Rpg.chapter).rpg = Rpg; ((TrainingChapterFlow)Rpg.chapter).initialSkills = new[]{"fireball"}; Rpg.skills = skills; Rpg.locomotion = locomotion;
                     Rpg.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
-                    Rpg.stages = new[] { stage }; Rpg.targets = new[] { Target }; Rpg.checkpointNodes = new[] { node };
-                    Rpg.autoLoad = false; Rpg.autoAdvanceStages = true; Rpg.roomControlsEncounter = true;
+                    Rpg.stages = new[] { stage }; Rpg.GetComponent<TrainingTargetGroup>().targets = new[] { Target }; Rpg.GetComponent<TrainingTargetGroup>().healthByStage = new[]{60f}; Rpg.GetComponent<TrainingTargetGroup>().resetAfterSeconds=3; Rpg.checkpointNodes = new[] { node };
+                    Rpg.autoLoad = false; Rpg.GetComponent<TrainingChapterFlow>().autoAdvance = true; Rpg.roomControlsEncounter = true;
                     Rpg.saveFileName = "room-check-" + Guid.NewGuid().ToString("N") + ".json";
                     var go = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(EnemySetupAndChecks.PrefabPath), root.transform);
                     go.SetActive(false); go.transform.position = SpawnPosition;

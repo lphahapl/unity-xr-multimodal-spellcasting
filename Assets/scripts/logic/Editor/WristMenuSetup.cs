@@ -64,6 +64,7 @@ namespace NarutoVR.SealCombat.Editor
                 var go = new GameObject("左腕术式菜单与教学卡");
                 SceneManager.MoveGameObjectToScene(go,scene);
                 rpg.wristMenu = go.AddComponent<WristMenuController>();
+                rpg.wristMenu.showUndiscoveredEntries = rpg.chapter is TrainingChapterFlow;
                 rpg.wristMenu.view = go.AddComponent<WristMenuView>();
                 rpg.wristMenu.view.font = Resources.Load<Font>("Fonts/NotoSansCJKsc-Regular");
             }
@@ -95,7 +96,7 @@ namespace NarutoVR.SealCombat.Editor
                 view.SetDecoration(new Pose(origin+new Vector3(-.36f,-.26f,1.1f),Quaternion.identity),true);
                 view.SetHover("next",.7f);
                 // Presentation contact sheet: arming hint and opened menu are shown side by side in time.
-                view.SetOpeningHint(new Pose(origin+new Vector3(-.36f,.08f,1.1f),Quaternion.identity),"抬左腕 · 右指点腕饰开关",0,true);
+                view.SetWristActivationHint(new Pose(origin+new Vector3(-.36f,.08f,1.1f),Quaternion.identity),"抬左腕 · 右指点腕饰开关",0,true);
                 var camera = cameraObject.AddComponent<Camera>(); camera.transform.position = origin;
                 camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.018f,.025f,.045f);
                 camera.fieldOfView = 43; camera.cullingMask = 1<<30; camera.targetTexture = render;

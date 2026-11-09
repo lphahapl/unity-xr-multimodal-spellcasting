@@ -116,7 +116,7 @@ namespace NarutoVR.SealCombat.Rpg
             throwDirection = Line("火球瞄准线", throwMaterial, .009f);
             aimReticle = Line("火球落点准星", throwMaterial, .009f);
             rawWindupLine = Line("前送原轨迹（细线）", throwMaterial, .003f);
-            if (controller.openingChapter)
+            if (controller.chapter && controller.chapter.UsesWorldNavigationMarks)
                 openingMarks = new OpeningNavigationMarks(visuals,movement,
                     MakeMaterial(new Color(.27f,.24f,.19f)),MakeMaterial(new Color(.78f,.75f,.63f)),
                     MakeMaterial(new Color(1f,.67f,.30f)));
@@ -126,7 +126,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!controller || !movement || !visuals) return;
             bool active = controller.CanAct;
-            bool chapterWalking = controller.openingChapter && movement.UsesEncounterModes && !movement.EncounterCombat;
+            bool chapterWalking = controller.chapter && controller.chapter.UsesWorldNavigationMarks && movement.UsesEncounterModes && !movement.EncounterCombat;
             if (active && !chapterWalking && movement.NavigationActive && !wasNavigating)
                 Present(RpgActionCue.NavigationReady);
             if (active && movement.SealProtectionActive && !wasProtected)
@@ -302,8 +302,11 @@ namespace NarutoVR.SealCombat.Rpg
             if (playSounds && volume > 0)
             {
                 var sound = clip ? clip : generated[tone];
-                if (!controller.TryGetComponent<P1AudioManager>(out var audio) || !audio.TryPlayAction(cue, sound, volume))
-                    speaker.PlayOneShot(sound, volume);
+                bool skillHandled = effects && (
+                    cue == RpgActionCue.CastReady && effects.LastActivationAudioHandled ||
+                    cue == RpgActionCue.Launched && effects.LastLaunchAudioHandled ||
+                    cue == RpgActionCue.Hit && effects.LastImpactAudioHandled);
+                if (!skillHandled) speaker.PlayOneShot(sound, volume);
                 SoundCount++;
             }
             if (openingMarks != null && (cue == RpgActionCue.NavigationReady || cue == RpgActionCue.TargetSelected ||

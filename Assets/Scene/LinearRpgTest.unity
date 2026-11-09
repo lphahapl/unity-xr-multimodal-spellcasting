@@ -806,7 +806,7 @@ MonoBehaviour:
     allowRay: 1
     allowPoke: 1
   glyphPolicy:
-    closeWithWrist: 1
+    closeWithWrist: 0
     allowRay: 1
     allowPoke: 1
   voicePolicy:
@@ -816,6 +816,8 @@ MonoBehaviour:
   launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
   panelDistance: 0.65
   panelLower: 0.12
+  teachingCatalog: {fileID: 0}
+  showUndiscoveredEntries: 1
 --- !u!4 &121289192
 Transform:
   m_ObjectHideFlags: 0
@@ -4210,7 +4212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestController
-  catalog: {fileID: 11400000, guid: 27743c64a07643b46a1de13e6162087d, type: 2}
+  catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
   voice: {fileID: 436909647}
@@ -12283,6 +12285,10 @@ GameObject:
   - component: {fileID: 1147475782}
   - component: {fileID: 1147475781}
   - component: {fileID: 1147475786}
+  - component: {fileID: 900000001}
+  - component: {fileID: 900000101}
+  - component: {fileID: 900010000}
+  - component: {fileID: 900010001}
   m_Layer: 0
   m_Name: "\u7EBF\u6027RPG \xB7 \u5173\u5361\u4E0E\u5BFC\u822A"
   m_TagString: Untagged
@@ -12356,10 +12362,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
   - {fileID: 11400000, guid: 7d61a41af3f21a548b6262c5230aa353, type: 2}
   - {fileID: 11400000, guid: 610037eba651af247ad3150923bdd833, type: 2}
-  targets:
-  - {fileID: 778310719}
-  - {fileID: 907908521}
-  - {fileID: 1237701911}
   checkpointNodes:
   - {fileID: 1253936422}
   - {fileID: 2045226543}
@@ -12367,11 +12369,8 @@ MonoBehaviour:
   lowHandsBelowHead: 0.55
   handPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
   autoLoad: 1
-  saveFileName: linear-rpg-v1.json
-  autoAdvanceStages: 1
-  stageDelay: 3
-  hiddenSkillPrice: 60
-  fireballUpgradePrice: 30
+  saveFileName: linear-rpg-v2.json
+  chapter: {fileID: 900000001}
 --- !u!114 &1147475784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25825,3 +25824,68 @@ SceneRoots:
   - {fileID: 955084675}
   - {fileID: 1147475785}
   - {fileID: 121289192}
+--- !u!114 &900000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd50356fb0c4e8c8726d14cab0e243e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingChapterFlow
+  rpg: {fileID: 1147475783}
+  initialSkills:
+  - fireball
+  trialSkills:
+  - thunder.sword
+  autoAdvance: 1
+  advanceDelay: 3
+--- !u!114 &900000101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e477ca66e4aedd840a31a724b397ee75, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.PlayerObj
+--- !u!114 &900010000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4a915dcbd04e0c8f030a09a0cffc2e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
+  targets:
+  - {fileID: 778310719}
+  - {fileID: 907908521}
+  - {fileID: 1237701911}
+  healthByStage:
+  - 60
+  - 90
+  - 120
+  resetAfterSeconds: 0
+--- !u!114 &900010001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbf709d894f46c7be4946285bdd03e9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgSkillShop
+  catalog: {fileID: 11400000, guid: d2bfd484939543e5b9394f661d35ec8f, type: 2}
