@@ -1,6 +1,6 @@
 # 教学、成长、物品与章节的职责
 
-2026-11-08，按当前实现整理。`TechniqueProgression` 及其混合配置已删除。教学内容保留为独立目录；成长规则不使用“课程”作为技能身份，也不需要知道首章或铜叶。
+2026-11-10 按玩家模型与 v2 持久层更新。`TechniqueProgression` 及其混合配置已删除。教学内容保留为独立目录；成长规则不使用“课程”作为技能身份，也不需要知道首章或铜叶。
 
 ## 概念与拥有者
 
@@ -8,12 +8,12 @@
 |---|---|---|
 | 技能配方 | `SkillDefinition` / `SkillCatalog` | 技能 ID、输入、资源及效果引用 |
 | 教学内容 | `TeachingCatalog` / `TeachingEntry` | 页面标题、配方分组、操作文案；不授予技能 |
-| 技能进度 | `SkillProgression` | 了解、永久解锁、等级；不读取教学、物品、章节或磁盘 |
+| 技能进度 | `PlayerModel` / `IPlayerReadModel` | 模型存放了解、永久解锁与等级，UI 读取投影 |
 | 成长物品 | `ProgressionItemCatalog` / `RpgItemInventory` | 物品身份、收集、激活与对应奖励；不判断入匣动作或校验门 |
-| 商品交易 | `SkillShopCatalog` / `RpgSkillShop` / `SkillShopTransactions` | 目录描述商品，组件接收购买请求，规则在草稿中检查门槛、扣费和等级上限 |
-| 一次性奖励 | `RpgRewards` | 奖励 ID 去重、货币及技能授予 |
+| 商品交易 | `RpgSkillShop` / `ProgressionController` | 对候选模型检查商品、余额、阶段及等级上限 |
+| 一次性奖励 | `PlayerModel.ClaimStage` / `ChapterModel` | 在同一候选对象写阶段、奖励收据、货币与永久解锁 |
 | 章节许可 | `RpgChapterFlow` 的实现 | 临时授权、永久技能在当前阶段是否允许使用 |
-| 会话与提交 | `LinearRpgController` | 调用模块、阶段提交、完整进度校验、保存与失败重试 |
+| 会话与提交 | `LinearRpgController` / `CheckpointSaveCoordinator` | 会话核对实际节点与章节许可，保存协调器保留最新有效快照并重试 |
 | 磁盘格式 | `RpgProgressData` / `RpgSaveStore` | 纯数据快照，以及版本、白名单、备份、原子替换 |
 | 技能副本 | `RuntimeSkillCatalog` | 每名玩家的技能/效果副本及生命周期；按各自 ID 应用等级 |
 | 训练设施 | `TrainingTargetGroup` | 训练靶引用、各阶段靶生命、复位时间和状态汇总 |
@@ -21,7 +21,7 @@
 ```mermaid
 flowchart LR
     Content[TeachingCatalog 内容] --> UI[腕匣教学展示]
-    Skill[SkillProgression 技能进度] --> UI
+    Skill[PlayerModel 技能进度] --> UI
     Chapter[RpgChapterFlow 章节授权] --> Session[LinearRpgController 会话]
     Interaction[首章捏取 / 吸附成功] --> Items[RpgItemInventory]
     ItemConfig[ProgressionItemCatalog] --> Items
@@ -31,7 +31,8 @@ flowchart LR
     Items --> Draft[独立进度草稿]
     Shop --> Draft
     Draft --> Session
-    Session --> Store[RpgSaveStore]
+    Session --> Save[CheckpointSaveCoordinator]
+    Save --> Store[RpgSaveStore]
     Session --> Runtime[RuntimeSkillCatalog]
     Runtime --> Effect[各效果自己的等级规则]
 ```
@@ -50,11 +51,11 @@ flowchart LR
 
 ## 进度变更与失败处理
 
-`CreateProgressDraft()` 生成独立快照。物品和商店在草稿中计算奖励或扣费，然后调用 `CommitProgressChange()`。主控检查字段、技能目录、当前阶段和扩展模块规则；草稿不得变更阶段完成记录或阶段奖励记录。只有章节的 `CompleteChapterObjective()` 能提交阶段。
+`ProgressionController` 接收领取、购买与授予命令。会话在独立候选模型上计算，通过 v2 结构和章节约束后提交。只有章节完成入口能写一整段的奖励收据。UI 可获取只读玩家接口，诊断导出的检查点是独立副本。
 
-提交结果区分 `Rejected`、`Saved` 和 `PendingSave`。拒绝时不应用草稿；写盘失败时，本轮成功交互继续生效并保留最新待保存快照。后续有效交易替换较早快照；恢复检查点优先使用待保存快照，避免丢掉已经成功的物品或扣费。磁盘重试成功不能把运行状态回滚到旧快照。
+提交结果区分 `Rejected`、`Saved` 和 `PendingSave`。拒绝时不应用草稿；写盘失败时，本轮成功交互继续生效并保留最新待保存快照。后续有效交易替换较早快照；恢复检查点优先使用待保存快照，避免丢掉已经成功的物品或扣费。重试只确认实际写出的那一份快照。读档落地、提交以及发布通知共享同一条命令边界，监听者重入保存或恢复时会被拒绝。主档为未知版本时，临时角色从本轮内存检查点恢复。
 
-`IRpgProgressConstraint` 供实际存在的物品和商店模块检查配置/候选进度。增加新模块时把它挂在 RPG 同一对象，不向主控添加新的物品类型判断。
+`IRpgProgressConstraint` 供物品和商店模块检查配置及候选进度。会话装配时收集自己及子物体上的实现，每个实现归最近的上级 `LinearRpgController` 管理。三个 RPG 场景把这些组件放在「RPG 会话与玩家 / 成长与物品」。
 
 ## 本轮同时修正的问题
 

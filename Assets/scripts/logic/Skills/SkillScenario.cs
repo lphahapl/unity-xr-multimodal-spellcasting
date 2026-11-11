@@ -18,7 +18,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("场景类型")] public SkillScenarioKind kind;
         [InspectorName("场景中文标题")] public string title;
         [InspectorName("试炼说明"), TextArea(3, 8)] public string instructions;
-        [InspectorName("技能效果执行器")] public SkillEffects effects;
+        [InspectorName("技能效果执行器")] public SkillController effects;
         [InspectorName("独立世界说明面板")] public Text worldText;
         [InspectorName("中文字体")] public Font chineseFont;
         [Header("二、护盾演示（不修改玩家生命）")]
@@ -39,7 +39,7 @@ namespace NarutoVR.SealCombat
 
         private void Start()
         {
-            if (!effects) effects = GetComponent<SkillEffects>();
+            if (!effects) effects = GetComponent<SkillController>();
             Status = kind == SkillScenarioKind.ShieldTrial
                 ? "先摆子印或念“护体咒”；获得护盾后自动开始一轮测试。"
                 : "输入满足即激活；保留原有三种配方与取消方式。";
@@ -96,7 +96,7 @@ namespace NarutoVR.SealCombat
                 return;
             }
             float incoming = float.IsFinite(testDamage) ? Mathf.Max(1, testDamage) : 30;
-            float remainder = effects.AbsorbDamage(incoming);
+            float remainder = effects.AbsorbPracticeDamage(incoming);
             PulseCount++; UnabsorbedDamage += remainder;
             Status = $"第 {PulseCount} 次：护盾吸收 {incoming - remainder:0}；未吸收伤害 {remainder:0}。\n剩余护盾 {effects.ShieldPoints:0}。未接入玩家生命系统。";
             Debug.Log("[护盾试炼] " + Status, this);

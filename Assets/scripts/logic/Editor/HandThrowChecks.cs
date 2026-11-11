@@ -113,18 +113,18 @@ namespace NarutoVR.SealCombat.Editor
             return count;
         }
 
-        /// <summary>Actual SkillEffects LateUpdate, grip callback, held bone placement and projectile launch across real frames.</summary>
+        /// <summary>Actual SkillController LateUpdate, grip callback, held bone placement and projectile launch across real frames.</summary>
         public static IEnumerator PlayProbe(Action<string> record)
         {
             var root = new GameObject("投掷验收_独立实体");
             var head = new GameObject("测试头部"); head.transform.SetParent(root.transform);
             head.transform.position = new Vector3(10000, 1.7f, 10000); head.transform.rotation = Quaternion.Euler(0,90,0);
-            var effect = root.AddComponent<SkillEffects>(); effect.head = head.transform; effect.playerRoot = root.transform; effect.hitLayers = 0;
+            var effect = root.AddComponent<SkillController>(); effect.head = head.transform; effect.playerRoot = root.transform; effect.hitLayers = 0;
             var trace = new System.Collections.Generic.List<HandThrowObservation>();
             effect.ThrowObserved += observation => trace.Add(observation);
             var definition = ScriptableObject.CreateInstance<ProjectileEffectDefinition>(); definition.releaseMode = ProjectileReleaseMode.GripThrow;
             definition.throwLocalOffset = new Vector3(.03f,.04f,.06f);
-            var skill = ScriptableObject.CreateInstance<SkillDefinition>(); skill.effectDefinition = definition; skill.durationSeconds = 10; skill.displayName="投掷测试";
+            var skill = ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.handthrowchecks.skill"; skill.cooldownSeconds = 0; skill.effectDefinition = definition; skill.durationSeconds = 10; skill.displayName="投掷测试";
             Vector3 origin=head.transform.position + Vector3.down*.3f, hand=origin;
             Quaternion rotation=Quaternion.Euler(40,15,70);
             bool closed=true;
@@ -137,11 +137,10 @@ namespace NarutoVR.SealCombat.Editor
             effect.ThrowGripProvider = (_,__) => Grip(observedTime,closed);
             try
             {
-                Require(effect.TryActivate(skill),"实际效果执行器未生成投掷球");
+                Require(effect.TryCast(skill),"实际效果执行器未生成投掷球");
                 for(int i=0;i<24;i++) { observedTime+=.02; yield return null; }
                 var held = root.scene.GetRootGameObjects();
-                var field=typeof(SkillEffects).GetField("heldObject",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
-                var ball=(GameObject)field.GetValue(effect);
+                var ball=(GameObject)UnityEditor.EditorUtility.EntityIdToObject(effect.HeldProjectileInstanceId);
                 Require(ball && Vector3.Distance(ball.transform.position,hand+rotation*definition.throwLocalOffset)<.002f,"持球位置必须跟随腕骨局部偏移而非头朝向");
                 record("实际持握球跟随腕骨局部坐标，头部转向不改变偏移基准");
                 closed=false;
@@ -163,7 +162,7 @@ namespace NarutoVR.SealCombat.Editor
                 hand=origin; closed=true; bool open=false;
                 int secondTraceStart=trace.Count;
                 effect.ThrowGripProvider = (_,__) => { var sample=Grip(observedTime,closed); sample.fistOpen=open; return sample; };
-                Require(effect.TryActivate(skill),"延迟张掌对照未生成第二颗火球");
+                Require(effect.TryCast(skill),"延迟张掌对照未生成第二颗火球");
                 for(int i=0;i<24;i++) { observedTime+=.02; yield return null; }
                 for(int i=1;i<=20 && effect.HasHeldObject;i++)
                 {
@@ -185,7 +184,7 @@ namespace NarutoVR.SealCombat.Editor
                 GameObject obstacle=null;
                 try
                 {
-                    Require(effect.TryActivate(skill),"动态障碍对照未生成火球");
+                    Require(effect.TryCast(skill),"动态障碍对照未生成火球");
                     for(int i=0;i<24;i++){observedTime+=.02;yield return null;}
                     for(int i=1;i<=20;i++)
                     {

@@ -100,8 +100,8 @@ namespace NarutoVR.SealCombat.Editor
                     Rig = Child("玩家");
                     var head = Child("头部", Rig.transform).transform; head.localPosition = Vector3.up * 1.6f;
                     var lab = Rig.AddComponent<NarutoVR.SealLab.SealLab>(); lab.enabled = false;
-                    var skills = Rig.AddComponent<SkillTestController>(); skills.enabled = false;
-                    var effects = Rig.AddComponent<SkillEffects>(); effects.head = head; effects.playerRoot = Rig.transform; effects.lab = lab;
+                    var skills = Rig.AddComponent<SkillInputController>(); skills.enabled = false;
+                    var effects = Rig.AddComponent<SkillController>(); effects.head = head; effects.playerRoot = Rig.transform; effects.lab = lab;
                     var locomotion = Rig.AddComponent<RpgLocomotionController>(); locomotion.head = head; locomotion.rigRoot = Rig.transform;
                     locomotion.floorLayers = 1; locomotion.obstacleLayers = 0;
                     Floor = Child("地面").AddComponent<BoxCollider>(); Floor.center = Vector3.down * .5f; Floor.size = new Vector3(30, 1, 40);

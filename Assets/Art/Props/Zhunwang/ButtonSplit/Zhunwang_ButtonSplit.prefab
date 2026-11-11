@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08f2aac67dd84f8d9745182562d9b250, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGauge
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGauge
   cells:
   - {fileID: 6011093159719998832}
   - {fileID: 8868165017423071840}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d636c896efd0c94f83bb855688502fc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.ZhunwangPressButton
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.ZhunwangPressButton
   cap: {fileID: 3240415454711379207}
   display: {fileID: 3415012036416032677}
   handInput: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86744c2f9c7444598dda059c1a9749be, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.ZhunwangWristDisplay
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.ZhunwangWristDisplay
   vitalsAnchor: {fileID: 6869088466266241084}
   menuAnchor: {fileID: 7800154242901817349}
   health: {fileID: 2659317902586880404}
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08f2aac67dd84f8d9745182562d9b250, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGauge
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGauge
   cells:
   - {fileID: 9123851323172596011}
   - {fileID: 7862510131583104379}
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 3086364854124930558}
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 2768406416384895747}
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 75695877742777067}
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 3649893320863232543}
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 1038150960223190072}
@@ -846,7 +846,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 4552807092886306753}
@@ -868,7 +868,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 3085452138620396099}
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 4443819379666192197}
@@ -922,7 +922,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 1739120419730790447}
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 6479978913542173613}
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 158222925685607367}
@@ -993,7 +993,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 6534105649281382378}
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 5173809356742878380}
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 2685068141678659763}
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 7120011060963193459}
@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 8650324905196068825}
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 7980207595968201356}
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 2082008841291510463}
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 5293982151345946140}
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f69be7d0dbdc47809b3d0e6627f8aefc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristGaugeCell
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristGaugeCell
   inlay: {fileID: 0}
   glint: {fileID: 0}
   insert: {fileID: 2856008256356376544}

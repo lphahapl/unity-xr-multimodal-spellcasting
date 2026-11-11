@@ -46,13 +46,7 @@ namespace NarutoVR.SealCombat.Rpg
                 status = rpg.Player.Alive ? "玩家暂停，敌人已暂停" : "玩家倒下，等待恢复检查点"; return;
             }
             if (complete) { rpg.SetEncounterCombat(false); status = "房间已完成，探索中"; return; }
-            if (started && roomLeases.Any(l => !enemyManager.IsCurrent(l)))
-            {
-                if (!PauseManagedEnemies()) return; rpg.SetEncounterCombat(false);
-                status = "房间实例已被外部回收或管理器重启，请重置遭遇"; return;
-            }
-            if (started && roomLeases.Count > 0 && roomLeases.All(l => Defeated(l.Controller)))
-            { FinishEncounter(); return; }
+            if (started && CheckRoomDefeats()) return;
             if (!ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside))
             {
                 inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.SetEncounterCombat(false);
@@ -75,6 +69,32 @@ namespace NarutoVR.SealCombat.Rpg
                 foreach (var lease in roomLeases) if (enemyManager.IsCurrent(lease) && !Defeated(lease.Controller)) lease.Controller.SetSuspended(false);
             }
             rpg.SetEncounterCombat(true); status = "房间战斗中";
+        }
+
+        bool CheckRoomDefeats()
+        {
+            bool allDefeated = roomLeases.Count > 0;
+            for (int i = 0; i < roomLeases.Count; ++i)
+            {
+                var lease = roomLeases[i];
+                // The controller can already belong to a different spawn while this room is still fighting.
+                if (lease.Defeated)
+                {
+                    enemies[i] = null;
+                    continue;
+                }
+                if (!enemyManager.IsCurrent(lease))
+                {
+                    enemies[i] = null;
+                    if (!PauseManagedEnemies()) return true;
+                    rpg.SetEncounterCombat(false);
+                    status = "房间实例已被外部回收或管理器重启，请重置遭遇";
+                    return true;
+                }
+                allDefeated = false;
+            }
+            if (allDefeated) FinishEncounter();
+            return allDefeated;
         }
         async Task SpawnRoomAsync(int token, CancellationTokenSource request)
         {

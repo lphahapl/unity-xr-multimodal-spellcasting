@@ -5,6 +5,12 @@ using NarutoVR.SealCombat.Events;
 
 namespace NarutoVR.SealCombat.Enemies
 {
+    internal interface IEnemyHitResponse
+    {
+        bool CanReceiveHit { get; }
+        void RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision);
+    }
+
     public enum EnemyReaction
     {
         [InspectorName("无")] None, [InspectorName("受击")] Hit,
@@ -37,6 +43,8 @@ namespace NarutoVR.SealCombat.Enemies
         [SerializeField, InspectorName("削韧状态（运行时只读）")] string combatStatus;
         public EnemyCombatState Combat { get; private set; }
         int combatMutation;
+        internal IEnemyHitResponse HitResponse { get; set; }
+        internal bool IsCurrentHit(int revision) => isActiveAndEnabled && combatMutation == revision;
         public EnemyCombatDefinition CombatDefinition { get => combatDefinition; set => combatDefinition = value; }
         public string ActiveAttackId => strike?.Id;
         public AttackData[] Attacks => attacks;
@@ -133,8 +141,8 @@ namespace NarutoVR.SealCombat.Enemies
         /// <summary>技能/武器统一受击接口。传本次唯一 ID；弱点区必须属于当前敌人。</summary>
         public bool ReceiveHit(string hitId, float damage, float poiseDamage, EnemyHitZone zone = null, Transform attacker = null)
         {
-            var controller = GetComponent<EnemyController>();
-            if (!isActiveAndEnabled || !controller || !controller.CanReceiveHit || Combat == null || Combat.Dead ||
+            var response = HitResponse;
+            if (!isActiveAndEnabled || response == null || !response.CanReceiveHit || Combat == null || Combat.Dead ||
                 !float.IsFinite(damage) || damage < 0 || damage > 10000 || !float.IsFinite(poiseDamage) || poiseDamage < 0 || poiseDamage > 100000) return false;
             bool weak = zone && zone.isActiveAndEnabled && zone.isWeakPoint && zone.Owner == this;
             float hpDamage = Mathf.Min(10000, damage * (weak ? zone.DamageMultiplier : 1) + (weak ? zone.BonusDamage : 0));
@@ -143,19 +151,14 @@ namespace NarutoVR.SealCombat.Enemies
             bool wasBroken = state.Broken;
             float hpBefore = state.Health, poiseBefore = state.Poise;
             if (!state.Apply(hitId, hpDamage, poiseLoss)) return false;
-            if (!state.Dead && attacker) controller.NotifyAttackedBy(attacker);
             int mutation = ++combatMutation;
             SyncCombatFields();
             var notice = new EnemyVitalsNotice(this, hitId, state.Health, state.Poise, hpBefore - state.Health, poiseBefore - state.Poise, weak, state.Broken, state.Dead, zone, attacker);
             // 先提交状态机，防止通知回调中继续攻击已死亡/瘫痪的对象。
-            bool CurrentLife() => this && isActiveAndEnabled && controller && controller.isActiveAndEnabled &&
-                ReferenceEquals(Combat, state) && combatMutation == mutation;
-            bool reactionAccepted = true;
-            if (notice.Dead) reactionAccepted = controller.TryDie();
-            else if (notice.Broken && !wasBroken) reactionAccepted = controller.TryEnterSeated() || controller.CurrentBehaviour == EnemyController.Behaviour.Seated;
+            bool CurrentLife() => this && IsCurrentHit(mutation) && ReferenceEquals(response, HitResponse);
+            response.RespondToHit(notice, notice.Broken && !wasBroken, mutation);
             // 反应可能结束旧攻击；结束监听若重生/销毁，不得暂停或回收新一轮对象。
             if (!CurrentLife()) return true;
-            if (!reactionAccepted) controller.SetSuspended(true);
             EventCenter.Publish(EnemyEvents.VitalsChanged, notice);
             if (!CurrentLife()) return true;
             if (notice.Dead) EventCenter.Publish(EnemyEvents.Died, notice);

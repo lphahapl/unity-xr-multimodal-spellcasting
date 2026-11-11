@@ -26,7 +26,7 @@ namespace NarutoVR.SealCombat.Editor
                 if(!wasOpen)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
                 try
                 {
-                    var c=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillTestController>(true)).Single();
+                    var c=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillInputController>(true)).Single();
                     Require(c.lab&&c.voice&&c.effects&&c.statusText&&c.chineseFont,"技能绑定或中文字体缺失");
                     Require(c.ConfiguredSkills.Count>0 && c.ConfiguredSkills.All(s=>s && s.ValidateDefinition()==null),"技能目录配置无效");
                     SkillConfigurationSetup.ValidateController(c);
@@ -62,23 +62,23 @@ namespace NarutoVR.SealCombat.Editor
                     hand.joints[(int)HandJointId.HandWristRoot]=new Pose(new Vector3(.3f,1.2f,.4f),Quaternion.identity);
                 }
                 typeof(Lab).GetProperty("Frame").SetValue(lab,frame);
-                var effects=root.AddComponent<SkillEffects>();effects.lab=lab;effects.head=root.transform;effects.playerRoot=root.transform;
+                var effects=root.AddComponent<SkillController>();effects.lab=lab;effects.head=root.transform;effects.playerRoot=root.transform;
                 effects.fireballPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.FireballPath);
                 effects.shieldPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.ShieldPath);
                 effects.impactPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.ImpactPath);
-                fire=ScriptableObject.CreateInstance<SkillDefinition>();fire.effectKind=SkillEffectKind.HeldFireball;fire.displayName="预置体火球检查";
-                buff=ScriptableObject.CreateInstance<SkillDefinition>();buff.effectKind=SkillEffectKind.SelfBuff;buff.displayName="预置体护盾检查";
-                Require(effects.TryActivate(fire),"真实火球预置体未生成");
-                held=(GameObject)typeof(SkillEffects).GetField("heldObject",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(effects);
+                fire=ScriptableObject.CreateInstance<SkillDefinition>(); fire.skillId = "fixture.skillshowcasechecks.fire"; fire.cooldownSeconds = 0;fire.effectKind=SkillEffectKind.HeldFireball;fire.displayName="预置体火球检查";
+                buff=ScriptableObject.CreateInstance<SkillDefinition>(); buff.skillId = "fixture.skillshowcasechecks.buff"; buff.cooldownSeconds = 0;buff.effectKind=SkillEffectKind.SelfBuff;buff.displayName="预置体护盾检查";
+                Require(effects.TryCast(fire),"真实火球预置体未生成");
+                held=(GameObject)UnityEditor.EditorUtility.EntityIdToObject(effects.HeldProjectileInstanceId);
                 Require(held&&held.GetComponentsInChildren<Renderer>(true).Length>1,"华丽火球缺少层次表现");
                 var motion=held.GetComponent<SkillVisualMotion>();Require(motion && motion.flightTrails.Length>0,"火球缺少尾迹绑定");
                 Require(motion.flightTrails.All(t=>!t.emitting),"持握时不应发出飞行尾迹");
                 motion.SetFlying(true);Require(motion.flightTrails.All(t=>t.emitting),"飞行视觉没有开启尾迹");motion.SetFlying(false);
-                Require(!effects.TryActivate(fire),"真实预置体路径未限制手槽");
-                Require(effects.TryActivate(buff),"真实护盾预置体未生成");
-                shield=(GameObject)typeof(SkillEffects).GetField("buffObject",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(effects);
+                Require(!effects.TryCast(fire),"真实预置体路径未限制手槽");
+                Require(effects.TryCast(buff),"真实护盾预置体未生成");
+                shield=(GameObject)typeof(SkillController).GetField("buffObject",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(effects);
                 Require(shield&&shield.GetComponentsInChildren<Renderer>(true).Length>0,"护盾预置体缺少表现");
-                Require(effects.AbsorbDamage(30)==0&&Mathf.Abs(effects.ShieldPoints-70)<.01f,"预置体改变了护盾数值行为");
+                Require(effects.AbsorbPracticeDamage(30)==0&&Mathf.Abs(effects.ShieldPoints-70)<.01f,"预置体改变了护盾数值行为");
                 effects.CancelLatest();Require(!effects.HasHeldObject&&effects.ShieldPoints==70,"取消持握错误地清掉护盾");
                 effects.CancelLatest();Require(effects.ShieldPoints==0,"预置体护盾取消失败");
                 targetObject=GameObject.CreatePrimitive(PrimitiveType.Cube);targetObject.transform.position=root.transform.position+Vector3.forward*10;

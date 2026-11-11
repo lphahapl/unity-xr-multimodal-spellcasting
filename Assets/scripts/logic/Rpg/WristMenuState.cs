@@ -11,7 +11,6 @@ namespace NarutoVR.SealCombat.Rpg
         [Header("子面板保留与交互")]
         [InspectorName("放下左腕时关闭")] public bool closeWithWrist;
         [InspectorName("允许射线捏合翻页或关闭")] public bool allowRay = true;
-        [InspectorName("允许食指近距离点按")] public bool allowPoke = true;
     }
 
     [Serializable]
@@ -93,8 +92,6 @@ namespace NarutoVR.SealCombat.Rpg
         bool rearm, reopenBlocked, arming, previousPose, exitQualified;
         double tapHandoff = -1;
         float tapOpenHeight;
-
-        internal void DismissLauncher() => LauncherOpen = false;
 
         public void Reset(bool requireNeutral = true)
         {

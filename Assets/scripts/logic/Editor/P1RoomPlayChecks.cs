@@ -16,7 +16,7 @@ namespace NarutoVR.SealCombat.Editor
     [InitializeOnLoad]
     public static class P1RoomPlayChecks
     {
-        const string Key = "NarutoVR.Room.PlayChecks", StartKey = Key + ".PreviousStart";
+        const string Key = "NarutoVR.Room.PlayChecks";
         static double runAt;
         static P1RoomPlayChecks()
         {
@@ -26,30 +26,24 @@ namespace NarutoVR.SealCombat.Editor
                 if (state == PlayModeStateChange.EnteredPlayMode) runAt = EditorApplication.timeSinceStartup + 2;
                 if (state == PlayModeStateChange.EnteredEditMode)
                 {
-                    SessionState.EraseBool(Key); LinearRpgController.EditorTestSaveFile = null;
-                    EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(SessionState.GetString(StartKey, ""));
-                    SessionState.EraseString(StartKey);
+                    SessionState.EraseBool(Key);
                 }
             };
             EditorApplication.update += Poll;
-        }
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void IsolateSave()
-        {
-            if (SessionState.GetBool(Key, false)) LinearRpgController.EditorTestSaveFile = "room-check-" + Guid.NewGuid().ToString("N") + ".json";
         }
         public static void Begin()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || SceneManager.GetActiveScene().isDirty || SceneManager.GetActiveScene().path != LinearRpgValidation.P1ScenePath)
                 throw new InvalidOperationException("需要已保存的 P1 场景");
-            SessionState.SetString(StartKey, AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene));
-            EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(LinearRpgValidation.P1ScenePath);
+            IsolatedRpgPlayScene.Prepare(LinearRpgValidation.P1ScenePath, "room-check-");
             SessionState.SetBool(Key, true); EditorApplication.isPlaying = true;
         }
         static async void Poll()
         {
             if (!SessionState.GetBool(Key, false) || !Application.isPlaying || runAt <= 0 || EditorApplication.timeSinceStartup < runAt) return;
             runAt = 0;
+            Directory.CreateDirectory(EnemyPoolingSetup.Log);
+            Directory.CreateDirectory(P1RoomLayoutSetup.LogFolder);
             var manager = XRGeneralSettings.Instance ? XRGeneralSettings.Instance.Manager : null;
             bool restoreXr = manager && manager.isInitializationComplete;
             bool background = Application.runInBackground;
@@ -59,15 +53,15 @@ namespace NarutoVR.SealCombat.Editor
                 if (restoreXr) manager.StopSubsystems();
                 string actual = await RunActualScene(); string isolated = P1RoomEncounterChecks.Run();
                 string pooling = UnityEngine.Object.FindFirstObjectByType<CombatRoomEncounter>().UsesEnemyManager ? await EnemyPoolingChecks.Run() : "旧版预置敌人，无池化测试";
-                Directory.CreateDirectory(EnemyPoolingSetup.Log);
                 File.WriteAllText(EnemyPoolingSetup.Log + "/play-check.txt", DateTimeOffset.Now.ToString("O") + "\nPASSED\n" + actual + "\n" + isolated + "\n" + pooling);
                 File.WriteAllText(P1RoomLayoutSetup.LogFolder + "/play-check.txt", DateTimeOffset.Now.ToString("O") + "\nPASSED\n" + actual + "\n" + isolated);
+                LinearRpgValidation.WriteRoomPlayResult(true, string.Join("\n", actual, isolated, pooling));
             }
             catch (Exception e)
             {
-                Directory.CreateDirectory(EnemyPoolingSetup.Log);
                 File.WriteAllText(EnemyPoolingSetup.Log + "/play-check.txt", DateTimeOffset.Now.ToString("O") + "\nFAILED\n" + e);
                 File.WriteAllText(P1RoomLayoutSetup.LogFolder + "/play-check.txt", DateTimeOffset.Now.ToString("O") + "\nFAILED\n" + e);
+                LinearRpgValidation.WriteRoomPlayResult(false, e.ToString());
                 Debug.LogException(e);
             }
             finally { Application.runInBackground = background; if (restoreXr) manager.StartSubsystems(); EditorApplication.isPlaying = false; }
@@ -75,6 +69,7 @@ namespace NarutoVR.SealCombat.Editor
         static async Task<string> RunActualScene()
         {
             var room = UnityEngine.Object.FindFirstObjectByType<CombatRoomEncounter>(); var rpg = room.rpg; var move = rpg.locomotion;
+            var targets = ((TrainingChapterFlow)rpg.chapter).TargetGroup;
             var game = UnityEngine.Object.FindFirstObjectByType<GameManager>();
             if (room.UsesEnemyManager && game) await EnemyPoolingChecks.WithTimeout(game.Ready);
             var enemy = room.UsesEnemyManager ? null : room.enemies.Single();
@@ -87,7 +82,7 @@ namespace NarutoVR.SealCombat.Editor
             void Position(float z) { move.rigRoot.position += new Vector3(0, -.03f, z) - move.PlayerFloorPosition; Physics.SyncTransforms(); room.TickEncounter(); }
             Position(0);
             Check(rpg.CanAct && !move.EncounterCombat && NoActiveEnemy(), $"靶场开局应为探索且敌人未激活；rpg={rpg.Status},room={room.Status}");
-            rpg.GetComponent<TrainingTargetGroup>().DebugDefeatAll(); typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null); room.TickEncounter();
+            targets.DebugDefeatAll(); typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null); room.TickEncounter();
             Check(!move.EncounterCombat && NoActiveEnemy() && !room.HasStarted, "击破练习靶不触发战斗");
             Position(17); Check(!room.HasStarted, "通廊不唤醒敌人");
             Position(20); await EnemyPoolingChecks.WithTimeout(room.SpawnTask); enemy = room.enemies.Single();
@@ -108,7 +103,7 @@ namespace NarutoVR.SealCombat.Editor
             finally { move.head.position = headPosition; }
             Check(enemy.Entity.ReceiveHit("room-test-hit", 10, 0, null, move.head), "室内命中可扣血");
             float hp = enemy.Entity.Combat.Health;
-            rpg.GetComponent<TrainingTargetGroup>().targets[0].ResetTarget(); rpg.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
+            targets.targets[0].ResetTarget(); targets.DebugDefeatAll();
             typeof(LinearRpgController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rpg, null);
             Check(move.EncounterCombat, "室内击破练习靶不得覆盖房间战斗状态");
             Position(17); Check(!move.EncounterCombat && !enemy.CanReceiveHit, "退出暂停战斗与受击");

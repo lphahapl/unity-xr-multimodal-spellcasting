@@ -19082,7 +19082,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39b207e97291d964bafcad0a97393131, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SceneArt.SceneTravelGate
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SceneArt.SceneTravelGate
   destinationScene: 
   loadEnabled: 0
   playerHead: {fileID: 0}
@@ -33585,7 +33585,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c049acfa1d8de0541be0fbd86c4085d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SceneArt.ArmillaryRingMotion
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SceneArt.ArmillaryRingMotion
   intactRing: {fileID: 1733176222809685751}
   localAxis: {x: -0.7790773, y: -0.4742685, z: 0.4100099}
   degreesPerSecond: 7

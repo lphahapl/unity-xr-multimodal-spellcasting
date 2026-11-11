@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d60cb3e0acbfd418e53f86b02275af, type: 3}
+  m_Name: "\u706b\u7403\u672f\u6295\u5c04\u7269"
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.ProjectileEffectDefinition
+  audioProfile: {fileID: 11400000, guid: f1118e25be6952b688e0693b19f58bc8, type: 2}
+  radius: 0.065
+  damage: 25
+  speed: 9
+  flightLifetime: 4
+  releaseMode: 1
+  throwing:
+    assisted:
+      enabled: 1
+      windupEnabled: 1
+      reachEnabled: 1
+      scoreThreshold: 62
+      weights: {x: 0.35, y: 0.25, z: 0.25, w: 0.15}
+      windupDistance: 0.05
+      forwardDistance: 0.09
+      forwardSpeed: 0.6
+      motionConfirm: 0.04
+      actionTimeout: 1.4
+      fullSpeed: 1.2
+      fullDistance: 0.18
+      minimumConsistency: 0.55
+      worldMotionRatio: 0.8
+      comfortableReach: 0.6
+      reachRatio: 0.8
+      reachMotion: 0.08
+      reachSeconds: 0.45
+      reachStability: 0.06
+      reachSpeed: 0.4
+      aimStability: 12
+      forwardCone: 65
+      minimumForwardReach: 0.2
+      shoulderOffset: {x: 0.18, y: -0.22, z: 0}
+      maxHeadMove: 0.18
+      maxHeadTurn: 35
+    allowPartialFistRelease: 1
+    gripSeconds: 0.04
+    releaseSeconds: 0.015
+    velocityWindow: 0.12
+    releaseLookback: 0.01
+    velocityWeightTime: 0.05
+    maximumFitError: 0.025
+    releaseTimeout: 0.26
+    minimumMotionSeconds: 0.04
+    minimumSpeed: 0.45
+    minimumDistance: 0.035
+    maximumSpeed: 12
+    sampleMaxAge: 0.15
+    sampleMaxGap: 0.12
+    maximumJump: 0.3
+    pinchCloseDistance: 0.03
+    pinchOpenDistance: 0.04
+  throwLocalOffset: {x: 0, y: 0.025, z: 0.065}
+  heldLifetime: 60
+  heldOffset: {x: 0, y: 0.05, z: 0.08}
+  armDelay: 0.25
+  trackingLossGrace: 0.5
+  pushDistance: 0.12
+  pushMinimumSeconds: 0.15
+  pushMaximumSeconds: 0.6
+  visualPrefab: {fileID: 4437276957977500368, guid: 56f11f328e7fd2747a0c29ea8b168863, type: 3}
+  impactPrefab: {fileID: 5939245472193094713, guid: 48098958a851e0945904bbcf5cd37b1f, type: 3}
+  material: {fileID: 0}

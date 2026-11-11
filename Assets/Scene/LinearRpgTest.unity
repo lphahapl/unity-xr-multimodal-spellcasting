@@ -748,7 +748,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 603c63f6e2610df40a90fd962a6ca5bc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristMenuView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristMenuView
   font: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
   canvasScale: 0.0005
   plateColor: {r: 0.025, g: 0.04, b: 0.065, a: 0.96}
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6903dfbe0d473a49a06df8211311028, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.WristMenuController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristMenuController
   view: {fileID: 121289190}
   settings:
     activation: 0
@@ -804,15 +804,12 @@ MonoBehaviour:
   sealPolicy:
     closeWithWrist: 0
     allowRay: 1
-    allowPoke: 1
   glyphPolicy:
     closeWithWrist: 0
     allowRay: 1
-    allowPoke: 1
   voicePolicy:
     closeWithWrist: 0
     allowRay: 1
-    allowPoke: 1
   launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
   panelDistance: 0.65
   panelLower: 0.12
@@ -1015,7 +1012,7 @@ RectTransform:
   - {fileID: 1695713515}
   - {fileID: 1304579250}
   - {fileID: 507568659}
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800131}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1524,7 +1521,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.-1.1
   neighbors:
   - {fileID: 1052005104}
@@ -1686,7 +1683,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &208684087
 GameObject:
@@ -3018,7 +3015,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 240b667eacd996b4bb95983d4c73e3aa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealXRHandsSource
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealXRHandsSource
   leftHand: {fileID: 1508473943}
   rightHand: {fileID: 1827239490}
 --- !u!1 &385655914
@@ -3942,7 +3939,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.1.4
   neighbors:
   - {fileID: 2045226543}
@@ -4105,7 +4102,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &436909642
 GameObject:
@@ -4141,7 +4138,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 788b7a443b3e53347ae88d8651dea01e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLabView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLabView
   lab: {fileID: 436909644}
   statusText: {fileID: 0}
   boneMaterial: {fileID: 2100000, guid: f95c8cec0450dc54e8eb0deb6a517a16, type: 2}
@@ -4157,7 +4154,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb390fd33d5b7b40ae0090d5e836e2a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLab
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLab
   leftTrackedHand: {fileID: 0}
   rightTrackedHand: {fileID: 0}
   recordingOrigin: {fileID: 79008832}
@@ -4211,7 +4208,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillInputController
   catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
@@ -4242,7 +4239,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd611fc79133f1d4aad2bc8b07f71825, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillVoiceReceiver
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillVoiceReceiver
   receivePort: 47831
   servicePort: 47832
   heartbeatTimeout: 3
@@ -4261,7 +4258,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73157a4af4d0cdd4e9069f10d6555a1c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillEffects
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillController
   lab: {fileID: 436909644}
   head: {fileID: 79008831}
   playerRoot: {fileID: 79008833}
@@ -4300,7 +4297,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8936f55fc0b569c489c22dedf7f9089f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTestView
   controller: {fileID: 436909646}
   statusText: {fileID: 1665536178}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
@@ -4320,7 +4317,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cf5d5f4a49862845a24457cce46d6cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.ThrowDiagnosticRecorder
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.ThrowDiagnosticRecorder
   effects: {fileID: 436909648}
   autoRecord: 1
   maximumMinutes: 15
@@ -5695,7 +5692,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.2.0
   neighbors:
   - {fileID: 1014411703}
@@ -5857,7 +5854,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &636539732
 GameObject:
@@ -6248,7 +6245,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.2.3
   neighbors:
   - {fileID: 1823104732}
@@ -6413,7 +6410,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &682875632
 GameObject:
@@ -6894,7 +6891,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.-1.4
   neighbors:
   - {fileID: 1288722185}
@@ -7054,7 +7051,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752637477
 GameObject:
@@ -7462,7 +7459,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a07bc6b9f635af498c0ccc967a431d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTrainingTarget
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTrainingTarget
   health: 60
   resetAfterSeconds: 0
   targetRenderer: {fileID: 778310720}
@@ -8807,7 +8804,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a07bc6b9f635af498c0ccc967a431d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTrainingTarget
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTrainingTarget
   health: 60
   resetAfterSeconds: 0
   targetRenderer: {fileID: 907908522}
@@ -9640,7 +9637,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.-1.0
   neighbors:
   - {fileID: 1052005104}
@@ -9800,7 +9797,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &989490886
 PrefabInstance:
@@ -10070,7 +10067,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.-1.3
   neighbors:
   - {fileID: 1457122949}
@@ -10232,7 +10229,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005671690
 GameObject:
@@ -10353,7 +10350,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.1.3
   neighbors:
   - {fileID: 1253936422}
@@ -10519,7 +10516,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006938703
 GameObject:
@@ -10820,7 +10817,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.1.0
   neighbors:
   - {fileID: 1052005104}
@@ -10983,7 +10980,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032919788
 GameObject:
@@ -11374,7 +11371,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.0.0
   neighbors:
   - {fileID: 1014411703}
@@ -11536,7 +11533,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054774462
 GameObject:
@@ -11837,7 +11834,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.3.3
   neighbors:
   - {fileID: 1888832140}
@@ -11999,7 +11996,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1107730745
 GameObject:
@@ -12271,6 +12268,163 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131814168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1819800100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819800101}
+  - component: {fileID: 1147475784}
+  m_Layer: 0
+  m_Name: "\u79fb\u52a8\u4e0e\u5bfc\u822a"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819800101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819800100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1052005106}
+  - {fileID: 1014411705}
+  - {fileID: 633525621}
+  - {fileID: 1326503490}
+  - {fileID: 1253936424}
+  - {fileID: 1823104734}
+  - {fileID: 1457122951}
+  - {fileID: 2045226545}
+  - {fileID: 1888832142}
+  - {fileID: 974894880}
+  - {fileID: 1249361389}
+  - {fileID: 207591550}
+  - {fileID: 1151742668}
+  - {fileID: 1288722187}
+  - {fileID: 1204274165}
+  - {fileID: 1002382715}
+  - {fileID: 1543007132}
+  - {fileID: 1006812522}
+  - {fileID: 678707152}
+  - {fileID: 1102601051}
+  - {fileID: 731165395}
+  - {fileID: 1468562772}
+  - {fileID: 430834046}
+  - {fileID: 1493452613}
+  - {fileID: 1950905318}
+  m_Father: {fileID: 1147475785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1819800110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819800111}
+  - component: {fileID: 900000001}
+  - component: {fileID: 900010000}
+  - component: {fileID: 1147475782}
+  m_Layer: 0
+  m_Name: "\u7ae0\u8282\u4e0e\u8bad\u7ec3"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819800111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819800110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1147475785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1819800120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819800121}
+  - component: {fileID: 900010001}
+  m_Layer: 0
+  m_Name: "\u6210\u957f\u4e0e\u7269\u54c1"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819800121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819800120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1147475785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1819800130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819800131}
+  - component: {fileID: 1147475781}
+  - component: {fileID: 1147475786}
+  m_Layer: 0
+  m_Name: "\u754c\u9762\u4e0e\u4ea4\u4e92\u53cd\u9988"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819800131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819800130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 153185340}
+  m_Father: {fileID: 1147475785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147475780
 GameObject:
   m_ObjectHideFlags: 0
@@ -12280,17 +12434,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147475785}
-  - component: {fileID: 1147475784}
   - component: {fileID: 1147475783}
-  - component: {fileID: 1147475782}
-  - component: {fileID: 1147475781}
-  - component: {fileID: 1147475786}
-  - component: {fileID: 900000001}
   - component: {fileID: 900000101}
-  - component: {fileID: 900010000}
-  - component: {fileID: 900010001}
   m_Layer: 0
-  m_Name: "\u7EBF\u6027RPG \xB7 \u5173\u5361\u4E0E\u5BFC\u822A"
+  m_Name: "RPG \u4f1a\u8bdd\u4e0e\u73a9\u5bb6"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12302,12 +12449,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800130}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9851893cd6b7f54bbf0d4b0c2804944, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgSessionView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgSessionView
   controller: {fileID: 1147475783}
   statusText: {fileID: 1304579248}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
@@ -12329,12 +12476,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 286f1b9cd3938fb45a95ab0560aa2809, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgTrainingHazard
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgTrainingHazard
   controller: {fileID: 1147475783}
   interval: 6
   warningSeconds: 1.5
@@ -12353,7 +12500,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167e1d26b8b5db542a25938219e99a80, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.LinearRpgController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.LinearRpgController
   skills: {fileID: 436909646}
   locomotion: {fileID: 1147475784}
   wristMenu: {fileID: 121289191}
@@ -12377,12 +12524,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800100}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6293dab6631a2f64d9a96ea4f72fd67c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgLocomotionController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgLocomotionController
   rigRoot: {fileID: 79008833}
   head: {fileID: 79008831}
   rigFloorOffset: -0.030000001
@@ -12466,32 +12613,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1052005106}
-  - {fileID: 1014411705}
-  - {fileID: 633525621}
-  - {fileID: 1326503490}
-  - {fileID: 1253936424}
-  - {fileID: 1823104734}
-  - {fileID: 1457122951}
-  - {fileID: 2045226545}
-  - {fileID: 1888832142}
-  - {fileID: 153185340}
-  - {fileID: 974894880}
-  - {fileID: 1249361389}
-  - {fileID: 207591550}
-  - {fileID: 1151742668}
-  - {fileID: 1288722187}
-  - {fileID: 1204274165}
-  - {fileID: 1002382715}
-  - {fileID: 1543007132}
-  - {fileID: 1006812522}
-  - {fileID: 678707152}
-  - {fileID: 1102601051}
-  - {fileID: 731165395}
-  - {fileID: 1468562772}
-  - {fileID: 430834046}
-  - {fileID: 1493452613}
-  - {fileID: 1950905318}
+  - {fileID: 1819800101}
+  - {fileID: 1819800111}
+  - {fileID: 1819800121}
+  - {fileID: 1819800131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1147475786
@@ -12500,12 +12625,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800130}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f47fca4e381bbc440a8abfb01cb31da1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgInteractionFeedback
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgInteractionFeedback
   controller: {fileID: 1147475783}
   showVisuals: 1
   pathColor: {r: 0.05, g: 0.85, b: 1, a: 1}
@@ -12638,7 +12763,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.3.1
   neighbors:
   - {fileID: 633525619}
@@ -12800,7 +12925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170287509
 GameObject:
@@ -12921,7 +13046,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.3.2
   neighbors:
   - {fileID: 1823104732}
@@ -13084,7 +13209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1215612162
 GameObject:
@@ -13402,7 +13527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a07bc6b9f635af498c0ccc967a431d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTrainingTarget
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTrainingTarget
   health: 60
   resetAfterSeconds: 0
   targetRenderer: {fileID: 1237701912}
@@ -13606,7 +13731,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.3.0
   neighbors:
   - {fileID: 1014411703}
@@ -13766,7 +13891,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1253936421
 GameObject:
@@ -13797,7 +13922,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.1.1
   neighbors:
   - {fileID: 1326503488}
@@ -13963,7 +14088,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263352962
 GameObject:
@@ -14714,7 +14839,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.-1.2
   neighbors:
   - {fileID: 1326503488}
@@ -14877,7 +15002,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304579247
 GameObject:
@@ -14987,7 +15112,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.0.1
   neighbors:
   - {fileID: 1253936422}
@@ -15152,7 +15277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329060975
 GameObject:
@@ -16443,7 +16568,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.0.2
   neighbors:
   - {fileID: 2045226543}
@@ -16609,7 +16734,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1459202902
 GameObject:
@@ -16820,7 +16945,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.0.4
   neighbors:
   - {fileID: 1457122949}
@@ -16982,7 +17107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1477099573
 GameObject:
@@ -17103,7 +17228,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.2.4
   neighbors:
   - {fileID: 1888832140}
@@ -17265,7 +17390,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494889750
 GameObject:
@@ -18218,7 +18343,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.0.3
   neighbors:
   - {fileID: 1326503488}
@@ -18383,7 +18508,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549051776
 GameObject:
@@ -22626,7 +22751,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.2.1
   neighbors:
   - {fileID: 1253936422}
@@ -22791,7 +22916,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1825254041
 GameObject:
@@ -23665,7 +23790,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.2.2
   neighbors:
   - {fileID: 2045226543}
@@ -23831,7 +23956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907375415
 GameObject:
@@ -24402,7 +24527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.3.4
   neighbors:
   - {fileID: 1204274163}
@@ -24562,7 +24687,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954346584
 GameObject:
@@ -25223,7 +25348,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.NavigationNode
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
   nodeId: courtyard.1.2
   neighbors:
   - {fileID: 1457122949}
@@ -25390,7 +25515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1147475785}
+  m_Father: {fileID: 1819800101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2050947781
 GameObject:
@@ -25830,12 +25955,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dd50356fb0c4e8c8726d14cab0e243e, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingChapterFlow
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.TrainingChapterFlow
   rpg: {fileID: 1147475783}
   initialSkills:
   - fireball
@@ -25854,19 +25979,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e477ca66e4aedd840a31a724b397ee75, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.PlayerObj
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.PlayerObj
 --- !u!114 &900010000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de4a915dcbd04e0c8f030a09a0cffc2e, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
   targets:
   - {fileID: 778310719}
   - {fileID: 907908521}
@@ -25882,10 +26007,10 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147475780}
+  m_GameObject: {fileID: 1819800120}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdbf709d894f46c7be4946285bdd03e9, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.RpgSkillShop
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgSkillShop
   catalog: {fileID: 11400000, guid: d2bfd484939543e5b9394f661d35ec8f, type: 2}

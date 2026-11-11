@@ -18,7 +18,7 @@ namespace NarutoVR.SealCombat.Editor {
             if(EditorApplication.timeSinceStartup>end || !EditorApplication.isPlaying) {EditorApplication.update-=Tick;return;}
             if(EditorApplication.timeSinceStartup<next)return;next=EditorApplication.timeSinceStartup+.1;
             var c=UnityEngine.Object.FindFirstObjectByType<LinearRpgController>(); if(!c || !c.skills)return;
-            var v=c.GetComponent<RpgSessionView>(); var m=c.wristMenu;
+            var v=c.GetComponentInChildren<RpgSessionView>(true); var m=c.wristMenu;
             var row=new Row {time=Time.realtimeSinceStartupAsDouble,skill=c.skills.LastMessage,
                 gates=c.skills.Engine?.ObservationDiagnostics,seal=v?v.BuildSealDetails():"无视图",ui=m?m.DebugDetails:"无菜单",input=m?JsonUtility.ToJson(m.LatestInput):""};
             File.AppendAllText(path,JsonUtility.ToJson(row)+Environment.NewLine);

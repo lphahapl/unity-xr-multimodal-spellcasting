@@ -193,21 +193,20 @@ namespace NarutoVR.SealCombat.Editor
             // prefab/stripped wiring fails explicitly instead of silently missing a catalog.
             var blocks = Regex.Matches(scene, @"(?ms)^--- !u!114 &(-?\d+)\r?\n(.*?)(?=^--- |\z)").Cast<Match>()
                 .ToDictionary(m => m.Groups[1].Value, m => m.Groups[2].Value);
-            string controllerGuid = ScriptGuid(typeof(SkillTestController));
+            string controllerGuid = ScriptGuid(typeof(SkillInputController));
             string receiverGuid = ScriptGuid(typeof(SkillVoiceReceiver));
             var controllers = blocks.Where(p => p.Value.Contains("guid: " + controllerGuid + ",") && Regex.IsMatch(p.Value, @"(?m)^  m_Enabled: 1\r?$")).ToArray();
-            Require(controllers.Length > 0, "No enabled directly authored SkillTestController found in the selected scene.");
+            Require(controllers.Length > 0, "No enabled directly authored SkillInputController found in the selected scene.");
             foreach (var controller in controllers)
             {
                 var voice = Regex.Match(controller.Value, @"(?m)^  voice: \{fileID: (-?\d+)\}\r?$");
-                Require(voice.Success && blocks.TryGetValue(voice.Groups[1].Value, out _), "SkillTestController has no direct voice receiver reference.");
+                Require(voice.Success && blocks.TryGetValue(voice.Groups[1].Value, out _), "SkillInputController has no direct voice receiver reference.");
                 string receiver = blocks[voice.Groups[1].Value];
                 Require(receiver.Contains("guid: " + receiverGuid + ",") && Regex.IsMatch(receiver, @"(?m)^  m_Enabled: 1\r?$"), "Referenced voice receiver is missing, disabled or the wrong component.");
-                var catalogRef = Regex.Match(controller.Value, @"(?m)^  catalog: \{fileID: 11400000, guid: ([0-9a-f]{32}), type: 2\}\r?$");
-                Require(catalogRef.Success, "SkillTestController has no authored SkillCatalog asset.");
-                string path = AssetDatabase.GUIDToAssetPath(catalogRef.Groups[1].Value);
-                var catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(path);
-                Require(catalog != null && AssetDatabase.GetDependencies(report.scene, true).Contains(path), "Scene SkillCatalog dependency is unavailable.");
+                string path = SceneCatalogPath(blocks, controller);
+                Require(AssetDatabase.GetDependencies(report.scene, true).Contains(path), "Scene skill catalog dependency is unavailable.");
+                using var source = AuthoredSkillCatalog.Open(path);
+                var catalog = source.Catalog;
                 string[] voicePhrases = catalog.GetVoicePhrases();
                 if (report.scene == P1ScenePath)
                 {
@@ -232,6 +231,19 @@ namespace NarutoVR.SealCombat.Editor
                 report.catalogs.Add(new CatalogEvidence { path = path, controllerFileId = controller.Key, receiverFileId = voice.Groups[1].Value, phrases = config.keywords.Length, voicePhrases = voicePhrases });
             }
             RecordFile(report, report.scene);
+        }
+
+        static string SceneCatalogPath(Dictionary<string, string> blocks, KeyValuePair<string, string> controller)
+        {
+            const string assetRef = @": \{fileID: 11400000, guid: ([0-9a-f]{32}), type: 2\}\r?$";
+            string rpgGuid = ScriptGuid(typeof(Rpg.LinearRpgController));
+            var owner = blocks.Values.SingleOrDefault(block => block.Contains("guid: " + rpgGuid + ",") &&
+                Regex.IsMatch(block, @"(?m)^  m_Enabled: 1\r?$") &&
+                Regex.IsMatch(block, @"(?m)^  skills: \{fileID: " + Regex.Escape(controller.Key) + @"\}\r?$"));
+            var reference = Regex.Match(owner ?? "", @"(?m)^  skillResources" + assetRef);
+            if (!reference.Success) reference = Regex.Match(controller.Value, @"(?m)^  catalog" + assetRef);
+            Require(reference.Success, "Skill controller has no authored resource manifest or skill catalog.");
+            return AssetDatabase.GUIDToAssetPath(reference.Groups[1].Value);
         }
 
         static void ValidateP1TrialBinding(Dictionary<string, string> blocks, string controllerId)

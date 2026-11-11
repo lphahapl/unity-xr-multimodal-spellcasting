@@ -16,6 +16,5 @@ namespace NarutoVR.SealCombat
         public Material material;
         public override string Summary => $"自身护盾 {capacity:0} 点";
         public override string ValidateDefinition() => !float.IsFinite(capacity) || capacity < 1 ? "护盾容量必须是至少1的有限数值" : null;
-        public override bool TryActivate(SkillEffects executor, SkillDefinition skill) => executor && executor.TryApplyShield(this, skill);
     }
 }

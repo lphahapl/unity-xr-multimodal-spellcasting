@@ -7,7 +7,7 @@ Shader "NarutoVR/Canal Flow"
         _SkyWaterColor ("掠视水色", Color) = (0.46, 0.64, 0.68, 1)
         _CrestColor ("泡沫颜色", Color) = (0.80, 0.85, 0.80, 1)
         _FlowSpeed ("渠面流速（米/秒）", Range(0, 2)) = 0.62
-        _WaveHeight ("逆流水面起伏上限（米）", Range(0, 0.03)) = 0.023
+        _WaveHeight ("离槽水面起伏上限（米）", Range(0, 0.03)) = 0.023
         _FoamStrength ("流动碎沫强度", Range(0, 1.5)) = 1.08
         _GlintStrength ("宽水光强度", Range(0, 1)) = 0.48
     }
@@ -47,9 +47,9 @@ Shader "NarutoVR/Canal Flow"
                 float3 positionOS : POSITION;
                 float3 normalOS : NORMAL;
                 float4 tangentOS : TANGENT;
-                // U spans the sheet. V is travelled distance in metres, positive towards each outlet.
+                // U spans the sheet. V is geometric distance from the first authored station.
                 float2 uv : TEXCOORD0;
-                // Width, lift blend, agitation, integrated travel time in baseline-flow metres.
+                // Width, lift blend, agitation, signed travel coordinate increasing downstream.
                 float4 channel : TEXCOORD1;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NarutoVR.SealCombat
@@ -14,11 +15,32 @@ namespace NarutoVR.SealCombat
     {
         [Serializable] public sealed class Shortcut
         {
-            [InspectorName("目标技能")] public SkillDefinition skill;
+            [SerializeField, InspectorName("目标技能 ID"), Tooltip("填写当前技能目录中的稳定 ID，例如 thunder.sword。")]
+            string skillId;
+            [SerializeField, HideInInspector, FormerlySerializedAs("skill")]
+            SkillDefinition legacySkill;
             [InspectorName("模拟口令按键")] public Key key=Key.None;
+
+            public string SkillId
+            {
+                get => !string.IsNullOrEmpty(skillId) ? skillId : legacySkill ? legacySkill.skillId : null;
+                set { skillId = value; legacySkill = null; }
+            }
+            // 旧场景首次由迁移工具保存时去掉资源硬引用，外部旧场景加载时仍可读取原绑定。
+#if UNITY_EDITOR
+            public bool MigrateLegacySkillReference()
+            {
+                if (!legacySkill || string.IsNullOrWhiteSpace(SkillId)) return false;
+                skillId = SkillId;
+                legacySkill = null;
+                return true;
+            }
+#endif
+            internal bool Matches(string skillId) =>
+                !string.IsNullOrEmpty(skillId) && string.Equals(SkillId, skillId, StringComparison.Ordinal);
         }
         [Header("一、界面接线")]
-        [InspectorName("技能控制器")] public SkillTestController controller;
+        [InspectorName("技能控制器")] public SkillInputController controller;
         [InspectorName("头显文字面板")] public Text statusText;
         [InspectorName("中文字体")] public Font chineseFont;
         [Header("二、显示内容")]
@@ -42,7 +64,8 @@ namespace NarutoVR.SealCombat
                 if(!Enum.IsDefined(typeof(Key),shortcut.key))errors.Add("模拟快捷键无效");
                 if(shortcut.key==Key.Escape)errors.Add("Esc 是取消保留键，不能分配给技能");
                 if(!keys.Add(shortcut.key))errors.Add($"模拟快捷键 {shortcut.key} 重复，请给不同技能分配不同按键");
-                if(!shortcut.skill||definitions==null||!definitions.Contains(shortcut.skill)||shortcut.skill.triggerMode==SkillTriggerMode.GestureOnly)
+                var definition = definitions?.FirstOrDefault(candidate => candidate && shortcut.Matches(candidate.skillId));
+                if(!definition||definition.triggerMode==SkillTriggerMode.GestureOnly)
                     errors.Add($"快捷键 {shortcut.key} 需要绑定当前目录中包含咒语的技能");
             }
             return errors;
@@ -54,7 +77,7 @@ namespace NarutoVR.SealCombat
             int index=0;var keys=new[]{Key.F6,Key.F7,Key.F9,Key.F10,Key.F11,Key.F12};
             foreach(var definition in definitions)
                 if(definition&&definition.triggerMode!=SkillTriggerMode.GestureOnly&&index<keys.Length)
-                    shortcuts.Add(new Shortcut{skill=definition,key=keys[index++]});
+                    shortcuts.Add(new Shortcut{SkillId=definition.skillId,key=keys[index++]});
         }
         private void Update()
         {
@@ -64,10 +87,10 @@ namespace NarutoVR.SealCombat
                 if(Keyboard.current.escapeKey.wasPressedThisFrame){controller.Cancel();return;}
                 foreach(var shortcut in shortcuts)
                 {
-                    if(shortcut==null||!shortcut.skill||shortcut.key==Key.None||shortcut.key==Key.Escape||!Enum.IsDefined(typeof(Key),shortcut.key))continue;
-                    if(shortcuts.Count(s=>s!=null&&s.key==shortcut.key)>1)continue;
-                    var recipe=controller.Recipes.FirstOrDefault(r=>r.Definition==shortcut.skill);
-                    if(recipe.Definition&&recipe.Mode!=SkillTriggerMode.GestureOnly&&Keyboard.current[shortcut.key].wasPressedThisFrame)
+                    if(shortcut==null||shortcut.key==Key.None||shortcut.key==Key.Escape||!Enum.IsDefined(typeof(Key),shortcut.key))continue;
+                    if(!Keyboard.current[shortcut.key].wasPressedThisFrame||shortcuts.Count(s=>s!=null&&s.key==shortcut.key)>1)continue;
+                    var recipe=controller.Recipes.FirstOrDefault(r=>shortcut.Matches(r.Id));
+                    if(recipe.Definition&&recipe.Mode!=SkillTriggerMode.GestureOnly)
                         controller.ScheduleVoice(recipe.Phrase);
                 }
             }
@@ -129,7 +152,7 @@ namespace NarutoVR.SealCombat
             GUILayout.Label("按钮仅注入模拟口令；真实语音状态见下方。",textStyle);
             foreach(var recipe in controller.Recipes.Where(r=>r.Mode!=SkillTriggerMode.GestureOnly))
             {
-                var shortcut=shortcuts.FirstOrDefault(s=>s!=null&&s.skill==recipe.Definition&&s.key!=Key.None);
+                var shortcut=shortcuts.FirstOrDefault(s=>s!=null&&s.Matches(recipe.Id)&&s.key!=Key.None);
                 string suffix=shortcut==null?"":$"（{shortcut.key}）";
                 if(GUILayout.Button($"{Math.Max(1,controller.simulatedDelay):0}秒后模拟“{recipe.Phrase}”{suffix}",buttonStyle))controller.ScheduleVoice(recipe.Phrase);
             }

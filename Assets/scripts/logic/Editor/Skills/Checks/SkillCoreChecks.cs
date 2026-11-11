@@ -198,7 +198,7 @@ namespace NarutoVR.SealCombat.Editor
             }, s => s.cooldownSeconds = 0); passed++;
             Check("冷却输入作废且结束不补发", SkillTriggerMode.GestureOnly, f =>
             {
-                f.Hold(0); f.Exit(.2); f.Hold(.5); Equal(1, f.Attempts);
+                f.Hold(0); f.Exit(.2); f.Hold(.5); Equal(2, f.Attempts); Equal(1, f.Activations);
                 f.Hold(4); Equal(1, f.Activations); f.Exit(4.2); f.Hold(4.5); Equal(2, f.Activations);
             }); passed++;
             Check("激活失败消费输入", SkillTriggerMode.GestureOnly, f =>
@@ -298,13 +298,24 @@ namespace NarutoVR.SealCombat.Editor
             public readonly SkillMatchEngine Engine;
             public int Version, Activations, Attempts;
             public bool Succeed = true;
+            readonly Rpg.RpgPlayerState player = new();
+            double inputNow;
             public List<SealScore> LastScores;
             public Fixture(SkillTriggerMode mode, Action<SkillDefinition> configure = null, SkillMatchSettings settings = null)
             {
                 Target = Profile("寅"); Competitor = Profile("子"); Other = Profile("丑");
                 Skill = MakeSkill("fire", "火球", mode, "火球术", "寅"); configure?.Invoke(Skill);
                 Engine = new SkillMatchEngine(new[] { Skill }, settings);
-                Engine.TryActivate = _ => { Attempts++; if (Succeed) Activations++; return Succeed; }; Engine.Tick(0);
+                Engine.TryActivate = skill =>
+                {
+                    Attempts++;
+                    if (!Succeed || !player.TryReserveCast("check:"+Attempts,skill.skillId,skill.cooldownGroup,0,
+                        skill.cooldownSeconds,inputNow,out var reservation,out _)) return false;
+                    using(reservation) reservation.Commit();
+                    Activations++;
+                    return true;
+                };
+                Engine.Tick(0);
             }
             public SkillDefinition MakeSkill(string id, string display, SkillTriggerMode mode, string phrase, string seal)
             {
@@ -339,7 +350,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             public SealFrame Emit(double time, float score = .9f, bool tracked = true, float coverage = 1, float competitor = .1f, double skew = 0, bool confidence = true, bool suppress = false, bool occupied = false)
             {
-                Engine.Tick(time); var frame = Frame(time, tracked, skew); LastScores = Scores(score, coverage, competitor, confidence);
+                inputNow=time; Engine.Tick(time); var frame = Frame(time, tracked, skew); LastScores = Scores(score, coverage, competitor, confidence);
                 Engine.Observe(frame, LastScores, suppress, occupied); return frame;
             }
             public void EmitMissing(double time)
@@ -351,7 +362,7 @@ namespace NarutoVR.SealCombat.Editor
             public void Hold(double start, float score = .9f, float coverage = 1, float competitor = .1f)
             { for (int i = 0; i <= 5; i++) Emit(start + i * .02, score, true, coverage, competitor); }
             public void Exit(double start) { for (int i = 0; i <= 9; i++) Emit(start + i * .02, .1f); }
-            public void Voice(double endedAt, double arrivedAt) { Engine.Tick(arrivedAt); Engine.Voice(Skill.phrase, endedAt, arrivedAt); }
+            public void Voice(double endedAt, double arrivedAt) { inputNow=arrivedAt; Engine.Tick(arrivedAt); Engine.Voice(Skill.phrase, endedAt, arrivedAt); }
             public void Dispose() { foreach (var item in objects) if (item) UnityEngine.Object.DestroyImmediate(item); }
         }
     }

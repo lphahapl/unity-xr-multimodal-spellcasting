@@ -12,6 +12,7 @@ namespace NarutoVR.SealCombat.Rpg
         public int PulseCount { get; private set; }
 
         LinearRpgController player;
+        PlayerObj entity;
         Camera view;
         MeshRenderer border;
         Mesh mesh;
@@ -24,17 +25,16 @@ namespace NarutoVR.SealCombat.Rpg
         {
             player = GetComponent<LinearRpgController>();
             if (!player) return;
-            player.Feedback += OnFeedback;
+            entity = GetComponent<PlayerObj>();
+            if (entity) entity.DamageSettled += OnDamage;
             player.CheckpointRestored += Clear;
         }
 
         float Intensity => player.playerDefinition ? Mathf.Clamp01(player.playerDefinition.hitVignetteIntensity) : 1f;
 
-        void OnFeedback(RpgActionCue cue)
+        void OnDamage(PlayerDamageResult damage)
         {
-            if (cue != RpgActionCue.Damage) return;
             if (!player.CanAct || Intensity <= 0) { Clear(); return; }
-            var damage = player.Entity.LastSettledDamage;
             if (damage.HealthLost <= 0) return;
             float severity = Mathf.Clamp01(damage.HealthLost / (player.Player.MaxHealth * .25f));
             float strength = Mathf.Lerp(.65f, 1, severity);
@@ -157,7 +157,8 @@ namespace NarutoVR.SealCombat.Rpg
         void OnDisable()
         {
             Clear();
-            if (player) { player.Feedback -= OnFeedback; player.CheckpointRestored -= Clear; }
+            if (entity) entity.DamageSettled -= OnDamage;
+            if (player) player.CheckpointRestored -= Clear;
             ReleaseBorder();
         }
     }

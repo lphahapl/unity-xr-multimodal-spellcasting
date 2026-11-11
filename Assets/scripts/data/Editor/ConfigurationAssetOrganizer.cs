@@ -98,7 +98,7 @@ namespace NarutoVR.SealCombat.Editor
                 count++;
             }
             if (count == 0 || !File.Exists(LinearRpgSceneSetup.VoiceConfigurationPath)) throw new Exception("配置或语音导出缺失");
-            var fire = AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(Root + "/投射物效果配置/效果_fireball.asset");
+            var fire = AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(LinearRpgSceneSetup.FireballEffectPath);
             var catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(Root + "/技能目录配置/线性RPG技能目录.asset");
             if (!fire || !catalog || catalog.Validate().Count != 0 || !AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>(OfficialHandPoseSetup.ProfilePath)) throw new Exception("技能或基础手形接线失败");
             string detail = $"{count} 个配置按实际类分类；GUID及文件内容不变；技能目录和效果接线有效；语音JSON路径保留。";

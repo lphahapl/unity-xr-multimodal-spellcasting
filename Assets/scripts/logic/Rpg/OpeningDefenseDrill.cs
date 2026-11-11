@@ -17,6 +17,14 @@ namespace NarutoVR.SealCombat.Rpg
         int shot;
         readonly string session = Guid.NewGuid().ToString("N");
 
+        // 重听同一句时只替换成功回调，保留当前飞行中的训练弹与闪避起点。
+        public bool ReplaceCompletion(Action success)
+        {
+            if (passed == null) return false;
+            passed = success;
+            return true;
+        }
+
         public void BeginShield(Action success)
         {
             StopDrill(); passed = success; shield = true;

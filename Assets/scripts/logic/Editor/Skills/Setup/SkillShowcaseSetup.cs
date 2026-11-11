@@ -58,7 +58,7 @@ namespace NarutoVR.SealCombat.Editor
 
         private static void BuildScene(Scene scene, SkillScenarioKind kind)
         {
-            var controller = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillTestController>(true)).Single();
+            var controller = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillInputController>(true)).Single();
             // New showcases choose the shared VFX configuration explicitly; the base lab can keep basic visuals.
             controller.catalog = SkillConfigurationSetup.EnsureDefaults();
             if(controller.view)
@@ -101,7 +101,7 @@ namespace NarutoVR.SealCombat.Editor
                 if (!wasOpen) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
                 try
                 {
-                    var controller = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<SkillTestController>(true)).Single();
+                    var controller = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<SkillInputController>(true)).Single();
                     var canvas = controller.statusText.canvas;
                     // World-space instruction panels must not draw over the nearer HUD text.
                     if (canvas.sortingOrder != 100)
@@ -418,7 +418,7 @@ namespace NarutoVR.SealCombat.Editor
 
         private static string RenderPreview(Scene scene)
         {
-            var controller = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillTestController>(true)).Single();
+            var controller = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillInputController>(true)).Single();
             var hud = controller.statusText ? controller.statusText.canvas : null;
             bool hudEnabled = hud && hud.enabled;
             var particles = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ParticleSystem>(true)).Where(x => x.gameObject.activeInHierarchy).ToArray();

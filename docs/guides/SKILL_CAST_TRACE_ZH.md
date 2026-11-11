@@ -1,6 +1,6 @@
 # 通用施法调试链条
 
-进入 Play 后 SkillTestController 默认自动记录，无需点录制。Inspector「四、施法链条日志」可关闭记录或调整状态采样间隔。所有技能复用同一入口，包括只有口令、只有印、两者结合；不修改技能判定规则。
+进入 Play 后 SkillInputController 默认自动记录，无需点录制。Inspector「四、施法链条日志」可关闭记录或调整状态采样间隔。所有技能复用同一入口，包括只有口令、只有印、两者结合；不修改技能判定规则。
 
 编辑器日志：`Logs/skill-casts/*.jsonl`；设备包：`Application.persistentDataPath/Diagnostics/skill-casts`。文件名前缀为 UTC，正文 utc 为 UTC，time 是运行时单调时钟。每个控制器启用周期独立文件，session 区分会话，sequence 排序，epoch 表示输入重置代际，attempt 仅关联同步施法请求及结果。异步投掷用 payload 中的 shotId 关联，不能把所有护盾/火球消息都归给最后一个技能。
 

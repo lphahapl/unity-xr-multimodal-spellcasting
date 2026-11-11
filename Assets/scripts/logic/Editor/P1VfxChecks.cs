@@ -28,7 +28,7 @@ namespace NarutoVR.SealCombat.Editor
                 pool = root.AddComponent<VfxPoolManager>();
                 pool.impactPrefab = prefab;
                 pool.capacity = 1;
-                var effects = root.AddComponent<SkillEffects>();
+                var effects = root.AddComponent<SkillController>();
                 effects.vfxPool = pool;
                 root.SetActive(true);
                 pool.Prewarm();

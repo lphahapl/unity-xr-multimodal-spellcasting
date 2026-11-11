@@ -61,13 +61,14 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 | `ThunderSwordEffectDefinition` | 右手雷光剑的握姿、挥动阈值、直击、剑波与落雷 | `Assets/ScriptableObjects/雷光剑配置/雷光剑效果.asset` |
 | `SkillAudioProfile` | 技能各阶段素材、变奏、音量与空间衰减 | `Assets/ScriptableObjects/技能音频配置/` |
 | `SkillCatalog` | 本场可用技能、共享匹配参数、取消口令 | `Assets/ScriptableObjects/技能目录配置/试炼技能目录.asset` |
-| 场景组件 | 骨骼来源、相机/玩家引用、碰撞层、HUD、模拟快捷键及试炼规则 | 场景中的 `SkillTestController`、`SkillEffects`、`SkillTestView`、`SkillScenario` |
+| `SkillResourceManifest` | 首章技能 ID、冷却组、资源地址、匹配参数和取消口令 | [首章技能资源清单](../../Assets/ScriptableObjects/技能目录配置/首章技能资源清单.asset) |
+| 场景组件 | 骨骼来源、相机/玩家引用、碰撞层、HUD、模拟快捷键及试炼规则 | 场景中的 `SkillInputController`、`SkillController`、`SkillTestView`、`SkillScenario` |
 
 同一个目录资产可被多个场景共享：改一次技能列表，各引用场景都会使用它。若某个场景需要不同技能集，复制 `SkillCatalog` 后重新绑定该场景控制器；不要在运行时往共享 SO 写玩家状态。旧序列化字段仅用于兼容，日常配置使用目录、效果资产与 View。
 
-三个试炼场景共享“试炼技能目录”。基础 `SkillTest` 保留原来的简易视觉，使用 `Configuration/迁移/<场景GUID>/技能目录.asset`。旧 `Profiles/` 技能保留用于兼容；日常请从正在使用的目录进入技能资产，避免改到旧副本。再次迁移不会把旧组件数值覆盖回已调好的新资产。
+三个试炼场景共享“试炼技能目录”。基础 `SkillTest` 保留原来的简易视觉，使用 `技能目录配置/迁移配置/<场景GUID>配置/技能目录.asset`。从该目录的技能列表可以打开「子印加持」「护体咒加持」「火球术」。迁移工具按技能显示名生成文件名，运行时和存档仍使用稳定的技能 ID。旧 `Profiles/` 技能保留用于兼容，日常请从场景当前绑定的目录进入技能资产。
 
-模拟快捷键在 `SkillTestView` 配置；默认分配跳过 F8，避免与护盾试炼冲突。Esc 用于取消，新增技能即使没有绑定快捷键也会有模拟按钮。
+模拟快捷键在 `SkillTestView` 配置。每项填写技能的稳定 `skillId`（例如 `fireball`），再选「模拟口令按键」。进入 Play 后，按键使用当前玩家目录中这个 ID 对应的口令。默认分配跳过 F8，避免与护盾试炼冲突。Esc 用于取消，新增技能即使没有绑定快捷键也会有模拟按钮。
 
 
 ### 技能音频接线
@@ -83,7 +84,7 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 | 追加落雷 `lightning` | 留空 | 冷却允许且落雷伤害结算成功 |
 | 收起或消散 `ended` | 可选 | 可选 |
 
-玩家上与 `SkillEffects` 同一个物体挂 `SkillAudioPlayer`；首章与 P1 已接好，其余场景需要时自动补挂。它提供 8 个复用的一次性空间声道，保持命中声的世界位置、避免连续重复同一变奏，并在死亡、禁用、暂停时清理或暂停。`masterVolume` 控制技能音效；有配置而主动静音时不会再补通用提示音。
+玩家上与 `SkillController` 同一个物体挂 `SkillAudioPlayer`；首章与 P1 已接好，其余场景需要时自动补挂。它提供 8 个复用的一次性空间声道，保持命中声的世界位置、避免连续重复同一变奏，并在死亡、禁用、暂停时清理或暂停。`masterVolume` 控制技能音效；有配置而主动静音时不会再补通用提示音。
 
 `P1AudioManager` 负责关卡音乐、战斗切换、语音触发的音乐衰减、环境声和脚步。腕部菜单确认/拒绝音在 `WristMenuView.acceptedSound/rejectedSound`，留空沿用合成提示音；其他操作提示在 `RpgInteractionFeedback`。这些组件不再负责选择技能素材。
 
@@ -111,13 +112,22 @@ Unity VR 原型，用骨骼特征识别固定手印，再与中文口令组合�
 
 2026-11-08 按用户要求，`KaogongP1Trial.unity` 也绑定同一训练目录并常驻授权 `thunder.sword`，进入 P1 即可练习；APK 原生词表由该目录生成，包含「雷光剑」。P1 练习授权不写入永久解锁；首章当前也已按用户要求增加下述临时测试授权。[P1 操作与打包](P1_TRIAL_ZH.md)
 
-首章 `Chapter01_Awakening.unity` 当前也可测试雷光剑：正式 `Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset` 已加入雷光剑配方，`OpeningTrialChapter.initialDiscoveries` 与全部 20 个 `sections[].trialSkills` 均包含 `thunder.sword`。该配置已发布、隔离授权检查 20/20 通过；它只授予各阶段的临时测试权限，保留原基础术式在室内/室外的阶段门控，不写永久 unlock，也不豁免 MP、冷却、输入占用与追踪有效性。已有 P1/线性训练场授权保留；有旧存档也由当前阶段临时授权判断，不要求给存档补写雷光剑。
+首章的正式清单包含雷光剑，`OpeningTrialChapter.initialDiscoveries` 与全部 20 个 `sections[].trialSkills` 均含 `thunder.sword`。阶段授予临时试用，施放仍检查能量、冷却、输入占用与手部追踪。玩家可以了解雷光剑并在本章试用，永久解锁列表保持原值。
+
+### 首章技能资源清单
+
+1. 在 Project 中按玩法用途命名资产，例如 [雷光剑.asset](../../Assets/ScriptableObjects/雷光剑配置/雷光剑.asset)。配方的 `skillId` 填 `thunder.sword`，供存档、章节和玩法查询。类名写明职责，技能及效果可独立配置。
+2. 把配方加入本地 Addressables 分组，设置唯一地址，例如 `skills/thunder.sword`。在 [首章技能资源清单](../../Assets/ScriptableObjects/技能目录配置/首章技能资源清单.asset) 填入业务 ID、地址和实际冷却组；若配方冷却组为空，则填技能 ID。共享护盾的两种输入配方都填 `shield`。
+3. 在首章的「关卡控制器 → 异步技能资源清单」选择清单。当前场景一次装入五份配方生成完整词表，并为每个玩家建立独立的技能和效果副本。P1 与训练场继续用各自的 `SkillCatalog`。
+4. 在编辑器执行 **Tools → NarutoVR → 技能配置 → 验证当前场景**。校验会查唯一地址、内容包分组、类型、业务 ID、冷却组和词表。需要调整永久解锁或试用时，分别修改成长配置或章节授权。
+
+程序接入时，装配方调用 `await manifest.AcquireAsync("thunder.sword", cancellationToken)`，从返回的租约取 `Asset`。持有期间共用原始定义，最后一位使用者 `Dispose()` 时释放底层引用。玩家施法直接使用已绑定的本地配方，再检查当前阶段授权、能量与冷却。其他种类的资源可以实现 `IResourceCatalog`，由同一个 `SharedAssetLoader.AcquireAsync<T>` 解析各自的业务 ID。[共用资源加载器](../../Assets/scripts/logic/SharedAssetLoader.cs) · [玩家技能装配](../../Assets/scripts/logic/Rpg/RuntimeSkillCatalog.cs)
 
 永久入口为阶段资产 `RpgStageDefinition.unlockSkillIds`（`Unlock Skill Ids`／Inspector「解锁技能标识」），以及成长物品 `ProgressionItemCatalog.items[].unlockSkillIds`（物品激活时授予）。物品独占技能不能同时出现在初始或阶段奖励。`initialDiscoveries` 是初始了解列表，不等于永久解锁；有效旧存档替换初始进度，已领奖阶段与已激活物品不会因修改奖励数组自动补发。需要追补时另行明确存档迁移，不能把重新进入 Play 当作补发。首章永久施用仍由 `permanentSkillGate → GATE_CHECK` 检查；临时授权是独立准入分支。[首章操作](CHAPTER01_AWAKENING_ZH.md#雷光剑临时测试授权与永久解锁)
 
 授权、挥动识别、几何朝向和头显手感分别验收；桌面合成输入通过不等于真人手感已通过。
 
-1. 复制基础技能场景 `Assets/Scene/SkillTest.unity` 作为测试场景。给其中的 `SkillTestController.catalog` 指定 `Assets/ScriptableObjects/雷光剑配置/雷光剑测试目录.asset`。把 `SkillTestView` 上旧技能的模拟快捷键列表清空，控制台会按目录生成“模拟雷光剑”按钮。
+1. 复制基础技能场景 `Assets/Scene/SkillTest.unity` 作为测试场景。给其中的 `SkillInputController.catalog` 指定 `Assets/ScriptableObjects/雷光剑配置/雷光剑测试目录.asset`。把 `SkillTestView` 上旧技能的模拟快捷键列表清空，控制台会按目录生成“模拟雷光剑”按钮。
 2. 进入 Play，保持右腕可追踪，在电脑操作台点模拟按钮。剑生成后看向目标，右手做一次明确的横挥或竖挥。剑波从手前飞向出波瞬间的头向准星；横竖只改变波面朝向，不改变飞行目标。青色弧线显示当前横竖预览，灰色表示恢复/出波间隔未结束，橙色表示路径受阻。测试目录以“雷光剑”作为纯口令配方。真人语音需要另行导出当前场景词表并重启本机服务。
 3. 要启用剑身接触，在法宝预制体挂一个 `MeleeHitDetector`，把刃根和剑尖两个子节点拖给 `bladeBase`、`bladeTip`。雷光剑的两个节点位于本地 +Z 的 0.10 和 0.62 米。接触半径初值为 0.035 米。移除或禁用该组件即可单独测试剑波。出波与落雷继续由技能运行态管理。
 4. 用可受击的敌人检查紫色落雷。近战和蓝色剑波共用本次挥动的直击 ID；剑先打中前排，波实际接触前排后可穿过并直击后排。每波最多触发一次落雷，同时受施法者冷却限制。训练靶可测直击，墙体可测阻挡。触碰剑身、打靶和击墙均不触发落雷。
@@ -161,21 +171,21 @@ Meta / OpenXR 手部来源
         ↓
 SealLab：骨骼快照、有效性、特征和各印评分
         ↓
-SkillTestController：输入订阅、暂停/恢复、取消和模拟事件
+SkillInputController：输入订阅、暂停/恢复、取消和模拟事件
         ↓                 ↑
 SkillMatchEngine      SkillVoiceReceiver ← 本机 sherpa-onnx
         ↓
-SkillEffects → SkillEffectDefinition → 当前效果实例
+SkillController 读取 SkillEffectDefinition → 准备并提交本次 Cast
         ↓
 SkillTestView：只读状态 HUD、电脑按钮和快捷键
 ```
 
 - **Controller** 负责输入生命周期和接线，不拼接 HUD，也不写死技能口令。
 - **View** 根据已生效配方显示技能、评分、缓存、语音状态和效果，并发送显式调试命令；不决定匹配结果。
-- **Engine** 负责缓存、保持、竞争印消歧、双向时间匹配、冷却和输入消费；不生成场景物体。
-- **Effects** 管理当前效果与临时物体，委派效果资产激活；视觉预置体不负责伤害。
+- **Engine** 负责缓存、保持、竞争印消歧、双向时间匹配、查询玩家冷却和输入消费；不生成场景物体。
+- **SkillController** 以效果配置类型选择执行器。火球、护盾和雷光剑有各自的运行实例，结算后的事实供教学、音效和 HUD 使用。
 
-新增武器、领域等**不同机制**时，继承 `SkillEffectDefinition`，实现 `Summary`、`ValidateDefinition()` 和 `TryActivate(SkillEffects executor, SkillDefinition skill)`。成功创建后才返回 `true`；失败不能留下半个效果。无需向语音接收器、UI 或匹配器添加技能名称分支。
+扩展新机制时，继承 `SkillEffectDefinition` 描述资产，在玩家装配时调用 `SkillController.RegisterExecutor<T>(prepare)`。准备函数返回 `PreparedSkillCast`，提供登记、本次提交后的呈现、放弃本次准备三个回调。登记失败时释放新实例，已生效的护盾和玩家资源保持原值。配置共享原件、玩家派生参数、场景中的本次 Cast 分别有自己的寿命。
 
 持续效果把每次施法的状态放在独立对象中，实现 `ISkillEffectLifetime`：
 
@@ -187,7 +197,7 @@ void Cancel();
 
 创建后调用 `executor.RegisterEffectLifetime(instance)`。返回 `true` 才把生命周期交给执行器；若返回 `false`，创建方负责清理该新实例。执行器负责更新及结束清理，暂停/禁用时也会收回资源。`Cancel()` 应释放实例拥有的物体、订阅和临时资源；SO 只存配置，不存剩余时间、运行对象或玩家数据。旧训练场取消顺序为持握投射物、最近的扩展效果、护盾；已发射投射物不被普通取消追回。新 RPG 场景普通取消只收起未发射物并清待施法，保留已生效护盾与飞行物，不能据旧顺序接线。
 
-自动失败回收仅覆盖本次新注册的扩展句柄。自定义效果若先调用内置护盾/投射物方法再返回失败，需要自行恢复已经提交的变化；当前还没有通用的多效果原子事务，后续在玩家资源与技能事务模块中处理。
+提交前的自定义执行器自行管理其准备对象，取得扩展租约后由技能控制器负责结束时清理。确认后的呈现异常会留下诊断并保留已经发生的 MP 和冷却结算。
 
 工程使用现有 MonoBehaviour 接线、纯逻辑匹配器和 ScriptableObject 配置，未引入额外 DI/ECS 框架。
 
@@ -195,7 +205,7 @@ void Cancel();
 
 护体成功时，左腕的青玉符弧合拢；护盾实际吸收伤害时，铜色刻度短暂亮起。普通吸收的光效持续约 0.22 秒，破盾余光约 0.32 秒。常驻护盾外观仍由护盾效果配置的「护盾视觉预置体」指定。短闪材质是 `Assets/Art/VFX/Resources/ShieldWristPulse.mat`。[P1 护体与破盾动图](../visuals/20261107_skill_feedback/shield-play.gif)
 
-展开 P1 场景中 `P1AudioManager` 的「掌心成形」「脱手发射」「碰撞爆散」，每组可替换三段音频。「火球空间音量」控制三组的整体音量。成形声来自生成点，发射声来自脱手处，撞击声来自碰撞位置；同阶段连续触发会换一条变奏。实际资源位于 `Assets/Audio/Fireball/`。[依次试听成形、发射、撞击](../visuals/20261107_skill_feedback/fireball-form-release-impact.wav)
+在火球效果配置的“音频配置”中打开“火球音频”，为成形（`Activated`）、发射（`Released`）和撞击（`Impact`）设置变奏。玩家的 `SkillAudioPlayer` 负责空间声道及总音量。实际资源位于 `Assets/Audio/Fireball/`。[依次试听成形、发射、撞击](../visuals/20261107_skill_feedback/fireball-form-release-impact.wav)
 
 ## 中文语音配置与测试
 

@@ -37,11 +37,9 @@ namespace NarutoVR.SealCombat.Editor
                 if (state == PlayModeStateChange.EnteredPlayMode && !string.IsNullOrEmpty(SessionState.GetString(TestKey, "")))
                 { waitingForPlay = true; startProbeAt = EditorApplication.timeSinceStartup + 2; }
                 if (state == PlayModeStateChange.EnteredEditMode)
-                { SessionState.EraseString(TestKey); LinearRpgController.EditorTestSaveFile = null; waitingForPlay = false; }
+                { SessionState.EraseString(TestKey); waitingForPlay = false; }
             };
         }
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void SetTestSession() => LinearRpgController.EditorTestSaveFile = SessionState.GetString(TestKey, "");
 
         static void Poll()
         {
@@ -148,8 +146,10 @@ namespace NarutoVR.SealCombat.Editor
                         counterMethod?.Invoke(null, counters);
                         var activeScene = SceneManager.GetActiveScene();
                         var sceneController = Object.FindFirstObjectByType<LinearRpgController>();
+                        bool supportedScene = activeScene.path == LinearRpgSceneSetup.ScenePath || activeScene.path == P1ScenePath ||
+                            activeScene.path == "Assets/Scene/Chapter01_Awakening.unity";
                         bool ready = counterMethod != null && (int)counters[0] == 0 && !EditorApplication.isPlayingOrWillChangePlaymode && !activeScene.isDirty &&
-                            (activeScene.path == LinearRpgSceneSetup.ScenePath || activeScene.path == P1ScenePath) && sceneController && sceneController.handPoseSettings && sceneController.handPoseSettings.Validate() == null;
+                            supportedScene && sceneController && sceneController.handPoseSettings && sceneController.handPoseSettings.Validate() == null;
                         Write(new Report { action = action, passed = ready, detail = $"播放={EditorApplication.isPlaying}，未保存={activeScene.isDirty}，错误={counters[0]}，警告={counters[1]}，官方手形配置={(sceneController ? sceneController.handPoseSettings : null)}\n编辑器日志：{Application.consoleLogPath}" });
                         break;
                     case "console":
@@ -222,12 +222,25 @@ namespace NarutoVR.SealCombat.Editor
                         string detail="无主控";
                         if(live) {
                             var menu=live.wristMenu;
-                            detail="技能："+live.skills.LastMessage+"\n匹配器："+live.skills.Engine?.Status+"\n"+live.skills.Engine?.ObservationDiagnostics+"\n"+live.GetComponent<RpgSessionView>()?.BuildSealDetails()+"\n"+live.HandPoseStatus+"\n"+(menu?menu.DebugDetails:"无菜单")+"\n"+(menu?JsonUtility.ToJson(menu.LatestInput):"")+"\n"+(live.skills.voice?live.skills.voice.BuildDebugDetails():"无接收器");
+                            detail="技能："+live.skills.LastMessage+"\n匹配器："+live.skills.Engine?.Status+"\n"+live.skills.Engine?.ObservationDiagnostics+"\n"+live.GetComponentInChildren<RpgSessionView>(true)?.BuildSealDetails()+"\n"+live.HandPoseStatus+"\n"+(menu?menu.DebugDetails:"无菜单")+"\n"+(menu?JsonUtility.ToJson(menu.LatestInput):"")+"\n"+(live.skills.voice?live.skills.voice.BuildDebugDetails():"无接收器");
                         }
                         Write(new Report{action=action,passed=live,detail=detail}); break;
                     case "state":
-                        var rpg = Object.FindFirstObjectByType<LinearRpgController>();
-                        Write(new Report { action = action, passed = rpg, detail = rpg ? rpg.Status + "\n" + rpg.ObjectiveStatus : "无RPG控制器" }); break;
+                        var active = SceneManager.GetActiveScene();
+                        var sessions = active.GetRootGameObjects()
+                            .SelectMany(root => root.GetComponentsInChildren<LinearRpgController>(true)).ToArray();
+                        var summary = "无RPG控制器";
+                        if (sessions.Length == 1)
+                        {
+                            var rpg = sessions[0];
+                            var attached = rpg.GetComponents<MonoBehaviour>();
+                            var scripts = string.Join(", ", attached.Select(component => component ? component.GetType().Name : "Missing Script"));
+                            var groups = string.Join(", ", rpg.transform.Cast<Transform>().Select(child => child.name));
+                            summary = $"{rpg.name} [{scripts}]\n子物体：{groups}\n{rpg.Status}\n{rpg.ObjectiveStatus}";
+                        }
+                        else if (sessions.Length > 1)
+                            summary = "场景包含多个会话：" + string.Join(", ", sessions.Select(session => session.name));
+                        Write(new Report { action = action, passed = sessions.Length == 1, detail = summary }); break;
                     default: throw new InvalidOperationException("未知RPG操作：" + action);
                 }
             }
@@ -241,7 +254,9 @@ namespace NarutoVR.SealCombat.Editor
             LinearRpgSceneSetup.Build();
             var scene = SceneManager.GetActiveScene();
             var rpg = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<LinearRpgController>(true)).Single();
-            if (rpg.stages.Length != 3 || rpg.checkpointNodes.Length != 3 || rpg.GetComponent<TrainingTargetGroup>().targets.Length != 3 || !rpg.GetComponent<RpgTrainingHazard>()) throw new Exception("新场景阶段、靶子或攻击接线不全");
+            if (rpg.stages.Length != 3 || rpg.checkpointNodes.Length != 3 || rpg.chapter is not TrainingChapterFlow training ||
+                training.TargetGroup.targets.Length != 3 || !training.Hazard || training.Hazard.controller != rpg)
+                throw new Exception("新场景阶段、靶子或攻击接线不全");
             if (rpg.skills.catalog.Validate().Count > 0 || rpg.skills.ConfigurationErrors().Count > 0) throw new Exception("新场景技能配置无效：" + string.Join("；",rpg.skills.ConfigurationErrors()));
             Write(new Report { passed = true, action = "build-check", dataChecks = data, locomotionChecks = locomotion, coreChecks = core,
                 detail = "新RPG场景与独立配置创建并验证；未进行头显测试。" });
@@ -249,11 +264,20 @@ namespace NarutoVR.SealCombat.Editor
         [MenuItem("Tools/NarutoVR/线性RPG/运行独立存档播放检查")]
         public static void StartPlayCheck()
         {
+            if (SceneManager.GetActiveScene().path == P1ScenePath)
+            {
+                P1RoomPlayChecks.Begin();
+                return;
+            }
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new Exception("需要从编辑模式启动独立测试");
-            if ((SceneManager.GetActiveScene().path != LinearRpgSceneSetup.ScenePath && SceneManager.GetActiveScene().path != P1ScenePath) || SceneManager.GetActiveScene().isDirty) throw new Exception("请打开并保存线性RPG或 P1 试炼场景");
-            SessionState.SetString(TestKey, "linear-rpg-probe-" + Guid.NewGuid().ToString("N") + ".json");
+            if (SceneManager.GetActiveScene().path != LinearRpgSceneSetup.ScenePath || SceneManager.GetActiveScene().isDirty) throw new Exception("请打开并保存线性RPG或 P1 试炼场景");
+            IsolatedRpgPlayScene.Prepare(SceneManager.GetActiveScene().path, "linear-rpg-probe-");
+            SessionState.SetString(TestKey, IsolatedRpgPlayScene.SaveName);
             EditorApplication.isPlaying = true;
         }
+        internal static void WriteRoomPlayResult(bool passed, string detail) =>
+            Write(new Report { action = "play-check", passed = passed, detail = detail });
+
         static void Write(Report report)
         {
             report.utc = DateTime.UtcNow.ToString("O"); report.scene = SceneManager.GetActiveScene().path;

@@ -34,7 +34,7 @@
 | 池化 | `OnEnable` / `InitializeSpawn` 重置本轮状态，重新允许首次事件；仅 `SetTarget` 不重置首次记录 |
 | 暂停 | 调用 `SetSuspended(true)` 取消攻击、停止导航；恢复调用 `SetSuspended(false)` |
 | Hit / Seated | 通过 `NotifyHit()` / `EnterSeated()` 打断攻击并停止导航；实际动画退出后恢复行动，默认 8 秒超时兜底 |
-| Dead | 通过 `Die()` 停止导航、取消攻击并持续播放/停留死亡态，只有重新生成才解除；不自动扣血或销毁对象 |
+| Dead | 致死命中或显式 `Die()` 停止导航、取消攻击并进入死亡态。实际片段播完后，房间池回收、旧房间预置对象隐藏，独立对象销毁 |
 
 所有时间随 `Time.deltaTime`，游戏暂停不会用现实时间跳过攻击。可以关闭“自动更新”，由外部统一调度 `Tick(deltaTime)`，不要同时调用两套更新。
 
@@ -46,18 +46,22 @@ enemy.InitializeSpawn(playerTarget, summoned: true);
 
 enemy.SetTarget(otherPlayerTarget); // 换目标，不重置首次事件
 enemy.SetTarget(null);              // 召唤敌人待机
-enemy.SetSuspended(true);           // 演出、死亡或外部控制
+enemy.SetSuspended(true);           // 出房或演出暂停
 enemy.CancelAttack();               // 受击等逻辑主动中止当前攻击
 enemy.NotifyHit();                  // 播放 Hit，播完恢复行动
 enemy.EnterSeated();                // 播放 Seated，播完恢复行动
-enemy.Die();                        // 进入 Dead，直到重新生成
+enemy.Die();                        // 进入 Dead，播完后由该次出生的所有者清理
 ```
 
 如果使用对象池，先放到有效 NavMesh，再激活并调用 `InitializeSpawn`。不同 Agent Type 的召唤点由生成器按其导航网格选择。首次事件回调允许禁用敌人、暂停或换目标，旧更新不会继续对已变化的生命周期发动攻击。
 
 敌人伤害已走 `RpgDamageReceiver → LinearRpgController.ReceiveDamage → PlayerObj` 的护盾和去重入口。命中 ID 含敌人运行实例标识和递增攻击序号，池化重生不复用旧 ID。不要直接修改玩家 HP，也不要把开始攻击事件等同于命中。
 
-上述三个反应方法为 `void`，可直接绑定 UnityEvent。程序若需要知道本次请求是否生效，可调用 `TryNotifyHit()`、`TryEnterSeated()`、`TryDie()`。优先级为死亡高于坐地、高于受击；同级请求不会重复排队，受击不能打断坐地，死亡拒绝其余反应。旧 Animator 若没有这三种状态与参数，基础巡逻/攻击仍可运行，反应接口返回失败；正式战斗 prefab 必须提供这些状态，缺少反应时削空/死亡将暂停行动。敌人 HP 归零已调用 Die，韧性归零调用 Seated 并在动画结束回韧。
+上述三个反应方法可直接绑定 UnityEvent。程序可通过 `TryNotifyHit()`、`TryEnterSeated()`、`TryDie()` 取得本次请求结果。优先级依次是死亡、坐地、受击，同级请求只播放一次。房间暂停时保存 Hit 或 Seated 的播放速度，同时冻结反应等待时间，恢复后继续该动作。韧性归零时进入 Seated，片段结束后按配置回韧。
+
+残机偶的 `Base Layer.Dead` 使用现有的 `CanJiOu_ParalysisEnter` 倒地片段。致死当帧即锁定行动并结算本次击败，动画按自身进度到达片尾后才清理物体。屏幕外仍计算这段动画，死亡态或 Animator 缺失时也能结束本次生命。[生成和回收说明](ENEMY_SPAWNING_ZH.md) · [Unity 动画状态进度](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/AnimatorStateInfo-normalizedTime.html)
+
+P1 固定机位录像以每秒 24 帧记录。第 93 帧仍可看到接近片尾的倒地姿势，第 94 帧归还租约，房间中的敌人消失。[完整录像](../visuals/20261110_enemy_lifecycle/P1残机偶死亡与回池.mp4) · [五帧对照图](../visuals/20261110_enemy_lifecycle/残机偶死亡动作与回池.jpg)
 
 职责拆分后，路径缓存、NavMeshPath、射线缓冲、Animator 参数名及根运动控制集中在 `EnemyObj`；目标选择、首次发现记录、攻击随机、冷却、反应优先级、暂停和回调重入保护仍由 `EnemyController` 维护。行为数值和事件不迁走，保留既有序列化路径和绑定。
 
@@ -68,7 +72,7 @@ enemy.Die();                        // 进入 Dead，直到重新生成
 - 非攻击状态先检查 `isAttacking`，其他移动连线要求 `isAttacking=false`，消除 Run 抢占攻击。
 - 攻击子状态机保留默认挥砍和 `attack1` 条件转圈，标签为 `EnemyAttack`。退出由脚本完成/取消标志驱动，不再等待 Idle 的 Exit Time。
 - 新增状态使用用户的 `dead` Bool、`Hit` Trigger、`isSeated` Trigger。Any State 的死亡入口优先且不允许自重入；Hit/Seated 入口要求 `dead=false`，动画在 0.98 进度后退出到待机；死亡态保留无普通出口。
-- 导航负责位移，脚本负责水平转向。`applyRootMotion=false`、`agent.updateRotation=false`。目前仍复用用户动作素材，脚底滑动和转身动作观感需现场调速验证。
+- 导航负责位移，脚本负责水平转向。`applyRootMotion=false`、`agent.updateRotation=false`。左转和右转片段设为循环，近处目标持续绕行时肢体会继续转步。头显中的距离感与脚底滑动仍需现场核验。
 - 当前资产只有两种独立攻击。增加第三种时须同时加动作、`attack2` Trigger、Attack Entry 条件和 EnemyObj 第三项 AttackData，并将总数设为 3；只改总数不会凭空生成动画。运行时基础验证能拦缺参数/数据，编辑器回归核对现有两招的实际入口。
 - 攻击总数和 Animator Controller 请退出 Play 后修改，再开始新一轮；生成时会重新验证配置。移动速度、攻击距离、冷却等数值可在 Play 中调试。
 - 关闭 Root Motion 后，转向/转圈素材是否仍有期望的视觉旋转需要 Game/头显验收；动画入口通过不等于视觉表现已验收。若素材主要通过根旋转表现转圈，应制作原地版本或隔离模型子节点旋转，不同时恢复导航根节点的动画位移。

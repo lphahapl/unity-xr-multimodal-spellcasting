@@ -109,12 +109,13 @@ namespace NarutoVR.SealCombat
             left.Reset("等待重新确认"); right.Reset("等待重新确认");
             Left = Right = new Result(false, false, "等待重新确认"); source = null;
         }
-        public void Update(SealFrame frame, IReadOnlyList<SealFeature> features, double now, double maxAge, double maxGap)
+        public void Update(SealFrame frame, IReadOnlyList<SealFeature> features, double now, double maxAge, double maxGap,
+            double acceptObservationsAfter = double.NegativeInfinity)
         {
             if (frame == null || !double.IsFinite(maxAge) || !double.IsFinite(maxGap) || maxAge <= 0 || maxGap <= 0) { Reset(); return; }
             if (source != frame.source) { Reset(); source = frame.source; }
-            Left = left.Update(frame.left, features, now, maxAge, maxGap);
-            Right = right.Update(frame.right, features, now, maxAge, maxGap);
+            Left = left.Update(frame.left?.observedAt > acceptObservationsAfter ? frame.left : null, features, now, maxAge, maxGap);
+            Right = right.Update(frame.right?.observedAt > acceptObservationsAfter ? frame.right : null, features, now, maxAge, maxGap);
         }
         static string FingerName(int i) => i == 0 ? "食指" : i == 1 ? "中指" : i == 2 ? "无名指" : "小指";
         static string StateName(string state) => state == "0" ? "伸直" : state == "1" ? "半弯" : state == "2" ? "收拢" : "确认中";

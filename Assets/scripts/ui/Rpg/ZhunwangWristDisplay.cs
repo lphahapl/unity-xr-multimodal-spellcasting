@@ -17,7 +17,7 @@ namespace NarutoVR.SealCombat.Rpg
         public void SetHealth(float current,float maximum) => health.SetValue(current,maximum);
         public void SetPower(float current,float maximum) => power.SetValue(current,maximum);
 
-        public void Present(RpgPlayerState player,bool tracked,bool recoveryFailed)
+        public void Present(IPlayerReadModel player,bool tracked,bool recoveryFailed)
         {
             bool visible=tracked && player!=null;
             vitalsAnchor.gameObject.SetActive(visible);

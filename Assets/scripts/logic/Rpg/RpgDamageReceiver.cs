@@ -8,12 +8,6 @@ namespace NarutoVR.SealCombat.Rpg
     public sealed class RpgDamageReceiver : CombatDamageReceiver
     {
         LinearRpgController player;
-        protected override void Awake()
-        {
-            base.Awake();
-            if (!TryGetComponent<PlayerHitVignette>(out _)) gameObject.AddComponent<PlayerHitVignette>();
-        }
-
         LinearRpgController Player => player ? player : player = GetComponent<LinearRpgController>();
         public override bool CanReceiveDamage => Player && Player.CanAct && Player.skills && Player.skills.effects;
         public override Transform HitTransform => Player && Player.locomotion && Player.locomotion.head ? Player.locomotion.head : transform;

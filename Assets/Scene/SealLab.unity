@@ -897,7 +897,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 788b7a443b3e53347ae88d8651dea01e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLabView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLabView
   lab: {fileID: 2059907625}
   statusText: {fileID: 1443805991}
   boneMaterial: {fileID: 2100000, guid: f95c8cec0450dc54e8eb0deb6a517a16, type: 2}
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb390fd33d5b7b40ae0090d5e836e2a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLab
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLab
   leftTrackedHand: {fileID: 1299981110}
   rightTrackedHand: {fileID: 1299981107}
   recordingOrigin: {fileID: 1936651570}

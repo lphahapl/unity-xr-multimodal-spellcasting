@@ -52,13 +52,13 @@
 | [SkillDefinition](../../Assets/scripts/data/Skills/Core/SkillDefinition.cs) | 只有纯结印、纯咒语、咒语＋单印三个模式；校验用 `!= GestureOnly/VoiceOnly` 判断字段 | 当前保留三模式；未来确有配方扩展需求时才一起迁移校验/匹配，保留旧枚举值 |
 | [SkillMatchEngine](../../Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs) | 骨骼历史、单印保持、语音窗口、Epoch、取消屏障和消费一次规则 | 产生独立会话事件，不伪装 `sealName`；首版不接战斗匹配器，不要求左手有效 |
 | [SkillMatchSettings](../../Assets/scripts/data/Skills/Core/SkillMatchSettings.cs) | 默认 10 秒/640 帧缓存，最大语音延迟 2 秒 | 640 槽不保证高帧率下有完整 10 秒；画符使用独立会话/有界点集，不受战斗缓冲时长限制 |
-| [LinearRpgController](../../Assets/scripts/logic/Rpg/LinearRpgController.cs) | 负责 UI/导航/技能仲裁；`TryActivate` 经解锁、MP/CD 和效果创建事务；UI 占用切换会清输入 | 由这里协调持笔模式和攻击阻断；战斗外交互独立提交，识别器不能直接生成攻击物 |
+| [LinearRpgController](../../Assets/scripts/logic/Rpg/LinearRpgController.cs) | 会话通过 PlayerInputController 仲裁 UI、导航和持物，通过 SkillController 与玩家模型提交 MP 和共享冷却 | 由这里协调持笔模式和攻击阻断；战斗外交互独立提交，识别器不能直接生成攻击物 |
 | [WristMenuController](../../Assets/scripts/logic/Rpg/WristMenuController.cs) | 画符只是预览卡；默认放左腕关闭；教学筛选仍假设结印/语音二分 | 入口改由笔抓取提供；教学卡、画布、工具会话分别管理；将来扩配方才修改 `Eligible` |
-| [SkillTestController](../../Assets/scripts/logic/Skills/SkillTestController.cs) | `ExclusiveInputBlocked` 会在识别取消口令前拦截语音 | 不能把“绘制中”直接塞入这个布尔量，否则取消口令也失效；需单独处理工具退出/仪式命令，保持战斗语音隔离 |
+| [SkillInputController](../../Assets/scripts/logic/Skills/SkillInputController.cs) | 腕部 UI 独占时，排队施法被拦截，新鲜取消可通过一次 | 绘制模式需显式接收工具退出和仪式命令，并与战斗语音隔离 |
 | [RpgGestureState](../../Assets/scripts/logic/Locomotion/RpgGestureState.cs) | 低位双手取消先于 `blockActions` 执行 | 绘制中不能仅传 `blockActions=true` 以为隔离完成；跳过移动识别时又必须提供独立取消入口 |
-| [SkillEffects](../../Assets/scripts/logic/Skills/Effects/SkillEffects.cs) | 现有松手投掷、动作评分、伸手保持；`ResetPushInput` 实际会重置运动历史与准备时间 | 持笔期间禁止攻击物生成与释放；放笔后不得继承笔画速度、握持或伸手进度 |
+| [SkillController](../../Assets/scripts/logic/Skills/Effects/SkillController.cs) | 现有松手投掷、动作评分、伸手保持；`ResetPushInput` 实际会重置运动历史与准备时间 | 持笔期间禁止攻击物生成与释放；放笔后不得继承笔画速度、握持或伸手进度 |
 
-时序现状：`SealLab` 执行顺序 200、`LinearRpgController` 300、`SkillEffects` 350、`SkillTestController` 400。未来 owner/采样/识别事件的提交阶段必须明确，防止同帧既画符又被其他状态机消费。仅调整脚本顺序不等于解决输入冲突。
+时序现状：`SealLab` 执行顺序 200、`LinearRpgController` 300、`SkillController` 350、`SkillInputController` 400。未来 owner/采样/识别事件的提交阶段必须明确，防止同帧既画符又被其他状态机消费。仅调整脚本顺序不等于解决输入冲突。
 
 ## 4. 战斗外拿笔交互（当前方案）
 
@@ -112,7 +112,7 @@
 
 ### 结果接入：战斗外交互优先，技能复用按需要
 
-先形成 `GlyphRecognized` 结果，由战斗外交互处理器校验目标、距离/状态、解锁条件及唯一提交 ID，再执行练习反馈、机关或其他已配置用途。画符成功不能直接调用 `SkillEffects` 生成攻击物。通用识别器只负责形状与质量，不负责奖励、扣费或战斗阶段。
+先形成 `GlyphRecognized` 结果，由战斗外交互处理器校验目标、距离/状态、解锁条件及唯一提交 ID，再执行练习反馈、机关或其他已配置用途。画符成功不能直接调用 `SkillController` 生成攻击物。通用识别器只负责形状与质量，不负责奖励、扣费或战斗阶段。
 
 若后续选定制作符纸、解锁法术或战前加持，可复用玩家数据、效果配置或资源事务，是否消耗 MP/CD 由具体交互决定，不统一强制套战斗配方。允许的非攻击结果也需明确白名单，不能通过通用技能入口绕过“持笔禁止攻击”。现有三种战斗触发模式暂不增加 Glyph 枚举，GLY-05 不以前置重构整个 `SkillMatchEngine` 为目标。
 

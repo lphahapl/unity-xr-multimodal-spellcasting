@@ -168,7 +168,7 @@ namespace NarutoVR.SealCombat.Rpg
             preparedAt=-1;
             if (wornDevice)
             {
-                var player=controller.Player;
+                var player=controller.PlayerView;
                 if (player!=null && player.Alive) recoveryFailed=false;
                 if (wornDevice.display) wornDevice.display.Present(player,left && sample.mountValid,recoveryFailed);
                 if (player!=null && !player.Alive)
@@ -418,12 +418,12 @@ namespace NarutoVR.SealCombat.Rpg
         static string Title(WristPanelKind kind) => kind == WristPanelKind.Seal ? "术式教学" : kind == WristPanelKind.Glyph ? "画符预览" : "咒语速查";
         void RefreshLauncherReadout()
         {
-            if (owner && wornDevice && owner.Player!=null) view.SetLauncherVitals(owner.Player.Health,owner.Player.Mana);
-            if (!owner || owner.Progress==null) { view.SetLauncherProgress(null); return; }
+            if (owner && wornDevice && owner.PlayerView!=null) view.SetLauncherVitals(owner.PlayerView.Health,owner.PlayerView.Mana);
+            if (!owner || owner.PlayerView==null) { view.SetLauncherProgress(null); return; }
             if (launcherOwner!=owner || launcherRevision!=owner.ProgressRevision)
             {
                 teaching.Sync(owner);
-                launcherProgress=$"教学 {teaching.EntryCount} 项 · 已解锁 {owner.Progress.unlockedSkillIds.Count} 项" +
+                launcherProgress=$"教学 {teaching.EntryCount} 项 · 已解锁 {owner.PlayerView.UnlockedSkillCount} 项" +
                     (owner.CheckpointSavePending ? " · 待存档" : "");
                 launcherOwner=owner;launcherRevision=owner.ProgressRevision;
             }

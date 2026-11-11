@@ -22,31 +22,33 @@ namespace NarutoVR.SealCombat.Editor
             var known = new[] { "fireball", "buff.zi", "buff.voice", "buff.hidden" };
             teaching.Validate(known); items.Validate(known);
             Check(teaching.entries.Length == 3 && teaching.entries[1].skillIds.Length == 2, "teaching groups alternative recipes without granting progress");
-            var p = new RpgProgressData();
-            Check(SkillProgression.Discover(p, new[] { "fireball" }) && SkillProgression.IsDiscovered(p, "fireball") && !SkillProgression.IsUnlocked(p, "fireball"), "discovery is distinct from permanent unlock");
-            Check(SkillProgression.Discover(p, new[] { "fireball" }) && p.discoveredSkillIds.Count == 1, "repeated discovery is idempotent");
-            Check(SkillProgression.Unlock(p, new[] { "buff.zi" }) && SkillProgression.IsDiscovered(p, "buff.zi"), "ordinary skill unlock works without teaching or inventory");
+            var model = new PlayerModel(new RpgPlayerState());
+            RpgProgressData Snapshot() => model.Export(model.Vitals.CaptureCheckpoint(0), null);
+            Check(model.Discover(new[] { "fireball" }) && model.IsDiscovered("fireball") && !model.IsUnlocked("fireball"), "discovery is distinct from permanent unlock");
+            Check(model.Discover(new[] { "fireball" }) && model.DiscoveredSkills.Count == 1, "repeated discovery is idempotent");
+            Check(model.Unlock(new[] { "buff.zi" }) && model.IsDiscovered("buff.zi"), "ordinary skill unlock works without teaching or inventory");
             var missingItem = new RpgProgressData(); missingItem.unlockedSkillIds.Add("buff.hidden");
             Check(!inventory.ValidateProgress(missingItem), "exclusive item skill cannot bypass item ownership");
-            p.items.Add(new RpgItemProgressData { itemId = "leaf.fangyuan" });
-            Check(!inventory.ValidateProgress(p), "collected item requires its discovery reward");
-            SkillProgression.Discover(p, new[] { "buff.hidden" });
-            Check(inventory.ValidateProgress(p) && !SkillProgression.IsUnlocked(p, "buff.hidden"), "collection reveals knowledge without permanent grant");
-            SkillProgression.Unlock(p, new[] { "buff.hidden" });
-            Check(!inventory.ValidateProgress(p), "unactivated item cannot grant exclusive skill");
-            p.items[0].activated = true;
-            Check(inventory.ValidateProgress(p), "activated item and grant validate in both directions");
+            var malformed = Snapshot(); malformed.items.Add(new RpgItemProgressData { itemId = "leaf.fangyuan" });
+            Check(!inventory.ValidateProgress(malformed), "collected item requires its discovery reward");
+            var leaf = items.Find("leaf.fangyuan");
+            model.ChangeItem(leaf.itemId, leaf.discoverSkillIds, leaf.unlockSkillIds, false);
+            Check(inventory.ValidateProgress(Snapshot()) && !model.IsUnlocked("buff.hidden"), "collection reveals knowledge without permanent grant");
+            malformed = Snapshot(); malformed.unlockedSkillIds.Add("buff.hidden");
+            Check(!inventory.ValidateProgress(malformed), "unactivated item cannot grant exclusive skill");
+            model.ChangeItem(leaf.itemId, leaf.discoverSkillIds, leaf.unlockSkillIds, true);
+            Check(inventory.ValidateProgress(Snapshot()), "activated item and grant validate in both directions");
             var stageOnly = new RpgProgressData(); stageOnly.completedStageIds.Add("GATE_CHECK");
             Check(inventory.ValidateProgress(stageOnly) && stageOnly.items.Count == 0 && stageOnly.unlockedSkillIds.Count == 0, "stage history does not fabricate knowledge or items");
-            var offer = new SkillShopOffer { skillId = "fireball", kind = SkillOfferKind.Unlock, cost = 30 };
-            p.currency = 20; string before = JsonUtility.ToJson(p);
-            Check(!SkillShopTransactions.Apply(p, offer, out _) && JsonUtility.ToJson(p) == before, "insufficient balance leaves progress unchanged");
-            p.currency = 50;
-            Check(SkillShopTransactions.Apply(p, offer, out _) && p.currency == 20 && !SkillShopTransactions.Apply(p, offer, out _) && p.currency == 20, "configured purchase charges once");
-            offer.kind = SkillOfferKind.Upgrade; offer.cost = 10; offer.maximumLevel = 1;
-            Check(SkillShopTransactions.Apply(p, offer, out _) && !SkillShopTransactions.Apply(p, offer, out _) && p.currency == 10 && SkillProgression.Level(p, "fireball") == 1, "upgrade has a configured cap and no repeat charge");
+            bool Buy() => model.Purchase("fireball", SkillOfferKind.Unlock, 30, 1, null, out _);
+            bool Upgrade() => model.Purchase("fireball", SkillOfferKind.Upgrade, 10, 1, null, out _);
+            model.Credit(20); string before = JsonUtility.ToJson(Snapshot());
+            Check(!Buy() && JsonUtility.ToJson(Snapshot()) == before, "insufficient balance leaves progress unchanged");
+            model.Credit(30);
+            Check(Buy() && model.Currency == 20 && !Buy() && model.Currency == 20, "configured purchase charges once");
+            Check(Upgrade() && !Upgrade() && model.Currency == 10 && model.SkillLevel("fireball") == 1, "upgrade has a configured cap and no repeat charge");
             EffectIsolation();
-            Disk(p, known);
+            Disk(Snapshot(), known);
             File.AppendAllText(Report, "PASS END\n");
         }
 
@@ -61,14 +63,16 @@ namespace NarutoVR.SealCombat.Editor
             {
                 using var playerOne = new RuntimeSkillCatalog(catalog);
                 using var playerTwo = new RuntimeSkillCatalog(catalog);
-                var p = new RpgProgressData(); SkillProgression.Unlock(p, new[] { "test.a" });
-                SkillProgression.Upgrade(p, "test.a", 3); SkillProgression.Upgrade(p, "test.a", 3);
-                playerOne.ApplyLevels(p); playerTwo.ApplyLevels(new RpgProgressData());
+                var model = new PlayerModel(new RpgPlayerState());
+                model.Unlock(new[] { "test.a" });
+                model.Purchase("test.a", SkillOfferKind.Upgrade, 0, 3, null, out _);
+                model.Purchase("test.a", SkillOfferKind.Upgrade, 0, 3, null, out _);
+                playerOne.ApplyLevels(model.SkillLevel); playerTwo.ApplyLevels(id => 0);
                 float Damage(RuntimeSkillCatalog c, int index) => ((ProjectileEffectDefinition)c.Catalog.skills[index].effectDefinition).damage;
                 Check(Mathf.Approximately(Damage(playerOne, 0), 30) && Mathf.Approximately(Damage(playerOne, 1), 25), "upgrade affects only its own skill even with shared effect source");
                 Check(Mathf.Approximately(Damage(playerTwo, 0), 25) && Mathf.Approximately(effect.damage, 25), "player instances and project assets remain isolated");
-                playerOne.ApplyLevels(p); Check(Mathf.Approximately(Damage(playerOne, 0), 30), "reapplying levels does not multiply repeatedly");
-                playerOne.ApplyLevels(new RpgProgressData()); Check(Mathf.Approximately(Damage(playerOne, 0), 25), "loading lower level restores original effect value");
+                playerOne.ApplyLevels(model.SkillLevel); Check(Mathf.Approximately(Damage(playerOne, 0), 30), "reapplying levels does not multiply repeatedly");
+                playerOne.ApplyLevels(id => 0); Check(Mathf.Approximately(Damage(playerOne, 0), 25), "loading lower level restores original effect value");
             }
             finally { Obj.DestroyImmediate(catalog); Obj.DestroyImmediate(a); Obj.DestroyImmediate(b); Obj.DestroyImmediate(effect); }
         }
@@ -80,7 +84,7 @@ namespace NarutoVR.SealCombat.Editor
             Directory.CreateDirectory(directory); string path = Path.Combine(directory, "player.json");
             try
             {
-                var store = new RpgSaveStore(path, "modules", known);
+                var store = new RpgSaveStore(UnityRpgSaveJson.Instance, path, "modules", known);
                 Check(store.TrySave(p, out _) && store.TryLoad(out var loaded, out _) && loaded.items[0].activated && loaded.discoveredSkillIds.Contains("buff.hidden"), "version 2 roundtrip keeps item and knowledge state");
                 using (new FileStream(path + ".tmp", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                     Check(!store.TrySave(p, out _) && store.TryLoad(out _, out _), "disk write failure preserves the previous save");

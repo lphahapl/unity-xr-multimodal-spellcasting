@@ -23,6 +23,10 @@
 
 ## 架构与设计
 
+- [全局目标模块图、核心类图与资源装配](architecture/TARGET_ARCHITECTURE_20261110_ZH.md)（2026-11-10）。首章技能和敌人池共用加载器，图中列出玩家、输入、施法实例、目标与存档的实际持有关系。
+
+- [全模块 MVC 重构方案与实施进度](architecture/FULL_MODULE_MVC_REFACTOR_PROPOSAL_20261109_ZH.md)涵盖玩家模型、实体反馈、施法和效果生命周期。首章按稳定 ID 恢复和装配的操作见[配置指南](guides/CONFIGURATION_GUIDE_ZH.md#首章技能资源清单)。248 文件清单记录重构前的盘点。 11 月 11 日的[后续重构计划](architecture/FULL_MODULE_MVC_REFACTOR_PROPOSAL_20261109_ZH.md#12-按实体收拢职责的实施顺序)列出护盾结算、检查点恢复和手部输入的迁移步骤、验收与回退范围。
+
 - [首章外景材质、灯光与模型](guides/CHAPTER01_EXTERIOR_VISUALS_ZH.md)：全景、工官屋舍与山坡、道路和传送门、天仪完整环、LOD与轻量水道；以页内发布状态和实测范围为准。
 - [首章外景模型拆分与制作计划](architecture/CHAPTER01_EXTERIOR_ASSET_PLAN_ZH.md)：A01–A08模型、两套地表材质、世界观约束、分工及验收状态。
 
@@ -30,7 +34,7 @@
 
 - [教学、成长、物品与章节职责](architecture/PROGRESSION_RESPONSIBILITIES_ZH.md)：独立教学目录、技能解锁、物品奖励、商店、效果等级及 v2 存档。
 
-- [章节流程接入与首章解耦](guides/CHAPTER_FLOW_ZH.md)：通用章节契约、可组合目标、显式训练场流程、现有场景直接接线及中文注释入口。
+- [章节流程与目标配置](guides/CHAPTER_FLOW_ZH.md)说明单目标、AND / OR 组合、试炼间段入口、清房句和训练场接线。[首章章节模块图与类图](architecture/FULL_MODULE_MVC_REFACTOR_PROPOSAL_20261109_ZH.md#首批实施的章节模块图) · [旁白的监听与重听](guides/NARRATION_FLOW_ZH.md)
 
 - [六种基础手印设计](architecture/SIX_SEAL_DESIGN_ZH.md)：从十二地支筛选子、丑、寅、申、午、戌，提议改称规、矩、律、准、绳、衡；含动作、首章衔接和完整改名范围，运行时尚未迁移。
 - 正式首章与首枚铜叶：[交接入口](architecture/开场教学与首枚铜叶/00_交接说明.md) · [室内教学](architecture/开场教学与首枚铜叶/01_室内教学流程.md) · [试炼室实景与交互](architecture/开场教学与首枚铜叶/08_试炼室制作与交互.md) · [窗庭远山扩建与实景](architecture/开场教学与首枚铜叶/07_校规庭与量水道制作单.md) · [外景路线与失度出图提示词](architecture/开场教学与首枚铜叶/04_室外场景与线性路线.md) · [同心合矩与方圆规印](architecture/开场教学与首枚铜叶/05_首枚铜叶解谜.md)。
@@ -50,6 +54,8 @@
 - [程序需求](程序需求/考工律度_程序架构与交互底层技术需求规范.docx) · [策划需求](策划需求/考工律度_核心玩法机制与关卡首领数值策划案.docx) · [美术需求](美术需求/考工律度_美术资产与视效制作需求规范.docx) · [音频需求](音频音乐需求/考工律度_音频音效与离线语音工程需求规范.docx) · [跨专业交接](交接文档/考工律度_XR项目研发全景与跨专业交接指南.docx)。这些非 Markdown 资料本次保持原样，涉及变更同样要记录具体位置与内容。
 
 ## 调研与参考
+
+- [技能配方、命中效果与视听表现的职责](research/SKILL_EFFECT_OWNERSHIP_20261109_ZH.md)。对照 Epic 的火球示例和 Unity Boss Room，说明本项目两种护盾配方为何共享效果、收剑后剑波由谁管理，以及技能重构应验证的行为。
 
 - [Quest/PICO外景性能与LOD核查（2026-11-09）](research/QUEST_PICO_EXTERIOR_PERFORMANCE_20261109_ZH.md)：官方资料、Android实际配置、PC画面差异及仍需完成的真机测量。
 - [VR 游戏字幕的摆放与阅读](research/VR_CAPTIONS_PLACEMENT_ZH.md)，含已发售游戏、研究边界和首章验收用例。

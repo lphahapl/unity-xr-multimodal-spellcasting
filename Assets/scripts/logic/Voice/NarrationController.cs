@@ -18,6 +18,10 @@ namespace NarutoVR.SealCombat
     public sealed class NarrationLine
     {
         [Header("一、本句内容")]
+        [InspectorName("台词 ID"), Tooltip("作者指定的稳定标识，例如 FT02。移动句子时保留。旧对话可以留空。")]
+        public string lineId;
+        [NonSerialized] internal string legacyLineId;
+        public string EffectiveLineId => string.IsNullOrEmpty(lineId) ? legacyLineId ?? string.Empty : lineId;
         [InspectorName("音频文件名"), Tooltip("Resources/Narration 下的音频名或相对路径，可带音频扩展名。仅等待操作模式可以留空。")]
         public string audioFileName;
         [InspectorName("说话者")]
@@ -34,20 +38,25 @@ namespace NarutoVR.SealCombat
         public UnityEvent onCompleted = new UnityEvent();
         [InspectorName("本句条件通过（开始句间等待）")] public UnityEvent onAdvanced = new UnityEvent();
 
-        internal string ResourcePath
+        static string ResourcePath(string fileName)
         {
-            get
+            string name = (fileName ?? "").Trim().Replace('\\', '/');
+            switch (System.IO.Path.GetExtension(name).ToLowerInvariant())
             {
-                string name = (audioFileName ?? "").Trim().Replace('\\', '/');
-                switch (System.IO.Path.GetExtension(name).ToLowerInvariant())
-                {
-                    case ".wav": case ".mp3": case ".ogg": case ".aif": case ".aiff":
-                    case ".flac": case ".xm": case ".mod": case ".it": case ".s3m":
-                        name = name.Substring(0, name.LastIndexOf('.'));
-                        break;
-                }
-                return "Narration/" + name;
+                case ".wav": case ".mp3": case ".ogg": case ".aif": case ".aiff":
+                case ".flac": case ".xm": case ".mod": case ".it": case ".s3m":
+                    name = name.Substring(0, name.LastIndexOf('.'));
+                    break;
             }
+            return "Narration/" + name;
+        }
+
+        internal static AudioClip LoadClip(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName)) return null;
+            var clip = Resources.Load<AudioClip>(ResourcePath(fileName));
+            return clip && clip.loadState != AudioDataLoadState.Failed &&
+                (clip.loadState != AudioDataLoadState.Unloaded || clip.LoadAudioData()) ? clip : null;
         }
     }
 
@@ -60,36 +69,55 @@ namespace NarutoVR.SealCombat
         [InspectorName("对话开始（每轮一次）")] public UnityEvent onDialogueStarted = new UnityEvent();
         [InspectorName("对话全部完成"), Tooltip("最后一句条件通过后触发；主动停止不触发。")]
         public UnityEvent onDialogueCompleted = new UnityEvent();
-        /// <summary>当前句的运行状态。Id 就是列表下标，从 0 开始；配置里不存运行进度。</summary>
+        /// <summary>一次播放中的一句。操作启动时捕获这个实例，完成时交回创建它的控制器。</summary>
         public sealed class Step
         {
-            public int Id { get; }
+            public NarrationController Target { get; }
+            public long Generation { get; }
+            public int Index { get; }
+            public int DisplayNumber => Index + 1;
+            public string LineId { get; }
+            /// <summary>兼容旧的零基行号。作者标识见 LineId。</summary>
+            public int Id => Index;
             public NarrationLine Line { get; }
             public bool AudioDone { get; internal set; }
             public bool OperationDone { get; internal set; }
-            internal bool HasAudio, Loading, Advanced;
+            internal bool HasAudio, Loading, Advanced, BindingsOpen;
+            internal Func<bool> OperationState;
             internal double DelayUntil;
             internal AudioClip Clip;
-            internal Step(int id, NarrationLine line) { Id = id; Line = line; }
+            internal Step(NarrationController target, long generation, int index, NarrationLine line)
+            {
+                Target = target;
+                Generation = generation;
+                Index = index;
+                LineId = line.EffectiveLineId;
+                Line = line;
+            }
             internal bool Ready => Line.advanceMode == NarrationAdvanceMode.AudioFinished ? AudioDone :
                 Line.advanceMode == NarrationAdvanceMode.Operation ? OperationDone : AudioDone && OperationDone;
         }
-        /// <summary>未开始或已结束时为 null。外部操作读取 Id 后即可发布本步骤完成事件。</summary>
+        /// <summary>开始操作监听时交付本句实例。失效通知覆盖推进、停止、重新播放、失败及禁用。</summary>
+        public event Action<Step> StepStarted, StepEnded;
+        /// <summary>播放中或句间等待时可读取。检查此句是否仍可提交操作，请使用 CanCompleteOperation。</summary>
         public Step CurrentStep => step;
         public NarrationLine CurrentLine => step?.Line;
         public int CurrentLineIndex => step?.Id ?? -1;
+        /// <summary>仅整段自然通过全部条件时为真，可据此重听最后一句。</summary>
+        public bool DialogueCompleted { get; private set; }
         public bool AudioCompleted => step != null && step.AudioDone;
         public bool OperationCompleted => step != null && step.OperationDone;
         public bool IsWaitingForNextLine => step != null && step.Advanced && index + 1 < sequence.Length;
         public float RemainingDelay => IsWaitingForNextLine ? (float)Math.Max(0, step.DelayUntil - Time.timeAsDouble) : 0;
         public string Status => step == null ? status :
             IsWaitingForNextLine ? $"第 {index + 1} 句已通过；到下一句还剩 {RemainingDelay:F1} 秒" :
-            $"第 {index + 1} 句（步骤 ID：{step.Id}）；音频：{(step.AudioDone ? "完成" : "播放/加载中")}；操作：{(step.OperationDone ? "完成" : step.Line.advanceMode == NarrationAdvanceMode.AudioFinished ? "无需" : "等待操作")}";
+            $"第 {step.DisplayNumber} 句{(string.IsNullOrEmpty(step.LineId) ? "" : " · " + step.LineId)}；音频：{(step.AudioDone ? "完成" : "播放/加载中")}；操作：{(step.OperationDone ? "完成" : step.Line.advanceMode == NarrationAdvanceMode.AudioFinished ? "无需" : "等待操作")}";
         Step step;
         NarrationLine[] sequence;
         IDisposable operationSubscription;
         AudioSource voice;
         int index;
+        long generation;
         int callbackDepth;
         bool startPending;
         string status = "未开始";
@@ -112,6 +140,8 @@ namespace NarutoVR.SealCombat
             // 开始事件里要求重启时留到下一帧执行，避免开始事件递归调用自身。
             if (callbackDepth > 0) { startPending = true; return; }
             sequence = lines.ToArray();
+            ++generation;
+            DialogueCompleted = false;
             voice = GetComponent<AudioSource>();
             voice.loop = false;
             index = 0;
@@ -127,6 +157,7 @@ namespace NarutoVR.SealCombat
         public void StopDialogue()
         {
             // 句间等待属于这一轮对话；停止、重启或禁用时一并取消。
+            var previous = step;
             StopAllCoroutines();
             if (voice && step != null)
             {
@@ -134,6 +165,8 @@ namespace NarutoVR.SealCombat
                 voice.clip = null;
             }
             step = null; sequence = null; startPending = false; status = "对话已停止";
+            DialogueCompleted = false;
+            EndStep(previous);
         }
 
         void StartLine(bool dialogueStart = false)
@@ -141,22 +174,24 @@ namespace NarutoVR.SealCombat
             var line = sequence[index];
             if (line == null || !Enum.IsDefined(typeof(NarrationAdvanceMode), line.advanceMode))
             { Fail("本句配置为空或推进方式无效"); return; }
-            var current = new Step(index, line);
+            var current = new Step(this, generation, index, line);
             step = current;
             if (string.IsNullOrWhiteSpace(line.audioFileName) && line.advanceMode == NarrationAdvanceMode.Operation)
                 current.AudioDone = true; // 纯操作句没有音频，也不发出“音频自然播完”事件。
             else if (!PrepareAudio(current)) return;
+            current.BindingsOpen = true;
+            NotifyStep(StepStarted, current, true);
+            if (!IsCurrentStep(current)) return;
             if (dialogueStart && !Invoke(onDialogueStarted, current)) return;
             Invoke(line.onStarted, current);
         }
 
         bool PrepareAudio(Step current)
         {
-            AudioClip clip = string.IsNullOrWhiteSpace(current.Line.audioFileName) ? null : Resources.Load<AudioClip>(current.Line.ResourcePath);
-            if (!clip || !voice.enabled || clip.loadState == AudioDataLoadState.Failed ||
-                (clip.loadState == AudioDataLoadState.Unloaded && !clip.LoadAudioData()))
+            var clip = NarrationLine.LoadClip(current.Line.audioFileName);
+            if (!clip || !voice.enabled)
             {
-                Fail("无法播放音频：" + current.Line.ResourcePath); return false;
+                Fail("无法播放音频：" + current.Line.audioFileName); return false;
             }
             voice.clip = current.Clip = clip; current.HasAudio = true;
             current.Loading = clip.loadState == AudioDataLoadState.Loading;
@@ -190,14 +225,16 @@ namespace NarutoVR.SealCombat
                 }
             }
             // 事件只记录操作结果；统一在这里推进一次，防止重复通知跳过多句。
-            if (!IsCurrent(current) || !current.Ready) return;
+            if (!IsCurrentStep(current) || !ReadOperationState(current) || !current.Ready) return;
             current.Advanced = true;
             if (voice) { voice.Stop(); voice.clip = null; }
+            EndStep(current);
+            if (!IsCurrent(current)) return;
             if (!Invoke(current.Line.onAdvanced, current)) return;
             if (index + 1 < sequence.Length) StartCoroutine(ContinueAfterDelay(current));
             else
             {
-                StopDialogue(); status = "对话全部完成";
+                StopDialogue(); DialogueCompleted = true; status = "对话全部完成";
                 Invoke(onDialogueCompleted, null);
             }
         }
@@ -214,29 +251,103 @@ namespace NarutoVR.SealCombat
             StartLine();
         }
 
-        /// <summary>可直接绑定 UnityEvent：把当前步骤 ID 发到事件中心，无需额外 Publisher 组件。</summary>
+        /// <summary>Inspector 即时按钮。定时器、动画和异步操作应在启动时捕获 Step 并发布该实例。</summary>
         public void PublishCurrentOperation()
         {
-            if (step != null && isActiveAndEnabled)
-                NarrationEvents.PublishOperation(this, step.Id);
+            if (IsCurrentStep(step)) NarrationEvents.PublishOperation(step);
         }
 
-        /// <summary>直接完成当前句操作，保留给 Inspector 中的即时回调绑定。</summary>
-        public void CompleteCurrentOperation() => CompleteOperation(CurrentLineIndex);
+        /// <summary>直接完成按下按钮时的当前句，保留已有 Inspector 绑定。</summary>
+        public void CompleteCurrentOperation() => CompleteOperation(step);
 
-        /// <summary>只接受当前步骤 ID；提前完成会保留到音频结束，重复完成不会重复推进。</summary>
-        public bool CompleteOperation(int stepId)
+        /// <summary>检查操作是否属于仍在监听的本轮、本句；句间等待期间即已失效。</summary>
+        public bool IsCurrentStep(Step expected) => IsCurrent(expected) && expected.BindingsOpen;
+        public bool CanCompleteOperation(Step expected) => IsCurrentStep(expected) &&
+            expected.Line.advanceMode != NarrationAdvanceMode.AudioFinished && expected.OperationState == null && !expected.OperationDone;
+        /// <summary>连续目标从自己的实时状态决定能否推进。绑定时读取一次，每帧在推进前再读。</summary>
+        public bool BindOperationState(Step expected, Func<bool> read)
         {
-            var current = step;
-            if (!isActiveAndEnabled || current == null || current.Advanced || current.Id != stepId ||
-                current.Line.advanceMode == NarrationAdvanceMode.AudioFinished || current.OperationDone) return false;
-            current.OperationDone = true;
+            if (read == null || !IsCurrentStep(expected) || expected.OperationState != null ||
+                expected.Line.advanceMode == NarrationAdvanceMode.AudioFinished) return false;
+            expected.OperationState = read;
+            return ReadOperationState(expected);
+        }
+
+        public bool RefreshOperationState(Step expected) =>
+            IsCurrentStep(expected) && expected.OperationState != null && ReadOperationState(expected);
+
+        bool ReadOperationState(Step current)
+        {
+            var read = current.OperationState;
+            if (read == null) return true;
+            bool met;
+            try { met = read(); }
+            catch (Exception error)
+            {
+                if (IsCurrentStep(current)) Fail("读取操作目标失败：" + error.Message);
+                return false;
+            }
+            if (!IsCurrentStep(current)) return false;
+            current.OperationDone = met;
             return true;
+        }
+        public bool CompleteOperation(Step expected)
+        {
+            if (!CanCompleteOperation(expected)) return false;
+            expected.OperationDone = true;
+            return true;
+        }
+
+        /// <summary>重听当前提示前更换操作监听。本句的音轨、顺序、播放轮次和已满足条件继续保留。</summary>
+        public bool RefreshOperationBinding()
+        {
+            var previous = step;
+            if (!IsCurrentStep(previous)) return false;
+            bool latched = previous.OperationState == null && previous.OperationDone;
+            EndStep(previous);
+            if (!IsCurrent(previous)) return false;
+            var refreshed = new Step(this, previous.Generation, previous.Index, previous.Line)
+            {
+                HasAudio = previous.HasAudio,
+                Clip = previous.Clip,
+                Loading = previous.Loading,
+                AudioDone = previous.AudioDone,
+                OperationDone = latched,
+                BindingsOpen = true
+            };
+            step = refreshed;
+            NotifyStep(StepStarted, refreshed, true);
+            return IsCurrentStep(refreshed);
         }
         void OnOperation(NarrationOperationNotice notice)
         {
-            // 步骤 ID 只在各自的对话内有效，因此先核对目标组件，避免两段对话串台。
-            if (notice.Target == this) CompleteOperation(notice.StepId);
+            if (notice.Target == this) CompleteOperation(notice.Step);
+        }
+        void EndStep(Step previous)
+        {
+            if (previous == null || !previous.BindingsOpen) return;
+            previous.BindingsOpen = false;
+            previous.OperationState = null;
+            NotifyStep(StepEnded, previous, false);
+        }
+        void NotifyStep(Action<Step> listeners, Step current, bool starting)
+        {
+            if (listeners == null) return;
+            ++callbackDepth;
+            try
+            {
+                foreach (Action<Step> listener in listeners.GetInvocationList())
+                {
+                    if (starting && !IsCurrentStep(current)) break;
+                    try { listener(current); }
+                    catch (Exception error)
+                    {
+                        Debug.LogException(error, this);
+                        if (starting && IsCurrentStep(current)) StopDialogue();
+                    }
+                }
+            }
+            finally { --callbackDepth; }
         }
         // 外部事件可能停止或重启对话；回到本方法后不得继续推进原来的句子。
         bool IsCurrent(Step current) => this && isActiveAndEnabled && current != null && ReferenceEquals(step, current);

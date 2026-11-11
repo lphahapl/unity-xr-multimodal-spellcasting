@@ -25,8 +25,8 @@ namespace NarutoVR.SealCombat.Editor
                 controller.chapter = root.AddComponent<TrainingChapterFlow>();
                 ((TrainingChapterFlow)controller.chapter).rpg = controller; ((TrainingChapterFlow)controller.chapter).initialSkills = new[]{"fireball"};
                 var movement = root.AddComponent<RpgLocomotionController>();
-                var skills = root.AddComponent<SkillTestController>();
-                var effects = root.AddComponent<SkillEffects>();
+                var skills = root.AddComponent<SkillInputController>();
+                var effects = root.AddComponent<SkillController>();
                 controller.locomotion = movement; controller.skills = skills; skills.effects = effects;
                 view.controller = controller;
                 Vector3 before = root.transform.position;

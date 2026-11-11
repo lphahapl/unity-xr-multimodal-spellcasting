@@ -1,0 +1,38 @@
+---
+title: NarutoVR 模块协作 · 正式场景的运行路径
+config:
+  theme: base
+  htmlLabels: false
+  fontFamily: "Microsoft YaHei, Arial, sans-serif"
+  themeVariables:
+    fontFamily: "Microsoft YaHei, Arial, sans-serif"
+    fontSize: 17px
+    primaryColor: "#eef3f4"
+    primaryTextColor: "#253d46"
+    primaryBorderColor: "#638696"
+    lineColor: "#65818a"
+---
+block-beta
+  columns 17
+  title["NarutoVR　｜　场景运行路径与模块协作"]:17
+  S["玩家装配"]:2 P1["v2 存档校验<br/>技能与冷却组 ID"]:3 S1<["恢复"]>(right) P2["LinearRpgController<br/>玩家与阶段"]:3 S2<["申请"]>(right) P3["RuntimeSkillCatalog<br/>玩家技能副本"]:3 S3<["借用"]>(right) P4["SharedAssetLoader<br/>技能定义资产租约"]:3
+  I["输入与施法"]:2 I1["手部采样 / 语音词尾<br/>原始观测时间"]:3 IA<["送入"]>(right) I2["玩家占用与技能识别<br/>PlayerInputController<br/>SkillInputController"]:3 IB<["请求"]>(right) I3["会话核准施法许可<br/>SkillController.CommitCast<br/>预留并提交"]:3 IC<["执行"]>(right) I4["火球、雷光剑、护盾<br/>投射、挥击与命中"]:3
+  M["腕匣与移动"]:2 M1["腕匣、教学卡、HUD<br/>状态显示与操作"]:3 MA<["输入"]>(right) M2["PlayerInputController<br/>腕部占用与手形"]:3 MB<["采样"]>(right) M3["RpgLocomotionController<br/>步行、导航、闪避"]:3 MC<["位移"]>(right) M4["MovementResult<br/>实际位移与重定位"]:3
+  C["章节与机关"]:2 C1["门与入场区域 / 铜叶机关<br/>占用右手、真实吸附"]:3 CA<["条件"]>(right) C2["章节流程与目标树<br/>阶段许可、进入与完成"]:3 CB<["绑定"]>(right) C3["NarrationController.Step<br/>句内操作与音频"]:3 CC<["反馈"]>(right) C4["旁白与字幕<br/>完成条件回到章节"]:3
+  G["成长与保存"]:2 G1["物品、商店经成长控制器<br/>阶段奖励由章节提交"]:3 GA<["命令"]>(right) G2["PlayerModel / ChapterModel<br/>成长、生命与阶段"]:3 GB<["映射"]>(right) G3["RpgSaveMapper<br/>v2 ID 与检查点快照"]:3 GC<["保存"]>(right) G4["CheckpointSaveCoordinator<br/>RpgSaveStore / 重试"]:3
+  E["敌人与遭遇"]:2 E1["CombatRoomEncounter<br/>场景遭遇与出生请求"]:3 EA<["请求"]>(right) E2["EnemyManager<br/>实例池、会话代次"]:3 EB<["借用"]>(right) E3["SharedAssetLoader<br/>返回预制体资产租约"]:3 EC<["实例化"]>(right) E4["EnemyManager 签发<br/>EnemyLease 出生租约"]:3
+  F["实体与反馈"]:2 F1["PlayerObj<br/>移动结果与伤害结算"]:3 FA<["事实"]>(right) F2["玩家脚步与受击表现<br/>FootstepPlayer / 遮罩"]:3 space F3["P1AudioManager / 触觉<br/>音乐避让、动作反馈"]:3 space F4["编辑器与诊断<br/>资源校验、桌面回归"]:3
+  classDef heading fill:#ffffff,stroke:#ffffff,color:#20484f,font-size:24px,font-weight:bold
+  class title heading
+  classDef lane fill:#285761,stroke:#285761,color:#fff,font-weight:bold
+  classDef step fill:#f0f6f7,stroke:#91adb2,color:#243f46
+  classDef state fill:#fff2da,stroke:#be9d5e,color:#604b29
+  classDef shared fill:#e6f1e8,stroke:#75a184,color:#2b5538
+  classDef view fill:#edf1fb,stroke:#91a3c4,color:#354766
+  classDef arrow fill:#e3ecec,stroke:#d4e3e3,color:#35585e
+  class S,I,M,C,G,E,F lane
+  class P1,P2,I1,I2,I3,M2,M3,C1,C2,C3,G1,G2,E1,E2,F1 step
+  class P3,I4,M4,G3,G4,E4 state
+  class P4,E3 shared
+  class M1,C4,F2,F3,F4 view
+  class S1,S2,S3,IA,IB,IC,MA,MB,MC,CA,CB,CC,GA,GB,GC,EA,EB,EC,FA arrow

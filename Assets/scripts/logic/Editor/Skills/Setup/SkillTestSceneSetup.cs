@@ -103,7 +103,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var lab=scene.GetRootGameObjects().SelectMany(x=>x.GetComponentsInChildren<Lab>(true)).Single();
                 var camera=scene.GetRootGameObjects().SelectMany(x=>x.GetComponentsInChildren<Camera>(true)).Single(c=>c.enabled);
-                var controller=lab.GetComponent<SkillTestController>();
+                var controller=lab.GetComponent<SkillInputController>();
                 if(!controller)
                 {
                     // Only change the newly copied scene. The recording and recognition scenes remain intact.
@@ -111,9 +111,9 @@ namespace NarutoVR.SealCombat.Editor
                     var oldTest=lab.GetComponent<SealRecognitionTest>(); if(oldTest) UnityEngine.Object.DestroyImmediate(oldTest);
                     var view=lab.GetComponent<SealLabView>();
                     if(view && view.statusText){UnityEngine.Object.DestroyImmediate(view.statusText.canvas.gameObject);view.statusText=null;}
-                    var effects=lab.gameObject.AddComponent<SkillEffects>(); effects.lab=lab;effects.head=camera.transform;effects.playerRoot=camera.transform.root;effects.fireMaterial=fireMat;effects.buffMaterial=buffMat;
+                    var effects=lab.gameObject.AddComponent<SkillController>(); effects.lab=lab;effects.head=camera.transform;effects.playerRoot=camera.transform.root;effects.fireMaterial=fireMat;effects.buffMaterial=buffMat;
                     var receiver=lab.gameObject.AddComponent<SkillVoiceReceiver>();
-                    controller=lab.gameObject.AddComponent<SkillTestController>();controller.lab=lab;controller.effects=effects;controller.voice=receiver;
+                    controller=lab.gameObject.AddComponent<SkillInputController>();controller.lab=lab;controller.effects=effects;controller.voice=receiver;
                     controller.skills.AddRange(new[]{gesture,voice,fire});
                     controller.chineseFont=AssetDatabase.LoadAssetAtPath<Font>(NarutoVR.Editor.SealChineseUISetup.FontPath);
                     var panel=new GameObject("技能状态中文面板",typeof(RectTransform),typeof(Canvas));
@@ -147,10 +147,10 @@ namespace NarutoVR.SealCombat.Editor
         private static void Stretch(RectTransform r,float pad){r.anchorMin=Vector2.zero;r.anchorMax=Vector2.one;r.offsetMin=Vector2.one*pad;r.offsetMax=Vector2.one*(-pad);}
         private static void CheckPush()
         {
-            if(!SkillEffects.IsForwardPush(Vector3.zero,Vector3.forward*.15f,Vector3.zero,Vector3.zero,Vector3.forward,.3f))throw new Exception("有效前推被拒绝");
-            if(SkillEffects.IsForwardPush(Vector3.zero,Vector3.zero,Vector3.zero,Vector3.back*.2f,Vector3.forward,.3f))throw new Exception("后仰误触发前推");
-            if(SkillEffects.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.forward*.2f,Vector3.forward,.3f))throw new Exception("整体走动误触发前推");
-            if(SkillEffects.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.zero,Vector3.forward,.02f))throw new Exception("瞬时跳变误触发前推");
+            if(!SkillController.IsForwardPush(Vector3.zero,Vector3.forward*.15f,Vector3.zero,Vector3.zero,Vector3.forward,.3f))throw new Exception("有效前推被拒绝");
+            if(SkillController.IsForwardPush(Vector3.zero,Vector3.zero,Vector3.zero,Vector3.back*.2f,Vector3.forward,.3f))throw new Exception("后仰误触发前推");
+            if(SkillController.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.forward*.2f,Vector3.forward,.3f))throw new Exception("整体走动误触发前推");
+            if(SkillController.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.zero,Vector3.forward,.02f))throw new Exception("瞬时跳变误触发前推");
         }
         private static SkillDefinition Profile(string name,string id,string phrase,string seal,SkillTriggerMode mode,SkillEffectKind effect)
         {
@@ -174,19 +174,19 @@ namespace NarutoVR.SealCombat.Editor
         private static void Probe()
         {
             if(!EditorApplication.isPlaying || SceneManager.GetActiveScene().path!=ScenePath) throw new Exception("需要在技能场景播放模式中执行运行检查。");
-            var c=UnityEngine.Object.FindFirstObjectByType<SkillTestController>();
+            var c=UnityEngine.Object.FindFirstObjectByType<SkillInputController>();
             if(c==null||c.Engine==null)throw new Exception("技能控制器未启动。");
             c.Cancel();int before=c.effects.ActivationCount;
             c.ReceiveVoice("护体咒",Time.realtimeSinceStartupAsDouble);
             if(c.effects.ActivationCount!=before+1 || c.effects.BuffRemaining<=0)throw new Exception("纯语音加持未实际生效。");
-            if(c.effects.AbsorbDamage(30)!=0 || Math.Abs(c.effects.ShieldPoints-70)>0.01f)throw new Exception("护盾没有真实吸收伤害。");
+            if(c.effects.AbsorbPracticeDamage(30)!=0 || Math.Abs(c.effects.ShieldPoints-70)>0.01f)throw new Exception("护盾没有真实吸收伤害。");
             c.Cancel();if(c.effects.BuffRemaining>0)throw new Exception("取消没有结束加持。");
             int count=SkillEffectChecks.Run();
             SkillEffectChecks.Begin((passed,detail)=>Write(new Report{passed=passed,action="probe",effectChecks=count+2,activationCount=c.effects.ActivationCount,error=passed?"":detail}));
         }
         private static void Capture()
         {
-            var c=UnityEngine.Object.FindFirstObjectByType<SkillTestController>();
+            var c=UnityEngine.Object.FindFirstObjectByType<SkillInputController>();
             if(!c || c.Engine==null)throw new Exception("请先播放技能测试场景。");
             if(c.view&&c.view.statusText)c.view.statusText.text=c.view.BuildHUD(Time.realtimeSinceStartupAsDouble);
             File.WriteAllText("Logs/skill-runtime-state.json",JsonUtility.ToJson(new State{utc=DateTime.UtcNow.ToString("O"),hud=c.statusText.text,voice=c.voice.Status,matching=c.Engine.Status,voiceEvents=c.VoiceEventCount,activations=c.effects.ActivationCount,shield=c.effects.ShieldPoints,panelPosition=c.statusText.canvas.transform.localPosition},true));
@@ -207,7 +207,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void TuneLayout()
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode || SceneManager.GetActiveScene().path!=ScenePath)throw new Exception("布局操作需要技能测试场景处于编辑模式。");
-            var c=UnityEngine.Object.FindFirstObjectByType<SkillTestController>();var panel=c.statusText.canvas.GetComponent<RectTransform>();
+            var c=UnityEngine.Object.FindFirstObjectByType<SkillInputController>();var panel=c.statusText.canvas.GetComponent<RectTransform>();
             panel.localScale=Vector3.one*.0012f;panel.sizeDelta=new Vector2(900,900);panel.localPosition=new Vector3(-.66f,.1f,1.45f);c.statusText.fontSize=30;
             var dot=panel.Find("头向瞄准点").GetComponent<RectTransform>();dot.anchoredPosition=new Vector2(550,-83.3333f);dot.sizeDelta=new Vector2(80,80);dot.GetComponent<Text>().alignment=TextAnchor.MiddleCenter;
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());EditorSceneManager.SaveScene(SceneManager.GetActiveScene());Write(new Report{passed=true,action="layout"});

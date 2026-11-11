@@ -22,13 +22,23 @@ namespace NarutoVR.SealCombat.Editor
             EditorSceneManager.MarkSceneDirty(scene);
             if (!EditorSceneManager.SaveScene(scene)) throw new Exception("交互配置保存失败");
         }
+        internal static GameObject PresentationGroup(LinearRpgController controller)
+        {
+            const string groupName = "界面与交互反馈";
+            var existing = controller.transform.Find(groupName);
+            if (existing) return existing.gameObject;
+            var group = new GameObject(groupName);
+            group.transform.SetParent(controller.transform, false);
+            return group;
+        }
+
         public static void Configure(LinearRpgController controller)
         {
             var movement = controller.locomotion;
             movement.gestures.requireNavigationForDodge = false;
             movement.gestures.dwellSeconds = .65f;
-            var feedback = controller.GetComponent<RpgInteractionFeedback>();
-            if (!feedback) feedback = controller.gameObject.AddComponent<RpgInteractionFeedback>();
+            var feedback = controller.GetComponentInChildren<RpgInteractionFeedback>(true);
+            if (!feedback) feedback = PresentationGroup(controller).AddComponent<RpgInteractionFeedback>();
             feedback.controller = controller;
             foreach (var skill in controller.skills.catalog.skills)
             {

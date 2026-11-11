@@ -10,7 +10,7 @@ namespace NarutoVR.SealCombat
     public sealed class ThrowDiagnosticRecorder : MonoBehaviour
     {
         [Header("投掷诊断自动记录（不含音频或图像）")]
-        [InspectorName("投掷效果执行器")] public SkillEffects effects;
+        [InspectorName("投掷效果执行器")] public SkillController effects;
         [InspectorName("进入播放自动记录")] public bool autoRecord=true;
         [InspectorName("单份记录最长分钟"),Range(1,60)] public float maximumMinutes=15;
         [InspectorName("单份记录最大兆字节"),Range(1,128)] public int maximumMegabytes=64;
@@ -19,7 +19,7 @@ namespace NarutoVR.SealCombat
         public string Status { get; private set; }="尚未开始";
         public int Rows { get; private set; }
         StreamWriter writer;
-        SkillEffects subscribed;
+        SkillController subscribed;
         double started,flushAt,lastObserved=double.NaN;
         string lastShot,lastGate,lastShotConfig;
         long bytes;
@@ -31,7 +31,7 @@ namespace NarutoVR.SealCombat
         void Start() { Subscribe(); if(autoRecord&&!IsRecording) Begin(); }
         void Subscribe()
         {
-            if(!effects) effects=GetComponent<SkillEffects>();
+            if(!effects) effects=GetComponent<SkillController>();
             if(subscribed==effects) return;
             if(subscribed) subscribed.ThrowObserved-=Observe;
             subscribed=effects;

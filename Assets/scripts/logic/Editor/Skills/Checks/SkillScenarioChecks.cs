@@ -20,7 +20,7 @@ namespace NarutoVR.SealCombat.Editor
         private sealed class Runner
         {
             private GameObject root;
-            private SkillEffects effects;
+            private SkillController effects;
             private SkillScenario trial;
             private SkillDefinition skill;
             private readonly Action<bool,string> completed;
@@ -34,14 +34,14 @@ namespace NarutoVR.SealCombat.Editor
                 this.completed=completed;
                 previousRunInBackground=Application.runInBackground;Application.runInBackground=true;
                 root=new GameObject("自动验收_护盾试炼");root.transform.position=new Vector3(200,100,100);
-                effects=root.AddComponent<SkillEffects>();effects.head=root.transform;effects.playerRoot=root.transform;
+                effects=root.AddComponent<SkillController>();effects.head=root.transform;effects.playerRoot=root.transform;
                 effects.shieldPrefab=source.effects.shieldPrefab;effects.shieldCapacity=source.effects.shieldCapacity;
                 trial=root.AddComponent<SkillScenario>();trial.kind=SkillScenarioKind.ShieldTrial;trial.effects=effects;
                 trial.showDesktopControls=false;trial.autoRunOnFirstShield=true;
                 trial.firstPulseDelay=source.firstPulseDelay;trial.pulseInterval=source.pulseInterval;
                 trial.pulsesPerTrial=source.pulsesPerTrial;trial.testDamage=source.testDamage;
-                skill=ScriptableObject.CreateInstance<SkillDefinition>();skill.effectKind=SkillEffectKind.SelfBuff;skill.durationSeconds=10;
-                effects.TryActivate(skill);
+                skill=ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.skillscenariochecks.skill"; skill.cooldownSeconds = 0;skill.effectKind=SkillEffectKind.SelfBuff;skill.durationSeconds=10;
+                effects.TryCast(skill);
                 deadline=EditorApplication.timeSinceStartup+14;
                 EditorApplication.update+=Poll;AssemblyReloadEvents.beforeAssemblyReload+=Abort;
             }

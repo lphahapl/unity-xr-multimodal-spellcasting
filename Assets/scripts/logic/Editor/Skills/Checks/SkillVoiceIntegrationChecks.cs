@@ -8,14 +8,14 @@ namespace NarutoVR.SealCombat.Editor
     public static class SkillVoiceIntegrationChecks
     {
         private static bool running,previousBackground;
-        private static SkillTestController controller;
+        private static SkillInputController controller;
         private static Action<bool,string> completed;
         private static int beforeVoice,beforeActivation;
         private static double deadline;
         public static void Begin(Action<bool,string> callback)
         {
             if(!Application.isPlaying||running)throw new InvalidOperationException("语音链路检查需要播放模式且不能重复启动");
-            controller=UnityEngine.Object.FindFirstObjectByType<SkillTestController>();
+            controller=UnityEngine.Object.FindFirstObjectByType<SkillInputController>();
             if(!controller||controller.Engine==null||!controller.voice||!controller.voice.allowWavReplay)
                 throw new InvalidOperationException("缺少可运行控制器或WAV回放未允许");
             running=true;completed=callback;previousBackground=Application.runInBackground;

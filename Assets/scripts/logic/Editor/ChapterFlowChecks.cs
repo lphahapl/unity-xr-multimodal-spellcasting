@@ -30,6 +30,58 @@ public static class ChapterFlowChecks
     static void Check(bool ok,string message) { if (!ok) throw new Exception(message); File.AppendAllText(Report,"PASS "+message+"\n"); }
     static LinearRpgController Controller() => Obj.FindFirstObjectByType<LinearRpgController>();
     static void Validate(LinearRpgController r) => typeof(LinearRpgController).GetMethod("ValidateSetup",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(r,null);
+    static RpgStageDefinition NewStage(string id, string title)
+    {
+        var stage = ScriptableObject.CreateInstance<RpgStageDefinition>();
+        stage.stageId = id;
+        stage.displayName = title;
+        stage.instructions = "完成" + title;
+        stage.startsInCombat = false;
+        AssetDatabase.CreateAsset(stage, AssetDatabase.GenerateUniqueAssetPath("Assets/" + title + ".asset"));
+        return stage;
+    }
+
+    static void ConfigureGuidance(ObjectiveChapterFlow flow)
+    {
+        var guidance = new GameObject("灯塔场景提示").AddComponent<ChapterSceneGuidance>();
+        flow.sceneGuidance = guidance;
+        var first = flow.stages[0];
+        var second = flow.stages[1];
+        guidance.stageVisibility = new[]
+        {
+            new ChapterStageVisibility { sceneObject = new GameObject("航道指引"), stageIds = new[]{first.stage.stageId, second.stage.stageId} },
+            new ChapterStageVisibility { sceneObject = new GameObject("灯室入口"), stageIds = new[]{second.stage.stageId} }
+        };
+        var active = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Showcase/青色能量线.mat");
+        var resting = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Showcase/玄色石面.mat");
+        Check(active && resting && active != resting, "independent guidance uses two distinct materials");
+        ChapterTargetHighlight Highlight(string name)
+        {
+            var subject = new GameObject(name, typeof(MeshRenderer));
+            return new ChapterTargetHighlight
+            {
+                target = subject, surface = subject.GetComponent<Renderer>(), marker = new GameObject(name + "标记"),
+                activeMaterial = active, restingMaterial = resting
+            };
+        }
+        guidance.targetHighlights = new[]{ Highlight("入口信标"), Highlight("主灯") };
+        first.guidanceTarget = guidance.targetHighlights[0].target;
+        second.guidanceTarget = guidance.targetHighlights[1].target;
+    }
+
+    static void CheckGuidance(ChapterSceneGuidance guidance, bool sharedSignVisible, bool lampRoomVisible, GameObject focus, string context)
+    {
+        Check(guidance.stageVisibility[0].sceneObject.activeInHierarchy == sharedSignVisible &&
+            guidance.stageVisibility[1].sceneObject.activeInHierarchy == lampRoomVisible, context + " stage objects");
+        foreach (var highlight in guidance.targetHighlights)
+        {
+            bool selected = focus && highlight.target == focus;
+            Check(highlight.marker.activeInHierarchy == selected &&
+                highlight.surface.sharedMaterial == (selected ? highlight.activeMaterial : highlight.restingMaterial),
+                context + " marker and material on " + highlight.target.name);
+        }
+    }
+
     public static void RunBatch()
     {
         if (!Application.isBatchMode || !Application.dataPath.Replace('\\','/').StartsWith("D:/Temp/", StringComparison.OrdinalIgnoreCase))
@@ -41,24 +93,38 @@ public static class ChapterFlowChecks
                 EditorSceneManager.OpenScene(scene);
                 var training = Controller();
                 Check(training && training.chapter is TrainingChapterFlow && training.chapter.Owner == training, "explicit training flow: " + scene);
+                var trainingFlow = (TrainingChapterFlow)training.chapter;
+                var hazards = Obj.FindObjectsByType<RpgTrainingHazard>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                Check(trainingFlow.transform.parent == training.transform && trainingFlow.TargetGroup && (training.roomControlsEncounter
+                    ? hazards.Length == 0
+                    : hazards.Length == 1 && hazards[0] == trainingFlow.Hazard && trainingFlow.Hazard.controller == training),
+                    "training facilities follow chapter and encounter mode: " + scene);
                 Validate(training);
             }
             EditorSceneManager.OpenScene("Assets/Scene/Chapter01_Awakening.unity");
             var r=Controller(); var opening=Obj.FindFirstObjectByType<OpeningTrialChapter>();
             Check(r && opening && r.chapter==opening,"scene directly binds chapter");
+            Check(opening.targetGroup && opening.targetGroup.transform.parent == r.transform &&
+                !Obj.FindFirstObjectByType<RpgTrainingHazard>(FindObjectsInactive.Include),
+                "opening practice targets bound without training hazard");
             Check(opening.inventory && r.wristMenu.teachingCatalog && r.wristMenu.teachingCatalog.entries.Length==3,"teaching and inventory use separate assets");
             Check(opening.FinalCheckpoint==opening.finalCheckpoint && opening.UsesExplorationFootsteps && opening.UsesWorldNavigationMarks && opening.GlyphPreviewPages==1,"opening capabilities preserved");
-            Validate(r); Check(true,"original chapter setup validation");
+            using var authored = AuthoredSkillCatalog.Open(r.skills);
+            var previousCatalog = r.skills.catalog;
+            try { r.skills.catalog = authored.Catalog; Validate(r); }
+            finally { r.skills.catalog = previousCatalog; }
+            Check(true,"original chapter setup validation");
             ProgressionModuleChecks.Run(); Check(true,"current copper-leaf save and no implicit grant regression");
             // 保留旧首章组件启用，验证未绑定流程不会启动旧教学。
             foreach(var b in Obj.FindObjectsByType<OpeningLeafPuzzle>(FindObjectsInactive.Include,FindObjectsSortMode.None)) b.enabled=false;
             foreach(var b in Obj.FindObjectsByType<OpeningDefenseDrill>(FindObjectsInactive.Include,FindObjectsSortMode.None)) b.enabled=false;
-            Obj.DestroyImmediate(r.GetComponent<RpgSkillShop>());
-            Obj.DestroyImmediate(r.GetComponent<RpgItemInventory>());
-            Obj.DestroyImmediate(r.GetComponent<TrainingTargetGroup>());
+            Obj.DestroyImmediate(r.GetComponentInChildren<RpgSkillShop>(true));
+            Obj.DestroyImmediate(r.GetComponentInChildren<RpgItemInventory>(true));
+            Obj.DestroyImmediate(opening.targetGroup);
             r.wristMenu.teachingCatalog=null;
             var flow=r.gameObject.AddComponent<ObjectiveChapterFlow>(); flow.rpg=r; r.chapter=flow;
-            r.stages=r.stages.Take(2).ToArray(); r.checkpointNodes=r.checkpointNodes.Take(2).ToArray();
+            r.stages = new[]{ NewStage("lighthouse.enter", "灯塔入港"), NewStage("lighthouse.light", "灯塔点灯") };
+            r.checkpointNodes=r.checkpointNodes.Take(2).ToArray();
             flow.initialSkills=new[]{"buff.zi"}; flow.explorationFootsteps=false;
             var a=new GameObject("QA_A").AddComponent<SignalChapterObjective>();
             var b2=new GameObject("QA_B").AddComponent<SignalChapterObjective>();
@@ -66,10 +132,22 @@ public static class ChapterFlowChecks
             var area=new GameObject("QA_Area").AddComponent<ReachAreaChapterObjective>(); area.area=area.gameObject.AddComponent<BoxCollider>();
             area.area.isTrigger=true; area.area.size=new Vector3(2,4,2); area.transform.position=new Vector3(1000,0,1000); area.transform.rotation=Quaternion.Euler(0,45,0);
             flow.stages=new[]{new ChapterObjectiveStage{stage=r.stages[0],objectives=new ChapterObjective[]{a,b2}},new ChapterObjectiveStage{stage=r.stages[1],objectives=new ChapterObjective[]{c,area}}};
+            flow.stages[1].trialSkills = new[] { "thunder.sword" };
+            ConfigureGuidance(flow);
             r.saveFileName="probe-chapter-flow-"+Guid.NewGuid().ToString("N")+".json"; r.autoLoad=false;
-            var cat=Obj.Instantiate(r.skills.catalog); cat.skills=cat.skills.Where(s=>s.skillId!="fireball" && s.skillId!="buff.hidden").ToList();
+            var cat=Obj.Instantiate(authored.Catalog); cat.hideFlags = HideFlags.None;
+            cat.skills=cat.skills.Where(s=>s.skillId!="fireball" && s.skillId!="buff.hidden").ToList();
+            r.skillResources = null; // This fixture authors its own reduced catalog in the isolated QA scene.
             AssetDatabase.CreateAsset(cat,AssetDatabase.GenerateUniqueAssetPath("Assets/QA_ChapterCatalog.asset")); r.skills.catalog=cat;
             Validate(r); Check(true,"generic chapter validates without targets, copper-leaf configuration, fireball or hidden skill");
+            var firstStage = flow.stages[0];
+            var registeredTarget = firstStage.guidanceTarget;
+            firstStage.guidanceTarget = a.gameObject;
+            bool unknownHighlightRejected = false;
+            try { flow.ValidateChapter(r); }
+            catch (InvalidOperationException e) when (e.Message.Contains("高亮目标")) { unknownHighlightRejected = true; }
+            finally { firstStage.guidanceTarget = registeredTarget; }
+            Check(unknownHighlightRejected, "unregistered stage highlight rejected at configuration time");
             flow.stages[1].objectives=new ChapterObjective[]{a};
             bool rejected=false; try{Validate(r);}catch{rejected=true;} Check(rejected,"reused objective rejected");
             flow.stages[1].objectives=new ChapterObjective[]{c,area};
@@ -95,28 +173,51 @@ public static class ChapterFlowChecks
                 Check(!Obj.FindFirstObjectByType<OpeningTrialChapter>().Speaking &&
                     (int)typeof(OpeningTrialChapter).GetField("index",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(Obj.FindFirstObjectByType<OpeningTrialChapter>())==-1,
                     "unbound opening component does not start teaching");
-                Check(r.Progress.unlockedSkillIds.SequenceEqual(new[]{"buff.zi"}),"chapter initial skills applied");
-                Check(!r.GetComponent<RpgSkillShop>() && !r.GetComponent<RpgItemInventory>(),"generic chapter has no implicit shop or inventory module");
+                Check(r.Model.UnlockedSkills.SequenceEqual(new[]{"buff.zi"}),"chapter initial skills applied");
+                Check(!r.GetComponentInChildren<RpgSkillShop>(true) && !r.GetComponentInChildren<RpgItemInventory>(true),"generic chapter has no implicit shop or inventory module");
                 Check(!r.TryAdvanceStage(),"legacy target advance cannot bypass chapter");
                 Check(!r.CompleteChapterObjective(Obj.FindFirstObjectByType<OpeningTrialChapter>(FindObjectsInactive.Include)),"foreign chapter completion rejected");
+                CheckGuidance(flow.sceneGuidance, true, false, flow.stages[0].guidanceTarget, "lighthouse entry");
+                var unboundChapter = Obj.FindFirstObjectByType<OpeningTrialChapter>();
+                unboundChapter.sceneGuidance = flow.sceneGuidance;
+                unboundChapter.enabled = false;
+                CheckGuidance(flow.sceneGuidance, true, false, flow.stages[0].guidanceTarget, "disabling an unbound chapter preserves current cues");
+                Obj.Destroy(unboundChapter);
+                flow.sceneGuidance.stageVisibility[0].sceneObject.SetActive(false);
+                flow.sceneGuidance.SetFocus(flow.stages[1].guidanceTarget);
+                CheckGuidance(flow.sceneGuidance, false, false, flow.stages[1].guidanceTarget, "changing focus only updates markers and materials");
+                flow.sceneGuidance.Show(flow.stages[0].stage.stageId, flow.stages[0].guidanceTarget);
                 a.Complete();step=1;frames=0;
             } else if(step==1) {
                 Check(r.StageIndex==0 && !flow.ObjectiveMet,"AND goal waits for second signal");
                 b.Complete();step=2;frames=0;
             } else if(step==2) {
                 if(r.StageIndex!=1 || !c.IsRunning)return;
-                Check(r.Progress.completedStageIds.Count==1 && File.Exists(r.SavePath),"first stage committed and saved once");
+                Check(r.Model.Chapter.CompletedStages.Count==1 && File.Exists(r.SavePath),"first stage committed and saved once");
+                Check(!Obj.FindFirstObjectByType<OpeningTrialChapter>(FindObjectsInactive.Include), "lighthouse progression has no opening chapter component");
+                Check(r.IsSkillAvailable("thunder.sword") && !r.IsSkillUnlocked("thunder.sword"), "second stage grants a temporary skill");
+                CheckGuidance(flow.sceneGuidance, true, true, flow.stages[1].guidanceTarget, "lighthouse second stage");
                 a.Complete();c.Complete();step=3;frames=0;
             } else if(step==3) {
                 Check(!r.CampaignComplete && !area.IsComplete,"stale signal and distant area cannot finish next stage");
-                Check(r.RestoreCheckpoint(),"restore real saved checkpoint");step=4;frames=0;
+                // Make restoration observable even when the checkpoint points to the same stage.
+                flow.sceneGuidance.stageVisibility[0].sceneObject.SetActive(false);
+                flow.sceneGuidance.targetHighlights[1].marker.SetActive(false);
+                flow.sceneGuidance.targetHighlights[1].surface.sharedMaterial = flow.sceneGuidance.targetHighlights[1].restingMaterial;
+                Check(r.RestoreCheckpoint(),"restore real saved checkpoint");
+                Check(r.IsSkillAvailable("thunder.sword"), "trial permission available in the restore frame before the next Update");
+                Check(flow.ObjectiveText == flow.stages[1].stage.instructions, "objective text available in the restore frame");
+                step=4;frames=0;
             } else if(step==4) {
                 Check(c.IsRunning && !c.IsComplete,"restored stage resets partial objective");
+                CheckGuidance(flow.sceneGuidance, true, true, flow.stages[1].guidanceTarget, "checkpoint restores lighthouse cues");
                 c.Complete();area.transform.position=r.locomotion.PlayerFloorPosition;step=5;frames=0;
             } else if(step==5) {
                 if(!r.CampaignComplete)return;
-                Check(r.Progress.completedStageIds.Count==2 && r.Progress.claimedRewardIds.Count==2,"all stages completed with exactly two rewards");
-                var store=new RpgSaveStore(r.SavePath,"linear-rpg-player",r.skills.ConfiguredSkills.Select(s=>s.skillId),r.Player.MaxHealth,r.Player.MaxMana,r.skills.ConfiguredSkills.Select(s=>string.IsNullOrEmpty(s.cooldownGroup)?s.skillId:s.cooldownGroup).Distinct());
+                Check(!r.IsSkillAvailable("thunder.sword"), "completion ends the stage trial");
+                Check(r.Model.Chapter.CompletedStages.Count==2 && r.Model.ClaimedRewards.Count==2,"all stages completed with exactly two rewards");
+                CheckGuidance(flow.sceneGuidance, false, false, null, "lighthouse completion");
+                var store=new RpgSaveStore(UnityRpgSaveJson.Instance, r.SavePath,"linear-rpg-player",r.skills.ConfiguredSkills.Select(s=>s.skillId),r.Player.MaxHealth,r.Player.MaxMana,r.skills.ConfiguredSkills.Select(s=>string.IsNullOrEmpty(s.cooldownGroup)?s.skillId:s.cooldownGroup).Distinct());
                 Check(store.TryLoad(out var saved,out var reason) && saved.completedStageIds.Count==2,"final save roundtrip");
                 Check(r.RestoreCheckpoint() && r.CampaignComplete,"completed chapter restores without replaying objectives");
                 File.AppendAllText(Report,"PASS END\n"); Finish(0);

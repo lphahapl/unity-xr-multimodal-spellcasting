@@ -29,7 +29,7 @@ namespace NarutoVR.SealCombat.Editor
             var pool = rpg.skills.effects.GetComponent<VfxPoolManager>();
             var projectile = rpg.skills.ConfiguredSkills.Single(s => s.skillId == "fireball").effectDefinition as ProjectileEffectDefinition;
             if (!pool || !projectile || !pool.impactPrefab || pool.impactPrefab != projectile.impactPrefab ||
-                !rpg.GetComponent<P1AudioManager>() || !rpg.GetComponent<HapticFeedbackService>())
+                !rpg.GetComponentInChildren<P1AudioManager>(true) || !rpg.GetComponentInChildren<HapticFeedbackService>(true))
                 throw new Exception("P1 服务或命中预制体接线失败");
             return $"场景接线与存档通过；特效 {P1VfxChecks.Run()}、音频 {P1AudioChecks.Run()}、触觉 {P1HapticChecks.Run()} 项通过。";
         }

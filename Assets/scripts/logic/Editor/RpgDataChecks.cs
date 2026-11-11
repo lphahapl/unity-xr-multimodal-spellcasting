@@ -17,6 +17,22 @@ namespace NarutoVR.SealCombat.Editor
         {
             if (Application.isPlaying) throw new InvalidOperationException("请退出播放模式后运行数据检查。");
             int passed = 0;
+            Check("取消预留回滚蓝量、冷却及护盾，迟到的提交失效", () =>
+            {
+                var player = Player();
+                player.SetShield(15, 10);
+                True(player.TryReserveCast("reserve-one", "fireball", "shared", 20, 5, 0, out var pending, out _), "预留施法");
+                player.SetShield(70, 20);
+                Equal(100, player.Mana); Equal(15, player.ShieldPoints);
+                Equal(0, player.GetCooldown("shared", 0));
+                pending.Dispose(); pending.Commit();
+                Equal(100, player.Mana); Equal(0, player.GetCooldown("shared",0)); Equal(15, player.ShieldPoints);
+                True(!player.TryReserveCast("reserve-one","fireball","shared",0,0,0,out _,out _), "已使用的请求不能重开");
+                True(player.TryReserveCast("reserve-two","fireball","shared",20,5,0,out var ready,out _), "第二次预留");
+                ready.Commit(); ready.Commit(); ready.Dispose();
+                Equal(80,player.Mana); Equal(5,player.GetCooldown("shared",0));
+                Equal(0,player.AbsorbShield(3,10)); Equal(0,player.ShieldPoints);
+            }); passed++;
             Check("首Tick与同时间重复Tick不额外恢复", () =>
             {
                 var p = new RpgPlayerState(100, 100, 5, 0);
@@ -83,8 +99,8 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var p = Player();
                 True(!Cast(p, "nan-cost", float.NaN, 0, () => true), "NaN成本拒绝");
-                True(!p.TryActivate("nan-time", "fireball", null, 0, 3, double.NaN, () => true, out _), "NaN时间拒绝");
-                True(!p.TryActivate("nan-cooldown", "fireball", null, 0, float.NaN, 0, () => true, out _), "NaN冷却拒绝");
+                True(!Cast(p, "nan-time", "fireball", null, 0, 3, double.NaN, () => true), "NaN时间拒绝");
+                True(!Cast(p, "nan-cooldown", "fireball", null, 0, float.NaN, 0, () => true), "NaN冷却拒绝");
                 True(!p.ApplyDamage("nan-damage", float.NaN, 0, out _), "NaN伤害拒绝");
                 True(!p.ApplyDamage("negative", -1, 0, out _), "负伤害拒绝");
                 p.Tick(2); True(!Cast(p, "past", 0, 1, () => true), "倒退时间拒绝");
@@ -98,10 +114,10 @@ namespace NarutoVR.SealCombat.Editor
             Check("共享CD组跨法术阻止激活", () =>
             {
                 var p = Player();
-                True(p.TryActivate("shared-first", "buff.zi", "guard", 10, 3, 0, () => true, out _), "共享组首次激活");
-                True(!p.TryActivate("shared-second", "buff.voice", "guard", 10, 3, 1, () => true, out _), "另一个技能受共享组冷却限制");
+                True(Cast(p, "shared-first", "buff.zi", "guard", 10, 3, 0, () => true), "共享组首次激活");
+                True(!Cast(p, "shared-second", "buff.voice", "guard", 10, 3, 1, () => true), "另一个技能受共享组冷却限制");
                 Equal(90, p.Mana); Equal(2, p.GetCooldown("guard", 1));
-                True(p.TryActivate("shared-third", "buff.voice", "guard", 10, 3, 3, () => true, out _), "共享组边界可激活"); Equal(80, p.Mana);
+                True(Cast(p, "shared-third", "buff.voice", "guard", 10, 3, 3, () => true), "共享组边界可激活"); Equal(80, p.Mana);
             }); passed++;
             Check("零生命检查点保持死亡与校验失败原子性", () =>
             {
@@ -133,10 +149,15 @@ namespace NarutoVR.SealCombat.Editor
             }); passed++;
             Check("奖励购买升级幂等与上限", () =>
             {
-                var p = new RpgProgressData(); True(RpgRewards.Grant(p, "hidden.1", 100, new[]{"fireball"}), "首次奖励");
-                True(!RpgRewards.Grant(p, "hidden.1", 100, new[]{"fireball"}), "重复奖励拒绝"); Equal(100, p.currency); Equal(1, p.unlockedSkillIds.Count);
-                True(SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="buff.zi",cost=20,kind=SkillOfferKind.Unlock},out _), "购买成功"); True(!SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="buff.zi",cost=20,kind=SkillOfferKind.Unlock},out _), "重复购买拒绝");
-                True(SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="fireball",cost=10,kind=SkillOfferKind.Upgrade,maximumLevel=1},out _), "升级成功"); True(!SkillShopTransactions.Apply(p, new SkillShopOffer{skillId="fireball",cost=10,kind=SkillOfferKind.Upgrade,maximumLevel=1},out _), "超等级拒绝"); Equal(70, p.currency);
+                var player = new PlayerModel(Player());
+                bool Award() => player.ClaimStage("hidden.1", 100, new[] { "fireball" });
+                bool Buy() => player.Purchase("buff.zi", SkillOfferKind.Unlock, 20, 1, null, out _);
+                bool Upgrade() => player.Purchase("fireball", SkillOfferKind.Upgrade, 10, 1, null, out _);
+                True(Award() && !Award(), "首次领取及重复奖励拒绝");
+                Equal(100, player.Currency); Equal(1, player.UnlockedSkillCount);
+                True(Buy() && !Buy(), "首次购买及重复购买拒绝");
+                True(Upgrade() && !Upgrade(), "首次升级及超过上限拒绝");
+                Equal(70, player.Currency);
             }); passed++;
             Check("会话账本到上限不淘汰旧ID", () =>
             {
@@ -157,7 +178,7 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 string path = Path.Combine(directory, "player.json");
-                var store = new RpgSaveStore(path, "test-profile", new[] { "fireball", "buff.zi" });
+                var store = new RpgSaveStore(UnityRpgSaveJson.Instance, path, "test-profile", new[] { "fireball", "buff.zi" });
                 var data = new RpgProgressData(); data.unlockedSkillIds.Add("unknown");
                 True(!store.TrySave(data, out _), "未知技能不能保存");
                 data.unlockedSkillIds.Clear(); data.checkpoint.health = float.PositiveInfinity;
@@ -190,7 +211,7 @@ namespace NarutoVR.SealCombat.Editor
                 True(!store.TrySave(data, out reason), "未知新版本禁止覆盖"); True(File.ReadAllText(path) == future, "新版本原文必须保留");
                 True(File.ReadAllText(path + ".bak") == backupBeforeFutureSave, "拒绝新版覆盖也不能改备份");
                 File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { version = RpgSaveStore.CurrentVersion, profileId = "test-profile", progress = data }));
-                var other = new RpgSaveStore(path, "other-profile", new[] { "fireball", "buff.zi" });
+                var other = new RpgSaveStore(UnityRpgSaveJson.Instance, path, "other-profile", new[] { "fireball", "buff.zi" });
                 True(!other.TryLoad(out _, out _), "不能加载其他档案");
                 True(!other.TrySave(data, out _), "不能覆写其他档案");
                 File.WriteAllText(path + ".bak", "{\"version\":999,\"profileId\":\"test-profile\"}");
@@ -211,7 +232,18 @@ namespace NarutoVR.SealCombat.Editor
 
         static RpgPlayerState Player() => new RpgPlayerState(100, 100, 0, 2);
         static bool Cast(RpgPlayerState player, string id, float cost, double now, Func<bool> effect)
-            => player.TryActivate(id, "fireball", null, cost, 3, now, effect, out _);
+            => Cast(player, id, "fireball", null, cost, 3, now, effect);
+        static bool Cast(RpgPlayerState player, string id, string skill, string group, float cost, float cooldown, double now, Func<bool> effect)
+        {
+            if (!player.TryReserveCast(id, skill, group, cost, cooldown, now, out var reservation, out _)) return false;
+            using (reservation)
+            {
+                try { if (!effect()) return false; }
+                catch { return false; }
+                reservation.Commit();
+                return true;
+            }
+        }
         static void Check(string name, Action check)
         {
             try { check(); }

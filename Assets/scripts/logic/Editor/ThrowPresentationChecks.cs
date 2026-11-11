@@ -14,10 +14,10 @@ namespace NarutoVR.SealCombat.Editor
             var ring=new GameObject("检查用护盾腕饰"){hideFlags=HideFlags.HideAndDontSave};
             try
             {
-                var effects=root.AddComponent<SkillEffects>(); effects.head=root.transform;
+                var effects=root.AddComponent<SkillController>(); effects.head=root.transform;
                 effects.WristPoseOverride=_=>null;
-                typeof(SkillEffects).GetField("buffObject",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(effects,ring);
-                var update=typeof(SkillEffects).GetMethod("UpdateBuffVisual",BindingFlags.NonPublic|BindingFlags.Instance);
+                typeof(SkillController).GetField("buffObject",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(effects,ring);
+                var update=typeof(SkillController).GetMethod("UpdateBuffVisual",BindingFlags.NonPublic|BindingFlags.Instance);
                 update.Invoke(effects,null);
                 if(ring.activeSelf) throw new Exception("左手无追踪时护盾腕饰仍在头显前方悬空显示");
                 effects.WristPoseOverride=_=>new Pose(Vector3.one,Quaternion.identity); update.Invoke(effects,null);
@@ -37,11 +37,11 @@ namespace NarutoVR.SealCombat.Editor
             var visual=new GameObject("测试持球预置体"){hideFlags=HideFlags.HideAndDontSave};
             var world=new GameObject("火球瞄准物理场"){hideFlags=HideFlags.HideAndDontSave};
             var definition=ScriptableObject.CreateInstance<ProjectileEffectDefinition>();
-            var skill=ScriptableObject.CreateInstance<SkillDefinition>();
+            var skill=ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.throwpresentationchecks.skill"; skill.cooldownSeconds = 0;
             GameObject ball=null;
             try
             {
-                var effects=root.AddComponent<SkillEffects>();
+                var effects=root.AddComponent<SkillController>();
                 root.transform.position=new Vector3(240,1.7f,910);
                 effects.head=effects.playerRoot=root.transform; effects.hitLayers=1<<30; effects.aimDistance=8;
                 double clock=100; bool tracked=true;
@@ -51,9 +51,9 @@ namespace NarutoVR.SealCombat.Editor
                 effects.ThrowGripProvider=(_,__)=>new ThrowGripSample{observed=clock,fistValid=true,fistOpen=true};
                 definition.releaseMode=ProjectileReleaseMode.GripThrow; definition.throwLocalOffset=Vector3.zero;
                 definition.visualPrefab=visual; skill.effectDefinition=definition;
-                Require(effects.TryActivate(skill),"生成持球失败");
-                ball=(GameObject)typeof(SkillEffects).GetField("heldObject",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(effects);
-                var tick=typeof(SkillEffects).GetMethod("UpdateHeld",BindingFlags.NonPublic|BindingFlags.Instance);
+                Require(effects.TryCast(skill),"生成持球失败");
+                ball=(GameObject)UnityEditor.EditorUtility.EntityIdToObject(effects.HeldProjectileInstanceId);
+                var tick=typeof(SkillController).GetMethod("UpdateHeld",BindingFlags.NonPublic|BindingFlags.Instance);
                 void Tick() { clock+=.02; tick.Invoke(effects,new object[]{clock}); }
                 void CheckPreview(Vector3 expected)
                 {

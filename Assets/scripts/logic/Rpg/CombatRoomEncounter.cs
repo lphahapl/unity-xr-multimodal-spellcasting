@@ -22,6 +22,7 @@ namespace NarutoVR.SealCombat.Rpg
         public bool HasStarted => started;
         public bool IsComplete => complete;
         public event Action Cleared;
+        public event Action CompletionChanged;
         public bool PlayerInside => inside;
 
         struct Spawn
@@ -60,7 +61,12 @@ namespace NarutoVR.SealCombat.Rpg
             PauseEnemies();
             if (rpg) rpg.SetEncounterCombat(false);
         }
-        void OnDestroy() => RecycleRoomLeases();
+        void OnDestroy()
+        {
+            RecycleRoomLeases();
+            foreach (var spawn in spawns)
+                if (spawn.Enemy) spawn.Enemy.SetSceneRespawnOwner(false);
+        }
 
         bool TracesEnemy(EnemyObj entity, out long leaseId)
         {
@@ -110,8 +116,11 @@ namespace NarutoVR.SealCombat.Rpg
                     if (!enemy || !seen.Add(enemy) || transform.IsChildOf(enemy.transform) || rpg.transform.IsChildOf(enemy.transform))
                     { status = "敌人引用缺失、重复或包含区域/玩家根物体"; return false; }
                 foreach (var enemy in enemies)
+                {
+                    enemy.SetSceneRespawnOwner(true);
                     spawns.Add(new Spawn { Enemy = enemy, Position = enemy.transform.position,
                         Rotation = enemy.transform.rotation, Summoned = enemy.isSpawnedEnemy });
+                }
                 captured = true;
                 ResetEncounter();
             }
@@ -184,6 +193,7 @@ namespace NarutoVR.SealCombat.Rpg
             rpg.SetEncounterCombat(false);
             status = "房间敌人已全部击败";
             Cleared?.Invoke();
+            if (complete) CompletionChanged?.Invoke();
         }
 
         bool ContainsFloor(Vector3 world, bool wasInside)
@@ -223,7 +233,14 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>回到首次捕获的出生位置，清除遭遇完成标记；敌人关闭，下一次进入才生成新运行态。</summary>
         public void ResetEncounter()
         {
-            if (UsesEnemyManager) { ResetManagedEncounter(); return; }
+            bool previouslyCleared = complete;
+            if (UsesEnemyManager) ResetManagedEncounter();
+            else ResetSceneEncounter();
+            if (previouslyCleared && !complete) CompletionChanged?.Invoke();
+        }
+
+        void ResetSceneEncounter()
+        {
             if (resetting) return;
             if (!captured) { EnsureSetup(); return; }
             resetting = true; ++revision;

@@ -14,7 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Default Local Group
   m_GUID: fc0cc48c6e8d50a44b1eeac212cb84ad
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 98f1aad44df71c44a9fbb723d4552174
+    m_Address: skills/buff.zi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65044659bc913ee44b72e5a117a166e9
+    m_Address: skills/buff.voice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c08484b43813aa42a18ab6aaab0d939
+    m_Address: skills/fireball
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8dba3622998bb26408ea6cb032eab90e
+    m_Address: skills/buff.hidden
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adaf2d84e87ee374cb9ea517d5d9f19b
+    m_Address: skills/thunder.sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7a23871e87d393f45b06cf9338394acc, type: 2}
   m_SchemaSet:

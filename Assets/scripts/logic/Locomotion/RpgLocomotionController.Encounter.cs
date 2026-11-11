@@ -60,6 +60,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!walking || !movedThisAction) return;
             movedThisAction = false;
+            ReportMovement(PlayerMovementKind.Walk, Vector3.zero);
             ExplorationTravelled?.Invoke(0f);
         }
         static bool TryHorizontal(Vector3 forward,out Vector3 heading)
@@ -228,7 +229,8 @@ namespace NarutoVR.SealCombat.Rpg
                 reason = "没有水平位移";
                 return false;
             }
-            if(!movedThisAction){movedThisAction=true;Moved?.Invoke(moved);}
+            ReportMovement(walking ? PlayerMovementKind.Walk : PlayerMovementKind.Dodge, moved);
+            if(!movedThisAction){movedThisAction=true;movedEvent.Publish(moved, this);}
             reason=null;return true;
         }
     }

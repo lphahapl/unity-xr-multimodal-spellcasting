@@ -1,0 +1,119 @@
+---
+title: NarutoVR 核心类 · 运行态所有权与调用
+config:
+  theme: base
+  htmlLabels: false
+  fontFamily: "Microsoft YaHei, Arial, sans-serif"
+  themeVariables:
+    fontFamily: "Microsoft YaHei, Arial, sans-serif"
+    fontSize: 16px
+    primaryColor: "#edf5f3"
+    primaryTextColor: "#253d42"
+    primaryBorderColor: "#527e76"
+    lineColor: "#617a83"
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+  direction TB
+  class LinearRpgController {
+    场景装配与生命周期
+    TryActivate 校验章节许可
+    提交阶段奖励与检查点
+  }
+  class PlayerInputController {
+    输入采样与手部占用凭证
+    Generation
+  }
+  class SkillInputController {
+    语音和手印入口
+    SkillMatchEngine 匹配配方
+  }
+  class SkillController {
+    TryCast()
+    PreparedSkillCast 准备与提交
+  }
+  class Casts["FireballCast / ThunderSwordCast / ShieldCast"] {
+    火球和剑持握可释放
+    SkillProjectile 与 SkillStrike 处理命中
+  }
+  class PlayerObj {
+    实体移动与受击反馈
+    MovementResult 与 DamageSettled
+  }
+  class PlayerModel {
+    IPlayerReadModel 只读视图
+    技能知识 等级 货币 背包 奖励收据
+  }
+  class RpgPlayerState {
+    Vitals
+    生命 查克拉 唯一施法冷却
+  }
+  class ChapterModel {
+    阶段 与完成记录
+  }
+  class RuntimeSkillCatalog {
+    玩家私有技能与效果参数
+  }
+  class SharedAssetLoader {
+    AcquireAsync(catalog, id)
+  }
+  class AssetLease["AssetLease〈T〉"] {
+    共享原型的使用权
+    Dispose()
+  }
+  class EnemyManager {
+    预制体缓存与场景实例池
+  }
+  class EnemyLease {
+    单次出生及会话身份
+    Id 与 EnemyId
+  }
+  class ProgressionController {
+    物品 技能 金钱 与奖励
+  }
+  class ChapterFlow["RpgChapterFlow / OpeningTrialChapter"] {
+    章节目标与临时试用许可
+    ChapterObjective 组合当前条件
+    NarrationController.Step 句内绑定
+  }
+  class RpgSaveMapper {
+    模型与快照之间的映射
+  }
+  class RpgSaveStore {
+    验证 写入 备份和恢复
+    IRpgSaveJson 注入序列化
+  }
+  class CheckpointSaveCoordinator {
+    最新检查点 待写快照
+    坏档写保护与重试
+  }
+  class Snapshot["RpgProgressData / RpgCheckpointData"] {
+    v2 字符串标识和数值
+  }
+  LinearRpgController *-- PlayerInputController : 会话输入
+  LinearRpgController --> PlayerObj : 初始化
+  LinearRpgController *-- RuntimeSkillCatalog : 异步装配
+  LinearRpgController --> ChapterFlow : 阶段接线
+  PlayerInputController ..> SkillInputController : 提供门控与代次
+  SkillInputController --> SkillController : 请求施法
+  SkillController ..> LinearRpgController : ISkillActivationPolicy 准入
+  LinearRpgController --> SkillController : CommitCast
+  SkillController *-- Casts : 执行实例
+  SkillController --> RpgPlayerState : 预留并扣费
+  PlayerObj *-- PlayerModel : 拥有
+  PlayerModel *-- RpgPlayerState : Vitals
+  PlayerModel *-- ChapterModel : Chapter
+  RuntimeSkillCatalog o-- AssetLease : 技能定义租约
+  RuntimeSkillCatalog ..> SharedAssetLoader : 通过 SkillResourceManifest
+  SharedAssetLoader ..> AssetLease : 返回
+  EnemyManager --> SharedAssetLoader : 预制体申请
+  EnemyManager o-- AssetLease : 原型租约
+  EnemyManager --> EnemyLease : 出生与回收
+  LinearRpgController *-- ProgressionController : 成长入口
+  LinearRpgController *-- CheckpointSaveCoordinator : 保存入口
+  CheckpointSaveCoordinator --> RpgSaveStore : 文件读写
+  ProgressionController ..> PlayerModel : 事务提交
+  RpgSaveMapper ..> PlayerModel : 导出与恢复
+  RpgSaveMapper ..> Snapshot : 映射
+  RpgSaveStore ..> Snapshot : 读写

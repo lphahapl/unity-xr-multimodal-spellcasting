@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NarutoVR.SealCombat.Enemies
 {
     [CreateAssetMenu(menuName = "NarutoVR/敌人/敌人目录")]
-    public sealed class EnemyCatalog : ScriptableObject
+    public sealed class EnemyCatalog : ScriptableObject, IResourceCatalog
     {
         [Header("敌人目录")]
         [InspectorName("敌人定义列表")] public EnemyDefinition[] enemies = Array.Empty<EnemyDefinition>();
@@ -33,5 +33,13 @@ namespace NarutoVR.SealCombat.Enemies
             return index.TryGetValue(id, out definition) && definition;
         }
         void OnValidate() => index = null;
+
+        public bool TryResolve(Type assetType, string id, out string address)
+        {
+            address = null;
+            if (assetType != typeof(GameObject) || !TryGet(id, out var enemy)) return false;
+            address = enemy.prefab.RuntimeKey as string;
+            return !string.IsNullOrEmpty(address);
+        }
     }
 }

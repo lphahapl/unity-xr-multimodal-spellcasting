@@ -1,47 +1,29 @@
-# 扩展与调试接口：保持现有结果的结构重构
+# 技能扩展与调试接口
 
-> 文档定位：架构基线与设计约束；文内早期方案不是自动实施指令。当前操作以[移动指南](../guides/ENCOUNTER_LOCOMOTION_ZH.md)、[火球指南](../guides/FIREBALL_TUNING_ZH.md)和[腕饰指南](../guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)为准；功能是否完成须核对源码、场景与带版本的验收。
+本页对应 2026-11-10 的 Unity 实现。技能的配方与输入方式写在 `SkillDefinition`，效果所需的数值、预置体与音频写在 `SkillEffectDefinition` 子类，逐次施放的可变状态放在施法实例中。[配置基类](../../Assets/scripts/data/Skills/Effects/SkillEffectDefinition.cs) · [现行调用图](SKILL_SYSTEM_CLASS_DIAGRAM_ZH.md)
 
-本轮约束：不改结印阈值、技能组合窗口、动作优先级、投掷算法、MP/CD、移动和UI操作规则。没有放宽采样断档门槛。修改前文件保存在 `Logs/architecture-refactor-backup`。
+## 添加配方或共享行为
 
-## 职责与调用方向
+增加新的结印或语音入口时使用独立技能 ID。两个配方需要共享冷却时填写相同的冷却组。使用既有火球、护盾或雷光剑执行方式时，直接引用相应配置。首章还需要在技能资源清单登记该 ID、地址和组，并为所属章节配置解锁或许可。独立训练场在训练目录登记。[技能配置与目录](../guides/CONFIGURATION_GUIDE_ZH.md)
 
-`SkillTestController → ISkillActivationPolicy → LinearRpgController原有TryActivate → Player/SkillEffects`。
+## 添加执行行为
 
-以前技能主控为了读取诊断状态，直接查找RPG组件，通用输入层反向依赖具体玩法。现在通过策略接口取得执行结果与说明。RPG显式实现接口，仍调用完全相同的私有TryActivate，没有复制MP/CD或效果判断。
+1. 创建 `SkillEffectDefinition` 子类，提供数值校验与编辑器说明。
+2. 在本玩家的 `SkillController` 注册 `RegisterExecutor<T>((settings, skill) => ...)`。每种配置类型只注册一次。准备回调创建本次专用状态，返回 `PreparedSkillCast`。
+3. 为句柄提供三个动作。`Arm` 复核并登记可撤销的本次对象。`Publish` 在模型确认后运行，可发布事实及启用表现。`discard` 清理失败路径的私有对象。准备遇到异常时，准备函数自己释放尚未交给句柄的资源。
+4. 持续型行为可以用 `RegisterEffectLifetime` 交给中央更新与清理，使用右手的行为调用 `TryRegisterRightHandEffect`。释放后的飞行物或余光仍由原实例持有，完成时结束该实例。
 
-### ISkillActivationPolicy
+训练与正式输入均调用 `SkillController.Cast`。返回的 `SkillCastResult` 包含本次请求的确认状态、稳定的失败类别和上下文。`TryCast` 为只关心成功或失败的调用者保留布尔入口。正式场景通过 `ISkillActivationPolicy.TryActivate` 检查当前玩家和章节权限，再进入同一提交方法。训练许可来自已绑定的目录。提交失败会清理本次待提交状态，确认后的呈现异常保留该次 MP 和冷却。[准备句柄](../../Assets/scripts/logic/Skills/Effects/PreparedSkillCast.cs) · [控制器与注册接口](../../Assets/scripts/logic/Skills/Effects/SkillController.cs)
 
-- `TryActivate(SkillDefinition)`：同步执行原有准入及效果流程，返回成功/拒绝。不是匹配器，不处理声音或骨骼。
-- `ActivationStatus`：读取上次结果供日志解释；读取异常只影响诊断，不更改已执行技能的结果。
-- `OwnsCooldowns`：是否由策略拥有冷却。当前RPG为true；匹配器不重复计算CD。
-- 在 `SkillTestController.Start` 前绑定 `ActivationPolicy`。不要运行中热换冷却所有者；当前没有实现冷却状态迁移协议。
-- 旧 `ActivationOverride` 保留，显式设置时优先于策略；旧演示场景不绑定策略时仍直接调用Effects。RPG初始化清除旧回调并绑定自己，维持原来初始化覆盖回调的行为。
-- 这是本机主线程接口，不是联网RPC。未来网络权威应实现独立策略，不能把DebugCast直接暴露给客户端请求。
+## 调试与观察
 
-### 已有输入与效果扩展口
+| 接口 | 用途 |
+| --- | --- |
+| `SkillInputController.ReceiveVoice`、`ScheduleVoice` | 用口令和单调结束时间经过真实输入路径 |
+| `SkillInputController.Cancel` | 使用当前场景绑定的取消策略 |
+| `InputClock`、`HandInputClock`、`GameClock` | 分别驱动确定性的输入、手部观察和游戏时间检查 |
+| `WristPoseOverride`、`ThrowGripProvider` | 注入腕部位姿或握持样本，继续经过同一投掷判定 |
+| `ThrowObserved`、`ProjectileStageChanged`、`ShieldImpact` | 读取动作诊断、投射物阶段和实际吸收的盾量 |
+| `WristMenuController.LatestInput` | 读取最近消费的腕部输入值拷贝 |
 
-- `ReceiveVoice(phrase, endedAt)`：走真实的队列、时钟与输入仲裁；endedAt必须使用项目单调输入时钟。
-- `ScheduleVoice(phrase)`：免手操作的延迟模拟口令。
-- `Cancel()`：执行现有取消策略。
-- `InputClock`：确定性测试时钟。不要用它伪造真机连续骨骼。
-- `SkillEffects.ThrowGripProvider / WristPoseOverride`：手形与腕骨的替代数据输入，仍经过原有投掷检查。
-- `SkillEffects.ThrowObserved`：订阅投掷诊断；`Message`：效果消息。它们不替代游戏权威状态。
-- `TraceCast(...) / CastTracePath`：扩展诊断事件与当前日志路径。
-
-### 腕部输入观察
-
-`WristMenuController.LatestInput`返回最近一次实际消费的 `WristMenuInput` 值拷贝。修改返回值不会写回控制器。编辑器 `live-input` 与 `InteractionInputTrace` 已改用它，移除了按字符串反射私有input字段的生产调试依赖。此接口是观察口，不会推进状态机，也不是注入输入的方法；原有Tick仍负责唯一更新。
-
-## 验证与已知问题
-
-`Tools/Request-RpgCheck.ps1 -Action architecture-interface-check` 运行接口等价、日志、口令时钟与核心匹配检查，不保存或切换当前场景。完整回归也包含新增接口检查。
-
-真实输入低频造成保持计时清零的问题仍待下一次佩戴头显采样。它是运行性能/采样问题，不应借结构重构悄悄改变时序要求。控制台和施法JSONL现已显示间隔、保持与拦截原因。
-
-后续审查清单（不在本轮改变行为）：
-
-- 将越来越多的诊断拼接从SkillTestController移入专用观察器；保持关键事件顺序及异步shotId归属。
-- 真机记录正常与故障帧率，区分编辑器负担、应用失焦节流、串流与XR采样停顿。
-- 联机前定义可序列化的施法请求/结果与幂等ID，避免直接复用本机bool回调作为网络协议。
-- 只在确实存在第二实现或测试需求时增加接口，避免为每个类制造空泛抽象。
+`SkillEffectConfigurationChecks` 验证扩展注册、失败回滚、发布异常、共享冷却、发射点重叠和真实雷光剑。输入时间、旧目录迁移和控制器的策略准入分别有独立检查。硬件追踪质量使用真实戴机采样记录。[执行检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs) · [口令时序](../../Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs) · [迁移检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillMigrationChecks.cs)

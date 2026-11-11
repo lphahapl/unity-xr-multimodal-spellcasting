@@ -16,6 +16,7 @@ namespace NarutoVR.SealCombat.Rpg
         readonly List<Action> refresh = new();
         readonly RpgSessionView view;
         LinearRpgController Owner => view.controller;
+        public bool ReadyAtCreation { get; }
         public RpgDesktopPanel(RpgSessionView owner)
         {
             view=owner;
@@ -41,24 +42,35 @@ namespace NarutoVR.SealCombat.Rpg
             scroll.pivot=new Vector2(0,1);scroll.anchoredPosition=Vector2.zero;scroll.sizeDelta=Vector2.zero;
             Stack(scroll);scroll.gameObject.AddComponent<ContentSizeFitter>().verticalFit=ContentSizeFitter.FitMode.PreferredSize;
             scroller.content=scroll;
+            ReadyAtCreation = Owner && Owner.IsReady;
+            if (!ReadyAtCreation)
+            {
+                var status = AddLabel(scroll, Owner.Status);
+                var retry = ActionButton(scroll, "重新加载技能", () => Owner.RetrySkillAssembly());
+                refresh.Add(() => {
+                    SetLabel(status, Owner.Status);
+                    retry.transform.parent.gameObject.SetActive(Owner.CanRetrySkillAssembly);
+                });
+                return;
+            }
             AddLabel(scroll,"交互调试 · 实时数据").fontSize=18;
-            var p1Audio=Owner ? Owner.GetComponent<P1AudioManager>() : null;
-            if (p1Audio && Owner.skills && Owner.skills.effects && Owner.skills.effects.GetComponent<VfxPoolManager>() && Owner.GetComponent<HapticFeedbackService>())
+            var p1Audio = Owner.GetComponentInChildren<P1AudioManager>(true);
+            var haptics = Owner.GetComponentInChildren<HapticFeedbackService>(true);
+            if (p1Audio && Owner.skills && Owner.skills.effects && Owner.skills.effects.GetComponent<VfxPoolManager>() && haptics)
             {
                 var pool=Owner.skills.effects.GetComponent<VfxPoolManager>();
-                var haptics=Owner.GetComponent<HapticFeedbackService>();
                 bool showP1=true;
                 Section("P1 试炼 · 音画与触觉",()=>showP1,visible=>showP1=visible,()=>
                     $"命中特效：使用 {pool.ActiveCount} / 预热 {pool.PrewarmedCount}，满池略过 {pool.SkippedAtCapacity}"+
                     $"\n音频：{p1Audio.Status}\n触觉：{haptics.Status}");
             }
-            Section("运行状态与技能冷却",()=>view.showRuntimeSection,v=>view.showRuntimeSection=v,view.BuildRuntimeDetails);
-            Section("移动输入与候选评分",()=>view.showMovementSection,v=>view.showMovementSection=v,()=>view.BuildMovementDetails(Time.realtimeSinceStartupAsDouble));
+            Section("运行状态与技能冷却",()=>view.showRuntimeSection,v=>view.showRuntimeSection=v,view.Presentation.BuildRuntimeDetails);
+            Section("移动输入与候选评分",()=>view.showMovementSection,v=>view.showMovementSection=v,()=>view.Presentation.BuildMovementDetails(Time.realtimeSinceStartupAsDouble));
             ActionButton(scroll,"切换世界调试面板",()=>view.SetWorldDiagnostics(!view.showWorldDiagnostics));
-            Section("结印匹配 · 得分与特征明细",()=>view.showSealSection,v=>view.showSealSection=v,view.BuildSealDetails);
-            Section("麦克风输入与口令命中",()=>view.showVoiceSection,v=>view.showVoiceSection=v,view.BuildVoiceDetails);
+            Section("结印匹配 · 得分与特征明细",()=>view.showSealSection,v=>view.showSealSection=v,view.Presentation.BuildSealDetails);
+            Section("麦克风输入与口令命中",()=>view.showVoiceSection,v=>view.showVoiceSection=v,view.Presentation.BuildVoiceDetails);
             ActionButton(scroll,"关闭所有腕部教学界面",()=>Owner?.wristMenu?.ResetForWorldChange());
-            var throwing=Section("投掷动作评分与发射诊断",()=>view.showThrowSection,v=>view.showThrowSection=v,()=>view.BuildThrowDetails(Time.realtimeSinceStartupAsDouble));
+            var throwing=Section("投掷动作评分与发射诊断",()=>view.showThrowSection,v=>view.showThrowSection=v,()=>view.Presentation.BuildThrowDetails(Time.realtimeSinceStartupAsDouble));
             if(view.throwRecorder){
                 var recordInfo=AddLabel(throwing,"");
                 refresh.Add(()=>{if(view.showThrowSection)SetLabel(recordInfo,$"诊断：{view.throwRecorder.Status}；{view.throwRecorder.Rows} 行\n{view.throwRecorder.FilePath}");});
@@ -82,10 +94,14 @@ namespace NarutoVR.SealCombat.Rpg
             ActionButton(simulation,"尝试进入下一阶段",()=>Owner.TryAdvanceStage());
             ActionButton(simulation,"进入探索",()=>Owner.SetEncounterCombat(false));
             ActionButton(simulation,"进入战斗",()=>Owner.SetEncounterCombat(true));
-            var hazard=ActionButton(simulation,"训练攻击",()=>Owner.ToggleHazards());
-            refresh.Add(()=>{if(view.showSimulationSection && Owner)SetCaption(hazard,"训练攻击："+(Owner.HazardsEnabled?"开启":"关闭"));});
+            var chapter = Owner ? Owner.chapter : null;
+            if (chapter is TrainingChapterFlow training && training.Hazard)
+            {
+                var hazard = ActionButton(simulation, "训练攻击", () => Owner.ToggleHazards());
+                refresh.Add(() => { if (view.showSimulationSection && Owner) SetCaption(hazard, "训练攻击：" + (Owner.HazardsEnabled ? "开启" : "关闭")); });
+            }
             // 商品按钮由独立商店目录生成；没有商店组件的关卡不展示购买操作。
-            var shop = Owner ? Owner.GetComponent<RpgSkillShop>() : null;
+            var shop = Owner ? Owner.SkillShop : null;
             if (shop && shop.catalog)
             {
                 foreach (var offer in shop.catalog.offers)
@@ -93,7 +109,12 @@ namespace NarutoVR.SealCombat.Rpg
                 var shopStatus=AddLabel(simulation,shop.Status);
                 refresh.Add(()=>{if(view.showSimulationSection && shop)SetLabel(shopStatus,shop.Status);});
             }
-            var targets = Owner ? Owner.GetComponent<TrainingTargetGroup>() : null;
+            var targets = chapter switch
+            {
+                TrainingChapterFlow range => range.TargetGroup,
+                OpeningTrialChapter opening => opening.targetGroup,
+                _ => null
+            };
             if (targets) ActionButton(simulation,"【作弊测试】击破本组训练靶",()=>{if (Owner.CanAct) targets.DebugDefeatAll();});
         }
         static RectTransform Child(Transform parent,string name) {

@@ -10,7 +10,7 @@ namespace NarutoVR.SealCombat.Enemies
 {
     /// <summary>只负责敌人行为决策、计时、生成生命周期及业务事件，实体操作交给 EnemyObj。</summary>
     [DisallowMultipleComponent, RequireComponent(typeof(EnemyObj))]
-    public sealed class EnemyController : MonoBehaviour
+    public sealed partial class EnemyController : MonoBehaviour, IEnemyHitResponse
     {
         public enum Behaviour
         {
@@ -96,15 +96,34 @@ namespace NarutoVR.SealCombat.Enemies
         bool inTick;
         Transform assignedTarget;
         EnemyReaction reaction;
-        float reactionStartedAt;
+        float reactionElapsed;
         bool reactionEntered;
+        Animator pausedReactionAnimator;
+        float reactionResumeSpeed;
         Transform pendingAttacker;
         float provokedUntil = -1;
 
         void Awake() => EnsureInitialized();
-        void OnEnable() { EnsureInitialized(); ResetForSpawn(); }
+        void OnEnable() { EnsureInitialized(); enemyObj.HitResponse = this; ResetForSpawn(); }
         void Update() { if (tickAutomatically) Tick(Time.deltaTime); }
-        void OnDisable() { StopNavigation(); CancelAttack(); }
+        void OnDisable()
+        {
+            OnDeathPlaybackDisabled();
+            SetReactionPaused(false);
+            if (enemyObj && ReferenceEquals(enemyObj.HitResponse, this)) enemyObj.HitResponse = null;
+            StopNavigation();
+            CancelAttack();
+        }
+
+        void IEnemyHitResponse.RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision)
+        {
+            if (!hit.Dead && hit.Attacker) NotifyAttackedBy(hit.Attacker);
+            bool accepted = true;
+            if (hit.Dead) accepted = TryDie();
+            else if (newlyBroken) accepted = TryEnterSeated() || CurrentBehaviour == Behaviour.Seated;
+            if (!accepted && this && isActiveAndEnabled && enemyObj && enemyObj.IsCurrentHit(revision))
+                SetSuspended(true);
+        }
 
         void EnsureInitialized()
         {
@@ -139,11 +158,16 @@ namespace NarutoVR.SealCombat.Enemies
         public void SetSuspended(bool value)
         {
             ++generation; suspended = value;
+            SetReactionPaused(value);
+            SetDeathPlaybackSuspended(value);
             if (value) { StopNavigation(); CancelAttack(); if (this && suspended) SetBehaviour(Behaviour.Suspended, "外部暂停"); }
         }
 
         public void ResetForSpawn()
         {
+            if (retiredDeath || spawnLease?.Defeated == true) return;
+            CancelDeathPlayback();
+            SetReactionPaused(false);
             EnsureInitialized(); ++generation;
             // 池化重置不发出上一轮攻击结束业务事件。
             enemyObj.EndStrike();
@@ -185,13 +209,17 @@ namespace NarutoVR.SealCombat.Enemies
         bool TryReact(EnemyReaction requested)
         {
             EnsureInitialized();
-            if (!isActiveAndEnabled || !animationValid || !enemyObj.AnimationActive || !enemyObj.SupportsReactions ||
+            bool playable = animationValid && enemyObj.AnimationActive && enemyObj.SupportsReactions;
+            if (!isActiveAndEnabled || (!playable && requested != EnemyReaction.Dead) ||
                 (int)reaction >= (int)requested) return false;
             int token = ++generation;
-            reaction = requested; reactionStartedAt = clock; reactionEntered = false;
+            if (requested == EnemyReaction.Dead) SetReactionPaused(false);
+            reaction = requested; reactionElapsed = 0; reactionEntered = false;
             StopNavigation();
             // 先同时提交动作与行动锁；结束攻击回调若重生，会完整重置二者。
-            enemyObj.StartReactionAnimation(requested);
+            if (playable) enemyObj.StartReactionAnimation(requested);
+            if (requested == EnemyReaction.Dead) BeginDeathPlayback();
+            else if (suspended) SetReactionPaused(true);
             CancelAttack();
             if (!this || !isActiveAndEnabled) return false;
             if (generation == token) SetReactionBehaviour();
@@ -200,16 +228,34 @@ namespace NarutoVR.SealCombat.Enemies
 
         void SetReactionBehaviour() => SetBehaviour(reaction == EnemyReaction.Dead ? Behaviour.Dead :
             reaction == EnemyReaction.Seated ? Behaviour.Seated : Behaviour.Hit,
-            reaction == EnemyReaction.Dead ? "死亡，等待重新生成" : reaction == EnemyReaction.Seated ? "坐地动画播放中" : "受击动画播放中");
+            reaction == EnemyReaction.Dead ? "死亡，等待演出收尾" : reaction == EnemyReaction.Seated ? "坐地动画播放中" : "受击动画播放中");
 
-        bool TickReaction()
+        // A room can suspend this actor after a hit trigger, before the first Animator update.
+        // Preserve the clip and its AI watchdog together until this actor can observe it again.
+        void SetReactionPaused(bool pause)
+        {
+            if (!pause)
+            {
+                if (pausedReactionAnimator) pausedReactionAnimator.speed = reactionResumeSpeed;
+                pausedReactionAnimator = null;
+                return;
+            }
+            if (pausedReactionAnimator || (reaction != EnemyReaction.Hit && reaction != EnemyReaction.Seated) ||
+                !enemyObj || !enemyObj.AnimationActive) return;
+            pausedReactionAnimator = enemyObj.Animator;
+            reactionResumeSpeed = pausedReactionAnimator.speed;
+            pausedReactionAnimator.speed = 0;
+        }
+
+        bool TickReaction(float deltaTime)
         {
             if (reaction == EnemyReaction.None) return false;
             StopNavigation(); SetReactionBehaviour();
             if (reaction == EnemyReaction.Dead) return true;
+            reactionElapsed += deltaTime;
             enemyObj.ReadReactionAnimation(reaction, out bool active, out bool inTransition);
             if (active) reactionEntered = true;
-            if ((reactionEntered && !active && !inTransition) || clock - reactionStartedAt >= reactionTimeout)
+            if ((reactionEntered && !active && !inTransition) || reactionElapsed >= reactionTimeout)
             {
                 if (!reactionEntered || active || inTransition) enemyObj.RecoverReactionAnimation();
                 reaction = EnemyReaction.None;
@@ -281,7 +327,7 @@ namespace NarutoVR.SealCombat.Enemies
             { StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; CancelAttack(); return; }
             enemyObj.TickCombat(deltaTime);
             if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
-            if (TickReaction()) return;
+            if (TickReaction(deltaTime)) return;
 
             if (!validTarget || !target || !target.gameObject.activeInHierarchy)
             {

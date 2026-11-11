@@ -47,20 +47,20 @@ namespace NarutoVR.SealCombat.Editor
             Check("官方握拳和实际投掷输入适配", f =>
             {
                 f.Warm(features: values => { for(int i=1;i<=4;i++) Replace(values, $"R.{(HandFinger)i}.Curl",275); });
-                var method=typeof(LinearRpgController).GetMethod("ReadThrowGrip",BindingFlags.Instance|BindingFlags.NonPublic);
-                var grip=(ThrowGripSample)method.Invoke(f.Controller,new object[]{false,new HandThrowSettings(),10.18});
+
+                var grip=f.Controller.Input.ReadThrowGrip(false,new HandThrowSettings(),10.18);
                 Require(grip.fistValid && grip.fistClosed && !grip.fistOpen,"官方四指Closed应映射成有效握拳");
                 f.Tick(10.2);f.Tick(10.24);f.Tick(10.28);f.Tick(10.32);
-                grip=(ThrowGripSample)method.Invoke(f.Controller,new object[]{false,new HandThrowSettings(),10.32});
+                grip=f.Controller.Input.ReadThrowGrip(false,new HandThrowSettings(),10.32);
                 Require(grip.fistValid && grip.fistOpen && !grip.fistClosed,"官方Open应映射成松拳");
-                grip=(ThrowGripSample)method.Invoke(f.Controller,new object[]{false,new HandThrowSettings(),10.6});
+                grip=f.Controller.Input.ReadThrowGrip(false,new HandThrowSettings(),10.6);
                 Require(!grip.fistValid && !grip.pinchValid,"过期腕骨不能产生松手证据");
             });
             Check("投掷三指松拳与闪避张掌分离", f =>
             {
                 f.Warm(features: values => Replace(values,"R.Ring.Curl",210));
-                var method=typeof(LinearRpgController).GetMethod("ReadThrowGrip",BindingFlags.Instance|BindingFlags.NonPublic);
-                ThrowGripSample Read(bool relaxed) => (ThrowGripSample)method.Invoke(f.Controller,new object[]{false,new HandThrowSettings{allowPartialFistRelease=relaxed},10.18});
+
+                ThrowGripSample Read(bool relaxed) => f.Controller.Input.ReadThrowGrip(false,new HandThrowSettings{allowPartialFistRelease=relaxed},10.18);
                 Require(Read(true).fistOpen && !Read(false).fistOpen,"三个Open一个Neutral，仅宽松投掷应能松手");
                 Require(!f.Read(10.18).rightOpen,"不能降低闪避张掌要求");
             });
@@ -161,14 +161,14 @@ namespace NarutoVR.SealCombat.Editor
             Check("退出时技能组件先销毁仍可安全停用主控", f =>
             {
                 var skills = f.Controller.skills;
-                skills.effects = f.Controller.gameObject.AddComponent<SkillEffects>();
+                skills.effects = f.Controller.gameObject.AddComponent<SkillController>();
                 typeof(LinearRpgController).GetField("initialized", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(f.Controller, true);
                 UnityEngine.Object.DestroyImmediate(skills);
                 typeof(LinearRpgController).GetMethod("OnDisable", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(f.Controller, null);
             });
             Check("退出时效果与导航组件先销毁仍可安全停用主控", f =>
             {
-                var effects = f.Controller.gameObject.AddComponent<SkillEffects>(); f.Controller.skills.effects = effects;
+                var effects = f.Controller.gameObject.AddComponent<SkillController>(); f.Controller.skills.effects = effects;
                 typeof(LinearRpgController).GetField("initialized", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(f.Controller, true);
                 UnityEngine.Object.DestroyImmediate(effects); UnityEngine.Object.DestroyImmediate(f.Movement);
                 typeof(LinearRpgController).GetMethod("OnDisable", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(f.Controller, null);
@@ -227,7 +227,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 root = new GameObject("手形回归_合成骨骼"); root.SetActive(false);
                 var head = new GameObject("合成头部"); head.transform.SetParent(root.transform); head.transform.position = Vector3.up * 1.7f;
-                Lab = root.AddComponent<Lab>(); var skills = root.AddComponent<SkillTestController>(); skills.lab = Lab;
+                Lab = root.AddComponent<Lab>(); var skills = root.AddComponent<SkillInputController>(); skills.lab = Lab;
                 Movement = root.AddComponent<RpgLocomotionController>(); Movement.head = head.transform;
                 Controller = root.AddComponent<LinearRpgController>();
                 Controller.chapter = root.AddComponent<TrainingChapterFlow>();
@@ -246,7 +246,7 @@ namespace NarutoVR.SealCombat.Editor
                 typeof(Lab).GetProperty("Frame").SetValue(Lab, frame); extractor.Extract(frame, Lab.Features); features?.Invoke(Lab.Features);
                 return Read(now ?? stamp);
             }
-            public NavigationHandInput Read(double now) => (NavigationHandInput)typeof(LinearRpgController).GetMethod("ReadNavigationFrame", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Controller, new object[] { now });
+            public NavigationHandInput Read(double now) => Controller.Input.ReadNavigationFrame(now);
             public void Dispose() => UnityEngine.Object.DestroyImmediate(root);
         }
         static void Replace(List<SealFeature> values, string id, float value)

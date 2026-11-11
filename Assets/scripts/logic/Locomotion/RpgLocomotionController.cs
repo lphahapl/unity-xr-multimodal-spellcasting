@@ -98,7 +98,16 @@ namespace NarutoVR.SealCombat.Rpg
         public string SelectionDetail { get; private set; } = "尚未选点";
         public event Action CancelRequested;
         /// <summary>Successful rig translation in world space, including a successful dodge.</summary>
-        public event Action<Vector3> Moved;
+        readonly MovementEvent<Vector3> movedEvent = new();
+        public event Action<Vector3> Moved { add => movedEvent.Add(value); remove => movedEvent.Remove(value); }
+        /// <summary>移动执行器确认的世界位移与落点。停止步伐报告零位移，用于重置步距。</summary>
+        readonly MovementEvent<MovementResult> movementCommitted = new();
+        public event Action<MovementResult> MovementCommitted { add => movementCommitted.Add(value); remove => movementCommitted.Remove(value); }
+        void ReportMovement(PlayerMovementKind kind, Vector3 delta)
+        {
+            var result = new MovementResult(kind, delta, PlayerFloorPosition, head ? head.right : transform.right);
+            movementCommitted.Publish(result, this);
+        }
         /// <summary>Successful dodge world delta. Moved is raised first.</summary>
         public event Action<Vector3> Dodged;
         /// <summary>Optional pause-aware clock for dodge cooldown only. Hand sample timestamps still use ProcessInput's now.</summary>
@@ -227,7 +236,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!ClearCapsule(target, currentFloor, obstacles, out reason))
             { Status = "检查点恢复失败：" + reason; return false; }
             ResetInput();
-            Translate(target.point - currentFloor);
+            Translate(target.point - currentFloor, PlayerMovementKind.Checkpoint);
             Status = "已恢复检查点：" + node.nodeId;
             return true;
         }
@@ -482,7 +491,7 @@ namespace NarutoVR.SealCombat.Rpg
             int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
             if (!ClearCapsule(target, from.point, obstacles, out reason) || !Visible(from.point, target.point, obstacles))
             { Status = "导航失败：" + (reason ?? "目标不可见"); return false; }
-            Translate(target.point - from.point);
+            Translate(target.point - from.point, PlayerMovementKind.Navigation);
             Status = "已移动至 " + node.nodeId + (useRayNavigation ? "" : "；左指回中立后可再次选择");
             return true;
         }
@@ -521,7 +530,7 @@ namespace NarutoVR.SealCombat.Rpg
             }
             // Cooldown is charged only after all destination and path checks pass.
             nextDodgeAt = cooldownNow + Math.Max(0, dodgeCooldown);
-            Translate(delta);
+            Translate(delta, PlayerMovementKind.Dodge);
             Status = "已瞬移闪避；不提供无敌帧";
             Dodged?.Invoke(delta);
             return true;
@@ -596,14 +605,16 @@ namespace NarutoVR.SealCombat.Rpg
         bool Ignored(Collider collider) => collider == null || collider.isTrigger ||
             collider.transform == rigRoot || collider.transform.IsChildOf(rigRoot);
 
-        void Translate(Vector3 delta)
+        void Translate(Vector3 delta, PlayerMovementKind kind)
         {
             inputSmoother.Reset();
             // XZ delta is measured from the current HMD ground projection, preserving room-scale offset.
+            var previous = rigRoot.position;
             rigRoot.position += delta;
             State.TranslateAnchors(delta);
             RefreshCurrentNode();
-            Moved?.Invoke(delta);
+            ReportMovement(kind, rigRoot.position - previous);
+            movedEvent.Publish(delta, this);
         }
 
         public string BuildDebugDetails(double now)

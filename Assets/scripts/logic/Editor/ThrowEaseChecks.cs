@@ -8,7 +8,7 @@ namespace NarutoVR.SealCombat.Editor
     {
         public static int Run()
         {
-            var effect=AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>("Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset");
+            var effect=AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(LinearRpgSceneSetup.FireballEffectPath);
             if(!effect) throw new Exception("火球配置未找到");
             int checks=0;
             foreach(int hz in new[]{72,90,120}) foreach(bool pinch in new[]{false,true})

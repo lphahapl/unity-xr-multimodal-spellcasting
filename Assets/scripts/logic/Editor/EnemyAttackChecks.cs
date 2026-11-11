@@ -172,7 +172,7 @@ namespace NarutoVR.SealCombat.Editor
         {
             using var rpg = new RpgFixture(f.Origin + Vector3.forward);
             check(rpg.Receiver.CanReceiveDamage && rpg.Controller.Player.Health == 100, "真实 RPG fixture 完成初始化且可受伤");
-            check(rpg.Effects.TryApplyShield(rpg.Shield, rpg.Buff) && Mathf.Approximately(rpg.Effects.ShieldPoints, 50), "真实护盾容量50激活");
+            check(rpg.Effects.TryCast(rpg.Buff) && Mathf.Approximately(rpg.Effects.ShieldPoints, 50), "真实护盾容量50激活");
             int notices = 0; EnemyAttackHit accepted = default;
             using var token = EventCenter.Subscribe(EnemyEvents.DamageAccepted, hit =>
             {
@@ -234,8 +234,7 @@ namespace NarutoVR.SealCombat.Editor
             readonly RpgStageDefinition stage;
             public LinearRpgController Controller { get; }
             public RpgDamageReceiver Receiver { get; }
-            public SkillEffects Effects { get; }
-            public ShieldEffectDefinition Shield { get; }
+            public SkillController Effects { get; }
             public SkillDefinition Buff { get; }
 
             public RpgFixture(Vector3 position)
@@ -247,8 +246,8 @@ namespace NarutoVR.SealCombat.Editor
                     Transform Child(string name) { var go = new GameObject(name); go.transform.SetParent(root.transform, false); return go.transform; }
                     var head = Child("检查头部"); head.localPosition = Vector3.up * 1.6f;
                     var lab = root.AddComponent<NarutoVR.SealLab.SealLab>(); lab.enabled = false;
-                    var skills = root.AddComponent<SkillTestController>(); skills.enabled = false;
-                    Effects = root.AddComponent<SkillEffects>(); Effects.head = head; Effects.playerRoot = root.transform; Effects.lab = lab;
+                    var skills = root.AddComponent<SkillInputController>(); skills.enabled = false;
+                    Effects = root.AddComponent<SkillController>(); Effects.head = head; Effects.playerRoot = root.transform; Effects.lab = lab;
                     var locomotion = root.AddComponent<RpgLocomotionController>(); locomotion.head = head; locomotion.rigRoot = root.transform;
                     var node = Child("检查点").gameObject.AddComponent<NavigationNode>(); node.nodeId = "enemy-damage-check";
                     var target = Child("检查靶").gameObject.AddComponent<SkillTrainingTarget>(); target.resetAfterSeconds = 0;
@@ -257,19 +256,19 @@ namespace NarutoVR.SealCombat.Editor
                     skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>("Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset");
                     Controller = root.AddComponent<LinearRpgController>();
                 Controller.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball"}; Controller.skills = skills; Controller.locomotion = locomotion;
+                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball","buff.zi"}; Controller.skills = skills; Controller.locomotion = locomotion;
                     Controller.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
                     Controller.stages = new[] { stage }; Controller.GetComponent<TrainingTargetGroup>().targets = new[] { target }; Controller.GetComponent<TrainingTargetGroup>().healthByStage = new[]{60f}; Controller.checkpointNodes = new[] { node };
                     Controller.autoLoad = false; Controller.GetComponent<TrainingChapterFlow>().autoAdvance = false;
                     Controller.saveFileName = "enemy-damage-probe-" + Guid.NewGuid().ToString("N") + ".json";
                     Receiver = root.AddComponent<RpgDamageReceiver>();
-                    Shield = ScriptableObject.CreateInstance<ShieldEffectDefinition>(); Shield.capacity = 50;
-                    var visual = Child("护盾检查_空视觉").gameObject; visual.SetActive(false); Shield.visualPrefab = visual;
-                    Buff = ScriptableObject.CreateInstance<SkillDefinition>(); Buff.displayName = "检查护盾"; Buff.durationSeconds = 30;
                     root.SetActive(true);
                     // Awake 必须真实运行；不跨帧，立即停掉不属于此次伤害检查的语音/手势 Start。
                     skills.enabled = false;
                     if (!Controller.CanAct) throw new Exception("真实 RPG 检查初始化失败：" + Controller.Status);
+                    foreach (var skill in skills.ConfiguredSkills) if (skill.skillId == "buff.zi") Buff = skill;
+                    if (!Buff || !(Buff.effectDefinition is ShieldEffectDefinition shield)) throw new Exception("缺少本玩家护盾");
+                    shield.capacity = 50;
                 }
                 catch { Dispose(); throw; }
             }
@@ -278,8 +277,6 @@ namespace NarutoVR.SealCombat.Editor
             {
                 if (root) Object.DestroyImmediate(root);
                 if (stage) Object.DestroyImmediate(stage);
-                if (Shield) Object.DestroyImmediate(Shield);
-                if (Buff) Object.DestroyImmediate(Buff);
             }
         }
     }

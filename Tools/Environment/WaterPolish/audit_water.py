@@ -8,7 +8,8 @@ import wave
 root = Path(__file__).resolve().parents[3]
 base = root/'Assets/Art/Environment/Opening/WaterPolish'
 shader = (root/'Assets/Shaders/CanalFlow.shader').read_text(encoding='utf-8')
-code = (base/'WaterAudio.cs').read_text(encoding='utf-8')
+water_script = root/'Assets/scripts/logic/Environment/WaterAudio.cs'
+code = water_script.read_text(encoding='utf-8')
 prefab = (base/'WaterAudio.prefab').read_text(encoding='utf-8')
 checks = {
     'one_shader_pass': len(re.findall(r'^\s*Pass\s*$', shader, re.M)) == 1,
@@ -22,15 +23,15 @@ checks = {
     'spatial_blend_curve': bool(re.search(r'panLevelCustomCurve:.*?value: 1', prefab, re.S)),
     'no_doppler': 'DopplerLevel: 0' in prefab,
 }
-for asset in ['WaterAudio.cs', 'Canal_GentleFlow_Loop.wav']:
-    guid = re.search('guid: ([a-f0-9]{32})', (base/(asset+'.meta')).read_text()).group(1)
-    checks['prefab_guid_'+asset] = guid in prefab
+for asset in [water_script, base/'Canal_GentleFlow_Loop.wav']:
+    guid = re.search('guid: ([a-f0-9]{32})', Path(str(asset)+'.meta').read_text()).group(1)
+    checks['prefab_guid_'+asset.name] = guid in prefab
 with wave.open(str(base/'Canal_GentleFlow_Loop.wav')) as w:
     checks['audio_format'] = (w.getnchannels(),w.getframerate(),w.getsampwidth(),w.getnframes()) == (1,32000,2,576000)
 measure = json.loads((root/'Logs/exterior-polish-20261108/water/audio-measurements.json').read_text())
 checks['no_clip'] = measure['clipped_samples'] == 0
 checks['loop_step_within_two_ordinary_rms'] = measure['boundary_step_over_ordinary_rms'] < 2
-files = [root/'Assets/Shaders/CanalFlow.shader', root/'Assets/Materials/Chapter01/CanalFlow.mat']
+files = [water_script, root/'Assets/Shaders/CanalFlow.shader', root/'Assets/Materials/Chapter01/CanalFlow.mat']
 files += [p for p in base.rglob('*') if p.is_file()]
 report = {'checks':checks,'passed':all(checks.values()),'hashes':{
     str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},

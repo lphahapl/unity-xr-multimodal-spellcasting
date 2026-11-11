@@ -34,6 +34,7 @@ namespace NarutoVR.SealCombat.Editor
             public int totalChecks, existingAudioChecks, existingDiagnosticsChecks, existingClockChecks, wristMenuChecks, wristLifecycleChecks;
             public List<string> checks = new List<string>();
             public List<string> catalogPaths = new List<string>();
+            public string fixtureCatalogPath;
             public List<FixtureResult> nativeFixtures = new List<FixtureResult>();
         }
         [Serializable] sealed class FixtureResult
@@ -143,25 +144,30 @@ namespace NarutoVR.SealCombat.Editor
             bad = Copy(); bad.files[0].bytes = 0;
             Reject<InvalidDataException>(() => NativeVoiceModelFiles.ValidateManifest(bad), "Manifest rejects invalid file length");
 
-            var catalogs = AssetDatabase.GetDependencies(Chapter, true)
-                .Where(path => AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillCatalog))
-                .Select(path => AssetDatabase.LoadAssetAtPath<SkillCatalog>(path)).Where(catalog => catalog).ToArray();
-            Check(catalogs.Length != 0, "Real Chapter01 dependencies contain a SkillCatalog");
+            var paths = AssetDatabase.GetDependencies(Chapter, true)
+                .Where(path => AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillCatalog) ||
+                               AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillResourceManifest))
+                .OrderBy(path => path, StringComparer.Ordinal).ToArray();
+            Check(paths.Length != 0, "Real Chapter01 dependencies contain an authored skill catalog or resource manifest");
+            bool hasManifest = paths.Any(path => AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillResourceManifest));
             string selectedKeywords = null;
-            SkillCatalog selectedCatalog = null;
-            foreach (var catalog in catalogs)
+            foreach (var path in paths)
             {
-                report.catalogPaths.Add(AssetDatabase.GetAssetPath(catalog));
+                using var authored = AuthoredSkillCatalog.Open(path);
+                var catalog = authored.Catalog;
+                report.catalogPaths.Add(path);
                 string text = NativeVoiceConfiguration.BuildKeywordText(catalog, tokens);
                 string[] labels = text.Split('\n').Where(line => !string.IsNullOrWhiteSpace(line)).Select(line => line.Substring(line.LastIndexOf('@') + 1)).ToArray();
                 string[] expected = catalog.GetVoicePhrases();
                 Check(labels.Length == expected.Length && labels.OrderBy(x => x).SequenceEqual(expected.OrderBy(x => x)), "Native vocabulary matches all voice recipes and cancellation: " + catalog.name);
                 Check(labels.Count(label => label == SkillPhrase.Normalize(catalog.cancelPhrase)) == 1, "Cancellation keyword appears exactly once: " + catalog.name);
-                if (new[] { "护体咒", "火球术", "取消施法" }.All(expected.Contains))
-                { selectedCatalog = catalog; selectedKeywords = text; }
+                if ((!hasManifest || AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillResourceManifest)) &&
+                    new[] { "护体咒", "火球术", "取消施法" }.All(expected.Contains))
+                { report.fixtureCatalogPath = path; selectedKeywords = text; }
             }
-            Check(selectedCatalog, "Chapter vocabulary contains the existing three WAV fixture labels");
-            var clone = Object.Instantiate(selectedCatalog);
+            Check(report.fixtureCatalogPath != null, "Chapter vocabulary contains the existing three WAV fixture labels");
+            using var selected = AuthoredSkillCatalog.Open(report.fixtureCatalogPath);
+            var clone = Object.Instantiate(selected.Catalog);
             SkillDefinition word = null;
             try
             {
@@ -323,8 +329,8 @@ namespace NarutoVR.SealCombat.Editor
                 var receiver = go.AddComponent<SkillVoiceReceiver>();
                 receiver.useNativeInEditor = true; receiver.autoStartInEditor = false; receiver.logPhrases = false;
                 receiver.ConfigurePhrases(new[] { "护体咒", "火球术", "取消施法" });
-                var catalog = report.catalogPaths.Select(AssetDatabase.LoadAssetAtPath<SkillCatalog>)
-                    .First(c => new[] { "护体咒", "火球术", "取消施法" }.All(c.GetVoicePhrases().Contains));
+                using var selected = AuthoredSkillCatalog.Open(report.fixtureCatalogPath);
+                var catalog = selected.Catalog;
                 var engine = new SkillMatchEngine(catalog.skills, cancelPhrase: catalog.cancelPhrase);
                 engine.Tick(Time.realtimeSinceStartupAsDouble);
                 engine.TryActivate = _ => false; // No gameplay effect or microphone is created.

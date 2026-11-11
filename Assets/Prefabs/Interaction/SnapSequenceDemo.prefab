@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0ed932e6bca8334cac55f3eddbde73c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NeuGameMRTools.Runtime.Components.SnapItem
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NeuGameMRTools.Runtime.Components.SnapItem
   _additionalDrivers: []
 --- !u!54 &857141692253721138
 Rigidbody:
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87454a17ac8b80841b5aaa0fddb69c1f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NeuGameMRTools.Runtime.Components.SnapZone
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NeuGameMRTools.Runtime.Components.SnapZone
   _snapMode: 1
   _snapTarget: {fileID: 0}
   _snapRotationTarget: {fileID: 0}

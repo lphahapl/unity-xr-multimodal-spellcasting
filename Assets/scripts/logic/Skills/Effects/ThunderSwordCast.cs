@@ -11,13 +11,13 @@ namespace NarutoVR.SealCombat
     {
         const float BladeReach = .62f, WaveOrigin = .10f;
         const double MaxSampleGap = .12, MaxSwingWindow = .35;
-        readonly SkillEffects owner;
+        readonly SkillController owner;
         readonly ThunderSwordEffectDefinition settings;
         readonly string castId = "thunder-sword:" + Guid.NewGuid().ToString("N");
         readonly List<SkillProjectile> waves = new();
         readonly SkillVisualBursts visuals;
-        readonly ThunderSwordAimPreview preview;
-        readonly ThunderSwordBladeTrail bladeTrail;
+        ThunderSwordAimPreview preview;
+        ThunderSwordBladeTrail bladeTrail;
         readonly double expires;
         GameObject sword;
         MeleeHitDetector melee;
@@ -30,32 +30,55 @@ namespace NarutoVR.SealCombat
         Quaternion previousRigRotation;
         bool needsRearm, released, cancelled, previousPalm, verticalWave;
 
-        ThunderSwordCast(SkillEffects owner, ThunderSwordEffectDefinition settings, float duration)
+        ThunderSwordCast(SkillController owner, ThunderSwordEffectDefinition settings, float duration)
         {
             this.owner = owner;
-            this.settings = settings;
+            this.settings = Object.Instantiate(settings);
+            this.settings.hideFlags = HideFlags.HideAndDontSave;
             visuals = new SkillVisualBursts(owner.gameObject.scene);
-            preview = new ThunderSwordAimPreview(owner.gameObject.scene, settings.showWavePreview);
-            bladeTrail = new ThunderSwordBladeTrail(owner.gameObject.scene, settings.bladeTrailMaterial, settings.bladeTrailLifetime);
             expires = Now + duration;
         }
 
-        double Now => owner.GameClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
+        double Now => owner.Now;
         public bool IsAlive => !cancelled && (!released || waves.Count > 0 || visuals.IsAlive);
 
-        public static bool TryStart(SkillEffects owner, ThunderSwordEffectDefinition settings, float duration,
-            Pose grip, double stamp, bool hasPalm)
+        public static PreparedSkillCast Prepare(SkillController owner, ThunderSwordEffectDefinition settings, float duration)
         {
             var cast = new ThunderSwordCast(owner, settings, duration);
-            if (!owner.TryRegisterRightHandEffect(cast)) { cast.preview.Dispose(); cast.bladeTrail.Dispose(); return false; }
-            var sword = cast.Spawn(settings.swordPrefab, grip.position, grip.rotation);
-            if (cast.released || cast.cancelled) { Remove(ref sword); return false; }
-            cast.sword = sword;
-            cast.melee = cast.sword.GetComponentInChildren<MeleeHitDetector>(true);
-            if (cast.melee) cast.melee.HitResolved += cast.OnMeleeHit;
-            cast.Sample(grip, stamp, cast.Now, hasPalm);
-            owner.SetActivationAudioAnchor(cast.sword.transform);
-            return true;
+            try
+            {
+                cast.sword = Object.Instantiate(settings.swordPrefab, owner.StagingRoot);
+                cast.sword.SetActive(false);
+                cast.melee = cast.sword.GetComponentInChildren<MeleeHitDetector>(true);
+                Pose grip = default;
+                double stamp = 0;
+                bool hasPalm = false;
+                return new PreparedSkillCast(
+                    () => owner.RightHandActionAllowed && owner.TryGetSwordGrip(out grip, out stamp, out hasPalm) && owner.TryRegisterRightHandEffect(cast),
+                    () =>
+                    {
+                        try
+                        {
+                            cast.sword.transform.SetParent(null, true);
+                            if (cast.melee) cast.melee.HitResolved += cast.OnMeleeHit;
+                            cast.CreatePresentation();
+                            cast.Sample(grip, stamp, cast.Now, hasPalm);
+                            if (!cast.sword) return;
+                            owner.SetActivationAudioAnchor(cast.sword.transform);
+                            cast.sword.SetActive(true);
+                        }
+                        catch { cast.Cancel(); throw; }
+                    }, cast.Cancel);
+            }
+            catch { cast.Cancel(); throw; }
+        }
+
+        void CreatePresentation()
+        {
+            try { preview = new ThunderSwordAimPreview(owner.gameObject.scene, settings.showWavePreview); }
+            catch (Exception e) { Debug.LogWarning("雷光剑瞄准提示创建失败：" + e.Message, owner); }
+            try { bladeTrail = new ThunderSwordBladeTrail(owner.gameObject.scene, settings.bladeTrailMaterial, settings.bladeTrailLifetime); }
+            catch (Exception e) { Debug.LogWarning("雷光剑刃轨创建失败：" + e.Message, owner); }
         }
 
         GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
@@ -70,12 +93,12 @@ namespace NarutoVR.SealCombat
         public void Tick(double now)
         {
             visuals.Tick(now);
-            bladeTrail.Tick(now);
+            bladeTrail?.Tick(now);
             if (released) return;
             if (now >= expires || !sword || !owner.WeaponAttacker) { ReleaseHand(); return; }
             if (!owner.TryGetSwordGrip(out var grip, out var stamp, out bool hasPalm))
             {
-                preview.Hide();
+                preview?.Hide();
                 ResetSamples();
                 if (double.IsNaN(unavailableSince)) unavailableSince = now;
                 // Tracking loss is not a cancel gesture. Keep the cast until explicit release or expiry.
@@ -87,7 +110,7 @@ namespace NarutoVR.SealCombat
             if (!owner.RightHandActionAllowed)
             {
                 if (sword.activeSelf) sword.SetActive(false);
-                preview.Hide();
+                preview?.Hide();
                 ResetSamples();
                 return;
             }
@@ -101,7 +124,7 @@ namespace NarutoVR.SealCombat
             needsRearm = false;
             strike = null;
             if (melee) melee.ResetTracking();
-            bladeTrail.Clear();
+            bladeTrail?.Clear();
         }
 
         void Sample(Pose gripPose, double stamp, double now, bool hasPalm)
@@ -150,12 +173,12 @@ namespace NarutoVR.SealCombat
             previousHead = head;
             previousRigRotation = rig;
             previousTime = stamp;
-            bladeTrail.Sample(melee && melee.bladeBase ? melee.bladeBase.position : grip + rotation * Vector3.forward * .10f,
+            bladeTrail?.Sample(melee && melee.bladeBase ? melee.bladeBase.position : grip + rotation * Vector3.forward * .10f,
                 melee && melee.bladeTip ? melee.bladeTip.position : worldTip, now);
             Vector3 waveOrigin = grip + rotation * Vector3.forward * WaveOrigin;
             if (owner.TryGetWeaponWavePreview(waveOrigin, settings.waveRadius, out var aim))
-                preview.Show(aim, WaveRotation(aim.direction), now >= Math.Max(armedAt, nextSwing));
-            else preview.Hide();
+                preview?.Show(aim, WaveRotation(aim.direction), now >= Math.Max(armedAt, nextSwing));
+            else preview?.Hide();
             if (now > closeUntil) strike = null;
             if (melee) melee.Sample(strike, owner.WeaponOwnerRoot, owner.WeaponHitMask, owner.playerLayers);
             if (fired && !released && !cancelled)
@@ -280,8 +303,8 @@ namespace NarutoVR.SealCombat
             released = true;
             ResetSamples();
             if (melee) melee.HitResolved -= OnMeleeHit;
-            preview.Dispose();
-            bladeTrail.Dispose();
+            preview?.Dispose();
+            bladeTrail?.Dispose();
             if (sword)
             {
                 owner.StopHeldAudio(sword.transform);
@@ -303,6 +326,7 @@ namespace NarutoVR.SealCombat
                 if (wave) wave.Finish();
             }
             visuals.Clear();
+            if (Application.isPlaying) Object.Destroy(settings); else Object.DestroyImmediate(settings);
         }
 
         static void Remove(ref GameObject obj)

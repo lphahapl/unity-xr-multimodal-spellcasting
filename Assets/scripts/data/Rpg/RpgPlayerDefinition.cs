@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    [CreateAssetMenu(menuName = "NarutoVR/线性RPG/玩家定义")]
-    public class RpgPlayerDefinition : ScriptableObject
+    [CreateAssetMenu(menuName = "NarutoVR/线性RPG/玩家定义", fileName = "玩家基础属性")]
+    public sealed class RpgPlayerDefinition : ScriptableObject
     {
         [Header("玩家基础属性")]
         [InspectorName("生命上限"), Tooltip("运行态生命上限；不从存档读取上限。"), Range(1, 10000)]

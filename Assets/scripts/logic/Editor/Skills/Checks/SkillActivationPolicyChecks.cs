@@ -5,34 +5,31 @@ using UnityEngine;
 using Object=UnityEngine.Object;
 namespace NarutoVR.SealCombat.Editor
 {
-    /// <summary>对照旧激活回调与策略接口，检查准入结果、冷却所有权和失败行为。</summary>
+    /// <summary>通过真实输入与技能控制器核查单次准入、异常与表现诊断。</summary>
     public static class SkillActivationPolicyChecks
     {
         sealed class Policy : ISkillActivationPolicy
         {
             public bool result, throwStatus, throwActivation;
             public int calls;
-            public bool OwnsCooldowns => true;
             public string ActivationStatus => throwStatus?throw new InvalidOperationException("仅诊断失败"):"测试状态";
-            public bool TryActivate(SkillDefinition skill) { calls++; if(throwActivation)throw new InvalidOperationException("执行失败"); return result; }
+            public SkillCastResult TryActivate(SkillDefinition skill) { calls++; if(throwActivation)throw new InvalidOperationException("执行失败"); return result ? SkillCastResult.Accepted() : SkillCastResult.Rejected(SkillCastFailure.NotPermitted,"测试拒绝"); }
         }
         public static int Run()
         {
             var root=new GameObject("激活接口等价检查") {hideFlags=HideFlags.HideAndDontSave};
             var skill=ScriptableObject.CreateInstance<SkillDefinition>();
             try {
-                var controller=root.AddComponent<SkillTestController>();
+                var controller=root.AddComponent<SkillInputController>();
+                controller.effects=root.AddComponent<SkillController>();
                 skill.skillId="policy.test";skill.displayName="接口检查";
                 var execute=(Func<SkillDefinition,bool>)Delegate.CreateDelegate(typeof(Func<SkillDefinition,bool>),controller,
-                    typeof(SkillTestController).GetMethod("ActivateTraced",BindingFlags.Instance|BindingFlags.NonPublic));
+                    typeof(SkillInputController).GetMethod("ActivateTraced",BindingFlags.Instance|BindingFlags.NonPublic));
                 var policy=new Policy();controller.ActivationPolicy=policy;
                 foreach(bool expected in new[]{false,true}) {
                     policy.result=expected;
-                    if(execute(skill)!=expected)throw new Exception("新接口改变执行结果");
-                    controller.ActivationOverride=_=>expected;
                     int count=policy.calls;
-                    if(execute(skill)!=expected||policy.calls!=count)throw new Exception("兼容回调优先级或调用次数改变");
-                    controller.ActivationOverride=null;
+                    if(execute(skill)!=expected||policy.calls!=count+1)throw new Exception("每个请求必须只经过一次准入");
                 }
                 policy.result=true;policy.throwStatus=true;
                 if(!execute(skill))throw new Exception("诊断失败不应改变已成功激活");

@@ -20,13 +20,15 @@ namespace NarutoVR.SealCombat.Rpg
         public string[] trialSkills = Array.Empty<string>();
         /// <summary>本对象上的训练设施，管理靶而不管理关卡奖励。</summary>
         public TrainingTargetGroup TargetGroup => GetComponent<TrainingTargetGroup>();
+        /// <summary>普通训练场的红圈预警，房间遭遇不配置此设施。</summary>
+        public RpgTrainingHazard Hazard => GetComponent<RpgTrainingHazard>();
         /// <summary>全部击破后是否自动推进；关闭时等待显式推进请求。</summary>
         public bool autoAdvance = true;
         /// <summary>全靶击破后的游戏时间等待秒数。</summary>
         [Min(.5f)] public float advanceDelay = 3;
         /// <summary>所有靶首次击破时的游戏时钟；负数代表尚未满足或已重置。</summary>
         double completedSince = -1;
-        /// <summary>仅在下一检查点确认可达之后，允许 RPG 提交本阶段。</summary>
+        /// <summary>仅在本流程发起的推进命令中允许结算。</summary>
         bool transitionReady;
 
         /// <inheritdoc/>
@@ -52,14 +54,6 @@ namespace NarutoVR.SealCombat.Rpg
             : rpg.CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点"
             : $"击破训练靶 {TargetGroup.DefeatedCount}/{TargetGroup.targets.Length} · {rpg.stages[rpg.StageIndex].instructions}";
 
-        /// <summary>编辑器显式回归入口可关闭自动推进；正常运行只使用场景配置。</summary>
-        void Awake()
-        {
-#if UNITY_EDITOR
-            if (!string.IsNullOrEmpty(LinearRpgController.EditorTestSaveFile)) autoAdvance = false;
-#endif
-        }
-
         /// <summary>只在绑定本流程时累计自动推进等待；暂停使用 RPG 游戏时钟，不增加等待进度。</summary>
         void Update()
         {
@@ -82,10 +76,14 @@ namespace NarutoVR.SealCombat.Rpg
         {
             reason = "先击破本阶段全部训练靶";
             if (!isActiveAndEnabled || rpg.chapter != this || !TargetsDefeated) return false;
-            if (rpg.StageIndex + 1 < rpg.stages.Length && !rpg.locomotion.TryRestoreCheckpoint(rpg.checkpointNodes[rpg.StageIndex + 1]))
-            { reason = "下一检查点被阻挡，阶段与奖励保持原样：" + rpg.locomotion.Status; return false; }
+            var destination = rpg.StageIndex + 1 < rpg.stages.Length ? rpg.checkpointNodes[rpg.StageIndex + 1] : null;
             transitionReady = true;
-            try { return rpg.CompleteChapterObjective(this); }
+            try
+            {
+                bool committed = rpg.CompleteChapterObjective(this, destination);
+                reason = committed ? null : rpg.Status;
+                return committed;
+            }
             finally { transitionReady = false; }
         }
 

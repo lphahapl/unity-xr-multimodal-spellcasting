@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3698a33a03004d8ab08fb2011c2b41ea, type: 3}
   m_Name: 首章技能商店
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Rpg.SkillShopCatalog
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.SkillShopCatalog
   offers:
   - offerId: upgrade.fireball
     displayName: 升级火球

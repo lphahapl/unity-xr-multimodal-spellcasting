@@ -25,19 +25,26 @@ namespace NarutoVR.SealCombat.Editor
             EditorApplication.playModeStateChanged+=s=> { if(s==PlayModeStateChange.ExitingPlayMode) StopOwned(); if(s==PlayModeStateChange.EnteredPlayMode) {shuttingDown=false;next=0;} };
             EditorApplication.quitting+=StopOwned;
         }
-        static string WritePlayConfiguration(SkillVoiceReceiver receiver)
+        static bool TryWritePlayConfiguration(SkillVoiceReceiver receiver, out string config)
         {
-            foreach (var controller in UnityEngine.Object.FindObjectsByType<SkillTestController>(FindObjectsSortMode.None))
+            config = null;
+            foreach (var controller in UnityEngine.Object.FindObjectsByType<SkillInputController>(FindObjectsSortMode.None))
             {
-                if (controller.voice != receiver || !controller.catalog) continue;
+                if (controller.voice != receiver) continue;
+                if (!controller.catalog)
+                {
+                    if (AuthoredSkillCatalog.ManifestFor(controller)) return false;
+                    continue;
+                }
                 string json = SkillConfigurationSetup.BuildVoiceJson(controller.catalog, receiver.receivePort, receiver.servicePort);
                 string directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../Library/SkillVoice"));
                 Directory.CreateDirectory(directory);
                 string path = Path.Combine(directory, "play-config.json");
                 File.WriteAllText(path, json, new UTF8Encoding(false));
-                return path;
+                config = path;
+                break;
             }
-            return null;
+            return true;
         }
 
         static Process Run(string file,string token,bool capture,string config = null) {
@@ -62,10 +69,11 @@ namespace NarutoVR.SealCombat.Editor
                 if(code!=0) {lock(Gate) receiver.LauncherStatus="启动未成功，15秒后重试："+error; next=EditorApplication.timeSinceStartup+15;return;}
             }
             try {
+                if (!TryWritePlayConfiguration(receiver, out var config)) { receiver.LauncherStatus = "等待技能词表就绪"; return; }
                 string token=SessionState.GetString(Key,"");
                 if(token.Length==0) {token=Guid.NewGuid().ToString("N");SessionState.SetString(Key,token);}
                 lock(Gate)error="";
-                launcher=Run("Start.ps1",token,true,WritePlayConfiguration(receiver));
+                launcher=Run("Start.ps1",token,true,config);
                 receiver.LauncherStatus="已请求自动启动；等待设备和心跳";
                 next=EditorApplication.timeSinceStartup+10;
             } catch(Exception e) {receiver.LauncherStatus="启动失败，15秒后重试："+e.Message;next=EditorApplication.timeSinceStartup+15;}

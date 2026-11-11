@@ -182,7 +182,7 @@ namespace NarutoVR.SealCombat.Editor
         {
             int checks = 0;
             void Check(bool pass, string reason) { if (!pass) throw new Exception("可控延迟加载：" + reason); checks++; }
-            for (int mode = 0; mode < 2; mode++)
+            for (int mode = 0; mode < 3; mode++)
             {
                 string key = Guid.NewGuid().ToString("N");
                 var provider = new DelayedProvider(); provider.Initialize("enemy-test-" + key, "");
@@ -207,7 +207,7 @@ namespace NarutoVR.SealCombat.Editor
                         provider.Complete(prefab); await WithTimeout(other);
                         Check(manager.LoadedTypeCount == 1, "共享加载剩余调用者成功");
                     }
-                    else
+                    else if (mode == 1)
                     {
                         var old = manager.SpawnEnemyAsync("delayed", position, rotation, null);
                         await WithTimeout(Until(() => provider.Started));
@@ -218,6 +218,27 @@ namespace NarutoVR.SealCombat.Editor
                         root.SetActive(true); var next = manager.SpawnEnemyAsync("delayed", position, rotation, null);
                         provider.Complete(prefab); await WithTimeout(next);
                         Check(manager.IsCurrent(next.Result) && manager.ActiveCount == 1, "迟到结果仅允许新会话生成");
+                    }
+                    else
+                    {
+                        var secondRoot = new GameObject("第二个敌人池");
+                        secondRoot.SetActive(false);
+                        var second = secondRoot.AddComponent<EnemyManager>();
+                        second.catalog = catalog;
+                        secondRoot.SetActive(true);
+                        try
+                        {
+                            var firstLoad = manager.PreloadAsync("delayed");
+                            var secondLoad = second.PreloadAsync("delayed");
+                            await WithTimeout(Until(() => provider.Started));
+                            provider.Complete(prefab);
+                            await WithTimeout(Task.WhenAll(firstLoad, secondLoad));
+                            root.SetActive(false);
+                            var survivor = await second.SpawnEnemyAsync("delayed", position, rotation, null);
+                            Check(second.IsCurrent(survivor) && provider.Releases == 0, "一个池关闭后另一池仍可生成同一原型");
+                            Check(second.Recycle(survivor), "剩余池独立收回出生租约");
+                        }
+                        finally { secondRoot.SetActive(false); Object.Destroy(secondRoot); }
                     }
                 }
                 finally

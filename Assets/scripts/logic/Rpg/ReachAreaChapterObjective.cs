@@ -9,15 +9,25 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>到达判定的盒体区域；玩家脚底需位于其局部边界内。</summary>
         public BoxCollider area;
         /// <summary>实时计算到达状态，区域禁用、追踪控制不能行动时不满足。</summary>
-        public override bool IsComplete
+        public override bool IsComplete => IsRunning && Owner.CanAct && Owner.locomotion &&
+            ContainsFloor(area, Owner.locomotion.PlayerFloorPosition);
+
+        internal static bool ContainsFloor(BoxCollider area, Vector3 floorPosition)
         {
-            get
-            {
-                if (!IsRunning || !Owner.CanAct || !Owner.locomotion || !area || !area.enabled) return false;
-                var p = area.transform.InverseTransformPoint(Owner.locomotion.PlayerFloorPosition) - area.center;
-                var h = area.size * .5f;
-                return Mathf.Abs(p.x) <= h.x && Mathf.Abs(p.y) <= h.y && Mathf.Abs(p.z) <= h.z;
-            }
+            if (!area || !area.enabled || !area.gameObject.activeInHierarchy) return false;
+            var local = area.transform.InverseTransformPoint(floorPosition) - area.center;
+            var half = area.size * .5f;
+            return Mathf.Abs(local.x) <= half.x && Mathf.Abs(local.y) <= half.y && Mathf.Abs(local.z) <= half.z;
+        }
+        bool previouslyInside;
+        protected override void OnBegin() => previouslyInside = IsComplete;
+        void Update()
+        {
+            if (!IsRunning) return;
+            bool inside = IsComplete;
+            if (inside == previouslyInside) return;
+            previouslyInside = inside;
+            NotifyStateChanged();
         }
         /// <summary>区域引用必须在进入游戏前配置。</summary>
         public override void ValidateObjective()

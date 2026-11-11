@@ -19,6 +19,8 @@ namespace NarutoVR.SealCombat.Editor
     {
         public const string ScenePath = "Assets/Scene/LinearRpgTest.unity";
         public const string ConfigurationRoot = "Assets/ScriptableObjects";
+        internal const string FireballEffectPath = ConfigurationRoot + "/投射物效果配置/火球术投射物.asset";
+        const string SkillFolder = ConfigurationRoot + "/技能定义配置/";
         public const string VoiceConfigurationPath = "Assets/Configuration/LinearRpg/skill-voice-config.json";
         const string SourceScenePath = "Assets/Scene/FireballRange.unity";
         const float GridSpacing = 1.5f;
@@ -128,44 +130,49 @@ namespace NarutoVR.SealCombat.Editor
             EnsureFolder(ConfigurationRoot);
             SkillDefinition zi = RequireSkill(source, "buff.zi");
             SkillDefinition voice = RequireSkill(source, "buff.voice");
-            SkillDefinition fire = source.skills.SingleOrDefault(s => s && s.effectDefinition is ProjectileEffectDefinition);
-            if (!fire || !(zi.effectDefinition is ShieldEffectDefinition) || !(voice.effectDefinition is ShieldEffectDefinition))
-                throw new InvalidOperationException("原目录必须包含一个火球及子印、护体咒两个护盾配方，并引用独立效果资产。");
+            SkillDefinition fire = RequireSkill(source, "fireball");
+            if (!(fire.effectDefinition is ProjectileEffectDefinition projectile) ||
+                !(zi.effectDefinition is ShieldEffectDefinition shield) || voice.effectDefinition != shield)
+                throw new InvalidOperationException("原目录的火球应引用投射物效果，子印和护体咒应共用同一护盾效果。");
 
-            var effects = new Dictionary<SkillEffectDefinition, SkillEffectDefinition>();
-            SkillDefinition CopySkill(SkillDefinition original)
+            var sharedShield = Clone(shield, ConfigurationRoot + "/护盾效果配置/子印与护体咒共用护盾.asset", null, result);
+            var fireEffect = Clone(projectile, FireballEffectPath, null, result);
+            var hiddenEffect = Clone(shield, ConfigurationRoot + "/护盾效果配置/金刚护体强化护盾.asset",
+                copy => copy.capacity = 150, result);
+            SkillDefinition CopySkill(SkillDefinition original, string fileName, string id,
+                SkillEffectDefinition effect, Action<SkillDefinition> configure)
             {
-                if (!effects.TryGetValue(original.effectDefinition, out SkillEffectDefinition effect))
+                string path = SkillFolder + fileName;
+                var skill = Clone(original, path, copy =>
                 {
-                    effect = Clone(original.effectDefinition, ConfigurationRoot + "/" + ConfigurationAssetOrganizer.FolderName(original.effectDefinition.GetType().Name) + "/效果_" + SafeName(original.skillId) + ".asset", null, result);
-                    effects.Add(original.effectDefinition, effect);
-                }
-                return Clone(original, ConfigurationRoot + "/技能定义配置/技能_" + SafeName(original.skillId) + ".asset", copy =>
-                {
+                    copy.skillId = id;
                     copy.effectDefinition = effect;
-                    copy.manaCost = copy.effectDefinition is ProjectileEffectDefinition ? 20 : 15;
-                    if (copy.skillId == "buff.zi" || copy.skillId == "buff.voice") copy.cooldownGroup = "shield";
+                    configure(copy);
                 }, result);
+                if (skill.skillId != id || skill.effectDefinition != effect)
+                    throw new InvalidOperationException($"技能资源占用冲突：{path} 应为 {id}，并引用 {AssetDatabase.GetAssetPath(effect)}。");
+                return skill;
             }
-            SkillDefinition copiedZi = CopySkill(zi);
-            SkillDefinition copiedVoice = CopySkill(voice);
-            SkillDefinition copiedFire = CopySkill(fire);
-            var hiddenEffect = Clone((ShieldEffectDefinition)voice.effectDefinition,
-                ConfigurationRoot + "/护盾效果配置/效果_金刚护体.asset", copy => copy.capacity = 150, result);
-            SkillDefinition hidden = Clone(voice, ConfigurationRoot + "/技能定义配置/技能_buff.hidden.asset", copy =>
+            void ConfigureShield(SkillDefinition skill)
             {
-                copy.skillId = "buff.hidden";
+                skill.manaCost = 15;
+                skill.cooldownGroup = "shield";
+            }
+            SkillDefinition copiedZi = CopySkill(zi, "子印加持.asset", "buff.zi", sharedShield, ConfigureShield);
+            SkillDefinition copiedVoice = CopySkill(voice, "护体咒加持.asset", "buff.voice", sharedShield, ConfigureShield);
+            SkillDefinition copiedFire = CopySkill(fire, "火球术.asset", "fireball", fireEffect, copy => copy.manaCost = 20);
+            SkillDefinition hidden = CopySkill(voice, "金刚护体.asset", "buff.hidden", hiddenEffect, copy =>
+            {
                 copy.displayName = "金刚护体";
                 copy.triggerMode = SkillTriggerMode.VoiceOnly;
                 copy.phrase = "金刚护体";
                 copy.phraseTokens = "j īn g āng h ù t ǐ";
                 copy.sealName = string.Empty;
                 copy.effectKind = SkillEffectKind.SelfBuff;
-                copy.effectDefinition = hiddenEffect;
                 copy.manaCost = 25;
                 copy.cooldownSeconds = 8;
                 copy.cooldownGroup = "shield.hidden";
-            }, result);
+            });
             result.catalog = Clone(source, ConfigurationRoot + "/技能目录配置/线性RPG技能目录.asset", copy =>
                 copy.skills = new List<SkillDefinition> { copiedZi, copiedVoice, copiedFire, hidden }, result);
             result.player = NewAsset<RpgPlayerDefinition>(ConfigurationRoot + "/玩家定义配置/默认玩家.asset", null, result);
@@ -195,7 +202,7 @@ namespace NarutoVR.SealCombat.Editor
                     if (material.HasProperty("_Color")) material.SetColor("_Color", new Color(0.12f, 0.82f, 0.95f, 1));
                     return material;
                 });
-            ValidateConfiguration(result.catalog);
+            ValidateConfiguration(result.catalog, source, copiedZi, copiedVoice, copiedFire, hidden);
             foreach (Object asset in result.created) AssetDatabase.SaveAssetIfDirty(asset);
             return result;
         }
@@ -203,7 +210,16 @@ namespace NarutoVR.SealCombat.Editor
         static RpgStageDefinition Stage(string id, string name, string instructions, int reward,
             string[] unlocks, bool hazards, Configuration configuration)
         {
-            return NewAsset<RpgStageDefinition>(ConfigurationRoot + "/关卡阶段配置/阶段_" + id + ".asset", stage =>
+            string folder = ConfigurationRoot + "/关卡阶段配置/";
+            string path = folder + name + ".asset";
+            // 已发布的训练场按 GUID 引用旧阶段；只在原文件确实存在时沿用它。
+            string legacyPath = folder + "阶段_" + id + ".asset";
+            if (File.Exists(legacyPath))
+            {
+                if (File.Exists(path)) throw new InvalidOperationException($"训练阶段有两个配置文件：{legacyPath}、{path}");
+                path = legacyPath;
+            }
+            var definition = NewAsset<RpgStageDefinition>(path, stage =>
             {
                 stage.stageId = id;
                 stage.displayName = name;
@@ -212,6 +228,8 @@ namespace NarutoVR.SealCombat.Editor
                 stage.unlockSkillIds = unlocks;
                 stage.enableHazards = hazards;
             }, configuration);
+            if (definition.stageId != id) throw new InvalidOperationException($"阶段配置 {path} 的 ID 与 {id} 不符");
+            return definition;
         }
 
         static SkillDefinition RequireSkill(SkillCatalog source, string id)
@@ -221,16 +239,18 @@ namespace NarutoVR.SealCombat.Editor
             return result;
         }
 
-        static void ValidateConfiguration(SkillCatalog catalog)
+        static void ValidateConfiguration(SkillCatalog catalog, SkillCatalog source, params SkillDefinition[] required)
         {
             List<string> errors = catalog.Validate();
-            foreach (SkillDefinition skill in catalog.skills)
+            foreach (SkillDefinition skill in required)
+                if (catalog.skills == null || !catalog.skills.Contains(skill))
+                    errors.Add($"RPG目录缺少专用配方 {skill.skillId}：{AssetDatabase.GetAssetPath(skill)}");
+            if (catalog.skills != null)
             {
-                if (!skill || AssetDatabase.GetAssetPath(skill) != ConfigurationRoot + "/技能定义配置/技能_" + SafeName(skill.skillId) + ".asset")
-                    errors.Add("RPG目录中的技能必须是独立克隆资产。");
-                else if (!skill.effectDefinition || !AssetDatabase.GetAssetPath(skill.effectDefinition).StartsWith(
-                    ConfigurationRoot + "/" + ConfigurationAssetOrganizer.FolderName(skill.effectDefinition.GetType().Name) + "/效果_", StringComparison.Ordinal))
-                    errors.Add("RPG技能效果必须引用独立克隆资产：" + skill.skillId);
+                foreach (SkillDefinition skill in catalog.skills.Where(item => item))
+                    if (!AssetDatabase.Contains(skill) || !skill.effectDefinition || !AssetDatabase.Contains(skill.effectDefinition) ||
+                        source.skills.Any(original => original && (original == skill || original.effectDefinition == skill.effectDefinition)))
+                        errors.Add("RPG配方及效果必须引用独立资产：" + skill.skillId);
             }
             if (errors.Count != 0) throw new InvalidOperationException(string.Join("\n", errors));
         }
@@ -259,8 +279,6 @@ namespace NarutoVR.SealCombat.Editor
             return created;
         }
 
-        static string SafeName(string value) => new string(value.Select(c => char.IsLetterOrDigit(c) || c == '.' || c == '-' || c == '_' ? c : '_').ToArray());
-
         static void EnsureFolder(string path)
         {
             path = path.Replace('\\', '/').TrimEnd('/');
@@ -278,7 +296,7 @@ namespace NarutoVR.SealCombat.Editor
 
         static void ConfigureScene(Scene scene, Configuration configuration)
         {
-            SkillTestController skills = Components<SkillTestController>(scene).Single();
+            SkillInputController skills = Components<SkillInputController>(scene).Single();
             if (!skills.effects || !skills.lab || !skills.voice || !skills.view)
                 throw new InvalidOperationException("庭院模板缺少既有技能、手部、语音或界面接线。");
             Transform head = skills.effects.head;
@@ -324,43 +342,51 @@ namespace NarutoVR.SealCombat.Editor
             if (!floor) throw new InvalidOperationException("缺少庭院石台真实地面碰撞体，拒绝猜测导航楼层。");
             Physics.SyncTransforms();
             Vector3 origin = FloorAt(floor, rig.position);
-            var root = new GameObject("线性RPG · 关卡与导航");
+            var root = new GameObject("RPG 会话与玩家");
             SceneManager.MoveGameObjectToScene(root, scene);
-            RpgLocomotionController locomotion = root.AddComponent<RpgLocomotionController>();
+            var movementRoot = new GameObject("移动与导航");
+            movementRoot.transform.SetParent(root.transform, false);
+            RpgLocomotionController locomotion = movementRoot.AddComponent<RpgLocomotionController>();
             locomotion.useRayNavigation=true;
             locomotion.rigRoot = rig; locomotion.head = head;
             locomotion.rigFloorOffset = origin.y - rig.position.y;
             locomotion.floorLayers = 1 << floor.gameObject.layer;
             locomotion.obstacleLayers = ~(1 << 2);
-            NavigationNode[,] grid = CreateGrid(root.transform, origin, floor, locomotion, configuration.markerMaterial);
+            NavigationNode[,] grid = CreateGrid(movementRoot.transform, origin, floor, locomotion, configuration.markerMaterial);
             var controller = root.AddComponent<LinearRpgController>();
-                controller.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)controller.chapter).rpg = controller; ((TrainingChapterFlow)controller.chapter).initialSkills = new[]{"fireball"};
+            var trainingRoot = new GameObject("章节与训练");
+            trainingRoot.transform.SetParent(root.transform, false);
+            var training = trainingRoot.AddComponent<TrainingChapterFlow>();
+            controller.chapter = training;
+            training.rpg = controller;
+            training.initialSkills = new[] { "fireball" };
             controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             controller.skills = skills;
             controller.locomotion = locomotion;
             controller.playerDefinition = configuration.player;
             controller.stages = configuration.stages;
-            controller.GetComponent<TrainingTargetGroup>().targets = targets;
-            controller.GetComponent<TrainingTargetGroup>().healthByStage = new[] {60f, 90f, 120f};
+            training.TargetGroup.targets = targets;
+            training.TargetGroup.healthByStage = new[] {60f, 90f, 120f};
             controller.checkpointNodes = new[] { grid[1, 1], grid[1, 2], grid[2, 2] };
             controller.autoLoad = true;
             controller.lowHandsBelowHead = 0.55f;
             controller.saveFileName = "linear-rpg-v2.json";
-            var shop = root.AddComponent<RpgSkillShop>();
+            var growthRoot = new GameObject("成长与物品");
+            growthRoot.transform.SetParent(root.transform, false);
+            var shop = growthRoot.AddComponent<RpgSkillShop>();
             shop.catalog = configuration.shop;
-            var hazard = root.AddComponent<RpgTrainingHazard>();
+            var hazard = trainingRoot.AddComponent<RpgTrainingHazard>();
             hazard.controller = controller;
             hazard.interval = 6;
             hazard.warningSeconds = 1.5f;
             hazard.radius = 0.65f;
             hazard.damage = 25;
 
-            var view = root.AddComponent<RpgSessionView>();
+            var view = RpgInteractionSetup.PresentationGroup(controller).AddComponent<RpgSessionView>();
             view.controller = controller;
             view.chineseFont = font;
             view.showDesktopControls = true;
-            view.statusText = WorldHud(root.transform, rig.position, font);
+            view.statusText = WorldHud(view.transform, rig.position, font);
             RpgInteractionSetup.Configure(controller);
             Selection.activeObject = root;
 

@@ -14,8 +14,8 @@ P1 的残机偶从 [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_En
 | EnemyObj / 战斗数值资产 | 生命、韧性、恢复参数 | [CanJiOu_Combat.asset](../../Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset) |
 | 同一 SO | 最大生命 / 韧性、恢复等待 / 速率、瘫痪后恢复比例 | 50 / 100、4 秒 / 每秒 15、100% |
 | 头骨下的“后脑弱点” / EnemyHitZone | 削韧倍率、生命伤害倍率、额外固定伤害 | 3、2、0 |
-| [效果_fireball](../../Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset) | 命中伤害、基础削韧值 | 25、20 |
-| 关卡与导航 / LinearRpgController / 玩家基础定义 → [默认玩家](../../Assets/ScriptableObjects/玩家定义配置/默认玩家.asset) | 生命上限、能量上限、每秒恢复能量、恢复等待秒数 | 100、100、5、2 |
+| [火球术投射物](../../Assets/ScriptableObjects/投射物效果配置/火球术投射物.asset) | 命中伤害、基础削韧值 | 25、20 |
+| RPG 会话与玩家 / LinearRpgController / 玩家基础定义 → [默认玩家](../../Assets/ScriptableObjects/玩家定义配置/默认玩家.asset) | 生命上限、能量上限、每秒恢复能量、恢复等待秒数 | 100、100、5、2 |
 | 敌人根物体 / EnemyPoiseBar | 头顶名牌的位置、条宽、血条高度、生命与韧性颜色 | 血条宽 55 厘米、高 4.5 厘米。下方韧性条同宽，高约 1.5 厘米 |
 | “近距探测范围” / SphereCollider | 近距兜底半径与中心 | 半径 2.5 米，中心上移 1 米 |
 | 同物体 / EnemyDetectionSensor | 近距发现 | 玩家碰撞体进入即发现，背面和墙体均不阻止近身警觉 |
@@ -41,6 +41,8 @@ P1 的残机偶从 [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_En
 
 弱点生命伤害按 `本发伤害 × 生命倍率 + 额外固定伤害` 结算，弱点削韧按 `基础削韧 × 削韧倍率` 结算。对满血普通残机偶，未升级火球命中身体两次击杀，直接命中后脑弱点一次击杀。火球每级升级加成基础伤害的 10%。弱点区域须属于受击敌人。当前受击接口将单次 HP 伤害限制为 10000、削韧为 100000。
 
+普通火球命中后，观察弹着火花、命中音源和头顶双条。正式首章的满血残机偶生命从 50 降至 25，韧性从 100 降至 80，当前攻击可以继续。一次命中打空韧性会切到坐地反应并中止攻击。致死优先进入 `Dead`，击败当帧生效，倒地动作播完后清理。[生成与回收](ENEMY_SPAWNING_ZH.md)
+
 ### 玩家挨打时看哪里
 
 存活玩家损失气血时，双眼视野的侧缘和角部浮起朱砂色，约 0.58 秒淡出，中央准星保持清楚。密集命中会合并，最多每 0.72 秒开始一次提示。护盾承担全部伤害时，只显示原有护盾反馈。暂停、倒下或恢复检查点都会清除残留的视口颜色。
@@ -49,13 +51,11 @@ P1 的残机偶从 [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_En
 
 后脑挂在 `mixamorig:Head` 子节点，随动画移动；Collider 没有 Renderer，无需透明材质。选中区域开启 Scene Gizmos 可看紫色球。初始大小与位置需结合实际动作和 VR 瞄准手感微调；不要用覆盖整颗头的大弱点球，否则正面也会命中它。
 
-## PlayerObj 和 PlayerSO
+## 玩家实体与受击
 
-- `PlayerSO` 可从 `Create → NarutoVR → 线性RPG → 玩家配置 PlayerSO` 创建，继承已有 `RpgPlayerDefinition` 字段：HP/MP 上限、MP 恢复速率、恢复等待。
-- 在 `LinearRpgController` 的“玩家基础定义”绑定配置。原 `RpgPlayerDefinition` 资产继续有效，不强制重命名或迁移旧场景。
-- `PlayerObj` 持有唯一 `RpgPlayerState` 及会话命中账本；不同玩家使用同一 SO 也不会共享当前血量、MP 或 CD。关卡的 `Player` 属性读取同一状态。
-- 外部战斗入口继续用 `LinearRpgController.ReceiveDamage(hitId, amount)` 或 `RpgDamageReceiver`，保留暂停、存活准入和死亡反馈。`PlayerObj.TryReceiveDamage` 是实体底层接口，不能绕过关卡准入调用来处理正常战斗。
-- 旧场景运行时自动补齐 PlayerObj 与 RpgDamageReceiver；未批量保存业务场景。恢复检查点不会清命中账本，防止旧攻击重放。
+在 **Create → NarutoVR → 线性RPG → 玩家定义** 创建 `RpgPlayerDefinition`，在场景会话的“玩家基础定义”指定它。场景中每个 `PlayerObj` 创建自己的 `PlayerModel`。装备、腕匣和 HUD 可通过只读接口取得数据。
+
+敌人通过 `RpgDamageReceiver` 将带唯一命中标识的伤害交给当前玩家。通过暂停与存活检查后，同一份生命状态先做命中去重，再吸收护盾、扣除剩余伤害。恢复检查点保留本会话命中记录。玩家实体报告实际吸收和生命损失，遮罩与触觉据此更新。
 
 ## 近距与受击锁定
 

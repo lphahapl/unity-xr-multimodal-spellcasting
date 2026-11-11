@@ -9,6 +9,9 @@ namespace NarutoVR.SealCombat.Rpg
     /// </summary>
     public abstract class RpgChapterFlow : MonoBehaviour
     {
+        [UnityEngine.Serialization.FormerlySerializedAs("interiorGuidance")]
+        [InspectorName("章节场景提示（可选）")] public ChapterSceneGuidance sceneGuidance;
+
         /// <summary>章节所属的 RPG；完成请求必须来自该控制器绑定的章节。</summary>
         public abstract LinearRpgController Owner { get; }
         /// <summary>当前运行阶段的全部完成条件是否满足，不在此属性内发奖励或写存档。</summary>
@@ -44,6 +47,40 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>RPG 已选择阶段后通知章节重建阶段内目标；首次启动与读档都会调用。</summary>
         public virtual void OnStageEntered() { }
 
+        protected virtual GameObject GetStageGuidanceTarget(int stageIndex) => null;
+
+        /// <summary>已提交的有效阶段下标。当前章节未绑定、禁用或通关时返回 -1。</summary>
+        protected int ActiveStageIndex
+        {
+            get
+            {
+                var owner = Owner;
+                return isActiveAndEnabled && owner && owner.chapter == this && owner.Model != null && !owner.CampaignComplete
+                    ? owner.StageIndex : -1;
+            }
+        }
+
+        internal void RefreshStageGuidance()
+        {
+            var owner = Owner;
+            if (!sceneGuidance || !owner || owner.chapter != this) return;
+            int index = ActiveStageIndex;
+            if (index < 0) sceneGuidance.Show(null);
+            else sceneGuidance.Show(owner.stages[index].stageId, GetStageGuidanceTarget(index));
+        }
+
+        protected virtual void OnEnable()
+        {
+            if (Application.isPlaying && Owner && Owner.IsReady && Owner.chapter == this) RefreshStageGuidance();
+        }
+
+        protected virtual void OnDisable()
+        {
+            if (!Application.isPlaying || !sceneGuidance) return;
+            var current = Owner ? Owner.chapter : null;
+            if (!current || current == this || current.sceneGuidance != sceneGuidance) sceneGuidance.Show(null);
+        }
+
         /// <summary>请求手动推进。默认由目标自动控制，因此拒绝外部按钮跳过目标。</summary>
         public virtual bool TryAdvanceStage(out string reason)
         {
@@ -55,6 +92,7 @@ namespace NarutoVR.SealCombat.Rpg
         public virtual void ValidateChapter(LinearRpgController owner)
         {
             if (Owner != owner) throw new InvalidOperationException("章节绑定的 RPG 与调用方不一致");
+            if (sceneGuidance) sceneGuidance.ValidateConfiguration(this, owner.stages);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace NarutoVR.SealCombat.Editor
             using (var f = new Fixture())
             {
                 f.RefreshHands();
-                True(f.Effects.TryActivate(f.Fire), "当前有效右手应能生成火球");
+                True(f.Effects.TryCast(f.Fire), "当前有效右手应能生成火球");
                 var ball = f.Held();
                 Vector3 expected = f.Origin.TransformPoint(f.RightPosition) + f.Head.rotation * f.Effects.heldOffset;
                 Near(expected, ball.transform.position, "右手火球必须使用录制原点转换后的当前腕部位置");
@@ -34,7 +34,7 @@ namespace NarutoVR.SealCombat.Editor
                 passed++;
 
                 int activations = f.Effects.ActivationCount;
-                True(!f.Effects.TryActivate(f.Fire), "槽位占用时必须拒绝第二个火球");
+                True(!f.Effects.TryCast(f.Fire), "槽位占用时必须拒绝第二个火球");
                 Equal(activations, f.Effects.ActivationCount, "拒绝生成不得计入成功激活");
                 True(f.Effects.CancelLatest() && !f.Effects.HasHeldObject, "取消应收起持握火球");
                 True(!f.Effects.CancelLatest(), "无效果时取消应返回false");
@@ -42,26 +42,26 @@ namespace NarutoVR.SealCombat.Editor
 
                 f.Fire.leftHand = true;
                 f.RefreshHands();
-                True(f.Effects.TryActivate(f.Fire), "配置左手时应使用有效左手");
+                True(f.Effects.TryCast(f.Fire), "配置左手时应使用有效左手");
                 ball = f.Held();
                 Vector3 leftOffset = f.Effects.heldOffset; leftOffset.x = -leftOffset.x;
                 Near(f.Origin.TransformPoint(f.LeftPosition) + f.Head.rotation * leftOffset,
                     ball.transform.position, "左手火球位置不正确");
                 f.Effects.CancelLatest();
                 f.RefreshHands(leftTracked: false);
-                True(!f.Effects.TryActivate(f.Fire), "左手失效时不能自动换用右手");
+                True(!f.Effects.TryCast(f.Fire), "左手失效时不能自动换用右手");
                 passed++;
 
                 f.Fire.leftHand = false;
                 f.RefreshHands(age: .5);
-                True(!f.Effects.TryActivate(f.Fire), "即使fresh标记未更新，也不能使用过期腕部位置");
+                True(!f.Effects.TryCast(f.Fire), "即使fresh标记未更新，也不能使用过期腕部位置");
                 f.RefreshHands();
-                True(f.Effects.TryActivate(f.Fire), "恢复当前追踪后应能生成");
+                True(f.Effects.TryCast(f.Fire), "恢复当前追踪后应能生成");
                 ball = f.Held();
                 f.RefreshHands(rightTracked: false);
                 Invoke(f.Effects, "LateUpdate");
                 True(ball.activeSelf && f.Effects.HasHeldObject && !f.Effects.ThrowInputValid, "短暂丢追保留视觉与槽位，停止投掷判定");
-                Set(f.Effects, "lostAt", Time.realtimeSinceStartupAsDouble - 3);
+                f.GameNow += 3;
                 Invoke(f.Effects, "LateUpdate");
                 True(!ball.activeSelf && f.Effects.HasHeldObject, "持续丢追只隐藏，不能当作取消施法");
                 f.RefreshHands(); Invoke(f.Effects, "LateUpdate");
@@ -69,20 +69,20 @@ namespace NarutoVR.SealCombat.Editor
                 True(f.Effects.CancelUnreleased() && !f.Effects.HasHeldObject, "明确取消仍收起保留的火球");
                 passed++;
 
-                True(f.Effects.TryActivate(f.Buff), "护盾激活失败"); f.TrackBuff();
+                True(f.Effects.TryCast(f.Buff), "护盾激活失败"); f.TrackBuff();
                 Near(100, f.Effects.ShieldPoints, "新护盾数值");
-                Near(0, f.Effects.AbsorbDamage(30), "护盾应完全吸收30点伤害");
+                Near(0, f.Effects.AbsorbPracticeDamage(30), "护盾应完全吸收30点伤害");
                 Near(70, f.Effects.ShieldPoints, "受击后的护盾数值");
-                True(f.Effects.TryActivate(f.Buff), "护盾刷新失败");
+                True(f.Effects.TryCast(f.Buff), "护盾刷新失败");
                 Near(100, f.Effects.ShieldPoints, "刷新应恢复到100而不是叠加");
-                Near(30, f.Effects.AbsorbDamage(130), "超过护盾的伤害必须返回余量");
+                Near(30, f.Effects.AbsorbPracticeDamage(130), "超过护盾的伤害必须返回余量");
                 Near(0, f.Effects.ShieldPoints, "护盾耗尽后不应保留数值");
                 Near(0, f.Effects.BuffRemaining, "护盾耗尽后应结束效果");
                 passed++;
 
                 f.RefreshHands();
-                True(f.Effects.TryActivate(f.Buff), "取消优先级测试护盾激活失败"); f.TrackBuff();
-                True(f.Effects.TryActivate(f.Fire), "取消优先级测试火球激活失败"); f.Held();
+                True(f.Effects.TryCast(f.Buff), "取消优先级测试护盾激活失败"); f.TrackBuff();
+                True(f.Effects.TryCast(f.Fire), "取消优先级测试火球激活失败"); f.Held();
                 True(f.Effects.CancelLatest() && !f.Effects.HasHeldObject, "取消应优先处理持握火球");
                 Near(100, f.Effects.ShieldPoints, "收起火球不得同时取消护盾");
                 True(f.Effects.CancelLatest(), "第二次取消应结束护盾");
@@ -145,7 +145,6 @@ namespace NarutoVR.SealCombat.Editor
         private static void Near(float expected, float actual, string message) => True(Mathf.Abs(expected - actual) < .001f, $"{message}：预期{expected}，实际{actual}");
         private static void Near(Vector3 expected, Vector3 actual, string message) => True(Vector3.Distance(expected, actual) < .002f, $"{message}：预期{expected}，实际{actual}");
         private static object Get(object value, string field) => value.GetType().GetField(field, PrivateInstance).GetValue(value);
-        private static void Set(object value, string field, object data) => value.GetType().GetField(field, PrivateInstance).SetValue(value, data);
         private static void Invoke(object value, string method) => value.GetType().GetMethod(method, PrivateInstance).Invoke(value, null);
 
         private sealed class Fixture : IDisposable
@@ -154,12 +153,13 @@ namespace NarutoVR.SealCombat.Editor
             public readonly GameObject Root;
             public readonly Transform Origin, Head;
             public readonly Lab Lab;
-            public readonly SkillEffects Effects;
+            public readonly SkillController Effects;
             public readonly SkillDefinition Fire, Buff;
             public readonly Vector3 RightPosition = new(.25f, 1.2f, .45f), LeftPosition = new(-.25f, 1.2f, .45f);
             private readonly List<Object> objects = new();
             private int version;
 
+            public double GameNow = 100;
             public Fixture()
             {
                 Root = Own(new GameObject("检查_独立玩家")); Root.transform.position = Base;
@@ -168,15 +168,15 @@ namespace NarutoVR.SealCombat.Editor
                 Head = new GameObject("检查_头显").transform;
                 Head.SetParent(Root.transform, false); Head.localPosition = Vector3.up * 1.6f;
                 Lab = Root.AddComponent<Lab>(); Lab.recordingOrigin = Origin;
-                Effects = Root.AddComponent<SkillEffects>(); Effects.lab = Lab; Effects.head = Head;
-                Effects.playerRoot = Root.transform;
+                Effects = Root.AddComponent<SkillController>(); Effects.lab = Lab; Effects.head = Head;
+                Effects.playerRoot = Root.transform; Effects.GameClock = () => GameNow;
                 // Give the reflection-created lab no frame loop: this fixture is synchronous and
                 // destroys it before Unity can call its hardware-dependent Start method.
                 Fire = Own(ScriptableObject.CreateInstance<SkillDefinition>());
-                Fire.skillId = "check.fire"; Fire.displayName = "检查火球";
+                Fire.cooldownSeconds = 0; Fire.skillId = "check.fire"; Fire.displayName = "检查火球";
                 Fire.effectKind = SkillEffectKind.HeldFireball; Fire.durationSeconds = 10;
                 Buff = Own(ScriptableObject.CreateInstance<SkillDefinition>());
-                Buff.skillId = "check.buff"; Buff.displayName = "检查护盾";
+                Buff.cooldownSeconds = 0; Buff.skillId = "check.buff"; Buff.displayName = "检查护盾";
                 Buff.effectKind = SkillEffectKind.SelfBuff; Buff.durationSeconds = 10;
             }
 
@@ -199,7 +199,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             public GameObject Held()
             {
-                var ball = (GameObject)Get(Effects, "heldObject");
+                var ball = (GameObject)UnityEditor.EditorUtility.EntityIdToObject(Effects.HeldProjectileInstanceId);
                 if (ball && !objects.Contains(ball)) objects.Add(ball);
                 return ball;
             }

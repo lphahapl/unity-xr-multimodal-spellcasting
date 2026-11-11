@@ -8,6 +8,8 @@
 | `Assets/scripts/logic` | 154 | 技能、敌人、移动、交互、事件以及相应构建与验证。 |
 | `Assets/scripts/ui` | 15 | 面板、视图、表现、反馈和 UI Inspector。 |
 
+本轮将纯玩家/章节及状态规则放入 `Assets/scripts/Core`，将 v2 DTO、映射、读写与重试放入 `Assets/scripts/Persistence`。Core 和 Persistence 均可独立于 Unity 引擎编译。运行时代码由 `NarutoVR.Game.Runtime` 引用这两个程序集。三个 Editor 目录共同编译成 `NarutoVR.Game.Editor`，仅随编辑器运行。
+
 编辑器代码继续位于所属分组的 `Editor` 子目录。两个 Unity 教程脚本也已归入 data/ui。
 
 项目内的 SO 放在 `Assets/ScriptableObjects`。下表按 **实际 C# 类型** 分类，所有类型文件夹以“配置”结尾。为保留同名资源，少数类带有 `默认配置`、`历史配置` 或 `迁移配置/<原场景GUID>配置` 子目录。
@@ -59,4 +61,4 @@
 
 移除 `SampleScene`、`EmptyStreamProbe`、`SkyboxPreview`、已生成的 `SnapToolTest` 四个场景及对应 meta。天空改用独立编辑器预览窗口；吸附验证会按需重建空场景。移除七个一次性脚本：`DiskRecoveryChecks`、`ProjectLayoutOnce`、`YicunShanheV9AudioProbe`、`EmptyStreamProbe`、`StreamHandLines`、`StreamCpuProfile`、`DebugTextComparison`，并清除其调度入口。逐项原因和可恢复备份在 `Logs/skill-audio-refactor-cleanup-20261108/cleanup-plan.json` 与 `removed-backup/`。
 
-保留首章、P1、SealLab 以及仍被生成器、回归检查和技能迁移工具使用的训练场景。`SkillTestController`/`SkillTestView` 是实际运行组件；`LinearRpgTest` 是当前回归夹具。`BgmLoopVerificationEmpty` 仍被当前 v11 音乐验收使用，不能作为闲置场景删除。
+保留首章、P1、SealLab 以及仍被生成器、回归检查和技能迁移工具使用的训练场景。`SkillInputController`/`SkillTestView` 是实际运行组件；`LinearRpgTest` 是当前回归夹具。`BgmLoopVerificationEmpty` 仍被当前 v11 音乐验收使用，不能作为闲置场景删除。

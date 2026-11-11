@@ -15,6 +15,8 @@ public static class TrainingChapterChecks
     const string Report = "Logs/training-chapter-check.txt";
     static int step, frames;
     static double deadline;
+    static bool warned;
+    static float healthBeforeHazard;
 
     /// <summary>域重载后仅恢复显式启动的验收会话，不自动改变正常编辑器状态。</summary>
     static TrainingChapterChecks()
@@ -40,9 +42,11 @@ public static class TrainingChapterChecks
         File.AppendAllText(Report,"REGRESSION presentation="+NarutoVR.SealCombat.Editor.InteractionFeelPresentationChecks.Run()+"\n");
         EditorSceneManager.OpenScene("Assets/Scene/LinearRpgTest.unity");
         var r=Obj.FindFirstObjectByType<LinearRpgController>();
-        r.autoLoad=false;r.GetComponent<TrainingChapterFlow>().autoAdvance=false;r.GetComponent<TrainingChapterFlow>().advanceDelay=.5f;
+        var training = (TrainingChapterFlow)r.chapter;
+        r.autoLoad=false;training.autoAdvance=false;training.advanceDelay=.5f;
         r.saveFileName="probe-training-chapter-"+Guid.NewGuid().ToString("N")+".json";
-        EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        if (!EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), "Assets/Scene/QA_TrainingChapter.unity"))
+            throw new IOException("无法保存隔离训练场测试副本");
         SessionState.SetBool(Key,true);SessionState.SetBool(Key+"done",false);EditorApplication.EnterPlaymode();
     }
     /// <summary>断言失败中止该轮；成功记录到独立文本报告。</summary>
@@ -56,26 +60,36 @@ public static class TrainingChapterChecks
             if(EditorApplication.timeSinceStartup>deadline)throw new TimeoutException("step "+step);
             if(++frames<10)return;
             var r=Obj.FindFirstObjectByType<LinearRpgController>();
+            var training = (TrainingChapterFlow)r.chapter;
             if(step==0) {
                 File.AppendAllText(Report,"REGRESSION "+NarutoVR.SealCombat.Editor.P1RoomEncounterChecks.Run()+"\n");
                 Check(r.CanAct && r.chapter is TrainingChapterFlow,"training scene initializes with explicit chapter");
                 Check(r.Entity && r.Player!=null,"explicit PlayerObj initializes");
-                Check(r.Progress.unlockedSkillIds.Contains("fireball") && r.wristMenu.showUndiscoveredEntries,"training starting skill and course policy");
+                Check(r.Model.UnlockedSkills.Contains("fireball") && r.wristMenu.showUndiscoveredEntries,"training starting skill and course policy");
                 Check(!r.TryAdvanceStage(),"unbeaten targets reject manual advance");
-                r.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
+                training.TargetGroup.DebugDefeatAll();
                 Check(r.TryAdvanceStage() && r.StageIndex==1,"manual completion moves to next stage");
-                Check(r.GetComponent<TrainingTargetGroup>().targets.All(t=>!t.IsDefeated),"new stage resets training targets");
-                Check(File.Exists(r.SavePath) && r.Progress.claimedRewardIds.Count==1,"manual stage reward saved exactly once");
-                r.GetComponent<TrainingTargetGroup>().DebugDefeatAll();
-                Check(r.RestoreCheckpoint() && r.StageIndex==1 && r.GetComponent<TrainingTargetGroup>().targets.All(t=>!t.IsDefeated),"restore resets current targets");
-                r.GetComponent<TrainingChapterFlow>().autoAdvance=true;r.GetComponent<TrainingTargetGroup>().DebugDefeatAll();step=1;frames=0;
+                Check(training.TargetGroup.targets.All(t=>!t.IsDefeated),"new stage resets training targets");
+                Check(File.Exists(r.SavePath) && r.Model.ClaimedRewards.Count==1,"manual stage reward saved exactly once");
+                Check(training.Hazard && training.Hazard.controller == r && r.HazardsEnabled,
+                    "stage two activates the hazard on the training chapter");
+                healthBeforeHazard = r.Player.Health;
+                warned = false; step = 1;
             } else if(step==1) {
-                if(r.StageIndex!=2)return;
-                Check(r.Progress.completedStageIds.Count==2 && r.GetComponent<TrainingTargetGroup>().targets.All(t=>!t.IsDefeated),"timed automatic completion and target reset");
-                r.GetComponent<TrainingTargetGroup>().DebugDefeatAll();step=2;frames=0;
+                warned |= training.Hazard.WarningActive;
+                if (r.Player.Health >= healthBeforeHazard) return;
+                Check(warned && Mathf.Approximately(r.Player.Health, healthBeforeHazard - training.Hazard.damage),
+                    "authored warning precedes one hit for the configured damage");
+                training.TargetGroup.DebugDefeatAll();
+                Check(r.RestoreCheckpoint() && r.StageIndex==1 && training.TargetGroup.targets.All(t=>!t.IsDefeated),"restore resets current targets");
+                training.autoAdvance=true;training.TargetGroup.DebugDefeatAll();step=2;frames=0;
             } else if(step==2) {
+                if(r.StageIndex!=2)return;
+                Check(r.Model.Chapter.CompletedStages.Count==2 && training.TargetGroup.targets.All(t=>!t.IsDefeated),"timed automatic completion and target reset");
+                training.TargetGroup.DebugDefeatAll();step=3;frames=0;
+            } else if(step==3) {
                 if(!r.CampaignComplete)return;
-                Check(r.Progress.completedStageIds.Count==3 && r.Progress.claimedRewardIds.Count==3,"all training stages complete once");
+                Check(r.Model.Chapter.CompletedStages.Count==3 && r.Model.ClaimedRewards.Count==3,"all training stages complete once");
                 Check(!r.TryAdvanceStage(),"completed campaign cannot award again");
                 Check(r.RestoreCheckpoint() && r.CampaignComplete,"completed training checkpoint reloads");
                 File.AppendAllText(Report,"PASS END\n");Finish(0);

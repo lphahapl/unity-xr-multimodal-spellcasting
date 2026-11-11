@@ -56,6 +56,5 @@ namespace NarutoVR.SealCombat
             return null;
         }
         private static bool AtLeast(float value,float minimum) => float.IsFinite(value) && value >= minimum;
-        public override bool TryActivate(SkillEffects executor, SkillDefinition skill) => executor && executor.TryCreateProjectile(this, skill);
     }
 }

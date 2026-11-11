@@ -21,7 +21,7 @@ namespace NarutoVR.SealCombat.Editor
             var menu=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<WristMenuController>(true)).Single();
             menu.settings.activation=WristMenuActivation.TapWrist;
             menu.settings.pinchClose=.03f;
-            var effect=AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>("Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset");
+            var effect=AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(LinearRpgSceneSetup.FireballEffectPath);
             if(!effect) throw new IOException("火球配置未找到");
             var t=effect.throwing;
             t.gripSeconds=.04f; t.releaseSeconds=.015f; t.releaseTimeout=.26f;

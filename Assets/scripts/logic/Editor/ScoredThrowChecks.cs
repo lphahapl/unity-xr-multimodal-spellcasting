@@ -138,7 +138,7 @@ namespace NarutoVR.SealCombat.Editor
         }
         static int RelaxedFireball()
         {
-            var asset=UnityEditor.AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>("Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset");
+            var asset=UnityEditor.AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(LinearRpgSceneSetup.FireballEffectPath);
             Require(asset && asset.ValidateDefinition()==null,"当前火球资产配置有效");
             foreach(bool reach in new[]{false,true}) {
                 var settings=asset.throwing.Copy();settings.assisted.reachEnabled=reach;settings.assisted.windupEnabled=!reach;
@@ -184,9 +184,9 @@ namespace NarutoVR.SealCombat.Editor
         {
             var root=new GameObject("辅助发射真实执行检查");var head=new GameObject("头");head.transform.SetParent(root.transform);
             head.transform.position=new Vector3(12000,1.7f,12000);
-            var effect=root.AddComponent<SkillEffects>();effect.head=head.transform;effect.playerRoot=root.transform;effect.hitLayers=0;
+            var effect=root.AddComponent<SkillController>();effect.head=head.transform;effect.playerRoot=root.transform;effect.hitLayers=0;
             var definition=ScriptableObject.CreateInstance<ProjectileEffectDefinition>();definition.releaseMode=ProjectileReleaseMode.GripThrow;definition.throwing=Settings();definition.throwLocalOffset=Vector3.zero;
-            var skill=ScriptableObject.CreateInstance<SkillDefinition>();skill.effectDefinition=definition;skill.durationSeconds=10;
+            var skill=ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.scoredthrowchecks.skill"; skill.cooldownSeconds = 0;skill.effectDefinition=definition;skill.durationSeconds=10;
             double t=200;float z=.35f;bool valid=true,neutral=false; Vector3 hand=head.transform.position+new Vector3(.18f,-.22f,z);
             effect.GameClock=()=>t;effect.HandInputClock=()=>t;effect.WristPoseOverride=left=>!left&&valid?new Pose(hand,Quaternion.identity):(Pose?)null;
             effect.ThrowGripProvider=(_,__)=>{var grip=Grip(t);grip.fistClosed=!neutral;grip.fistOpen=false;return grip;};
@@ -202,7 +202,7 @@ namespace NarutoVR.SealCombat.Editor
                 for(int trial=0;trial<3;trial++)
                 {
                     effect.ClearAll(); z=.35f; neutral=false; hand=head.transform.position+new Vector3(.18f,-.22f,z);
-                    Require(effect.TryActivate(skill),"辅助发射应能生成");
+                    Require(effect.TryCast(skill),"辅助发射应能生成");
                     if(trial==2){effect.hitLayers=1<<30;obstacle=new GameObject("阻挡出手"){layer=30};obstacle.transform.position=head.transform.position+new Vector3(.18f,-.22f,.45f);obstacle.AddComponent<BoxCollider>().size=new Vector3(.4f,.4f,.04f);Physics.SyncTransforms();}
                     for(int i=0;i<55;i++){t+=.01;yield return null;}
                     for(int i=1;i<=210&&effect.HasHeldObject;i++)

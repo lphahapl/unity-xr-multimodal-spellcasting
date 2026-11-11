@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using NarutoVR.SealLab;
 using NarutoVR.SealCombat.Enemies;
 using Oculus.Interaction.Input;
@@ -17,14 +18,12 @@ namespace NarutoVR.SealCombat.Rpg
     /// 章节目标交给 RpgChapterFlow，识别、资源及效果分别由各自模块处理。
     /// </summary>
     [DefaultExecutionOrder(300), RequireComponent(typeof(PlayerObj))]
-    public sealed class LinearRpgController : MonoBehaviour, ISkillActivationPolicy
+    public sealed partial class LinearRpgController : MonoBehaviour, ISkillActivationPolicy
     {
-#if UNITY_EDITOR
-        // Set only by the explicit Editor play-test harness, before the scene's Awake.
-        public static string EditorTestSaveFile;
-#endif
         [Header("一、场景与配置")]
-        [InspectorName("技能输入控制器")] public SkillTestController skills;
+        [InspectorName("技能输入控制器")] public SkillInputController skills;
+        [InspectorName("异步技能资源清单"), Tooltip("设置时按技能 ID 异步装配；旧场景仍可使用技能控制器的直引目录。")]
+        public SkillResourceManifest skillResources;
         [InspectorName("导航与闪避")] public RpgLocomotionController locomotion;
         [InspectorName("腕饰菜单与教学卡")] public WristMenuController wristMenu;
         [InspectorName("玩家基础定义")] public RpgPlayerDefinition playerDefinition;
@@ -47,75 +46,93 @@ namespace NarutoVR.SealCombat.Rpg
         PlayerObj playerObject;
         public PlayerObj Entity => playerObject;
         public RpgPlayerState Player => playerObject ? playerObject.State : null;
-        /// <summary>当前会话进度；修改后需通过检查点入口持久化，不等于磁盘已经保存。</summary>
-        public RpgProgressData Progress { get; private set; }
+        public PlayerModel Model => playerObject ? playerObject.Model : null;
+        public IPlayerReadModel PlayerView => Model;
+        public ProgressionController Growth { get; private set; }
+        /// <summary>导出最近一次检查点的独立副本。正在重试写盘时，返回更新的待保存检查点。</summary>
+        public RpgProgressData CaptureProgressSnapshot() => checkpoints?.CaptureLatest();
+
         /// <summary>技能知识、解锁或章节许可变化的版本号，供界面刷新缓存。</summary>
         public int ProgressRevision { get; private set; }
         /// <summary>最新进度已在会话生效，但仍等待磁盘保存。</summary>
-        public bool CheckpointSavePending => pendingCheckpoint != null;
-        RpgProgressData pendingCheckpoint;
-        double nextSaveRetry;
+        public bool CheckpointSavePending => checkpoints?.Pending == true;
         string[] StartingSkills => chapter.InitialSkills;
         /// <summary>是否已了解该技能；此状态不代表拥有永久施放资格。</summary>
-        public bool IsSkillDiscovered(string id) => SkillProgression.IsDiscovered(Progress, id);
+        public bool IsSkillDiscovered(string id) => Model?.IsDiscovered(id) == true;
         /// <summary>是否永久解锁该技能。</summary>
-        public bool IsSkillUnlocked(string id) => SkillProgression.IsUnlocked(Progress, id);
+        public bool IsSkillUnlocked(string id) => Model?.IsUnlocked(id) == true;
         /// <summary>综合永久解锁与章节授权；技能资源和冷却在施放入口另行判断。</summary>
-        public bool IsSkillAvailable(string id) => Progress != null && chapter &&
+        public bool IsSkillAvailable(string id) => Model != null && chapter &&
             (chapter.AllowsTrialSkill(id) || (IsSkillUnlocked(id) && chapter.AllowsPermanentSkill(id)));
         /// <summary>技能或章节许可变化时使教学界面的缓存失效。</summary>
         internal void RefreshProgress() => ProgressRevision++;
 
-        /// <summary>创建独立进度草稿，物品、商店等模块只能在草稿上计算变更。</summary>
-        public RpgProgressData CreateProgressDraft() => CaptureSaveCandidate();
-
-        /// <summary>校验完整草稿后统一应用及保存；草稿不得推进阶段或发阶段奖励。拒绝不改会话，写盘失败保留最新快照重试。</summary>
-        public ProgressCommitResult CommitProgressChange(RpgProgressData candidate)
+        internal ProgressCommitResult ApplyGrowthChange(Func<PlayerModel, bool> change)
         {
-            if (!CanAct || !store.Validate(candidate, out _) ||
-                !candidate.completedStageIds.SequenceEqual(Progress.completedStageIds) ||
-                !candidate.claimedRewardIds.SequenceEqual(Progress.claimedRewardIds) || !ValidateProgress(candidate))
-            { Reject("进度变更无效，未应用"); return ProgressCommitResult.Rejected; }
-            Progress = CloneProgress(candidate);
-            ApplyUpgrades(); RefreshProgress();
-            QueueCheckpoint(CloneProgress(candidate));
-            return PersistCheckpoint(pendingCheckpoint, false) ? ProgressCommitResult.Saved : ProgressCommitResult.PendingSave;
+            if (!CanAct || committingPlayerState || CastTransactionActive) return ProgressCommitResult.Rejected;
+            committingPlayerState = true;
+            try
+            {
+                var candidate = Model.ForkGrowth();
+                if (!change(candidate)) return ProgressCommitResult.Rejected;
+                var draft = candidate.Export(Player.CaptureCheckpoint(GameTime), SaveNode(StageIndex, CampaignComplete).nodeId);
+                if (!checkpoints.Validate(draft, out _) || !ValidateProgress(draft)) return ProgressCommitResult.Rejected;
+                Model.AdoptGrowth(candidate);
+                ApplyUpgrades();
+                QueueCheckpoint(draft);
+                return PersistCheckpoint(false) ? ProgressCommitResult.Saved : ProgressCommitResult.PendingSave;
+            }
+            finally { committingPlayerState = false; }
+        }
+        bool committingPlayerState;
+        internal bool StateCommitInProgress => committingPlayerState;
+        bool publishingCastFeedback;
+        bool PublishingCast => publishingCastFeedback || (skills && skills.effects && skills.effects.IsPublishingCast);
+        bool CastTransactionActive => publishingCastFeedback || (skills && skills.effects && skills.effects.IsCastingTransaction) ||
+            (Player?.CastInProgress ?? false);
+        readonly Queue<Action> confirmedCastCommands = new();
+
+        // 确认监听不直接嵌套结算。下一次命令阶段按顺序重验；读档、倒下和离开场景清除旧命令。
+        void RunConfirmedCastCommands()
+        {
+            int count = confirmedCastCommands.Count;
+            while (count-- > 0 && confirmedCastCommands.Count > 0)
+                confirmedCastCommands.Dequeue().Invoke();
         }
         public string Status { get; private set; } = "等待初始化";
         public string StageName => stages.Length > StageIndex && stages[StageIndex] ? stages[StageIndex].displayName : "未配置阶段";
         public string SavePath { get; private set; }
-        public int StageIndex { get; private set; }
+        public int StageIndex => Model?.Chapter.StageIndex ?? 0;
         public double GameTime { get; private set; }
         public bool HazardsEnabled { get; private set; }
-        public bool CanAct => isActiveAndEnabled && Player != null && Player.Alive && !paused && Time.timeScale > 0;
+        public bool IsReady => isActiveAndEnabled && initialized && (!usesSkillResources || (skillCatalogReady && startCalled));
+        public bool CanRetrySkillAssembly => isActiveAndEnabled && usesSkillResources && assemblyFailed && skillLoad == null;
+        public bool CanAct => IsReady && Player != null && Player.Alive && !paused && Time.timeScale > 0;
         public bool LastCastCreatedProjectile { get; private set; }
         /// <summary>目标文字由当前章节解释，RPG 不区分首章或训练场。</summary>
         public string ObjectiveStatus => chapter ? chapter.ObjectiveText : "未配置章节流程";
-        public bool CampaignComplete => Progress != null && stages.Length > 0 && stages.All(s => s && Progress.completedStageIds.Contains(s.stageId));
+        public bool CampaignComplete => Model?.Chapter.CampaignComplete == true;
 
         RuntimeSkillCatalog runtimeSkills;
         IRpgProgressConstraint[] progressConstraints = Array.Empty<IRpgProgressConstraint>();
-        RpgSaveStore store;
-        RpgProgressData lastCheckpoint;
+        public RpgSkillShop SkillShop { get; private set; }
+        internal RpgItemInventory ItemInventory { get; private set; }
+        CheckpointSaveCoordinator checkpoints;
+        CancellationTokenSource skillLoad;
+        bool usesSkillResources, skillCatalogReady, assemblyFailed, startCalled, stageEntered;
+        PlayerInputController input;
+        public PlayerInputController Input => input ??= new PlayerInputController(this);
+        internal bool InputPaused => paused;
+        string suspendedStatus;
         SkillCatalog originalCatalog;
-        bool paused, initialized, wasNavigation, saveBlocked, wasUi;
-        public bool UiInputOwned => wristMenu && wristMenu.OwnsInput;
-        public string MovementBlockReason
-        {
-            get
-            {
-                if (!initialized || !isActiveAndEnabled || Player == null) return "关卡未就绪";
-                if (paused || Time.timeScale <= 0) return "游戏已暂停，恢复播放后才能移动";
-                if (!Player.Alive) return "生命为零，点击「恢复检查点」后可继续移动";
-                return UiInputOwned ? "腕部界面占用输入，请先结束点击或拖动并关闭主菜单" : null;
-            }
-        }
+        bool paused, initialized, wasNavigation, wasUi;
+        public bool UiInputOwned => Input.UiOwnsInput;
+        public string MovementBlockReason => Input.MovementBlockReason;
         string lastMovementGate;
         public string LastDebugMove { get; private set; }
         long activationSequence, damageSequence;
         readonly string sessionId = Guid.NewGuid().ToString("N");
-        OfficialHandPoseDetector handPoses;
-        public string HandPoseStatus => handPoses?.Status ?? "官方手形：等待初始化";
+        public string HandPoseStatus => Input.HandPoseStatus;
         public event Action<RpgActionCue> Feedback;
         /// <summary>进度、角色和落点全部恢复后通知章节重建场景，不负责逐句台词续播。</summary>
         public event Action CheckpointRestored;
@@ -123,60 +140,15 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>校验接线、建立运行时技能副本和玩家，再创建新进度或读取磁盘检查点。</summary>
         void Awake()
         {
+            originalCatalog = skills ? skills.catalog : null;
+            usesSkillResources = skillResources;
+            if (usesSkillResources) { SuspendSkillCatalog(); return; }
             try
             {
-#if UNITY_EDITOR
-                if (!string.IsNullOrEmpty(EditorTestSaveFile))
-                { saveFileName = EditorTestSaveFile; autoLoad = false; }
-#endif
                 ValidateSetup();
-                handPoses = new OfficialHandPoseDetector(handPoseSettings);
-                playerObject = GetComponent<PlayerObj>();
-                if (!playerObject) throw new InvalidOperationException("缺少玩家实体组件");
-                playerObject.Initialize(playerDefinition);
-                originalCatalog = skills.catalog;
                 runtimeSkills = new RuntimeSkillCatalog(originalCatalog);
-                var runtimeCatalog = runtimeSkills.Catalog;
-                skills.catalog = runtimeCatalog;
-                SavePath = Path.Combine(Application.persistentDataPath, saveFileName);
-                store = new RpgSaveStore(SavePath, "linear-rpg-player", runtimeCatalog.skills.Select(s => s.skillId),
-                    Player.MaxHealth, Player.MaxMana, runtimeCatalog.skills.Select(CooldownGroup).Distinct());
-                Progress = new RpgProgressData { checkpoint = Player.CaptureCheckpoint(GameTime), checkpointId = checkpointNodes[0].nodeId };
-                SkillProgression.Unlock(Progress, StartingSkills);
-                SkillProgression.Discover(Progress, chapter.InitialDiscoveries);
-                Status = chapter.InitialStatus;
-                if (autoLoad && (File.Exists(SavePath) || File.Exists(SavePath + ".bak")))
-                {
-                    if (store.TryLoad(out var loaded, out string reason) && ValidateProgress(loaded))
-                    { Progress = loaded; Status = reason ?? "已读取检查点"; }
-                    else { saveBlocked = true; Status = "读取失败，当前使用临时新角色，已禁止覆盖原存档：" + (reason ?? "阶段、奖励或检查点不属于当前关卡"); }
-                }
-                lastCheckpoint = CloneProgress(Progress);
-                RefreshProgress();
-                SelectStageFromProgress();
-                Player.RestoreCheckpoint(Progress.checkpoint, GameTime, out _);
-                ApplyUpgrades();
-                skills.enableOpenHandCancel = false;
-                skills.ActivationOverride = null;
-                skills.ActivationPolicy = this;
-                skills.GestureInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
-                skills.VoiceInputBlocked = () => !CanAct || locomotion.NavigationActive || UiInputOwned;
-                skills.ExclusiveInputBlocked = () => UiInputOwned;
-                skills.VoiceOwnershipDetail = () => UiInputOwned ? "腕部界面：" + wristMenu.OwnershipReason :
-                    !CanAct ? (Player != null && !Player.Alive ? "角色已倒下" : "角色当前不能行动") : "节点移动占用输入";
-                skills.CancelOverride = CancelCasting;
-                skills.DeferVoiceUntilLateUpdate = true;
-                skills.effects.GameClock = () => GameTime;
-                skills.effects.RightHandActionPolicy = () => CanAct && skills.isActiveAndEnabled && !UiInputOwned &&
-                    !locomotion.NavigationActive && !locomotion.EncounterSlideActive;
-                skills.effects.ThrowGripProvider = (left, settings) => ReadThrowGrip(left, settings, Time.realtimeSinceStartupAsDouble);
-                locomotion.GameClock = () => GameTime;
-                locomotion.encounterModesEnabled = true;
-                skills.effects.ProjectileLaunched += OnProjectileLaunched;
-                locomotion.CancelRequested += CancelCasting;
-                locomotion.Moved += OnMoved;
-                initialized = true;
-                if (!GetComponent<RpgDamageReceiver>()) gameObject.AddComponent<RpgDamageReceiver>();
+                InitializeSession(ReadStartupCheckpoint(originalCatalog.skills.Select(s => s.skillId),
+                    originalCatalog.skills.Select(CooldownGroup)));
             }
             catch (Exception e)
             {
@@ -187,28 +159,170 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
 
-        /// <summary>初始化完成后通知章节进入阶段，并将玩家放到当前检查点。</summary>
+        /// <summary>资源失败后显式重试；禁用、已就绪或正在进行的会话不再发起第二次加载。</summary>
+        public bool RetrySkillAssembly()
+        {
+            if (!usesSkillResources || !isActiveAndEnabled || skillCatalogReady || skillLoad != null) return false;
+            var attempt = new CancellationTokenSource();
+            skillLoad = attempt;
+            assemblyFailed = false;
+            Status = "正在按 ID 装配玩家技能";
+            AssembleSkills(attempt);
+            return true;
+        }
+
+        async void AssembleSkills(CancellationTokenSource attempt)
+        {
+            RuntimeSkillCatalog prepared = null;
+            try
+            {
+                var requestedManifest = skillResources;
+                // v2 只依赖业务 ID、冷却组及数值上限。先读快照，装配完成后才提交到当前玩家。
+                (RpgProgressData progress, string diagnostic) checkpoint = default;
+                if (!initialized)
+                {
+                    if (!requestedManifest) throw new InvalidOperationException("缺少技能资源清单");
+                    if (requestedManifest.Validate() is string error) throw new InvalidOperationException(error);
+                    checkpoint = ReadStartupCheckpoint(requestedManifest.entries.Select(entry => entry.id),
+                        requestedManifest.entries.Select(entry => entry.cooldownGroup));
+                }
+                prepared = await RuntimeSkillCatalog.LoadAsync(requestedManifest, attempt.Token);
+                if (!this || !isActiveAndEnabled || !ReferenceEquals(skillLoad, attempt)) return;
+                if (!requestedManifest || requestedManifest != skillResources)
+                    throw new InvalidOperationException("装配期间技能资源清单已更换");
+                if (!skills || !skills.effects) throw new InvalidOperationException("缺少技能输入或效果组件");
+                runtimeSkills = prepared;
+                prepared = null;
+                skills.catalog = runtimeSkills.Catalog;
+                ValidateSetup();
+                if (!initialized) { InitializeSession(checkpoint); suspendedStatus = Status; }
+                else { ApplyUpgrades(); RefreshProgress(); Status = suspendedStatus ?? chapter.InitialStatus; }
+                skills.effects.enabled = true;
+                skills.enabled = true;
+                skills.InitializeMatcher();
+                skills.BeginFreshPlayerInput(paused);
+                Input.Invalidate();
+                // 首次进入前恢复阶段与位置。启停重装只替换资源，保留当前玩家进度与位置。
+                skillCatalogReady = true;
+                if (startCalled) EnterInitialStage();
+            }
+            catch (Exception e)
+            {
+                if (this && ReferenceEquals(skillLoad, attempt))
+                {
+                    SuspendSkillCatalog();
+                    assemblyFailed = true;
+                    Status = "技能装配失败，可重试：" + e.Message;
+                    Debug.LogError(Status, this);
+                }
+            }
+            finally
+            {
+                prepared?.Dispose();
+                if (ReferenceEquals(skillLoad, attempt)) skillLoad = null;
+                attempt.Dispose();
+            }
+        }
+
+        void SuspendSkillCatalog()
+        {
+            if (skillCatalogReady) suspendedStatus = Status;
+            skillCatalogReady = false;
+            if (initialized && wristMenu) wristMenu.ResetForWorldChange();
+            if (skills)
+            {
+                skills.enabled = false;
+                skills.DetachPlayerMatcher();
+                if (skills.effects) { skills.effects.ClearAll(); skills.effects.enabled = false; }
+                skills.catalog = null;
+            }
+            runtimeSkills?.Dispose();
+            runtimeSkills = null;
+        }
+
+        (RpgProgressData progress, string diagnostic) ReadStartupCheckpoint(IEnumerable<string> skillIds, IEnumerable<string> cooldownGroups)
+        {
+            ValidateSaveFileName();
+            SavePath = Path.Combine(Application.persistentDataPath, saveFileName);
+            var store = new RpgSaveStore(UnityRpgSaveJson.Instance, SavePath, "linear-rpg-player", skillIds,
+                playerDefinition ? playerDefinition.maxHealth : 100, playerDefinition ? playerDefinition.maxMana : 100, cooldownGroups);
+            checkpoints = new CheckpointSaveCoordinator(store, UnityRpgSaveJson.Instance);
+            return checkpoints.ReadStartup(autoLoad);
+        }
+
+        void InitializeSession((RpgProgressData progress, string diagnostic) checkpoint)
+        {
+            playerObject = GetComponent<PlayerObj>();
+            if (!playerObject) throw new InvalidOperationException("缺少玩家实体组件");
+            playerObject.Initialize(playerDefinition);
+            Model.Chapter.Configure(stages.Select(stage => stage.stageId));
+            var runtimeCatalog = runtimeSkills.Catalog;
+            skills.catalog = runtimeCatalog;
+            if (!Model.Unlock(StartingSkills) || !Model.Discover(chapter.InitialDiscoveries))
+                throw new InvalidOperationException("角色初始技能 ID 无效或超出上限");
+            var initial = Model.Export(Player.CaptureCheckpoint(GameTime), checkpointNodes[0].nodeId);
+            Status = chapter.InitialStatus;
+            if (checkpoint.progress != null || checkpoint.diagnostic != null)
+            {
+                if (ValidateProgress(checkpoint.progress))
+                { initial = checkpoint.progress; Status = checkpoint.diagnostic ?? "已读取检查点"; }
+                else { checkpoints.BlockWrites(); Status = "读取失败，当前使用临时新角色，已禁止覆盖原存档：" + (checkpoint.diagnostic ?? "阶段、奖励或检查点不属于当前关卡"); }
+            }
+            Model.RestoreGrowth(initial);
+            Growth = new ProgressionController(this);
+            checkpoints.SetRestored(initial);
+            RefreshProgress();
+            Player.RestoreCheckpoint(initial.checkpoint, GameTime, out _);
+            ApplyUpgrades();
+            skills.enableOpenHandCancel = false;
+            skills.effects.BindVitals(Player);
+            skills.ActivationPolicy = this;
+            skills.GestureInputBlocked = () => !Input.CanCast(out _);
+            skills.VoiceInputBlocked = () => !Input.CanCast(out _);
+            skills.InputGeneration = () => Input.Generation;
+            skills.ExclusiveInputBlocked = () => UiInputOwned;
+            skills.VoiceOwnershipDetail = () => UiInputOwned ? "腕部界面：" + wristMenu.OwnershipReason :
+                Input.CanCast(out var reason) ? "输入已恢复" : reason;
+            skills.CancelOverride = CancelCasting;
+            skills.DeferVoiceUntilLateUpdate = true;
+            skills.effects.GameClock = () => GameTime;
+            skills.effects.RightHandActionPolicy = () => CanAct && skills.isActiveAndEnabled && !UiInputOwned && !Input.InteractionOwnsHand &&
+                !locomotion.NavigationActive && !locomotion.EncounterSlideActive;
+            skills.effects.ThrowGripProvider = (left, settings) => Input.ReadThrowGrip(left, settings, Time.realtimeSinceStartupAsDouble);
+            locomotion.GameClock = () => GameTime;
+            locomotion.encounterModesEnabled = true;
+            skills.effects.ProjectileLaunched += OnProjectileLaunched;
+            locomotion.CancelRequested += CancelCasting;
+            locomotion.Moved += OnMoved;
+            if (!GetComponent<RpgDamageReceiver>()) gameObject.AddComponent<RpgDamageReceiver>();
+            initialized = true;
+        }
+
         void Start()
         {
-            if (!initialized) return;
+            startCalled = true;
+            if (IsReady) EnterInitialStage();
+        }
+
+        void EnterInitialStage()
+        {
+            if (stageEntered) return;
             ApplyStage();
-            var node = FindCheckpoint(Progress.checkpointId);
+            var node = FindCheckpoint(checkpoints.CheckpointId);
             if (node && !locomotion.TryRestoreCheckpoint(node)) Status = "检查点落地失败：" + locomotion.Status;
+            stageEntered = true;
             // Do not overwrite the load diagnostic with the relocation's input reset.
         }
 
         void LateUpdate()
         {
-            if (!initialized) return;
-            if (CheckpointSavePending && !saveBlocked && Time.realtimeSinceStartupAsDouble >= nextSaveRetry)
-            {
-                nextSaveRetry = Time.realtimeSinceStartupAsDouble + 2;
-                PersistCheckpoint(pendingCheckpoint, true);
-            }
+            if (!IsReady) return;
+            RunConfirmedCastCommands();
+            if (checkpoints.RetryDue(Time.realtimeSinceStartupAsDouble)) RunCheckpointCommand(() => PersistCheckpoint(true));
             if (!paused && Time.timeScale > 0) { GameTime += Time.deltaTime; Player.Tick(GameTime); }
-            var frame = ReadNavigationFrame(Time.realtimeSinceStartupAsDouble);
+            var frame = Input.ReadNavigationFrame(Time.realtimeSinceStartupAsDouble);
             if (wristMenu && wristMenu.isActiveAndEnabled)
-                UpdateWristUi(frame,ReadWristMenuFrame(frame),paused || Time.timeScale <= 0 || skills.effects.HasOccupiedHand || (!Player.Alive && !wristMenu.wornDevice),Time.realtimeSinceStartupAsDouble);
+                UpdateWristUi(frame,Input.ReadWristMenuFrame(frame),paused || Time.timeScale <= 0 || Input.InteractionOwnsHand || skills.effects.HasOccupiedHand || (!Player.Alive && !wristMenu.wornDevice),Time.realtimeSinceStartupAsDouble);
             else SyncWristOwnership(); // A menu disabled while active also returns gameplay ownership.
             var gate = MovementBlockReason;
             if (gate != lastMovementGate)
@@ -217,9 +331,9 @@ namespace NarutoVR.SealCombat.Rpg
                 lastMovementGate = gate;
             }
             // Skip the whole locomotion recognizer: its low-hands cancellation runs before blockActions.
-            if (!UiInputOwned) locomotion.ProcessInput(frame, skills.effects.HasRightHeldObject && !skills.effects.HasRightThrowObject, !CanAct, Time.realtimeSinceStartupAsDouble);
+            if (!UiInputOwned) locomotion.ProcessInput(frame, Input.InteractionOwnsHand || (skills.effects.HasRightHeldObject && !skills.effects.HasRightThrowObject), !CanAct, Time.realtimeSinceStartupAsDouble);
             bool navigating = locomotion.NavigationActive;
-            if (navigating != wasNavigation) skills.CancelInputOnly();
+            if (navigating != wasNavigation) { Input.InvalidateRequests(); skills.CancelInputOnly(); }
             wasNavigation = navigating;
             // Suppress release on death/pause only: a held fireball still owns forward push during navigation.
             skills.effects.PushInputSuppressed = !CanAct || UiInputOwned;
@@ -234,10 +348,11 @@ namespace NarutoVR.SealCombat.Rpg
         // reserving input in advance; all resets belong to the actual ownership transition.
         public void UpdateWristUi(NavigationHandInput frame,WristMenuInput ui,bool hardBlocked,double now)
         {
+            if (!IsReady) return;
             bool confirmed=wristMenu.PrepareWristTap(ui,hardBlocked,now);
             bool sealBusy=!confirmed && !UiInputOwned && !wristMenu.PanelOpen && !wristMenu.State.LauncherOpen && (locomotion.SealProtectionActive ||
                 (frame.leftValid && frame.rightValid && Vector3.Distance(frame.leftWrist,frame.rightWrist)<locomotion.gestures.sealEnterDistance));
-            string blocked = hardBlocked ? (skills && skills.effects && skills.effects.HasOccupiedHand ? "手上有持有物" : "角色当前不能行动") :
+            string blocked = hardBlocked ? (Input.InteractionOwnsHand || (skills && skills.effects && skills.effects.HasOccupiedHand) ? "手上有持有物" : "角色当前不能行动") :
                 !confirmed && locomotion.NavigationActive ? "导航操作中" : sealBusy ? "双手处于结印保护范围" : null;
             wristMenu.Tick(ui,this,blocked!=null,now,blocked);
             SyncWristOwnership();
@@ -247,38 +362,52 @@ namespace NarutoVR.SealCombat.Rpg
         {
             bool owns=UiInputOwned;
             if(owns==wasUi)return;
+            Input.InvalidateRequests();
             wasUi=owns;
             if(skills){skills.CancelInputOnly();skills.InvalidateEarlierVoice();}
             locomotion.ResetInput();
         }
 
-        public bool DebugCast(string skillId) => TryActivate(skills ? skills.ConfiguredSkills.FirstOrDefault(s => s && s.skillId == skillId) : null);
+        public bool DebugCast(string skillId) => IsReady && runtimeSkills.TryGet(skillId, out var skill) && skills.effects.TryCast(skill);
 
-        bool ISkillActivationPolicy.TryActivate(SkillDefinition skill) => TryActivate(skill);
+        SkillCastResult ISkillActivationPolicy.TryActivate(SkillDefinition skill) => TryActivate(skill);
         string ISkillActivationPolicy.ActivationStatus => Status;
-        bool ISkillActivationPolicy.OwnsCooldowns => true;
 
-        bool TryActivate(SkillDefinition skill)
+        SkillCastResult TryActivate(SkillDefinition skill)
         {
-            if (!CanAct || !skill || !skills.ConfiguredSkills.Contains(skill)) return Reject("当前无法施法");
-            if (UiInputOwned) return Reject("正在操作教学界面；手部恢复中立后再施法");
-            if (locomotion.NavigationActive) return Reject("导航准备中：放下左手后再开始结印或吟唱");
+            if (PublishingCast) { confirmedCastCommands.Enqueue(() => TryActivate(skill)); return SkillCastResult.Rejected(SkillCastFailure.Deferred, "已排到下个命令阶段"); }
+            if (CastTransactionActive || committingPlayerState) return SkillCastResult.Rejected(SkillCastFailure.Busy, "上一个玩家命令尚未结束");
+            if (!IsReady || !CanAct) return Deny(Player != null && !Player.Alive ? SkillCastFailure.Dead : SkillCastFailure.NotReady, "当前无法施法");
+            if (!skill || !skills.ConfiguredSkills.Contains(skill)) return Deny(SkillCastFailure.InvalidRequest, "技能不属于当前玩家");
+            if (!Input.CanCast(out var blocked)) return Deny(SkillCastFailure.InputBlocked, blocked);
             if (!IsSkillAvailable(skill.skillId))
-                return Reject((IsSkillDiscovered(skill.skillId) ? "此阶段暂不能施放：" : "尚未解锁：") + skill.displayName);
+                return Deny(SkillCastFailure.NotPermitted, (IsSkillDiscovered(skill.skillId) ? "此阶段暂不能施放：" : "尚未解锁：") + skill.displayName);
             string request = sessionId + ":cast:" + (++activationSequence);
             int previousProjectile = skills.effects.HeldProjectileInstanceId;
-            bool accepted = Player.TryActivate(request, skill.skillId, CooldownGroup(skill), skill.manaCost, skill.cooldownSeconds,
-                GameTime, () => skills.effects.TryActivate(skill), out string reason);
+            var result = skills.effects.CommitCast(skill, Player, request, skill.manaCost, GameTime,
+                () => CanAct && Input.CanCast(out _) && IsSkillAvailable(skill.skillId));
+            bool accepted = result.Confirmed;
             LastCastCreatedProjectile = accepted && skills.effects.HeldProjectileInstanceId != 0 &&
                 skills.effects.HeldProjectileInstanceId != previousProjectile;
-            Status = accepted ? $"{skill.displayName}已准备，消耗 {skill.manaCost:0} MP" : reason + "；" + skills.effects.Status;
-            RpgFeedbackSignals.Raise(Feedback, accepted ? RpgActionCue.CastReady : RpgActionCue.Blocked, this);
-            return accepted;
+            Status = accepted ? $"{skill.displayName}已准备，消耗 {skill.manaCost:0} MP" : result.Detail;
+            publishingCastFeedback = accepted;
+            try { RpgFeedbackSignals.Raise(Feedback, accepted ? RpgActionCue.CastReady : RpgActionCue.Blocked, this); }
+            finally { publishingCastFeedback = false; }
+            return result;
+
+            SkillCastResult Deny(SkillCastFailure failure, string detail)
+            {
+                Reject(detail);
+                return SkillCastResult.Rejected(failure,detail);
+            }
         }
 
         public void CancelCasting()
         {
-            if (!initialized) return;
+            if (committingPlayerState) return;
+            if (PublishingCast) { confirmedCastCommands.Enqueue(CancelCasting); return; }
+            if (!Input.CanCancel(out _)) return;
+            Input.Invalidate();
             skills.CancelInputOnly(); skills.effects.CancelUnreleased(); locomotion.CancelPendingNavigation();
             Status = "已取消待施法输入并收起手中法宝。已消耗MP和CD不返还。";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Cancelled, this);
@@ -286,10 +415,8 @@ namespace NarutoVR.SealCombat.Rpg
 
         public bool DebugMove(bool dodge, Vector2 direction)
         {
-            string reason = MovementBlockReason;
-            if (reason == null && dodge && skills.effects.HasRightHeldObject)
-                reason = "右手正在持有法宝，先释放或收起再闪避";
-            bool moved = reason != null ? Reject(reason) : dodge
+            if (committingPlayerState) return false;
+            bool moved = !Input.CanMove(dodge, out string reason) ? Reject(reason) : dodge
                 ? locomotion.TryDebugDodge(direction, Time.realtimeSinceStartupAsDouble)
                 : locomotion.TryDebugStep(direction, Time.realtimeSinceStartupAsDouble);
             LastDebugMove = reason ?? locomotion.Status;
@@ -301,9 +428,14 @@ namespace NarutoVR.SealCombat.Rpg
 
         internal bool ReceiveDamage(string hitId, float amount, EnemyAttackHit? attack)
         {
-            bool canAct = CanAct;
+            if (PublishingCast)
+            {
+                confirmedCastCommands.Enqueue(() => ReceiveDamage(hitId, amount, attack));
+                return false;
+            }
+            bool canAct = CanAct && !committingPlayerState && !CastTransactionActive;
             PlayerDamageResult damage = default;
-            bool accepted = canAct && playerObject.TryReceiveDamage(hitId, amount, GameTime, skills.effects, out damage);
+            bool accepted = canAct && playerObject.TryReceiveDamage(hitId, amount, GameTime, out damage);
             if (skills && skills.enableCastTrace)
             {
                 float after = Player?.Health ?? 0;
@@ -322,10 +454,12 @@ namespace NarutoVR.SealCombat.Rpg
                     $"HP={after + damage.HealthLost:0.##}→{after:0.##} hitId={hitId}");
             }
             if (!accepted) return false;
+            if (damage.Absorbed > 0) skills.effects.PresentShieldHit(damage.Absorbed);
             Status = $"受到 {damage.Requested:0} 伤害，护盾吸收 {damage.Absorbed:0}，生命损失 {damage.HealthLost:0}";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Damage, this);
             if (!Player.Alive)
             {
+                confirmedCastCommands.Clear();
                 skills.CancelInputOnly(); skills.effects.ClearOnPlayerDeath(); locomotion.ResetInput();
                 Status = "角色已倒下。恢复检查点后重试；头部追踪保持正常。";
             }
@@ -336,42 +470,41 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>捕获当前阶段、技能和角色资源；正式写盘成功后才更新最后成功快照。</summary>
         public bool SaveCheckpoint()
         {
+            if (PublishingCast) { confirmedCastCommands.Enqueue(() => SaveCheckpoint()); return false; }
+            return RunCheckpointCommand(SaveCurrentState);
+        }
+
+        bool SaveCurrentState()
+        {
             if (!CanAct) return Reject("仅存活且未暂停时可保存检查点");
             var candidate = CaptureSaveCandidate();
             QueueCheckpoint(candidate);
-            return PersistCheckpoint(candidate, false);
+            return PersistCheckpoint(false);
         }
 
         /// <summary>复制当前进度，补入章节检查点与资源，避免保存快照继续跟随会话变化。</summary>
         RpgProgressData CaptureSaveCandidate()
         {
-            var candidate = CloneProgress(Progress);
-            candidate.checkpointId = SaveNode(StageIndex, CampaignComplete).nodeId;
-            candidate.checkpoint = Player.CaptureCheckpoint(GameTime);
-            return candidate;
+            return Model.Export(Player.CaptureCheckpoint(GameTime), SaveNode(StageIndex, CampaignComplete).nodeId);
         }
 
         /// <summary>排队保存最新快照；后来的有效进度覆盖更早快照，避免重试把玩家回滚。</summary>
         void QueueCheckpoint(RpgProgressData candidate)
         {
-            pendingCheckpoint = candidate;
-            nextSaveRetry = Time.realtimeSinceStartupAsDouble + 2;
+            checkpoints.Queue(candidate, Time.realtimeSinceStartupAsDouble);
             RefreshProgress();
         }
 
         /// <summary>校验并持久化快照；失败保留诊断与待重试状态，不假报保存成功。</summary>
-        bool PersistCheckpoint(RpgProgressData candidate, bool retry)
+        bool PersistCheckpoint(bool retry)
         {
-            if (saveBlocked) return Reject("启动时存档验证失败；为保留原文件，本次临时会话禁止写入");
-            if (!store.TrySave(candidate, out string reason))
+            if (!CheckpointSavePending) return true;
+            if (!checkpoints.TryWrite(Time.realtimeSinceStartupAsDouble, out string reason))
             {
                 if (retry) return false;
-                return Reject(CheckpointSavePending ? "进度在本次游戏中已生效，等待存档：" + reason : reason);
+                return Reject(checkpoints.WritesBlocked ? reason : "进度在本次游戏中已生效，等待存档：" + reason);
             }
-            // A delayed write checkpoints the snapshot without reverting changes made since the failed save.
-            if (!retry) Progress = candidate;
-            lastCheckpoint = CloneProgress(candidate);
-            if (CheckpointSavePending) { pendingCheckpoint = null; RefreshProgress(); }
+            RefreshProgress();
             Status = "检查点已保存（固定节点、角色进度、HP/MP和剩余CD）；临时效果与敌人血量不保存";
             RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Progress, this);
             return true;
@@ -383,17 +516,29 @@ namespace NarutoVR.SealCombat.Rpg
         /// </summary>
         public bool RestoreCheckpoint()
         {
-            if (!initialized || paused || Time.timeScale <= 0) return Reject("暂停时不能恢复检查点");
-            var restored = CloneProgress(pendingCheckpoint ?? lastCheckpoint);
-            if (!CheckpointSavePending && (File.Exists(SavePath) || File.Exists(SavePath + ".bak")))
-            {
-                if (!store.TryLoad(out restored, out string reason)) return Reject(reason);
-            }
+            if (PublishingCast) { confirmedCastCommands.Enqueue(() => RestoreCheckpoint()); return false; }
+            return RunCheckpointCommand(RestoreSavedState);
+        }
+
+        bool RunCheckpointCommand(Func<bool> command)
+        {
+            if (!IsReady || committingPlayerState || CastTransactionActive) return false;
+            committingPlayerState = true;
+            try { return command(); }
+            finally { committingPlayerState = false; }
+        }
+
+        bool RestoreSavedState()
+        {
+            if (paused || Time.timeScale <= 0) return Reject("暂停时不能恢复检查点");
+            if (!checkpoints.TryReadForRestore(out var restored, out string reason)) return Reject(reason);
             if (!ValidateProgress(restored) || restored.checkpoint.health <= 0) return Reject("检查点无效或生命为零，未改变当前状态");
             NavigationNode node = FindCheckpoint(restored.checkpointId);
             if (!node || !locomotion.TryRestoreCheckpoint(node)) return Reject("检查点落地失败：" + locomotion.Status);
             if (!Player.RestoreCheckpoint(restored.checkpoint, GameTime, out string error)) return Reject(error);
-            Progress = restored; lastCheckpoint = CloneProgress(restored); SelectStageFromProgress(); ApplyUpgrades();
+            confirmedCastCommands.Clear();
+            Input.Invalidate();
+            Model.RestoreGrowth(restored); checkpoints.SetRestored(restored); ApplyUpgrades();
             RefreshProgress();
             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
             ApplyStage(); Status = "已恢复检查点；阶段目标重置，临时效果已清理";
@@ -407,31 +552,60 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>把手动推进请求交给已绑定章节；RPG 不自行判定训练靶或教学条件。</summary>
         public bool TryAdvanceStage()
         {
+            if (!IsReady) return false;
+            if (PublishingCast)
+            {
+                int requestedStage = StageIndex;
+                confirmedCastCommands.Enqueue(() => { if (requestedStage == StageIndex) TryAdvanceStage(); });
+                return false;
+            }
+            if (CastTransactionActive || committingPlayerState) return false;
             if (!CanAct || !chapter || !chapter.isActiveAndEnabled) return Reject("章节当前不能推进");
             return chapter.TryAdvanceStage(out string reason) || Reject(reason);
         }
 
         /// <summary>只接受当前章节的有效完成请求，统一结算阶段奖励并保存检查点。</summary>
-        public bool CompleteChapterObjective(RpgChapterFlow source)
+        public bool CompleteChapterObjective(RpgChapterFlow source) => CompleteChapterObjective(source, null);
+
+        internal bool CompleteChapterObjective(RpgChapterFlow source, NavigationNode travelTo)
         {
-            if (source != chapter || !source || !source.isActiveAndEnabled || source.Owner != this || !CanAct || CampaignComplete || !source.ObjectiveMet) return false;
-            return CommitStage(stages[StageIndex]);
+            if (source != chapter || !source || !source.isActiveAndEnabled || source.Owner != this || !CanAct || committingPlayerState || CastTransactionActive || CampaignComplete || !source.ObjectiveMet) return false;
+            committingPlayerState = true;
+            try { return CommitStage(stages[StageIndex], travelTo); }
+            finally { committingPlayerState = false; }
         }
 
         /// <summary>统一发放一次阶段奖励、更新技能和阶段，然后保存；章节不得自行重复结算。</summary>
-        bool CommitStage(RpgStageDefinition stage)
+        bool CommitStage(RpgStageDefinition stage, NavigationNode travelTo)
         {
-            if (!RpgRewards.Grant(Progress, "reward." + stage.stageId, stage.rewardCurrency, stage.unlockSkillIds)) return Reject("此阶段奖励已领取或进度已达上限");
-            Progress.completedStageIds.Add(stage.stageId);
-            RefreshProgress();
+            var next = Model.ForkGrowth();
+            if (!next.ClaimStage(stage.stageId, stage.rewardCurrency, stage.unlockSkillIds)) return Reject("此阶段奖励已领取或进度已达上限");
+            var checkpointNode = SaveNode(next.Chapter.StageIndex, next.Chapter.CampaignComplete);
+            var checkpoint = next.Export(Player.CaptureCheckpoint(GameTime), checkpointNode.nodeId);
+            if (!checkpoints.Validate(checkpoint, out string error) || !ValidateProgress(checkpoint))
+                return Reject(error ?? "阶段奖励或检查点不符合当前章节");
+            if (travelTo && !locomotion.TryRestoreCheckpoint(travelTo))
+                return Reject("下一检查点被阻挡，阶段与奖励保持原样：" + locomotion.Status);
+            Model.AdoptGrowth(next);
+            confirmedCastCommands.Clear();
             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
-            if (chapter.RestoreVitalsOnStageComplete) Player.Respawn(GameTime);
+            if (chapter.RestoreVitalsOnStageComplete)
+            {
+                Player.Respawn(GameTime);
+                checkpoint.checkpoint = Player.CaptureCheckpoint(GameTime);
+            }
+            QueueCheckpoint(checkpoint);
             if (!CampaignComplete)
             {
-                StageIndex++; ApplyStage();
+                ApplyStage();
             }
-            else { HazardsEnabled = false; SetEncounterCombat(false); }
-            SaveCheckpoint();
+            else
+            {
+                HazardsEnabled = false;
+                SetEncounterCombat(false);
+                chapter.RefreshStageGuidance();
+            }
+            PersistCheckpoint(false);
             Status = (CampaignComplete ? "全部线性试炼完成" : "进入「" + StageName + "」") + $"；获得 {stage.rewardCurrency} 货币" +
                 (Status.StartsWith("检查点已保存", StringComparison.Ordinal) ? "；进度已保存" : "；" + Status);
             return true;
@@ -440,28 +614,29 @@ namespace NarutoVR.SealCombat.Rpg
         // Encounter transitions are explicit; the hazard training switch is independent.
         public void SetEncounterCombat(bool combat)
         {
-            if (!initialized || !locomotion || locomotion.EncounterCombat == combat) return;
+            if (!initialized || (combat && !IsReady) || !locomotion || locomotion.EncounterCombat == combat) return;
             locomotion.SetEncounterCombat(combat);
             skills.TraceCast("locomotion_mode",combat ? "进入战斗" : "进入探索");
         }
         void OnProjectileLaunched() => locomotion.NotifyProjectileLaunched(Time.realtimeSinceStartupAsDouble);
         public void ToggleHazards()
         {
+            if (!IsReady) return;
             if (roomControlsEncounter) { HazardsEnabled = false; Status = "战斗房间模式不启用练习区预警攻击"; return; }
-            if (initialized) { HazardsEnabled = !HazardsEnabled; Status = HazardsEnabled ? "攻击预警已开启" : "攻击预警已关闭"; }
+            HazardsEnabled = !HazardsEnabled; Status = HazardsEnabled ? "攻击预警已开启" : "攻击预警已关闭";
         }
 
         /// <summary>通知当前章节重建阶段目标，再设置通用战斗模式及训练预警开关。</summary>
         void ApplyStage()
         {
+            Input.Invalidate();
             chapter.OnStageEntered();
+            chapter.RefreshStageGuidance();
             if (!roomControlsEncounter) SetEncounterCombat(!CampaignComplete && stages[StageIndex].startsInCombat);
             HazardsEnabled = !roomControlsEncounter && !CampaignComplete && stages[StageIndex].enableHazards;
         }
-        /// <summary>选择第一个未完成阶段；全通关时下标停在最后一段，以 CampaignComplete 区分完成态。</summary>
-        void SelectStageFromProgress() { StageIndex = Array.FindIndex(stages, s => !Progress.completedStageIds.Contains(s.stageId)); if (StageIndex < 0) StageIndex = stages.Length - 1; }
         /// <summary>由技能副本管理器按各自 ID 重建等级效果，不在会话中识别具体术式。</summary>
-        void ApplyUpgrades() => runtimeSkills?.ApplyLevels(Progress);
+        void ApplyUpgrades() => runtimeSkills?.ApplyLevels(Model.SkillLevel);
         void OnMoved(Vector3 delta)
         {
             if (!skills) return;
@@ -476,7 +651,6 @@ namespace NarutoVR.SealCombat.Rpg
         NavigationNode FindCheckpoint(string id) => chapter && chapter.FinalCheckpoint && chapter.FinalCheckpoint.nodeId == id
             ? chapter.FinalCheckpoint : checkpointNodes.FirstOrDefault(n => n && n.nodeId == id);
         bool Reject(string reason) { Status = reason; RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Blocked, this); return false; }
-        static RpgProgressData CloneProgress(RpgProgressData p) => JsonUtility.FromJson<RpgProgressData>(JsonUtility.ToJson(p));
         /// <summary>验证顺序阶段、奖励、技能和落点，再调用扩展模块校验，不自行解释物品或商店规则。</summary>
         bool ValidateProgress(RpgProgressData p)
         {
@@ -513,149 +687,26 @@ namespace NarutoVR.SealCombat.Rpg
                 throw new InvalidOperationException("章节初始知识包含未知或重复技能 ID");
             chapter.ValidateChapter(this);
             if (wristMenu && wristMenu.teachingCatalog) wristMenu.teachingCatalog.Validate(skills.catalog.skills.Select(skill => skill.skillId));
-            progressConstraints = GetComponents<IRpgProgressConstraint>();
+            progressConstraints = GetComponentsInChildren<IRpgProgressConstraint>(true)
+                .Where(module => ((Component)module).GetComponentInParent<LinearRpgController>(true) == this)
+                .ToArray();
+            SkillShop = progressConstraints.OfType<RpgSkillShop>().SingleOrDefault();
+            ItemInventory = progressConstraints.OfType<RpgItemInventory>().SingleOrDefault();
             foreach (var module in progressConstraints) module.ValidateConfiguration(this);
+            ValidateSaveFileName();
+        }
+
+        void ValidateSaveFileName()
+        {
             if (string.IsNullOrWhiteSpace(saveFileName) || Path.GetFileName(saveFileName) != saveFileName || Path.IsPathRooted(saveFileName) || saveFileName is "." or "..") throw new InvalidOperationException("存档只能指定文件名");
         }
 
-        NavigationHandInput ReadNavigationFrame(double now)
-        {
-            var result = new NavigationHandInput(); var frame = skills.lab.Frame;
-            if (frame == null) { handPoses?.Reset(); return result; }
-            if (handPoses == null) handPoses = new OfficialHandPoseDetector(handPoseSettings);
-            handPoses.Update(frame, skills.lab.Features, now, locomotion.gestures.sampleMaxAge, locomotion.gestures.sampleMaxGap);
-            result.leftObserved = frame.left.observedAt; result.rightObserved = frame.right.observedAt;
-            result.leftValid = Wrist(frame.left, now, out result.leftWrist);
-            result.rightValid = Wrist(frame.right, now, out result.rightWrist);
-            int index = (int)HandJointId.HandIndexTip;
-            if (result.leftValid && frame.left.jointValid[index]) result.leftIndex = World(frame.left.joints[index].position);
-            result.leftPointing = result.leftValid && frame.left.jointValid[index] && handPoses.Left.pointing;
-            int indexBase = (int)HandJointId.HandIndex1;
-            if (result.leftPointing && frame.left.jointValid[indexBase])
-            {
-                Vector3 direction = result.leftIndex - World(frame.left.joints[indexBase].position);
-                float length = direction.magnitude;
-                result.leftRayValid = RpgGestureState.Finite(direction) && length >= .02f && length <= .16f;
-                if (result.leftRayValid)
-                {
-                    result.leftRayOrigin = result.leftIndex;
-                    result.leftRayDirection = direction / length;
-                }
-            }
-            result.rightOpen = result.rightValid && handPoses.Right.open;
-            result.rightMotionOwnedBySpell = skills.effects && skills.effects.RightMotionOwnedBySpell;
-            result.bothHandsLow = result.leftValid && result.rightValid && Math.Abs(result.leftObserved - result.rightObserved) <= SealFeatureExtractor.MaximumHandSkew &&
-                result.leftWrist.y < locomotion.head.position.y - lowHandsBelowHead && result.rightWrist.y < locomotion.head.position.y - lowHandsBelowHead;
-            return result;
-        }
         public static bool PointerPoseNearHand(Pose aim,Vector3 wrist) => NarutoVR.SealLab.SealLab.FinitePose(aim) &&
             RpgGestureState.Finite(wrist) && Vector3.Distance(aim.position,wrist)<=.3f;
-        WristMenuInput ReadWristMenuFrame(NavigationHandInput navigation)
-        {
-            var f = new WristMenuInput { leftValid = navigation.leftValid, rightValid = navigation.rightValid,
-                leftObserved = navigation.leftObserved, rightObserved = navigation.rightObserved,
-                leftWrist = navigation.leftWrist, leftClosed = handPoses != null && handPoses.Left.valid && handPoses.Left.closed,
-                leftPointing = navigation.leftPointing, rightOpen = navigation.rightOpen,
-                rightPointing = handPoses != null && handPoses.Right.valid && handPoses.Right.pointing,
-                rightClosed = handPoses != null && handPoses.Right.valid && handPoses.Right.closed,
-                headPosition = locomotion.head.position, headForward = locomotion.head.forward };
-            var frame = skills.lab.Frame;
-            if (frame == null) return f;
-            f.source = frame.source;
-            int wrist = (int)HandJointId.HandWristRoot, index = (int)HandJointId.HandIndex1,
-                pinky = (int)HandJointId.HandPinky1, tip = (int)HandJointId.HandIndexTip, thumb = (int)HandJointId.HandThumbTip;
-            Quaternion origin = skills.lab.recordingOrigin ? skills.lab.recordingOrigin.rotation : Quaternion.identity;
-            double menuNow=Time.realtimeSinceStartupAsDouble;
-            var leftHand=frame.left;
-            f.leftValid=leftHand.connected && leftHand.tracked && leftHand.jointValid[wrist] &&
-                WristMenuState.Fresh(leftHand.fresh,leftHand.observedAt,menuNow,wristMenu.settings.maxAge);
-            if(f.leftValid){
-                f.leftWrist=World(leftHand.joints[wrist].position);
-                f.leftValid=WristMenuState.Finite(f.leftWrist);
-            }
-            if (f.leftValid)
-            {
-                f.leftRotation = origin*frame.left.joints[wrist].rotation;
-                if (frame.left.jointValid[index] && frame.left.jointValid[pinky])
-                {
-                    Vector3 normal = Vector3.Cross(World(frame.left.joints[index].position)-f.leftWrist, World(frame.left.joints[pinky].position)-f.leftWrist);
-                    Vector3 fingers = (World(frame.left.joints[index].position) + World(frame.left.joints[pinky].position)) * .5f - f.leftWrist;
-                    f.mountValid = normal.sqrMagnitude > .0000001f && fingers.sqrMagnitude > .0001f;
-                    if (f.mountValid) f.mountRotation = Quaternion.LookRotation(fingers, -normal);
-                    // Both dorsal/palmar conventions are accepted; vendor-specific wrist axes stay in this adapter.
-                    f.wristFacing = normal.sqrMagnitude > .0000001f && Mathf.Abs(Vector3.Dot(normal.normalized,(f.headPosition-f.leftWrist).normalized)) >= .2f;
-                }
-            }
-            // Menu input needs only the joints used by each channel. Navigation's confidence
-            // includes every finger and must not suppress a valid wrist when one tip is occluded.
-            var hand=frame.right;
-            f.rightValid=hand.connected && hand.tracked && hand.fresh && hand.jointValid[wrist] &&
-                WristMenuState.Fresh(true,hand.observedAt,menuNow,wristMenu.settings.maxAge);
-            f.tipUnavailable=true;
-            if(!f.rightValid)return f;
-            Vector3 wristWorld=World(hand.joints[wrist].position);
-            if(!WristMenuState.Finite(wristWorld)){f.rightValid=false;return f;}
-            if(hand.jointValid[tip]){
-                f.rightTip=World(hand.joints[tip].position);
-                f.tipUnavailable=!WristMenuState.Finite(f.rightTip);
-            }
-            int middle=(int)HandJointId.HandMiddle1;
-            bool hasIndex=hand.jointValid[index],hasMiddle=hand.jointValid[middle];
-            if(hasIndex || hasMiddle){
-                Vector3 basePoint=hasIndex && hasMiddle ? (hand.joints[index].position+hand.joints[middle].position)*.5f
-                    : hand.joints[hasIndex?index:middle].position;
-                Vector3 axis=World(basePoint)-wristWorld;
-                if(WristMenuState.Finite(axis) && axis.magnitude>=.02f && axis.magnitude<=.16f){
-                    f.rayOrigin=wristWorld;f.rayDirection=axis.normalized;f.rayValid=true;f.raySource=hasIndex && hasMiddle?"骨骼·腕到双指根":hasIndex?"骨骼·腕到食指根":"骨骼·腕到中指根";
-                }
-            }
-            if(!f.tipUnavailable && hand.jointValid[thumb]){
-                f.pinchDistance=Vector3.Distance(f.rightTip,World(hand.joints[thumb].position));
-                f.pinchValid=float.IsFinite(f.pinchDistance);
-                if(f.pinchValid)f.pinchSource="骨骼·拇食指距离";
-            }
-            WristHandChannels.Apply(ref f,skills.lab.recordingOrigin,wristWorld,wristMenu.settings,
-                skills.lab.xrHandsSource,skills.lab.rightTrackedHand as IHand);
-            f.rayAnchorValid=f.rayValid;
-            return f;
-        }
-        ThrowGripSample ReadThrowGrip(bool left, HandThrowSettings settings, double now)
-        {
-            var result = new ThrowGripSample(); var frame = skills.lab.Frame;
-            if (frame == null || handPoses == null) return result;
-            HandSnapshot hand = left ? frame.left : frame.right;
-            if (!Wrist(hand, now, out var wrist)) return result;
-            int indexBase=(int)HandJointId.HandIndex1, middleBase=(int)HandJointId.HandMiddle1;
-            if(hand.jointValid[indexBase] && hand.jointValid[middleBase]) {
-                var midpoint=(hand.joints[indexBase].position+hand.joints[middleBase].position)*.5f;
-                var axis=World(midpoint)-wrist;
-                if(axis.sqrMagnitude>=.0004f && axis.sqrMagnitude<=.0256f) result.wristToKnucklesWorld=axis.normalized;
-            }
-            var shape = left ? handPoses.Left : handPoses.Right;
-            result.observed = hand.observedAt;
-            result.fistValid = shape.valid; result.fistClosed = shape.closed;
-            result.fistOpen = settings.allowPartialFistRelease ? shape.releaseOpen : shape.open;
-            int thumb = (int)HandJointId.HandThumbTip, index = (int)HandJointId.HandIndexTip;
-            if (hand.jointValid[thumb] && hand.jointValid[index])
-            {
-                float distance = Vector3.Distance(World(hand.joints[thumb].position), World(hand.joints[index].position));
-                result.pinchValid = float.IsFinite(distance);
-                result.pinchClosed = distance <= settings.pinchCloseDistance;
-                result.pinchOpen = distance >= settings.pinchOpenDistance;
-            }
-            return result;
-        }
-        bool Wrist(HandSnapshot h, double now, out Vector3 position)
-        {
-            position = default; int wrist = (int)HandJointId.HandWristRoot;
-            if (h == null || !h.connected || !h.tracked || !h.fresh || !h.highConfidence || !h.jointValid[wrist] ||
-                now - h.observedAt < 0 || now - h.observedAt > locomotion.gestures.sampleMaxAge) return false;
-            position = World(h.joints[wrist].position); return float.IsFinite(position.x) && float.IsFinite(position.y) && float.IsFinite(position.z);
-        }
-        Vector3 World(Vector3 position) => skills.lab.recordingOrigin ? skills.lab.recordingOrigin.TransformPoint(position) : position;
         void OnApplicationPause(bool value)
         {
-            handPoses?.Reset();
+            confirmedCastCommands.Clear();
+            Input.Invalidate();
             if (wristMenu) wristMenu.ResetForWorldChange();
             paused = value;
             if (!initialized) return;
@@ -664,7 +715,17 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDisable()
         {
-            handPoses?.Reset();
+            confirmedCastCommands.Clear();
+            Input.Invalidate();
+            if (usesSkillResources)
+            {
+                var loading = skillLoad;
+                skillLoad = null;
+                loading?.Cancel();
+                SuspendSkillCatalog();
+                if (locomotion) locomotion.ResetInput();
+                return;
+            }
             if (!initialized) return;
             // Scene shutdown does not guarantee sibling component destruction order.
             // Use Unity's alive-object checks before touching native Behaviour properties.
@@ -678,7 +739,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnEnable()
         {
-            handPoses?.Reset();
+            Input.Invalidate();
+            if (usesSkillResources) { RetrySkillAssembly(); return; }
             if (!initialized) return;
             if (skills) { if (skills.effects) skills.effects.enabled = true; skills.enabled = true; }
             if (locomotion) locomotion.ResetInput();
@@ -689,11 +751,12 @@ namespace NarutoVR.SealCombat.Rpg
             if (skills)
             {
                 skills.enabled = false;
-                skills.ActivationOverride = null; skills.GestureInputBlocked = null; skills.VoiceInputBlocked = null; skills.CancelOverride = null;
+                skills.GestureInputBlocked = null; skills.VoiceInputBlocked = null; skills.CancelOverride = null;
                 if (ReferenceEquals(skills.ActivationPolicy,this)) skills.ActivationPolicy = null;
                 skills.ExclusiveInputBlocked = null; skills.VoiceOwnershipDetail = null;
                 skills.DeferVoiceUntilLateUpdate = false;
-                if (originalCatalog) skills.catalog = originalCatalog;
+                skills.InputGeneration = null;
+                skills.catalog = originalCatalog;
                 if (skills.effects) { skills.effects.ProjectileLaunched -= OnProjectileLaunched; skills.effects.ClearAll(); skills.effects.enabled = false; skills.effects.GameClock = null; skills.effects.ThrowGripProvider = null; skills.effects.RightHandActionPolicy = null; }
             }
             runtimeSkills?.Dispose();

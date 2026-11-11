@@ -1,5 +1,4 @@
 using System;
-using NarutoVR.Audio;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -21,11 +20,6 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("有声帧保持秒数"), Range(.1f,.6f)] public float voiceHoldSeconds = .24f;
         [InspectorName("压低时间（秒）"), Min(.01f)] public float duckAttack = .06f;
         [InspectorName("回升时间（秒）"), Min(.01f)] public float duckRelease = .4f;
-        // Serialized compatibility for existing scenes. New scenes author the FootstepPlayer directly.
-        [HideInInspector] public AudioClip[] footstepClips = Array.Empty<AudioClip>();
-        [HideInInspector] public float footstepVolume = .22f;
-        [HideInInspector] public float footstepSpacing = .55f;
-
         public float CombatMix { get; private set; }
         public float DuckGain { get; private set; } = 1;
         public bool VoiceDucking { get; private set; }
@@ -38,8 +32,7 @@ namespace NarutoVR.SealCombat.Rpg
         LinearRpgController controller;
         GameObject audioRoot;
         AudioSource explorationSource, combatSource, ambientSource;
-        FootstepPlayer footsteps;
-        RpgLocomotionController walking;
+        PlayerObj entity;
         readonly AudioSource[] effectsSources = new AudioSource[8];
         readonly bool[] duckable = new bool[8];
         readonly float[] voiceVolume = new float[8];
@@ -50,8 +43,8 @@ namespace NarutoVR.SealCombat.Rpg
         void OnEnable()
         {
             if (!Application.isPlaying) return;
-            controller = GetComponent<LinearRpgController>();
-            if (!controller) { Debug.LogWarning("P1 音频管理器需要挂在线性关卡控制器同一物体。", this); return; }
+            controller = GetComponentInParent<LinearRpgController>();
+            if (!controller) { Debug.LogWarning("P1 音频管理器需要在当前物体或父级找到 RPG 会话。", this); return; }
             audioRoot = new GameObject("P1 音轨与空间声源");
             audioRoot.transform.SetParent(transform, false);
             explorationSource = Source("探索", false, true);
@@ -65,22 +58,8 @@ namespace NarutoVR.SealCombat.Rpg
             double start = AudioSettings.dspTime + .05;
             if (explorationSource.clip) explorationSource.PlayScheduled(start); combatSource.PlayScheduled(start);
             if (ambientSource) ambientSource.PlayScheduled(start);
-            if (controller.chapter && controller.chapter.UsesExplorationFootsteps && controller.locomotion)
-            {
-                walking = controller.locomotion;
-                footsteps = walking.GetComponent<FootstepPlayer>();
-                if (!footsteps) footsteps = walking.gameObject.AddComponent<FootstepPlayer>();
-                if (!footsteps.HasClips)
-                {
-                    footsteps.variations = HasVariants(footstepClips) ? footstepClips : Resources.LoadAll<AudioClip>("Audio/Footsteps");
-                    footsteps.stepDistance = footstepSpacing;
-                    footsteps.volume = footstepVolume;
-                }
-                footsteps.UseReportedTravel(true);
-                footsteps.SetGain(DuckGain);
-                footsteps.Stepped += OnFootstep;
-                walking.ExplorationTravelled += OnExplorationTravelled;
-            }
+            entity = controller.GetComponent<PlayerObj>();
+            if (entity) { entity.FootstepPlayed += OnFootstep; entity.SetFootstepGain(DuckGain); }
         }
         bool IsCombat => controller && controller.locomotion && controller.locomotion.EncounterCombat;
         AudioSource Source(string label, bool spatial, bool loop)
@@ -117,15 +96,9 @@ namespace NarutoVR.SealCombat.Rpg
             explorationSource.volume = musicVolume * DuckGain * Mathf.Sqrt(1-CombatMix);
             combatSource.volume = musicVolume * DuckGain * Mathf.Sqrt(CombatMix);
             if (ambientSource) ambientSource.volume = ambienceVolume * DuckGain;
-            if (footsteps) footsteps.SetGain(DuckGain);
+            if (entity) entity.SetFootstepGain(DuckGain);
             for (int i=0; i<effectsSources.Length; ++i)
                 if (effectsSources[i] && duckable[i]) effectsSources[i].volume = voiceVolume[i] * DuckGain;
-        }
-
-        void OnExplorationTravelled(float distance)
-        {
-            float travel = appPaused || !controller.CanAct || controller.UiInputOwned ? 0 : distance;
-            footsteps.ReportTravel(travel,walking.PlayerFloorPosition,walking.head ? walking.head.right : walking.transform.right);
         }
 
         void OnFootstep(Vector3 position)
@@ -134,8 +107,6 @@ namespace NarutoVR.SealCombat.Rpg
             ++SpatialCueCount;
             ++FootstepCount;
         }
-
-        static bool HasVariants(AudioClip[] clips) => clips != null && Array.Exists(clips, clip => clip);
 
         /// <summary>For authored ambient emitters (e.g. distant mechanism/footstep). Critical cues use the unattenuated effect route.</summary>
         public bool PlayAmbienceAt(AudioClip clip, Vector3 position, float volume) => PlayAt(clip,position,volume,true);
@@ -162,7 +133,6 @@ namespace NarutoVR.SealCombat.Rpg
             if (!MusicReady) return;
             if (paused)
             {
-                if (footsteps) footsteps.ResetTracking();
                 VoiceDucking = false; DuckGain = 1; ApplyVolumes();
                 explorationSource.Pause(); combatSource.Pause(); if (ambientSource) ambientSource.Pause();
                 foreach (var source in effectsSources) if (source) source.Stop();
@@ -171,14 +141,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDisable()
         {
-            if (walking) walking.ExplorationTravelled -= OnExplorationTravelled;
-            walking = null;
-            if (footsteps)
-            {
-                footsteps.Stepped -= OnFootstep;
-                footsteps.ResetTracking();
-            }
-            footsteps = null;
+            if (entity) { entity.FootstepPlayed -= OnFootstep; entity.SetFootstepGain(1); }
+            entity = null;
             VoiceDucking = appPaused = false; DuckGain = 1;
             if (audioRoot) { audioRoot.SetActive(false); Destroy(audioRoot); }
             audioRoot = null; explorationSource = combatSource = ambientSource = null;

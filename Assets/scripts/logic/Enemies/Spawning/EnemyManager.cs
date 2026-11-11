@@ -4,9 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace NarutoVR.SealCombat.Enemies
@@ -40,12 +38,10 @@ namespace NarutoVR.SealCombat.Enemies
         sealed class Load
         {
             public string Id;
-            public object Key;
             public EnemyDefinition Definition;
             public EnemyCombatDefinition Combat;
             public int Limit;
-            public AsyncOperationHandle<GameObject> Handle;
-            public bool HasHandle, Released;
+            public AssetLease<GameObject> PrefabLease;
             public Task<GameObject> Task;
             public readonly Stack<Instance> Pool = new();
         }
@@ -133,7 +129,7 @@ namespace NarutoVR.SealCombat.Enemies
             { status = "敌人目录无效：" + (catalog ? reason : "未绑定目录"); throw new InvalidOperationException(status); }
             if (!catalog.TryGet(id, out var definition))
             { status = "未知敌人编号：" + id; throw new ArgumentException(status, nameof(id)); }
-            var entry = new Load { Id = id, Key = definition.prefab.RuntimeKey, Definition = definition, Combat = definition.combatDefinition, Limit = definition.maxInactive };
+            var entry = new Load { Id = id, Definition = definition, Combat = definition.combatDefinition, Limit = definition.maxInactive };
             // 先公开完整 promise，Addressables 同步抛错或初始化回调停用管理器时也不会观察到空 Task。
             var completion = new TaskCompletionSource<GameObject>(TaskCreationOptions.RunContinuationsAsynchronously);
             entry.Task = completion.Task;
@@ -147,11 +143,9 @@ namespace NarutoVR.SealCombat.Enemies
         {
             try
             {
-                entry.Handle = Addressables.LoadAssetAsync<GameObject>(entry.Key); entry.HasHandle = true;
-                var prefab = await entry.Handle.Task;
+                entry.PrefabLease = await SharedAssetLoader.AcquireAsync<GameObject>(catalog, entry.Id, current.StopToken);
                 RequireCurrent(current, default);
-                if (entry.Handle.Status != AsyncOperationStatus.Succeeded || !prefab)
-                    throw new InvalidOperationException("Addressables 未返回敌人预置体", entry.Handle.OperationException);
+                var prefab = entry.PrefabLease.Asset;
                 if (!prefab.GetComponent<EnemyController>() || !prefab.GetComponent<EnemyObj>() || !prefab.GetComponent<NavMeshAgent>())
                     throw new InvalidOperationException("预置体根节点需要 EnemyController、EnemyObj、NavMeshAgent：" + entry.Id);
                 completion.TrySetResult(prefab);
@@ -238,6 +232,7 @@ namespace NarutoVR.SealCombat.Enemies
                 instance.Root.transform.SetParent(current.Root.transform, false);
                 instance.Root.transform.SetPositionAndRotation(sampled.position, rot.normalized);
                 lease = new EnemyLease(++nextLease, instance.Controller, id, this, current.Id);
+                instance.Controller.BindDeathLease(lease);
                 current.Active.Add(lease.Id, lease); current.Instances.Add(lease.Id, instance);
                 instance.Root.SetActive(true);
                 RequireCurrent(current, ct);
@@ -310,11 +305,29 @@ namespace NarutoVR.SealCombat.Enemies
             RequireMainThread(); var current = session;
             if (current == null || !CurrentRecord(current, lease)) return false;
             var instance = current.Instances[lease.Id];
+            if (instance.Controller && (instance.Controller.IsDead || (instance.Controller.Entity && instance.Controller.Entity.Combat?.Dead == true)))
+                lease.Defeated = true;
             current.Active.Remove(lease.Id); current.Instances.Remove(lease.Id);
             if (instance.Transitioning) instance.RecyclePending = true;
             else FinishRecycle(current, instance);
             UpdateCounts(); return true;
         }
+
+        internal bool DiscardInterruptedDeath(EnemyLease lease)
+        {
+            RequireMainThread();
+            var current = session;
+            if (current == null || !CurrentRecord(current, lease) || !lease.Defeated) return false;
+            var instance = current.Instances[lease.Id];
+            current.Active.Remove(lease.Id);
+            current.Instances.Remove(lease.Id);
+            // 可在 SetActive(false) 的 OnDisable 中调用，不在本次激活通知里再次切换或移动物体。
+            // AllInstances 持有到帧末，确保关闭会话也会等克隆销毁后再释放 Addressables。
+            if (instance.Root) Destroy(instance.Root);
+            UpdateCounts();
+            return true;
+        }
+
         void FinishRecycle(Session current, Instance instance)
         {
             if (!instance.Root) return;
@@ -370,9 +383,8 @@ namespace NarutoVR.SealCombat.Enemies
         }
         static void Release(Load entry)
         {
-            if (!entry.HasHandle || entry.Released) return;
-            entry.Released = true;
-            if (entry.Handle.IsValid()) Addressables.Release(entry.Handle);
+            entry.PrefabLease?.Dispose();
+            entry.PrefabLease = null;
         }
         void UpdateCounts()
         {

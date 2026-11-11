@@ -9,16 +9,8 @@ def guid(name):
     return uuid.uuid5(uuid.NAMESPACE_URL, 'NarutoVR/WaterPolish/'+name).hex
 def meta(path, importer):
     Path(str(path)+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(path.name)+'\n'+importer, encoding='utf-8')
-meta(BASE/'WaterAudio.cs', '''MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData:
-  assetBundleName:
-  assetBundleVariant:
-''')
+script_meta = ROOT / 'Assets/scripts/logic/Environment/WaterAudio.cs.meta'
+script_guid = re.search(r'^guid: ([a-f0-9]{32})$', script_meta.read_text(), re.M).group(1)
 meta(BASE/'Canal_GentleFlow_Loop.wav', '''AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -100,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {{fileID: 100000}}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {{fileID: 11500000, guid: {guid('WaterAudio.cs')}, type: 3}}
+  m_Script: {{fileID: 11500000, guid: {script_guid}, type: 3}}
   m_Name:
   m_EditorClassIdentifier:
   waterSource: {{fileID: 82000}}

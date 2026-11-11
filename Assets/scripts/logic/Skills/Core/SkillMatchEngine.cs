@@ -10,8 +10,6 @@ namespace NarutoVR.SealCombat
     public sealed class SkillMatchEngine
     {
         public Func<SkillDefinition, bool> TryActivate;
-        /// <summary>为 true 时由 RPG 会话管理共享冷却组；为 false 时使用匹配器内部的技能冷却。</summary>
-        public bool ExternalCooldownAuthority { get; set; }
         public Action<string> Log;
         public string Status { get; private set; } = "等待技能输入";
         // 日志与界面按需获取诊断文字，
@@ -53,7 +51,6 @@ namespace NarutoVR.SealCombat
         private readonly List<Evidence> evidence = new();
         private readonly List<Candidate> candidates = new();
         private readonly Slot[] slots;
-        private readonly Dictionary<string, double> cooldowns = new(StringComparer.Ordinal);
         private readonly HashSet<string> validationIds = new(StringComparer.Ordinal);
         private readonly HashSet<string> voicePhrasesAtLastEnd = new(StringComparer.Ordinal);
         private int bufferHead, bufferCount, pending = -1, expiredPending = -1, previousLeft, previousRight, previousFlags;
@@ -276,7 +273,7 @@ namespace NarutoVR.SealCombat
             Attempt(selected, candidates[0].Evidence);
         }
 
-        /// <summary>先消费证据，再检查同帧重入和冷却；回调成功后才登记本地冷却。</summary>
+        /// <summary>先消费本次输入证据，同帧至多提交一次施法请求。</summary>
         private void Attempt(int index, Evidence item)
         {
             pending = expiredPending = -1; if (item != null) Consume(item);
@@ -284,14 +281,12 @@ namespace NarutoVR.SealCombat
             bool sameFrame = Application.isPlaying ? lastAttemptFrame == Time.frameCount : Math.Abs(now - lastAttemptTime) <= Epsilon;
             if (committing || sameFrame) { SetStatus("本帧已有激活尝试；本次输入已消费，请重试"); return; }
             lastAttemptTime = now; lastAttemptFrame = Application.isPlaying ? Time.frameCount : -1;
-            if (!ExternalCooldownAuthority && cooldowns.TryGetValue(recipe.Id, out double deadline) && now + Epsilon < deadline)
-            { SetStatus(Name(recipe.Definition) + "仍在冷却；本次输入已消费"); return; }
             bool success = false;
             committing = true;
             try { success = TryActivate != null && TryActivate(recipe.Definition); }
             catch (Exception ex) { SetStatus("激活异常：" + ex.Message + "；本次输入已消费"); return; }
             finally { committing = false; }
-            if (success) { if (!ExternalCooldownAuthority) cooldowns[recipe.Id] = now + recipe.Cooldown; SetStatus(Name(recipe.Definition) + "已激活"); }
+            if (success) SetStatus(Name(recipe.Definition) + "已激活");
             else SetStatus(Name(recipe.Definition) + "激活失败；本次输入已消费，请重新输入");
         }
 
@@ -452,7 +447,7 @@ namespace NarutoVR.SealCombat
             public readonly SkillDefinition Definition;
             public readonly string Id, Phrase, Seal;
             public readonly SkillTriggerMode Mode;
-            public readonly float Window, Discount, Floor, Cooldown;
+            public readonly float Window, Discount, Floor;
             public bool Enabled = true;
             public Recipe(SkillDefinition definition)
             {
@@ -460,7 +455,7 @@ namespace NarutoVR.SealCombat
                 if (!definition) { Id = Phrase = Seal = ""; return; }
                 Id = definition.skillId; Phrase = SkillPhrase.Normalize(definition.phrase); Seal = definition.sealName;
                 Mode = definition.triggerMode; Window = definition.matchWindow; Discount = definition.voiceDiscount;
-                Floor = definition.thresholdFloor; Cooldown = definition.cooldownSeconds;
+                Floor = definition.thresholdFloor;
             }
         }
         private sealed class SealState

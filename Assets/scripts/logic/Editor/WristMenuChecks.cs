@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.Linq;
+using System.Reflection;
 using NarutoVR.SealCombat.Rpg;
 using UnityEngine;
 
@@ -66,6 +67,7 @@ namespace NarutoVR.SealCombat.Editor
                 ((TrainingChapterFlow)rpg.chapter).rpg = rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var locomotion=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=locomotion; locomotion.rigRoot=root.transform;
                 var head=new GameObject("头部"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); locomotion.head=head.transform;
+                CheckPlayerInputBoundary(rpg, menu, Check);
                 root.SetActive(true); view.EnsureBuilt(); view.audioFeedback=false;
                 int targetCount=view.Targets.Count; view.EnsureBuilt();
                 Check(targetCount==10 && view.Targets.Count==10,"视图重复构建不能复制十个目标（含故障时才显示的麦克风重试）");
@@ -130,6 +132,61 @@ namespace NarutoVR.SealCombat.Editor
             finally { UnityEngine.Object.DestroyImmediate(root); }
             return checks + CheckNativeMicrophoneRecovery();
         }
+
+        static void CheckPlayerInputBoundary(LinearRpgController rpg, WristMenuController menu, Action<bool,string> check)
+        {
+            var input = new GameObject("腕饰装配边界采样");
+            input.SetActive(false);
+            var previousSkills = rpg.skills;
+            var previousMenu = rpg.wristMenu;
+            float previousMaxAge = menu.settings.maxAge;
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var boundary = typeof(PlayerInputController).GetField("inputReadyAt", flags);
+            double previousBoundary = (double)boundary.GetValue(rpg.Input);
+            try
+            {
+                var lab = input.AddComponent<NarutoVR.SealLab.SealLab>();
+                rpg.skills = input.AddComponent<SkillInputController>();
+                rpg.skills.lab = lab;
+                rpg.wristMenu = menu;
+                var frame = new NarutoVR.SealLab.SealFrame();
+                int wrist = (int)Oculus.Interaction.Input.HandJointId.HandWristRoot;
+                foreach (var hand in new[] {frame.left, frame.right})
+                {
+                    hand.connected = hand.tracked = hand.fresh = hand.jointValid[wrist] = true;
+                    hand.joints[wrist] = Pose.identity;
+                }
+                typeof(NarutoVR.SealLab.SealLab).GetProperty(nameof(lab.Frame)).SetValue(lab, frame);
+                // 所有样本都在当前时间之前，单独检验装配边界，机器负载不会使新帧因样本过期而误报。
+                menu.settings.maxAge = float.MaxValue;
+                double cutoff = Time.realtimeSinceStartupAsDouble - 1;
+                boundary.SetValue(rpg.Input, cutoff);
+                WristMenuInput Read(double left, double right)
+                {
+                    frame.left.observedAt = left;
+                    frame.right.observedAt = right;
+                    var navigation = new NavigationHandInput {leftObserved = left, rightObserved = right};
+                    return rpg.Input.ReadWristMenuFrame(navigation);
+                }
+                var old = Read(cutoff - .01, cutoff);
+                check(!old.leftValid && !old.rightValid, "装配之前和边界同刻的腕部观测均被丢弃");
+                var rightOnly = Read(cutoff, cutoff + .01);
+                check(!rightOnly.leftValid && rightOnly.rightValid, "仅新右腕恢复，旧左腕保持无效");
+                var leftOnly = Read(cutoff + .01, cutoff);
+                check(leftOnly.leftValid && !leftOnly.rightValid, "仅新左腕恢复，旧右腕保持无效");
+                var fresh = Read(cutoff + .01, cutoff + .01);
+                check(fresh.leftValid && fresh.rightValid, "装配边界之后的新双腕恢复输入");
+            }
+            finally
+            {
+                boundary.SetValue(rpg.Input, previousBoundary);
+                menu.settings.maxAge = previousMaxAge;
+                rpg.skills = previousSkills;
+                rpg.wristMenu = previousMenu;
+                UnityEngine.Object.DestroyImmediate(input);
+            }
+        }
+
         static int CheckNativeMicrophoneRecovery()
         {
             // Keep all gameplay/capture components inactive: this is a UI state check,
@@ -147,7 +204,7 @@ namespace NarutoVR.SealCombat.Editor
                 var menu = root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
                 var rpg = root.AddComponent<LinearRpgController>(); rpg.wristMenu=menu;
                 rpg.locomotion=root.AddComponent<RpgLocomotionController>();
-                rpg.skills=root.AddComponent<SkillTestController>();
+                rpg.skills=root.AddComponent<SkillInputController>();
                 var receiver=root.AddComponent<SkillVoiceReceiver>(); rpg.skills.voice=receiver;
                 var capture=root.AddComponent<NativeSkillVoiceSource>();
                 Field(receiver,"nativeSource",capture); Field(menu,"owner",rpg);

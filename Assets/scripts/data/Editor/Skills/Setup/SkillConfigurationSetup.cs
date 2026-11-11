@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -122,11 +123,11 @@ namespace NarutoVR.SealCombat.Editor
             AssetDatabase.SaveAssets();return changed;
         }
         /// <summary>One-time conversion only. Existing catalogs, effect assets and populated view fields are user-owned.</summary>
-        public static bool Bind(SkillTestController controller, SkillCatalog fallback = null, string migrationRoot = null)
+        public static bool Bind(SkillInputController controller, SkillCatalog fallback = null, string migrationRoot = null)
         {
             if (!controller) throw new ArgumentNullException(nameof(controller));
             bool changed = false;
-            if (!controller.catalog)
+            if (!controller.catalog && !AuthoredSkillCatalog.ManifestFor(controller))
             {
                 fallback = fallback ? fallback : EnsureDefaults();
                 var source = controller.skills ?? new List<SkillDefinition>();
@@ -149,22 +150,14 @@ namespace NarutoVR.SealCombat.Editor
             if (view.controller != controller) { view.controller = controller; changed = true; }
             if (controller.statusText != view.statusText) { controller.statusText = view.statusText; changed = true; }
             if (controller.chineseFont != view.chineseFont) { controller.chineseFont = view.chineseFont; changed = true; }
-            // Migrated recipes are copies, while existing shortcut bindings still point at the
-            // original assets. Resolve only unique stable IDs and retain the user's chosen keys.
-            if (view.shortcuts != null && controller.ConfiguredSkills != null)
+            if (view.shortcuts != null)
                 foreach (var shortcut in view.shortcuts)
-                {
-                    if (shortcut == null || !shortcut.skill || controller.ConfiguredSkills.Contains(shortcut.skill) ||
-                        string.IsNullOrWhiteSpace(shortcut.skill.skillId)) continue;
-                    var matches = controller.ConfiguredSkills.Where(skill => skill && skill.skillId == shortcut.skill.skillId).ToArray();
-                    if (matches.Length != 1) continue;
-                    shortcut.skill = matches[0]; changed = true;
-                }
+                    if (shortcut != null && shortcut.MigrateLegacySkillReference()) changed = true;
             if (changed) { EditorUtility.SetDirty(controller); EditorUtility.SetDirty(view); }
             return changed;
         }
 
-        private static bool CanShareCatalog(IReadOnlyList<SkillDefinition> source, SkillEffects legacy, SkillCatalog target)
+        private static bool CanShareCatalog(IReadOnlyList<SkillDefinition> source, SkillController legacy, SkillCatalog target)
         {
             if (target.skills == null || source.Count != target.skills.Count) return false;
             for (int i = 0; i < source.Count; i++)
@@ -193,7 +186,7 @@ namespace NarutoVR.SealCombat.Editor
         private static bool SameOptionalInput(string a, string b, bool unused) =>
             a == b || (unused && string.IsNullOrEmpty(a) && string.IsNullOrEmpty(b));
 
-        private static bool LegacyMatches(SkillEffects legacy, SkillEffectKind kind, SkillEffectDefinition effect)
+        private static bool LegacyMatches(SkillController legacy, SkillEffectKind kind, SkillEffectDefinition effect)
         {
             if (!legacy || !effect) return false;
             if (kind == SkillEffectKind.SelfBuff && effect is ShieldEffectDefinition shield)
@@ -209,7 +202,7 @@ namespace NarutoVR.SealCombat.Editor
             return false;
         }
 
-        private static SkillCatalog MigrateLegacyCatalog(SkillTestController controller, IReadOnlyList<SkillDefinition> source, string migrationRoot)
+        private static SkillCatalog MigrateLegacyCatalog(SkillInputController controller, IReadOnlyList<SkillDefinition> source, string migrationRoot)
         {
             if (source.Any(skill => !skill)) throw new InvalidOperationException("旧技能列表含空引用，请先修复后迁移。");
             if (source.Any(skill => !skill.effectDefinition) && !controller.effects) throw new InvalidOperationException("缺少旧效果执行器，无法保留旧场景效果参数。");
@@ -222,19 +215,44 @@ namespace NarutoVR.SealCombat.Editor
             string path = MigrationPath(directory, "SkillCatalog", "技能目录.asset");
             var existing = AssetDatabase.LoadAssetAtPath<SkillCatalog>(path);
             if (existing) return existing;
+            var ids = new HashSet<string>(StringComparer.Ordinal);
+            if (source.Any(skill => string.IsNullOrWhiteSpace(skill.skillId) || !ids.Add(skill.skillId)))
+                throw new InvalidOperationException("旧技能缺少业务 ID 或 ID 重复，无法区分迁移副本。");
             EnsureFolder(Path.GetDirectoryName(path));
+            string skillDirectory = MigrationPath(directory, "SkillDefinition", "").TrimEnd('/');
+            // A previous run may have saved the individual definitions before it saved their catalog.
+            var savedCopies = AssetDatabase.IsValidFolder(skillDirectory)
+                ? AssetDatabase.FindAssets("t:SkillDefinition", new[] { skillDirectory })
+                    .Select(AssetDatabase.GUIDToAssetPath)
+                    .Where(assetPath => Path.GetDirectoryName(assetPath).Replace('\\', '/') == skillDirectory)
+                    .Select(AssetDatabase.LoadAssetAtPath<SkillDefinition>).ToArray()
+                : Array.Empty<SkillDefinition>();
             var catalog = ScriptableObject.CreateInstance<SkillCatalog>();
             catalog.name = Path.GetFileNameWithoutExtension(scenePath) + "技能目录";
-            for (int i = 0; i < source.Count; i++)
+            foreach (var old in source)
             {
-                var old = source[i];
                 // Explicit effect assets already carry the user's configuration: never replace them.
                 if (old.effectDefinition) { catalog.skills.Add(old); continue; }
+                var matches = savedCopies.Where(skill => skill && skill.effectDefinition && skill.skillId == old.skillId).ToArray();
+                if (matches.Length > 1) throw new InvalidOperationException($"迁移目录中有多个技能使用 ID {old.skillId}：{skillDirectory}");
+                if (matches.Length == 1) { catalog.skills.Add(matches[0]); continue; }
                 SkillEffectDefinition effect = LegacyEffect(controller.effects, old.effectKind, directory);
-                catalog.skills.Add(CopySkill(old, MigrationPath(directory, "SkillDefinition", $"技能-{i:000}.asset"), effect));
+                EnsureFolder(skillDirectory);
+                string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{skillDirectory}/{SkillFileName(old)}.asset");
+                catalog.skills.Add(CopySkill(old, assetPath, effect));
             }
             AssetDatabase.CreateAsset(catalog, path);
             return catalog;
+        }
+
+        private static string SkillFileName(SkillDefinition skill)
+        {
+            string label = string.IsNullOrWhiteSpace(skill.displayName) ? skill.name : skill.displayName;
+            string stem = Regex.Replace(label ?? "", @"[\x00-\x1F<>:""/\\|?*]+", "-").Trim().Trim(' ', '.', '-');
+            if (stem.Length == 0) return "迁移技能";
+            bool reserved = Regex.IsMatch(stem, @"^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\.|$)",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            return reserved ? "技能 " + stem : stem;
         }
 
         // Production migrations group by concrete asset type; isolated callers retain their root.
@@ -246,7 +264,7 @@ namespace NarutoVR.SealCombat.Editor
                 : directory + "/" + file;
         }
 
-        private static SkillEffectDefinition LegacyEffect(SkillEffects source, SkillEffectKind kind, string directory)
+        private static SkillEffectDefinition LegacyEffect(SkillController source, SkillEffectKind kind, string directory)
         {
             if (kind == SkillEffectKind.SelfBuff)
             {
@@ -256,7 +274,7 @@ namespace NarutoVR.SealCombat.Editor
                 if (!asset)
                 {
                     asset = ScriptableObject.CreateInstance<ShieldEffectDefinition>();
-                    asset.capacity = source.shieldCapacity; asset.visualPrefab = source.shieldPrefab; asset.material = source.buffMaterial;
+                    source.CopyLegacySettings(asset);
                     AssetDatabase.CreateAsset(asset, path);
                 }
                 return asset;
@@ -269,11 +287,7 @@ namespace NarutoVR.SealCombat.Editor
                 if (!asset)
                 {
                     asset = ScriptableObject.CreateInstance<ProjectileEffectDefinition>();
-                    asset.radius = source.ballRadius; asset.damage = source.projectileDamage; asset.speed = source.projectileSpeed;
-                    asset.flightLifetime = source.projectileLifetime; asset.heldLifetime = source.heldLifetime; asset.heldOffset = source.heldOffset;
-                    asset.armDelay = source.armDelay; asset.trackingLossGrace = source.trackingLossGrace;
-                    asset.pushDistance = source.pushDistance; asset.pushMinimumSeconds = source.pushMinimumSeconds; asset.pushMaximumSeconds = source.pushMaximumSeconds;
-                    asset.visualPrefab = source.fireballPrefab; asset.impactPrefab = source.impactPrefab; asset.material = source.fireMaterial;
+                    source.CopyLegacySettings(asset);
                     AssetDatabase.CreateAsset(asset, path);
                 }
                 return asset;
@@ -365,27 +379,35 @@ namespace NarutoVR.SealCombat.Editor
         [MenuItem("Tools/NarutoVR/技能配置/验证当前场景")]
         public static void ValidateCurrent()
         {
-            var c=Controller(SceneManager.GetActiveScene());ValidateController(c);
-            Debug.Log($"[技能配置] {c.ConfiguredSkills.Count} 个技能配置有效，语音导出也可用。");
+            var c=Controller(SceneManager.GetActiveScene());
+            using var source = AuthoredSkillCatalog.Open(c);
+            ValidateController(c, source.Catalog);
+            Debug.Log($"[技能配置] {source.Catalog.skills.Count} 个技能配置有效，语音导出也可用。");
         }
-        public static void ValidateController(SkillTestController c)
+        public static void ValidateController(SkillInputController c)
         {
-            var errors=c.ConfigurationErrors();
-            if(!c.catalog)errors.Add("尚未迁移共享技能目录");
+            using var source = AuthoredSkillCatalog.Open(c);
+            ValidateController(c, source.Catalog);
+        }
+        static void ValidateController(SkillInputController c, SkillCatalog catalog)
+        {
+            var errors=c.ConfigurationErrors(catalog);
             if(!c.view||c.view.controller!=c||!c.view.statusText||!c.view.chineseFont)errors.Add("中文界面接线缺失");
             if(!c.voice)errors.Add("语音接收器缺失");
-            if(c.lab&&c.ConfiguredSkills!=null)
-                foreach(var skill in c.ConfiguredSkills)
+            if(c.lab&&catalog.skills!=null)
+                foreach(var skill in catalog.skills)
                     if(skill&&skill.triggerMode!=SkillTriggerMode.VoiceOnly&&!c.lab.profiles.Any(p=>p&&p.sealName==skill.sealName))errors.Add($"{skill.displayName} 所需 {skill.sealName} 印未加入骨骼实验台");
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
-            BuildVoiceJson(c.catalog,c.voice.receivePort,c.voice.servicePort);
+            BuildVoiceJson(catalog,c.voice.receivePort,c.voice.servicePort);
         }
         [MenuItem("Tools/NarutoVR/技能配置/导出当前场景语音配置")]
         public static void ExportCurrent()
         {
-            var c=Controller(SceneManager.GetActiveScene());ValidateController(c);
+            var c=Controller(SceneManager.GetActiveScene());
+            using var source = AuthoredSkillCatalog.Open(c);
+            ValidateController(c, source.Catalog);
             Directory.CreateDirectory(Path.GetDirectoryName(VoicePath));
-            File.WriteAllText(VoicePath,BuildVoiceJson(c.catalog,c.voice.receivePort,c.voice.servicePort),new UTF8Encoding(false));
+            File.WriteAllText(VoicePath,BuildVoiceJson(source.Catalog,c.voice.receivePort,c.voice.servicePort),new UTF8Encoding(false));
             Debug.Log("[技能配置] 语音配置已导出："+VoicePath+"。请重启Python语音服务和当前播放，使用同一版目录。");
         }
         public static string BuildVoiceJson(SkillCatalog catalog,int receivePort,int servicePort)
@@ -410,7 +432,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             return JsonUtility.ToJson(new VoiceExport{cancelPhrase=SkillPhrase.Normalize(catalog.cancelPhrase),unityPort=receivePort,servicePort=servicePort,keywords=words.ToArray()},true);
         }
-        public static SkillTestController Controller(Scene scene)=>scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillTestController>(true)).Single();
+        public static SkillInputController Controller(Scene scene)=>scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillInputController>(true)).Single();
         private static void RequireCleanEditor()
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("请先退出播放模式");
@@ -438,7 +460,7 @@ namespace NarutoVR.SealCombat.Editor
             if(!skill.effectDefinition)EditorGUILayout.HelpBox("当前仍使用旧场景效果参数；新技能请引用独立效果配置资产。",MessageType.Warning);
         }
     }
-    [CustomEditor(typeof(SkillEffects))]
+    [CustomEditor(typeof(SkillController))]
     public sealed class SkillEffectsEditor : UnityEditor.Editor
     {
         private bool legacy;

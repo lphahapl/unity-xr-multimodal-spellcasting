@@ -71,9 +71,12 @@ namespace NarutoVR.SealCombat.Editor
                 int cancelled = 0; f.Controller.CancelOverride = () => cancelled++;
                 f.Controller.ReceiveVoice("火球术",100.05);
                 f.Controller.ExclusiveInputBlocked = () => true;
-                f.Tick(); f.Controller.ReceiveVoice("取消施法",100.06); f.Tick();
+                f.Tick();
                 Require(f.Controller.LastVoiceBlock.Contains("腕部菜单独占输入") && f.Controller.VoiceEventCount==0 && cancelled==0 && string.IsNullOrEmpty(f.Engine.PendingSkillId),
-                    "UI获得输入后，队列口令与取消口令均不可进入战斗"); passed++;
+                    "UI获得输入后，先前排队的施法口令应被拦截"); passed++;
+                f.Controller.ReceiveVoice("取消施法",100.06); f.Tick();
+                Require(f.Controller.VoiceEventCount==1 && cancelled==1 && string.IsNullOrEmpty(f.Engine.PendingSkillId),
+                    "UI占用时新鲜取消口令应只释放一次，施法候选仍为空"); passed++;
             }
             using (var f = new Fixture())
             {
@@ -151,13 +154,13 @@ namespace NarutoVR.SealCombat.Editor
             readonly GameObject root;
             readonly SkillDefinition skill;
             double now = 100.1;
-            public readonly SkillTestController Controller;
+            public readonly SkillInputController Controller;
             public readonly SkillMatchEngine Engine;
             public Fixture()
             {
                 root = new GameObject("口令时钟回归_临时实体") { hideFlags = HideFlags.HideAndDontSave };
                 var lab = root.AddComponent<Lab>();
-                Controller = root.AddComponent<SkillTestController>();
+                Controller = root.AddComponent<SkillInputController>();
                 Controller.lab = lab; Controller.logFeatureFailures = false;
                 Controller.DeferVoiceUntilLateUpdate = true;
                 Controller.InputClock = () => { double value = now; now += .001; return value; };
@@ -166,11 +169,11 @@ namespace NarutoVR.SealCombat.Editor
                 skill.triggerMode = SkillTriggerMode.VoiceAndGesture; skill.phrase = "火球术"; skill.sealName = "寅";
                 Engine = new SkillMatchEngine(new[] { skill }); Engine.Tick(100);
                 Require(Engine.ActiveRecipes.Count == 1, "检查配方必须有效");
-                typeof(SkillTestController).GetProperty(nameof(SkillTestController.Engine)).GetSetMethod(true).Invoke(Controller, new object[] { Engine });
+                typeof(SkillInputController).GetProperty(nameof(SkillInputController.Engine)).GetSetMethod(true).Invoke(Controller, new object[] { Engine });
             }
             public void Tick()
             {
-                try { typeof(SkillTestController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Controller, null); }
+                try { typeof(SkillInputController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Controller, null); }
                 catch (TargetInvocationException e) { throw e.InnerException ?? e; }
             }
             public void Dispose()

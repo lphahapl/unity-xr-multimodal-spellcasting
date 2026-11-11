@@ -25,7 +25,7 @@ namespace NarutoVR.SealCombat.Editor
             if (controllers.Length != 1) throw new InvalidOperationException("必须只有一个线性关卡主控");
             var controller = controllers[0];
             var movement = controller.locomotion;
-            var feedback = controller.GetComponent<RpgInteractionFeedback>();
+            var feedback = controller.GetComponentInChildren<RpgInteractionFeedback>(true);
             var view = Components<RpgSessionView>(scene).SingleOrDefault(v => v.controller == controller);
             if (!movement || movement.gestures == null || movement.smoothing == null || !movement.smoothing.Valid || !feedback || !view ||
                 !controller.skills || !controller.skills.catalog)

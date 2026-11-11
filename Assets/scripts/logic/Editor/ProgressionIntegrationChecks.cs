@@ -50,19 +50,19 @@ public static class ProgressionIntegrationChecks
             if(EditorApplication.timeSinceStartup>deadline)throw new TimeoutException("step "+step);
             if(++frames<15)return;
             var r=Obj.FindFirstObjectByType<LinearRpgController>();
+            if (!r || !r.IsReady) return;
             var opening=(OpeningTrialChapter)r.chapter;
-            var inventory=r.GetComponent<RpgItemInventory>();var shop=r.GetComponent<RpgSkillShop>();
+            var inventory=r.GetComponentInChildren<RpgItemInventory>(true);var shop=r.SkillShop;
             string item=opening.puzzle.leafId;
             if(step==0) {
                 Check(r.CanAct && opening.inventory==inventory && opening.puzzle.inventory==inventory,"opening initializes with explicit separate modules");
-                Check(r.Progress.discoveredSkillIds.Count==3 && r.Progress.unlockedSkillIds.Count==0,"initial knowledge does not unlock skills");
+                Check(r.Model.DiscoveredSkills.OrderBy(id => id).SequenceEqual(opening.InitialDiscoveries.OrderBy(id => id)) &&
+                    r.Model.UnlockedSkills.Count == 0, "initial knowledge matches chapter configuration without unlocking skills");
                 Check(!r.TryAdvanceStage(),"manual input cannot skip opening teaching");
                 Check(inventory.Activate(item)==ProgressCommitResult.Rejected && inventory.Collect("missing")==ProgressCommitResult.Rejected,"uncollected or unknown item rejected");
-                var invalid=r.CreateProgressDraft();invalid.currency=-1;
-                Check(r.CommitProgressChange(invalid)==ProgressCommitResult.Rejected && r.Progress.currency==0,"invalid draft leaves session unchanged");
-                var jump=r.CreateProgressDraft();RpgRewards.Grant(jump,"reward."+r.stages[0].stageId,r.stages[0].rewardCurrency,r.stages[0].unlockSkillIds);
-                jump.completedStageIds.Add(r.stages[0].stageId);jump.checkpointId=r.checkpointNodes[1].nodeId;
-                Check(r.CommitProgressChange(jump)==ProgressCommitResult.Rejected && r.StageIndex==0,"module transaction cannot advance stages or rewards");
+                Check(r.Growth.CreditCurrency(-1)==ProgressCommitResult.Rejected && r.Model.Currency==0,"invalid command leaves session unchanged");
+                var detached=r.CaptureProgressSnapshot();detached.currency=500;detached.completedStageIds.Add(r.stages[0].stageId);
+                Check(r.StageIndex==0 && r.Model.Currency==0 && r.Model.Chapter.CompletedStages.Count==0,"detached snapshot cannot change currency or advance stages");
                 Directory.CreateDirectory(Path.GetDirectoryName(r.SavePath));
                 using(var locked=new FileStream(r.SavePath+".tmp",FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None)) {
                     Check(inventory.Collect(item)==ProgressCommitResult.PendingSave && r.CheckpointSavePending,"collection survives real disk write failure");
@@ -70,33 +70,27 @@ public static class ProgressionIntegrationChecks
                     Check(r.RestoreCheckpoint() && inventory.GetState(item)==ProgressionItemState.Collected,"restore keeps unsaved successful collection");
                     Check(inventory.Activate(item)==ProgressCommitResult.PendingSave && r.IsSkillUnlocked("buff.hidden"),"activation grants permanent skill with pending save");
                     Check(!r.IsSkillAvailable("buff.hidden"),"opening gate remains independent of item activation");
-                    var newer=r.CreateProgressDraft();newer.currency=50;
-                    Check(r.CommitProgressChange(newer)==ProgressCommitResult.PendingSave,"later transaction replaces pending snapshot");
+                    Check(r.Growth.CreditCurrency(50-r.Model.Currency)==ProgressCommitResult.PendingSave,"later transaction replaces pending snapshot");
                 }
-                typeof(LinearRpgController).GetField("nextSaveRetry",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(r,0d);
                 step=1;frames=0;
             } else if(step==1) {
                 if(r.CheckpointSavePending)return;
-                var store=new RpgSaveStore(r.SavePath,"linear-rpg-player",r.skills.ConfiguredSkills.Select(s=>s.skillId),r.Player.MaxHealth,r.Player.MaxMana,
+                var store=new RpgSaveStore(UnityRpgSaveJson.Instance, r.SavePath,"linear-rpg-player",r.skills.ConfiguredSkills.Select(s=>s.skillId),r.Player.MaxHealth,r.Player.MaxMana,
                     r.skills.ConfiguredSkills.Select(s=>string.IsNullOrEmpty(s.cooldownGroup)?s.skillId:s.cooldownGroup).Distinct());
                 Check(store.TryLoad(out var saved,out _) && saved.currency==50 && saved.items.Single().activated,"retry persists the latest combined progress");
-                Check(inventory.Activate(item)==ProgressCommitResult.Saved && r.Progress.items.Count==1 && r.Progress.unlockedSkillIds.Count==1,"repeated activation grants nothing twice");
+                Check(inventory.Activate(item)==ProgressCommitResult.Saved && r.Model.ItemCount==1 && r.Model.UnlockedSkills.Count==1,"repeated activation grants nothing twice");
                 Check(r.RestoreCheckpoint() && opening.puzzle.IsSeated,"chapter reconstructs seated prop from generic inventory");
-                r.Progress.completedStageIds.Add(opening.permanentSkillGate.stageId);
-                Check(r.IsSkillAvailable("buff.hidden"),"injected gate completion enables the already unlocked skill");
-                r.Progress.completedStageIds.Remove(opening.permanentSkillGate.stageId);
-                Check(!r.IsSkillAvailable("buff.hidden"),"removing gate permission does not remove permanent ownership");
-                Check(!shop.TryPurchase("missing") && r.Progress.currency==50,"unknown product cannot charge currency");
-                var unlock=r.CreateProgressDraft();SkillProgression.Unlock(unlock,new[]{"fireball"});
-                Check(r.CommitProgressChange(unlock)==ProgressCommitResult.Saved,"generic skill grant commits without teaching dependency");
+                Check(!r.IsSkillAvailable("buff.hidden") && r.Model.IsUnlocked("buff.hidden"),"chapter permission remains separate from owned skill after restore");
+                Check(!shop.TryPurchase("missing") && r.Model.Currency==50,"unknown product cannot charge currency");
+                Check(r.Growth.GrantSkill("fireball")==ProgressCommitResult.Saved,"generic skill grant commits without teaching dependency");
                 var fire=r.skills.ConfiguredSkills.Single(s=>s.skillId=="fireball");
                 var effect=(NarutoVR.SealCombat.ProjectileEffectDefinition)fire.effectDefinition;
                 float expectedDamage=effect.damage*(1+effect.damagePerLevel);
-                Check(shop.TryPurchase("upgrade.fireball") && r.Progress.currency==20 && SkillProgression.Level(r.Progress,"fireball")==1,"real configured shop upgrade deducts correct cost");
+                Check(shop.TryPurchase("upgrade.fireball") && r.Model.Currency==20 && r.Model.SkillLevel("fireball")==1,"real configured shop upgrade deducts correct cost");
                 Check(Mathf.Approximately(effect.damage,expectedDamage),"runtime effect receives its own purchased level");
-                Check(!shop.TryPurchase("upgrade.fireball") && r.Progress.currency==20,"insufficient currency cannot purchase another level");
-                Check(r.RestoreCheckpoint() && SkillProgression.Level(r.Progress,"fireball")==1 && r.Progress.currency==20,"item skill and shop level restore together");
-                Check(r.StageIndex==0 && r.Progress.claimedRewardIds.Count==0,"module changes never complete a chapter stage");
+                Check(!shop.TryPurchase("upgrade.fireball") && r.Model.Currency==20,"insufficient currency cannot purchase another level");
+                Check(r.RestoreCheckpoint() && r.Model.SkillLevel("fireball")==1 && r.Model.Currency==20,"item skill and shop level restore together");
+                Check(r.StageIndex==0 && r.Model.ClaimedRewards.Count==0,"module changes never complete a chapter stage");
                 File.AppendAllText(Report,"PASS END\n");Finish(0);
             }
         } catch(Exception e) {File.AppendAllText(Report,"FAIL "+e+"\n");Finish(1);}

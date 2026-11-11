@@ -10,6 +10,7 @@ namespace NarutoVR.SealCombat.Rpg
     {
         [Header("一、交互来源")]
         [InspectorName("线性关卡控制器")] public LinearRpgController controller;
+        PlayerObj entity;
         [Header("二、路径与落点提示")]
         [InspectorName("启用地面特效")] public bool showVisuals = true;
         [InspectorName("路径与当前位置颜色")] public Color pathColor = new(.05f, .85f, 1f);
@@ -53,7 +54,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         RpgLocomotionController movement;
         OpeningNavigationMarks openingMarks;
-        SkillEffects effects;
+        SkillController effects;
         LineRenderer path, landing, progress, feet, pulse, flow, throwGrip, throwDirection, aimReticle, rawWindupLine;
         Material pathMaterial, progressMaterial, pulseMaterial, throwMaterial;
         Transform visuals;
@@ -76,9 +77,11 @@ namespace NarutoVR.SealCombat.Rpg
             movement = controller.locomotion; effects = controller.skills ? controller.skills.effects : null;
             if (!movement) return;
             movement.Feedback += Present;
-            controller.Feedback += Present;
+            controller.Feedback += OnSessionFeedback;
+            entity = controller.GetComponent<PlayerObj>();
+            if (entity) entity.DamageSettled += OnPlayerDamage;
             launches = effects ? effects.LaunchCount : 0; hits = effects ? effects.HitCount : 0;
-            hazard = controller.GetComponent<RpgTrainingHazard>();
+            hazard = (controller.chapter as TrainingChapterFlow)?.Hazard;
             for (int i = 0; i < lastCue.Length; i++) lastCue[i] = double.NegativeInfinity;
             EnsurePresentation();
             wasNavigating = wasProtected = wasWarning = false;
@@ -268,6 +271,14 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
 
+        void OnSessionFeedback(RpgActionCue cue)
+        {
+            if (cue != RpgActionCue.Damage) Present(cue);
+        }
+        void OnPlayerDamage(PlayerDamageResult result)
+        {
+            if (result.HealthLost > 0) Present(RpgActionCue.Damage);
+        }
         public void Present(RpgActionCue cue)
         {
             if (!isActiveAndEnabled || !movement || !speaker) return;
@@ -375,7 +386,8 @@ namespace NarutoVR.SealCombat.Rpg
         {
             openingMarks?.Refresh(false);
             if (movement) movement.Feedback -= Present;
-            if (controller) controller.Feedback -= Present;
+            if (controller) controller.Feedback -= OnSessionFeedback;
+            if (entity) entity.DamageSettled -= OnPlayerDamage;
             if (visuals) visuals.gameObject.SetActive(false);
             if (throwGrip) throwGrip.enabled = false;
             if (throwDirection) throwDirection.enabled = false;

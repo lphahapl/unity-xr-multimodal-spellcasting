@@ -4,21 +4,19 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    /// <summary>物品交互方可查询的只读状态，不暴露可变存档记录。</summary>
-    public enum ProgressionItemState { Missing, Collected, Activated }
     /// <summary>成长物品运行逻辑：收集开放知识，激活授予技能；使用 RPG 草稿提交保证失败不半改进度。</summary>
-    [DisallowMultipleComponent, RequireComponent(typeof(LinearRpgController))]
+    [DisallowMultipleComponent]
     public sealed class RpgItemInventory : MonoBehaviour, IRpgProgressConstraint
     {
         /// <summary>本战役物品奖励目录。</summary>
         public ProgressionItemCatalog catalog;
-        /// <summary>同对象上的会话控制器，负责保存与进度广播。</summary>
-        public LinearRpgController Owner => GetComponent<LinearRpgController>();
+        /// <summary>所属玩家会话的控制器，负责保存与进度广播。</summary>
+        public LinearRpgController Owner => GetComponentInParent<LinearRpgController>(true);
         /// <summary>查询实际物品状态；没有记录即未收集，不根据阶段猜测。</summary>
         public ProgressionItemState GetState(string id)
         {
-            var record = Owner.Progress?.items.Find(x => x.itemId == id);
-            return record == null ? ProgressionItemState.Missing : record.activated ? ProgressionItemState.Activated : ProgressionItemState.Collected;
+            var owner = Owner;
+            return owner ? owner.Model?.ItemState(id) ?? ProgressionItemState.Missing : ProgressionItemState.Missing;
         }
 
         /// <summary>收集真实物品，重复调用成功但不重复奖励。</summary>
@@ -30,27 +28,10 @@ namespace NarutoVR.SealCombat.Rpg
         ProgressCommitResult Change(string id, bool activate)
         {
             var owner = Owner;
-            if (!isActiveAndEnabled || !owner.CanAct || !catalog) return ProgressCommitResult.Rejected;
+            if (!isActiveAndEnabled || !owner || !owner.CanAct || !catalog) return ProgressCommitResult.Rejected;
             var definition = catalog.Find(id);
             if (definition == null) return ProgressCommitResult.Rejected;
-            var existing = owner.Progress.items.Find(x => x.itemId == id);
-            if (activate && existing == null) return ProgressCommitResult.Rejected;
-            if (existing != null && (!activate || existing.activated))
-                return owner.CheckpointSavePending ? ProgressCommitResult.PendingSave : ProgressCommitResult.Saved;
-            var draft = owner.CreateProgressDraft();
-            var item = draft.items.Find(x => x.itemId == id);
-            if (item == null)
-            {
-                if (draft.items.Count >= RpgDataRules.MaximumEntries) return ProgressCommitResult.Rejected;
-                item = new RpgItemProgressData { itemId = id }; draft.items.Add(item);
-            }
-            if (!SkillProgression.Discover(draft, definition.discoverSkillIds)) return ProgressCommitResult.Rejected;
-            if (activate)
-            {
-                if (!SkillProgression.Unlock(draft, definition.unlockSkillIds)) return ProgressCommitResult.Rejected;
-                item.activated = true;
-            }
-            return owner.CommitProgressChange(draft);
+            return owner.Growth.ChangeItem(definition,activate);
         }
 
         /// <inheritdoc/>
@@ -68,12 +49,12 @@ namespace NarutoVR.SealCombat.Rpg
             foreach (var item in p.items)
             {
                 var definition = catalog.Find(item.itemId);
-                if (definition == null || definition.discoverSkillIds.Any(id => !SkillProgression.IsDiscovered(p, id)) ||
-                    (item.activated && definition.unlockSkillIds.Any(id => !SkillProgression.IsUnlocked(p, id)))) return false;
+                if (definition == null || definition.discoverSkillIds.Any(id => !p.discoveredSkillIds.Contains(id) && !p.unlockedSkillIds.Contains(id)) ||
+                    (item.activated && definition.unlockSkillIds.Any(id => !p.unlockedSkillIds.Contains(id)))) return false;
             }
             // 双向约束：不能仅写一个技能 ID 绕过其物品激活来源。
             foreach (var definition in catalog.items)
-                if (definition.unlockSkillIds.Any(id => SkillProgression.IsUnlocked(p, id)) &&
+                if (definition.unlockSkillIds.Any(id => p.unlockedSkillIds.Contains(id)) &&
                     !p.items.Any(x => x.itemId == definition.itemId && x.activated)) return false;
             return true;
         }

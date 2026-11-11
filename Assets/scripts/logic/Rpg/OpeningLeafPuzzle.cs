@@ -34,25 +34,25 @@ namespace NarutoVR.SealCombat.Rpg
 
         enum Grip { None, Outer, Inner, Leaf }
         Grip grip;
-        float outerAngle, innerAngle, lastAngle, stable, dropTime;
-        bool activePuzzle, solved, canCollect, taken, canInsert, pinchReleased, discReleased;
+        long gripClaim;
+        readonly DiscAlignmentState discs = new();
+        float lastAngle, dropTime;
+        bool activePuzzle, canCollect, taken, canInsert, pinchReleased;
         double trackingLostAt = double.NaN, slotContactAt = double.NegativeInfinity;
         Vector3 slotContactLocal;
 
-        public void Restore(List<string> completed)
+        public void Restore(IReadOnlyList<string> completed)
         {
             if (slot.SnappedObject) slot.ReleaseObject();
-            solved = completed.Contains(solvedStage.stageId);
+            discs.Restore(System.Linq.Enumerable.Contains(completed, solvedStage.stageId), outerStartDegrees, innerStartDegrees);
             var state = inventory ? inventory.GetState(leafId) : ProgressionItemState.Missing;
             taken = state != ProgressionItemState.Missing;
             IsSeated = state == ProgressionItemState.Activated;
             DropTracking();
-            activePuzzle = canCollect = canInsert = pinchReleased = discReleased = false;
-            stable = dropTime = 0;
-            outerAngle = solved ? 0 : outerStartDegrees;
-            innerAngle = solved ? 0 : innerStartDegrees;
+            activePuzzle = canCollect = canInsert = pinchReleased = false;
+            dropTime = 0;
             SetDiscs();
-            lid.SetActive(!solved);
+            lid.SetActive(!discs.Solved);
             leaf.SetActive(true);
             PoseLeaf(IsSeated ? slot.transform : prizeRest);
             slot.enabled = false;
@@ -62,7 +62,7 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         public void EnablePuzzle() { activePuzzle = true; }
-        public void EnableReward() { canCollect = solved; }
+        public void EnableReward() { canCollect = discs.Solved; }
         public void EnableInsertion() { canInsert = taken; }
         public bool IsEarnedLeaf(GameObject item) => taken && leaf == item;
         public void Seat(GameObject item)
@@ -76,10 +76,9 @@ namespace NarutoVR.SealCombat.Rpg
         void PoseLeaf(Transform anchor) => leaf.transform.SetPositionAndRotation(anchor.position, anchor.rotation);
         void SetDiscs()
         {
-            outerDisc.localRotation = Quaternion.Euler(0,outerAngle,0);
-            innerDisc.localRotation = Quaternion.Euler(0,innerAngle,0);
+            outerDisc.localRotation = Quaternion.Euler(0, discs.OuterDegrees, 0);
+            innerDisc.localRotation = Quaternion.Euler(0, discs.InnerDegrees, 0);
         }
-        static float Error(float angle, float period) => Mathf.Abs(Mathf.Repeat(angle + period * .5f, period) - period * .5f);
         float Angle(Vector3 tip)
         {
             var local = outerDisc.parent.InverseTransformPoint(tip) - outerDisc.localPosition;
@@ -96,7 +95,8 @@ namespace NarutoVR.SealCombat.Rpg
                 if (visible) PoseLeaf(slot.transform);
                 return;
             }
-            if (!rpg || !rpg.CanAct || !rpg.wristMenu || rpg.UiInputOwned) { DropTracking(); return; }
+            if (!rpg || !rpg.CanAct || !rpg.wristMenu || rpg.UiInputOwned ||
+                (grip != Grip.None && !rpg.Input.OwnsInteraction(this, gripClaim))) { DropTracking(); return; }
             var hand = rpg.wristMenu.LatestInput;
             double now = Time.realtimeSinceStartupAsDouble;
             bool valid = !hand.tipUnavailable && WristMenuState.Fresh(hand.rightValid, hand.rightObserved,
@@ -117,25 +117,24 @@ namespace NarutoVR.SealCombat.Rpg
             bool release = grip == Grip.Leaf ? LeafReleased(hand) : hand.PinchUp(rpg.wristMenu.settings);
             if (release)
             {
-                if (grip == Grip.Outer || grip == Grip.Inner) discReleased = true;
+                if (grip == Grip.Outer || grip == Grip.Inner) discs.Release();
                 if (grip == Grip.Leaf) TryInsertReleasedLeaf(tip, now);
-                grip = Grip.None;
+                ReleaseGrip();
                 slotContactAt = double.NegativeInfinity;
                 pinchReleased = true;
             }
             else if (pinchReleased && hand.PinchDown(rpg.wristMenu.settings))
             {
                 pinchReleased = false;
-                if (activePuzzle && !solved)
+                if (activePuzzle && !discs.Solved)
                 {
-                    if (Near(tip, outerHandle)) grip = Grip.Outer;
-                    else if (Near(tip, innerHandle)) grip = Grip.Inner;
-                    if (grip != Grip.None) { stable = 0; discReleased = false; }
+                    if (Near(tip, outerHandle)) TryGrip(Grip.Outer);
+                    else if (Near(tip, innerHandle)) TryGrip(Grip.Inner);
+                    if (grip != Grip.None) discs.BeginTurn();
                     lastAngle = Angle(tip);
                 }
-                if ((canCollect || canInsert) && solved && !slot.SnappedObject && Near(tip, leaf.transform))
+                if ((canCollect || canInsert) && discs.Solved && !slot.SnappedObject && Near(tip, leaf.transform) && TryGrip(Grip.Leaf))
                 {
-                    grip = Grip.Leaf;
                     slotContactAt = double.NegativeInfinity;
                     if (!taken) { taken = true; Collected?.Invoke(); }
                 }
@@ -144,8 +143,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 float angle = Angle(tip);
                 float delta = Mathf.DeltaAngle(lastAngle, angle);
-                if (grip == Grip.Outer) outerAngle += delta;
-                innerAngle += delta;
+                discs.Turn(grip == Grip.Outer, delta);
                 lastAngle = angle;
                 SetDiscs();
             }
@@ -172,13 +170,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         void CheckAlignment()
         {
-            if (!activePuzzle || solved || !discReleased) return;
-            bool aligned = grip == Grip.None && Error(outerAngle,180) <= tolerance && Error(innerAngle,90) <= tolerance;
-            stable = aligned ? stable + Time.deltaTime : 0;
-            if (stable < settleSeconds) return;
-            solved = true;
-            outerAngle = Mathf.Round(outerAngle / 180) * 180;
-            innerAngle = Mathf.Round(innerAngle / 90) * 90;
+            if (!activePuzzle || !discs.TrySettle(grip == Grip.None, tolerance, settleSeconds, Time.deltaTime)) return;
             SetDiscs();
             lid.SetActive(false);
             Solved?.Invoke();
@@ -208,9 +200,22 @@ namespace NarutoVR.SealCombat.Rpg
             if (AtSlot(finger) || lastHeldPose || recentContact) slot.TrySnapObject(leaf);
         }
 
+        bool TryGrip(Grip requested)
+        {
+            if (!rpg.Input.TryAcquireInteraction(this, out long claim)) return false;
+            gripClaim = claim;
+            grip = requested;
+            return true;
+        }
+        void ReleaseGrip()
+        {
+            if (rpg && gripClaim != 0) rpg.Input.ReleaseInteraction(this, gripClaim);
+            gripClaim = 0;
+            grip = Grip.None;
+        }
         void DropTracking()
         {
-            grip = Grip.None; pinchReleased = false;
+            ReleaseGrip(); pinchReleased = false;
             trackingLostAt = double.NaN; slotContactAt = double.NegativeInfinity;
         }
         void OnDisable() => DropTracking();

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6daacaa50c0845a2239c2c706d9c9, type: 3}
+  m_Name: "\u91d1\u521a\u62a4\u4f53"
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillDefinition
+  skillId: buff.hidden
+  displayName: "\u91D1\u521A\u62A4\u4F53"
+  triggerMode: 1
+  phrase: "\u91D1\u521A\u62A4\u4F53"
+  phraseTokens: "j \u012Bn g \u0101ng h \xF9 t \u01D0"
+  sealName: 
+  matchWindow: 8
+  voiceDiscount: 0.05
+  thresholdFloor: 0.65
+  effectDefinition: {fileID: 11400000, guid: 15ccb0e5420f9d940b439e4ac217e4ea, type: 2}
+  effectKind: 0
+  leftHand: 0
+  cooldownSeconds: 8
+  manaCost: 25
+  cooldownGroup: shield.hidden
+  durationSeconds: 10

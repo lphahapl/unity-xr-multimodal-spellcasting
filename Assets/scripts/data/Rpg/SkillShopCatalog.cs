@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    /// <summary>商品行为：解锁技能，或提升已解锁技能的等级。</summary>
-    public enum SkillOfferKind { Unlock, Upgrade }
 
     /// <summary>一个商品的固定规则；不包含玩家余额或购买次数。</summary>
     [Serializable]

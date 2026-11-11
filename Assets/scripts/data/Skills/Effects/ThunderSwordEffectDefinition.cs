@@ -78,7 +78,5 @@ namespace NarutoVR.SealCombat
 
         static bool InRange(float value, float min, float max) => value >= min && value <= max;
 
-        public override bool TryActivate(SkillEffects executor, SkillDefinition skill) =>
-            executor && executor.TryEquipThunderSword(this, skill);
     }
 }

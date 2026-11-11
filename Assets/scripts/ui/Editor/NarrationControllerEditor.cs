@@ -48,7 +48,9 @@ namespace NarutoVR.SealCombat.Editor
                 EditorGUILayout.HelpBox(controller.Status, MessageType.None);
                 using (new EditorGUI.DisabledScope(true))
                 {
-                    EditorGUILayout.IntField("当前步骤 ID（未开始为 -1）", controller.CurrentLineIndex);
+                    EditorGUILayout.IntField("当前句序号（从 1 起）", controller.CurrentStep?.DisplayNumber ?? 0);
+                    EditorGUILayout.TextField("当前台词 ID", controller.CurrentStep?.LineId ?? "");
+                    EditorGUILayout.LongField("当前播放轮次", controller.CurrentStep?.Generation ?? 0);
                     EditorGUILayout.Toggle("音频已完成", controller.AudioCompleted);
                     EditorGUILayout.Toggle("操作已完成", controller.OperationCompleted);
                     EditorGUILayout.Toggle("正在等待下一句", controller.IsWaitingForNextLine);

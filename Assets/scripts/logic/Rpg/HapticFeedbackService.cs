@@ -162,30 +162,19 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("闪避成功震动")] public bool dodgePulse;
 
         public string Status => !isActiveAndEnabled || !enableControllerHaptics || intensity <= 0 ? "手柄触觉关闭" :
-            IsolatedTest ? "隔离回归，物理输出静默" : suspended || !focused ? "手柄触觉暂停" : driver?.Status ?? "等待触觉服务";
+            suspended || !focused ? "手柄触觉暂停" : driver?.Status ?? "等待触觉服务";
         public int SentCount => driver?.SentCount ?? 0;
         LinearRpgController owner;
-        SkillEffects effects;
+        SkillController effects;
         WristMenuController wrist;
         RpgLocomotionController movement;
         ControllerPulseDriver driver;
         bool suspended, focused = true;
-        static bool IsolatedTest
-        {
-            get
-            {
-#if UNITY_EDITOR
-                return !string.IsNullOrEmpty(LinearRpgController.EditorTestSaveFile);
-#else
-                return false;
-#endif
-            }
-        }
-        bool Active => isActiveAndEnabled && enableControllerHaptics && !IsolatedTest && !suspended && focused && intensity > 0 && Time.timeScale > 0;
+        bool Active => isActiveAndEnabled && enableControllerHaptics && !suspended && focused && intensity > 0 && Time.timeScale > 0;
 
         void OnEnable()
         {
-            owner = GetComponent<LinearRpgController>();
+            owner = GetComponentInParent<LinearRpgController>();
             driver ??= new ControllerPulseDriver(new XrControllerImpulseOutput(), BareHand);
             focused = Application.isFocused; suspended = false;
             Bind();

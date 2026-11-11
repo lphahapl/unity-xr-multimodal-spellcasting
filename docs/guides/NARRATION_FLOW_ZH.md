@@ -1,6 +1,6 @@
 # 线性旁白流程
 
-`NarrationController` 按 `lines` 的顺序逐句播放。`CurrentStep` 暴露当前步骤，`CurrentStep.Id` 就是列表下标，从 0 开始；未开始、停止和全部完成后为 null。Inspector 显示中文字段和当前状态。
+`NarrationController` 按 `lines` 顺序播放。作者在每句填写稳定的 `lineId`，首章沿用 `FT01` 等台词编号。调整顺序后保留同一编号。`Step.DisplayNumber` 用于显示第几句，`Step.Index` 从 0 开始。绑定运行中操作用 `CurrentStep`，停止和整段结束后它为 null。
 
 音频放在 `Resources/Narration`。在 Inspector 展开每句，填写音频文件名、说话者、多行台词正文、推进方式和句间隔。游戏代码可在本句开始时从 `CurrentLine.text` 读取当前正文，停止后 `CurrentLine` 为空。Unity 在同一物体上补齐所需的 AudioSource。
 
@@ -10,39 +10,46 @@
 |---|---|
 | 自动继续（音频播完） | 音频结束，忽略操作通知。新导入行默认使用此模式。 |
 | 等待操作 | 操作完成即通过条件，仍在播放的本句音频会停止；允许不填音频。 |
-| 音频和操作都完成 | 音频与操作都结束才继续，谁先完成都记住。 |
+| 音频和操作都完成 | 音频结束且操作条件成立才继续。一次性操作可提前完成，持续条件在推进时再次读取。 |
 
 当前步骤记录音频完成和操作完成。操作通知先设置 `OperationDone`，`Update` 判断条件；条件通过后触发 `onAdvanced`，再等待本句配置的间隔进入下一句。重复通知不会重复启动间隔或连续推进。“提前完成”指本句已经开始、音频还没播完时完成操作，不记录尚未进入的后续步骤。
 
 ## 操作成功后怎么通知
 
-有 UnityEvent 的组件直接把“操作成功”事件绑定到对话组件的 **`PublishCurrentOperation()`**，无需额外挂发布组件、填写操作字符串。
-
-代码中可以按 UnityAction 写法绑定：
+章节绑定层在 `StepStarted` 捕获当时的步骤。对话物体、轮次及本次绑定均由该实例标识。下例中的 `Bind` 和 `Unbind` 属于章节绑定层，提交事实前重新读取目标。监听已挂好时，机关可能已经解开或房间已经清空。
 
 ```csharp
-using NarutoVR.SealCombat.Events;
-using UnityEngine.Events;
-
-// narration 是这一段对话的控制器；把回调绑定到实际的操作成功事件。
-UnityAction onOperationSucceeded = () =>
+System.Action<ChapterObjective> report;
+void Bind(NarrationController.Step captured)
 {
-    if (!narration) return;
-    var step = narration.CurrentStep;
-    if (step != null)
-        NarrationEvents.PublishOperation(narration, step.Id);
-};
+    report = source =>
+    {
+        if (source == goal)
+            narration.RefreshOperationState(captured);
+    };
+    goal.StateChanged += report;
+    goal.Begin(player);
+    narration.BindOperationState(captured, () => goal.IsRunning && goal.IsComplete);
+}
+void Unbind()
+{
+    goal.StateChanged -= report;
+    goal.End();
+    report = null;
+}
 ```
 
-事件中心携带“目标对话 + 步骤 ID”。控制器核对自己和当前 ID 后记录操作完成。也可直接调用 `narration.CompleteOperation(step.Id)`，或在 Inspector 绑定 `CompleteCurrentOperation()`。事件中心与直接调用二选一即可。
+`StepEnded` 释放本句监听，触发时旧实例已经失效。异步操作需在启动时捕获步骤并将该实例交回 `NarrationEvents.PublishOperation(captured)` 或 `CompleteOperation(captured)`。同一控制器重新开始后，即使作者 ID 和列表位置相同，旧实例仍会被拒绝。写入背包、固定铜叶等业务操作也要在核验身份后执行。
 
-业务必须在真正成功时通知，例如击中指定靶子，而不是刚识别到口令就通知。**只在相关教学步骤启用或绑定对应操作回调，结束后解绑。**读取“当前 ID”代表完成当前步骤，系统不会猜测击中靶子是否属于正在等待的移动教学。
+一次性操作记住成功结果。例中的实时状态绑定会在推进前再读一次。如果要求人在区域内，玩家在音频结束前又离开，就会继续等到重新入区。进入条件只管开播，试炼间的警告已经启动后，退回门外不会重新播放整段。
 
-步骤 ID 是普通列表下标，不是每次播放的唯一身份。同一对话重启后会再次出现 ID 0；跨重启的自定义异步任务需由业务取消，不提供跨轮次旧事件过滤。没有 Token、SignalFloor、通知序号和广播匹配。
+Inspector 的 `PublishCurrentOperation()` 和 `CompleteCurrentOperation()` 适用于点击时即可确定本句的即时输入。延迟动画、排队消息和跨帧操作使用上面的捕获方式。完成信号可以重复到达，每句只接受一次。
 
 ## 开始、结束与回调顺序
 
 `StartDialogue()` 从首句开始，运行中重复调用无效；`RestartDialogue()` 停止后重播；`StopDialogue()` 停止且不触发全部完成。禁用组件会停止，重新启用不会自动播放。
+
+首章腕匣的“重听当前引导”播放这一句的提示音，先调用 `RefreshOperationBinding()` 解绑旧监听并给同一句换一个步骤实例，保留已有音频与一次性操作进度。它沿用当前轮次、作者 ID 和显示序号。完整重启才开新一轮。读档从保存的阶段入口重新判断可否开始，期间旧步骤都已过期。
 
 每轮顺序：准备第 0 句 → 整段开始事件 → 本句开始事件 → 等待推进条件 → 本句条件通过事件 → 等待句间隔 → 下一句。最后一句没有下一句，忽略句间隔，条件通过后直接触发整段完成事件。
 
@@ -83,7 +90,7 @@ CSV/XLSX 支持以下四列，Excel 读取第一张工作表，CSV 使用 UTF-8�
 
 2026-11-07 的桌面示例为 `对话导入示例.csv` 与 `对话导入示例.xlsx`。选任一份导入即可。Excel 第一页是导入数据，第二页是填写说明。三个音频文件名是占位，试播前请换成实际录音。
 
-以第二句“请把铜叶装入导轨”为例，在 Inspector 选“音频和操作都完成”。把场景中对应的 `SnapZone → 整条吸附完成` 绑定到“对话”物体的 `NarrationController → PublishCurrentOperation()`。用“本句开始”开启这一步的交互，使玩家能在这句提示音播放期间动手。提示音播完、铜叶也吸附到最后一点后，才开始计表中填写的 2 秒，然后播放第三句。
+以“请把铜叶装入导轨”为例，选择“音频和操作都完成”。用本句绑定捕获的步骤监听整条吸附完成，验证物品与当前步骤后再登记入匣。玩家可以在提示音播放期间动手。等提示音播完、铜叶滑到最后一点后，才开始计表中的句间隔。
 
 ## Inspector 从零配置
 
@@ -91,14 +98,14 @@ CSV/XLSX 支持以下四列，Excel 读取第一张工作表，CSV 使用 UTF-8�
 2. 把音频放在 `Assets/Resources/Narration/`，例如 `intro_01.wav`。若尚无目录先创建。表格中的音频名必须与资源对应。
 3. 点击“从 CSV / Excel 导入旁白”，选择示例或自己的表格。展开“逐句配置”，可查看每句的音频名、说话者、正文与间隔。新句默认自动继续。
 4. 按需求设置每句推进方式：自动继续、等待操作、音频和操作都完成。间隔可在 Inspector 临时调整，下次带 delayAfter 列重导入会以表格为准。
-5. 需要操作时，把实际操作成功事件绑定到这个控制器的 `PublishCurrentOperation()`。仅在对应教学步骤启用监听，条件通过后解绑或关闭，避免其它操作完成当前步骤。无需另填步骤 ID。
+5. 即时按钮可绑定 `PublishCurrentOperation()`。目标、动画或异步来源按上面的例子捕获本句步骤，给首章的操作项填写对应的作者 ID。
 6. 在触发区域、按钮等事件中绑定 `StartDialogue()` 启动；也可进入 Play 后用 Inspector 的“开始旁白”测试。最后保存场景或 Prefab。
 
 控制器的“对话开始”用于整段初始化，“对话全部完成”用于后续流程；每句“本句开始”用于提示与开启操作监听，“本句音频自然播完”只在自然播完时触发，“本句条件通过”用于结束本步骤交互，之后才等待间隔。没有绑定事件也可以自动逐句播放。
 
 运行时不再读桌面表格，而是读取已保存的 `lines`。每句通过 `Resources.Load<AudioClip>` 加载音频，再交给 AudioSource 播放。
 
-运行时 Inspector 显示步骤 ID、音频/操作完成状态、是否等待下一句和句间剩余秒数，提供开始、重启、停止和调试完成操作按钮，每秒刷新 5 次。资源缺失或音频来源异常会停止并输出错误，不当作成功。
+运行时 Inspector 显示当前句、作者 ID、播放轮次、音频与操作状态以及句间隔，并提供开始、重启、停止和调试完成操作按钮。资源缺失或音频来源异常会停止并输出错误。
 
 最新导入验证记录放在 `Logs/narration-import-20261105`，此前句间隔验证位于 `Logs/narration-gap-20261105`。`Logs/narration-linear-20261105` 与 `Logs/narration-gates-20261105` 是更早版本的历史测试。主场景教学事件仍需按具体玩法绑定；隔离测试不代表头显或关卡实测。
 

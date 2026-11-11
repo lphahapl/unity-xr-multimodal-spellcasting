@@ -2480,7 +2480,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 240b667eacd996b4bb95983d4c73e3aa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealXRHandsSource
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealXRHandsSource
   leftHand: {fileID: 1508473943}
   rightHand: {fileID: 1827239490}
 --- !u!1 &436909642
@@ -2516,7 +2516,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 788b7a443b3e53347ae88d8651dea01e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLabView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLabView
   lab: {fileID: 436909644}
   statusText: {fileID: 0}
   boneMaterial: {fileID: 2100000, guid: f95c8cec0450dc54e8eb0deb6a517a16, type: 2}
@@ -2532,7 +2532,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb390fd33d5b7b40ae0090d5e836e2a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealLab.SealLab
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealLab
   leftTrackedHand: {fileID: 0}
   rightTrackedHand: {fileID: 0}
   recordingOrigin: {fileID: 79008832}
@@ -2586,7 +2586,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillInputController
   catalog: {fileID: 11400000, guid: e73ee21d9130aea44b1142df99b66ed0, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
@@ -2616,7 +2616,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd611fc79133f1d4aad2bc8b07f71825, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillVoiceReceiver
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillVoiceReceiver
   receivePort: 47831
   servicePort: 47832
   heartbeatTimeout: 3
@@ -2635,7 +2635,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73157a4af4d0cdd4e9069f10d6555a1c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillEffects
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillController
   lab: {fileID: 436909644}
   head: {fileID: 79008831}
   playerRoot: {fileID: 79008833}
@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8936f55fc0b569c489c22dedf7f9089f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTestView
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTestView
   controller: {fileID: 436909646}
   statusText: {fileID: 1665536178}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
@@ -2683,9 +2683,9 @@ MonoBehaviour:
   maximumSkillRows: 4
   maximumScoreRows: 4
   shortcuts:
-  - skill: {fileID: 11400000, guid: a16138459d93ed04baa4ab74f5ec3cc8, type: 2}
+  - skillId: buff.voice
     key: 99
-  - skill: {fileID: 11400000, guid: f21103150942e3e468b6e23898bbba1e, type: 2}
+  - skillId: fireball
     key: 100
 --- !u!1 &469229211
 GameObject:
@@ -4946,7 +4946,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e10c81b4e6150694395bcf33cf5a951d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillScenario
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillScenario
   kind: 1
   title: "\u6F84\u5FC3 \xB7 \u62A4\u76FE\u8BD5\u70BC"
   instructions: "\u5B50\u5370 \u6216 \u201C\u62A4\u4F53\u5492\u201D \u2192 \u81EA\u8EAB\u62A4\u76FE\n\u9996\u6B21\u83B7\u5F97\u62A4\u76FE\u540E\u81EA\u52A8\u5F00\u59CB\n\u6BCF
@@ -10793,7 +10793,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a07bc6b9f635af498c0ccc967a431d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillTrainingTarget
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillTrainingTarget
   health: 100
   resetAfterSeconds: 2
   targetRenderer: {fileID: 1856072435}

@@ -5063,7 +5063,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dff381c4e14afbb408514b46ae3d6b60, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillVisualMotion
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillVisualMotion
   orbits: []
   pulseNode: {fileID: 0}
   pulseAmount: 0.055
@@ -5083,7 +5083,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb75511bbd43f447b898f567ba91004, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.SkillVisualLifetime
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillVisualLifetime
   lifetime: 1.1
 --- !u!1 &6164789557416278382
 GameObject:

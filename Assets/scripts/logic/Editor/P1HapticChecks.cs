@@ -1,7 +1,6 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using NarutoVR.SealCombat.Rpg;
 using NarutoVR.SealLab;
 using UnityEngine;
@@ -74,18 +73,22 @@ namespace NarutoVR.SealCombat.Editor
         static void CheckShieldEvent(Action<bool,string> check)
         {
             var go = new GameObject("P1触觉_护盾事件") { hideFlags = HideFlags.HideAndDontSave };
+            var definition = ScriptableObject.CreateInstance<SkillDefinition>();
+            var shield = ScriptableObject.CreateInstance<ShieldEffectDefinition>();
             try
             {
-                var effects = go.AddComponent<SkillEffects>(); effects.GameClock = () => 10;
+                var effects = go.AddComponent<SkillController>(); effects.GameClock = () => 10;
                 float total = 0; int calls = 0;
                 effects.ShieldImpact += absorbed => { total += absorbed; calls++; };
-                check(effects.AbsorbDamage(4) == 4 && calls == 0, "无护盾的普通受伤不发护盾事件");
-                typeof(SkillEffects).GetField("buffExpiresAt",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(effects, 20d);
-                typeof(SkillEffects).GetField("shieldPoints",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(effects, 5f);
-                check(effects.AbsorbDamage(3) == 0 && effects.AbsorbDamage(6) == 4 && calls == 2 && total == 5,
+                check(effects.AbsorbPracticeDamage(4) == 4 && calls == 0, "无护盾的普通受伤不发护盾事件");
+                shield.capacity = 5;
+                definition.skillId = "haptic.shield"; definition.effectDefinition = shield; definition.durationSeconds = 10;
+                // 仅配置容量，由正常施法提交创建数值。
+                check(effects.TryCast(definition), "真实护盾成功确认");
+                check(effects.AbsorbPracticeDamage(3) == 0 && effects.AbsorbPracticeDamage(6) == 4 && calls == 2 && total == 5,
                     "真实吸收和击破各触发一次，回报实际吸收且保留溢出伤害");
             }
-            finally { Object.DestroyImmediate(go); }
+            finally { Object.DestroyImmediate(go); Object.DestroyImmediate(definition); Object.DestroyImmediate(shield); }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace NarutoVR.SealCombat.Editor
     public static class HandThrowDiagnostics
     {
         static StreamWriter writer;
-        static SkillEffects target;
+        static SkillController target;
         static double until, last = double.NegativeInfinity;
         static int rows;
         public static string LastPath { get; private set; }

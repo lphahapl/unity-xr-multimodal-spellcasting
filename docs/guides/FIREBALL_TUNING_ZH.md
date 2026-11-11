@@ -1,6 +1,6 @@
 # 火球储存、发射调参与算法依据（2026-11-01）
 
-当前场景参数：`Assets/ScriptableObjects/投射物效果配置/效果_fireball.asset`。
+当前场景参数：`Assets/ScriptableObjects/投射物效果配置/火球术投射物.asset`。
 
 - 「未发射储存超时（秒）」默认60，可填N秒（至少0.1）。不再与SkillDefinition.durationSeconds取最小值；修改配置只作用于下一次生成。手槽仍最多一发。
 - 「效果持续时间」用于护盾等效果，未来特殊武器需要在扩展效果里明确使用此值；并非已经实现特殊武器。
@@ -68,4 +68,4 @@
 
 进入 Play 后可自动写 `Logs/throw-captures/throw-score-*.jsonl`，默认上限 15 分钟/64 MB，可停止并新建文件。该日志与通用[施法链路](SKILL_CAST_TRACE_ZH.md)互补：先看生成/握持/输入占用，再看候选方式、冻结释放点、拒绝原因及实际发射事件。不要把未通过候选的分数当作已发射。调试记录是结构化运动/状态数据，不是原始麦克风录音。
 
-当前相关实现包括 `HandThrowState`、`HandThrowIntentState`、`SkillEffects` 与 `ThrowDiagnosticRecorder`；测试覆盖见 `ScoredThrowChecks` 和 `HandThrowChecks`。旧四向移动和“按甩手轨迹决定弹道”的说明已退出当前 RPG 操作入口，旧展示场景保留自己序列化的行为。辅助前送默认分数 62、后拉/前送 5/9 厘米、伸手保持 0.45 秒；效果资产是参数单一入口。
+当前相关实现包括 `HandThrowState`、`HandThrowIntentState`、`SkillController` 与 `ThrowDiagnosticRecorder`；测试覆盖见 `ScoredThrowChecks` 和 `HandThrowChecks`。旧四向移动和“按甩手轨迹决定弹道”的说明已退出当前 RPG 操作入口，旧展示场景保留自己序列化的行为。辅助前送默认分数 62、后拉/前送 5/9 厘米、伸手保持 0.45 秒；效果资产是参数单一入口。

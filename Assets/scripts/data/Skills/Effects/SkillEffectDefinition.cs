@@ -13,8 +13,6 @@ namespace NarutoVR.SealCombat
         public virtual bool SupportsLevels => false;
         /// <summary>在玩家副本上从原始配置重建等级参数，不能修改 original 或累乘本次副本。</summary>
         public virtual void ApplyLevelFrom(SkillEffectDefinition original, int level) { }
-        /// <summary>效果成功生效后才返回 true；返回 false 时应清理本次创建的效果资源。</summary>
-        public abstract bool TryActivate(SkillEffects executor, SkillDefinition skill);
     }
 
     /// <summary>

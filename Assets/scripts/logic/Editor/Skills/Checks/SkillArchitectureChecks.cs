@@ -61,16 +61,40 @@ namespace NarutoVR.SealCombat.Editor
                 try{SkillConfigurationSetup.BuildVoiceJson(catalog,47831,47831);}catch(InvalidOperationException){rejected=true;}
                 Require(rejected,"收发端口相同必须报错");passed++;
                 var view=Own(new GameObject("快捷键配置验收")).AddComponent<SkillTestView>();
-                view.shortcuts.Add(new SkillTestView.Shortcut{skill=fourth,key=UnityEngine.InputSystem.Key.Escape});
+                view.shortcuts.Add(new SkillTestView.Shortcut{SkillId=fourth.skillId,key=UnityEngine.InputSystem.Key.Escape});
                 Require(view.ConfigurationErrors(catalog.skills).Any(x=>x.Contains("取消保留键")),"Esc必须保留给取消");
                 view.shortcuts[0].key=UnityEngine.InputSystem.Key.F6;
-                view.shortcuts.Add(new SkillTestView.Shortcut{skill=catalog.skills.First(s=>s.triggerMode==SkillTriggerMode.VoiceOnly),key=UnityEngine.InputSystem.Key.F6});
+                view.shortcuts.Add(new SkillTestView.Shortcut{SkillId=catalog.skills.First(s=>s.triggerMode==SkillTriggerMode.VoiceOnly).skillId,key=UnityEngine.InputSystem.Key.F6});
                 Require(view.ConfigurationErrors(catalog.skills).Any(x=>x.Contains("重复")),"重复快捷键必须拒绝");
                 view.shortcuts[1].key=UnityEngine.InputSystem.Key.F7;
                 Require(view.ConfigurationErrors(catalog.skills).Count==0,"不同有效快捷键不应被拒绝");passed++;
+                CheckPlayerShortcuts();passed++;
                 return passed;
             }
             finally{for(int i=owned.Count-1;i>=0;i--)if(owned[i])Object.DestroyImmediate(owned[i]);}
+        }
+        public static void CheckPlayerShortcuts()
+        {
+            var source = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
+            var authored = source.skills.First(skill => skill.triggerMode != SkillTriggerMode.GestureOnly);
+            var playerSkill = Object.Instantiate(authored);
+            var sceneObject = new GameObject("玩家技能快捷键验收");
+            try
+            {
+                var view = sceneObject.AddComponent<SkillTestView>();
+                view.shortcuts.Add(new SkillTestView.Shortcut { SkillId = authored.skillId, key = UnityEngine.InputSystem.Key.F7 });
+                var playerSkills = new[] { playerSkill };
+                Require(view.ConfigurationErrors(playerSkills).Count == 0, "玩家技能使用副本后，场景配置的快捷键仍应按技能 ID 生效");
+                playerSkill.triggerMode = SkillTriggerMode.GestureOnly;
+                Require(view.ConfigurationErrors(playerSkills).Any(x => x.Contains("包含咒语")), "快捷键必须使用玩家目录中实际生效的触发方式");
+                playerSkill.skillId = "test.unlisted";
+                playerSkill.triggerMode = SkillTriggerMode.VoiceOnly;
+                Require(view.ConfigurationErrors(playerSkills).Any(x => x.Contains("包含咒语")), "目录中不存在的技能 ID 不能绑定快捷键");
+                view.shortcuts[0].key = UnityEngine.InputSystem.Key.Escape;
+                var input = sceneObject.AddComponent<SkillInputController>();
+                Require(input.ConfigurationErrors(source).Any(x => x.Contains("取消保留键")), "控制器应校验同物体上自动找到的技能视图");
+            }
+            finally { Object.DestroyImmediate(sceneObject); Object.DestroyImmediate(playerSkill); }
         }
         public static int RunController()
         {
@@ -80,10 +104,10 @@ namespace NarutoVR.SealCombat.Editor
             {
                 root=new GameObject("架构验收_临时玩家");root.transform.position=new Vector3(250,100,100);root.SetActive(false);
                 var lab=root.AddComponent<Lab>();lab.recordingOrigin=root.transform;
-                var effects=root.AddComponent<SkillEffects>();effects.head=root.transform;effects.playerRoot=root.transform;
+                var effects=root.AddComponent<SkillController>();effects.head=root.transform;effects.playerRoot=root.transform;
                 var voice=root.AddComponent<SkillVoiceReceiver>();voice.enabled=false; // No port binding is needed to inspect the copied whitelist.
                 var view=root.AddComponent<SkillTestView>();view.showDesktopControls=false;
-                var controller=root.AddComponent<SkillTestController>();controller.lab=lab;controller.effects=effects;controller.voice=voice;controller.view=view;
+                var controller=root.AddComponent<SkillInputController>();controller.lab=lab;controller.effects=effects;controller.voice=voice;controller.view=view;
                 catalog=Object.Instantiate(AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath));
                 catalog.skills=new List<SkillDefinition>(catalog.skills);catalog.cancelPhrase="终止术式";
                 effect=ScriptableObject.CreateInstance<ShieldEffectDefinition>();effect.capacity=87;

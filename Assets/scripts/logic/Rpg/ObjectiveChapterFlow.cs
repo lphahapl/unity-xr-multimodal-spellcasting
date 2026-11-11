@@ -15,6 +15,7 @@ namespace NarutoVR.SealCombat.Rpg
         public ChapterObjective[] objectives = Array.Empty<ChapterObjective>();
         /// <summary>本阶段可临时使用的技能 ID，切换阶段后不继续授权。</summary>
         public string[] trialSkills = Array.Empty<string>();
+        [InspectorName("本阶段高亮目标（可选）")] public GameObject guidanceTarget;
     }
 
     /// <summary>
@@ -62,18 +63,29 @@ namespace NarutoVR.SealCombat.Rpg
         /// <inheritdoc/>
         public override bool UsesExplorationFootsteps => explorationFootsteps;
         /// <inheritdoc/>
-        public override string ObjectiveText => rpg && rpg.CampaignComplete ? completedText : active?.stage.instructions ?? "";
+        public override string ObjectiveText => rpg && rpg.CampaignComplete ? completedText : CurrentStage?.stage.instructions ?? "";
         /// <inheritdoc/>
         public override bool ObjectiveMet => isActiveAndEnabled && rpg && !rpg.CampaignComplete &&
             active != null && index == rpg.StageIndex && active.objectives.Length > 0 &&
             active.objectives.All(o => o && o.IsRunning && o.IsComplete);
         /// <inheritdoc/>
-        public override bool AllowsTrialSkill(string id) => active != null && Array.IndexOf(active.trialSkills, id) >= 0;
+        public override bool AllowsTrialSkill(string id) => CurrentStage?.trialSkills is string[] permitted && Array.IndexOf(permitted, id) >= 0;
+
+        ChapterObjectiveStage CurrentStage
+        {
+            get
+            {
+                int index = ActiveStageIndex;
+                return index >= 0 && stages != null && index < stages.Length ? stages[index] : null;
+            }
+        }
 
         /// <summary>订阅检查点恢复，以便读档时重置未保存的目标状态。</summary>
-        void OnEnable() { if (rpg) rpg.CheckpointRestored += Restore; }
+        protected override void OnEnable() { base.OnEnable(); if (rpg) rpg.CheckpointRestored += Restore; }
         /// <summary>解除恢复事件并清理运行中的目标。</summary>
-        void OnDisable() { if (rpg) rpg.CheckpointRestored -= Restore; Leave(); }
+        protected override void OnDisable() { if (rpg) rpg.CheckpointRestored -= Restore; Leave(); base.OnDisable(); }
+
+        protected override GameObject GetStageGuidanceTarget(int stageIndex) => stages[stageIndex].guidanceTarget;
         /// <summary>恢复阶段时先结束旧目标，下一帧按 RPG 当前阶段重新接入。</summary>
         void Restore() => Leave();
         /// <summary>跟随 RPG 阶段启停目标；一帧最多提交一次过关。</summary>
@@ -87,7 +99,16 @@ namespace NarutoVR.SealCombat.Rpg
                 if (next < stages.Length)
                 {
                     active = stages[next];
-                    foreach (var objective in active.objectives) objective.Begin(rpg);
+                    try
+                    {
+                        foreach (var objective in active.objectives) objective.BeginOwned(rpg, this);
+                    }
+                    catch
+                    {
+                        Leave();
+                        enabled = false;
+                        throw;
+                    }
                 }
                 rpg.RefreshProgress();
             }
@@ -97,7 +118,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>清理当前目标组和阶段下标，可由禁用、恢复及过关重复调用。</summary>
         void Leave()
         {
-            if (active != null) foreach (var objective in active.objectives) if (objective) objective.End();
+            if (active != null) foreach (var objective in active.objectives) if (objective) objective.EndOwned(this);
             active = null; index = -1;
         }
         /// <summary>核对阶段顺序、目标唯一性、临时技能和各目标自己的接线。</summary>
@@ -114,10 +135,11 @@ namespace NarutoVR.SealCombat.Rpg
                 if (row == null || row.stage != owner.stages[i] || row.objectives == null || row.objectives.Length == 0 ||
                     row.trialSkills == null || row.trialSkills.Any(id => !known.Contains(id)))
                     throw new InvalidOperationException("目标章节配置无效：" + i);
+                if (row.guidanceTarget && (!sceneGuidance || !sceneGuidance.targetHighlights.Any(cue => cue.target == row.guidanceTarget)))
+                    throw new InvalidOperationException($"阶段 {row.stage.stageId} 的高亮目标 {row.guidanceTarget.name} 未绑定到章节场景提示");
                 foreach (var objective in row.objectives)
                 {
-                    if (!objective || !used.Add(objective)) throw new InvalidOperationException("章节目标缺失或被重复使用");
-                    objective.ValidateObjective();
+                    ChapterObjective.ValidateTree(objective, used);
                 }
             }
         }

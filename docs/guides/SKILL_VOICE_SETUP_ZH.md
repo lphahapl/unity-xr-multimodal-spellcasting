@@ -2,7 +2,7 @@
 
 当前接入状态（2026-11-08）：`SkillVoiceReceiver` 保留同一个业务门面。Android 非 Editor 自动使用设备内 sherpa-onnx 2.0.1 C API；Windows/PC 编辑器默认仍使用 Python＋回环 UDP。编辑器只有显式勾选 `useNativeInEditor` 才在 Play 中使用本机原生库和麦克风；普通编辑模式不会启动采集。P1 APK 已构建并以独立包名安装到 Quest 3，用户已进入训练场；截至本次 520.6 秒现场记录，收到「雷光剑」6 次、「火球术」4 次，成功召剑 4 次、生成火球 3 次并发射 1 次。首次授权、两次失焦释放及恢复识别已记录。独立 .NET 26 项、最终 Unity 132 项、Quest ARM64 C API 合成音 7 项和 APK 审核 23 项通过。取消口令现场验证及系统权限异常、噪声/准确率和长时性能仍待验，分层证据见下文。
 
-在 Windows 编辑器进入 Play 时，自动启动器按场景里绑定到语音接收器的 `SkillTestController.catalog` 生成本次词表，写入 `Library/SkillVoice/play-config.json` 并交给本机服务。P1 使用「护体咒」「火球术」「金刚护体」「雷光剑」「取消施法」。修改目录后重新进入 Play 即可加载。退出播放会停止该编辑器启动的服务。
+在 Windows 编辑器进入 Play 时，自动启动器按接收器对应的运行时技能目录生成词表，写入 `Library/SkillVoice/play-config.json` 并交给本机服务。首章等待异步技能装配完成，P1 直接使用场景目录。P1 使用「护体咒」「火球术」「金刚护体」「雷光剑」「取消施法」。修改目录后重新进入 Play 即可加载。退出播放会停止该编辑器启动的服务。
 
 手动启动服务时可以给 `Start.ps1` 传 `-Config 'Assets/Configuration/LinearRpg/skill-voice-config.json'` 以使用随工程提供的 P1 词表。手动服务由启动者负责停止和重启，Unity 会使用已经在运行的服务。手动命令默认读 `Tools/SkillVoice/skill-voice-config.json`，也可通过 Unity 菜单导出当前场景目录覆盖该文件。[配置指南](CONFIGURATION_GUIDE_ZH.md)
 
@@ -39,7 +39,7 @@ Get-Content './Tools/SkillVoice/logs/service.jsonl' -Wait
 
 - `Assets/Plugins/Android/arm64-v8a` 提供 Android ARM64 原生推理库；`SherpaKeywordEngine` 通过 Cdecl P/Invoke 调用 `sherpa-onnx-c-api`，路径与中文关键词显式编码为 UTF-8。原生对象在同一个 worker 线程创建、推理和释放，结果经主线程交回 `SkillVoiceReceiver`。
 - `Assets/StreamingAssets/SkillVoice/model-manifest.json` 随 APK 包含四个模型文件的长度和 SHA-256；原版 chunk-8 int8 encoder/joiner、fp32 decoder 与 tokens 合计 5,449,043 字节。首次启动从 APK 本地资源读取并复制到应用的 `Application.persistentDataPath/SkillVoice/<version>` 私有持久目录，已有缓存也逐项验证。使用 `UnityWebRequest` 读取 Android `jar:` 资源不代表联网下载；无首次运行网络依赖。
-- `NativeVoiceConfiguration.BuildKeywordText` 从实际场景的 `SkillTestController.catalog` 生成词表，并校验每个拼音 token 是否在随包 `tokens.txt` 中。取消口令同样来自该 Catalog。不要把历史三口令测试词表或某个 JSON 当作 APK 的最终目录；新增技能需配置 `phraseTokens`，取消需配置 `cancelTokens`。
+- `NativeVoiceConfiguration.BuildKeywordText` 从实际场景的 `SkillInputController.catalog` 生成词表，并校验每个拼音 token 是否在随包 `tokens.txt` 中。取消口令同样来自该 Catalog。不要把历史三口令测试词表或某个 JSON 当作 APK 的最终目录；新增技能需配置 `phraseTokens`，取消需配置 `cancelTokens`。
 - 当前推理参数与 PC 基线一致：CPU 2 线程、特征采样率 16 kHz、阈值 0.25、keyword score 1、trailing blanks 1、max active paths 4。Unity 请求 16 kHz 环形麦克风，按设备返回的实际采样率读取、混合为单声道并交给引擎重采样。
 
 ### 权限、停止与重试

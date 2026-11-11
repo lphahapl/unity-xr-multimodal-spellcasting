@@ -1,0 +1,17 @@
+{
+    "name": "NarutoVR.Game.Runtime",
+    "references": [
+        "NarutoVR.Game.Core",
+        "NarutoVR.Game.Persistence",
+        "Oculus.VR",
+        "Oculus.Interaction",
+        "Oculus.Interaction.OVR",
+        "Oculus.Interaction.UnityXR",
+        "Unity.XR.OpenXR",
+        "Unity.XR.Hands",
+        "Unity.InputSystem",
+        "UnityEngine.UI",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
+    ]
+}

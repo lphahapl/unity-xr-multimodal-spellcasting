@@ -50,7 +50,7 @@ def make_pattern():
     Path(str(out)+'.meta').write_text(meta,encoding='utf8')
 def main_band(z):
     # A lower thread continues against the walkway, exposing the original stone
-    # bed directly beneath the sheet that leaves the outer bank.
+    # bed beside the falling sheet that feeds the outer bank.
     dry=float(smooth(52.35,53.7,z)*(1.-.36*smooth(56.4,58.7,z)))
     left=.060+.570*dry+.025*dry*np.sin((z-52.7)*2.2)
     right=1.017
@@ -73,13 +73,13 @@ def interpolate_knots(points,t):
     return ((2*h-3*g+1)*values[i]+(h-2*g+f)*(b-a)*derivative[i]+(-2*h+3*g)*values[i+1]+(h-g)*(b-a)*derivative[i+1])
 cross_section=np.array([0.,.18,.5,.82,1.])
 rows=[];indices=[]
-def strip(samples):
+def strip(samples, flow_direction=1):
     initial=len(rows); arc=0.;previous=None; flow_time_distance=0.;previous_air=0.
     for i,(pts,width,lift,foam) in enumerate(samples):
         centre=pts[2]
         if previous is not None:
             delta=np.linalg.norm(centre-previous);arc+=delta
-            flow_time_distance+=delta/(1.+.28*(lift+previous_air)*.5)
+            flow_time_distance+=flow_direction*delta/(1.+.28*(lift+previous_air)*.5)
         elif initial>0:
             floor_rows=np.array(rows[:initial])[2::5]
             flow_time_distance=np.interp(centre[2],floor_rows[:,2],floor_rows[:,11])
@@ -89,7 +89,7 @@ def strip(samples):
             t=(pts[min(j+1,4)]-pts[max(j-1,0)])
             a=samples[min(i+1,len(samples)-1)][0][j]-samples[max(i-1,0)][0][j]
             t=unit(t);normal=unit(np.cross(a,t))
-            rows.append([*p,*normal,*t,-1.,u,arc,width,lift,foam,flow_time_distance])
+            rows.append([*p,*normal,*t,-float(flow_direction),u,arc,width,lift,foam,flow_time_distance])
         if i>0:
             for j in range(4):
                 k=initial+(i-1)*5+j
@@ -112,14 +112,16 @@ def make_mesh():
         for u in cross_section:
             r=(u-.5)*width
             offset=.019*np.sin(5.8*u+distance*2.2)*smooth(.21,.85,distance)
-            # Peel out of the water center first, leaving the side edges submerged
-            # longer. The curved onset replaces a straight transverse boundary.
+            # Let the sheet enter the pool at its centre, with the side edges submerged.
             root=np.exp(-((distance-.40)/.34)**2)
             offset+=root*(.023-.061*abs(2*u-1.)**1.65-.009*np.sin(7*u))
             pts.append(p+across*r+face*offset)
-        foam=.40*np.exp(-((distance-.32)/.38)**2)+.78*smooth(length-.70,length-.05,distance)
+        # The low end is the landing. Keep visible turbulence there and a quieter high source.
+        foam=.82*np.exp(-((distance-.46)/.46)**2)+.14*smooth(length-.70,length-.05,distance)
         samples.append((np.array(pts),width,float(smooth(.28,1.18,distance)),foam))
-    strip(samples)
+    # Stations are authored from the shared pool upwards. Their signed phase and
+    # longitudinal ripple normal point downhill, towards the phase-matched landing.
+    strip(samples, flow_direction=-1)
     rows_np=np.array(rows,dtype='<f4');positions=rows_np[:,:3]
     low=positions.min(axis=0)-[.035,.035,.035];high=positions.max(axis=0)+[.035,.035,.035]
     center=(low+high)*.5;ext=(high-low)*.5
@@ -133,7 +135,7 @@ def make_mesh():
     chans=[(0,3),(12,3),(24,4),(0,0),(40,2),(48,4)]+[(0,0)]*8
     channel_text=''.join('    - stream: 0\n      offset: '+str(o)+'\n      format: 0\n      dimension: '+str(d)+'\n' for o,d in chans)
     s=re.sub(r'(?s)(    m_Channels:\n).*?(    m_DataSize:)',lambda m:m[1]+channel_text+m[2],s)
-    asset.write_text(s,encoding='utf8');print(f'{len(rows)} vertices; {len(indices)//3} tris; AABB {center} {ext} | {len(z_values)} main stations, {len(path)} reverse')
+    asset.write_text(s,encoding='utf8');print(f'{len(rows)} vertices; {len(indices)//3} tris; AABB {center} {ext} | {len(z_values)} main stations, {len(path)} fall stations')
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-root',type=Path,default=PROJECT,

@@ -71,12 +71,16 @@ namespace NarutoVR.SealCombat.Editor
                 var menu=root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
                 var rpg=root.AddComponent<LinearRpgController>(); rpg.chapter=root.AddComponent<TrainingChapterFlow>(); ((TrainingChapterFlow)rpg.chapter).rpg=rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var movement=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=movement; rpg.wristMenu=menu; movement.rigRoot=root.transform;
-                rpg.skills=root.AddComponent<SkillTestController>(); rpg.skills.InputClock=()=>10.5;
+                rpg.skills=root.AddComponent<SkillInputController>(); rpg.skills.InputClock=()=>10.5;
                 recipe.skillId="wrist.combo";recipe.displayName="腕饰回归";recipe.phrase="测试术";recipe.sealName="寅";recipe.triggerMode=SkillTriggerMode.VoiceAndGesture;
                 var head=new GameObject("测试头"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); movement.head=head.transform;
                 root.SetActive(true);
+                // EditMode does not run the scene's asynchronous player assembly.
+                typeof(LinearRpgController).GetField("initialized", System.Reflection.BindingFlags.NonPublic |
+                    System.Reflection.BindingFlags.Instance).SetValue(rpg, true);
+                Check(rpg.IsReady, "前提：测试角色已完成装配，真实腕扣入口接受输入");
                 var matcher=new SkillMatchEngine(new[]{recipe}); matcher.Tick(9.6);matcher.Voice(recipe.phrase,9.6,9.6);
-                typeof(SkillTestController).GetProperty(nameof(SkillTestController.Engine)).SetValue(rpg.skills,matcher);
+                typeof(SkillInputController).GetProperty(nameof(SkillInputController.Engine)).SetValue(rpg.skills,matcher);
                 long epoch=matcher.Epoch;
                 Check(matcher.PendingSkillId==recipe.skillId,"前提：已收到有效口令，正在等待印");
                 var start=WristMenuChecks.Sample(9);

@@ -27,7 +27,7 @@ namespace NarutoVR.SealCombat
         public Action<SkillHitResult> StrikeResolved { get; set; }
         public Func<double> GameClock { get; set; }
         public Transform AttackerTarget { get; set; }
-        private double Now => GameClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
+        private double Now => GameClock?.Invoke() ?? (Application.isPlaying ? Time.timeAsDouble : Time.realtimeSinceStartupAsDouble);
         public bool IsFinished { get; private set; }
 
         private Vector3 direction;
@@ -46,6 +46,13 @@ namespace NarutoVR.SealCombat
         public void Initialize(Vector3 flightDirection, Transform ignoredPlayerRoot, LayerMask hitMask,
             LayerMask playerLayers, Action<SkillTrainingTarget> targetHit, Action<SkillProjectile> finished)
         {
+            ArmFlight(flightDirection, ignoredPlayerRoot, hitMask, playerLayers, targetHit, finished);
+            CheckLaunchOverlap();
+        }
+
+        internal void ArmFlight(Vector3 flightDirection, Transform ignoredPlayerRoot, LayerMask hitMask,
+            LayerMask playerLayers, Action<SkillTrainingTarget> targetHit, Action<SkillProjectile> finished)
+        {
             direction = flightDirection.sqrMagnitude > 0.0001f ? flightDirection.normalized : Vector3.forward;
             playerRoot = ignoredPlayerRoot;
             collisionMask = hitMask.value & ~playerLayers.value;
@@ -53,13 +60,18 @@ namespace NarutoVR.SealCombat
             onFinished = finished;
             expiresAt = Now + Mathf.Max(0.1f, lifetime);
             initialized = true;
-            // SphereCast 无法覆盖发射时已经重叠的表面，需先做重叠检测。
             if (Strike != null)
             {
                 waveOverlaps = new Collider[16];
                 waveSweeps = new RaycastHit[16];
-                AdvanceWave(0);
             }
+        }
+
+        internal void CheckLaunchOverlap()
+        {
+            if (!initialized || IsFinished) return;
+            // 先交付发射事件，监听者可取消飞行；再结算发射点的重叠碰撞。
+            if (Strike != null) AdvanceWave(0);
             else CheckInitialOverlap();
         }
 
@@ -222,12 +234,12 @@ namespace NarutoVR.SealCombat
             var point = contact ?? transform.position;
             try
             {
-                SurfaceHit?.Invoke(point);
-                if (!target.IsTarget) WorldHit?.Invoke(point);
                 if (Strike != null)
                     ReportStrike(target, point);
                 else if (target.Apply(hitId, damage, poiseDamage, AttackerTarget ? AttackerTarget : playerRoot) &&
                     target.TrainingTarget) onTargetHit?.Invoke(target.TrainingTarget);
+                SurfaceHit?.Invoke(point);
+                if (!target.IsTarget) WorldHit?.Invoke(point);
             }
             finally { SpawnImpact(); Dispose(); }
         }
@@ -286,8 +298,8 @@ namespace NarutoVR.SealCombat
             SurfaceHit = null;
             StrikeResolved = null;
             Strike = null;
-            callback?.Invoke(this);
-            if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject);
+            try { callback?.Invoke(this); }
+            finally { if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject); }
         }
 
         private void OnDisable()

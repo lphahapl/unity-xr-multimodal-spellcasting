@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a2711222ea36a4faf6602598710248, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyHitZone
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyHitZone
   owner: {fileID: 2761040995786366426}
   isWeakPoint: 1
   poiseMultiplier: 3
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a2711222ea36a4faf6602598710248, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyHitZone
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyHitZone
   owner: {fileID: 2761040995786366426}
   isWeakPoint: 0
   poiseMultiplier: 3
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4e9fbc441bb76547b85f7b5376c4f4b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyDetectionSensor
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyDetectionSensor
   owner: {fileID: 2761040995786366426}
 --- !u!1 &8624150521684831295
 GameObject:
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a2711222ea36a4faf6602598710248, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyHitZone
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyHitZone
   owner: {fileID: 2761040995786366426}
   isWeakPoint: 0
   poiseMultiplier: 3
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1137a8ae5f61af458afc836ab7d9592, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyObj
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyObj
   definition: {fileID: 11400000, guid: 255c44f9f0294f148acf0660fcb9957e, type: 2}
   animator: {fileID: 7313174513721522091}
   detectionSensor: {fileID: 2717304971428337494}
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6503901a1e5c1ce4092b29703be68f55, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyController
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyController
   enemyObj: {fileID: 2761040995786366426}
   legacyAnimator: {fileID: 0}
   target: {fileID: 0}
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51326fb95bcc86848b9f026b1fb220af, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NarutoVR.SealCombat.Enemies.EnemyPoiseBar
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyPoiseBar
   enemy: {fileID: 2761040995786366426}
   anchor: {fileID: 1173446222948819120}
   offset: {x: 0, y: 0.29, z: 0}

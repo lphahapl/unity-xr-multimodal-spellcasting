@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    // Short nonverbal bell/chime references. Authors can replace each clip in the inspector.
+    // 为未指定音乐的探索与战斗提供循环片段。
     static class P1FallbackAudio
     {
         const int Rate = 16000;
@@ -27,21 +27,6 @@ namespace NarutoVR.SealCombat.Rpg
             }
             return Create(combat ? "法阵 · 战斗钟列" : "山门 · 探索编磬", samples);
         }
-        public static AudioClip Chime(bool accepted)
-        {
-            int count = (int)(Rate * (accepted ? .18f : .14f));
-            var samples = new float[count];
-            float frequency = accepted ? 760 : 230;
-            for (int i=0; i<count; ++i)
-            {
-                float t = i/(float)Rate;
-                float envelope = Mathf.Min(1, t/.008f) * Mathf.Exp(-18*t) * Mathf.Clamp01((count-i)/(Rate*.02f));
-                double phase = Math.PI*2*frequency*t;
-                samples[i] = (float)((Math.Sin(phase)+.22*Math.Sin(phase*2.43))*envelope*.52);
-            }
-            return Create(accepted ? "扣腕 · 清音" : "收腕 · 低音", samples);
-        }
-
         static AudioClip Create(string name,float[] samples)
         {
             var clip = AudioClip.Create(name,samples.Length,1,Rate,false);
