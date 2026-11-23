@@ -26,6 +26,7 @@ namespace NarutoVR.SealCombat.Rpg
     {
         readonly List<string> discovered = new();
         readonly List<string> unlocked = new();
+        readonly HashSet<string> stageSkills = new(StringComparer.Ordinal);
         readonly Dictionary<string, int> levels = new(StringComparer.Ordinal);
         readonly Dictionary<string, bool> items = new(StringComparer.Ordinal);
         readonly List<string> rewards = new();
@@ -43,6 +44,17 @@ namespace NarutoVR.SealCombat.Rpg
             DiscoveredSkills = discovered.AsReadOnly();
             UnlockedSkills = unlocked.AsReadOnly();
             ClaimedRewards = rewards.AsReadOnly();
+        }
+
+        public IEnumerable<string> AvailableSkills => unlocked.Union(stageSkills, StringComparer.Ordinal);
+        public bool CanUseSkill(string id) => IsUnlocked(id) || stageSkills.Contains(id);
+        public bool HasStageGrant(string id) => stageSkills.Contains(id);
+
+        // 阶段授权只属于当前会话。成长事务和存档只复制永久技能。
+        internal void SetStageGrants(IEnumerable<string> skills)
+        {
+            stageSkills.Clear();
+            stageSkills.UnionWith(skills);
         }
 
         public bool IsDiscovered(string id) => discovered.Contains(id) || IsUnlocked(id);
@@ -142,9 +154,15 @@ namespace NarutoVR.SealCombat.Rpg
             return true;
         }
 
+        static string StageReceipt(string stageId) => "reward." + stageId;
+
+        internal bool HasConsistentStageRewards() =>
+            Chapter.FollowsRoute && rewards.Count == Chapter.CompletedStages.Count &&
+            Chapter.CompletedStages.All(id => rewards.Contains(StageReceipt(id)));
+
         internal bool ClaimStage(string stageId, int currency, IEnumerable<string> grants)
         {
-            string reward = "reward." + stageId;
+            string reward = StageReceipt(stageId);
             if (!RpgDataRules.ValidId(stageId) || !RpgDataRules.ValidId(reward) || rewards.Contains(reward) ||
                 rewards.Count >= RpgDataRules.MaximumEntries || Chapter.IsComplete(stageId) ||
                 !TryGetAdditions(unlocked, grants, out var newSkills) || !Credit(currency)) return false;
@@ -184,6 +202,7 @@ namespace NarutoVR.SealCombat.Rpg
         string[] route = Array.Empty<string>();
         public int StageIndex { get; private set; }
         public bool CampaignComplete { get; private set; }
+        internal bool FollowsRoute => completed.SequenceEqual(route.Take(completed.Count));
         internal void Configure(IEnumerable<string> stageIds) => route = stageIds.ToArray();
         public bool IsComplete(string id) => completed.Contains(id);
         internal void CopyRoute(ChapterModel source) => route = source.route;

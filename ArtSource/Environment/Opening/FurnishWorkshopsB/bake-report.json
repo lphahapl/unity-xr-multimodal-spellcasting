@@ -1,0 +1,87 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.0028,
+  "ray_m": 0.013,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 1K atlas.",
+  "meshes": {
+    "WestViseAndInk": {
+      "high_tri": 4056,
+      "LOD_tri": [
+        680,
+        428,
+        230
+      ],
+      "dimensions_xyz_blender_m": [
+        1.3887698650360107,
+        0.27799999713897705,
+        0.23600000143051147
+      ]
+    },
+    "WestAngleSamples": {
+      "high_tri": 3900,
+      "LOD_tri": [
+        572,
+        360,
+        194
+      ],
+      "dimensions_xyz_blender_m": [
+        1.149999976158142,
+        0.34200000762939453,
+        0.43150001764297485
+      ]
+    },
+    "EastGaugeCase": {
+      "high_tri": 6600,
+      "LOD_tri": [
+        496,
+        312,
+        168
+      ],
+      "dimensions_xyz_blender_m": [
+        1.4880000352859497,
+        0.3385000228881836,
+        0.35458001494407654
+      ]
+    },
+    "AssemblyPartsCase": {
+      "high_tri": 10116,
+      "LOD_tri": [
+        1972,
+        1242,
+        670
+      ],
+      "dimensions_xyz_blender_m": [
+        0.9480000138282776,
+        0.5134999752044678,
+        0.5196999907493591
+      ]
+    },
+    "HangingMandrels": {
+      "high_tri": 6672,
+      "LOD_tri": [
+        1580,
+        994,
+        536
+      ],
+      "dimensions_xyz_blender_m": [
+        0.9300000071525574,
+        0.17641901969909668,
+        0.3569999933242798
+      ]
+    },
+    "PartsCabinet": {
+      "high_tri": 9900,
+      "LOD_tri": [
+        972,
+        612,
+        330
+      ],
+      "dimensions_xyz_blender_m": [
+        1.3300000429153442,
+        0.5540000200271606,
+        0.8095000982284546
+      ]
+    }
+  }
+}

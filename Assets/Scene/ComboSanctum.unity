@@ -171,8 +171,8 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u5408\u5951 \xB7 \u7EC4\u5408\u65BD\u6CD5\u8BD5\u70BC\n\n\u540C\u4E00
-    8 \u79D2\u7A97\u53E3\uFF0C\u987A\u5E8F\u4E0D\u9650\n\n\u2460 \u5148\u5B8C\u6210\u5BC5\u5370\uFF0C\u518D\u5FF5\u201C\u706B\u7403\u672F\u201D\n\u2461
-    \u5148\u5FF5\u201C\u706B\u7403\u672F\u201D\uFF0C\u518D\u5B8C\u6210\u5BC5\u5370\n\n\u5339\u914D\u540E\u706B\u7403\u7ACB\u5373\u751F\u6210\u5230\u53F3\u624B\n\u5411\u524D\u8F7B\u63A8\uFF0C\u547D\u4E2D\u8FDC\u7AEF\u8BAD\u7EC3\u9776\n\n\u5730\u9762\u9635\u6CD5\u4E3A\u573A\u666F\u7F8E\u672F\uFF1B\u6CA1\u6709\u9886\u57DF\u6548\u679C\n\u5F53\u524D\u6309\u5173\u952E\u8BCD\u89E6\u53D1\uFF0C\u8BF7\u76F4\u63A5\u5FF5\u53E3\u4EE4\uFF1B\n\u5426\u5B9A\u53E5\u4E5F\u53EF\u80FD\u547D\u4E2D\u3002"
+    8 \u79D2\u7A97\u53E3\uFF0C\u987A\u5E8F\u4E0D\u9650\n\n\u2460 \u5148\u5B8C\u6210\u5F8B\u5370\uFF0C\u518D\u5FF5\u201C\u706B\u7403\u672F\u201D\n\u2461
+    \u5148\u5FF5\u201C\u706B\u7403\u672F\u201D\uFF0C\u518D\u5B8C\u6210\u5F8B\u5370\n\n\u5339\u914D\u540E\u706B\u7403\u7ACB\u5373\u751F\u6210\u5230\u53F3\u624B\n\u677E\u624B\u6295\u63B7\uFF0C\u547D\u4E2D\u8FDC\u7AEF\u8BAD\u7EC3\u9776\n\n\u5730\u9762\u9635\u6CD5\u4E3A\u573A\u666F\u7F8E\u672F\uFF1B\u6CA1\u6709\u9886\u57DF\u6548\u679C\n\u5F53\u524D\u6309\u5173\u952E\u8BCD\u89E6\u53D1\uFF0C\u8BF7\u76F4\u63A5\u5FF5\u53E3\u4EE4\uFF1B\n\u5426\u5B9A\u53E5\u4E5F\u53EF\u80FD\u547D\u4E2D\u3002"
 --- !u!222 &5613187
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2476,15 +2476,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18f748b511d540d4b98b4973636be1e1, type: 2}
   - {fileID: 11400000, guid: 0b7971e0b085c094e9317db1e6cc7acb, type: 2}
   - {fileID: 11400000, guid: b0d19c69885729744adc10f17598df2c, type: 2}
-  - {fileID: 11400000, guid: 73f4814901133574185e0802b55c104e, type: 2}
-  - {fileID: 11400000, guid: 530522cc50e829f47b6f609e6fbfe15f, type: 2}
-  - {fileID: 11400000, guid: 507a43e2544d5ad42ae780f616d06046, type: 2}
-  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
-  - {fileID: 11400000, guid: 55ecff9e3a42c0c49863f940057ac083, type: 2}
   - {fileID: 11400000, guid: fe8379952095bd8408a5d87aee7e379d, type: 2}
-  - {fileID: 11400000, guid: 5986bd0f19395f24380b7db9e62ffe84, type: 2}
+  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
   - {fileID: 11400000, guid: 13776311a4667bc40b417dfaa8be2e76, type: 2}
-  - {fileID: 11400000, guid: 5c8e28d0d9520734cac49652460d00c8, type: 2}
   maximumSampleRate: 60
   staleAfterSeconds: 0.12
   sampleLabel: unlabelled
@@ -2522,15 +2516,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillInputController
-  catalog: {fileID: 11400000, guid: e73ee21d9130aea44b1142df99b66ed0, type: 2}
+  catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
   voice: {fileID: 436909647}
   view: {fileID: 436909649}
-  skills:
-  - {fileID: 11400000, guid: a5440689fddc35047b7873e5a948bfd4, type: 2}
-  - {fileID: 11400000, guid: a9fb6e5fdf4357c4ab7ed8fda53812c4, type: 2}
-  - {fileID: 11400000, guid: 9404f3362d2197c48b52a53f4039d269, type: 2}
   statusText: {fileID: 1665536178}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
   showDesktopControls: 1
@@ -2571,26 +2561,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73157a4af4d0cdd4e9069f10d6555a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillController
+  trainingHandPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
   lab: {fileID: 436909644}
   head: {fileID: 79008831}
   playerRoot: {fileID: 79008833}
-  fireMaterial: {fileID: 2100000, guid: 7a895f93c8a151143b92cdf415a7c893, type: 2}
-  buffMaterial: {fileID: 2100000, guid: dc949eb78df8fb54089d8c32752c5c2b, type: 2}
-  fireballPrefab: {fileID: 4437276957977500368, guid: 56f11f328e7fd2747a0c29ea8b168863, type: 3}
-  shieldPrefab: {fileID: 8755404590397060305, guid: 2c505620e9924e2468350cf891d79d9b, type: 3}
-  impactPrefab: {fileID: 5939245472193094713, guid: 48098958a851e0945904bbcf5cd37b1f, type: 3}
-  shieldCapacity: 100
-  ballRadius: 0.065
-  heldOffset: {x: 0, y: 0.05, z: 0.08}
-  heldLifetime: 10
-  armDelay: 0.25
-  trackingLossGrace: 0.5
-  pushDistance: 0.12
-  pushMinimumSeconds: 0.15
-  pushMaximumSeconds: 0.6
-  projectileSpeed: 9
-  projectileDamage: 25
-  projectileLifetime: 4
   aimDistance: 30
   hitLayers:
     serializedVersion: 2
@@ -4668,8 +4642,8 @@ MonoBehaviour:
   kind: 2
   title: "\u5408\u5951 \xB7 \u7EC4\u5408\u65BD\u6CD5\u8BD5\u70BC"
   instructions: "\u540C\u4E00 8 \u79D2\u7A97\u53E3\uFF0C\u987A\u5E8F\u4E0D\u9650\n\n\u2460
-    \u5148\u5B8C\u6210\u5BC5\u5370\uFF0C\u518D\u5FF5\u201C\u706B\u7403\u672F\u201D\n\u2461
-    \u5148\u5FF5\u201C\u706B\u7403\u672F\u201D\uFF0C\u518D\u5B8C\u6210\u5BC5\u5370\n\n\u5339\u914D\u540E\u706B\u7403\u7ACB\u5373\u751F\u6210\u5230\u53F3\u624B\n\u5411\u524D\u8F7B\u63A8\uFF0C\u547D\u4E2D\u8FDC\u7AEF\u8BAD\u7EC3\u9776\n\n\u5730\u9762\u9635\u6CD5\u4E3A\u573A\u666F\u7F8E\u672F\uFF1B\u6CA1\u6709\u9886\u57DF\u6548\u679C\n\u5F53\u524D\u6309\u5173\u952E\u8BCD\u89E6\u53D1\uFF0C\u8BF7\u76F4\u63A5\u5FF5\u53E3\u4EE4\uFF1B\n\u5426\u5B9A\u53E5\u4E5F\u53EF\u80FD\u547D\u4E2D\u3002"
+    \u5148\u5B8C\u6210\u5F8B\u5370\uFF0C\u518D\u5FF5\u201C\u706B\u7403\u672F\u201D\n\u2461
+    \u5148\u5FF5\u201C\u706B\u7403\u672F\u201D\uFF0C\u518D\u5B8C\u6210\u5F8B\u5370\n\n\u5339\u914D\u540E\u706B\u7403\u7ACB\u5373\u751F\u6210\u5230\u53F3\u624B\n\u677E\u624B\u6295\u63B7\uFF0C\u547D\u4E2D\u8FDC\u7AEF\u8BAD\u7EC3\u9776\n\n\u5730\u9762\u9635\u6CD5\u4E3A\u573A\u666F\u7F8E\u672F\uFF1B\u6CA1\u6709\u9886\u57DF\u6548\u679C\n\u5F53\u524D\u6309\u5173\u952E\u8BCD\u89E6\u53D1\uFF0C\u8BF7\u76F4\u63A5\u5FF5\u53E3\u4EE4\uFF1B\n\u5426\u5B9A\u53E5\u4E5F\u53EF\u80FD\u547D\u4E2D\u3002"
   effects: {fileID: 436909648}
   worldText: {fileID: 5613186}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
@@ -9025,7 +8999,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5408\u5951 \xB7 \u7EC4\u5408\u65BD\u6CD5\u8BD5\u70BC\n\n\u539F\u6709\u4E09\u79CD\u914D\u65B9\u4E0E\u9AA8\u9ABC\u8FFD\u8E2A\u4FDD\u7559\u3002\n\n\u64AD\u653E\u540E\u663E\u793A\u5B9E\u65F6\u8BED\u97F3\u3001\u5339\u914D\u3001\u62A4\u76FE\u548C\u65BD\u6CD5\u72B6\u6001\u3002"
+  m_Text: "\u5408\u5951 \xB7 \u7EC4\u5408\u65BD\u6CD5\u8BD5\u70BC\n\n\u5F53\u524D\u6280\u80FD\u4E0E\u8F93\u5165\u72B6\u6001\n\n\u64AD\u653E\u540E\u663E\u793A\u5B9E\u65F6\u8BED\u97F3\u3001\u5339\u914D\u3001\u62A4\u76FE\u548C\u65BD\u6CD5\u72B6\u6001\u3002"
 --- !u!222 &1665536179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10718,7 +10692,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "01  \u5148\u5370\u540E\u5492\n\n\u5B8C\u6210\u5BC5\u5370\n\u2193\n8 \u79D2\u5185\u5FF5\u201C\u706B\u7403\u672F\u201D"
+  m_Text: "01  \u5148\u5370\u540E\u5492\n\n\u5B8C\u6210\u5F8B\u5370\n\u2193\n8 \u79D2\u5185\u5FF5\u201C\u706B\u7403\u672F\u201D"
 --- !u!222 &1865206907
 CanvasRenderer:
   m_ObjectHideFlags: 0

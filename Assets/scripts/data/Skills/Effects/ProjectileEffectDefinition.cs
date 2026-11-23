@@ -6,6 +6,7 @@ namespace NarutoVR.SealCombat
     [CreateAssetMenu(menuName = "NarutoVR/技能效果/手持投射物")]
     public sealed class ProjectileEffectDefinition : SkillEffectDefinition
     {
+        [InspectorName("投射物场景痕迹"), Tooltip("命中实体表面时使用；留空关闭。")] public SurfaceMarkStyle surfaceMark;
         [Header("一、飞行与伤害")]
         [InspectorName("碰撞半径（米）"), Tooltip("视觉按两倍半径缩放；纯视觉粒子不负责伤害。"), Min(.01f)] public float radius = .065f;
         [InspectorName("命中伤害"), Tooltip("每个投射物只结算一次。"), Min(0)] public float damage = 25;

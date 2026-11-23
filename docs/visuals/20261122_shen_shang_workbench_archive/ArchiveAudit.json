@@ -1,0 +1,505 @@
+{
+  "checkedAt": "2026-11-22T23:39:25+08:00",
+  "default": "shen-archive-08",
+  "defaultBrowserChecks": [
+    "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08",
+    "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08",
+    "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08",
+    "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08",
+    "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08"
+  ],
+  "directLinkChecks": [
+    "shen",
+    "hand-left-v3",
+    "shen-eyelids-jaw",
+    "shen-proportions",
+    "shen-archive-01",
+    "http://127.0.0.1:4186/?model=shen",
+    "http://127.0.0.1:4190/rig/?model=shen",
+    "http://127.0.0.1:4190/rig/?model=hand-right-v2"
+  ],
+  "visibleVersionCount": 23,
+  "versions": [
+    {
+      "id": "shen-archive-08",
+      "label": "08 · 自然神态 I（修眼角前）",
+      "created": 1795341754552,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-08/ShenShang_Archive08.glb",
+      "sha256": "babb3fc70d23fabb2408579887976db6c2d0071f647da8164ccc5d541097642b",
+      "bytes": 38639592,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive08.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-08/ShenShang_Archive08.glb",
+        "shen-archive-08/Turnaround.jpg"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\08_NaturalRest_I\\ShenShang_NaturalRest_I.blend",
+          "sha256": "b6f79252a887152761b24cc2bd65157d8c7e7468c822e880ab6a5c6fa2679e4b",
+          "savedISO": "2026-11-22T18:02:34.552+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-07",
+      "label": "07 · 额头、面颊与颈部 H2 · 全身",
+      "created": 1795336002812,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-07/ShenShang_Archive07.glb",
+      "sha256": "775094b4617582428d8aa4e0d5ca6cb6e5bd58dc978fee77ccdafe5626be9a48",
+      "bytes": 37834768,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive07.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-07/ShenShang_Archive07.glb",
+        "shen-archive-07/Turnaround.jpg"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\07_ForeheadCheekNeck_H2\\ShenShang_Rebuilt_H2.blend",
+          "sha256": "08a167116ad9e48dd69937cbf052dc42827e45407ed229869e95cc9bd6a0a588",
+          "savedISO": "2026-11-22T16:26:42.812+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-06",
+      "label": "06 · 面颊与衣领 G · 全身",
+      "created": 1795332343329,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-06/ShenShang_Archive06.glb",
+      "sha256": "e115e99469da1b1af9ceb8cf02fc5c2b3100fd97783ba0b2e7222e34f68985de",
+      "bytes": 37934932,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive06.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-06/ShenShang_Archive06.glb",
+        "shen-archive-06/Turnaround.jpg"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\06_BeforeForeheadAndNeck\\ShenShang_Rebuilt_G.blend",
+          "sha256": "857ae30a5d3033747b04d9e8e79e08c34cf23fbde659e0b90ffc2c0619639225",
+          "savedISO": "2026-11-22T15:25:43.329+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-05",
+      "label": "05 · 衣领与面颊调整前 F · 全身",
+      "created": 1795307191152,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-05/ShenShang_Archive05.glb",
+      "sha256": "fef26eb230be55ab22d9e426fe2787d4abe3fc46b8abfdca1e9eee0c441a79ed",
+      "bytes": 35506924,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive05.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-05/ShenShang_Archive05.glb",
+        "shen-archive-05/Turnaround.jpg"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\05_BeforeCheekAndCollar\\ShenShang_Rebuilt_F.blend",
+          "sha256": "02f9b4b1f0befef30c7f4a64ac28702b19400b74c378e66c753109cd61f38dc6",
+          "savedISO": "2026-11-22T08:26:31.152+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-04",
+      "label": "04 · 眼皮与嘴唇 · 头部",
+      "created": 1795303029498,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-04/ShenShang_Archive04.glb",
+      "sha256": "526960b1e376d4eafa5ea2776a973fe07b1b0ef592dac2b57729ccb70d4862ae",
+      "bytes": 7522584,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive04.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-04/ShenShang_Archive04.glb"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\04_EyelidsAndLips\\Head.blend",
+          "sha256": "81042ccbcec1af497e40c1606cf8a960227cf65d0b32626ece35f432ee20ea2b",
+          "savedISO": "2026-11-22T07:17:09.498+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-03",
+      "label": "03 · 眼鼻修订 · 头部",
+      "created": 1795301575158,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-03/ShenShang_Archive03.glb",
+      "sha256": "e445d1b436554f4472ca9ac4546b4e982927da8739e26c198981219dfef8af1f",
+      "bytes": 7185840,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive03.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-03/ShenShang_Archive03.glb"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\03_EyeAndNose\\Head.blend",
+          "sha256": "9e626c110c84b61126c0e7807dc368183d6ac4fe52529b3876d6d6aa62ddf6ee",
+          "savedISO": "2026-11-22T06:52:55.158+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-02",
+      "label": "02 · 五官比例中间稿 · 全身",
+      "created": 1795300066553,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-02/ShenShang_Archive02.glb",
+      "sha256": "4e7ae7126505129d079e4630f0a5b1401edf4c2bceb192c2defa03ee81f485e3",
+      "bytes": 35350336,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive02.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-02/ShenShang_Archive02.glb",
+        "shen-archive-02/Turnaround.jpg"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\02_RefinedLandmarks\\ShenShang_Intermediate.blend",
+          "sha256": "c945a733bb5dbc3db1ce63b9082b2570a0efa6abac669236ea0d0f5fb1adcfde",
+          "savedISO": "2026-11-22T06:27:46.553+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-01",
+      "label": "01 · 轮廓初修 · 头脸与头发",
+      "created": 1795292703164,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-01/ShenShang_Archive01.glb",
+      "sha256": "7c8f095030f131454f8abbb96f533a3f3695f7f21b71b74b4d9abd78bfe3ca62",
+      "bytes": 19470004,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Archive01.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-01/ShenShang_Archive01.glb"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\01_ProfileAndCollar\\Head.blend",
+          "sha256": "76a407b819ea6083a424caf8164af90acba669da68de147260d47cb5efd690a0",
+          "savedISO": "2026-11-22T04:25:03.164+08:00"
+        },
+        {
+          "file": "ArtSource\\Characters\\ShenShangRebuild\\Checkpoints\\01_ProfileAndCollar\\Groom.blend",
+          "sha256": "529b2d8730c0f68668a7c4f7c84345d7322172d4c4a101658d4898fc5b365b71",
+          "savedISO": "2026-11-22T03:52:18.590+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-native",
+      "label": "原生首稿 · 头脸与头发",
+      "created": 1795264444962,
+      "modelAsset": "SharedWorkSpace/assets/shen-archive-native/ShenShang_NativeHead.glb",
+      "sha256": "ed25927f087d385bbe5eacf1ed5d3615122adb717a54dfc2bd4f4d0e8cd03848",
+      "bytes": 17147008,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_NativeHead.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-archive-native/ShenShang_NativeHead.glb"
+      ],
+      "originals": [
+        {
+          "file": "ArtSource\\Characters\\ShenShangNative\\ShenShang_HeadReview.blend",
+          "sha256": "9e7aad1518db32918cf5c79266dbfa3c2d358c4c89fbbd7d75e7c89dd58e642d",
+          "savedISO": "2026-11-21T20:34:04.962+08:00"
+        }
+      ]
+    },
+    {
+      "id": "shen-proportions",
+      "label": "全身 · 头身比例修订",
+      "created": 1795355121637,
+      "modelAsset": "SharedWorkSpace/assets/shen-proportions/ShenShang_Proportions.glb",
+      "sha256": "ae30a42258ea520ba18bd1ae638fd246dcda8c677100a3055e2a1e7aaf67ee86",
+      "bytes": 38641276,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_Proportions.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-proportions/ShenShang_Proportions.glb",
+        "shen-proportions/Turnaround.jpg"
+      ]
+    },
+    {
+      "id": "shen-eyelids-jaw",
+      "label": "全身 · 眼皮与下颌修订",
+      "created": 1795353008002,
+      "modelAsset": "SharedWorkSpace/assets/shen-eyelids-jaw/ShenShang_EyelidsAndJaw.glb",
+      "sha256": "12b401c725b43b64f0d9fe746442aaf471bb84e4bc585299a8c73f5d2b02ddd3",
+      "bytes": 38639948,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_EyelidsAndJaw.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-eyelids-jaw/ShenShang_EyelidsAndJaw.glb",
+        "shen-eyelids-jaw/Turnaround.jpg"
+      ]
+    },
+    {
+      "id": "shen",
+      "label": "上一版 · Mixamo",
+      "created": 1795253022550,
+      "modelAsset": "SharedWorkSpace/assets/shen/ShenShangMixamo.fbx",
+      "sha256": "39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f",
+      "bytes": 2266256,
+      "viewportStatus": "65 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShangMixamo.fbx",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen/ShenShangMixamo.fbx",
+        "shen/Material1_BaseColor.png",
+        "shen/Material1_Normal.png"
+      ]
+    },
+    {
+      "id": "shen-old-full-return",
+      "label": "三视图 · 十指绑定原回件",
+      "created": 1795253022550,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-full-return/ShenShang_FullReturn.glb",
+      "sha256": "f07894b8dc4ea042186bbcc06a1c3cc35f5555573e423ce9ea4f084303591695",
+      "bytes": 3610500,
+      "viewportStatus": "65 根骨骼 · 3 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_FullReturn.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-full-return/ShenShang_FullReturn.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/RightHandAlbedo.png"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_Mixamo_Final.fbx",
+      "sourceTimeEvidence": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_Mixamo_Final.fbx",
+      "sourceISO": "2026-11-21T17:23:42.550000+08:00",
+      "sourceSHA256": "39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f",
+      "sha256AtOriginal23VersionSweep": "c308cdba5bf68dae34e3d82a5c21f3012f0f902cdf13b33aeb9383f80681eb91",
+      "latestArchiveCheck": {
+        "checkedAt": "2026-11-23T00:36:16+08:00",
+        "servedSHA256": "f07894b8dc4ea042186bbcc06a1c3cc35f5555573e423ce9ea4f084303591695",
+        "method": "actual hidden Chrome target rendered final archive from workbench",
+        "latestWeightGroups": 3,
+        "browserSkinInfluences": "Three.js previews the first four influences; the archived model keeps additional source groups.",
+        "browserExceptions": []
+      }
+    },
+    {
+      "id": "shen-old-open-input",
+      "label": "三视图 · 分指送绑",
+      "created": 1795252669409,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-open-input/ShenShang_OpenInput.glb",
+      "sha256": "237597ae2a318ef49cd927fb5e32b1a02df004013150d1d3924ce15c0d7fecc9",
+      "bytes": 1657068,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_OpenInput.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-open-input/ShenShang_OpenInput.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/RightHandAlbedo.png"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_Mixamo_StaticInput.fbx",
+      "sourceTimeEvidence": "D:/Temp/ShenMultiMixamo-20261121/Prep/Second/ShenShang_OpenHands_Mixamo.fbx",
+      "sourceISO": "2026-11-21T17:17:49.409000+08:00",
+      "sourceSHA256": "003c0f454aa1152799519ba6025598e42b6f64d4edade0b75c91b2f973da1313"
+    },
+    {
+      "id": "shen-old-first-return",
+      "label": "三视图 · 第一轮绑定回件",
+      "created": 1795251772145,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-first-return/ShenShang_FirstReturn.glb",
+      "sha256": "3712b4aaeb5d2b15b66d7e829d58f2ed8dbf63b9675add675ffdfd049ef87a99",
+      "bytes": 2969312,
+      "viewportStatus": "41 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_FirstReturn.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-first-return/ShenShang_FirstReturn.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_Mixamo_Original.fbx",
+      "sourceTimeEvidence": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_Mixamo_Original.fbx",
+      "sourceISO": "2026-11-21T17:02:52.145000+08:00",
+      "sourceSHA256": "96187204ef559b3734cf5b0b535f803a2786649a69db638f7b29a8da805f27c7",
+      "sha256AtOriginal23VersionSweep": "ab73c01d6547bf368b87896ff36b8e4ab1e889b3e9974262051af59dba557e5f",
+      "latestArchiveCheck": {
+        "checkedAt": "2026-11-23T00:36:16+08:00",
+        "servedSHA256": "3712b4aaeb5d2b15b66d7e829d58f2ed8dbf63b9675add675ffdfd049ef87a99",
+        "method": "actual hidden Chrome target rendered final archive from workbench",
+        "latestWeightGroups": 2,
+        "browserSkinInfluences": "Three.js previews the first four influences; the archived model keeps additional source groups.",
+        "browserExceptions": []
+      }
+    },
+    {
+      "id": "shen-old-first-input",
+      "label": "三视图 · 第一轮送绑",
+      "created": 1795251278005,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-first-input/ShenShang_FirstInput.glb",
+      "sha256": "f436a2a693cf496f0af8b1f21af9587eff42ed67986bbcc76197a031cd0c416c",
+      "bytes": 1683508,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_FirstInput.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-first-input/ShenShang_FirstInput.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png"
+      ],
+      "source": "D:/Temp/ShenMultiMixamo-20261121/Prep/Output/ShenShang_Multiview_Mixamo.fbx",
+      "sourceTimeEvidence": "D:/Temp/ShenMultiMixamo-20261121/Prep/Output/ShenShang_Multiview_Mixamo.fbx",
+      "sourceISO": "2026-11-21T16:54:38.005000+08:00",
+      "sourceSHA256": "7cd614a031e5c817273e293944b32148a1fee1d768a2efab64f539835b3da3a2"
+    },
+    {
+      "id": "shen-old-multi-high",
+      "label": "三视图 · 原始高模",
+      "created": 1795251239153,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-multi-high/ShenShang_HunyuanMulti.glb",
+      "sha256": "698d1296e3988153b525f7c364896e81762cf2bdfb7549a7a66891d21750f125",
+      "bytes": 52132360,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_HunyuanMulti.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-multi-high/ShenShang_HunyuanMulti.glb"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_HunyuanMulti.glb",
+      "sourceTimeEvidence": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/MultiView/ShenShang_HunyuanMulti.glb",
+      "sourceISO": "2026-11-21T16:53:59.153000+08:00",
+      "sourceSHA256": "698d1296e3988153b525f7c364896e81762cf2bdfb7549a7a66891d21750f125"
+    },
+    {
+      "id": "shen-old-local-rig",
+      "label": "单图 · 本地绑定与准望匣",
+      "created": 1795248291064,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-local-rig/ShenShang_LocalWrist.glb",
+      "sha256": "4e0b753648139faf514f5637c198741510bf2f07cd601714f1e507846abb5708",
+      "bytes": 3013532,
+      "viewportStatus": "52 根骨骼 · 2 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_LocalWrist.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-local-rig/ShenShang_LocalWrist.glb",
+        "shen-old-local-rig/ShenShang_BaseColor.png",
+        "shen-old-local-rig/ShenShang_Normal.png",
+        "shen-old-local-rig/ShenShang_Metallic.png",
+        "shen-old-local-rig/Zhunwang_BaseColor.png",
+        "shen-old-local-rig/Zhunwang_Normal.png",
+        "shen-old-local-rig/Zhunwang_MetalRough.png"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/Assets/Art/Characters/ShenShang/ShenShang.fbx",
+      "sourceTimeEvidence": "D:/UnityProjects/NarutoVR/Assets/Art/Characters/ShenShang/ShenShang.fbx",
+      "sourceISO": "2026-11-21T16:04:51.064000+08:00",
+      "sourceSHA256": "2a2fc7c3194c00eed3a7e34c5709483df9163a436b59e09ebf096afc8d6ecce4"
+    },
+    {
+      "id": "shen-old-single-high",
+      "label": "单图 · 原始高模",
+      "created": 1795239361927,
+      "modelAsset": "SharedWorkSpace/assets/shen-old-single-high/ShenShang_High.glb",
+      "sha256": "7d9344ecd0f6563374be9ad170a590f21975396623c532d591eccc6a860eb6e7",
+      "bytes": 49072252,
+      "viewportStatus": "0 根骨骼 · 0 个蒙皮网格",
+      "fileReportedAtViewport": "ShenShang_High.glb",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-old-single-high/ShenShang_High.glb"
+      ],
+      "source": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/ShenShang_High.glb",
+      "sourceTimeEvidence": "D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShang/ShenShang_High.glb",
+      "sourceISO": "2026-11-21T13:36:01.927000+08:00",
+      "sourceSHA256": "7d9344ecd0f6563374be9ad170a590f21975396623c532d591eccc6a860eb6e7"
+    },
+    {
+      "id": "hand-right-v3",
+      "label": "右手 · V3 掌侧修订 · OpenXR",
+      "created": 1795336530133,
+      "modelAsset": "SharedWorkSpace/assets/shen-hands-v3/PlayerRightHand.fbx",
+      "sha256": "d4b94338e2cf8ed513bf37a94a0d512ae20cebaf03d41d8ef9ef499c038dcdaf",
+      "bytes": 236364,
+      "viewportStatus": "26 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "PlayerRightHand.fbx",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-hands-v3/PlayerRightHand.fbx",
+        "shen-hands-v2/RightHandAlbedo.png",
+        "shen-hands-v2/RightCuffAlbedo.png"
+      ]
+    },
+    {
+      "id": "hand-left-v3",
+      "label": "左手 · V3 掌侧修订 · OpenXR",
+      "created": 1795336530132,
+      "modelAsset": "SharedWorkSpace/assets/shen-hands-v3/PlayerLeftHand.fbx",
+      "sha256": "297419b8e24bc21790f5b28e256440fb5b242321503991881837a01557ddcbb7",
+      "bytes": 235340,
+      "viewportStatus": "26 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "PlayerLeftHand.fbx",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-hands-v3/PlayerLeftHand.fbx",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/LeftCuffAlbedo.png"
+      ]
+    },
+    {
+      "id": "hand-right-v2",
+      "label": "右手 · 玩家 V2 · OpenXR",
+      "created": 1795335366027,
+      "modelAsset": "SharedWorkSpace/assets/shen-hands-v2/PlayerRightHand.fbx",
+      "sha256": "556c901d49f1dcb0e82574f9d038d29a1e995e3bd47513882a621fdec825616a",
+      "bytes": 236380,
+      "viewportStatus": "26 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "PlayerRightHand.fbx",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-hands-v2/PlayerRightHand.fbx",
+        "shen-hands-v2/RightHandAlbedo.png",
+        "shen-hands-v2/RightCuffAlbedo.png"
+      ]
+    },
+    {
+      "id": "hand-left-v2",
+      "label": "左手 · 玩家 V2 · OpenXR",
+      "created": 1795335365981,
+      "modelAsset": "SharedWorkSpace/assets/shen-hands-v2/PlayerLeftHand.fbx",
+      "sha256": "11539337af38dcf25de4afd30f71e1f8ba134ff8d7953a4557e133e2330c3396",
+      "bytes": 235324,
+      "viewportStatus": "26 根骨骼 · 1 个蒙皮网格",
+      "fileReportedAtViewport": "PlayerLeftHand.fbx",
+      "backgroundTargetVisibility": "hidden",
+      "files": [
+        "shen-hands-v2/PlayerLeftHand.fbx",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/LeftCuffAlbedo.png"
+      ]
+    }
+  ],
+  "sourceTimePolicy": "Blender archive time is the source file last modification time; 01 uses the later of the two simultaneously archived component files. Registration notes use the actual registration time.",
+  "duplicates": {
+    "02Components": "3 meshes and 56 hair/eyebrow parts equal their counterparts in the combined archive in evaluated geometry, world origin and material assignment.",
+    "07MatchesRebuiltMaster": "08a167116ad9e48dd69937cbf052dc42827e45407ed229869e95cc9bd6a0a588",
+    "08MatchesNaturalRestStudy": "b6f79252a887152761b24cc2bd65157d8c7e7468c822e880ab6a5c6fa2679e4b"
+  }
+}

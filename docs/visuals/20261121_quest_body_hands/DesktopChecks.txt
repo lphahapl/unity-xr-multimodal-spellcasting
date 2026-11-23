@@ -1,0 +1,127 @@
+Unity 6000.3.10f1 / D3D11 isolated Editor / no headset
+Adobe FBX SHA-256 39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f
+Source recording from earlier SteamVR/OpenXR input, bound to the stationary model for replay. In-reach count compares measured wrist to fixed model arm span; wrists outside are clamped for the character.
+Test scenes were opened in the disposable project. No game scenes were saved.
+
+[TrackedAvatar PASS] Humanoid Avatar
+[TrackedAvatar PASS] no duplicate tracking source
+[TrackedAvatar PASS] Left skin HandThumb1: 522 vertices >=5%, 39.08 mm flex
+[TrackedAvatar PASS] Left skin HandThumb2: 129 vertices >=5%, 25.11 mm flex
+[TrackedAvatar PASS] Left skin HandThumb3: 108 vertices >=5%, 15.34 mm flex
+[TrackedAvatar PASS] Left skin HandIndex1: 159 vertices >=5%, 26.84 mm flex
+[TrackedAvatar PASS] Left skin HandIndex2: 137 vertices >=5%, 31.51 mm flex
+[TrackedAvatar PASS] Left skin HandIndex3: 72 vertices >=5%, 13.32 mm flex
+[TrackedAvatar PASS] Left skin HandMiddle1: 117 vertices >=5%, 29.16 mm flex
+[TrackedAvatar PASS] Left skin HandMiddle2: 130 vertices >=5%, 30.38 mm flex
+[TrackedAvatar PASS] Left skin HandMiddle3: 72 vertices >=5%, 16.50 mm flex
+[TrackedAvatar PASS] Left skin HandRing1: 145 vertices >=5%, 26.58 mm flex
+[TrackedAvatar PASS] Left skin HandRing2: 125 vertices >=5%, 30.37 mm flex
+[TrackedAvatar PASS] Left skin HandRing3: 54 vertices >=5%, 16.85 mm flex
+[TrackedAvatar PASS] Left skin HandPinky1: 198 vertices >=5%, 24.65 mm flex
+[TrackedAvatar PASS] Left skin HandPinky2: 126 vertices >=5%, 27.66 mm flex
+[TrackedAvatar PASS] Left skin HandPinky3: 71 vertices >=5%, 12.63 mm flex
+[TrackedAvatar PASS] Left wrist in rotated/translated space: 0.000 mm
+[TrackedAvatar PASS] Left neutral finger-axis calibration 15/15
+[TrackedAvatar PASS] Left joint responds HandThumb1
+[TrackedAvatar PASS] Left missing joint returns to animation 1
+[TrackedAvatar PASS] Left joint responds HandThumb2
+[TrackedAvatar PASS] Left missing joint returns to animation 2
+[TrackedAvatar PASS] Left joint responds HandThumb3
+[TrackedAvatar PASS] Left missing joint returns to animation 3
+[TrackedAvatar PASS] Left joint responds HandIndex1
+[TrackedAvatar PASS] Left missing joint returns to animation 4
+[TrackedAvatar PASS] Left joint responds HandIndex2
+[TrackedAvatar PASS] Left missing joint returns to animation 5
+[TrackedAvatar PASS] Left joint responds HandIndex3
+[TrackedAvatar PASS] Left missing joint returns to animation 6
+[TrackedAvatar PASS] Left joint responds HandMiddle1
+[TrackedAvatar PASS] Left missing joint returns to animation 7
+[TrackedAvatar PASS] Left joint responds HandMiddle2
+[TrackedAvatar PASS] Left missing joint returns to animation 8
+[TrackedAvatar PASS] Left joint responds HandMiddle3
+[TrackedAvatar PASS] Left missing joint returns to animation 9
+[TrackedAvatar PASS] Left joint responds HandRing1
+[TrackedAvatar PASS] Left missing joint returns to animation 10
+[TrackedAvatar PASS] Left joint responds HandRing2
+[TrackedAvatar PASS] Left missing joint returns to animation 11
+[TrackedAvatar PASS] Left joint responds HandRing3
+[TrackedAvatar PASS] Left missing joint returns to animation 12
+[TrackedAvatar PASS] Left joint responds HandPinky1
+[TrackedAvatar PASS] Left missing joint returns to animation 13
+[TrackedAvatar PASS] Left joint responds HandPinky2
+[TrackedAvatar PASS] Left missing joint returns to animation 14
+[TrackedAvatar PASS] Left joint responds HandPinky3
+[TrackedAvatar PASS] Left missing joint returns to animation 15
+[TrackedAvatar PASS] Left unreachable wrist clamped without stretching bones
+[TrackedAvatar PASS] Left stale sample and unilateral isolation
+[TrackedAvatar PASS] Right skin HandThumb1: 281 vertices >=5%, 32.35 mm flex
+[TrackedAvatar PASS] Right skin HandThumb2: 175 vertices >=5%, 22.40 mm flex
+[TrackedAvatar PASS] Right skin HandThumb3: 121 vertices >=5%, 15.68 mm flex
+[TrackedAvatar PASS] Right skin HandIndex1: 246 vertices >=5%, 33.34 mm flex
+[TrackedAvatar PASS] Right skin HandIndex2: 163 vertices >=5%, 24.80 mm flex
+[TrackedAvatar PASS] Right skin HandIndex3: 78 vertices >=5%, 15.76 mm flex
+[TrackedAvatar PASS] Right skin HandMiddle1: 117 vertices >=5%, 32.53 mm flex
+[TrackedAvatar PASS] Right skin HandMiddle2: 124 vertices >=5%, 30.18 mm flex
+[TrackedAvatar PASS] Right skin HandMiddle3: 82 vertices >=5%, 17.21 mm flex
+[TrackedAvatar PASS] Right skin HandRing1: 211 vertices >=5%, 30.30 mm flex
+[TrackedAvatar PASS] Right skin HandRing2: 153 vertices >=5%, 31.90 mm flex
+[TrackedAvatar PASS] Right skin HandRing3: 75 vertices >=5%, 15.69 mm flex
+[TrackedAvatar PASS] Right skin HandPinky1: 167 vertices >=5%, 22.23 mm flex
+[TrackedAvatar PASS] Right skin HandPinky2: 186 vertices >=5%, 27.50 mm flex
+[TrackedAvatar PASS] Right skin HandPinky3: 82 vertices >=5%, 12.23 mm flex
+[TrackedAvatar PASS] Right wrist in rotated/translated space: 0.000 mm
+[TrackedAvatar PASS] Right neutral finger-axis calibration 15/15
+[TrackedAvatar PASS] Right joint responds HandThumb1
+[TrackedAvatar PASS] Right missing joint returns to animation 1
+[TrackedAvatar PASS] Right joint responds HandThumb2
+[TrackedAvatar PASS] Right missing joint returns to animation 2
+[TrackedAvatar PASS] Right joint responds HandThumb3
+[TrackedAvatar PASS] Right missing joint returns to animation 3
+[TrackedAvatar PASS] Right joint responds HandIndex1
+[TrackedAvatar PASS] Right missing joint returns to animation 4
+[TrackedAvatar PASS] Right joint responds HandIndex2
+[TrackedAvatar PASS] Right missing joint returns to animation 5
+[TrackedAvatar PASS] Right joint responds HandIndex3
+[TrackedAvatar PASS] Right missing joint returns to animation 6
+[TrackedAvatar PASS] Right joint responds HandMiddle1
+[TrackedAvatar PASS] Right missing joint returns to animation 7
+[TrackedAvatar PASS] Right joint responds HandMiddle2
+[TrackedAvatar PASS] Right missing joint returns to animation 8
+[TrackedAvatar PASS] Right joint responds HandMiddle3
+[TrackedAvatar PASS] Right missing joint returns to animation 9
+[TrackedAvatar PASS] Right joint responds HandRing1
+[TrackedAvatar PASS] Right missing joint returns to animation 10
+[TrackedAvatar PASS] Right joint responds HandRing2
+[TrackedAvatar PASS] Right missing joint returns to animation 11
+[TrackedAvatar PASS] Right joint responds HandRing3
+[TrackedAvatar PASS] Right missing joint returns to animation 12
+[TrackedAvatar PASS] Right joint responds HandPinky1
+[TrackedAvatar PASS] Right missing joint returns to animation 13
+[TrackedAvatar PASS] Right joint responds HandPinky2
+[TrackedAvatar PASS] Right missing joint returns to animation 14
+[TrackedAvatar PASS] Right joint responds HandPinky3
+[TrackedAvatar PASS] Right missing joint returns to animation 15
+[TrackedAvatar PASS] Right unreachable wrist clamped without stretching bones
+[TrackedAvatar PASS] Right stale sample and unilateral isolation
+[TrackedAvatar PASS] historical replay hands-20261029-111525-15c3311412d144d394b80739c969e095.jsonl: 628 tracked hand samples, 314 in reach, max error to clamped goal 0.001 mm
+[TrackedAvatar PASS] Chapter01_Awakening repeat installation reuses avatar
+[TrackedAvatar PASS] Chapter01_Awakening V2 pair, original input and functional wrist case
+[TrackedAvatar PASS] Chapter01_Awakening actual XR rig camera
+[TrackedAvatar PASS] Chapter01_Awakening HMD has cropped torso, sleeves, V2 hands and functional case
+[TrackedAvatar PASS] Chapter01_Awakening nested observer visibility
+[TrackedAvatar PASS] Chapter01_Awakening outer camera state restored
+[TrackedAvatar PASS] Chapter01_Awakening original renderer states restored
+[TrackedAvatar PASS] Chapter01_Courtyard repeat installation reuses avatar
+[TrackedAvatar PASS] Chapter01_Courtyard V2 pair, original input and functional wrist case
+[TrackedAvatar PASS] Chapter01_Courtyard actual XR rig camera
+[TrackedAvatar PASS] Chapter01_Courtyard HMD has cropped torso, sleeves, V2 hands and functional case
+[TrackedAvatar PASS] Chapter01_Courtyard nested observer visibility
+[TrackedAvatar PASS] Chapter01_Courtyard outer camera state restored
+[TrackedAvatar PASS] Chapter01_Courtyard original renderer states restored
+[TrackedAvatar PASS] URP camera renders 512x512; 4247 different pixels when full body is selected
+[TrackedAvatar PASS] forward wrist pose, ShenShang_Multi_OpenHands/ShenShang_Multi_OpenHands P99 1.20x, max 1.81x, triangle edges stretched >2x and >10mm: 0/95450
+[TrackedAvatar PASS] forward wrist pose, FirstPersonBody/ShenShangMixamoPlayerTrackedBody P99 1.21x, max 1.81x, triangle edges stretched >2x and >10mm: 0/52578
+[TrackedAvatar PASS] forward wrist pose, LeftSleeve/LeftSleeve P99 1.04x, max 1.04x, triangle edges stretched >2x and >10mm: 0/1152
+[TrackedAvatar PASS] forward wrist pose, RightSleeve/RightSleeve P99 1.06x, max 1.07x, triangle edges stretched >2x and >10mm: 0/1152
+[TrackedAvatar PASS] downward HMD-equivalent camera: 58180 torso, clothes and sleeve pixels over the hands-only baseline
+[TrackedAvatar COMPLETE] Assets/Art/Characters/ShenShangMixamo/ShenShangMixamoPlayer.prefab -> Assets/Art/Characters/TrackedAvatars/ShenShangMixamoPlayerTracked.prefab

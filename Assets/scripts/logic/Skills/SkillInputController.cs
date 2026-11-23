@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NarutoVR.SealLab;
+using NarutoVR.SealCombat.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using Lab = NarutoVR.SealLab.SealLab;
@@ -15,12 +16,30 @@ namespace NarutoVR.SealCombat
     {
         [Header("一、共享配置与场景接线")]
         [InspectorName("技能目录")] public SkillCatalog catalog;
-        [InspectorName("骨骼实验台")] public Lab lab;
+        [SerializeField, InspectorName("独立场景骨骼来源"), UnityEngine.Serialization.FormerlySerializedAs("lab")]
+        Lab configuredLab;
+        Lab playerTracking, localLab;
+        public Lab lab
+        {
+            get
+            {
+                if (playerTracking) return playerTracking;
+                if (configuredLab) return configuredLab;
+                if (!localLab) TryGetComponent(out localLab);
+                return localLab;
+            }
+            set => configuredLab = value;
+        }
+        internal void BindPlayerTracking(Lab source)
+        {
+            if (configuredLab && configuredLab != source)
+                throw new InvalidOperationException("技能与玩家指定了不同的手部观测来源：" + configuredLab.name + " / " + source.name);
+            playerTracking = source;
+        }
         [InspectorName("效果执行器")] public SkillController effects;
         [InspectorName("中文语音接收器")] public SkillVoiceReceiver voice;
         [InspectorName("中文界面")] public SkillTestView view;
         // 兼容旧场景与编辑器工具的序列化字段；新配置由 catalog 和 view 持有。
-        [HideInInspector] public List<SkillDefinition> skills = new();
         [HideInInspector] public Text statusText;
         [HideInInspector] public Font chineseFont;
         [HideInInspector] public bool showDesktopControls = true;
@@ -41,6 +60,34 @@ namespace NarutoVR.SealCombat
         long castAttempt;
         string activatingSkill;
         public SkillMatchEngine Engine { get; private set; }
+        const string SealHintsPreference = "NarutoVR.SealHints.Enabled";
+        SealSequenceHintView sealHintView;
+        [InspectorName("结印候选面板预制体（可选）")] public SealHintPanel sealHintsPrefab;
+        public bool SealHintsEnabled { get; private set; } = true;
+        public void SetSealHintsEnabled(bool enabled)
+        {
+            SealHintsEnabled = enabled;
+            PlayerPrefs.SetInt(SealHintsPreference, enabled ? 1 : 0);
+            PlayerPrefs.Save();
+            if (!enabled) sealHintView?.Dismiss();
+        }
+        public event Action<string,double> SealConfirmed;
+        [InspectorName("稳定成印时（印名）")] public UnityEngine.Events.UnityEvent<string> onSealConfirmed = new();
+        void ForwardSeal(string seal, double capturedAt)
+        {
+            if (effects && lab)
+            {
+                foreach (var profile in lab.profiles)
+                {
+                    if (!profile || profile.sealName != seal || !profile.confirmationPrefab) continue;
+                    effects.PlaySealConfirmation(profile.confirmationPrefab, profile.handMode);
+                    break;
+                }
+            }
+            EventCenter.Publish(PlayerEvents.SealConfirmed, new SealConfirmedNotice(this, seal, capturedAt));
+            SealConfirmed?.Invoke(seal, capturedAt);
+            onSealConfirmed.Invoke(seal);
+        }
         public string CastTracePath => castTrace?.Path;
         public void TraceCast(string stage, string detail, string skillId = "", double inputTime = 0, string payload = "")
         {
@@ -88,8 +135,10 @@ namespace NarutoVR.SealCombat
             nextThrowSnapshot=now+.25;
             TraceCast("throw_"+observation.eventType,observation.status,activatingSkill??"",observation.observed,JsonUtility.ToJson(observation));
         }
-        public IReadOnlyList<SkillDefinition> ConfiguredSkills => catalog ? catalog.skills : skills;
+        public IReadOnlyList<SkillDefinition> ConfiguredSkills => catalog ? catalog.skills : Array.Empty<SkillDefinition>();
         public IReadOnlyList<SkillRecipeInfo> Recipes => Engine?.ActiveRecipes ?? Array.Empty<SkillRecipeInfo>();
+        public IReadOnlyList<SkillDefinition> AvailableSkills => Engine?.Skills ?? Array.Empty<SkillDefinition>();
+        internal Func<string, bool> HasSkillPermission { get; set; }
         public string LastMessage { get; private set; } = "等待初始化";
         public IEnumerable<string> RecentMessages => messages;
         public int VoiceEventCount { get; private set; }
@@ -100,6 +149,7 @@ namespace NarutoVR.SealCombat
             set { activationPolicy = value; if (effects) effects.GameplayPolicy = value; }
         }
         public Func<bool> GestureInputBlocked { get; set; }
+        internal Func<bool> LeftNavigationPoseActive { get; set; }
         public string LastVoiceBlock { get; private set; } = "无";
         public Func<string> VoiceOwnershipDetail { get; set; }
         public Func<bool> VoiceInputBlocked { get; set; }
@@ -132,19 +182,31 @@ namespace NarutoVR.SealCombat
         private string[] voicePhrases=Array.Empty<string>();
         private double scheduledAt, nextDiagnostic, openSince=-1, lastCancelFrame=-1;
         private bool cancelLatched, applicationPaused, inputSuspended;
-        bool generatedView;
         SkillTestView ConfiguredView => view ? view : GetComponent<SkillTestView>();
+
+        bool LeftHandBusy => (LeftNavigationPoseActive?.Invoke() ?? false) || (effects && effects.HasLeftHeldObject);
+        internal bool IsCurrentSealHeld(SkillDefinition skill, bool afterRecognition) =>
+            isActiveAndEnabled && !applicationPaused && !inputSuspended && !cancelLatched &&
+            !(GestureInputBlocked?.Invoke() ?? false) && !(ExclusiveInputBlocked?.Invoke() ?? false) &&
+            lab && Engine != null && Engine.IsCurrentSealHeld(skill, lab.Frame, lab.Scores, InputNow,
+                firstPlayerHandObservationAfter, LeftHandBusy, afterRecognition);
 
         public List<string> ConfigurationErrors() => ConfigurationErrors(catalog);
 
         public List<string> ConfigurationErrors(SkillCatalog definitions)
         {
+            var issues = MatcherConfigurationErrors(definitions);
+            var configuredView = ConfiguredView;
+            if (configuredView) issues.AddRange(configuredView.ConfigurationErrors(definitions ? definitions.skills : ConfiguredSkills));
+            return issues;
+        }
+
+        internal List<string> MatcherConfigurationErrors(SkillCatalog definitions)
+        {
             var issues=definitions?definitions.Validate():new List<string>();
             IReadOnlyList<SkillDefinition> recipes=definitions?definitions.skills:ConfiguredSkills;
             if(!lab||!effects)issues.Add("请配置骨骼实验台和效果执行器");
             if(recipes==null||recipes.Count==0)issues.Add("技能列表为空");
-            var configuredView = ConfiguredView;
-            if(configuredView)issues.AddRange(configuredView.ConfigurationErrors(recipes));
             if(definitions&&definitions.matching!=null&&lab && definitions.matching.capacity<Math.Ceiling(definitions.matching.historySeconds*lab.maximumSampleRate)+2)
                 issues.Add("缓存容量不足以覆盖当前采样频率和历史时长，请增加目录中的容量");
             return issues;
@@ -160,33 +222,58 @@ namespace NarutoVR.SealCombat
         internal void InitializeMatcher()
         {
             TraceCast("controller_start","初始化技能目录与接线");
-            var errors=ConfigurationErrors();
+            var errors=MatcherConfigurationErrors(catalog);
             if(errors.Count>0)throw new InvalidOperationException(string.Join("；",errors));
-            if(!chineseFont)chineseFont=Resources.Load<Font>("Fonts/NotoSansCJKsc-Regular");
             lab.recordOnStart=false;lab.SetTestMode(true);
             effects.BindDefinitions(ConfiguredSkills);
-            Engine=new SkillMatchEngine(ConfiguredSkills,catalog?catalog.matching:null,CancelPhrase);
+            BuildMatcher(SelectAvailableSkills());
+            effects.CurrentSealHeld = IsCurrentSealHeld;
+            view = ConfiguredView;
+            if (view) view.Bind(this);
+            if (Application.isPlaying) sealHintView ??= new SealSequenceHintView(this);
+            Subscribe();
+            Report($"技能训练已启动：{Recipes.Count} 个有效配方。取消口令：{Engine.CancelPhrase}。");
+        }
+
+        IReadOnlyList<SkillDefinition> SelectAvailableSkills() => HasSkillPermission == null ? ConfiguredSkills :
+            ConfiguredSkills.Where(skill => HasSkillPermission(skill.skillId)).ToArray();
+
+        internal void RefreshAvailableSkills()
+        {
+            if (Engine == null) return;
+            var available = SelectAvailableSkills();
+            if (available.SequenceEqual(AvailableSkills)) return;
+            scheduledPhrase = null;
+            RejectDeferredVoice("可用技能变更，已清除排队口令");
+            AdvanceInputOwnership(false);
+            var prior = Engine;
+            BuildMatcher(available);
+            Engine.BeginAfterPermissionChange(prior, firstPlayerHandObservationAfter);
+            if (voice && isActiveAndEnabled) voice.ConfigurePhrases(voicePhrases);
+        }
+
+        void BuildMatcher(IReadOnlyList<SkillDefinition> available)
+        {
+            sealHintView?.Clear();
+            if (Engine != null) Engine.SealConfirmed -= ForwardSeal;
+            Engine=new SkillMatchEngine(available,catalog.matching,catalog.cancelPhrase);
             Engine.Log=Report;Engine.TryActivate=ActivateTraced;
+            Engine.CastConditionWaitChanged = skill => { if (effects) effects.SetPendingMouthCondition(skill); };
+            Engine.IsCastConditionMet = skill => effects && effects.IsMouthConditionMet(skill, false);
+            Engine.SealConfirmed += ForwardSeal;
             Engine.Tick(InputNow);
             voicePhrases=Recipes.Where(r=>r.Mode!=SkillTriggerMode.GestureOnly).Select(r=>r.Phrase).Append(Engine.CancelPhrase).Distinct().ToArray();
-            view = ConfiguredView;
-            if(!view)
-            {
-                view=gameObject.AddComponent<SkillTestView>();view.statusText=statusText;view.chineseFont=chineseFont;
-                view.showDesktopControls=showDesktopControls;generatedView=true;
-            }
-            if(generatedView)view.AssignDefaultShortcuts(ConfiguredSkills);
-            view.controller=this;Subscribe();
-            Report($"技能训练已启动：{Recipes.Count} 个有效配方。取消口令：{Engine.CancelPhrase}。");
         }
 
         // 调用方先停用组件，OnDisable 已退订传输和表现。本次装配之后只接纳新输入。
         internal void DetachPlayerMatcher()
         {
+            sealHintView?.Clear();
+            if (effects) effects.CurrentSealHeld = null;
+            if (Engine != null) Engine.SealConfirmed -= ForwardSeal;
             Engine=null;
             voicePhrases=Array.Empty<string>();
             previous=null;
-            if(generatedView && view)view.shortcuts.Clear(); // 自动键位随下次装配的技能目录重新生成。
         }
 
         internal void BeginFreshPlayerInput(bool paused)
@@ -217,27 +304,30 @@ namespace NarutoVR.SealCombat
             double now=InputNow;
             Engine.Tick(now);
             var frame = lab.Frame;
-            // SealLab 的帧时间是轮询时间；重装后第一份证据必须来自切换后实际观测到的双手。
+            // 一只手先恢复时也交给匹配器。每个模板只可使用归还输入后实际观测到的所需手。
             if(frame!=previous && frame!=null && (double.IsNegativeInfinity(firstPlayerHandObservationAfter) ||
-                (frame.left?.observedAt > firstPlayerHandObservationAfter && frame.right?.observedAt > firstPlayerHandObservationAfter)))
+                frame.left?.observedAt > firstPlayerHandObservationAfter || frame.right?.observedAt > firstPlayerHandObservationAfter))
             {
-                firstPlayerHandObservationAfter = double.NegativeInfinity;
                 previous=frame;
                 if(lastCancelFrame<0||now-lastCancelFrame>lab.staleAfterSeconds)openSince=-1;
                 lastCancelFrame=now;
-                bool open=enableOpenHandCancel&&!(ExclusiveInputBlocked?.Invoke()??false)&&OpenCancelPose();
+                bool exclusive = ExclusiveInputBlocked?.Invoke() ?? false;
+                bool open=enableOpenHandCancel && !exclusive && frame.left?.observedAt > firstPlayerHandObservationAfter &&
+                    frame.right?.observedAt > firstPlayerHandObservationAfter && OpenCancelPose();
                 if(open)
                 {
                     if(openSince<0)openSince=now;
                     if(!cancelLatched&&now-openSince>=cancelHold){Cancel();cancelLatched=true;}
                 }
                 else {openSince=-1;cancelLatched=false;}
-                Engine.Observe(lab.Frame,lab.Scores,cancelLatched||(GestureInputBlocked?.Invoke()??false), effects && effects.HasHeldObject);
+                Engine.Observe(frame, lab.Scores, cancelLatched || exclusive || (GestureInputBlocked?.Invoke() ?? false),
+                    effects && effects.HasHeldObject, firstPlayerHandObservationAfter, LeftHandBusy);
             }
             if(now>=nextCastSnapshot) {
                 nextCastSnapshot=now+Math.Max(.2,castTraceInterval);
                 TraceCast("match_snapshot",$"状态={Engine.Status}；截止={Engine.PendingDeadline:F3}；帧间隔={Time.unscaledDeltaTime:F4}；追踪={(lab?lab.TrackingSource:"无")}",Engine.PendingSkillId,lab.Frame?.time??0);
             }
+            sealHintView?.Refresh(now);
             if(voice && now>=nextVoiceSnapshot) { nextVoiceSnapshot=now+2; TraceCast("voice_health",voice.BuildDebugDetails()); }
             if(scheduledPhrase!=null&&now>=scheduledAt)
             {
@@ -249,9 +339,10 @@ namespace NarutoVR.SealCombat
             {
                 nextDiagnostic=now+Math.Max(.5,diagnosticInterval);
                 var pending=Recipes.First(r=>r.Id==Engine.PendingSkillId);
-                var score=lab.Scores.FirstOrDefault(s=>s.profile&&s.profile.sealName==pending.Seal);
+                var expected = Engine.NextSeal(pending.Id);
+                var score=lab.Scores.FirstOrDefault(s=>s.profile&&s.profile.sealName==expected);
                 if(score!=null)Debug.Log($"[技能等待] 本次有效阈值 {Math.Max(pending.Floor,score.profile.threshold-pending.Discount)*100:F1} 分；实际触发门槛：\n"+Engine.ObservationDiagnostics+"\n以下为基础模板明细：\n"+SealTestDiagnostics.Explain(score),this);
-                else Report($"等待 {pending.Seal} 印，但骨骼实验台中未找到该模板的评分，请检查印模板接线。");
+                else Report($"等待 {expected}，但骨骼实验台中未找到该模板的评分，请检查印模板接线。");
             }
         }
         private bool OpenCancelPose()
@@ -307,7 +398,7 @@ namespace NarutoVR.SealCombat
             VoiceEventCount++;
             if(SkillPhrase.Normalize(phrase)==Engine.CancelPhrase)
             {
-                bool pending=!string.IsNullOrEmpty(Engine.PendingSkillId);long epoch=Engine.Epoch;
+                bool pending=Engine.HasPendingCast;long epoch=Engine.Epoch;
                 Engine.Voice(phrase,endedAt,InputNow);
                 if(Engine.LastVoiceRejection!=null) RejectVoice(phrase,endedAt,Engine.LastVoiceRejection);
                 if(Engine.Epoch!=epoch){if(CancelOverride!=null)CancelOverride();else FinishCancel(pending);}
@@ -331,7 +422,7 @@ namespace NarutoVR.SealCombat
         {
             if (Engine==null || !isActiveAndEnabled) return;
             if(CancelOverride!=null){CancelOverride();return;}
-            scheduledPhrase=null;bool pending=Engine!=null&&!string.IsNullOrEmpty(Engine.PendingSkillId);
+            scheduledPhrase=null;bool pending=Engine?.HasPendingCast == true;
             Engine?.Cancel(InputNow);FinishCancel(pending);
         }
         /// <summary>清除尚未提交的匹配证据，已生效效果由各自的生命周期继续管理。</summary>
@@ -357,22 +448,30 @@ namespace NarutoVR.SealCombat
             if(effects){effects.Message-=EffectReport;effects.Message+=EffectReport;effects.ThrowObserved-=TraceThrow;effects.ThrowObserved+=TraceThrow;}
             if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.Diagnostic+=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.PhraseReceived+=ReceiveVoice;voice.ConfigurePhrases(voicePhrases);voice.ConfigureNativeCatalog(catalog);}
         }
-        private void OnEnable(){if(Engine!=null){ResetInputLifecycle();Subscribe();}}
+        private void OnEnable()
+        {
+            SealHintsEnabled = PlayerPrefs.GetInt(SealHintsPreference, 1) != 0;
+            if (Engine != null) { ResetInputLifecycle(); Subscribe(); }
+        }
         /// <summary>清理排队口令和取消手势状态，使恢复后的输入从新的时间边界开始。</summary>
         private void ResetInputLifecycle()
         {
+            sealHintView?.Clear();
             TraceCast("input_reset","暂停、恢复或重新启用：清除旧输入与临时效果");
-            scheduledPhrase=null;RejectDeferredVoice("输入生命周期重置");ResetCancelGesture();Engine?.Reset(InputNow);effects?.ClearAll();
+            firstPlayerHandObservationAfter = InputNow;
+            scheduledPhrase=null;RejectDeferredVoice("输入生命周期重置");ResetCancelGesture();Engine?.Reset(firstPlayerHandObservationAfter);effects?.ClearAll();
         }
         private void OnApplicationPause(bool paused){applicationPaused=inputSuspended=paused;ResetInputLifecycle();}
         private void OnDisable()
         {
+            sealHintView?.Clear();
             scheduledPhrase=null;deferredVoice.Clear();ResetCancelGesture();
             if(voice){voice.Diagnostic-=TraceVoiceTransport;voice.PhraseReceived-=ReceiveVoice;voice.ConfigurePhrases(null);voice.ConfigureNativeCatalog(null);}
             if(effects){effects.ClearAll();effects.Message-=EffectReport;effects.ThrowObserved-=TraceThrow;}
             Engine?.Reset(InputNow);
             TraceCast("session_end","组件停用或退出Play");castTrace?.Dispose();castTrace=null;
         }
+        private void OnDestroy() => sealHintView?.Dispose();
     }
 }
 

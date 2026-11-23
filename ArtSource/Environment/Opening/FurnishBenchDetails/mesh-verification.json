@@ -1,0 +1,160 @@
+{
+  "FoldedLinen": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "FoldedLinen: ~96.05% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+        "hidden back-to-back faces: FoldedLinen (3 pairs) - delete to save tris"
+      ],
+      "ground_z": 0.0003,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "FoldedLinen",
+          "tri_pairs": 3
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "FoldedLinen": {
+          "verts": 732,
+          "faces": 1452,
+          "tris": 1452,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 3,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 96.05,
+          "uv_coverage_pct": 3.1
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 1452,
+        "dimensions": [
+          0.4451723098754883,
+          0.05493232235312462,
+          0.3216210603713989
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 864,
+        "dimensions": [
+          0.4438827633857727,
+          0.054613515734672546,
+          0.3201022744178772
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 276,
+        "dimensions": [
+          0.4422881007194519,
+          0.05504797026515007,
+          0.320970356464386
+        ],
+        "materials": 1
+      }
+    ]
+  },
+  "ThreeFingerRest": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ThreeFingerRest: ~99.48% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "ThreeFingerRest": {
+          "verts": 416,
+          "faces": 816,
+          "tris": 816,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 4,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 99.48,
+          "uv_coverage_pct": 2.3
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 816,
+        "dimensions": [
+          0.3140000104904175,
+          0.12399999797344208,
+          0.21699999272823334
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 592,
+        "dimensions": [
+          0.3140000104904175,
+          0.12399999797344208,
+          0.21699999272823334
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 160,
+        "dimensions": [
+          0.3140000104904175,
+          0.12399999797344208,
+          0.21699999272823334
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

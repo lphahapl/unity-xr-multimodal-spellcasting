@@ -1,0 +1,372 @@
+{
+  "lods": {
+    "HunyuanBalanceBeam_LOD0": {
+      "QA": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanBalanceBeam_LOD0: ~20.01% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "asset lowest point z=-1.1751 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -1.1751,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "HunyuanBalanceBeam_LOD0": {
+            "verts": 10972,
+            "faces": 21956,
+            "tris": 21956,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 2,
+            "uv_maps": 1,
+            "uv_oob_pct": 20.26,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 20.01,
+            "uv_coverage_pct": 46.6
+          }
+        }
+      },
+      "triangles": 21956,
+      "bounds": [
+        [
+          -1.2871044874191284,
+          -60.676719668183516,
+          -1.1750814923753865
+        ],
+        [
+          1.2893911600112915,
+          60.69063949477719,
+          1.172084450867299
+        ]
+      ],
+      "materials": [
+        "CH_HunyuanBeam",
+        "CH_Timber"
+      ],
+      "UVs": [
+        "UVMap"
+      ],
+      "ringSectionRaycasts": [
+        {
+          "axis": -60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        }
+      ]
+    },
+    "HunyuanBalanceBeam_LOD1": {
+      "QA": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanBalanceBeam_LOD1: ~20.91% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "asset lowest point z=-1.1745 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -1.1745,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "HunyuanBalanceBeam_LOD1": {
+            "verts": 4657,
+            "faces": 9326,
+            "tris": 9326,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 2,
+            "uv_maps": 1,
+            "uv_oob_pct": 16.84,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 20.91,
+            "uv_coverage_pct": 44.3
+          }
+        }
+      },
+      "triangles": 9326,
+      "bounds": [
+        [
+          -1.2858960628509521,
+          -60.6807594274657,
+          -1.1744848427125019
+        ],
+        [
+          1.2917529344558716,
+          60.69012451826877,
+          1.16703642094567
+        ]
+      ],
+      "materials": [
+        "CH_HunyuanBeam",
+        "CH_Timber"
+      ],
+      "UVs": [
+        "UVMap"
+      ],
+      "ringSectionRaycasts": [
+        {
+          "axis": -60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        }
+      ]
+    },
+    "HunyuanBalanceBeam_LOD2": {
+      "QA": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanBalanceBeam_LOD2: ~24.79% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "hidden back-to-back faces: HunyuanBalanceBeam_LOD2 (1 pairs) - delete to save tris",
+          "asset lowest point z=-1.169 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -1.169,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [
+          {
+            "where": "HunyuanBalanceBeam_LOD2",
+            "tri_pairs": 1
+          }
+        ],
+        "enclosed": [],
+        "objects": {
+          "HunyuanBalanceBeam_LOD2": {
+            "verts": 2226,
+            "faces": 4464,
+            "tris": 4464,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 2,
+            "uv_maps": 1,
+            "uv_oob_pct": 17.11,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 24.79,
+            "uv_coverage_pct": 38.2
+          }
+        }
+      },
+      "triangles": 4464,
+      "bounds": [
+        [
+          -1.2885518074035645,
+          -60.7165031508239,
+          -1.1689925066737095
+        ],
+        [
+          1.2918702363967896,
+          60.70706939068396,
+          1.1890306444943903
+        ]
+      ],
+      "materials": [
+        "CH_HunyuanBeam",
+        "CH_Timber"
+      ],
+      "UVs": [
+        "UVMap"
+      ],
+      "ringSectionRaycasts": [
+        {
+          "axis": -60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": -60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.0,
+          "materialHits": 0,
+          "rayCount": 1
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.15,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.295,
+          "materialHits": 0,
+          "rayCount": 40
+        },
+        {
+          "axis": 60.0,
+          "radius": 0.55,
+          "materialHits": 40,
+          "rayCount": 40
+        }
+      ]
+    }
+  },
+  "anchorPositionsBlenderMetres": {
+    "HoistEye_A": [
+      0.0,
+      60.0,
+      0.0
+    ],
+    "HoistEye_B": [
+      0.0,
+      -60.0,
+      0.0
+    ],
+    "HoistPivot": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+}

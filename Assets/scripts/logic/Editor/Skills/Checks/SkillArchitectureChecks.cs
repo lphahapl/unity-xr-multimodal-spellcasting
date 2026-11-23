@@ -22,7 +22,7 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var source=AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
-                Require(source,"缺少迁移后的目录");
+                Require(source,"缺少正式技能目录");
                 var catalog=Own(Object.Instantiate(source));catalog.skills=new List<SkillDefinition>(source.skills);
                 var fourth=Own(ScriptableObject.CreateInstance<SkillDefinition>());
                 fourth.skillId="test.fourth";fourth.displayName="第四技能";fourth.triggerMode=SkillTriggerMode.VoiceOnly;
@@ -92,6 +92,8 @@ namespace NarutoVR.SealCombat.Editor
                 Require(view.ConfigurationErrors(playerSkills).Any(x => x.Contains("包含咒语")), "目录中不存在的技能 ID 不能绑定快捷键");
                 view.shortcuts[0].key = UnityEngine.InputSystem.Key.Escape;
                 var input = sceneObject.AddComponent<SkillInputController>();
+                view.showDesktopControls = false;
+                Require(!input.MatcherConfigurationErrors(source).Any(x => x.Contains("取消保留键")), "显示已关闭时坏快捷键不得阻断正式匹配器");
                 Require(input.ConfigurationErrors(source).Any(x => x.Contains("取消保留键")), "控制器应校验同物体上自动找到的技能视图");
             }
             finally { Object.DestroyImmediate(sceneObject); Object.DestroyImmediate(playerSkill); }
@@ -106,7 +108,8 @@ namespace NarutoVR.SealCombat.Editor
                 var lab=root.AddComponent<Lab>();lab.recordingOrigin=root.transform;
                 var effects=root.AddComponent<SkillController>();effects.head=root.transform;effects.playerRoot=root.transform;
                 var voice=root.AddComponent<SkillVoiceReceiver>();voice.enabled=false; // No port binding is needed to inspect the copied whitelist.
-                var view=root.AddComponent<SkillTestView>();view.showDesktopControls=false;
+                var view=root.AddComponent<SkillTestView>();view.showDesktopControls=false; view.maximumSkillRows=12;
+                view.shortcuts.Add(new SkillTestView.Shortcut { SkillId = "missing.debug.recipe", key = UnityEngine.InputSystem.Key.F12 });
                 var controller=root.AddComponent<SkillInputController>();controller.lab=lab;controller.effects=effects;controller.voice=voice;controller.view=view;
                 catalog=Object.Instantiate(AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath));
                 catalog.skills=new List<SkillDefinition>(catalog.skills);catalog.cancelPhrase="终止术式";
@@ -115,7 +118,7 @@ namespace NarutoVR.SealCombat.Editor
                 extra.phrase="雷电";extra.triggerMode=SkillTriggerMode.VoiceOnly;extra.effectDefinition=effect;
                 catalog.skills.Add(extra);controller.catalog=catalog;
                 root.SetActive(true);controller.SendMessage("Start"); // Synchronous fixture is destroyed before Unity calls automatic Start.
-                Require(controller.Engine!=null&&controller.Recipes.Count==4,"控制器仍限制三个配方");
+                Require(controller.Engine!=null&&controller.Recipes.Count==catalog.skills.Count,"控制器仍限制三个配方");
                 Require(voice.AcceptsPhrase("雷电")&&voice.AcceptsPhrase("终止，术式")&&!voice.AcceptsPhrase("其他口令"),"接收器白名单未从目录复制");
                 Require(view.BuildHUD(Time.realtimeSinceStartupAsDouble).Contains("目录新增技能"),"新增技能未自动出现在HUD");
                 int passed=1;

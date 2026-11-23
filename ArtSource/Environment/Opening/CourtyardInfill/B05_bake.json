@@ -1,0 +1,22 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.009,
+  "ray_m": 0.035,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 2K atlas.",
+  "meshes": {
+    "CanalLantern": {
+      "high_tri": 3340,
+      "LOD_tri": [
+        460,
+        288,
+        156
+      ],
+      "dimensions_xyz_blender_m": [
+        0.36800000071525574,
+        0.36800000071525574,
+        0.5600000023841858
+      ]
+    }
+  }
+}

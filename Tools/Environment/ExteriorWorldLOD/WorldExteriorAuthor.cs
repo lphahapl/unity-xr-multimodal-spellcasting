@@ -70,7 +70,7 @@ public static class WorldExteriorAuthor
                 return highest;
             }
             foreach(var t in root.transform.Cast<Transform>().ToArray())
-                if(t.name=="西窗外 · 天工偏坊"||t.name=="东窗外 · 山间工坊"||t.name=="测候台远景 · 校器坊"||t.name=="主工坊 · 薄灰瓦覆顶"||t.name=="工坊砌石台基")t.gameObject.SetActive(false);
+                if(t.name=="主工坊 · 薄灰瓦覆顶"||t.name=="工坊砌石台基")t.gameObject.SetActive(false);
             ArchitectureBuilder.Build(root.transform,scene,Ground);
             NatureBuilder.Build(root.transform,scene,Ground);
             NatureBuilder.ApplyExistingLandscapeLOD(root.transform);
@@ -231,7 +231,10 @@ public static class WorldExteriorAuthor
         }
         var go=new GameObject("传送门 · 场景加载触发区");go.transform.SetParent(portal,false);go.transform.localPosition=new Vector3(0,1.25f,0);
         var box=go.AddComponent<BoxCollider>();box.isTrigger=true;box.size=new Vector3(1.75f,2.5f,.70f);
-        go.AddComponent<SceneTravelGate>();
+        var gate = new SerializedObject(go.AddComponent<SceneTravelGate>());
+        gate.FindProperty("loadingOverlayPrefab").objectReferenceValue =
+            AssetDatabase.LoadAssetAtPath<SceneLoadingOverlay>("Assets/Prefabs/SceneLoadingOverlay.prefab");
+        gate.ApplyModifiedPropertiesWithoutUndo();
         foreach(var name in new[]{"ArrivalAnchor","ExitAnchor"})
         {var anchor=new GameObject(name);anchor.transform.SetParent(portal,false);anchor.transform.localPosition=new Vector3(0,.05f,name=="ArrivalAnchor"?1.2f:-1.2f);}
         proof.Add("Portal load disabled and destination empty pending a real target scene; tracked-head entry region 1.75x2.5x.7m.");
@@ -302,6 +305,15 @@ public static class WorldExteriorAuthor
         foreach(var terrain in new[]{ridge,distant,valley})
         {
             terrain.shader=terrainShader;terrain.shaderKeywords=new string[0];
+            // Changing from URP/Lit keeps its saved textures, even when the terrain shader has no such properties.
+            var serialized = new SerializedObject(terrain);
+            var textures = serialized.FindProperty("m_SavedProperties.m_TexEnvs");
+            for (int i = textures.arraySize - 1; i >= 0; i--)
+            {
+                string property = textures.GetArrayElementAtIndex(i).FindPropertyRelative("first").stringValue;
+                if (!terrain.HasProperty(property)) textures.DeleteArrayElementAtIndex(i);
+            }
+            serialized.ApplyModifiedPropertiesWithoutUndo();
             terrain.SetColor("_RockTint",terrain==valley?new Color(.67f,.69f,.61f):new Color(.64f,.70f,.73f));
             terrain.SetColor("_MossTint",new Color(.36f,.43f,.29f));
             terrain.SetFloat("_TextureMetres",terrain==valley?2.5f:4.5f);

@@ -13,13 +13,22 @@ flowchart TD
     Player["PlayerObj"] -->|"单独持有"| Model["PlayerModel / RpgPlayerState"]
     RPG["LinearRpgController"] -->|"装配与恢复"| Player
     RPG --> Catalog
-    Input -->|"配置配方索引"| Matcher["SkillMatchEngine"]
+    Model -->|"永久解锁和本阶段试用"| Input
+    Input -->|"当前可用配方"| Matcher["SkillMatchEngine"]
     Trainer["独立训练场 SkillCatalog"] --> Input
 ~~~
 
 首章装配先用字符串 ID 校验存档技能和冷却组，再加载原型，建立本玩家的配方和效果副本。玩家退出时释放玩家目录持有的资源租约。相邻玩家分别保存自己的等级、能量与冷却。独立训练场使用场景目录、独立训练模型及游戏时钟。仍使用旧格式的场景经 `BindDefinitions` 把枚举和场景字段转换成带类型的效果配置。[首章资源清单](../../Assets/ScriptableObjects/技能目录配置/首章技能资源清单.asset) · [运行目录](../../Assets/scripts/logic/Rpg/RuntimeSkillCatalog.cs) · [旧配置转换](../../Assets/scripts/logic/Skills/Effects/SkillController.Legacy.cs)
 
 ## 输入与施法
+
+RPG 匹配器按目录顺序维护 `SkillInputController.AvailableSkills`，取玩家永久解锁和本阶段试用的并集。永久解锁、阶段进出和读档会同步名单及语音白名单。名单成员发生变化时，从下一次新输入开始匹配。试用转为永久且名单相同，正在输入的印序可以继续。独立训练场使用其场景配置的技能目录。
+
+每个稳定的新印沿前缀树推进，也允许从这个印开始一条新序列。组合术由各自的完整口令选中。两个纯结印术共用起手时，若短术已成且仍有可续的长术，就按目录的「纯结印短术末印确认（秒）」额外稳住末印。默认 0.6 秒。换印会取消短术的等待，长术可在自身组合窗口内继续。没有长术分支时末印确认即尝试释放。纯术完全同串、与组合术冲突、或仅从另一配方中段或末尾开始的重叠继续由配置校验拒绝。[匹配器](../../Assets/scripts/logic/Skills/Core/SkillMatchEngine.cs) · [配置校验](../../Assets/scripts/logic/Skills/Core/SkillConfigurationValidator.cs)
+
+纯结印长短术分叉后，短术按双手有效样本累计末印保持。轻微掉分、近分歧义或短暂遮挡时，进度和这条长术前缀最多保留 150 毫秒，从最后一次可靠双手观测算起。恢复首帧重新取得手形，随后的连续有效采样继续累计。明确离开末印约 50 毫秒便撤掉短术，允许继续长术。确认新印时立即推进。宽限只作用于当前纯结印分支，长术仍受配方本身的组合窗口限制。
+
+成印事件唤醒本玩家的右上角候选提示。表现层通过 `GetSealHints` 读取当前可用配方的进度。正在等待稳住的短术优先，其余按已结印数从多到少、剩余印数从少到多排列，同分沿用技能目录顺序，最多三项。显示偏好只控制界面，判定、扣费、冷却和效果仍走原施法入口。[候选提示](../../Assets/scripts/ui/Skills/SealSequenceHintView.cs)
 
 ~~~mermaid
 flowchart TD

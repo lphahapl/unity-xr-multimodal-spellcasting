@@ -18,6 +18,22 @@ namespace NarutoVR.SealCombat
 
     public enum ProjectileStage { Formed, Launched, Impact }
 
+    internal readonly struct HeldProjectileStatus
+    {
+        public readonly float Remaining, Score, Threshold, HoldProgress;
+        public readonly string Action, LastRelease;
+
+        internal HeldProjectileStatus(float remaining, string action, ThrowActionScore score, string lastRelease)
+        {
+            Remaining = remaining;
+            Action = action;
+            Score = score.total;
+            Threshold = score.threshold;
+            HoldProgress = score.holdProgress;
+            LastRelease = lastRelease;
+        }
+    }
+
     /// <summary>持有护盾、手持物、飞行投射物和扩展效果的运行态，负责生成、使用、命中与清理。</summary>
     [DefaultExecutionOrder(350)]
     [UnityEngine.Scripting.APIUpdating.MovedFrom(true, "NarutoVR.SealCombat", "Assembly-CSharp", "SkillEffects")]
@@ -25,6 +41,8 @@ namespace NarutoVR.SealCombat
     {
         [Header("一、玩家与当前追踪来源")]
         [InspectorName("手印采样器")] public NarutoVR.SealLab.SealLab lab;
+        [InspectorName("独立训练场投掷手形")] public BasicHandPoseSettings trainingHandPoseSettings;
+        OfficialHandPoseDetector trainingHandPoses;
         [InspectorName("头显视点")] public Transform head;
         [InspectorName("玩家根节点（碰撞忽略）")] public Transform playerRoot;
         [Header("命中特效对象池（可选）")]
@@ -34,9 +52,24 @@ namespace NarutoVR.SealCombat
         [InspectorName("可碰撞层")] public LayerMask hitLayers = ~(1 << 2);
         [InspectorName("玩家层（额外忽略）")] public LayerMask playerLayers;
 
+        [InspectorName("场景痕迹数量上限"), Min(0)] public int surfaceMarkLimit = 32;
+        readonly SurfaceMarkPool surfaceMarks = new();
+
+        /// <summary>在已确认的场景接触上绘制技能配置指定的贴花；近战和连续喷火可更新已有痕迹。</summary>
+        internal void StampSurface(SurfaceContact contact, SurfaceMarkStyle style, Vector3 tangent,
+            object stroke = null, bool continuousFire = false)
+        {
+            if (isActiveAndEnabled && !clearing)
+                surfaceMarks.Stamp(contact, style, tangent, Now, surfaceMarkLimit, stroke, continuousFire);
+        }
+
         public string Status { get; private set; } = "无生效技能";
+        internal HeldProjectileStatus? HeldProjectile => HasHeldObject
+            ? new HeldProjectileStatus(HeldRemainingSeconds, ThrowStatus, CurrentThrowScore, LastReleaseMode) : null;
         public bool HasHeldObject => heldObject;
+        internal bool HasLeftHeldObject => heldObject && heldInLeftHand;
         public bool HasOccupiedHand => heldObject || rightHandEffect != null;
+        internal SkillDefinition OccupiedHandSkill => heldObject ? currentFireball.Source : rightHandEffect != null ? rightHandSkill : null;
         public float HeldRemainingSeconds => heldObject ? Mathf.Max(0,(float)(heldExpiresAt-Now)) : 0;
         public bool HasRightHeldObject => rightHandEffect != null || (heldObject && !heldInLeftHand);
         public bool HasRightThrowObject => heldObject && !heldInLeftHand && heldParameters.ReleaseMode == ProjectileReleaseMode.GripThrow;
@@ -47,27 +80,26 @@ namespace NarutoVR.SealCombat
         public int WeaponHitMask => hitLayers.value & ~playerLayers.value;
         public Transform WeaponOwnerRoot => playerRoot ? playerRoot : head ? head.root : null;
         public Transform WeaponAttacker => head;
-        public string ThrowStatus => heldObject && throwState != null ? throwBlockReason ?? (throwIntent != null ? throwIntent.Score.reason : throwState.Status) : string.Empty;
-        public ThrowActionScore CurrentThrowScore => throwIntent != null ? throwIntent.Score : default;
+        public string ThrowStatus => currentFireball?.ThrowStatus ?? string.Empty;
+        public ThrowActionScore CurrentThrowScore => currentFireball?.CurrentThrowScore ?? default;
         public string LastThrowOutcome { get; private set; } = "尚无发射或拒绝结果";
         public string LastReleaseMode { get; private set; } = "尚未发射";
         public static string ReleaseModeLabel(string mode) => mode=="GripRelease"?"松手投掷":mode=="WindupThrow"?"后拉前送":mode=="ReachHold"?"伸手保持":"尚无通过候选";
-        public HandThrowSettings ActiveThrowSettings => heldParameters.Throwing?.Copy();
-        public float ActiveProjectileSpeed => heldParameters.Speed;
+        public HandThrowSettings ActiveThrowSettings => lastThrowSettings?.Copy();
+        public float ActiveProjectileSpeed => lastProjectileSpeed;
         public Vector3 LastLaunchDirection { get; private set; }
         public Vector3 LastLaunchPosition { get; private set; }
         public HandThrowObservation LastThrowObservation { get; private set; }
         public bool HasThrowObservation { get; private set; }
-        public bool ThrowInputValid => heldObject && throwState != null && throwInputValid && !ThrowInputSuppressed && !PushInputSuppressed &&
-            HandNow >= LastThrowObservation.observed && HandNow - LastThrowObservation.observed <= heldParameters.Throwing.sampleMaxAge;
-        public bool ThrowArmed => ThrowInputValid && (throwState.Armed || (throwIntent?.Armed ?? false));
-        public bool ReleasePending => ThrowInputValid && throwState.ReleasePending && !(throwIntent?.ContradictsWindup(throwState.Estimate.velocity)??false);
-        public float ThrowGripProgress => ThrowInputValid ? throwState.GripProgress : 0;
-        public float ThrowReleaseProgress => ThrowInputValid ? throwState.ReleaseProgress : 0;
+        public bool ThrowInputValid => currentFireball?.ThrowInputValid ?? default;
+        public bool ThrowArmed => currentFireball?.ThrowArmed ?? default;
+        public bool ReleasePending => currentFireball?.ReleasePending ?? default;
+        public float ThrowGripProgress => currentFireball?.ThrowGripProgress ?? default;
+        public float ThrowReleaseProgress => currentFireball?.ThrowReleaseProgress ?? default;
         public Vector3 HeldThrowPosition => heldObject ? heldObject.transform.position : Vector3.zero;
         public bool WindupPreview => ThrowInputValid && CurrentThrowScore.rawWindupDirection.sqrMagnitude>.5f;
         public bool ThrowPreviewValid => TryGetThrowPreview(out _);
-        public Vector3 ThrowPreviewOrigin => releasePoseValid ? releasePose.position : HeldThrowPosition;
+        public Vector3 ThrowPreviewOrigin => currentFireball?.ThrowPreviewOrigin ?? default;
         public Vector3 ThrowPreviewDirection => TryGetThrowPreview(out var aim) ? aim.direction : Vector3.zero;
         public event Action<HandThrowObservation> ThrowObserved;
         public event Action ProjectileLaunched;
@@ -86,9 +118,9 @@ namespace NarutoVR.SealCombat
         public Func<double> HandInputClock { get; set; }
         // 可为其他施法者注入腕部位姿；正常场景默认读取现有追踪来源。
         public Func<bool, Pose?> WristPoseOverride { get; set; }
-        public float BuffRemaining => shieldPoints > 0 ? Mathf.Max(0, (float)(buffExpiresAt - Now)) : 0;
-        public float ShieldPoints => BuffRemaining > 0 ? shieldPoints : 0;
-        public float ShieldCapacity => activeShieldCapacity > 0 ? activeShieldCapacity : shieldCapacity;
+        public float BuffRemaining => Vitals.ShieldTimeRemaining(Now);
+        public float ShieldPoints => Vitals.ShieldPointsAt(Now);
+        public float ShieldCapacity => Vitals.ShieldCapacity;
         public int ActivationCount { get; private set; }
         public bool IsCastingTransaction => activating;
         public bool IsPublishingCast { get; private set; }
@@ -98,42 +130,30 @@ namespace NarutoVR.SealCombat
         internal double Now => GameClock?.Invoke() ?? (Application.isPlaying ? Time.timeAsDouble : Time.realtimeSinceStartupAsDouble);
         private double HandNow => HandInputClock?.Invoke() ?? Time.realtimeSinceStartupAsDouble;
         float shieldPoints => Vitals.ShieldPoints;
-        float activeShieldCapacity => Vitals.ShieldCapacity;
-        double buffExpiresAt => Vitals.ShieldExpiresAt;
-        private double armAt, lostAt = -1;
         private GameObject buffObject;
+        private MeshRenderer bodyShield;
+        private MeshRenderer activeBodyPrefab;
+        private MaterialPropertyBlock shieldProperties;
+        private double bodyPulseAt;
+        private static readonly int ShieldPulseId = Shader.PropertyToID("_Pulse");
         private GameObject activeShieldPrefab;
         private Material activeShieldMaterial;
         private ShieldWristPulse shieldPulse;
         private Material ownedFireMaterial, ownedBuffMaterial;
         private readonly List<SkillProjectile> projectiles = new();
         private readonly List<GameObject> transientVisuals = new();
-        private readonly List<PushSample> pushSamples = new();
         private readonly List<ExtensionLifetime> extensions = new();
         private readonly List<ExtensionLifetime> pendingExtensions = new();
         private ISkillEffectLifetime rightHandEffect;
+        private SkillDefinition rightHandSkill;
         private ISkillEffectLifetime pendingRightHand;
         private readonly List<ExtensionLifetime> tickingExtensions = new();
         private bool clearing, activating;
         private int releasingEffects;
-        private double lastObserved = double.NegativeInfinity;
-        private double previewWristStamp = double.NegativeInfinity;
-        private Vector3 previewWrist;
-        private Vector3 lastHandPosition, lastHeadPosition;
-        private bool hasPreviousSample;
-        private HandThrowState throwState;
-        private HandThrowIntentState throwIntent;
-        private string shotId;
-        private string heldSource;
         private string ThrowSource => WristPoseOverride!=null?"测试注入":lab?lab.TrackingSource:"无采样器";
         private long observationSequence;
-        private bool throwInputValid, releasePoseValid, hasSafeHeldPoint;
-        private Pose releasePose;
-        private Vector3 safeHeldPoint;
-        private long releasePoseCandidate;
         private readonly Collider[] throwOverlaps = new Collider[32];
         private readonly RaycastHit[] throwSweeps = new RaycastHit[32];
-        private string throwBlockReason;
 
         // 激活时冻结本发投射物的参数。之后编辑共享配置或激活其他技能，
         // 都不会改变当前手持物的运动、伤害及发射后的飞行参数。
@@ -143,12 +163,14 @@ namespace NarutoVR.SealCombat
             public readonly Vector3 Offset;
             public readonly GameObject Visual, Impact;
             public readonly Material Material;
+            public readonly SurfaceMarkStyle SurfaceMark;
             public readonly ProjectileReleaseMode ReleaseMode;
             public readonly HandThrowSettings Throwing;
             public readonly SkillAudioProfile Audio;
             public ProjectileParameters(ProjectileEffectDefinition definition)
             {
                 Audio = definition.audioProfile;
+                SurfaceMark = definition.surfaceMark;
                 Radius = definition.radius;
                 Damage = definition.damage;
                 PoiseDamage = definition.poiseDamage;
@@ -207,8 +229,21 @@ namespace NarutoVR.SealCombat
             {
                 trainingPlayer ??= new Rpg.PlayerModel(new Rpg.RpgPlayerState());
                 trainingRecipes = new HashSet<SkillDefinition>(skills);
+                if (ThrowGripProvider == null && trainingHandPoseSettings)
+                {
+                    trainingHandPoses = new OfficialHandPoseDetector(trainingHandPoseSettings);
+                    ThrowGripProvider = ReadTrainingGrip;
+                }
             }
-            BindLegacyDefinitions(skills);
+        }
+        ThrowGripSample ReadTrainingGrip(bool left, HandThrowSettings settings)
+        {
+            var frame = lab ? lab.Frame : null;
+            if (frame == null) { trainingHandPoses.Reset(); return default; }
+            double now = HandNow;
+            trainingHandPoses.Update(frame, lab.Features, now, settings.sampleMaxAge, settings.sampleMaxGap);
+            return ThrowGripSample.Read(left ? frame.left : frame.right, lab.recordingOrigin, left ? trainingHandPoses.Left : trainingHandPoses.Right,
+                settings, now, settings.sampleMaxAge, double.NegativeInfinity);
         }
         internal Rpg.RpgPlayerState Vitals => castVitals ?? (trainingPlayer ??= new Rpg.PlayerModel(new Rpg.RpgPlayerState())).Vitals;
         internal void BindVitals(Rpg.RpgPlayerState player) => castVitals = player;
@@ -283,11 +318,14 @@ namespace NarutoVR.SealCombat
             try
             {
                 EnsureExecutors();
-                using var cast = Prepare(skill, ResolveDefinition(skill));
+                if (skill.castCondition == SkillCastCondition.SealNearMouth && !IsMouthConditionMet(skill, false))
+                    return SkillCastResult.Rejected(SkillCastFailure.NotReady, "请保持手印并靠近嘴部");
+                var definition = skill.effectDefinition;
+                using var cast = Prepare(skill, definition);
                 if (cast == null) return SkillCastResult.Rejected(SkillCastFailure.PreparationRejected, Status);
                 if (!CanFinish()) return SkillCastResult.Rejected(SkillCastFailure.Invalidated, "准备期间施法权限改变");
                 if (!player.TryReserveCast(requestId, skill.skillId, skill.cooldownGroup,
-                    manaCost, skill.cooldownSeconds, gameNow, out var reservation, out var failure, out var reason))
+                    manaCost, definition.CooldownOnActivation(skill.cooldownSeconds), gameNow, out var reservation, out var failure, out var reason))
                     return SkillCastResult.Rejected(failure switch
                     {
                         Rpg.CastReservationFailure.Dead => SkillCastFailure.Dead,
@@ -298,13 +336,21 @@ namespace NarutoVR.SealCombat
                     }, reason);
                 using (reservation)
                 {
+                    if (skill.effectDefinition is BreathEffectDefinition { mode: BreathCastMode.Sustained } &&
+                        (!player.CanSustain || player.Mana <= manaCost))
+                        return SkillCastResult.Rejected(SkillCastFailure.InsufficientMana, "当前无法开始持续消耗度力");
                     if (!cast.Arm() || !CanFinish()) return SkillCastResult.Rejected(SkillCastFailure.Invalidated, "施法准备已失效");
                     reservation.Commit();
                 }
                 confirmed = true;
                 extensions.AddRange(pendingExtensions);
                 pendingExtensions.Clear();
-                if (pendingRightHand != null) { rightHandEffect = pendingRightHand; pendingRightHand = null; }
+                if (pendingRightHand != null)
+                {
+                    rightHandEffect = pendingRightHand;
+                    rightHandSkill = skill;
+                    pendingRightHand = null;
+                }
                 IsPublishingCast = true;
                 ++ActivationCount;
                 cast.Publish();
@@ -338,6 +384,7 @@ namespace NarutoVR.SealCombat
             AddExecutor<ProjectileEffectDefinition>(PrepareFireball);
             AddExecutor<ShieldEffectDefinition>(PrepareShield);
             AddExecutor<ThunderSwordEffectDefinition>(PrepareThunderSword);
+            AddExecutor<BreathEffectDefinition>(PrepareBreath);
             installedExecutors = true;
         }
 
@@ -349,11 +396,14 @@ namespace NarutoVR.SealCombat
                 return;
             }
             double now = Now;
+            surfaceMarks.Tick(now, surfaceMarkLimit);
             TickExtensions(now);
             transientVisuals.RemoveAll(item => !item);
-            if (shieldPoints > 0 ? now >= buffExpiresAt : buffObject)
+            // 独立练习场没有 RPG 会话推进玩家时钟。
+            if (castVitals == null) Vitals.ExpireShield(now);
+            if (lastShieldCapacity > 0 && ShieldPoints == 0)
             {
-                ClearBuff();
+                EndShieldPresentation();
                 shieldPulse?.Stop();
                 Report("护盾持续时间已结束");
             }
@@ -368,6 +418,22 @@ namespace NarutoVR.SealCombat
             worldPose = Pose.identity;
             observed = 0;
             return false;
+        }
+
+        internal void PlaySealConfirmation(GameObject prefab, SealHandMode handMode)
+        {
+            if (!isActiveAndEnabled || !head || !TryGetWrist(true, out var left, out double lt)) return;
+            Vector3 center = left.position;
+            if (handMode == SealHandMode.BothHands)
+            {
+                if (!TryGetWrist(false, out var right, out double rt) ||
+                    Math.Abs(lt - rt) > SealFeatureExtractor.MaximumHandSkew) return;
+                center = GetSealCenter(left, right);
+            }
+            Vector3 direction = center - head.position;
+            if (Vector3.Dot(direction, head.forward) <= .001f) return;
+            Quaternion rotation = Quaternion.LookRotation(direction, head.up);
+            Instantiate(prefab, center, rotation, new InstantiateParameters { scene = gameObject.scene });
         }
 
         private bool TryGetWrist(bool leftHand, out Pose worldPose, out double observed)
@@ -396,44 +462,6 @@ namespace NarutoVR.SealCombat
             return NarutoVR.SealLab.SealLab.FinitePose(worldPose);
         }
 
-        private void ResetMotion(double now)
-        {
-            throwInputValid = releasePoseValid = hasSafeHeldPoint = false; throwBlockReason = null;
-            pushSamples.Clear();
-            lastObserved = double.NegativeInfinity;
-            hasPreviousSample = false;
-            throwState?.Reset();
-            throwIntent?.Reset();
-            armAt = now + heldParameters.ArmDelay;
-        }
-
-        private void TrackPush(Vector3 handPosition, double observed, double now)
-        {
-            // 重复读取的骨骼快照不累计为新的手部运动。
-            if (observed <= lastObserved) return;
-            Vector3 headPosition = head.position;
-            if (hasPreviousSample && ((handPosition - lastHandPosition).sqrMagnitude > 0.35f * 0.35f ||
-                (headPosition - lastHeadPosition).sqrMagnitude > 0.35f * 0.35f)) ResetMotion(now);
-            lastObserved = observed;
-            lastHandPosition = handPosition;
-            lastHeadPosition = headPosition;
-            hasPreviousSample = true;
-            if (now < armAt) return;
-
-            float minSeconds = heldParameters.PushMinimum;
-            float maxSeconds = heldParameters.PushMaximum;
-            while (pushSamples.Count > 0 && observed - pushSamples[0].Time > maxSeconds)
-                pushSamples.RemoveAt(0);
-            foreach (PushSample start in pushSamples)
-            {
-                if (!IsForwardPush(start.Hand, handPosition, start.Head, headPosition, start.Forward,
-                    (float)(observed - start.Time), heldParameters.PushDistance, minSeconds, maxSeconds)) continue;
-                if (TryResolveAim(heldObject.transform.position, out var aim)) Launch(aim.direction);
-                return;
-            }
-            pushSamples.Add(new PushSample(handPosition, headPosition, head.forward, observed));
-        }
-
         /// <summary>同时要求手在世界空间和相对头部的空间向前移动，避免转头或身体位移误触发。</summary>
         public static bool IsForwardPush(Vector3 startWorld, Vector3 endWorld, Vector3 startHead,
             Vector3 endHead, Vector3 referenceForward, float seconds, float distance = 0.12f,
@@ -455,9 +483,9 @@ namespace NarutoVR.SealCombat
             Vector3 point = head.position + head.forward * range;
             float nearest = range;
             int mask=hitLayers.value & ~playerLayers.value;
-            int count=Physics.RaycastNonAlloc(head.position,head.forward,throwSweeps,range,mask,QueryTriggerInteraction.Ignore);
+            int count=Physics.RaycastNonAlloc(head.position,head.forward,throwSweeps,range,mask,QueryTriggerInteraction.Collide);
             RaycastHit[] hits=throwSweeps;
-            if(count==hits.Length) { hits=Physics.RaycastAll(head.position,head.forward,range,mask,QueryTriggerInteraction.Ignore); count=hits.Length; }
+            if(count==hits.Length) { hits=Physics.RaycastAll(head.position,head.forward,range,mask,QueryTriggerInteraction.Collide); count=hits.Length; }
             for(int i=0;i<count;i++)
             {
                 var hit=hits[i];
@@ -471,21 +499,24 @@ namespace NarutoVR.SealCombat
         // 瞄准预览独立于握持和投掷评分，抬腕静止时也可预览，发射仍需通过动作检查。
         public bool TryGetThrowPreview(out FireballAim aim)
         {
-            aim=default;
-            if (!heldObject || !heldObject.activeSelf || !head || PushInputSuppressed || ThrowInputSuppressed ||
-                Time.timeScale<=0 || !double.IsFinite(previewWristStamp)) return false;
-            double age=HandNow-previewWristStamp;
-            if(!double.IsFinite(age) || age<-.01 || age>heldParameters.Throwing.sampleMaxAge ||
-                previewWrist.y<head.position.y-Mathf.Clamp(aimWristDrop,.15f,.65f)) return false;
-            return TryResolveAim(ThrowPreviewOrigin,out aim);
+            aim = default;
+            return currentFireball != null && currentFireball.TryGetThrowPreview(out aim);
         }
 
         public bool TryGetWeaponWaveDirection(Vector3 origin, out Vector3 direction)
         {
             direction = Vector3.zero;
-            if (!RightHandActionAllowed || !head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position, head.rotation))) return false;
-            Vector3 delta = GetAimPoint() - origin;
-            float distance = delta.magnitude;
+            return RightHandActionAllowed && TryGetAimRay(origin, out _, out direction, out _);
+        }
+
+        bool TryGetAimRay(Vector3 origin, out Vector3 point, out Vector3 direction, out float distance)
+        {
+            point = direction = Vector3.zero;
+            distance = 0f;
+            if (!head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position, head.rotation))) return false;
+            point = GetAimPoint();
+            Vector3 delta = point - origin;
+            distance = delta.magnitude;
             if (!float.IsFinite(distance) || distance < .001f || Vector3.Dot(delta, head.forward) <= 0f) return false;
             direction = delta / distance;
             return true;
@@ -494,25 +525,22 @@ namespace NarutoVR.SealCombat
         private bool TryResolveAim(Vector3 origin,out FireballAim aim)
         {
             aim=default;
-            if(!head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position,head.rotation))) return false;
-            Vector3 point=GetAimPoint(), delta=point-origin;
-            float distance=delta.magnitude;
-            // 头部与发射平面之间存在遮挡时，限制目标点，避免朝后发射或越过掩体。
-            if(!float.IsFinite(distance) || distance<.001f || Vector3.Dot(delta,head.forward)<=0) return false;
-            if(!ThrowPathClear(origin,origin)) return false;
-            Vector3 direction=delta/distance, endpoint=point; bool blocked=false;
+            if (!TryGetAimRay(origin, out var point, out var direction, out float distance) ||
+                !ThrowPathClear(origin, origin)) return false;
+            Vector3 endpoint = point;
+            bool blocked = false;
             int mask=hitLayers.value & ~playerLayers.value;
             // 实际飞行使用有半径的球形扫掠，因此准星射线旁的墙体也可能挡住投射物。
-            int count=Physics.SphereCastNonAlloc(origin,heldParameters.Radius,direction,throwSweeps,distance,mask,QueryTriggerInteraction.Ignore);
+            int count=Physics.SphereCastNonAlloc(origin,heldParameters.Radius,direction,throwSweeps,distance,mask,QueryTriggerInteraction.Collide);
             RaycastHit[] hits=throwSweeps;
-            if(count==hits.Length) { hits=Physics.SphereCastAll(origin,heldParameters.Radius,direction,distance,mask,QueryTriggerInteraction.Ignore); count=hits.Length; }
+            if(count==hits.Length) { hits=Physics.SphereCastAll(origin,heldParameters.Radius,direction,distance,mask,QueryTriggerInteraction.Collide); count=hits.Length; }
             float nearest=distance;
             for(int i=0;i<count;i++)
             {
                 var hit=hits[i];
                 if(IgnoreThrowCollider(hit.collider) || hit.distance>nearest) continue;
                 nearest=hit.distance; endpoint=origin+direction*nearest;
-                blocked=!hit.collider.GetComponentInParent<SkillTrainingTarget>();
+                blocked = !new SkillHitTarget(hit.collider).IsTarget;
             }
             aim=new FireballAim(origin,direction,point,endpoint,blocked); return true;
         }
@@ -549,7 +577,11 @@ namespace NarutoVR.SealCombat
         /// <summary>An effect can free the hand while its released visuals run to completion.</summary>
         public void ReleaseRightHandEffect(ISkillEffectLifetime effect)
         {
-            if (ReferenceEquals(rightHandEffect, effect)) rightHandEffect = null;
+            if (ReferenceEquals(rightHandEffect, effect))
+            {
+                rightHandEffect = null;
+                rightHandSkill = null;
+            }
             if (ReferenceEquals(pendingRightHand, effect)) pendingRightHand = null;
         }
 
@@ -607,12 +639,6 @@ namespace NarutoVR.SealCombat
         public float AbsorbPracticeDamage(float damage)
         {
             if (!float.IsFinite(damage) || damage <= 0) return 0;
-            if (BuffRemaining <= 0)
-            {
-                if (shieldPoints > 0) shieldPulse?.Stop();
-                ClearBuff();
-                return damage;
-            }
             float absorbed = Vitals.AbsorbShield(damage, Now);
             PresentShieldHit(absorbed);
             return damage - absorbed;
@@ -621,10 +647,11 @@ namespace NarutoVR.SealCombat
         public void PresentShieldHit(float absorbed)
         {
             if (absorbed <= 0) return;
-            bool broken = shieldPoints <= 0;
-            if (broken) { RemoveBuffVisual(); Report("护盾已被击破"); }
+            bool broken = ShieldPoints <= 0;
+            float strength = absorbed / Mathf.Max(1, lastShieldCapacity);
+            if (broken) { EndShieldPresentation(); Report("护盾已被击破"); }
             else Report($"护盾吸收 {absorbed:0} 点伤害，剩余 {shieldPoints:0}");
-            PlayShieldPulse(broken ? ShieldPulseKind.Break : ShieldPulseKind.Impact, absorbed / Mathf.Max(1, lastShieldCapacity));
+            PlayShieldPulse(broken ? ShieldPulseKind.Break : ShieldPulseKind.Impact, strength);
             if (ShieldImpact != null)
                 foreach (Action<float> listener in ShieldImpact.GetInvocationList())
                     try { listener(absorbed); } catch (Exception e) { Debug.LogWarning("护盾受击反馈监听失败：" + e.Message, this); }
@@ -643,7 +670,7 @@ namespace NarutoVR.SealCombat
                 RemoveExtension(entry);
                 if (alive) { Report("已取消扩展效果"); return true; }
             }
-            if (shieldPoints > 0) { ClearBuff(); shieldPulse?.Stop(); Report("已取消护盾"); return true; }
+            if (ShieldPoints > 0) { ClearBuff(); shieldPulse?.Stop(); Report("已取消护盾"); return true; }
             Report("当前没有可取消的效果");
             return false;
         }
@@ -674,7 +701,7 @@ namespace NarutoVR.SealCombat
             ClearHeld(); Report("已收起未发射火球，护盾与已发射效果保留"); return true;
         }
 
-        public void ResetPushInput() => ResetMotion(Now);
+        public void ResetPushInput() => currentFireball?.ResetMotion(Now);
 
         /// <summary>统一释放本执行器拥有的效果、临时视觉和材料，供禁用、销毁及暂停清理使用。</summary>
         public void ClearAll() => ClearEffects(false);
@@ -689,6 +716,9 @@ namespace NarutoVR.SealCombat
             clearing = true;
             try
             {
+                SetPendingMouthCondition(null);
+                trainingHandPoses?.Reset();
+                surfaceMarks.Clear();
                 ClearHeld();
                 ClearBuff();
                 if (!keepBreakAfterglow)
@@ -722,19 +752,10 @@ namespace NarutoVR.SealCombat
             releasingEffects++;
             try
             {
-                if (heldObject && throwState != null) ObserveThrow("cancelled", "持球结束或取消", default, default, 0, false);
-                throwInputValid = releasePoseValid = hasSafeHeldPoint = false;
-                throwState?.Reset();
-                throwIntent?.Reset();
-                if (heldObject)
-                {
-                    StopHeldAudio(heldObject.transform);
-                    if (!clearing) PlayAudio(heldParameters.Audio, SkillAudioCue.Ended, heldObject.transform.position);
-                    currentFireball.Discard();
-                }
-                pushSamples.Clear();
-                lostAt = -1;
-                hasPreviousSample = false;
+                var cast = currentFireball;
+                if (cast == null) return;
+                try { cast.Cancel(); }
+                finally { if (currentFireball == cast) currentFireball = null; }
             }
             finally { releasingEffects--; releasingHeld = false; }
         }
@@ -752,8 +773,7 @@ namespace NarutoVR.SealCombat
             for(int i=0;i<count;i++) if(!IgnoreThrowCollider(throwSweeps[i].collider)) return false;
             return true;
         }
-        bool IgnoreThrowCollider(Collider c) => !c || !c.enabled || (heldObject && c.transform.IsChildOf(heldObject.transform)) ||
-            ((playerRoot ? playerRoot : head ? head.root : null) is Transform root && c.transform.IsChildOf(root));
+        bool IgnoreThrowCollider(Collider collider) => SkillHitTarget.Ignore(collider, heldObject ? heldObject.transform : null, WeaponOwnerRoot);
 
         public string BuildThrowDebugDetails(double now)
         {
@@ -773,7 +793,7 @@ namespace NarutoVR.SealCombat
             b.AppendLine($"头腕距离 {score.headWristDistance*100:0.0}/{score.reachRequired*100:0.0} cm；主动伸手={score.extensionReady}；保持 {score.holdProgress*100:0}%");
             b.AppendLine("保持路径："+score.holdReason);
             b.AppendLine($"采样 {score.samples}；方向一致性 {score.consistency:0.00}；前送误差 {score.fitError*1000:0.0} mm；动作轮次 {score.actionEpoch:0}");
-            var assist=heldParameters.Throwing?.assisted;
+            var assist=lastThrowSettings?.assisted;
             if(assist!=null && assist.enabled) {
                 b.AppendLine($"前送启用={assist.windupEnabled}：后拉≥{assist.windupDistance*100:0}cm / 前送≥{assist.forwardDistance*100:0}cm / 速度≥{assist.forwardSpeed:0.00}m/s / 一致性≥{assist.minimumConsistency:0.00} / 分数≥{assist.scoreThreshold:0}；期限{assist.actionTimeout:0.00}s");
                 b.AppendLine($"保持启用={assist.reachEnabled}：头腕≥{assist.comfortableReach*assist.reachRatio*100:0}cm / 主动前伸≥{assist.reachMotion*100:0}cm / 身前>{assist.minimumForwardReach*100:0}cm / 保持{assist.reachSeconds:0.00}s");
@@ -788,7 +808,7 @@ namespace NarutoVR.SealCombat
             b.AppendLine($"拟合速度 {e.velocity.magnitude:0.00} m/s；相对位移 {e.relativeDistance*100:0.0} cm；RMS误差 {e.rmsError*1000:0.0} mm；通过={e.accepted}");
             b.AppendLine($"释放位置 {o.releaseOrigin:F3}；输出速度 {o.launchVelocity:F2}");
             b.AppendLine($"上次发射位置 {LastLaunchPosition:F3}；方向 {LastLaunchDirection:F2}；累计 {LaunchCount} 发 / {HitCount} 次命中");
-            if (heldParameters.Throwing != null) b.AppendLine($"配置：握持 {heldParameters.Throwing.gripSeconds*1000:0} ms / 松手 {heldParameters.Throwing.releaseSeconds*1000:0} ms / 最低速度 {heldParameters.Throwing.minimumSpeed:0.00} m/s / 误差上限 {heldParameters.Throwing.maximumFitError*1000:0} mm");
+            if (lastThrowSettings != null) b.AppendLine($"配置：握持 {lastThrowSettings.gripSeconds*1000:0} ms / 松手 {lastThrowSettings.releaseSeconds*1000:0} ms / 最低速度 {lastThrowSettings.minimumSpeed:0.00} m/s / 误差上限 {lastThrowSettings.maximumFitError*1000:0} mm");
             b.Append("最近结果："+o.status+"\n轨迹判定："+(string.IsNullOrEmpty(e.reason)?"尚无冻结轨迹":e.reason));
             return b.ToString();
         }
@@ -796,17 +816,43 @@ namespace NarutoVR.SealCombat
         private void ClearBuff()
         {
             Vitals.ClearShield();
-            RemoveBuffVisual();
+            EndShieldPresentation();
         }
 
-        private void RemoveBuffVisual()
+        private void EndShieldPresentation()
         {
+            lastShieldCapacity = 0;
+            if (bodyShield) FreePrepared(bodyShield.gameObject);
+            bodyShield = null;
             FreePrepared(buffObject);
             buffObject = null;
         }
 
         private void CreateBuffVisual()
         {
+            if (!bodyShield && activeBodyPrefab)
+            {
+                bodyShield = Instantiate(activeBodyPrefab, transform);
+                shieldProperties ??= new MaterialPropertyBlock();
+            }
+            else if (!bodyShield)
+            {
+                var shellMaterial = Resources.Load<Material>("BodyShield");
+                if (shellMaterial)
+                {
+                    var shell = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    shell.name = "护体咒 · 周身护盾";
+                    var collider = shell.GetComponent<Collider>();
+                    collider.enabled = false;
+                    if (Application.isPlaying) Destroy(collider); else DestroyImmediate(collider);
+                    shell.transform.SetParent(transform, false);
+                    bodyShield = shell.GetComponent<MeshRenderer>();
+                    bodyShield.sharedMaterial = shellMaterial;
+                    bodyShield.shadowCastingMode = ShadowCastingMode.Off;
+                    bodyShield.receiveShadows = false;
+                    shieldProperties ??= new MaterialPropertyBlock();
+                }
+            }
             if (buffObject) return;
             if (activeShieldPrefab)
             {
@@ -843,6 +889,18 @@ namespace NarutoVR.SealCombat
 
         private void UpdateBuffVisual()
         {
+            if (bodyShield && head)
+            {
+                var eye = head.position;
+                float height = playerRoot ? Mathf.Clamp(eye.y - playerRoot.position.y, .65f, 2.2f) : 1.65f;
+                bodyShield.transform.position = eye - Vector3.up * (height * .5f - .10f);
+                bodyShield.transform.rotation = Quaternion.identity;
+                bodyShield.transform.localScale = activeBodyPrefab
+                    ? activeBodyPrefab.transform.localScale * Mathf.Max(1.75f, height + .45f)
+                    : new Vector3(1.75f, height + .65f, 1.75f);
+                shieldProperties.SetFloat(ShieldPulseId, Mathf.Clamp01(1 - (float)(Now - bodyPulseAt) / .45f));
+                bodyShield.SetPropertyBlock(shieldProperties);
+            }
             if (!buffObject && shieldPulse?.IsPlaying != true) return;
             bool tracked = TryGetWrist(true, out Pose wrist, out _);
             if (buffObject)
@@ -857,6 +915,7 @@ namespace NarutoVR.SealCombat
         {
             try
             {
+                bodyPulseAt = Now;
                 shieldPulse ??= ShieldWristPulse.Create(gameObject);
                 shieldPulse?.Play(kind, strength, Now);
                 UpdateBuffVisual();
@@ -900,7 +959,7 @@ namespace NarutoVR.SealCombat
             }
         }
         private void OnDisable() => ClearAll();
-        private void OnDestroy() { ClearAll(); ReleaseLegacyDefinitions(); }
+        private void OnDestroy() => ClearAll();
         private void OnApplicationPause(bool paused) { if (paused) ClearAll(); }
     }
 }

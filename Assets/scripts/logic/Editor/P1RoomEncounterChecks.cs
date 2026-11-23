@@ -28,6 +28,19 @@ namespace NarutoVR.SealCombat.Editor
             Move(10);
             Check(room.HasStarted && room.PlayerInside && enemy.gameObject.activeSelf && rpg.locomotion.EncounterCombat,
                 "玩家地面位置进入房间启动敌人与战斗模式");
+            f.OtherRoom.TickEncounter();
+            Check(rpg.locomotion.EncounterCombat && !f.OtherRoom.PlayerInside, "第二个空房更新后当前房间仍保持战斗");
+            f.OtherRoom.enabled = false;
+            Check(rpg.locomotion.EncounterCombat, "禁用空房不会撤销其它房间的战斗请求");
+            f.OtherRoom.enabled = true;
+            f.OtherRoom.area.center = room.area.center;
+            f.OtherRoom.TickEncounter();
+            room.enabled = false;
+            Check(f.OtherRoom.PlayerInside && rpg.locomotion.EncounterCombat, "重叠房间各自持有战斗，退出其中一个仍在战斗");
+            room.enabled = true;
+            room.TickEncounter();
+            f.OtherRoom.enabled = false;
+            Check(rpg.locomotion.EncounterCombat, "反向退出第二个房间不影响第一个");
             Invoke(rpg, "LateUpdate");
             Check(rpg.locomotion.EncounterCombat && rpg.StageIndex == 0, "击破练习靶不会覆盖区域战斗或推进阶段");
             var state = enemy.Entity.Combat;
@@ -86,6 +99,7 @@ namespace NarutoVR.SealCombat.Editor
             public GameObject Rig { get; }
             public LinearRpgController Rpg { get; }
             public CombatRoomEncounter Room { get; }
+            public CombatRoomEncounter OtherRoom { get; }
             public EnemyController Enemy { get; }
             public SkillTrainingTarget Target { get; }
             public BoxCollider Floor { get; }
@@ -110,12 +124,13 @@ namespace NarutoVR.SealCombat.Editor
                     stage = ScriptableObject.CreateInstance<RpgStageDefinition>(); stage.stageId = "room-check";
                     stage.startsInCombat = true; stage.enableHazards = true; // 区域模式必须覆盖旧阶段设置。
                     skills.effects = effects; skills.lab = lab;
-                    skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>("Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset");
+                    skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
                     Rpg = Rig.AddComponent<LinearRpgController>();
                 Rpg.chapter = Rig.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)Rpg.chapter).rpg = Rpg; ((TrainingChapterFlow)Rpg.chapter).initialSkills = new[]{"fireball"}; Rpg.skills = skills; Rpg.locomotion = locomotion;
+                ((TrainingChapterFlow)Rpg.chapter).rpg = Rpg;
+                Rpg.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath); Rpg.skills = skills; Rpg.locomotion = locomotion;
                     Rpg.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
-                    Rpg.stages = new[] { stage }; Rpg.GetComponent<TrainingTargetGroup>().targets = new[] { Target }; Rpg.GetComponent<TrainingTargetGroup>().healthByStage = new[]{60f}; Rpg.GetComponent<TrainingTargetGroup>().resetAfterSeconds=3; Rpg.checkpointNodes = new[] { node };
+                    Rpg.ConfigureRoute(new[] { stage }, new[] { node }); Rpg.GetComponent<TrainingTargetGroup>().targets = new[] { Target }; Rpg.GetComponent<TrainingTargetGroup>().stageHealth = new[] { new TrainingTargetGroup.StageHealth { stage = stage, health = 60f } }; Rpg.GetComponent<TrainingTargetGroup>().resetAfterSeconds=3;
                     Rpg.autoLoad = false; Rpg.GetComponent<TrainingChapterFlow>().autoAdvance = true; Rpg.roomControlsEncounter = true;
                     Rpg.saveFileName = "room-check-" + Guid.NewGuid().ToString("N") + ".json";
                     var go = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(EnemySetupAndChecks.PrefabPath), root.transform);
@@ -125,9 +140,17 @@ namespace NarutoVR.SealCombat.Editor
                     Room = Child("房间").AddComponent<CombatRoomEncounter>(); Room.rpg = Rpg; Room.enemies = new[] { Enemy };
                     Room.area = Room.gameObject.AddComponent<BoxCollider>(); Room.area.isTrigger = true;
                     Room.area.center = new Vector3(0, 1, 10); Room.area.size = new Vector3(10, 4, 10);
+                    var otherEnemy = Object.Instantiate(go, root.transform).GetComponent<EnemyController>();
+                    OtherRoom = Child("第二个房间").AddComponent<CombatRoomEncounter>();
+                    OtherRoom.rpg = Rpg;
+                    OtherRoom.enemies = new[] { otherEnemy };
+                    OtherRoom.area = OtherRoom.gameObject.AddComponent<BoxCollider>();
+                    OtherRoom.area.isTrigger = true;
+                    OtherRoom.area.center = Vector3.right * 30;
+                    OtherRoom.area.size = Room.area.size;
                     root.SetActive(true); skills.enabled = false; Physics.SyncTransforms();
-                    if (!Rpg.CanAct) throw new Exception("房间检查玩家初始化失败：" + Rpg.Status);
                     Invoke(Rpg, "Start");
+                    if (!Rpg.CanAct) throw new Exception("房间检查玩家初始化失败：" + Rpg.Status);
                 }
                 catch { Dispose(); throw; }
             }

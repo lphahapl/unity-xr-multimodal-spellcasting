@@ -18,9 +18,11 @@ namespace NarutoVR.SealCombat.Editor
         const string Report = "Logs/checkpoint-recovery.txt";
         const string SourceScene = "Assets/Scene/Chapter01_Awakening.unity";
         const string HealthyScene = "Assets/Scene/QA_CheckpointCallbacks.unity";
+        const string BlockedScene = "Assets/Scene/QA_BlockedCheckpoint.unity";
         const string FutureScene = "Assets/Scene/QA_FutureCheckpoint.unity";
         const string FutureContents = "{\"version\":999,\"profileId\":\"linear-rpg-player\",\"sentinel\":\"preserve-exact-bytes\"}";
         static AsyncOperation changingScene;
+        static System.Collections.IEnumerator blockedCheck;
         static int failed;
         static double deadline;
 
@@ -56,6 +58,7 @@ namespace NarutoVR.SealCombat.Editor
             Directory.CreateDirectory(saveDirectory);
             File.WriteAllBytes(Path.Combine(saveDirectory, future), Encoding.UTF8.GetBytes(FutureContents));
             Configure(FutureScene, future, true);
+            Configure(BlockedScene, "qa-blocked-" + tag + ".json", true);
             Configure(HealthyScene, "qa-callbacks-" + tag + ".json", false);
             SessionState.SetBool(Key, true);
             SessionState.SetInt(Key + ".exit", 1);
@@ -69,6 +72,26 @@ namespace NarutoVR.SealCombat.Editor
             owner.saveFileName = filename;
             owner.autoLoad = autoLoad;
             owner.skills.voice.autoStartInEditor = false;
+            if (scene == BlockedScene)
+            {
+                var stage = owner.StageAt(0);
+                var node = owner.CheckpointAt(1);
+                var snapshot = new RpgProgressData { checkpointId = node.nodeId, currency = 37 };
+                snapshot.checkpoint.health = 63;
+                snapshot.completedStageIds.Add(stage.stageId);
+                snapshot.claimedRewardIds.Add("reward." + stage.stageId);
+                snapshot.unlockedSkillIds.AddRange(owner.StartingSkills.Concat(stage.unlockSkillIds).Distinct());
+                snapshot.discoveredSkillIds.AddRange(owner.chapter.InitialDiscoveries);
+                var data = JsonUtility.ToJson(new SaveEnvelope { progress = snapshot, profileId = "linear-rpg-player" });
+                File.WriteAllText(Path.Combine("Temp", "SkillAssemblyPlayerSave", filename), data);
+                SessionState.SetString(Key + ".original", data);
+                var obstacle = new GameObject("QA checkpoint obstacle") { layer = 30 };
+                obstacle.transform.position = node.floorPosition + Vector3.up * .8f;
+                obstacle.AddComponent<BoxCollider>().size = new Vector3(1, .3f, 1);
+                if (!node.overrideLayers) node.floorLayers = owner.locomotion.floorLayers;
+                node.overrideLayers = true;
+                node.obstacleLayers = 1 << 30;
+            }
             if (!EditorSceneManager.SaveScene(copy, scene)) throw new IOException("Cannot save isolated scene " + scene);
         }
 
@@ -79,12 +102,21 @@ namespace NarutoVR.SealCombat.Editor
                 if (EditorApplication.timeSinceStartup > deadline) throw new TimeoutException("Waiting for checkpoint scene");
                 if (changingScene != null && !changingScene.isDone) return;
                 var owner = Object.FindFirstObjectByType<LinearRpgController>();
-                if (!owner || !owner.CanAct) return;
+                if (!owner) return;
+                if (SceneManager.GetActiveScene().path == BlockedScene)
+                {
+                    if (!owner.CanRetryInitialCheckpoint && !owner.CanAct) return;
+                    blockedCheck ??= CheckBlockedLanding(owner);
+                    if (blockedCheck.MoveNext()) return;
+                    changingScene = EditorSceneManager.LoadSceneAsyncInPlayMode(FutureScene, new LoadSceneParameters(LoadSceneMode.Single));
+                    return;
+                }
+                if (!owner.CanAct) return;
                 if (SceneManager.GetActiveScene().path == HealthyScene)
                 {
                     CheckReentrantWriter(owner.SavePath + ".coordinator");
                     CheckCallbacks(owner);
-                    changingScene = EditorSceneManager.LoadSceneAsyncInPlayMode(FutureScene, new LoadSceneParameters(LoadSceneMode.Single));
+                    changingScene = EditorSceneManager.LoadSceneAsyncInPlayMode(BlockedScene, new LoadSceneParameters(LoadSceneMode.Single));
                     return;
                 }
                 if (SceneManager.GetActiveScene().path != FutureScene) return;
@@ -102,6 +134,41 @@ namespace NarutoVR.SealCombat.Editor
                 Finish();
             }
             catch (Exception error) { Check(false, error.ToString()); Finish(); }
+        }
+
+        static System.Collections.IEnumerator CheckBlockedLanding(LinearRpgController owner)
+        {
+            var obstacle = GameObject.Find("QA checkpoint obstacle");
+            var rig = owner.locomotion.rigRoot;
+            var origin = rig.position;
+            var bytes = Encoding.UTF8.GetBytes(SessionState.GetString(Key + ".original", ""));
+            bool ArchiveIntact() => File.ReadAllBytes(owner.SavePath).SequenceEqual(bytes) &&
+                !File.Exists(owner.SavePath + ".bak") && !File.Exists(owner.SavePath + ".tmp");
+            int moves = 0, restored = 0;
+            owner.CheckpointRestored += () => {
+                restored++;
+                Check(owner.StageIndex == 1 && owner.Player.Health == 63 && owner.Model.Currency == 37,
+                    "completion listeners see committed later-stage state");
+            };
+            owner.locomotion.MovementCommitted += m => { if (m.Kind == PlayerMovementKind.Checkpoint) moves++; };
+            Check(!owner.CanAct && !owner.IsReady && owner.CanRetryInitialCheckpoint &&
+                !owner.RetryInitialCheckpoint() && !owner.SaveCheckpoint() && !owner.DebugCast("fireball") &&
+                owner.StageIndex == 0 && owner.Player.Health != 63 && owner.Model.Currency != 37 && rig.position == origin &&
+                moves == 0 && restored == 0 && ArchiveIntact(), "blocked cold start and retry preserve v2 and withhold position, progress and input");
+            obstacle.SetActive(false);
+            while (!owner.CanAct) yield return null;
+            Vector3 offset = owner.locomotion.PlayerFloorPosition - owner.CheckpointAt(1).floorPosition;
+            Check(!owner.RetryInitialCheckpoint() && new Vector2(offset.x, offset.z).magnitude < .02f &&
+                moves == 1 && restored == 1 && ArchiveIntact(), "unblocked cold start automatically lands at saved node and commits once without desktop input");
+            Check(owner.ReceiveDamage("qa-pre-restore", 10), "manual restore begins with different health");
+            rig.position += Vector3.right * 2;
+            var before = rig.position;
+            float health = owner.Player.Health;
+            obstacle.SetActive(true);
+            Check(!owner.RestoreCheckpoint() && owner.CanAct && owner.Player.Health == health && rig.position == before &&
+                moves == 1 && restored == 1 && ArchiveIntact(), "blocked manual restore preserves live state and archive");
+            obstacle.SetActive(false);
+            Check(owner.RestoreCheckpoint() && moves == 2 && restored == 2 && ArchiveIntact(), "same archive restores after obstruction is removed");
         }
 
         static void CheckCallbacks(LinearRpgController owner)

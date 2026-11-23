@@ -1,0 +1,676 @@
+{
+  "time": "2026-11-19T03:29:11.156978+08:00",
+  "unity": "6000.3.10f1",
+  "blender": "5.2.2 LTS",
+  "artifacts": {
+    "CourtMainRoof": {
+      "source_high_sha256": "9378c0e0dabe7f008b26a609fdf3c50aa0b325b836d2a49251b7420d13540a6c",
+      "high_triangles": 499078,
+      "three_lods": [
+        {
+          "triangles": 11600,
+          "verts": 5802,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 4950,
+          "verts": 2477,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 1750,
+          "verts": 877,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        }
+      ],
+      "per_lod_textures": [
+        {
+          "BaseColor": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              151,
+              155,
+              165
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              0,
+              2
+            ],
+            "channel_max": [
+              254,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              2
+            ],
+            "channel_max": [
+              45,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              141,
+              154,
+              165
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              2,
+              0,
+              4
+            ],
+            "channel_max": [
+              254,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              3
+            ],
+            "channel_max": [
+              45,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              152,
+              162,
+              173
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              3,
+              1,
+              3
+            ],
+            "channel_max": [
+              253,
+              254,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              3
+            ],
+            "channel_max": [
+              44,
+              255,
+              0,
+              255
+            ]
+          }
+        }
+      ]
+    },
+    "CourtLowWing": {
+      "source_high_sha256": "6647743a04fade74a3c401d7416d3a7f4d48a114d97c4ed408fe4a7cb5192f51",
+      "high_triangles": 496668,
+      "three_lods": [
+        {
+          "triangles": 8046,
+          "verts": 3885,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 3370,
+          "verts": 1547,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 1224,
+          "verts": 474,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        }
+      ],
+      "per_lod_textures": [
+        {
+          "BaseColor": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              213,
+              214,
+              213
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              0,
+              5
+            ],
+            "channel_max": [
+              255,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              0
+            ],
+            "channel_max": [
+              38,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              184,
+              184,
+              183
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              1,
+              0
+            ],
+            "channel_max": [
+              253,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              1
+            ],
+            "channel_max": [
+              36,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              157,
+              158,
+              160
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              2,
+              0
+            ],
+            "channel_max": [
+              254,
+              254,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              0
+            ],
+            "channel_max": [
+              37,
+              255,
+              0,
+              255
+            ]
+          }
+        }
+      ]
+    },
+    "CourtGatehouse": {
+      "source_high_sha256": "6647743a04fade74a3c401d7416d3a7f4d48a114d97c4ed408fe4a7cb5192f51",
+      "high_triangles": 496668,
+      "three_lods": [
+        {
+          "triangles": 12448,
+          "verts": 6022,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 5376,
+          "verts": 2486,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        },
+        {
+          "triangles": 1820,
+          "verts": 708,
+          "boundary_edges": 0,
+          "overfull_edges": 0,
+          "zero_area": 0,
+          "zero_length": 0,
+          "UV_layers": 1
+        }
+      ],
+      "per_lod_textures": [
+        {
+          "BaseColor": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              214,
+              214,
+              214
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              2,
+              0,
+              2
+            ],
+            "channel_max": [
+              254,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              2048,
+              2048
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              0
+            ],
+            "channel_max": [
+              46,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              186,
+              187,
+              189
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              2,
+              1,
+              1
+            ],
+            "channel_max": [
+              255,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              1024,
+              1024
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              1
+            ],
+            "channel_max": [
+              44,
+              255,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "BaseColor": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              0,
+              0
+            ],
+            "channel_max": [
+              179,
+              180,
+              180
+            ]
+          },
+          "Normal": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              4,
+              1,
+              1
+            ],
+            "channel_max": [
+              249,
+              255,
+              255
+            ]
+          },
+          "Mask": {
+            "resolution": [
+              512,
+              512
+            ],
+            "channel_min": [
+              0,
+              255,
+              0,
+              1
+            ],
+            "channel_max": [
+              40,
+              255,
+              0,
+              255
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "assets_sha256": {
+    "CourtGatehouse.meta": "aae00253a76ec11a5171ea668f695aa61daa9636600f168dcdcadaf75b85e4cf",
+    "CourtHallRoofSet.prefab": "4715835122756b5bf885da5d7ad11e8cc4cc5068e51a013064f9cce380c3f323",
+    "CourtHallRoofSet.prefab.meta": "cf5c7dc45784eea092d006635f38298e89464ae36ca11a83ff2642a89d5535dd",
+    "CourtLowWing.meta": "a859b3d61bb6d8af41c251c56d52631d0323e4b68fe8d9efa0e844b527c7eea5",
+    "CourtMainRoof.meta": "016dc0a44a7935021e5786d94e719982687668e075276539aa33eb64847c5279",
+    "CourtGatehouse/CourtGatehouse.fbx": "75470741399e3e4f66213f55e88b5e135c535f8947415ef24c5238963fa2620c",
+    "CourtGatehouse/CourtGatehouse.fbx.meta": "75e711200bd01ab5ed638f478622631bfc64b4dc7ec3db69f153f14e2889eb81",
+    "CourtGatehouse/CourtGatehouse.prefab": "ab6bfeda8cf6d56d86f36bcc26029a63f39a72e7f4ac7171d0b0edfec3ae300c",
+    "CourtGatehouse/CourtGatehouse.prefab.meta": "4b2c9798f03082adaf282ec4e8a9753f97177c66226282f259eea7b360217fca",
+    "CourtGatehouse/CourtGatehouse_Tier0.mat": "b2f8e92aafd7540f2949bf0bcbaea8f54735449f2fdde0b2cb41de3987ac2afa",
+    "CourtGatehouse/CourtGatehouse_Tier0.mat.meta": "c3b66697a6d08eb74cd497fe963730360f0608686abc8448a302174b6fbfcf8d",
+    "CourtGatehouse/CourtGatehouse_Tier0_BaseColor.png": "e4434935f2d9bdd42413262e2a68340dece692ce6211b1c579049229046ed8da",
+    "CourtGatehouse/CourtGatehouse_Tier0_BaseColor.png.meta": "53d59003c1196774fa4ee6a850fb9ea627d798974a84c5f7473e2e6247266cd8",
+    "CourtGatehouse/CourtGatehouse_Tier0_Mask.png": "1b42ac3c4526ba1348417ac130f6ecfb48db37a11d461fd7464ad09626aa891c",
+    "CourtGatehouse/CourtGatehouse_Tier0_Mask.png.meta": "314c48e63f8c368f0bae8209a71c9be48d9c0da971077eeb9ca49c9b8e21a892",
+    "CourtGatehouse/CourtGatehouse_Tier0_Normal.png": "437af63630f58490512f8c80f393c46cfd738af99d9f72adadee4a96d6d5f252",
+    "CourtGatehouse/CourtGatehouse_Tier0_Normal.png.meta": "11e805f4ca6c7065f1ee0121663dddff0fd3de9b83c2c5c0f803713802bb90ee",
+    "CourtGatehouse/CourtGatehouse_Tier1.mat": "7dba687428dabfd333fd1c330d111331269f67a5f057853e80644b0035e379a5",
+    "CourtGatehouse/CourtGatehouse_Tier1.mat.meta": "3ebf07d5259e99e7a543ddedc700c09555d24937350907ed9ef5a9dcace9f49e",
+    "CourtGatehouse/CourtGatehouse_Tier1_BaseColor.png": "9d3de3f47870c82186116f252eae8d9f0d4a41158120745e23f6b48f041a14b6",
+    "CourtGatehouse/CourtGatehouse_Tier1_BaseColor.png.meta": "7b513ca99b313a476d902d602eae2a9ba3938411a8a5cd4554c073c80d481330",
+    "CourtGatehouse/CourtGatehouse_Tier1_Mask.png": "b44dfc406d0af22b32eb4b76ccec176845cc2f804bb83e0021ef8473ef0e472f",
+    "CourtGatehouse/CourtGatehouse_Tier1_Mask.png.meta": "a76e874f5fbf838f11958acb0424ff514487fce15480bdf09d89234049ce2888",
+    "CourtGatehouse/CourtGatehouse_Tier1_Normal.png": "cfd9aa89dfd8f669db1e1c11f4c2a3002e5a4ee6f82a1bc6b6212ef4af673388",
+    "CourtGatehouse/CourtGatehouse_Tier1_Normal.png.meta": "83b2f183860a8037453130fdf0719526600fd8720662eff181f12f7439efa992",
+    "CourtGatehouse/CourtGatehouse_Tier2.mat": "4de9423bae37faed434f46c91f56955f3d3ade6d95463737cb24dc776fd2966c",
+    "CourtGatehouse/CourtGatehouse_Tier2.mat.meta": "cebd45111c85eddb0d0950daaf72af7f6aef89cae9626597e807219dd8d73c5c",
+    "CourtGatehouse/CourtGatehouse_Tier2_BaseColor.png": "94cd835a772a57e1a9b902a6d58e51e2e835290c8d09aa591c063ed96f16b9e7",
+    "CourtGatehouse/CourtGatehouse_Tier2_BaseColor.png.meta": "b506a2f0bcbf3e788691f4470567de4ba5b7c1744cf45f5f016c24c590eeb48e",
+    "CourtGatehouse/CourtGatehouse_Tier2_Mask.png": "5e0a645a7882a4ab4751d6517faf2ddd98f2c472c90602ffbac1b3b4ba57e832",
+    "CourtGatehouse/CourtGatehouse_Tier2_Mask.png.meta": "ce2dbc6d37f4397ecafcbc80ad375a651d9ea678c8e3c85a0906847977c8bd8e",
+    "CourtGatehouse/CourtGatehouse_Tier2_Normal.png": "81b415f83acbc0d8203225beecf479ea9c86b5ee0f1e840fb0c2ed4b60fefebf",
+    "CourtGatehouse/CourtGatehouse_Tier2_Normal.png.meta": "ef366c15179390f3e0c45ea8c3764ad05e6017a4adb767e511a7243eb189d055",
+    "CourtLowWing/CourtLowWing.fbx": "c91c9d982ede6f3fe499a84b9990b403c22aa5766a6fc371058f6882b7eff833",
+    "CourtLowWing/CourtLowWing.fbx.meta": "c809f92d472b697c14c6388206edcc2e004ec215ef221ef1886f183d8f00d48a",
+    "CourtLowWing/CourtLowWing.prefab": "d7fb0b0b5c269116c5e28407b10a12db1993cb304c7ed9776fc7f2656d0504f3",
+    "CourtLowWing/CourtLowWing.prefab.meta": "166b4b09c488ddb049f0c25637a95953e42640fc6bccd3fded079baf26baeadf",
+    "CourtLowWing/CourtLowWing_Tier0.mat": "d526b9b6ec822e05a308f6eb0ee50bf24926367325049cefe179ec61f546541a",
+    "CourtLowWing/CourtLowWing_Tier0.mat.meta": "ff02fd7f405fcf5dc823fd76376a6f211a7f6734d63f65fd1e4b08f9d79cefb8",
+    "CourtLowWing/CourtLowWing_Tier0_BaseColor.png": "977e0bdb0cc63a1d9424415c1d578c41fc8417fd3ee3caf5ee73082031e1e8a3",
+    "CourtLowWing/CourtLowWing_Tier0_BaseColor.png.meta": "d1714bd88b28a524acad364c46af48252b25aa149c57fa49b60a1632e2561f46",
+    "CourtLowWing/CourtLowWing_Tier0_Mask.png": "e3fe427022c799c58e967415d33d40cc9a43bf5a2760522e2ef69f6a8edc590d",
+    "CourtLowWing/CourtLowWing_Tier0_Mask.png.meta": "77bf474c6ab1d7220e2801fdf8bc64886a61949ab53b8fc1e0c87702f9ab7bc7",
+    "CourtLowWing/CourtLowWing_Tier0_Normal.png": "24816537ded72786323f6b1da66688e1bd8786975e2cf751489d88c36afbf05b",
+    "CourtLowWing/CourtLowWing_Tier0_Normal.png.meta": "66a6fb9540feb59d1e6a11e5f58a806a13f3820535e8754e823242926dd3d013",
+    "CourtLowWing/CourtLowWing_Tier1.mat": "0f3ac8d2dc699aec5655a2883d3f4311f1ca20ba09fe849a499819d89dd996bf",
+    "CourtLowWing/CourtLowWing_Tier1.mat.meta": "45cf192afc279dcc0404d143cdfbad254eac62e4ef8a7ba9817e53dfeb9ea1e8",
+    "CourtLowWing/CourtLowWing_Tier1_BaseColor.png": "1e5b15379d0e9c263a1c41b5294ba3dec47eb6175defa8dfc16f8206ca5598c0",
+    "CourtLowWing/CourtLowWing_Tier1_BaseColor.png.meta": "206c280631406ec77d9eb1099b632e2ed51b46d7be8563781ebe1c577a88042c",
+    "CourtLowWing/CourtLowWing_Tier1_Mask.png": "c744f946d581387e26587cd811c1c785c95765c1a65e4f81ef46e9b1c504f9ac",
+    "CourtLowWing/CourtLowWing_Tier1_Mask.png.meta": "3f9649266e983e305bf84fb6e4d6896dff1b7192273e689df8a028040e6d08a2",
+    "CourtLowWing/CourtLowWing_Tier1_Normal.png": "04b28d54c93ced417af7efc647ae7b4540a444276d248d077d7f4859be9c759a",
+    "CourtLowWing/CourtLowWing_Tier1_Normal.png.meta": "71631f6c9c93c67920d519b7f79348a4e1aa46bc05fb8e539240cb2efe354573",
+    "CourtLowWing/CourtLowWing_Tier2.mat": "c7dda731c2c9b69a90015aee8062241f59911fb00a4c420240a8ac59717bca05",
+    "CourtLowWing/CourtLowWing_Tier2.mat.meta": "79444e4c81283174c67bebf961a067cf9f8688501a8bc8e69c3853a63ec26a9b",
+    "CourtLowWing/CourtLowWing_Tier2_BaseColor.png": "49873ad5095777feba44de7969c3fb6565835fcb972c8b35a9c5e82b2e6759ed",
+    "CourtLowWing/CourtLowWing_Tier2_BaseColor.png.meta": "ac491ac8847110e807ffe16d795d72de44249dc941c0df4f2cc6caceb3ca1465",
+    "CourtLowWing/CourtLowWing_Tier2_Mask.png": "95089febf639c9b52dc014a9180d98ce997ce329a2f63dcbc486d25fca5f5867",
+    "CourtLowWing/CourtLowWing_Tier2_Mask.png.meta": "fefbc98f1b85ea122ce41ee9aeca0667b7b632f5b0287689ce4af411ee15af4f",
+    "CourtLowWing/CourtLowWing_Tier2_Normal.png": "83f72676428304a6ce3e8c895cad5bb94c059fea6d643747af30bfb488e45716",
+    "CourtLowWing/CourtLowWing_Tier2_Normal.png.meta": "d83cd8147e9dceed5402651dddb357cbdd27473fe663bbfa2b52e717e5f948d0",
+    "CourtMainRoof/CourtMainRoof.fbx": "30230fcec4075425d9b4532e2daeb3d6ffa1545ddb81845fd31d2ec35c62e34a",
+    "CourtMainRoof/CourtMainRoof.fbx.meta": "fc48cc02ef3d479332dbbcfa5048cbf3db42c00bb5cdd349467520524d9c8308",
+    "CourtMainRoof/CourtMainRoof.prefab": "f5142f8e04e6ebbed1896bdd59486ad7c169d2f51ccd2e1146de687c55b916e9",
+    "CourtMainRoof/CourtMainRoof.prefab.meta": "0874c47e69e02220030324563145b13c14f34653a7f10513057840004a4d67db",
+    "CourtMainRoof/CourtMainRoof_Tier0.mat": "15845190a54cfe8b9f43b03f1e907879af3153631601b43bfafd05ca0379c0b3",
+    "CourtMainRoof/CourtMainRoof_Tier0.mat.meta": "b232fee37910840e87dc0e9d6205a681dc2d06826dd5b55338287526a76549b5",
+    "CourtMainRoof/CourtMainRoof_Tier0_BaseColor.png": "1edef13e81c7a5f8c5c4ad8bf259adb7ff947deba3f041a07611f2f96515630e",
+    "CourtMainRoof/CourtMainRoof_Tier0_BaseColor.png.meta": "88f378d572aa86c2089330fe799a5be7417914acb0442bb60e0f3307e0104fa3",
+    "CourtMainRoof/CourtMainRoof_Tier0_Mask.png": "3f0326bb1104aa8e3e97f63c68610e35f44d0dcf5a6bdc1b60d5742a061c8992",
+    "CourtMainRoof/CourtMainRoof_Tier0_Mask.png.meta": "1414afcc412c1730303f7b05e151d26df55fbcbff8bed0aa9e7035e57b6d9896",
+    "CourtMainRoof/CourtMainRoof_Tier0_Normal.png": "638aa69a6b922dec08c73be2f7b1218d450bf0329c198c6fe0f1632cf7b164f1",
+    "CourtMainRoof/CourtMainRoof_Tier0_Normal.png.meta": "dee5c0bab12b4f8e7a423e61c53090cf4ddd79413fe6f8b4b9dd62cff645c845",
+    "CourtMainRoof/CourtMainRoof_Tier1.mat": "ef6faff5ca91633980a51fb69de2b948ff2582256512911a325b264b5d70f446",
+    "CourtMainRoof/CourtMainRoof_Tier1.mat.meta": "cb1eb0b0dcca16a586e387e4a1a3713a3f2a6f9710dbf19c0e41cd2d55e0359c",
+    "CourtMainRoof/CourtMainRoof_Tier1_BaseColor.png": "5f4dc91ce9acc1d6fcdda8c5872eab353330f82fa9fe83987c9f41b3f733f63a",
+    "CourtMainRoof/CourtMainRoof_Tier1_BaseColor.png.meta": "3fe64cb6b06f8f6139806fdaeefa0a0516658cae88be8396f7de484e064a6ebf",
+    "CourtMainRoof/CourtMainRoof_Tier1_Mask.png": "8ed32ccd2626910225ff27f317b75c74a6b6ac137ae1f9509f7e09f9d3f499a4",
+    "CourtMainRoof/CourtMainRoof_Tier1_Mask.png.meta": "f4b327d55a5103d13d54cd73a2196fb407cf9925a22c126e63928693c238de24",
+    "CourtMainRoof/CourtMainRoof_Tier1_Normal.png": "0addeb44d915727ac275d66ec1ad868d9467796e64b1a2946ae855204b80a5e0",
+    "CourtMainRoof/CourtMainRoof_Tier1_Normal.png.meta": "e6f9746cc27e5aad249cdf54c1ad21a4c411dad8fb222d84758e92376f27c0d6",
+    "CourtMainRoof/CourtMainRoof_Tier2.mat": "a376870918dc38509187c8336ff879ea416676300604406471434b3dcdab0784",
+    "CourtMainRoof/CourtMainRoof_Tier2.mat.meta": "26c196ecbe97f90a9932d550a35c5b99d167da1d0047a7b24db75e12e1dfe08a",
+    "CourtMainRoof/CourtMainRoof_Tier2_BaseColor.png": "6fe9c1ef73880ddeb6ac503bfe2b7f9288b7fddc801cd887299274566bccc9ce",
+    "CourtMainRoof/CourtMainRoof_Tier2_BaseColor.png.meta": "f57ab62052497c77f9929fdc15b95430a855eb806b7fae622d258cdf3d5eebbe",
+    "CourtMainRoof/CourtMainRoof_Tier2_Mask.png": "bdca6529c2a96810ac26ada18bf63102584278d6e65981a8b4529e58c3656089",
+    "CourtMainRoof/CourtMainRoof_Tier2_Mask.png.meta": "779f67950fa36e7996456c5bc75133c6df4afafda104f2482f554a1d97c6d1d5",
+    "CourtMainRoof/CourtMainRoof_Tier2_Normal.png": "444a5dbd9692bea18131bd5864239738837981893c3723b862fa44efff5522f8",
+    "CourtMainRoof/CourtMainRoof_Tier2_Normal.png.meta": "0cd7354649fb8570104e1d7887f9d5c3e7481102a7ec6ec71916351e8d461247"
+  },
+  "game_QA_warning_resolution": "Small downward roof eave deviations from standalone plane (maximum 0.031m) are inside the supporting wall roof overlap in the assembled room. Gate columns are grounded separately at y=0 for all LODs.",
+  "old_layers": "Disable the original three exterior A01 roof-and-corner-post LOD roots in the assembly when the upper replacement set is installed. Retain original ceiling slabs and gameplay. Separate corner-posts can be dressed as needed at wall ends; no additional supports in this roofing-only set.",
+  "gate_checks": "Nine fixed box colliders, two-way LOD0 visual mesh and static collider sweeps across 2.4m total at 2.66m headroom, six actual CharacterController traversals.",
+  "fit_checks": "150 ray samples through the ten actual window positions, across z-offsets and eye heights, zero intersections with added LOD0 roofs.",
+  "source_authorship": "CourtLowWing uses the approved H02 roof above its eaves. Four posts and hanging cut scraps are removed; cut soffit uses project GateGrain before high-to-low transfer."
+}

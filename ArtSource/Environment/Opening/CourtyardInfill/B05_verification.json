@@ -1,0 +1,83 @@
+{
+  "CanalLantern": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "hidden back-to-back faces: CanalLantern (8 pairs) - delete to save tris"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "CanalLantern",
+          "tri_pairs": 8
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "CanalLantern": {
+          "verts": 258,
+          "faces": 460,
+          "tris": 460,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 14,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 57.0
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 460,
+        "dimensions": [
+          0.36800000071525574,
+          0.5600000023841858,
+          0.36800000071525574
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 288,
+        "dimensions": [
+          0.365535706281662,
+          0.5600000023841858,
+          0.365535706281662
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 148,
+        "dimensions": [
+          0.365535706281662,
+          0.5600000023841858,
+          0.365535706281662
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

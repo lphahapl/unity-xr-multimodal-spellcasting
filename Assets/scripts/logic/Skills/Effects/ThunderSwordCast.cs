@@ -9,8 +9,6 @@ namespace NarutoVR.SealCombat
     /// <summary>管理一次雷光剑施放：握持与挥动识别、剑波，以及可在收剑后继续消散的视觉。</summary>
     internal sealed class ThunderSwordCast : IReleasableHandEffect
     {
-        const float BladeReach = .62f, WaveOrigin = .10f;
-        const double MaxSampleGap = .12, MaxSwingWindow = .35;
         readonly SkillController owner;
         readonly ThunderSwordEffectDefinition settings;
         readonly string castId = "thunder-sword:" + Guid.NewGuid().ToString("N");
@@ -60,7 +58,11 @@ namespace NarutoVR.SealCombat
                         try
                         {
                             cast.sword.transform.SetParent(null, true);
-                            if (cast.melee) cast.melee.HitResolved += cast.OnMeleeHit;
+                            if (cast.melee)
+                            {
+                                cast.melee.HitResolved += cast.OnMeleeHit;
+                                if (settings.surfaceMark) cast.melee.SurfaceTouched += cast.OnSurfaceTouched;
+                            }
                             cast.CreatePresentation();
                             cast.Sample(grip, stamp, cast.Now, hasPalm);
                             if (!cast.sword) return;
@@ -75,7 +77,10 @@ namespace NarutoVR.SealCombat
 
         void CreatePresentation()
         {
-            try { preview = new ThunderSwordAimPreview(owner.gameObject.scene, settings.showWavePreview); }
+            try
+            {
+                if (settings.showWavePreview) preview = new ThunderSwordAimPreview(owner.gameObject.scene);
+            }
             catch (Exception e) { Debug.LogWarning("雷光剑瞄准提示创建失败：" + e.Message, owner); }
             try { bladeTrail = new ThunderSwordBladeTrail(owner.gameObject.scene, settings.bladeTrailMaterial, settings.bladeTrailLifetime); }
             catch (Exception e) { Debug.LogWarning("雷光剑刃轨创建失败：" + e.Message, owner); }
@@ -93,7 +98,6 @@ namespace NarutoVR.SealCombat
         public void Tick(double now)
         {
             visuals.Tick(now);
-            bladeTrail?.Tick(now);
             if (released) return;
             if (now >= expires || !sword || !owner.WeaponAttacker) { ReleaseHand(); return; }
             if (!owner.TryGetSwordGrip(out var grip, out var stamp, out bool hasPalm))
@@ -103,7 +107,7 @@ namespace NarutoVR.SealCombat
                 if (double.IsNaN(unavailableSince)) unavailableSince = now;
                 // Tracking loss is not a cancel gesture. Keep the cast until explicit release or expiry.
                 // Very brief occlusion holds the last rendered pose; all hit sampling is already stopped.
-                if (now - unavailableSince >= .18 && sword.activeSelf) sword.SetActive(false);
+                if (now - unavailableSince >= settings.trackingHideDelay && sword.activeSelf) sword.SetActive(false);
                 return;
             }
             unavailableSince = double.NaN;
@@ -134,7 +138,11 @@ namespace NarutoVR.SealCombat
             sword.transform.SetPositionAndRotation(grip, rotation);
             if (hasPalm != previousPalm) ResetSamples();
             previousPalm = hasPalm;
-            if (stamp == previousTime) return;
+            if (stamp == previousTime)
+            {
+                bladeTrail?.Tick(now);
+                return;
+            }
 
             // Measure motion relative to the player's position, without using gaze rotation.
             // Room movement and snap turns must never create a swing through world geometry.
@@ -142,13 +150,13 @@ namespace NarutoVR.SealCombat
             var root = owner.WeaponOwnerRoot;
             Quaternion rig = root && root != owner.WeaponAttacker ? root.rotation : Quaternion.identity;
             Quaternion toLocal = Quaternion.Inverse(rig);
-            Vector3 worldTip = grip + rotation * Vector3.forward * BladeReach;
+            Vector3 worldTip = grip + rotation * Vector3.forward * settings.bladeReach;
             Vector3 tip = toLocal * (worldTip - head);
             Vector3 hand = toLocal * (gripPose.position - head);
             double dt = stamp - previousTime;
-            bool gap = !(dt > 0 && dt <= MaxSampleGap) || (hand - previousWrist).sqrMagnitude > .26f * .26f ||
-                (tip - previousTip).sqrMagnitude > .5f * .5f || (head - previousHead).sqrMagnitude > .25f * .25f ||
-                Quaternion.Angle(previousRigRotation, rig) > 25f;
+            bool gap = !(dt > 0 && dt <= settings.sampleGap) || (hand - previousWrist).sqrMagnitude > settings.wristJump * settings.wristJump ||
+                (tip - previousTip).sqrMagnitude > settings.tipJump * settings.tipJump || (head - previousHead).sqrMagnitude > settings.headJump * settings.headJump ||
+                Quaternion.Angle(previousRigRotation, rig) > settings.rigJump;
             bool fired = false;
             if (gap)
             {
@@ -173,10 +181,10 @@ namespace NarutoVR.SealCombat
             previousHead = head;
             previousRigRotation = rig;
             previousTime = stamp;
-            bladeTrail?.Sample(melee && melee.bladeBase ? melee.bladeBase.position : grip + rotation * Vector3.forward * .10f,
+            bladeTrail?.Sample(melee && melee.bladeBase ? melee.bladeBase.position : grip + rotation * Vector3.forward * settings.trailBaseOffset,
                 melee && melee.bladeTip ? melee.bladeTip.position : worldTip, now);
-            Vector3 waveOrigin = grip + rotation * Vector3.forward * WaveOrigin;
-            if (owner.TryGetWeaponWavePreview(waveOrigin, settings.waveRadius, out var aim))
+            Vector3 waveOrigin = grip + rotation * Vector3.forward * settings.waveOriginOffset;
+            if (preview?.IsAvailable == true && owner.TryGetWeaponWavePreview(waveOrigin, settings.waveRadius, out var aim))
                 preview?.Show(aim, WaveRotation(aim.direction), now >= Math.Max(armedAt, nextSwing));
             else preview?.Hide();
             if (now > closeUntil) strike = null;
@@ -193,10 +201,10 @@ namespace NarutoVR.SealCombat
             Quaternion rig, double stamp, double now, float dt)
         {
             Vector3 step = tip - previousTip;
-            bool slow = step.magnitude < settings.minSwingSpeed * .45f * dt;
-            bool reversed = needsRearm && Vector3.Dot(step.normalized, strokeDirection) < -.25f;
+            bool slow = step.magnitude < settings.minSwingSpeed * settings.rearmSpeedRatio * dt;
+            bool reversed = needsRearm && Vector3.Dot(step.normalized, strokeDirection) < settings.reverseDot;
             if (slow || reversed) needsRearm = false;
-            if (slow || reversed || now < Math.Max(armedAt, nextSwing) || stamp - anchorTime > MaxSwingWindow)
+            if (slow || reversed || now < Math.Max(armedAt, nextSwing) || stamp - anchorTime > settings.swingWindow)
             {
                 anchor = previousTip;
                 anchorWorldTip = previousWorldTip;
@@ -208,7 +216,7 @@ namespace NarutoVR.SealCombat
             Vector3 horizontal = Vector3.ProjectOnPlane(owner.WeaponAttacker.right, Vector3.up).normalized;
             Vector3 worldTravel = rig * handTravel;
             float x = Mathf.Abs(Vector3.Dot(worldTravel, horizontal)), y = Mathf.Abs(worldTravel.y);
-            if (handTravel.magnitude >= settings.minimumHandTravel * .35f)
+            if (handTravel.magnitude >= settings.minimumHandTravel * settings.previewTravelRatio)
             {
                 if (y > x * settings.directionHysteresis) verticalWave = true;
                 else if (x > y * settings.directionHysteresis) verticalWave = false;
@@ -216,7 +224,7 @@ namespace NarutoVR.SealCombat
             if (slow || needsRearm || now < Math.Max(armedAt, nextSwing)) return false;
             float elapsed = (float)(stamp - anchorTime);
             Vector3 travel = tip - anchor;
-            if (elapsed < .06f || travel.magnitude < settings.swingDistance ||
+            if (elapsed < settings.minSwingTime || travel.magnitude < settings.swingDistance ||
                 travel.magnitude < settings.minSwingSpeed * elapsed || Mathf.Max(x,y) < settings.minimumHandTravel) return false;
             // Leaning the head past a stationary blade changes its head-relative position.
             if (Vector3.Dot(worldTip - anchorWorldTip, rig * travel.normalized) < settings.swingDistance) return false;
@@ -243,7 +251,7 @@ namespace NarutoVR.SealCombat
             Vector3 forward = rotation * Vector3.forward;
             Vector3 up = Vector3.Cross(forward, travel);
             if (up.sqrMagnitude < .0001f) up = rotation * Vector3.up;
-            visuals.Play(settings.slashPrefab, grip + forward * .36f,
+            visuals.Play(settings.slashPrefab, grip + forward * settings.slashOffset,
                 Quaternion.LookRotation(forward, up), now, settings.slashVisualLifetime);
         }
 
@@ -253,6 +261,12 @@ namespace NarutoVR.SealCombat
             if (!released && !cancelled && hit.DirectApplied)
                 owner.PlayAudio(settings.audioProfile, SkillAudioCue.Impact, hit.Point);
             if (!released && !cancelled) PlayImpact(hit.Point);
+        }
+
+        /// <summary>用本次挥动方向确定剑痕长轴；后续采样延长同一道剑痕。</summary>
+        void OnSurfaceTouched(SkillStrike swing, SurfaceContact surface)
+        {
+            if (!released && !cancelled) owner.StampSurface(surface, settings.surfaceMark, previousRigRotation * strokeDirection, swing);
         }
 
         /// <summary>由已结算的接触通知视觉层；此方法不会再调用伤害逻辑。</summary>
@@ -276,6 +290,9 @@ namespace NarutoVR.SealCombat
             wave.poiseDamage = settings.directPoise;
             wave.GameClock = owner.GameClock;
             wave.Strike = strike;
+            // 剑波保留发射瞬间的长轴，飞行中转头或换向不会改变落痕方向。
+            Vector3 waveSpan = go.transform.right;
+            if (settings.surfaceMark) wave.MarkSurface = hit => owner.StampSurface(hit, settings.surfaceMark, waveSpan);
             wave.StrikeResolved = OnWaveHit;
             wave.SurfaceHit = PlayImpact;
             wave.WorldHit = point => owner.PlayAudio(settings.audioProfile, SkillAudioCue.Impact, point);
@@ -302,7 +319,11 @@ namespace NarutoVR.SealCombat
             if (released) return;
             released = true;
             ResetSamples();
-            if (melee) melee.HitResolved -= OnMeleeHit;
+            if (melee)
+            {
+                melee.HitResolved -= OnMeleeHit;
+                melee.SurfaceTouched -= OnSurfaceTouched;
+            }
             preview?.Dispose();
             bladeTrail?.Dispose();
             if (sword)

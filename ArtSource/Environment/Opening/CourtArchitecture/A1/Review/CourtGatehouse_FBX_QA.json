@@ -1,0 +1,128 @@
+{
+  "CourtGatehouse_Tier0": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtGatehouse_Tier0: ~80.66% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "CourtGatehouse_Tier0": {
+        "verts": 3166,
+        "faces": 5864,
+        "tris": 5864,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 126,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 80.66,
+        "uv_coverage_pct": 52.1
+      }
+    }
+  },
+  "CourtGatehouse_Tier1": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtGatehouse_Tier1: ~79.96% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "CourtGatehouse_Tier1": {
+        "verts": 1319,
+        "faces": 2370,
+        "tris": 2370,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 76,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 79.96,
+        "uv_coverage_pct": 50.3
+      }
+    }
+  },
+  "CourtGatehouse_Tier2": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtGatehouse_Tier2: ~78.41% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "CourtGatehouse_Tier2": {
+        "verts": 801,
+        "faces": 1490,
+        "tris": 1490,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 37,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 78.41,
+        "uv_coverage_pct": 47.3
+      }
+    }
+  }
+}

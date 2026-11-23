@@ -1,0 +1,38 @@
+{
+  "level_sha256": "2ea5b382393f682b90b5a0e81434cc3d10eaf836f3e4d0dcb3d815b1f0c0e99d",
+  "captured": "2026-11-19T04:19:46.845359+08:00",
+  "camera": "single Android Mobile eye estimate on Unity Editor using D3D11, 92deg vertical, 1.07 aspect",
+  "opaqueId": "824x770 pixel ID: mesh triangles sum for opaque objects seen in >=1 pixel plus conservative custom/unknown shader material geometry. Two-sided polygon grass models original 14-18m collapse. No runtime occlusion bake, hardware timings or actual draw-call measurement.",
+  "canonical_far_assets": {
+    "CourtPineFar.asset": {
+      "sha256": "529de5221556af72f51dc92ff98362b01f870f36c724c4aad240eeb85d8bd714",
+      "guid": "812e6caf29062814baf97f017d8574c1"
+    },
+    "CourtPineHorizon.asset": {
+      "sha256": "bfc0d57ddcff5a9f128ee8b75a1c21ed929ea9ef77d41811b1bd29d26db2e6f0",
+      "guid": "089951e76cf1f4b46b558652b6e81d7c"
+    },
+    "CourtWallFar.asset": {
+      "sha256": "1ab719460e10cabbfb3e98369d54a5efb0e25c079b16369261422c6dfbaeacd2",
+      "guid": "2b8c578f365263a468d58826ba634d26"
+    }
+  },
+  "mobile_quality": {
+    "name": "Mobile",
+    "LOD_bias": 1,
+    "mask": -1,
+    "near": 0.05,
+    "far": 1000,
+    "stereo_on_hardware": false
+  },
+  "final_material_inputs": {
+    "AtmosphericGranite.shader": "45e8ba86542cfa2776fa1d4953780f16adc7fb92450346772036854a6194eaa6",
+    "GraniteSpireInCloud.mat": "5176ffb816268c51b3d1dbed8f5731551cded592df11338ce2b65be8291166a9",
+    "SaddlePeaksInCloud.mat": "8b3e81a0706040b9e829dcbbf465e437b8ce6d11720886fd2e0fa449df6df8b5"
+  },
+  "previous_material_candidate_sha256": "8B9BB5821DF3684AAC325A19D6BBB4A9179506EF4506B290B0E14E564D942CF1",
+  "ridge_pine_scene_active_flags": {
+    "active": 2,
+    "inactive": 25
+  }
+}

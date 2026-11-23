@@ -231,6 +231,7 @@ namespace NarutoVR.SealCombat.Editor
         sealed class RpgFixture : IDisposable
         {
             readonly GameObject root;
+            readonly GameObject floor;
             readonly RpgStageDefinition stage;
             public LinearRpgController Controller { get; }
             public RpgDamageReceiver Receiver { get; }
@@ -249,22 +250,30 @@ namespace NarutoVR.SealCombat.Editor
                     var skills = root.AddComponent<SkillInputController>(); skills.enabled = false;
                     Effects = root.AddComponent<SkillController>(); Effects.head = head; Effects.playerRoot = root.transform; Effects.lab = lab;
                     var locomotion = root.AddComponent<RpgLocomotionController>(); locomotion.head = head; locomotion.rigRoot = root.transform;
+                    floor = new GameObject("攻击检查隔离地面");
+                    floor.transform.position = position + Vector3.down * .5f;
+                    floor.AddComponent<BoxCollider>().size = new Vector3(3, 1, 3);
+                    locomotion.floorLayers = 1;
+                    locomotion.obstacleLayers = 0;
                     var node = Child("检查点").gameObject.AddComponent<NavigationNode>(); node.nodeId = "enemy-damage-check";
                     var target = Child("检查靶").gameObject.AddComponent<SkillTrainingTarget>(); target.resetAfterSeconds = 0;
                     stage = ScriptableObject.CreateInstance<RpgStageDefinition>(); stage.stageId = "enemy-damage-check";
                     skills.effects = Effects; skills.lab = lab;
-                    skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>("Assets/ScriptableObjects/技能目录配置/线性RPG技能目录.asset");
+                    skills.catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
                     Controller = root.AddComponent<LinearRpgController>();
                 Controller.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball","buff.zi"}; Controller.skills = skills; Controller.locomotion = locomotion;
+                ((TrainingChapterFlow)Controller.chapter).rpg = Controller;
+                Controller.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath);
+                ((TrainingChapterFlow)Controller.chapter).trialSkills = new[] { "buff.zi" }; Controller.skills = skills; Controller.locomotion = locomotion;
                     Controller.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
-                    Controller.stages = new[] { stage }; Controller.GetComponent<TrainingTargetGroup>().targets = new[] { target }; Controller.GetComponent<TrainingTargetGroup>().healthByStage = new[]{60f}; Controller.checkpointNodes = new[] { node };
+                    Controller.ConfigureRoute(new[] { stage }, new[] { node }); Controller.GetComponent<TrainingTargetGroup>().targets = new[] { target }; Controller.GetComponent<TrainingTargetGroup>().stageHealth = new[] { new TrainingTargetGroup.StageHealth { stage = stage, health = 60f } };
                     Controller.autoLoad = false; Controller.GetComponent<TrainingChapterFlow>().autoAdvance = false;
                     Controller.saveFileName = "enemy-damage-probe-" + Guid.NewGuid().ToString("N") + ".json";
                     Receiver = root.AddComponent<RpgDamageReceiver>();
                     root.SetActive(true);
                     // Awake 必须真实运行；不跨帧，立即停掉不属于此次伤害检查的语音/手势 Start。
                     skills.enabled = false;
+                    typeof(LinearRpgController).GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Controller, null);
                     if (!Controller.CanAct) throw new Exception("真实 RPG 检查初始化失败：" + Controller.Status);
                     foreach (var skill in skills.ConfiguredSkills) if (skill.skillId == "buff.zi") Buff = skill;
                     if (!Buff || !(Buff.effectDefinition is ShieldEffectDefinition shield)) throw new Exception("缺少本玩家护盾");
@@ -276,6 +285,7 @@ namespace NarutoVR.SealCombat.Editor
             public void Dispose()
             {
                 if (root) Object.DestroyImmediate(root);
+                if (floor) Object.DestroyImmediate(floor);
                 if (stage) Object.DestroyImmediate(stage);
             }
         }

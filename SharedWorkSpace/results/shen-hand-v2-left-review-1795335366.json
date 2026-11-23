@@ -1,0 +1,48 @@
+{
+  "id": "shen-hand-v2-left-review-1795335366",
+  "requestHash": "6398a5ff4183cab100a5b7c87bb34f31367a7aeff7d47d93c286cdd7b9da7f04",
+  "op": "preview",
+  "kind": "rig",
+  "target": "shen",
+  "revision": "b2743f38072873e6a5af4dfb2500b449669d76783993a7254e85bf6206ebc33e",
+  "image": "results/shen-hand-v2-left-review-1795335366.png",
+  "details": {
+    "audit": "原始顶点\n1,409\n未加权\n0\n权重和异常\n0\n超过四骨\n0\n无效权重或引用\n0\n\n统计原文件蒙皮。热图显示浏览器使用的前四项影响，权重和误差阈值为 0.001。",
+    "bones": [
+      "XRHand_Wrist",
+      "XRHand_ThumbMetacarpal",
+      "XRHand_ThumbProximal",
+      "XRHand_ThumbDistal",
+      "XRHand_ThumbTip",
+      "XRHand_IndexMetacarpal",
+      "XRHand_IndexProximal",
+      "XRHand_IndexIntermediate",
+      "XRHand_IndexDistal",
+      "XRHand_IndexTip",
+      "XRHand_MiddleMetacarpal",
+      "XRHand_MiddleProximal",
+      "XRHand_MiddleIntermediate",
+      "XRHand_MiddleDistal",
+      "XRHand_MiddleTip",
+      "XRHand_RingMetacarpal",
+      "XRHand_RingProximal",
+      "XRHand_RingIntermediate",
+      "XRHand_RingDistal",
+      "XRHand_RingTip",
+      "XRHand_Palm",
+      "XRHand_LittleMetacarpal",
+      "XRHand_LittleProximal",
+      "XRHand_LittleIntermediate",
+      "XRHand_LittleDistal",
+      "XRHand_LittleTip"
+    ],
+    "clips": [
+      {
+        "id": "test",
+        "name": "单骨转动测试（合成）"
+      }
+    ]
+  },
+  "status": "ok",
+  "finishedAt": "2026-11-22T08:16:13.339Z"
+}

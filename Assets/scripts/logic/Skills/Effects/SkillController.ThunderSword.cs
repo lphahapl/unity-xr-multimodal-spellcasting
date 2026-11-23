@@ -68,10 +68,10 @@ namespace NarutoVR.SealCombat
         internal bool TryGetWeaponWavePreview(Vector3 origin, float radius, out FireballAim aim)
         {
             aim = default;
-            if (!TryGetWeaponWaveDirection(origin, out var direction)) return false;
-            Vector3 point=GetAimPoint(), endpoint=point;
+            if (!RightHandActionAllowed || !TryGetAimRay(origin, out var point, out var direction, out float distance)) return false;
+            Vector3 endpoint = point;
             bool originBlocked=!WeaponOriginClear(origin,radius), blocked=originBlocked;
-            float distance=Vector3.Distance(origin,point), nearest=distance;
+            float nearest = distance;
             int count=Physics.SphereCastNonAlloc(origin,radius,direction,throwSweeps,distance,WeaponHitMask,QueryTriggerInteraction.Collide);
             bool incomplete=count==throwSweeps.Length;
             if(incomplete) blocked=true;

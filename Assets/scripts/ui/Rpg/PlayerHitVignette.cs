@@ -6,7 +6,7 @@ namespace NarutoVR.SealCombat.Rpg
     [DisallowMultipleComponent, AddComponentMenu("NarutoVR/反馈/玩家受击视野边缘")]
     public sealed class PlayerHitVignette : MonoBehaviour
     {
-        const float Rise = .07f, HoldEnd = .16f, Duration = .58f, RearmInterval = .72f;
+        const float Rise = .07f, HoldEnd = .22f, Duration = .72f, RearmInterval = .72f;
         static readonly int StrengthId = Shader.PropertyToID("_Strength");
         public float CurrentStrength { get; private set; }
         public int PulseCount { get; private set; }

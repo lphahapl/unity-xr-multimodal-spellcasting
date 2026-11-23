@@ -38,7 +38,7 @@ namespace NarutoVR.SealCombat.Editor
             string id = spawn.enemyId;
             try
             {
-                var definition = manager.catalog.enemies.Single();
+                var definition = manager.catalog.enemies.Single(enemy => enemy.enemyId == id);
                 catalog.enemies = new[] { definition, definition };
                 Check(!catalog.Validate(out var reason) && reason.Contains("重复"), "重复ID应报错");
                 catalog.enemies = new[] { definition };
@@ -115,7 +115,7 @@ namespace NarutoVR.SealCombat.Editor
                 root.SetActive(false);
                 try { await WithTimeout(late); } catch (OperationCanceledException) { }
                 Check(manager.ActiveCount == 0, "缓存命中后立即关闭无残留活跃实例");
-                checks += await CheckDelayedLoading(pos, rot);
+                checks += await CheckDelayedLoading(pos, rot, room);
                 root.SetActive(true);
                 var coordinator = root.AddComponent<GameManager>(); coordinator.enemyManager = manager;
                 coordinator.prepareEnemies = new[] { new GameManager.EnemyPreparation { enemyId = id, count = 1 } };
@@ -178,11 +178,11 @@ namespace NarutoVR.SealCombat.Editor
         }
         static async Task Until(Func<bool> condition)
         { while (!condition()) await Task.Yield(); }
-        static async Task<int> CheckDelayedLoading(Vector3 position, Quaternion rotation)
+        static async Task<int> CheckDelayedLoading(Vector3 position, Quaternion rotation, CombatRoomEncounter room)
         {
             int checks = 0;
             void Check(bool pass, string reason) { if (!pass) throw new Exception("可控延迟加载：" + reason); checks++; }
-            for (int mode = 0; mode < 3; mode++)
+            for (int mode = 0; mode < 4; mode++)
             {
                 string key = Guid.NewGuid().ToString("N");
                 var provider = new DelayedProvider(); provider.Initialize("enemy-test-" + key, "");
@@ -219,7 +219,7 @@ namespace NarutoVR.SealCombat.Editor
                         provider.Complete(prefab); await WithTimeout(next);
                         Check(manager.IsCurrent(next.Result) && manager.ActiveCount == 1, "迟到结果仅允许新会话生成");
                     }
-                    else
+                    else if (mode == 2)
                     {
                         var secondRoot = new GameObject("第二个敌人池");
                         secondRoot.SetActive(false);
@@ -239,6 +239,47 @@ namespace NarutoVR.SealCombat.Editor
                             Check(second.Recycle(survivor), "剩余池独立收回出生租约");
                         }
                         finally { secondRoot.SetActive(false); Object.Destroy(secondRoot); }
+                    }
+                    else
+                    {
+                        var session = room.rpg;
+                        var movement = session.locomotion;
+                        var otherRoot = new GameObject("重叠区域的延迟房间");
+                        otherRoot.SetActive(false);
+                        var other = otherRoot.AddComponent<CombatRoomEncounter>();
+                        other.rpg = session;
+                        other.area = room.area;
+                        other.enemyManager = manager;
+                        otherRoot.transform.position = position + Vector3.up * 100;
+                        other.spawnPoints = new[] { new CombatRoomEncounter.SpawnPoint { enemyId = "delayed", point = otherRoot.transform } };
+                        try
+                        {
+                            movement.rigRoot.position += room.area.transform.TransformPoint(room.area.center) - movement.PlayerFloorPosition;
+                            Physics.SyncTransforms();
+                            room.enabled = true;
+                            room.TickEncounter();
+                            await WithTimeout(room.SpawnTask);
+                            Check(room.HasStarted && movement.EncounterCombat, "第一间真实房间进入战斗");
+
+                            otherRoot.SetActive(true);
+                            other.TickEncounter();
+                            await WithTimeout(Until(() => provider.Started));
+                            Check(other.IsLoadingEnemies && movement.EncounterCombat, "第二间房间异步准备时战斗继续");
+                            provider.Complete(prefab);
+                            await WithTimeout(other.SpawnTask);
+                            Check(!other.HasStarted && other.Status.Contains("准备失败") && movement.EncounterCombat,
+                                "第二间房间迟到的出生失败只撤销自己的请求");
+                            room.enabled = false;
+                            Check(!movement.EncounterCombat, "活跃房间关闭后恢复探索");
+                        }
+                        finally
+                        {
+                            otherRoot.SetActive(false);
+                            Object.Destroy(otherRoot);
+                            room.ResetEncounter();
+                            room.enabled = false;
+                            session.RestoreCheckpoint();
+                        }
                     }
                 }
                 finally

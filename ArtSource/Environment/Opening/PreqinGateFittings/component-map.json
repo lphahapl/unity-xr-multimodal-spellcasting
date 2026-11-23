@@ -1,0 +1,4135 @@
+[
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "532637784",
+    "transform_id": "532637785",
+    "renderer_id": "532637786",
+    "filter_id": "532637787",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      0.4,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "532637785",
+        "m_LocalPosition": [
+          0.0,
+          0.4,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1390359399",
+    "transform_id": "1390359400",
+    "renderer_id": "1390359401",
+    "filter_id": "1390359402",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      1.7,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1390359400",
+        "m_LocalPosition": [
+          0.0,
+          1.7,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "794158060",
+    "transform_id": "794158061",
+    "renderer_id": "794158062",
+    "filter_id": "794158063",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      2.85,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "794158061",
+        "m_LocalPosition": [
+          0.0,
+          2.85,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "920146293",
+    "transform_id": "920146294",
+    "renderer_id": "920146295",
+    "filter_id": "920146296",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      0.4,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "920146294",
+        "m_LocalPosition": [
+          0.0,
+          0.4,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1012601841",
+    "transform_id": "1012601842",
+    "renderer_id": "1012601843",
+    "filter_id": "1012601844",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      1.7,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1012601842",
+        "m_LocalPosition": [
+          0.0,
+          1.7,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1364962062",
+    "transform_id": "1364962063",
+    "renderer_id": "1364962064",
+    "filter_id": "1364962065",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      2.85,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1364962063",
+        "m_LocalPosition": [
+          0.0,
+          2.85,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/双盘方框标/框横边",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "319963999",
+    "transform_id": "319964000",
+    "renderer_id": "319964001",
+    "filter_id": "319964002",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "WarmSurveyMark",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameRail.asset",
+      "guid": "d91c9927e6205be2ade3fd7b6ae07089",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 60,
+      "vertices": 152,
+      "sha256": "d027bf972d66b2e21b11a42413fe13f5177e580c5bbe2c9ae90c0d4e1ec03e8a"
+    },
+    "new_material": {
+      "path": "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameRail.asset",
+        "guid": "d91c9927e6205be2ade3fd7b6ae07089",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 152,
+        "sha256": "d027bf972d66b2e21b11a42413fe13f5177e580c5bbe2c9ae90c0d4e1ec03e8a"
+      }
+    ],
+    "world_axis_lengths": [
+      0.41344,
+      0.033439998,
+      0.033439998
+    ],
+    "original_world_center": [
+      0.0,
+      1.79,
+      44.82
+    ],
+    "original_world_aabb_size": [
+      0.413,
+      0.033,
+      0.033
+    ],
+    "transform_chain": [
+      {
+        "id": "319964000",
+        "m_LocalPosition": [
+          0.0,
+          -0.19000006,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.41344,
+          0.033439998,
+          0.033439998
+        ]
+      },
+      {
+        "id": "711326236",
+        "m_LocalPosition": [
+          0.0,
+          1.98,
+          44.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/双盘方框标/框竖边",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1222546534",
+    "transform_id": "1222546535",
+    "renderer_id": "1222546536",
+    "filter_id": "1222546537",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "WarmSurveyMark",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameStile.asset",
+      "guid": "7675aec765725d09bc82a389c8dd428e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 92,
+      "vertices": 208,
+      "sha256": "a5d0b9ea2a0d0b522559d7eb3aa452d73e05ad970273be8c95859c6331253dda"
+    },
+    "new_material": {
+      "path": "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameStile.asset",
+        "guid": "7675aec765725d09bc82a389c8dd428e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 208,
+        "sha256": "a5d0b9ea2a0d0b522559d7eb3aa452d73e05ad970273be8c95859c6331253dda"
+      }
+    ],
+    "world_axis_lengths": [
+      0.033439998,
+      0.38,
+      0.033439998
+    ],
+    "original_world_center": [
+      -0.19,
+      1.98,
+      44.82
+    ],
+    "original_world_aabb_size": [
+      0.033,
+      0.38,
+      0.033
+    ],
+    "transform_chain": [
+      {
+        "id": "1222546535",
+        "m_LocalPosition": [
+          -0.19,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.033439998,
+          0.38,
+          0.033439998
+        ]
+      },
+      {
+        "id": "711326236",
+        "m_LocalPosition": [
+          0.0,
+          1.98,
+          44.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/双盘方框标/框横边",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "902963022",
+    "transform_id": "902963023",
+    "renderer_id": "902963024",
+    "filter_id": "902963025",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "WarmSurveyMark",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameRail.asset",
+      "guid": "d91c9927e6205be2ade3fd7b6ae07089",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 60,
+      "vertices": 152,
+      "sha256": "d027bf972d66b2e21b11a42413fe13f5177e580c5bbe2c9ae90c0d4e1ec03e8a"
+    },
+    "new_material": {
+      "path": "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameRail.asset",
+        "guid": "d91c9927e6205be2ade3fd7b6ae07089",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 152,
+        "sha256": "d027bf972d66b2e21b11a42413fe13f5177e580c5bbe2c9ae90c0d4e1ec03e8a"
+      }
+    ],
+    "world_axis_lengths": [
+      0.41344,
+      0.033439998,
+      0.033439998
+    ],
+    "original_world_center": [
+      0.0,
+      2.17,
+      44.82
+    ],
+    "original_world_aabb_size": [
+      0.413,
+      0.033,
+      0.033
+    ],
+    "transform_chain": [
+      {
+        "id": "902963023",
+        "m_LocalPosition": [
+          0.0,
+          0.19000006,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.41344,
+          0.033439998,
+          0.033439998
+        ]
+      },
+      {
+        "id": "711326236",
+        "m_LocalPosition": [
+          0.0,
+          1.98,
+          44.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/双盘方框标/框竖边",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1510990421",
+    "transform_id": "1510990422",
+    "renderer_id": "1510990423",
+    "filter_id": "1510990424",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "WarmSurveyMark",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameStile.asset",
+      "guid": "7675aec765725d09bc82a389c8dd428e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 92,
+      "vertices": 208,
+      "sha256": "a5d0b9ea2a0d0b522559d7eb3aa452d73e05ad970273be8c95859c6331253dda"
+    },
+    "new_material": {
+      "path": "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+      "guid": "5265a4095978d7f46bc9f63853127ae1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugeFrameStile.asset",
+        "guid": "7675aec765725d09bc82a389c8dd428e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 208,
+        "sha256": "a5d0b9ea2a0d0b522559d7eb3aa452d73e05ad970273be8c95859c6331253dda"
+      }
+    ],
+    "world_axis_lengths": [
+      0.033439998,
+      0.38,
+      0.033439998
+    ],
+    "original_world_center": [
+      0.19,
+      1.98,
+      44.82
+    ],
+    "original_world_aabb_size": [
+      0.033,
+      0.38,
+      0.033
+    ],
+    "transform_chain": [
+      {
+        "id": "1510990422",
+        "m_LocalPosition": [
+          0.19,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.033439998,
+          0.38,
+          0.033439998
+        ]
+      },
+      {
+        "id": "711326236",
+        "m_LocalPosition": [
+          0.0,
+          1.98,
+          44.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/双盘方框标/标杆",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "454558203",
+    "transform_id": "454558204",
+    "renderer_id": "454558205",
+    "filter_id": "454558206",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugePost.asset",
+      "guid": "f2ed4269c67c513cb3d239304a5cf571",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 140,
+      "vertices": 404,
+      "sha256": "e829f7901cd353cbcd055973dfb6036942518a35d7902f42b77500bb1b193cb7"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GaugePost.asset",
+        "guid": "f2ed4269c67c513cb3d239304a5cf571",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 140,
+        "vertices": 404,
+        "sha256": "e829f7901cd353cbcd055973dfb6036942518a35d7902f42b77500bb1b193cb7"
+      }
+    ],
+    "world_axis_lengths": [
+      0.026751999,
+      0.58,
+      0.026751999
+    ],
+    "original_world_center": [
+      0.0,
+      1.5,
+      44.82
+    ],
+    "original_world_aabb_size": [
+      0.027,
+      0.58,
+      0.027
+    ],
+    "transform_chain": [
+      {
+        "id": "454558204",
+        "m_LocalPosition": [
+          0.0,
+          -0.48000002,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.026751999,
+          0.58,
+          0.026751999
+        ]
+      },
+      {
+        "id": "711326236",
+        "m_LocalPosition": [
+          0.0,
+          1.98,
+          44.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/通往双盘的白石嵌线",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1301679342",
+    "transform_id": "1301679343",
+    "renderer_id": "1301679344",
+    "filter_id": "1301679345",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "石灰墙",
+      "guid": "234de3a9a0f14c64294e33da104f3ed1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD0.asset",
+      "guid": "02b18ed5054553e99c70adf3438380e0",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 636,
+      "vertices": 1499,
+      "sha256": "59f98292ea5530f59373b4148e2b03f225d82421beb410f8b5e18bbf29a32b2d"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InlayLimestone.mat",
+      "guid": "08a18d1c906d5a18b5e336556219c0e5",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD0.asset",
+        "guid": "02b18ed5054553e99c70adf3438380e0",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 636,
+        "vertices": 1499,
+        "sha256": "59f98292ea5530f59373b4148e2b03f225d82421beb410f8b5e18bbf29a32b2d"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD1.asset",
+        "guid": "816057e6e0fa52fea2c6d696e6495f4e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 292,
+        "vertices": 571,
+        "sha256": "afeaf8935fdcf39168fdc0b091642b7805089710330454b131dc11f10d5a2d0a"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD2.asset",
+        "guid": "b677d7196217524697aa6cd0e55c6da3",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 98,
+        "vertices": 200,
+        "sha256": "8e9888e8624b3ff0177a06617b35a63498c000d389bf300925c0b06a8bde4a3d"
+      }
+    ],
+    "world_axis_lengths": [
+      0.115,
+      0.018,
+      9.85
+    ],
+    "original_world_center": [
+      0.0,
+      -0.018,
+      39.14
+    ],
+    "original_world_aabb_size": [
+      0.115,
+      0.018,
+      9.85
+    ],
+    "transform_chain": [
+      {
+        "id": "1301679343",
+        "m_LocalPosition": [
+          0.0,
+          -0.018,
+          39.14
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.115,
+          0.018,
+          9.85
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校验门/校验闸",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "303298069",
+    "transform_id": "303298070",
+    "renderer_id": "303298071",
+    "filter_id": "303298073",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "烟熏榆木",
+      "guid": "40ca5ae726f4f53478f7466c92825cf6",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD0.asset",
+      "guid": "0fdad3c87fe25b6291e42dd9e8550a24",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 480,
+      "vertices": 1231,
+      "sha256": "d0e00128b1263056786c51eecc30708b87e3a40cb8fa155c165318099946215c"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PhotoArchitecture/Timber.mat",
+      "guid": "32ab4ff106d90fc4c940ed11e21e245e",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD0.asset",
+        "guid": "0fdad3c87fe25b6291e42dd9e8550a24",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 480,
+        "vertices": 1231,
+        "sha256": "d0e00128b1263056786c51eecc30708b87e3a40cb8fa155c165318099946215c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD1.asset",
+        "guid": "e7f77dac0df851c2979363ffe9324c3e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 224,
+        "vertices": 441,
+        "sha256": "68a4dbfa64837f9518f63c65e941cbcd32fe97f4f01786ee7a1f84d67dedcbc0"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD2.asset",
+        "guid": "40abd6e20b8a5e008fc98ede37edb869",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 96,
+        "vertices": 192,
+        "sha256": "03466d1466305d766f08aa70025f792910ed3c947c5e1bf0a3cf8c8a145c1728"
+      }
+    ],
+    "world_axis_lengths": [
+      2.02,
+      3.08,
+      0.38
+    ],
+    "original_world_center": [
+      2.63,
+      1.5,
+      49.0
+    ],
+    "original_world_aabb_size": [
+      2.02,
+      3.08,
+      0.38
+    ],
+    "transform_chain": [
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校验门/校验闸/闸板铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "770077086",
+    "transform_id": "770077087",
+    "renderer_id": "770077088",
+    "filter_id": "770077089",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+      "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 204,
+      "vertices": 510,
+      "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+        "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 204,
+        "vertices": 510,
+        "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD1.asset",
+        "guid": "52b3bd5688de5311b10d133a31b1a54c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 68,
+        "vertices": 192,
+        "sha256": "3167b2ac8a900f8fa4e820e7d92967b9753218f6182e56692f6e6bed8033a77c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD2.asset",
+        "guid": "2e443f594333512a873e112d1d7a54fa",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 168,
+        "sha256": "454cabfd43a8e78f4b6c2f3d6902ecbd9da72e3d82428d5340099e6bc8595212"
+      }
+    ],
+    "world_axis_lengths": [
+      1.9800001619999998,
+      0.08000000008000001,
+      0.0300000006
+    ],
+    "original_world_center": [
+      2.63,
+      0.42,
+      48.79
+    ],
+    "original_world_aabb_size": [
+      1.98,
+      0.08,
+      0.03
+    ],
+    "transform_chain": [
+      {
+        "id": "770077087",
+        "m_LocalPosition": [
+          0.0,
+          -0.35064936,
+          -0.55262923
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.9801981,
+          0.025974026,
+          0.07894737
+        ]
+      },
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/校验门/校验闸/闸板铜带",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1622662081",
+    "transform_id": "1622662082",
+    "renderer_id": "1622662083",
+    "filter_id": "1622662084",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+      "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 204,
+      "vertices": 510,
+      "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+        "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 204,
+        "vertices": 510,
+        "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD1.asset",
+        "guid": "52b3bd5688de5311b10d133a31b1a54c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 68,
+        "vertices": 192,
+        "sha256": "3167b2ac8a900f8fa4e820e7d92967b9753218f6182e56692f6e6bed8033a77c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD2.asset",
+        "guid": "2e443f594333512a873e112d1d7a54fa",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 168,
+        "sha256": "454cabfd43a8e78f4b6c2f3d6902ecbd9da72e3d82428d5340099e6bc8595212"
+      }
+    ],
+    "world_axis_lengths": [
+      1.9800001619999998,
+      0.08000000008000001,
+      0.0300000006
+    ],
+    "original_world_center": [
+      2.63,
+      2.5,
+      48.79
+    ],
+    "original_world_aabb_size": [
+      1.98,
+      0.08,
+      0.03
+    ],
+    "transform_chain": [
+      {
+        "id": "1622662082",
+        "m_LocalPosition": [
+          0.0,
+          0.32467532,
+          -0.55262923
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.9801981,
+          0.025974026,
+          0.07894737
+        ]
+      },
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "第一章 · 初醒校验室/小峡壁/高位冲痕",
+    "source": "Assets/Scene/Chapter01_Awakening.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "551458601",
+    "transform_id": "551458602",
+    "renderer_id": "551458603",
+    "filter_id": "551458604",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "石灰墙",
+      "guid": "234de3a9a0f14c64294e33da104f3ed1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/HighImpactScar.asset",
+      "guid": "9ffa7347baf953ff90c83808e07176fd",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 70,
+      "vertices": 200,
+      "sha256": "ed0ac1ca19d87c9eba5f6ae0c01c4f676ecb2270e7e625f45eb4338614c5fdad"
+    },
+    "new_material": {
+      "path": "Assets/Materials/Chapter01/石灰墙.mat",
+      "guid": "234de3a9a0f14c64294e33da104f3ed1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/HighImpactScar.asset",
+        "guid": "9ffa7347baf953ff90c83808e07176fd",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 70,
+        "vertices": 200,
+        "sha256": "ed0ac1ca19d87c9eba5f6ae0c01c4f676ecb2270e7e625f45eb4338614c5fdad"
+      }
+    ],
+    "world_axis_lengths": [
+      0.6200000000000001,
+      0.05500000000000001,
+      0.26
+    ],
+    "original_world_center": [
+      -1.39,
+      2.98,
+      55.96
+    ],
+    "original_world_aabb_size": [
+      0.66,
+      0.234,
+      0.435
+    ],
+    "transform_chain": [
+      {
+        "id": "551458602",
+        "m_LocalPosition": [
+          -1.39,
+          2.98,
+          55.96
+        ],
+        "m_LocalRotation": [
+          -0.023122486,
+          -0.15471618,
+          0.14598963,
+          0.9768395
+        ],
+        "m_LocalScale": [
+          0.62,
+          0.055,
+          0.26
+        ]
+      },
+      {
+        "id": "1248282625",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Awakening",
+    "path": "首章外景细化/侧置门庭 · 石台",
+    "source": "Assets/Art/Environment/Opening/MountainPolish/EnvironmentPolish.prefab",
+    "is_prefab": true,
+    "prefab_instance_id": "9001711001",
+    "game_object_id": "1431701393576841498",
+    "transform_id": "2523333751941532680",
+    "renderer_id": "365419310004154294",
+    "filter_id": "9107100705686059392",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "WorkshopPaving",
+      "guid": "681121297872571785a227fb7e825b9a",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/SideGateDais_LOD0.asset",
+      "guid": "1244788cc41e54b9874552931df65e10",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 1248,
+      "vertices": 3108,
+      "sha256": "8f384360ce5982922f5dad22b3307c1bfbfc6d352a436b8eabb04101a588837a"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PhotoArchitecture/Stone.mat",
+      "guid": "8d4249b9d5b79d64cb2eddb9fff52f3f",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/SideGateDais_LOD0.asset",
+        "guid": "1244788cc41e54b9874552931df65e10",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 1248,
+        "vertices": 3108,
+        "sha256": "8f384360ce5982922f5dad22b3307c1bfbfc6d352a436b8eabb04101a588837a"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/SideGateDais_LOD1.asset",
+        "guid": "7c86d47549f05839a99eb1ef1281fdff",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 378,
+        "vertices": 896,
+        "sha256": "b9436b2e32548b4b4831832c67d189f0f8829dde2a4d897f1ff4a8d19ee299bc"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/SideGateDais_LOD2.asset",
+        "guid": "03e8ec7a3b895ea68ffb99526454d0c4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 256,
+        "sha256": "7e53952a8086656a67d2f4e26d3819682f08a36902279483dc04bf2ddff0a783"
+      }
+    ],
+    "world_axis_lengths": [
+      5.8,
+      0.64,
+      5.8
+    ],
+    "original_world_center": [
+      10.0,
+      -0.35,
+      63.0
+    ],
+    "original_world_aabb_size": [
+      5.8,
+      0.64,
+      5.8
+    ],
+    "transform_chain": [
+      {
+        "id": "2523333751941532680",
+        "m_LocalPosition": [
+          10.0,
+          -0.35,
+          63.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          5.8,
+          0.64,
+          5.8
+        ]
+      },
+      {
+        "id": "1673368411700932853",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "532637784",
+    "transform_id": "532637785",
+    "renderer_id": "532637786",
+    "filter_id": "532637787",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      0.4,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "532637785",
+        "m_LocalPosition": [
+          0.0,
+          0.4,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1390359399",
+    "transform_id": "1390359400",
+    "renderer_id": "1390359401",
+    "filter_id": "1390359402",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      1.7,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1390359400",
+        "m_LocalPosition": [
+          0.0,
+          1.7,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/醒来与校靶/校靶内闸/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "794158060",
+    "transform_id": "794158061",
+    "renderer_id": "794158062",
+    "filter_id": "794158063",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+      "guid": "7d2721d45fe95ae0a78369e2c955c685",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 444,
+      "vertices": 1062,
+      "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD0.asset",
+        "guid": "7d2721d45fe95ae0a78369e2c955c685",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 444,
+        "vertices": 1062,
+        "sha256": "9ca2bef7f14e18c91c26efaeaf2d3bb469435d0fef888207f442e2cca59f1e2e"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD1.asset",
+        "guid": "7e9a17ae5af55e0094fd05a0501a91a4",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 110,
+        "vertices": 322,
+        "sha256": "1db7c230a94c86eccf84275381508154d212df43c955cf2bd93f2d931b586b5f"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InnerGateStrap_LOD2.asset",
+        "guid": "557837c9244957738a224ee85bdc4b67",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 72,
+        "vertices": 208,
+        "sha256": "f9782c28fc29f64918bcb1857e06177129b46c4416b416249def3be1636c98c6"
+      }
+    ],
+    "world_axis_lengths": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      2.85,
+      9.82
+    ],
+    "original_world_aabb_size": [
+      6.18,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "794158061",
+        "m_LocalPosition": [
+          0.0,
+          2.85,
+          9.82
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          6.18,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1439885474",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "805690480",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "920146293",
+    "transform_id": "920146294",
+    "renderer_id": "920146295",
+    "filter_id": "920146296",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      0.4,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "920146294",
+        "m_LocalPosition": [
+          0.0,
+          0.4,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1012601841",
+    "transform_id": "1012601842",
+    "renderer_id": "1012601843",
+    "filter_id": "1012601844",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      1.7,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1012601842",
+        "m_LocalPosition": [
+          0.0,
+          1.7,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/试炼间与外门/试炼室外门/铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1364962062",
+    "transform_id": "1364962063",
+    "renderer_id": "1364962064",
+    "filter_id": "1364962065",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+      "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 324,
+      "vertices": 787,
+      "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD0.asset",
+        "guid": "fed233fc4bd55a0eb022f9536d294e7c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 324,
+        "vertices": 787,
+        "sha256": "fcb15b280186812d39e45a032590a5cb17b86513e64c0310125fa8b00e6cc227"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD1.asset",
+        "guid": "9006fbf136575be49a405f05ede2069c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 92,
+        "vertices": 263,
+        "sha256": "5c6d78f1a2843d1d805255b0f491489c9dbdd0fcb1dc4517b5f397dc50a587b3"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/OuterGateStrap_LOD2.asset",
+        "guid": "991c5d89756952878c6951c176e729ca",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 64,
+        "vertices": 179,
+        "sha256": "90527e3ccea1a2bb3c3887e14f6a98ae316d3a9e706d607f2ad698bada53ff6d"
+      }
+    ],
+    "world_axis_lengths": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "original_world_center": [
+      0.0,
+      2.85,
+      34.02
+    ],
+    "original_world_aabb_size": [
+      4.24,
+      0.09,
+      0.045
+    ],
+    "transform_chain": [
+      {
+        "id": "1364962063",
+        "m_LocalPosition": [
+          0.0,
+          2.85,
+          34.02
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          4.24,
+          0.09,
+          0.045
+        ]
+      },
+      {
+        "id": "1488639144",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "102575848",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/校规庭 · 同心合矩/通往双盘的白石嵌线",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1301679342",
+    "transform_id": "1301679343",
+    "renderer_id": "1301679344",
+    "filter_id": "1301679345",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "石灰墙",
+      "guid": "234de3a9a0f14c64294e33da104f3ed1",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD0.asset",
+      "guid": "02b18ed5054553e99c70adf3438380e0",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 636,
+      "vertices": 1499,
+      "sha256": "59f98292ea5530f59373b4148e2b03f225d82421beb410f8b5e18bbf29a32b2d"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/InlayLimestone.mat",
+      "guid": "08a18d1c906d5a18b5e336556219c0e5",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD0.asset",
+        "guid": "02b18ed5054553e99c70adf3438380e0",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 636,
+        "vertices": 1499,
+        "sha256": "59f98292ea5530f59373b4148e2b03f225d82421beb410f8b5e18bbf29a32b2d"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD1.asset",
+        "guid": "816057e6e0fa52fea2c6d696e6495f4e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 292,
+        "vertices": 571,
+        "sha256": "afeaf8935fdcf39168fdc0b091642b7805089710330454b131dc11f10d5a2d0a"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/WayfindingInlay_LOD2.asset",
+        "guid": "b677d7196217524697aa6cd0e55c6da3",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 98,
+        "vertices": 200,
+        "sha256": "8e9888e8624b3ff0177a06617b35a63498c000d389bf300925c0b06a8bde4a3d"
+      }
+    ],
+    "world_axis_lengths": [
+      0.11500000000000003,
+      0.018000000000000002,
+      9.850000000000001
+    ],
+    "original_world_center": [
+      4.14,
+      -0.018,
+      38.0
+    ],
+    "original_world_aabb_size": [
+      9.85,
+      0.018,
+      0.115
+    ],
+    "transform_chain": [
+      {
+        "id": "1301679343",
+        "m_LocalPosition": [
+          0.0,
+          -0.018,
+          39.14
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.115,
+          0.018,
+          9.85
+        ]
+      },
+      {
+        "id": "2027629105",
+        "m_LocalPosition": [
+          -35.0,
+          0.0,
+          38.0
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          0.7071068,
+          -0.0,
+          0.7071068
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/校验门/校验闸",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "303298069",
+    "transform_id": "303298070",
+    "renderer_id": "303298071",
+    "filter_id": "303298073",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "烟熏榆木",
+      "guid": "40ca5ae726f4f53478f7466c92825cf6",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD0.asset",
+      "guid": "0fdad3c87fe25b6291e42dd9e8550a24",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 480,
+      "vertices": 1231,
+      "sha256": "d0e00128b1263056786c51eecc30708b87e3a40cb8fa155c165318099946215c"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PhotoArchitecture/Timber.mat",
+      "guid": "32ab4ff106d90fc4c940ed11e21e245e",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD0.asset",
+        "guid": "0fdad3c87fe25b6291e42dd9e8550a24",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 480,
+        "vertices": 1231,
+        "sha256": "d0e00128b1263056786c51eecc30708b87e3a40cb8fa155c165318099946215c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD1.asset",
+        "guid": "e7f77dac0df851c2979363ffe9324c3e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 224,
+        "vertices": 441,
+        "sha256": "68a4dbfa64837f9518f63c65e941cbcd32fe97f4f01786ee7a1f84d67dedcbc0"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateLeaf_LOD2.asset",
+        "guid": "40abd6e20b8a5e008fc98ede37edb869",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 96,
+        "vertices": 192,
+        "sha256": "03466d1466305d766f08aa70025f792910ed3c947c5e1bf0a3cf8c8a145c1728"
+      }
+    ],
+    "world_axis_lengths": [
+      2.0200000000000005,
+      3.080000000000001,
+      0.3800000000000001
+    ],
+    "original_world_center": [
+      14.0,
+      1.5,
+      35.37
+    ],
+    "original_world_aabb_size": [
+      0.38,
+      3.08,
+      2.02
+    ],
+    "transform_chain": [
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          -35.0,
+          0.0,
+          38.0
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          0.7071068,
+          -0.0,
+          0.7071068
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/校验门/校验闸/闸板铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "770077086",
+    "transform_id": "770077087",
+    "renderer_id": "770077088",
+    "filter_id": "770077089",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+      "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 204,
+      "vertices": 510,
+      "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+        "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 204,
+        "vertices": 510,
+        "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD1.asset",
+        "guid": "52b3bd5688de5311b10d133a31b1a54c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 68,
+        "vertices": 192,
+        "sha256": "3167b2ac8a900f8fa4e820e7d92967b9753218f6182e56692f6e6bed8033a77c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD2.asset",
+        "guid": "2e443f594333512a873e112d1d7a54fa",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 168,
+        "sha256": "454cabfd43a8e78f4b6c2f3d6902ecbd9da72e3d82428d5340099e6bc8595212"
+      }
+    ],
+    "world_axis_lengths": [
+      1.9800001620000003,
+      0.08000000008000002,
+      0.030000000600000007
+    ],
+    "original_world_center": [
+      13.79,
+      0.42,
+      35.37
+    ],
+    "original_world_aabb_size": [
+      0.03,
+      0.08,
+      1.98
+    ],
+    "transform_chain": [
+      {
+        "id": "770077087",
+        "m_LocalPosition": [
+          0.0,
+          -0.35064936,
+          -0.55262923
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.9801981,
+          0.025974026,
+          0.07894737
+        ]
+      },
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          -35.0,
+          0.0,
+          38.0
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          0.7071068,
+          -0.0,
+          0.7071068
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "Chapter01_Courtyard",
+    "path": "第一章 · 初醒校验室/校验门/校验闸/闸板铜带",
+    "source": "Assets/Scene/Chapter01_Courtyard.unity",
+    "is_prefab": false,
+    "prefab_instance_id": "",
+    "game_object_id": "1622662081",
+    "transform_id": "1622662082",
+    "renderer_id": "1622662083",
+    "filter_id": "1622662084",
+    "old_mesh": {
+      "name": "Cube",
+      "guid": "0000000000000000e000000000000000",
+      "fileID": "10202",
+      "type": 0
+    },
+    "old_material": {
+      "name": "旧铜",
+      "guid": "f6ebe17d12a1bc24e83867e8b3d158d8",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "material_slot": 0,
+    "new_mesh": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+      "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+      "fileID": "4300000",
+      "type": 2,
+      "triangles": 204,
+      "vertices": 510,
+      "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+    },
+    "new_material": {
+      "path": "Assets/Art/Environment/Opening/PreqinGateFittings/GateHammeredBronze.mat",
+      "guid": "500b1e2a6be25d468e8a9306d34f70d9",
+      "fileID": "2100000",
+      "type": 2
+    },
+    "old_lod_group_ids": [],
+    "mesh_levels": [
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD0.asset",
+        "guid": "96a2ba80bd4d5f2f859eb2699327cb6e",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 204,
+        "vertices": 510,
+        "sha256": "e3d30b801493a813478d6cbbee451feaeea3dfd2c41e52f40e0f08e45a272e6b"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD1.asset",
+        "guid": "52b3bd5688de5311b10d133a31b1a54c",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 68,
+        "vertices": 192,
+        "sha256": "3167b2ac8a900f8fa4e820e7d92967b9753218f6182e56692f6e6bed8033a77c"
+      },
+      {
+        "path": "Assets/Art/Environment/Opening/PreqinGateFittings/CheckGateStrap_LOD2.asset",
+        "guid": "2e443f594333512a873e112d1d7a54fa",
+        "fileID": "4300000",
+        "type": 2,
+        "triangles": 60,
+        "vertices": 168,
+        "sha256": "454cabfd43a8e78f4b6c2f3d6902ecbd9da72e3d82428d5340099e6bc8595212"
+      }
+    ],
+    "world_axis_lengths": [
+      1.9800001620000003,
+      0.08000000008000002,
+      0.030000000600000007
+    ],
+    "original_world_center": [
+      13.79,
+      2.5,
+      35.37
+    ],
+    "original_world_aabb_size": [
+      0.03,
+      0.08,
+      1.98
+    ],
+    "transform_chain": [
+      {
+        "id": "1622662082",
+        "m_LocalPosition": [
+          0.0,
+          0.32467532,
+          -0.55262923
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          0.9801981,
+          0.025974026,
+          0.07894737
+        ]
+      },
+      {
+        "id": "303298070",
+        "m_LocalPosition": [
+          2.63,
+          1.5,
+          49.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          2.02,
+          3.08,
+          0.38
+        ]
+      },
+      {
+        "id": "31916669",
+        "m_LocalPosition": [
+          -35.0,
+          0.0,
+          38.0
+        ],
+        "m_LocalRotation": [
+          -0.0,
+          0.7071068,
+          -0.0,
+          0.7071068
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "1916039958",
+        "m_LocalPosition": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "m_LocalRotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "m_LocalScale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  }
+]

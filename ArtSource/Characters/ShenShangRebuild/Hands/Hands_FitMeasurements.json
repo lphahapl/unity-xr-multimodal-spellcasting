@@ -1,0 +1,478 @@
+{
+  "collection": "ShenShang_HandAssembly",
+  "savedBlendSHA256": "2189b564241d166ee6cead753dcefb51c8e81ba2be88ebfac739fc5857e73418",
+  "sourceSHA256": {
+    "ArtSource/PlayerHands/PlayerLeftHand.blend": "9b72592adc953a11c0a3219543d045e0cab227fcc51f69aa4e53d4edd882b891",
+    "ArtSource/PlayerHands/PlayerRightHand.blend": "e9faa729ac3ec6a8142a9208c294a656809b50b40a4a396436dbdb573bace1c8",
+    "ArtSource/Zhunwang/WristFit/Zhunwang_WristFit.blend": "c9a8530c2098cb5f7c4430c553608dfa2c435515efc26eb1521a7528d1524547"
+  },
+  "wristInterfaces": {
+    "L": {
+      "wrist": [
+        0.4934104084968567,
+        -0.04163191467523575,
+        0.9380715489387512
+      ],
+      "seamCenter": [
+        0.4050000011920929,
+        -0.030000001192092896,
+        1.0460000038146973
+      ],
+      "frame": [
+        [
+          -0.05059840530157089,
+          0.630225658416748,
+          0.7747614979743958,
+          0.4934104084968567
+        ],
+        [
+          -0.9967926144599915,
+          -0.08002865314483643,
+          0.0,
+          -0.04163191467523575
+        ],
+        [
+          0.06200312823057175,
+          -0.7722765803337097,
+          0.6322535276412964,
+          0.9380715489387512
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fingertipJoints": {
+        "Thumb": [
+          0.5145307183265686,
+          -0.11469323188066483,
+          0.8326253294944763
+        ],
+        "Index": [
+          0.5591763854026794,
+          -0.06804219633340836,
+          0.7864386439323425
+        ],
+        "Middle": [
+          0.5530052185058594,
+          -0.04730147495865822,
+          0.7777789235115051
+        ],
+        "Ring": [
+          0.5333742499351501,
+          -0.02265857346355915,
+          0.7852623462677002
+        ],
+        "Little": [
+          0.5121162533760071,
+          -0.006281405687332153,
+          0.8037599325180054
+        ]
+      },
+      "wristToMiddleTipJointMm": 171.106431998433,
+      "wrapToWristMm": 140.0009048130461,
+      "modifiedProximalVerts": 86,
+      "maxProximalConformMm": 4.946843591869924,
+      "sectionClearanceMm": [
+        1.3499999999999943,
+        1.3500000000000014
+      ]
+    },
+    "R": {
+      "wrist": [
+        -0.4934104084968567,
+        -0.04163191467523575,
+        0.9380715489387512
+      ],
+      "seamCenter": [
+        -0.4050000011920929,
+        -0.029999997466802597,
+        1.0460000038146973
+      ],
+      "frame": [
+        [
+          -0.05059840530157089,
+          -0.630225658416748,
+          -0.7747614979743958,
+          -0.4934104084968567
+        ],
+        [
+          0.9967926144599915,
+          -0.08002865314483643,
+          0.0,
+          -0.04163191467523575
+        ],
+        [
+          -0.06200312823057175,
+          -0.7722765803337097,
+          0.6322535276412964,
+          0.9380715489387512
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fingertipJoints": {
+        "Thumb": [
+          -0.5145326852798462,
+          -0.11468666046857834,
+          0.8326247930526733
+        ],
+        "Index": [
+          -0.5589646100997925,
+          -0.06798528134822845,
+          0.7863203287124634
+        ],
+        "Middle": [
+          -0.5527240633964539,
+          -0.047290951013565063,
+          0.7776947617530823
+        ],
+        "Ring": [
+          -0.532905638217926,
+          -0.022727563977241516,
+          0.7849141359329224
+        ],
+        "Little": [
+          -0.5121101140975952,
+          -0.006281474605202675,
+          0.8037644624710083
+        ]
+      },
+      "wristToMiddleTipJointMm": 171.08725267096656,
+      "wrapToWristMm": 140.00090512487085,
+      "modifiedProximalVerts": 86,
+      "maxProximalConformMm": 4.94686336269904,
+      "sectionClearanceMm": [
+        1.3499999999999943,
+        1.3500000000000014
+      ]
+    }
+  },
+  "wristDeviceFit": {
+    "sections": {
+      "elbow": {
+        "sections": 13,
+        "samples": 12190,
+        "min_mm": 0.4089125421188636,
+        "max_mm": 5.640984886786899
+      },
+      "wrist": {
+        "sections": 13,
+        "samples": 11800,
+        "min_mm": 1.0357364818618549,
+        "max_mm": 3.1466626157697695
+      }
+    },
+    "fullSlabs": [
+      {
+        "axis_mm": -42.75,
+        "which": "elbow",
+        "min_mm": 1.6848463726510101,
+        "max_mm": 5.640984886786899,
+        "samples": 939
+      },
+      {
+        "axis_mm": -42.25,
+        "which": "elbow",
+        "min_mm": 1.696273444969762,
+        "max_mm": 5.464267137471522,
+        "samples": 938
+      },
+      {
+        "axis_mm": -41.75,
+        "which": "elbow",
+        "min_mm": 1.5807529207839062,
+        "max_mm": 5.136915793621818,
+        "samples": 939
+      },
+      {
+        "axis_mm": -41.25,
+        "which": "elbow",
+        "min_mm": 1.2469966727418154,
+        "max_mm": 5.069826064712155,
+        "samples": 938
+      },
+      {
+        "axis_mm": -40.75,
+        "which": "elbow",
+        "min_mm": 0.9869841015180469,
+        "max_mm": 5.006548849253791,
+        "samples": 937
+      },
+      {
+        "axis_mm": -40.25,
+        "which": "elbow",
+        "min_mm": 0.9149456885512571,
+        "max_mm": 4.945111881637338,
+        "samples": 933
+      },
+      {
+        "axis_mm": -37.25,
+        "which": "elbow",
+        "min_mm": 0.487502919864051,
+        "max_mm": 4.939152987255194,
+        "samples": 938
+      },
+      {
+        "axis_mm": -36.75,
+        "which": "elbow",
+        "min_mm": 0.41536006247103524,
+        "max_mm": 4.943928551174758,
+        "samples": 935
+      },
+      {
+        "axis_mm": -36.25,
+        "which": "elbow",
+        "min_mm": 0.4089125421188636,
+        "max_mm": 4.94937578529928,
+        "samples": 935
+      },
+      {
+        "axis_mm": -34.25,
+        "which": "elbow",
+        "min_mm": 0.8746999161964867,
+        "max_mm": 4.975466304989578,
+        "samples": 938
+      },
+      {
+        "axis_mm": -33.75,
+        "which": "elbow",
+        "min_mm": 0.9904580788044445,
+        "max_mm": 4.962203997130625,
+        "samples": 941
+      },
+      {
+        "axis_mm": -33.25,
+        "which": "elbow",
+        "min_mm": 1.1055118117404796,
+        "max_mm": 2.674359116763633,
+        "samples": 939
+      },
+      {
+        "axis_mm": -32.75,
+        "which": "elbow",
+        "min_mm": 1.2211972715576547,
+        "max_mm": 2.661319177893576,
+        "samples": 940
+      },
+      {
+        "axis_mm": 23.75,
+        "which": "wrist",
+        "min_mm": 1.3229596779406125,
+        "max_mm": 3.1466626157697695,
+        "samples": 909
+      },
+      {
+        "axis_mm": 24.25,
+        "which": "wrist",
+        "min_mm": 1.3484603807095457,
+        "max_mm": 3.0729732201484867,
+        "samples": 908
+      },
+      {
+        "axis_mm": 24.75,
+        "which": "wrist",
+        "min_mm": 1.1396023904561852,
+        "max_mm": 2.8272930317930567,
+        "samples": 911
+      },
+      {
+        "axis_mm": 25.25,
+        "which": "wrist",
+        "min_mm": 1.3077365487169006,
+        "max_mm": 2.6937485731221726,
+        "samples": 905
+      },
+      {
+        "axis_mm": 25.75,
+        "which": "wrist",
+        "min_mm": 1.2079224490587506,
+        "max_mm": 2.596914633754957,
+        "samples": 906
+      },
+      {
+        "axis_mm": 28.25,
+        "which": "wrist",
+        "min_mm": 1.0357364818618549,
+        "max_mm": 2.457521579831616,
+        "samples": 904
+      },
+      {
+        "axis_mm": 28.75,
+        "which": "wrist",
+        "min_mm": 1.065749727915805,
+        "max_mm": 2.4417843884293378,
+        "samples": 904
+      },
+      {
+        "axis_mm": 29.25,
+        "which": "wrist",
+        "min_mm": 1.0938867796535054,
+        "max_mm": 2.4154745434299087,
+        "samples": 907
+      },
+      {
+        "axis_mm": 32.25,
+        "which": "wrist",
+        "min_mm": 1.5479824005755112,
+        "max_mm": 2.4822828707834432,
+        "samples": 906
+      },
+      {
+        "axis_mm": 32.75,
+        "which": "wrist",
+        "min_mm": 1.6785260509051125,
+        "max_mm": 2.573671821110052,
+        "samples": 905
+      },
+      {
+        "axis_mm": 33.25,
+        "which": "wrist",
+        "min_mm": 1.6234733071693657,
+        "max_mm": 2.5565717704104474,
+        "samples": 905
+      },
+      {
+        "axis_mm": 33.75,
+        "which": "wrist",
+        "min_mm": 1.669954099123557,
+        "max_mm": 2.6755577879502126,
+        "samples": 914
+      },
+      {
+        "axis_mm": 34.25,
+        "which": "wrist",
+        "min_mm": 1.6820251683676903,
+        "max_mm": 2.816784509013706,
+        "samples": 916
+      }
+    ],
+    "localParts": 37,
+    "localMeshes": 28,
+    "parentBone": "V2_HandRig.L/XRHand_Wrist",
+    "scale": [
+      0.10208138078451157,
+      0.10208139568567276,
+      0.10208136588335037
+    ],
+    "sourceToHandLocalMatrix": [
+      [
+        -0.10185002828611246,
+        -0.0008625467980593035,
+        0.006814474122881908,
+        0.0018526160919681617
+      ],
+      [
+        0.0010070913673398468,
+        -0.10205409722844777,
+        0.002134552013073237,
+        -0.04276653603054334
+      ],
+      [
+        0.0067946163635704245,
+        0.002196942953251908,
+        0.10183131117963778,
+        -0.020787465508914253
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "leastSquaresVerification": {
+      "handRegistration": {
+        "sourceCount": 1409,
+        "targetCount": 1409,
+        "bothWaysRMSSquaredSum_mm": 0.004333136621025236,
+        "src2TargetDistance_mm": [
+          0.000214990688508356,
+          0.0025505243177686558,
+          0.005020379933100864,
+          0.008207461882219356,
+          0.011584847038065697
+        ],
+        "scale": 1,
+        "detOrientation": -0.9999999999999994
+      },
+      "caseRegistration": {
+        "sourceCount": 4489,
+        "targetCount": 4489,
+        "bothWaysRMSSquaredSum_mm": 0.0035604679979515798,
+        "src2TargetDistance_mm": [
+          4.9697533351577335e-05,
+          0.0022729953621059337,
+          0.003823985615149088,
+          0.004098895883658469,
+          0.004364628326437044
+        ],
+        "scale": 0.1020813857,
+        "detOrientation": -0.9999999999999996
+      }
+    }
+  },
+  "readback": {
+    "L": {
+      "verts": 1409,
+      "tris": 2814,
+      "bones": 26,
+      "unchangedPalmFingerWristbandVertices": 1322,
+      "maxDifferenceMicrometers": 0.040808512125067864,
+      "sameTriangleIndices": true,
+      "opaqueWrap": true,
+      "thumbSideVector": [
+        -0.050598353147506714,
+        -0.9967925548553467,
+        0.06200312450528145
+      ],
+      "qaPass": true,
+      "qaWarnings": [
+        "V2_HandMesh.L: ~39.64% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+        "asset lowest point z=0.7653 (not resting on ground plane z=0)"
+      ]
+    },
+    "R": {
+      "verts": 1409,
+      "tris": 2814,
+      "bones": 26,
+      "unchangedPalmFingerWristbandVertices": 1322,
+      "maxDifferenceMicrometers": 0.03169576956452147,
+      "sameTriangleIndices": true,
+      "opaqueWrap": true,
+      "thumbSideVector": [
+        0.050598353147506714,
+        -0.9967925548553467,
+        0.06200312450528145
+      ],
+      "qaPass": true,
+      "qaWarnings": [
+        "V2_HandMesh.R: ~39.64% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+        "asset lowest point z=0.7652 (not resting on ground plane z=0)"
+      ]
+    },
+    "case": {
+      "maxWristMotionMatrixError": 5.960464477539063e-08,
+      "preservedMeshTopologies": 28,
+      "maxWornVertexErrorMicrometers": 0.2431824339609578
+    },
+    "packedImages": {
+      "LeftCuffAlbedo.png": 229375,
+      "LeftHandAlbedo.png": 2985501,
+      "RightCuffAlbedo.png": 231163,
+      "RightHandAlbedo.png": 2911926,
+      "Zhunwang_BaseColor.png": 4756836,
+      "Zhunwang_Metallic.png": 2306267,
+      "Zhunwang_Normal.png": 6216647,
+      "Zhunwang_Roughness.png": 2261584
+    }
+  },
+  "limits": "Cross-section distances are static geometric measurements. The source UVs intentionally overlap, and the hands are checked at their worn heights.",
+  "sourceCoordinates": "metres, Blender Z up, character forward -Y, anatomical left +X"
+}

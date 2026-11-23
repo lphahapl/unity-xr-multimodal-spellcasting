@@ -1,0 +1,128 @@
+{
+  "blender": "5.2.2 LTS",
+  "checked": "2026-11-19T00:25:37.140530+08:00",
+  "lods": [
+    {
+      "file": "TianyiDais_LOD0.fbx",
+      "triangles": 4480,
+      "bounds_m": [
+        [
+          -1.5724923610687256,
+          1.5722498893737793
+        ],
+        [
+          -1.439162015914917,
+          1.43905770778656
+        ],
+        [
+          -1.0864583543934714e-07,
+          0.5500001311302185
+        ]
+      ],
+      "uv_layers": 1,
+      "materials": [
+        "TianyiDais_Baked"
+      ]
+    },
+    {
+      "file": "TianyiDais_LOD1.fbx",
+      "triangles": 1600,
+      "bounds_m": [
+        [
+          -1.566243052482605,
+          1.5658535957336426
+        ],
+        [
+          -1.432337999343872,
+          1.4325675964355469
+        ],
+        [
+          -1.0815584516876697e-07,
+          0.5500001311302185
+        ]
+      ],
+      "uv_layers": 1,
+      "materials": [
+        "TianyiDais_Baked"
+      ]
+    },
+    {
+      "file": "TianyiDais_LOD2.fbx",
+      "triangles": 600,
+      "bounds_m": [
+        [
+          -1.566243052482605,
+          1.5658535957336426
+        ],
+        [
+          -1.4321805238723755,
+          1.4325675964355469
+        ],
+        [
+          -1.0815584516876697e-07,
+          0.5500001311302185
+        ]
+      ],
+      "uv_layers": 1,
+      "materials": [
+        "TianyiDais_Baked"
+      ]
+    }
+  ],
+  "bake_source_images": {
+    "texture_pbr_20250901": {
+      "path": "",
+      "packed": true,
+      "exists": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness": {
+      "path": "",
+      "packed": true,
+      "exists": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "texture_pbr_20250901_normal": {
+      "path": "",
+      "packed": true,
+      "exists": false,
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    "TianyiDais_BaseColor": {
+      "path": "//..\\..\\..\\..\\Assets\\Art\\Environment\\Opening\\TianyiDais\\Textures\\TianyiDais_BaseColor.png",
+      "packed": false,
+      "exists": true,
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    "TianyiDais_Mask": {
+      "path": "//..\\..\\..\\..\\Assets\\Art\\Environment\\Opening\\TianyiDais\\Textures\\TianyiDais_Mask.png",
+      "packed": false,
+      "exists": true,
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    "TianyiDais_Normal": {
+      "path": "//..\\..\\..\\..\\Assets\\Art\\Environment\\Opening\\TianyiDais\\Textures\\TianyiDais_Normal.png",
+      "packed": false,
+      "exists": true,
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  }
+}

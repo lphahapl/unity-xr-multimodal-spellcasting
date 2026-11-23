@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using NarutoVR.SealCombat.Rpg;
+using NarutoVR.SealCombat.Events;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -32,27 +33,41 @@ namespace NarutoVR.SealCombat.Editor
                 effects.GameClock = () => 0;
                 var visual = Child("空护盾视觉"); visual.SetActive(false); shield.visualPrefab = visual;
                 shield.capacity = 50; buff.durationSeconds = 30; buff.displayName = "检查护盾";
+                buff.skillId = "fixture.shield";
+                definition.startingSkills = new[]{ buff };
                 definition.maxHealth = 120; definition.maxMana = 80;
+                int notices = 0;
+                PlayerDamageNotice last = default;
+                using var subscription = EventCenter.Subscribe(PlayerEvents.DamageSettled, notice =>
+                {
+                    if (notice.Player == first) { notices++; last = notice; }
+                });
                 Check(!first.IsInitialized && !first.TryReceiveDamage("before-init", 10, 0, out _), "未初始化不接收伤害");
                 var state = first.Initialize(definition);
                 Check(state.MaxHealth == 120 && state.MaxMana == 80, "按玩家定义创建运行时属性");
                 Check(ReferenceEquals(state, first.State) && first.IsInitialized, "实体持有唯一运行态");
                 second.Initialize(definition); old.Initialize(legacy); defaults.Initialize(null);
+                Check(first.Model.IsUnlocked(buff.skillId) && second.Model.CanUseSkill(buff.skillId) &&
+                    !old.Model.CanUseSkill(buff.skillId) && !defaults.Model.CanUseSkill(buff.skillId), "玩家实体按各自的基础定义获得起始技能");
                 Check(!ReferenceEquals(first.State, second.State), "同一 SO 为不同玩家建立独立状态");
                 Check(old.State.MaxHealth == 100 && defaults.State.MaxHealth == 100, "旧定义和空定义兼容");
                 Check(first.TryReceiveDamage("initial", 20, 0, out var damage) && damage.Requested == 20 &&
                     damage.Absorbed == 0 && damage.HealthLost == 20 && state.Health == 100, "无护盾伤害数值保持");
+                Check(notices == 1 && last.HitId == "initial" && last.Result.HealthLost == 20 && last.Result.Absorbed == 0,
+                    "只对有效扣血广播一次，消息携带受击实体与原始命中 ID");
                 Check(second.State.Health == 120 && definition.maxHealth == 120, "伤害不修改其他玩家或配置资产");
                 Check(ReferenceEquals(first.Initialize(legacy), state) && state.Health == 100 && first.ReceivedHitCount == 1,
                     "重复初始化不重置状态或账本");
                 typeof(SkillController).GetMethod("BindVitals",System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(effects,new object[] { state });
-                buff.skillId = "fixture.shield"; buff.effectDefinition = shield;
+                buff.effectDefinition = shield;
                 Check(effects.TryCast(buff), "建立真实 SkillController 护盾");
                 bool replayAccepted = true;
                 Action<float> replay = absorbed => replayAccepted = first.TryReceiveDamage("shielded", 15, 0, out _);
                 effects.ShieldImpact += replay;
                 try { Check(first.TryReceiveDamage("shielded", 15, 0, out damage), "护盾命中接收"); effects.PresentShieldHit(damage.Absorbed); }
                 finally { effects.ShieldImpact -= replay; }
+                Check(notices == 2 && last.HitId == "shielded" && last.Result.Absorbed == 15 && last.Result.HealthLost == 0,
+                    "护盾完全吸收也广播一次，重放命中不会重复广播");
                 Check(!replayAccepted && effects.ShieldPoints == 35 && state.Health == 100 &&
                     damage.Absorbed == 15 && damage.HealthLost == 0, "全吸收也在护盾回调前去重，防止重入重复消耗");
                 Check(!first.TryReceiveDamage("shielded", 15, 0, out _) && effects.ShieldPoints == 35,
@@ -80,6 +95,24 @@ namespace NarutoVR.SealCombat.Editor
                 using (cast) cast.Commit();
                 Check(state.Mana == 60 && second.State.Mana == 80 && second.State.GetCooldown("fireball", 0) == 0,
                     "法力和冷却仍由同一状态管理，玩家间隔离");
+                var view = (IPlayerReadModel)first.Model;
+                state.SetShield(25, 1);
+                state.Tick(.99);
+                Check(state.TryReserveCast("refresh", "shield", "shield", 0, 0, .99, out var refresh, out _), "预留护盾刷新");
+                using (refresh) state.SetShield(99, 20);
+                Check(view.ShieldPoints == 25 && view.ShieldExpiresAt == 1 && state.ShieldPointsAt(.99) == 25,
+                    "未提交的刷新保留原盾的到期时间与容量");
+                effects.GameClock = () => 1;
+                Check(effects.ShieldPoints == 0 && effects.BuffRemaining == 0, "到期边界效果查询立即返回零");
+                state.Tick(1);
+                Check(view.ShieldPoints == 0 && view.ShieldCapacity == 0 && state.AbsorbShield(4, 1) == 0,
+                    "未执行视觉帧，到期时模型、HUD 和结算已同步归零");
+                state.SetShield(25, 1.5);
+                state.Tick(2);
+                Check(view.ShieldPoints == 0 && first.TryReceiveDamage("expired", 4, 2, out damage) &&
+                    damage.Absorbed == 0 && damage.HealthLost == 4, "跨过到期的首笔受击完全扣血");
+                state.SetShield(25, 2);
+                Check(view.ShieldPoints == 0 && view.ShieldCapacity == 0, "到期时赋予旧盾也无法让只读面板看到过期数值");
                 return $"玩家实体与新旧配置 {count} 项检查通过";
             }
             finally

@@ -63,7 +63,7 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var ground=new GameObject("地面"); ground.transform.SetParent(world.transform); ground.transform.position=origin+Vector3.down*.1f;
-                ground.layer=layer; ground.AddComponent<BoxCollider>().size=new Vector3(15,.2f,15);
+                ground.layer=layer; ground.AddComponent<BoxCollider>().size=new Vector3(30,.2f,30);
                 var rig=new GameObject("Rig"); rig.transform.SetParent(world.transform); rig.transform.position=origin;
                 var head=new GameObject("头部"); head.transform.SetParent(rig.transform,false); head.transform.localPosition=Vector3.up*1.7f;
                 var c=world.AddComponent<RpgLocomotionController>(); c.rigRoot=rig.transform; c.head=head.transform; c.useRayNavigation=true;
@@ -103,11 +103,12 @@ namespace NarutoVR.SealCombat.Editor
                 var alternative=Node("战斗手指对照",origin+new Vector3(.9f,0,2)); start.neighbors.Add(alternative);
                 c.encounterModesEnabled=true;c.SetEncounterCombat(true);
                 double clock=10;
-                void CombatSample(Vector3 gaze,Vector3 hand,bool point=true)
+                void CombatSample(Vector3 gaze,Vector3 hand,bool point=true,bool relaxed=false)
                 {
                     clock+=.04;
                     head.transform.forward=gaze;
                     var frame=Frame(clock);frame.leftPointing=point;frame.leftRayDirection=hand;
+                    frame.leftNavigationPointing=relaxed;
                     c.ProcessInput(frame,false,false,clock);
                 }
                 void BootCombat()
@@ -124,7 +125,37 @@ namespace NarutoVR.SealCombat.Editor
                 for(int i=0;i<12;i++)CombatSample(look,finger);
                 Check(Vector3.Distance(rig.transform.position,target.floorPosition)<.01f,"手指偏移超过旧硬半径仍应驻留传送至视线目标");
 
-                start.neighbors.Clear(); start.neighbors.Add(target);
+                BootCombat();
+                int teleports = 0;
+                c.MovementCommitted += movement => { if (movement.Kind == PlayerMovementKind.Navigation) teleports++; };
+                for (int i = 0; i < 4; i++) CombatSample(look, finger, false, true);
+                Check(c.CandidateNode == target && rig.transform.position == origin, "自然指向应显示候选，短暂扫过不能传送");
+                for (int i = 4; i < 10; i++)
+                    CombatSample(Quaternion.Euler(0, i % 2 == 0 ? 2 : -2, 0) * look, finger, false, true);
+                Check(teleports == 1 && Vector3.Distance(rig.transform.position, target.floorPosition) < .01f,
+                    "轻微头向摆动时，稳定指向同点 0.36 秒内应传送一次");
+                for (int i = 0; i < 18; i++)
+                    CombatSample(side.floorPosition - head.transform.position, side.floorPosition - Frame(clock).leftRayOrigin, false, true);
+                Check(teleports == 1, "持续指向邻接新点不能连跳");
+
+                // A long landing is reachable through an intermediate authored node.
+                start.neighbors.Clear(); start.neighbors.Add(side); side.neighbors.Add(target);
+                target.transform.position=origin+Vector3.forward*10;
+                BootCombat();
+                for(int i=0;i<15;i++) CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
+                Check(Vector3.Distance(rig.transform.position,target.floorPosition)<.01f,"战斗可直接传送到两段连接外的十米落点");
+                var barrier=new GameObject("膝高挡板");barrier.transform.SetParent(world.transform);barrier.layer=layer;
+                barrier.transform.position=origin+new Vector3(0,.2f,4);barrier.AddComponent<BoxCollider>().size=new Vector3(1,.4f,.2f);
+                BootCombat();
+                for(int i=0;i<15;i++) CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
+                Check(!c.CandidateNode && rig.transform.position==origin,"远点路径必须拦住视线以下的障碍");
+                Object.DestroyImmediate(barrier);
+                side.gameObject.SetActive(false); BootCombat();
+                for(int i=0;i<15;i++) CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
+                Check(!c.CandidateNode && rig.transform.position==origin,"失活中转节点阻断远点连接");
+                side.gameObject.SetActive(true);
+                target.transform.position=origin+Vector3.forward*2;
+                start.neighbors.Clear(); start.neighbors.Add(target); target.neighbors.Clear();
                 BootCombat();
                 for(int i=0;i<6;i++)CombatSample(Vector3.back,Vector3.back);
                 Check(!c.CandidateNode && c.BuildDebugDetails(clock).Contains("角度 1"),"两种方向均偏离时无候选且说明角度门槛");
@@ -135,7 +166,7 @@ namespace NarutoVR.SealCombat.Editor
                 Check(!c.CandidateNode && rig.transform.position==origin && c.BuildDebugDetails(clock).Contains("遮挡 1"),
                     "头向和手指满分仍不能传送到墙后；应报告遮挡");
                 Object.DestroyImmediate(wall);
-                target.transform.position=origin+Vector3.forward*8;Physics.SyncTransforms();BootCombat();
+                target.transform.position=origin+Vector3.forward*(c.offNodeRange+1);Physics.SyncTransforms();BootCombat();
                 CombatSample(target.floorPosition-head.transform.position,target.floorPosition-Frame(clock).leftRayOrigin);
                 Check(!c.CandidateNode && c.BuildDebugDetails(clock).Contains("距离 1"),"超距与偏离方向应显示独立的排除原因");
             }

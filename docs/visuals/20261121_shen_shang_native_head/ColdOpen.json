@@ -1,0 +1,44 @@
+{
+  "blenderVersion": "5.2.2 LTS",
+  "reviewState": "第一版头像，待用户审美反馈",
+  "editableMeshObjects": 21,
+  "editableCurveObjects": 9,
+  "evaluatedReviewTriangles": 486608,
+  "sourceHashSHA256": {
+    "Groom/ShenShang_Groom.blend": "45533e8031cb26a0eb3d1b95f24e8b04e7b7e83146b51fa31e4d2c538bea1312",
+    "Head/ShenShang_Head.blend": "7c26458222f7cbb711035862f294111ce51202d92898f304c4b5cb9c737ff1d0",
+    "ShenShang_HeadReview.blend": "9e7aad1518db32918cf5c79266dbfa3c2d358c4c89fbbd7d75e7c89dd58e642d"
+  },
+  "packedImages": [
+    "NaturalBrow_Handmade.png",
+    "Shen_FacialMicrofolds.png",
+    "Shen_SkinMicrostructure.png",
+    "SweptHair_Handmade.png"
+  ],
+  "unresolvedExternalFiles": [],
+  "linkedBlendLibraries": [],
+  "meshInspection": {
+    "worldCoordinates": "millimetres",
+    "contactToleranceMicrons": 1,
+    "errors": [],
+    "warnings": [
+      "audit Shen_IrisPupil.R: no UV map",
+      "audit Shen_IrisPupil.L: no UV map",
+      "audit Shen_HeadSkin: no UV map",
+      "audit Shen_Eyeball.R: no UV map",
+      "audit Shen_Eyeball.L: no UV map",
+      "audit Shen_Ear.R: no UV map",
+      "audit Shen_Ear.L: no UV map",
+      "audit 鬓发片 · 4: no UV map",
+      "audit 鬓发片 · 3: no UV map",
+      "audit 鬓发片 · 2: no UV map",
+      "audit 鬓发片 · 1: no UV map",
+      "audit 木簪 · 一削一尖: no UV map",
+      "audit 回旋发髻 · 中束: no UV map",
+      "hidden back-to-back faces: audit 鬓发片 · 3 (1 pairs) - delete to save tris",
+      "hidden back-to-back faces: audit 鬓发片 · 2 (1 pairs) - delete to save tris",
+      "asset lowest point z=1405.0 (not resting on ground plane z=0)"
+    ]
+  },
+  "visualReview": "同灯正面、38度转面、左侧面；本轮为美术审阅，没有进行玩家变形或真机验证。"
+}

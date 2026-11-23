@@ -29,7 +29,12 @@ namespace NarutoVR.SealCombat.Editor
             var scene = SceneManager.GetActiveScene();
             if (Application.isPlaying || scene.path != LinearRpgValidation.P1ScenePath) throw new Exception("需要编辑模式的 P1 场景");
             var room = Components<CombatRoomEncounter>(scene).Single();
-            if (room.UsesEnemyManager) return Validate();
+            if (room.UsesEnemyManager)
+            {
+                ConfigureCanJiOuResources(AddressableAssetSettingsDefaultObject.GetSettings(true));
+                AssetDatabase.SaveAssets();
+                return Validate();
+            }
             if (room.enemies.Length != 1 || !room.enemies[0]) throw new Exception("自动接入针对当前单怪房间；已有布局变化时请手动配置出生点");
             Directory.CreateDirectory(Log);
             string backup = Log + "/KaogongP1Trial_beforePool_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".unity";
@@ -43,19 +48,12 @@ namespace NarutoVR.SealCombat.Editor
             if (!prefab) throw new Exception("房间敌人变体保存失败");
             var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
             if (!settings) throw new Exception("Addressables settings创建失败");
-            var group = settings.FindGroup("Enemies_Local") ?? settings.CreateGroup("Enemies_Local", false, false, true, null,
-                typeof(BundledAssetGroupSchema), typeof(ContentUpdateGroupSchema));
-            var schema = group.GetSchema<BundledAssetGroupSchema>();
-            schema.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
-            schema.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
-            schema.BundleMode = BundledAssetGroupSchema.BundlePackingMode.PackSeparately;
-            var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(PrefabPath), group);
-            entry.address = "enemies/canjiou"; entry.SetLabel("EnemyPrefab", true, true);
+            ConfigureCanJiOuResources(settings);
             settings.ActivePlayModeDataBuilderIndex = 0; // Editor AssetDatabase mode; player uses built local bundles.
             settings.BuildAddressablesWithPlayerBuild = AddressableAssetSettings.PlayerBuildOption.BuildWithPlayer;
-            EditorUtility.SetDirty(settings); EditorUtility.SetDirty(schema);
+            EditorUtility.SetDirty(settings);
             var definition = ScriptableObject.CreateInstance<EnemyDefinition>(); definition.enemyId = "canjiou";
-            definition.displayName = "残机偶"; definition.prefab = new AssetReferenceGameObject(entry.guid);
+            definition.displayName = "残机偶"; definition.prefab = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(PrefabPath));
             definition.combatDefinition = combat; definition.maxInactive = 4;
             AssetDatabase.CreateAsset(definition, DefinitionPath);
             var catalog = ScriptableObject.CreateInstance<EnemyCatalog>(); catalog.enemies = new[] { definition };
@@ -74,6 +72,20 @@ namespace NarutoVR.SealCombat.Editor
             if (!EditorSceneManager.SaveScene(scene)) throw new Exception("保存异步生成场景失败");
             var detail = Validate(); File.WriteAllText(Log + "/setup.txt", detail + "\nbackup=" + backup); return detail;
         }
+        static void ConfigureCanJiOuResources(AddressableAssetSettings settings)
+        {
+            var group = settings.FindGroup("Enemies_Local") ?? settings.CreateGroup("Enemies_Local", false, false, true, null,
+                typeof(BundledAssetGroupSchema), typeof(ContentUpdateGroupSchema));
+            var schema = group.GetSchema<BundledAssetGroupSchema>();
+            schema.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
+            schema.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
+            schema.BundleMode = BundledAssetGroupSchema.BundlePackingMode.PackTogether;
+            var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(PrefabPath), group);
+            entry.address = "enemies/canjiou"; entry.SetLabel("EnemyPrefab", true, true);
+            settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID("Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab"), group).address = "models/canjiou-patrol";
+            EditorUtility.SetDirty(group); EditorUtility.SetDirty(schema);
+        }
+
         static void Folder(string path)
         {
             if (AssetDatabase.IsValidFolder(path)) return;

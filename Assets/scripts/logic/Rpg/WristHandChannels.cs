@@ -12,8 +12,8 @@ namespace NarutoVR.SealCombat.Rpg
     // evidence that this runtime currently provides it. UI targets never depend on vendor types.
     internal static class WristHandChannels
     {
-        internal static void Apply(ref WristMenuInput f, Transform origin, Vector3 wrist,
-            WristMenuSettings settings, bool xrHands, IHand native)
+        internal static void Apply(ref PlayerHandObservation f, Transform origin, Vector3 wrist,
+            float maxAge, bool xrHands, IHand native)
         {
             if (!xrHands)
             {
@@ -30,7 +30,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 if (!(device is HandInteractionProfile.HandInteraction hand) || !hand.enabled ||
                     !hand.usages.Contains(UnityEngine.InputSystem.CommonUsages.RightHand) ||
-                    !Fresh(hand,f.rightObserved,settings.maxAge)) continue;
+                    !Fresh(hand,f.rightObserved,maxAge)) continue;
                 var pose=hand.pointer.ReadValue();
                 var poseFields=UnityEngine.XR.InputTrackingState.Position|UnityEngine.XR.InputTrackingState.Rotation;
                 if (pose.isTracked && (pose.trackingState & poseFields)==poseFields)
@@ -46,7 +46,7 @@ namespace NarutoVR.SealCombat.Rpg
 
             // FB aim flags distinguish "open" from a device that never provided pinch data.
             var aim=MetaAimHand.right;
-            if (aim==null || !aim.added || !aim.enabled || !Fresh(aim,f.rightObserved,settings.maxAge)) return;
+            if (aim==null || !aim.added || !aim.enabled || !Fresh(aim,f.rightObserved,maxAge)) return;
             var flags=(MetaAimFlags)aim.aimFlags.ReadValue();
             if ((flags & MetaAimFlags.Computed)==0) return;
             SetPinch(ref f,(flags & MetaAimFlags.IndexPinching)!=0,false,"OpenXR FB·系统捏合");
@@ -60,7 +60,7 @@ namespace NarutoVR.SealCombat.Rpg
         static Pose WorldPose(Transform origin,Vector3 position,Quaternion rotation) =>
             origin ? new Pose(origin.TransformPoint(position),origin.rotation*rotation) : new Pose(position,rotation);
 
-        static void SetPinch(ref WristMenuInput f,bool pressed,bool transition,string source)
+        static void SetPinch(ref PlayerHandObservation f,bool pressed,bool transition,string source)
         {
             f.systemPinch=true;
             f.systemPressed=pressed;
@@ -68,7 +68,7 @@ namespace NarutoVR.SealCombat.Rpg
             f.pinchValid=true;
             f.pinchSource=source;
         }
-        static void SetRay(ref WristMenuInput f,Pose aim,Vector3 wrist,string source)
+        static void SetRay(ref PlayerHandObservation f,Pose aim,Vector3 wrist,string source)
         {
             if (!LinearRpgController.PointerPoseNearHand(aim,wrist)) return;
             f.rayOrigin=aim.position;

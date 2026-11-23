@@ -65,7 +65,20 @@ public static class TrainingChapterChecks
                 File.AppendAllText(Report,"REGRESSION "+NarutoVR.SealCombat.Editor.P1RoomEncounterChecks.Run()+"\n");
                 Check(r.CanAct && r.chapter is TrainingChapterFlow,"training scene initializes with explicit chapter");
                 Check(r.Entity && r.Player!=null,"explicit PlayerObj initializes");
+                File.AppendAllText(Report, "REGRESSION " + NarutoVR.SealCombat.Editor.PlayerObjChecks.Run() + "\n");
                 Check(r.Model.UnlockedSkills.Contains("fireball") && r.wristMenu.showUndiscoveredEntries,"training starting skill and course policy");
+                var view = Obj.FindFirstObjectByType<RpgSessionView>();
+                var effects = r.skills.effects;
+                var previousWrist = effects.WristPoseOverride;
+                try
+                {
+                    effects.WristPoseOverride = _ => new Pose(effects.head.position, effects.head.rotation);
+                    Check(r.DebugCast("fireball") && view.BuildHud().Contains("持球剩余") &&
+                        view.BuildHud().Contains(r.ObjectiveStatus), "world HUD reads held fireball and training objective");
+                    r.CancelCasting();
+                    Check(!view.BuildHud().Contains("持球剩余"), "world HUD clears released hand slot");
+                }
+                finally { effects.WristPoseOverride = previousWrist; }
                 Check(!r.TryAdvanceStage(),"unbeaten targets reject manual advance");
                 training.TargetGroup.DebugDefeatAll();
                 Check(r.TryAdvanceStage() && r.StageIndex==1,"manual completion moves to next stage");
@@ -76,7 +89,13 @@ public static class TrainingChapterChecks
                 healthBeforeHazard = r.Player.Health;
                 warned = false; step = 1;
             } else if(step==1) {
-                warned |= training.Hazard.WarningActive;
+                if (!warned && training.Hazard.WarningActive)
+                {
+                    string hud = Obj.FindFirstObjectByType<RpgSessionView>().BuildHud();
+                    Check(hud.Contains($"【攻击预警】{training.Hazard.WarningRemaining:0.0}秒"),
+                        "world HUD shows remaining time from this chapter's active warning");
+                    warned = true;
+                }
                 if (r.Player.Health >= healthBeforeHazard) return;
                 Check(warned && Mathf.Approximately(r.Player.Health, healthBeforeHazard - training.Hazard.damage),
                     "authored warning precedes one hit for the configured damage");

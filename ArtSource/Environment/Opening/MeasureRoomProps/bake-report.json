@@ -1,0 +1,48 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 2048,
+  "cage_m": 0.0028,
+  "ray_m": 0.013,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 2K atlas.",
+  "meshes": {
+    "PlumbSquareBoard": {
+      "high_tri": 6552,
+      "LOD_tri": [
+        988,
+        622,
+        334
+      ],
+      "dimensions_xyz_blender_m": [
+        2.0430002212524414,
+        0.21199998259544373,
+        1.1799999475479126
+      ]
+    },
+    "GraduatedRuleRack": {
+      "high_tri": 12336,
+      "LOD_tri": [
+        868,
+        546,
+        294
+      ],
+      "dimensions_xyz_blender_m": [
+        2.1700000762939453,
+        0.2565000057220459,
+        1.2419999837875366
+      ]
+    },
+    "DividerPartsTray": {
+      "high_tri": 5456,
+      "LOD_tri": [
+        896,
+        564,
+        304
+      ],
+      "dimensions_xyz_blender_m": [
+        0.6819999814033508,
+        0.4490000009536743,
+        0.14350000023841858
+      ]
+    }
+  }
+}

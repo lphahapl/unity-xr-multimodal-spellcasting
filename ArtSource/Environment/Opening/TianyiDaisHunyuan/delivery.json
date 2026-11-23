@@ -1,0 +1,35 @@
+{
+  "provider": "Tencent Hunyuan 3D V3.1",
+  "input": "single image, 500k",
+  "submitted": 1,
+  "allowance_before": 5,
+  "allowance_after": 4,
+  "source_triangles": 495750,
+  "source_vertices_web": 313884,
+  "source_bytes": 71183136,
+  "source_sha256": "BD7E4C798FF6D69B58CD93AD53B80AA4DAF28A721CAFCCFE4E1C148B35639963",
+  "low_method": "80 radial samples across the high mesh at 135 heights; adaptive profile reduction; independently shaped shoulder and top; shared nonoverlapping atlas",
+  "lod_triangles": [
+    4480,
+    1600,
+    600
+  ],
+  "lod_transition_relative_height": [
+    0.3,
+    0.115,
+    0.008
+  ],
+  "material": "Unity URP Lit; one material shared across all LODs",
+  "textures": "2K base color, tangent-space normal from high geometry and source normal map, packed metal R, baked AO G, unused B, smoothness A. Android ASTC 6x6 and mipmaps.",
+  "bake": "Cycles selected-to-active CUDA; 0.067m cage, 0.165m max ray distance; 12px padding; source metallic and roughness sampled; high-mesh AO at 0.22m",
+  "verification": [
+    "DAIS_LOD 0 tris=4480 size=(3.1447, 0.5500, 2.8782) material=TianyiDais_Baked",
+    "DAIS_LOD 1 tris=1600 size=(3.1321, 0.5500, 2.8649) material=TianyiDais_Baked",
+    "DAIS_LOD 2 tris=600 size=(3.1321, 0.5500, 2.8647) material=TianyiDais_Baked",
+    "DAIS_IMPORT_PASS 3 LODs and one convex mesh collider"
+  ],
+  "unity": "6000.3.10f1 Android target, independent copy; prefab reloaded and collision validated",
+  "blender": "5.2.2 LTS",
+  "checked": "2026-11-19T00:35:45.0899118+08:00",
+  "headset": "not run"
+}

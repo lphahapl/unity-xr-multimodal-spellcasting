@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
+from pathlib import Path
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
@@ -8,9 +8,8 @@ def build_workbook():
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # remove default sheet
 
-    # 12 Seals (Earthly Branches / 十二地支印)
-    seals = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
-    seals_en = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Ram', 'Monkey', 'Rooster', 'Dog', 'Boar']
+    seals = ['规', '矩', '律', '准', '绳', '衡']
+    seals_en = ['Gui', 'Ju', 'Lü', 'Zhun', 'Sheng', 'Heng']
 
     fingers = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
     finger_names = {'Thumb': '拇指', 'Index': '食指', 'Middle': '中指', 'Ring': '无名指', 'Pinky': '小指'}
@@ -85,20 +84,20 @@ def build_workbook():
     align_right = Alignment(horizontal='right', vertical='center')
 
     # =========================================================================
-    # SHEET 1: 12印横坐标（纯12列矩阵式 - 各个配置字段展开为行）
+    # SHEET 1: 6印横坐标（纯6列矩阵式 - 各个配置字段展开为行）
     # =========================================================================
-    ws1 = wb.create_sheet(title='十二印配置矩阵(12列)')
+    ws1 = wb.create_sheet(title='六工矩印配置矩阵(6列)')
     ws1.views.sheetView[0].showGridLines = True
 
     # Title & Notice
-    ws1.merge_cells('A1:Q1')
-    ws1['A1'] = 'NarutoVR - 十二印手势识别配置表 (12印横坐标 / 非采集配置字段)'
+    ws1.merge_cells('A1:K1')
+    ws1['A1'] = 'NarutoVR - 六工矩印手势识别配置表 (6印横坐标 / 非采集配置字段)'
     ws1['A1'].font = title_font
     ws1['A1'].fill = fill_title
     ws1['A1'].alignment = Alignment(horizontal='center', vertical='center')
     ws1.row_dimensions[1].height = 36
 
-    ws1.merge_cells('A2:Q2')
+    ws1.merge_cells('A2:K2')
     ws1['A2'] = '【说明】1. 本表仅录入“权重(Weight)”、“容差(Tolerance)”、“是否必须(Required)”及全局判别参数等配置字段；2. 手指目标角度与空间距离区间([Min, Max])属于实时采集/标定数值，不在此表中手动录入；3. 权重为0表示该印不校验此特征。'
     ws1['A2'].font = subtitle_font
     ws1['A2'].alignment = Alignment(horizontal='left', vertical='center', indent=1)
@@ -117,7 +116,7 @@ def build_workbook():
     cur_row = 4
 
     # Section 1: 全局判定配置 (SealProfile 全局参数)
-    ws1.merge_cells(f'A{cur_row}:Q{cur_row}')
+    ws1.merge_cells(f'A{cur_row}:K{cur_row}')
     sec1 = ws1.cell(row=cur_row, column=1, value='【一、印级全局判别配置参数】')
     sec1.font = sec_font
     sec1.fill = fill_sec
@@ -144,7 +143,7 @@ def build_workbook():
             ws1.cell(row=cur_row, column=c).border = border_all
             ws1.cell(row=cur_row, column=c).fill = fill_subhead
         
-        for c_idx in range(6, 18):
+        for c_idx in range(6, 6 + len(seals)):
             c_cell = ws1.cell(row=cur_row, column=c_idx, value=def_val)
             c_cell.font = cell_font
             c_cell.alignment = align_center
@@ -154,7 +153,7 @@ def build_workbook():
         cur_row += 1
 
     # Section 2: 45项特征规则配置
-    ws1.merge_cells(f'A{cur_row}:Q{cur_row}')
+    ws1.merge_cells(f'A{cur_row}:K{cur_row}')
     sec2 = ws1.cell(row=cur_row, column=1, value='【二、45项特征规则配置字段（非采集字段：权重、容差、是否必须）】')
     sec2.font = sec_font
     sec2.fill = fill_sec
@@ -192,8 +191,8 @@ def build_workbook():
             p_cell.fill = fill_zebra if feat_idx % 2 == 1 else PatternFill(fill_type=None)
             p_cell.border = border_all
 
-            # Fill 12 seal columns with defaults
-            for seal_col in range(6, 18):
+            # Fill seal columns with defaults
+            for seal_col in range(6, 6 + len(seals)):
                 val_cell = ws1.cell(row=cur_row, column=seal_col, value=p_def)
                 val_cell.font = cell_font
                 val_cell.alignment = align_center
@@ -219,19 +218,19 @@ def build_workbook():
     ws1.column_dimensions['C'].width = 26
     ws1.column_dimensions['D'].width = 12
     ws1.column_dimensions['E'].width = 20
-    for c in range(6, 18):
+    for c in range(6, 6 + len(seals)):
         ws1.column_dimensions[get_column_letter(c)].width = 13
 
 
     # =========================================================================
-    # SHEET 2: 12印横向展开宽表（45行特征，每印展开[权重|容差|必须]3小列）
+    # SHEET 2: 6印横向展开宽表（45行特征，每印展开[权重|容差|必须]3小列）
     # =========================================================================
-    ws2 = wb.create_sheet(title='十二印展开宽表(分组视图)')
+    ws2 = wb.create_sheet(title='六工矩印展开宽表(分组视图)')
     ws2.views.sheetView[0].showGridLines = True
 
     # Title
-    ws2.merge_cells('A1:AO1')
-    ws2['A1'] = 'NarutoVR - 十二印手势识别配置宽表 (45特征纵坐标 × 12印36维配置横坐标)'
+    ws2.merge_cells('A1:X1')
+    ws2['A1'] = 'NarutoVR - 六工矩印手势识别配置宽表 (45特征纵坐标 × 6印18维配置横坐标)'
     ws2['A1'].font = title_font
     ws2['A1'].fill = fill_title
     ws2['A1'].alignment = Alignment(horizontal='center', vertical='center')
@@ -294,7 +293,7 @@ def build_workbook():
             cell.fill = cat_fill
             cell.border = border_all
 
-        for s_idx in range(12):
+        for s_idx in range(len(seals)):
             start_c = 7 + s_idx * 3
             # Weight default 1
             w_cell = ws2.cell(row=r, column=start_c, value=1)
@@ -329,7 +328,7 @@ def build_workbook():
     ws2.column_dimensions['D'].width = 25
     ws2.column_dimensions['E'].width = 10
     ws2.column_dimensions['F'].width = 10
-    for c in range(7, 43):
+    for c in range(7, 7 + 3 * len(seals)):
         ws2.column_dimensions[get_column_letter(c)].width = 8.5
 
     # =========================================================================
@@ -339,7 +338,7 @@ def build_workbook():
     ws3.views.sheetView[0].showGridLines = True
 
     ws3.merge_cells('A1:F1')
-    ws3['A1'] = 'NarutoVR - 十二印手势识别特征字典与参数设计规范'
+    ws3['A1'] = 'NarutoVR - 六工矩印手势识别特征字典与参数设计规范'
     ws3['A1'].font = title_font
     ws3['A1'].fill = fill_title
     ws3['A1'].alignment = Alignment(horizontal='center', vertical='center')
@@ -368,12 +367,7 @@ def build_workbook():
          '注：Inspector 面板中显示的“Max”实际是 Oculus SDK 中枚举与 Pinky(小指) 共享值的别名，本质即为小指。'),
 
         ('4. 典型印的特征权重配置指导原则',
-         '• 寅印 (虎印)：双手中指与食指直立并拢，其余手指内扣互握。\n'
-         '  -> 核心必须特征：双手食指中指的 Curl（必须靠近 0° 直立）、双手食指尖间距（必须靠近 0m）。\n'
-         '• 巳印 (蛇印)：双手十指交叉完全紧扣。\n'
-         '  -> 核心特征：双手腕间距极近、双掌朝向夹角靠近 180° 或贴合，各指弯曲度权重极高。\n'
-         '• 未印 (羊印)：双手食指与拇指伸展相贴，其余手指握紧。\n'
-         '  -> 核心特征：双食指与双拇指 TipDistance 权重拉满，无关手指权重可适度调低。')
+         '规印、矩印、律印沿用实录范围。准印、绳印、衡印待录制，权重表仅供准备采样。')
     ]
 
     r3 = 3
@@ -397,16 +391,10 @@ def build_workbook():
 
     ws3.column_dimensions['A'].width = 120
 
-    # Save to files
-    out_dir = r'd:\UnityProjects\NarutoVR\docs'
-    os.makedirs(out_dir, exist_ok=True)
-    out_path1 = os.path.join(out_dir, 'NarutoVR_12Seals_FeatureConfig.xlsx')
-    out_path2 = r'd:\UnityProjects\NarutoVR\NarutoVR_12Seals_FeatureConfig.xlsx'
-
-    wb.save(out_path1)
-    wb.save(out_path2)
-    print(f'Successfully generated {out_path1}')
-    print(f'Successfully generated {out_path2}')
+    # Generate the blank reference only; the root workbook contains the tuned weights.
+    destination = Path(__file__).resolve().parents[1] / 'docs/reference/六工矩印_识别特征配置.xlsx'
+    wb.save(destination)
+    print(destination)
 
 if __name__ == '__main__':
     build_workbook()

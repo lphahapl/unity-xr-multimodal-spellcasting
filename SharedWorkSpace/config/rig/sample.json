@@ -1,0 +1,36 @@
+{
+  "id": "sample",
+  "name": "残机偶",
+  "versions": [
+    {
+      "id": "sample",
+      "label": "LOD0",
+      "created": 0,
+      "filename": "CanJiOu_LOD0.fbx",
+      "files": [
+        "sample/CanJiOu_LOD0.fbx",
+        "sample/CanJiOu_BaseColor.png",
+        "sample/CanJiOu_Normal.png"
+      ],
+      "material": {
+        "color": "sample/CanJiOu_BaseColor.png",
+        "normal": "sample/CanJiOu_Normal.png",
+        "metalness": 0.18
+      },
+      "notes": [],
+      "animations": [
+        {
+          "id": "idle",
+          "label": "待机",
+          "filename": "CanJiOu_Idle.fbx",
+          "files": [
+            "sample/CanJiOu_Idle.fbx"
+          ],
+          "clips": [
+            "mixamo.com"
+          ]
+        }
+      ]
+    }
+  ]
+}

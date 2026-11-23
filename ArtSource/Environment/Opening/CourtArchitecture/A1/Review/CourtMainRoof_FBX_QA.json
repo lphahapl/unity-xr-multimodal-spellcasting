@@ -1,0 +1,134 @@
+{
+  "CourtMainRoof_Tier0": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtMainRoof_Tier0: ~89.1% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "CourtMainRoof_Tier0": {
+        "verts": 6654,
+        "faces": 11600,
+        "tris": 11600,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 427,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 89.1,
+        "uv_coverage_pct": 73.1
+      }
+    }
+  },
+  "CourtMainRoof_Tier1": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtMainRoof_Tier1: ~91.91% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "hidden back-to-back faces: CourtMainRoof_Tier1 (1 pairs) - delete to save tris"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [
+      {
+        "where": "CourtMainRoof_Tier1",
+        "tri_pairs": 1
+      }
+    ],
+    "enclosed": [],
+    "objects": {
+      "CourtMainRoof_Tier1": {
+        "verts": 2454,
+        "faces": 4208,
+        "tris": 4208,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 175,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 91.91,
+        "uv_coverage_pct": 71.4
+      }
+    }
+  },
+  "CourtMainRoof_Tier2": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "CourtMainRoof_Tier2: ~89.61% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+    ],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "CourtMainRoof_Tier2": {
+        "verts": 524,
+        "faces": 920,
+        "tris": 920,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 32,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 89.61,
+        "uv_coverage_pct": 68.5
+      }
+    }
+  }
+}

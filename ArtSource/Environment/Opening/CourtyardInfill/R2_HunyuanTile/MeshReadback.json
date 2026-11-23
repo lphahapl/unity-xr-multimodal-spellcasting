@@ -1,0 +1,47 @@
+{
+  "blender": "5.2.2 LTS",
+  "dimensions_native_xyz": [
+    0.5521550178527832,
+    1.0701851844787598,
+    0.17398801445960999
+  ],
+  "meshes": [
+    {
+      "mesh": "node_0",
+      "triangles": 50000,
+      "vertices": 27785,
+      "uv_maps": 1,
+      "boundary_edges": 5454,
+      "non_manifold_internal_edges": 0,
+      "material_names": [
+        "Material.001"
+      ],
+      "boundary_edges_after_position_weld": 0,
+      "non_manifold_edges_after_position_weld": 0,
+      "vertices_after_weld": 25002
+    }
+  ],
+  "images": [
+    {
+      "name": "texture_pbr_20250901",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "texture_pbr_20250901_normal",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ]
+}

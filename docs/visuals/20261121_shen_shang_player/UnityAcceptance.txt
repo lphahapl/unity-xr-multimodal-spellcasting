@@ -1,0 +1,29 @@
+Engine=6000.3.10f1, renderer=Direct3D11, test=desktop isolated
+Serialized avatar=ShenShangAvatar, isHuman=True, isValid=True, mapped HumanBodyBones=52
+PBR _BaseMap = ShenShang_BaseColor 2048x2048, sRGB=True, importer=Default
+PBR _BumpMap = ShenShang_Normal 2048x2048, sRGB=False, importer=NormalMap
+PBR _MetallicGlossMap = ShenShang_Body_MetalSmooth 2048x2048, sRGB=False, importer=Default
+Prefab rest skinned geometry: (1.1303, 1.7398, 0.3518)m, lowest sole Y=0.0002m
+Root=(0.000, 0.000, 0.000), conservative renderer bounds=(1.145, 1.953, 1.032)m, renderer min Y=-0.151
+Renderers=2, triangles=32228, vertices=29209
+Mapped wrists: LeftHand, RightHand
+Left mapped finger joints=15/15
+Right mapped finger joints=15/15
+Left forearm socket: 4.00cm behind anatomical left wrist, rigid wrist visual scripts=0
+Wrist visual rigid triangles=17231, renderers=28
+After humanoid pose round-trip, skin geometry world bounds=(1.133, 1.739, 0.339)m, sole Y=0.0426m; humanScale=0.9583525; skin scale=(100.000, 100.000, 100.000); leftHand=(-0.436, 1.014, 0.038)
+Left finger-only curl max vertex displacement=0.1185m
+Left Thumb curl: max=0.0324m, max outside 23cm wrist radius=0.0000m
+Left Index curl: max=0.1071m, max outside 23cm wrist radius=0.0000m
+Left Middle curl: max=0.1072m, max outside 23cm wrist radius=0.0000m
+Left Ring curl: max=0.1185m, max outside 23cm wrist radius=0.0000m
+Left Little curl: max=0.0773m, max outside 23cm wrist radius=0.0000m
+Right finger-only curl max vertex displacement=0.1314m
+Right Thumb curl: max=0.0383m, max outside 23cm wrist radius=0.0000m
+Right Index curl: max=0.1095m, max outside 23cm wrist radius=0.0000m
+Right Middle curl: max=0.1314m, max outside 23cm wrist radius=0.0000m
+Right Ring curl: max=0.1260m, max outside 23cm wrist radius=0.0000m
+Right Little curl: max=0.0744m, max outside 23cm wrist radius=0.0000m
+Bone motion: left wrist 0.5053m; right foot 0.6064m
+Humanoid elbow/leg pose max vertex displacement=0.8677m
+PASS

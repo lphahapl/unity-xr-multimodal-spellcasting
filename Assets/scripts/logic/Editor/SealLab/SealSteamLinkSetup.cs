@@ -189,7 +189,7 @@ namespace NarutoVR.Editor
             {
                 var roots = scene.GetRootGameObjects();
                 var lab = roots.SelectMany(g => g.GetComponentsInChildren<Lab>(true)).Single();
-                if (!lab.xrHandsSource || !lab.xrHandsSource.IsConfigured || !lab.recordingOrigin || lab.profiles.Count != 12)
+                if (!lab.xrHandsSource || !lab.xrHandsSource.IsConfigured || !lab.recordingOrigin || !SealLabBuilder.ValidProfileList(lab.profiles))
                     throw new InvalidOperationException("Invalid Steam Link tracking/configuration references.");
                 foreach (var hand in new[] { lab.xrHandsSource.leftHand, lab.xrHandsSource.rightHand })
                     if (new SerializedObject(hand).FindProperty("_iModifyDataFromSourceMono").objectReferenceValue != hand.GetComponent<FromUnityXRHandDataSource>())

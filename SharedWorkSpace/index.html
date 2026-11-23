@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>共享工作空间</title>
+    <script src="ui/open.js" data-route=""></script>
+    <link rel="stylesheet" href="/ui/base.css" />
+  </head>
+  <body>
+    <nav aria-label="工作台导航">
+      <a href="/">共享工作空间</a><a href="/rig/">骨骼与动画</a><a href="/plans/">策划案</a
+      ><a href="/scenes/">场景原型</a><a href="/reader/">配置与检索</a>
+    </nav>
+    <main>
+      <div class="heading">
+        <h1>共享工作空间</h1>
+        <a href="/api/context">读取完整 JSON</a>
+      </div>
+      <section class="tiles" id="links" aria-label="工作台入口"></section>
+      <p class="status" id="status" role="status"></p>
+    </main>
+    <script type="module" src="/ui/home.js"></script>
+  </body>
+</html>

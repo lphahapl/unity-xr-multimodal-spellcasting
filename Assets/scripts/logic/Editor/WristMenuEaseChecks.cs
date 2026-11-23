@@ -12,7 +12,7 @@ namespace NarutoVR.SealCombat.Editor
             int count=0;
             void Check(bool ok,string why) { if(!ok) throw new Exception("抬腕易用性："+why); count++; }
             var settings=new WristMenuSettings { activation=WristMenuActivation.RaiseFist }; var state=new WristMenuState();
-            WristMenuInput f;
+            PlayerHandObservation f;
             void Tick(double t, bool closed=true, bool low=false, bool right=true)
             {
                 f=WristMenuChecks.Sample(t); f.leftClosed=closed; f.rightValid=right; f.rightOpen=true; f.wristFacing=false;

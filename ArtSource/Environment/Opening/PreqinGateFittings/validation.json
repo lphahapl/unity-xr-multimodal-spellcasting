@@ -1,0 +1,39 @@
+{
+  "integration": [
+    "Apply the new mesh to the listed MeshFilter and the new material to MeshRenderer material slot zero.",
+    "Keep the original object, parent, transform, collider, gameplay components and animation targets.",
+    "Use source + component ID as the patch key. The nested stone dais is a prefab-source record.",
+    "mesh_levels are exported native geometry. The baseline has no LODGroups on these renderers. Additional levels require explicit wiring in Unity if used."
+  ],
+  "qa_warnings": [
+    "UV0 deliberately repeats metric tiling textures.",
+    "Pivot is the original Cube centre. The lower surface lies below the origin."
+  ],
+  "scene_counts": {
+    "Chapter01_Awakening": 17,
+    "Chapter01_Courtyard": 10
+  },
+  "component_rows": 27,
+  "prefab_rows": 1,
+  "unique_near_meshes": 10,
+  "published_meshes": 22,
+  "native_bounds_local": [
+    -0.5,
+    0.5
+  ],
+  "original_lod_groups": 0,
+  "baseline": "original TSV + source hierarchy static readback",
+  "render_review": "Blender Cycles in metres; material wrap and tangent checks",
+  "runtime": "parent session",
+  "shared_materials": [
+    "Assets/Art/Environment/Opening/PhotoArchitecture/Timber.mat",
+    "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+    "Assets/Materials/Chapter01/WarmSurveyMark.mat",
+    "Assets/Materials/Chapter01/石灰墙.mat",
+    "Assets/Art/Environment/Opening/PhotoArchitecture/Stone.mat"
+  ],
+  "scene_triangles": {
+    "Chapter01_Awakening": 5590,
+    "Chapter01_Courtyard": 3828
+  }
+}

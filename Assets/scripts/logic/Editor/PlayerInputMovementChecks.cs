@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using NarutoVR.Audio;
 using NarutoVR.SealCombat.Rpg;
 using UnityEditor;
@@ -38,7 +37,6 @@ namespace NarutoVR.SealCombat.Editor
             Directory.CreateDirectory("Logs");
             File.WriteAllText(Report, DateTimeOffset.Now.ToString("o") + Environment.NewLine);
             const string chapter = "Assets/Scene/Chapter01_Awakening.unity";
-            CheckOldFootsteps(chapter);
             var scene = EditorSceneManager.OpenScene(chapter);
             Check(RpgHandPoseChecks.Run() > 0, "官方手形识别与投掷适配既有回归");
             Check(WristMenuChecks.Run() > 0 && WristTapChecks.Run() > 0, "腕扣、教学卡与输入时间屏障既有回归");
@@ -52,27 +50,6 @@ namespace NarutoVR.SealCombat.Editor
                 throw new IOException("无法保存隔离场景。");
             SessionState.SetBool(Key, true); SessionState.SetBool(Key + ".done", false);
             EditorApplication.EnterPlaymode();
-        }
-        static void CheckOldFootsteps(string chapter)
-        {
-            const string copy = "Assets/Scene/QA_LegacyPlayerFootsteps.unity";
-            var audio = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Resources/Audio/Footsteps/SoftSole_02.wav");
-            if (!AssetDatabase.TryGetGUIDAndLocalFileIdentifier(audio, out string guid, out long id)) throw new IOException("缺少旧脚步样本。");
-            string source = File.ReadAllText(chapter).Replace("\r\n", "\n");
-            string legacy = $"  footstepClips:\n  - {{fileID: {id}, guid: {guid}, type: 3}}\n  footstepVolume: 0.37\n  footstepSpacing: 0.71\n";
-            source = new Regex(@"(?m)^  duckRelease: [^\n]*\n").Replace(source, match => match.Value + legacy, 1);
-            File.WriteAllText(copy, source);
-            AssetDatabase.ImportAsset(copy, ImportAssetOptions.ForceSynchronousImport);
-            var scene = EditorSceneManager.OpenScene(copy);
-            var player = Object.FindFirstObjectByType<LinearRpgController>();
-            var steps = player.locomotion.GetComponent<FootstepPlayer>();
-            Object.DestroyImmediate(steps);
-            Check(PlayerFootstepMigration.Migrate(player), "旧音乐组件的自定义脚步成功迁入玩家");
-            steps = player.locomotion.GetComponent<FootstepPlayer>();
-            Check(steps && steps.clip == audio && steps.variations.Length == 0 &&
-                  Mathf.Approximately(steps.volume, .37f) && Mathf.Approximately(steps.stepDistance, .71f) &&
-                  !PlayerFootstepMigration.Migrate(player), "迁移保留旧 Clip 引用、间距和音量，可安全重复执行");
-            EditorSceneManager.SaveScene(scene);
         }
         static void Tick()
         {
@@ -110,7 +87,7 @@ namespace NarutoVR.SealCombat.Editor
                 now += .04;
                 var head = move.head.position;
                 move.ProcessInput(new NavigationHandInput {leftValid=true,rightValid=true,leftObserved=now,rightObserved=now,
-                    leftPointing=point,leftWrist=head+new Vector3(-.45f,-.28f,.2f),leftIndex=head+new Vector3(-.45f,-.22f,.27f),
+                    leftRayValid=point,leftRayDirection=move.head.forward,leftPointing=point,leftWrist=head+new Vector3(-.45f,-.28f,.2f),leftIndex=head+new Vector3(-.45f,-.22f,.27f),
                     rightWrist=head+new Vector3(.08f,-.32f,.16f)}, false, false, now);
             }
             Sample(false);

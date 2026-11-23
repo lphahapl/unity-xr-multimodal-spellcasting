@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8157280460171201889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8553518349763353355}
+  - component: {fileID: 3734173353228892095}
+  - component: {fileID: 1085393894687372117}
+  m_Layer: 0
+  m_Name: WatchMount
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8553518349763353355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157280460171201889}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.010612331, y: 0.004668533, z: -0.033437338, w: 0.9993736}
+  m_LocalPosition: {x: 0.0018419524, y: -0.020787807, z: -0.042766742}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8136457843966988624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3734173353228892095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157280460171201889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe74ca621f8e47b5a5654a5d86425ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WatchMount
+  profile: {fileID: 11400000, guid: 4994abf33ed437d489cac3ccbff16f28, type: 2}
+  wristToPalm: {x: 0.057581894, y: -0.036813226, z: 0.068540454, w: 0.99530464}
+  gaze: {fileID: 1085393894687372117}
+--- !u!114 &1085393894687372117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157280460171201889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355e7ba0a6a34d668fe1e3bb2ec6e084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WatchGazeActivator
+  face: {fileID: 0}
+  viewer: {fileID: 0}
+  localFaceNormal: {x: 0, y: 1, z: 0}
+  wakeFacing: 0.6
+  sleepFacing: 0.36
+  wakeLook: 0.7
+  sleepLook: 0.45
+  wakeDistance: 0.62
+  sleepDistance: 0.74
+  wakeDelay: 0.12
+  sleepDelay: 0.2
+  onWake:
+    m_PersistentCalls:
+      m_Calls: []
+  onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1001 &3393963935254740343
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452949, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105206788694452954, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_Name
+      value: PlayerLeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -4299625302041532480, guid: 6e217a39ce3f4949b03d4c59ec35ce41, type: 3}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.013798932
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: -0.018552534
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.025809556
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.07620642
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.052248575
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.16581556
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c3377d4503287b40b2dd572fe72a481, type: 2}
+    - target: {fileID: 6322248457788874492, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26111fdbf3f8809419d667249b620621, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6913950646828772391, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8553518349763353355}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+--- !u!4 &8136457843966988624 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6913950646828772391, guid: 67c4027c76c769346ab6711c6a38d07a, type: 3}
+  m_PrefabInstance: {fileID: 3393963935254740343}
+  m_PrefabAsset: {fileID: 0}

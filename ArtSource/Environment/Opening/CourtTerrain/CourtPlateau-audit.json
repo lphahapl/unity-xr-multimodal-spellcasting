@@ -1,0 +1,218 @@
+{
+  "source": "ArtSource/Environment/Opening/CourtyardModelOrders/H03/H03_Hunyuan.glb",
+  "source_sha256": "3931d26664bf2e1947a8a942316129dd2771c34c928ed6613f57cfd61a88a49b",
+  "source_dimensions": {
+    "min": [
+      -0.4012160003185272,
+      -0.33358001708984375,
+      -2.4299472656252874e-08
+    ],
+    "max": [
+      0.6020010113716125,
+      0.40166404843330383,
+      0.34567904472351074
+    ],
+    "triangles": 500000
+  },
+  "unit": "m",
+  "anchors_local_Unity": {
+    "CourtCenter": [
+      0,
+      0,
+      0
+    ],
+    "Approach": [
+      0,
+      0,
+      -24
+    ],
+    "JoinNorth": [
+      0,
+      0,
+      24
+    ],
+    "WestCourt": [
+      -12,
+      0,
+      0
+    ],
+    "EastCourt": [
+      12,
+      0,
+      0
+    ]
+  },
+  "lods": {
+    "CourtPlateau_LOD0": {
+      "triangles": 6496,
+      "size_m": [
+        58.95975112915039,
+        65.22142028808594,
+        15.045755386352539
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-15.0458 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -15.0458,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "CourtPlateau_LOD0": {
+            "verts": 3250,
+            "faces": 6496,
+            "tris": 6496,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.0,
+            "uv_coverage_pct": 43.2
+          }
+        }
+      },
+      "support": {
+        "samples": 266,
+        "misses": 0,
+        "max_abs_height": 0.0060482025146484375,
+        "min": -0.0060482025146484375,
+        "max": 1.9073486328125e-06
+      }
+    },
+    "CourtPlateau_LOD1": {
+      "triangles": 2200,
+      "size_m": [
+        59.06644058227539,
+        65.22605895996094,
+        15.049421310424805
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-15.047 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -15.047,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "CourtPlateau_LOD1": {
+            "verts": 1102,
+            "faces": 2200,
+            "tris": 2200,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.23,
+            "uv_coverage_pct": 42.9
+          }
+        }
+      },
+      "support": {
+        "samples": 266,
+        "misses": 0,
+        "max_abs_height": 0.007099151611328125,
+        "min": -0.007099151611328125,
+        "max": 0.001987457275390625
+      }
+    },
+    "CourtPlateau_LOD2": {
+      "triangles": 680,
+      "size_m": [
+        59.148101806640625,
+        65.14466094970703,
+        15.049694061279297
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-15.0461 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -15.0461,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "CourtPlateau_LOD2": {
+            "verts": 342,
+            "faces": 680,
+            "tris": 680,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.0,
+            "uv_coverage_pct": 41.6
+          }
+        }
+      },
+      "support": {
+        "samples": 266,
+        "misses": 0,
+        "max_abs_height": 0.022684097290039062,
+        "min": -0.022684097290039062,
+        "max": -0.001201629638671875
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "Pavilion_LOD0": {
+    "triangles": 8980,
+    "materials": [
+      "Paving",
+      "Fieldstone",
+      "Timber",
+      "Tile"
+    ],
+    "uv": [
+      "TilingUV"
+    ],
+    "dimensions_m": [
+      10.907,
+      10.907,
+      6.3
+    ]
+  },
+  "Pavilion_LOD1": {
+    "triangles": 4788,
+    "materials": [
+      "Paving",
+      "Fieldstone",
+      "Timber",
+      "Tile"
+    ],
+    "uv": [
+      "TilingUV"
+    ],
+    "dimensions_m": [
+      10.9091,
+      10.9091,
+      6.3
+    ]
+  },
+  "Pavilion_LOD2": {
+    "triangles": 2580,
+    "materials": [
+      "Paving",
+      "Fieldstone",
+      "Timber",
+      "Tile"
+    ],
+    "uv": [
+      "TilingUV"
+    ],
+    "dimensions_m": [
+      10.9106,
+      10.9106,
+      6.3
+    ]
+  },
+  "bake": {
+    "engine": "Blender 5.2.2 LTS Cycles, selected-to-active",
+    "type": "Reusable sculpted relief trims; unique 0–1 receiver UV per tile, intentionally repeated on architecture",
+    "relief_sources": [
+      {
+        "kind": "Timber",
+        "high_triangles": 73728
+      },
+      {
+        "kind": "Tile",
+        "high_triangles": 73728
+      }
+    ],
+    "textures": "Each trim has a 512x512 light-free diffuse and tangent-space normal map. Stone walls and floor reuse project materials.",
+    "warnings_accepted": "Interlocking joints enclose touching faces at near/middle LODs; floor top is ground Y=0 with footing 0.20m below; tile UV overlap is deliberate."
+  },
+  "验收备注": [
+    "木梁、柱、格栅使用同一米制木纹平铺，瓦面按坡向重复采样，墙体和铺地复用项目既有石材；因此建筑展开的UV岛有意重叠。用于烘焙的每种材质样片均使用独立完整的0–1接收面。",
+    "近档8对、中档4对反向接触三角来自四坡屋脊各分段在弯折处相接的封闭端盖（如距中心4.85米的折点）。它们藏在拼缝中，维持分段封闭。三档同向重叠、悬空、非流形边和退化面均为零。",
+    "地板上表面是摆放基准面Y=0，石台底部位于−0.20米。"
+  ]
+}

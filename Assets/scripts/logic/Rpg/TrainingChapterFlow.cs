@@ -13,15 +13,23 @@ namespace NarutoVR.SealCombat.Rpg
     {
         /// <summary>本训练场所属的 RPG 控制器，必须与其 chapter 引用互相对应。</summary>
         public LinearRpgController rpg;
-        /// <summary>新角色拥有的技能，由场景显式配置。</summary>
-        public string[] initialSkills = Array.Empty<string>();
         /// <summary>此训练场持续开放的练习配方，不要求旧存档已有永久解锁记录。</summary>
-        [InspectorName("训练场练习授权")]
+        [InspectorName("各训练阶段追加试用技能")]
         public string[] trialSkills = Array.Empty<string>();
         /// <summary>本对象上的训练设施，管理靶而不管理关卡奖励。</summary>
         public TrainingTargetGroup TargetGroup => GetComponent<TrainingTargetGroup>();
         /// <summary>普通训练场的红圈预警，房间遭遇不配置此设施。</summary>
         public RpgTrainingHazard Hazard => GetComponent<RpgTrainingHazard>();
+        RpgTrainingHazard activeHazard;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            activeHazard = Hazard;
+        }
+
+        public override float? AttackWarningSeconds => activeHazard && activeHazard.WarningActive
+            ? activeHazard.WarningRemaining : null;
         /// <summary>全部击破后是否自动推进；关闭时等待显式推进请求。</summary>
         public bool autoAdvance = true;
         /// <summary>全靶击破后的游戏时间等待秒数。</summary>
@@ -34,11 +42,9 @@ namespace NarutoVR.SealCombat.Rpg
         /// <inheritdoc/>
         public override LinearRpgController Owner => rpg;
         /// <inheritdoc/>
-        public override string[] InitialSkills => initialSkills;
-        /// <inheritdoc/>
         public override string[] InitialDiscoveries => trialSkills;
         /// <inheritdoc/>
-        public override bool AllowsTrialSkill(string id) => Array.IndexOf(trialSkills, id) >= 0;
+        public override string[] StageSkillGrants(int index) => trialSkills;
         /// <inheritdoc/>
         public override string InitialStatus => "训练场已就绪：练习已开放的术式与节点移动";
         /// <inheritdoc/>
@@ -49,10 +55,10 @@ namespace NarutoVR.SealCombat.Rpg
         /// <inheritdoc/>
         public override bool ObjectiveMet => transitionReady && TargetsDefeated;
         /// <inheritdoc/>
-        public override string ObjectiveText => !rpg || rpg.stages.Length == 0 || !rpg.stages[rpg.StageIndex] ? "训练场尚未配置阶段" : rpg.roomControlsEncounter
+        public override string ObjectiveText => !rpg || rpg.StageCount == 0 || !rpg.StageAt(rpg.StageIndex) ? "训练场尚未配置阶段" : rpg.roomControlsEncounter
             ? "练习靶自动恢复；进入尽头战斗房间迎敌，击败房间全部敌人后返回探索"
             : rpg.CampaignComplete ? "全部试炼已完成，可继续练习或读取检查点"
-            : $"击破训练靶 {TargetGroup.DefeatedCount}/{TargetGroup.targets.Length} · {rpg.stages[rpg.StageIndex].instructions}";
+            : $"击破训练靶 {TargetGroup.DefeatedCount}/{TargetGroup.targets.Length} · {rpg.StageAt(rpg.StageIndex).instructions}";
 
         /// <summary>只在绑定本流程时累计自动推进等待；暂停使用 RPG 游戏时钟，不增加等待进度。</summary>
         void Update()
@@ -68,7 +74,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             completedSince = -1;
             transitionReady = false;
-            TargetGroup.ResetForStage(rpg.StageIndex);
+            TargetGroup.ResetForStage(rpg.StageAt(rpg.StageIndex).stageId);
         }
 
         /// <summary>手动与自动推进共用此入口；落点被阻挡时不发奖，也不改变阶段。</summary>
@@ -76,7 +82,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             reason = "先击破本阶段全部训练靶";
             if (!isActiveAndEnabled || rpg.chapter != this || !TargetsDefeated) return false;
-            var destination = rpg.StageIndex + 1 < rpg.stages.Length ? rpg.checkpointNodes[rpg.StageIndex + 1] : null;
+            var destination = rpg.StageIndex + 1 < rpg.StageCount ? rpg.CheckpointAt(rpg.StageIndex + 1) : null;
             transitionReady = true;
             try
             {
@@ -93,7 +99,7 @@ namespace NarutoVR.SealCombat.Rpg
             base.ValidateChapter(owner);
             if (!TargetGroup || !float.IsFinite(advanceDelay) || advanceDelay < .5f)
                 throw new InvalidOperationException("训练场靶组或推进计时无效");
-            TargetGroup.Validate(owner.stages.Length);
+            TargetGroup.Validate(owner);
             if (trialSkills == null || trialSkills.Distinct().Count() != trialSkills.Length ||
                 trialSkills.Any(id => string.IsNullOrWhiteSpace(id) || !owner.skills.catalog.skills.Any(skill => skill && skill.skillId == id)))
                 throw new InvalidOperationException("训练场练习授权必须引用目录中的唯一技能 ID");

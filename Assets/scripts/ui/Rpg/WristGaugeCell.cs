@@ -20,6 +20,7 @@ namespace NarutoVR.SealCombat.Rpg
         const float LossSeconds = .42f;
 
         MaterialPropertyBlock properties;
+        Vector4 uploadedState;
         float startTime, origin, displayed;
         int direction;
         bool visible = true;
@@ -100,7 +101,9 @@ namespace NarutoVR.SealCombat.Rpg
 
         void Draw(float edge, float signedPulse)
         {
-            if (insert)
+            var state = new Vector4(edge, Fill, signedPulse, 0);
+            // SetFill and the row's LateUpdate may sample the same edge in the same frame.
+            if (insert && visible && isActiveAndEnabled && (properties == null || !uploadedState.Equals(state)))
             {
                 if (properties == null)
                 {
@@ -118,8 +121,9 @@ namespace NarutoVR.SealCombat.Rpg
                     properties.SetVector(CellV, Coordinate(across, bounds));
                     properties.SetColor(Enamel, enamel);
                 }
-                properties.SetVector(State, new Vector4(edge, Fill, signedPulse, 0));
+                properties.SetVector(State, state);
                 insert.SetPropertyBlock(properties);
+                uploadedState = state;
             }
 
             if (inlay) inlay.rectTransform.anchorMax = new Vector2(edge, 1);

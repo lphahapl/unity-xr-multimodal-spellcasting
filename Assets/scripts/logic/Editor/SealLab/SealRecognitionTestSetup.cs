@@ -28,7 +28,7 @@ namespace NarutoVR.Editor
             catch (Exception e) { File.WriteAllText("Logs/recognition-test-result.json", JsonUtility.ToJson(new Report { error = e.ToString() }, true)); Debug.LogException(e); }
         }
         [Serializable] private sealed class Report { public bool passed; public string error, utc, scene; public int profiles; }
-        [MenuItem("Tools/NarutoVR/测试/创建并检查十二印测试场景")]
+        [MenuItem("Tools/NarutoVR/测试/创建并检查六工矩印测试场景")]
         public static void BuildAndCheck()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出播放模式。");
@@ -49,14 +49,14 @@ namespace NarutoVR.Editor
                     var camera = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<Camera>(true)).Single(c => c.enabled);
                     if (view.statusText) UnityEngine.Object.DestroyImmediate(view.statusText.canvas.gameObject);
                     view.statusText = null; // Keep the raw bone renderer; the test component owns the UI.
-                    var go = new GameObject("十二印测试面板", typeof(RectTransform), typeof(Canvas));
+                    var go = new GameObject("六工矩印测试面板", typeof(RectTransform), typeof(Canvas));
                     go.transform.SetParent(camera.transform, false);
                     go.transform.localPosition = new Vector3(0, 0.12f, 1.4f);
                     go.transform.localScale = Vector3.one * 0.0008f;
                     go.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
                     go.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 900);
                     var font = AssetDatabase.LoadAssetAtPath<Font>(SealChineseUISetup.FontPath);
-                    test.summaryText = Panel("识别结果与十二印得分", 0, 540, "十二印 · 识别测试\n等待运行\n\n请完成录制、生成模板草稿并确认模板。\n\n匹配分数并非正确概率。", 26);
+                    test.summaryText = Panel("识别结果与六工矩印得分", 0, 540, "六工矩印 · 识别测试\n等待运行\n\n请完成录制、生成模板草稿并确认模板。\n\n匹配分数并非正确概率。", 26);
                     test.leftText = Panel("左手与双手特征", 550, 620, "实时特征 · 左手\n进入播放模式后显示实际数据。", 22);
                     test.rightText = Panel("右手与双手特征", 1180, 620, "实时特征 · 右手\n失败详情输出到 Console。", 22);
                     Text Panel(string name, float x, float width, string initial, int size)
@@ -71,16 +71,22 @@ namespace NarutoVR.Editor
                         var text = label.GetComponent<Text>(); text.font = font; text.fontSize = size; text.color = Color.white; text.text = initial; text.raycastTarget = false;
                         return text;
                     }
-                    lab.gameObject.name = "十二印识别测试"; lab.recordOnStart = false; lab.SetTestMode(true);
+                    lab.gameObject.name = "六工矩印识别测试"; lab.recordOnStart = false; lab.SetTestMode(true);
                     EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
                 }
-                if (!test.weights || !test.summaryText || !test.leftText || !test.rightText || !lab.xrHandsSource || !lab.IsTesting || lab.recordOnStart || lab.profiles.Count != 12)
+                if (!test.weights || !test.summaryText || !test.leftText || !test.rightText || !lab.xrHandsSource || !lab.IsTesting || lab.recordOnStart || !SealLabBuilder.ValidProfileList(lab.profiles))
                     throw new InvalidOperationException("测试场景配置不完整。");
                 var cfg = JsonUtility.FromJson<SealRecognitionTest.WeightFile>(test.weights.text);
-                if (cfg.profiles.Length != 12 || cfg.profiles.Any(p => p.rules.Length != 45 || p.rules.Select(r => r.featureId).Distinct().Count() != 45)) throw new InvalidOperationException("权重表条目不完整。");
+                var baseWeights = cfg.profiles.Where(p => SealProfile.Names.Contains(p.sealName)).ToArray();
+                var bilateralNames = lab.profiles.Where(p => p.handMode == SealHandMode.BothHands && SealProfile.Names.Contains(p.sealName)).Select(p => p.sealName);
+                if (baseWeights.Any(p => p.handMode != SealHandMode.BothHands) ||
+                    !baseWeights.Select(p => p.sealName).SequenceEqual(bilateralNames) ||
+                    SealProfile.Names.Any(name => !Resources.Load<Texture2D>("Teaching/Seals/" + name)))
+                    throw new InvalidOperationException("六工矩印的场景顺序、权重表或教学手图不完整。");
+                if (baseWeights.Any(p => p.rules.Length != 45 || p.rules.Select(r => r.featureId).Distinct().Count() != 45)) throw new InvalidOperationException("权重表条目不完整。");
                 SealLabChecks.Run(); CheckDiagnostics();
-                File.WriteAllText("Logs/recognition-test-result.json", JsonUtility.ToJson(new Report { passed = true, utc = DateTime.UtcNow.ToString("O"), scene = ScenePath, profiles = 12 }, true));
-                Debug.Log("[结印测试] 测试场景、12×45项权重、49项既有检查及失败诊断检查通过。");
+                File.WriteAllText("Logs/recognition-test-result.json", JsonUtility.ToJson(new Report { passed = true, utc = DateTime.UtcNow.ToString("O"), scene = ScenePath, profiles = lab.profiles.Count }, true));
+                Debug.Log("[结印测试] 测试场景、六工矩印权重、结印实验台与失败诊断检查通过。");
             }
             finally { if (!opened) EditorSceneManager.CloseScene(scene, true); if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous); }
         }
@@ -100,7 +106,7 @@ namespace NarutoVR.Editor
             }
             finally { UnityEngine.Object.DestroyImmediate(p); }
         }
-        [MenuItem("Tools/NarutoVR/测试/打开十二印测试场景")]
+        [MenuItem("Tools/NarutoVR/测试/打开六工矩印测试场景")]
         public static void Open()
         {
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;

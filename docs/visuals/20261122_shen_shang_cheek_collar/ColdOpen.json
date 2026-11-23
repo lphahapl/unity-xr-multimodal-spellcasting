@@ -1,0 +1,82 @@
+{
+  "file": "ShenShang_Rebuilt.blend",
+  "sha256": "857ae30a5d3033747b04d9e8e79e08c34cf23fbde659e0b90ffc2c0619639225",
+  "blender": "5.2.2 LTS",
+  "sourceCollectionStats": {
+    "ShenShang_Wardrobe": {
+      "renderObjects": 141,
+      "triangles": 300462,
+      "bboxMin": [
+        -0.4326586425304413,
+        -0.16372895240783691,
+        0.0
+      ],
+      "bboxMax": [
+        0.4326586425304413,
+        0.17259521782398224,
+        1.4767260551452637
+      ]
+    },
+    "ShenShang_HandAssembly": {
+      "renderObjects": 30,
+      "triangles": 22859,
+      "bboxMin": [
+        -0.5647681355476379,
+        -0.12281233072280884,
+        0.7651660442352295
+      ],
+      "bboxMax": [
+        0.5649797916412354,
+        0.0025984831154346466,
+        1.064441442489624
+      ]
+    },
+    "头脸": {
+      "renderObjects": 13,
+      "triangles": 178156,
+      "bboxMin": [
+        -0.0897383838891983,
+        -0.1378670036792755,
+        1.3890001773834229
+      ],
+      "bboxMax": [
+        0.08974095433950424,
+        0.11561619490385056,
+        1.7076307535171509
+      ]
+    },
+    "束发与眉": {
+      "renderObjects": 61,
+      "triangles": 632056,
+      "bboxMin": [
+        -0.11239635944366455,
+        -0.11964891850948334,
+        1.4891831874847412
+      ],
+      "bboxMax": [
+        0.08948991447687149,
+        0.12304509431123734,
+        1.7386680841445923
+      ]
+    }
+  },
+  "sourceTriangles": 1133533,
+  "heightMetres": 1.73867,
+  "handArmatures": {
+    "V2_HandRig.L": 26,
+    "V2_HandRig.R": 26
+  },
+  "leftInstrumentMount": {
+    "parent": "V2_HandRig.L",
+    "bone": "XRHand_Wrist"
+  },
+  "requiredImagesPacked": 39,
+  "unpackedFileImages": [],
+  "libraries": 0,
+  "lowNeckOutsideShoulderSkinRayHits": {
+    "Front": 0,
+    "Back": 0,
+    "Left": 0
+  },
+  "platform": "Editable Blender review source; static T pose separately checked, Unity/Quest execution outside this review."
+}

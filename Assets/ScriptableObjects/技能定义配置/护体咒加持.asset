@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u62a4\u4f53\u5492\u52a0\u6301"
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillDefinition
   skillId: buff.voice
-  displayName: "\u62A4\u4F53\u5492\u52A0\u6301"
+  displayName: 护体咒
   triggerMode: 1
   phrase: "\u62A4\u4F53\u5492"
   phraseTokens: "h \xF9 t \u01D0 zh \xF2u"
@@ -21,8 +21,7 @@ MonoBehaviour:
   matchWindow: 8
   voiceDiscount: 0.05
   thresholdFloor: 0.65
-  effectDefinition: {fileID: 11400000, guid: 081c041630f0eef47ad3f5a33e978555, type: 2}
-  effectKind: 0
+  effectDefinition: {fileID: 11400000, guid: 4c906d145b8fb304abaf20cfaebdb36b, type: 2}
   leftHand: 0
   cooldownSeconds: 3
   manaCost: 15

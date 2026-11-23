@@ -1,0 +1,48 @@
+{
+  "source_native": [
+    1774,
+    887
+  ],
+  "source_sha256": "93d23443bed2a6a2b8bde6128e8880b37d0415be03e93e70ab0492bf92914549",
+  "latlong_import_image": [
+    2048,
+    1024
+  ],
+  "first_last_meridian_delta_mean_255": 1.0852864583333333,
+  "longitude_overlap_degrees": 12.58173618940248,
+  "horizon_shift_degrees": 8.46,
+  "method": "Cubic-weighted polar convergence, monotonic latitude recalibration and linear-radiance longitude overlap. Original concept source retained at native 1774×887.",
+  "date": "2026-11-19T03:46:56.495456+08:00",
+  "material": "Assets/Art/Environment/Opening/CourtAtmosphere/MountainCloudSky.mat",
+  "materialGUID": "f6562647f89bc054997538fa713a2fcf",
+  "latlong_source_textureGUID": "25fc026e7a524e249955ec041fa36249",
+  "material_sha256": "c453778d3ee29c10fcbef8eb302354a678dac4863c124cb09b51268b39517f5c",
+  "converted_texture_sha256": "173d9b292b0d45919b7ebdfe8cfb9629ac53076ef348757ece93a259b0263fef",
+  "skybox_shader": "Unity Skybox/Cubemap",
+  "normal_HDR_decode": "LDR artwork submitted as sRGB and sampled as a cubemap in a Linear color space. Unity default neutral tint and exposure 1.0.",
+  "face_px": 1024,
+  "mips": 11,
+  "mobile_GPU_format": "RGBA_ASTC6X6_SRGB",
+  "theoretical_cube_compressed_bytes_all_mips": 3757728,
+  "pole_channel_range_255": [
+    0,
+    0
+  ],
+  "yaw_degrees": 0,
+  "preview_frames": [
+    "RouteForward.jpg",
+    "CourtWest.jpg"
+  ],
+  "build_reimport": [
+    "COURT_SKY_FRAME RouteForward yaw=0 pitch=0 luminance_deciles=110/169/199",
+    "COURT_SKY_FRAME CourtWest yaw=278 pitch=-1 luminance_deciles=94/169/206",
+    "COURT_SKY_OK shader=Skybox/Cubemap dimension=Cube face=1024 mips=11 editor_format=RGBA_ASTC6X6_SRGB Android=ASTC_6x6 colorSpace=Linear URP=PC_RPAsset yaw=0 exposure=1"
+  ],
+  "mobile_validation": [
+    "COURT_SKY_FRAME RouteForward yaw=0 pitch=0 luminance_deciles=110/169/199",
+    "COURT_SKY_FRAME CourtWest yaw=278 pitch=-1 luminance_deciles=94/169/206",
+    "COURT_SKY_FRAME SourceWrap yaw=180 pitch=0 luminance_deciles=129/187/217",
+    "COURT_SKY_MOBILE_OK URP=Mobile_RPAsset buildTarget=Android colorSpace=Linear face=1024 mips=11 graphics=RGBA_ASTC6X6_SRGB"
+  ],
+  "device_test": "隔离编辑器以 Android 为活动目标，使用项目 Mobile_RPAsset 渲染三个朝向；另保存正向和西向两张 1200×675 的平视图。没有 Quest 设备帧耗记录。"
+}

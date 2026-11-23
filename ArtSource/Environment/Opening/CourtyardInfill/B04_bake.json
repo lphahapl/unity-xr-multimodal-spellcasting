@@ -1,0 +1,22 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.009,
+  "ray_m": 0.035,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared family atlas at the recorded resolution.",
+  "meshes": {
+    "CliffGateCrown": {
+      "high_tri": 5012,
+      "LOD_tri": [
+        2012,
+        1266,
+        684
+      ],
+      "dimensions_xyz_blender_m": [
+        3.2468042373657227,
+        1.0199999809265137,
+        0.5784175395965576
+      ]
+    }
+  }
+}

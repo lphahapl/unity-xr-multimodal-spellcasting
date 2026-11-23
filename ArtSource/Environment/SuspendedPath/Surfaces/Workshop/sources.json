@@ -1,0 +1,210 @@
+{
+  "project": "Suspended Path / Workshop",
+  "license_reference": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "maps": {
+    "BaseSmooth": "Unpremultiplied RGB albedo stored as sRGB. A is linear smoothness, derived from scanned roughness. Opaque material.",
+    "NormalGL": "RGB tangent-space normal (+Y/OpenGL) in linear data. Rotated timber normals were rotated with the RGB/albedo image.",
+    "surface_uv": "CH_Timber, CH_Ashlar, CH_Plaster, CH_Tile use repeat. CH_EndGrain uses the normalized 0-1 area of each cut face."
+  },
+  "sources": [
+    {
+      "slot": "CH_Timber",
+      "publisher": "Poly Haven",
+      "source": "https://polyhaven.com/a/rough_wood",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "license": "CC0-1.0",
+      "provider_license": "https://polyhaven.com/license",
+      "inputs": {
+        "diffuse": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rough_wood/rough_wood_diff_2k.jpg",
+          "md5": "f5f9c55696f047ceaa49dc97c5aa5526"
+        },
+        "nor_gl": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rough_wood/rough_wood_nor_gl_2k.jpg",
+          "md5": "62594f2d00eb246581b9d4fde30209f1"
+        },
+        "rough": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rough_wood/rough_wood_rough_2k.jpg",
+          "md5": "832d6d549a8e76c16b9af2586f429d6c"
+        }
+      },
+      "processing": "Rotated the 0.5 m rough-sawn wood scan with tangent XY correction. A periodic, direction-preserving warp changes the sequence of grain and fissures across the 2 m material repeat, with two longitudinal and three transverse samples. No board joints.",
+      "outputs": {
+        "Timber_BaseSmooth.png": {
+          "size": [
+            2048,
+            2048
+          ],
+          "sha256": "e6b2e71d2e669d246b0aca20c87535746ecd57f849b88e43fe04886c58d03499"
+        },
+        "Timber_NormalGL.png": {
+          "size": [
+            2048,
+            2048
+          ],
+          "sha256": "d732a98164abb0d706ba90db9f2d768c52ae2626c6e4b42e6461d12eef4d8cdd"
+        }
+      }
+    },
+    {
+      "slot": "CH_Ashlar",
+      "publisher": "Poly Haven",
+      "source": "https://polyhaven.com/a/quarry_wall",
+      "authors": {
+        "Dimitrios Savva": "All"
+      },
+      "license": "CC0-1.0",
+      "provider_license": "https://polyhaven.com/license",
+      "inputs": {
+        "diffuse": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/quarry_wall/quarry_wall_diff_2k.jpg",
+          "md5": "2aab5b9ae6853f1689921138901ea3f5"
+        },
+        "nor_gl": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/quarry_wall/quarry_wall_nor_gl_2k.jpg",
+          "md5": "e5a8ea5dcc325032387efc9070821d4e"
+        },
+        "rough": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/quarry_wall/quarry_wall_rough_2k.jpg",
+          "md5": "bb869618c34e7bb28809e8a1689cf9e8"
+        }
+      },
+      "processing": "Unjointed quarry stone. Attenuated iron coloration and relief to suit cut plinths and column bases. One scan per 2 m UV span.",
+      "outputs": {
+        "Ashlar_BaseSmooth.png": {
+          "size": [
+            2048,
+            2048
+          ],
+          "sha256": "c892394434bcdded57fb80df26ad54863d2ddde99d16912aedd62b7be164f3e4"
+        },
+        "Ashlar_NormalGL.png": {
+          "size": [
+            2048,
+            2048
+          ],
+          "sha256": "fb65119b8ace7f558feaefca7b4744719df76123f54109888047998c671d6154"
+        }
+      }
+    },
+    {
+      "slot": "CH_Plaster",
+      "publisher": "Poly Haven",
+      "source": "https://polyhaven.com/a/clay_plaster",
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "license": "CC0-1.0",
+      "provider_license": "https://polyhaven.com/license",
+      "inputs": {
+        "diffuse": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_plaster/clay_plaster_diff_1k.jpg",
+          "md5": "aab6ac83dcf134a370279825de143c26"
+        },
+        "nor_gl": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_plaster/clay_plaster_nor_gl_1k.jpg",
+          "md5": "82e9cc526a00b3b8fddf7e43c40bdb38"
+        },
+        "rough": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_plaster/clay_plaster_rough_1k.jpg",
+          "md5": "d46fdc82c0538d0905281a761c63d9cf"
+        }
+      },
+      "processing": "Earth-plaster scan graded to a warm mineral wash. One scan per 2 m UV span.",
+      "outputs": {
+        "Plaster_BaseSmooth.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "cbf7640bc8d6ead173a09df1755ba59645bfd45501a4347d0713d67567a8936e"
+        },
+        "Plaster_NormalGL.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "aefb69c19d012bcef156278e82b9e9472d03f97b9617fc798c01d53160cea874"
+        }
+      }
+    },
+    {
+      "slot": "CH_Tile",
+      "publisher": "Poly Haven",
+      "source": "https://polyhaven.com/a/terracotta_floor_tiles",
+      "authors": {
+        "Dimitrios Savva": "All"
+      },
+      "license": "CC0-1.0",
+      "provider_license": "https://polyhaven.com/license",
+      "inputs": {
+        "diffuse": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/terracotta_floor_tiles/terracotta_floor_tiles_diff_4k.jpg",
+          "md5": "17dbcdee162b4744d39c1c1477f5832a"
+        },
+        "nor_gl": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/terracotta_floor_tiles/terracotta_floor_tiles_nor_gl_4k.jpg",
+          "md5": "aff236fdd3630c42f190d949071ce23c"
+        },
+        "rough": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/terracotta_floor_tiles/terracotta_floor_tiles_rough_4k.jpg",
+          "md5": "c364591661b5fa773e37d025e77899ff"
+        }
+      },
+      "processing": "Selected sixteen kiln-fired tile interiors inside their grout lines. Periodic feathering combines the registered albedo, normal and roughness crops. The mesh provides tile profiles and ends.",
+      "outputs": {
+        "Tile_BaseSmooth.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "790de123d2cc3b28ca7677ae61194539afaba8800a3d1852b0aa8acad75cbcec"
+        },
+        "Tile_NormalGL.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "62477904fdd9a267434496d4f8540605b262bdaee29ffcd8cf282e2cae6cb5d8"
+        }
+      }
+    },
+    {
+      "slot": "CH_EndGrain",
+      "publisher": "ambientCG",
+      "source": "https://ambientcg.com/view?id=TreeEnd004",
+      "authors": [
+        "ambientCG / Lennart Demes"
+      ],
+      "license": "CC0-1.0",
+      "provider_license": "https://docs.ambientcg.com/license/",
+      "inputs": {
+        "archive": "https://ambientcg.com/get?file=TreeEnd004_2K-JPG.zip",
+        "maps": [
+          "Color",
+          "NormalGL",
+          "Roughness"
+        ]
+      },
+      "processing": "An interior 1208 px square of the registered 2K maps was cropped to exclude bark and black background, then resized to 1K and graded for the weathered frame. A single normalized UV island fits each sawn end.",
+      "outputs": {
+        "EndGrain_BaseSmooth.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "bf2ba20849169e2f52d9d62dda78a434c9f7abb73f50f100c771eab258aa40dd"
+        },
+        "EndGrain_NormalGL.png": {
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "dee98873582e7c2ac1a80ed08e271dea9cea70ea4a3de105f8e3f0375c2aa92a"
+        }
+      }
+    }
+  ]
+}

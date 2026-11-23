@@ -1,0 +1,111 @@
+{
+  "selectedArtReview": "G7B",
+  "preClearanceSelectionSHA256": "E6C15979B319C0DC28D32F282B162E8D3B186202545EA4ACAE65F64104FA950F",
+  "formalSourceSHA256": "1C67D33CC1AC3B28DBD6D515B4A85398DF3205A711C414FB3455A1FF2F64F447",
+  "scopeComparedWithG6": {
+    "unchangedMeshes": 139,
+    "check": "Vertices, polygon corner indices, object world transforms and material slot names",
+    "changed": [
+      "Jacket • continuous cross collar and underlap",
+      "Undertunic • laid flax at the nape and throat"
+    ],
+    "added": [],
+    "removed": []
+  },
+  "coldG7BFit": {
+    "sha256": "1C67D33CC1AC3B28DBD6D515B4A85398DF3205A711C414FB3455A1FF2F64F447",
+    "fitHeadSourceSHA256": "02F9B4B1F0BEFEF30C7F4A64AC28702B19400B74C378E66C753109CD61F38DC6",
+    "appendCollection": "ShenShang_Wardrobe",
+    "candidateMeshes": 141,
+    "closedFacings": {
+      "Undertunic • laid flax at the nape and throat": {
+        "vertices": 13350,
+        "faces": 13348,
+        "nonmanifoldEdges": 0,
+        "zeroAreaFaces": 0,
+        "signedVolumeCubicMeters": 1.057220162814143e-05,
+        "UVs": [
+          "Cloth cut",
+          "Woven fibre tile",
+          "Worn selvage"
+        ]
+      },
+      "Jacket • continuous cross collar and underlap": {
+        "vertices": 21894,
+        "faces": 21892,
+        "nonmanifoldEdges": 0,
+        "zeroAreaFaces": 0,
+        "signedVolumeCubicMeters": 7.100198146729805e-05,
+        "UVs": [
+          "Cloth cut",
+          "Woven fibre tile",
+          "Worn selvage"
+        ]
+      }
+    },
+    "contactsTrianglePairs": {
+      "linenToSkin": 1487,
+      "linenToOuterFacing": 1976,
+      "outerFacingToJacket": 2466
+    },
+    "innerHemSkinDistanceMm": {
+      "median": 0.7960646180436015,
+      "p95": 1.0593916522338986,
+      "max": 1.1303696082904935
+    },
+    "imagesPacked": 21,
+    "totalPackedBytes": 8606465,
+    "frontInnerEdgeZ": 1.397,
+    "sideInnerEdgeZ": 1.45187,
+    "napeInnerEdgeZ": 1.4765
+  },
+  "coplanarClearance": {
+    "passes": [
+      [
+        0,
+        6,
+        13
+      ],
+      [
+        1,
+        1,
+        16
+      ]
+    ],
+    "adjustedVertices": 16,
+    "maxOffsetMeters": 0.000180029974958762
+  },
+  "meshQa": {
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "Worn indigo hemp • bias-cut G7: Worn_running_threads.png is Non-Color but drives Base Color (looks washed out)",
+      "hidden back-to-back faces: Undertunic • laid flax at the nape and throat (100 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket • continuous cross collar and underlap (42 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket • continuous cross collar and underlap<->Jacket • fitted body with shoulder shaping (36 pairs) - delete to save tris",
+      "hidden back-to-back faces: Undertunic • laid flax at the nape and throat<->Jacket • continuous cross collar and underlap (12 pairs) - delete to save tris",
+      "hidden back-to-back faces: Undertunic • laid flax at the nape and throat<->Jacket • fitted body with shoulder shaping (3 pairs) - delete to save tris",
+      "asset lowest point z=1.014 (not resting on ground plane z=0)"
+    ]
+  },
+  "coldRenderAlpha": {
+    "Front": {
+      "enclosedTransparentPixelsInNeckAndShoulderRegion": 0,
+      "largestEnclosedAreaPixels": 0
+    },
+    "Side": {
+      "enclosedTransparentPixelsInNeckAndShoulderRegion": 0,
+      "largestEnclosedAreaPixels": 0
+    },
+    "Quarter": {
+      "enclosedTransparentPixelsInNeckAndShoulderRegion": 0,
+      "largestEnclosedAreaPixels": 0
+    },
+    "Back": {
+      "enclosedTransparentPixelsInNeckAndShoulderRegion": 0,
+      "largestEnclosedAreaPixels": 0
+    }
+  },
+  "comparison": "Original artwork vs G6 vs selected G7B; identical Blender cameras and lighting, with uniform scaling per reference view.",
+  "viewFit": "Portraits registered to nose base / chin; chest registered to chin / first toggle."
+}

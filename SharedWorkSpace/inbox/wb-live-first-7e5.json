@@ -1,0 +1,13 @@
+{
+  "id": "wb-live-first-7e5",
+  "op": "create",
+  "kind": "plans",
+  "target": "gemini-bridge-demo",
+  "doc": {
+    "id": "gemini-bridge-demo",
+    "name": "Gemini 浏览器联调",
+    "status": "测试",
+    "summary": "接收测试",
+    "body": "建议重点核对投递负载的字段映射完整性、本地接收端的解析容错以及重复投递时的幂等处理。"
+  }
+}

@@ -45,6 +45,7 @@ namespace NarutoVR.SealCombat.Editor
                 var visual = first.Visual;
                 Require(visual && visual.activeSelf && visual.transform.position == position && pool.ActiveCount == 1,
                     "出借应在世界坐标显示已预热实例");
+                Require(!pool.Handles(visual), "运行中有覆盖的场景实例不能按其源 prefab GUID 替换成池原型");
                 Require(!visual.GetComponent<SkillVisualLifetime>().enabled, "池化实例仍会被原有寿命组件销毁");
                 visual.GetComponent<SkillVisualLifetime>().Finish();
                 Require(first.Visual && visual.activeSelf, "一次性销毁入口不得销毁池化实例");

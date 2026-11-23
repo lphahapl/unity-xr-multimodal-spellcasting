@@ -1,0 +1,44 @@
+{
+  "source": "https://gemini.google.com/app/6a49eff0f573b63d?dest=create",
+  "time": "2026-11-23T08:29:11+08:00",
+  "question": "ZIP\nR7B_Model\n你说 沈商 R7B 显示校正回件。补交同一版真实整身模型，工作台中头皮纹理的纵向边缘改为夹紧，修复放大时额前的一条极淡 V 线。三张原设对照图与上一条 R7 完全相同，原生模型几何、皮肤、五官和发型均是同一…\n\n沈商 R7B 显示校正回件。补交同一版真实整身模型，工作台中头皮纹理的纵向边缘改为夹紧，修复放大时额前的一条极淡 V 线。三张原设对照图与上一条 R7 完全相同，原生模型几何、皮肤、五官和发型均是同一份。请确认看到了哪些附件和预览，你的上一轮面部与整头判断是否仍适用于这份同源的渲染；如有不同，请说明依据。",
+  "answer": "Gemini 说\n\n已核对本轮 R7B 回件，具体情况如下：\n\n可见附件与预览确认\n\nR7_Whole_2.jpg：可直接查看，全头三角度对照图（上排原设、下排 R7 模型实渲）。   \nR7_Whole.jpg\n\nR7_Detail_2.jpg：可直接查看，同尺度面部细节对照图（原设、R6、R7）。   \nR7_Detail.jpg\n\nR7_Portrait_2.jpg：可直接查看，双瞳对齐正脸并排图（原设、R7 模型实渲）。   \nR7_Portrait.jpg\n\n压缩包附件：未显示外层 .zip 文件名，仅读取到内部目录元数据，包含 00_HeadPreview.jpg（180,040 字节）、01_FullBody.jpg（71,080 字节）、ShenShang_R7_Review.glb（2,364,516 字节）与 README.txt（857 字节）；无法直接打开压缩包查看其中的两张预览图或三维模型。   \nR7B_Model.zip\n\n上一轮判断的适用性\n\n上一轮 R7 的面部与整头判断完全仍然适用。\n\n依据： 本次可见的三张同源对照图在画面内容上与上一轮 R7 完全一致，因此“整张脸已较准确还原原设”以及“含整部发型与颈肩的整体已可作为原设外观候选”两项结论均保持不变，此前列出的可选润色方向也同样有效。   \nR7_Whole.jpg\n+ 2\n\n核验边界说明： 由于无法直接打开 ShenShang_R7_Review.glb 或压缩包内的 00_HeadPreview.jpg、01_FullBody.jpg，本次未能在三维文件或工作台预览中直接验证“头皮纹理边缘夹紧、修复额前极淡 V 线”的显示校正效果，仅确认所附三张原设对照图维持原审通过结论。   \nR7_Whole.jpg\n+ 3",
+  "files": {
+    "blend": "D:\\Temp\\ShenHolistic\\R7\\ShenShang_FaceMatch_R7.blend",
+    "sourceHash": "afef1640d35bde6e848bbba11cd14040af51871730eac0c3250f6e1797122328",
+    "sourceBytes": 71740093,
+    "submittedFiles": {
+      "R7_Whole.jpg": "406aa1a3776d01f46b3157151a5a8f3f69afbdc8a3c6b708b8544092469923f7",
+      "R7_Detail.jpg": "c4901e51e4aa53689454f79b05774eafc7db6ee20119edb8c42fb9eafff3f80a",
+      "R7_Portrait.jpg": "53a368802b23efeeb7d1c31af646d5b83bd4983b7c3fbc7bf9c9a8773bfeb195",
+      "R7B_Model.zip": "0830a4103486f55aa481de03a1ab4e966c0ac64087c72c69debdcf32d35f9fd4"
+    },
+    "reviewModel": "根据实际工作台全身模型压缩的审阅 GLB，图像来自对应的完整 Blender 源工程。",
+    "reviewGlbSHA256": "df4d64bc19882952cd811015c0a3c1f7545270b6a8507376a180e7b8e0fb70ae",
+    "faceRegistration": {
+      "method": "Uniform scale, translation and in-plane rotation from interpupillary landmarks. No local warp.",
+      "reference": [
+        [
+          315.5,
+          313.0
+        ],
+        [
+          456.0,
+          312.0
+        ]
+      ],
+      "candidate": [
+        [
+          316.838,
+          312.559
+        ],
+        [
+          457.935,
+          311.759
+        ]
+      ]
+    },
+    "correctedWebSHA256": "50cbf27e9e32d849a392e9848188acd3412f82f1b560412f90533836c85d8b3e",
+    "displayOnly": "头皮纹理纵向边缘从重复切换为夹紧，骨相、网格和源渲染完全相同。"
+  }
+}

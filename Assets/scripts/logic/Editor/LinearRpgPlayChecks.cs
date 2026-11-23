@@ -410,9 +410,9 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!controller.TryAdvanceStage(), "最终阶段新训练靶尚未击破，不应再次推进领奖。");
                 Equal(currencyAfterSecondStage, controller.Model.Currency, "重复推进不追加奖励");
                 Equal(50, currencyAfterSecondStage, "正常奖励与先前升级后的货币余额");
-                Require(!controller.SkillShop.TryPurchase("unlock.hidden") && !controller.Model.UnlockedSkills.Contains("buff.hidden"), "50货币不足以购买60货币隐藏术。");
-                Equal(currencyAfterSecondStage, controller.Model.Currency, "购买资金不足不扣货币");
-                Record("第二阶段奖励仅一次；正常奖励减升级支出后余额50，购买60货币隐藏术失败且不扣钱");
+                Require(!controller.SkillShop.TryPurchase("unlock.hidden") && !controller.Model.UnlockedSkills.Contains("buff.hidden"), "旧商品不可购买。");
+                Equal(currencyAfterSecondStage, controller.Model.Currency, "查询停用商品不扣货币");
+                Record("第二阶段奖励仅一次；正常奖励减升级支出后余额50，停用商品无法购买且不扣钱");
 
                 int finalCurrency = controller.Model.Currency;
                 int finalReward = controller.stages[controller.StageIndex].rewardCurrency;
@@ -424,18 +424,9 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!controller.TryAdvanceStage(), "CampaignComplete后不能再次推进领奖。");
                 Equal(completedCurrency, controller.Model.Currency, "最终关不能重复领奖");
                 Require(controller.Model.ClaimedRewards.Count == completedRewards && !controller.HazardsEnabled, "最终奖励ID不重复且完成后停止自动攻击。");
-                Require(controller.SkillShop.TryPurchase("unlock.hidden") && controller.Model.UnlockedSkills.Contains("buff.hidden"), "最终正常奖励到账后应能购买隐藏术。");
-                Equal(completedCurrency - controller.SkillShop.catalog.Find("unlock.hidden").cost, controller.Model.Currency, "隐藏术只扣一次价格");
-                int currencyAfterPurchase = controller.Model.Currency;
-                Require(!controller.SkillShop.TryPurchase("unlock.hidden"), "重复购买隐藏术必须被拒绝。");
-                Equal(currencyAfterPurchase, controller.Model.Currency, "重复购买不扣货币");
-                var hidden = Skill("buff.hidden");
-                Equal(25, hidden.manaCost, "隐藏术配置消耗");
-                mana = controller.Player.Mana;
-                Require(controller.DebugCast(hidden.skillId), "已购买隐藏术应可模拟施放。");
-                Equal(mana - 25, controller.Player.Mana, "隐藏术精确扣25MP");
-                Equal(150, effects.ShieldPoints, "隐藏术提供150护盾");
-                Record("最终关CampaignComplete且不重复领奖；正常通关货币购买隐藏术，重复购买不扣钱，150护盾/25MP");
+                Require(!controller.SkillShop.TryPurchase("unlock.hidden") && !controller.DebugCast("buff.hidden"), "已暂停的金刚护体不能购买或施放。");
+                Equal(completedCurrency, controller.Model.Currency, "已暂停的术式不扣货币");
+                Record("完成最终关，旧商品仍不可购买，旧术式无法施放");
 
                 while (controller.Player.GetCooldown(Group(fire), controller.GameTime) > 0) yield return null;
                 controller.Player.RestoreMana(controller.Player.MaxMana);

@@ -1,0 +1,80 @@
+{
+  "CourtPineFar": {
+    "triangles": 186,
+    "minimum_blender": [
+      -3.450000047683716,
+      -1.600000023841858,
+      0.0
+    ],
+    "maximum_blender": [
+      3.430000066757202,
+      1.6200000047683716,
+      4.829999923706055
+    ],
+    "existingUV": "MountainPineAtlasUV",
+    "uvMin": [
+      0.004693759139627218,
+      0.004693743772804737
+    ],
+    "uvMax": [
+      0.9659669399261475,
+      0.9161957502365112
+    ],
+    "materials": [
+      "MountainPine_Baked"
+    ],
+    "source": "Assets/Art/Environment/Opening/MountainPine/MountainPine.fbx"
+  },
+  "CourtPineHorizon": {
+    "triangles": 88,
+    "minimum_blender": [
+      -3.450000047683716,
+      -1.600000023841858,
+      0.0
+    ],
+    "maximum_blender": [
+      3.430000066757202,
+      1.6200000047683716,
+      4.829999923706055
+    ],
+    "existingUV": "MountainPineAtlasUV",
+    "uvMin": [
+      0.005773351527750492,
+      0.0046937428414821625
+    ],
+    "uvMax": [
+      0.9354861378669739,
+      0.9798747897148132
+    ],
+    "materials": [
+      "MountainPine_Baked"
+    ],
+    "source": "Assets/Art/Environment/Opening/MountainPine/MountainPine.fbx"
+  },
+  "CourtWallFar": {
+    "triangles": 64,
+    "minimum_blender": [
+      -1.0,
+      -0.23499999940395355,
+      -1.2910141400368502e-08
+    ],
+    "maximum_blender": [
+      1.0,
+      0.23499999940395355,
+      1.6200000047683716
+    ],
+    "existingUV": "UVMap",
+    "uvMin": [
+      0.004000000189989805,
+      0.007000000216066837
+    ],
+    "uvMax": [
+      0.3959999978542328,
+      0.9929999709129333
+    ],
+    "materials": [
+      "B01_Infill"
+    ],
+    "source": "Assets/Art/Environment/Opening/CourtyardInfill/B01/WallStraight_LOD2.fbx"
+  }
+}

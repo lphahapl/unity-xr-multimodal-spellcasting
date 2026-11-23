@@ -1,0 +1,30 @@
+{
+  "unity": "6000.3.10f1",
+  "verification": "isolated project, URP Lit, four texture bindings and atlas size, LODGroup actual geometry, renderer material and one BoxCollider per prefab",
+  "verified_objects": [
+    "PlumbSquareBoard triangles 988/622/334 size m (2.0430, 1.1800, 0.2120); LODs: .22/.09/.009; BoxCollider=1",
+    "GraduatedRuleRack triangles 868/546/294 size m (2.1700, 1.2420, 0.2565); LODs: .22/.09/.009; BoxCollider=1",
+    "DividerPartsTray triangles 896/564/304 size m (0.6820, 0.1435, 0.4490); LODs: .22/.09/.009; BoxCollider=1"
+  ],
+  "files_sha256": {
+    "DividerPartsTray.prefab": "fc915a63753cd22c11eb5fb55d9b0b7d219b03947e5702ef1eca44f39b158cd8",
+    "DividerPartsTray_LOD0.fbx": "64d457671c108b8611df0e9f420bab9a7a9e42305f98b258afe25605ad18a46d",
+    "DividerPartsTray_LOD1.fbx": "88281a29fba16a41ad8f2508f25ffb08f5bc60715a9377234f372c8e5fbd6aee",
+    "DividerPartsTray_LOD2.fbx": "c6fe3f3dd47018ce337e6ee338d5cbabf5f6c474a691e33b411ab01d218ba151",
+    "GraduatedRuleRack.prefab": "fd2d061b50f8c3f91a1afad604f848dce9c7fba604753a2ec969ac9fd82a1e7b",
+    "GraduatedRuleRack_LOD0.fbx": "6f55e26719b9a757f3e332fde8f6d4819b08e9b6158b082da80cedc57c83b79d",
+    "GraduatedRuleRack_LOD1.fbx": "6b5bb488800b9fc9cd4f2cd701b0bdcad93ff0a9795a43d82d2f47511caf833b",
+    "GraduatedRuleRack_LOD2.fbx": "7c8cc1cbda2f88b0b01a852fc5a4596110f745af2d0f11fe206537876bf90161",
+    "MeasureRoom_Baked.mat": "f4a356271f16440774f1de7e1101148892f1af54e6a5383c12bdb68ed3b8a799",
+    "MeasureRoom_BaseColor.png": "75755514be8aee1eb0e59fb992d1f880755567a02d7d5c034a148ae1922b3072",
+    "MeasureRoom_Mask.png": "4e7948efedef27dddeb21b422b0557fd8c121c392d7623fa03a93ac58fbf6617",
+    "MeasureRoom_Normal.png": "f190eb9a2f4d723e308e78974b76466e784e953f48bd054672b7f672d3eb960c",
+    "PlumbSquareBoard.prefab": "f1a509dd25caf19e73754a1533be9142ddb367c5995213efb873ed5159e7dd1d",
+    "PlumbSquareBoard_LOD0.fbx": "13f497e6d7e898c8047cae8d276c4f2386326b91686bb1bbf8fb555d449a0f61",
+    "PlumbSquareBoard_LOD1.fbx": "5c460ac173aa4201e0a66ff47c12bf83bb703e66bfa7a27a9ff55c95eb593854",
+    "PlumbSquareBoard_LOD2.fbx": "9d4ae30ba3acc2b9b981afb1f3150200167ade511354ac937effe0b91248e5ee"
+  },
+  "android_import_override": "ASTC 6x6, 2048 pixels, mipmaps",
+  "qa_note": "10 hidden back-to-back triangle pairs in tray: weight undersides resting against the liner. Closed component geometry is retained. No z-fighting reported.",
+  "quest_device_test": "not run"
+}

@@ -33,13 +33,13 @@ namespace NarutoVR.SealCombat.Rpg
             if(fingertip){Sample(fingertip.position);return;}
             if(handInput&&handInput.isActiveAndEnabled){
                 var frame=handInput.LatestInput;
-                if(!frame.tipUnavailable && WristMenuState.Finite(frame.rightTip) && WristMenuState.Fresh(frame.rightValid,frame.rightObserved,Time.realtimeSinceStartupAsDouble,handInput.settings.maxAge)){Sample(frame.rightTip);return;}
+                if(!frame.tipUnavailable && PlayerHandObservation.Finite(frame.rightTip) && PlayerHandObservation.Fresh(frame.rightValid,frame.rightObserved,Time.realtimeSinceStartupAsDouble,handInput.settings.maxAge)){Sample(frame.rightTip);return;}
             }
             ResetContact();
         }
         public void Sample(Vector3 tip)
         {
-            if (!WristMenuState.Finite(tip)) { ResetContact(); return; }
+            if (!PlayerHandObservation.Finite(tip)) { ResetContact(); return; }
             if(!cap)return;
             if(!ready)Prepare(); if(!ready)return;
             Vector3 axis=cap.TransformVector(Vector3.forward).normalized;

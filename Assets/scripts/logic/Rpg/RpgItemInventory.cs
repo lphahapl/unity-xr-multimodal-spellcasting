@@ -40,23 +40,26 @@ namespace NarutoVR.SealCombat.Rpg
             if (Owner != owner || !catalog) throw new InvalidOperationException("物品模块未绑定目录或所属控制器错误");
             catalog.Validate(owner.skills.catalog.skills.Select(s => s.skillId));
             var exclusive = catalog.items.SelectMany(x => x.unlockSkillIds).ToArray();
-            if (owner.chapter.InitialSkills.Any(exclusive.Contains) || owner.stages.Any(s => s.unlockSkillIds.Any(exclusive.Contains)))
+            if (owner.StartingSkills.Any(exclusive.Contains) || owner.stages.Any(s => s.unlockSkillIds.Any(exclusive.Contains)))
                 throw new InvalidOperationException("物品独占解锁不能同时作为初始或阶段奖励");
         }
         /// <inheritdoc/>
-        public bool ValidateProgress(RpgProgressData p)
+        public bool ValidateProgress(IPlayerReadModel player)
         {
-            foreach (var item in p.items)
-            {
-                var definition = catalog.Find(item.itemId);
-                if (definition == null || definition.discoverSkillIds.Any(id => !p.discoveredSkillIds.Contains(id) && !p.unlockedSkillIds.Contains(id)) ||
-                    (item.activated && definition.unlockSkillIds.Any(id => !p.unlockedSkillIds.Contains(id)))) return false;
-            }
-            // 双向约束：不能仅写一个技能 ID 绕过其物品激活来源。
+            int knownItems = 0;
             foreach (var definition in catalog.items)
-                if (definition.unlockSkillIds.Any(id => p.unlockedSkillIds.Contains(id)) &&
-                    !p.items.Any(x => x.itemId == definition.itemId && x.activated)) return false;
-            return true;
+            {
+                var state = player.ItemState(definition.itemId);
+                if (state != ProgressionItemState.Missing)
+                {
+                    knownItems++;
+                    if (definition.discoverSkillIds.Any(id => !player.IsDiscovered(id))) return false;
+                }
+                // 每项独占授予在激活前必须关闭，激活后必须全部具备。
+                bool activated = state == ProgressionItemState.Activated;
+                if (definition.unlockSkillIds.Any(id => player.IsUnlocked(id) != activated)) return false;
+            }
+            return player.ItemCount == knownItems;
         }
     }
 }

@@ -211,6 +211,10 @@ public static class SkillAssemblyPlayFixture
                     Ensure(ReadProgress(rpg).checkpoint.mana==37 && rpg.Player.Mana>=37 && ReadProgress(rpg).currency==17,"loaded sentinel values from baseline v2");
                     Ensure(SameBaseline(),"loading successful v2 does not rewrite save");
                     if(Mode=="candidate"){
+                        foreach (var id in new[] { "breath.burst", "breath.stream" })
+                            Ensure(rpg.IsSkillDiscovered(id) && rpg.IsSkillAvailable(id) && !rpg.IsSkillUnlocked(id),
+                                "the restored player can read and trial the new mouth skill without a permanent grant: " + id);
+                        Ensure(!rpg.IsSkillDiscovered("buff.hidden"), "item-exclusive teaching stays hidden in this old save");
                         var core = typeof(RpgPlayerState).Assembly;
                         var persistence = typeof(RpgSaveStore).Assembly;
                         Ensure(core.GetName().Name == "NarutoVR.Game.Core" &&

@@ -1,0 +1,41 @@
+{
+  "longitude": 100.132,
+  "latitude": 27.199,
+  "bearing": 35,
+  "horizontal_scale": 0.225,
+  "vertical_scale": 0.16,
+  "datum": 1730,
+  "steps": 85,
+  "rain": 0.07,
+  "capacity": 1.35,
+  "erodibility": 0.38,
+  "deposition": 0.27,
+  "evaporation": 0.055,
+  "max_cut": 13,
+  "sources": {
+    "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N27_00_E100_00_DEM/Copernicus_DSM_COG_10_N27_00_E100_00_DEM.tif": "81f73be0ae3f25485dadf8092a02204d2b86653f8048b538ebc585ae90227744",
+    "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N27_00_E099_00_DEM/Copernicus_DSM_COG_10_N27_00_E099_00_DEM.tif": "7601eefe44fb0d06a542e9ee56f88dd96bc195fe54bf84dd47ef9149f5a6ee14"
+  },
+  "center_xz_m": [
+    35.6,
+    24.0
+  ],
+  "raw_layout": "uint16 little endian, 513x513, columns +X, rows +Z from south",
+  "raw_size_xz_m": [
+    1220,
+    1220
+  ],
+  "raw_height_min_m": -120.0,
+  "raw_height_max_m": 388.62420654296875,
+  "source_extent_game_m": [
+    -2490,
+    2490
+  ],
+  "delta_m": [
+    -12.911392211914062,
+    36.496612548828125
+  ],
+  "delta_abs_mean_m": 2.2485878467559814,
+  "grid_samples_per_axis": 135,
+  "triangles": 35912
+}

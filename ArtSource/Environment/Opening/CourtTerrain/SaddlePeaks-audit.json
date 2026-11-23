@@ -1,0 +1,185 @@
+{
+  "source": "ArtSource/Environment/Opening/CourtyardModelOrders/H04/H04_Hunyuan.glb",
+  "source_sha256": "5e37e3c747fbbffbb8b4f6ea823dcde8ccf15129a8b91bdf6c89a16657349656",
+  "source_dimensions": {
+    "min": [
+      -0.45577099919319153,
+      -0.41192805767059326,
+      -4.9857884931725494e-08
+    ],
+    "max": [
+      0.5381199717521667,
+      0.41014906764030457,
+      0.6238300800323486
+    ],
+    "triangles": 499502
+  },
+  "unit": "m",
+  "anchors_local_Unity": {
+    "Foot": [
+      0,
+      0,
+      0
+    ],
+    "Summit": [
+      -0.6817541587566801,
+      32.0,
+      0.6790408262687151
+    ]
+  },
+  "lods": {
+    "SaddlePeaks_LOD0": {
+      "triangles": 4800,
+      "size_m": [
+        36.95710372924805,
+        26.114334106445312,
+        32.16611099243164
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-0.0245 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -0.0245,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "SaddlePeaks_LOD0": {
+            "verts": 2354,
+            "faces": 4800,
+            "tris": 4800,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.14,
+            "uv_coverage_pct": 21.3
+          }
+        }
+      },
+      "support": {}
+    },
+    "SaddlePeaks_LOD1": {
+      "triangles": 1760,
+      "size_m": [
+        36.785526275634766,
+        25.848281860351562,
+        32.224761962890625
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-0.0304 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -0.0304,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "SaddlePeaks_LOD1": {
+            "verts": 834,
+            "faces": 1760,
+            "tris": 1760,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.04,
+            "uv_coverage_pct": 15.8
+          }
+        }
+      },
+      "support": {}
+    },
+    "SaddlePeaks_LOD2": {
+      "triangles": 460,
+      "size_m": [
+        34.32585144042969,
+        25.165897369384766,
+        30.38422203063965
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=0.0591 (not resting on ground plane z=0)"
+        ],
+        "ground_z": 0.0591,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "SaddlePeaks_LOD2": {
+            "verts": 184,
+            "faces": 460,
+            "tris": 460,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.18,
+            "uv_coverage_pct": 6.7
+          }
+        }
+      },
+      "support": {}
+    }
+  }
+}

@@ -82,6 +82,7 @@ namespace NarutoVR.SealCombat
             public NarrationLine Line { get; }
             public bool AudioDone { get; internal set; }
             public bool OperationDone { get; internal set; }
+            public string PlaybackError { get; internal set; }
             internal bool HasAudio, Loading, Advanced, BindingsOpen;
             internal Func<bool> OperationState;
             internal double DelayUntil;
@@ -99,6 +100,8 @@ namespace NarutoVR.SealCombat
         }
         /// <summary>开始操作监听时交付本句实例。失效通知覆盖推进、停止、重新播放、失败及禁用。</summary>
         public event Action<Step> StepStarted, StepEnded;
+        /// <summary>接管播放故障的章节可用同一句句柄重试。未接管的对话沿用停止行为。</summary>
+        public event Action<Step> PlaybackFailed;
         /// <summary>播放中或句间等待时可读取。检查此句是否仍可提交操作，请使用 CanCompleteOperation。</summary>
         public Step CurrentStep => step;
         public NarrationLine CurrentLine => step?.Line;
@@ -109,7 +112,7 @@ namespace NarutoVR.SealCombat
         public bool OperationCompleted => step != null && step.OperationDone;
         public bool IsWaitingForNextLine => step != null && step.Advanced && index + 1 < sequence.Length;
         public float RemainingDelay => IsWaitingForNextLine ? (float)Math.Max(0, step.DelayUntil - Time.timeAsDouble) : 0;
-        public string Status => step == null ? status :
+        public string Status => step == null ? status : step.PlaybackError != null ? step.PlaybackError :
             IsWaitingForNextLine ? $"第 {index + 1} 句已通过；到下一句还剩 {RemainingDelay:F1} 秒" :
             $"第 {step.DisplayNumber} 句{(string.IsNullOrEmpty(step.LineId) ? "" : " · " + step.LineId)}；音频：{(step.AudioDone ? "完成" : "播放/加载中")}；操作：{(step.OperationDone ? "完成" : step.Line.advanceMode == NarrationAdvanceMode.AudioFinished ? "无需" : "等待操作")}";
         Step step;
@@ -179,6 +182,12 @@ namespace NarutoVR.SealCombat
             if (string.IsNullOrWhiteSpace(line.audioFileName) && line.advanceMode == NarrationAdvanceMode.Operation)
                 current.AudioDone = true; // 纯操作句没有音频，也不发出“音频自然播完”事件。
             else if (!PrepareAudio(current)) return;
+            OpenLine(current, dialogueStart);
+        }
+
+        void OpenLine(Step current, bool dialogueStart)
+        {
+            var line = current.Line;
             current.BindingsOpen = true;
             NotifyStep(StepStarted, current, true);
             if (!IsCurrentStep(current)) return;
@@ -189,9 +198,9 @@ namespace NarutoVR.SealCombat
         bool PrepareAudio(Step current)
         {
             var clip = NarrationLine.LoadClip(current.Line.audioFileName);
-            if (!clip || !voice.enabled)
+            if (!clip || !voice || !voice.isActiveAndEnabled)
             {
-                Fail("无法播放音频：" + current.Line.audioFileName); return false;
+                FailPlayback(current, "无法播放音频：" + current.Line.audioFileName); return false;
             }
             voice.clip = current.Clip = clip; current.HasAudio = true;
             current.Loading = clip.loadState == AudioDataLoadState.Loading;
@@ -206,12 +215,12 @@ namespace NarutoVR.SealCombat
                 startPending = false; StartDialogue(); return;
             }
             var current = step;
-            if (current == null || current.Advanced) return;
+            if (current == null || current.Advanced || current.PlaybackError != null) return;
             if (AudioListener.pause && voice && !voice.ignoreListenerPause) return;
             if (current.HasAudio && !current.AudioDone)
             {
                 if (!voice || !voice.enabled || voice.clip != current.Clip || current.Clip.loadState == AudioDataLoadState.Failed)
-                { Fail("音频来源被禁用、更换或加载失败"); return; }
+                { FailPlayback(current, "音频来源被禁用、更换或加载失败"); return; }
                 if (current.Loading)
                 {
                     if (current.Clip.loadState != AudioDataLoadState.Loading)
@@ -302,7 +311,7 @@ namespace NarutoVR.SealCombat
         public bool RefreshOperationBinding()
         {
             var previous = step;
-            if (!IsCurrentStep(previous)) return false;
+            if (!IsCurrentStep(previous) || previous.PlaybackError != null) return false;
             bool latched = previous.OperationState == null && previous.OperationDone;
             EndStep(previous);
             if (!IsCurrent(previous)) return false;
@@ -363,6 +372,24 @@ namespace NarutoVR.SealCombat
             finally { --callbackDepth; }
             return IsCurrent(current);
         }
+        public bool RetryPlayback(Step expected)
+        {
+            if (!IsCurrent(expected) || expected.PlaybackError == null) return false;
+            if (!PrepareAudio(expected)) return false;
+            expected.PlaybackError = null;
+            if (!expected.BindingsOpen) OpenLine(expected, expected.Index == 0);
+            return IsCurrent(expected);
+        }
+
+        void FailPlayback(Step current, string reason)
+        {
+            if (PlaybackFailed == null) { Fail(reason); return; }
+            if (voice) { voice.Stop(); voice.clip = null; }
+            current.PlaybackError = $"旁白第 {current.DisplayNumber} 句：{reason}。";
+            NotifyStep(PlaybackFailed, current, false);
+            Debug.LogWarning(current.PlaybackError, this);
+        }
+
         void Fail(string reason)
         {
             string message = $"旁白第 {index + 1} 句：{reason}。";

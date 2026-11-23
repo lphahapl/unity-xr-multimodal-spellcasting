@@ -91,6 +91,8 @@ namespace NarutoVR.SealCombat.Editor
                     fire = (ProjectileEffectDefinition)rpg.skills.ConfiguredSkills.Single(s => s.skillId == "fireball").effectDefinition;
                     effects.WristPoseOverride = left => left ? (Pose?)null : new Pose(rpg.locomotion.head.position + Vector3.right * .3f, Quaternion.identity);
                     particles = Object.FindFirstObjectByType<VfxPoolManager>();
+                    var pooled = particles.impactPrefab;
+                    Info($"impact source: same instance={fire.impactPrefab == pooled}; shot GUID={fire.impactPrefab.GetComponent<SkillVisualLifetime>()?.prefabAssetGuid}; pool GUID={pooled.GetComponent<SkillVisualLifetime>()?.prefabAssetGuid}; Handles={particles.Handles(fire.impactPrefab)}");
                     hpListener = EventCenter.Subscribe(EnemyEvents.VitalsChanged, n => {
                         if (!enemy || n.Enemy != enemy.Entity || string.IsNullOrEmpty(n.HitId)) return;
                         last = n;

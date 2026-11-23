@@ -29,7 +29,7 @@ namespace NarutoVR.SealLab
         }
         public void Dispose() { writer?.Dispose(); writer = null; }
 
-        public static List<SealFrame> Read(string path, int maximumFrames = 20000)
+        public static List<SealFrame> Read(string path, int maximumFrames = 20000, SealHandMode handMode = SealHandMode.BothHands)
         {
             var frames = new List<SealFrame>(); double previous = double.NegativeInfinity;
             foreach (string line in File.ReadLines(path))
@@ -40,7 +40,13 @@ namespace NarutoVR.SealLab
                 try { frame = JsonUtility.FromJson<SealFrame>(line); }
                 catch (Exception ex) { throw new InvalidDataException($"第 {frames.Count} 帧的数据格式无效。", ex); }
                 if (frame == null || frame.schema != 1 || !double.IsFinite(frame.time) || frame.time < previous ||
-                    !ValidHand(frame.left) || !ValidHand(frame.right)) throw new InvalidDataException($"第 {frames.Count} 帧的骨骼快照无效或格式不兼容。");
+                    !ValidHand(frame.left)) throw new InvalidDataException($"第 {frames.Count} 帧的骨骼快照无效或格式不兼容。");
+                if (!ValidHand(frame.right))
+                {
+                    if (handMode != SealHandMode.LeftOnly) throw new InvalidDataException($"第 {frames.Count} 帧的右手骨骼快照无效或格式不兼容。");
+                    frame.right = new HandSnapshot();
+                }
+                frame.label = SealProfile.RecordingLabel(frame.label);
                 previous = frame.time; frames.Add(frame);
             }
             if (frames.Count == 0) throw new InvalidDataException("录制文件为空。");

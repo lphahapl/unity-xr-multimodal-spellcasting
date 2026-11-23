@@ -1,0 +1,54 @@
+{
+  "id": "trial-room",
+  "name": "首章 · 试炼间",
+  "summary": "入场动线草模。位置与尺寸用于讨论，并非 Unity 场景测量值。",
+  "width": 18,
+  "depth": 12,
+  "objects": [
+    {
+      "id": "entry",
+      "name": "内闸入口",
+      "type": "入口",
+      "x": 1,
+      "z": 5,
+      "w": 2,
+      "d": 2,
+      "shape": "box",
+      "h": 2
+    },
+    {
+      "id": "trigger",
+      "name": "入场触发区",
+      "type": "触发区",
+      "x": 4,
+      "z": 3,
+      "w": 2,
+      "d": 6,
+      "shape": "box",
+      "h": 0.16
+    },
+    {
+      "id": "enemy",
+      "name": "残机偶",
+      "type": "角色",
+      "x": 10,
+      "z": 5,
+      "w": 2,
+      "d": 2,
+      "shape": "cylinder",
+      "h": 1.65
+    },
+    {
+      "id": "exit",
+      "name": "外门",
+      "type": "出口",
+      "x": 15,
+      "z": 5,
+      "w": 2,
+      "d": 2,
+      "shape": "box",
+      "h": 2
+    }
+  ],
+  "mode": "whitebox"
+}

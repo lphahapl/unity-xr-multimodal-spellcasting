@@ -1,5 +1,6 @@
 using System;
 using NarutoVR.Audio;
+using NarutoVR.SealCombat.Events;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -13,7 +14,31 @@ namespace NarutoVR.SealCombat.Rpg
         public event Action<Vector3> FootstepPlayed;
         public event Action<PlayerDamageResult> DamageSettled;
 
-        void OnEnable() => BindPlayerPresentation();
+        [SerializeField, InspectorName("本体受击音效")] AudioClip hitClip;
+        [SerializeField, InspectorName("护盾吸收音效")] AudioClip shieldHitClip;
+        [SerializeField, Range(0,1), InspectorName("受击音量")] float hitVolume = .85f;
+        AudioSource hitSource;
+        IDisposable damageSoundSubscription;
+
+        void OnEnable()
+        {
+            damageSoundSubscription = EventCenter.Subscribe(PlayerEvents.DamageSettled, PlayDamageSound, this);
+            BindPlayerPresentation();
+        }
+        void PlayDamageSound(PlayerDamageNotice notice)
+        {
+            if (notice.Player != this) return;
+            var damage = notice.Result;
+            var clip = damage.HealthLost > 0 ? hitClip : damage.Absorbed > 0 ? shieldHitClip : null;
+            if (!clip || hitVolume <= 0) return;
+            if (!hitSource)
+            {
+                hitSource = gameObject.AddComponent<AudioSource>();
+                hitSource.playOnAwake = false;
+                hitSource.spatialBlend = 0;
+            }
+            hitSource.PlayOneShot(clip, hitVolume);
+        }
         void BindPlayerPresentation()
         {
             if (!isActiveAndEnabled || !IsInitialized || !Application.isPlaying) return;
@@ -47,13 +72,20 @@ namespace NarutoVR.SealCombat.Rpg
             footstepGain = gain;
             if (footsteps) footsteps.SetGain(gain);
         }
-        void PresentDamage(PlayerDamageResult damage)
+        void PresentDamage(string hitId, PlayerDamageResult damage)
         {
+            EventCenter.Publish(PlayerEvents.DamageSettled, new PlayerDamageNotice(this, hitId, damage));
             if (DamageSettled == null) return;
             foreach (Action<PlayerDamageResult> listener in DamageSettled.GetInvocationList())
                 try { listener(damage); } catch (Exception error) { Debug.LogException(error, this); }
         }
-        void OnDisable() => UnbindMovement();
+        void OnDisable()
+        {
+            damageSoundSubscription?.Dispose();
+            damageSoundSubscription = null;
+            if (hitSource) hitSource.Stop();
+            UnbindMovement();
+        }
         void UnbindMovement()
         {
             if (movement) movement.MovementCommitted -= OnMovement;

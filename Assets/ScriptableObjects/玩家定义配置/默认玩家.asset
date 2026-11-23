@@ -16,3 +16,8 @@ MonoBehaviour:
   maxMana: 100
   manaRegen: 5
   regenDelay: 2
+  startingSkills:
+  - {fileID: 11400000, guid: 868fb1b360315620bbf1f93f0b7ea1de, type: 2}
+  - {fileID: 11400000, guid: adaf2d84e87ee374cb9ea517d5d9f19b, type: 2}
+  - {fileID: 11400000, guid: b6a5cdaf396d5feaaabd0a3c15c21638, type: 2}
+  hitVignetteIntensity: 1

@@ -1,0 +1,131 @@
+{
+  "Pavilion_LOD0": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "Pavilion_LOD0: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "asset lowest point z=-0.2 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.2,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Pavilion_LOD0": {
+        "verts": 7140,
+        "faces": 12716,
+        "tris": 12716,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 392,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 4,
+        "uv_maps": 1,
+        "uv_oob_pct": 65.75,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 100.0,
+        "uv_coverage_pct": 100.0
+      }
+    }
+  },
+  "Pavilion_LOD1": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "Pavilion_LOD1: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "asset lowest point z=-0.2 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.2,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Pavilion_LOD1": {
+        "verts": 3232,
+        "faces": 5492,
+        "tris": 5492,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 244,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 4,
+        "uv_maps": 1,
+        "uv_oob_pct": 62.13,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 100.0,
+        "uv_coverage_pct": 100.0
+      }
+    }
+  },
+  "Pavilion_LOD2": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "Pavilion_LOD2: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "asset lowest point z=-0.2 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.2,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Pavilion_LOD2": {
+        "verts": 1152,
+        "faces": 1836,
+        "tris": 1836,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 118,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 4,
+        "uv_maps": 1,
+        "uv_oob_pct": 58.41,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 100.0,
+        "uv_coverage_pct": 100.0
+      }
+    }
+  }
+}

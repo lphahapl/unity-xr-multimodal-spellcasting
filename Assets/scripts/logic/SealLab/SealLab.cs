@@ -33,12 +33,13 @@ namespace NarutoVR.SealLab
         [InspectorName("最高采样频率（次/秒）"), Range(10, 120)]
         [Tooltip("这是采样上限，不保证设备提供等量的新追踪数据。")]
         public int maximumSampleRate = 60;
+        public const float DefaultStaleAfterSeconds = 0.12f;
         [InspectorName("数据过期时间（秒）"), Range(0.04f, 0.5f)]
         [Tooltip("手部数据版本超过该时长未变化时，视为过期并停止用它识别。")]
-        public float staleAfterSeconds = 0.12f;
+        public float staleAfterSeconds = DefaultStaleAfterSeconds;
         [Header("四、免手操作录制")]
         [InspectorName("录制样本标签")]
-        [Tooltip("例如寅、未、none、transition。准备录制时锁定标签，与当前所选模板相互独立。")]
+        [Tooltip("例如律印、规印、none、transition。准备录制时锁定标签，与当前所选模板相互独立。")]
         public string sampleLabel = "unlabelled";
         [InspectorName("运行后自动准备录制")]
         [Tooltip("适合Quest独立包。启动后先倒计时，再自动录制和保存；测试模式下不录制。")]
@@ -158,6 +159,10 @@ namespace NarutoVR.SealLab
             if (version == previous) return false;
             previous = version; observed = now; return true;
         }
+        public static bool IsCurrentHand(HandSnapshot hand, double now, double staleAfterSeconds) =>
+            hand != null && hand.connected && hand.tracked && hand.fresh && double.IsFinite(now) && double.IsFinite(hand.observedAt) &&
+            now >= hand.observedAt && now - hand.observedAt <= staleAfterSeconds;
+
         public static HandSnapshot CaptureHand(IHand hand, Transform recordingOrigin, double observed, double now, double staleAfterSeconds)
         {
             var snapshot = new HandSnapshot { connected = hand.IsConnected, tracked = hand.IsTrackedDataValid,
@@ -195,7 +200,7 @@ namespace NarutoVR.SealLab
             bool bothHands = Frame.left.connected && Frame.left.tracked && Frame.left.fresh &&
                 Frame.right.connected && Frame.right.tracked && Frame.right.fresh &&
                 Math.Abs(Frame.left.observedAt - Frame.right.observedAt) <= SealFeatureExtractor.MaximumHandSkew;
-            recognition.Update(profiles, Features, now, bothHands, minimumScoreMargin);
+            recognition.Update(profiles, Features, now, bothHands, minimumScoreMargin, Frame.left, staleAfterSeconds);
             if (Recognized && Recognized != previous) WhenSealRecognized?.Invoke(Recognized);
         }
         public void SetTestMode(bool active)

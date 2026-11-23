@@ -21,7 +21,11 @@ public static class CombatRoomNarrationChecks
     static int phase, shotStage = -1, warningCount, untilFrame;
     static bool shield, dodged;
     static bool checkedLegacyKeys;
-    static bool checkedStoppedEncounter;
+    static bool clearingDuringFault, killedDuringFault;
+    static bool checkedStoppedEncounter, injectedMissingClip, retriedMissingClip, injectedInterruptedClip, retriedInterruptedClip;
+    static NarrationController.Step retriedStep;
+    static string ft02Clip;
+    static int ft02Starts;
     static float markerDisabledUntil;
     static bool checkedInactiveMarker, restoredTargetApproach;
     static double deadline;
@@ -85,7 +89,13 @@ public static class CombatRoomNarrationChecks
                 player = Obj.FindFirstObjectByType<LinearRpgController>();
                 opening = (OpeningTrialChapter)player.chapter;
                 fight = opening.sections.Single(s => s.lines.Any(line => line.id == "FT01"));
-                fight.narration.lines.Single(row => row.audioFileName.EndsWith("/FT01.wav", StringComparison.Ordinal)).onStarted.AddListener(() => warningCount++);
+                fight.narration.lines.Single(row => row.audioFileName.EndsWith("/FT01.wav", StringComparison.Ordinal)).onStarted.AddListener(() =>
+                {
+                    warningCount++;
+                    Check(opening.encounter.HasStarted && opening.encounter.enemies.Any(enemy => enemy && enemy.gameObject.activeInHierarchy),
+                        "FT01 begins only after the real encounter enemy is active");
+                });
+                fight.narration.lines.Single(row => row.lineId == "FT02").onStarted.AddListener(() => ft02Starts++);
                 // Play the real clips at an accelerated pitch until the fight.
                 foreach (var section in opening.sections) section.narration.GetComponent<AudioSource>().pitch = 3;
             }
@@ -184,6 +194,7 @@ public static class CombatRoomNarrationChecks
                     MoveToDoor(box, .20f); AdvanceFrames(); break;
                 case 3:
                     if (Time.frameCount < untilFrame) return;
+                    if (warningCount == 0) return; // Addressables may need several frames on a cold first visit.
                     Check(warningCount == 1, "entering room plays FT01 once");
                     MoveToDoor(box, -.20f); AdvanceFrames(); break;
                 case 4:
@@ -201,15 +212,17 @@ public static class CombatRoomNarrationChecks
                     MoveToDoor(box,.20f); AdvanceFrames(); break;
                 case 7:
                     if (Time.frameCount < untilFrame) return;
+                    if (warningCount < 2) return;
                     Check(warningCount == 2, "new restored chapter round plays FT01 exactly once after entry");
                     AdvanceFrames(); break;
                 case 8:
+                    if (checkedStoppedEncounter) { VerifyClearDuringFault(); return; }
+                    if (VerifyPlaybackRecovery()) return;
                     if (fight.narration.CurrentLineIndex != 1 || !fight.narration.AudioCompleted) return;
                     var enemies = opening.encounter.enemies;
                     if (!opening.encounter.HasStarted || enemies.Length == 0 || !enemies.All(enemy => enemy && enemy.CanReceiveHit)) return;
                     Check(!opening.encounter.IsComplete && !fight.narration.OperationCompleted && !player.Model.Chapter.CompletedStages.Contains(fight.stage.stageId),
                         "FT02 audio alone leaves fight stage and reward pending");
-                    if (!checkedStoppedEncounter)
                     {
                         var observer = (Delegate)typeof(OpeningTrialChapter).GetField("onObjectiveChanged", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(opening);
                         var source = typeof(OpeningLesson).GetField("operationTarget").GetValue(fight.lines.Single(lesson => lesson.id == "FT02"));
@@ -219,16 +232,89 @@ public static class CombatRoomNarrationChecks
                         Check(!opening.encounter.enabled && fight.narration.CurrentStep == null && !player.Model.Chapter.CompletedStages.Contains(fight.stage.stageId),
                             "stopped FT02 rejects its queued target notification and wrist replay cannot restart the encounter");
                         Check(player.RestoreCheckpoint(),"recover stopped encounter using real checkpoint");
+                        Check(!fight.narration.RetryPlayback(retriedStep), "restore invalidates the old failed line handle");
                         checkedStoppedEncounter = true;
                         MoveToDoor(box, .20f);
                         return;
                     }
-                    foreach (var enemy in enemies)
-                        Check(enemy.Entity.ReceiveHit("qa-ft02-" + enemy.GetInstanceID(), 10000, 0), "authored encounter enemy accepted the finishing hit");
-                    AdvanceFrames(); break;
+
             }
         }
         catch (Exception e) { File.AppendAllText(Report,"FAIL " + e + "\n"); Finish(1); }
+    }
+
+    static void VerifyClearDuringFault()
+    {
+        var narration = fight.narration;
+        var step = narration.CurrentStep;
+        if (step?.LineId != "FT02") return;
+        var source = narration.GetComponent<AudioSource>();
+        if (!clearingDuringFault)
+        {
+            source.enabled = false;
+            clearingDuringFault = true;
+            return;
+        }
+        if (step.PlaybackError == null) return;
+        if (!killedDuringFault)
+        {
+            var enemies = opening.encounter.enemies;
+            if (!opening.encounter.HasStarted || enemies.Length == 0 || !enemies.All(enemy => enemy && enemy.CanReceiveHit)) return;
+            foreach (var enemy in enemies)
+                Check(enemy.Entity.ReceiveHit("qa-ft02-" + enemy.GetInstanceID(), 10000, 0), "authored encounter enemy accepted the finishing hit during audio fault");
+            killedDuringFault = true;
+        }
+        if (!narration.OperationCompleted) return;
+        Check(!narration.AudioCompleted && opening.encounter.IsComplete && !player.Model.Chapter.CompletedStages.Contains(fight.stage.stageId),
+            "room cleared during the FT02 audio fault; stage still pending");
+        source.enabled = true;
+        opening.ReplayGuidance();
+        Check(narration.CurrentStep == step && step.PlaybackError == null && !step.AudioDone && step.OperationDone,
+            "completed FT02 operation survives retry; repaired audio must still finish");
+        AdvanceFrames();
+    }
+
+    static bool VerifyPlaybackRecovery()
+    {
+        var narration = fight.narration;
+        var row = narration.lines.Single(line => line.lineId == "FT02");
+        var source = narration.GetComponent<AudioSource>();
+        if (!injectedMissingClip)
+        {
+            ft02Clip = row.audioFileName;
+            row.audioFileName = "QA/absent-FT02";
+            injectedMissingClip = true;
+        }
+        if (!retriedMissingClip)
+        {
+            var step = narration.CurrentStep;
+            if (step?.LineId != "FT02" || step.PlaybackError == null) return true;
+            Check(ft02Starts == 0 && !opening.encounter.enabled, "FT02 cannot begin its operation before the missing clip is restored");
+            opening.ReplayGuidance();
+            Check(step == narration.CurrentStep && step.PlaybackError != null && ft02Starts == 0, "unavailable clip retains the same retry");
+            row.audioFileName = ft02Clip;
+            opening.ReplayGuidance();
+            Check(step == narration.CurrentStep && step.PlaybackError == null && ft02Starts == 1 && opening.encounter.enabled,
+                "same FT02 binds once when the missing clip recovers");
+            retriedStep = step;
+            retriedMissingClip = true;
+            source.enabled = false;
+            injectedInterruptedClip = true;
+            return true;
+        }
+        if (injectedInterruptedClip && !retriedInterruptedClip)
+        {
+            if (retriedStep.PlaybackError == null) return true;
+            if (!opening.encounter.HasStarted || opening.encounter.enemies.Length == 0) return true;
+            var enemies = opening.encounter.enemies.ToArray();
+            Check(opening.encounter.enabled && !narration.AudioCompleted, "mid-line playback fault retains the running room");
+            source.enabled = true;
+            opening.ReplayGuidance();
+            Check(narration.CurrentStep == retriedStep && retriedStep.PlaybackError == null && ft02Starts == 1 &&
+                enemies.SequenceEqual(opening.encounter.enemies), "retry keeps wave, step and operation subscription; start is not repeated");
+            retriedInterruptedClip = true;
+        }
+        return false;
     }
 
     static void HitTarget(OpeningLesson lesson, bool activeLine)
@@ -259,8 +345,8 @@ public static class CombatRoomNarrationChecks
         var timer = typeof(OpeningTrialChapter).GetField("waiting", member);
         var hintIndex = typeof(OpeningTrialChapter).GetField("hintIndex", member);
         var tick = typeof(OpeningTrialChapter).GetMethod("TickHints", member);
-        var input = typeof(WristMenuController).GetField("input", member);
-        var hand = player.wristMenu.LatestInput;
+        var input = typeof(PlayerInputController).GetProperty(nameof(PlayerInputController.LatestHand));
+        var hand = player.Input.LatestHand;
         var hints = section.hints;
         var row = section.narration.CurrentLine;
         string file = row.audioFileName;
@@ -269,7 +355,7 @@ public static class CombatRoomNarrationChecks
         bool listenerPaused = AudioListener.pause;
         try
         {
-            input.SetValue(player.wristMenu, new WristMenuInput { rightValid = true, rightObserved = Time.realtimeSinceStartupAsDouble });
+            input.SetValue(player.Input, new PlayerHandObservation { rightValid = true, rightObserved = Time.realtimeSinceStartupAsDouble });
             timer.SetValue(opening, 18f);
             voice.enabled = false;
             opening.ReplayGuidance();
@@ -301,7 +387,7 @@ public static class CombatRoomNarrationChecks
             AudioListener.pause = listenerPaused;
             row.audioFileName = file;
             section.hints = hints;
-            input.SetValue(player.wristMenu, hand);
+            input.SetValue(player.Input, hand);
         }
     }
 

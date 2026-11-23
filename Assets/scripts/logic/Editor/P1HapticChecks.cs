@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NarutoVR.SealCombat.Rpg;
 using NarutoVR.SealLab;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace NarutoVR.SealCombat.Editor
             return count;
         }
 
-        static void CheckShieldEvent(Action<bool,string> check)
+        internal static MeshRenderer CheckShieldEvent(Action<bool,string> check)
         {
             var go = new GameObject("P1触觉_护盾事件") { hideFlags = HideFlags.HideAndDontSave };
             var definition = ScriptableObject.CreateInstance<SkillDefinition>();
@@ -78,6 +79,8 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var effects = go.AddComponent<SkillController>(); effects.GameClock = () => 10;
+                var wrist = new Vector3(10, 20, 30);
+                effects.WristPoseOverride = _ => new Pose(wrist, Quaternion.identity);
                 float total = 0; int calls = 0;
                 effects.ShieldImpact += absorbed => { total += absorbed; calls++; };
                 check(effects.AbsorbPracticeDamage(4) == 4 && calls == 0, "无护盾的普通受伤不发护盾事件");
@@ -85,8 +88,13 @@ namespace NarutoVR.SealCombat.Editor
                 definition.skillId = "haptic.shield"; definition.effectDefinition = shield; definition.durationSeconds = 10;
                 // 仅配置容量，由正常施法提交创建数值。
                 check(effects.TryCast(definition), "真实护盾成功确认");
+                var pulse = Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).SingleOrDefault(r =>
+                    r.enabled && r.name == "护盾反馈 · 度纹" && Vector3.Distance(r.transform.position,wrist) < .02f);
+                check(pulse && pulse.gameObject.scene == UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
+                    "隐藏宿主成功播放跟腕脉冲，并由当前场景承载");
                 check(effects.AbsorbPracticeDamage(3) == 0 && effects.AbsorbPracticeDamage(6) == 4 && calls == 2 && total == 5,
                     "真实吸收和击破各触发一次，回报实际吸收且保留溢出伤害");
+                return pulse;
             }
             finally { Object.DestroyImmediate(go); Object.DestroyImmediate(definition); Object.DestroyImmediate(shield); }
         }

@@ -25,7 +25,7 @@ Meta OVR 或 OpenXR/XR Hands 的实际骨骼
 
 [OfficialHandPoseDetector](../../Assets/scripts/logic/Locomotion/OfficialHandPoseDetector.cs) 直接调用当前安装的 Meta Interaction SDK 207.0.1 状态引擎，这是官方 `FingerFeatureStateProvider` 内部使用的类。没有复制 SDK 的阈值算法，也没有引入另一个图像/神经网络识别器。项目适配层负责有效性与游戏手形组合；未挂载整套 `ShapeRecognizerActiveState` 预制体，也不调用其原生组件激活接口，因此不要求把 SteamVR 运行时切回 Meta Link。
 
-[官方基础手形配置](../../Assets/ScriptableObjects/基础手形配置/官方基础手形.asset) 分别引用官方食指、中指、无名指/小指的 `FingerFeatureStateThresholds`。当前 Curl 状态标识为 Open=`0`、Neutral=`1`、Closed=`2`。左指向要求食指 Open、其他三指 Closed；右张掌要求四指 Open；拇指忽略。
+[官方基础手形配置](../../Assets/ScriptableObjects/基础手形配置/官方基础手形.asset) 分别引用官方食指、中指、无名指/小指的 `FingerFeatureStateThresholds`。当前 Curl 状态标识为 Open=`0`、Neutral=`1`、Closed=`2`。探索和战斗移动要求左食指 Open，中指及至少一根无名指或小指达到 Neutral 或 Closed。腕部输入的严格指向要求食指 Open、其余三指 Closed。右张掌要求四指 Open，拇指忽略。
 
 以当前安装资产为准：Open→Neutral 的边界为大于195度，反向为小于185度；Neutral→Closed 为大于245度，反向为小于225度。SDK 配置最短状态确认时间0.022秒。首次初始化的状态选择遵循SDK自身逻辑，不能将这些方向性边界当作一个无状态的角度区间。不要套用网上其他版本的示例阈值。
 
@@ -42,14 +42,14 @@ Meta OVR 或 OpenXR/XR Hands 的实际骨骼
 | 追踪无效或过期 | 检查串流、双手视野和骨骼是否继续更新 |
 | 特征失效：某指 | 该指的关节/质量未通过；先调整手朝向与遮挡 |
 | 确认中 | 刚开始、刚恢复或状态尚未确认 |
-| 半弯 | SDK判为Neutral；左手非食指必须收拢，右手四指需要伸直 |
+| 半弯 | SDK 判为 Neutral。移动手型接受弯曲的中指以及无名指或小指，左食指须伸直。右张掌要求四指伸直。 |
 | 手形通过，但不移动 | 看导航开启、候选点、驻留、闪避冷却及“移动”诊断 |
 
 当前配置引用 SDK 包内默认资产。后续如确需调松，应复制阈值 SO 到本工程再改引用，避免改 `Library/PackageCache` 或影响其他交互。可以先分别做30次导航、闪避，再自然活动1分钟记录误触；这些是真机测量计划，不是已完成的准确率。
 
 ## 自动回归入口
 
-- `Tools → NarutoVR → 线性RPG → 运行完整编辑模式回归`：骨骼到操作、旧结印录制回放、技能匹配、数值存档、碰撞、配置迁移和场景接线。
+- `Tools → NarutoVR → 线性RPG → 运行完整编辑模式回归`：骨骼到操作、旧结印录制回放、技能匹配、数值存档、碰撞、正式技能配置和场景接线。
 - `Tools → NarutoVR → 线性RPG → 运行独立存档播放检查`：真实 Play 中的合成骨骼→SDK→场景LateUpdate，以及效果/预制体、关卡伤害和取消。使用唯一 probe 存档，不覆盖玩家档案。
 - 编辑模式报告（本地证据：`Logs/official-hand-poses/editor-suite.json`，不随仓库分发）、手形明细（本地证据：`Logs/official-hand-poses/pose-checks.json`，不随仓库分发）、播放报告（本地证据：`Logs/linear-rpg/play-check.json`，不随仓库分发）。报告带时间，真机标志为 false。
 - 中文语音配置单元测试、真实KWS合成WAV回放、UDP时钟映射另外运行，结果保存在 `Logs/official-hand-poses/voice-*`；没有开启麦克风或宣称真人准确率。

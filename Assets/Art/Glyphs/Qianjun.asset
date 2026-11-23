@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993544e4f42e410fab2acc0d4958477e, type: 3}
+  m_Name: Qianjun
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.GlyphTemplate
+  symbolId: glyph.qianjun
+  displayName: "\u5343\u94A7\u7B26"
+  effect: {fileID: 11400000, guid: 4cd76cb249706e9479fdad7bac1aaf51, type: 2}
+  completionVfx: {fileID: 4524324242839856303, guid: 28e383ddf9dc3144db04ba0356168700, type: 3}
+  completionSfx: {fileID: 8300000, guid: 1e37d24c40321c64ca16f71a579b7aff, type: 3}
+  threshold: 0.83
+  examples:
+  - strokes:
+    - points:
+      - {x: -0.85, y: 0.85}
+      - {x: 0.85, y: 0.85}
+    - points:
+      - {x: 0, y: 0.85}
+      - {x: 0, y: -0.2}
+    - points:
+      - {x: -0.29, y: -0.2}
+      - {x: 0.29, y: -0.2}
+      - {x: 0.59, y: -0.85}
+      - {x: -0.59, y: -0.85}
+      - {x: -0.29, y: -0.2}

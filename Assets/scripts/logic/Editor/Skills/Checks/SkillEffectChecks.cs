@@ -26,7 +26,7 @@ namespace NarutoVR.SealCombat.Editor
                 f.RefreshHands();
                 True(f.Effects.TryCast(f.Fire), "当前有效右手应能生成火球");
                 var ball = f.Held();
-                Vector3 expected = f.Origin.TransformPoint(f.RightPosition) + f.Head.rotation * f.Effects.heldOffset;
+                Vector3 expected = f.Origin.TransformPoint(f.RightPosition) + f.Head.rotation * ((ProjectileEffectDefinition)f.Fire.effectDefinition).heldOffset;
                 Near(expected, ball.transform.position, "右手火球必须使用录制原点转换后的当前腕部位置");
                 True(ball.GetComponent<SkillProjectile>() == null, "生成当帧不能进入飞行");
                 var collider = ball.GetComponent<Collider>();
@@ -44,7 +44,7 @@ namespace NarutoVR.SealCombat.Editor
                 f.RefreshHands();
                 True(f.Effects.TryCast(f.Fire), "配置左手时应使用有效左手");
                 ball = f.Held();
-                Vector3 leftOffset = f.Effects.heldOffset; leftOffset.x = -leftOffset.x;
+                Vector3 leftOffset = ((ProjectileEffectDefinition)f.Fire.effectDefinition).heldOffset; leftOffset.x = -leftOffset.x;
                 Near(f.Origin.TransformPoint(f.LeftPosition) + f.Head.rotation * leftOffset,
                     ball.transform.position, "左手火球位置不正确");
                 f.Effects.CancelLatest();
@@ -87,6 +87,29 @@ namespace NarutoVR.SealCombat.Editor
                 Near(100, f.Effects.ShieldPoints, "收起火球不得同时取消护盾");
                 True(f.Effects.CancelLatest(), "第二次取消应结束护盾");
                 Near(0, f.Effects.ShieldPoints, "护盾取消后应清零");
+                passed++;
+
+                // The ForwardPush recipe still uses the original hand/head motion, including a left-handed shot.
+                f.Fire.leftHand = true;
+                var hand = f.Head.position + new Vector3(-.3f, -.2f, .4f);
+                f.Effects.HandInputClock = () => f.GameNow;
+                f.Effects.WristPoseOverride = left => left ? new Pose(hand, Quaternion.identity) : (Pose?)null;
+                bool leftHandLaunch = false;
+                f.Effects.ProjectileLaunched += () => leftHandLaunch = f.Effects.ProjectileHandIsLeft;
+                True(f.Effects.TryCast(f.Fire), "旧展示前推火球未能持握");
+                var released = f.Held();
+                f.GameNow += .3;
+                Invoke(f.Effects, "LateUpdate");
+                hand += f.Head.forward * .2f;
+                f.GameNow += .21;
+                Invoke(f.Effects, "LateUpdate");
+                var flying = released.GetComponent<SkillProjectile>();
+                True(flying && !f.Effects.HasHeldObject && leftHandLaunch, "旧前推应发射并在释放手槽后保留左手反馈身份");
+                True(!f.Effects.CancelUnreleased() && f.Effects.ActiveProjectileCount == 1, "取消持物不得回收在途火球");
+                var afterRelease = f.Target(released.transform.position, Vector3.one * .2f);
+                Physics.SyncTransforms();
+                flying.CheckLaunchOverlap();
+                True(afterRelease.HitCount == 1 && f.Effects.ActiveProjectileCount == 0, "已离手的实例仍独立结算首次接触和回收");
                 passed++;
 
                 Vector3 collisionPoint = Fixture.Base + Vector3.right * 10;
@@ -174,10 +197,10 @@ namespace NarutoVR.SealCombat.Editor
                 // destroys it before Unity can call its hardware-dependent Start method.
                 Fire = Own(ScriptableObject.CreateInstance<SkillDefinition>());
                 Fire.cooldownSeconds = 0; Fire.skillId = "check.fire"; Fire.displayName = "检查火球";
-                Fire.effectKind = SkillEffectKind.HeldFireball; Fire.durationSeconds = 10;
+                Fire.effectDefinition = Own(ScriptableObject.CreateInstance<ProjectileEffectDefinition>()); Fire.durationSeconds = 10;
                 Buff = Own(ScriptableObject.CreateInstance<SkillDefinition>());
                 Buff.cooldownSeconds = 0; Buff.skillId = "check.buff"; Buff.displayName = "检查护盾";
-                Buff.effectKind = SkillEffectKind.SelfBuff; Buff.durationSeconds = 10;
+                Buff.effectDefinition = Own(ScriptableObject.CreateInstance<ShieldEffectDefinition>()); Buff.durationSeconds = 10;
             }
 
             private T Own<T>(T item) where T : Object { objects.Add(item); return item; }

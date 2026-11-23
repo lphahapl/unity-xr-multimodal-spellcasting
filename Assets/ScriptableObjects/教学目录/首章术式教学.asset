@@ -24,8 +24,13 @@ MonoBehaviour:
     - buff.zi
     - buff.voice
     actionHint: 两种方式任选其一
-  - entryId: golden-shield
-    displayName: 金刚护体
+  - entryId: breath.burst
+    displayName: 飞炎术
     skillIds:
-    - buff.hidden
-    actionHint: 完整念出口令
+    - breath.burst
+    actionHint: 把律印举到嘴前，让印顶对准目标，念「飞炎术」。火弹从嘴边穿过印顶直线飞出。
+  - entryId: breath.stream
+    displayName: 龙火之术
+    skillIds:
+    - breath.stream
+    actionHint: 在嘴前保持律印，念「龙火之术」。移动印顶引导火流，松印或把手移远即可停火。

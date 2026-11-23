@@ -13,6 +13,7 @@ namespace NarutoVR.SealCombat
             public readonly string DisplayName;
             public readonly float Capacity, Duration;
             public readonly GameObject Visual;
+            public readonly MeshRenderer BodyPrefab;
             public readonly Material Material;
             public bool Refreshing { get; private set; }
 
@@ -22,6 +23,7 @@ namespace NarutoVR.SealCombat
                 Capacity = definition.capacity;
                 Duration = float.IsFinite(skill.durationSeconds) ? Mathf.Max(.1f, skill.durationSeconds) : 10;
                 Visual = definition.visualPrefab;
+                BodyPrefab = definition.bodyPrefab;
                 Material = definition.material;
             }
 
@@ -51,6 +53,12 @@ namespace NarutoVR.SealCombat
                 buffObject = null;
             }
             activeShieldPrefab = visual; activeShieldMaterial = material;
+            if (activeBodyPrefab != cast.BodyPrefab)
+            {
+                if (bodyShield) FreePrepared(bodyShield.gameObject);
+                bodyShield = null;
+                activeBodyPrefab = cast.BodyPrefab;
+            }
             // 护盾数值已经生效后，纯视觉创建失败只记录告警。
             try
             {

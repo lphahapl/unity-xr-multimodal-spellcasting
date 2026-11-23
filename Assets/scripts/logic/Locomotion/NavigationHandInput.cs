@@ -12,7 +12,12 @@ namespace NarutoVR.SealCombat.Rpg
         // Optional world-space index ray from the same valid left-hand observation; never a movement gate.
         public bool leftRayValid;
         public Vector3 leftRayOrigin, leftRayDirection;
+        // Unit world-space wrist-to-knuckles direction for sprint steering. Zero when unavailable.
+        public Vector3 leftFistDirection;
         public bool leftPointing, rightOpen, bothHandsLow;
+        public bool leftNavigationPointing, leftPoseUnconfirmed, leftClosed, leftOpen;
+        // Preview only: a straight tracked index can aim before the other fingers settle.
+        public bool leftIndexAim;
         public bool rightMotionOwnedBySpell;
     }
 

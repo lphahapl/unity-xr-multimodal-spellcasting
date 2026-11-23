@@ -26,8 +26,13 @@ namespace NarutoVR.SealCombat.Enemies
             End(); Data = data.Snapshot(); index = attackIndex;
             Id = "enemy:" + sourceId + ":" + (++sequence);
             previousProgress = -1; windowOpened = false; hitReceivers.Clear(); Active = true;
+            if (Data.shape == AttackShape.Projectile) owner.RangedAttack.Prepare(Id, index, Data);
         }
-        public void End() { ++version; Active = false; }
+        public void End()
+        {
+            if (Active && Data.shape == AttackShape.Projectile && owner.RangedAttack) owner.RangedAttack.Cancel();
+            ++version; Active = false;
+        }
 
         /// <returns>本次更新第一次经过生效起点，用于接触通知（不等同命中）。</returns>
         public bool Evaluate(float progress, bool checkOcclusion, float eyeHeight, LayerMask obstructionMask)
@@ -36,6 +41,13 @@ namespace NarutoVR.SealCombat.Enemies
             // 低帧率跨过整个窗口也检测一次；超过窗口后不继续造成伤害。
             bool overlaps = progress >= Data.activeStart && (progress <= Data.activeEnd || previousProgress < Data.activeEnd);
             previousProgress = Mathf.Max(previousProgress, progress);
+            if (Data.shape == AttackShape.Projectile)
+            {
+                bool release = overlaps && !windowOpened;
+                owner.RangedAttack.SetProgress(progress, release);
+                windowOpened |= release;
+                return release;
+            }
             if (!overlaps) return false;
             bool opened = !windowOpened; windowOpened = true;
             int token = version;

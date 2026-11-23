@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,14 +9,15 @@ namespace NarutoVR.SealCombat.Rpg
     [Serializable]
     public sealed class ChapterObjectiveStage
     {
-        /// <summary>本组目标对应的阶段资产，必须与 RPG 同下标阶段一致。</summary>
+        /// <summary>本组目标对应的阶段资产，按稳定 ID 对应会话路线。</summary>
         public RpgStageDefinition stage;
         /// <summary>本阶段目标集合，采用全部满足的 AND 关系。</summary>
         [Tooltip("本阶段所有目标都满足后才推进。每个阶段至少配置一个目标。")]
         public ChapterObjective[] objectives = Array.Empty<ChapterObjective>();
         /// <summary>本阶段可临时使用的技能 ID，切换阶段后不继续授权。</summary>
-        public string[] trialSkills = Array.Empty<string>();
+        [InspectorName("本阶段追加试用技能"), Tooltip("填写本阶段临时借给玩家的技能 ID。")] public string[] trialSkills = Array.Empty<string>();
         [InspectorName("本阶段高亮目标（可选）")] public GameObject guidanceTarget;
+        [InspectorName("本段视觉引导")] public QuestVisualHints visuals = new();
     }
 
     /// <summary>
@@ -27,12 +29,10 @@ namespace NarutoVR.SealCombat.Rpg
     {
         /// <summary>当前流程绑定的 RPG。</summary>
         public LinearRpgController rpg;
-        /// <summary>按顺序配置的阶段及其目标。</summary>
+        /// <summary>按阶段身份配置的目标。</summary>
         public ChapterObjectiveStage[] stages = Array.Empty<ChapterObjectiveStage>();
         /// <summary>可选通关检查点。</summary>
         public NavigationNode finalCheckpoint;
-        /// <summary>新档初始永久技能。</summary>
-        public string[] initialSkills = Array.Empty<string>();
         /// <summary>新档初始了解的技能，独立于教学目录。</summary>
         public string[] initialDiscoveries = Array.Empty<string>();
         /// <summary>章节完成后的目标文字。</summary>
@@ -47,13 +47,15 @@ namespace NarutoVR.SealCombat.Rpg
         int index = -1;
         /// <summary>当前运行的目标组；离开时逐个 End。</summary>
         ChapterObjectiveStage active;
+        Dictionary<string, ChapterObjectiveStage> stagesById;
+        ChapterObjectiveStage StageAt(int index) => stagesById[rpg.StageAt(index).stageId];
 
         /// <inheritdoc/>
         public override LinearRpgController Owner => rpg;
+        internal override QuestVisualHints TrailHints => active?.visuals;
+        internal override QuestGestureHint[] GestureHints => active?.visuals?.gestures;
         /// <inheritdoc/>
         public override NavigationNode FinalCheckpoint => finalCheckpoint;
-        /// <inheritdoc/>
-        public override string[] InitialSkills => initialSkills;
         /// <inheritdoc/>
         public override string[] InitialDiscoveries => initialDiscoveries;
         /// <inheritdoc/>
@@ -69,14 +71,14 @@ namespace NarutoVR.SealCombat.Rpg
             active != null && index == rpg.StageIndex && active.objectives.Length > 0 &&
             active.objectives.All(o => o && o.IsRunning && o.IsComplete);
         /// <inheritdoc/>
-        public override bool AllowsTrialSkill(string id) => CurrentStage?.trialSkills is string[] permitted && Array.IndexOf(permitted, id) >= 0;
+        public override string[] StageSkillGrants(int index) => StageAt(index).trialSkills;
 
         ChapterObjectiveStage CurrentStage
         {
             get
             {
                 int index = ActiveStageIndex;
-                return index >= 0 && stages != null && index < stages.Length ? stages[index] : null;
+                return index >= 0 && stagesById != null ? StageAt(index) : null;
             }
         }
 
@@ -85,7 +87,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>解除恢复事件并清理运行中的目标。</summary>
         protected override void OnDisable() { if (rpg) rpg.CheckpointRestored -= Restore; Leave(); base.OnDisable(); }
 
-        protected override GameObject GetStageGuidanceTarget(int stageIndex) => stages[stageIndex].guidanceTarget;
+        protected override GameObject GetStageGuidanceTarget(int stageIndex) => StageAt(stageIndex).guidanceTarget;
         /// <summary>恢复阶段时先结束旧目标，下一帧按 RPG 当前阶段重新接入。</summary>
         void Restore() => Leave();
         /// <summary>跟随 RPG 阶段启停目标；一帧最多提交一次过关。</summary>
@@ -98,7 +100,7 @@ namespace NarutoVR.SealCombat.Rpg
                 Leave(); index = next;
                 if (next < stages.Length)
                 {
-                    active = stages[next];
+                    active = StageAt(next);
                     try
                     {
                         foreach (var objective in active.objectives) objective.BeginOwned(rpg, this);
@@ -125,16 +127,15 @@ namespace NarutoVR.SealCombat.Rpg
         public override void ValidateChapter(LinearRpgController owner)
         {
             base.ValidateChapter(owner);
-            if (stages == null || stages.Length != owner.stages.Length)
-                throw new InvalidOperationException("目标章节与 RPG 阶段数量不一致");
-            var used = new System.Collections.Generic.HashSet<ChapterObjective>();
+            stagesById = BindStages(owner, stages, row => row?.stage, "章节目标");
+            var used = new HashSet<ChapterObjective>();
             var known = owner.skills.catalog.skills.Select(s => s.skillId).ToArray();
             for (int i = 0; i < stages.Length; i++)
             {
                 var row = stages[i];
-                if (row == null || row.stage != owner.stages[i] || row.objectives == null || row.objectives.Length == 0 ||
+                if (row.objectives == null || row.objectives.Length == 0 ||
                     row.trialSkills == null || row.trialSkills.Any(id => !known.Contains(id)))
-                    throw new InvalidOperationException("目标章节配置无效：" + i);
+                    throw new InvalidOperationException("目标章节配置无效：" + row.stage.stageId);
                 if (row.guidanceTarget && (!sceneGuidance || !sceneGuidance.targetHighlights.Any(cue => cue.target == row.guidanceTarget)))
                     throw new InvalidOperationException($"阶段 {row.stage.stageId} 的高亮目标 {row.guidanceTarget.name} 未绑定到章节场景提示");
                 foreach (var objective in row.objectives)

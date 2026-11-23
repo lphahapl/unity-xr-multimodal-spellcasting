@@ -13,21 +13,36 @@ namespace NarutoVR.SealLab
 
     public static class SealTemplateFromRecording
     {
-        public static RecordingTemplateDraft Build(IReadOnlyList<SealFrame> frames, string label)
+        public static RecordingTemplateDraft Build(IReadOnlyList<SealFrame> frames, string label,
+            SealHandMode handMode = SealHandMode.BothHands, double staleAfterSeconds = SealLab.DefaultStaleAfterSeconds)
         {
             var result = new RecordingTemplateDraft();
             if (label == "none" || label == "near_miss" || label == "transition")
             { result.error = "负样本标签不能用来生成印模板"; return result; }
             var extractor = new SealFeatureExtractor(); var features = new List<SealFeature>();
             var samples = new Dictionary<string, List<float>>(); var units = new Dictionary<string, string>();
+            bool leftOnly = handMode == SealHandMode.LeftOnly;
+            double latestObservation = double.NegativeInfinity;
+            int latestVersion = 0;
             foreach (var frame in frames)
             {
                 if (frame.label != label) continue;
+                if (leftOnly && frame.left != null)
+                {
+                    // The source writes a whole frame when either hand changes.
+                    var left = frame.left;
+                    if (double.IsFinite(left.observedAt) && double.IsFinite(latestObservation) &&
+                        (left.observedAt <= latestObservation || left.version == latestVersion)) continue;
+                    if (double.IsFinite(left.observedAt))
+                    { latestObservation = left.observedAt; latestVersion = left.version; }
+                }
                 result.matchingFrames++;
-                if (!Usable(frame.left) || !Usable(frame.right) ||
-                    Math.Abs(frame.left.observedAt - frame.right.observedAt) > SealFeatureExtractor.MaximumHandSkew) continue;
+                if (!Usable(frame.left)) continue;
+                if (leftOnly && !SealLab.IsCurrentHand(frame.left, frame.time, staleAfterSeconds)) continue;
+                if (!leftOnly && (!Usable(frame.right) || Math.Abs(frame.left.observedAt - frame.right.observedAt) > SealFeatureExtractor.MaximumHandSkew)) continue;
                 result.acceptedFrames++;
-                extractor.Extract(frame, features);
+                if (leftOnly) extractor.ExtractLeft(frame.left, features);
+                else extractor.Extract(frame, features);
                 foreach (var feature in features)
                 {
                     if (!feature.valid || !feature.highConfidence) continue;
@@ -37,7 +52,7 @@ namespace NarutoVR.SealLab
                 }
             }
             if (result.acceptedFrames < 10)
-            { result.error = "至少需要10帧双手有效且高置信的正样本；当前 " + result.acceptedFrames; return result; }
+            { result.error = "至少需要10帧" + (leftOnly ? "独立的左手" : "双手") + "有效且高置信的正样本；当前 " + result.acceptedFrames; return result; }
             foreach (var sample in samples)
             {
                 if (sample.Value.Count < result.acceptedFrames * 0.8f) continue;
@@ -49,7 +64,7 @@ namespace NarutoVR.SealLab
             if (result.rules.Count == 0) result.error = "没有持续可用的高置信特征";
             return result;
         }
-        private static bool Usable(HandSnapshot hand) => hand != null && hand.connected && hand.tracked && hand.fresh && hand.highConfidence;
+        public static bool Usable(HandSnapshot hand) => hand != null && hand.connected && hand.tracked && hand.fresh && hand.highConfidence;
         private static float Percentile(List<float> sorted, float q)
         {
             float index = (sorted.Count - 1) * q; int low = Mathf.FloorToInt(index), high = Mathf.CeilToInt(index);

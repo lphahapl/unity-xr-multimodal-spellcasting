@@ -41,7 +41,7 @@ namespace NarutoVR.SealCombat.Rpg
     {
         /// <summary>已了解但不一定能施放的技能；可用于开放教学内容。</summary>
         public List<string> discoveredSkillIds = new();
-        /// <summary>永久解锁技能；当前能否施放还需章节许可和资源检查。</summary>
+        /// <summary>玩家永久解锁的技能 ID。临时试用由当前阶段提供。</summary>
         public List<string> unlockedSkillIds = new();
         /// <summary>通用成长物品的收集与激活记录，不编码铜叶等具体物品类型。</summary>
         public List<RpgItemProgressData> items = new();

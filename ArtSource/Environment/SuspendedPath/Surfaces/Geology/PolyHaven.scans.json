@@ -1,0 +1,134 @@
+{
+  "license": "CC0-1.0",
+  "license_url": "https://polyhaven.com/license",
+  "assets": {
+    "cliff_side": {
+      "title": "Cliff Side",
+      "url": "https://polyhaven.com/a/cliff_side",
+      "authors": {
+        "James Ray Cock": "Photography",
+        "Jenelle van Heerden": "Processing",
+        "Dario Barresi": "Photography"
+      },
+      "scan_dimensions_mm": [
+        1830.0000429153442,
+        1830.0000429153442
+      ],
+      "source_maps": {
+        "color": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/cliff_side/cliff_side_diff_2k.jpg",
+          "md5": "6d129836144e271b30071281241e237d",
+          "size": 3387348
+        },
+        "normal": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/cliff_side/cliff_side_nor_gl_2k.jpg",
+          "md5": "8209033c3ad15185977d91c92cf5866f",
+          "size": 3585856
+        },
+        "rough": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/cliff_side/cliff_side_rough_2k.jpg",
+          "md5": "44abb195b6c4c7b6da902e97e5bbbef2",
+          "size": 1765122
+        },
+        "ao": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/cliff_side/cliff_side_ao_2k.jpg",
+          "md5": "2872dca209647f5723418eddbf63e059",
+          "size": 1248581
+        }
+      }
+    },
+    "mossy_rock": {
+      "title": "Mossy Rock",
+      "url": "https://polyhaven.com/a/mossy_rock",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scan_dimensions_mm": [
+        3000,
+        3000
+      ],
+      "source_maps": {
+        "color": {
+          "size": 1124438,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/mossy_rock/mossy_rock_diff_1k.jpg",
+          "md5": "a57fbbf55269eb64f8d40708fe3af26c"
+        },
+        "normal": {
+          "size": 2154481,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/mossy_rock/mossy_rock_nor_gl_1k.png",
+          "md5": "3c7573a44d3523eb6a210a47ba76d453"
+        },
+        "rough": {
+          "size": 780918,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/mossy_rock/mossy_rock_rough_1k.jpg",
+          "md5": "7eadb38815ad2569104d827ad8ac1572"
+        },
+        "ao": {
+          "size": 533103,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/mossy_rock/mossy_rock_ao_1k.jpg",
+          "md5": "3f9fe340bcb5d2b6848b04959e2c68fb"
+        }
+      }
+    },
+    "rock_face_03": {
+      "title": "Rock Face 03",
+      "url": "https://polyhaven.com/a/rock_face_03",
+      "authors": {
+        "Dario Barresi": "Photography",
+        "Rico Cilliers": "Processing"
+      },
+      "scan_dimensions_mm": [
+        2699.9995708465576,
+        2699.9995708465576
+      ],
+      "source_maps": {
+        "color": {
+          "size": 3814362,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_face_03/rock_face_03_diff_2k.jpg",
+          "md5": "657add9e8a8dffaeed19bdfc58078b59"
+        },
+        "normal": {
+          "size": 4473242,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_face_03/rock_face_03_nor_gl_2k.jpg",
+          "md5": "279b33e71ae6275cafa24e6597024c98"
+        },
+        "rough": {
+          "size": 2601552,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rock_face_03/rock_face_03_rough_2k.jpg",
+          "md5": "8895a8b199487fd6cfeed2fed1fb39b4"
+        }
+      }
+    }
+  },
+  "derivatives": {
+    "CH_Rock": {
+      "resolution": [
+        2048,
+        2048
+      ],
+      "sources": [
+        "cliff_side",
+        "rock_face_03"
+      ],
+      "repeat_m": 3.2,
+      "basecolor": "sRGB, RGB",
+      "normal": "linear tangent-space OpenGL +Y (Unity Flip Green off)",
+      "mask": "linear RGBA. R metallic=0, G occlusion, B unused=0, A smoothness=1-roughness",
+      "UV0": "Rock frontal U follows horizontal bedding. Use material tiling (1,1) with these authored UVs."
+    },
+    "CH_Scree": {
+      "resolution": [
+        1024,
+        1024
+      ],
+      "sources": [
+        "mossy_rock"
+      ],
+      "repeat_m": 3.2,
+      "basecolor": "sRGB, RGB",
+      "normal": "linear tangent-space OpenGL +Y (Unity Flip Green off)",
+      "mask": "linear RGBA. R metallic=0, G occlusion, B unused=0, A smoothness=1-roughness",
+      "UV0": "Rock frontal U follows horizontal bedding. Use material tiling (1,1) with these authored UVs."
+    }
+  }
+}

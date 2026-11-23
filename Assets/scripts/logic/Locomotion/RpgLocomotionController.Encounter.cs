@@ -24,6 +24,7 @@ namespace NarutoVR.SealCombat.Rpg
         bool modeInitialized, needNeutral, shotGuard, remoteRearm, armed, sliding, walking, movedThisAction;
         double lastProcess=double.NaN, shotAt, lastWristStamp=double.NaN, anchorStamp, slideRemaining;
         Vector3 pushAnchor, pushHeading, lastRelative, slideDirection, slideDelta;
+        Collider walkContact;
         string motionReason="等待追踪";
         float pitchFactor=1;
         public bool UsesEncounterModes=>encounterModesEnabled;
@@ -40,6 +41,7 @@ namespace NarutoVR.SealCombat.Rpg
             if(modeInitialized && EncounterCombat==combat)return;
             bool switching=modeInitialized;
             modeInitialized=true; EncounterCombat=combat;
+            RefreshAuthoredMarkers();
             ResetInput(); needNeutral=switching;
             motionReason=switching?"模式切换，请先收指":"等待手势";
         }
@@ -52,7 +54,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void ResetEncounterMotion()
         {
-            EndWalkStride();
+            StopExploration();
+            walkContact = null;
             lastProcess=lastWristStamp=double.NaN; armed=sliding=walking=movedThisAction=false;
             slideRemaining=0; remoteRearm=false;
         }
@@ -72,48 +75,25 @@ namespace NarutoVR.SealCombat.Rpg
         bool Fresh(bool valid,double stamp,double now)=>valid && double.IsFinite(stamp) && now>=stamp && now-stamp<=gestures.sampleMaxAge;
         bool ProcessEncounter(NavigationHandInput f,bool held,bool blocked,double now)
         {
+            walkContact = null;
             double delta=now-lastProcess;
             lastProcess=now;
             float dt=double.IsFinite(delta) && delta>0 && delta<=gestures.sampleMaxGap ? (float)Math.Min(delta,.05) : 0;
             bool left=Fresh(f.leftValid,f.leftObserved,now);
             // A lowered wrist or missing tracking does not count as releasing the pointing pose.
-            if(needNeutral && left && !rawInput.leftPointing)needNeutral=false;
+            if(needNeutral && left && !rawInput.leftPoseUnconfirmed && !rawInput.leftPointing && !rawInput.leftNavigationPointing)needNeutral=false;
             if(blocked || needNeutral)
             {
                 ResetEncounterMotion(); rayState.Reset(); CandidateNode=null; debugCandidates.Clear();
+                if (!blocked && PickingGround && left && !SealProtectionActive && !f.bothHandsLow)
+                    UpdateGroundAimGuide(f, out _);
                 motionReason=Status=blocked?"输入被占用或取消":"模式切换，等待有效收指";
                 return true;
             }
             if(!EncounterCombat)
             {
-                CandidateNode=null; debugCandidates.Clear();
-                motionReason="非战斗：禁用闪避";
-                bool go=left && rawInput.leftPointing && f.leftPointing && !SealProtectionActive && !f.bothHandsLow;
-                if(!go || !TryHorizontal(head.forward,out var heading))
-                {
-                    EndWalkStride();
-                    walking = false;
-                    Status=go?"头向接近垂直，停止探索移动":"收指、追踪无效或结印：停止探索移动";return true;
-                }
-                float pitch=Mathf.Abs(Mathf.Asin(Mathf.Clamp(head.forward.y,-1,1))*Mathf.Rad2Deg);
-                float t=Mathf.InverseLerp(pitchSlowStart,Math.Max(pitchSlowStart+1,pitchSlowEnd),pitch);
-                pitchFactor=pitchSlowsWalk?Mathf.Lerp(1,minimumPitchFactor,Mathf.SmoothStep(0,1,t)):1;
-                walking=true;
-                if (dt <= 0)
-                {
-                    EndWalkStride();
-                    Status = "探索：等待连续手势采样";
-                    return true;
-                }
-                if (!TrySmoothStep(heading * (dt * Mathf.Max(.05f, exploreSpeed) * pitchFactor), out var travel, out string reason))
-                {
-                    EndWalkStride();
-                    Status = "探索停止：" + reason;
-                    return true;
-                }
-                if (walking && movedThisAction)
-                    ExplorationTravelled?.Invoke(new Vector2(travel.x, travel.z).magnitude);
-                Status="探索：沿水平视线行走";return true;
+                ProcessExploration(f, left, dt, now);
+                return true;
             }
             if(sliding)
             {
@@ -199,26 +179,96 @@ namespace NarutoVR.SealCombat.Rpg
             if(!floor.collider)return false;
             reason=null;return true;
         }
-        bool SmoothClear(RaycastHit floor,Vector3 current,out string reason)
+        void SmoothCapsule(RaycastHit floor, Vector3 current, float inset, out Vector3 bottom, out Vector3 top, out float radius)
         {
-            Capsule(floor,current,out var bottom,out var top,out var radius);
+            Capsule(floor, current, out bottom, out top, out radius);
+            // Preserve foot and head clearance when a room-scale offset starts against an edge.
+            bottom -= Vector3.up * inset;
+            top += Vector3.up * inset;
+            radius -= inset;
+        }
+        bool SmoothClear(RaycastHit floor,Vector3 current,float inset,out Collider overlap,out string reason)
+        {
+            overlap = null;
+            SmoothCapsule(floor,current,inset,out var bottom,out var top,out var radius);
             int count=Physics.OverlapCapsuleNonAlloc(bottom,top,radius,smoothOverlaps,obstacleLayers,QueryTriggerInteraction.Ignore);
             if(count==smoothOverlaps.Length){reason="身体附近碰撞密集";return false;}
-            for(int i=0;i<count;i++)if(!Ignored(smoothOverlaps[i])){reason="身体占位被阻挡";return false;}
+            for (int i = 0; i < count; i++)
+            {
+                if (Ignored(smoothOverlaps[i])) continue;
+                overlap = smoothOverlaps[i];
+                reason = "身体占位被阻挡";
+                return false;
+            }
             reason=null;return true;
+        }
+        bool TrySmoothLeg(RaycastHit from, Vector3 initialFloor, Vector3 delta, float inset,
+            out RaycastHit target, out RaycastHit obstacle, out string reason)
+        {
+            obstacle = default;
+            if (!SmoothFloor(from.point + delta, out target, out reason)) return false;
+            if (Mathf.Abs(target.point.y - initialFloor.y) > maximumFloorStep) { reason = "楼层高度差过大"; return false; }
+            Vector3 travel = target.point - from.point;
+            SmoothCapsule(from,initialFloor,inset,out var bottom,out var top,out var radius);
+            int count=Physics.CapsuleCastNonAlloc(bottom,top,radius,travel.normalized,smoothHits,travel.magnitude,obstacleLayers,QueryTriggerInteraction.Ignore);
+            if(count==smoothHits.Length){reason="路径碰撞密集";return false;}
+            float nearest = float.PositiveInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                var hit = smoothHits[i];
+                if (Ignored(hit.collider) || hit.distance >= nearest) continue;
+                nearest = hit.distance;
+                obstacle = hit;
+            }
+            if (obstacle.collider) { reason = "路径有障碍"; return false; }
+            if (SmoothClear(target, initialFloor, inset, out var overlap, out reason)) return true;
+            if (walking && overlap) walkContact = overlap;
+            return false;
+        }
+        bool TryWalkAlongSurface(RaycastHit from, Vector3 delta, float inset, RaycastHit obstacle,
+            RaycastHit intendedFloor, out RaycastHit destination, out string reason)
+        {
+            destination = from;
+            reason = "路径有障碍";
+            float length = Vector3.Distance(intendedFloor.point, from.point);
+            if (length < .0001f) return false;
+
+            // Recheck both legs against the floor and any other colliders before committing the rig once.
+            const float contactGap = .001f;
+            float fraction = Mathf.Clamp01((obstacle.distance - contactGap) / length);
+            if (fraction > 0 && TrySmoothLeg(from, from.point, delta * fraction, inset, out var approach, out _, out _))
+                destination = approach;
+
+            Vector3 normal = Vector3.ProjectOnPlane(obstacle.normal, Vector3.up).normalized;
+            if (Vector3.Dot(delta, normal) < 0 && Mathf.Abs(obstacle.normal.y) < .95f)
+            {
+                Vector3 along = Vector3.ProjectOnPlane(delta * (1f - fraction), normal);
+                if (along.sqrMagnitude > .00000001f &&
+                    TrySmoothLeg(destination, from.point, along, inset, out var end, out _, out _))
+                    destination = end;
+            }
+            return (destination.point - from.point).sqrMagnitude > .00000001f;
         }
         bool TrySmoothStep(Vector3 delta,out Vector3 moved,out string reason)
         {
-            moved=Vector3.zero;
-            if(!SmoothFloor(ExpectedFloor,out var from,out reason) ||
-               !SmoothFloor(from.point+delta,out var target,out reason))return false;
-            if(Mathf.Abs(target.point.y-from.point.y)>maximumFloorStep){reason="楼层高度差过大";return false;}
-            if(!SmoothClear(from,from.point,out reason) || !SmoothClear(target,from.point,out reason))return false;
-            moved=target.point-from.point;
-            Capsule(from,from.point,out var bottom,out var top,out var radius);
-            int count=Physics.CapsuleCastNonAlloc(bottom,top,radius,moved.normalized,smoothHits,moved.magnitude,obstacleLayers,QueryTriggerInteraction.Ignore);
-            if(count==smoothHits.Length){reason="路径碰撞密集";return false;}
-            for(int i=0;i<count;i++)if(!Ignored(smoothHits[i].collider)){reason="路径有障碍";return false;}
+            moved = Vector3.zero;
+            if (!SmoothFloor(ExpectedFloor, out var from, out reason)) return false;
+            float inset = 0f;
+            if (!SmoothClear(from, from.point, inset, out var overlap, out reason))
+            {
+                if (!walking || !overlap) return false;
+                walkContact = overlap;
+                inset = Mathf.Min(Mathf.Clamp(skin, 0f, .025f), Mathf.Max(.05f, bodyRadius) * .2f);
+                if (!SmoothClear(from, from.point, inset, out _, out reason)) return false;
+            }
+            if (!TrySmoothLeg(from, from.point, delta, inset, out var target, out var obstacle, out reason))
+            {
+                if (!walking || !obstacle.collider) return false;
+                walkContact = obstacle.collider;
+                if (!TryWalkAlongSurface(from, delta, inset, obstacle, target, out var destination, out reason)) return false;
+                target = destination;
+            }
+            moved = target.point - from.point;
             var previous = rigRoot.position;
             rigRoot.position += moved;
             if (walking)

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cf9d4dedd645ef910ea6b4786a0580, type: 3}
+  m_Name: 龙火之术效果
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.BreathEffectDefinition
+  audioProfile: {fileID: 0}
+  mode: 1
+  visualPrefab: {fileID: 3576796116252384622, guid: 2621ef0c678909246af2535384887631, type: 3}
+  mouthOffset: {x: 0, y: -0.09, z: 0.08}
+  manaPerSecond: 8
+  minCooldownSeconds: 2
+  cooldownPerSecond: 1
+  maxCooldownSeconds: 8
+  damage: 4
+  damageInterval: 0.2
+  radius: 0.16
+  range: 1.5
+  speed: 9
+  poiseDamage: 3
+  visualScale: 0.1
+  surfaceMark: {fileID: 11400000, guid: ffcad8a3c33646c887196c6c8e0dc09b, type: 2}

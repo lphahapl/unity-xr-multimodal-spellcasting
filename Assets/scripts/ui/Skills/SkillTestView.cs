@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NarutoVR.SealCombat
@@ -17,25 +16,10 @@ namespace NarutoVR.SealCombat
         {
             [SerializeField, InspectorName("目标技能 ID"), Tooltip("填写当前技能目录中的稳定 ID，例如 thunder.sword。")]
             string skillId;
-            [SerializeField, HideInInspector, FormerlySerializedAs("skill")]
-            SkillDefinition legacySkill;
             [InspectorName("模拟口令按键")] public Key key=Key.None;
 
-            public string SkillId
-            {
-                get => !string.IsNullOrEmpty(skillId) ? skillId : legacySkill ? legacySkill.skillId : null;
-                set { skillId = value; legacySkill = null; }
-            }
-            // 旧场景首次由迁移工具保存时去掉资源硬引用，外部旧场景加载时仍可读取原绑定。
-#if UNITY_EDITOR
-            public bool MigrateLegacySkillReference()
-            {
-                if (!legacySkill || string.IsNullOrWhiteSpace(SkillId)) return false;
-                skillId = SkillId;
-                legacySkill = null;
-                return true;
-            }
-#endif
+            public string SkillId { get => skillId; set => skillId = value; }
+
             internal bool Matches(string skillId) =>
                 !string.IsNullOrEmpty(skillId) && string.Equals(SkillId, skillId, StringComparison.Ordinal);
         }
@@ -50,7 +34,14 @@ namespace NarutoVR.SealCombat
         [InspectorName("最多显示评分数"),Range(1,12)] public int maximumScoreRows=4;
         [Header("三、可配置模拟快捷键")]
         [InspectorName("口令快捷键列表")] public List<Shortcut> shortcuts=new();
+        private string shortcutConfigurationMessage;
         private double nextUI;
+
+        internal void Bind(SkillInputController input)
+        {
+            controller = input;
+            shortcutConfigurationMessage = string.Join("；", ConfigurationErrors(input.ConfiguredSkills));
+        }
         private GUIStyle titleStyle,textStyle,buttonStyle;
         private Vector2 scroll;
 
@@ -85,6 +76,7 @@ namespace NarutoVR.SealCombat
             if(showDesktopControls&&Keyboard.current!=null)
             {
                 if(Keyboard.current.escapeKey.wasPressedThisFrame){controller.Cancel();return;}
+                if (shortcuts == null) return;
                 foreach(var shortcut in shortcuts)
                 {
                     if(shortcut==null||shortcut.key==Key.None||shortcut.key==Key.Escape||!Enum.IsDefined(typeof(Key),shortcut.key))continue;
@@ -109,13 +101,13 @@ namespace NarutoVR.SealCombat
             var b=new StringBuilder(title+"\n");
             foreach(var recipe in controller.Recipes.Take(maximumSkillRows))
             {
-                string input=recipe.Mode==SkillTriggerMode.GestureOnly?$"印：{recipe.Seal}":recipe.Mode==SkillTriggerMode.VoiceOnly?$"咒：{recipe.Phrase}":$"{recipe.Phrase}＋{recipe.Seal}印";
+                string input=recipe.Mode==SkillTriggerMode.GestureOnly?$"印：{recipe.Seal}":recipe.Mode==SkillTriggerMode.VoiceOnly?$"咒：{recipe.Phrase}":$"{recipe.Phrase}＋{recipe.Seal}";
                 b.AppendLine($"{recipe.Name} [{input}] → {recipe.Effect}");
             }
             if(controller.Recipes.Count>maximumSkillRows)b.AppendLine($"另有 {controller.Recipes.Count-maximumSkillRows} 个技能，详见目录/电脑操作台");
             b.AppendLine($"骨骼缓存：{engine.BufferCount} 帧 / {engine.BufferSeconds:F1} 秒（上限{engine.HistoryLimitSeconds:0.#}秒）");
             b.AppendLine("匹配："+engine.Status);
-            if(!string.IsNullOrEmpty(engine.PendingSkillId))b.AppendLine($"等待：{engine.PendingSkillName} / 剩余 {Math.Max(0,engine.PendingDeadline-now):F1} 秒");
+            if(!string.IsNullOrEmpty(engine.PendingSkillId))b.AppendLine($"等待：{engine.PendingSkillName} / 下一印 {engine.NextSeal(engine.PendingSkillId)} / 剩余 {Math.Max(0,engine.PendingDeadline-now):F1} 秒");
             b.AppendLine("语音："+(controller.voice?controller.voice.Status:"未配置")+"；最近拦截："+controller.LastVoiceBlock);
             if(controller.ScheduledPhrase!=null)b.AppendLine($"【模拟】{controller.ScheduledPhrase}：{Math.Max(0,controller.ScheduledAt-now):F1} 秒后输入");
             if(effects)
@@ -126,11 +118,11 @@ namespace NarutoVR.SealCombat
             if(controller.lab)
             {
                 if(controller.lab.Scores.Count==0)b.AppendLine("印评分：等待新的手部追踪数据");
-                foreach(var score in controller.lab.Scores.Where(s=>s.profile&&controller.Recipes.Any(r=>r.Seal==s.profile.sealName)).Take(maximumScoreRows))
+                foreach(var score in controller.lab.Scores.Where(s=>s.profile&&controller.Recipes.Any(r=>r.Seals.Contains(s.profile.sealName))).Take(maximumScoreRows))
                     b.AppendLine($"{score.profile.sealName}：{score.score*100:F1}分 / 基础{score.profile.threshold*100:F0} / 覆盖{score.coverage:P0}");
                 foreach(var recipe in controller.Recipes.Where(r=>r.Mode==SkillTriggerMode.VoiceAndGesture).Take(maximumSkillRows))
                 {
-                    var score=controller.lab.Scores.FirstOrDefault(s=>s.profile&&s.profile.sealName==recipe.Seal);
+                    var score=controller.lab.Scores.FirstOrDefault(s=>s.profile&&s.profile.sealName==engine.NextSeal(recipe.Id));
                     if(score!=null)b.AppendLine($"{recipe.Name}组合门槛：{Math.Max(recipe.Floor,score.profile.threshold-recipe.Discount)*100:F0} 分（仍需质量/保持/消歧）");
                 }
             }
@@ -150,9 +142,12 @@ namespace NarutoVR.SealCombat
             scroll=GUILayout.BeginScrollView(scroll);
             GUILayout.Label("技能测试 · 电脑操作台",titleStyle);
             GUILayout.Label("按钮仅注入模拟口令；真实语音状态见下方。",textStyle);
+            if (!string.IsNullOrEmpty(shortcutConfigurationMessage))
+                GUILayout.Label("无效快捷键已忽略：" + shortcutConfigurationMessage, textStyle);
             foreach(var recipe in controller.Recipes.Where(r=>r.Mode!=SkillTriggerMode.GestureOnly))
             {
-                var shortcut=shortcuts.FirstOrDefault(s=>s!=null&&s.Matches(recipe.Id)&&s.key!=Key.None);
+                var shortcut=shortcuts?.FirstOrDefault(s=>s!=null && s.Matches(recipe.Id) && s.key!=Key.None &&
+                    s.key!=Key.Escape && Enum.IsDefined(typeof(Key),s.key) && shortcuts.Count(other=>other!=null && other.key==s.key)==1);
                 string suffix=shortcut==null?"":$"（{shortcut.key}）";
                 if(GUILayout.Button($"{Math.Max(1,controller.simulatedDelay):0}秒后模拟“{recipe.Phrase}”{suffix}",buttonStyle))controller.ScheduleVoice(recipe.Phrase);
             }

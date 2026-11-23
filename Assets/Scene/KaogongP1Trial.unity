@@ -394,6 +394,7 @@ MonoBehaviour:
   - {fileID: 1058234771}
   - {fileID: 345796076}
   - {fileID: 584044166}
+  - {fileID: 7602200000062}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -806,6 +807,7 @@ MonoBehaviour:
   - {fileID: 102294139}
   - {fileID: 180028784}
   - {fileID: 1423162770}
+  - {fileID: 7602200000005}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -1159,6 +1161,7 @@ MonoBehaviour:
   - {fileID: 1367972109}
   - {fileID: 1070815250}
   - {fileID: 1058043825}
+  - {fileID: 7602200000002}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -2822,6 +2825,7 @@ MonoBehaviour:
   - {fileID: 1058043825}
   - {fileID: 2109721607}
   - {fileID: 1062983464}
+  - {fileID: 7602200000005}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -4103,6 +4107,7 @@ MonoBehaviour:
   - {fileID: 1816189551}
   - {fileID: 816283934}
   - {fileID: 1348518605}
+  - {fileID: 7602200000035}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -5361,6 +5366,7 @@ MonoBehaviour:
   - {fileID: 17013763}
   - {fileID: 584044166}
   - {fileID: 430392575}
+  - {fileID: 7602200000062}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -7308,15 +7314,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18f748b511d540d4b98b4973636be1e1, type: 2}
   - {fileID: 11400000, guid: 0b7971e0b085c094e9317db1e6cc7acb, type: 2}
   - {fileID: 11400000, guid: b0d19c69885729744adc10f17598df2c, type: 2}
-  - {fileID: 11400000, guid: 73f4814901133574185e0802b55c104e, type: 2}
-  - {fileID: 11400000, guid: 530522cc50e829f47b6f609e6fbfe15f, type: 2}
-  - {fileID: 11400000, guid: 507a43e2544d5ad42ae780f616d06046, type: 2}
-  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
-  - {fileID: 11400000, guid: 55ecff9e3a42c0c49863f940057ac083, type: 2}
   - {fileID: 11400000, guid: fe8379952095bd8408a5d87aee7e379d, type: 2}
-  - {fileID: 11400000, guid: 5986bd0f19395f24380b7db9e62ffe84, type: 2}
+  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
   - {fileID: 11400000, guid: 13776311a4667bc40b417dfaa8be2e76, type: 2}
-  - {fileID: 11400000, guid: 5c8e28d0d9520734cac49652460d00c8, type: 2}
   maximumSampleRate: 60
   staleAfterSeconds: 0.12
   sampleLabel: unlabelled
@@ -7355,15 +7355,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillInputController
   catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
-  lab: {fileID: 436909644}
+  configuredLab: {fileID: 0}
   effects: {fileID: 436909648}
   voice: {fileID: 436909647}
   view: {fileID: 436909649}
-  skills:
-  - {fileID: 11400000, guid: 98f1aad44df71c44a9fbb723d4552174, type: 2}
-  - {fileID: 11400000, guid: 65044659bc913ee44b72e5a117a166e9, type: 2}
-  - {fileID: 11400000, guid: 2c08484b43813aa42a18ab6aaab0d939, type: 2}
-  - {fileID: 11400000, guid: 8dba3622998bb26408ea6cb032eab90e, type: 2}
   statusText: {fileID: 1665536178}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
   showDesktopControls: 0
@@ -7410,24 +7405,7 @@ MonoBehaviour:
   lab: {fileID: 436909644}
   head: {fileID: 79008831}
   playerRoot: {fileID: 79008833}
-  fireMaterial: {fileID: 2100000, guid: 7a895f93c8a151143b92cdf415a7c893, type: 2}
-  buffMaterial: {fileID: 2100000, guid: dc949eb78df8fb54089d8c32752c5c2b, type: 2}
-  fireballPrefab: {fileID: 4437276957977500368, guid: 56f11f328e7fd2747a0c29ea8b168863, type: 3}
-  shieldPrefab: {fileID: 8755404590397060305, guid: 2c505620e9924e2468350cf891d79d9b, type: 3}
-  impactPrefab: {fileID: 5939245472193094713, guid: 48098958a851e0945904bbcf5cd37b1f, type: 3}
   vfxPool: {fileID: 0}
-  shieldCapacity: 100
-  ballRadius: 0.065
-  heldOffset: {x: 0, y: 0.05, z: 0.08}
-  heldLifetime: 10
-  armDelay: 0.25
-  trackingLossGrace: 0.5
-  pushDistance: 0.12
-  pushMinimumSeconds: 0.15
-  pushMaximumSeconds: 0.6
-  projectileSpeed: 9
-  projectileDamage: 25
-  projectileLifetime: 4
   aimDistance: 30
   aimWristDrop: 0.4
   hitLayers:
@@ -7509,6 +7487,7 @@ MonoBehaviour:
   - {fileID: 649392023}
   - {fileID: 1058234771}
   - {fileID: 345796076}
+  - {fileID: 7602200000032}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -8174,7 +8153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8003\u5DE5\u5F8B\u5EA6 \xB7 \u4E09\u9879\u53CD\u9988\u8BD5\u70BC\n\u5BC5\u5370\u914D\u5408\u201C\u706B\u7403\u672F\u201D\uFF0C\u62AC\u8155\u7784\u51C6\u540E\u51FA\u624B\u3002\u51FB\u4E2D\u9776\u5B50\u89C2\u5BDF\u7206\u6563\u548C\u7A7A\u95F4\u97F3\u6548\u3002\n\u70B9\u8155\u5F00\u95ED\u83DC\u5355\uFF1B\u6301\u6838\u3001\u51FA\u624B\u3001\u969C\u7834\u53EF\u6D4B\u8BD5\u652F\u6301\u7684\u63A7\u5236\u5668\u89E6\u89C9\u3002\n\u6218\u6597\u7528\u5DE6\u98DF\u6307\u89C6\u51C6\u4F20\u9001\uFF0C\u63A2\u7D22\u65F6\u4F38\u6307\u6CBF\u89C6\u7EBF\u8D70\u3002"
+  m_Text: "\u8003\u5DE5\u5F8B\u5EA6 \xB7 \u4E09\u9879\u53CD\u9988\u8BD5\u70BC\n\u5F8B\u5370\u914D\u5408\u201C\u706B\u7403\u672F\u201D\uFF0C\u62AC\u8155\u7784\u51C6\u540E\u51FA\u624B\u3002\u51FB\u4E2D\u9776\u5B50\u89C2\u5BDF\u7206\u6563\u548C\u7A7A\u95F4\u97F3\u6548\u3002\n\u70B9\u8155\u5F00\u95ED\u83DC\u5355\uFF1B\u6301\u6838\u3001\u51FA\u624B\u3001\u969C\u7834\u53EF\u6D4B\u8BD5\u652F\u6301\u7684\u63A7\u5236\u5668\u89E6\u89C9\u3002\n\u6218\u6597\u7528\u5DE6\u98DF\u6307\u89C6\u51C6\u4F20\u9001\uFF0C\u63A2\u7D22\u65F6\u4F38\u6307\u6CBF\u89C6\u7EBF\u8D70\u3002"
 --- !u!222 &507568661
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9792,6 +9771,7 @@ MonoBehaviour:
   - {fileID: 587619606}
   - {fileID: 17013763}
   - {fileID: 430392575}
+  - {fileID: 7602200000062}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -10441,6 +10421,7 @@ MonoBehaviour:
   - {fileID: 1348518605}
   - {fileID: 430392575}
   - {fileID: 1479557606}
+  - {fileID: 7602200000065}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -10954,6 +10935,7 @@ MonoBehaviour:
   - {fileID: 1058234771}
   - {fileID: 345796076}
   - {fileID: 587619606}
+  - {fileID: 7602200000032}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -13640,6 +13622,7 @@ MonoBehaviour:
   - {fileID: 430392575}
   - {fileID: 612706938}
   - {fileID: 1479557606}
+  - {fileID: 7602200000065}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -14455,10 +14438,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.TrainingChapterFlow
   rpg: {fileID: 1147475783}
-  initialSkills:
-  - fireball
   trialSkills:
   - thunder.sword
+  - breath.burst
+  - breath.stream
+  - shield.left
   autoAdvance: 0
   advanceDelay: 3
 --- !u!114 &900010000
@@ -14475,10 +14459,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.TrainingTargetGroup
   targets:
   - {fileID: 907908521}
-  healthByStage:
-  - 60
-  - 90
-  - 120
+  stageHealth:
+  - stage: {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
+    health: 60
+  - stage: {fileID: 11400000, guid: 7d61a41af3f21a548b6262c5230aa353, type: 2}
+    health: 90
+  - stage: {fileID: 11400000, guid: 610037eba651af247ad3150923bdd833, type: 2}
+    health: 120
   resetAfterSeconds: 3
 --- !u!114 &900010001
 MonoBehaviour:
@@ -18402,6 +18389,7 @@ MonoBehaviour:
   - {fileID: 345796076}
   - {fileID: 17013763}
   - {fileID: 584044166}
+  - {fileID: 7602200000062}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -18602,6 +18590,7 @@ MonoBehaviour:
   - {fileID: 2109721607}
   - {fileID: 1816189551}
   - {fileID: 279724180}
+  - {fileID: 7602200000035}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -18895,6 +18884,7 @@ MonoBehaviour:
   - {fileID: 447062280}
   - {fileID: 649392023}
   - {fileID: 1533463215}
+  - {fileID: 7602200000032}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -19911,6 +19901,12 @@ Transform:
   - {fileID: 430392573}
   - {fileID: 612706936}
   - {fileID: 1479557608}
+  - {fileID: 7602200000001}
+  - {fileID: 7602200000004}
+  - {fileID: 7602200000031}
+  - {fileID: 7602200000034}
+  - {fileID: 7602200000061}
+  - {fileID: 7602200000064}
   m_Father: {fileID: 967869936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1131814168
@@ -20253,16 +20249,17 @@ MonoBehaviour:
   skills: {fileID: 436909646}
   locomotion: {fileID: 1147475784}
   wristMenu: {fileID: 121289191}
-  playerDefinition: {fileID: 11400000, guid: 072add108bc83c7499152c051a0d8d51, type: 2}
-  stages:
-  - {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
-  - {fileID: 11400000, guid: 7d61a41af3f21a548b6262c5230aa353, type: 2}
-  - {fileID: 11400000, guid: 610037eba651af247ad3150923bdd833, type: 2}
-  checkpointNodes:
-  - {fileID: 1253936422}
-  - {fileID: 2045226543}
-  - {fileID: 1888832140}
+  playerDefinition: {fileID: 11400000, guid: 529bee7416914619905ab98ca06b2b81, type: 2}
+  route:
+  - stage: {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
+    checkpoint: {fileID: 1253936422}
+  - stage: {fileID: 11400000, guid: 7d61a41af3f21a548b6262c5230aa353, type: 2}
+    checkpoint: {fileID: 2045226543}
+  - stage: {fileID: 11400000, guid: 610037eba651af247ad3150923bdd833, type: 2}
+    checkpoint: {fileID: 1888832140}
   lowHandsBelowHead: 0.55
+  handTracking: {fileID: 436909644}
+  handSampleMaxAge: 0.15
   handPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
   autoLoad: 0
   saveFileName: kaogong-p1-trial-v2.json
@@ -20319,7 +20316,7 @@ MonoBehaviour:
   nodeTolerance: 0.25
   nodeHeightTolerance: 0.18
   directionDot: 0.72
-  offNodeRange: 6
+  offNodeRange: 12
   scoring:
     directionWeight: 0.45
     handRayWeight: 0.3
@@ -20401,6 +20398,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgInteractionFeedback
   controller: {fileID: 1147475783}
   showVisuals: 1
+  restingMark: {fileID: 2100000, guid: d022650cfd5a4779babcd939e1379081, type: 2}
+  explorationMark: {fileID: 2100000, guid: 5289e8e068b55c888358edf23967f175, type: 2}
+  combatMark: {fileID: 2100000, guid: 5289e8e068b55c888358edf23967f175, type: 2}
   pathColor: {r: 0.05, g: 0.85, b: 1, a: 1}
   progressColor: {r: 1, g: 0.75, b: 0.12, a: 1}
   landingRadius: 0.32
@@ -20436,6 +20436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e477ca66e4aedd840a31a724b397ee75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.PlayerObj
+  hitClip: {fileID: 8300000, guid: 88399684de17b4ea982e17f0643aabac, type: 3}
+  shieldHitClip: {fileID: 8300000, guid: 7c897e2b7813447998a7ce0dcd7a5b6d, type: 3}
+  hitVolume: 0.85
 --- !u!1 &1151742665
 GameObject:
   m_ObjectHideFlags: 0
@@ -23404,6 +23407,7 @@ MonoBehaviour:
   - {fileID: 816283934}
   - {fileID: 612706938}
   - {fileID: 1479557606}
+  - {fileID: 7602200000065}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -23784,6 +23788,7 @@ MonoBehaviour:
   - {fileID: 1070815250}
   - {fileID: 447062280}
   - {fileID: 649392023}
+  - {fileID: 7602200000032}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -24614,6 +24619,7 @@ MonoBehaviour:
   - {fileID: 180028784}
   - {fileID: 2109721607}
   - {fileID: 1062983464}
+  - {fileID: 7602200000005}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -24994,6 +25000,7 @@ MonoBehaviour:
   - {fileID: 87969422}
   - {fileID: 1367972109}
   - {fileID: 1070815250}
+  - {fileID: 7602200000002}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -25863,6 +25870,7 @@ MonoBehaviour:
   - {fileID: 816283934}
   - {fileID: 1348518605}
   - {fileID: 612706938}
+  - {fileID: 7602200000065}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -29112,7 +29120,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7130\u9053 \xB7 \u706B\u7403\u9776\u573A\n\n\u539F\u6709\u4E09\u79CD\u914D\u65B9\u4E0E\u9AA8\u9ABC\u8FFD\u8E2A\u4FDD\u7559\u3002\n\n\u64AD\u653E\u540E\u663E\u793A\u5B9E\u65F6\u8BED\u97F3\u3001\u5339\u914D\u3001\u62A4\u76FE\u548C\u65BD\u6CD5\u72B6\u6001\u3002"
+  m_Text: "\u7130\u9053 \xB7 \u706B\u7403\u9776\u573A\n\n\u5F53\u524D\u6280\u80FD\u4E0E\u8F93\u5165\u72B6\u6001\n\n\u64AD\u653E\u540E\u663E\u793A\u5B9E\u65F6\u8BED\u97F3\u3001\u5339\u914D\u3001\u62A4\u76FE\u548C\u65BD\u6CD5\u72B6\u6001\u3002"
 --- !u!222 &1665536179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30739,6 +30747,7 @@ MonoBehaviour:
   - {fileID: 1973332905}
   - {fileID: 1455260968}
   - {fileID: 87969422}
+  - {fileID: 7602200000002}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -32448,6 +32457,7 @@ MonoBehaviour:
   - {fileID: 587619606}
   - {fileID: 816283934}
   - {fileID: 1348518605}
+  - {fileID: 7602200000035}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -32936,6 +32946,7 @@ MonoBehaviour:
   - {fileID: 49505126}
   - {fileID: 180028784}
   - {fileID: 1423162770}
+  - {fileID: 7602200000005}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -35576,6 +35587,7 @@ MonoBehaviour:
   - {fileID: 1455260968}
   - {fileID: 87969422}
   - {fileID: 102294139}
+  - {fileID: 7602200000002}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -38134,6 +38146,7 @@ MonoBehaviour:
   - {fileID: 1533463215}
   - {fileID: 1816189551}
   - {fileID: 279724180}
+  - {fileID: 7602200000035}
   overrideLayers: 0
   floorLayers:
     serializedVersion: 2
@@ -38747,6 +38760,348 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141291640}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &7602200000000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000001}
+  - component: {fileID: 7602200000002}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.left.0"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.75, y: -0.03, z: 21.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.left.0
+  neighbors:
+  - {fileID: 1751177878}
+  - {fileID: 1455260968}
+  - {fileID: 1973332905}
+  - {fileID: 87969422}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &7602200000003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000004}
+  - component: {fileID: 7602200000005}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.right.0"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.75, y: -0.03, z: 21.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.right.0
+  neighbors:
+  - {fileID: 49505126}
+  - {fileID: 180028784}
+  - {fileID: 1826741104}
+  - {fileID: 1423162770}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &7602200000030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000031}
+  - component: {fileID: 7602200000032}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.left.1"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.75, y: -0.03, z: 26.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.left.1
+  neighbors:
+  - {fileID: 1367972109}
+  - {fileID: 447062280}
+  - {fileID: 1070815250}
+  - {fileID: 649392023}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &7602200000033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000034}
+  - component: {fileID: 7602200000035}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.right.1"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.75, y: -0.03, z: 26.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.right.1
+  neighbors:
+  - {fileID: 2109721607}
+  - {fileID: 1816189551}
+  - {fileID: 1062983464}
+  - {fileID: 279724180}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &7602200000060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000061}
+  - component: {fileID: 7602200000062}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.left.2"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.75, y: -0.03, z: 31.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.left.2
+  neighbors:
+  - {fileID: 1058234771}
+  - {fileID: 17013763}
+  - {fileID: 345796076}
+  - {fileID: 584044166}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!1 &7602200000063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602200000064}
+  - component: {fileID: 7602200000065}
+  m_Layer: 0
+  m_Name: "\u4F20\u9001\u70B9 \xB7 room.flank.right.2"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602200000064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000063}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.75, y: -0.03, z: 31.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1129649876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7602200000065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602200000063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a7f2abd40a8db4792097e7c24be9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.NavigationNode
+  nodeId: room.flank.right.2
+  neighbors:
+  - {fileID: 816283934}
+  - {fileID: 612706938}
+  - {fileID: 1348518605}
+  - {fileID: 1479557606}
+  overrideLayers: 0
+  floorLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

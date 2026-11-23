@@ -22,13 +22,18 @@ namespace NarutoVR.SealLab
         [Header("三、失败诊断")]
         [InspectorName("打印未通过原因")] public bool logFailures = true;
         [InspectorName("日志最短间隔（秒）"), Min(0.5f)] public float logInterval = 2;
-        [InspectorName("未选预期印时诊断前几名"), Range(1, 12)] public int diagnosticCandidates = 3;
+        [InspectorName("未选预期印时诊断前几名"), Range(1, 6)] public int diagnosticCandidates = 3;
         private double nextUI, nextLog;
         private readonly List<SealProfile> copies = new();
         private List<SealProfile> originals;
-        [Serializable] public sealed class WeightFile { public WeightProfile[] profiles; }
+        [Serializable] public sealed class WeightFile
+        {
+            public WeightProfile[] profiles;
+            public WeightProfile ForProfile(SealProfile profile) =>
+                profiles?.FirstOrDefault(p => p != null && p.sealName == profile.sealName && p.handMode == profile.handMode);
+        }
         [Serializable] public sealed class WeightProfile
-        { public string sealName; public float threshold, minimumCoverage, holdSeconds; public FeatureRule[] rules; }
+        { public string sealName; public SealHandMode handMode; public float threshold, minimumCoverage, holdSeconds; public FeatureRule[] rules; }
 
         private void Awake()
         {
@@ -42,8 +47,8 @@ namespace NarutoVR.SealLab
             {
                 if (!source) { copies.Add(null); continue; }
                 var copy = Instantiate(source); copy.name = source.name + "（测试副本）";
-                var setting = config.profiles.FirstOrDefault(p => p.sealName == source.sealName);
-                if (setting != null)
+                var setting = config?.ForProfile(source);
+                if (copy.calibrated && setting?.rules != null)
                 {
                     copy.threshold = setting.threshold; copy.minimumCoverage = setting.minimumCoverage; copy.holdSeconds = setting.holdSeconds;
                     foreach (var rule in copy.rules)
@@ -72,14 +77,14 @@ namespace NarutoVR.SealLab
             else if (lab.RecognitionState == SealRecognitionState.NoTracking) text.Append("；手部未连接、无有效追踪、数据过期或双手采样不同步。");
             if (lab.Frame != null) text.Append("\n" + SealLabView.HandState("LEFT", lab.Frame.left) + "；" + SealLabView.HandState("RIGHT", lab.Frame.right));
             if (lab.RecognitionState != SealRecognitionState.NoTracking && lab.RecognitionState != SealRecognitionState.Holding)
-                foreach (var score in lab.testExpectedSeal ? lab.Scores : lab.Scores.Take(Mathf.Clamp(diagnosticCandidates, 1, 12)))
+                foreach (var score in lab.testExpectedSeal ? lab.Scores : lab.Scores.Take(Mathf.Clamp(diagnosticCandidates, 1, 6)))
                     if (!lab.testExpectedSeal || score.profile && score.profile.sealName == lab.testExpectedSeal.sealName)
                         text.Append("\n" + SealTestDiagnostics.Explain(score));
             Debug.Log(text.ToString(), this);
         }
         private void RefreshUI()
         {
-            var text = new StringBuilder("十二印 · 识别测试\n");
+            var text = new StringBuilder("六工矩印 · 识别测试\n");
             text.AppendLine("识别结果：" + SealRecognizer.HudName(lab.Recognized));
             text.AppendLine(SealRecognizer.StateText(lab.RecognitionState));
             text.AppendLine("置信度显示为匹配分数，并非正确概率");

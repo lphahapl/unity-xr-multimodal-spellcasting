@@ -1,0 +1,2195 @@
+{
+  "source": "ShenShang_Rebuilt.blend",
+  "sourceSHA256": "08A167116AD9E48DD69937CBF052DC42827E45407ED229869E95CC9BD6A0A588",
+  "asset": "ShenShang_TPose.fbx",
+  "sha256": "E29955FC584F87EC605B30E844D49B66FB2DD42AF929620CF78738EA65E2870C",
+  "bytes": 31531628,
+  "purpose": "Static T-pose upload source. Locally evaluated after FBX re-import into a factory-empty Blender scene.",
+  "localOnly": true,
+  "coldGeometry": {
+    "meshes": 90,
+    "triangles": 945966,
+    "armatureObjects": 0,
+    "armatureDatablocks": 0,
+    "actions": 0,
+    "skinModifiers": 0,
+    "vertexGroups": 0,
+    "rigidWristwearNodes": 0,
+    "bounds": [
+      -0.8765221834182739,
+      -0.16372895240783691,
+      -4.2560748170217266e-07,
+      0.8765221238136292,
+      0.1725953072309494,
+      1.7387126684188843
+    ]
+  },
+  "uniqueEmbeddedFBXMedia": {
+    "uniqueEmbeddedImagePayloads": 17,
+    "embeddedVideoEntries": 17,
+    "uniqueJpegAlbedo": 12,
+    "uniquePngRGBA": 5,
+    "entries": [
+      {
+        "filename": "Shen_Wardrobe_Albedo.jpg",
+        "bytes": 1624407,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_G7B_Collar_Albedo.jpg",
+        "bytes": 1110685,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_CoiledFibers_png_5.jpg",
+        "bytes": 229277,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_ColorBake_5.jpg",
+        "bytes": 41935,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_ColorBake_4.jpg",
+        "bytes": 41848,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_ColorBake_3.jpg",
+        "bytes": 27253,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_ColorBake_2.jpg",
+        "bytes": 28964,
+        "video_records": 1
+      },
+      {
+        "filename": "SkinAndGroomPigment.jpg",
+        "bytes": 691088,
+        "video_records": 1
+      },
+      {
+        "filename": "RevisedGroomRGBA_5.png",
+        "bytes": 103490,
+        "video_records": 1
+      },
+      {
+        "filename": "RevisedGroomRGBA_4.png",
+        "bytes": 100464,
+        "video_records": 1
+      },
+      {
+        "filename": "RevisedGroomRGBA_3.png",
+        "bytes": 2030843,
+        "video_records": 1
+      },
+      {
+        "filename": "RevisedGroomRGBA_2.png",
+        "bytes": 119665,
+        "video_records": 1
+      },
+      {
+        "filename": "RevisedGroomRGBA_1.png",
+        "bytes": 114645,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_LeftHandAlbedo_png_1.jpg",
+        "bytes": 805504,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_LeftCuffAlbedo_png_2.jpg",
+        "bytes": 70266,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_RightHandAlbedo_png_3.jpg",
+        "bytes": 788343,
+        "video_records": 1
+      },
+      {
+        "filename": "Shen_RightCuffAlbedo_png_4.jpg",
+        "bytes": 70218,
+        "video_records": 1
+      }
+    ]
+  },
+  "coldImporterTextureBindings": {
+    "RevisedGroomRGBA_1": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 114645
+    },
+    "RevisedGroomRGBA_1.001": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 114645
+    },
+    "RevisedGroomRGBA_1.002": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 114645
+    },
+    "RevisedGroomRGBA_2": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 119665
+    },
+    "RevisedGroomRGBA_2.001": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 119665
+    },
+    "RevisedGroomRGBA_2.002": {
+      "size": [
+        192,
+        550
+      ],
+      "embeddedBytes": 119665
+    },
+    "RevisedGroomRGBA_3": {
+      "size": [
+        2200,
+        832
+      ],
+      "embeddedBytes": 2030843
+    },
+    "RevisedGroomRGBA_3.001": {
+      "size": [
+        2200,
+        832
+      ],
+      "embeddedBytes": 2030843
+    },
+    "RevisedGroomRGBA_3.002": {
+      "size": [
+        2200,
+        832
+      ],
+      "embeddedBytes": 2030843
+    },
+    "RevisedGroomRGBA_4": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 100464
+    },
+    "RevisedGroomRGBA_4.001": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 100464
+    },
+    "RevisedGroomRGBA_4.002": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 100464
+    },
+    "RevisedGroomRGBA_5": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 103490
+    },
+    "RevisedGroomRGBA_5.001": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 103490
+    },
+    "RevisedGroomRGBA_5.002": {
+      "size": [
+        860,
+        204
+      ],
+      "embeddedBytes": 103490
+    },
+    "Shen_CoiledFibers_png_5.jpg": {
+      "size": [
+        1240,
+        896
+      ],
+      "embeddedBytes": 229277
+    },
+    "Shen_ColorBake_2.jpg": {
+      "size": [
+        768,
+        768
+      ],
+      "embeddedBytes": 28964
+    },
+    "Shen_ColorBake_3.jpg": {
+      "size": [
+        768,
+        768
+      ],
+      "embeddedBytes": 27253
+    },
+    "Shen_ColorBake_4.jpg": {
+      "size": [
+        768,
+        768
+      ],
+      "embeddedBytes": 41848
+    },
+    "Shen_ColorBake_5.jpg": {
+      "size": [
+        768,
+        768
+      ],
+      "embeddedBytes": 41935
+    },
+    "Shen_G7B_Collar_Albedo.jpg": {
+      "size": [
+        2048,
+        2048
+      ],
+      "embeddedBytes": 1110685
+    },
+    "Shen_LeftCuffAlbedo_png_2.jpg": {
+      "size": [
+        512,
+        256
+      ],
+      "embeddedBytes": 70266
+    },
+    "Shen_LeftHandAlbedo_png_1.jpg": {
+      "size": [
+        2048,
+        2048
+      ],
+      "embeddedBytes": 805504
+    },
+    "Shen_RightCuffAlbedo_png_4.jpg": {
+      "size": [
+        512,
+        256
+      ],
+      "embeddedBytes": 70218
+    },
+    "Shen_RightHandAlbedo_png_3.jpg": {
+      "size": [
+        2048,
+        2048
+      ],
+      "embeddedBytes": 788343
+    },
+    "Shen_Wardrobe_Albedo.jpg": {
+      "size": [
+        2048,
+        2048
+      ],
+      "embeddedBytes": 1624407
+    },
+    "SkinAndGroomPigment.jpg": {
+      "size": [
+        3072,
+        3072
+      ],
+      "embeddedBytes": 691088
+    }
+  },
+  "actualHeadShapesAndBrow": {
+    "criteria": "Applied-state FBX points compared with the evaluated G full-body A source. The revised neck is preserved at its actual evaluated source position. Remaining geometry uses original evaluated positions.",
+    "headShapeKeys": {
+      "Resting vermilion contact": {
+        "value": 0.8500000238418579,
+        "verticesMovedOver0_025mm": 3788,
+        "largestSourceMotionMm": 1.2619495391845703,
+        "medianMotionOnFieldMm": 0.21865630149841309,
+        "maxColdStaticSurfaceDistanceMm": 0.00025331974029541016
+      },
+      "Auricle and submandibular sculpt": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 20027,
+        "largestSourceMotionMm": 7.587491989135742,
+        "medianMotionOnFieldMm": 1.0843943357467651,
+        "maxColdStaticSurfaceDistanceMm": 0.0002644956111907959
+      },
+      "Palpebral arc and infraorbital roll": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 11826,
+        "largestSourceMotionMm": 2.014089822769165,
+        "medianMotionOnFieldMm": 0.23927022516727448,
+        "maxColdStaticSurfaceDistanceMm": 0.000260770320892334
+      },
+      "Zygomatic arch, midcheek and masseter": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 6373,
+        "largestSourceMotionMm": 4.535527229309082,
+        "medianMotionOnFieldMm": 0.47695115208625793,
+        "maxColdStaticSurfaceDistanceMm": 0.000260770320892334
+      },
+      "Oblique malar arch and posterior buccal plane": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 3403,
+        "largestSourceMotionMm": 2.0030388832092285,
+        "medianMotionOnFieldMm": 0.23036162555217743,
+        "maxColdStaticSurfaceDistanceMm": 0.000260770320892334
+      },
+      "Tapered temporal commissure and palpebral arcs": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 10986,
+        "largestSourceMotionMm": 2.333595037460327,
+        "medianMotionOnFieldMm": 0.39565563201904297,
+        "maxColdStaticSurfaceDistanceMm": 0.000260770320892334
+      },
+      "Anterior buccal support and malar roll": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 11074,
+        "largestSourceMotionMm": 4.820313930511475,
+        "medianMotionOnFieldMm": 0.3687838912010193,
+        "maxColdStaticSurfaceDistanceMm": 0.000260770320892334
+      },
+      "Frontal eminences and temporal transition": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 10496,
+        "largestSourceMotionMm": 5.760458946228027,
+        "medianMotionOnFieldMm": 0.6560416221618652,
+        "maxColdStaticSurfaceDistanceMm": 0.0002784654498100281
+      },
+      "Submandibular support and collar fit": {
+        "value": 1.0,
+        "verticesMovedOver0_025mm": 9179,
+        "largestSourceMotionMm": 23.04606056213379,
+        "medianMotionOnFieldMm": 4.249355792999268,
+        "maxColdStaticSurfaceDistanceMm": 0.00024959444999694824
+      }
+    },
+    "opticalAndFacialGeometry": {
+      "ShenShang_Head": {
+        "triangles": 144320,
+        "bidirectionalMaxDistanceMm": 0.00027939677238464355
+      },
+      "Eye.L": {
+        "triangles": 9728,
+        "bidirectionalMaxDistanceMm": 0.0002935188353596957
+      },
+      "Eye.R": {
+        "triangles": 9728,
+        "bidirectionalMaxDistanceMm": 0.0002935188353596957
+      },
+      "Upper wet margin.L": {
+        "triangles": 1500,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Upper wet margin.R": {
+        "triangles": 1500,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Lower wet margin.L": {
+        "triangles": 1500,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Lower wet margin.R": {
+        "triangles": 1500,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Inner canthus.L": {
+        "triangles": 480,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Inner canthus.R": {
+        "triangles": 480,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Upper lashes.L": {
+        "triangles": 2800,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Upper lashes.R": {
+        "triangles": 2660,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Lower lashes.L": {
+        "triangles": 980,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      },
+      "Lower lashes.R": {
+        "triangles": 980,
+        "bidirectionalMaxDistanceMm": 0.000260770320892334
+      }
+    },
+    "Groom": {
+      "source": {
+        "G.独立眉毛.Left": {
+          "splines": 657,
+          "triangles": 44676
+        },
+        "G.独立眉毛.Right": {
+          "splines": 681,
+          "triangles": 46308
+        }
+      },
+      "cold": {
+        "triangles": 90984,
+        "slots": 4
+      },
+      "actualBrowMaxDistanceMm": 0.000260770320892334,
+      "paintedBrowRootTexels": {
+        "G.眉底毛根.Right": 4661,
+        "G.眉底毛根.Left": 4340
+      }
+    },
+    "G7BCollar": {
+      "Crossed_Collar": {
+        "trianglesWithCollarAtlas": 43784,
+        "activeUV": "Garment albedo",
+        "luminance10_90": [
+          0.1825882403552532,
+          0.3171372658014297
+        ],
+        "embeddedImage": "Shen_G7B_Collar_Albedo.jpg",
+        "medianEmbeddedRGBSamples": [
+          0.250980406999588,
+          0.23137256503105164,
+          0.2392157018184662
+        ]
+      },
+      "Linen_Undercollar": {
+        "trianglesWithCollarAtlas": 26696,
+        "activeUV": "Garment albedo",
+        "luminance10_90": [
+          0.44243140369653705,
+          0.5540196344256401
+        ],
+        "embeddedImage": "Shen_G7B_Collar_Albedo.jpg",
+        "medianEmbeddedRGBSamples": [
+          0.5647059082984924,
+          0.49803924560546875,
+          0.4235294461250305
+        ]
+      }
+    }
+  },
+  "revisedGroomObjects": {
+    "G.眉底毛根.Left": {
+      "tag": "piece2",
+      "triangles": 5820,
+      "vertexCount": 3038,
+      "destination": "UpdatedGroom_03",
+      "materialNames": [
+        "RevisedGroomRGBA_5"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_5",
+          "packedBytes": 103490,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_5.002",
+          "packedBytes": 103490,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "G.眉底毛根.Right": {
+      "tag": "piece3",
+      "triangles": 5820,
+      "vertexCount": 3038,
+      "destination": "UpdatedGroom_04",
+      "materialNames": [
+        "RevisedGroomRGBA_4"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_4",
+          "packedBytes": 100464,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_4.002",
+          "packedBytes": 100464,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "后梳细丝与分束纹理": {
+      "tag": "piece4",
+      "triangles": 293760,
+      "vertexCount": 161280,
+      "destination": "UpdatedGroom_05",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.0002798624336719513
+    },
+    "束发主体 · 曲面与羽化发际": {
+      "tag": "piece5",
+      "triangles": 15744,
+      "vertexCount": 8064,
+      "destination": "UpdatedGroom_06",
+      "materialNames": [
+        "RevisedGroomRGBA_3"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_3",
+          "packedBytes": 2030843,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_3.002",
+          "packedBytes": 2030843,
+          "minMaxAlpha": [
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027939677238464355
+    },
+    "浮丝 · 冠顶与鬓侧": {
+      "tag": "piece6",
+      "triangles": 37536,
+      "vertexCount": 20608,
+      "destination": "UpdatedGroom_07",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.00028312206268310547
+    },
+    "细发际 · 随生长方向": {
+      "tag": "piece7",
+      "triangles": 13600,
+      "vertexCount": 8160,
+      "destination": "UpdatedGroom_08",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.00027567148208618164
+    },
+    "耳前鬓毛 · 向下渐疏": {
+      "tag": "piece8",
+      "triangles": 44032,
+      "vertexCount": 24576,
+      "destination": "UpdatedGroom_09",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "颈后 · -1 · 0": {
+      "tag": "piece9",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_10",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 1": {
+      "tag": "piece10",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_11",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 2": {
+      "tag": "piece11",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_12",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 3": {
+      "tag": "piece12",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_13",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 4": {
+      "tag": "piece13",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_14",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 5": {
+      "tag": "piece14",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_15",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 6": {
+      "tag": "piece15",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_16",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · -1 · 7": {
+      "tag": "piece16",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_17",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025331974029541016
+    },
+    "颈后 · 1 · 0": {
+      "tag": "piece17",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_18",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 1": {
+      "tag": "piece18",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_19",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 2": {
+      "tag": "piece19",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_20",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 3": {
+      "tag": "piece20",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_21",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 4": {
+      "tag": "piece21",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_22",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 5": {
+      "tag": "piece22",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_23",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025704503059387207
+    },
+    "颈后 · 1 · 6": {
+      "tag": "piece23",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_24",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.000260770320892334
+    },
+    "颈后 · 1 · 7": {
+      "tag": "piece24",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_25",
+      "materialNames": [
+        "RevisedGroomRGBA_2"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_2",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_2.002",
+          "packedBytes": 119665,
+          "minMaxAlpha": [
+            0.0,
+            0.8352941870689392
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00025331974029541016
+    },
+    "颈后松发 · 交错垂落": {
+      "tag": "piece25",
+      "triangles": 13760,
+      "vertexCount": 7680,
+      "destination": "UpdatedGroom_26",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.000260770320892334
+    },
+    "额前主束中的独立长丝": {
+      "tag": "piece26",
+      "triangles": 11448,
+      "vertexCount": 6264,
+      "destination": "UpdatedGroom_27",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.00027939677238464355
+    },
+    "额角低垂散丝": {
+      "tag": "piece27",
+      "triangles": 1560,
+      "vertexCount": 880,
+      "destination": "UpdatedGroom_28",
+      "materialNames": [
+        "S_1_8",
+        "S_2_9",
+        "S_3_10",
+        "S_4_11",
+        "S_5_12",
+        "S_6_13"
+      ],
+      "nativeAlpha": [],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "额角向后卷起的发束 · 1": {
+      "tag": "piece28",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_29",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002738088369369507
+    },
+    "额角向后卷起的发束 · 2": {
+      "tag": "piece29",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_30",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027619535103440285
+    },
+    "额角向后卷起的发束 · 3": {
+      "tag": "piece30",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_31",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002784654498100281
+    },
+    "额角向后卷起的发束 · 4": {
+      "tag": "piece31",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_32",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027939677238464355
+    },
+    "额角向后卷起的发束 · 5": {
+      "tag": "piece32",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_33",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027939677238464355
+    },
+    "额角向后卷起的发束 · 6": {
+      "tag": "piece33",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_34",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002775341272354126
+    },
+    "额角向后卷起的发束 · 7": {
+      "tag": "piece34",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_35",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002775341272354126
+    },
+    "额角向后卷起的发束 · 8": {
+      "tag": "piece35",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_36",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027567148208618164
+    },
+    "额角向后卷起的发束 · 9": {
+      "tag": "piece36",
+      "triangles": 104,
+      "vertexCount": 81,
+      "destination": "UpdatedGroom_37",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.00027567148208618164
+    },
+    "鬓发 · -1 · 0": {
+      "tag": "piece37",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_38",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "鬓发 · -1 · 1": {
+      "tag": "piece38",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_39",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 2": {
+      "tag": "piece39",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_40",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 3": {
+      "tag": "piece40",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_41",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 4": {
+      "tag": "piece41",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_42",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 5": {
+      "tag": "piece42",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_43",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 6": {
+      "tag": "piece43",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_44",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 7": {
+      "tag": "piece44",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_45",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 8": {
+      "tag": "piece45",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_46",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · -1 · 9": {
+      "tag": "piece46",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_47",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 0": {
+      "tag": "piece47",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_48",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "鬓发 · 1 · 1": {
+      "tag": "piece48",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_49",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002682209014892578
+    },
+    "鬓发 · 1 · 2": {
+      "tag": "piece49",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_50",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 3": {
+      "tag": "piece50",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_51",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 4": {
+      "tag": "piece51",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_52",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 5": {
+      "tag": "piece52",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_53",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 6": {
+      "tag": "piece53",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_54",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 7": {
+      "tag": "piece54",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_55",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 8": {
+      "tag": "piece55",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_56",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    },
+    "鬓发 · 1 · 9": {
+      "tag": "piece56",
+      "triangles": 92,
+      "vertexCount": 72,
+      "destination": "UpdatedGroom_57",
+      "materialNames": [
+        "RevisedGroomRGBA_1"
+      ],
+      "nativeAlpha": [
+        {
+          "name": "RevisedGroomRGBA_1",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        },
+        {
+          "name": "RevisedGroomRGBA_1.002",
+          "packedBytes": 114645,
+          "minMaxAlpha": [
+            0.0,
+            0.8392157554626465
+          ]
+        }
+      ],
+      "maxSourceToColdMm": 0.0002644956111907959
+    }
+  },
+  "groomRemovedByNewArtSource": [],
+  "groomPigmentTexels": {
+    "束发主体 · 曲面与羽化发际": 1051652,
+    "G.眉底毛根.Right": 4661,
+    "G.眉底毛根.Left": 4340
+  },
+  "evaluatedShirtAndNeckline": {
+    "UpperBack": {
+      "source": "Jacket • fitted body with shoulder shaping",
+      "staticPart": "Jacket_Torso",
+      "shapeKeys": {
+        "H · 后颈与肩领贴合": 1.0
+      },
+      "pointsOnOriginalClothing": 4701,
+      "coldTargetSurface": {
+        "count": 440,
+        "medianMm": 0.00020599208028215799,
+        "p95Mm": 0.00023314826975706635,
+        "maxMm": 0.0002384185791015625
+      },
+      "maxARevisionMotionComparedWithG_Mm": 23.350391387939453,
+      "revisedPointsAtLeast0_025mm": 567,
+      "allChangedPointDistancesAfterTPose": {
+        "count": 567,
+        "medianMm": 0.0001795883548538768,
+        "p95Mm": 0.00022971605204702422,
+        "maxMm": 0.0002384185791015625
+      },
+      "coreChangedPointDistancesAfterTPose": {
+        "count": 329,
+        "medianMm": 0.00019901777648101415,
+        "p95Mm": 0.00023394296420065075,
+        "maxMm": 0.0002384185791015625
+      }
+    },
+    "OuterCollar": {
+      "source": "Jacket • continuous cross collar and underlap",
+      "staticPart": "Crossed_Collar",
+      "shapeKeys": {
+        "H · 后颈与肩领贴合": 1.0
+      },
+      "pointsOnOriginalClothing": 21894,
+      "coldTargetSurface": {
+        "count": 21894,
+        "medianMm": 0.0001718889421908898,
+        "p95Mm": 0.00022995182291651872,
+        "maxMm": 0.0002384185791015625
+      },
+      "maxARevisionMotionComparedWithG_Mm": 23.377981185913086,
+      "revisedPointsAtLeast0_025mm": 13977,
+      "allChangedPointDistancesAfterTPose": {
+        "count": 13977,
+        "medianMm": 0.00016173939343389065,
+        "p95Mm": 0.00023288279749067442,
+        "maxMm": 0.0002384185791015625
+      },
+      "coreChangedPointDistancesAfterTPose": {
+        "count": 13977,
+        "medianMm": 0.00016173939343389065,
+        "p95Mm": 0.00023288279749067442,
+        "maxMm": 0.0002384185791015625
+      }
+    },
+    "Flax": {
+      "source": "Undertunic • laid flax at the nape and throat",
+      "staticPart": "Linen_Undercollar",
+      "shapeKeys": {
+        "H · 后颈与肩领贴合": 1.0
+      },
+      "pointsOnOriginalClothing": 13350,
+      "coldTargetSurface": {
+        "count": 13350,
+        "medianMm": 0.00014283775584544856,
+        "p95Mm": 0.0002239575586315823,
+        "maxMm": 0.00024214386940002441
+      },
+      "maxARevisionMotionComparedWithG_Mm": 23.401836395263672,
+      "revisedPointsAtLeast0_025mm": 8706,
+      "allChangedPointDistancesAfterTPose": {
+        "count": 8706,
+        "medianMm": 0.00012867090504187217,
+        "p95Mm": 0.00022724270820617676,
+        "maxMm": 0.00024214386940002441
+      },
+      "coreChangedPointDistancesAfterTPose": {
+        "count": 8706,
+        "medianMm": 0.00012867090504187217,
+        "p95Mm": 0.00022724270820617676,
+        "maxMm": 0.00024214386940002441
+      }
+    }
+  },
+  "centerYokeToShoulderLoops": {
+    "-1": {
+      "original": [
+        154
+      ],
+      "wing": [
+        301
+      ]
+    },
+    "1": {
+      "original": [
+        156
+      ],
+      "wing": [
+        305
+      ]
+    }
+  },
+  "shoulderSleeveAndCuffContact": {
+    "mainSeamIsland": {
+      "vertices": 12877,
+      "min": [
+        -0.3608286380767822,
+        -0.11660251021385193,
+        1.013993263244629
+      ],
+      "max": [
+        0.3608122169971466,
+        0.11872093379497528,
+        1.473088026046753
+      ],
+      "leftUpperSleeveVerts": 1568,
+      "rightUpperSleeveVerts": 1597,
+      "centerChestVerts": 1808
+    },
+    "seams": {
+      "Jacket_Torso / Rolled_Cuff_L": 1350,
+      "Rolled_Cuff_L / Bare_Forearm_L": 151,
+      "Bare_Forearm_L / V2_Hand_L": 139,
+      "Jacket_Torso / Rolled_Cuff_R": 1469,
+      "Rolled_Cuff_R / Bare_Forearm_R": 153,
+      "Bare_Forearm_R / V2_Hand_R": 139
+    },
+    "sourceCoverage": {
+      "vertices": 59361,
+      "transformed": 25757,
+      "transition": 9847,
+      "full": 15910
+    }
+  },
+  "fingers": {
+    "L": {
+      "adjacentPairs": [
+        "Thumb-Index",
+        "Index-Middle",
+        "Middle-Ring",
+        "Ring-Little"
+      ],
+      "minSurfaceDistanceDistalTwoThirdsMm": [
+        47.84249566927886,
+        7.192373855117731,
+        9.586913279545838,
+        6.074211122801254
+      ],
+      "localCrossSections": [
+        {
+          "fromWristMm": 112.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            6.875401204193306,
+            7.5227427397878985,
+            4.783843121500177
+          ]
+        },
+        {
+          "fromWristMm": 120.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            8.129271582076406,
+            9.65048900029721,
+            7.897514642730933
+          ]
+        },
+        {
+          "fromWristMm": 126.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            7.199343475026206,
+            9.876955144367404,
+            8.281879280413095
+          ]
+        },
+        {
+          "fromWristMm": 132.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            8.44910721893769,
+            10.659105476943813,
+            7.347005890145169
+          ]
+        }
+      ],
+      "coldVsStaticMeshMaxMm": 0.00022540916688740253,
+      "sourceDistalLabelsMaxErrorMm": 0.00023542657774904466
+    },
+    "R": {
+      "adjacentPairs": [
+        "Thumb-Index",
+        "Index-Middle",
+        "Middle-Ring",
+        "Ring-Little"
+      ],
+      "minSurfaceDistanceDistalTwoThirdsMm": [
+        47.84247525269603,
+        7.192341398164647,
+        9.58688515829273,
+        6.074194572042936
+      ],
+      "localCrossSections": [
+        {
+          "fromWristMm": 112.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            4.783837169476174,
+            7.522731816170536,
+            6.875367330049882
+          ]
+        },
+        {
+          "fromWristMm": 120.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            7.897479720848009,
+            9.650497829495354,
+            8.12921831425715
+          ]
+        },
+        {
+          "fromWristMm": 126.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            8.281858632703162,
+            9.876952069439035,
+            7.199401616154102
+          ]
+        },
+        {
+          "fromWristMm": 132.125,
+          "distinctFingerSections": 4,
+          "betweenAdjacentPolygonsMm": [
+            7.346971436082261,
+            10.659050919600912,
+            8.449116948954432
+          ]
+        }
+      ],
+      "coldVsStaticMeshMaxMm": 0.00022540916688740253,
+      "sourceDistalLabelsMaxErrorMm": 0.00023195505709326818
+    }
+  },
+  "description": "Original evaluated facial and nape shapes preserved in static head geometry; revised front-groom geometry retained and compared per object. The split collar fabrics and central upper-back mesh use evaluated source surfaces. The marker copy excludes the rigid wrist device."
+}

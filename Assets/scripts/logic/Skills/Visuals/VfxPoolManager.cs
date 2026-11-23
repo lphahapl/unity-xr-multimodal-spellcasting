@@ -58,7 +58,18 @@ namespace NarutoVR.SealCombat
 
         private void Awake() => Prewarm();
 
-        public bool Handles(GameObject prefab) => prefab && prefab == (preparedPrefab ? preparedPrefab : impactPrefab);
+        public bool Handles(GameObject prefab)
+        {
+            var prototype = preparedPrefab ? preparedPrefab : impactPrefab;
+            if (!prefab || !prototype) return false;
+            if (prefab == prototype) return true;
+            // Scene instances may override materials, particles or children of their source prefab.
+            if (prefab.scene.IsValid() || prototype.scene.IsValid()) return false;
+            return prototype.TryGetComponent<SkillVisualLifetime>(out var source) &&
+                !string.IsNullOrEmpty(source.prefabAssetGuid) &&
+                prefab.TryGetComponent<SkillVisualLifetime>(out var requested) &&
+                string.Equals(source.prefabAssetGuid, requested.prefabAssetGuid, StringComparison.Ordinal);
+        }
 
         /// <summary>按配置容量提前创建视觉实例，复用时恢复颜色、粒子和动画状态。</summary>
         public void Prewarm()

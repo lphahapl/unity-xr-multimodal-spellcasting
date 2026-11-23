@@ -23,6 +23,7 @@ namespace NarutoVR.SealCombat
         internal Action<Vector3> SurfaceHit { get; set; }
         /// <summary>终止于非战斗目标表面；剑波用它反馈撞墙，敌人反馈走去重后的 StrikeResolved。</summary>
         internal Action<Vector3> WorldHit { get; set; }
+        internal Action<SurfaceContact> MarkSurface { get; set; }
         public SkillStrike Strike { get; set; }
         public Action<SkillHitResult> StrikeResolved { get; set; }
         public Func<double> GameClock { get; set; }
@@ -90,19 +91,19 @@ namespace NarutoVR.SealCombat
             RaycastHit[] hits = Physics.SphereCastAll(start, radius, direction, distance,
                 collisionMask, QueryTriggerInteraction.Collide);
             Collider closest = null;
-            Vector3 contact = default;
+            RaycastHit closestHit = default;
             float closestDistance = float.PositiveInfinity;
             foreach (RaycastHit hit in hits)
             {
                 if (ShouldIgnore(hit.collider) || hit.distance >= closestDistance) continue;
                 closest = hit.collider;
                 closestDistance = hit.distance;
-                contact = hit.point;
+                closestHit = hit;
             }
             if (closest)
             {
                 transform.position = start + direction * Mathf.Max(0, closestDistance);
-                Hit(closest, contact);
+                Hit(closest, closestHit.point, closestHit);
             }
             else transform.position = start + direction * distance;
         }
@@ -135,6 +136,7 @@ namespace NarutoVR.SealCombat
                 Vector3 origin = transform.position;
                 Collider collider = WaveOverlap(origin);
                 Vector3 point = origin;
+                RaycastHit? sweep = null;
                 if (!collider)
                 {
                     if (remaining <= 0) return;
@@ -148,12 +150,13 @@ namespace NarutoVR.SealCombat
                     remaining -= travelled;
                     collider = hit.collider;
                     point = hit.point;
+                    sweep = hit;
                 }
 
                 var target = new SkillHitTarget(collider);
                 if (!Strike.AlreadyHit(target.Enemy))
                 {
-                    Hit(collider, point);
+                    Hit(collider, point, sweep);
                     return;
                 }
                 passedLives ??= new HashSet<EnemyCombatState>();
@@ -225,7 +228,7 @@ namespace NarutoVR.SealCombat
             StrikeResolved?.Invoke(result);
         }
 
-        private void Hit(Collider collider, Vector3? contact = null)
+        private void Hit(Collider collider, Vector3? contact = null, RaycastHit? sweep = null)
         {
             if (IsFinished) return;
             // 先锁定本次命中，再扣血及回调，避免多碰撞器或重入造成重复伤害。
@@ -239,7 +242,12 @@ namespace NarutoVR.SealCombat
                 else if (target.Apply(hitId, damage, poiseDamage, AttackerTarget ? AttackerTarget : playerRoot) &&
                     target.TrainingTarget) onTargetHit?.Invoke(target.TrainingTarget);
                 SurfaceHit?.Invoke(point);
-                if (!target.IsTarget) WorldHit?.Invoke(point);
+                if (!target.IsTarget && collider)
+                {
+                    if (MarkSurface != null && SurfaceContact.TryResolve(collider, transform.position,
+                        direction, radius, sweep, out var surface)) MarkSurface(surface);
+                    WorldHit?.Invoke(point);
+                }
             }
             finally { SpawnImpact(); Dispose(); }
         }
@@ -296,6 +304,8 @@ namespace NarutoVR.SealCombat
             onFinished = null;
             ImpactCreated = null;
             SurfaceHit = null;
+            WorldHit = null;
+            MarkSurface = null;
             StrikeResolved = null;
             Strike = null;
             try { callback?.Invoke(this); }

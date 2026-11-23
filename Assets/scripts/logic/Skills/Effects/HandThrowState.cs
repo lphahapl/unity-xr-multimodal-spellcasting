@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using NarutoVR.SealLab;
+using Oculus.Interaction.Input;
 
 namespace NarutoVR.SealCombat
 {
@@ -55,6 +57,37 @@ namespace NarutoVR.SealCombat
         public double observed;
         public bool fistValid, fistClosed, fistOpen, pinchValid, pinchClosed, pinchOpen;
         public Vector3 wristToKnucklesWorld; // Zero means missing or invalid.
+
+        internal static ThrowGripSample Read(HandSnapshot hand, Transform origin, OfficialHandPoseDetector.Result shape,
+            HandThrowSettings settings, double now, double maxAge, double acceptAfter)
+        {
+            int wrist = (int)HandJointId.HandWristRoot;
+            if (hand == null || !hand.connected || !hand.tracked || !hand.fresh || !hand.highConfidence ||
+                !hand.jointValid[wrist] || !double.IsFinite(hand.observedAt) || !double.IsFinite(now) ||
+                hand.observedAt <= acceptAfter || hand.observedAt > now || now - hand.observedAt > maxAge) return default;
+            Vector3 World(int joint) => origin ? origin.TransformPoint(hand.joints[joint].position) : hand.joints[joint].position;
+            var wristPosition = World(wrist);
+            if (!float.IsFinite(wristPosition.x) || !float.IsFinite(wristPosition.y) || !float.IsFinite(wristPosition.z)) return default;
+            var result = new ThrowGripSample {
+                observed = hand.observedAt, fistValid = shape.valid, fistClosed = shape.closed,
+                fistOpen = settings.allowPartialFistRelease ? shape.releaseOpen : shape.open
+            };
+            int indexBase = (int)HandJointId.HandIndex1, middleBase = (int)HandJointId.HandMiddle1;
+            if (hand.jointValid[indexBase] && hand.jointValid[middleBase])
+            {
+                var axis = (World(indexBase) + World(middleBase)) * .5f - wristPosition;
+                if (axis.sqrMagnitude >= .0004f && axis.sqrMagnitude <= .0256f) result.wristToKnucklesWorld = axis.normalized;
+            }
+            int thumb = (int)HandJointId.HandThumbTip, index = (int)HandJointId.HandIndexTip;
+            if (hand.jointValid[thumb] && hand.jointValid[index])
+            {
+                float distance = Vector3.Distance(World(thumb), World(index));
+                result.pinchValid = float.IsFinite(distance);
+                result.pinchClosed = distance <= settings.pinchCloseDistance;
+                result.pinchOpen = distance >= settings.pinchOpenDistance;
+            }
+            return result;
+        }
     }
 
     /// <summary>轨迹拟合结果，包含世界速度、相对头部速度及有效性等诊断数据。</summary>

@@ -9,8 +9,6 @@ namespace NarutoVR.SealCombat.Rpg
     public sealed class OpeningSubtitlePresenter
     {
         readonly Text label;
-        readonly Transform head;
-        readonly Transform panel;
         readonly List<string> pages = new List<string>();
         readonly List<int> pageEnds = new List<int>();
         AudioSource voice;
@@ -20,12 +18,12 @@ namespace NarutoVR.SealCombat.Rpg
         public OpeningSubtitlePresenter(Text label, Transform head)
         {
             this.label = label;
-            this.head = head;
             var canvas = label.canvas;
-            if (canvas && canvas.renderMode == RenderMode.WorldSpace)
+            if (head && canvas && canvas.renderMode == RenderMode.WorldSpace)
             {
-                panel = canvas.transform;
-                panel.SetParent(null, true);
+                var panel = canvas.transform;
+                panel.SetParent(head, true);
+                panel.SetLocalPositionAndRotation(new Vector3(0f, -.23f, 1.1f), Quaternion.identity);
             }
             label.rectTransform.sizeDelta = new Vector2(640f, 60f);
             label.alignment = TextAnchor.MiddleCenter;
@@ -36,13 +34,6 @@ namespace NarutoVR.SealCombat.Rpg
             label.supportRichText = false;
             label.raycastTarget = false;
             label.text = string.Empty;
-            Place();
-        }
-
-        public void Place()
-        {
-            if (head && panel)
-                panel.SetPositionAndRotation(head.TransformPoint(new Vector3(0f, -.23f, 1.1f)), head.rotation);
         }
 
         public void Clear()

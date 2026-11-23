@@ -1,0 +1,178 @@
+{
+  "component": "Body",
+  "sourceSizeBlenderMetres": [
+    1.0587769746780396,
+    1.7554854154586792,
+    1.1446082592010498
+  ],
+  "sourceFile": "Body.glb",
+  "sourceHash": "03479b5392775e5aa2ac019aa7086a31ac9b4372a70c500945feb06d7e269d1e",
+  "sourceTriangles": 489202,
+  "sourceVertices": 361384,
+  "authoringYawDegrees": 90.0,
+  "nominalUnityDimensionsMetres": [
+    1.0,
+    0.9399999976158142,
+    1.011682152748108
+  ],
+  "verification": {
+    "mountContactHeights": {
+      "ConsoleBody_LOD0": [
+        0.9201415777206421,
+        0.9201110601425171,
+        0.920089602470398,
+        0.9200828075408936,
+        0.9200332164764404,
+        0.9201208353042603,
+        0.9200098514556885,
+        0.9200171232223511,
+        0.9200632572174072,
+        0.9202054738998413,
+        0.9199355840682983,
+        0.9199953079223633,
+        0.9199535846710205,
+        0.9199689626693726,
+        0.920037031173706,
+        0.9198771715164185,
+        0.919930100440979,
+        0.9198899269104004,
+        0.9199047088623047,
+        0.9199427366256714,
+        0.9198189973831177,
+        0.9198650121688843,
+        0.9198263883590698,
+        0.9198410511016846,
+        0.9198558330535889
+      ],
+      "ConsoleBody_LOD1": [
+        0.9206855297088623,
+        0.9207055568695068,
+        0.9207601547241211,
+        0.9209386110305786,
+        0.9211171865463257,
+        0.9206079244613647,
+        0.9206280708312988,
+        0.9206483364105225,
+        0.9206684827804565,
+        0.9206887483596802,
+        0.9205303192138672,
+        0.9205504655838013,
+        0.9205707311630249,
+        0.9205909967422485,
+        0.9206109046936035,
+        0.9204527139663696,
+        0.9204729795455933,
+        0.9204931259155273,
+        0.9205132722854614,
+        0.9205334186553955,
+        0.9203751087188721,
+        0.9203953742980957,
+        0.9204156398773193,
+        0.9204356670379639,
+        0.920455813407898
+      ]
+    }
+  },
+  "lods": {
+    "ConsoleBody_LOD0": {
+      "triangles": 4200,
+      "vertices": 2078,
+      "material": "CH_ConsoleBody",
+      "nominalPositionUnity": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0005,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "ConsoleBody_LOD0": {
+            "verts": 2078,
+            "faces": 4200,
+            "tris": 4200,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.33,
+            "uv_coverage_pct": 43.9
+          }
+        }
+      }
+    },
+    "ConsoleBody_LOD1": {
+      "triangles": 1350,
+      "vertices": 653,
+      "material": "CH_ConsoleBody",
+      "nominalPositionUnity": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0012,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "ConsoleBody_LOD1": {
+            "verts": 653,
+            "faces": 1350,
+            "tris": 1350,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.66,
+            "uv_coverage_pct": 32.4
+          }
+        }
+      }
+    }
+  }
+}

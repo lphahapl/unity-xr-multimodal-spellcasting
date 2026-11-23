@@ -26,7 +26,6 @@ namespace NarutoVR.SealCombat.Editor
             "SkillCatalog" => "技能目录配置",
             "SkillAudioProfile" => "技能音频配置",
             "SkillDefinition" => "技能定义配置",
-            "Readme" => "工程说明配置",
             _ => className + "配置"
         };
         const string Root = LinearRpgSceneSetup.ConfigurationRoot;
@@ -99,7 +98,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             if (count == 0 || !File.Exists(LinearRpgSceneSetup.VoiceConfigurationPath)) throw new Exception("配置或语音导出缺失");
             var fire = AssetDatabase.LoadAssetAtPath<ProjectileEffectDefinition>(LinearRpgSceneSetup.FireballEffectPath);
-            var catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(Root + "/技能目录配置/线性RPG技能目录.asset");
+            var catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(SkillConfigurationSetup.CatalogPath);
             if (!fire || !catalog || catalog.Validate().Count != 0 || !AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>(OfficialHandPoseSetup.ProfilePath)) throw new Exception("技能或基础手形接线失败");
             string detail = $"{count} 个配置按实际类分类；GUID及文件内容不变；技能目录和效果接线有效；语音JSON路径保留。";
             Directory.CreateDirectory(Log);

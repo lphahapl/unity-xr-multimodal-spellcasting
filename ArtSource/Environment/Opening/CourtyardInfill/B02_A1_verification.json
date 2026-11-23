@@ -1,0 +1,517 @@
+{
+  "models": {
+    "GalleryCorner_LOD0": {
+      "ids": {
+        "Geometry": [
+          48115142,
+          "GalleryCorner"
+        ],
+        "Model": [
+          870579428,
+          "GalleryCorner"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        2.994,
+        2.994,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD0: ~50.06% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD0": {
+            "verts": 1344,
+            "faces": 2436,
+            "tris": 2436,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 63,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 50.06,
+            "uv_coverage_pct": 15.6
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    },
+    "GalleryCorner_LOD1": {
+      "ids": {
+        "Geometry": [
+          497455647,
+          "GalleryCorner.001"
+        ],
+        "Model": [
+          641014677,
+          "GalleryCorner.001"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        2.99,
+        2.99,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD1: ~49.84% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD1": {
+            "verts": 614,
+            "faces": 1092,
+            "tris": 1092,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 34,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 49.84,
+            "uv_coverage_pct": 15.6
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    },
+    "GalleryCorner_LOD2": {
+      "ids": {
+        "Geometry": [
+          38211360,
+          "GalleryCorner.002"
+        ],
+        "Model": [
+          641014677,
+          "GalleryCorner.001"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        2.99,
+        2.99,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD2: ~49.76% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD2": {
+            "verts": 262,
+            "faces": 444,
+            "tris": 444,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 20,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 49.76,
+            "uv_coverage_pct": 15.5
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    },
+    "GalleryStraight_LOD0": {
+      "ids": {
+        "Geometry": [
+          377623215,
+          "GalleryStraight"
+        ],
+        "Model": [
+          355528756,
+          "GalleryStraight"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        3.0,
+        2.988,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryStraight_LOD0: ~46.19% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryStraight_LOD0": {
+            "verts": 1098,
+            "faces": 1988,
+            "tris": 1988,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 52,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 46.19,
+            "uv_coverage_pct": 18.9
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    },
+    "GalleryStraight_LOD1": {
+      "ids": {
+        "Geometry": [
+          62549413,
+          "GalleryStraight.001"
+        ],
+        "Model": [
+          695275240,
+          "GalleryStraight.001"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        3.0,
+        2.966,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryStraight_LOD1: ~45.95% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryStraight_LOD1": {
+            "verts": 538,
+            "faces": 956,
+            "tris": 956,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 30,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 45.95,
+            "uv_coverage_pct": 18.9
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    },
+    "GalleryStraight_LOD2": {
+      "ids": {
+        "Geometry": [
+          70910944,
+          "GalleryStraight.002"
+        ],
+        "Model": [
+          695275240,
+          "GalleryStraight.001"
+        ],
+        "Material": [
+          26499490,
+          "B02_Infill"
+        ]
+      },
+      "bounds_xyz_m": [
+        3.0,
+        2.966,
+        3.624
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryStraight_LOD2: ~45.84% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryStraight_LOD2": {
+            "verts": 204,
+            "faces": 336,
+            "tris": 336,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 18,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 45.84,
+            "uv_coverage_pct": 18.9
+          }
+        }
+      },
+      "roof_shell_intersecting_triangle_pairs": 0
+    }
+  },
+  "assembly": {
+    "socket_cross_section_vertices": 38,
+    "matched_sockets": 12,
+    "max_transverse_profile_deviation_m": 2.736043995810178e-07,
+    "comparison_precision_m": 1e-05,
+    "straight_pitch_m": 3.0,
+    "turn_degrees": 90,
+    "pan_pitch_m": 0.25,
+    "lip_thickness_m": 0.018,
+    "mouth_relief_LOD0_m": 0.06
+  },
+  "previous_A1": {
+    "triangles": {
+      "GalleryCorner_LOD0": 6950,
+      "GalleryCorner_LOD1": 4102,
+      "GalleryCorner_LOD2": 1050,
+      "GalleryStraight_LOD0": 6188,
+      "GalleryStraight_LOD1": 3536,
+      "GalleryStraight_LOD2": 820
+    },
+    "matched_socket_points": 456,
+    "max_socket_change_m": 0.0,
+    "fbx_sha256": {
+      "GalleryCorner_LOD0.fbx": "b5fc45f5d73dee5dbbeca9368a20fe4b7c326dec1e0f7784e5818e2f92067174",
+      "GalleryCorner_LOD1.fbx": "a0b3159c030254a8c325c2799ca3d417c32a894488d7b6be7f7ba47ce054db85",
+      "GalleryCorner_LOD2.fbx": "9b260fa9770ad0d9c6b4f0215a11dc509b0592713571b0c1ec265c3a21dcf0e0",
+      "GalleryStraight_LOD0.fbx": "f80790d39e20013ddac031f9f030c8760518ce6a5964e8fd54c8ae10bc3dca51",
+      "GalleryStraight_LOD1.fbx": "f9045e20c5e65c5149080577bbf7aec37f67c6639430c429c3eee67e96ec56c1",
+      "GalleryStraight_LOD2.fbx": "f5a4e88c73c2a5886cc1254e5ec22200a364d841b48af823ab4ba95c143ad31c"
+    }
+  },
+  "runtime_sha256": {
+    "GalleryCorner_LOD0.fbx": "6912761d6a57d4f2a654d58291c7230b0655d5e49740e018a259aa0c4ef93468",
+    "GalleryCorner_LOD1.fbx": "cd61281f0a48d050b233c4aa8b8022b6e4734af5d1c7a91824ac2f542724dc2d",
+    "GalleryCorner_LOD2.fbx": "822e23f8aea66a46a89cea9b530f773b7c1468b68598814f205d2ea17ffd37bc",
+    "GalleryStraight_LOD0.fbx": "15844239b9b30529d4f0884b73659eb967f672bb864b7fa53aa919f18164df8e",
+    "GalleryStraight_LOD1.fbx": "f7ccff18b5a2755b2dc1ed13ad786cc64e800764133d4a8473098bb26351ccde",
+    "GalleryStraight_LOD2.fbx": "661854b2c18982f8efe1f4b53462f60d49ba01b138a0b72b6ff4a3eaff102ccc",
+    "B02_BaseColor.png": "5cd05fda91db9f7d634d735b9871955dfe80699f3e31c943f5dd34060b2e0685",
+    "B02_Normal.png": "db534a7efdc8c303da34f82c7d2ffefac99c940c1709f80e4d6f8284dd653064",
+    "B02_Mask.png": "30233dfb3e74b2f0c715d6518d95ef59b6ee0f4eb86f6550559d6597b88900ba"
+  },
+  "unity": {
+    "version": "6000.3.10f1",
+    "isolated_import": true,
+    "identical_import_objects": [
+      "Assets/B02/GalleryCorner_LOD0.fbx GameObject GalleryCorner_LOD0 053c7262521a586baf3f083d348b1962 919132149155446097",
+      "Assets/B02/GalleryCorner_LOD0.fbx Mesh GalleryCorner 053c7262521a586baf3f083d348b1962 -4679535832002647",
+      "Assets/B02/GalleryCorner_LOD0.fbx MeshFilter GalleryCorner_LOD0 053c7262521a586baf3f083d348b1962 -5754084199372789682",
+      "Assets/B02/GalleryCorner_LOD0.fbx MeshRenderer GalleryCorner_LOD0 053c7262521a586baf3f083d348b1962 -7511558181221131132",
+      "Assets/B02/GalleryCorner_LOD0.fbx Transform GalleryCorner_LOD0 053c7262521a586baf3f083d348b1962 -8679921383154817045",
+      "Assets/B02/GalleryCorner_LOD1.fbx GameObject GalleryCorner_LOD1 4852bcc455a557baa3bdcf77ac64938c 919132149155446097",
+      "Assets/B02/GalleryCorner_LOD1.fbx ImportLog Import Logs 4852bcc455a557baa3bdcf77ac64938c 2400844187752362338",
+      "Assets/B02/GalleryCorner_LOD1.fbx Mesh GalleryCorner.001 4852bcc455a557baa3bdcf77ac64938c -4117205024157938212",
+      "Assets/B02/GalleryCorner_LOD1.fbx MeshFilter GalleryCorner_LOD1 4852bcc455a557baa3bdcf77ac64938c -5754084199372789682",
+      "Assets/B02/GalleryCorner_LOD1.fbx MeshRenderer GalleryCorner_LOD1 4852bcc455a557baa3bdcf77ac64938c -7511558181221131132",
+      "Assets/B02/GalleryCorner_LOD1.fbx Transform GalleryCorner_LOD1 4852bcc455a557baa3bdcf77ac64938c -8679921383154817045",
+      "Assets/B02/GalleryCorner_LOD2.fbx GameObject GalleryCorner_LOD2 d6bc512f80ca5161944996cfc21f333e 919132149155446097",
+      "Assets/B02/GalleryCorner_LOD2.fbx ImportLog Import Logs d6bc512f80ca5161944996cfc21f333e 2400844187752362338",
+      "Assets/B02/GalleryCorner_LOD2.fbx Mesh GalleryCorner.001 d6bc512f80ca5161944996cfc21f333e -4117205024157938212",
+      "Assets/B02/GalleryCorner_LOD2.fbx MeshFilter GalleryCorner_LOD2 d6bc512f80ca5161944996cfc21f333e -5754084199372789682",
+      "Assets/B02/GalleryCorner_LOD2.fbx MeshRenderer GalleryCorner_LOD2 d6bc512f80ca5161944996cfc21f333e -7511558181221131132",
+      "Assets/B02/GalleryCorner_LOD2.fbx Transform GalleryCorner_LOD2 d6bc512f80ca5161944996cfc21f333e -8679921383154817045",
+      "Assets/B02/GalleryStraight_LOD0.fbx GameObject GalleryStraight_LOD0 1c552765d6af51b9b05d65b8b1767d6a 919132149155446097",
+      "Assets/B02/GalleryStraight_LOD0.fbx Mesh GalleryStraight 1c552765d6af51b9b05d65b8b1767d6a 4523863147569266841",
+      "Assets/B02/GalleryStraight_LOD0.fbx MeshFilter GalleryStraight_LOD0 1c552765d6af51b9b05d65b8b1767d6a -5754084199372789682",
+      "Assets/B02/GalleryStraight_LOD0.fbx MeshRenderer GalleryStraight_LOD0 1c552765d6af51b9b05d65b8b1767d6a -7511558181221131132",
+      "Assets/B02/GalleryStraight_LOD0.fbx Transform GalleryStraight_LOD0 1c552765d6af51b9b05d65b8b1767d6a -8679921383154817045",
+      "Assets/B02/GalleryStraight_LOD1.fbx GameObject GalleryStraight_LOD1 98aa4790bccf5dd49bb6c84f0dedf608 919132149155446097",
+      "Assets/B02/GalleryStraight_LOD1.fbx ImportLog Import Logs 98aa4790bccf5dd49bb6c84f0dedf608 2400844187752362338",
+      "Assets/B02/GalleryStraight_LOD1.fbx Mesh GalleryStraight.001 98aa4790bccf5dd49bb6c84f0dedf608 3007370521298983134",
+      "Assets/B02/GalleryStraight_LOD1.fbx MeshFilter GalleryStraight_LOD1 98aa4790bccf5dd49bb6c84f0dedf608 -5754084199372789682",
+      "Assets/B02/GalleryStraight_LOD1.fbx MeshRenderer GalleryStraight_LOD1 98aa4790bccf5dd49bb6c84f0dedf608 -7511558181221131132",
+      "Assets/B02/GalleryStraight_LOD1.fbx Transform GalleryStraight_LOD1 98aa4790bccf5dd49bb6c84f0dedf608 -8679921383154817045",
+      "Assets/B02/GalleryStraight_LOD2.fbx GameObject GalleryStraight_LOD2 53652e135f6a5c41806c587a93d80321 919132149155446097",
+      "Assets/B02/GalleryStraight_LOD2.fbx ImportLog Import Logs 53652e135f6a5c41806c587a93d80321 2400844187752362338",
+      "Assets/B02/GalleryStraight_LOD2.fbx Mesh GalleryStraight.001 53652e135f6a5c41806c587a93d80321 3007370521298983134",
+      "Assets/B02/GalleryStraight_LOD2.fbx MeshFilter GalleryStraight_LOD2 53652e135f6a5c41806c587a93d80321 -5754084199372789682",
+      "Assets/B02/GalleryStraight_LOD2.fbx MeshRenderer GalleryStraight_LOD2 53652e135f6a5c41806c587a93d80321 -7511558181221131132",
+      "Assets/B02/GalleryStraight_LOD2.fbx Transform GalleryStraight_LOD2 53652e135f6a5c41806c587a93d80321 -8679921383154817045"
+    ],
+    "baseline_id_sha256": "4b5b3645e10152e5bdb321d678600e5b9178898c2ac280c22da6dde7ece2668f",
+    "final_id_sha256": "4b5b3645e10152e5bdb321d678600e5b9178898c2ac280c22da6dde7ece2668f",
+    "lod_prefab_readback": [
+      "GalleryStraight 0.25 GalleryStraight 1988 B02_Infill",
+      "GalleryStraight 0.095 GalleryStraight.001 956 B02_Infill",
+      "GalleryStraight 0.0035 GalleryStraight.001 336 B02_Infill",
+      "GalleryCorner 0.25 GalleryCorner 2436 B02_Infill",
+      "GalleryCorner 0.095 GalleryCorner.001 1092 B02_Infill",
+      "GalleryCorner 0.0035 GalleryCorner.001 444 B02_Infill"
+    ],
+    "baseline_lod_readback": [
+      "GalleryStraight 0.25 GalleryStraight 6188 B02_Infill",
+      "GalleryStraight 0.095 GalleryStraight.001 3536 B02_Infill",
+      "GalleryStraight 0.0035 GalleryStraight.001 820 B02_Infill",
+      "GalleryCorner 0.25 GalleryCorner 6950 B02_Infill",
+      "GalleryCorner 0.095 GalleryCorner.001 4102 B02_Infill",
+      "GalleryCorner 0.0035 GalleryCorner.001 1050 B02_Infill"
+    ],
+    "generated_lightmap_uv_channel_present_all_meshes": true,
+    "retained_warnings": [
+      "Standalone LOD1/2 FBXs warn about missing lower-suffix siblings; four identical warnings in baseline. The prefab binds all three tiers."
+    ],
+    "uv0": "Texture swatches intentionally reused. Unity generates the lightmap UV channel at import."
+  },
+  "map_changes": {
+    "BaseColor": {
+      "width": 1024,
+      "height": 1024,
+      "changed_texels": 0
+    },
+    "Normal": {
+      "width": 2048,
+      "height": 2048,
+      "changed_texels": 176318
+    },
+    "Mask": {
+      "width": 2048,
+      "height": 2048,
+      "changed_texels": 0
+    }
+  },
+  "art_review": {
+    "reference": "docs/visuals/chapter01_preqin_architecture/山间校院_A1.png",
+    "before_after": "Views/B02_A1_LOD_comparison.jpg",
+    "final_lods": "Views/B02_A1.jpg",
+    "near_detail": "24 clay ends per bay, 18 mm tile lips; timber rafter end grain and four bearing blocks.",
+    "slope": "A1 pan/crown relief transferred into the existing tangent-normal atlas; original photo color and mask retained."
+  }
+}

@@ -8,10 +8,16 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using NarutoVR.SceneArt;
+using NarutoVR.SealCombat.Events;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 [InitializeOnLoad]
@@ -52,6 +58,20 @@ public static class RuntimeAcceptance
     static int step;
     static double next;
     static bool pauseSnapshotReady;
+    const float TravelDelaySeconds = 1.5f;
+    static int travelStarts;
+    static double gateEnteredAt, destinationActivatedAt;
+    static float requestedSeconds;
+    static bool startedInFixture, busyDuringPresentation;
+    static StoryCameraManager manager;
+    static StoryCameraSequence sequence;
+    static IDisposable storySubscription, entrySubscription;
+    static int storyRequests;
+    static bool requestedDirectorPlaying;
+    static SceneLoadingOverlay overlayPrefab;
+    static double overlayShownAt;
+    static float lastFill;
+    static bool sawRamp, sawFull, sawDestinationCamera, sawBusyInDestination, sawStoryBeyondDelay;
 
     static RuntimeAcceptance()
     {
@@ -91,11 +111,12 @@ public static class RuntimeAcceptance
             Require(!File.Exists(state.fixtureScene) && !File.Exists(state.destinationScene),"Unique temporary scene paths");
             var target=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             new GameObject("RuntimeAcceptanceDestinationMarker");
+            new GameObject("Destination camera", typeof(Camera)).tag="MainCamera";
             Require(EditorSceneManager.SaveScene(target,state.destinationScene),"Saved isolated destination fixture");
             var fixture=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             Require(EditorSceneManager.SaveScene(fixture,state.fixtureScene),"Saved empty Play Mode fixture");
             EditorBuildSettings.scenes=state.originalScenes.Select(s=>new EditorBuildSettingsScene(s.path,s.enabled))
-                .Concat(new[]{new EditorBuildSettingsScene(state.destinationScene,true)}).ToArray();
+                .Concat(new[]{new EditorBuildSettingsScene(state.destinationScene,true),new EditorBuildSettingsScene(state.fixtureScene,true)}).ToArray();
             state.phase="waiting-play";Save();Subscribe();EditorApplication.isPlaying=true;
         }
         catch(Exception e) { Fail(e); }
@@ -151,6 +172,36 @@ public static class RuntimeAcceptance
         gateObject.transform.SetPositionAndRotation(new Vector3(0,1.6f,0),Quaternion.identity);
         var box=gateObject.AddComponent<BoxCollider>();box.size=new Vector3(2,3,1);box.isTrigger=true;
         gate=gateObject.AddComponent<SceneTravelGate>();
+        manager=StoryCameraManager.Instance;
+        sequence=NewSequence();
+        Set(gate,"presentation",sequence);
+        overlayPrefab=AssetDatabase.LoadAssetAtPath<SceneLoadingOverlay>("Assets/Prefabs/SceneLoadingOverlay.prefab");
+        var bar=overlayPrefab.GetComponentInChildren<SceneLoadingProgressBar>();
+        Require(bar && Get(bar,"progressFill") is Image image && image.sprite && image.type==Image.Type.Filled &&
+            Get(bar,"percentText") is Text,"The replaceable progress bar binds its own filled sprite and percentage");
+        var backdrop=overlayPrefab.transform.GetChild(0);
+        Require(PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(backdrop.gameObject)=="Assets/Prefabs/SceneLoadingBackdrop.prefab" &&
+            PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(bar.gameObject)=="Assets/Prefabs/SceneLoadingProgressBar.prefab" &&
+            bar.transform.parent==overlayPrefab.transform && bar.transform.GetSiblingIndex()>backdrop.GetSiblingIndex(),
+            "The overlay draws its independent background prefab behind its progress bar prefab");
+        var anchor=((RectTransform)bar.transform).anchorMin;
+        Require(Mathf.Approximately(anchor.x,.5f) && anchor.y>0f && anchor.y<.25f,
+            "The progress bar is anchored in the lower quarter of the viewport");
+        Set(gate,"loadingOverlayPrefab",overlayPrefab);
+        entrySubscription=EventCenter.Subscribe(TravelEvents.GateEntered, notice =>
+        {
+            if (notice.Gate!=gate) return;
+            gateEnteredAt=Time.realtimeSinceStartupAsDouble;
+            requestedSeconds=notice.PresentationSeconds;
+        });
+        storySubscription=EventCenter.Subscribe(TravelEvents.StoryPlayRequested, notice =>
+        {
+            storyRequests++;
+            requestedDirectorPlaying=manager.ActiveDirector==notice.Director && notice.Director.state==PlayState.Playing;
+        });
+        Require((float)Get(gate,"minimumDelaySeconds")==0f,"Existing gates default to immediate activation");
+        Set(gate,"minimumDelaySeconds",TravelDelaySeconds);
+        ((UnityEvent)Get(gate,"onTravelStarted")).AddListener(StartPresentation);
         Require(!gate.LoadEnabled && string.IsNullOrEmpty(gate.DestinationScene),"Gate defaults disabled with empty destination");
         head=CameraObject("PrimaryTrackedHead");head.position=Outside;
         hand=new GameObject("HandColliderMustNotActivateGate");hand.transform.SetParent(root.transform,false);
@@ -163,6 +214,27 @@ public static class RuntimeAcceptance
         root.SetActive(true);Time.timeScale=1f;
     }
     static readonly Vector3 Inside=new Vector3(0,1.6f,0),Outside=new Vector3(0,1.6f,-3);
+    static StoryCameraSequence NewSequence()
+    {
+        var director=new GameObject("Gate story").AddComponent<PlayableDirector>();
+        director.playOnAwake=false;
+        director.timeUpdateMode=DirectorUpdateMode.UnscaledGameTime;
+        var timeline=ScriptableObject.CreateInstance<TimelineAsset>();
+        timeline.durationMode=TimelineAsset.DurationMode.FixedLength;
+        timeline.fixedDuration=2;
+        director.playableAsset=timeline;
+        var sequence=director.gameObject.AddComponent<StoryCameraSequence>();
+        Set(sequence,"shotPose",director.transform);
+        return sequence;
+    }
+    static void StartPresentation()
+    {
+        travelStarts++;
+        startedInFixture=SceneManager.GetActiveScene().path==state.fixtureScene;
+        busyDuringPresentation=AsyncSceneLoader.TryLoad(state.destinationScene)==AsyncSceneLoader.Result.Busy;
+        Time.timeScale=0f;
+        gate.gameObject.SetActive(false);
+    }
     static Transform CameraObject(string name)
     {
         var go=new GameObject(name);go.transform.SetParent(root.transform,false);go.tag="MainCamera";
@@ -211,15 +283,41 @@ public static class RuntimeAcceptance
                 head.position=Inside;Wait(.2);break;
             case 14:
                 NoLoad("Disabled old camera entering does not activate gate");
+                Require(travelStarts==0 && storyRequests==0,"Rejected gate entries never request a story");
+                replacementHead.gameObject.AddComponent<TrackedPoseDriver>();
                 replacementHead.position=Inside;next=EditorApplication.timeSinceStartup;step++;Save();return;
             case 15:
-                if(state.destinationLoadCount==0)
+                var overlay=Object.FindAnyObjectByType<SceneLoadingOverlay>();
+                if(manager.ActiveDirector)
+                {
+                    if(overlay)throw new InvalidOperationException("Mask obscured an active cutscene");
+                    sawStoryBeyondDelay |= Time.realtimeSinceStartupAsDouble-gateEnteredAt>TravelDelaySeconds;
+                }
+                if(overlay) ObserveOverlay(overlay);
+                if(state.destinationLoadCount==0 || overlay)
                 {
                     if(EditorApplication.timeSinceStartup-next>15)throw new TimeoutException("Real LoadSceneAsync did not complete");
                     return;
                 }
                 Require(state.destinationLoadCount==1 && SceneManager.GetActiveScene().path==state.destinationScene,
                     "Active tracked head entry completed one real Single LoadSceneAsync");
+                Require(sawStoryBeyondDelay,"A longer Timeline remains visible beyond the configured minimum delay");
+                Require(sawRamp && sawFull && overlayShownAt>0 && Time.realtimeSinceStartupAsDouble-overlayShownAt>=0.6,
+                    "The progress bar interpolates from zero and reaches 100% after at least 0.6 unscaled seconds");
+                Require(sawDestinationCamera && sawBusyInDestination,
+                    "Mask binds the destination camera and blocks a second transition during its visible tail");
+                Require(travelStarts==1 && startedInFixture && busyDuringPresentation,
+                    "Camera event fires once in the source scene with a load already in flight");
+                Require(storyRequests==1 && requestedDirectorPlaying && !sequence &&
+                    StoryCameraManager.Instance==manager && !manager.ActiveDirector && replacementHead.GetComponent<TrackedPoseDriver>().enabled,
+                    "Real gate requests the bound director once; singleton survives source unload and restores tracking");
+                double elapsed=destinationActivatedAt-gateEnteredAt;
+                Require(requestedSeconds==TravelDelaySeconds && elapsed>=TravelDelaySeconds && Time.timeScale==0f && !gate.gameObject.activeSelf,
+                    $"Destination activated after {elapsed:F3}s (minimum {TravelDelaySeconds}s) while paused and gate inactive");
+                Time.timeScale=1f;
+                Camera.main.enabled=false;
+                replacementHead.GetComponent<Camera>().enabled=true;
+                gate.gameObject.SetActive(true);
                 Require((bool)Get(gate,"loading"),"Successful load keeps the one-shot submission guard");
                 replacementHead.position=Outside;Wait(.15);break;
             case 16:replacementHead.position=Inside;Wait(.15);break;
@@ -227,9 +325,79 @@ public static class RuntimeAcceptance
             case 18:replacementHead.position=Inside;Wait(.2);break;
             case 19:
                 Require(state.destinationLoadCount==1,"Repeated post-load exits/entries submit no additional scene load");
-                CheckFixedTransforms();state.testsPassed=true;LeavePlay();return;
+                Require(travelStarts==1,"Re-entering the used gate does not replay the camera event");
+                Require(AsyncSceneLoader.TryLoad(" ") == AsyncSceneLoader.Result.InvalidDestination &&
+                    AsyncSceneLoader.TryLoad("Missing_" + Path.GetFileNameWithoutExtension(state.fixtureScene)) == AsyncSceneLoader.Result.InvalidDestination,
+                    "Shared loader rejects empty and unknown destinations");
+                Require(AsyncSceneLoader.TryLoad(state.destinationScene) == AsyncSceneLoader.Result.AlreadyInScene &&
+                    AsyncSceneLoader.TryLoad(SceneManager.GetActiveScene().name) == AsyncSceneLoader.Result.AlreadyInScene,
+                    "Shared loader ignores the active scene by path and name");
+                var returnGate=new GameObject("Return gate").AddComponent<SceneTravelGate>();
+                Set(returnGate,"destinationScene"," "+Path.GetFileNameWithoutExtension(state.fixtureScene)+" ");
+                Set(returnGate,"loadEnabled",true);
+                Set(returnGate,"presentation",NewSequence());
+                Set(returnGate,"loadingOverlayPrefab",overlayPrefab);
+                Set(returnGate,"minimumDelaySeconds",120f);
+                EventCenter.Publish(TravelEvents.GateEntered,new GateEnteredNotice(returnGate));
+                var immediateMask=Object.FindAnyObjectByType<SceneLoadingOverlay>();
+                Require(immediateMask && ((Image)Get(immediateMask,"progressFill")).fillAmount==0f &&
+                    ((Text)Get(immediateMask,"percentText")).text=="0%","No-story entry immediately displays exactly zero");
+                overlayShownAt=(double)Get(immediateMask,"shownAt");
+                Require((bool)Get(returnGate,"loading") && storyRequests==1 && !manager.ActiveDirector,
+                    "Omitted event duration starts the return trip without a story even with a configured sequence");
+                Require(AsyncSceneLoader.TryLoad(state.fixtureScene) == AsyncSceneLoader.Result.Busy,
+                    "A second caller in the same frame cannot queue another transition");
+                next=EditorApplication.timeSinceStartup;step++;Save();return;
+            case 20:
+                if(SceneManager.GetActiveScene().path!=state.fixtureScene || Object.FindAnyObjectByType<SceneLoadingOverlay>())
+                {
+                    if(EditorApplication.timeSinceStartup-next>15)throw new TimeoutException("Shared loader return trip did not complete");
+                    return;
+                }
+                Require(state.destinationLoadCount==1,"Return trip reached the fixture without reloading the gate destination");
+                Require(Time.realtimeSinceStartupAsDouble-overlayShownAt>=0.6,"Fast return trip keeps the mask for at least 0.6 seconds");
+                CheckFixedTransforms();
+                var heldGate=new GameObject("Held gate").AddComponent<SceneTravelGate>();
+                Set(heldGate,"destinationScene",state.destinationScene);
+                Set(heldGate,"loadEnabled",true);
+                sequence=NewSequence();
+                Set(heldGate,"presentation",sequence);
+                Set(heldGate,"loadingOverlayPrefab",overlayPrefab);
+                EventCenter.Publish(TravelEvents.GateEntered,new GateEnteredNotice(heldGate,120f));
+                Require(manager.ActiveDirector && !Object.FindAnyObjectByType<SceneLoadingOverlay>(),
+                    "The held transition starts its story before showing the mask");
+                sequence.Stop();
+                Wait(.9);break;
+            case 21:
+                var heldMask=Object.FindAnyObjectByType<SceneLoadingOverlay>();
+                Require(heldMask && !manager.ActiveDirector,"Skipping the story opens the pending load mask");
+                var heldOperation=(AsyncOperation)Get(heldMask,"operation");
+                Require(!heldOperation.isDone && Mathf.Approximately(heldOperation.progress,0.9f) &&
+                    Mathf.Approximately(((Image)Get(heldMask,"progressFill")).fillAmount,heldOperation.progress),
+                    "After the initial ramp a pending native operation holds the mask at its real progress");
+                Require(SceneManager.GetActiveScene().path==state.fixtureScene && state.destinationLoadCount==1,
+                    "Source scene is still active when leaving Play mode mid-presentation");
+                state.testsPassed=true;LeavePlay();return;
         }
         step++;Save();
+    }
+    static void ObserveOverlay(SceneLoadingOverlay overlay)
+    {
+        overlayShownAt=(double)Get(overlay,"shownAt");
+        var operation=(AsyncOperation)Get(overlay,"operation");
+        float fill=((Image)Get(overlay,"progressFill")).fillAmount;
+        if(fill<lastFill || ((Text)Get(overlay,"percentText")).text!=$"{Mathf.FloorToInt(fill*100f)}%")
+            throw new InvalidOperationException("Progress bar regressed or disagreed with its percentage");
+        lastFill=fill;
+        double elapsed=(double)Get(overlay,"lastSample")-overlayShownAt;
+        if(elapsed>0.1 && elapsed<0.55 && operation.isDone && Mathf.Abs(fill-(float)elapsed/0.6f)<.01f) sawRamp=true;
+        sawFull |= fill==1f && operation.isDone;
+        if(state.destinationLoadCount>0 && operation.isDone)
+        {
+            sawDestinationCamera |= overlay.GetComponent<Canvas>().worldCamera==Camera.main && Camera.main &&
+                Camera.main.gameObject.scene.path==state.destinationScene;
+            sawBusyInDestination |= AsyncSceneLoader.TryLoad(state.destinationScene)==AsyncSceneLoader.Result.Busy;
+        }
     }
     static void CheckFixedTransforms()
     {
@@ -246,10 +414,14 @@ public static class RuntimeAcceptance
     static void SceneLoaded(Scene scene,LoadSceneMode mode)
     {
         if(state==null || scene.path!=state.destinationScene)return;
+        destinationActivatedAt=Time.realtimeSinceStartupAsDouble;
+        replacementHead.GetComponent<Camera>().enabled=false;
         state.destinationLoadCount++;state.realSceneLoadObserved=true;Save();
     }
     static void LeavePlay()
     {
+        storySubscription?.Dispose();
+        entrySubscription?.Dispose();
         Time.timeScale=1;SceneManager.sceneLoaded-=SceneLoaded;
         state.phase="waiting-edit";Save();EditorApplication.isPlaying=false;
     }

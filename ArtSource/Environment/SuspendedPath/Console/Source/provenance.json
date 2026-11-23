@@ -1,0 +1,71 @@
+{
+  "source_document": "考工律度_第二章_断衡悬道_V2.1阶段稿与设计汇总.docx",
+  "source_images": [
+    {
+      "word_member": "word/media/image2.png",
+      "caption": "图2「区域④ 起重机操作台参考图」",
+      "crop": "V21-figure02-console-crop.png",
+      "crop_LTRB_pixels": [
+        116,
+        298,
+        581,
+        572
+      ],
+      "original_sha256": "32e74692153d6fb85c316569f19ddb4a121a25736131fe052e6890dec9730ef5"
+    },
+    {
+      "word_member": "word/media/image3.png",
+      "caption": "中控塔脚前方的低矮石座。原稿图注误配为动线图。",
+      "crop": "V21-support-console-spot.png",
+      "crop_LTRB_pixels": [
+        326,
+        446,
+        505,
+        656
+      ],
+      "original_sha256": "d0b19a39083c052c8712fe8da0f5bc2d3915449a0808df1f4683660280007fce"
+    }
+  ],
+  "user_request": "这个也参照原设，用混元生成一版吧，你可以分成部件给它 这样不用你再去拆网格",
+  "matched_unity_object": "方榫中控 · 台身与空槽",
+  "body": {
+    "purpose": "室外操作台的石基、铜边、操作面与固定齿轮装饰。沿原稿石脚和铜包边取形。",
+    "metres": [
+      1.576,
+      0.98,
+      0.912
+    ],
+    "intended_socket_center_XYZ_metres": [
+      0,
+      -0.16,
+      0.912
+    ],
+    "forward": "Blender 局部 -Y；源图的正面面对站位。"
+  },
+  "socket": {
+    "purpose": "单独建模的青铜方口插座。外圈铜环、方形插口和冰青镶圈取自图2。",
+    "metres_diameter_and_height": [
+      0.582,
+      0.108
+    ],
+    "smallest_opening_metres": 0.148,
+    "pivot": "底面中心；Blender Z向上。"
+  },
+  "inferences": [
+    "旧图中央为发亮的可插拔玉榫，参考图保持空槽态，玉榫不作为本次云生成对象。",
+    "根据原稿制作深色铜件、条石、度量刻线；铜轮作为固定装饰收在原台外廓内。",
+    "五个视角分别由同一套台身或插槽参考几何绕拍。已有青灰条石扫描用于参考图，背面的结构按两侧铜箍延续。"
+  ],
+  "color": [
+    "石台青灰",
+    "铜件暗绿包浆",
+    "插口周边窄冰青镶条"
+  ],
+  "frame_order": [
+    "00-front.png",
+    "01-left45.png",
+    "02-right45.png",
+    "03-back.png",
+    "04-top.png"
+  ]
+}

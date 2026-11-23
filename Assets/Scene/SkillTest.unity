@@ -369,15 +369,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18f748b511d540d4b98b4973636be1e1, type: 2}
   - {fileID: 11400000, guid: 0b7971e0b085c094e9317db1e6cc7acb, type: 2}
   - {fileID: 11400000, guid: b0d19c69885729744adc10f17598df2c, type: 2}
-  - {fileID: 11400000, guid: 73f4814901133574185e0802b55c104e, type: 2}
-  - {fileID: 11400000, guid: 530522cc50e829f47b6f609e6fbfe15f, type: 2}
-  - {fileID: 11400000, guid: 507a43e2544d5ad42ae780f616d06046, type: 2}
-  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
-  - {fileID: 11400000, guid: 55ecff9e3a42c0c49863f940057ac083, type: 2}
   - {fileID: 11400000, guid: fe8379952095bd8408a5d87aee7e379d, type: 2}
-  - {fileID: 11400000, guid: 5986bd0f19395f24380b7db9e62ffe84, type: 2}
+  - {fileID: 11400000, guid: 86c3602f75adbbb4fa5c03faaa51bd89, type: 2}
   - {fileID: 11400000, guid: 13776311a4667bc40b417dfaa8be2e76, type: 2}
-  - {fileID: 11400000, guid: 5c8e28d0d9520734cac49652460d00c8, type: 2}
   maximumSampleRate: 60
   staleAfterSeconds: 0.12
   sampleLabel: unlabelled
@@ -415,15 +409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8640a823ad5204985044235f5ebb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillInputController
-  catalog: {fileID: 11400000, guid: 5471b2ef28da2384e8ff6f3e44097d33, type: 2}
+  catalog: {fileID: 11400000, guid: 4ac3ce9e71e64221997ad25054eb6a3b, type: 2}
   lab: {fileID: 436909644}
   effects: {fileID: 436909648}
   voice: {fileID: 436909647}
   view: {fileID: 436909649}
-  skills:
-  - {fileID: 11400000, guid: a5440689fddc35047b7873e5a948bfd4, type: 2}
-  - {fileID: 11400000, guid: a9fb6e5fdf4357c4ab7ed8fda53812c4, type: 2}
-  - {fileID: 11400000, guid: 9404f3362d2197c48b52a53f4039d269, type: 2}
   statusText: {fileID: 1665536178}
   chineseFont: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
   showDesktopControls: 1
@@ -464,26 +454,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73157a4af4d0cdd4e9069f10d6555a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillController
+  trainingHandPoseSettings: {fileID: 11400000, guid: ae7515a825da2e749810851e94dcfd3a, type: 2}
   lab: {fileID: 436909644}
   head: {fileID: 79008831}
   playerRoot: {fileID: 79008833}
-  fireMaterial: {fileID: 2100000, guid: 7a895f93c8a151143b92cdf415a7c893, type: 2}
-  buffMaterial: {fileID: 2100000, guid: dc949eb78df8fb54089d8c32752c5c2b, type: 2}
-  fireballPrefab: {fileID: 0}
-  shieldPrefab: {fileID: 0}
-  impactPrefab: {fileID: 0}
-  shieldCapacity: 100
-  ballRadius: 0.065
-  heldOffset: {x: 0, y: 0.05, z: 0.08}
-  heldLifetime: 10
-  armDelay: 0.25
-  trackingLossGrace: 0.5
-  pushDistance: 0.12
-  pushMinimumSeconds: 0.15
-  pushMaximumSeconds: 0.6
-  projectileSpeed: 9
-  projectileDamage: 25
-  projectileLifetime: 4
   aimDistance: 30
   hitLayers:
     serializedVersion: 2
@@ -1281,7 +1255,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6280\u80FD\u8BAD\u7EC3\u573A\n\u5B50\u5370\uFF1A\u52A0\u6301\n\u62A4\u4F53\u5492\uFF1A\u52A0\u6301\n\u706B\u7403\u672F\uFF0B\u5BC5\u5370\uFF1A\u53F3\u624B\u706B\u7403\n\u771F\u5B9E\u8BED\u97F3\u9700\u542F\u52A8\u672C\u5730\u670D\u52A1\u3002"
+  m_Text: "\u6280\u80FD\u8BAD\u7EC3\u573A\n\u89C4\u5370\uFF1A\u52A0\u6301\n\u62A4\u4F53\u5492\uFF1A\u52A0\u6301\n\u706B\u7403\u672F\uFF0B\u5F8B\u5370\uFF1A\u53F3\u624B\u706B\u7403\n\u771F\u5B9E\u8BED\u97F3\u9700\u542F\u52A8\u672C\u5730\u670D\u52A1\u3002"
 --- !u!222 &1665536179
 CanvasRenderer:
   m_ObjectHideFlags: 0

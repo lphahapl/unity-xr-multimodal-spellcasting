@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -18,10 +19,9 @@ namespace NarutoVR.SealCombat.Rpg
         public abstract bool ObjectiveMet { get; }
         /// <summary>供腕匣或 HUD 展示的当前目标说明。</summary>
         public abstract string ObjectiveText { get; }
+        public virtual float? AttackWarningSeconds => null;
         /// <summary>可选通关落点；未配置时使用最后阶段检查点。</summary>
         public virtual NavigationNode FinalCheckpoint => null;
-        /// <summary>创建新角色时直接授予的技能 ID，不代表临时试用权限。</summary>
-        public virtual string[] InitialSkills => Array.Empty<string>();
         /// <summary>新角色初始了解的技能；只开放知识，不授予永久施放资格。</summary>
         public virtual string[] InitialDiscoveries => Array.Empty<string>();
         /// <summary>新角色初始化完成后的章节提示。</summary>
@@ -30,6 +30,8 @@ namespace NarutoVR.SealCombat.Rpg
         public virtual bool RestoreVitalsOnStageComplete => false;
         /// <summary>章节语音是否正在播放，供音乐系统决定是否压低背景音。</summary>
         public virtual bool Speaking => false;
+        internal virtual QuestVisualHints TrailHints => null;
+        internal virtual QuestGestureHint[] GestureHints => null;
         /// <summary>是否使用世界空间导航刻线表现。</summary>
         public virtual bool UsesWorldNavigationMarks => false;
         /// <summary>是否根据探索实际移动距离播放脚步。</summary>
@@ -37,10 +39,8 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>当前章节允许展示的画符预览页数。</summary>
         public virtual int GlyphPreviewPages => 2;
 
-        /// <summary>判断技能是否获得本阶段的临时授权，不修改永久进度。</summary>
-        public virtual bool AllowsTrialSkill(string skillId) => false;
-        /// <summary>已永久解锁的技能是否可在当前章节阶段施放，默认允许。</summary>
-        public virtual bool AllowsPermanentSkill(string skillId) => true;
+        /// <summary>进入指定阶段时追加给玩家的试用技能，离开时由 RPG 自动收回。</summary>
+        public virtual string[] StageSkillGrants(int index) => Array.Empty<string>();
         /// <summary>请求重听当前引导；没有语音的章节可保持为空。</summary>
         public virtual void ReplayGuidance() { }
 
@@ -60,23 +60,46 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
 
+        internal static Dictionary<string, T> BindStages<T>(
+            LinearRpgController owner, T[] rows, Func<T, RpgStageDefinition> stageOf, string label)
+        {
+            var bindings = new Dictionary<string, T>(StringComparer.Ordinal);
+            var allowed = new HashSet<string>(Array.ConvertAll(owner.stages, s => s.stageId));
+            foreach (var row in rows ?? Array.Empty<T>())
+            {
+                var stage = stageOf(row);
+                string id = stage ? stage.stageId : null;
+                if (string.IsNullOrEmpty(id) || !allowed.Contains(id) || !bindings.TryAdd(id, row))
+                    throw new InvalidOperationException($"{label}阶段缺失、重复或不属于路线：{id ?? "空"}");
+            }
+            foreach (string id in allowed)
+                if (!bindings.ContainsKey(id)) throw new InvalidOperationException($"{label}缺少阶段：{id}");
+            return bindings;
+        }
+
         internal void RefreshStageGuidance()
         {
             var owner = Owner;
             if (!sceneGuidance || !owner || owner.chapter != this) return;
             int index = ActiveStageIndex;
             if (index < 0) sceneGuidance.Show(null);
-            else sceneGuidance.Show(owner.stages[index].stageId, GetStageGuidanceTarget(index));
+            else sceneGuidance.Show(owner.StageAt(index).stageId, GetStageGuidanceTarget(index));
         }
 
         protected virtual void OnEnable()
         {
-            if (Application.isPlaying && Owner && Owner.IsReady && Owner.chapter == this) RefreshStageGuidance();
+            if (Application.isPlaying && Owner && Owner.IsReady && Owner.chapter == this)
+            {
+                Owner.SyncStageSkills();
+                RefreshStageGuidance();
+            }
         }
 
         protected virtual void OnDisable()
         {
-            if (!Application.isPlaying || !sceneGuidance) return;
+            if (!Application.isPlaying) return;
+            if (Owner && Owner.chapter == this) Owner.SyncStageSkills();
+            if (!sceneGuidance) return;
             var current = Owner ? Owner.chapter : null;
             if (!current || current == this || current.sceneGuidance != sceneGuidance) sceneGuidance.Show(null);
         }

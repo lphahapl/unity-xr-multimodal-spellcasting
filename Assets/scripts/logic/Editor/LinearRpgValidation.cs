@@ -112,6 +112,7 @@ namespace NarutoVR.SealCombat.Editor
                     case "navigation-check": Write(new Report { action = action, passed = true, detail = "导航评分：" + NavigationScoringChecks.Run() }); break;
                     case "configure-navigation": Write(new Report { action = action, passed = true, detail = RpgNavigationScoringSetup.Configure() }); break;
                     case "record-throws": HandThrowDiagnostics.Begin(); Write(new Report { action = action, passed = true, detail = HandThrowDiagnostics.LastPath }); break;
+                    case "surface-mark-check": Write(new Report { action=action, passed=true, detail=SurfaceMarkChecks.Run() }); break;
                     case "refresh": AssetDatabase.Refresh(); break;
                     case "pose-regression": Write(new Report { action = action, passed = true, detail = "骨骼到手形检查：" + RpgHandPoseChecks.Run() }); break;
                     case "configure-hand-poses": OfficialHandPoseSetup.Configure(); Write(new Report { action = action, passed = true }); break;

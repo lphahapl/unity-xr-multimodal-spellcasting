@@ -19,27 +19,35 @@ namespace NarutoVR.SealCombat.Editor
             var teaching = AssetDatabase.LoadAssetAtPath<TeachingCatalog>("Assets/ScriptableObjects/教学目录/首章术式教学.asset");
             var items = AssetDatabase.LoadAssetAtPath<ProgressionItemCatalog>("Assets/ScriptableObjects/成长物品配置/首章成长物品.asset");
             var inventory = Obj.FindFirstObjectByType<RpgItemInventory>();
-            var known = new[] { "fireball", "buff.zi", "buff.voice", "buff.hidden" };
+            using var authored = AuthoredSkillCatalog.Open(Obj.FindFirstObjectByType<LinearRpgController>().skills);
+            var known = authored.Catalog.skills.Select(skill => skill.skillId).ToArray();
             teaching.Validate(known); items.Validate(known);
-            Check(teaching.entries.Length == 3 && teaching.entries[1].skillIds.Length == 2, "teaching groups alternative recipes without granting progress");
+            var shieldLesson = teaching.entries.Single(entry => entry.skillIds.Contains("buff.zi"));
+            Check(shieldLesson.skillIds.Length == 2 && shieldLesson.skillIds.Contains("buff.voice"), "teaching groups alternative recipes without granting progress");
             var model = new PlayerModel(new RpgPlayerState());
             RpgProgressData Snapshot() => model.Export(model.Vitals.CaptureCheckpoint(0), null);
+            bool Accepts(RpgProgressData saved)
+            {
+                var restored = new PlayerModel(new RpgPlayerState());
+                restored.RestoreGrowth(saved);
+                return inventory.ValidateProgress(restored);
+            }
             Check(model.Discover(new[] { "fireball" }) && model.IsDiscovered("fireball") && !model.IsUnlocked("fireball"), "discovery is distinct from permanent unlock");
             Check(model.Discover(new[] { "fireball" }) && model.DiscoveredSkills.Count == 1, "repeated discovery is idempotent");
             Check(model.Unlock(new[] { "buff.zi" }) && model.IsDiscovered("buff.zi"), "ordinary skill unlock works without teaching or inventory");
-            var missingItem = new RpgProgressData(); missingItem.unlockedSkillIds.Add("buff.hidden");
-            Check(!inventory.ValidateProgress(missingItem), "exclusive item skill cannot bypass item ownership");
+            var missingItem = new RpgProgressData(); missingItem.unlockedSkillIds.Add("buff.voice");
+            Check(!Accepts(missingItem), "exclusive item skill cannot bypass item ownership");
             var malformed = Snapshot(); malformed.items.Add(new RpgItemProgressData { itemId = "leaf.fangyuan" });
-            Check(!inventory.ValidateProgress(malformed), "collected item requires its discovery reward");
+            Check(!Accepts(malformed), "collected item requires its discovery reward");
             var leaf = items.Find("leaf.fangyuan");
             model.ChangeItem(leaf.itemId, leaf.discoverSkillIds, leaf.unlockSkillIds, false);
-            Check(inventory.ValidateProgress(Snapshot()) && !model.IsUnlocked("buff.hidden"), "collection reveals knowledge without permanent grant");
-            malformed = Snapshot(); malformed.unlockedSkillIds.Add("buff.hidden");
-            Check(!inventory.ValidateProgress(malformed), "unactivated item cannot grant exclusive skill");
+            Check(Accepts(Snapshot()) && !model.IsUnlocked("buff.voice"), "collection reveals knowledge without permanent grant");
+            malformed = Snapshot(); malformed.unlockedSkillIds.Add("buff.voice");
+            Check(!Accepts(malformed), "unactivated item cannot grant exclusive skill");
             model.ChangeItem(leaf.itemId, leaf.discoverSkillIds, leaf.unlockSkillIds, true);
-            Check(inventory.ValidateProgress(Snapshot()), "activated item and grant validate in both directions");
+            Check(Accepts(Snapshot()), "activated item and grant validate in both directions");
             var stageOnly = new RpgProgressData(); stageOnly.completedStageIds.Add("GATE_CHECK");
-            Check(inventory.ValidateProgress(stageOnly) && stageOnly.items.Count == 0 && stageOnly.unlockedSkillIds.Count == 0, "stage history does not fabricate knowledge or items");
+            Check(Accepts(stageOnly) && stageOnly.items.Count == 0 && stageOnly.unlockedSkillIds.Count == 0, "stage history does not fabricate knowledge or items");
             bool Buy() => model.Purchase("fireball", SkillOfferKind.Unlock, 30, 1, null, out _);
             bool Upgrade() => model.Purchase("fireball", SkillOfferKind.Upgrade, 10, 1, null, out _);
             model.Credit(20); string before = JsonUtility.ToJson(Snapshot());
@@ -85,7 +93,19 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 var store = new RpgSaveStore(UnityRpgSaveJson.Instance, path, "modules", known);
-                Check(store.TrySave(p, out _) && store.TryLoad(out var loaded, out _) && loaded.items[0].activated && loaded.discoveredSkillIds.Contains("buff.hidden"), "version 2 roundtrip keeps item and knowledge state");
+                Check(store.TrySave(p, out _) && store.TryLoad(out var loaded, out _) && loaded.items[0].activated && loaded.discoveredSkillIds.Contains("buff.voice"), "version 2 roundtrip keeps item and knowledge state");
+                var legacy = UnityRpgSaveJson.Instance.Deserialize<RpgProgressData>(UnityRpgSaveJson.Instance.Serialize(p));
+                legacy.discoveredSkillIds.Add("buff.hidden");
+                legacy.unlockedSkillIds.Add("buff.hidden");
+                legacy.checkpoint.cooldowns.Add(new RpgCooldownData { group = "shield.hidden", remainingSeconds = 2 });
+                legacy.checkpoint.cooldowns.Add(new RpgCooldownData { group = "shield", remainingSeconds = 1 });
+                var wardStore = new RpgSaveStore(UnityRpgSaveJson.Instance, path, "modules", known, knownCooldownGroups: new[] { "shield" });
+                File.WriteAllText(path, JsonUtility.ToJson(new SaveEnvelope { profileId = "modules", progress = legacy }));
+                Check(wardStore.TryLoad(out var migrated, out _) && migrated.unlockedSkillIds.FindAll(id => id == "buff.voice").Count == 1 &&
+                    !migrated.unlockedSkillIds.Contains("buff.hidden") && migrated.checkpoint.cooldowns.Count == 1 &&
+                    migrated.checkpoint.cooldowns[0].group == "shield" && migrated.checkpoint.cooldowns[0].remainingSeconds == 2 &&
+                    migrated.items[0].activated && migrated.currency == p.currency && store.TrySave(p, out _),
+                    "old ward progress loads as one voice ward and preserves the longer cooldown");
                 using (new FileStream(path + ".tmp", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                     Check(!store.TrySave(p, out _) && store.TryLoad(out _, out _), "disk write failure preserves the previous save");
                 p.items.Add(new RpgItemProgressData { itemId = p.items[0].itemId });

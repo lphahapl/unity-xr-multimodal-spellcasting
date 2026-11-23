@@ -1,0 +1,94 @@
+{
+  "time": "2026-11-22T21:45:40+08:00",
+  "sourceSha256": "08d46c9b4bff1abc93d3032d98e70d775a56b565715b1b94a1390de649b2b275",
+  "glbSha256": "ae30a42258ea520ba18bd1ae638fd246dcda8c677100a3055e2a1e7aaf67ee86",
+  "turnaroundSha256": "5bc0f52a187cad7bd6538f01b24799dcddd4f3c53ad353223ebe50b325f5d43c",
+  "heightM": 1.7386680841445923,
+  "widths": {
+    "anteriorCheek": {
+      "worldHeightM": 1.575,
+      "oldWidthMm": 151.31,
+      "newWidthMm": 138.47
+    },
+    "jaw": {
+      "worldHeightM": 1.515,
+      "oldWidthMm": 144.17,
+      "newWidthMm": 125.64
+    },
+    "upperForehead": {
+      "worldHeightM": 1.655,
+      "oldWidthMm": 153.44,
+      "newWidthMm": 153.44
+    },
+    "ribcage": {
+      "worldHeightM": 1.12,
+      "oldWidthMm": 344.95,
+      "newWidthMm": 316.48
+    },
+    "sash": {
+      "worldHeightM": 1.02,
+      "oldWidthMm": 357.05,
+      "newWidthMm": 325.71
+    }
+  },
+  "collarRepairMaximumMm": 0.6817777790609626,
+  "frontNeckHoles": 0,
+  "packedImages": 40,
+  "glbTriangles": 860621,
+  "glbBytes": 38641276,
+  "gltfValidation": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 10
+  },
+  "coldImportMm": {
+    "V2_HandMesh.L": 0.00012377834115800374,
+    "V2_HandMesh.R": 0.00012401636318651815,
+    "Zhunwang_Body": 0.000124281848353239,
+    "Upper wet margin.R": 0.0,
+    "Upper wet margin.L": 0.0,
+    "ShenShang_Head": 0.0,
+    "Eye.R": 0.0,
+    "Eye.L": 0.0
+  },
+  "offlineClothQA": {
+    "head": {
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+        "asset lowest point z=1.3616 (not resting on ground plane z=0)"
+      ]
+    },
+    "jacket": {
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=1.014 (not resting on ground plane z=0)"
+      ]
+    },
+    "collar": {
+      "errors": [],
+      "warnings": [
+        "Worn indigo hemp • bias-cut G7: Worn_running_threads.png is Non-Color but drives Base Color (looks washed out)",
+        "hidden back-to-back faces: Jacket • continuous cross collar and underlap (204 pairs) - delete to save tris",
+        "asset lowest point z=1.0277 (not resting on ground plane z=0)"
+      ]
+    },
+    "undertunic": {
+      "errors": [
+        "z-fighting: Undertunic • laid flax at the nape and throat (3 overlapping coplanar tri pairs)"
+      ],
+      "warnings": [
+        "hidden back-to-back faces: Undertunic • laid flax at the nape and throat (103 pairs) - delete to save tris",
+        "asset lowest point z=1.0371 (not resting on ground plane z=0)"
+      ]
+    },
+    "sash": {
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=0.9719 (not resting on ground plane z=0)"
+      ]
+    }
+  },
+  "interpretation": "内领有三处极小投影重合，斜向检查显示均在外层遮挡内。外侧交领的共面检查已通过。桌面静态外观用途。"
+}

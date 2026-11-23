@@ -1,0 +1,200 @@
+{
+  "root": "ArtSource/Characters/ShenShangNative",
+  "anglesDegrees": {
+    "Front": 0,
+    "ThreeQuarter": -38,
+    "LeftProfile": 90
+  },
+  "renderEngine": "Cycles",
+  "imagePixelSize": 900,
+  "triangles": 486608,
+  "objects": [
+    {
+      "object": "Shen_Tragus.R",
+      "type": "MESH",
+      "triangles": 1140,
+      "vertices": 572
+    },
+    {
+      "object": "Shen_Tragus.L",
+      "type": "MESH",
+      "triangles": 1140,
+      "vertices": 572
+    },
+    {
+      "object": "Shen_IrisPupil.R",
+      "type": "MESH",
+      "triangles": 2300,
+      "vertices": 1201
+    },
+    {
+      "object": "Shen_IrisPupil.L",
+      "type": "MESH",
+      "triangles": 2300,
+      "vertices": 1201
+    },
+    {
+      "object": "Shen_HeadSkin",
+      "type": "MESH",
+      "triangles": 63984,
+      "vertices": 32088
+    },
+    {
+      "object": "Shen_Eyelashes",
+      "type": "CURVE",
+      "triangles": 2376,
+      "vertices": 1584
+    },
+    {
+      "object": "Shen_Eyeball.R",
+      "type": "MESH",
+      "triangles": 5598,
+      "vertices": 2801
+    },
+    {
+      "object": "Shen_Eyeball.L",
+      "type": "MESH",
+      "triangles": 5598,
+      "vertices": 2801
+    },
+    {
+      "object": "Shen_Ear.R",
+      "type": "MESH",
+      "triangles": 5180,
+      "vertices": 2592
+    },
+    {
+      "object": "Shen_Ear.L",
+      "type": "MESH",
+      "triangles": 5180,
+      "vertices": 2592
+    },
+    {
+      "object": "Shen_Caruncle.R",
+      "type": "MESH",
+      "triangles": 720,
+      "vertices": 362
+    },
+    {
+      "object": "Shen_Caruncle.L",
+      "type": "MESH",
+      "triangles": 720,
+      "vertices": 362
+    },
+    {
+      "object": "鬓发片 · 4",
+      "type": "MESH",
+      "triangles": 1024,
+      "vertices": 816
+    },
+    {
+      "object": "鬓发片 · 3",
+      "type": "MESH",
+      "triangles": 1280,
+      "vertices": 1020
+    },
+    {
+      "object": "鬓发片 · 2",
+      "type": "MESH",
+      "triangles": 1152,
+      "vertices": 918
+    },
+    {
+      "object": "鬓发片 · 1",
+      "type": "MESH",
+      "triangles": 1152,
+      "vertices": 918
+    },
+    {
+      "object": "顺流细发 · 可编辑单丝",
+      "type": "CURVE",
+      "triangles": 172200,
+      "vertices": 96600
+    },
+    {
+      "object": "缠髻素绳",
+      "type": "CURVE",
+      "triangles": 1860,
+      "vertices": 960
+    },
+    {
+      "object": "碎发 · 额角与鬓缘",
+      "type": "CURVE",
+      "triangles": 38016,
+      "vertices": 21888
+    },
+    {
+      "object": "眉毫 · 根竖峰舒尾落",
+      "type": "CURVE",
+      "triangles": 57200,
+      "vertices": 41600
+    },
+    {
+      "object": "眉底毛流 · 左",
+      "type": "MESH",
+      "triangles": 448,
+      "vertices": 285
+    },
+    {
+      "object": "眉底毛流 · 右",
+      "type": "MESH",
+      "triangles": 448,
+      "vertices": 285
+    },
+    {
+      "object": "木簪 · 一削一尖",
+      "type": "MESH",
+      "triangles": 252,
+      "vertices": 128
+    },
+    {
+      "object": "回旋发髻 · 中束",
+      "type": "MESH",
+      "triangles": 3192,
+      "vertices": 1598
+    },
+    {
+      "object": "后拢发片 · 六十二束",
+      "type": "MESH",
+      "triangles": 23808,
+      "vertices": 14322
+    },
+    {
+      "object": "口周与颏下短须",
+      "type": "CURVE",
+      "triangles": 4700,
+      "vertices": 4700
+    },
+    {
+      "object": "发髻纤维 · 旋绕",
+      "type": "CURVE",
+      "triangles": 43120,
+      "vertices": 23760
+    },
+    {
+      "object": "发际胎毛",
+      "type": "CURVE",
+      "triangles": 3640,
+      "vertices": 2520
+    },
+    {
+      "object": "分区发根 · 随头皮走向",
+      "type": "MESH",
+      "triangles": 19680,
+      "vertices": 10080
+    },
+    {
+      "object": "两鬓与颈后散发",
+      "type": "CURVE",
+      "triangles": 17200,
+      "vertices": 10320
+    }
+  ],
+  "packedImages": [
+    "NaturalBrow_Handmade.png",
+    "Shen_FacialMicrofolds.png",
+    "Shen_SkinMicrostructure.png",
+    "SweptHair_Handmade.png"
+  ],
+  "externalFileImages": []
+}

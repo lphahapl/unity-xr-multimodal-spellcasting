@@ -40,6 +40,10 @@ namespace NarutoVR.SealCombat.Editor
             var feedback = controller.GetComponentInChildren<RpgInteractionFeedback>(true);
             if (!feedback) feedback = PresentationGroup(controller).AddComponent<RpgInteractionFeedback>();
             feedback.controller = controller;
+            const string marks = "Assets/Art/VFX/NavigationMarks/";
+            if (!feedback.restingMark) feedback.restingMark = AssetDatabase.LoadAssetAtPath<Material>(marks + "SurveyCompassIdle.mat");
+            if (!feedback.explorationMark) feedback.explorationMark = AssetDatabase.LoadAssetAtPath<Material>(marks + "SurveyCompass.mat");
+            if (!feedback.combatMark) feedback.combatMark = AssetDatabase.LoadAssetAtPath<Material>(marks + "SurveyCompass.mat");
             foreach (var skill in controller.skills.catalog.skills)
             {
                 if (!skill || !(skill.effectDefinition is ProjectileEffectDefinition projectile)) continue;
@@ -57,7 +61,7 @@ namespace NarutoVR.SealCombat.Editor
             var first = controller.stages.FirstOrDefault();
             if (first)
             {
-                first.instructions = "寅印与“火球术”匹配后，右手握拳或捏住火球，甩手并松开。击破本阶段训练靶，再前往下一阶段。";
+                first.instructions = "律印与“火球术”匹配后，右手握拳或捏住火球，甩手并松开。击破本阶段训练靶，再前往下一阶段。";
                 EditorUtility.SetDirty(first); AssetDatabase.SaveAssetIfDirty(first);
             }
             EditorUtility.SetDirty(movement); EditorUtility.SetDirty(feedback);

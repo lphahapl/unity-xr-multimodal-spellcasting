@@ -1,0 +1,76 @@
+{
+  "CliffGateCrown": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "CliffGateCrown": {
+          "verts": 1018,
+          "faces": 2012,
+          "tris": 2012,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 6,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 50.2
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 2012,
+        "dimensions": [
+          3.2468042373657227,
+          0.5784175395965576,
+          1.0199999809265137
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 1266,
+        "dimensions": [
+          3.2468042373657227,
+          0.5784175395965576,
+          1.0199999809265137
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 684,
+        "dimensions": [
+          3.2471203804016113,
+          0.5785019397735596,
+          1.0199999809265137
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

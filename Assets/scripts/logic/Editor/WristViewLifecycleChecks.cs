@@ -67,8 +67,8 @@ namespace NarutoVR.SealCombat.Editor
                 for(int i=0;i<3;i++)
                 {
                     view.EnsureBuilt(); view.EnsureBuilt();
-                    if(Roots().Count(x=>!before.Contains(x.GetInstanceID()))!=1 || view.Targets.Count!=10)
-                        throw new InvalidOperationException("重复构建只能有一套根和十个交互目标");
+                    if(Roots().Count(x=>!before.Contains(x.GetInstanceID()))!=1 || !WristMenuChecks.HasExpectedTargets(view))
+                        throw new InvalidOperationException("重复构建只能有一套根和一套腕饰按钮");
                     WristViewEditorLifetime.ReleaseView(view); WristViewEditorLifetime.ReleaseView(view);
                     if(Roots().Any(x=>!before.Contains(x.GetInstanceID()))) throw new InvalidOperationException("重载清理钩子未释放世界根");
                     count++;

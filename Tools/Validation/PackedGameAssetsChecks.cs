@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using NarutoVR.SealCombat;
 using NarutoVR.SealCombat.Enemies;
+using NarutoVR.SealCombat.Editor;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
@@ -23,7 +24,7 @@ public static class PackedGameAssetsChecks
 {
     const string Key = "NarutoVR.PackedGameAssets";
     const string Report = "Logs/packed-game-assets.txt";
-    static readonly string[] Expected = {"buff.zi", "buff.voice", "fireball", "buff.hidden", "thunder.sword"};
+    static readonly string[] Expected = {"buff.zi", "buff.voice", "fireball", "thunder.sword", "breath.burst", "breath.stream", "shield.left"};
 
     static PackedGameAssetsChecks() => EditorApplication.playModeStateChanged += ModeChanged;
     static void Log(string value) => File.AppendAllText(Report, value + Environment.NewLine);
@@ -107,7 +108,7 @@ public static class PackedGameAssetsChecks
         var leases = new List<IDisposable>();
         try
         {
-            // Only the two address maps come from the editor. The six prototypes go through
+            // Only the two address maps come from the editor. The prototypes go through
             // the shared runtime loader after checking their providers and bundle dependencies.
             var skills = AssetDatabase.LoadAssetAtPath<SkillResourceManifest>("Assets/ScriptableObjects/技能目录配置/首章技能资源清单.asset");
             var enemies = AssetDatabase.LoadAssetAtPath<EnemyCatalog>("Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset");
@@ -121,6 +122,16 @@ public static class PackedGameAssetsChecks
                 var skill = lease.Asset;
                 Require(entry.Matches(skill) && skill.effectDefinition, "技能原型或效果缺失 " + id);
                 var effect = skill.effectDefinition;
+                if (effect is ProjectileEffectDefinition projectile)
+                {
+                    var scenePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.ImpactPath);
+                    var packedVisual = projectile.impactPrefab.GetComponent<SkillVisualLifetime>();
+                    var sceneVisual = scenePrefab.GetComponent<SkillVisualLifetime>();
+                    string guid = AssetDatabase.AssetPathToGUID(SkillVisualAssets.ImpactPath);
+                    Require(scenePrefab != projectile.impactPrefab && sceneVisual.prefabAssetGuid == guid &&
+                        packedVisual.prefabAssetGuid == guid, "场景和打包特效必须从同一 GUID 导入且是独立实例");
+                    Log($"POOL scene instance={scenePrefab.GetInstanceID()} packed instance={projectile.impactPrefab.GetInstanceID()} source={guid}");
+                }
                 Require(skill.GetType().Assembly.GetName().Name == "NarutoVR.Game.Runtime" &&
                     effect.GetType().Assembly == skill.GetType().Assembly, "技能或效果的脚本程序集错误 " + id);
                 Log($"LOAD {id}  {entry.address}  {provider}  {skill.name} => {effect.GetType().Name}/{effect.name}");

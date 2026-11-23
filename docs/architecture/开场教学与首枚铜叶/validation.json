@@ -1,17 +1,16 @@
 {
-  "verifiedAt": "2026-11-08T00:45:57+08:00",
+  "verifiedAt": "2026-11-20T19:12:50+08:00",
   "version": "校规庭与量水道试玩 · 申屠",
   "lineCount": 36,
   "mainCount": 29,
   "hintCount": 7,
-  "durationSeconds": 267.42825,
+  "durationSeconds": 260.952063,
   "importGroups": 27,
   "audioFormat": "48000 Hz PCM16 mono",
   "audioDecodeAndHash": "PASS",
   "csvAndGroupMapping": "PASS",
   "stageAndEventKeys": "与上版逐行一致",
   "existingClipMetaSHA256Retained": 36,
-  "isolatedUnityCopyMatches": 36,
   "machineReview": {
     "技术通过、情感待耳审": 36
   },
@@ -21,10 +20,56 @@
   },
   "hearingReview": "真人耳审待确认，本次经用户授权接入试玩。",
   "sceneAndHeadset": "该复核仅验证资源交付及映射；关卡播放与头显另验。",
-  "totalPcmFrames": 12836556,
+  "totalPcmFrames": 12525699,
   "lastTextRevisions": [
-    "LF01",
-    "PZ01"
+    "OU01",
+    "OU02"
   ],
-  "unchangedFilesInFinalRevision": 34
+  "unchangedFilesInFinalRevision": 34,
+  "sixSealRevision": {
+    "verifiedAt": "2026-11-18T23:16:11+08:00",
+    "replaced": [
+      "FR01",
+      "SH01"
+    ],
+    "clipCount": 36,
+    "durationSeconds": 267.123625,
+    "totalPcmFrames": 12821934,
+    "manifestHashMismatches": [],
+    "asr": {
+      "FR01": "在這件試煉事裡,你可以先是火合之法,照讀結個律印,再念一聲火球術。",
+      "SH01": "出手会了,还得学会护着自己,照图结个归印或是念一声护体咒都能启端。"
+    },
+    "humanReview": "待真人试听",
+    "format": "48000 Hz PCM16 mono"
+  },
+  "trailVoiceRevision": {
+    "verifiedAt": "2026-11-20T19:12:50+08:00",
+    "replaced": [
+      "OU01",
+      "OU02"
+    ],
+    "ref": "旁白_常态.wav",
+    "transcriptions": {
+      "OU01": "沈傷腳下有光點引路咱們順著他走",
+      "OU02": "看见前面那只方框了吗?顺着光点走到框下的石台,咱们在那里找童叶。"
+    },
+    "sceneTextMatches": [
+      "Chapter01_Awakening",
+      "Chapter01_Courtyard"
+    ],
+    "existingAudioMetaUnchanged": 36,
+    "unmodifiedAudio": 34,
+    "humanReview": "沈商、铜叶的字音和角色听感待试听",
+    "unityImport": [
+      "P1_TTS_IMPORT Narration/Chapter01/OU01 1ch 48000Hz 200653 samples 4.180s",
+      "P1_TTS_IMPORT Narration/Chapter01/OU02 1ch 48000Hz 308032 samples 6.417s",
+      "P1_TTS_IMPORT_PASS"
+    ],
+    "generationSeeds": {
+      "OU01": 336753403,
+      "OU02": 605217040
+    }
+  },
+  "isolatedUnityCopyMatches": 36
 }

@@ -13,6 +13,8 @@ namespace NarutoVR.SealCombat
 
         /// <summary>本次直击已经成功结算时触发；同一挥击对同一敌人只通知一次。</summary>
         public event Action<SkillHitResult> HitResolved;
+        /// <summary>有效挥击接触可达的实体表面，用于沿剑刃轨迹绘制剑痕。</summary>
+        internal event Action<SkillStrike, SurfaceContact> SurfaceTouched;
 
         readonly Collider[] contacts = new Collider[48], originChecks = new Collider[32];
         readonly RaycastHit[] sweeps = new RaycastHit[48], walls = new RaycastHit[32];
@@ -70,7 +72,10 @@ namespace NarutoVR.SealCombat
                             var hit = sweeps[j];
                             Vector3 grip = Vector3.Lerp(a, nextA, hit.distance / distance);
                             if (SkillHitTarget.Ignore(hit.collider, transform, playerRoot)) continue;
-                            CheckContact(activeSwing, new SkillHitTarget(hit.collider), grip, hit.point, r, playerRoot, mask);
+                            var target = new SkillHitTarget(hit.collider);
+                            if (target.IsTarget) CheckContact(activeSwing, target, grip, hit.point, r, playerRoot, mask);
+                            else if (SurfaceTouched != null && hit.distance > 0 && !hit.collider.isTrigger)
+                                ReportSurface(activeSwing, grip, new SurfaceContact(hit), playerRoot, mask);
                         }
                 }
                 if (hasPose && isActiveAndEnabled) Overlap(activeSwing, nextA, nextB, r, playerRoot, mask);
@@ -89,7 +94,21 @@ namespace NarutoVR.SealCombat
                 var c = contacts[i];
                 if (SkillHitTarget.Ignore(c, transform, player)) continue;
                 var target = new SkillHitTarget(c);
-                if (!target.IsTarget || swing.AlreadyHit(target.Enemy)) continue;
+                if (!target.IsTarget)
+                {
+                    if (SurfaceTouched == null || c.isTrigger) continue;
+                    if (c.Raycast(new Ray(a, edge.normalized), out var face, edge.magnitude + r))
+                        ReportSurface(swing, a, new SurfaceContact(face), player, mask);
+                    else
+                    {
+                        // 剑刃平贴墙面横移时，沿剑轴打射线会错过整个接触面。
+                        float fraction = Mathf.Clamp01(Vector3.Dot(c.bounds.center - a, edge) / edge.sqrMagnitude);
+                        if (SurfaceContact.TryResolve(c, a + fraction * edge, edge, r, null, out var grazing))
+                            ReportSurface(swing, a, grazing, player, mask);
+                    }
+                    continue;
+                }
+                if (swing.AlreadyHit(target.Enemy)) continue;
                 float t = Mathf.Clamp01(Vector3.Dot(c.bounds.center - a, edge) / edge.sqrMagnitude);
                 Vector3 point = c.ClosestPoint(a + t * edge);
                 CheckContact(swing, target, a, point, r, player, mask);
@@ -106,19 +125,27 @@ namespace NarutoVR.SealCombat
             if (this && isActiveAndEnabled && hasPose && hit.DirectApplied) HitResolved?.Invoke(hit);
         }
 
-        bool Blocked(Vector3 from, Vector3 to, float r, Transform player, int mask)
+        void ReportSurface(SkillStrike swing, Vector3 grip, SurfaceContact hit, Transform player, int mask)
+        {
+            // 手柄已穿墙、或另一道墙挡在手柄与接触点之间时，背后的墙不能留下剑痕。
+            if ((swing.Attacker && Blocked(swing.Attacker.position, grip, .005f, player, mask)) ||
+                Blocked(grip, hit.Point, .005f, player, mask, hit.Collider)) return;
+            SurfaceTouched?.Invoke(swing, hit);
+        }
+
+        bool Blocked(Vector3 from, Vector3 to, float r, Transform player, int mask, Collider receiver = null)
         {
             int count = Physics.OverlapSphereNonAlloc(from, r, originChecks, mask, QueryTriggerInteraction.Ignore);
             if (count == originChecks.Length) return true;
             for (int i = 0; i < count; ++i)
-                if (IsObstacle(originChecks[i], player)) return true;
+                if (originChecks[i] != receiver && IsObstacle(originChecks[i], player)) return true;
             Vector3 delta = to - from;
             float length = delta.magnitude;
             if (length < .00001f) return false;
             count = Physics.SphereCastNonAlloc(from, r, delta / length, walls, length, mask, QueryTriggerInteraction.Ignore);
             if (count == walls.Length) return true;
             for (int i = 0; i < count; ++i)
-                if (IsObstacle(walls[i].collider, player)) return true;
+                if (walls[i].collider != receiver && IsObstacle(walls[i].collider, player)) return true;
             return false;
         }
 

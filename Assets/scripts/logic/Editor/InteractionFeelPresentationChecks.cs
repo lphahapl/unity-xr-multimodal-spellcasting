@@ -23,7 +23,8 @@ namespace NarutoVR.SealCombat.Editor
                     "未接线调试面板必须提供缺失信息，不能异常"); count++;
                 var controller = root.AddComponent<LinearRpgController>();
                 controller.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)controller.chapter).rpg = controller; ((TrainingChapterFlow)controller.chapter).initialSkills = new[]{"fireball"};
+                ((TrainingChapterFlow)controller.chapter).rpg = controller;
+                controller.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath);
                 var movement = root.AddComponent<RpgLocomotionController>();
                 var skills = root.AddComponent<SkillInputController>();
                 var effects = root.AddComponent<SkillController>();

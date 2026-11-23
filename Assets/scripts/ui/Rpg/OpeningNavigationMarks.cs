@@ -4,170 +4,140 @@ using UnityEngine.Rendering;
 
 namespace NarutoVR.SealCombat.Rpg
 {
-    /// <summary>Small ground inlays for the chapter's combat destinations. Reads locomotion state only.</summary>
+    /// <summary>Draws the chapter's reachable landing inlays in a shared mesh.</summary>
     internal sealed class OpeningNavigationMarks
     {
-        const int MaxLandings = 6;
-        const int ProgressSteps = 32;
+        const int MaxLandings = 12;
+        internal const float SurfaceOffset = .026f;
         readonly RpgLocomotionController movement;
         readonly Transform holder;
         readonly MeshRenderer renderer;
         readonly Mesh mesh;
-        readonly List<(NavigationNode node, float rank)> nearby = new();
+        readonly List<(NavigationNode node, float rank)>[] bands = { new(), new(), new() };
+        readonly int[] cursors = new int[3];
         readonly List<(NavigationNode node, RaycastHit floor)> marks = new(MaxLandings);
-        readonly List<Vector3> vertices = new(448);
-        readonly List<int> cut = new(192);
-        readonly List<int> stone = new(128);
-        readonly List<int> copper = new(256);
-        readonly Material cutMaterial, stoneMaterial, copperMaterial;
-        NavigationNode previousFocus;
-        Vector3 lastOrigin;
-        RaycastHit focusFloor;
-        int lastStep = -1;
+        readonly List<Vector3> vertices = new(52);
+        readonly List<Vector2> uv = new(52);
+        readonly List<int>[] triangles = { new(72), new(6), new(6) };
+        Vector3 lastOrigin, lastFocus, lastForward;
+        NavigationNode lastNode;
+        bool wasVisible, hadFocus, wasCombat;
         double refreshAfter;
-        bool wasVisible, hasOrigin;
-        internal bool HasFocus { get; private set; }
 
-        public OpeningNavigationMarks(Transform parent,RpgLocomotionController movement,Material cutMaterial,Material stoneMaterial,Material copperMaterial)
+        public OpeningNavigationMarks(Transform parent, RpgLocomotionController movement, Material resting, Material exploration, Material combat)
         {
-            this.movement=movement; this.cutMaterial=cutMaterial; this.stoneMaterial=stoneMaterial; this.copperMaterial=copperMaterial;
-            var go=new GameObject("战斗落点 · 地面尺刻",typeof(MeshFilter),typeof(MeshRenderer));
-            holder=go.transform; holder.SetParent(parent,false);
-            mesh=new Mesh { name="局部落点与驻留尺刻" }; mesh.MarkDynamic();
-            go.GetComponent<MeshFilter>().sharedMesh=mesh;
-            renderer=go.GetComponent<MeshRenderer>();
-            renderer.sharedMaterials=new[]{cutMaterial,stoneMaterial,copperMaterial};
-            renderer.shadowCastingMode=ShadowCastingMode.Off; renderer.receiveShadows=false;
-            renderer.enabled=false;
+            this.movement = movement;
+            var go = new GameObject("地面落点纹样", typeof(MeshFilter), typeof(MeshRenderer));
+            holder = go.transform;
+            holder.SetParent(parent, false);
+            mesh = new Mesh { name = "准望匣落点纹样" };
+            mesh.MarkDynamic();
+            go.GetComponent<MeshFilter>().sharedMesh = mesh;
+            renderer = go.GetComponent<MeshRenderer>();
+            renderer.sharedMaterials = new[] { resting, exploration, combat };
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            renderer.enabled = false;
         }
 
-        public void Refresh(bool visible)
+        public void Refresh(bool visible, bool focused, RaycastHit focusFloor)
         {
-            if (!renderer) return;
-            if (!visible)
+            bool combat = movement.EncounterCombat;
+            if (!visible || (!combat && !focused))
             {
-                renderer.enabled=false; wasVisible=HasFocus=false; previousFocus=null; lastStep=-1;
+                renderer.enabled = wasVisible = false;
                 return;
             }
-            Vector3 origin=movement.PlayerFloorPosition;
-            double now=Time.unscaledTimeAsDouble;
-            bool refresh=!wasVisible || now>=refreshAfter || (origin-lastOrigin).sqrMagnitude>.25f;
-            wasVisible=true;
-            NavigationNode focus=movement.NavigationActive ? movement.CandidateNode : null;
-            int step=focus ? Mathf.Clamp(Mathf.RoundToInt(movement.DwellProgress*ProgressSteps),0,ProgressSteps) : 0;
-            if (!refresh && focus==previousFocus && step==lastStep) return;
+            Vector3 origin = movement.PlayerFloorPosition;
+            Vector3 forward = Vector3.ProjectOnPlane(movement.head.forward, Vector3.up).normalized;
+            var node = movement.CandidateNode;
+            double now = Time.unscaledTimeAsDouble;
+            bool refresh = !wasVisible || wasCombat != combat || (combat && (now >= refreshAfter ||
+                (origin - lastOrigin).sqrMagnitude > .25f || Vector3.Dot(lastForward, forward) < .86f));
+            if (!refresh && hadFocus == focused && (!focused || (node == lastNode &&
+                (lastFocus - focusFloor.point).sqrMagnitude < .000025f))) return;
             if (refresh)
             {
-                marks.Clear(); refreshAfter=now+.33; lastOrigin=origin;
-                hasOrigin=movement.PreviewNavigationOrigin(out var here);
-                if (hasOrigin)
-                {
-                    lastOrigin=here.point; CollectLandings(here.point);
-                }
+                refreshAfter = now + .33;
+                lastOrigin = origin;
+                lastForward = forward;
+                marks.Clear();
+                if (combat && movement.PreviewNavigationOrigin(out var from)) CollectLandings(from, forward);
             }
-            if (refresh || focus!=previousFocus)
-            {
-                HasFocus=false;
-                if (focus && hasOrigin)
-                {
-                    foreach (var entry in marks) if(entry.node==focus) { focusFloor=entry.floor; HasFocus=true; break; }
-                    if (!HasFocus) HasFocus=movement.PreviewNavigationLanding(focus,lastOrigin,out focusFloor);
-                }
-            }
-            previousFocus=focus; lastStep=step;
-            vertices.Clear();cut.Clear();stone.Clear();copper.Clear();
-            foreach (var entry in marks)
-            {
-                if (entry.node && (entry.node!=focus || !HasFocus)) DrawResting(entry.floor);
-            }
-            if (HasFocus) DrawFocus(focusFloor,step);
-            mesh.Clear();mesh.SetVertices(vertices);mesh.subMeshCount=3;
-            mesh.SetTriangles(cut,0,false);mesh.SetTriangles(stone,1,false);mesh.SetTriangles(copper,2,false);mesh.RecalculateBounds();
-            renderer.enabled=vertices.Count!=0;
+            hadFocus = focused;
+            wasVisible = true;
+            wasCombat = combat;
+            lastNode = node;
+            lastFocus = focusFloor.point;
+            vertices.Clear();
+            uv.Clear();
+            foreach (var submesh in triangles) submesh.Clear();
+            foreach (var mark in marks)
+                if (mark.node && mark.node.isActiveAndEnabled && (!focused || (mark.floor.point - lastFocus).sqrMagnitude > .3f))
+                    Draw(mark.floor, 0);
+            if (focused) Draw(focusFloor, combat ? 2 : 1);
+            mesh.Clear();
+            mesh.SetVertices(vertices);
+            mesh.SetUVs(0, uv);
+            mesh.subMeshCount = triangles.Length;
+            for (int i = 0; i < triangles.Length; i++) mesh.SetTriangles(triangles[i], i, false);
+            mesh.RecalculateBounds();
+            renderer.enabled = vertices.Count > 0;
         }
 
-        void CollectLandings(Vector3 origin)
+        void CollectLandings(RaycastHit from, Vector3 forward)
         {
-            nearby.Clear();
-            var nodes=movement.NearbyNavigationNodes;
-            if (nodes==null) return;
-            float maximum=movement.offNodeRange*movement.offNodeRange;
-            Vector3 forward=Vector3.ProjectOnPlane(movement.head.forward,Vector3.up).normalized;
-            foreach(var node in nodes)
+            foreach (var band in bands) band.Clear();
+            System.Array.Clear(cursors, 0, cursors.Length);
+            var nodes = movement.NearbyNavigationNodes;
+            if (nodes == null) return;
+            float range = movement.offNodeRange;
+            foreach (var node in nodes)
             {
-                if (!node || !node.isActiveAndEnabled || node.gameObject.scene!=movement.gameObject.scene) continue;
-                Vector3 delta=node.floorPosition-origin;
-                float distance=delta.sqrMagnitude;
-                if (distance<=maximum) nearby.Add((node,distance*(1f-.08f*Vector3.Dot(forward,delta.normalized))));
+                if (!node || !node.isActiveAndEnabled || node.gameObject.scene != movement.gameObject.scene) continue;
+                Vector3 delta = node.floorPosition - from.point;
+                float distance = delta.magnitude;
+                if (distance < movement.nodeTolerance || distance > range) continue;
+                int band = Mathf.Min(2, (int)(3 * distance / range));
+                bands[band].Add((node, distance / range - Vector3.Dot(forward, delta / distance)));
             }
-            nearby.Sort((a,b)=>a.rank!=b.rank ? a.rank.CompareTo(b.rank) : string.CompareOrdinal(a.node.nodeId,b.node.nodeId));
-            foreach (var pair in nearby)
+            foreach (var band in bands)
+                band.Sort((a, b) => a.rank != b.rank ? a.rank.CompareTo(b.rank) : string.CompareOrdinal(a.node.nodeId, b.node.nodeId));
+            // Share the visible slots across near, middle and far distances; a sparse band gives up its slots.
+            bool added;
+            do
             {
-                if (movement.PreviewNavigationLanding(pair.node,origin,out var floor)) marks.Add((pair.node,floor));
-                if (marks.Count==MaxLandings) break;
-            }
+                added = false;
+                for (int i = 0; i < bands.Length && marks.Count < MaxLandings; i++)
+                    while (cursors[i] < bands[i].Count)
+                    {
+                        var node = bands[i][cursors[i]++].node;
+                        if (!movement.PreviewNavigationLanding(node, from, out var floor)) continue;
+                        marks.Add((node, floor));
+                        added = true;
+                        break;
+                    }
+            } while (added && marks.Count < MaxLandings);
         }
 
-        void Basis(RaycastHit floor,out Vector3 center,out Vector3 direction,out Vector3 side)
+        void Draw(RaycastHit floor, int material)
         {
-            Vector3 normal=floor.normal;
-            center=floor.point+normal*.026f;
-            direction=Vector3.ProjectOnPlane(center-lastOrigin,normal).normalized;
-            if (direction.sqrMagnitude<.5f) direction=Vector3.ProjectOnPlane(Vector3.forward,normal).normalized;
-            side=Vector3.Cross(normal,direction);
+            float distance = Vector3.Distance(lastOrigin, floor.point);
+            float half = Mathf.Lerp(.30f, .49f, distance / 12f) * (material == 0 ? 1f : 1.55f);
+            Vector3 center = floor.point + floor.normal * SurfaceOffset;
+            Vector3 forward = Vector3.ProjectOnPlane(Vector3.forward, floor.normal).normalized * half;
+            Vector3 right = Vector3.Cross(floor.normal, forward);
+            int i = vertices.Count;
+            vertices.Add(holder.InverseTransformPoint(center - right - forward));
+            vertices.Add(holder.InverseTransformPoint(center - right + forward));
+            vertices.Add(holder.InverseTransformPoint(center + right + forward));
+            vertices.Add(holder.InverseTransformPoint(center + right - forward));
+            uv.Add(Vector2.zero); uv.Add(Vector2.up); uv.Add(Vector2.one); uv.Add(Vector2.right);
+            var indices = triangles[material];
+            indices.Add(i); indices.Add(i + 1); indices.Add(i + 2);
+            indices.Add(i); indices.Add(i + 2); indices.Add(i + 3);
         }
-        void DrawResting(RaycastHit floor)
-        {
-            Basis(floor,out var c,out var f,out var s);
-            // Two broken strokes along the approach end at an open, notched ruler head.
-            Inlay(c-f*.43f,c-f*.32f,floor.normal,.024f);
-            Inlay(c-f*.26f,c-f*.15f,floor.normal,.030f);
-            Inlay(c-s*.15f,c+s*.15f,floor.normal,.032f);
-            Inlay(c-s*.15f,c-s*.15f+f*.087f,floor.normal,.030f);
-            Inlay(c+s*.15f,c+s*.15f+f*.087f,floor.normal,.030f);
-        }
-        void Inlay(Vector3 a,Vector3 b,Vector3 normal,float width)
-        {
-            Vector3 edge=(b-a).normalized*.006f;
-            Stroke(a-edge-normal*.002f,b+edge-normal*.002f,normal,width+.014f,cut);
-            Stroke(a,b,normal,width,stone);
-        }
-        void DrawFocus(RaycastHit floor,int step)
-        {
-            Basis(floor,out var c,out var f,out var s);
-            Stroke(c-f*.50f,c-f*.34f,floor.normal,.035f,copper);
-            Stroke(c-f*.29f,c-f*.215f,floor.normal,.03f,copper);
-            for(int corner=0;corner<4;corner++)
-            {
-                float a=corner*Mathf.PI*.5f;
-                for(int j=0;j<4;j++)
-                    ArcStroke(c,f,s,floor.normal,.21f,a+(j-2)*.145f,a+(j-1)*.145f,.030f);
-            }
-            for(int i=0;i<step;i++)
-            {
-                float a=i*Mathf.PI*2/ProgressSteps;
-                ArcStroke(c,f,s,floor.normal,.136f,a,a+Mathf.PI*2/ProgressSteps,.026f);
-            }
-        }
-        void ArcStroke(Vector3 c,Vector3 f,Vector3 s,Vector3 normal,float radius,float start,float end,float width)
-        {
-            Stroke(c+radius*(f*Mathf.Cos(start)+s*Mathf.Sin(start)),
-                c+radius*(f*Mathf.Cos(end)+s*Mathf.Sin(end)),normal,width,copper);
-        }
-        void Stroke(Vector3 a,Vector3 b,Vector3 normal,float width,List<int> indices)
-        {
-            Vector3 across=Vector3.Cross(normal,b-a).normalized*(width*.5f);
-            int first=vertices.Count;
-            vertices.Add(holder.InverseTransformPoint(a-across));vertices.Add(holder.InverseTransformPoint(a+across));
-            vertices.Add(holder.InverseTransformPoint(b+across));vertices.Add(holder.InverseTransformPoint(b-across));
-            // Upward facing quads. They respect normal scene depth and never receive input.
-            indices.Add(first);indices.Add(first+2);indices.Add(first+1);
-            indices.Add(first);indices.Add(first+3);indices.Add(first+2);
-        }
-        public void Dispose()
-        {
-            UnityEngine.Object.Destroy(mesh);UnityEngine.Object.Destroy(cutMaterial);
-            UnityEngine.Object.Destroy(stoneMaterial);UnityEngine.Object.Destroy(copperMaterial);
-        }
+
+        public void Dispose() => Object.Destroy(mesh);
     }
 }

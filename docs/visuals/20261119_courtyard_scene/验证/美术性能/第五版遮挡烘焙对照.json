@@ -1,0 +1,546 @@
+{
+  "baseSHA256": "9932b8be87df327923e0f9cbf6fdcd2ce54361cb49c6828f7dad2b8f1cec39c4",
+  "bakedSHA256": "cbb369c9e8857092debb0ff7979e3e08f5b39618aaf378c5abbe81705c04cb24",
+  "writtenDiskBytes": 139710,
+  "bakedPVSBytes": 52304,
+  "recordedStaticRenderers": 527,
+  "serializedSceneChecks": {
+    "114": {
+      "objects": 176,
+      "identical": 176
+    },
+    "65": {
+      "objects": 108,
+      "identical": 108
+    },
+    "54": {
+      "objects": 1,
+      "identical": 1
+    },
+    "222": {
+      "objects": 13,
+      "identical": 13
+    },
+    "223": {
+      "objects": 9,
+      "identical": 9
+    },
+    "224": {
+      "objects": 22,
+      "identical": 22
+    },
+    "196": {
+      "objects": 1,
+      "identical": 1
+    },
+    "108": {
+      "objects": 4,
+      "identical": 4
+    }
+  },
+  "removedOriginalFileIds": 0,
+  "newSceneObjectsAndComponents": 3,
+  "testBasis": "Mobile_RPAsset in Unity 6000.3.10f1, Android selected, D3D11 editor, fifth scene snapshot. Current production/staging scene were not mutated.",
+  "bake": {
+    "occluderRenderers": 124,
+    "staticRenderers": 527,
+    "motionRootsExcluded": 41,
+    "bakeSeconds": 1.132,
+    "visibilityAreaSizeMeters": [
+      68,
+      5.2,
+      84
+    ],
+    "smallestOccluderMeters": 2.25,
+    "smallestHoleMeters": 0.2,
+    "backfaceThreshold": 100,
+    "reload": "Reference restored on reopening scene and fresh editor reported 52,304 bytes loaded in StaticOcclusionCulling.umbraDataSize."
+  },
+  "probe": {
+    "method": "Retain original mesh bounds, transforms, layer and LOD selection. A private D3D11 shader emits a screen identification marker for each renderer submitted by the camera. This diagnostic pass counts unique MeshRenderers. It excludes post-processing and does not equal GPU or whole-frame draw calls.",
+    "meshRenderersInstrumented": 1384,
+    "doorReferencesMadeInactiveInOpenCase": 3,
+    "submissionRows": [
+      {
+        "mode": "closed",
+        "view": "birth",
+        "off": 267,
+        "on": 265,
+        "removed": 2
+      },
+      {
+        "mode": "closed",
+        "view": "birth_side",
+        "off": 109,
+        "on": 109,
+        "removed": 0
+      },
+      {
+        "mode": "closed",
+        "view": "corridor",
+        "off": 170,
+        "on": 169,
+        "removed": 1
+      },
+      {
+        "mode": "closed",
+        "view": "trial",
+        "off": 135,
+        "on": 135,
+        "removed": 0
+      },
+      {
+        "mode": "closed",
+        "view": "canal",
+        "off": 234,
+        "on": 233,
+        "removed": 1
+      },
+      {
+        "mode": "open",
+        "view": "birth",
+        "off": 248,
+        "on": 246,
+        "removed": 2
+      },
+      {
+        "mode": "open",
+        "view": "birth_side",
+        "off": 109,
+        "on": 109,
+        "removed": 0
+      },
+      {
+        "mode": "open",
+        "view": "corridor",
+        "off": 158,
+        "on": 157,
+        "removed": 1
+      },
+      {
+        "mode": "open",
+        "view": "trial",
+        "off": 123,
+        "on": 123,
+        "removed": 0
+      },
+      {
+        "mode": "open",
+        "view": "canal",
+        "off": 227,
+        "on": 227,
+        "removed": 0
+      }
+    ],
+    "visualRows": [
+      {
+        "mode": "closed",
+        "view": "birth",
+        "meanAbsoluteRGBDelta": 7e-05,
+        "changedPixelPercentage": 0.0006,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "closed",
+        "view": "birth_side",
+        "meanAbsoluteRGBDelta": 6e-05,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "closed",
+        "view": "corridor",
+        "meanAbsoluteRGBDelta": 0.0,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "closed",
+        "view": "trial",
+        "meanAbsoluteRGBDelta": 0.0,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "closed",
+        "view": "canal",
+        "meanAbsoluteRGBDelta": 0.36757,
+        "changedPixelPercentage": 2.2651,
+        "largePixelDeltaPercentage": 0.6878
+      },
+      {
+        "mode": "open",
+        "view": "birth",
+        "meanAbsoluteRGBDelta": 8e-05,
+        "changedPixelPercentage": 0.0006,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "open",
+        "view": "birth_side",
+        "meanAbsoluteRGBDelta": 6e-05,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "open",
+        "view": "corridor",
+        "meanAbsoluteRGBDelta": 0.0,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "open",
+        "view": "trial",
+        "meanAbsoluteRGBDelta": 0.0,
+        "changedPixelPercentage": 0.0,
+        "largePixelDeltaPercentage": 0.0
+      },
+      {
+        "mode": "open",
+        "view": "canal",
+        "meanAbsoluteRGBDelta": 0.12029,
+        "changedPixelPercentage": 1.1249,
+        "largePixelDeltaPercentage": 0.0497
+      }
+    ]
+  },
+  "originalMaterialFrames": {
+    "method": "Thirty alternating off/on samples (three repetitions × five cameras × two occlusion states). Each sample spans six editor updates, one full Mobile URP single-camera render with scene original materials and shadows per update. Last 3 updates per sample retained for medians. No headset or frame-time measurement.",
+    "retainedFrames": 90,
+    "table": [
+      {
+        "view": "birth",
+        "off": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        },
+        "on": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        }
+      },
+      {
+        "view": "birth_side",
+        "off": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        },
+        "on": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        }
+      },
+      {
+        "view": "corridor",
+        "off": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        },
+        "on": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        }
+      },
+      {
+        "view": "trial",
+        "off": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        },
+        "on": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        }
+      },
+      {
+        "view": "canal",
+        "off": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        },
+        "on": {
+          "UnityDraws": 0,
+          "UnityBatches": 0,
+          "UnityTriangles": 0,
+          "UnitySetPass": 0,
+          "ProfilerDrawCalls": 0,
+          "ProfilerBatches": 0,
+          "ProfilerTriangles": 0,
+          "ProfilerSetPass": 0,
+          "instantDraws": 0
+        }
+      }
+    ],
+    "validMeasurement": false,
+    "reason": "Editor UnityStats and ProfilerRecorder returned zero for the offscreen frames even though colour data were rendered. Zeros are unsupported counters in this test, not observed draw counts."
+  },
+  "sourceCountersCSV": "UnityFrameCounters.csv",
+  "nativeWholeCamera": {
+    "method": "ID3D11DeviceContext Begin/End D3D11_QUERY_PIPELINE_STATISTICS bracket the actual URP SingleCameraRequest. No shader replacement, original scene meshes, materials and active lights, and normal shadow passes; 768×432, 66° field of view, Mobile_RPAsset, DX11 editor. Each of three samples warms the camera first. D3D query completion confirmed for each sample. IAPrimitives counts primitives submitted across actual camera passes; it is not draw calls or Quest GPU milliseconds.",
+    "frames": 60,
+    "source": "D3D11Pipeline.csv",
+    "table": [
+      {
+        "gate": "closed",
+        "view": "birth",
+        "IAPrimitives": {
+          "off": 372140,
+          "on": 381714,
+          "percentSaved": -2.573
+        },
+        "VSInvocations": {
+          "off": 708328,
+          "on": 730503,
+          "percentSaved": -3.131
+        },
+        "PSInvocations": {
+          "off": 588810,
+          "on": 588810,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "closed",
+        "view": "birth_side",
+        "IAPrimitives": {
+          "off": 250964,
+          "on": 252614,
+          "percentSaved": -0.657
+        },
+        "VSInvocations": {
+          "off": 472543,
+          "on": 476303,
+          "percentSaved": -0.796
+        },
+        "PSInvocations": {
+          "off": 561098,
+          "on": 561098,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "closed",
+        "view": "corridor",
+        "IAPrimitives": {
+          "off": 292547,
+          "on": 304051,
+          "percentSaved": -3.932
+        },
+        "VSInvocations": {
+          "off": 543442,
+          "on": 566750,
+          "percentSaved": -4.289
+        },
+        "PSInvocations": {
+          "off": 401728,
+          "on": 401728,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "closed",
+        "view": "trial",
+        "IAPrimitives": {
+          "off": 233357,
+          "on": 240217,
+          "percentSaved": -2.94
+        },
+        "VSInvocations": {
+          "off": 430372,
+          "on": 444518,
+          "percentSaved": -3.287
+        },
+        "PSInvocations": {
+          "off": 500158,
+          "on": 500158,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "closed",
+        "view": "canal",
+        "IAPrimitives": {
+          "off": 361686,
+          "on": 363434,
+          "percentSaved": -0.483
+        },
+        "VSInvocations": {
+          "off": 663244,
+          "on": 667213,
+          "percentSaved": -0.598
+        },
+        "PSInvocations": {
+          "off": 458272,
+          "on": 456826,
+          "percentSaved": 0.316
+        }
+      },
+      {
+        "gate": "open",
+        "view": "birth",
+        "IAPrimitives": {
+          "off": 369548,
+          "on": 379122,
+          "percentSaved": -2.591
+        },
+        "VSInvocations": {
+          "off": 702896,
+          "on": 725071,
+          "percentSaved": -3.155
+        },
+        "PSInvocations": {
+          "off": 579264,
+          "on": 579263,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "open",
+        "view": "birth_side",
+        "IAPrimitives": {
+          "off": 250964,
+          "on": 252614,
+          "percentSaved": -0.657
+        },
+        "VSInvocations": {
+          "off": 472543,
+          "on": 476303,
+          "percentSaved": -0.796
+        },
+        "PSInvocations": {
+          "off": 561009,
+          "on": 561007,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "open",
+        "view": "corridor",
+        "IAPrimitives": {
+          "off": 291059,
+          "on": 302563,
+          "percentSaved": -3.952
+        },
+        "VSInvocations": {
+          "off": 540342,
+          "on": 563650,
+          "percentSaved": -4.314
+        },
+        "PSInvocations": {
+          "off": 402132,
+          "on": 402132,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "open",
+        "view": "trial",
+        "IAPrimitives": {
+          "off": 231869,
+          "on": 238729,
+          "percentSaved": -2.959
+        },
+        "VSInvocations": {
+          "off": 427272,
+          "on": 441418,
+          "percentSaved": -3.311
+        },
+        "PSInvocations": {
+          "off": 499890,
+          "on": 499890,
+          "percentSaved": 0.0
+        }
+      },
+      {
+        "gate": "open",
+        "view": "canal",
+        "IAPrimitives": {
+          "off": 360582,
+          "on": 362342,
+          "percentSaved": -0.488
+        },
+        "VSInvocations": {
+          "off": 660912,
+          "on": 664905,
+          "percentSaved": -0.604
+        },
+        "PSInvocations": {
+          "off": 458186,
+          "on": 456748,
+          "percentSaved": 0.314
+        }
+      }
+    ]
+  },
+  "decision": "第五版独立对照：建议不合入遮挡烘焙。十组机位/门态的 IA 图元均未下降；关闭/开启遮挡的实际像素着色量在四个机位接近相同，渠面节省约 0.31%。更改视锥中的草、远松等可复用模型数量是另一项独立优化。",
+  "notes": [
+    "No on-device VR GPU/CPU frame timings were recorded.",
+    "The test-statistics native plugin and debug marker shader exist only in the isolated copy and evidence workspace.",
+    "Shared source asset folder and staging branch were not changed by the experiment.",
+    "Regular-camera waterfall/grass/water animations advanced between captures. The small visual differences at the canal are not attributed uniquely to occlusion."
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "source": "ArtSource/Environment/Opening/CourtyardModelOrders/H03/H03_Hunyuan.glb",
+  "source_sha256": "3931d26664bf2e1947a8a942316129dd2771c34c928ed6613f57cfd61a88a49b",
+  "source_dimensions": {
+    "min": [
+      -0.4012160003185272,
+      -0.33358001708984375,
+      -2.4299472656252874e-08
+    ],
+    "max": [
+      0.6020010113716125,
+      0.40166404843330383,
+      0.34567904472351074
+    ],
+    "triangles": 500000
+  },
+  "unit": "m",
+  "anchors_local_Unity": {
+    "JoinCourt": [
+      0,
+      0,
+      -5.7
+    ],
+    "GateStand": [
+      0,
+      0,
+      4.8
+    ],
+    "CliffTip": [
+      0,
+      0,
+      6.0
+    ]
+  },
+  "lods": {
+    "GateSpur_LOD0": {
+      "triangles": 4200,
+      "size_m": [
+        9.333044052124023,
+        17.850536346435547,
+        8.04737377166748
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-8.0473 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -8.0473,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GateSpur_LOD0": {
+            "verts": 2102,
+            "faces": 4200,
+            "tris": 4200,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.04,
+            "uv_coverage_pct": 43.1
+          }
+        }
+      },
+      "support": {
+        "samples": 133,
+        "misses": 0,
+        "max_abs_height": 0.0014448165893554688,
+        "min": -0.0014448165893554688,
+        "max": -5.7220458984375e-06
+      }
+    },
+    "GateSpur_LOD1": {
+      "triangles": 1320,
+      "size_m": [
+        9.329912185668945,
+        17.824756622314453,
+        8.037280082702637
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-8.0364 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -8.0364,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GateSpur_LOD1": {
+            "verts": 662,
+            "faces": 1320,
+            "tris": 1320,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.01,
+            "uv_coverage_pct": 42.7
+          }
+        }
+      },
+      "support": {
+        "samples": 133,
+        "misses": 0,
+        "max_abs_height": 0.008531570434570312,
+        "min": -0.008531570434570312,
+        "max": 0.0006818771362304688
+      }
+    },
+    "GateSpur_LOD2": {
+      "triangles": 420,
+      "size_m": [
+        9.172660827636719,
+        17.695838928222656,
+        8.06275463104248
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-8.0477 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -8.0477,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GateSpur_LOD2": {
+            "verts": 212,
+            "faces": 420,
+            "tris": 420,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.0,
+            "uv_coverage_pct": 41.1
+          }
+        }
+      },
+      "support": {
+        "samples": 133,
+        "misses": 0,
+        "max_abs_height": 0.02821063995361328,
+        "min": -0.02821063995361328,
+        "max": 0.01165771484375
+      }
+    }
+  }
+}

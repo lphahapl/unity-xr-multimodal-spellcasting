@@ -1,0 +1,496 @@
+{
+  "Bed": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "asset lowest point z=-0.02 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.02,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Bed": {
+        "verts": 482,
+        "faces": 952,
+        "tris": 952,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 3,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 16.9
+      }
+    },
+    "performance": {
+      "ok": true,
+      "objects": {
+        "Bed": {
+          "tris": 952,
+          "verts": 482,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 952,
+      "total_verts": 482,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "CG_A1_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_MetalSmooth.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 64.0,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    }
+  },
+  "Outer": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": 0.0005,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Outer": {
+        "verts": 940,
+        "faces": 1868,
+        "tris": 1868,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 4,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 14.7
+      }
+    },
+    "performance": {
+      "ok": true,
+      "objects": {
+        "Outer": {
+          "tris": 1868,
+          "verts": 940,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 1868,
+      "total_verts": 940,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "CG_A1_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_MetalSmooth.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 64.0,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    }
+  },
+  "Inner": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": 0.0003,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Inner": {
+        "verts": 626,
+        "faces": 1240,
+        "tris": 1240,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 4,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 3.7
+      }
+    },
+    "performance": {
+      "ok": true,
+      "objects": {
+        "Inner": {
+          "tris": 1240,
+          "verts": 626,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 1240,
+      "total_verts": 626,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "CG_A1_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_MetalSmooth.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 64.0,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    }
+  },
+  "Box": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": 0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Box": {
+        "verts": 506,
+        "faces": 992,
+        "tris": 992,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 5,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 13.2
+      }
+    },
+    "performance": {
+      "ok": true,
+      "objects": {
+        "Box": {
+          "tris": 992,
+          "verts": 506,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 992,
+      "total_verts": 506,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "CG_A1_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_MetalSmooth.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 64.0,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    }
+  },
+  "Lid": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "asset lowest point z=-0.035 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.035,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "Lid": {
+        "verts": 372,
+        "faces": 736,
+        "tris": 736,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 2,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 6.9
+      }
+    },
+    "performance": {
+      "ok": true,
+      "objects": {
+        "Lid": {
+          "tris": 736,
+          "verts": 372,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 736,
+      "total_verts": 372,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "CG_A1_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "CG_A1_MetalSmooth.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 64.0,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    }
+  }
+}

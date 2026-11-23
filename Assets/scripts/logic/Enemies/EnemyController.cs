@@ -323,10 +323,11 @@ namespace NarutoVR.SealCombat.Enemies
             if (!this || !isActiveAndEnabled) return;
             int tickGeneration = generation;
             if (suspended) { StopNavigation(); SetBehaviour(Behaviour.Suspended, "外部暂停"); return; }
+            if (enemyObj.isActiveAndEnabled && !IsDead && Time.timeScale > 0)
+                enemyObj.TickCombat(deltaTime);
+            if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
             if (!animationValid || !enemyObj.isActiveAndEnabled || !enemyObj.AnimationActive)
             { StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; CancelAttack(); return; }
-            enemyObj.TickCombat(deltaTime);
-            if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
             if (TickReaction(deltaTime)) return;
 
             if (!validTarget || !target || !target.gameObject.activeInHierarchy)
@@ -356,7 +357,10 @@ namespace NarutoVR.SealCombat.Enemies
             Vector3 navigationTarget = CombatDamageReceiver.GetNavigationPosition(target);
             Vector3 toTarget = navigationTarget - transform.position;
             var flat = Vector3.ProjectOnPlane(toTarget, Vector3.up);
-            if (flat.magnitude <= attackDistance && Mathf.Abs(toTarget.y) <= navSampleRadius)
+            bool inRange = enemyObj.RangedAttack
+                ? toTarget.sqrMagnitude <= attackDistance * attackDistance
+                : flat.magnitude <= attackDistance && Mathf.Abs(toTarget.y) <= navSampleRadius;
+            if (inRange)
             {
                 StopNavigation();
                 enemyObj.RotateTowards(flat, turnSpeed, deltaTime);
@@ -511,7 +515,7 @@ namespace NarutoVR.SealCombat.Enemies
                     Notify(EnemyEvents.AttackWindowOpened, new EnemyAttackNotice(this, attack, id), () => onAttackContact.Invoke(attack));
                     if (!this || generation != token || currentAttack != attack || suspended || !isActiveAndEnabled) return;
                 }
-                if (progress >= .98f) { CancelAttack(); return; }
+                if (progress >= .98f && !(opened && enemyObj.RangedAttack)) { CancelAttack(); return; }
             }
             else if (attackEntered && !inTransition) { CancelAttack(); return; }
             if ((!attackEntered && clock - attackStartedAt >= animationEntryTimeout) || clock - attackStartedAt >= attackTimeout)

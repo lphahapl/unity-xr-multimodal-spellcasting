@@ -1,0 +1,109 @@
+{
+  "unity": "6000.3.10f1",
+  "readback": "docs/visuals/chapter01_preqin_architecture/屋顶与亭廊_R2/Unity验收.txt",
+  "triangles": [
+    8012,
+    1052,
+    450
+  ],
+  "roundtrip_geometry": {
+    "0": {
+      "triangles": 8012,
+      "bad_faces": 0,
+      "collapsed_uv_triangles": 0,
+      "material_slots": 1,
+      "boundary_edges_at_10micron": 0,
+      "nonmanifold_interior_edges": 0
+    },
+    "1": {
+      "triangles": 1052,
+      "bad_faces": 0,
+      "collapsed_uv_triangles": 0,
+      "material_slots": 1,
+      "boundary_edges_at_10micron": 0,
+      "nonmanifold_interior_edges": 0
+    },
+    "2": {
+      "triangles": 450,
+      "bad_faces": 0,
+      "collapsed_uv_triangles": 0,
+      "material_slots": 1,
+      "boundary_edges_at_10micron": 0,
+      "nonmanifold_interior_edges": 0
+    }
+  },
+  "walk": [
+    [
+      "Gallery turn",
+      "collision",
+      "forward",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 66",
+      "floor range -0.030..-0.030"
+    ],
+    [
+      "Gallery turn",
+      "collision",
+      "reverse",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 66",
+      "floor range -0.030..-0.030"
+    ],
+    [
+      "Gallery turn",
+      "collision+visual",
+      "forward",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 66",
+      "floor range 0.095..0.095"
+    ],
+    [
+      "Gallery turn",
+      "collision+visual",
+      "reverse",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 66",
+      "floor range 0.095..0.095"
+    ],
+    [
+      "Tianyi passage",
+      "collision",
+      "forward",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 103",
+      "floor range -0.030..-0.025"
+    ],
+    [
+      "Tianyi passage",
+      "collision",
+      "reverse",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 103",
+      "floor range -0.030..-0.025"
+    ],
+    [
+      "Tianyi passage",
+      "collision+visual",
+      "forward",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 103",
+      "floor range -0.030..-0.025"
+    ],
+    [
+      "Tianyi passage",
+      "collision+visual",
+      "reverse",
+      "radius 0.22",
+      "height 1.78",
+      "grid steps 103",
+      "floor range -0.030..-0.025"
+    ]
+  ]
+}

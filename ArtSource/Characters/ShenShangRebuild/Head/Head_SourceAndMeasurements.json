@@ -1,0 +1,1385 @@
+{
+  "character": "沈商",
+  "source_blend": "ShenShang_Head.blend",
+  "sha256": "f7c3ddb8d739984baec6e9669090690cac3f2ef796fef9752eba7a5b1f70e103",
+  "assetSource": {
+    "anatomicalTopology": "MakeHuman HM08 human base mesh and macro targets",
+    "repository": "https://github.com/makehumancommunity/makehuman/tree/a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+    "license": "CC0 1.0 Universal (asset headers and LICENSE.ASSETS.md)",
+    "inputs": {
+      "base.obj": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c",
+      "asian-male-young.target": "ed2e8c191cb6b87b4a2d97c80486acb2604fa549316c7aa2a738a5d5a14334dc",
+      "asian-male-old.target": "36dc5a3a135ded33885e814806b0e3668ca5bf44bddcebdee48ae75ae68bc3d3",
+      "LICENSE.ASSETS.md": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c"
+    },
+    "approvedArt": "docs/visuals/20261122_shen_shang_turnaround/Head.png",
+    "workflow": "Front and profile control the anatomy. The 35 degree image serves as holdout. Each eyeball is a separate closed manifold, with native sclera, limbus, iris, pupil and pigment vertices. The 3072-pixel skin, roughness and relief atlases are packed. The scalp, brow and facial hair are supplied by the separate grooming source. Editable closed wet eyelid margins, medial canthi and tapered eyelashes have been added. The alar walls, rounded columella, central upper-lip tubercle and lower vermilion have been sculpted against the latest portrait. A packed fourth data image carries curved vermilion relief, under-eye folds, roughness modulation and a localized tissue mask. A reversible shape key closes the original lips through continuous local deformation. A second reversible key, Auricle and submandibular sculpt, shapes the bilateral cartilage and lobules, malar transition, underside of the jaw and neck. It is active at 1.0. Two subsequent native shape keys adjust the palpebral arc and roll, malar projection, nasal-adjacent and buccal tissue, zygomatic arch and masseter under the approved facial landmarks. The packed sRGB albedo reduces residual broad photographic shading in the cheeks. A further native key shapes the posterior oblique arch, buccal hollow and broad masseter. A corrected packed albedo feathers the two photographic transition edges and supplies fine skin variation in the lateral jaw and neck. Selected eye-only G5c reshapes the upper and lower lid arcs and the temporal commissure. The temporal scleral wall sits beneath the modeled lids and the medial lacrimal tissue thins into the lid edge. The central iris, pupil, and eye object transforms are preserved."
+  },
+  "calibration": {
+    "referencePanelPixels": [
+      724,
+      724
+    ],
+    "metresPerPixel": 0.000484,
+    "frontUAtX0": 386,
+    "frontChinV": 557,
+    "sideUAtY0": 350,
+    "sideChinV": 553,
+    "chinZ": 1.47526
+  },
+  "measuredFront": {
+    "units": "pixels at the original 724px panel. Reference endpoints are hand-read, normally +/-2–4px. The source is an illustration. Eye aperture values were ray-tested on the evaluated mesh. Nose and lip anchor widths were read on their geometry, bone width was cut from evaluated triangles.",
+    "screenRightPositive": true,
+    "apertureReferenceU": [
+      [
+        277,
+        351
+      ],
+      [
+        425,
+        498
+      ]
+    ],
+    "apertureBeforeU": [
+      [
+        287,
+        344
+      ],
+      [
+        427,
+        485
+      ]
+    ],
+    "apertureAfterU": [
+      [
+        278.0,
+        350.5
+      ],
+      [
+        421.5,
+        494.0
+      ]
+    ],
+    "pupilDistancePx": {
+      "reference": 143,
+      "mesh": 141
+    },
+    "pupilToVisibleCheekWidth": {
+      "reference": 0.469,
+      "mesh": 0.451
+    },
+    "alarToInnerCanthusWidth": {
+      "reference": 1.189,
+      "mesh": 1.184
+    },
+    "mouthWidthToAlarWidth": {
+      "reference": 1.398,
+      "mesh": 1.4
+    },
+    "browToEyeVertical": {
+      "referenceApprox": [
+        34,
+        40
+      ],
+      "meshBrowSeatToPupil": [
+        35,
+        42
+      ],
+      "note": "brow hair density center depends on separate groom. The head-only measurement uses the brow seat."
+    },
+    "subnasaleToUpperVermilion": {
+      "referenceApprox": [
+        31,
+        36
+      ],
+      "meshApprox": 36.6
+    },
+    "cheekWidths": {
+      "description": "Visible face readings exclude the hair. At each facial height, the mesh width limit uses the named anterior depth plane to avoid ear or unoccluded neck. The hidden temporal skin and the edge where chin shading meets the visible neck introduce about 4–9px of reading uncertainty.",
+      "frontRowsV": [
+        273,
+        360,
+        450,
+        490,
+        540
+      ],
+      "features": [
+        "temple",
+        "zygomatic arch",
+        "masseter",
+        "gonion",
+        "chin/neck transition"
+      ],
+      "approxReferencePixels": [
+        [
+          292,
+          301
+        ],
+        [
+          302,
+          311
+        ],
+        [
+          272,
+          284
+        ],
+        [
+          248,
+          263
+        ],
+        [
+          140,
+          160
+        ]
+      ],
+      "meshPixels": [
+        300.8,
+        312.4,
+        291.2,
+        259.7,
+        169.8
+      ],
+      "meshAnteriorDepthLimitMeters": [
+        -0.04,
+        -0.04,
+        -0.055,
+        -0.04,
+        -0.04
+      ],
+      "baselineEPixelsSameTriangleSection": [
+        296.7,
+        306.8,
+        280.4,
+        256.0,
+        134.7
+      ],
+      "dualDepthAtChin": {
+        "yMinus40": [
+          134.7,
+          161.2
+        ],
+        "yMinus55": [
+          127.5,
+          151.0
+        ]
+      },
+      "dualDepthLegend": "At row 540, lists are baseline E and selected F. yMinus40 and yMinus55 are camera-facing sagittal limits in millimetres. Lower jaw and anterior neck overlap in this projection.",
+      "baselineFWidthsPx": [
+        296.7,
+        306.9,
+        280.5,
+        256.6,
+        161.2
+      ],
+      "row540CurrentVariantYMinus55": 155.8,
+      "baselineG4WidthsPx": [
+        296.7,
+        313.6,
+        287.2,
+        259.0,
+        161.2
+      ],
+      "baselineG5cWidthsPx": [
+        296.7,
+        313.6,
+        287.2,
+        259.0,
+        161.2
+      ]
+    },
+    "remaining": "The painted reference and the head-only projections diverge at the hair-covered cheek and neck. The current section width estimates at the zygomatic arch, masseter and chin/neck junction are 312.4, 291.2, 169.8 reference pixels; the deeper front-only cut at the chin/neck junction reads 155.8 px. Eyelid edges in extreme close-ups remain smoother than the illustration.",
+    "apertureAfterV": [
+      [
+        308.0,
+        324.5
+      ],
+      [
+        307.0,
+        324.5
+      ]
+    ],
+    "alarBreadthPx": 84.05,
+    "oralCommissureWidthPx": 117.69,
+    "measuredAnatomicalLandmarksPx": {
+      "brow body R": [
+        308.51,
+        273.69
+      ],
+      "brow body L": [
+        463.48,
+        273.11
+      ],
+      "alar outer R": [
+        343.92,
+        404.02
+      ],
+      "alar outer L": [
+        427.97,
+        403.41
+      ],
+      "columella": [
+        388.29,
+        417.55
+      ],
+      "Cupid notch": [
+        389.13,
+        454.12
+      ],
+      "commissure R": [
+        327.16,
+        469.5
+      ],
+      "commissure L": [
+        444.85,
+        469.34
+      ]
+    },
+    "landmarkTransfer": "Front-view rays sample the G5c anatomical anchors. The same evaluated triangle and barycentric coordinates transfer each anchor to the selected H2 head. Drawing readings carry the uncertainty noted above."
+  },
+  "quality": {
+    "machine": "Blender 5.2.2",
+    "pass": true,
+    "geometry": "Editable 4536-vertex / 4510-face native quad cage; Catmull–Clark level 2 = 144320 head triangles. Two independently modeled closed eyes, four tarsal margins, two medial canthi and four natural-curve lash objects.",
+    "warnings": [
+      "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+      "hidden back-to-back faces: ShenShang_Head (1 pairs) - delete to save tris",
+      "asset lowest point z=1.389 (not resting on ground plane z=0)"
+    ],
+    "sourcePurpose": "Editable art source, with no rig; close-view materials and ocular details are not a game-ready LOD. The Studio near views use the same physical 5.2cm/0.85W window on baseline and accepted candidate.",
+    "context": [
+      "The skin joins the established collar with the neck base at z=1.389m.",
+      "The 2048 packed data atlas is intentionally Non-Color: its scalar red channel modulates the original sRGB albedo rather than supplying replacement color.",
+      "The evaluated shape key and subdivision result were inspected in a fresh Blender process. The original and final native eyelash curve splines were checked separately.",
+      "At the 0.08 mm plane tolerance the formal ocular source has one concealed opposing pair where the character-right palpebral ends touch (u276.7 at v315.3). The evaluated audit found no overlapping front faces or loose facial components.",
+      "Direct comparison of all 8,028 fibre knot skin intersections for the updated brow groom returned zero surface depth difference between G4 and G5c.",
+      "H2 passed a fresh evaluated head audit. The G5c and H2 exposed eye bounds and 90-sample mouth-opening measurements agree. The groom is refitted independently to the H2 forehead and nape."
+    ],
+    "coldRead": {
+      "meshObjects": 9,
+      "curveObjects": 4,
+      "skinControlVertices": 4536,
+      "skinControlFaces": 4510,
+      "skinEvaluatedVertices": 72261,
+      "skinEvaluatedTriangles": 144320,
+      "eyesAndMucosa": {
+        "Eye.L": {
+          "vertices": 4866,
+          "triangles": 9728
+        },
+        "Eye.R": {
+          "vertices": 4866,
+          "triangles": 9728
+        },
+        "Upper wet margin.L": {
+          "vertices": 752,
+          "triangles": 1500
+        },
+        "Lower wet margin.L": {
+          "vertices": 752,
+          "triangles": 1500
+        },
+        "Inner canthus.L": {
+          "vertices": 242,
+          "triangles": 480
+        },
+        "Upper wet margin.R": {
+          "vertices": 752,
+          "triangles": 1500
+        },
+        "Lower wet margin.R": {
+          "vertices": 752,
+          "triangles": 1500
+        },
+        "Inner canthus.R": {
+          "vertices": 242,
+          "triangles": 480
+        }
+      },
+      "actualEyeApertures": [
+        {
+          "ocularExposure_boundsUV": [
+            [
+              278.0,
+              308.0
+            ],
+            [
+              350.5,
+              324.5
+            ]
+          ],
+          "includingMedialTissue_boundsUV": [
+            [
+              278.0,
+              308.0
+            ],
+            [
+              350.5,
+              324.5
+            ]
+          ]
+        },
+        {
+          "ocularExposure_boundsUV": [
+            [
+              421.5,
+              307.0
+            ],
+            [
+              494.0,
+              324.5
+            ]
+          ],
+          "includingMedialTissue_boundsUV": [
+            [
+              421.5,
+              307.0
+            ],
+            [
+              494.0,
+              324.5
+            ]
+          ]
+        }
+      ],
+      "oralSlitDepthGate": {
+        "imageWidthPx": 724,
+        "depthM": -0.076,
+        "apertureMaxPx": 0.1,
+        "apertureMeanPx": 0.0044,
+        "samplesAcrossMouth": 90,
+        "verticalStepPx": 0.1
+      },
+      "textureImages": [
+        {
+          "name": "ShenShang • Albedo • lateral cheek and neck • 3072",
+          "size": [
+            3072,
+            3072
+          ],
+          "packed": true,
+          "colorSpace": "sRGB"
+        },
+        {
+          "name": "ShenShang • Lip and eyelid microstructure • 2048",
+          "size": [
+            2048,
+            2048
+          ],
+          "packed": true,
+          "colorSpace": "Non-Color"
+        },
+        {
+          "name": "ShenShang • Microrelief • 3072",
+          "size": [
+            3072,
+            3072
+          ],
+          "packed": true,
+          "colorSpace": "Non-Color"
+        },
+        {
+          "name": "ShenShang • Roughness • 3072",
+          "size": [
+            3072,
+            3072
+          ],
+          "packed": true,
+          "colorSpace": "Non-Color"
+        }
+      ],
+      "eyelashStrands": {
+        "Upper lashes.L": 20,
+        "Lower lashes.L": 7,
+        "Upper lashes.R": 19,
+        "Lower lashes.R": 7
+      }
+    },
+    "evaluatedMeshAudit": {
+      "errors": [],
+      "zFighting": [],
+      "floating": [],
+      "hiddenBackToBack": [
+        {
+          "where": "ShenShang_Head",
+          "tri_pairs": 1
+        }
+      ],
+      "skin": {
+        "verts": 72261,
+        "faces": 72160,
+        "tris": 144320,
+        "ngons": 0,
+        "boundary_edges": 200,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 12.1
+      },
+      "planeToleranceMetres": 8e-05,
+      "contactDistanceMetres": 0.001
+    }
+  },
+  "portraitVariant": "H2",
+  "variantComparison": {
+    "D_to_E_mouthGapPx": {
+      "D": {
+        "imageWidthPx": 724,
+        "depthM": -0.076,
+        "apertureMaxPx": 2.1,
+        "apertureMeanPx": 1.2389,
+        "samplesAcrossMouth": 90,
+        "verticalStepPx": 0.1
+      },
+      "E": {
+        "imageWidthPx": 724,
+        "depthM": -0.076,
+        "apertureMaxPx": 0.1,
+        "apertureMeanPx": 0.0044,
+        "samplesAcrossMouth": 90,
+        "verticalStepPx": 0.1
+      }
+    },
+    "pupilDistanceMm": 68.2246,
+    "irisDiameterMm": 12.44,
+    "pupilDiameterMm": 4.2,
+    "E_to_F": {
+      "baselineSha256": "81042ccbcec1af497e40c1606cf8a960227cf65d0b32626ece35f432ee20ea2b",
+      "shapeKey": "Auricle and submandibular sculpt",
+      "projectionAndCollarAudit": {
+        "headTriangles": 144320,
+        "garmentTriangles": 17079,
+        "baselineIntersections": 686,
+        "candidateIntersections": 686,
+        "newPairs": 0,
+        "eliminatedPairs": 0,
+        "nearestClothForChangedLowerVerticesMm": 2.486,
+        "eyeAndBrowSeatDeltaMm": 0.0059653,
+        "noseAndLipsDeltaMm": 0.016378,
+        "chinWidthsPx": {
+          "520": {
+            "yMinus40": [
+              193.1,
+              206.9
+            ],
+            "yMinus55": [
+              193.1,
+              206.9
+            ]
+          },
+          "531": {
+            "yMinus40": [
+              159.4,
+              182.0
+            ],
+            "yMinus55": [
+              159.4,
+              182.0
+            ]
+          },
+          "540": {
+            "yMinus40": [
+              134.7,
+              161.2
+            ],
+            "yMinus55": [
+              127.5,
+              151.0
+            ]
+          },
+          "545": {
+            "yMinus40": [
+              128.0,
+              150.6
+            ],
+            "yMinus55": [
+              108.2,
+              136.3
+            ]
+          }
+        }
+      },
+      "interpretation": "Triangle-pair intersections are measured between the head mesh and clothing in the reference pose. All 686 existing pairs under the collar are the same pairs in E and F. Visible eye bounds and lip-gap ray results repeat E at the recorded precision."
+    },
+    "F_to_G3": {
+      "baselineSha256": "68849e0a7e07355f529c64bcf2a2b1ba9bbbbbb9f4bb81f67779762a6cf5b5a6",
+      "geometryAndCollarReadback": {
+        "sha256": "a23c1eb754d66c8fc236b6fbfa1f4ac00139ef76e14b1fb002ab7ff15628eea7",
+        "source": "ShenShang_G3.blend (development candidate)",
+        "nativeShapeKeys": [
+          "Portrait D Basis",
+          "Resting vermilion contact",
+          "Auricle and submandibular sculpt",
+          "Palpebral arc and infraorbital roll",
+          "Zygomatic arch, midcheek and masseter"
+        ],
+        "controlCage": 4536,
+        "evaluatedHeadTriangles": 144320,
+        "nativeBrowAtOrAboveRow301MaxMM": 0.0,
+        "effectiveRegionalDeltasMaxMeanMmAndCount": {
+          "upperBrowAtV295": [
+            0.137127,
+            0.000515,
+            4877
+          ],
+          "noseFront": [
+            0.269261,
+            0.001985,
+            4429
+          ],
+          "lips": [
+            0.117449,
+            0.000239,
+            5474
+          ],
+          "outerEar": [
+            0.000128,
+            0.0,
+            9524
+          ],
+          "neckBelow1p49": [
+            0.0,
+            0.0,
+            8077
+          ],
+          "cheek": [
+            4.535526,
+            0.481213,
+            11384
+          ]
+        },
+        "radialSurfaceSectionsMM": {
+          "infraorbital support": {
+            "angleFromAnteriorDeg": 24,
+            "frontReferenceRowV": 343,
+            "F_G_delta_mm_R": [
+              100.978,
+              101.893,
+              0.915
+            ],
+            "F_G_delta_mm_L": [
+              100.981,
+              101.648,
+              0.667
+            ]
+          },
+          "anterior malar projection": {
+            "angleFromAnteriorDeg": 35,
+            "frontReferenceRowV": 360,
+            "F_G_delta_mm_R": [
+              104.124,
+              100.23,
+              -3.894
+            ],
+            "F_G_delta_mm_L": [
+              104.125,
+              100.312,
+              -3.813
+            ]
+          },
+          "posterior continuation of zygomatic arch": {
+            "angleFromAnteriorDeg": 56,
+            "frontReferenceRowV": 348,
+            "F_G_delta_mm_R": [
+              88.312,
+              89.357,
+              1.044
+            ],
+            "F_G_delta_mm_L": [
+              88.369,
+              89.374,
+              1.005
+            ]
+          },
+          "nasal-adjacent cheek at level of ala": {
+            "angleFromAnteriorDeg": 22,
+            "frontReferenceRowV": 403,
+            "F_G_delta_mm_R": [
+              94.738,
+              98.718,
+              3.98
+            ],
+            "F_G_delta_mm_L": [
+              94.647,
+              99.159,
+              4.512
+            ]
+          },
+          "buccal volume under malar peak": {
+            "angleFromAnteriorDeg": 35,
+            "frontReferenceRowV": 405,
+            "F_G_delta_mm_R": [
+              92.688,
+              95.871,
+              3.183
+            ],
+            "F_G_delta_mm_L": [
+              92.52,
+              96.173,
+              3.653
+            ]
+          },
+          "hollow in front of masseter": {
+            "angleFromAnteriorDeg": 54,
+            "frontReferenceRowV": 412,
+            "F_G_delta_mm_R": [
+              84.551,
+              85.651,
+              1.1
+            ],
+            "F_G_delta_mm_L": [
+              84.521,
+              85.787,
+              1.266
+            ]
+          },
+          "masseter over ramus": {
+            "angleFromAnteriorDeg": 66,
+            "frontReferenceRowV": 442,
+            "F_G_delta_mm_R": [
+              76.405,
+              78.31,
+              1.904
+            ],
+            "F_G_delta_mm_L": [
+              76.37,
+              78.616,
+              2.246
+            ]
+          }
+        },
+        "garment": {
+          "realTriangles": 17079,
+          "FHeadCollarOverlapPairs": 686,
+          "GHeadCollarOverlapPairs": 686,
+          "added": 0,
+          "removed": 0
+        },
+        "auditedViews": "Orthographic 0, 35, 60 and 90 degrees; 60 is a modeling diagnostic since the art supplies only the other three. A neutral area light and neutral diffuse virtual clay are shared between both models. A second lighting direction was tested at 35 and 90 degrees."
+      },
+      "pupilSpacingMm": 68.2246,
+      "irisDiameterMm": 12.44,
+      "pupilDiameterMm": 4.2,
+      "ocularAxisPitchChangeDeg": 2.55,
+      "referenceCaveat": "Lid endpoints ray-tested against the visible globe. Original illustration coordinates are approximate. Both photographic and neutral mattes use matching cameras and lighting for each A/B."
+    },
+    "G3_to_G4": {
+      "baselineSha256": "a23c1eb754d66c8fc236b6fbfa1f4ac00139ef76e14b1fb002ab7ff15628eea7",
+      "geometryAndCollarReadback": {
+        "sha256": "fbf1bf9f8405d7929d440ca05b954a143daecaa0c572f9eb1a0391655cc4fa87",
+        "source": "ShenShang_G4.blend (historical blind winner for the cheek and neck)",
+        "nativeShapeKeys": [
+          "Portrait D Basis",
+          "Resting vermilion contact",
+          "Auricle and submandibular sculpt",
+          "Palpebral arc and infraorbital roll",
+          "Zygomatic arch, midcheek and masseter",
+          "Oblique malar arch and posterior buccal plane"
+        ],
+        "controlCage": 4536,
+        "evaluatedHeadTriangles": 144320,
+        "nativeBrowAtOrAboveRow301MaxMM": 0.0,
+        "effectiveRegionalDeltasMaxMeanMmAndCount": {
+          "upperBrowAtV295": [
+            0.0,
+            0.0,
+            4876
+          ],
+          "noseFront": [
+            0.0,
+            0.0,
+            4428
+          ],
+          "lips": [
+            0.0,
+            0.0,
+            5474
+          ],
+          "outerEar": [
+            0.036806,
+            0.000169,
+            9524
+          ],
+          "neckBelow1p49": [
+            5.6e-05,
+            0.0,
+            8077
+          ],
+          "cheek": [
+            2.003055,
+            0.127579,
+            11268
+          ]
+        },
+        "radialSurfaceSectionsMM": {
+          "infraorbital support": {
+            "angleFromAnteriorDeg": 24,
+            "frontReferenceRowV": 343,
+            "G3_G4_delta_mm_R": [
+              101.893,
+              101.893,
+              0.0
+            ],
+            "G3_G4_delta_mm_L": [
+              101.648,
+              101.648,
+              -0.0
+            ]
+          },
+          "anterior malar projection": {
+            "angleFromAnteriorDeg": 35,
+            "frontReferenceRowV": 360,
+            "G3_G4_delta_mm_R": [
+              100.23,
+              100.35,
+              0.12
+            ],
+            "G3_G4_delta_mm_L": [
+              100.312,
+              100.438,
+              0.126
+            ]
+          },
+          "posterior continuation of zygomatic arch": {
+            "angleFromAnteriorDeg": 56,
+            "frontReferenceRowV": 348,
+            "G3_G4_delta_mm_R": [
+              89.357,
+              90.859,
+              1.503
+            ],
+            "G3_G4_delta_mm_L": [
+              89.374,
+              90.975,
+              1.601
+            ]
+          },
+          "nasal-adjacent cheek at level of ala": {
+            "angleFromAnteriorDeg": 22,
+            "frontReferenceRowV": 403,
+            "G3_G4_delta_mm_R": [
+              98.718,
+              98.718,
+              0.0
+            ],
+            "G3_G4_delta_mm_L": [
+              99.159,
+              99.159,
+              -0.0
+            ]
+          },
+          "buccal volume under malar peak": {
+            "angleFromAnteriorDeg": 35,
+            "frontReferenceRowV": 405,
+            "G3_G4_delta_mm_R": [
+              95.871,
+              95.794,
+              -0.076
+            ],
+            "G3_G4_delta_mm_L": [
+              96.173,
+              96.104,
+              -0.069
+            ]
+          },
+          "central buccal hollow": {
+            "angleFromAnteriorDeg": 59,
+            "frontReferenceRowV": 411,
+            "G3_G4_delta_mm_R": [
+              82.869,
+              80.933,
+              -1.935
+            ],
+            "G3_G4_delta_mm_L": [
+              83.014,
+              81.243,
+              -1.771
+            ]
+          },
+          "posterior buccal hollow": {
+            "angleFromAnteriorDeg": 65,
+            "frontReferenceRowV": 404,
+            "G3_G4_delta_mm_R": [
+              80.278,
+              78.743,
+              -1.535
+            ],
+            "G3_G4_delta_mm_L": [
+              80.405,
+              79.006,
+              -1.399
+            ]
+          },
+          "posterior masseter": {
+            "angleFromAnteriorDeg": 77,
+            "frontReferenceRowV": 447,
+            "G3_G4_delta_mm_R": [
+              72.655,
+              74.18,
+              1.525
+            ],
+            "G3_G4_delta_mm_L": [
+              72.798,
+              74.474,
+              1.676
+            ]
+          },
+          "oblique zygomatic buttress": {
+            "angleFromAnteriorDeg": 59,
+            "frontReferenceRowV": 356,
+            "G3_G4_delta_mm_R": [
+              86.986,
+              88.53,
+              1.544
+            ],
+            "G3_G4_delta_mm_L": [
+              87.012,
+              88.744,
+              1.733
+            ]
+          },
+          "hollow in front of masseter": {
+            "angleFromAnteriorDeg": 54,
+            "frontReferenceRowV": 412,
+            "G3_G4_delta_mm_R": [
+              85.651,
+              83.772,
+              -1.879
+            ],
+            "G3_G4_delta_mm_L": [
+              85.787,
+              84.049,
+              -1.738
+            ]
+          },
+          "masseter over ramus": {
+            "angleFromAnteriorDeg": 66,
+            "frontReferenceRowV": 442,
+            "G3_G4_delta_mm_R": [
+              78.31,
+              78.589,
+              0.279
+            ],
+            "G3_G4_delta_mm_L": [
+              78.616,
+              79.128,
+              0.512
+            ]
+          }
+        },
+        "garment": {
+          "realTriangles": 17079,
+          "G3HeadCollarOverlapPairs": 686,
+          "G4HeadCollarOverlapPairs": 686,
+          "added": 0,
+          "removed": 0
+        },
+        "auditedViews": "Orthographic 0, 35, 60 and 90 degrees; 60 is a modeling diagnostic since the art supplies only the other three. A neutral area light and neutral diffuse virtual clay are shared between both models. A second lighting direction was tested at 35 and 90 degrees."
+      },
+      "pupilSpacingMm": 68.2246,
+      "irisDiameterMm": 12.44,
+      "pupilDiameterMm": 4.2,
+      "ocularAxisPitchChangeDeg": 0,
+      "referenceCaveat": "Local oblique malar arch, shallow buccal depression and posterior masseter. The lower orbital/upper cheek surface and anterior malar projection are held. Angular atlas rebalancing and soft real-skin pigment extend into the lateral neck. Existing medial conjunctival tissue now covers a recessed orbital surface at oblique angles. Eye aperture and lip-gap measurements match G3.",
+      "reviewSelection": {
+        "baseline": "F",
+        "headCandidates": [
+          "G3",
+          "G4"
+        ],
+        "blindOrder": {
+          "A": "G3",
+          "B": "G4"
+        },
+        "selected": "B / G4",
+        "sourceFileSha256": "fbf1bf9f8405d7929d440ca05b954a143daecaa0c572f9eb1a0391655cc4fa87",
+        "geometryScope": "Oblique zygomatic arch, shallow subzygomatic cheek, broad posterior masseter. The medial conjunctiva was extended posteriorly to cover the visible recess.",
+        "materialScope": "Feathered overlap of frontal/lateral skin projections and extended cheek/neck pigment. All four final source textures embedded.",
+        "anglesDegrees": [
+          0,
+          35,
+          60,
+          90
+        ],
+        "illustratedAnglesDegrees": [
+          0,
+          35,
+          90
+        ]
+      }
+    },
+    "G4_to_G5c": {
+      "baselineSHA256": "fbf1bf9f8405d7929d440ca05b954a143daecaa0c572f9eb1a0391655cc4fa87",
+      "eyeGeometryAndSupportAudit": {
+        "sourceCandidate": "ShenShang_Head.blend (approved G5c)",
+        "sha256": "a4761494c67c054324f00f17d8b569fba2af0a4e27697f823908e5697b4692f8",
+        "baselineSource": "ShenShang_G4.blend",
+        "controlledComparisonGroom": "The same G brow fixture used in the paired studio renders. The subsequent final brow guides also passed the 8,028-point support comparison.",
+        "apertureProfiles724pxG4": [
+          {
+            "282": 3.0,
+            "285": 4.5,
+            "291": 7.75,
+            "305": 12.75,
+            "316": 16.75,
+            "349": 4.5
+          },
+          {
+            "424": 6.0,
+            "455": 17.25,
+            "477": 9.75,
+            "482": 9.25,
+            "487": 6.5,
+            "490": 5.75,
+            "493": 5.25
+          }
+        ],
+        "apertureProfiles724pxCandidate": [
+          {
+            "282": 1.75,
+            "285": 3.0,
+            "291": 5.25,
+            "305": 12.75,
+            "316": 16.75,
+            "349": 1.5
+          },
+          {
+            "424": 3.25,
+            "455": 17.5,
+            "477": 9.25,
+            "482": 6.25,
+            "487": 4.0,
+            "490": 2.25,
+            "493": 0.75
+          }
+        ],
+        "physicalIrisAndPupilMaxChangeMm": 0.0,
+        "eyeObjectMatricesUnchanged": true,
+        "meanEyePositionSpacingMm": 68.2249984741211,
+        "maxEvaluatedRegionChangeMm": {
+          "foreheadAndBrowCentreToV295": 0.1069954,
+          "malarAndCheekV355to486": 7.5e-06,
+          "noseFront": 0.0,
+          "mouthAndChinBelowV444": 0.0,
+          "neckBelow1p49": 0.0
+        },
+        "skinTopologyUnchanged": true,
+        "shapeKeyName": "Tapered temporal commissure and palpebral arcs",
+        "renderSize": [
+          1440,
+          558
+        ],
+        "originalArtSourcePanelsPixels": [
+          724,
+          724
+        ],
+        "externalEyebrowDepthSampleMm": {
+          "projection": "orthographic frontal skin surface at u 246..528 and v250..300 in illustration coordinates; nose root 16-px half-width excluded",
+          "maximum": 0.337452,
+          "mean": 0.00249,
+          "95percentile": 0.003456,
+          "directBrowRowBeforeV289MaxMm": 0.000179
+        },
+        "newGroomHairContactSample": {
+          "numberOfFiberKnots": 8028,
+          "rootAndMidKnotMaxSkinTravelMm": 0.0,
+          "meanSkinTravelMm": 0.0,
+          "95percentileMm": 0.0,
+          "hairGuides": "ShenBrowG / HairGuidesLeft and HairGuidesRight, 6 knots per fibre"
+        },
+        "nativeQAAcceptance": {
+          "pass": true,
+          "zFightingOrFloating": false,
+          "intentionalContact": "One opposed pair within 0.08 mm at the closing character-right temporal commissure (u276.7,v315.3); the pair is hidden behind the eyelid edge."
+        }
+      },
+      "measuredOpeningDefinition": "At each x, ocular tissue (eyeball or medial caruncle) was ray-sampled every 0.25 px on the 724px study. The micro wet margins are excluded. Each paired value uses the identical x coordinate.",
+      "geometryScope": "Eye-region native shape key plus eyelid-margin and lash transforms, lacrimal tissue shape and scleral wall fit. Anatomical landmarks on the nose, mouth, selected cheek and neck are held.",
+      "materialScope": "Limbal pigment, warm conjunctival gradient, lacrimal reflectance and depth. Four embedded skin data images retain the selected G4 content.",
+      "selectedReviewRecord": {
+        "baseline": "G4",
+        "candidates": [
+          "G4",
+          "G5c"
+        ],
+        "selected": "G5c (G5, final eye candidate)",
+        "basis": "Frontal and 35-degree close renders of the accepted drawing, G4 and G5c. A 60-degree model render was also inspected.",
+        "sourceFileSha256": "a4761494c67c054324f00f17d8b569fba2af0a4e27697f823908e5697b4692f8",
+        "priorCheekBlindChoice": "B / G4",
+        "sourceScope": "Ocular source only; selected malar, buccal and mandibular shaping remains G4.",
+        "rendersNativeSize": [
+          1440,
+          558
+        ],
+        "referencePanelSize": [
+          724,
+          724
+        ]
+      },
+      "selectedFrontMeasurements": {
+        "units": "pixels at the original 724px panel. Reference endpoints are hand-read, normally +/-2–4px. The source is an illustration. Eye aperture values were ray-tested on the evaluated mesh. Nose and lip anchor widths were read on their geometry, bone width was cut from evaluated triangles.",
+        "screenRightPositive": true,
+        "apertureReferenceU": [
+          [
+            277,
+            351
+          ],
+          [
+            425,
+            498
+          ]
+        ],
+        "apertureBeforeU": [
+          [
+            287,
+            344
+          ],
+          [
+            427,
+            485
+          ]
+        ],
+        "apertureAfterU": [
+          [
+            278.0,
+            350.5
+          ],
+          [
+            421.5,
+            494.0
+          ]
+        ],
+        "pupilDistancePx": {
+          "reference": 143,
+          "mesh": 141
+        },
+        "pupilToVisibleCheekWidth": {
+          "reference": 0.469,
+          "mesh": 0.45
+        },
+        "alarToInnerCanthusWidth": {
+          "reference": 1.189,
+          "mesh": 1.184
+        },
+        "mouthWidthToAlarWidth": {
+          "reference": 1.398,
+          "mesh": 1.4
+        },
+        "browToEyeVertical": {
+          "referenceApprox": [
+            34,
+            40
+          ],
+          "meshBrowSeatToPupil": [
+            35,
+            42
+          ],
+          "note": "brow hair density center depends on separate groom. The head-only measurement uses the brow seat."
+        },
+        "subnasaleToUpperVermilion": {
+          "referenceApprox": [
+            31,
+            36
+          ],
+          "meshApprox": 36.6
+        },
+        "cheekWidths": {
+          "description": "Visible face readings exclude the hair. At each facial height, the mesh width limit uses the named anterior depth plane to avoid ear or unoccluded neck. The hidden temporal skin and the edge where chin shading meets the visible neck introduce about 4–9px of reading uncertainty.",
+          "frontRowsV": [
+            273,
+            360,
+            450,
+            490,
+            540
+          ],
+          "features": [
+            "temple",
+            "zygomatic arch",
+            "masseter",
+            "gonion",
+            "chin/neck transition"
+          ],
+          "approxReferencePixels": [
+            [
+              292,
+              301
+            ],
+            [
+              302,
+              311
+            ],
+            [
+              272,
+              284
+            ],
+            [
+              248,
+              263
+            ],
+            [
+              140,
+              160
+            ]
+          ],
+          "meshPixels": [
+            296.7,
+            313.6,
+            287.2,
+            259.0,
+            161.2
+          ],
+          "meshAnteriorDepthLimitMeters": [
+            -0.04,
+            -0.04,
+            -0.055,
+            -0.04,
+            -0.04
+          ],
+          "baselineEPixelsSameTriangleSection": [
+            296.7,
+            306.8,
+            280.4,
+            256.0,
+            134.7
+          ],
+          "dualDepthAtChin": {
+            "yMinus40": [
+              134.7,
+              161.2
+            ],
+            "yMinus55": [
+              127.5,
+              151.0
+            ]
+          },
+          "dualDepthLegend": "At row 540, lists are baseline E and selected F. yMinus40 and yMinus55 are camera-facing sagittal limits in millimetres. Lower jaw and anterior neck overlap in this projection.",
+          "baselineFWidthsPx": [
+            296.7,
+            306.9,
+            280.5,
+            256.6,
+            161.2
+          ],
+          "row540CurrentVariantYMinus55": 151.0,
+          "baselineG4WidthsPx": [
+            296.7,
+            313.6,
+            287.2,
+            259.0,
+            161.2
+          ]
+        },
+        "remaining": "The extreme close renders still show smoother lid edges and more regular iris pigment than the illustration. The visible corner is thinner than one pixel at the sampled temporal x=493 in the 724-px right-screen eye. With an anterior y<−40 mm cut the zygoma reads 313.6 px (drawing approx. 302–311), masseter 287.2 px (approx. 272–284) and chin/neck 161.2 px (approx. 140–160). The y<−55 mm chin cut is 151.0 px.",
+        "apertureAfterV": [
+          [
+            308.0,
+            324.5
+          ],
+          [
+            307.0,
+            324.5
+          ]
+        ],
+        "alarBreadthPx": 84.05,
+        "oralCommissureWidthPx": 117.64,
+        "measuredAnatomicalLandmarksPx": {
+          "brow body R": [
+            308.99,
+            273.71
+          ],
+          "brow body L": [
+            462.98,
+            273.13
+          ],
+          "alar outer R": [
+            343.92,
+            404.02
+          ],
+          "alar outer L": [
+            427.97,
+            403.41
+          ],
+          "columella": [
+            388.29,
+            417.55
+          ],
+          "Cupid notch": [
+            389.13,
+            454.12
+          ],
+          "commissure R": [
+            327.18,
+            469.5
+          ],
+          "commissure L": [
+            444.82,
+            469.34
+          ]
+        },
+        "landmarkTransfer": "The original F semantic anchor was ray hit on its evaluated front surface. The same triangle barycentric coordinates were evaluated on selected G4; frontal pixel values are accurate to 0.01px for the transfer, while the drawing landmarks have manual reading uncertainty."
+      }
+    },
+    "G5c_to_H2": {
+      "baselineSHA256": "a4761494c67c054324f00f17d8b569fba2af0a4e27697f823908e5697b4692f8",
+      "intermediateH1SHA256": "74be0cb1b78a301322c9fac449a624ebc5b935fa9cf39313fff7171225a89e47",
+      "selectedSHA256": "f7c3ddb8d739984baec6e9669090690cac3f2ef796fef9752eba7a5b1f70e103",
+      "shapeKeys": [
+        "Anterior buccal support and malar roll",
+        "Frontal eminences and temporal transition",
+        "Submandibular support and collar fit"
+      ],
+      "neckFieldSHA256": "e9011350d9f5a8bef8487255a241584ebdf6bcce1a5a6a515e1290171f3a0db0",
+      "units": "Using the frontal panel calibration. Side coordinates below are physical Blender Y values, where negative is anterior. Cheek changes are the signed displacement of the far (screen-left) body silhouette at a 35-degree orthographic view; positive is outward in screen space. Figures in mm are model sections, not distances hand-read on the painted reference.",
+      "farCheekDelta35mmByRow": {
+        "347": -1.589,
+        "361": -1.374,
+        "390": 2.089,
+        "405": 3.801,
+        "421": 4.139,
+        "437": 3.439,
+        "452": 2.456,
+        "468": 1.568,
+        "484": 0.76
+      },
+      "neckPosteriorYmmBeforeAfterByRow": {
+        "536": [
+          48.141,
+          62.591
+        ],
+        "550": [
+          44.005,
+          63.115
+        ],
+        "561": [
+          42.104,
+          63.299
+        ],
+        "574": [
+          41.087,
+          63.22
+        ],
+        "600": [
+          40.687,
+          62.315
+        ]
+      },
+      "neckAnteriorYmmBeforeAfterByRow": {
+        "600": [
+          -62.467,
+          -65.875
+        ],
+        "629": [
+          -56.729,
+          -62.461
+        ],
+        "644": [
+          -52.202,
+          -58.599
+        ]
+      },
+      "neckCoronalWidthMmBeforeAfterByRow": {
+        "561": [
+          97.722,
+          105.647
+        ],
+        "600": [
+          93.091,
+          104.098
+        ],
+        "629": [
+          94.736,
+          106.332
+        ]
+      },
+      "foreheadControlMaximumDisplacementMm": 5.82,
+      "foreheadMinimumStepMm": {
+        "method": "Outward along 90 degree and 35 degree cross-section silhouette, respectively, positive outwards. Sampled every two source rows 219–263. Positive increment means no local reversal.",
+        "anglesDegrees": [
+          90,
+          35
+        ],
+        "minimumByVersion": {
+          "G5c": [
+            0.4046,
+            0.2879
+          ],
+          "H1": [
+            -0.1037,
+            -0.3253
+          ],
+          "H2": [
+            0.2632,
+            0.1986
+          ]
+        }
+      },
+      "maxSkinDisplacementMmInFeatureSampleMasks": {
+        "mouth": 0.20996674218635933,
+        "nose": 0.0028935123765595388,
+        "orbitalAperture": 0.17801717731921732
+      },
+      "coldReadEyeOpeningAndLipSeamMatchG5c": true,
+      "integratedCollarVisibility": {
+        "method": "8 horizontal orthographic views in 45-degree steps; 1-mm samples on z 1.394–1.480 m; connected components of skin wholly isolated inside the collar region",
+        "isolatedSkinIslandsByAzimuth": {
+          "0": [],
+          "45": [],
+          "90": [],
+          "135": [],
+          "180": [],
+          "225": [],
+          "270": [],
+          "315": []
+        }
+      }
+    }
+  },
+  "previewSheets": {
+    "Head_Reference_E_F.jpg": "approved drawing, E and selected F; frontal, 35°, left profile",
+    "Head_EarAndJaw_E_F.jpg": "lobule, jaw and pinna crops; source aspect ratio preserved",
+    "Head_ClayBeforeAfter.jpg": "Blind finalists G3/G4 in neutral clay, 0/35/60/90, plus reversed key light at 35 and 90 degrees.",
+    "Head_SkinAndClay.jpg": "Archived G5c neutral diffuse geometry and final material overview, 0/35/60/90 degrees. The material view includes the last brow groom.",
+    "Head_ClosePortrait_D_E.jpg": "archived D/E lip and eye development",
+    "Head_ClosePortrait_ThreeQuarter_D_E.jpg": "archived D/E close three-quarter development",
+    "Head_Reference_F_G4.jpg": "Earlier F/G4 cheek-design comparison, 0/35/60/90 degrees.",
+    "Head_Eyelids_F_G4.jpg": "front eyelid detail, F and candidate",
+    "Head_CheekAndNeck_G3_G4.jpg": "Earlier design/G3/G4 blind cheek and neck comparison. Chosen B is the underlying G4 layer.",
+    "Head_EyeDesign_G4_G5_Front.jpg": "Accepted design / G4 / archived G5c, high-resolution orthographic frontal eyes.",
+    "Head_EyeDesign_G4_G5_Turn.jpg": "Accepted design / G4 / archived G5c, matched three-quarter eyes."
+  },
+  "reviewSelection": {
+    "baseline": "G5c",
+    "candidates": [
+      "H1",
+      "H2"
+    ],
+    "selected": "H2",
+    "sourceFileSha256": "f7c3ddb8d739984baec6e9669090690cac3f2ef796fef9752eba7a5b1f70e103",
+    "basis": "Matched front, three-quarter and profile images with the fitted groom and clothing. The lower lateral cheek and neck of H1 passed the first review. H2 extends the forehead support into the temples and brow; both the 35-degree and 90-degree profiles remove the local step visible on H1.",
+    "comparisonDirectory": "../../../../docs/visuals/20261122_shen_shang_forehead_cheek_neck",
+    "images": [
+      "Front.jpg",
+      "FarCheek.jpg",
+      "Portrait.jpg"
+    ],
+    "referencePanelSize": [
+      724,
+      724
+    ]
+  }
+}

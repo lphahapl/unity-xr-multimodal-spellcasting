@@ -47,7 +47,7 @@ namespace NarutoVR.Editor
                 importer.SaveAndReimport();
                 font = AssetDatabase.LoadAssetAtPath<Font>(FontPath);
             }
-            const string glyphs = "结印实验台左右手骨骼追踪录制测试寅卯巳未亥识别质量高低张开屈曲卷曲对指距离米度";
+            const string glyphs = "结印实验台左右手骨骼追踪录制测试规矩律准绳衡识别质量高低张开屈曲卷曲对指距离米度";
             foreach (char character in glyphs)
                 if (!font.HasCharacter(character)) throw new InvalidOperationException("中文字体缺字：" + character);
             var previous = SceneManager.GetActiveScene();

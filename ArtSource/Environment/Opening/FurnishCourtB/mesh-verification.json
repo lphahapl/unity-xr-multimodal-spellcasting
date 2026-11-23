@@ -1,0 +1,83 @@
+{
+  "CanalMeasuringStation": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "hidden back-to-back faces: CanalMeasuringStation (50 pairs) - delete to save tris"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "CanalMeasuringStation",
+          "tri_pairs": 50
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "CanalMeasuringStation": {
+          "verts": 1970,
+          "faces": 3748,
+          "tris": 3748,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 51,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 31.5
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 3748,
+        "dimensions": [
+          1.6500000953674316,
+          1.9251461029052734,
+          0.5451475381851196
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 2360,
+        "dimensions": [
+          1.6469230651855469,
+          1.92327082157135,
+          0.5434808731079102
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 1274,
+        "dimensions": [
+          1.6469230651855469,
+          1.9230595827102661,
+          0.543657124042511
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

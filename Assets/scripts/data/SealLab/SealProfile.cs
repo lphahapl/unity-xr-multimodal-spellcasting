@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace NarutoVR.SealLab
 {
+    public enum SealHandMode { BothHands = 0, LeftOnly = 1 }
+
     [Serializable]
     public sealed class FeatureRule
     {
@@ -32,10 +34,26 @@ namespace NarutoVR.SealLab
     [CreateAssetMenu(menuName = "NarutoVR/结印模板")]
     public sealed class SealProfile : ScriptableObject
     {
+        public const string HengSealName = "衡印";
+        public static readonly IReadOnlyList<string> Names = Array.AsReadOnly(new[] { "规印", "矩印", "律印", "准印", "绳印", HengSealName });
+
+        public static bool AcceptsFeature(SealHandMode mode, string id) =>
+            mode == SealHandMode.BothHands || (mode == SealHandMode.LeftOnly && id != null && id.StartsWith("L.", StringComparison.Ordinal));
+
+        // Preserve the original JSONL on disk while importing earlier labeled captures.
+        public static string RecordingLabel(string label) => label switch
+        {
+            "子" => "规印", "丑" => "矩印", "寅" => "律印",
+            "申" => "准印", "午" => "绳印", "戌" => "衡印", _ => label
+        };
+
         [Header("一、印名称与启用状态")]
         [InspectorName("印名称")]
-        [Tooltip("例如寅、未、巳；用于实验台、头显识别结果和模板列表显示。")]
+        [Tooltip("例如律印、规印、衡印；用于实验台、头显识别结果和模板列表显示。")]
         public string sealName = "未标定";
+        [InspectorName("参与判定的手")] public SealHandMode handMode = SealHandMode.BothHands;
+        [InspectorName("成印反馈预制体"), Tooltip("稳定成印时在双手交合处播放一次，可自带声音。留空则跳过。")]
+        public GameObject confirmationPrefab;
         [InspectorName("已确认模板（启用识别）")]
         [Tooltip("从录制生成的是草稿。检查数值范围后勾选，才会参与识别。")]
         public bool calibrated;
@@ -60,6 +78,7 @@ namespace NarutoVR.SealLab
         public string ValidateRules()
         {
             if (!calibrated) return "Template has not been calibrated";
+            if (handMode != SealHandMode.BothHands && handMode != SealHandMode.LeftOnly) return "Invalid hand mode";
             if (!float.IsFinite(threshold) || threshold <= 0 || threshold > 1 ||
                 !float.IsFinite(minimumCoverage) || minimumCoverage <= 0 || minimumCoverage > 1 ||
                 !float.IsFinite(holdSeconds) || holdSeconds < 0) return "Invalid score/coverage/hold setting";
@@ -68,6 +87,7 @@ namespace NarutoVR.SealLab
             foreach (var rule in rules)
             {
                 if (rule == null || string.IsNullOrWhiteSpace(rule.featureId) || !ids.Add(rule.featureId)) return "Missing/duplicate feature ID";
+                if (rule.weight > 0 && !AcceptsFeature(handMode, rule.featureId)) return "Feature is outside template hand mode";
                 if (!float.IsFinite(rule.weight) || rule.weight < 0 || !float.IsFinite(rule.min) || !float.IsFinite(rule.max) ||
                     !float.IsFinite(rule.tolerance) || rule.min > rule.max || rule.tolerance <= 0) return "Invalid range, tolerance or weight";
                 total += rule.weight;

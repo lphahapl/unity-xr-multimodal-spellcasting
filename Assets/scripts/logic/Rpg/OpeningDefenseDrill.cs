@@ -47,8 +47,7 @@ namespace NarutoVR.SealCombat.Rpg
         void Update()
         {
             if (passed == null || !shield || !rpg.CanAct) return;
-            var effects = rpg.skills.effects;
-            if (effects.ShieldPoints < damage) { flying = false; bolt.gameObject.SetActive(false); return; }
+            if (rpg.PlayerView.ShieldPoints < damage) { flying = false; bolt.gameObject.SetActive(false); return; }
             if (!flying)
             {
                 origin = muzzle.position;
@@ -62,8 +61,7 @@ namespace NarutoVR.SealCombat.Rpg
             flying = false;
             bolt.gameObject.SetActive(false);
             if (Vector3.Distance(aim, rpg.locomotion.head.position - Vector3.up * .26f) > .38f) return;
-            float before = effects.ShieldPoints;
-            if (rpg.ReceiveDamage("opening.drill." + session + "." + (++shot), damage) && effects.ShieldPoints < before)
+            if (rpg.ReceiveDamage("opening.drill." + session + "." + (++shot), damage, out var hit) && hit.Absorbed > 0)
                 Succeed();
         }
         void Succeed() { var callback = passed; StopDrill(); callback?.Invoke(); }

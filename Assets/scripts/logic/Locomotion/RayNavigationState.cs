@@ -36,6 +36,7 @@ namespace NarutoVR.SealCombat.Rpg
         public bool Active { get; private set; }
         public bool NeedsRelease { get; private set; }
         public float Progress { get; private set; }
+        internal bool IsTracking(object candidate) => candidate != null && ReferenceEquals(candidate, target);
         public string Status { get; private set; } = "等待左手指向落点";
         public void Reset()
         {
@@ -47,7 +48,7 @@ namespace NarutoVR.SealCombat.Rpg
             Active = false; Progress = 0;
         }
         public bool Process(object candidate, bool observationValid, bool release, double stamp, double now,
-            RayNavigationSettings config, RpgGestureSettings timing)
+            RayNavigationSettings config, RpgGestureSettings timing, bool countPreparationTowardsDwell = false)
         {
             if (config == null || !config.Valid || timing == null || !observationValid || !double.IsFinite(stamp) ||
                 !double.IsFinite(now) || stamp > now + .01 || now - stamp > timing.sampleMaxAge)
@@ -73,7 +74,9 @@ namespace NarutoVR.SealCombat.Rpg
             if (candidate == null) { Suspend(); Status = "射线未命中可达落点"; return false; }
             if (!ReferenceEquals(candidate, target))
             {
-                target = candidate; readySince = stamp; dwellSince = double.NaN; Progress = 0; Active = false;
+                target = candidate; readySince = stamp;
+                dwellSince = countPreparationTowardsDwell ? stamp : double.NaN;
+                Progress = 0; Active = false;
             }
             if (stamp - readySince < config.readySeconds) { Status = "指向准备中"; return false; }
             Active = true;

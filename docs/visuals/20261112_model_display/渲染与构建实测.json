@@ -1,0 +1,340 @@
+{
+  "unity": "6000.3.10f1",
+  "baseline": "2ccc7aa8bfa8d3129d81d572a8e4140e502a6e56",
+  "graphicsHardware": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "frameRateOnHeadset": null,
+  "chapterDesktopD3D11": {
+    "checks": "three production checkpoints, 7 samples per state, per-object visibility and restore controls. Measurements captured before the later sky import setting.",
+    "drawCallsBeforeAfter": {
+      "ROOM_WAKE": [
+        663,
+        649
+      ],
+      "PUZZLE_INTRO": [
+        549,
+        528
+      ],
+      "ROOM_FIRE": [
+        676,
+        667
+      ]
+    },
+    "batchesSavedByWristInEveryCheckpoint": 19,
+    "fireballDrawsBeforeAfter": [
+      11,
+      9
+    ],
+    "fireballTrianglesSavedInCheckpoint": 720
+  },
+  "wristGauge": {
+    "cells": 20,
+    "triangles": 560,
+    "drawCallsExcludingBackground": {
+      "before": 20,
+      "instanced": 1,
+      "instancingDisabled": 20
+    },
+    "gpuBackends": [
+      "Direct3D11",
+      "Vulkan 1.1.0 on Windows"
+    ],
+    "vulkanPixelDifferences": {
+      "steady": {
+        "changed": 0,
+        "maxChannel": 0,
+        "atLeast8": 0
+      },
+      "animated": {
+        "changed": 0,
+        "maxChannel": 0,
+        "atLeast8": 0
+      },
+      "fallbackSteady": {
+        "changed": 0,
+        "maxChannel": 0,
+        "atLeast8": 0
+      },
+      "fallbackAnimated": {
+        "changed": 0,
+        "maxChannel": 0,
+        "atLeast8": 0
+      },
+      "animationVsSteady": {
+        "changed": 4605,
+        "maxChannel": 193,
+        "atLeast8": 4365
+      },
+      "shippedVsEmpty": {
+        "changed": 115232,
+        "maxChannel": 183,
+        "atLeast8": 115232
+      },
+      "repeatVsSteady": {
+        "changed": 0,
+        "maxChannel": 0,
+        "atLeast8": 0
+      }
+    },
+    "menuManagedAllocEventsPer900Frames": {
+      "closed": [
+        9900,
+        0
+      ],
+      "open": [
+        9900,
+        0
+      ]
+    }
+  },
+  "fireballModel": {
+    "renderers": [
+      18,
+      12
+    ],
+    "staticTriangles": [
+      4668,
+      3948
+    ],
+    "sharedMeshBufferChangeBytes": 79488
+  },
+  "blade": {
+    "ribbonFrames": 120,
+    "visibleFrames": 96,
+    "vertexUploads": [
+      147,
+      77
+    ],
+    "indexUploads": [
+      147,
+      53
+    ],
+    "colorUploads": [
+      147,
+      96
+    ],
+    "visibleFrameStateSha256": "CC02B65B7EFCC931BA2573A1C315D1A47C1AAF92F89E0B2345C961E8181484CC",
+    "aimProbeFrames": 90,
+    "lineWrites": [
+      1936,
+      176
+    ],
+    "headQueriesPreviewOn": [
+      176,
+      88
+    ],
+    "headQueriesPreviewOff": [
+      176,
+      0
+    ]
+  },
+  "canjiou": {
+    "swordEdgeVisiblePixelsByLod": {
+      "near": [
+        0,
+        1837
+      ],
+      "far": [
+        0,
+        1554
+      ]
+    },
+    "tenAnimationClipsIncluded": true,
+    "peakLodTransitionChannelErrors": [
+      {
+        "viewAngle": 24,
+        "fadeMode": 0,
+        "peakStepMae": 21.10065894114974
+      },
+      {
+        "viewAngle": 24,
+        "fadeMode": 1,
+        "peakStepMae": 1.879459213815042
+      },
+      {
+        "viewAngle": 162,
+        "fadeMode": 0,
+        "peakStepMae": 24.950200491527617
+      },
+      {
+        "viewAngle": 162,
+        "fadeMode": 1,
+        "peakStepMae": 2.3181994567326347
+      }
+    ],
+    "nameplateViewCounts": {
+      "views": 36,
+      "allThreeRowsVisible": 32,
+      "occludedByClosedGeometry": 4
+    }
+  },
+  "androidTextureBytesIncludingMips": {
+    "canjiouMask": [
+      2497712,
+      1398144
+    ],
+    "wristMetalSmoothness": [
+      2497712,
+      1398144
+    ],
+    "skyDensity": [
+      626288,
+      349568
+    ]
+  },
+  "teachingHandsAndroidBlocksRenderedOnDesktop": {
+    "reference": "3x, BOX downsampling, RGB foreground. Source texture remains ASTC 4x4 single mip for all 12 hands.",
+    "overall": {
+      "improved": 34,
+      "worse": 2,
+      "tied": 0,
+      "meanBefore": 1.0014019540998897,
+      "meanAfter": 0.4166464213966601,
+      "weightedBefore": 0.7043041943465641,
+      "weightedAfter": 0.31474876876962554
+    },
+    "byPose": {
+      "0° / 0.48 m": {
+        "improved": 10,
+        "worse": 2,
+        "tied": 0,
+        "meanBefore": 0.4842646807989655,
+        "meanAfter": 0.23759971562511895,
+        "weightedBefore": 0.46025540168906137,
+        "weightedAfter": 0.22976532614381925
+      },
+      "38° / 0.64 m": {
+        "improved": 12,
+        "worse": 0,
+        "tied": 0,
+        "meanBefore": 0.9251697268703625,
+        "meanAfter": 0.38885059602126787,
+        "weightedBefore": 0.8688579075855172,
+        "weightedAfter": 0.37089326156651675
+      },
+      "52° / 0.82 m": {
+        "improved": 12,
+        "worse": 0,
+        "tied": 0,
+        "meanBefore": 1.594771454630341,
+        "meanAfter": 0.6234889525435935,
+        "weightedBefore": 1.4979155538364246,
+        "weightedAfter": 0.5935176487201684
+      }
+    }
+  },
+  "clouds": {
+    "meanVisibleChannelErrorBeforeAfter": [
+      0.1972,
+      0.1969
+    ],
+    "motionError": {
+      "0-old": {
+        "mean": 0.3209079887403507,
+        "maxP99": 2.0
+      },
+      "0-new": {
+        "mean": 0.3387493958742177,
+        "maxP99": 2.0
+      },
+      "1-old": {
+        "mean": 0.32951323716718267,
+        "maxP99": 2.0
+      },
+      "1-new": {
+        "mean": 0.32915369271510525,
+        "maxP99": 2.0
+      }
+    }
+  },
+  "exteriorWindowsBundleBytes": {
+    "before": 32644878,
+    "after": 24789703
+  },
+  "acceptance": [
+    {
+      "phase": "skills-actions",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "phase": "mvc-p1",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "phase": "training-chapter",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "phase": "mvc-opening",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "phase": "mvc-training",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "phase": "preflight",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "androidPackage": {
+    "apkBytes": 159735716,
+    "sha256": "5b9b25a9c961c574cecee3eb5706227e0a89009ffdb30d84246943a7c5e77d1b",
+    "scenes": [
+      "Assets/Scene/Chapter01_Awakening.unity",
+      "Assets/Scene/SealLab.unity"
+    ],
+    "platform": [
+      "6000.3.10f1",
+      "Vulkan",
+      "IL2CPP",
+      "ARM64",
+      "Mobile",
+      "Mobile_RPAsset"
+    ],
+    "allZipMembersCRC": "passed",
+    "errors": 0,
+    "warnings": 2,
+    "adbDeviceCount": 0
+  },
+  "patrolAndCombat": {
+    "nativeScenesAndBundlesScanned": 8,
+    "sourceBytesRemovedPerDuplicateSet": 7120088,
+    "recordedApkBytesBefore": 165099774,
+    "apkBytesAfter": 159735716,
+    "apkSizeDifferenceBytes": 5364058,
+    "modelObjectCounts": {
+      "CanJiOu_BaseColor": 1,
+      "CanJiOu_Body": 1,
+      "CanJiOu_Normal": 1,
+      "CanJiOu_Body_Light": 1,
+      "CanJiOu_Mask": 1
+    },
+    "formalChapterStages": 20
+  },
+  "xr": {
+    "runtime": "Unity OpenXR Mock Runtime 0.0.2, Windows player D3D11, manually invoked Camera.Render on real XR camera and read both swapchain slices; no physical headset",
+    "stereoMode": "SinglePassInstanced",
+    "renderTarget": "1512x1680 per slice, Tex2DArray",
+    "mockIpdMm": 22,
+    "distinctHandImages": {
+      "left": 12,
+      "right": 12
+    },
+    "changedPixelsPerGaugeRowPerEye": {
+      "left": {
+        "health": 872,
+        "power": 871
+      },
+      "right": {
+        "health": 870,
+        "power": 871
+      }
+    }
+  }
+}

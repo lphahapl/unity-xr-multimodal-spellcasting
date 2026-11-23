@@ -36,7 +36,8 @@ namespace NarutoVR.SealCombat.Editor
             fireParticle = Material("火星柔光", shader, new Color(2.4f, .8f, .08f), 2, .9f);
             cyanParticle = Material("青色柔光", shader, new Color(.06f, 1.1f, 1.9f), 2, .7f);
             sphere = SphereMesh();
-            SaveMissing(FireballPath, Fireball); SaveMissing(ShieldPath, Shield);
+            var orbitSparks = new Dictionary<LineRenderer, Vector3[]>();
+            SaveMissing(FireballPath, () => Fireball(orbitSparks), orbitSparks); SaveMissing(ShieldPath, Shield);
             SaveMissing(ImpactPath, Impact); SaveMissing(SigilPath, Sigil);
             AssetDatabase.SaveAssets();
             Debug.Log(Describe(FireballPath) + "\n" + Describe(ShieldPath) + "\n" + Describe(ImpactPath) + "\n" + Describe(SigilPath));
@@ -51,7 +52,7 @@ namespace NarutoVR.SealCombat.Editor
             return $"{root.name}：{root.GetComponentsInChildren<Renderer>(true).Length}个渲染器 / 粒子上限{particles} / 静态网格{triangles}三角形（尾迹与粒子另计）";
         }
 
-        private static GameObject Fireball()
+        private static GameObject Fireball(Dictionary<LineRenderer, Vector3[]> orbitSparks)
         {
             var root = Root("火球 · 日轮流焰");
             Transform heart = Mesh(root.transform, "白金内核", sphere, core, Vector3.one * .34f);
@@ -64,13 +65,14 @@ namespace NarutoVR.SealCombat.Editor
                 var pivot = Child(root.transform, "火焰轨道" + (i + 1));
                 pivot.localRotation = Quaternion.Euler(40 + i * 57, i * 66, i * 37);
                 Arc(pivot, "断续能量弧", .42f + i * .015f, .016f, 18 + i * 25, 235 + i * 12, ember, 44);
-                Arc(pivot, "高光短弧", .42f + i * .015f, .01f, 270, 325, core, 14);
-                for (int j = 0; j < 2; ++j)
+                var highlight = Arc(pivot, "高光短弧", .42f + i * .015f, .01f, 270, 325, core, 14);
+                var centers = new Vector3[2];
+                for (int j = 0; j < centers.Length; ++j)
                 {
                     float a = (j * 180 + i * 22) * Mathf.Deg2Rad;
-                    Transform spark = Mesh(pivot, "轨道火花" + (j + 1), sphere, core, Vector3.one * .045f);
-                    spark.localPosition = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * .44f;
+                    centers[j] = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * .44f;
                 }
+                orbitSparks.Add(highlight, centers);
                 orbits.Add(Spin(pivot, new Vector3(0, 0, 80 + i * 37)));
             }
             Particles(root.transform, "离散焰星 · 上限36", fireParticle, 36, 18, .65f, .08f, .32f, .12f, .3f, false);
@@ -166,14 +168,14 @@ namespace NarutoVR.SealCombat.Editor
             material.SetColor("_BaseColor", color); material.SetFloat("_Style", style); material.SetFloat("_Opacity", opacity);
             AssetDatabase.CreateAsset(material, path); return material;
         }
-        private static void SaveMissing(string path, Func<GameObject> create)
+        private static void SaveMissing(string path, Func<GameObject> create, Dictionary<LineRenderer, Vector3[]> orbitSparks = null)
         {
             if (AssetDatabase.LoadAssetAtPath<GameObject>(path)) return;
             GuardMissing(path); GameObject root = null;
             try
             {
                 root = create();
-                BakeLines(root, Path.GetFileNameWithoutExtension(path));
+                BakeLines(root, Path.GetFileNameWithoutExtension(path), orbitSparks);
                 if (root.GetComponentsInChildren<Collider>(true).Length != 0) throw new InvalidOperationException("视觉预置体禁止携带碰撞体：" + path);
                 PrefabUtility.SaveAsPrefabAsset(root, path);
             }
@@ -184,7 +186,7 @@ namespace NarutoVR.SealCombat.Editor
             if (File.Exists(path)) throw new InvalidOperationException("资源已存在但尚未成功导入，已保留原文件：" + path);
         }
 
-        private sealed class LineBatch
+        private sealed class MeshBatch
         {
             public Transform parent;
             public Material material;
@@ -193,13 +195,44 @@ namespace NarutoVR.SealCombat.Editor
             public readonly List<Color> colors = new();
             public readonly List<Vector2> uv = new();
             public readonly List<int> indices = new();
+            public List<Vector3> sparkCenters;
+
+            public void AddSphere(Vector3 center, float radius, int rings, int segments, bool keepPoleTriangles = false)
+            {
+                int start = vertices.Count;
+                for (int y = 0; y <= rings; ++y)
+                    for (int x = 0; x <= segments; ++x)
+                    {
+                        float phi = Mathf.PI * y / rings, theta = 2 * Mathf.PI * x / segments;
+                        Vector3 normal = new(Mathf.Sin(phi) * Mathf.Cos(theta), Mathf.Cos(phi), Mathf.Sin(phi) * Mathf.Sin(theta));
+                        vertices.Add(center + normal * radius);
+                        normals.Add(normal);
+                        uv.Add(new Vector2((float)x / segments, (float)y / rings));
+                        colors.Add(Color.white);
+                    }
+                for (int y = 0; y < rings; ++y)
+                    for (int x = 0; x < segments; ++x)
+                    {
+                        int i = start + y * (segments + 1) + x;
+                        if (y > 0 || keepPoleTriangles) indices.AddRange(new[] { i, i + segments + 1, i + 1 });
+                        if (y < rings - 1 || keepPoleTriangles) indices.AddRange(new[] { i + 1, i + segments + 1, i + segments + 2 });
+                    }
+            }
+
+            public Mesh CreateMesh(string name)
+            {
+                var mesh = new Mesh { name = name };
+                mesh.SetVertices(vertices); mesh.SetNormals(normals); mesh.SetColors(colors);
+                mesh.SetUVs(0, uv); mesh.SetTriangles(indices, 0); mesh.RecalculateBounds();
+                return mesh;
+            }
         }
 
-        private static void BakeLines(GameObject root, string assetName)
+        private static void BakeLines(GameObject root, string assetName, Dictionary<LineRenderer, Vector3[]> orbitSparks)
         {
             // Join only within a single animation node/material. The rotating layers remain independent.
             var motion = root.GetComponent<SkillVisualMotion>();
-            var batches = new List<LineBatch>();
+            var batches = new List<MeshBatch>();
             foreach (var line in root.GetComponentsInChildren<LineRenderer>(true))
             {
                 Transform anchor = root.transform;
@@ -210,7 +243,7 @@ namespace NarutoVR.SealCombat.Editor
                     if (motion.expansionNode && line.transform.IsChildOf(motion.expansionNode)) anchor = motion.expansionNode;
                 }
                 var batch = batches.Find(b => b.parent == anchor && b.material == line.sharedMaterial);
-                if (batch == null) { batch = new LineBatch { parent = anchor, material = line.sharedMaterial }; batches.Add(batch); }
+                if (batch == null) { batch = new MeshBatch { parent = anchor, material = line.sharedMaterial }; batches.Add(batch); }
                 Vector3 normal = anchor.InverseTransformDirection(line.transform.forward).normalized;
                 int segments = line.positionCount - (line.loop ? 0 : 1);
                 for (int i = 0; i < segments; ++i)
@@ -226,6 +259,11 @@ namespace NarutoVR.SealCombat.Editor
                     batch.uv.AddRange(new[] { Vector2.zero, Vector2.up, Vector2.right, Vector2.one });
                     batch.indices.AddRange(new[] { k, k + 1, k + 2, k + 2, k + 1, k + 3 });
                 }
+                if (orbitSparks != null && orbitSparks.TryGetValue(line, out var centers))
+                {
+                    batch.sparkCenters ??= new List<Vector3>();
+                    batch.sparkCenters.AddRange(centers);
+                }
                 Object.DestroyImmediate(line.gameObject);
             }
             for (int i = 0; i < batches.Count; ++i)
@@ -234,10 +272,18 @@ namespace NarutoVR.SealCombat.Editor
                 var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
                 if (!mesh)
                 {
-                    GuardMissing(path); mesh = new Mesh { name = assetName + "合并符纹层" + (i + 1) };
-                    mesh.SetVertices(batch.vertices); mesh.SetNormals(batch.normals); mesh.SetColors(batch.colors);
-                    mesh.SetUVs(0, batch.uv); mesh.SetTriangles(batch.indices, 0); mesh.RecalculateBounds();
+                    GuardMissing(path);
+                    if (batch.sparkCenters != null)
+                        foreach (var center in batch.sparkCenters) batch.AddSphere(center, .0225f, 10, 20);
+                    mesh = batch.CreateMesh(assetName + "合并符纹层" + (i + 1));
                     AssetDatabase.CreateAsset(mesh, path);
+                }
+                else if (batch.sparkCenters != null && mesh.vertexCount == batch.vertices.Count)
+                {
+                    // A missing prefab can be regenerated alongside older arc-only mesh assets.
+                    // Preserve those assets and supply the separate sparks they originally used.
+                    for (int j = 0; j < batch.sparkCenters.Count; ++j)
+                        Mesh(batch.parent, "轨道火花" + (j + 1), sphere, batch.material, Vector3.one * .045f).localPosition = batch.sparkCenters[j];
                 }
                 Mesh(batch.parent, "合并符纹网格" + (i + 1), mesh, batch.material, Vector3.one);
             }
@@ -272,13 +318,13 @@ namespace NarutoVR.SealCombat.Editor
             line.shadowCastingMode = ShadowCastingMode.Off; line.receiveShadows = false;
             line.startColor = line.endColor = Color.white; return line;
         }
-        private static void Arc(Transform parent, string name, float radius, float width, float from, float to, Material material, int segments)
+        private static LineRenderer Arc(Transform parent, string name, float radius, float width, float from, float to, Material material, int segments)
         {
             bool loop = Mathf.Abs(to - from) >= 359.9f;
             var points = new Vector3[segments + (loop ? 0 : 1)];
             for (int i = 0; i < points.Length; ++i)
             { float a = Mathf.Lerp(from, to, (float)i / segments) * Mathf.Deg2Rad; points[i] = new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * radius; }
-            Line(parent, name, points, width, material, loop);
+            return Line(parent, name, points, width, material, loop);
         }
         private static void Polygon(Transform parent, string name, int sides, float radius, float width, Material material, int step)
         {
@@ -344,20 +390,9 @@ namespace NarutoVR.SealCombat.Editor
         {
             var existing = AssetDatabase.LoadAssetAtPath<Mesh>(MeshPath); if (existing) return existing;
             GuardMissing(MeshPath);
-            const int rings = 12, segments = 20;
-            var vertices = new List<Vector3>(); var normals = new List<Vector3>(); var uv = new List<Vector2>(); var colors = new List<Color>(); var triangles = new List<int>();
-            for (int y = 0; y <= rings; ++y)
-                for (int x = 0; x <= segments; ++x)
-                {
-                    float phi = Mathf.PI * y / rings, theta = 2 * Mathf.PI * x / segments;
-                    Vector3 n = new(Mathf.Sin(phi) * Mathf.Cos(theta), Mathf.Cos(phi), Mathf.Sin(phi) * Mathf.Sin(theta));
-                    vertices.Add(n * .5f); normals.Add(n); uv.Add(new Vector2((float)x / segments, (float)y / rings)); colors.Add(Color.white);
-                }
-            for (int y = 0; y < rings; ++y)
-                for (int x = 0; x < segments; ++x)
-                { int i = y * (segments + 1) + x; triangles.AddRange(new[] { i, i + segments + 1, i + 1, i + 1, i + segments + 1, i + segments + 2 }); }
-            var mesh = new Mesh { name = "单位直径低面数能量球" };
-            mesh.SetVertices(vertices); mesh.SetNormals(normals); mesh.SetUVs(0, uv); mesh.SetColors(colors); mesh.SetTriangles(triangles, 0); mesh.RecalculateBounds();
+            var batch = new MeshBatch();
+            batch.AddSphere(Vector3.zero, .5f, 12, 20, keepPoleTriangles: true);
+            var mesh = batch.CreateMesh("单位直径低面数能量球");
             AssetDatabase.CreateAsset(mesh, MeshPath); return mesh;
         }
     }

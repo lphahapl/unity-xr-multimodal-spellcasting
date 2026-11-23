@@ -104,6 +104,15 @@ namespace NarutoVR.SealCombat.Editor
                 foreach (float x in new[] { -1.75f, 0, 1.75f }) Node(nodeRoot, $"approach.{x}.{z}", new Vector3(x, -.03f, z), marker);
             for (int row = 0; row < 6; row++) for (int col = 0; col < 5; col++)
                 Node(nodeRoot, $"room.{col}.{row}", new Vector3(-5 + col * 2.5f, -.03f, 20 + row * 2.5f), marker);
+            for (int row = 0; row < 3; row++)
+                foreach (int side in new[] { -1, 1 })
+                {
+                    string id = $"room.flank.{(side < 0 ? "left" : "right")}.{row}";
+                    var flank = new GameObject("传送点 · " + id).transform;
+                    flank.SetParent(nodeRoot, false);
+                    flank.position = new Vector3(side * 3.75f, -.03f, 21.25f + row * 5f);
+                    flank.gameObject.AddComponent<NavigationNode>().nodeId = id;
+                }
             Physics.SyncTransforms();
             var nodes = Components<NavigationNode>(scene);
             foreach (var node in nodes)

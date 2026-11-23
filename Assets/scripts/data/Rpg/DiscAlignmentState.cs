@@ -24,6 +24,8 @@ namespace NarutoVR.SealCombat.Rpg
         public void BeginTurn() { released = false; stableSeconds = 0; }
         public void Release() => released = true;
 
+        public bool OuterAligned(float tolerance) => Math.Abs(OuterDegrees - Snap(OuterDegrees, OuterPeriod)) <= tolerance;
+
         public void Turn(bool outer, float degrees)
         {
             if (Solved) return;
@@ -34,7 +36,7 @@ namespace NarutoVR.SealCombat.Rpg
         public bool TrySettle(bool handsFree, float tolerance, float duration, float dt)
         {
             if (Solved || !released) return false;
-            bool aligned = handsFree && Math.Abs(OuterDegrees - Snap(OuterDegrees, OuterPeriod)) <= tolerance &&
+            bool aligned = handsFree && OuterAligned(tolerance) &&
                 Math.Abs(InnerDegrees - Snap(InnerDegrees, InnerPeriod)) <= tolerance;
             stableSeconds = aligned ? stableSeconds + dt : 0;
             if (!aligned || stableSeconds < duration) return false;

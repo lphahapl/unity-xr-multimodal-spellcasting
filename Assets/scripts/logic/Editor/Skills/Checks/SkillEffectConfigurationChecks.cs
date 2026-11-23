@@ -22,6 +22,9 @@ namespace NarutoVR.SealCombat.Editor
             using var f = new Fixture();
             int passed = 0;
 
+            var missing = f.Asset<SkillDefinition>(); missing.skillId = "fixture.missing";
+            Require(missing.ValidateDefinition() != null && !f.Effects.TryCast(missing), "缺少效果资产必须拒绝配置与施法");
+
             var shieldA = f.Asset<ShieldEffectDefinition>(); shieldA.capacity = 250;
             var shieldB = f.Asset<ShieldEffectDefinition>(); shieldB.capacity = 75;
             var shieldSkill = f.Skill(shieldA);
@@ -34,16 +37,17 @@ namespace NarutoVR.SealCombat.Editor
             shieldSkill.effectDefinition = shieldB;
             Require(f.Effects.TryCast(shieldSkill), "第二种护盾资产激活失败");
             Near(75, f.Effects.ShieldPoints, "不同护盾应按各自容量刷新，不相加");
-            Near(100, f.Effects.shieldCapacity, "技能不得修改旧场景默认护盾字段");
             passed++;
 
             var fireA = f.Asset<ProjectileEffectDefinition>(); fireA.damage = 13; fireA.speed = 6; fireA.radius = .08f;
             var fireB = f.Asset<ProjectileEffectDefinition>(); fireB.damage = 41; fireB.speed = 17; fireB.radius = .11f;
-            var fireSkill = f.Skill(fireA); fireSkill.effectKind = SkillEffectKind.SelfBuff;
-            f.RefreshHands(); Require(f.Effects.TryCast(fireSkill), "效果资产应优先于旧枚举");
+            var fireSkill = f.Skill(fireA);
+            f.RefreshHands(); Require(f.Effects.TryCast(fireSkill), "投射物效果资产应创建火球");
             GameObject first = f.Held(); Near(.16f, first.transform.localScale.x, "持握球尺寸来自该技能配置");
             fireA.damage = 900; fireA.speed = 90; fireA.radius = .9f; fireA.heldOffset = Vector3.one * 10;
-            Invoke(f.Effects, "UpdateHeldPosition", new Pose(f.RightWorld, Quaternion.identity));
+            first.transform.position += Vector3.up;
+            f.RefreshHands();
+            Invoke(f.Effects, "LateUpdate");
             Near(f.RightWorld + new Vector3(0,.05f,.08f), first.transform.position, "运行中修改SO不得移动既有持握球");
             Invoke(f.Effects, "Launch", Vector3.forward);
             var firstProjectile = first.GetComponent<SkillProjectile>();
@@ -59,8 +63,6 @@ namespace NarutoVR.SealCombat.Editor
             Near(41, secondProjectile.damage, "第二技能应使用自己的伤害");
             Near(17, secondProjectile.speed, "第二技能应使用自己的速度");
             Near(13, firstProjectile.damage, "第二技能不得改写已飞出球的伤害");
-            Near(25, f.Effects.projectileDamage, "SO不得改写旧场景默认伤害");
-            Near(9, f.Effects.projectileSpeed, "SO不得改写旧场景默认速度");
             passed++;
 
             int before = f.Effects.ActivationCount;

@@ -1,0 +1,521 @@
+{
+  "R7_Cold.json": {
+    "watches": {
+      "ShenShang_Head": true,
+      "Eye.R": true,
+      "Eye.L": true,
+      "G.眉底毛根.Right": true,
+      "G.独立眉毛.Left": true,
+      "R7 · 眼下至颊中层次": true,
+      "R7 · 沿额骨渐生的疏密发根": true,
+      "R7 · 从定稿描取的非对称拂额长丝": true
+    },
+    "packed": 60,
+    "external_missing": [],
+    "hair_script_sha": "0862fbd51c0f0a00f24a20cc39e91d3c5072f75097c978639f3583342c2475c4",
+    "face_sha": "806cbbc6530b17d109ec55ec03b64960ef9bd8932da0ebc6fab04de2b9a1dacc",
+    "camera_and_window_lights": [
+      "HeadFront",
+      "HeadTurn",
+      "HeadLeft",
+      "大窗主光",
+      "侧窗补光"
+    ],
+    "summary_hair": {
+      "older_nonuniformly_clipped_short_hairs": 368,
+      "registered_primary_groups": 10,
+      "long_individual_hairs": 33,
+      "all_new_hairs": 70,
+      "physical_strand_longest_mm": 72.89,
+      "max_carrier_drop_mm": 4.77,
+      "existing_hair_objects_deformed": 23,
+      "fixed_pigment_band_triangles": 6336
+    }
+  },
+  "R7_surfaceQA.json": {
+    "head qa 0": {
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+        "asset lowest point z=1.389 (not resting on ground plane z=0)"
+      ]
+    },
+    "head qa 1": {
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+        "asset lowest point z=1.389 (not resting on ground plane z=0)"
+      ]
+    },
+    "same fixed triangle connectivity used for normal comparison": true,
+    "flipped surfaces versus previous shape": 0,
+    "triangles": 144320,
+    "new collapsed triangles": 0,
+    "malar point": {
+      "surface vertices": 265,
+      "median radial and anterior mm": [
+        -1.553,
+        -2.218
+      ],
+      "peak absolute mm": 3.298
+    },
+    "lateral buccal": {
+      "surface vertices": 379,
+      "median radial and anterior mm": [
+        1.366,
+        1.951
+      ],
+      "peak absolute mm": 3.454
+    },
+    "far cheek outer contour": {
+      "surface vertices": 2237,
+      "median radial and anterior mm": [
+        0.0,
+        0.0
+      ],
+      "peak absolute mm": 2.741
+    },
+    "eye region": {
+      "surface vertices": 9967,
+      "median radial and anterior mm": [
+        0.0,
+        0.0
+      ],
+      "peak absolute mm": 0.673
+    }
+  },
+  "R7_optics.json": {
+    "sideL": {
+      "globe_box_x": [
+        127.0,
+        152.5
+      ],
+      "pupil_center": [
+        127.286,
+        308.714
+      ],
+      "central_aperture_px": 5.0,
+      "upper_lower_at_pupil_px": [
+        307.5,
+        312.5
+      ],
+      "visible_area_px": 191.0,
+      "background": 924
+    },
+    "frontR": {
+      "globe_box_x": [
+        283.0,
+        348.0
+      ],
+      "pupil_center": [
+        316.838,
+        312.559
+      ],
+      "central_aperture_px": 17.0,
+      "upper_lower_at_pupil_px": [
+        307.5,
+        324.5
+      ],
+      "visible_area_px": 762.75,
+      "background": 0
+    },
+    "frontL": {
+      "globe_box_x": [
+        424.5,
+        490.0
+      ],
+      "pupil_center": [
+        457.935,
+        311.759
+      ],
+      "central_aperture_px": 16.0,
+      "upper_lower_at_pupil_px": [
+        307.5,
+        323.5
+      ],
+      "visible_area_px": 727.0,
+      "background": 0
+    },
+    "turnL": {
+      "globe_box_x": [
+        233.0,
+        296.5
+      ],
+      "pupil_center": [
+        255.068,
+        311.799
+      ],
+      "central_aperture_px": 16.5,
+      "upper_lower_at_pupil_px": [
+        307.5,
+        324.0
+      ],
+      "visible_area_px": 705.5,
+      "background": 0
+    }
+  },
+  "R7_brows.json": {
+    "G.眉底毛根.Right": {
+      "total": 6783,
+      "buried": 0,
+      "min_mid_max_mm": [
+        0.043,
+        0.0863,
+        0.2194
+      ]
+    },
+    "G.眉底毛根.Left": {
+      "total": 6936,
+      "buried": 0,
+      "min_mid_max_mm": [
+        0.043,
+        0.0856,
+        0.2213
+      ]
+    },
+    "G.独立眉毛.Right": {
+      "total": 559,
+      "buried": 0,
+      "min_mid_max_mm": [
+        0.0505,
+        0.0965,
+        0.1897
+      ]
+    },
+    "G.独立眉毛.Left": {
+      "total": 581,
+      "buried": 0,
+      "min_mid_max_mm": [
+        0.0378,
+        0.0955,
+        0.1452
+      ]
+    }
+  },
+  "StudioGradients.json": {
+    "Beauty R6": {
+      "max_abs_slope_per_ref_px": 0.826,
+      "P90_abs_slope": 0.541,
+      "Lrange_10to90": 9.04
+    },
+    "Beauty R7": {
+      "max_abs_slope_per_ref_px": 0.679,
+      "P90_abs_slope": 0.525,
+      "Lrange_10to90": 10.69
+    },
+    "Clay R6": {
+      "max_abs_slope_per_ref_px": 0.343,
+      "P90_abs_slope": 0.251,
+      "Lrange_10to90": 4.51
+    },
+    "Clay R7": {
+      "max_abs_slope_per_ref_px": 0.2,
+      "P90_abs_slope": 0.191,
+      "Lrange_10to90": 5.64
+    },
+    "Opposed R6": {
+      "max_abs_slope_per_ref_px": 0.465,
+      "P90_abs_slope": 0.368,
+      "Lrange_10to90": 7.14
+    },
+    "Opposed R7": {
+      "max_abs_slope_per_ref_px": 0.284,
+      "P90_abs_slope": 0.27,
+      "Lrange_10to90": 8.16
+    }
+  },
+  "Silhouette.json": {
+    "R6": {
+      "HeadLeft": {
+        "379": [
+          70.25,
+          100.75
+        ],
+        "386": [
+          66.25,
+          100.75
+        ],
+        "392": [
+          64.5,
+          100.75
+        ],
+        "394": [
+          64.5,
+          100.75
+        ],
+        "400": [
+          65.0,
+          100.75
+        ],
+        "407": [
+          69.25,
+          100.75
+        ],
+        "412": [
+          78.25,
+          100.75
+        ]
+      },
+      "HeadFront": {
+        "370": [
+          204.0,
+          568.0
+        ],
+        "386": [
+          204.0,
+          567.75
+        ],
+        "410": [
+          216.5,
+          555.25
+        ],
+        "430": [
+          224.75,
+          547.0
+        ],
+        "454": [
+          248.0,
+          523.25
+        ],
+        "475": [
+          259.25,
+          512.5
+        ],
+        "511": [
+          266.5,
+          505.25
+        ]
+      },
+      "HeadTurn": {
+        "354": [
+          110.0,
+          515.5
+        ],
+        "380": [
+          112.0,
+          509.5
+        ],
+        "409": [
+          129.5,
+          479.5
+        ],
+        "430": [
+          138.25,
+          467.5
+        ],
+        "454": [
+          143.25,
+          461.5
+        ]
+      }
+    },
+    "R7": {
+      "HeadLeft": {
+        "379": [
+          70.25,
+          100.75
+        ],
+        "386": [
+          66.25,
+          100.75
+        ],
+        "392": [
+          64.5,
+          100.75
+        ],
+        "394": [
+          64.5,
+          100.75
+        ],
+        "400": [
+          65.0,
+          100.75
+        ],
+        "407": [
+          69.25,
+          100.75
+        ],
+        "412": [
+          78.25,
+          100.75
+        ]
+      },
+      "HeadFront": {
+        "370": [
+          204.0,
+          568.0
+        ],
+        "386": [
+          204.0,
+          567.75
+        ],
+        "410": [
+          216.5,
+          555.25
+        ],
+        "430": [
+          224.75,
+          547.0
+        ],
+        "454": [
+          248.0,
+          523.25
+        ],
+        "475": [
+          259.25,
+          512.5
+        ],
+        "511": [
+          266.5,
+          505.25
+        ]
+      },
+      "HeadTurn": {
+        "354": [
+          111.5,
+          515.5
+        ],
+        "380": [
+          113.25,
+          509.5
+        ],
+        "409": [
+          124.5,
+          479.5
+        ],
+        "430": [
+          134.25,
+          467.5
+        ],
+        "454": [
+          142.0,
+          461.5
+        ]
+      }
+    }
+  },
+  "R7_manifest.json": {
+    "ShenShang_FaceMatch_R7.blend": "afef1640d35bde6e848bbba11cd14040af51871730eac0c3250f6e1797122328",
+    "HeadFront.png": "2bdedec9db414eba598c06b64cc052e22333756a0886d2a650f68aee1fbf7193",
+    "HeadTurn.png": "eaf5df1d34e6815ef06418efda93c94eee75ed17a05419268c5fcf2f742e8ffe",
+    "HeadLeft.png": "137fe46ce2a88d82688521a78a0bae596fda7ddf261505296d64723506490c45",
+    "R7_Registered.jpg": "2ff7a0fa948d1d34ca3a3518bf0283e7700fce14892452d025528d67b6844123",
+    "R7_Cheek_ThreeLights.jpg": "2e967069c4ba79e2ff409fba6231b06211ca0dc3722193b07d8e6d910a1d6cb4",
+    "StudioGradients.json": "3d958236c4c1e849a264f0ff1550fd2336e2b3aa3d64c912367893adc9b38e34",
+    "R7_surfaceQA.json": "81d5bbcd60b39d3816e6e6c506ca47541e1580d3829e687e55ab9ad7a938717c",
+    "R7_brows.json": "9bd2a7e5bb472f8ba72718581eedc2d153ed8d1a73362a3eb98b136c2bc2da34",
+    "R7_optics.json": "cfffdff0d3a0289b7346928eb76216cc91c3f37b1c927634ef738feeb99b1bc3"
+  },
+  "chromium": {
+    "source": "3e28f6b9d106930ea734d82f3ed07758b7c4e34ae04e68bcc0f91c66541094c4",
+    "browser": "Chrome/157.0.8103.79",
+    "status": {
+      "filename": "ShenShang_FaceMatch_R7.glb",
+      "status": "0 根骨骼 · 0 个蒙皮网格"
+    },
+    "exceptions": [],
+    "brow_fibre_controls": {
+      "FullBody": {
+        "affected_pixels_abs_delta_ge_4": 329,
+        "maximum_rgb_difference": 46
+      },
+      "Eyes": {
+        "affected_pixels_abs_delta_ge_4": 4348,
+        "maximum_rgb_difference": 89
+      }
+    },
+    "preview_port": 50598
+  },
+  "ocular_calibration_on_R5": {
+    "regionMean_sRGB": [
+      {
+        "pupil": [
+          20.3,
+          17.1,
+          14.2
+        ],
+        "iris no glare": [
+          78.8,
+          51.9,
+          30.4
+        ],
+        "limbus": [
+          65.8,
+          46.1,
+          29.6
+        ],
+        "outer white": [
+          89.1,
+          65.5,
+          47.9
+        ],
+        "inner white": [
+          90.1,
+          62.9,
+          43.8
+        ]
+      },
+      {
+        "pupil": [
+          14.5,
+          13.9,
+          14.0
+        ],
+        "iris no glare": [
+          70.0,
+          40.3,
+          23.6
+        ],
+        "limbus": [
+          52.5,
+          32.3,
+          21.5
+        ],
+        "outer white": [
+          75.7,
+          63.2,
+          54.4
+        ],
+        "inner white": [
+          85.3,
+          67.2,
+          54.2
+        ]
+      },
+      {
+        "pupil": [
+          20.1,
+          17.0,
+          13.7
+        ],
+        "iris no glare": [
+          80.0,
+          51.4,
+          30.8
+        ],
+        "limbus": [
+          61.7,
+          41.4,
+          26.4
+        ],
+        "outer white": [
+          87.8,
+          64.1,
+          47.7
+        ],
+        "inner white": [
+          90.0,
+          63.3,
+          43.6
+        ]
+      }
+    ],
+    "averageRGBerror_before": 14.16,
+    "averageRGBerror_after": 2.26
+  },
+  "reviewPackageSHA256": "69be1a19f2ac1b7436915e6a39e7713bd86d43193b96051887c72587358e5f94"
+}

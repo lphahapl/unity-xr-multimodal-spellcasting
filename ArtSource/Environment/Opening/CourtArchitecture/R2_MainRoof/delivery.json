@@ -1,0 +1,251 @@
+{
+  "asset": "R2 B2 main hall roof",
+  "time": "2026-11-23T11:34:29+08:00",
+  "runtime_files": {
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof.fbx": {
+      "before_sha256": "893b11470fff76e5e4f50247f202ce4743292a96fa528a40eb669f2cc448b306",
+      "after_sha256": "8d390219344800044976d1cb532bd4f6db152cf4db02e0cfbfe973b93deb8d8d",
+      "guid": "e11bfd8d3b235644f843b553d0515473"
+    },
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof.prefab": {
+      "before_sha256": "5f1be79d8dde23eaddc357ad03001843dfc90cd36ba8d29e40b52680e192fa5a",
+      "after_sha256": "73b4014a9e2d2d628858dd0975189c47bd182efd23cd589d9581eb5dcfb2e445",
+      "guid": "5e844a5b070e2b94092e4861719179e9"
+    }
+  },
+  "tiers": [
+    {
+      "tier": 0,
+      "triangles": 11600,
+      "unity_mesh_fileID": "-3619996037657576586",
+      "material_guid": "6a7eb8249e30ab44fad6a4a9a3a6e834",
+      "footprint_m": [
+        19.39832,
+        16.57426
+      ],
+      "original_A1_footprint_m": [
+        19.3983097076416,
+        16.574249267578125
+      ]
+    },
+    {
+      "tier": 1,
+      "triangles": 4208,
+      "unity_mesh_fileID": "-3887925568495935114",
+      "material_guid": "2baec658f43b56a49a4b9010bb66f406",
+      "footprint_m": [
+        19.39832,
+        16.55462
+      ],
+      "original_A1_footprint_m": [
+        19.3983097076416,
+        16.554609298706055
+      ]
+    },
+    {
+      "tier": 2,
+      "triangles": 920,
+      "unity_mesh_fileID": "-5332546612888290761",
+      "material_guid": "56612cbae5870cb4692e2026cace9c8e",
+      "footprint_m": [
+        19.36636,
+        16.55396
+      ],
+      "original_A1_footprint_m": [
+        19.366350173950195,
+        16.5539608001709
+      ]
+    }
+  ],
+  "FBX_object_ids": [
+    [
+      "Geometry",
+      "node_0.002",
+      678125725
+    ],
+    [
+      "Geometry",
+      "node_0.003",
+      546372239
+    ],
+    [
+      "Geometry",
+      "node_0.004",
+      355756522
+    ],
+    [
+      "Material",
+      "CourtMainRoof_Tier0_Baked",
+      608683113
+    ],
+    [
+      "Material",
+      "CourtMainRoof_Tier1_Baked",
+      257315642
+    ],
+    [
+      "Material",
+      "CourtMainRoof_Tier2_Baked",
+      407518815
+    ],
+    [
+      "Model",
+      "CourtMainRoof_Tier0",
+      863477904
+    ],
+    [
+      "Model",
+      "CourtMainRoof_Tier1",
+      158462845
+    ],
+    [
+      "Model",
+      "CourtMainRoof_Tier2",
+      337514557
+    ]
+  ],
+  "prefab_changes": "Only the X and Y overrides of the two shared ceramic instances changed. Reversing these four scalars reproduces the original prefab byte-for-byte.",
+  "prefab_screen_heights": [
+    0.42,
+    0.14,
+    0.0035
+  ],
+  "collider": {
+    "prefab_collider_components": 0,
+    "model_import_add_colliders": 0
+  },
+  "nested_shared_guid": "bebe04e1d6ee2ec41a89ada758b4a450",
+  "nested_sockets": [
+    {
+      "position_xyz": [
+        7.135,
+        5.275,
+        0.0
+      ],
+      "outward_axis": [
+        1,
+        0,
+        0
+      ],
+      "scale_xyz": [
+        1.6,
+        1.56,
+        1
+      ],
+      "quaternion_xyzw": [
+        0.0,
+        0.7071068,
+        0.0,
+        0.7071068
+      ],
+      "pivot": "rear opening, base level in prefab-local metres"
+    },
+    {
+      "position_xyz": [
+        -7.135,
+        5.275,
+        0.0
+      ],
+      "outward_axis": [
+        -1,
+        0,
+        0
+      ],
+      "scale_xyz": [
+        1.6,
+        1.56,
+        1
+      ],
+      "quaternion_xyzw": [
+        0.0,
+        -0.7071068,
+        0.0,
+        0.7071068
+      ],
+      "pivot": "rear opening, base level in prefab-local metres"
+    }
+  ],
+  "editable_blend_packed_maps": {
+    "CourtMainRoof_Tier0_BaseColor.png": "3846f7a58539611b221f0d82997594e2939d735e7dbca80d081b9158c200e165",
+    "CourtMainRoof_Tier0_Mask.png": "9cb657acccf4e9f4b2a854c954a069a5e6eb47c9a7b97ed9c1c79df271822815",
+    "CourtMainRoof_Tier0_Normal.png": "6d33daee13c7f65a5a4f447273fd66ed16a9679a3302ac6c2bf72aa396657734",
+    "CourtMainRoof_Tier1_BaseColor.png": "8ae99eac9c5e57a5f2a1dca86aaff4c224c1747d619287f3ea23e06b56cd6ab1",
+    "CourtMainRoof_Tier1_Mask.png": "a6c93525e56edb786eb5eac48cfb15ab0540453ab15ba8fe0e084b83bbb89bc5",
+    "CourtMainRoof_Tier1_Normal.png": "56b4b23b6282291c856542b93a13a6355067ac01f5826daa0d2d109e0bb8ba58",
+    "CourtMainRoof_Tier2_BaseColor.png": "76535748522f4ad6baa9597f13fce90e9922e6b2dd2b55c2d5fbc50567f4d2a9",
+    "CourtMainRoof_Tier2_Mask.png": "b2a9b4d59d454b2719a73c8d8636abaf4efc9b43c3fde7a2c7d686067427b7f0",
+    "CourtMainRoof_Tier2_Normal.png": "d816429f00975578b4a602d793eaae66a564d17ea16142b3272bcf3edb9696bb"
+  },
+  "rebuild": "Run build.py, check.py, publish.py -- --publish, check.py -- --published, views.py -- --published, views.py -- --published --topology, then publish.py -- --verify using Blender background mode. The builder reads the original A1 version.",
+  "nominal_eave_rectangle_m": [
+    19.1,
+    16.4
+  ],
+  "eave_pan_height_m": 0.77,
+  "gable_face_x_m": 7.1,
+  "sill_m": 2.052,
+  "crown_pan_m": 5.38,
+  "outer_verge_x_m": 7.48,
+  "validation": "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/Roof_QA.json",
+  "unity_runtime": "reserved for parent session",
+  "warnings_interpretation": "Surface UVs share the validated trim sheet. Separate pieces retain coincident boundary vertices and hidden opposing triangles at abutments. Check individual tier counts in Roof_QA.json.",
+  "unchanged_runtime_and_shared_files": {
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof.fbx.meta": "fc48cc02ef3d479332dbbcfa5048cbf3db42c00bb5cdd349467520524d9c8308",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof.prefab.meta": "0874c47e69e02220030324563145b13c14f34653a7f10513057840004a4d67db",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0.mat": "4fb5c797369068d5b845f4d9a6933b394b3d591075b5da9761b4f29574005e00",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0.mat.meta": "b232fee37910840e87dc0e9d6205a681dc2d06826dd5b55338287526a76549b5",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_BaseColor.png": "3846f7a58539611b221f0d82997594e2939d735e7dbca80d081b9158c200e165",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_BaseColor.png.meta": "88f378d572aa86c2089330fe799a5be7417914acb0442bb60e0f3307e0104fa3",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_Mask.png": "9cb657acccf4e9f4b2a854c954a069a5e6eb47c9a7b97ed9c1c79df271822815",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_Mask.png.meta": "1414afcc412c1730303f7b05e151d26df55fbcbff8bed0aa9e7035e57b6d9896",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_Normal.png": "6d33daee13c7f65a5a4f447273fd66ed16a9679a3302ac6c2bf72aa396657734",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier0_Normal.png.meta": "dee5c0bab12b4f8e7a423e61c53090cf4ddd79413fe6f8b4b9dd62cff645c845",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1.mat": "83eba001ea0dfa1548946f42c0f8e5af75c1a552241d4eed95deb009bbd60311",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1.mat.meta": "cb1eb0b0dcca16a586e387e4a1a3713a3f2a6f9710dbf19c0e41cd2d55e0359c",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_BaseColor.png": "8ae99eac9c5e57a5f2a1dca86aaff4c224c1747d619287f3ea23e06b56cd6ab1",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_BaseColor.png.meta": "3fe64cb6b06f8f6139806fdaeefa0a0516658cae88be8396f7de484e064a6ebf",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_Mask.png": "a6c93525e56edb786eb5eac48cfb15ab0540453ab15ba8fe0e084b83bbb89bc5",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_Mask.png.meta": "f4b327d55a5103d13d54cd73a2196fb407cf9925a22c126e63928693c238de24",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_Normal.png": "56b4b23b6282291c856542b93a13a6355067ac01f5826daa0d2d109e0bb8ba58",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier1_Normal.png.meta": "e6f9746cc27e5aad249cdf54c1ad21a4c411dad8fb222d84758e92376f27c0d6",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2.mat": "3e2fac31470eab3290e08866faba4c4eaeeee4cfe974a9d30d54001463cfae56",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2.mat.meta": "26c196ecbe97f90a9932d550a35c5b99d167da1d0047a7b24db75e12e1dfe08a",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_BaseColor.png": "76535748522f4ad6baa9597f13fce90e9922e6b2dd2b55c2d5fbc50567f4d2a9",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_BaseColor.png.meta": "f57ab62052497c77f9929fdc15b95430a855eb806b7fae622d258cdf3d5eebbe",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_Mask.png": "b2a9b4d59d454b2719a73c8d8636abaf4efc9b43c3fde7a2c7d686067427b7f0",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_Mask.png.meta": "779f67950fa36e7996456c5bc75133c6df4afafda104f2482f554a1d97c6d1d5",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_Normal.png": "d816429f00975578b4a602d793eaae66a564d17ea16142b3272bcf3edb9696bb",
+    "Assets/Art/Environment/Opening/CourtArchitecture/CourtMainRoof/CourtMainRoof_Tier2_Normal.png.meta": "0cd7354649fb8570104e1d7887f9d5c3e7481102a7ec6ec71916351e8d461247",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware.mat": "2f3b8a58e711852421709df15e5671398adaa0e3f19ccbac3b92c7db4b26a7c7",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware.mat.meta": "a845764e29edc7e8e543d21a8a449ed2c0471d4e7995cd875916e5330b0fb240",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware_BaseColor.png": "7890323ffe3a969488acb924400dba74ea0e16f70acb39904599776bcea1956d",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware_BaseColor.png.meta": "4b8944190f0070b027a62221d496cff3edeb232419985806ea104cba0420d7e9",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware_Normal.png": "f4d8cc99b081ee2ff3dcbdb7d61c8bcca1a7fbd5899e32918f6a665b0678b2a3",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/GreyEarthenware_Normal.png.meta": "602abe5fa3e403374b22c6bfd2b49105ca3defe46698ee4e49769ef3b07e3c67",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/PreqinRidgeCap.fbx": "3f0123623e24f96b8309abdb25a7109b6d2fb76563b62e472fc73958b386c831",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/PreqinRidgeCap.fbx.meta": "a5b618c84465c5ae2ea4d8b81bf14764883f08f37300d6edbcd84214fa1dd96d",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/PreqinRidgeCap.prefab": "7345650f6a29ba1398326c52fbddc8f48d0a377dc0a7da6e9a7a3ce28d7a6511",
+    "Assets/Art/Environment/Opening/PreqinRidgeCap/PreqinRidgeCap.prefab.meta": "647bc16e724650fbb9f0a0116d1fe4f9af2ac0912aaba072d5ba168606653855"
+  },
+  "source_and_QA": {
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Cap.jpg": "b6dd7a4a0d86ac258e74ec32826069c42774e27a12f093994d9455e3671fda9a",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Eave.jpg": "c6ddd639fa0320469993a2bb408d8fcde685659360b6db462a8224697bb9a5b4",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Gable.jpg": "c0209b926054b8fd0b466bf0f46b83cf91cd6c57673e9710f2d90169d3cf059d",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Overview.jpg": "9cf1d71a43137e206fd648b27ef0ca995de296daa80d75efece473f9ce990c0f",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Tier1.jpg": "78998dd4380360c71c709b4bfb616a3727f78c882cbcc674c8dba8b8f926cf1a",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/B2_Tier2.jpg": "4f612f110024b287fb8fdf7dc9a26f52149e1421bda9edf1ae671834084b3da1",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/baseline.json": "a0298a7196c9282fc91fd067e5861b1c88e1e03ffce5a34d17193204524605cb",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/build.py": "576d3681b754a4681e460f589a83da730bf9862af5c69bfbb0c34f8b30ddf730",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/build_result.json": "68fded04e3281e2bc14e3a00a927990df9d61691c2890f028a8864a506d1d767",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/check.py": "6b12209566b83c08df8cbe84d86bcbf912f8948ebe17f1b7e30cc62a9b768e7f",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/CourtMainRoof.fbx": "8d390219344800044976d1cb532bd4f6db152cf4db02e0cfbfe973b93deb8d8d",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/CourtMainRoof_B2.blend": "da50d52c6c5b4871332f57405939b0124ecf75ca15ee3d835beae319659d8851",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/publish.py": "ed469d22cd9421d8e21c2a187897869229634f81ce9ec616d4794f06c41f70fb",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/QA_components.jpg": "e5b855c13d4910b611fb5aaeb8a6a69f0aab1222b8bb83555111cbce40757aee",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/QA_wire.jpg": "075af0757da497afaa80301b19876247e78f2eea270a245ca0fe2475b04937a3",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/QA_wire_under.jpg": "cbf4471940a9015f6dc46fc388085d515fed0fb53a020302f5be0b8bfa222add",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/Roof_QA.json": "2c21f202a98b8ce201fd111e98b6c6a6d90d9a83c83f91eca76df83eac6b4432",
+    "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/views.py": "b2e30bf88843dffa1a62d8c81eb57a52d65b91000365c68cb44d530ba1544fc6"
+  },
+  "inventory_self": "ArtSource/Environment/Opening/CourtArchitecture/R2_MainRoof/delivery.json"
+}

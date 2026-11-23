@@ -1,0 +1,893 @@
+{
+  "Bench_LOD0": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Bench_LOD0: ~55.46% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Bench_LOD0": {
+          "verts": 614,
+          "faces": 1204,
+          "tris": 1204,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 6,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 55.46,
+          "uv_coverage_pct": 45.7
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Bench_LOD0": {
+          "tris": 1204,
+          "verts": 614,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 1204,
+      "total_verts": 614,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      1.25,
+      0.7799999713897705,
+      0.9700000286102295
+    ]
+  },
+  "Bench_LOD1": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Bench_LOD1: ~55.79% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Bench_LOD1": {
+          "verts": 374,
+          "faces": 724,
+          "tris": 724,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 6,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 55.79,
+          "uv_coverage_pct": 46.0
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Bench_LOD1": {
+          "tris": 724,
+          "verts": 374,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 724,
+      "total_verts": 374,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      1.25,
+      0.7799999713897705,
+      0.9700000286102295
+    ]
+  },
+  "Bench_LOD2": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Bench_LOD2: ~56.26% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Bench_LOD2": {
+          "verts": 254,
+          "faces": 484,
+          "tris": 484,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 6,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 56.26,
+          "uv_coverage_pct": 46.5
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Bench_LOD2": {
+          "tris": 484,
+          "verts": 254,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 484,
+      "total_verts": 254,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      1.25,
+      0.7799999713897705,
+      0.9700000286102295
+    ]
+  },
+  "Stele_LOD0": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Stele_LOD0: ~29.71% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Stele_LOD0": {
+          "verts": 697,
+          "faces": 1386,
+          "tris": 1386,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 29.71,
+          "uv_coverage_pct": 50.5
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Stele_LOD0": {
+          "tris": 1386,
+          "verts": 697,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 1386,
+      "total_verts": 697,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.8500000238418579,
+      0.36000001430511475,
+      1.649999976158142
+    ]
+  },
+  "Stele_LOD1": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Stele_LOD1: ~29.73% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Stele_LOD1": {
+          "verts": 403,
+          "faces": 798,
+          "tris": 798,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 29.73,
+          "uv_coverage_pct": 50.5
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Stele_LOD1": {
+          "tris": 798,
+          "verts": 403,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 798,
+      "total_verts": 403,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.8500000238418579,
+      0.36000001430511475,
+      1.649999976158142
+    ]
+  },
+  "Stele_LOD2": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Stele_LOD2: ~29.97% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Stele_LOD2": {
+          "verts": 106,
+          "faces": 204,
+          "tris": 204,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 29.97,
+          "uv_coverage_pct": 50.1
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Stele_LOD2": {
+          "tris": 204,
+          "verts": 106,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 204,
+      "total_verts": 106,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.8500000238418579,
+      0.36000001430511475,
+      1.649999976158142
+    ]
+  },
+  "Plinth_LOD0": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Plinth_LOD0: ~97.17% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Plinth_LOD0": {
+          "verts": 184,
+          "faces": 364,
+          "tris": 364,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 1,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 97.17,
+          "uv_coverage_pct": 8.6
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Plinth_LOD0": {
+          "tris": 364,
+          "verts": 184,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 364,
+      "total_verts": 184,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.4300000071525574,
+      0.36000001430511475,
+      0.8999999761581421
+    ]
+  },
+  "Plinth_LOD1": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Plinth_LOD1: ~97.28% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Plinth_LOD1": {
+          "verts": 120,
+          "faces": 236,
+          "tris": 236,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 1,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 97.28,
+          "uv_coverage_pct": 8.7
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Plinth_LOD1": {
+          "tris": 236,
+          "verts": 120,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 236,
+      "total_verts": 120,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.4300000071525574,
+      0.36000001430511475,
+      0.8999999761581421
+    ]
+  },
+  "Plinth_LOD2": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "Plinth_LOD2: ~97.35% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Plinth_LOD2": {
+          "verts": 88,
+          "faces": 172,
+          "tris": 172,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 1,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 97.35,
+          "uv_coverage_pct": 9.0
+        }
+      }
+    },
+    "stats": {
+      "ok": true,
+      "objects": {
+        "Plinth_LOD2": {
+          "tris": 172,
+          "verts": 88,
+          "materials": 1,
+          "modifiers": [],
+          "uv_maps": 1,
+          "shape_keys": 0
+        }
+      },
+      "total_tris": 172,
+      "total_verts": 88,
+      "draw_calls_est": 1,
+      "unique_materials": 1,
+      "textures": [
+        {
+          "name": "Stone_Normal.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        },
+        {
+          "name": "Stone_BaseColor.png",
+          "size": [
+            2048,
+            2048
+          ],
+          "mb": 21.3
+        }
+      ],
+      "texture_vram_mb_uncompressed": 42.7,
+      "bones": 0,
+      "kind": "prop",
+      "budget": {
+        "name": "vr",
+        "limits": {
+          "char_tris": 40000,
+          "prop_tris": 10000,
+          "materials": 3,
+          "tex": 2048,
+          "bones": 100
+        },
+        "over": [],
+        "pass": true
+      }
+    },
+    "dimensions_m": [
+      0.4300000071525574,
+      0.36000001430511475,
+      0.8999999761581421
+    ]
+  }
+}

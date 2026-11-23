@@ -16,6 +16,9 @@ namespace NarutoVR.SealCombat.Rpg
         double lastNow, regenAfter;
         bool hasTime;
         CastReservation pendingCast;
+        object sustainedCostOwner;
+        string sustainedCooldownGroup;
+        float cooldownOnRelease;
 
         internal bool CastInProgress => pendingCast != null;
         public float Health { get; private set; }
@@ -42,7 +45,8 @@ namespace NarutoVR.SealCombat.Rpg
         {
             RequireMutable();
             if (!ValidNow(gameNow)) throw new ArgumentOutOfRangeException(nameof(gameNow), "游戏时间必须有限、非负且不能倒退。");
-            if (hasTime && Alive && Mana < MaxMana)
+            ExpireShield(gameNow);
+            if (hasTime && Alive && sustainedCostOwner == null && Mana < MaxMana)
             {
                 double elapsed = Math.Max(0, gameNow - Math.Max(lastNow, regenAfter));
                 float next = (float)Math.Min(MaxMana, Mana + elapsed * manaRegen);
@@ -52,9 +56,46 @@ namespace NarutoVR.SealCombat.Rpg
             hasTime = true;
         }
 
+        internal bool CanSustain => sustainedCostOwner == null && Alive && Mana > 0;
+
+        internal bool BeginSustainedCost(object source, string group, float releaseSeconds)
+        {
+            if (source == null || !CanSustain || CastInProgress || !RpgDataRules.ValidId(group) ||
+                !RpgDataRules.InRange(releaseSeconds, 0, RpgDataRules.MaximumDuration)) return false;
+            sustainedCostOwner = source;
+            sustainedCooldownGroup = group;
+            cooldownOnRelease = releaseSeconds;
+            return true;
+        }
+
+        internal bool SpendSustainedCost(object source, double amount, double now, float releaseSeconds)
+        {
+            if (source == null || !ReferenceEquals(sustainedCostOwner, source) || CastInProgress ||
+                !Alive || !ValidNow(now) || !double.IsFinite(amount) || amount < 0 ||
+                !RpgDataRules.InRange(releaseSeconds, 0, RpgDataRules.MaximumDuration)) return false;
+            Tick(now);
+            float next = (float)Math.Max(0, Mana - amount);
+            if (Mana != next || cooldownOnRelease != releaseSeconds) Revision++;
+            Mana = next;
+            cooldownOnRelease = releaseSeconds;
+            return Mana > 0;
+        }
+
+        internal void EndSustainedCost(object source, double now)
+        {
+            if (source == null || !ReferenceEquals(sustainedCostOwner, source)) return;
+            double stoppedAt = ValidNow(now) ? now : lastNow;
+            if (cooldownOnRelease > 0) cooldowns[sustainedCooldownGroup] = stoppedAt + cooldownOnRelease;
+            sustainedCostOwner = null;
+            sustainedCooldownGroup = null;
+            regenAfter = stoppedAt + regenDelay;
+            Revision++;
+        }
+
         public float GetCooldown(string group, double now)
         {
             if (!RpgDataRules.Finite(now) || now < 0 || string.IsNullOrEmpty(group)) return 0;
+            if (group == sustainedCooldownGroup) return cooldownOnRelease;
             return cooldowns.TryGetValue(group, out double until) ? (float)Math.Max(0, until - now) : 0;
         }
 
@@ -77,7 +118,8 @@ namespace NarutoVR.SealCombat.Rpg
             { reason = "技能参数或游戏时间无效"; return false; }
             Tick(now);
             if (!Alive) { failure = CastReservationFailure.Dead; reason = "玩家已死亡"; return false; }
-            if (GetCooldown(group, now) > 0) { failure = CastReservationFailure.Cooldown; reason = "技能冷却中"; return false; }
+            if (group == sustainedCooldownGroup || GetCooldown(group, now) > 0)
+            { failure = CastReservationFailure.Cooldown; reason = "技能冷却中"; return false; }
             if (Mana < manaCost) { failure = CastReservationFailure.InsufficientMana; reason = "能量不足"; return false; }
             pendingCast = reservation = new CastReservation(this, group, manaCost, cooldownSeconds, now);
             failure = CastReservationFailure.None;
@@ -135,10 +177,23 @@ namespace NarutoVR.SealCombat.Rpg
         public float ShieldCapacity { get; private set; }
         public double ShieldExpiresAt { get; private set; }
 
+        public float ShieldPointsAt(double now) => now < ShieldExpiresAt ? ShieldPoints : 0;
+        public float ShieldTimeRemaining(double now) => ShieldPointsAt(now) > 0 ? (float)(ShieldExpiresAt - now) : 0;
+
+        internal void ExpireShield(double now)
+        {
+            if (ShieldPoints > 0 && ShieldPointsAt(now) == 0)
+            {
+                ClearShield();
+                Revision++;
+            }
+        }
+
         public void SetShield(float capacity, double expiresAt)
         {
             if (!RpgDataRules.InRange(capacity, 0, RpgDataRules.MaximumStat) || !RpgDataRules.Finite(expiresAt) || expiresAt < 0)
                 throw new ArgumentOutOfRangeException(nameof(capacity));
+            if (capacity == 0 || expiresAt <= lastNow) { capacity = 0; expiresAt = 0; }
             if (pendingCast != null) pendingCast.PrepareShield(capacity, expiresAt);
             else
             {
@@ -152,7 +207,7 @@ namespace NarutoVR.SealCombat.Rpg
         public float AbsorbShield(float amount, double now)
         {
             if (CastInProgress || !RpgDataRules.InRange(amount, 0, RpgDataRules.MaximumStat) || !RpgDataRules.Finite(now) || now < 0) return 0;
-            if (now >= ShieldExpiresAt) { ClearShield(); return 0; }
+            ExpireShield(now);
             float absorbed = Math.Min(ShieldPoints, amount);
             ShieldPoints -= absorbed;
             if (ShieldPoints == 0) ClearShield();
@@ -206,6 +261,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!RpgDataRules.InRange(health, 0.001f, MaxHealth) || !RpgDataRules.InRange(mana, 0, MaxMana) || !ValidNow(now))
                 throw new ArgumentOutOfRangeException(nameof(health), "重生数值或时间无效。");
             ClearShield();
+            EndSustainedCost(sustainedCostOwner, now);
             Health = health; Mana = mana; lastNow = now; hasTime = true; regenAfter = now + regenDelay;
             if (clearCooldowns) cooldowns.Clear();
             Revision++;
@@ -218,9 +274,13 @@ namespace NarutoVR.SealCombat.Rpg
             Tick(now);
             var remaining = new List<KeyValuePair<string, float>>();
             foreach (var pair in cooldowns)
-                if (pair.Value > now) remaining.Add(new KeyValuePair<string, float>(pair.Key, (float)(pair.Value - now)));
+                if (pair.Key != sustainedCooldownGroup && pair.Value > now)
+                    remaining.Add(new KeyValuePair<string, float>(pair.Key, (float)(pair.Value - now)));
+            if (sustainedCooldownGroup != null && cooldownOnRelease > 0)
+                remaining.Add(new KeyValuePair<string, float>(sustainedCooldownGroup, cooldownOnRelease));
             remaining.Sort((a, b) => StringComparer.Ordinal.Compare(a.Key, b.Key));
-            return new PlayerVitalsSnapshot(Health, Mana, (float)Math.Max(0, regenAfter - now), remaining);
+            float delay = sustainedCostOwner != null ? regenDelay : (float)Math.Max(0, regenAfter - now);
+            return new PlayerVitalsSnapshot(Health, Mana, delay, remaining);
         }
 
         internal bool RestoreVitals(PlayerVitalsSnapshot snapshot, double now, out string reason)
@@ -231,6 +291,8 @@ namespace NarutoVR.SealCombat.Rpg
             cooldowns.Clear();
             foreach (var pair in snapshot.Cooldowns) cooldowns.Add(pair.Key, now + pair.Value);
             ClearShield();
+            sustainedCostOwner = null;
+            sustainedCooldownGroup = null;
             Health = snapshot.Health;
             Mana = snapshot.Mana;
             regenAfter = now + snapshot.RegenDelayRemaining;

@@ -1,0 +1,119 @@
+source Assets/Scene/Chapter01_Courtyard.unity; test save probe-mvc-flow-c2ac6da9761c45dd8780a3ed79dd8a7c.json
+2026-11-19T04:24:47.6766500+08:00 ready, stage count 20
+2026-11-19T04:24:47.6828527+08:00 stage 0 opening.ROOM_WAKE floor=(-1.50, -0.03, -1.50)
+2026-11-19T04:24:47.6828527+08:00 opening.ROOM_WAKE/entry
+2026-11-19T04:24:47.6998929+08:00 opening.ROOM_WAKE/0 WK01 Listen
+2026-11-19T04:24:50.4962229+08:00 opening.ROOM_WAKE/1 WK02 Listen
+2026-11-19T04:24:54.1119939+08:00 stage 1 opening.ROOM_WRIST floor=(-1.50, -0.03, -1.50)
+2026-11-19T04:24:54.1119939+08:00 opening.ROOM_WRIST/entry
+2026-11-19T04:24:54.1308372+08:00 opening.ROOM_WRIST/0 WR01 Listen
+2026-11-19T04:24:57.2690482+08:00 opening.ROOM_WRIST/1 WR02 OpenWrist
+2026-11-19T04:24:59.8675758+08:00 stage 2 opening.ROOM_MOVE floor=(-1.50, -0.03, -1.50)
+2026-11-19T04:24:59.8675758+08:00 opening.ROOM_MOVE/entry
+2026-11-19T04:24:59.8900390+08:00 opening.ROOM_MOVE/0 MV01 Listen
+2026-11-19T04:25:03.2289349+08:00 opening.ROOM_MOVE/1 MV02 StopAtMarker
+2026-11-19T04:25:03.2423578+08:00 walk 收指停稳区 walk OK (-1.50, -0.03, -1.50) -> (-1.18, -0.03, 0.42) distance=2.05m checkedSteps=6
+2026-11-19T04:25:05.6538747+08:00 stage 3 opening.ROOM_FIRE floor=(-1.18, -0.03, 0.42)
+2026-11-19T04:25:05.6548810+08:00 opening.ROOM_FIRE/entry
+2026-11-19T04:25:05.6644675+08:00 opening.ROOM_FIRE/0 FR01 Listen
+2026-11-19T04:25:08.8112567+08:00 opening.ROOM_FIRE/1 FR02 HitTarget
+2026-11-19T04:25:08.8334853+08:00 paid fireball; synthetic release vector from (-1.07, 1.10, 0.83) toward 练习靶 · 5米 · 可重复练习 (0.00, 1.60, 5.00) range=4.34 mana=100.0->80.0
+2026-11-19T04:25:09.0466372+08:00 skill projectile collision 练习靶 · 5米 · 可重复练习 hitCount=1
+2026-11-19T04:25:11.7969867+08:00 stage 4 opening.ROOM_FIRE2 floor=(-1.18, -0.03, 0.42)
+2026-11-19T04:25:11.7969867+08:00 opening.ROOM_FIRE2/entry
+2026-11-19T04:25:11.8107392+08:00 opening.ROOM_FIRE2/0 FR03 HitTarget
+2026-11-19T04:25:11.8142490+08:00 paid fireball; synthetic release vector from (-0.94, 1.09, 0.77) toward 第二面侧靶 (2.20, 1.60, 5.45) range=5.66 mana=100.0->80.0
+2026-11-19T04:25:12.1242910+08:00 skill projectile collision 第二面侧靶 hitCount=1
+2026-11-19T04:25:14.1019548+08:00 stage 5 opening.ROOM_REST floor=(-1.18, -0.03, 0.42)
+2026-11-19T04:25:14.1019548+08:00 opening.ROOM_REST/entry
+2026-11-19T04:25:14.1138696+08:00 opening.ROOM_REST/0 RS01 RecoverMana
+2026-11-19T04:25:14.1143758+08:00 natural mana recovery starts at 92.98779 / 100
+2026-11-19T04:25:17.1107604+08:00 opening.ROOM_REST/1 RS02 Listen
+2026-11-19T04:25:18.9912688+08:00 stage 6 opening.ROOM_SHIELD floor=(-1.18, -0.03, 0.42)
+2026-11-19T04:25:18.9912688+08:00 opening.ROOM_SHIELD/entry
+2026-11-19T04:25:19.0112260+08:00 opening.ROOM_SHIELD/0 SH01 Listen
+2026-11-19T04:25:21.8310273+08:00 opening.ROOM_SHIELD/1 SH02 AbsorbBolt
+2026-11-19T04:25:21.8406857+08:00 shield cast via DebugCast=True points=100
+2026-11-19T04:25:24.1173107+08:00 stage 7 opening.ROOM_DODGE floor=(-1.18, -0.03, 0.42)
+2026-11-19T04:25:24.1173107+08:00 opening.ROOM_DODGE/entry
+2026-11-19T04:25:24.1265294+08:00 opening.ROOM_DODGE/0 DG01 Listen
+2026-11-19T04:25:27.2807245+08:00 opening.ROOM_DODGE/1 DG02 Retreat
+2026-11-19T04:25:30.1389802+08:00 stage 8 opening.ROOM_FIGHT floor=(-1.18, -0.03, -0.38)
+2026-11-19T04:25:30.1389802+08:00 door opened 校靶内闸 after opening.ROOM_DODGE
+2026-11-19T04:25:30.1405045+08:00 walk 战斗区域 · 仅检测玩家脚下位置 walk OK (-1.18, -0.03, -0.38) -> (-1.18, -0.03, 19.14) distance=19.52m checkedSteps=61
+2026-11-19T04:25:30.1415131+08:00 opening.ROOM_FIGHT/entry
+2026-11-19T04:25:30.2168542+08:00 opening.ROOM_FIGHT/0 FT01 Listen
+2026-11-19T04:25:33.4253358+08:00 opening.ROOM_FIGHT/1 FT02 ClearRoom
+2026-11-19T04:25:33.4258466+08:00 live encounter enemy CanJiOu_Room(Clone) at (-0.99, -0.03, 20.71); submitting synthetic combat hit to EnemyObj.ReceiveHit
+2026-11-19T04:25:33.4393453+08:00 encounter clear
+2026-11-19T04:25:35.4724457+08:00 stage 9 opening.ROOM_EXIT floor=(-1.18, -0.03, 19.14)
+2026-11-19T04:25:35.4724457+08:00 door opened 试炼室外门 after opening.ROOM_FIGHT
+2026-11-19T04:25:35.4724457+08:00 opening.ROOM_EXIT/entry
+2026-11-19T04:25:35.4821764+08:00 opening.ROOM_EXIT/0 EX01 Listen
+2026-11-19T04:25:38.4243244+08:00 opening.ROOM_EXIT/1 EX02 ReachArea
+2026-11-19T04:25:38.4278668+08:00 walk 跨出外门 walk OK (-1.18, -0.03, 19.14) -> (-0.22, -0.03, 34.82) distance=16.08m checkedSteps=49
+2026-11-19T04:25:40.9706164+08:00 stage 10 opening.OUTLOOK floor=(-0.22, -0.03, 34.82)
+2026-11-19T04:25:40.9706164+08:00 opening.OUTLOOK/entry
+2026-11-19T04:25:40.9828385+08:00 opening.OUTLOOK/0 OU01 Listen
+2026-11-19T04:25:44.6907871+08:00 stage 11 opening.PATH floor=(-0.22, -0.03, 34.82)
+2026-11-19T04:25:44.6923237+08:00 walk 进入折尺廊 walk OK (-0.22, -0.03, 34.82) -> (2.98, -0.03, 35.46) distance=3.47m checkedSteps=10
+2026-11-19T04:25:44.6923237+08:00 opening.PATH/entry
+2026-11-19T04:25:44.7009471+08:00 opening.PATH/0 OU02 Listen
+2026-11-19T04:25:47.1309178+08:00 stage 12 opening.PUZZLE_INTRO floor=(2.98, -0.03, 35.46)
+2026-11-19T04:25:47.1319285+08:00 walk 进入校规台 walk OK (2.98, -0.03, 35.46) -> (7.14, -0.03, 36.42) distance=4.56m checkedSteps=13
+2026-11-19T04:25:47.1319285+08:00 opening.PUZZLE_INTRO/entry
+2026-11-19T04:25:47.1420082+08:00 opening.PUZZLE_INTRO/0 PZ01 Listen
+2026-11-19T04:25:47.1440159+08:00 approach 带动内盘的外圆盘 walk OK (7.14, -0.03, 36.42) -> (8.74, -0.03, 37.70) distance=2.13m checkedSteps=5
+2026-11-19T04:25:47.4168494+08:00 puzzle solved by physical turn
+2026-11-19T04:25:49.7688433+08:00 stage 13 opening.PUZZLE_SOLVED floor=(8.74, -0.03, 37.70)
+2026-11-19T04:25:49.7688433+08:00 opening.PUZZLE_SOLVED/entry
+2026-11-19T04:25:49.7848444+08:00 opening.PUZZLE_SOLVED/0 PZ02 Listen
+2026-11-19T04:25:52.2111811+08:00 stage 14 opening.LEAF_PICKUP floor=(8.74, -0.03, 37.70)
+2026-11-19T04:25:52.2111811+08:00 opening.LEAF_PICKUP/entry
+2026-11-19T04:25:52.2215827+08:00 opening.LEAF_PICKUP/0 LF01 CollectLeaf
+2026-11-19T04:25:52.2215827+08:00 leaf collected
+2026-11-19T04:25:55.0902408+08:00 stage 15 opening.LEAF_SEAT floor=(8.74, -0.03, 37.70)
+2026-11-19T04:25:55.0902408+08:00 opening.LEAF_SEAT/entry
+2026-11-19T04:25:55.1018203+08:00 opening.LEAF_SEAT/0 LF02 InsertLeaf
+2026-11-19T04:25:55.1108933+08:00 tracked wrist accepted release, production SnapZone Advance before visual tracking disappears; points=3
+2026-11-19T04:25:55.1114209+08:00 slot completed points=3
+2026-11-19T04:25:58.0744922+08:00 stage 16 opening.GATE_CHECK floor=(8.74, -0.03, 37.70)
+2026-11-19T04:25:58.0744922+08:00 opening.GATE_CHECK/entry
+2026-11-19T04:25:58.0837169+08:00 opening.GATE_CHECK/0 LF03 VerifyWrist
+2026-11-19T04:25:58.0852223+08:00 approach 腕匣校验盘 walk OK (8.74, -0.03, 37.70) -> (12.90, -0.03, 34.18) distance=6.37m checkedSteps=17
+2026-11-19T04:26:00.6343643+08:00 stage 17 opening.GATE_OPEN floor=(12.90, -0.03, 34.18)
+2026-11-19T04:26:00.6343643+08:00 door opened 校验闸 after opening.GATE_CHECK
+2026-11-19T04:26:00.6343643+08:00 opening.GATE_OPEN/entry
+2026-11-19T04:26:00.6455114+08:00 opening.GATE_OPEN/0 LF04 Listen
+2026-11-19T04:26:03.2738261+08:00 stage 18 opening.WATER_PATH floor=(12.90, -0.03, 34.18)
+2026-11-19T04:26:03.2753342+08:00 walk 进入量水道 walk OK (12.90, -0.03, 34.18) -> (14.50, -0.03, 34.50) distance=2.19m checkedSteps=6
+2026-11-19T04:26:03.2753342+08:00 opening.WATER_PATH/entry
+2026-11-19T04:26:03.2865117+08:00 opening.WATER_PATH/0 WA01 Listen
+2026-11-19T04:26:06.6545833+08:00 stage 19 opening.CHAPTER_END floor=(14.50, -0.03, 34.50)
+2026-11-19T04:26:06.6571271+08:00 walk 抵达测候台 walk OK (14.50, -0.03, 34.50) -> (15.46, -0.03, 24.26) distance=10.64m checkedSteps=32
+2026-11-19T04:26:06.6581318+08:00 opening.CHAPTER_END/entry
+2026-11-19T04:26:06.6695974+08:00 opening.CHAPTER_END/0 EN01 Listen
+2026-11-19T04:26:10.0598330+08:00 walk opening.bend authored=(6.60, -0.03, 38.00) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.canal authored=(17.35, -0.03, 32.80) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.canal2 authored=(17.35, -0.03, 29.10) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.canal3 authored=(17.35, -0.03, 25.20) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.court authored=(7.28, -0.03, 37.90) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.courtyard authored=(1.40, -0.03, 38.00) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.end authored=(17.40, -0.03, 22.28) 
+2026-11-19T04:26:10.0603781+08:00 walk opening.gallery authored=(3.05, -0.03, 38.00) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.gallery2 authored=(4.00, -0.03, 38.00) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.gallery3 authored=(5.00, -0.03, 38.00) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.outside authored=(0.00, -0.03, 35.35) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.pass authored=(14.75, -0.03, 35.35) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.table authored=(8.67, -0.03, 37.94) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.table.exit authored=(8.68, -0.03, 36.08) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.turn authored=(5.85, -0.03, 38.00) 
+2026-11-19T04:26:10.0613842+08:00 walk opening.verify authored=(12.76, -0.03, 34.53) 
+2026-11-19T04:26:10.0625222+08:00 walk reachable navigation 86/86 landingOK=86; named missing=
+2026-11-19T04:26:10.0635204+08:00 walk task MV02 = (-0.90, 1.00, 1.25)
+2026-11-19T04:26:10.0635204+08:00 walk entry opening.PATH = (8.30, 1.00, 38.00)
+2026-11-19T04:26:10.0635204+08:00 walk entry opening.PUZZLE_INTRO = (10.50, 1.00, 38.00)
+2026-11-19T04:26:10.0635204+08:00 walk entry opening.WATER_PATH = (17.36, 1.00, 27.50)
+2026-11-19T04:26:10.0635204+08:00 walk entry opening.CHAPTER_END = (17.35, 1.00, 21.90)
+2026-11-19T04:26:10.0635204+08:00 walk final physically reachable in authored nav graph=True final=opening.end
+2026-11-19T04:26:10.0660700+08:00 PASS All 20 stages naturally completed, final save restored; checkpoint opening.end, completed=20, activated leaf=leaf.fangyuan

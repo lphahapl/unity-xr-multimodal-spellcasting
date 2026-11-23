@@ -32,7 +32,9 @@ namespace NarutoVR.SealCombat
             var quad = Resources.GetBuiltinResource<Mesh>("Quad.fbx");
             if (!material || !quad) return null;
             var root = new GameObject("护盾反馈 · 度纹", typeof(MeshFilter), typeof(MeshRenderer));
-            SceneManager.MoveGameObjectToScene(root, owner.scene);
+            var scene = owner.scene;
+            if (scene.IsValid() && scene.isLoaded && root.scene != scene)
+                SceneManager.MoveGameObjectToScene(root, scene);
             root.GetComponent<MeshFilter>().sharedMesh = quad;
             var renderer = root.GetComponent<MeshRenderer>();
             renderer.sharedMaterial = material;

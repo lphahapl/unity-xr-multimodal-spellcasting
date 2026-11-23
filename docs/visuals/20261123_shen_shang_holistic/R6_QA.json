@@ -1,0 +1,1306 @@
+{
+  "round": "R6",
+  "blenderSHA256": "ee01cb99b24ae44f685c493ec9004b32440d7c74fa2413c1dc66ecd7d7f12a32",
+  "webSHA256": "cc0dffbf07d2e7302efc20415bed027dc3bf462430b2b12c7029c05f86fe50d7",
+  "triangles": 1072817,
+  "meshes": 72,
+  "glbValidation": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 24,
+    "numHints": 0,
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/31/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 675x250.",
+        "severity": 2,
+        "pointer": "/images/1"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 660x250.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/6"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1440x420.",
+        "severity": 2,
+        "pointer": "/images/7"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1440x420.",
+        "severity": 2,
+        "pointer": "/images/8"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x404.",
+        "severity": 2,
+        "pointer": "/images/9"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 2016x530.",
+        "severity": 2,
+        "pointer": "/images/10"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1170x1140.",
+        "severity": 2,
+        "pointer": "/images/11"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1500x840.",
+        "severity": 2,
+        "pointer": "/images/12"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1500x840.",
+        "severity": 2,
+        "pointer": "/images/13"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/14"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 3072x3072.",
+        "severity": 2,
+        "pointer": "/images/15"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/17"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/18"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/19"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/24"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 824x576.",
+        "severity": 2,
+        "pointer": "/images/27"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 824x576.",
+        "severity": 2,
+        "pointer": "/images/28"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x617.",
+        "severity": 2,
+        "pointer": "/images/29"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1792x720.",
+        "severity": 2,
+        "pointer": "/images/30"
+      }
+    ],
+    "truncated": false
+  },
+  "workbench": {
+    "label": "面部对稿 R6",
+    "file": "ShenShang_FaceMatch_R6.glb",
+    "status": "0 根骨骼 · 0 个蒙皮网格",
+    "audit": "原始顶点\n0\n未加权\n0\n权重和异常\n0\n超过四骨\n0\n无效权重或引用\n0\n\n统计原文件蒙皮。热图显示浏览器使用的前四项影响，权重和误差阈值为 0.001。",
+    "deep": "http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r6",
+    "visibility": "hidden",
+    "versionCount": 29
+  },
+  "publicationDefault": "ShenShang_Archive08.glb",
+  "coldModelQA": {
+    "source_sha256": "EE01CB99B24AE44F685C493EC9004B32440D7C74FA2413C1DC66ECD7D7F12A32",
+    "web_sha256": "cc0dffbf07d2e7302efc20415bed027dc3bf462430b2b12c7029c05f86fe50d7",
+    "source_glb_for_review": "cc0dffbf07d2e7302efc20415bed027dc3bf462430b2b12c7029c05f86fe50d7",
+    "review_zip_sha256": "a4acc9603371b32d00f33402e048b3b1f2ac6ceb997a2e386084c87d18d9ade8",
+    "review_zip_bytes": 2469140,
+    "triangles": 1072817,
+    "meshes": 72,
+    "embedded_textures": 31,
+    "khronos": {
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 24,
+      "numHints": 0
+    },
+    "review_assets": {
+      "Stubble · R2 · Upper lip · outward slant": 373,
+      "Stubble · R2 · Mouth corners · scattered": 38,
+      "Stubble · R2 · Under lip · central tuft": 48,
+      "Stubble · R2 · Chin · varied growth": 498,
+      "Stubble · R2 · Mandibular flank · scattered fine growth": 98
+    },
+    "current_visible_strands": 6528,
+    "cold_geometry": {
+      "V2_HandMesh.L": {
+        "source_count": 1409,
+        "cold_split_vertices": 1808,
+        "maximum_nearest_vertex_displacement_mm": 0.00012377834115800374
+      },
+      "V2_HandMesh.R": {
+        "source_count": 1409,
+        "cold_split_vertices": 1808,
+        "maximum_nearest_vertex_displacement_mm": 0.00012401636318651815
+      },
+      "Zhunwang_Body": {
+        "source_count": 4489,
+        "cold_split_vertices": 9872,
+        "maximum_nearest_vertex_displacement_mm": 0.000124281848353239
+      },
+      "Upper wet margin.R": {
+        "source_count": 752,
+        "cold_split_vertices": 866,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Upper wet margin.L": {
+        "source_count": 752,
+        "cold_split_vertices": 866,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "ShenShang_Head": {
+        "source_count": 72261,
+        "cold_split_vertices": 90759,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Eye.R": {
+        "source_count": 4866,
+        "cold_split_vertices": 5416,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Eye.L": {
+        "source_count": 4866,
+        "cold_split_vertices": 5416,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      }
+    },
+    "report_type": "visual review candidate"
+  },
+  "transportModelQA": {
+    "round": "R6",
+    "source_glb": "D:\\Temp\\ShenHolistic\\WebR6\\ShenShang_FaceMatch_R6.glb",
+    "source_glb_sha256": "cc0dffbf07d2e7302efc20415bed027dc3bf462430b2b12c7029c05f86fe50d7",
+    "source_blend_sha256": "EE01CB99B24AE44F685C493EC9004B32440D7C74FA2413C1DC66ECD7D7F12A32",
+    "review_glb": "D:\\Temp\\ShenHolistic\\ReviewPack\\R6\\ShenShang_R6_Review.glb",
+    "glb_bytes": 2363104,
+    "glb_sha256": "0ca2ab8e1f16a83b9fa3ca5030bc6d8a7426104359e362483b512b5d5af21f19",
+    "archive": "D:\\Temp\\ShenHolistic\\ReviewPack\\R6\\ShenShang_R6_Review.zip",
+    "zip_bytes": 2469140,
+    "zip_sha256": "a4acc9603371b32d00f33402e048b3b1f2ac6ceb997a2e386084c87d18d9ade8",
+    "images": [
+      {
+        "name": "Web_Wardrobe_albedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          800,
+          800
+        ],
+        "bytes": 82984
+      },
+      {
+        "name": "Brow_Left",
+        "original": [
+          675,
+          250
+        ],
+        "review": [
+          675,
+          250
+        ],
+        "bytes": 33291,
+        "unaltered": true
+      },
+      {
+        "name": "Brow_Right",
+        "original": [
+          660,
+          250
+        ],
+        "review": [
+          660,
+          250
+        ],
+        "bytes": 31630,
+        "unaltered": true
+      },
+      {
+        "name": "Web_Collar_albedo",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 42255
+      },
+      {
+        "name": "LockFiber_1",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 6041
+      },
+      {
+        "name": "LockFiber_2",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 5665
+      },
+      {
+        "name": "LockFiber_3",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 5549
+      },
+      {
+        "name": "R5_WhispsNormal",
+        "original": [
+          1440,
+          420
+        ],
+        "review": [
+          256,
+          75
+        ],
+        "bytes": 674
+      },
+      {
+        "name": "R5_Whisps",
+        "original": [
+          1440,
+          420
+        ],
+        "review": [
+          256,
+          75
+        ],
+        "bytes": 8923
+      },
+      {
+        "name": "R5_CrownNormal",
+        "original": [
+          1536,
+          404
+        ],
+        "review": [
+          256,
+          67
+        ],
+        "bytes": 541
+      },
+      {
+        "name": "R5_Crown",
+        "original": [
+          2016,
+          530
+        ],
+        "review": [
+          256,
+          67
+        ],
+        "bytes": 10013
+      },
+      {
+        "name": "R5_Edges",
+        "original": [
+          1170,
+          1140
+        ],
+        "review": [
+          256,
+          249
+        ],
+        "bytes": 19397
+      },
+      {
+        "name": "DarkLockNormal",
+        "original": [
+          1500,
+          840
+        ],
+        "review": [
+          256,
+          143
+        ],
+        "bytes": 784
+      },
+      {
+        "name": "DarkLock",
+        "original": [
+          1500,
+          840
+        ],
+        "review": [
+          256,
+          143
+        ],
+        "bytes": 15856
+      },
+      {
+        "name": "Web_face_NORMAL",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 4219
+      },
+      {
+        "name": "R6_FullBody_Face_skin",
+        "original": [
+          3072,
+          3072
+        ],
+        "review": [
+          1536,
+          1536
+        ],
+        "bytes": 112586
+      },
+      {
+        "name": "Web_face_ROUGHNESS",
+        "original": [
+          1024,
+          1024
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 4244
+      },
+      {
+        "name": "R2_TempleUnderlay",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 7443
+      },
+      {
+        "name": "TempleFibers",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 8410
+      },
+      {
+        "name": "NapeFibers",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 9210
+      },
+      {
+        "name": "LeftHandAlbedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 29397
+      },
+      {
+        "name": "LeftCuffAlbedo",
+        "original": [
+          512,
+          256
+        ],
+        "review": [
+          256,
+          128
+        ],
+        "bytes": 7062
+      },
+      {
+        "name": "RightHandAlbedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 27573
+      },
+      {
+        "name": "RightCuffAlbedo",
+        "original": [
+          512,
+          256
+        ],
+        "review": [
+          256,
+          128
+        ],
+        "bytes": 7061
+      },
+      {
+        "name": "Zhunwang_Normal",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 30203
+      },
+      {
+        "name": "Zhunwang_BaseColor",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 18455
+      },
+      {
+        "name": "Zhunwang_Metallic-Zhunwang_Roughness",
+        "original": [
+          1024,
+          1024
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 21017
+      },
+      {
+        "name": "R5_BunNormal",
+        "original": [
+          824,
+          576
+        ],
+        "review": [
+          256,
+          179
+        ],
+        "bytes": 2149
+      },
+      {
+        "name": "R5_Bun",
+        "original": [
+          824,
+          576
+        ],
+        "review": [
+          256,
+          179
+        ],
+        "bytes": 5468
+      },
+      {
+        "name": "R5_CapNormal",
+        "original": [
+          1536,
+          617
+        ],
+        "review": [
+          256,
+          103
+        ],
+        "bytes": 620
+      },
+      {
+        "name": "R5_Cap",
+        "original": [
+          1792,
+          720
+        ],
+        "review": [
+          256,
+          103
+        ],
+        "bytes": 8968
+      }
+    ],
+    "triangles": {
+      "before": 1072817,
+      "after": 432687,
+      "groups": {
+        "Apron": [
+          26992,
+          4588,
+          "surface"
+        ],
+        "Belt tools": [
+          5376,
+          913,
+          "surface"
+        ],
+        "Boot.L": [
+          14976,
+          2544,
+          "surface"
+        ],
+        "Boot.R": [
+          14976,
+          2544,
+          "surface"
+        ],
+        "Eye.L": [
+          9728,
+          9728,
+          "surface"
+        ],
+        "Eye.R": [
+          9728,
+          9728,
+          "surface"
+        ],
+        "Forearm.L": [
+          2784,
+          472,
+          "surface"
+        ],
+        "Forearm.R": [
+          2784,
+          472,
+          "surface"
+        ],
+        "G.独立眉毛.Left": [
+          31380,
+          31380,
+          "surface"
+        ],
+        "G.独立眉毛.Right": [
+          30300,
+          30300,
+          "surface"
+        ],
+        "G.眉底毛根.Left": [
+          13500,
+          13500,
+          "surface"
+        ],
+        "G.眉底毛根.Right": [
+          13200,
+          13200,
+          "surface"
+        ],
+        "Gaiter.L": [
+          10584,
+          1799,
+          "surface"
+        ],
+        "Gaiter.R": [
+          10584,
+          1798,
+          "surface"
+        ],
+        "Inner canthus.L": [
+          480,
+          480,
+          "surface"
+        ],
+        "Inner canthus.R": [
+          480,
+          480,
+          "surface"
+        ],
+        "Jacket": [
+          25324,
+          4304,
+          "surface"
+        ],
+        "Jacket closures": [
+          4972,
+          845,
+          "surface"
+        ],
+        "Jacket collar": [
+          43784,
+          7880,
+          "surface"
+        ],
+        "Lower lashes.L": [
+          980,
+          980,
+          "surface"
+        ],
+        "Lower lashes.R": [
+          980,
+          980,
+          "surface"
+        ],
+        "Lower wet margin.L": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "Lower wet margin.R": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "R2 · 枕下三层交错的垂绺": [
+          4224,
+          2955,
+          "surface"
+        ],
+        "R2 · 梳向后髻的蓬松长发束": [
+          3328,
+          2328,
+          "surface"
+        ],
+        "R2 · 浮松的小束和发梢": [
+          25636,
+          13060,
+          "strand"
+        ],
+        "R2 · 额前短绺及耳前薄鬓": [
+          2240,
+          1567,
+          "surface"
+        ],
+        "R3 · 冠前交错走向的细发束": [
+          14716,
+          7184,
+          "strand"
+        ],
+        "R3 · 耳前两侧疏落的自然鬓发": [
+          2964,
+          2074,
+          "surface"
+        ],
+        "R3 · 额缘细绒与生长断续": [
+          20332,
+          14231,
+          "surface"
+        ],
+        "R4 · 成组分开的额绺、鬓丝与颈后松发": [
+          51804,
+          35064,
+          "surface"
+        ],
+        "R4 · 耳鬓与枕下交错的细绺": [
+          4320,
+          734,
+          "surface"
+        ],
+        "R4 · 高低交错的额冠与两鬓实束": [
+          13860,
+          2356,
+          "surface"
+        ],
+        "R5 Lower margin roll.L": [
+          2300,
+          390,
+          "surface"
+        ],
+        "R5 Lower margin roll.R": [
+          2316,
+          392,
+          "surface"
+        ],
+        "R5 Upper margin roll.L": [
+          2332,
+          396,
+          "surface"
+        ],
+        "R5 Upper margin roll.R": [
+          2348,
+          398,
+          "surface"
+        ],
+        "R5 · 枕鬓弧面上的原画细发": [
+          6336,
+          1076,
+          "surface"
+        ],
+        "R6 · 太阳穴耳前三角与枕下分层实发": [
+          15228,
+          2587,
+          "surface"
+        ],
+        "ShenShang_Head": [
+          144320,
+          54840,
+          "surface"
+        ],
+        "Sleeve.L": [
+          13786,
+          2343,
+          "surface"
+        ],
+        "Sleeve.R": [
+          13786,
+          2343,
+          "surface"
+        ],
+        "Stubble · R2 · Chin · varied growth": [
+          13944,
+          8542,
+          "strand"
+        ],
+        "Stubble · R2 · Mandibular flank · scattered fine growth": [
+          2744,
+          1478,
+          "strand"
+        ],
+        "Stubble · R2 · Mouth corners · scattered": [
+          1064,
+          594,
+          "strand"
+        ],
+        "Stubble · R2 · Under lip · central tuft": [
+          1344,
+          878,
+          "strand"
+        ],
+        "Stubble · R2 · Upper lip · outward slant": [
+          10444,
+          5998,
+          "strand"
+        ],
+        "Temple and nape cards": [
+          4248,
+          2972,
+          "surface"
+        ],
+        "Trousers": [
+          23436,
+          3983,
+          "surface"
+        ],
+        "Undertunic": [
+          26696,
+          4538,
+          "surface"
+        ],
+        "Upper lashes.L": [
+          2800,
+          2800,
+          "surface"
+        ],
+        "Upper lashes.R": [
+          2660,
+          2660,
+          "surface"
+        ],
+        "Upper wet margin.L": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "Upper wet margin.R": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "V2_HandMesh.L": [
+          2814,
+          2363,
+          "surface"
+        ],
+        "V2_HandMesh.R": [
+          2814,
+          2362,
+          "surface"
+        ],
+        "Waist sash": [
+          59622,
+          6558,
+          "surface"
+        ],
+        "Zhunwang readout": [
+          7981,
+          1995,
+          "surface"
+        ],
+        "Zhunwang_Body": [
+          9046,
+          2260,
+          "surface"
+        ],
+        "Zhunwang_ButtonCap": [
+          204,
+          204,
+          "surface"
+        ],
+        "发髻 · 非圆对称盘卷": [
+          5332,
+          2345,
+          "surface"
+        ],
+        "后梳细丝与分束纹理": [
+          155520,
+          34978,
+          "strand"
+        ],
+        "木簪 · 后斜贯髻": [
+          1976,
+          790,
+          "surface"
+        ],
+        "束发主体 · 曲面与羽化发际": [
+          15744,
+          6926,
+          "surface"
+        ],
+        "浮丝 · 冠顶与鬓侧": [
+          19872,
+          9708,
+          "strand"
+        ],
+        "盘髻旋丝": [
+          31080,
+          16284,
+          "strand"
+        ],
+        "细发际 · 随生长方向": [
+          7072,
+          2422,
+          "strand"
+        ],
+        "耳前鬓毛 · 向下渐疏": [
+          23552,
+          11152,
+          "strand"
+        ],
+        "颈后松发 · 交错垂落": [
+          7360,
+          3680,
+          "strand"
+        ],
+        "额前主束中的独立长丝": [
+          5832,
+          2282,
+          "strand"
+        ],
+        "额角低垂散丝": [
+          840,
+          420,
+          "strand"
+        ],
+        "髻根的深色绑绳": [
+          708,
+          282,
+          "surface"
+        ]
+      }
+    },
+    "cold_read": {
+      "mesh_objects": 72,
+      "bounds_min_m": [
+        -0.6266683340072632,
+        -0.164450004696846,
+        -3.0928629712434486e-05
+      ],
+      "bounds_max_m": [
+        0.6267396211624146,
+        0.17243027687072754,
+        1.7385640144348145
+      ],
+      "height_m": 1.738594889640808,
+      "checked_parts": {
+        "ShenShang_Head": "ShenShang_Head",
+        "Eye.L": "Eye.L",
+        "Eye.R": "Eye.R",
+        "G.独立眉毛.Left": "G.独立眉毛.Left",
+        "G.独立眉毛.Right": "G.独立眉毛.Right",
+        "Boot.L": "Boot.L",
+        "Boot.R": "Boot.R",
+        "V2_HandMesh.L": "V2_HandMesh.L",
+        "V2_HandMesh.R": "V2_HandMesh.R",
+        "Zhunwang_Body": "Zhunwang_Body"
+      },
+      "embedded_images": [
+        [
+          "Brow_Left",
+          [
+            675,
+            250
+          ],
+          true
+        ],
+        [
+          "Brow_Right",
+          [
+            660,
+            250
+          ],
+          true
+        ],
+        [
+          "DarkLock",
+          [
+            256,
+            143
+          ],
+          true
+        ],
+        [
+          "DarkLockNormal",
+          [
+            256,
+            143
+          ],
+          true
+        ],
+        [
+          "LeftCuffAlbedo",
+          [
+            256,
+            128
+          ],
+          true
+        ],
+        [
+          "LeftHandAlbedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "LockFiber_1",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "LockFiber_2",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "LockFiber_3",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "NapeFibers",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "R2_TempleUnderlay",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "R5_Bun",
+          [
+            256,
+            179
+          ],
+          true
+        ],
+        [
+          "R5_BunNormal",
+          [
+            256,
+            179
+          ],
+          true
+        ],
+        [
+          "R5_Cap",
+          [
+            256,
+            103
+          ],
+          true
+        ],
+        [
+          "R5_CapNormal",
+          [
+            256,
+            103
+          ],
+          true
+        ],
+        [
+          "R5_Crown",
+          [
+            256,
+            67
+          ],
+          true
+        ],
+        [
+          "R5_CrownNormal",
+          [
+            256,
+            67
+          ],
+          true
+        ],
+        [
+          "R5_Edges",
+          [
+            256,
+            249
+          ],
+          true
+        ],
+        [
+          "R5_Whisps",
+          [
+            256,
+            75
+          ],
+          true
+        ],
+        [
+          "R5_WhispsNormal",
+          [
+            256,
+            75
+          ],
+          true
+        ],
+        [
+          "R6_FullBody_Face_skin",
+          [
+            1536,
+            1536
+          ],
+          true
+        ],
+        [
+          "RightCuffAlbedo",
+          [
+            256,
+            128
+          ],
+          true
+        ],
+        [
+          "RightHandAlbedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "TempleFibers",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "Web_Collar_albedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "Web_face_NORMAL",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "Web_face_ROUGHNESS",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Web_Wardrobe_albedo",
+          [
+            800,
+            800
+          ],
+          true
+        ],
+        [
+          "Zhunwang_BaseColor",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Zhunwang_Metallic-Zhunwang_Roughness",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Zhunwang_Normal",
+          [
+            256,
+            256
+          ],
+          true
+        ]
+      ],
+      "triangles": 432687
+    },
+    "review_preview": "00_HeadPreview.jpg",
+    "preview_inputs": "decoded archive GLB only; original lights, cameras and color management",
+    "full_brow_triangles": {
+      "G.独立眉毛.Left": [
+        31380,
+        31380
+      ],
+      "G.独立眉毛.Right": [
+        30300,
+        30300
+      ],
+      "G.眉底毛根.Left": [
+        13500,
+        13500
+      ],
+      "G.眉底毛根.Right": [
+        13200,
+        13200
+      ]
+    },
+    "matching_decoded_rgba": {
+      "Brow_Left": [
+        [
+          250,
+          675,
+          4
+        ],
+        "d41db641427ecf95711bdfe1edf547c75f523bab655f16c3fd6fb4f84be49dc0"
+      ],
+      "Brow_Right": [
+        [
+          250,
+          660,
+          4
+        ],
+        "a306fc0d100775ca651c04254aa6dc9b756e9b7be8892adaaba308f342674480"
+      ]
+    }
+  }
+}

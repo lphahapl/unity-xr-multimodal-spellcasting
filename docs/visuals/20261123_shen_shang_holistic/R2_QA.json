@@ -1,0 +1,982 @@
+{
+  "round": "R2",
+  "blenderSHA256": "299244a8fbe9ba410e493d5325c1fe5fb1337957d4e86ba84b3eb3f10150cba4",
+  "webSHA256": "76ad612b92e94c35ed61c41c3aff27b33a5e06bcc7a8a6c2f88cdf6e6079e6ca",
+  "triangles": 902097,
+  "meshes": 60,
+  "glbValidation": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 14,
+    "numHints": 0,
+    "messages": [
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 900x220.",
+        "severity": 2,
+        "pointer": "/images/1"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 900x220.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 208x576.",
+        "severity": 2,
+        "pointer": "/images/6"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/7"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 3072x3072.",
+        "severity": 2,
+        "pointer": "/images/8"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/10"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/11"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 192x550.",
+        "severity": 2,
+        "pointer": "/images/12"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1536x1536.",
+        "severity": 2,
+        "pointer": "/images/17"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1240x896.",
+        "severity": 2,
+        "pointer": "/images/20"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 2048x775.",
+        "severity": 2,
+        "pointer": "/images/21"
+      }
+    ],
+    "truncated": false
+  },
+  "workbench": {
+    "label": "面部对稿 R2",
+    "file": "ShenShang_FaceMatch_R2.glb",
+    "status": "0 根骨骼 · 0 个蒙皮网格",
+    "audit": "原始顶点\n0\n未加权\n0\n权重和异常\n0\n超过四骨\n0\n无效权重或引用\n0\n\n统计原文件蒙皮。热图显示浏览器使用的前四项影响，权重和误差阈值为 0.001。",
+    "deep": "http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r2",
+    "visibility": "hidden",
+    "versionCount": 25
+  },
+  "publicationDefault": "ShenShang_Archive08.glb",
+  "coldModelQA": {
+    "name": "R2",
+    "kind": "internal review candidate",
+    "source_sha256": "299244A8FBE9BA410E493D5325C1FE5FB1337957D4E86BA84B3EB3F10150CBA4",
+    "web_sha256": "76ad612b92e94c35ed61c41c3aff27b33a5e06bcc7a8a6c2f88cdf6e6079e6ca",
+    "size": 40176460,
+    "tris": 902097,
+    "meshes": 60,
+    "primitives": 82,
+    "embedded_images": 22,
+    "khronos_issues": {
+      "numErrors": 0,
+      "numWarnings": 0,
+      "numInfos": 14,
+      "numHints": 0
+    },
+    "static_skin_count": 0,
+    "native_anim_count": 0,
+    "evaluated_geometry_to_cold_web_mm": {
+      "V2_HandMesh.L": {
+        "source_count": 1409,
+        "cold_split_vertices": 1808,
+        "maximum_nearest_vertex_displacement_mm": 0.00012377834115800374
+      },
+      "V2_HandMesh.R": {
+        "source_count": 1409,
+        "cold_split_vertices": 1808,
+        "maximum_nearest_vertex_displacement_mm": 0.00012401636318651815
+      },
+      "Zhunwang_Body": {
+        "source_count": 4489,
+        "cold_split_vertices": 9872,
+        "maximum_nearest_vertex_displacement_mm": 0.000124281848353239
+      },
+      "Upper wet margin.R": {
+        "source_count": 752,
+        "cold_split_vertices": 866,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Upper wet margin.L": {
+        "source_count": 752,
+        "cold_split_vertices": 866,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "ShenShang_Head": {
+        "source_count": 72261,
+        "cold_split_vertices": 90761,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Eye.R": {
+        "source_count": 4866,
+        "cold_split_vertices": 5416,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      },
+      "Eye.L": {
+        "source_count": 4866,
+        "cold_split_vertices": 5416,
+        "maximum_nearest_vertex_displacement_mm": 0.0
+      }
+    },
+    "visible_source_strands": {
+      "R2 · 浮松的小束和发梢": 461,
+      "Stubble · R2 · Upper lip · outward slant": 373,
+      "Stubble · R2 · Mouth corners · scattered": 38,
+      "Stubble · R2 · Under lip · central tuft": 48,
+      "Stubble · R2 · Chin · varied growth": 498,
+      "Stubble · R2 · Mandibular flank · scattered fine growth": 98
+    },
+    "sum_visible_strands_all_regions": 4957,
+    "groom_skin_images": [
+      "LockFiber_1",
+      "LockFiber_2",
+      "LockFiber_3",
+      "Web_face_NORMAL",
+      "Web_J5_Eyelids_J2_Jaw_skin",
+      "Web_face_ROUGHNESS",
+      "R2_TempleUnderlay",
+      "TempleFibers",
+      "NapeFibers",
+      "CoiledFibers",
+      "R2_GrowthMargin"
+    ]
+  },
+  "transportModelQA": {
+    "round": "R2",
+    "source_glb": "D:\\Temp\\ShenHolistic\\WebR2\\ShenShang_FaceMatch_R2.glb",
+    "source_glb_sha256": "76ad612b92e94c35ed61c41c3aff27b33a5e06bcc7a8a6c2f88cdf6e6079e6ca",
+    "source_blend_sha256": "299244A8FBE9BA410E493D5325C1FE5FB1337957D4E86BA84B3EB3F10150CBA4",
+    "review_glb": "D:\\Temp\\ShenHolistic\\ReviewPack\\R2\\ShenShang_R2_Review.glb",
+    "glb_bytes": 1912808,
+    "glb_sha256": "963a6f5c8a7200e2a89cd68091efaa124489a522ca74f32d81421b1d92bac050",
+    "archive": "D:\\Temp\\ShenHolistic\\ReviewPack\\R2\\ShenShang_R2_Review.zip",
+    "zip_bytes": 1802468,
+    "zip_sha256": "1389cda760d27f1d89408c85cec0af4110198d0b2cc4cf6afdb91ccea7b4a299",
+    "images": [
+      {
+        "name": "Web_Wardrobe_albedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          800,
+          800
+        ],
+        "bytes": 82984
+      },
+      {
+        "name": "I2Brow_Left",
+        "original": [
+          900,
+          220
+        ],
+        "review": [
+          384,
+          94
+        ],
+        "bytes": 5790
+      },
+      {
+        "name": "I2Brow_Right",
+        "original": [
+          900,
+          220
+        ],
+        "review": [
+          384,
+          94
+        ],
+        "bytes": 5927
+      },
+      {
+        "name": "Web_Collar_albedo",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 42255
+      },
+      {
+        "name": "LockFiber_1",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 6041
+      },
+      {
+        "name": "LockFiber_2",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 5665
+      },
+      {
+        "name": "LockFiber_3",
+        "original": [
+          208,
+          576
+        ],
+        "review": [
+          92,
+          256
+        ],
+        "bytes": 5549
+      },
+      {
+        "name": "Web_face_NORMAL",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 4118
+      },
+      {
+        "name": "Web_J5_Eyelids_J2_Jaw_skin",
+        "original": [
+          3072,
+          3072
+        ],
+        "review": [
+          1536,
+          1536
+        ],
+        "bytes": 111599
+      },
+      {
+        "name": "Web_face_ROUGHNESS",
+        "original": [
+          1024,
+          1024
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 4194
+      },
+      {
+        "name": "R2_TempleUnderlay",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 7443
+      },
+      {
+        "name": "TempleFibers",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 8410
+      },
+      {
+        "name": "NapeFibers",
+        "original": [
+          192,
+          550
+        ],
+        "review": [
+          89,
+          256
+        ],
+        "bytes": 9210
+      },
+      {
+        "name": "LeftHandAlbedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 29397
+      },
+      {
+        "name": "LeftCuffAlbedo",
+        "original": [
+          512,
+          256
+        ],
+        "review": [
+          256,
+          128
+        ],
+        "bytes": 7062
+      },
+      {
+        "name": "RightHandAlbedo",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          512,
+          512
+        ],
+        "bytes": 27573
+      },
+      {
+        "name": "RightCuffAlbedo",
+        "original": [
+          512,
+          256
+        ],
+        "review": [
+          256,
+          128
+        ],
+        "bytes": 7061
+      },
+      {
+        "name": "Zhunwang_Normal",
+        "original": [
+          1536,
+          1536
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 30203
+      },
+      {
+        "name": "Zhunwang_BaseColor",
+        "original": [
+          2048,
+          2048
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 18455
+      },
+      {
+        "name": "Zhunwang_Metallic-Zhunwang_Roughness",
+        "original": [
+          1024,
+          1024
+        ],
+        "review": [
+          256,
+          256
+        ],
+        "bytes": 21017
+      },
+      {
+        "name": "CoiledFibers",
+        "original": [
+          1240,
+          896
+        ],
+        "review": [
+          256,
+          185
+        ],
+        "bytes": 4104
+      },
+      {
+        "name": "R2_GrowthMargin",
+        "original": [
+          2048,
+          775
+        ],
+        "review": [
+          768,
+          291
+        ],
+        "bytes": 49930
+      }
+    ],
+    "triangles": {
+      "before": 902097,
+      "after": 323649,
+      "groups": {
+        "Apron": [
+          26992,
+          4588,
+          "surface"
+        ],
+        "Belt tools": [
+          5376,
+          913,
+          "surface"
+        ],
+        "Boot.L": [
+          14976,
+          2544,
+          "surface"
+        ],
+        "Boot.R": [
+          14976,
+          2544,
+          "surface"
+        ],
+        "Eye.L": [
+          9728,
+          9728,
+          "surface"
+        ],
+        "Eye.R": [
+          9728,
+          9728,
+          "surface"
+        ],
+        "Forearm.L": [
+          2784,
+          472,
+          "surface"
+        ],
+        "Forearm.R": [
+          2784,
+          472,
+          "surface"
+        ],
+        "G.独立眉毛.Left": [
+          21996,
+          18466,
+          "strand"
+        ],
+        "G.独立眉毛.Right": [
+          22880,
+          18908,
+          "strand"
+        ],
+        "G.眉底毛根.Left": [
+          5820,
+          4423,
+          "surface"
+        ],
+        "G.眉底毛根.Right": [
+          5820,
+          4423,
+          "surface"
+        ],
+        "Gaiter.L": [
+          10584,
+          1799,
+          "surface"
+        ],
+        "Gaiter.R": [
+          10584,
+          1798,
+          "surface"
+        ],
+        "Inner canthus.L": [
+          480,
+          480,
+          "surface"
+        ],
+        "Inner canthus.R": [
+          480,
+          480,
+          "surface"
+        ],
+        "Jacket": [
+          25324,
+          4304,
+          "surface"
+        ],
+        "Jacket closures": [
+          4972,
+          845,
+          "surface"
+        ],
+        "Jacket collar": [
+          43784,
+          7880,
+          "surface"
+        ],
+        "Lower lashes.L": [
+          980,
+          980,
+          "surface"
+        ],
+        "Lower lashes.R": [
+          980,
+          980,
+          "surface"
+        ],
+        "Lower wet margin.L": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "Lower wet margin.R": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "R2 · 枕下三层交错的垂绺": [
+          4224,
+          2956,
+          "surface"
+        ],
+        "R2 · 梳向后髻的蓬松长发束": [
+          3328,
+          2329,
+          "surface"
+        ],
+        "R2 · 浮松的小束和发梢": [
+          25636,
+          13060,
+          "strand"
+        ],
+        "R2 · 额前短绺及耳前薄鬓": [
+          2240,
+          1568,
+          "surface"
+        ],
+        "ShenShang_Head": [
+          144320,
+          54840,
+          "surface"
+        ],
+        "Sleeve.L": [
+          13786,
+          2343,
+          "surface"
+        ],
+        "Sleeve.R": [
+          13786,
+          2343,
+          "surface"
+        ],
+        "Stubble · R2 · Chin · varied growth": [
+          13944,
+          8542,
+          "strand"
+        ],
+        "Stubble · R2 · Mandibular flank · scattered fine growth": [
+          2744,
+          1478,
+          "strand"
+        ],
+        "Stubble · R2 · Mouth corners · scattered": [
+          1064,
+          594,
+          "strand"
+        ],
+        "Stubble · R2 · Under lip · central tuft": [
+          1344,
+          878,
+          "strand"
+        ],
+        "Stubble · R2 · Upper lip · outward slant": [
+          10444,
+          5998,
+          "strand"
+        ],
+        "Temple and nape cards": [
+          4248,
+          2973,
+          "surface"
+        ],
+        "Trousers": [
+          23436,
+          3983,
+          "surface"
+        ],
+        "Undertunic": [
+          26696,
+          4538,
+          "surface"
+        ],
+        "Upper lashes.L": [
+          2800,
+          2800,
+          "surface"
+        ],
+        "Upper lashes.R": [
+          2660,
+          2660,
+          "surface"
+        ],
+        "Upper wet margin.L": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "Upper wet margin.R": [
+          1500,
+          1500,
+          "surface"
+        ],
+        "V2_HandMesh.L": [
+          2814,
+          2363,
+          "surface"
+        ],
+        "V2_HandMesh.R": [
+          2814,
+          2362,
+          "surface"
+        ],
+        "Waist sash": [
+          59622,
+          6558,
+          "surface"
+        ],
+        "Zhunwang readout": [
+          7981,
+          1995,
+          "surface"
+        ],
+        "Zhunwang_Body": [
+          9046,
+          2260,
+          "surface"
+        ],
+        "Zhunwang_ButtonCap": [
+          204,
+          204,
+          "surface"
+        ],
+        "发髻 · 非圆对称盘卷": [
+          5332,
+          2345,
+          "surface"
+        ],
+        "后梳细丝与分束纹理": [
+          155520,
+          34978,
+          "strand"
+        ],
+        "木簪 · 后斜贯髻": [
+          1976,
+          790,
+          "surface"
+        ],
+        "束发主体 · 曲面与羽化发际": [
+          15744,
+          6926,
+          "surface"
+        ],
+        "浮丝 · 冠顶与鬓侧": [
+          19872,
+          9708,
+          "strand"
+        ],
+        "盘髻旋丝": [
+          31080,
+          16284,
+          "strand"
+        ],
+        "细发际 · 随生长方向": [
+          7072,
+          2422,
+          "strand"
+        ],
+        "耳前鬓毛 · 向下渐疏": [
+          23552,
+          11152,
+          "strand"
+        ],
+        "颈后松发 · 交错垂落": [
+          7360,
+          3680,
+          "strand"
+        ],
+        "额前主束中的独立长丝": [
+          5832,
+          2282,
+          "strand"
+        ],
+        "额角低垂散丝": [
+          840,
+          420,
+          "strand"
+        ],
+        "髻根的深色绑绳": [
+          708,
+          282,
+          "surface"
+        ]
+      }
+    },
+    "cold_read": {
+      "mesh_objects": 60,
+      "bounds_min_m": [
+        -0.6266683340072632,
+        -0.164450004696846,
+        -3.0928629712434486e-05
+      ],
+      "bounds_max_m": [
+        0.6267396211624146,
+        0.17243027687072754,
+        1.7385272979736328
+      ],
+      "height_m": 1.7385581731796265,
+      "checked_parts": {
+        "ShenShang_Head": "ShenShang_Head",
+        "Eye.L": "Eye.L",
+        "Eye.R": "Eye.R",
+        "G.独立眉毛.Left": "G.独立眉毛.Left",
+        "G.独立眉毛.Right": "G.独立眉毛.Right",
+        "Boot.L": "Boot.L",
+        "Boot.R": "Boot.R",
+        "V2_HandMesh.L": "V2_HandMesh.L",
+        "V2_HandMesh.R": "V2_HandMesh.R",
+        "Zhunwang_Body": "Zhunwang_Body"
+      },
+      "embedded_images": [
+        [
+          "CoiledFibers",
+          [
+            256,
+            185
+          ],
+          true
+        ],
+        [
+          "I2Brow_Left",
+          [
+            384,
+            94
+          ],
+          true
+        ],
+        [
+          "I2Brow_Right",
+          [
+            384,
+            94
+          ],
+          true
+        ],
+        [
+          "LeftCuffAlbedo",
+          [
+            256,
+            128
+          ],
+          true
+        ],
+        [
+          "LeftHandAlbedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "LockFiber_1",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "LockFiber_2",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "LockFiber_3",
+          [
+            92,
+            256
+          ],
+          true
+        ],
+        [
+          "NapeFibers",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "R2_GrowthMargin",
+          [
+            768,
+            291
+          ],
+          true
+        ],
+        [
+          "R2_TempleUnderlay",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "RightCuffAlbedo",
+          [
+            256,
+            128
+          ],
+          true
+        ],
+        [
+          "RightHandAlbedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "TempleFibers",
+          [
+            89,
+            256
+          ],
+          true
+        ],
+        [
+          "Web_Collar_albedo",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "Web_face_NORMAL",
+          [
+            512,
+            512
+          ],
+          true
+        ],
+        [
+          "Web_face_ROUGHNESS",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Web_J5_Eyelids_J2_Jaw_skin",
+          [
+            1536,
+            1536
+          ],
+          true
+        ],
+        [
+          "Web_Wardrobe_albedo",
+          [
+            800,
+            800
+          ],
+          true
+        ],
+        [
+          "Zhunwang_BaseColor",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Zhunwang_Metallic-Zhunwang_Roughness",
+          [
+            256,
+            256
+          ],
+          true
+        ],
+        [
+          "Zhunwang_Normal",
+          [
+            256,
+            256
+          ],
+          true
+        ]
+      ],
+      "triangles": 323649
+    }
+  }
+}

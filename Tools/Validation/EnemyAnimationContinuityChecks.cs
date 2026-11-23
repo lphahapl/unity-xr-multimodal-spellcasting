@@ -8,6 +8,7 @@ using NarutoVR.SealCombat.Enemies;
 using NarutoVR.SealCombat.Rpg;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ public static class EnemyAnimationContinuityChecks
 {
     const string Key = "NarutoVR.EnemyAnimationContinuity";
     const float Dt = .025f;
+    const string AlternativeGraph = "Assets/Scene/QA_AlternativeEnemy.controller";
     static readonly List<string> failures = new();
     static readonly string[] scenes = {"Chapter01_Awakening", "KaogongP1Trial"};
     static readonly string folder = "Logs/enemy-animation";
@@ -35,6 +37,15 @@ public static class EnemyAnimationContinuityChecks
         Directory.CreateDirectory(folder);
         File.WriteAllText(Path.Combine(folder,"result.txt"),DateTimeOffset.Now.ToString("o")+"\n");
         Log("Play data builder: "+UnityEditor.AddressableAssets.AddressableAssetSettingsDefaultObject.Settings.ActivePlayModeDataBuilder.Name);
+        var source = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller");
+        if (AssetDatabase.LoadAssetAtPath<AnimatorController>(AlternativeGraph)) AssetDatabase.DeleteAsset(AlternativeGraph);
+        if (!AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(source), AlternativeGraph)) throw new IOException(AlternativeGraph);
+        var graph = AssetDatabase.LoadAssetAtPath<AnimatorController>(AlternativeGraph);
+        var attacks = graph.layers[0].stateMachine.stateMachines.Single(x => x.stateMachine.name == "Attack").stateMachine;
+        var first = attacks.states.Single(x => x.state.name == "挥砍").state;
+        first.name = "横扫";
+        EditorUtility.SetDirty(first);
+        AssetDatabase.SaveAssets();
         foreach (string name in scenes)
         {
             var scene = EditorSceneManager.OpenScene("Assets/Scene/"+name+".unity");
@@ -94,6 +105,9 @@ public static class EnemyAnimationContinuityChecks
                     Check(bones.Length>2,scenes[i]+" real skinned bones="+bones.Length);
                     target.position=e.transform.position+e.transform.forward*.65f;
                     e.checkLineOfSight=false;
+                    lease = await VerifyAlternateGraphAndCombatClock(manager, lease, spawn.point, target, scenes[i]);
+                    e = lease.Controller;
+                    e.tickAutomatically = false;
                     Reactions(e,bones,scenes[i],EnemyReaction.Hit,3.2f);
                     Reactions(e,bones,scenes[i],EnemyReaction.Seated,3.2f);
                     Reactions(e,bones,scenes[i],EnemyReaction.Hit,e.reactionTimeout+2);
@@ -119,6 +133,44 @@ public static class EnemyAnimationContinuityChecks
         }
         catch(Exception error) {Log("FAIL "+error);Debug.LogException(error);}
         finally {Time.captureDeltaTime=0;EditorApplication.update-=Watchdog;EditorApplication.ExitPlaymode();}
+    }
+    static async Task<EnemyLease> VerifyAlternateGraphAndCombatClock(EnemyManager manager, EnemyLease lease, Transform spawnPoint, Transform target, string scene)
+    {
+        var enemy = lease.Controller;
+        var animator = enemy.animator;
+        var original = animator.runtimeAnimatorController;
+        var serialized = new SerializedObject(enemy.Entity);
+        var firstAttack = serialized.FindProperty("animationMapping.firstAttackState");
+        var originalState = firstAttack.stringValue;
+        animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<AnimatorController>(AlternativeGraph);
+        animator.Rebind();
+        Check(!enemy.ValidateAnimator(out _), scene + " renamed first attack requires its mapped state");
+        firstAttack.stringValue = "Base Layer.Attack.横扫";
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        Check(enemy.ValidateAnimator(out var reason), scene + " alternate first attack validates: " + reason);
+        Check(manager.Recycle(lease), scene + " alternate graph returns to pool");
+        lease = await manager.SpawnEnemyAsync("canjiou", spawnPoint.position, spawnPoint.rotation, target, true);
+        if (lease.Controller != enemy) throw new InvalidOperationException("Expected pool reuse of mapped actor");
+        Check(enemy.isActiveAndEnabled && enemy.ValidateAnimator(out _), scene + " real spawn validates renamed attack on checkout");
+        enemy.tickAutomatically = false;
+        firstAttack.stringValue = originalState;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        animator.runtimeAnimatorController = original;
+        animator.Rebind();
+        enemy.ResetForSpawn();
+        var vitals = enemy.Entity.Combat;
+        Check(enemy.Entity.ReceiveHit("animation-clock", 0, 10), scene + " poise damaged before presentation-only disable");
+        float damaged = vitals.Poise;
+        animator.enabled = false;
+        enemy.SetSuspended(true);
+        enemy.Tick(10);
+        Check(vitals.Poise == damaged, scene + " encounter suspension freezes poise");
+        enemy.SetSuspended(false);
+        enemy.Tick(10);
+        Check(vitals.Poise > damaged, scene + " combat clock recovers poise with Animator disabled");
+        animator.enabled = true;
+        enemy.ResetForSpawn();
+        return lease;
     }
     static void Step(EnemyController e){e.Tick(Dt);e.animator.Update(Dt);}
     static Quaternion[] Pose(Transform[] bones)=>bones.Select(b=>b.localRotation).ToArray();
@@ -212,6 +264,19 @@ public static class EnemyAnimationContinuityChecks
             }
             e.CancelAttack();
             Check(interrupted&&started>=2&&ended==started&&movement>2,scene+" attack cancel/re-enter balanced starts="+started+" finishes="+ended+" bone="+movement.ToString("F1",CultureInfo.InvariantCulture));
+            for (int i = 0; i < 200 && e.CurrentAttack < 0; i++) Step(e);
+            bool armed = e.CurrentAttack >= 0;
+            int contacts = 0;
+            UnityEngine.Events.UnityAction<int> contact = _ => contacts++;
+            e.onAttackContact.AddListener(contact);
+            try
+            {
+                e.animator.enabled = false;
+                e.Tick(2);
+                Check(armed && e.CurrentAttack < 0 && contacts == 0 && ended == started,
+                    scene + " disabling Animator cancels the active attack without opening its damage window");
+            }
+            finally { e.animator.enabled = true; e.onAttackContact.RemoveListener(contact); }
         }finally{e.onAttackStarted.RemoveListener(begin);e.onAttackFinished.RemoveListener(finish);}
     }
     static async Task Navigation(EnemyController e,Transform target,string scene)

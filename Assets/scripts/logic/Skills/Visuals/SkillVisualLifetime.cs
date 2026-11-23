@@ -7,6 +7,8 @@ namespace NarutoVR.SealCombat
     {
         [Header("一次性视觉生命周期")]
         [InspectorName("自动销毁时间（秒）"), Min(.05f)] public float lifetime = 1.1f;
+        // Filled on prefab import so a scene reference can match a separately loaded bundle copy.
+        [SerializeField, HideInInspector] internal string prefabAssetGuid;
         private double expiresAt;
         private bool finished, poolOwned;
         internal void GiveLifetimeToPool() { poolOwned = true; enabled = false; }

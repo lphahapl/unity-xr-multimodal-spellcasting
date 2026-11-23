@@ -29,7 +29,7 @@ namespace NarutoVR.SealCombat.Editor
             importer.maxTextureSize = 1024;
             importer.npotScale = TextureImporterNPOTScale.ToNearest;
             importer.SetPlatformTextureSettings(new TextureImporterPlatformSettings
-            { name = "Android", overridden = true, maxTextureSize = 1024, format = TextureImporterFormat.ASTC_6x6 });
+            { name = "Android", overridden = true, maxTextureSize = 1024, format = TextureImporterFormat.ASTC_8x8, compressionQuality = 100 });
             importer.SetPlatformTextureSettings(new TextureImporterPlatformSettings
             { name = "Standalone", overridden = true, maxTextureSize = 1024, format = TextureImporterFormat.BC4 });
             importer.SaveAndReimport();
@@ -52,7 +52,7 @@ namespace NarutoVR.SealCombat.Editor
                 EditorUtility.SetDirty(material);
             }
             AssetDatabase.SaveAssetIfDirty(material);
-            Debug.Log("[青灰薄云] 资源已就绪；从 环境/青灰薄云预览 打开独立窗口。正式场景未应用天空。");
+            Debug.Log("[青灰薄云] 资源已就绪，可从 环境/青灰薄云预览 打开独立窗口。");
         }
 
     }

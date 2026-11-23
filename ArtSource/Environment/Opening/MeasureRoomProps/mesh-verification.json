@@ -1,0 +1,285 @@
+{
+  "PlumbSquareBoard": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "PlumbSquareBoard": {
+          "verts": 536,
+          "faces": 988,
+          "tris": 988,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 21,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 20.5
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 988,
+        "dimensions": [
+          2.0430002212524414,
+          1.1799999475479126,
+          0.21199998259544373
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 622,
+        "dimensions": [
+          2.0430002212524414,
+          1.1799999475479126,
+          0.2109283208847046
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 334,
+        "dimensions": [
+          2.039154052734375,
+          1.1758334636688232,
+          0.21055206656455994
+        ],
+        "materials": 1
+      }
+    ],
+    "lod_silhouette_IoU_at_512px_L1_L2": {
+      "[ 0.         -0.99755897  0.06982913]": [
+        0.9935,
+        0.9653
+      ],
+      "[ 0.49393856 -0.70562652  0.50805109]": [
+        0.9924,
+        0.9835
+      ],
+      "[-0.86386843 -0.25916053  0.43193421]": [
+        0.9848,
+        0.9809
+      ],
+      "[0.         0.04993762 0.99875234]": [
+        0.9934,
+        0.9762
+      ]
+    }
+  },
+  "GraduatedRuleRack": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "GraduatedRuleRack": {
+          "verts": 488,
+          "faces": 868,
+          "tris": 868,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 27,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 13.6
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 868,
+        "dimensions": [
+          2.1700000762939453,
+          1.2419999837875366,
+          0.2565000057220459
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 546,
+        "dimensions": [
+          2.1676924228668213,
+          1.2419999837875366,
+          0.2565000057220459
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 294,
+        "dimensions": [
+          2.1676924228668213,
+          1.2361665964126587,
+          0.2535833418369293
+        ],
+        "materials": 1
+      }
+    ],
+    "lod_silhouette_IoU_at_512px_L1_L2": {
+      "[ 0.         -0.99755897  0.06982913]": [
+        0.9761,
+        0.968
+      ],
+      "[ 0.49393856 -0.70562652  0.50805109]": [
+        0.9903,
+        0.9846
+      ],
+      "[-0.86386843 -0.25916053  0.43193421]": [
+        0.9918,
+        0.9864
+      ],
+      "[0.         0.04993762 0.99875234]": [
+        0.9966,
+        0.99
+      ]
+    }
+  },
+  "DividerPartsTray": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "hidden back-to-back faces: DividerPartsTray (10 pairs) - delete to save tris"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "DividerPartsTray",
+          "tri_pairs": 10
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "DividerPartsTray": {
+          "verts": 482,
+          "faces": 896,
+          "tris": 896,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 17,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 7.7
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 896,
+        "dimensions": [
+          0.6819999814033508,
+          0.14350000023841858,
+          0.4490000009536743
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 564,
+        "dimensions": [
+          0.6819999814033508,
+          0.14350000023841858,
+          0.44685661792755127
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 304,
+        "dimensions": [
+          0.6789230704307556,
+          0.14016667008399963,
+          0.44566667079925537
+        ],
+        "materials": 1
+      }
+    ],
+    "lod_silhouette_IoU_at_512px_L1_L2": {
+      "[ 0.         -0.99755897  0.06982913]": [
+        0.9872,
+        0.9658
+      ],
+      "[ 0.49393856 -0.70562652  0.50805109]": [
+        0.9975,
+        0.9966
+      ],
+      "[-0.86386843 -0.25916053  0.43193421]": [
+        0.9951,
+        0.9933
+      ],
+      "[0.         0.04993762 0.99875234]": [
+        0.995,
+        0.9885
+      ]
+    }
+  }
+}

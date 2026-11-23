@@ -47,9 +47,11 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 var status = AddLabel(scroll, Owner.Status);
                 var retry = ActionButton(scroll, "重新加载技能", () => Owner.RetrySkillAssembly());
+                var relocate = ActionButton(scroll, "重试检查点落地", () => Owner.RetryInitialCheckpoint());
                 refresh.Add(() => {
                     SetLabel(status, Owner.Status);
                     retry.transform.parent.gameObject.SetActive(Owner.CanRetrySkillAssembly);
+                    relocate.transform.parent.gameObject.SetActive(Owner.CanRetryInitialCheckpoint);
                 });
                 return;
             }
@@ -80,7 +82,12 @@ namespace NarutoVR.SealCombat.Rpg
             if(Owner && Owner.skills)foreach(var skill in Owner.skills.ConfiguredSkills){
                 if(!skill)continue;
                 var button=ActionButton(simulation,"",()=>Owner.DebugCast(skill.skillId));
-                refresh.Add(()=>{if(view.showSimulationSection)SetCaption(button,$"模拟施放：{skill.displayName}（{(Owner.chapter && Owner.chapter.AllowsTrialSkill(skill.skillId)?"练习授权":Owner.IsSkillUnlocked(skill.skillId)?"已解锁":"未解锁")}）");});
+                refresh.Add(() => {
+                    if (!view.showSimulationSection) return;
+                    string permission = Owner.IsSkillUnlocked(skill.skillId) ? "已解锁" :
+                        Owner.IsSkillAvailable(skill.skillId) ? "练习授权" : "未解锁";
+                    SetCaption(button, $"模拟施放：{skill.displayName}（{permission}）");
+                });
             }
             ActionButton(simulation,"取消待施法输入",()=>Owner.CancelCasting());
             foreach(var dir in new[]{Vector2.up,Vector2.down,Vector2.left,Vector2.right}){
@@ -92,6 +99,11 @@ namespace NarutoVR.SealCombat.Rpg
             ActionButton(simulation,"恢复检查点",()=>Owner.RestoreCheckpoint());
             ActionButton(simulation,"保存当前检查点",()=>Owner.SaveCheckpoint());
             ActionButton(simulation,"尝试进入下一阶段",()=>Owner.TryAdvanceStage());
+            if (Owner && Owner.locomotion)
+            {
+                var choice = ActionButton(simulation, "切换探索移动", () => Owner.locomotion.CycleExplorationMode());
+                refresh.Add(() => SetCaption(choice, "切换探索移动 · " + Owner.locomotion.ExplorationModeName));
+            }
             ActionButton(simulation,"进入探索",()=>Owner.SetEncounterCombat(false));
             ActionButton(simulation,"进入战斗",()=>Owner.SetEncounterCombat(true));
             var chapter = Owner ? Owner.chapter : null;

@@ -1,0 +1,23 @@
+exploration and encounter 31
+ray navigation 47
+direction and dodge 28
+navigation scores 20
+interaction presentation 7
+official hand profiles 32
+wrist targets 52 taps 30
+standing sample; previous head height=0.03 sample height=1.6
+courtyard walk 0.0999999 sprint 0.1799998
+selection ray from (-1.75, 1.35, -0.52) to (-1.50, -0.03, -0.70) layers 1 / 51 hits 庭院石台@(-1.50, -0.03, -0.70),Court deck collision@(-1.44, -0.37, -0.74)
+courtyard warp 1
+courtyard walked to goal after release; no second warp
+material BronzeRule -> BronzeRule 512x512 10 mips; Universal Render Pipeline/Unlit
+material SurveyCompass -> SurveyCompass 512x512 10 mips; Universal Render Pipeline/Unlit
+material CinnabarSeal -> CinnabarSeal 512x512 10 mips; Universal Render Pipeline/Unlit
+active nodes 92 flanks 6
+room.flank.left.0 (-3.75, -0.03, 21.25) direct 4 graph 37 legal 33
+combat mesh resting 12 focus 1 dwell 0.625 ui False path True
+combat landed room.flank.left.0 -> room.3.4 10.75m; 33 reachable at origin
+exploration mesh resting 11 focus 1 同目标驻留确认
+exploration landed back at room.flank.left.0 10.75m
+exploration auto-walk 10.75m after finger release
+PASS END

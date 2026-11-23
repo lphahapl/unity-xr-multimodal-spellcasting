@@ -22,12 +22,18 @@ MonoBehaviour:
   - id: fireball
     cooldownGroup: fireball
     address: skills/fireball
-  - id: buff.hidden
-    cooldownGroup: shield.hidden
-    address: skills/buff.hidden
   - id: thunder.sword
     cooldownGroup: thunder.sword
     address: skills/thunder.sword
+  - id: breath.burst
+    cooldownGroup: breath.burst
+    address: skills/breath.burst
+  - id: breath.stream
+    cooldownGroup: breath.stream
+    address: skills/breath.stream
+  - id: shield.left
+    cooldownGroup: shield
+    address: skills/shield.left
   matching:
     historySeconds: 10
     capacity: 640

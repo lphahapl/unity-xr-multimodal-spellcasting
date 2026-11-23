@@ -41,3 +41,19 @@ MonoBehaviour:
   lightningDamage: 7
   lightningPoise: 2
   lightningCooldown: 2
+  surfaceMark: {fileID: 11400000, guid: 5312afa919a54a978ba89077445b64b5, type: 2}
+  bladeReach: 0.62
+  waveOriginOffset: 0.1
+  trailBaseOffset: 0.1
+  slashOffset: 0.36
+  trackingHideDelay: 0.18
+  sampleGap: 0.12
+  swingWindow: 0.35
+  minSwingTime: 0.06
+  wristJump: 0.26
+  tipJump: 0.5
+  headJump: 0.25
+  rigJump: 25
+  rearmSpeedRatio: 0.45
+  reverseDot: -0.25
+  previewTravelRatio: 0.35

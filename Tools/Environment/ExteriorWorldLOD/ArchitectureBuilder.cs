@@ -8,8 +8,8 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-// Offline authoring only. Parent invokes in isolated Unity; no scene saves, old-object edits,
-// existing colliders, behaviours, cameras or lighting. Accepted A07 tables own fixed new boxes.
+// Offline authoring in the isolated exterior project. The three replacement halls supersede
+// the old visual-only Workshop instances. Accepted A07 tables own fixed new boxes.
 // Source mesh data was authored/rendered in Blender.
 public static class ArchitectureBuilder
 {
@@ -68,10 +68,19 @@ public static class ArchitectureBuilder
         AddHall(root,scene,groundHeight,0,"西窗外 · 校矩作坊",new Vector3(-22,0,8),90,1.25f);
         AddHall(root,scene,groundHeight,1,"东窗外 · 规尺长坊",new Vector3(26,0,25),-90,1.35f);
         AddHall(root,scene,groundHeight,2,"测候台远景 · 校器工坊",new Vector3(28,0,66),-115,1.6f);
+        RemoveSupersededWorkshops(root);
         if(nearTriangles>=18000)throw new Exception("Architecture near budget exceeded (target <18000): "+nearTriangles);
         evidence.Add("NEAR_TOTAL="+nearTriangles+" triangles; six building plus three independent bench LODGroups; one Renderer/material per active building or bench. New bench colliders=15 fixed boxes, unchanged by visual LOD; no runtime behaviours.");
-        evidence.Add("Existing ten window openings/doors and original colliders are not modified. Parent disables old Workshop geometry and old GreyTileRoofCover renderer before final validation.");
+        evidence.Add("Existing ten window openings/doors and original colliders are preserved. The three superseded visual-only Workshop instances are removed.");
         File.WriteAllLines(Log+"unity-build.txt",evidence);AssetDatabase.SaveAssets();
+    }
+    static void RemoveSupersededWorkshops(Transform root)
+    {
+        foreach (string name in new[] { "西窗外 · 天工偏坊", "东窗外 · 山间工坊", "测候台远景 · 校器坊" })
+        {
+            var obsolete = root.Find(name);
+            if (obsolete) Object.DestroyImmediate(obsolete.gameObject);
+        }
     }
     static void AddHall(Transform root,Scene scene,Func<float,float,float> ground,int variant,string name,Vector3 at,float yaw,float scale)
     {
@@ -93,6 +102,7 @@ public static class ArchitectureBuilder
                     float min=Mathf.Min(h[i,j],h[i+1,j],h[i,j+1],h[i+1,j+1]);float bottom=(min-at.y)/scale-.30f,top=-.18f;
                     m.Box(new Vector3((xs[i]+xs[i+1])*.5f,(top+bottom)*.5f,(zs[j]+zs[j+1])*.5f),new Vector3(xs[i+1]-xs[i],top-bottom,zs[j+1]-zs[j]),0,lod==0?.045f:0);
                 }
+                m.AddEntranceScaleMarks(scale, lod);
             }
             else
             {
@@ -204,6 +214,28 @@ public static class ArchitectureBuilder
             var ring=b>0?new[]{new Vector2(-w+b,-d),new Vector2(w-b,-d),new Vector2(w,-d+b),new Vector2(w,d-b),new Vector2(w-b,d),new Vector2(-w+b,d),new Vector2(-w,d-b),new Vector2(-w,-d+b)}:new[]{new Vector2(-w,-d),new Vector2(w,-d),new Vector2(w,d),new Vector2(-w,d)};
             var bottom=ring.Select(a=>p+new Vector3(a.x,-h,a.y)).ToArray();var top=ring.Select(a=>p+new Vector3(a.x,h,a.y)).ToArray();Face(bottom,region);Face(top.Reverse().ToArray(),region);
             for(int i=0;i<ring.Length;i++){int j=(i+1)%ring.Length;Face(new[]{bottom[j],bottom[i],top[i],top[j]},region);}
+        }
+        public void AddEntranceScaleMarks(float hallScale, int lod)
+        {
+            // The white inlays are 7 cm wide in the unscaled kit. Their front face is at Z 2.2725.
+            const float faceZ = 2.274f;
+            int first = Mathf.CeilToInt(.88f * hallScale * 10f);
+            int last = Mathf.FloorToInt(2.42f * hallScale * 10f);
+            for (int division = first; division <= last; division++)
+            {
+                bool major = division % 5 == 0;
+                if (lod == 1 && !major) continue;
+                float y = division * .1f / hallScale;
+                float halfHeight = (major ? .008f : .005f) / hallScale;
+                foreach (int side in new[] { -1, 1 })
+                {
+                    float start = side * (1.2f - .029f);
+                    float end = start + side * (major ? .051f : .030f);
+                    float left = Mathf.Min(start, end), right = Mathf.Max(start, end);
+                    Face(new[] { new Vector3(left, y - halfHeight, faceZ), new Vector3(right, y - halfHeight, faceZ),
+                                 new Vector3(right, y + halfHeight, faceZ), new Vector3(left, y + halfHeight, faceZ) }, 5);
+                }
+            }
         }
         public Mesh Mesh(string name)
         {

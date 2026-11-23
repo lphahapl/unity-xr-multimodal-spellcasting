@@ -16,6 +16,50 @@ namespace NarutoVR.SealCombat.Editor
     public static class SkillTestSceneSetup
     {
         public const string ScenePath="Assets/Scene/SkillTest.unity";
+        const string PrefixTrialMenu = "NarutoVR/技能训练场/本次 Play 试练纯结印长短术";
+
+        [MenuItem(PrefixTrialMenu, true)]
+        static bool CanStartPrefixTrial() => Application.isPlaying && SceneManager.GetActiveScene().path == ScenePath;
+
+        [MenuItem(PrefixTrialMenu)]
+        public static void StartPrefixTrial()
+        {
+            if (!CanStartPrefixTrial()) throw new InvalidOperationException("请在独立 SkillTest 场景进入 Play。");
+            var input = SceneManager.GetActiveScene().GetRootGameObjects()
+                .SelectMany(go => go.GetComponentsInChildren<SkillInputController>()).Single();
+            if (input.ConfiguredSkills.Any(skill => skill.skillId == "trial.seal.short")) return;
+            var original = input.catalog;
+            var catalog = UnityEngine.Object.Instantiate(original);
+            var shield = UnityEngine.Object.Instantiate(original.skills.Single(skill => skill.skillId == "buff.zi"));
+            var projectile = UnityEngine.Object.Instantiate(original.skills.Single(skill => skill.skillId == "fireball"));
+            try
+            {
+                Configure(shield, "trial.seal.short", "试练护盾", new[] { "律印" });
+                Configure(projectile, "trial.seal.long", "试练火球", new[] { "律印", "矩印" });
+                catalog.skills.Add(shield);
+                catalog.skills.Add(projectile);
+                input.catalog = catalog;
+                input.InitializeMatcher();
+                input.BeginFreshPlayerInput(false);
+                Debug.Log($"短术：矩→律，稳住 {catalog.matching.ShortSealHoldSeconds:0.##} 秒出盾。长术：矩→律→矩，出火球。", input);
+            }
+            catch
+            {
+                input.catalog = original;
+                UnityEngine.Object.Destroy(catalog);
+                UnityEngine.Object.Destroy(shield);
+                UnityEngine.Object.Destroy(projectile);
+                input.InitializeMatcher();
+                throw;
+            }
+            static void Configure(SkillDefinition skill, string id, string title, string[] tail)
+            {
+                skill.skillId = id; skill.displayName = title;
+                skill.triggerMode = SkillTriggerMode.GestureOnly; skill.castCondition = SkillCastCondition.None;
+                skill.sealName = "矩印"; skill.followingSeals = tail;
+                skill.phrase = skill.phraseTokens = ""; skill.cooldownGroup = id;
+            }
+        }
         private const string Request="Logs/skill-test.request";
         private static double nextPoll;
         [Serializable] private sealed class Report { public bool passed, hardwareTested; public string utc,scene,action,error; public int coreChecks,effectChecks,activationCount,sceneChecks,configurationChecks; }
@@ -59,14 +103,8 @@ namespace NarutoVR.SealCombat.Editor
                         SkillEffectChecks.Begin((passed,detail)=>Write(new Report{passed=passed,action=action,effectChecks=prefabCount+fallbackCount+2,error=passed?"":detail}));break;
                     case "shield-trial-probe":
                         SkillScenarioChecks.Begin((passed,detail)=>Write(new Report{passed=passed,action=action,sceneChecks=passed?1:0,error=passed?"":detail}));break;
-                    case "architecture-migrate":
-                        int migrated=SkillConfigurationSetup.Migrate();SkillConfigurationSetup.ExportCurrent();
-                        Write(new Report{passed=true,action=action,sceneChecks=migrated,configurationChecks=SkillArchitectureChecks.Run(),coreChecks=SkillCoreChecks.Run()});break;
-                    case "architecture-repair":
-                        int repaired=SkillConfigurationSetup.RepairInitialMigration();SkillConfigurationSetup.ExportCurrent();
-                        Write(new Report{passed=true,action=action,sceneChecks=repaired,configurationChecks=SkillMigrationChecks.Run()+SkillArchitectureChecks.Run(),coreChecks=SkillCoreChecks.Run()});break;
                     case "architecture-check":
-                        Write(new Report{passed=true,action=action,configurationChecks=SkillMigrationChecks.Run()+SkillArchitectureChecks.Run(),coreChecks=SkillCoreChecks.Run(),sceneChecks=SkillShowcaseChecks.ValidateScenes()});break;
+                        Write(new Report{passed=true,action=action,configurationChecks=SkillArchitectureChecks.Run(),coreChecks=SkillCoreChecks.Run(),sceneChecks=SkillShowcaseChecks.ValidateScenes()});break;
                     case "architecture-probe":
                         int configuration=SkillEffectConfigurationChecks.Run()+SkillArchitectureChecks.RunController();
                         int visual=SkillShowcaseChecks.ValidateRuntimePrefabs();int basic=SkillEffectChecks.Run();
@@ -87,13 +125,9 @@ namespace NarutoVR.SealCombat.Editor
         public static void BuildAndCheck()
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode) throw new Exception("请先停止播放模式再构建技能场景。");
-            Directory.CreateDirectory("Assets/Scene");Directory.CreateDirectory("Assets/ScriptableObjects/技能定义配置/历史配置");Directory.CreateDirectory("Assets/Materials");
+            Directory.CreateDirectory("Assets/Scene");Directory.CreateDirectory("Assets/Materials");
             AssetDatabase.Refresh();
-            var gesture=Profile("子印加持","buff.zi","", "子",SkillTriggerMode.GestureOnly,SkillEffectKind.SelfBuff);
-            var voice=Profile("护体咒加持","buff.voice","护体咒","",SkillTriggerMode.VoiceOnly,SkillEffectKind.SelfBuff);
-            var fire=Profile("火球术","fireball","火球术","寅",SkillTriggerMode.VoiceAndGesture,SkillEffectKind.HeldFireball);
-            var fireMat=Material("火球橙色",new Color(1,.2f,.025f));
-            var buffMat=Material("加持青色",new Color(.1f,.9f,1));
+            var catalog = SkillConfigurationSetup.LoadTrainingCatalog();
             var targetMat=Material("训练靶蓝色",new Color(.15f,.35f,.65f));
             if(!File.Exists(ScenePath) && !AssetDatabase.CopyAsset(NarutoVR.Editor.SealSteamLinkSetup.ScenePath,ScenePath)) throw new Exception("复制输入场景失败。");
             var previous=SceneManager.GetActiveScene(); var scene=SceneManager.GetSceneByPath(ScenePath);
@@ -111,10 +145,11 @@ namespace NarutoVR.SealCombat.Editor
                     var oldTest=lab.GetComponent<SealRecognitionTest>(); if(oldTest) UnityEngine.Object.DestroyImmediate(oldTest);
                     var view=lab.GetComponent<SealLabView>();
                     if(view && view.statusText){UnityEngine.Object.DestroyImmediate(view.statusText.canvas.gameObject);view.statusText=null;}
-                    var effects=lab.gameObject.AddComponent<SkillController>(); effects.lab=lab;effects.head=camera.transform;effects.playerRoot=camera.transform.root;effects.fireMaterial=fireMat;effects.buffMaterial=buffMat;
+                    var effects=lab.gameObject.AddComponent<SkillController>(); effects.lab=lab;effects.head=camera.transform;effects.playerRoot=camera.transform.root;
+                    effects.trainingHandPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>(OfficialHandPoseSetup.ProfilePath);
                     var receiver=lab.gameObject.AddComponent<SkillVoiceReceiver>();
                     controller=lab.gameObject.AddComponent<SkillInputController>();controller.lab=lab;controller.effects=effects;controller.voice=receiver;
-                    controller.skills.AddRange(new[]{gesture,voice,fire});
+                    controller.catalog = catalog;
                     controller.chineseFont=AssetDatabase.LoadAssetAtPath<Font>(NarutoVR.Editor.SealChineseUISetup.FontPath);
                     var panel=new GameObject("技能状态中文面板",typeof(RectTransform),typeof(Canvas));
                     panel.transform.SetParent(camera.transform,false);panel.transform.localPosition=new Vector3(-.66f,.1f,1.45f);panel.transform.localScale=Vector3.one*.0012f;
@@ -124,7 +159,7 @@ namespace NarutoVR.SealCombat.Editor
                     bg.GetComponent<Image>().color=new Color(.025f,.04f,.07f,.85f);bg.GetComponent<Image>().raycastTarget=false;
                     var text=new GameObject("中文技能状态",typeof(RectTransform),typeof(Text));text.transform.SetParent(panel.transform,false);Stretch(text.GetComponent<RectTransform>(),20);
                     controller.statusText=text.GetComponent<Text>();controller.statusText.font=controller.chineseFont;controller.statusText.fontSize=30;controller.statusText.color=Color.white;controller.statusText.raycastTarget=false;
-                    controller.statusText.text="技能训练场\n子印：加持\n护体咒：加持\n火球术＋寅印：右手火球\n真实语音需启动本地服务。";
+                    controller.statusText.text="技能训练场\n规印：加持\n护体咒：加持\n火球术＋律印：右手火球\n真实语音需启动本地服务。";
                     var dot=new GameObject("头向瞄准点",typeof(RectTransform),typeof(Text));dot.transform.SetParent(panel.transform,false);
                     dot.GetComponent<RectTransform>().anchoredPosition=new Vector2(550,-83.3333f);dot.GetComponent<RectTransform>().sizeDelta=new Vector2(80,80);
                     var dt=dot.GetComponent<Text>();dt.font=controller.chineseFont;dt.fontSize=36;dt.text="＋";dt.color=Color.white;dt.raycastTarget=false;dt.alignment=TextAnchor.MiddleCenter;
@@ -134,9 +169,14 @@ namespace NarutoVR.SealCombat.Editor
                         go.transform.position=new Vector3((i-1)*1.3f,1.4f,4+i*.35f);go.transform.localScale=new Vector3(.65f,.9f,.35f);
                         go.GetComponent<Renderer>().sharedMaterial=targetMat;go.AddComponent<SkillTrainingTarget>();
                     }
+                    controller.view = controller.gameObject.AddComponent<SkillTestView>();
+                    controller.view.controller = controller;
+                    controller.view.statusText = controller.statusText;
+                    controller.view.chineseFont = controller.chineseFont;
+                    controller.view.AssignDefaultShortcuts(catalog.skills);
                     EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);
                 }
-                if(SkillConfigurationSetup.Bind(controller)){EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);}
+                SkillConfigurationSetup.ValidateController(controller);
                 if(!controller.lab || !controller.effects || !controller.voice || !controller.statusText || controller.ConfiguredSkills.Count==0) throw new Exception("技能场景配置不完整。");
                 NarutoVR.Editor.SealLabChecks.Run();int count=SkillCoreChecks.Run(); CheckPush();
                 Write(new Report{passed=true,action="build",coreChecks=count});
@@ -151,12 +191,6 @@ namespace NarutoVR.SealCombat.Editor
             if(SkillController.IsForwardPush(Vector3.zero,Vector3.zero,Vector3.zero,Vector3.back*.2f,Vector3.forward,.3f))throw new Exception("后仰误触发前推");
             if(SkillController.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.forward*.2f,Vector3.forward,.3f))throw new Exception("整体走动误触发前推");
             if(SkillController.IsForwardPush(Vector3.zero,Vector3.forward*.2f,Vector3.zero,Vector3.zero,Vector3.forward,.02f))throw new Exception("瞬时跳变误触发前推");
-        }
-        private static SkillDefinition Profile(string name,string id,string phrase,string seal,SkillTriggerMode mode,SkillEffectKind effect)
-        {
-            string path="Assets/ScriptableObjects/技能定义配置/历史配置/"+name+".asset";var p=AssetDatabase.LoadAssetAtPath<SkillDefinition>(path);if(p)return p;
-            p=ScriptableObject.CreateInstance<SkillDefinition>();p.skillId=id;p.displayName=name;p.phrase=phrase;p.sealName=seal;p.triggerMode=mode;p.effectKind=effect;
-            AssetDatabase.CreateAsset(p,path);return p;
         }
         private static Material Material(string name,Color color)
         {

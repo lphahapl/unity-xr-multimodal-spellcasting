@@ -1,0 +1,240 @@
+{
+  "CourtMainRoof_Tier0": {
+    "triangles": 11600,
+    "mesh_lightmap_digest": "4273b3680570a764d76cc404a2da1f69c4c02e88d04b843a7fb226de62b50413",
+    "fbx_geometry_model_material_ids": [
+      [
+        "Geometry",
+        "node_0.002",
+        678125725
+      ],
+      [
+        "Geometry",
+        "node_0.003",
+        546372239
+      ],
+      [
+        "Geometry",
+        "node_0.004",
+        355756522
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier0_Baked",
+        608683113
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier1_Baked",
+        257315642
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier2_Baked",
+        407518815
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier0",
+        863477904
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier1",
+        158462845
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier2",
+        337514557
+      ]
+    ],
+    "smoothness_multiplier": 0.82,
+    "roof_samples": 150000,
+    "roof_mask_A_p05_p50_p95": [
+      0.1638,
+      0.1882,
+      0.2078
+    ],
+    "roof_effective_smoothness_p05_p50_p95": [
+      0.1343,
+      0.1544,
+      0.1704
+    ],
+    "roof_luma_8bit_p05_p50_p95": [
+      66.1758,
+      89.477,
+      107.6288
+    ],
+    "wood_tip": {
+      "front_cap_triangles": 160,
+      "atlas_min_px": [
+        1365.89,
+        798.73
+      ],
+      "atlas_max_px": [
+        1994.88,
+        1073.27
+      ],
+      "luma_8bit_p05_p50_p95": [
+        69.3581,
+        81.2824,
+        92.8038
+      ]
+    },
+    "ceramic_tip": {
+      "front_cap_triangles": 295,
+      "atlas_min_px": [
+        1365.89,
+        507.32
+      ],
+      "atlas_max_px": [
+        1994.88,
+        740.68
+      ],
+      "luma_8bit_p05_p50_p95": [
+        76.6305,
+        90.185,
+        97.0995
+      ]
+    },
+    "eight_column_luma_delta_rms_8bit": 6.518,
+    "valid_tile_pairs": 778
+  },
+  "CourtMainRoof_Tier1": {
+    "triangles": 4208,
+    "mesh_lightmap_digest": "7dc0a5ed251b849a614f8f1530c645e2a3e5342b598a465bf20446d5da3f02f1",
+    "fbx_geometry_model_material_ids": [
+      [
+        "Geometry",
+        "node_0.002",
+        678125725
+      ],
+      [
+        "Geometry",
+        "node_0.003",
+        546372239
+      ],
+      [
+        "Geometry",
+        "node_0.004",
+        355756522
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier0_Baked",
+        608683113
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier1_Baked",
+        257315642
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier2_Baked",
+        407518815
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier0",
+        863477904
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier1",
+        158462845
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier2",
+        337514557
+      ]
+    ],
+    "smoothness_multiplier": 0.82,
+    "roof_samples": 150000,
+    "roof_mask_A_p05_p50_p95": [
+      0.1648,
+      0.1882,
+      0.2069
+    ],
+    "roof_effective_smoothness_p05_p50_p95": [
+      0.1351,
+      0.1543,
+      0.1696
+    ],
+    "roof_luma_8bit_p05_p50_p95": [
+      67.2798,
+      89.2004,
+      106.8117
+    ]
+  },
+  "CourtMainRoof_Tier2": {
+    "triangles": 920,
+    "mesh_lightmap_digest": "4258ba8fc9f3710881e562939cd7f551a7d35b557a30baf39fc776e48b24e2bc",
+    "fbx_geometry_model_material_ids": [
+      [
+        "Geometry",
+        "node_0.002",
+        678125725
+      ],
+      [
+        "Geometry",
+        "node_0.003",
+        546372239
+      ],
+      [
+        "Geometry",
+        "node_0.004",
+        355756522
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier0_Baked",
+        608683113
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier1_Baked",
+        257315642
+      ],
+      [
+        "Material",
+        "CourtMainRoof_Tier2_Baked",
+        407518815
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier0",
+        863477904
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier1",
+        158462845
+      ],
+      [
+        "Model",
+        "CourtMainRoof_Tier2",
+        337514557
+      ]
+    ],
+    "smoothness_multiplier": 0.82,
+    "roof_samples": 150000,
+    "roof_mask_A_p05_p50_p95": [
+      0.1667,
+      0.188,
+      0.206
+    ],
+    "roof_effective_smoothness_p05_p50_p95": [
+      0.1367,
+      0.1542,
+      0.1689
+    ],
+    "roof_luma_8bit_p05_p50_p95": [
+      69.1947,
+      89.0097,
+      106.0465
+    ]
+  }
+}

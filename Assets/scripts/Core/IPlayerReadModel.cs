@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace NarutoVR.SealCombat.Rpg
 {
     /// <summary>面板和腕匣可读取的玩家数值及知识，不提供改变角色状态的命令。</summary>
@@ -12,9 +14,13 @@ namespace NarutoVR.SealCombat.Rpg
         double ShieldExpiresAt { get; }
         bool Alive { get; }
         int Currency { get; }
+        int ItemCount { get; }
+        ProgressionItemState ItemState(string id);
         int UnlockedSkillCount { get; }
         float GetCooldown(string group, double now);
         int SkillLevel(string id);
+        IEnumerable<string> AvailableSkills { get; }
+        bool CanUseSkill(string id);
         bool IsUnlocked(string id);
         bool IsDiscovered(string id);
     }

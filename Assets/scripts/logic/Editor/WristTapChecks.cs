@@ -65,19 +65,23 @@ namespace NarutoVR.SealCombat.Editor
             Check(nearState.LauncherOpen,"俯身看腕时靠近头部的显式点按不应被前向锥体拦截");
             var root=new GameObject("点腕仲裁回归"){hideFlags=HideFlags.HideAndDontSave}; root.SetActive(false);
             var recipe=ScriptableObject.CreateInstance<SkillDefinition>();
+            var effect=ScriptableObject.CreateInstance<ShieldEffectDefinition>();
+            recipe.effectDefinition=effect;
             try
             {
                 var view=root.AddComponent<WristMenuView>(); view.audioFeedback=false;
                 var menu=root.AddComponent<WristMenuController>(); menu.view=view; menu.showUndiscoveredEntries=true;
-                var rpg=root.AddComponent<LinearRpgController>(); rpg.chapter=root.AddComponent<TrainingChapterFlow>(); ((TrainingChapterFlow)rpg.chapter).rpg=rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var movement=root.AddComponent<RpgLocomotionController>();
+                var rpg=root.AddComponent<LinearRpgController>(); rpg.chapter=root.AddComponent<TrainingChapterFlow>(); ((TrainingChapterFlow)rpg.chapter).rpg=rpg;
+                rpg.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath); var movement=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=movement; rpg.wristMenu=menu; movement.rigRoot=root.transform;
                 rpg.skills=root.AddComponent<SkillInputController>(); rpg.skills.InputClock=()=>10.5;
-                recipe.skillId="wrist.combo";recipe.displayName="腕饰回归";recipe.phrase="测试术";recipe.sealName="寅";recipe.triggerMode=SkillTriggerMode.VoiceAndGesture;
+                recipe.skillId="wrist.combo";recipe.displayName="腕饰回归";recipe.phrase="测试术";recipe.sealName="律印";recipe.triggerMode=SkillTriggerMode.VoiceAndGesture;
                 var head=new GameObject("测试头"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); movement.head=head.transform;
                 root.SetActive(true);
-                // EditMode does not run the scene's asynchronous player assembly.
-                typeof(LinearRpgController).GetField("initialized", System.Reflection.BindingFlags.NonPublic |
-                    System.Reflection.BindingFlags.Instance).SetValue(rpg, true);
+                // This EditMode fixture exercises arbitration after assembly, Start and checkpoint landing.
+                const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+                foreach (string completed in new[] { "initialized", "startCalled", "stageEntered" })
+                    typeof(LinearRpgController).GetField(completed, flags).SetValue(rpg, true);
                 Check(rpg.IsReady, "前提：测试角色已完成装配，真实腕扣入口接受输入");
                 var matcher=new SkillMatchEngine(new[]{recipe}); matcher.Tick(9.6);matcher.Voice(recipe.phrase,9.6,9.6);
                 typeof(SkillInputController).GetProperty(nameof(SkillInputController.Engine)).SetValue(rpg.skills,matcher);
@@ -105,13 +109,42 @@ namespace NarutoVR.SealCombat.Editor
                 Check(menu.State.LauncherOpen && menu.OwnsInput,"通过实际RPG仲裁：点腕可越过双腕距离的结印启发式");
                 Check(!movement.NavigationActive && movement.CandidateNode==null && root.transform.position==rigBefore && matcher.Epoch==epoch+1 &&
                     string.IsNullOrEmpty(matcher.PendingSkillId),"点腕确认后仅一次接管输入、清除待施法与导航驻留，玩家不移动");
-                menu.Tick(WristMenuChecks.Sample(10.32),rpg,true,10.32);
+                movement.encounterModesEnabled = true;
+                menu.Tick(WristMenuChecks.Sample(10.32), rpg, false, 10.32);
+                var target = view.Targets.Single(entry => entry.id == "exploration").rect;
+                const string preference = RpgLocomotionController.ExplorationPreference;
+                bool hadPreference = PlayerPrefs.HasKey(preference);
+                int previousPreference = PlayerPrefs.GetInt(preference);
+                double pressTime = 10.36;
+                try
+                {
+                    foreach (var expected in new[] { ExplorationMovement.AutoWalk, ExplorationMovement.Teleport, ExplorationMovement.PointWalk })
+                    {
+                        var away = WristMenuChecks.Sample(pressTime);
+                        menu.Tick(away, rpg, false, pressTime);
+                        var hover = WristMenuChecks.Sample(pressTime + .04);
+                        hover.rightTip = target.position - target.forward * .04f;
+                        menu.Tick(hover, rpg, false, pressTime + .04);
+                        var touch = WristMenuChecks.Sample(pressTime + .08);
+                        touch.rightTip = target.position - target.forward * .001f;
+                        menu.Tick(touch, rpg, false, pressTime + .08);
+                        Check(movement.ExplorationMode == expected && PlayerPrefs.GetInt(preference, -1) == (int)expected,
+                            "腕匣实际按钮切换并保存探索方式：" + expected + "；" + menu.DebugDetails);
+                        pressTime += .14;
+                    }
+                }
+                finally
+                {
+                    if (hadPreference) PlayerPrefs.SetInt(preference, previousPreference); else PlayerPrefs.DeleteKey(preference);
+                    PlayerPrefs.Save();
+                }
+                menu.Tick(WristMenuChecks.Sample(pressTime),rpg,true,pressTime);
                 Check(!menu.State.LauncherOpen,"硬阻断及时关闭入口");
             }
-            finally { UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(recipe); }
+            finally { UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(recipe); UnityEngine.Object.DestroyImmediate(effect); }
 
             var ray=new WristRayPinchState();
-            WristMenuInput R(double t,float distance) { var f=WristMenuChecks.Sample(t); f.rayAnchorValid=true; f.rayOrigin=Vector3.zero; f.pinchDistance=distance; return f; }
+            PlayerHandObservation R(double t,float distance) { var f=WristMenuChecks.Sample(t); f.rayAnchorValid=true; f.rayOrigin=Vector3.zero; f.pinchDistance=distance; return f; }
             Check(ray.Step("next",Vector3.forward,R(20,.02f),20,s)==null,"捏住进入不能点击");
             ray.Step("next",Vector3.forward,R(20.02,.06f),20.02,s);
             Check(ray.Step(null,default,R(20.08,.028f),20.08,s)=="next","轻捏弯指丢射线仍确认刚高亮的按钮");

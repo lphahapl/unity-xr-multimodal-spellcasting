@@ -1,0 +1,616 @@
+{
+  "archived": {
+    "blend_sha256": "08a167116ad9e48dd69937cbf052dc42827e45407ed229869e95cc9bd6a0a588",
+    "blender": "5.2.2 LTS",
+    "skinEvaluatedTriangles": 144320,
+    "skinControlPoints": 4536,
+    "packedFileImages": 39,
+    "externalLibraries": 0,
+    "protected": {
+      "ShenShang_HandAssembly": "03efdaf1fabe4007eb46593ffb5a80b0b38489de46f6a1f30cdbd96602685c37",
+      "ShenShang_Wardrobe": "08cebc9f13556b27c6f6a2f36827a74c4451e1bd8980e5a8a2ebeba612cf50e3"
+    },
+    "portraitLight": {
+      "大窗主光": [
+        165.0,
+        2.799999952316284,
+        [
+          -1.649999976158142,
+          -2.5999999046325684,
+          3.299999952316284
+        ]
+      ],
+      "侧窗补光": [
+        58.0,
+        2.4000000953674316,
+        [
+          1.7000000476837158,
+          -1.2000000476837158,
+          2.0999999046325684
+        ]
+      ],
+      "后缘反光": [
+        100.0,
+        1.7999999523162842,
+        [
+          0.6000000238418579,
+          1.899999976158142,
+          2.799999952316284
+        ]
+      ],
+      "眼部窗面反射": [
+        0.8500000238418579,
+        0.052000001072883606,
+        [
+          -0.1599999964237213,
+          -0.5600000023841858,
+          1.7899999618530273
+        ]
+      ]
+    },
+    "turnCamera_matrix": [
+      [
+        0.8191519975662231,
+        0.0,
+        0.5735769867897034,
+        1.5252989530563354
+      ],
+      [
+        0.5735769867897034,
+        -0.0,
+        -0.8191519975662231,
+        -2.1457951068878174
+      ],
+      [
+        -0.0,
+        1.0,
+        -0.0,
+        1.569983959197998
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "study": {
+    "blend_sha256": "b6f79252a887152761b24cc2bd65157d8c7e7468c822e880ab6a5c6fa2679e4b",
+    "blender": "5.2.2 LTS",
+    "skinEvaluatedTriangles": 144320,
+    "skinControlPoints": 4536,
+    "packedFileImages": 39,
+    "externalLibraries": 0,
+    "protected": {
+      "ShenShang_HandAssembly": "03efdaf1fabe4007eb46593ffb5a80b0b38489de46f6a1f30cdbd96602685c37",
+      "ShenShang_Wardrobe": "08cebc9f13556b27c6f6a2f36827a74c4451e1bd8980e5a8a2ebeba612cf50e3"
+    },
+    "portraitLight": {
+      "大窗主光": [
+        165.0,
+        2.799999952316284,
+        [
+          -1.649999976158142,
+          -2.5999999046325684,
+          3.299999952316284
+        ]
+      ],
+      "侧窗补光": [
+        58.0,
+        2.4000000953674316,
+        [
+          1.7000000476837158,
+          -1.2000000476837158,
+          2.0999999046325684
+        ]
+      ],
+      "后缘反光": [
+        100.0,
+        1.7999999523162842,
+        [
+          0.6000000238418579,
+          1.899999976158142,
+          2.799999952316284
+        ]
+      ],
+      "眼部窗面反射": [
+        0.8500000238418579,
+        0.052000001072883606,
+        [
+          -0.1599999964237213,
+          -0.5600000023841858,
+          1.7899999618530273
+        ]
+      ]
+    },
+    "turnCamera_matrix": [
+      [
+        0.8191519975662231,
+        0.0,
+        0.5735769867897034,
+        1.5252989530563354
+      ],
+      [
+        0.5735769867897034,
+        -0.0,
+        -0.8191519975662231,
+        -2.1457951068878174
+      ],
+      [
+        -0.0,
+        1.0,
+        -0.0,
+        1.569983959197998
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "defaultCamera": "HeadTurn",
+    "shapeKeys": [
+      "Submandibular support and collar fit",
+      "I · upper tarsal drape and lower orbital support",
+      "I · alar and relaxed oral transition",
+      "I3 · natural upper lid and shorter commissures",
+      "I3 · relaxed philtrum and upper lip"
+    ],
+    "headModifiers": [
+      "Editable facial quads",
+      "I3 · upper-lid fold and tarsal plate"
+    ],
+    "fibersAndSignedRootTipMM": {
+      "Stubble · Upper lip · outward slant": [
+        365,
+        -0.0329,
+        -0.013,
+        0.1391,
+        0.8684
+      ],
+      "Stubble · Mouth corners · scattered": [
+        37,
+        -0.0325,
+        -0.0131,
+        0.117,
+        0.4774
+      ],
+      "Stubble · Under lip · central tuft": [
+        59,
+        -0.0318,
+        -0.0133,
+        0.1321,
+        0.4997
+      ],
+      "Stubble · Chin · varied growth": [
+        378,
+        -0.033,
+        -0.013,
+        0.0891,
+        0.542
+      ]
+    },
+    "activeSkinImages": {
+      "Albedo · I": "沈商 · 面部肤色与日晒色",
+      "Roughness · I": "沈商 · 额颊鼻唇分区粗糙度",
+      "Microrelief · I": "沈商 · 局部毛孔与细纹",
+      "": "ShenShang • Lip and eyelid microstructure • 2048"
+    }
+  },
+  "controlledRender": {
+    "resolution": 1100,
+    "samples": 96,
+    "sameLensAndFraming": true,
+    "sameLight": true,
+    "reference35Registration": "pupils aligned by horizontal translation of artwork crop only"
+  },
+  "browControlPointContact": {
+    "G.眉底毛根.Right": [
+      3038,
+      0,
+      0.050251
+    ],
+    "G.眉底毛根.Left": [
+      3038,
+      0,
+      0.053683
+    ],
+    "G.独立眉毛.Right": [
+      3078,
+      0,
+      0.149953
+    ],
+    "G.独立眉毛.Left": [
+      2959,
+      0,
+      0.149868
+    ]
+  },
+  "geometry": {
+    "evaluatedHead": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "hidden back-to-back faces: ShenShang_Head (2 pairs) - delete to save tris",
+        "asset lowest point z=1.389 (not resting on ground plane z=0)"
+      ],
+      "ground_z": 1.389,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "ShenShang_Head",
+          "tri_pairs": 2
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "ShenShang_Head": {
+          "verts": 72261,
+          "faces": 72160,
+          "tris": 144320,
+          "ngons": 0,
+          "boundary_edges": 200,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 1,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 2,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 12.1
+        }
+      }
+    },
+    "allEvaluatedComponents": {
+      "ShenShang_Head": {
+        "vertices": 72261,
+        "triangles": 144320,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 200,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": null
+      },
+      "Eye.L": {
+        "vertices": 4866,
+        "triangles": 9728,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Eye.R": {
+        "vertices": 4866,
+        "triangles": 9728,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Upper wet margin.L": {
+        "vertices": 752,
+        "triangles": 1500,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Lower wet margin.L": {
+        "vertices": 752,
+        "triangles": 1500,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Inner canthus.L": {
+        "vertices": 242,
+        "triangles": 480,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Upper wet margin.R": {
+        "vertices": 752,
+        "triangles": 1500,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Lower wet margin.R": {
+        "vertices": 752,
+        "triangles": 1500,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "Inner canthus.R": {
+        "vertices": 242,
+        "triangles": 480,
+        "zeroAreaTriangles": 0,
+        "zeroLengthEdges": 0,
+        "overTwoAdjacentFacesEdges": 0,
+        "boundaryEdges": 0,
+        "inconsistentNormalDirectedEdges": 0,
+        "positiveClosedShellVolume": true
+      },
+      "nativeLashCurveCounts": {
+        "Upper lashes.L": 20,
+        "Lower lashes.L": 7,
+        "Upper lashes.R": 19,
+        "Lower lashes.R": 7
+      },
+      "fileSHA256": "b76fb14725dfa8d3ffded5c2b2fa07c59a2fa0b5d608c27edb5e48ece5ab2b47"
+    },
+    "eyeAndMouthRayReadback": {
+      "Eye.R": {
+        "uBareTopBareBottomVisibleTopVisibleBottom": [
+          [
+            312,
+            301.75,
+            325.25,
+            308.25,
+            325.25
+          ],
+          [
+            313,
+            301.5,
+            325.5,
+            308.25,
+            325.5
+          ],
+          [
+            314,
+            301.25,
+            325.75,
+            308.25,
+            325.75
+          ],
+          [
+            315,
+            301.0,
+            326.0,
+            308.25,
+            325.75
+          ],
+          [
+            316,
+            300.75,
+            326.0,
+            308.25,
+            325.75
+          ],
+          [
+            317,
+            300.75,
+            326.25,
+            308.25,
+            325.75
+          ],
+          [
+            318,
+            301.0,
+            326.0,
+            308.25,
+            325.75
+          ],
+          [
+            319,
+            301.0,
+            326.0,
+            308.25,
+            325.75
+          ],
+          [
+            320,
+            301.25,
+            325.75,
+            308.5,
+            325.5
+          ],
+          [
+            321,
+            301.5,
+            325.5,
+            308.5,
+            325.25
+          ],
+          [
+            322,
+            302.0,
+            325.0,
+            308.5,
+            325.0
+          ]
+        ],
+        "meanUpperIrisCoveredPx": 7.068181818181818
+      },
+      "Eye.L": {
+        "uBareTopBareBottomVisibleTopVisibleBottom": [
+          [
+            453,
+            301.25,
+            324.75,
+            308.75,
+            324.75
+          ],
+          [
+            454,
+            300.75,
+            325.0,
+            308.75,
+            324.75
+          ],
+          [
+            455,
+            300.75,
+            325.25,
+            308.75,
+            325.0
+          ],
+          [
+            456,
+            300.5,
+            325.5,
+            308.75,
+            325.0
+          ],
+          [
+            457,
+            300.25,
+            325.5,
+            308.75,
+            325.0
+          ],
+          [
+            458,
+            300.25,
+            325.75,
+            308.75,
+            325.0
+          ],
+          [
+            459,
+            300.5,
+            325.5,
+            308.75,
+            325.0
+          ],
+          [
+            460,
+            300.5,
+            325.5,
+            308.75,
+            324.75
+          ],
+          [
+            461,
+            300.75,
+            325.25,
+            308.75,
+            324.75
+          ],
+          [
+            462,
+            301.0,
+            325.0,
+            309.0,
+            324.5
+          ],
+          [
+            463,
+            301.5,
+            324.5,
+            309.0,
+            324.5
+          ]
+        ],
+        "meanUpperIrisCoveredPx": 8.068181818181818
+      },
+      "oralSlit": {
+        "n": 90,
+        "meanPx": 0.0,
+        "maxPx": 0.0,
+        "pitchPx": 0.1
+      },
+      "protectedMaxDisplacementMm": {
+        "browsAndForehead": 0.21659,
+        "neckAndChin": 0.00024,
+        "posteriorAndLateralFace": 1.1933
+      },
+      "count": {
+        "meshes": 9,
+        "curves": 4,
+        "nativeHeadCage": 4536,
+        "evaluatedVertices": 72261,
+        "evaluatedTriangles": 144320,
+        "packedImages": 4
+      }
+    },
+    "orbitalSculpt": {
+      "sha256": "b76fb14725dfa8d3ffded5c2b2fa07c59a2fa0b5d608c27edb5e48ece5ab2b47",
+      "modifier": "I3 · upper-lid fold and tarsal plate",
+      "interface": "Sculpt strength",
+      "modifierSocket": "Socket_1",
+      "value": 0.5299999713897705,
+      "distribution": [
+        [
+          0,
+          0
+        ],
+        [
+          0.055,
+          0.12
+        ],
+        [
+          0.16,
+          0.77
+        ],
+        [
+          0.34,
+          0.98
+        ],
+        [
+          0.5,
+          0.84
+        ],
+        [
+          0.66,
+          0.55
+        ],
+        [
+          0.76,
+          0.34
+        ],
+        [
+          0.85,
+          0.105
+        ],
+        [
+          0.95,
+          0.006
+        ],
+        [
+          1.0,
+          0
+        ]
+      ]
+    }
+  },
+  "note": "Blender visual study. The bound character and Unity runtime have separate versions. The two opposing hidden eyelid corner contacts are anatomically intentional. Microstructure channels use Non-Color data. Ground warning pertains to the isolated head."
+}

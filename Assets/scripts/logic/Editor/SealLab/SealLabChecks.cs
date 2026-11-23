@@ -15,6 +15,7 @@ namespace NarutoVR.Editor
     public static class SealLabChecks
     {
         [Serializable] private class Report { public bool passed; public string utc; public string[] checks; public bool hardwareTested; }
+        [Serializable] private class LeftRecordingFixture { public int schema = 1; public double time; public string label; public HandSnapshot left; }
         [MenuItem("Tools/NarutoVR/Run Seal Lab Checks")]
         public static void Run()
         {
@@ -92,19 +93,20 @@ namespace NarutoVR.Editor
                 var recorded = new List<SealFrame>();
                 for (int i = 0; i < 12; ++i)
                 {
-                    var sample = TestFrame(); sample.label = "寅"; sample.time += i * 0.02;
+                    var sample = TestFrame(); sample.label = "律印"; sample.time += i * 0.02;
                     for (int j = 0; j < sample.right.joints.Length; ++j) sample.right.joints[j].position += new Vector3(i * 0.001f, 0, 0);
                     recorded.Add(sample);
                 }
                 var negative = TestFrame(); negative.label = "none"; recorded.Add(negative);
-                var draft = SealTemplateFromRecording.Build(recorded, "寅");
+                var draft = SealTemplateFromRecording.Build(recorded, "律印");
                 Check(draft.error == null && draft.acceptedFrames == 12 && draft.matchingFrames == 12 && draft.rules.Count > 0, "recorded positive label produces a multi-frame template draft");
                 var distanceRule = draft.rules.Single(r => r.featureId == "Both.WristDistance");
                 Check(distanceRule.min > 0.15f && distanceRule.max < 0.161f && distanceRule.min < distanceRule.max, "template ranges use inner percentiles rather than one frame or extremes");
                 Check(SealTemplateFromRecording.Build(recorded, "none").error != null, "negative recording label cannot become a positive seal template");
-                Check(SealTemplateFromRecording.Build(recorded.Take(9).ToList(), "寅").error != null, "insufficient reference data rejected");
+                Check(SealTemplateFromRecording.Build(recorded.Take(9).ToList(), "律印").error != null, "insufficient reference data rejected");
                 foreach (var sample in recorded) sample.left.highConfidence = false;
-                Check(SealTemplateFromRecording.Build(recorded, "寅").acceptedFrames == 0, "low-confidence recordings are excluded from template statistics");
+                Check(SealTemplateFromRecording.Build(recorded, "律印").acceptedFrames == 0, "low-confidence recordings are excluded from template statistics");
+                CheckLeftOnly(Check);
 
                 var frame = TestFrame(); var extractor = new SealFeatureExtractor(); var values = new List<SealFeature>();
                 var xrMask = Enumerable.Repeat(true, Oculus.Interaction.Input.Constants.NUM_HAND_JOINTS).ToArray();
@@ -167,6 +169,75 @@ namespace NarutoVR.Editor
             void Near(float actual, float expected, string name, float tolerance = 0.0001f) => Check(float.IsFinite(actual) && Mathf.Abs(actual - expected) <= tolerance, name);
         }
         private static SealFeature Get(List<SealFeature> features, string id) => features.Single(f => f.id == id);
+        private static void CheckLeftOnly(Action<bool, string> check)
+        {
+            var samples = new List<SealFrame>();
+            for (int i = 0; i < 12; i++)
+            {
+                var f = TestFrame();
+                f.label = SealProfile.HengSealName;
+                f.time += i * 0.02;
+                f.left.version = i;
+                f.left.observedAt = f.time;
+                f.right = new HandSnapshot();
+                samples.Add(f);
+                samples.Add(new SealFrame { label = f.label, time = f.time + 0.01, left = f.left, right = new HandSnapshot { version = i + 1 } });
+            }
+            var draft = SealTemplateFromRecording.Build(samples, SealProfile.HengSealName, SealHandMode.LeftOnly);
+            check(draft.matchingFrames == 12 && draft.acceptedFrames == 12 && draft.error == null &&
+                draft.rules.Count > 0 && draft.rules.All(r => r.featureId.StartsWith("L.", StringComparison.Ordinal)),
+                "independent left observations alone produce left-only calibration rules");
+            Directory.CreateDirectory("Logs/SealLabChecks");
+            const string leftPath = "Logs/SealLabChecks/left-only-synthetic.jsonl";
+            File.WriteAllLines(leftPath, samples.Select(f => JsonUtility.ToJson(new LeftRecordingFixture { time = f.time, label = f.label, left = f.left })));
+            var leftReplay = SealRecording.Read(leftPath, handMode: SealHandMode.LeftOnly);
+            check(leftReplay.All(f => !f.right.tracked) && SealTemplateFromRecording.Build(leftReplay, SealProfile.HengSealName, SealHandMode.LeftOnly).acceptedFrames == 12,
+                "JSONL without any right-hand field replays and calibrates from distinct left observations");
+            check(SealTemplateFromRecording.Build(samples, SealProfile.HengSealName).acceptedFrames == 0,
+                "legacy bilateral calibration still requires the right hand");
+            var duplicate = Enumerable.Repeat(samples[0], 20).ToList();
+            check(SealTemplateFromRecording.Build(duplicate, SealProfile.HengSealName, SealHandMode.LeftOnly).acceptedFrames == 1,
+                "repeated left pose cannot meet the ten-observation minimum");
+            samples[0].left.highConfidence = false; samples[2].left.fresh = false;
+            check(SealTemplateFromRecording.Build(samples, SealProfile.HengSealName, SealHandMode.LeftOnly).acceptedFrames == 10,
+                "low-confidence and stale left samples are excluded");
+
+            var profile = ScriptableObject.CreateInstance<SealProfile>();
+            try
+            {
+                profile.handMode = SealHandMode.LeftOnly;
+                profile.sealName = SealProfile.HengSealName;
+                profile.calibrated = true;
+                profile.holdSeconds = 0.07f;
+                profile.rules.Add(new FeatureRule { featureId = "R.Index.Curl", min = 0, max = 1 });
+                check(profile.ValidateRules() != null, "a left-only profile rejects active right-sided rules");
+                profile.rules[0].featureId = "L.Index.Curl";
+                var recognizer = new SealRecognizer();
+                var profiles = new[] { profile };
+                var input = new[] { new SealFeature("L.Index.Curl", "deg", 0.5f, true, true) };
+                var hand = new HandSnapshot { connected = true, tracked = true, fresh = true, highConfidence = true, observedAt = 1, version = 1 };
+                recognizer.Update(profiles, input, 1, false, 0.05f, hand);
+                recognizer.Update(profiles, input, 1.09, false, 0.05f, hand);
+                check(recognizer.State == SealRecognitionState.Holding && recognizer.HoldProgress == 0,
+                    "right-only updates cannot progress the left hold");
+                hand.observedAt = 1.09; hand.version++;
+                recognizer.Update(profiles, input, 1.09, false, 0.05f, hand);
+                check(recognizer.Recognized == profile, "fresh left observations complete a left hold without the right hand");
+                hand.observedAt = 1.4; hand.version++;
+                recognizer.Update(profiles, input, 1.4, false, 0.05f, hand);
+                check(!recognizer.Recognized && recognizer.HoldProgress == 0, "left observation gap breaks continuity even without an intervening update");
+                recognizer.Update(profiles, input, 1.55, false, 0.05f, hand);
+                check(recognizer.State == SealRecognitionState.NoTracking && !recognizer.Scores[0].passes,
+                    "expired left observation cancels the candidate");
+                hand.observedAt = 1.56; hand.version++; hand.highConfidence = false;
+                recognizer.Update(profiles, input, 1.56, false, 0.05f, hand);
+                check(!recognizer.Candidate, "left-hand quality is enforced independently of finger features");
+                var presets = new SealRecognitionTest.WeightFile { profiles = new[] { new SealRecognitionTest.WeightProfile { sealName = profile.sealName } } };
+                check(presets.ForProfile(profile) == null, "a bilateral preset with the same label cannot override a left-only template");
+            }
+            finally { UnityEngine.Object.DestroyImmediate(profile); }
+        }
+
         private static SealFrame TestFrame()
         {
             var frame = new SealFrame { time = 10, label = "synthetic-test-only" };
@@ -200,7 +271,7 @@ namespace NarutoVR.Editor
             {
                 var lab = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<Lab>(true)).Single();
                 if (lab.leftTrackedHand.GetType() != typeof(Hand) || lab.rightTrackedHand.GetType() != typeof(Hand) ||
-                    !lab.recordingOrigin || lab.profiles.Count != 12)
+                    !lab.recordingOrigin || !SealLabBuilder.ValidProfileList(lab.profiles))
                     throw new Exception("Seal Lab scene references or initial template state invalid");
                 foreach (var raw in new[] { lab.leftTrackedHand, lab.rightTrackedHand })
                 {
@@ -214,7 +285,7 @@ namespace NarutoVR.Editor
                     if (!serialized.FindProperty("_cameraRigRef").objectReferenceValue || !serialized.FindProperty("_trackingToWorldTransformer").objectReferenceValue)
                         throw new Exception("Unwired actual OVR data source");
                 }
-                checks.Add("scene actual IHand sources wired before LastKnownGoodHand; 12 profiles; origin present");
+                checks.Add($"scene actual IHand sources wired before LastKnownGoodHand; {lab.profiles.Count} profiles including the six workshop seals; origin present");
             }
             finally { if (!alreadyOpen) EditorSceneManager.CloseScene(scene, true); }
         }

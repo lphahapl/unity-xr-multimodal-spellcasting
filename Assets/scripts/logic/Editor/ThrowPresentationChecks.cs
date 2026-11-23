@@ -2,6 +2,7 @@
 using System;
 using System.Reflection;
 using NarutoVR.SealCombat.Rpg;
+using NarutoVR.SealCombat.Enemies;
 using UnityEngine;
 using Object=UnityEngine.Object;
 namespace NarutoVR.SealCombat.Editor
@@ -92,6 +93,23 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!effects.TryGetThrowPreview(out _),"出手点被动态障碍占据时不能显示可用弹道。");
                 Object.DestroyImmediate(wall);Physics.SyncTransforms();
 
+                // The same collider is now an enemy body; a real enemy weak point may also be a trigger.
+                Object.DestroyImmediate(target.GetComponent<SkillTrainingTarget>());
+                target.SetActive(false);
+                target.AddComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                var enemy = target.AddComponent<EnemyObj>();
+                target.SetActive(true);
+                Physics.SyncTransforms();
+                Require(effects.TryGetThrowPreview(out var body) && !body.blocked, "敌人实体可受击时应显示目标色");
+                var zone = target.AddComponent<EnemyHitZone>();
+                zone.owner = enemy;
+                zone.isWeakPoint = true;
+                target.GetComponent<BoxCollider>().isTrigger = true;
+                Physics.SyncTransforms();
+                Require(effects.TryGetThrowPreview(out var weak) && !weak.blocked && weak.endpoint.z < point.z + .25f, "敌人弱点 Trigger 应截断弹道并显示目标色");
+                target.GetComponent<BoxCollider>().isTrigger = false;
+                Physics.SyncTransforms();
+
                 wrist=root.transform.position+new Vector3(.5f,-.65f,.32f);Tick();
                 Require(!effects.TryGetThrowPreview(out _),"放下手应隐藏准星。");
                 wrist.y=root.transform.position.y-.24f;Tick();CheckPreview(point);
@@ -101,7 +119,7 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!effects.TryGetThrowPreview(out _),"过期观测不能保留准星。");
                 Tick();CheckPreview(point);
                 tracked=false;Tick();Require(!effects.TryGetThrowPreview(out _),"持球手失踪时准星必须消失。");
-                return 6;
+                return 8;
             }
             finally
             {

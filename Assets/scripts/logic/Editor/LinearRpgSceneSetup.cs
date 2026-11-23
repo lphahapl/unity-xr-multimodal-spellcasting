@@ -20,7 +20,7 @@ namespace NarutoVR.SealCombat.Editor
         public const string ScenePath = "Assets/Scene/LinearRpgTest.unity";
         public const string ConfigurationRoot = "Assets/ScriptableObjects";
         internal const string FireballEffectPath = ConfigurationRoot + "/投射物效果配置/火球术投射物.asset";
-        const string SkillFolder = ConfigurationRoot + "/技能定义配置/";
+        internal const string TrainingPlayerPath = ConfigurationRoot + "/玩家定义配置/训练玩家.asset";
         public const string VoiceConfigurationPath = "Assets/Configuration/LinearRpg/skill-voice-config.json";
         const string SourceScenePath = "Assets/Scene/FireballRange.unity";
         const float GridSpacing = 1.5f;
@@ -92,8 +92,8 @@ namespace NarutoVR.SealCombat.Editor
             {
                 if (sessions.Length != 1) throw new InvalidOperationException("场景主控重复，请检查备份");
                 var session = sessions[0];
-                session.playerDefinition = config.player; session.stages = config.stages;
-                session.skills.catalog = config.catalog; session.skills.skills = new List<SkillDefinition>(config.catalog.skills);
+                session.playerDefinition = config.player; session.ConfigureRoute(config.stages, session.checkpointNodes);
+                session.skills.catalog = config.catalog;
                 foreach (var node in Components<NavigationNode>(scene))
                     if (node.TryGetComponent<LineRenderer>(out var line)) line.sharedMaterial = config.markerMaterial;
                 string json = SkillConfigurationSetup.BuildVoiceJson(config.catalog, session.skills.voice.receivePort, session.skills.voice.servicePort);
@@ -128,67 +128,23 @@ namespace NarutoVR.SealCombat.Editor
         {
             var result = new Configuration();
             EnsureFolder(ConfigurationRoot);
-            SkillDefinition zi = RequireSkill(source, "buff.zi");
-            SkillDefinition voice = RequireSkill(source, "buff.voice");
-            SkillDefinition fire = RequireSkill(source, "fireball");
-            if (!(fire.effectDefinition is ProjectileEffectDefinition projectile) ||
-                !(zi.effectDefinition is ShieldEffectDefinition shield) || voice.effectDefinition != shield)
-                throw new InvalidOperationException("原目录的火球应引用投射物效果，子印和护体咒应共用同一护盾效果。");
-
-            var sharedShield = Clone(shield, ConfigurationRoot + "/护盾效果配置/子印与护体咒共用护盾.asset", null, result);
-            var fireEffect = Clone(projectile, FireballEffectPath, null, result);
-            var hiddenEffect = Clone(shield, ConfigurationRoot + "/护盾效果配置/金刚护体强化护盾.asset",
-                copy => copy.capacity = 150, result);
-            SkillDefinition CopySkill(SkillDefinition original, string fileName, string id,
-                SkillEffectDefinition effect, Action<SkillDefinition> configure)
-            {
-                string path = SkillFolder + fileName;
-                var skill = Clone(original, path, copy =>
-                {
-                    copy.skillId = id;
-                    copy.effectDefinition = effect;
-                    configure(copy);
-                }, result);
-                if (skill.skillId != id || skill.effectDefinition != effect)
-                    throw new InvalidOperationException($"技能资源占用冲突：{path} 应为 {id}，并引用 {AssetDatabase.GetAssetPath(effect)}。");
-                return skill;
-            }
-            void ConfigureShield(SkillDefinition skill)
-            {
-                skill.manaCost = 15;
-                skill.cooldownGroup = "shield";
-            }
-            SkillDefinition copiedZi = CopySkill(zi, "子印加持.asset", "buff.zi", sharedShield, ConfigureShield);
-            SkillDefinition copiedVoice = CopySkill(voice, "护体咒加持.asset", "buff.voice", sharedShield, ConfigureShield);
-            SkillDefinition copiedFire = CopySkill(fire, "火球术.asset", "fireball", fireEffect, copy => copy.manaCost = 20);
-            SkillDefinition hidden = CopySkill(voice, "金刚护体.asset", "buff.hidden", hiddenEffect, copy =>
-            {
-                copy.displayName = "金刚护体";
-                copy.triggerMode = SkillTriggerMode.VoiceOnly;
-                copy.phrase = "金刚护体";
-                copy.phraseTokens = "j īn g āng h ù t ǐ";
-                copy.sealName = string.Empty;
-                copy.effectKind = SkillEffectKind.SelfBuff;
-                copy.manaCost = 25;
-                copy.cooldownSeconds = 8;
-                copy.cooldownGroup = "shield.hidden";
-            });
-            result.catalog = Clone(source, ConfigurationRoot + "/技能目录配置/线性RPG技能目录.asset", copy =>
-                copy.skills = new List<SkillDefinition> { copiedZi, copiedVoice, copiedFire, hidden }, result);
-            result.player = NewAsset<RpgPlayerDefinition>(ConfigurationRoot + "/玩家定义配置/默认玩家.asset", null, result);
+            result.catalog = source;
+            var errors = source.Validate();
+            if (errors.Count != 0) throw new InvalidOperationException(string.Join("\n", errors));
+            SkillDefinition fire = source.skills.Single(skill => skill.skillId == "fireball");
+            result.player = NewAsset<RpgPlayerDefinition>(TrainingPlayerPath, player => player.startingSkills = new[] { fire }, result);
             result.stages = new[]
             {
-                Stage("trial.01", "火球基础", "寅印与“火球术”匹配后，右手轻推发射。击破本阶段训练靶，再前往下一阶段。", 40,
+                Stage("trial.01", "火球基础", "律印与“火球术”匹配后，抓握瞄准后松手投掷。击破本阶段训练靶，再前往下一阶段。", 40,
                     new[] { "buff.zi", "buff.voice" }, false, result),
-                Stage("trial.02", "护盾与闪避", "子印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 40,
+                Stage("trial.02", "护盾与闪避", "规印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 40,
                     Array.Empty<string>(), true, result),
-                Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单购买隐藏法术及升级火球。", 60,
+                Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单升级火球。", 60,
                     Array.Empty<string>(), true, result)
             };
             result.shop = NewAsset<SkillShopCatalog>(ConfigurationRoot + "/技能商店配置/训练场技能商店.asset", shop =>
             {
                 shop.offers = new[] {
-                    new SkillShopOffer { offerId="unlock.hidden", displayName="购买隐藏术式", skillId="buff.hidden", kind=SkillOfferKind.Unlock, cost=60, requiredStage=result.stages[0] },
                     new SkillShopOffer { offerId="upgrade.fireball", displayName="升级火球", skillId="fireball", kind=SkillOfferKind.Upgrade, cost=30, maximumLevel=3 }
                 };
             }, result);
@@ -202,7 +158,6 @@ namespace NarutoVR.SealCombat.Editor
                     if (material.HasProperty("_Color")) material.SetColor("_Color", new Color(0.12f, 0.82f, 0.95f, 1));
                     return material;
                 });
-            ValidateConfiguration(result.catalog, source, copiedZi, copiedVoice, copiedFire, hidden);
             foreach (Object asset in result.created) AssetDatabase.SaveAssetIfDirty(asset);
             return result;
         }
@@ -211,14 +166,7 @@ namespace NarutoVR.SealCombat.Editor
             string[] unlocks, bool hazards, Configuration configuration)
         {
             string folder = ConfigurationRoot + "/关卡阶段配置/";
-            string path = folder + name + ".asset";
-            // 已发布的训练场按 GUID 引用旧阶段；只在原文件确实存在时沿用它。
-            string legacyPath = folder + "阶段_" + id + ".asset";
-            if (File.Exists(legacyPath))
-            {
-                if (File.Exists(path)) throw new InvalidOperationException($"训练阶段有两个配置文件：{legacyPath}、{path}");
-                path = legacyPath;
-            }
+            string path = folder + "阶段_" + id + ".asset";
             var definition = NewAsset<RpgStageDefinition>(path, stage =>
             {
                 stage.stageId = id;
@@ -230,34 +178,6 @@ namespace NarutoVR.SealCombat.Editor
             }, configuration);
             if (definition.stageId != id) throw new InvalidOperationException($"阶段配置 {path} 的 ID 与 {id} 不符");
             return definition;
-        }
-
-        static SkillDefinition RequireSkill(SkillCatalog source, string id)
-        {
-            SkillDefinition result = source.skills == null ? null : source.skills.SingleOrDefault(s => s && s.skillId == id);
-            if (!result) throw new InvalidOperationException("原技能目录缺少配方：" + id);
-            return result;
-        }
-
-        static void ValidateConfiguration(SkillCatalog catalog, SkillCatalog source, params SkillDefinition[] required)
-        {
-            List<string> errors = catalog.Validate();
-            foreach (SkillDefinition skill in required)
-                if (catalog.skills == null || !catalog.skills.Contains(skill))
-                    errors.Add($"RPG目录缺少专用配方 {skill.skillId}：{AssetDatabase.GetAssetPath(skill)}");
-            if (catalog.skills != null)
-            {
-                foreach (SkillDefinition skill in catalog.skills.Where(item => item))
-                    if (!AssetDatabase.Contains(skill) || !skill.effectDefinition || !AssetDatabase.Contains(skill.effectDefinition) ||
-                        source.skills.Any(original => original && (original == skill || original.effectDefinition == skill.effectDefinition)))
-                        errors.Add("RPG配方及效果必须引用独立资产：" + skill.skillId);
-            }
-            if (errors.Count != 0) throw new InvalidOperationException(string.Join("\n", errors));
-        }
-
-        static T Clone<T>(T source, string path, Action<T> prepare, Configuration configuration) where T : Object
-        {
-            return NewAsset(path, prepare, configuration, () => Object.Instantiate(source));
         }
 
         static T NewAsset<T>(string path, Action<T> prepare, Configuration configuration, Func<T> factory = null) where T : Object
@@ -318,7 +238,6 @@ namespace NarutoVR.SealCombat.Editor
                 if (transform) Object.DestroyImmediate(transform.gameObject);
 
             skills.catalog = configuration.catalog;
-            skills.skills = new List<SkillDefinition>(configuration.catalog.skills);
             skills.enableOpenHandCancel = false;
             skills.showDesktopControls = false;
             skills.view.showDesktopControls = false;
@@ -359,15 +278,16 @@ namespace NarutoVR.SealCombat.Editor
             var training = trainingRoot.AddComponent<TrainingChapterFlow>();
             controller.chapter = training;
             training.rpg = controller;
-            training.initialSkills = new[] { "fireball" };
             controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             controller.skills = skills;
             controller.locomotion = locomotion;
             controller.playerDefinition = configuration.player;
-            controller.stages = configuration.stages;
+            controller.handTracking = skills.lab;
+            skills.lab = null;
             training.TargetGroup.targets = targets;
-            training.TargetGroup.healthByStage = new[] {60f, 90f, 120f};
-            controller.checkpointNodes = new[] { grid[1, 1], grid[1, 2], grid[2, 2] };
+            training.TargetGroup.stageHealth = configuration.stages.Select((stage, i) =>
+                new TrainingTargetGroup.StageHealth { stage = stage, health = 60f + 30f * i }).ToArray();
+            controller.ConfigureRoute(configuration.stages, new[] { grid[1, 1], grid[1, 2], grid[2, 2] });
             controller.autoLoad = true;
             controller.lowHandsBelowHead = 0.55f;
             controller.saveFileName = "linear-rpg-v2.json";
@@ -478,7 +398,7 @@ namespace NarutoVR.SealCombat.Editor
             help.rectTransform.offsetMin = new Vector2(30, 20); help.rectTransform.offsetMax = new Vector2(-30, -10);
             help.color = new Color(0.4f, 0.9f, 1);
             help.text = "左食指指向落点，短暂停留后传送；移开或放松后再次选择。放下左手退出导航。\n" +
-                "导航准备期间，右手张掌短划闪避；持火球前推优先发射，侧后闪保留手中火球。\n" +
+                "导航准备期间，右手张掌短划闪避；持火球可抓握瞄准并松手投掷。\n" +
                 "双手放低保持取消待施法与未发射物；已生效护盾和飞行火球保留。\n真实语音需加载本关卡独立语音配置。";
             return status;
         }

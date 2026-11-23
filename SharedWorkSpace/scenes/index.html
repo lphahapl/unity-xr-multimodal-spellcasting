@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>场景原型工作台</title>
+    <script src="../ui/open.js" data-route="scenes/"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three/build/three.module.min.js",
+          "three/addons/": "/vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/ui/base.css" />
+  </head>
+  <body>
+    <nav aria-label="工作台导航">
+      <a href="/">共享工作空间</a><a href="/rig/">骨骼与动画</a><a href="/plans/">策划案</a
+      ><a href="/scenes/">场景原型</a><a href="/reader/">配置与检索</a>
+    </nav>
+    <main>
+      <div class="heading">
+        <h1>场景原型工作台</h1>
+        <div class="tools">
+          <button id="reload">重新读取文件</button><button id="new" class="primary">新建原型</button>
+        </div>
+      </div>
+      <div class="layout">
+        <aside class="pane">
+          <label class="field">查找原型<input type="search" id="filter" /></label>
+          <div id="list" class="sidebar"></div>
+        </aside>
+        <form class="pane" id="editor" hidden>
+          <div class="heading">
+            <label class="field"
+              >编辑模式<select id="sceneMode">
+                <option value="whitebox">3D 白盒</option>
+                <option value="model">3D 场景模型</option>
+              </select></label
+            >
+            <div class="tools">
+              <button type="button" id="frame3d">全景</button
+              ><button type="button" id="export3d">导出当前 GLB</button>
+            </div>
+          </div>
+          <div class="stage3d"><canvas id="viewport3d" aria-label="可编辑的三维场景"></canvas></div>
+          <div class="tools">
+            <label
+              >操作
+              <select id="transformMode">
+                <option value="translate">移动</option>
+                <option value="rotate">旋转</option>
+                <option value="scale">缩放</option>
+              </select></label
+            ><label
+              >所选节点
+              <select id="node3d"></select
+            ></label>
+          </div>
+          <div id="modelTools" hidden>
+            <button type="button" id="importScene">导入或替换场景模型</button
+            ><input
+              id="sceneFiles"
+              hidden
+              multiple
+              type="file"
+              accept=".fbx,.glb,.gltf,.bin,.png,.jpg,.jpeg,.webp"
+            />
+            <span id="sourceName"></span>
+          </div>
+          <div class="tools" id="blockTools">
+            <label
+              >形状
+              <select id="blockShape">
+                <option value="box">立方体</option>
+                <option value="sphere">球体</option>
+                <option value="cylinder">圆柱</option>
+              </select></label
+            ><button type="button" id="addBlock">添加白盒</button
+            ><button type="button" id="deleteBlock">删除白盒</button>
+          </div>
+          <fieldset id="transformFields">
+            <legend>节点局部变换</legend>
+            <label>可见 <input type="checkbox" id="nodeVisible" /></label>
+            <div class="inline">
+              <label class="field">位置 X<input type="number" step="any" id="position0" /></label
+              ><label class="field">位置 Y<input type="number" step="any" id="position1" /></label
+              ><label class="field">位置 Z<input type="number" step="any" id="position2" /></label>
+            </div>
+            <div class="inline">
+              <label class="field">旋转（度） X<input type="number" step="any" id="rotation0" /></label
+              ><label class="field">旋转（度） Y<input type="number" step="any" id="rotation1" /></label
+              ><label class="field">旋转（度） Z<input type="number" step="any" id="rotation2" /></label>
+            </div>
+            <div class="inline">
+              <label class="field">缩放 X<input type="number" step="any" id="scale0" /></label
+              ><label class="field">缩放 Y<input type="number" step="any" id="scale1" /></label
+              ><label class="field">缩放 Z<input type="number" step="any" id="scale2" /></label>
+            </div>
+          </fieldset>
+          <p id="sceneStatus" class="status" role="status"></p>
+          <label class="field" for="name">名称<input id="name" required maxlength="240" /></label
+          ><label class="field" for="summary">摘要<textarea id="summary" rows="2"></textarea></label>
+          <details id="floorplan">
+            <summary>俯视布局与场地尺寸</summary>
+            <div class="inline">
+              <label class="field" for="width"
+                >场地宽（米）<input id="width" type="number" min=".01" step="any" required /></label
+              ><label class="field" for="depth"
+                >场地深（米）<input id="depth" type="number" min=".01" step="any" required
+              /></label>
+            </div>
+            <svg id="map" class="grid" role="group" aria-label="场景平面图，可拖动元素"></svg>
+            <div class="tools">
+              <h2>场景元素</h2>
+              <button type="button" id="addObject">添加元素</button
+              ><button type="button" id="removeObject">移除所选元素</button>
+            </div>
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>元素</th>
+                    <th>类型</th>
+                    <th>X / Z（米）</th>
+                    <th>宽 × 深（米）</th>
+                  </tr>
+                </thead>
+                <tbody id="objects"></tbody>
+              </table>
+            </div>
+            <fieldset id="objectFields">
+              <legend>所选元素</legend>
+              <div class="inline">
+                <label class="field" for="objectName">元素名称<input id="objectName" /></label
+                ><label class="field" for="objectType">类型<input id="objectType" /></label
+                ><label class="field" for="x">X（米）<input id="x" type="number" step="any" /></label
+                ><label class="field" for="z">Z（米）<input id="z" type="number" step="any" /></label
+                ><label class="field" for="w">宽（米）<input id="w" type="number" step="any" /></label
+                ><label class="field" for="d">深（米）<input id="d" type="number" step="any" /></label>
+              </div>
+            </fieldset>
+          </details>
+          <div class="tools">
+            <button class="primary" id="save">保存到文件</button
+            ><button class="danger" id="delete" type="button">删除记录</button><a id="raw">查看 JSON</a>
+          </div>
+          <div class="path" id="path"></div>
+        </form>
+      </div>
+      <p id="status" class="status" role="status"></p>
+      <p id="errors" class="status" role="alert"></p>
+    </main>
+    <script type="module" src="/ui/editor.js"></script>
+  </body>
+</html>

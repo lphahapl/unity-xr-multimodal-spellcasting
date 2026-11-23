@@ -20,6 +20,14 @@ namespace NarutoVR.Editor
     public static class SealLabBuilder
     {
         public const string ScenePath = "Assets/Scene/SealLab.unity";
+        internal const string ProfileFolder = "Assets/ScriptableObjects/手印识别配置";
+        internal static bool ValidProfileList(IReadOnlyList<SealProfile> profiles)
+        {
+            if (profiles == null || profiles.Any(p => !p || string.IsNullOrWhiteSpace(p.sealName))) return false;
+            var names = profiles.Select(p => p.sealName).ToArray();
+            return names.Distinct().Count() == names.Length && names.Where(SealProfile.Names.Contains).SequenceEqual(SealProfile.Names) &&
+                profiles.Any(p => p.sealName == SealProfile.HengSealName && p.handMode == SealHandMode.LeftOnly);
+        }
         private const string Request = "Logs/seal-lab-build.request";
         static SealLabBuilder() { if (File.Exists(Request)) EditorApplication.delayCall += RequestedBuild; }
         private static void RequestedBuild()
@@ -72,13 +80,28 @@ namespace NarutoVR.Editor
                 { SetReference(source, "_cameraRigRef", rigRef); SetReference(source, "_trackingToWorldTransformer", transformer); }
                 var root = new GameObject("Seal Lab - actual tracked data");
                 var lab = root.AddComponent<Lab>(); lab.leftTrackedHand = left; lab.rightTrackedHand = right; lab.recordingOrigin = rig.trackingSpace;
-                string[] names = { "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" };
-                foreach (var name in names)
+                foreach (var name in SealProfile.Names)
                 {
                     string path = $"Assets/ScriptableObjects/手印识别配置/{name}.asset";
                     var profile = AssetDatabase.LoadAssetAtPath<SealProfile>(path);
-                    if (!profile) { profile = ScriptableObject.CreateInstance<SealProfile>(); profile.sealName = name; AssetDatabase.CreateAsset(profile, path); }
+                    if (!profile)
+                    {
+                        profile = ScriptableObject.CreateInstance<SealProfile>();
+                        profile.sealName = name;
+                        if (name == SealProfile.HengSealName)
+                        {
+                            profile.handMode = SealHandMode.LeftOnly;
+                            profile.holdSeconds = 0.15f;
+                        }
+                        AssetDatabase.CreateAsset(profile, path);
+                    }
                     lab.profiles.Add(profile);
+                }
+                foreach (var asset in AssetDatabase.FindAssets("t:SealProfile", new[] { ProfileFolder })
+                    .Select(AssetDatabase.GUIDToAssetPath).OrderBy(path => path, StringComparer.Ordinal))
+                {
+                    var profile = AssetDatabase.LoadAssetAtPath<SealProfile>(asset);
+                    if (profile && !lab.profiles.Contains(profile)) lab.profiles.Add(profile);
                 }
                 var view = root.AddComponent<SealLabView>(); view.lab = lab;
                 string materialPath = "Assets/SealLab/RawBones.mat";
@@ -106,7 +129,7 @@ namespace NarutoVR.Editor
                 var buildScenes = EditorBuildSettings.scenes.Where(s => s.path != ScenePath).Select(s => new EditorBuildSettingsScene(s.path, false)).ToList();
                 buildScenes.Insert(0, new EditorBuildSettingsScene(ScenePath, true)); EditorBuildSettings.scenes = buildScenes.ToArray();
                 AssetDatabase.SaveAssets();
-                Debug.Log("[SealLab] Scene created. 12 templates are uncalibrated; hardware tracking has not been tested.");
+                Debug.Log("[SealLab] Scene created. Six profiles loaded.");
             }
             finally
             {

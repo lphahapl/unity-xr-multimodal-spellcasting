@@ -23,24 +23,23 @@ namespace NarutoVR.SealCombat.Rpg
             var text = new StringBuilder();
             text.AppendLine("线性关卡 · " + (string.IsNullOrEmpty(controller.StageName) ? "等待阶段" : controller.StageName));
             var player = controller.PlayerView;
-            var effects = controller.skills ? controller.skills.effects : null;
             if (player != null)
                 text.AppendLine($"生命 {player.Health:0.#}/{player.MaxHealth:0.#}  能量 {player.Mana:0.#}/{player.MaxMana:0.#}  护盾 {player.ShieldPoints:0.#}" + (player.Alive ? "" : "【已死亡】"));
             else text.AppendLine("玩家数据：尚未就绪");
             var movement = controller.locomotion;
             if (movement)
             {
-                text.AppendLine($"落点：{(movement.CandidateNode ? movement.CandidateNode.nodeId : "未选择")}  确认 {Mathf.Clamp01(movement.DwellProgress) * 100:0}%");
-                text.AppendLine($"闪避冷却 {movement.DodgeRemaining:0.0}秒｜{(movement.OnNode ? "预设点内" : "预设点外")}");
+                text.AppendLine($"落点：{movement.LandingDescription}  确认 {Mathf.Clamp01(movement.DwellProgress) * 100:0}%");
+                text.AppendLine($"闪避冷却 {movement.DodgeRemaining:0.0}秒" +
+                    (movement.PickingGround ? "" : movement.OnNode ? "｜预设点内" : "｜预设点外"));
                 text.AppendLine(movement.SealProtectionActive ? "结印保护：分开双手并稳定" : movement.Status);
             }
-            if (effects && effects.HasHeldObject) {
-                text.AppendLine($"持球剩余 {effects.HeldRemainingSeconds:0.0}s：{effects.ThrowStatus}");
-                text.AppendLine($"前送评分 {effects.CurrentThrowScore.total:0}/{effects.CurrentThrowScore.threshold:0}｜保持 {effects.CurrentThrowScore.holdProgress:P0}｜最近发射：{effects.LastReleaseMode}");
+            if (controller.HeldProjectile is HeldProjectileStatus held) {
+                text.AppendLine($"持球剩余 {held.Remaining:0.0}s：{held.Action}");
+                text.AppendLine($"前送评分 {held.Score:0}/{held.Threshold:0}｜保持 {held.HoldProgress:P0}｜最近发射：{held.LastRelease}");
             }
             text.AppendLine("目标：" + controller.ObjectiveStatus);
-            var hazard = (controller.chapter as TrainingChapterFlow)?.Hazard;
-            if (hazard && hazard.WarningActive) text.AppendLine($"【攻击预警】{hazard.WarningRemaining:0.0}秒，准备闪避或护盾");
+            if (controller.AttackWarningSeconds is float seconds) text.AppendLine($"【攻击预警】{seconds:0.0}秒，准备闪避或护盾");
             text.AppendLine("提示：" + (feedback ? feedback.LastFeedback : controller.Status));
             text.Append("详细输入、评分和投掷数据见电脑调试面板");
             return text.ToString();
@@ -109,10 +108,10 @@ namespace NarutoVR.SealCombat.Rpg
             if (effects && effects.HasHeldObject && !string.IsNullOrEmpty(effects.ThrowStatus)) builder.AppendLine("持球：" + effects.ThrowStatus);
             if (locomotion)
             {
-                string candidate = locomotion.CandidateNode != null ? locomotion.CandidateNode.nodeId : "无";
+                string candidate = locomotion.LandingDescription;
                 builder.AppendLine($"导航：{(locomotion.NavigationActive ? "开启" : "关闭")}  候选：{candidate}");
                 builder.AppendLine($"驻留：{Mathf.Clamp01(locomotion.DwellProgress) * 100:0}%  闪避冷却：{locomotion.DodgeRemaining:0.0}秒");
-                builder.AppendLine(locomotion.OnNode ? "位置：预设点内（" + locomotion.CurrentNodeId + "）" : "位置：预设点外");
+                if (!locomotion.PickingGround) builder.AppendLine(locomotion.OnNode ? "位置：预设点内（" + locomotion.CurrentNodeId + "）" : "位置：预设点外");
                 builder.AppendLine("移动：" + locomotion.Status);
                 if (locomotion.CandidateNode != null) builder.AppendLine(locomotion.SelectionDetail);
                 builder.AppendLine(locomotion.SealProtectionActive ? "【结印保护】分开双手后重新划动" : "右掌张开＋四向划动＝闪避（无需左手指向）");
@@ -120,8 +119,7 @@ namespace NarutoVR.SealCombat.Rpg
             else builder.AppendLine("导航：尚未绑定移动控制器");
             builder.AppendLine("当前目标：" + controller.ObjectiveStatus);
             if (player != null) builder.AppendLine("货币：" + player.Currency);
-            var hazard = (controller.chapter as TrainingChapterFlow)?.Hazard;
-            if (hazard && hazard.WarningActive) builder.AppendLine($"【红圈攻击预警】{hazard.WarningRemaining:0.0} 秒后结算，请闪避或用护盾承受");
+            if (controller.AttackWarningSeconds is float seconds) builder.AppendLine($"【红圈攻击预警】{seconds:0.0} 秒后结算，请闪避或用护盾承受");
             builder.AppendLine("最近操作：" + controller.Status);
             if (feedback) builder.AppendLine("操作提示：" + feedback.LastFeedback);
             builder.Append("存档：" + ShortSavePath(controller.SavePath));

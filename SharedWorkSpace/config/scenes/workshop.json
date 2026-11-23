@@ -1,0 +1,23 @@
+{
+  "id": "workshop",
+  "name": "工坊 · 场景模型",
+  "summary": "使用工程里的 Workshop.fbx，可逐节点检查和调整。",
+  "mode": "model",
+  "width": 20,
+  "depth": 16,
+  "objects": [],
+  "model": {
+    "filename": "Workshop.fbx",
+    "files": [
+      "workshop/Workshop.fbx",
+      "workshop/Workshop_BaseColor.png",
+      "workshop/Workshop_Normal.png"
+    ],
+    "material": {
+      "color": "workshop/Workshop_BaseColor.png",
+      "normal": "workshop/Workshop_Normal.png",
+      "metalness": 0.1
+    },
+    "nodes": {}
+  }
+}

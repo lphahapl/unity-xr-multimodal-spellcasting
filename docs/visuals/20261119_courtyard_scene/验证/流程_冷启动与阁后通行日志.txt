@@ -1,0 +1,22 @@
+cold process; scene Assets/Scene/Chapter01_Courtyard.unity; existing save probe-mvc-flow-c2ac6da9761c45dd8780a3ed79dd8a7c.json
+2026-11-19T04:27:28.7210346+08:00 fresh process loaded disk; chapterComplete=True completed=20 checkpoint=opening.end leafActivated=True wristSeated=True allGatesOpen=True saveBytes=2344
+2026-11-19T04:27:28.7417316+08:00 walk pavilion front door walk OK (17.40, -0.03, 22.28) -> (17.40, -0.03, 20.68) distance=1.60m checkedSteps=5
+2026-11-19T04:27:28.7417316+08:00 destination pavilion front door reachable=True feet=(17.40, -0.03, 20.68)
+2026-11-19T04:27:28.7437488+08:00 walk around dais west aisle walk OK (17.40, -0.03, 20.68) -> (15.48, -0.03, 18.12) distance=3.36m checkedSteps=8
+2026-11-19T04:27:28.7437488+08:00 destination around dais west aisle reachable=True feet=(15.48, -0.03, 18.12)
+2026-11-19T04:27:28.7458482+08:00 walk pavilion back door walk OK (15.48, -0.03, 18.12) -> (17.08, -0.03, 14.28) distance=4.50m checkedSteps=12
+2026-11-19T04:27:28.7458482+08:00 destination pavilion back door reachable=True feet=(17.08, -0.03, 14.28)
+2026-11-19T04:27:28.7534397+08:00 armed ring=山间校院 · 场景陈设/院落建筑与器物/TianyiPavilionSet/TianyiInstrument/ArmillarySeparated/IntactCircle shell=山间校院 · 场景陈设/院落建筑与器物/TianyiPavilionSet/TianyiInstrument/ArmillarySeparated/StarShell/LOD0 authoredSpeed=7
+2026-11-19T04:27:28.7584598+08:00 walk cliff stone gate walk OK (17.08, -0.03, 14.28) -> (17.40, -0.03, -15.48) distance=29.89m checkedSteps=93
+2026-11-19T04:27:28.7584598+08:00 destination cliff stone gate reachable=True feet=(17.40, -0.03, -15.48)
+2026-11-19T04:27:28.7610134+08:00 gate=首章外景细化/量水道尽头 · 残规门庭/传送门 · 场景加载触发区 headInsideTrigger=True activeTrigger=True destination='' loadingEnabled=False
+2026-11-19T04:27:30.0019527+08:00 rotation sampled realSeconds=1.240 gameSeconds=1.385 movingRingDegrees=9.695 staticShellDegrees=0.000 sameSceneAfterEnteringGate=True
+2026-11-19T04:27:30.0176957+08:00 walk R06 return walk OK (17.40, -0.03, -15.48) -> (17.72, -0.03, 21.96) distance=38.90m checkedSteps=117
+2026-11-19T04:27:30.0176957+08:00 destination R06 return reachable=True feet=(17.72, -0.03, 21.96)
+2026-11-19T04:27:30.0228302+08:00 walk tool workshop interior walk OK (17.72, -0.03, 21.96) -> (25.40, -0.03, 28.36) distance=11.83m checkedSteps=32
+2026-11-19T04:27:30.0228302+08:00 destination tool workshop interior reachable=True feet=(25.40, -0.03, 28.36)
+2026-11-19T04:27:30.0925247+08:00 walk east workshop interior walk OK (25.40, -0.03, 28.36) -> (6.20, -0.03, 45.96) distance=45.64m checkedSteps=124
+2026-11-19T04:27:30.0925247+08:00 destination east workshop interior reachable=True feet=(6.20, -0.03, 45.96)
+2026-11-19T04:27:30.0979782+08:00 walk west workshop interior walk OK (6.20, -0.03, 45.96) -> (-5.64, -0.03, 44.04) distance=14.63m checkedSteps=42
+2026-11-19T04:27:30.0979782+08:00 destination west workshop interior reachable=True feet=(-5.64, -0.03, 44.04)
+2026-11-19T04:27:30.0994822+08:00 PASS fresh process loaded disk; chapterComplete=True completed=20 checkpoint=opening.end leafActivated=True wristSeated=True allGatesOpen=True saveBytes=2344; required post-chapter walks and live ring/shell/gate=True

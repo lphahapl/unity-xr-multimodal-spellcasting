@@ -3,7 +3,7 @@ import json, re, zipfile, xml.etree.ElementTree as ET
 from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 ns = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
-with zipfile.ZipFile(root / 'NarutoVR_12Seals_FeatureConfig.xlsx') as z:
+with zipfile.ZipFile(root / '六工矩印_识别特征配置.xlsx') as z:
     shared = [''.join(n.itertext()) for n in ET.fromstring(z.read('xl/sharedStrings.xml')).findall('s:si', ns)] if 'xl/sharedStrings.xml' in z.namelist() else []
     cells = {}
     for c in ET.fromstring(z.read('xl/worksheets/sheet1.xml')).findall('.//s:sheetData/s:row/s:c', ns):
@@ -12,8 +12,12 @@ with zipfile.ZipFile(root / 'NarutoVR_12Seals_FeatureConfig.xlsx') as z:
         value = c.findtext('s:v', '', ns)
         cells[c.attrib['r']] = shared[int(value)] if c.attrib.get('t') == 's' else ''.join(c.find('s:is', ns).itertext()) if c.attrib.get('t') == 'inlineStr' else value
     result = {'profiles': []}
-    for col in 'FGHIJKLMNOPQ':
-        p = {'sealName': cells[col+'3'].split('\n')[0].removesuffix('印'), 'threshold': float(cells[col+'5']), 'minimumCoverage': float(cells[col+'6']), 'holdSeconds': float(cells[col+'7']), 'rules': []}
+    for col in 'FGHIJK':
+        p = {'sealName': cells[col+'3'].split('\n')[0], 'threshold': float(cells[col+'5']), 'minimumCoverage': float(cells[col+'6']), 'holdSeconds': float(cells[col+'7']), 'rules': []}
+        # The workbook's Heng column describes the retired two-hand gesture.
+        # The single-hand template uses weights from its recorded left-hand rules.
+        if p['sealName'] == '衡印':
+            continue
         for row in range(11, 146, 3):
             p['rules'].append({'featureId': cells['C'+str(row)], 'weight': float(cells[col+str(row)]), 'tolerance': float(cells[col+str(row+1)]), 'required': cells[col+str(row+2)].startswith('是')})
         assert len({r['featureId'] for r in p['rules']}) == 45

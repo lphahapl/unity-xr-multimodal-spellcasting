@@ -6,7 +6,7 @@ using UnityEngine;
 namespace NarutoVR.SealCombat.Rpg
 {
     [DefaultExecutionOrder(330)]
-    public sealed class OpeningLeafPuzzle : MonoBehaviour
+    public sealed class OpeningLeafPuzzle : QuestGestureCondition
     {
         public LinearRpgController rpg;
         public Transform outerDisc, innerDisc, outerHandle, innerHandle, prizeRest, verifier, slotEntry;
@@ -18,6 +18,8 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>实际物品进度的来源，机关不读取通用会话内部存档结构。</summary>
         public RpgItemInventory inventory;
         [Min(.005f)] public float grabRadius = .055f, slotRadius = .026f, verifyRadius = .14f;
+        [Header("机关捏合手感")]
+        [Min(.001f)] public float pinchClose = .03f, pinchOpen = .045f;
         [Header("铜叶入匣手感")]
         [InspectorName("导向头本地坐标（米）")] public Vector3 leafGuideLocal = new Vector3(0, .07f, 0);
         [InspectorName("铜叶松手指距（米）"), Min(.01f)] public float leafReleaseDistance = .035f;
@@ -29,7 +31,7 @@ namespace NarutoVR.SealCombat.Rpg
         [Min(.1f)] public float settleSeconds = .6f;
         public event Action Solved, Collected;
         public bool IsSeated { get; private set; }
-        public bool VerifiesWrist => IsSeated && rpg.wristMenu.wornDevice.gameObject.activeInHierarchy &&
+        public bool VerifiesWrist => IsSeated && slot.gameObject.activeInHierarchy &&
             Vector3.Distance(slot.transform.position, verifier.position) <= verifyRadius;
 
         enum Grip { None, Outer, Inner, Leaf }
@@ -38,6 +40,16 @@ namespace NarutoVR.SealCombat.Rpg
         readonly DiscAlignmentState discs = new();
         float lastAngle, dropTime;
         bool activePuzzle, canCollect, taken, canInsert, pinchReleased;
+        public override bool CanDemonstrate(Transform target)
+        {
+            if (IsSeated) return false;
+            if (target == outerHandle || target == innerHandle)
+                return activePuzzle && !discs.Solved && grip == Grip.None &&
+                    target == (discs.OuterAligned(tolerance) ? innerHandle : outerHandle);
+            if (target == slotEntry)
+                return canInsert && grip == Grip.Leaf && slot.isActiveAndEnabled && !AtSlot(leaf.transform.position);
+            return leaf && target == leaf.transform && (canCollect || canInsert) && grip == Grip.None;
+        }
         double trackingLostAt = double.NaN, slotContactAt = double.NegativeInfinity;
         Vector3 slotContactLocal;
 
@@ -95,12 +107,12 @@ namespace NarutoVR.SealCombat.Rpg
                 if (visible) PoseLeaf(slot.transform);
                 return;
             }
-            if (!rpg || !rpg.CanAct || !rpg.wristMenu || rpg.UiInputOwned ||
+            if (!rpg || !rpg.CanAct || rpg.UiInputOwned ||
                 (grip != Grip.None && !rpg.Input.OwnsInteraction(this, gripClaim))) { DropTracking(); return; }
-            var hand = rpg.wristMenu.LatestInput;
+            var hand = rpg.Input.LatestHand;
             double now = Time.realtimeSinceStartupAsDouble;
-            bool valid = !hand.tipUnavailable && WristMenuState.Fresh(hand.rightValid, hand.rightObserved,
-                now, rpg.wristMenu.settings.maxAge);
+            bool valid = !hand.tipUnavailable && PlayerHandObservation.Fresh(hand.rightValid, hand.rightObserved,
+                now, rpg.handSampleMaxAge);
             if (!valid)
             {
                 if (grip == Grip.Leaf)
@@ -114,7 +126,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!double.IsNaN(trackingLostAt) && now - trackingLostAt > leafTrackingGrace) DropTracking();
             trackingLostAt = double.NaN;
             var tip = hand.rightTip;
-            bool release = grip == Grip.Leaf ? LeafReleased(hand) : hand.PinchUp(rpg.wristMenu.settings);
+            bool release = grip == Grip.Leaf ? LeafReleased(hand) : hand.PinchUp(pinchOpen);
             if (release)
             {
                 if (grip == Grip.Outer || grip == Grip.Inner) discs.Release();
@@ -123,7 +135,7 @@ namespace NarutoVR.SealCombat.Rpg
                 slotContactAt = double.NegativeInfinity;
                 pinchReleased = true;
             }
-            else if (pinchReleased && hand.PinchDown(rpg.wristMenu.settings))
+            else if (pinchReleased && hand.PinchDown(pinchClose))
             {
                 pinchReleased = false;
                 if (activePuzzle && !discs.Solved)
@@ -176,18 +188,22 @@ namespace NarutoVR.SealCombat.Rpg
             Solved?.Invoke();
         }
 
-        bool LeafReleased(WristMenuInput hand) => hand.systemPinch
-            ? hand.PinchUp(rpg.wristMenu.settings)
+        bool LeafReleased(PlayerHandObservation hand) => hand.systemPinch
+            ? hand.PinchUp(pinchOpen)
             : hand.pinchValid && !hand.pinchTransition &&
-              hand.pinchDistance >= Mathf.Max(leafReleaseDistance, rpg.wristMenu.settings.pinchClose + .005f);
+              hand.pinchDistance >= Mathf.Max(leafReleaseDistance, pinchClose + .005f);
 
-        // Both the guide head and the existing root-at-entry gesture are valid. The renderer's
-        // position is the last held pose, which should not jump when the fingers spread to release.
+        // slotEntry and slot are the start and end poses of the leaf root along the rail.
+        // A player can release anywhere along that stroke, including after pushing all the way in.
         bool AtSlot(Vector3 rootPosition)
         {
-            Vector3 guideOffset = leaf.transform.TransformVector(leafGuideLocal);
-            return (rootPosition - slotEntry.position).sqrMagnitude <= slotRadius * slotRadius ||
-                (rootPosition + guideOffset - slotEntry.position).sqrMagnitude <= slotRadius * slotRadius;
+            Vector3 fromEntry = rootPosition - slotEntry.position;
+            Vector3 travel = slot.transform.position - slotEntry.position;
+            Vector3 axis = travel.normalized;
+            float depth = Mathf.Clamp(Vector3.Dot(fromEntry, axis), 0f, travel.magnitude);
+            float radiusSquared = slotRadius * slotRadius;
+            return (fromEntry - axis * depth).sqrMagnitude <= radiusSquared ||
+                (fromEntry + leaf.transform.TransformVector(leafGuideLocal)).sqrMagnitude <= radiusSquared;
         }
 
         void TryInsertReleasedLeaf(Vector3 finger, double now)

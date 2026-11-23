@@ -56,9 +56,11 @@ namespace NarutoVR.SealCombat.Rpg
         public GameObject OwnedRoot => _ownedRoot;
 
         private const float LauncherWidth = 720f;
-        private const float LauncherHeight = 300f;
+        private const float LauncherHeight = 440f;
         private const float PanelWidth = 1120f;
         private const float PanelHeight = 800f;
+        private const int TargetCount = 14;
+        private const float GlanceWidth = 480f, GlanceHeight = 240f;
 
         private enum Ink
         {
@@ -91,14 +93,19 @@ namespace NarutoVR.SealCombat.Rpg
             public Image progressImage;
         }
 
-        private readonly List<WristUiTarget> _targets = new List<WristUiTarget>(10);
-        private readonly List<ButtonVisual> _buttons = new List<ButtonVisual>(10);
+        private readonly List<WristUiTarget> _targets = new List<WristUiTarget>(TargetCount);
+        private readonly List<ButtonVisual> _buttons = new List<ButtonVisual>(TargetCount);
         private readonly List<GraphicBinding> _graphics = new List<GraphicBinding>(48);
         private readonly List<Text> _texts = new List<Text>(24);
 
         private GameObject _ownedRoot;
         private RectTransform _launcher;
         private RectTransform _panel;
+        private RectTransform _statusPage, _rightGlance;
+        private SkillStatusRows _pageRows, _glanceRows;
+        private ButtonVisual _previous, _next, _glanceToggle, _sealHintsToggle, _exploration;
+        private Text _emptyStatus;
+        public bool RightHandStatusVisible => _rightGlance && _rightGlance.gameObject.activeInHierarchy;
         private RectTransform _microphoneRetry;
         private RectTransform _openingHint, _openingFill;
         private Text _openingText;
@@ -136,7 +143,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void EnsureBuilt()
         {
-            if (!_built || !_ownedRoot || _targets.Count != 10)
+            if (!_built || !_ownedRoot || _targets.Count != TargetCount)
             {
                 ReleaseVisuals();
                 try { Build(); _built = true; }
@@ -185,6 +192,7 @@ namespace NarutoVR.SealCombat.Rpg
         public void ShowPanel(Pose pose, string title, string body, string footer)
         {
             EnsureBuilt();
+            SetStatusPage(false);
             SetMicrophoneRetry(false);
             _lessonSurface.gameObject.SetActive(false);
             _panelBody.gameObject.SetActive(true);
@@ -200,6 +208,7 @@ namespace NarutoVR.SealCombat.Rpg
             bool discovered, bool available, bool permanent, bool savePending, string footer)
         {
             EnsureBuilt();
+            SetStatusPage(false);
             SetMicrophoneRetry(false);
             _panelBody.gameObject.SetActive(false);
             _lessonSurface.gameObject.SetActive(true);
@@ -209,13 +218,15 @@ namespace NarutoVR.SealCombat.Rpg
             var reference = voiceIndex && lesson.Voice ? lesson.Voice : lesson.Reference;
             // Voice+gesture recipes still require the seal when opened from the voice index.
             bool hasImage = lesson.Seals.Count > 0 && (!voiceIndex || reference.triggerMode == SkillTriggerMode.VoiceAndGesture);
-            _lessonState.text = available ? (permanent ? "已解锁" : "临时可用") :
-                permanent ? "已解锁\n当前受限" : discovered ? "已了解\n待解锁" : "尚未了解";
+            _lessonState.text = permanent ? "已解锁" : available ? "临时可用" :
+                discovered ? "已了解\n待解锁" : "尚未了解";
             if (savePending) _lessonState.text += "\n待存档";
             _statusMark.localRotation = Quaternion.Euler(0, 0, permanent ? 45 : 0);
             _statusHollow.gameObject.SetActive(!available);
             _lessonMethod.text = lesson.HasAlternative ? "结印 或 念咒" : reference.triggerMode == SkillTriggerMode.VoiceAndGesture ? "结印 ＋ 念咒" : hasImage ? "双手结印" : "念出口令";
-            _lessonCost.text = $"度力  {reference.manaCost:0.#}\n冷却  {reference.cooldownSeconds:0.#} 秒";
+            _lessonCost.text = reference.effectDefinition is BreathEffectDefinition { mode: BreathCastMode.Sustained } breath
+                ? $"度力  {reference.manaCost:0.#}＋{breath.manaPerSecond:0.#}/秒\n停喷冷却  {breath.minCooldownSeconds:0.#}–{breath.maxCooldownSeconds:0.#} 秒"
+                : $"度力  {reference.manaCost:0.#}\n冷却  {reference.cooldownSeconds:0.#} 秒";
             _lessonVoiceLabel.text = hasImage && lesson.Voice ? (lesson.HasAlternative ? "另一种施放方式" : "配合口令") : hasImage ? "施放" : "施放条件";
             _lessonVoice.text = hasImage && lesson.Voice ? lesson.Voice.phrase : hasImage ? "保持手印" : lesson.Gesture && !lesson.HasAlternative ? SealName(lesson.Seals[0]) : "完整念出";
             _lessonAction.text = !string.IsNullOrEmpty(lesson.ActionHint) ? lesson.ActionHint : lesson.HasAlternative ? "两种方式任选其一" : "";
@@ -431,16 +442,31 @@ namespace NarutoVR.SealCombat.Rpg
             _launcherProgress=AddText("腕匣课数与铜叶", _launcher, 459f, 35f, 465f, 56f,
                 _launcherIdleHint, 26, TextAnchor.MiddleRight, Ink.Gold);
 
-            AddButton(_launcher, "seal", 134f, 149f, 210f, 150f, "术式教学", null, 36);
-            AddButton(_launcher, "glyph", 360f, 149f, 210f, 150f, "画符", "符纹", 40);
-            AddButton(_launcher, "voice", 586f, 149f, 210f, 150f, "咒语", "言灵", 40);
+            AddButton(_launcher, "seal", 105f, 149f, 160f, 150f, "术式教学", null, 30);
+            AddButton(_launcher, "glyph", 275f, 149f, 160f, 150f, "画符", "符纹", 40);
+            AddButton(_launcher, "voice", 445f, 149f, 160f, 150f, "咒语", "言灵", 40);
+            AddButton(_launcher, "status", 615f, 149f, 160f, 150f, "术法状态", null, 30);
 
+            _exploration = AddButton(_launcher, "exploration", 360f, 344f, 650f, 84f, "探索移动", null, 29);
+            explorationHelp = AddText("探索操作", _launcher, 360f, 408f, 680f, 40f, "", 22, TextAnchor.MiddleCenter, Ink.Text);
             if (usesCase)
                 _launcherVitals=AddText("气血与度力 · 大字读数",_launcher,360f,262f,670f,68f,
                     "",46,TextAnchor.MiddleCenter,Ink.Text);
             else
                 AddText("交互提示", _launcher, 360f, 263f, 660f, 42f,
                     "右手食指轻触 · 远指捏合", 24, TextAnchor.MiddleCenter, Ink.Muted);
+        }
+
+        Text explorationHelp;
+        string shownExplorationMode;
+        internal void SetExplorationChoice(RpgLocomotionController movement)
+        {
+            string mode = movement && movement.UsesEncounterModes ? movement.ExplorationModeName : null;
+            if (_exploration.rect.gameObject.activeSelf != (mode != null)) _exploration.rect.gameObject.SetActive(mode != null);
+            if (mode == shownExplorationMode) return;
+            if (mode != null) _exploration.label.text = "切换探索移动 · " + mode;
+            explorationHelp.text = mode != null ? movement.ExplorationHint : "";
+            shownExplorationMode = mode;
         }
 
         public void SetLauncherVitals(WristGauge health,WristGauge power)
@@ -463,6 +489,54 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         public void SetPanelPose(Pose pose) { if(_panel) Place(_panel,pose); }
+
+        private void SetStatusPage(bool visible)
+        {
+            _statusPage.gameObject.SetActive(visible);
+            _glanceToggle.rect.gameObject.SetActive(visible);
+            _sealHintsToggle.rect.gameObject.SetActive(visible);
+            _previous.rect.gameObject.SetActive(!visible);
+            _next.rect.gameObject.SetActive(!visible);
+        }
+
+        internal void ShowSkillStatus(Pose pose, LinearRpgController player, bool enableGlance, bool follow)
+        {
+            EnsureBuilt();
+            SetStatusPage(true);
+            SetMicrophoneRetry(false);
+            _panelBody.gameObject.SetActive(false);
+            _lessonSurface.gameObject.SetActive(false);
+            _panelTitle.text = "术法状态";
+            _panelFooter.text = follow ? "跟随玩家" : "固定位置";
+            _glanceToggle.label.text = enableGlance ? "抬右手查看　开" : "抬右手查看　关";
+            _sealHintsToggle.label.text = player && player.skills && player.skills.SealHintsEnabled ? "结印提示　开" : "结印提示　关";
+            _pageRows ??= new SkillStatusRows(_statusPage, 1000f, 420f, ResolveFont());
+            _emptyStatus.gameObject.SetActive(!_pageRows.Refresh(player));
+            Place(_panel, pose);
+            _panel.gameObject.SetActive(true);
+        }
+
+        internal void ShowRightHandStatus(Pose pose, LinearRpgController player, bool refreshContent)
+        {
+            EnsureBuilt();
+            if (!_rightGlance)
+            {
+                _rightGlance = NewCanvas("右手术法快览", GlanceWidth, GlanceHeight, 18);
+                _rightGlance.gameObject.SetActive(false);
+                _rightGlance.localScale = _launcher.localScale * .84f;
+                _glanceRows = new SkillStatusRows(_rightGlance, GlanceWidth, GlanceHeight, ResolveFont());
+                refreshContent = true;
+            }
+            Place(_rightGlance, pose);
+            if (refreshContent)
+                _rightGlance.gameObject.SetActive(_glanceRows.Refresh(player));
+        }
+
+        internal void HideRightHandStatus()
+        {
+            if (_rightGlance && _rightGlance.gameObject.activeSelf) _rightGlance.gameObject.SetActive(false);
+        }
+
         private void BuildPanel()
         {
             _panel = NewCanvas("独立术式面板", PanelWidth, PanelHeight, 30);
@@ -492,10 +566,16 @@ namespace NarutoVR.SealCombat.Rpg
 
             AddImage("操作分隔线", _panel, 560f, 672f, 1000f, 2f, Ink.Brass, 0.55f);
 
-            AddButton(_panel, "previous", 179f, 731f, 240f, 100f, "上一页", null, 32);
-            AddButton(_panel, "next", 433f, 731f, 240f, 100f, "下一页", null, 32);
+            _previous = AddButton(_panel, "previous", 179f, 731f, 240f, 100f, "上一页", null, 32);
+            _next = AddButton(_panel, "next", 433f, 731f, 240f, 100f, "下一页", null, 32);
             AddButton(_panel, "relocate", 687f, 731f, 240f, 100f, "重新定位", null, 32);
             AddButton(_panel, "close", 941f, 731f, 240f, 100f, "关闭", null, 32);
+            _glanceToggle = AddButton(_panel, "right-status", 179f, 731f, 240f, 100f, "右手快览", null, 29);
+            _sealHintsToggle = AddButton(_panel, "seal-hints", 433f, 731f, 240f, 100f, "结印提示", null, 29);
+            _statusPage = NewRect("术法状态内容", _panel, 560f, 364f, 1000f, 420f);
+            _emptyStatus = AddText("空列表", _statusPage, 500f, 210f, 900f, 100f,
+                "当前没有可用术法", 40, TextAnchor.MiddleCenter, Ink.Muted);
+            SetStatusPage(false);
         }
 
         private void BuildLessonSurface()
@@ -506,7 +586,9 @@ namespace NarutoVR.SealCombat.Rpg
             AddImage("图版上沿",paper,560,157,470,3,Ink.Gold,.72f);
             AddImage("图版下沿",paper,560,581,470,2,Ink.Gold,.48f);
             var artRect=NewRect("本印手形",paper,560,337,430,320);
-            _sealArt=artRect.gameObject.AddComponent<RawImage>(); _sealArt.raycastTarget=false;
+            _sealArt = artRect.gameObject.AddComponent<RawImage>();
+            _sealArt.raycastTarget = false;
+            _sealArt.material = Resources.Load<Material>("Teaching/SealPhoto");
             _wordFace=AddText("中心口令或印名",paper,560,342,440,166,"",60,TextAnchor.MiddleCenter,Ink.Text);
             _sealCaption=AddText("图注",paper,560,517,444,64,"",41,TextAnchor.MiddleCenter,Ink.Gold);
             _sealSequence=AddText("印序",paper,560,557,454,40,"",24,TextAnchor.MiddleCenter,Ink.Text);
@@ -562,7 +644,7 @@ namespace NarutoVR.SealCombat.Rpg
             diamond.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         }
 
-        private void AddButton(
+        private ButtonVisual AddButton(
             RectTransform parent, string id, float x, float y, float width, float height,
             string label, string caption, int fontSize)
         {
@@ -618,6 +700,7 @@ namespace NarutoVR.SealCombat.Rpg
 
             _buttons.Add(visual);
             _targets.Add(new WristUiTarget(id, rect));
+            return visual;
         }
 
         private void BuildDecoration()
@@ -740,6 +823,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (_panel.localScale != worldScale)
                 _panel.localScale = worldScale;
             if (_openingHint.localScale != worldScale) _openingHint.localScale = worldScale;
+            if (_rightGlance) _rightGlance.localScale = worldScale * .84f;
 
             Font resolved = ResolveFont();
             for (int i = 0; i < _texts.Count; i++)
@@ -979,7 +1063,7 @@ namespace NarutoVR.SealCombat.Rpg
         private void OnEnable()
         {
             // Managed lists are not restored by a script reload; discard partial old views.
-            if (_ownedRoot && (!_built || _targets.Count != 10)) ReleaseVisuals();
+            if (_ownedRoot && (!_built || _targets.Count != TargetCount)) ReleaseVisuals();
             if (_ownedRoot != null)
             {
                 _ownedRoot.SetActive(true);
@@ -1024,6 +1108,11 @@ namespace NarutoVR.SealCombat.Rpg
             _cyanMaterial=_violetMaterial=_goldMaterial=_pointerMaterial=null;
             _acceptedClip=_rejectedClip=null;
             _launcher=_panel=_microphoneRetry=_openingHint=_openingFill=null;
+            _statusPage = _rightGlance = null;
+            _pageRows = _glanceRows = null;
+            _previous = _next = _glanceToggle = _sealHintsToggle = _exploration = null;
+            shownExplorationMode = null;
+            _emptyStatus = null;
             _launcherVitals=_panelTitle=_panelBody=_panelFooter=_openingText=null;
             _decoration=_reticle=null; _pointer=null;
 

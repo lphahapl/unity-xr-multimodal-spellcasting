@@ -35,7 +35,7 @@ public static class ProgressionIntegrationChecks
             throw new InvalidOperationException("仅允许在隔离工程 batchmode 执行");
         Directory.CreateDirectory("Logs");File.WriteAllText(Report,DateTimeOffset.Now.ToString("o")+"\n");
         File.AppendAllText(Report,"REGRESSION final wrist-menu="+NarutoVR.SealCombat.Editor.WristMenuChecks.Run()+"\n");
-        EditorSceneManager.OpenScene("Assets/Scene/Chapter01_Awakening.unity");
+        EditorSceneManager.OpenScene("Assets/Scene/Chapter01_Courtyard.unity");
         NarutoVR.SealCombat.Editor.ProgressionModuleChecks.Run();
         var r=Obj.FindFirstObjectByType<LinearRpgController>();r.autoLoad=false;
         r.saveFileName="probe-progression-integration-"+Guid.NewGuid().ToString("N")+".json";
@@ -57,19 +57,33 @@ public static class ProgressionIntegrationChecks
             if(step==0) {
                 Check(r.CanAct && opening.inventory==inventory && opening.puzzle.inventory==inventory,"opening initializes with explicit separate modules");
                 Check(r.Model.DiscoveredSkills.OrderBy(id => id).SequenceEqual(opening.InitialDiscoveries.OrderBy(id => id)) &&
-                    r.Model.UnlockedSkills.Count == 0, "initial knowledge matches chapter configuration without unlocking skills");
+                    r.Model.UnlockedSkills.OrderBy(id => id).SequenceEqual(r.StartingSkills.OrderBy(id => id)) &&
+                    !r.skills.AvailableSkills.Any(skill => skill.skillId == "buff.voice"),
+                    "starting permissions match the player definition and exclude the unseated leaf");
                 Check(!r.TryAdvanceStage(),"manual input cannot skip opening teaching");
                 Check(inventory.Activate(item)==ProgressCommitResult.Rejected && inventory.Collect("missing")==ProgressCommitResult.Rejected,"uncollected or unknown item rejected");
                 Check(r.Growth.CreditCurrency(-1)==ProgressCommitResult.Rejected && r.Model.Currency==0,"invalid command leaves session unchanged");
+                Check(r.Growth.GrantSkill("missing.skill")==ProgressCommitResult.Rejected &&
+                    r.Growth.GrantSkill("buff.voice")==ProgressCommitResult.Rejected &&
+                    !r.IsSkillAvailable("missing.skill") && !r.IsSkillUnlocked("buff.voice"),
+                    "unknown and item-exclusive grants leave the model unchanged");
                 var detached=r.CaptureProgressSnapshot();detached.currency=500;detached.completedStageIds.Add(r.stages[0].stageId);
                 Check(r.StageIndex==0 && r.Model.Currency==0 && r.Model.Chapter.CompletedStages.Count==0,"detached snapshot cannot change currency or advance stages");
                 Directory.CreateDirectory(Path.GetDirectoryName(r.SavePath));
                 using(var locked=new FileStream(r.SavePath+".tmp",FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None)) {
                     Check(inventory.Collect(item)==ProgressCommitResult.PendingSave && r.CheckpointSavePending,"collection survives real disk write failure");
-                    Check(r.IsSkillDiscovered("buff.hidden") && !r.IsSkillUnlocked("buff.hidden"),"collection reveals teaching without cast unlock");
+                    Check(r.IsSkillDiscovered("buff.voice") && !r.IsSkillUnlocked("buff.voice") &&
+                        !r.IsSkillAvailable("buff.voice") && !r.DebugCast("buff.voice"), "collecting the leaf reveals teaching but cannot cast the shield");
                     Check(r.RestoreCheckpoint() && inventory.GetState(item)==ProgressionItemState.Collected,"restore keeps unsaved successful collection");
-                    Check(inventory.Activate(item)==ProgressCommitResult.PendingSave && r.IsSkillUnlocked("buff.hidden"),"activation grants permanent skill with pending save");
-                    Check(!r.IsSkillAvailable("buff.hidden"),"opening gate remains independent of item activation");
+                    Check(inventory.Activate(item)==ProgressCommitResult.PendingSave && r.IsSkillUnlocked("buff.voice"),"activation grants permanent skill with pending save");
+                    Check(!r.Model.HasStageGrant("buff.voice") && r.IsSkillAvailable("buff.voice") &&
+                        r.skills.AvailableSkills.Any(skill => skill.skillId == "buff.voice"),
+                        "activating the leaf permits the shield before the gate without a trial");
+                    float mana = r.Player.Mana;
+                    Check(r.DebugCast("buff.voice") && r.Player.ShieldPoints > 0 && r.Player.Mana < mana,
+                        "permanent shield casts and spends mana in the opening stage");
+                    float remainingMana = r.Player.Mana;
+                    Check(!r.DebugCast("buff.voice") && r.Player.Mana == remainingMana, "recasting during cooldown spends no mana");
                     Check(r.Growth.CreditCurrency(50-r.Model.Currency)==ProgressCommitResult.PendingSave,"later transaction replaces pending snapshot");
                 }
                 step=1;frames=0;
@@ -78,9 +92,12 @@ public static class ProgressionIntegrationChecks
                 var store=new RpgSaveStore(UnityRpgSaveJson.Instance, r.SavePath,"linear-rpg-player",r.skills.ConfiguredSkills.Select(s=>s.skillId),r.Player.MaxHealth,r.Player.MaxMana,
                     r.skills.ConfiguredSkills.Select(s=>string.IsNullOrEmpty(s.cooldownGroup)?s.skillId:s.cooldownGroup).Distinct());
                 Check(store.TryLoad(out var saved,out _) && saved.currency==50 && saved.items.Single().activated,"retry persists the latest combined progress");
-                Check(inventory.Activate(item)==ProgressCommitResult.Saved && r.Model.ItemCount==1 && r.Model.UnlockedSkills.Count==1,"repeated activation grants nothing twice");
+                Check(inventory.Activate(item)==ProgressCommitResult.Saved && r.Model.ItemCount==1 &&
+                    r.Model.UnlockedSkills.OrderBy(id => id).SequenceEqual(r.StartingSkills.Append("buff.voice").Distinct().OrderBy(id => id)),
+                    "repeated activation grants nothing twice");
                 Check(r.RestoreCheckpoint() && opening.puzzle.IsSeated,"chapter reconstructs seated prop from generic inventory");
-                Check(!r.IsSkillAvailable("buff.hidden") && r.Model.IsUnlocked("buff.hidden"),"chapter permission remains separate from owned skill after restore");
+                Check(r.IsSkillAvailable("buff.voice") && r.IsSkillUnlocked("buff.voice") && !r.Model.HasStageGrant("buff.voice"),
+                    "checkpoint restores permanent shield permission before the gate");
                 Check(!shop.TryPurchase("missing") && r.Model.Currency==50,"unknown product cannot charge currency");
                 Check(r.Growth.GrantSkill("fireball")==ProgressCommitResult.Saved,"generic skill grant commits without teaching dependency");
                 var fire=r.skills.ConfiguredSkills.Single(s=>s.skillId=="fireball");

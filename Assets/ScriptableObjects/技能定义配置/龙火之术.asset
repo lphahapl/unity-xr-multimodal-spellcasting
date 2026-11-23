@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6daacaa50c0845a2239c2c706d9c9, type: 3}
+  m_Name: 龙火之术
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillDefinition
+  skillId: breath.stream
+  displayName: 龙火之术
+  triggerMode: 2
+  phrase: 龙火之术
+  phraseTokens: l óng h uǒ zh ī sh ù
+  sealName: 律印
+  followingSeals: []
+  matchWindow: 4
+  voiceDiscount: 0.05
+  thresholdFloor: 0.65
+  castCondition: 1
+  mouthStartDistance: 0.3
+  mouthStopDistance: 0.4
+  sealReleaseWristDistance: 0.24
+  effectDefinition: {fileID: 11400000, guid: 9f344c645bb455b6a59978eecac02dd4, type: 2}
+  leftHand: 0
+  cooldownSeconds: 2
+  manaCost: 4
+  cooldownGroup: breath.stream
+  durationSeconds: 0

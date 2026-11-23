@@ -97,11 +97,15 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         /// <summary>检查格式层的标识、白名单、重复项和数值范围；模块专属关系由会话另行验证。</summary>
-        public bool Validate(RpgProgressData progress, out string reason)
+        public bool Validate(RpgProgressData progress, out string reason) => Validate(progress, false, out reason);
+
+        const string RetiredWard = "buff.hidden", VoiceWard = "buff.voice", RetiredWardGroup = "shield.hidden";
+
+        bool Validate(RpgProgressData progress, bool readOldWard, out string reason)
         {
             reason = "进度字段缺失或超出合法范围";
             if (progress == null || progress.currency < 0 || progress.currency > RpgDataRules.MaximumCurrency ||
-                !ValidIds(progress.discoveredSkillIds, knownSkills) || !ValidIds(progress.unlockedSkillIds, knownSkills) || !ValidIds(progress.completedStageIds, null) ||
+                !ValidIds(progress.discoveredSkillIds, knownSkills, readOldWard) || !ValidIds(progress.unlockedSkillIds, knownSkills, readOldWard) || !ValidIds(progress.completedStageIds, null) ||
                 !ValidIds(progress.claimedRewardIds, null) ||
                 (!string.IsNullOrEmpty(progress.checkpointId) && !RpgDataRules.ValidId(progress.checkpointId)) ||
                 progress.skillLevels == null || progress.skillLevels.Count > RpgDataRules.MaximumEntries) return false;
@@ -111,21 +115,21 @@ namespace NarutoVR.SealCombat.Rpg
                 if (item == null || !RpgDataRules.ValidId(item.itemId) || !items.Add(item.itemId)) return false;
             var levels = new HashSet<string>(StringComparer.Ordinal);
             foreach (var item in progress.skillLevels)
-                if (item == null || !RpgDataRules.ValidId(item.skillId) || !knownSkills.Contains(item.skillId) ||
+                if (item == null || !RpgDataRules.ValidId(item.skillId) || !(knownSkills.Contains(item.skillId) || (readOldWard && item.skillId == RetiredWard)) ||
                     !progress.unlockedSkillIds.Contains(item.skillId) || !levels.Add(item.skillId) ||
                     item.level < 0 || item.level > RpgDataRules.MaximumSkillLevel) return false;
             if (!RpgSaveMapper.ValidateCheckpoint(progress.checkpoint, maxHealth, maxMana, out reason)) return false;
             foreach (var cd in progress.checkpoint.cooldowns)
-                if (!knownCooldownGroups.Contains(cd.group)) { reason = "存档包含未知冷却组：" + cd.group; return false; }
+                if (!knownCooldownGroups.Contains(cd.group) && !(readOldWard && cd.group == RetiredWardGroup)) { reason = "存档包含未知冷却组：" + cd.group; return false; }
             reason = null; return true;
         }
 
-        bool ValidIds(List<string> ids, HashSet<string> whitelist)
+        bool ValidIds(List<string> ids, HashSet<string> whitelist, bool readOldWard = false)
         {
             if (ids == null || ids.Count > RpgDataRules.MaximumEntries) return false;
             var unique = new HashSet<string>(StringComparer.Ordinal);
             foreach (string id in ids)
-                if (!RpgDataRules.ValidId(id) || !unique.Add(id) || (whitelist != null && !whitelist.Contains(id))) return false;
+                if (!RpgDataRules.ValidId(id) || !unique.Add(id) || (whitelist != null && !whitelist.Contains(id) && !(readOldWard && id == RetiredWard))) return false;
             return true;
         }
 
@@ -149,10 +153,40 @@ namespace NarutoVR.SealCombat.Rpg
                 envelope = jsonCodec.Deserialize<SaveEnvelope>(json);
                 if (envelope == null) { reason = "JSON内容为空或无效"; return false; }
                 if (envelope.profileId != profileId) { reason = "存档档案ID不匹配"; return false; }
-                return Validate(envelope.progress, out reason);
+                return ValidateLoadedProgress(envelope.progress, out reason);
             }
             catch (Exception ex)
             { reason = "读取或校验失败：" + ex.GetType().Name; return false; }
+        }
+
+        internal bool ValidateLoadedProgress(RpgProgressData progress, out string reason)
+        {
+            if (Validate(progress, out reason)) return true;
+            if (!knownSkills.Contains(VoiceWard) || knownSkills.Contains(RetiredWard) ||
+                !Validate(progress, true, out reason)) return false;
+
+            ReplaceWard(progress.discoveredSkillIds);
+            ReplaceWard(progress.unlockedSkillIds);
+            var oldLevel = progress.skillLevels.Find(s => s.skillId == RetiredWard);
+            if (oldLevel != null)
+            {
+                var current = progress.skillLevels.Find(s => s.skillId == VoiceWard);
+                if (current == null) oldLevel.skillId = VoiceWard;
+                else { current.level = Math.Max(current.level, oldLevel.level); progress.skillLevels.Remove(oldLevel); }
+            }
+            var oldTimer = progress.checkpoint.cooldowns.Find(c => c.group == RetiredWardGroup);
+            if (oldTimer != null)
+            {
+                var current = progress.checkpoint.cooldowns.Find(c => c.group == "shield");
+                if (current == null) oldTimer.group = "shield";
+                else { current.remainingSeconds = Math.Max(current.remainingSeconds, oldTimer.remainingSeconds); progress.checkpoint.cooldowns.Remove(oldTimer); }
+            }
+            return Validate(progress, out reason);
+        }
+
+        static void ReplaceWard(List<string> skills)
+        {
+            if (skills.Remove(RetiredWard) && !skills.Contains(VoiceWard)) skills.Add(VoiceWard);
         }
     }
 }

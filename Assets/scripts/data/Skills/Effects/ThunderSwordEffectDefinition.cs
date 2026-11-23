@@ -6,6 +6,7 @@ namespace NarutoVR.SealCombat
     [CreateAssetMenu(menuName = "NarutoVR/技能效果/雷光剑")]
     public sealed class ThunderSwordEffectDefinition : SkillEffectDefinition
     {
+        [InspectorName("剑刃和剑波场景痕迹"), Tooltip("命中实体表面时使用；留空关闭。")] public SurfaceMarkStyle surfaceMark;
         [Header("法宝与特效（沿本地 +Z 握持、发波）")]
         public GameObject swordPrefab;
         public GameObject wavePrefab;
@@ -25,6 +26,23 @@ namespace NarutoVR.SealCombat
         [Header("近战刃轨（仅视觉，不触发攻击）")]
         public Material bladeTrailMaterial;
         [InspectorName("刃轨保留秒数"), Range(.05f,.3f)] public float bladeTrailLifetime = .14f;
+
+        [Header("剑身、视觉挂点与采样校准")]
+        [InspectorName("识别剑长（米）"), Min(.01f)] public float bladeReach = .62f;
+        [InspectorName("剑波起点距握柄（米）"), Min(0)] public float waveOriginOffset = .10f;
+        [InspectorName("缺少刃根时的刃轨起点（米）"), Min(0)] public float trailBaseOffset = .10f;
+        [InspectorName("挥砍余光距握柄（米）"), Min(0)] public float slashOffset = .36f;
+        [InspectorName("丢失追踪后隐藏延迟（秒）"), Min(0)] public float trackingHideDelay = .18f;
+        [InspectorName("允许的采样间隔（秒）"), Min(.001f)] public float sampleGap = .12f;
+        [InspectorName("识别窗口（秒）"), Min(.01f)] public float swingWindow = .35f;
+        [InspectorName("挥动最短时间（秒）"), Min(.001f)] public float minSwingTime = .06f;
+        [InspectorName("手腕单帧跳变（米）"), Min(.001f)] public float wristJump = .26f;
+        [InspectorName("剑尖单帧跳变（米）"), Min(.001f)] public float tipJump = .5f;
+        [InspectorName("头部单帧跳变（米）"), Min(.001f)] public float headJump = .25f;
+        [InspectorName("玩家根节点单帧转角（度）"), Range(.1f, 180f)] public float rigJump = 25f;
+        [InspectorName("低速复位占最低速度比例"), Range(.01f, 1f)] public float rearmSpeedRatio = .45f;
+        [InspectorName("反向复位点积"), Range(-1f, 0f)] public float reverseDot = -.25f;
+        [InspectorName("方向预览占手掌位移比例"), Range(.01f, 1f)] public float previewTravelRatio = .35f;
 
         [Header("有效挥动")]
         [InspectorName("最短剑尖位移（米）"), Min(.01f)] public float swingDistance = .40f;
@@ -73,6 +91,11 @@ namespace NarutoVR.SealCombat
             if (!InRange(slashVisualLifetime, .05f, 5f) || !InRange(impactVisualLifetime, .05f, 5f) ||
                 !InRange(lightningVisualLifetime, .05f, 5f)) return "瞬时视觉寿命无效";
             if (!InRange(bladeTrailLifetime, .05f, .3f)) return "刃轨寿命无效";
+            if (!(bladeReach > 0 && waveOriginOffset >= 0 && trailBaseOffset >= 0 && slashOffset >= 0 &&
+                trackingHideDelay >= 0 && sampleGap > 0 && swingWindow >= minSwingTime && minSwingTime > 0 &&
+                wristJump > 0 && tipJump > 0 && headJump > 0 && InRange(rigJump, .1f, 180f) &&
+                InRange(rearmSpeedRatio, .01f, 1) && InRange(reverseDot, -1, 0) &&
+                InRange(previewTravelRatio, .01f, 1))) return "剑身挂点或挥动采样配置无效";
             return null;
         }
 

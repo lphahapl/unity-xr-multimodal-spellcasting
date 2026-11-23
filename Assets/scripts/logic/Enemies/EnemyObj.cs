@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using NarutoVR.SealCombat.Events;
@@ -48,6 +49,7 @@ namespace NarutoVR.SealCombat.Enemies
         public EnemyCombatDefinition CombatDefinition { get => combatDefinition; set => combatDefinition = value; }
         public string ActiveAttackId => strike?.Id;
         public AttackData[] Attacks => attacks;
+        public EnemyRangedAttack RangedAttack { get; private set; }
         public Animator Animator { get => animator; set => animator = value; }
         public NavMeshAgent Agent => agent;
         public bool AnimationActive => animator && animator.isActiveAndEnabled;
@@ -60,12 +62,21 @@ namespace NarutoVR.SealCombat.Enemies
         Vector3 navigationDestination;
         float nextPathAt;
         readonly RaycastHit[] sightHits = new RaycastHit[32];
-        static readonly int Found = UnityEngine.Animator.StringToHash("isFindPlayer"),
-            Attacking = UnityEngine.Animator.StringToHash("isAttacking"),
-            AngleParameter = UnityEngine.Animator.StringToHash("angle"),
-            Motion = UnityEngine.Animator.StringToHash("motionState");
-        static readonly int Dead = UnityEngine.Animator.StringToHash("dead"), Hit = UnityEngine.Animator.StringToHash("Hit"),
-            Seated = UnityEngine.Animator.StringToHash("isSeated");
+        [Serializable]
+        public sealed class AnimationMapping
+        {
+            public string idleState = "Base Layer.CanJiOu_Idle";
+            public string firstAttackState = "Base Layer.Attack.挥砍";
+            public string attackTag = "EnemyAttack";
+            public string attackTriggerPrefix = "attack";
+            public string foundParameter = "isFindPlayer", attackingParameter = "isAttacking";
+            public string angleParameter = "angle", motionParameter = "motionState";
+            public string hitTrigger = "Hit", seatedTrigger = "isSeated", deadParameter = "dead";
+            public string hitState = "Base Layer.Hit", seatedState = "Base Layer.Seated", deadState = "Base Layer.Dead";
+        }
+
+        [SerializeField, InspectorName("动画图映射（完整状态路径）")] AnimationMapping animationMapping = new();
+        internal int DeathState => string.IsNullOrEmpty(animationMapping?.deadState) ? 0 : Animator.StringToHash(animationMapping.deadState);
 
         /// <summary>只初始化执行资源；不重置 Controller 的生成记录或业务事件。</summary>
         public void Initialize()
@@ -73,6 +84,7 @@ namespace NarutoVR.SealCombat.Enemies
             path ??= new NavMeshPath(); // 原生资源只能在主线程调用期创建。
             if (initialized) return;
             agent = GetComponent<NavMeshAgent>();
+            RangedAttack = GetComponent<EnemyRangedAttack>();
             if (!animator) animator = GetComponentInChildren<Animator>();
             if (!detectionSensor) detectionSensor = GetComponentInChildren<EnemyDetectionSensor>();
             agent.updateRotation = false;
@@ -103,6 +115,8 @@ namespace NarutoVR.SealCombat.Enemies
             if (attacks == null || index < 0 || index >= attacks.Length || attacks[index] == null)
             { reason = "EnemyObj 缺少攻击编号 " + index + " 的 AttackData"; return false; }
             if (!attacks[index].Validate(out reason)) return false;
+            if (attacks[index].shape == AttackShape.Projectile && (!RangedAttack || !RangedAttack.IsConfigured))
+            { reason = "远程招式缺少炮口或火核配置"; return false; }
             strike ??= new EnemyAttackExecution(this);
             strike.Begin(index, attacks[index]); return true;
         }
@@ -112,6 +126,8 @@ namespace NarutoVR.SealCombat.Enemies
             for (int i = 0; i < count; i++)
             {
                 if (attacks[i] == null) { reason = "AttackData 为空：" + i; return false; }
+                if (attacks[i].shape == AttackShape.Projectile && (!RangedAttack || !RangedAttack.IsConfigured))
+                { reason = "远程攻击需要已配置炮臂、炮口与火核的 EnemyRangedAttack"; return false; }
                 if (!attacks[i].Validate(out reason)) { reason = "攻击 " + i + "：" + reason; return false; }
             }
             reason = "配置有效"; return true;
@@ -177,87 +193,94 @@ namespace NarutoVR.SealCombat.Enemies
         {
             SupportsReactions = false;
             if (!animator || !animator.runtimeAnimatorController) { reason = "未绑定 Animator Controller"; return false; }
+            if (animationMapping == null || string.IsNullOrWhiteSpace(animationMapping.attackTag) ||
+                string.IsNullOrWhiteSpace(animationMapping.firstAttackState) || string.IsNullOrWhiteSpace(animationMapping.idleState) ||
+                (attackCount > 1 && string.IsNullOrWhiteSpace(animationMapping.attackTriggerPrefix)))
+            { reason = "动画图映射缺少待机、首招、标签或攻击触发器前缀"; return false; }
             var parameters = animator.parameters;
             bool Has(string n, AnimatorControllerParameterType type) => Array.Exists(parameters, p => p.name == n && p.type == type);
-            if (!Has("isFindPlayer", AnimatorControllerParameterType.Bool) || !Has("isAttacking", AnimatorControllerParameterType.Bool) ||
-                !Has("angle", AnimatorControllerParameterType.Float) || !Has("motionState", AnimatorControllerParameterType.Int))
+            if (!Has(animationMapping.foundParameter, AnimatorControllerParameterType.Bool) || !Has(animationMapping.attackingParameter, AnimatorControllerParameterType.Bool) ||
+                !Has(animationMapping.angleParameter, AnimatorControllerParameterType.Float) || !Has(animationMapping.motionParameter, AnimatorControllerParameterType.Int))
             { reason = "Animator 缺少基础参数或参数类型不符"; return false; }
-            if (attackCount < 1 || !animator.HasState(0, UnityEngine.Animator.StringToHash("Base Layer.Attack.挥砍")))
+            if (!animator.HasState(0, Animator.StringToHash(animationMapping.idleState)))
+            { reason = "待机状态路径无效：" + animationMapping.idleState; return false; }
+            if (attackCount < 1 || !animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.firstAttackState)))
             { reason = "攻击总数或默认攻击状态无效"; return false; }
             for (int i = 1; i < attackCount; i++)
-                if (!Has("attack" + i, AnimatorControllerParameterType.Trigger))
-                { reason = "缺少攻击 Trigger：attack" + i; return false; }
-            SupportsReactions = Has("dead", AnimatorControllerParameterType.Bool) && Has("Hit", AnimatorControllerParameterType.Trigger) &&
-                Has("isSeated", AnimatorControllerParameterType.Trigger) &&
-                animator.HasState(0, UnityEngine.Animator.StringToHash("Base Layer.Hit")) &&
-                animator.HasState(0, UnityEngine.Animator.StringToHash("Base Layer.Seated")) &&
-                animator.HasState(0, UnityEngine.Animator.StringToHash("Base Layer.Dead"));
+                if (!Has(animationMapping.attackTriggerPrefix + i, AnimatorControllerParameterType.Trigger))
+                { reason = "缺少攻击 Trigger：" + animationMapping.attackTriggerPrefix + i; return false; }
+            SupportsReactions = Has(animationMapping.deadParameter, AnimatorControllerParameterType.Bool) && Has(animationMapping.hitTrigger, AnimatorControllerParameterType.Trigger) &&
+                Has(animationMapping.seatedTrigger, AnimatorControllerParameterType.Trigger) &&
+                !string.IsNullOrWhiteSpace(animationMapping.hitState) && !string.IsNullOrWhiteSpace(animationMapping.seatedState) &&
+                !string.IsNullOrWhiteSpace(animationMapping.deadState) && animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.hitState)) &&
+                animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.seatedState)) &&
+                animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.deadState));
             reason = "配置有效"; return true;
         }
 
         public void ResetAnimation()
         {
-            ClearAttackTriggers(); animator.SetBool(Attacking, false); animator.SetBool(Found, false);
-            animator.SetInteger(Motion, 0); animator.SetFloat(AngleParameter, 0);
-            if (SupportsReactions) { animator.SetBool(Dead, false); animator.ResetTrigger(Hit); animator.ResetTrigger(Seated); }
-            if (animator.isActiveAndEnabled) animator.Play("Base Layer.CanJiOu_Idle", 0, 0);
+            ClearAttackTriggers(); animator.SetBool(animationMapping.attackingParameter, false); animator.SetBool(animationMapping.foundParameter, false);
+            animator.SetInteger(animationMapping.motionParameter, 0); animator.SetFloat(animationMapping.angleParameter, 0);
+            if (SupportsReactions) { animator.SetBool(animationMapping.deadParameter, false); animator.ResetTrigger(animationMapping.hitTrigger); animator.ResetTrigger(animationMapping.seatedTrigger); }
+            if (animator.isActiveAndEnabled) animator.Play(animationMapping.idleState, 0, 0);
         }
 
         public void SetTargetAnimation(bool found, float angle)
-        { animator.SetBool(Found, found); animator.SetFloat(AngleParameter, angle); }
+        { animator.SetBool(animationMapping.foundParameter, found); animator.SetFloat(animationMapping.angleParameter, angle); }
 
         public void SetMotionAnimation(int motion, float angle)
         {
             if (!animator) return;
-            animator.SetInteger(Motion, motion); animator.SetFloat(AngleParameter, angle);
+            animator.SetInteger(animationMapping.motionParameter, motion); animator.SetFloat(animationMapping.angleParameter, angle);
         }
 
-        public bool CanStartAttackAnimation => !animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack");
+        public bool CanStartAttackAnimation => !animator.IsInTransition(0) && !animator.GetCurrentAnimatorStateInfo(0).IsTag(animationMapping.attackTag);
 
         public void StartAttackAnimation(int attack)
         {
-            if (attack > 0) animator.SetTrigger("attack" + attack);
-            animator.SetBool(Attacking, true);
+            if (attack > 0) animator.SetTrigger(animationMapping.attackTriggerPrefix + attack);
+            animator.SetBool(animationMapping.attackingParameter, true);
         }
 
         public void StopAttackAnimation()
         {
             if (!animator) return;
-            animator.SetBool(Attacking, false); ClearAttackTriggers();
+            animator.SetBool(animationMapping.attackingParameter, false); ClearAttackTriggers();
         }
 
         public void StartReactionAnimation(EnemyReaction reaction)
         {
-            animator.ResetTrigger(Hit); animator.ResetTrigger(Seated);
-            if (reaction == EnemyReaction.Dead) animator.SetBool(Dead, true);
-            else animator.SetTrigger(reaction == EnemyReaction.Hit ? Hit : Seated);
+            animator.ResetTrigger(animationMapping.hitTrigger); animator.ResetTrigger(animationMapping.seatedTrigger);
+            if (reaction == EnemyReaction.Dead) animator.SetBool(animationMapping.deadParameter, true);
+            else animator.SetTrigger(reaction == EnemyReaction.Hit ? animationMapping.hitTrigger : animationMapping.seatedTrigger);
         }
 
         public void ReadReactionAnimation(EnemyReaction reaction, out bool active, out bool inTransition)
         {
-            active = animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer." + reaction);
+            active = animator.GetCurrentAnimatorStateInfo(0).IsName(reaction == EnemyReaction.Hit ? animationMapping.hitState : reaction == EnemyReaction.Seated ? animationMapping.seatedState : animationMapping.deadState);
             inTransition = animator.IsInTransition(0);
         }
 
         public void RecoverReactionAnimation()
         {
-            animator.ResetTrigger(Hit); animator.ResetTrigger(Seated);
-            animator.CrossFadeInFixedTime("Base Layer.CanJiOu_Idle", .08f, 0);
+            animator.ResetTrigger(animationMapping.hitTrigger); animator.ResetTrigger(animationMapping.seatedTrigger);
+            animator.CrossFadeInFixedTime(animationMapping.idleState, .08f, 0);
         }
 
         /// <summary>返回动画观测，攻击完成、接触时间和超时仍由 Controller 决定。</summary>
         public void ReadAttackAnimation(out bool isAttack, out bool inTransition, out float progress)
         {
             var state = animator.GetCurrentAnimatorStateInfo(0);
-            isAttack = state.IsTag("EnemyAttack"); progress = state.normalizedTime;
+            isAttack = state.IsTag(animationMapping.attackTag); progress = state.normalizedTime;
             inTransition = animator.IsInTransition(0);
         }
 
         public void ClearAttackTriggers()
         {
-            if (!animator) return;
+            if (!animator || string.IsNullOrEmpty(animationMapping?.attackTriggerPrefix)) return;
             foreach (var parameter in animator.parameters)
-                if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name.StartsWith("attack", StringComparison.Ordinal))
+                if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name.StartsWith(animationMapping.attackTriggerPrefix, StringComparison.Ordinal))
                     animator.ResetTrigger(parameter.nameHash);
         }
 
@@ -320,14 +343,83 @@ namespace NarutoVR.SealCombat.Enemies
             if (resetRepath) RequestRepath();
         }
 
-        void OnDisable() => EndStrike();
+        [SerializeField, InspectorName("本体受击音效")] AudioClip hitClip;
+        [SerializeField, Range(0,1), InspectorName("受击音量")] float hitVolume = .9f;
+        AudioSource hitSource;
+        IDisposable hitListener;
+        Coroutine hitFade;
+        SkinnedMeshRenderer[] hitMeshes;
+        MaterialPropertyBlock hitProperties;
+        static readonly int Emission = Shader.PropertyToID("_EmissionColor");
+
+        void OnEnable() => hitListener = EventCenter.Subscribe(EnemyEvents.VitalsChanged, PresentHit, this);
+
+        void PresentHit(EnemyVitalsNotice hit)
+        {
+            if (hit.Enemy != this || string.IsNullOrEmpty(hit.HitId) ||
+                (hit.HealthDamage <= 0 && hit.PoiseDamage <= 0)) return;
+            if (hitClip && hitVolume > 0)
+            {
+                if (!hitSource)
+                {
+                    hitSource = gameObject.AddComponent<AudioSource>();
+                    hitSource.playOnAwake = false;
+                    hitSource.spatialBlend = 1;
+                    hitSource.minDistance = 1.5f;
+                    hitSource.dopplerLevel = 0;
+                }
+                hitSource.PlayOneShot(hitClip, hitVolume);
+            }
+            if (hitFade != null) StopCoroutine(hitFade);
+            hitMeshes ??= GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            hitProperties ??= new MaterialPropertyBlock();
+            hitFade = StartCoroutine(FadeHit());
+        }
+
+        IEnumerator FadeHit()
+        {
+            const float duration = .28f;
+            for (float age = 0; age < duration; age += Time.deltaTime)
+            {
+                SetHitGlow(1 - Mathf.SmoothStep(0, 1, age / duration));
+                yield return null;
+            }
+            SetHitGlow(0);
+            hitFade = null;
+        }
+
+        void SetHitGlow(float strength)
+        {
+            foreach (var mesh in hitMeshes)
+            {
+                if (!mesh || !mesh.sharedMaterial || !mesh.sharedMaterial.HasProperty(Emission)) continue;
+                mesh.GetPropertyBlock(hitProperties);
+                var rest = mesh.sharedMaterial.GetColor(Emission);
+                hitProperties.SetColor(Emission, rest + new Color(.95f, .38f, .075f, 0) * strength);
+                mesh.SetPropertyBlock(hitProperties);
+            }
+        }
+
+        void OnDisable()
+        {
+            hitListener?.Dispose();
+            hitListener = null;
+            if (hitSource) hitSource.Stop();
+            if (hitFade != null)
+            {
+                StopCoroutine(hitFade);
+                SetHitGlow(0);
+                hitFade = null;
+            }
+            EndStrike();
+        }
 
         void OnDrawGizmosSelected()
         {
             if (!drawAttackRange) return;
             var data = Application.isPlaying && strike != null && strike.Active ? strike.Data :
                 attacks != null && attacks.Length > 0 ? attacks[Mathf.Clamp(previewAttackIndex, 0, attacks.Length - 1)] : null;
-            if (data == null || !data.Validate(out _)) return;
+            if (data == null || !data.Validate(out _) || data.shape == AttackShape.Projectile) return;
             Gizmos.color = Application.isPlaying && strike != null && strike.Active ? new Color(1, .25f, .1f) : Color.yellow;
             Vector3 center = data.Center(transform);
             Quaternion rotation = AttackData.HorizontalRotation(transform);

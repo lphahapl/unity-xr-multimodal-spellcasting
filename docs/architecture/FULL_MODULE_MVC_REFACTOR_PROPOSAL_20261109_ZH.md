@@ -145,7 +145,7 @@ flowchart LR
     Input[语音 / 手印 / 测试命令] --> Recognizer[SkillInputRecognizer]
     Recognizer --> Controller[SkillController]
     Player[PlayerModel] --> Controller
-    Permit[当前章节许可] --> Controller
+    Permit[当前临时授权] --> Controller
     Ownership[动作占用与追踪状态] --> Controller
     Controller --> Cast[FireballCast / ThunderSwordCast / ShieldCast]
     Cast --> World[投射物与命中查询]
@@ -156,7 +156,7 @@ flowchart LR
 
 技能控制器对外提供 `TryCast(request)`、玩家取消、按原因清场及只读持握状态。会话装配时选定取消策略，正式 RPG 收起未发射的持物，旧训练场沿用“持球→最新扩展→盾”的取消顺序。Tick 由绑定的更新入口驱动一次。升级命令按玩家与技能 ID 重算参数，施法者和 UI 通过命令或查询访问。
 
-配方、效果配置和施法实例各有不同的使用范围。正式目录里的 `buff.zi` 与 `buff.voice` 用各自的技能 ID 判断了解和许可，共用同一护盾配置与 `shield` 冷却组。按效果配置选取执行器，普通数值或输入变体沿用已有行为。旧资产只有 `effectKind` 时，在配置装配处映射现有火球或护盾。具体参考和源码依据见[技能与效果职责调研](../research/SKILL_EFFECT_OWNERSHIP_20261109_ZH.md)。
+配方、效果配置和施法实例各有不同的使用范围。正式目录里的 `buff.zi` 与 `buff.voice` 用各自的技能 ID 判断了解和许可，共用同一护盾配置与 `shield` 冷却组。按效果配置选取执行器，普通数值或输入变体沿用已有行为。每个配方都需要直接引用效果配置，缺少引用时装配检查报错。具体参考和源码依据见[技能与效果职责调研](../research/SKILL_EFFECT_OWNERSHIP_20261109_ZH.md)。
 
 | 技能 | 谁负责执行与结束 | 谁负责状态与反馈 |
 |---|---|---|
@@ -171,7 +171,7 @@ flowchart LR
 ### 5.3 一次施法的提交顺序
 
 1. 输入识别产生带新鲜度/代次的请求，消费这次输入；禁止失败后靠旧输入自动补发。
-2. SkillController 检查配置、章节许可、生命、资源/CD、追踪和动作占用，返回稳定的失败码及上下文。
+2. SkillController 检查配置、施放资格、生命、资源/CD、追踪和动作占用，返回稳定的失败码及上下文。
 3. 对应执行器显式 `TryPrepare` 返回仅供技能模块内部持有的本次准备句柄；句柄记录创建对象、池租约、占用申请及取消清理，释放幂等。准备阶段无伤害、无播放、无对外成功事件，资源不足或准备失败可完整清理。火球/剑的必要执行对象与可选视觉、声音分别列出，不能因装饰粒子失败把已生效护盾改成施法失败。
 4. 在禁止重入、禁止发布玩法事件的同步区间内提交本次 MP/CD 和占用，调用准备句柄的显式 `TryArm` 并检查其就绪结果。不能用 SetActive 返回或“没有捕获到异常”代替就绪协议。自有伤害/成功通知入口在确认前统一受门控，准备句柄确认前不注册到 Tick/命中查询；导入视觉须审计自动播放、音源及自运行脚本，不能假设一个业务标记会约束第三方组件。若失败，撤销本次资源/CD/占用并清理新对象；刷新护盾等已有状态时，还须恢复旧护盾容量/到期时间，而非清空原技能。输入代次仍消费，不回滚为可重放请求。
 5. 就绪后一次确认 CastAccepted/Prepared，再允许技能逻辑运行、发声和教学通知。确认后即使某个表现监听异常，也不得退款重发；只处理该表现失败。持球准备成功时已经扣费/CD，后续 ProjectileLaunched 是另一事实，不再次扣费。成功后的主动取消不退款；取消待匹配/未发射持物、清场销毁全部、死亡清理分别有明确命令。
@@ -229,7 +229,7 @@ flowchart TD
     Progression[ProgressionController] --> PlayerModel
     Chapter --> Progression
     Chapter --> ChapterModel[ChapterModel]
-    Skill --> Permission[章节许可的只读数据]
+    Skill --> Permission[临时授权的只读数据]
     Interaction --> Read[只读显示数据 / 命令入口]
     Read --> PlayerModel
     Save --> Snapshot[版本化快照映射]
@@ -301,7 +301,7 @@ Editor 验证按业务入口测试，保留有价值的断言。原依赖私有�
 **玩家恢复顺序**
 
 1. 建立本会话的内容目录和场景接线。备妥完整的技能/冷却组白名单、玩家数值上限、章节和检查点规则。目录元数据保留输入配方所需的字段，沿用语音词表和冲突检查。可并行读取 v2 字节，语义校验在元数据就绪后执行。[当前启动与校验接线](../../Assets/scripts/logic/Rpg/LinearRpgController.cs:142) · [v2 校验](../../Assets/scripts/Persistence/RpgSaveStore.cs)
-2. 从有效快照恢复玩家持有的技能、物品 ID 与数值，从章节恢复当前试用 ID。实际施法资格沿用“本阶段试用，或永久解锁且本阶段允许”。根据当前章节、可用技能和所需显示内容选出资源，分别预取必要玩法内容和可延迟的图标/预览。目录存在、资源在内存、玩家有许可是三个独立判断。[章节许可](../../Assets/scripts/logic/Rpg/OpeningTrialChapter.cs:228)
+2. 从有效快照恢复玩家持有的技能、物品 ID 与数值，从章节恢复当前试用 ID。玩家目录中的技能凭永久解锁或当前临时授权获得施放资格。根据当前章节、可用技能和所需显示内容选出资源，分别预取必要玩法内容和可延迟的图标/预览。目录存在、资源在内存、玩家有许可是三个独立判断。[施放资格](../../Assets/scripts/logic/Rpg/LinearRpgController.cs)
 3. 玩家装配方通过绑定到当前目录的入口申请，例如 `AcquireAsync<SkillDefinition>("thunder.sword", token)`。成功返回带只读原型及释放责任的租约。根据等级生成玩家专属参数，保留现有从原始配置重算的语义。核对玩家和阶段仍有效后，一次绑定所需引用，再开放该玩家输入。切段和获得新技能时增量准备，施法提交期间使用已就绪引用。[玩家技能副本](../../Assets/scripts/logic/Rpg/RuntimeSkillCatalog.cs:16)
 4. 必需资源暂不可用时保持准备失败状态，可重试，保护既有存档。已就绪目录中的未知 ID 进入既有存档兼容/拒绝流程。切场、换玩家或取消时撤销该调用方的等待，迟到结果归还租约。玩家、在途效果和敌人池依各自寿命持有资源，最后一个使用者结束才释放底层句柄。场景内头手锚点、检查点 Transform 和敌人出生实例分别由当前场景绑定或池管理。[敌人实例清理](../../Assets/scripts/logic/Enemies/Spawning/EnemyManager.cs:358) · [Unity Addressables 资源内存管理](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/manual/memory-assets.html)
 
@@ -412,7 +412,7 @@ classDiagram
 
 ## 12. 按实体收拢职责的实施顺序
 
-**2026-11-11 规划，待实施。** 本节承接第 9 节已经接线的 P0–P6。一次受击由玩家结算，一次持球由该次火球维护，一个房间只描述自己的遭遇。更改某条规则时，应能找到唯一负责决定结果的实体。输入、表现、存档各取自己需要的事实。问题编号及源码证据见[本轮审阅](../模型交火/代码审阅交接.md#cohesion-mvc-20261111-code)。
+**2026-11-11 已实施 CM-01 至 CM-11。** 逐项实现、桌面验证和设备待验范围见[实施复核](../模型交火/代码审阅交接.md#cohesion-fix-20261111-code)。 本节承接第 9 节已经接线的 P0–P6。一次受击由玩家结算，一次持球由该次火球维护，一个房间只描述自己的遭遇。更改某条规则时，应能找到唯一负责决定结果的实体。输入、表现、存档各取自己需要的事实。问题编号及源码证据见[本轮审阅](../模型交火/代码审阅交接.md#cohesion-mvc-20261111-code)。
 
 ### 第一批：三个可独立交付的改动
 
@@ -446,5 +446,5 @@ classDiagram
 实施前记录当前工作树的脚本、场景、配置和 v2 样本，含未提交及未跟踪内容。用同一候选工程在改前、改后跑相同用例。现有隔离运行器接受 `--unity`、`--clone`、`--baseline-ref` 和 `--phases`；`--clone` 指向系统临时目录下的专用工程。Git 基点与当轮工作树快照应分别记录。运行 `candidate` 需事先提供 v2 样本：在同一次运行中先跑 `baseline` 生成样本，或以 `--baseline-save` 指定已有样本。[隔离运行器](../../Tools/Validation/run_skill_assembly.py)
 
 - 护盾复用 `candidate` 中的 PlayerObjChecks，用 `fight-entry` 验正式教学，`legacy` 验线性训练场。另在 `ShieldTrial` 经原有输入完成一次施放、刷新及到期核对。在现有夹具补齐到期边界与无视效更新的断言。
-- 恢复扩充 `checkpoint-recovery` 的阻挡及重试用例。手部、铜叶和章节复用 `objective-binding`、`fight-entry`、`mvc-opening`，再核对 `mvc-p1`、`mvc-training`。成长和敌人另有 `progression`、`enemy-hit`、`enemy-animation`；四个旧技能展示场景分别核对原有键位和施法。上述为拟执行入口，本节没有新的 Play 或设备通过记录。
+- 恢复扩充 `checkpoint-recovery` 的阻挡及重试用例。手部、铜叶和章节复用 `objective-binding`、`fight-entry`、`mvc-opening`，再核对 `mvc-p1`、`mvc-training`。成长和敌人另有 `progression`、`enemy-hit`、`enemy-animation`；四个旧技能展示场景分别核对原有键位和施法。各入口本次实跑的结果见[实施复核](../模型交火/代码审阅交接.md#cohesion-fix-20261111-code)。
 - 每次把同一行为的负责方、所有调用方及关联测试成组提交。涉及场景字段时，同批保留原序列化值、脚本 GUID、Prefab 覆盖和对应迁移。回归时只回退该组及依赖它的后续组；存档使用隔离副本。设备验收重点为腕扣抢占、短失追后的铜叶抓放、护盾反馈与投掷预览。

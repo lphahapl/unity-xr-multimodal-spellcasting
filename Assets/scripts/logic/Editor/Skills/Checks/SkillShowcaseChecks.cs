@@ -28,12 +28,15 @@ namespace NarutoVR.SealCombat.Editor
                 {
                     var c=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillInputController>(true)).Single();
                     Require(c.lab&&c.voice&&c.effects&&c.statusText&&c.chineseFont,"技能绑定或中文字体缺失");
+                    Require(c.effects.trainingHandPoseSettings, "独立训练场缺少投掷手形配置");
                     Require(c.ConfiguredSkills.Count>0 && c.ConfiguredSkills.All(s=>s && s.ValidateDefinition()==null),"技能目录配置无效");
                     SkillConfigurationSetup.ValidateController(c);
-                    Require(c.effects.fireballPrefab&&c.effects.shieldPrefab&&c.effects.impactPrefab,"特效预置体没有绑定");
+                    var fire = (ProjectileEffectDefinition)c.ConfiguredSkills.Single(s => s.skillId == "fireball").effectDefinition;
+                    var shield = (ShieldEffectDefinition)c.ConfiguredSkills.Single(s => s.skillId == "buff.zi").effectDefinition;
+                    Require(fire.visualPrefab && shield.visualPrefab && fire.impactPrefab,"技能效果资产缺少预置体");
                     Require(scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillScenario>(true)).Count()==1,"场景引导必须唯一");
                     Require(scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<SkillTrainingTarget>(true)).Any(),"场景缺少可命中的训练靶");
-                    foreach(var p in new[]{c.effects.fireballPrefab,c.effects.shieldPrefab,c.effects.impactPrefab})
+                    foreach(var p in new[]{fire.visualPrefab,shield.visualPrefab,fire.impactPrefab})
                     {
                         Require(p.GetComponentsInChildren<Collider>(true).Length==0,"视觉预置体不应带伤害碰撞体："+p.name);
                         foreach(var renderer in p.GetComponentsInChildren<Renderer>(true))
@@ -57,17 +60,28 @@ namespace NarutoVR.SealCombat.Editor
                 var frame=new SealFrame{time=Time.realtimeSinceStartupAsDouble};
                 foreach(var hand in new[]{frame.left,frame.right})
                 {
-                    hand.connected=hand.tracked=hand.fresh=true;hand.observedAt=frame.time;
+                    hand.highConfidence=hand.connected=hand.tracked=hand.fresh=true;hand.observedAt=frame.time;
                     hand.jointValid[(int)HandJointId.HandWristRoot]=true;
                     hand.joints[(int)HandJointId.HandWristRoot]=new Pose(new Vector3(.3f,1.2f,.4f),Quaternion.identity);
                 }
                 typeof(Lab).GetProperty("Frame").SetValue(lab,frame);
                 var effects=root.AddComponent<SkillController>();effects.lab=lab;effects.head=root.transform;effects.playerRoot=root.transform;
-                effects.fireballPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.FireballPath);
-                effects.shieldPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.ShieldPath);
-                effects.impactPrefab=AssetDatabase.LoadAssetAtPath<GameObject>(SkillVisualAssets.ImpactPath);
-                fire=ScriptableObject.CreateInstance<SkillDefinition>(); fire.skillId = "fixture.skillshowcasechecks.fire"; fire.cooldownSeconds = 0;fire.effectKind=SkillEffectKind.HeldFireball;fire.displayName="预置体火球检查";
-                buff=ScriptableObject.CreateInstance<SkillDefinition>(); buff.skillId = "fixture.skillshowcasechecks.buff"; buff.cooldownSeconds = 0;buff.effectKind=SkillEffectKind.SelfBuff;buff.displayName="预置体护盾检查";
+                var catalog = SkillConfigurationSetup.LoadTrainingCatalog();
+                fire = UnityEngine.Object.Instantiate(catalog.skills.Single(s => s.skillId == "fireball"));
+                buff = UnityEngine.Object.Instantiate(catalog.skills.Single(s => s.skillId == "buff.zi"));
+                fire.cooldownSeconds = buff.cooldownSeconds = 0;
+                effects.HandInputClock = () => frame.time;
+                effects.GameClock = () => frame.time;
+                effects.trainingHandPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>(OfficialHandPoseSetup.ProfilePath);
+                effects.BindDefinitions(new[] { fire, buff });
+                int thumb = (int)HandJointId.HandThumbTip, index = (int)HandJointId.HandIndexTip;
+                frame.right.jointValid[thumb] = frame.right.jointValid[index] = true;
+                frame.right.joints[thumb] = frame.right.joints[index] = Pose.identity;
+                var throwSettings = ((ProjectileEffectDefinition)fire.effectDefinition).throwing;
+                Require(effects.ThrowGripProvider(false, throwSettings).pinchClosed, "训练场没有读到捏合");
+                frame.right.joints[index] = new Pose(Vector3.right * .1f, Quaternion.identity);
+                Require(effects.ThrowGripProvider(false, throwSettings).pinchOpen, "训练场没有读到松手");
+                var impactPrefab = ((ProjectileEffectDefinition)fire.effectDefinition).impactPrefab;
                 Require(effects.TryCast(fire),"真实火球预置体未生成");
                 held=(GameObject)UnityEditor.EditorUtility.EntityIdToObject(effects.HeldProjectileInstanceId);
                 Require(held&&held.GetComponentsInChildren<Renderer>(true).Length>1,"华丽火球缺少层次表现");
@@ -81,23 +95,24 @@ namespace NarutoVR.SealCombat.Editor
                 Require(effects.AbsorbPracticeDamage(30)==0&&Mathf.Abs(effects.ShieldPoints-70)<.01f,"预置体改变了护盾数值行为");
                 effects.CancelLatest();Require(!effects.HasHeldObject&&effects.ShieldPoints==70,"取消持握错误地清掉护盾");
                 effects.CancelLatest();Require(effects.ShieldPoints==0,"预置体护盾取消失败");
+                CheckTrackedThrow(effects, fire, frame);
                 targetObject=GameObject.CreatePrimitive(PrimitiveType.Cube);targetObject.transform.position=root.transform.position+Vector3.forward*10;
                 var target=targetObject.AddComponent<SkillTrainingTarget>();Physics.SyncTransforms();
                 projectileObject=new GameObject("爆散验收_投射物");projectileObject.transform.position=targetObject.transform.position;
-                var projectile=projectileObject.AddComponent<SkillProjectile>();projectile.impactPrefab=effects.impactPrefab;
+                var projectile=projectileObject.AddComponent<SkillProjectile>();projectile.impactPrefab=impactPrefab;
                 int impacts=0;projectile.ImpactCreated=v=>{impact=v;impacts++;};
                 projectile.Initialize(Vector3.forward,root.transform,~0,0,null,null);
                 Require(impacts==1&&impact&&target.CurrentHealth==75,"命中必须扣一次伤害并创建一次爆散");
                 projectile.Finish();Require(impacts==1,"结束重复生成命中爆散");
                 var lifetime=impact.GetComponent<SkillVisualLifetime>();Require(lifetime,"爆散没有清理生命周期");lifetime.Finish();Require(!impact.activeSelf,"爆散结束没有停止显示");
-                inactiveTemplate=UnityEngine.Object.Instantiate(effects.impactPrefab);
+                inactiveTemplate=UnityEngine.Object.Instantiate(impactPrefab);
                 inactiveTemplate.SetActive(false);inactiveTemplate.GetComponent<SkillVisualLifetime>().enabled=false;
                 secondProjectile=new GameObject("停用预置体的爆散验收");secondProjectile.transform.position=targetObject.transform.position;
                 var retry=secondProjectile.AddComponent<SkillProjectile>();retry.impactPrefab=inactiveTemplate;
                 retry.ImpactCreated=v=>secondImpact=v;retry.Initialize(Vector3.forward,root.transform,~0,0,null,null);
                 Require(secondImpact&&secondImpact.activeSelf&&secondImpact.GetComponent<SkillVisualLifetime>().isActiveAndEnabled,"停用的爆散模板必须恢复显示及自动清理");
                 Require(target.CurrentHealth==50,"停用模板不应改变一次命中的伤害");
-                return 9;
+                return 10;
             }
             finally
             {
@@ -106,6 +121,29 @@ namespace NarutoVR.SealCombat.Editor
                 if(inactiveTemplate)UnityEngine.Object.DestroyImmediate(inactiveTemplate);if(secondProjectile)UnityEngine.Object.DestroyImmediate(secondProjectile);if(secondImpact)UnityEngine.Object.DestroyImmediate(secondImpact);
                 if(fire)UnityEngine.Object.DestroyImmediate(fire);if(buff)UnityEngine.Object.DestroyImmediate(buff);
             }
+        }
+        static void CheckTrackedThrow(SkillController effects, SkillDefinition fire, SealFrame frame)
+        {
+            var hand = fire.leftHand ? frame.left : frame.right;
+            int wrist = (int)HandJointId.HandWristRoot, thumb = (int)HandJointId.HandThumbTip, index = (int)HandJointId.HandIndexTip;
+            var start = new Vector3(.18f, -.25f, .22f);
+            var tick = (Action)typeof(SkillController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic)
+                .CreateDelegate(typeof(Action), effects);
+            void Sample(float lift, bool closed)
+            {
+                frame.time += .02;
+                hand.observedAt = frame.time;
+                hand.jointValid[thumb] = hand.jointValid[index] = true;
+                hand.joints[wrist] = new Pose(start + Vector3.up * lift, Quaternion.identity);
+                hand.joints[thumb] = hand.joints[wrist];
+                hand.joints[index] = new Pose(hand.joints[thumb].position + Vector3.right * (closed ? .01f : .08f), Quaternion.identity);
+                tick();
+            }
+            Sample(0, true);
+            Require(effects.TryCast(fire), "独立训练场投掷验收未能生成火球");
+            for (int i = 0; i < 24; i++) Sample(0, true);
+            for (int i = 1; i <= 16 && effects.HasHeldObject; i++) Sample(i * .036f, i < 7);
+            Require(!effects.HasHeldObject && effects.LaunchCount == 1, "捏合后甩手松开应发射一次：" + effects.ThrowStatus);
         }
         private static void Require(bool condition,string message){if(!condition)throw new Exception(message);}
     }

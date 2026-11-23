@@ -1,0 +1,449 @@
+{
+  "asset": "图2 A 天仪阁 R2",
+  "project": "D:\\UnityProjects\\NarutoVR",
+  "source_tool": "Blender 5.2.2 LTS",
+  "formal_model": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilion.fbx",
+  "triangles_A1_R2": {
+    "Pavilion_LOD0": [
+      12716,
+      12684
+    ],
+    "Pavilion_LOD1": [
+      5492,
+      5180
+    ],
+    "Pavilion_LOD2": [
+      1836,
+      1732
+    ]
+  },
+  "roof_A1_R2": {
+    "width_m": [
+      10.988,
+      11.7127
+    ],
+    "left_right_corner_lift_m": [
+      [
+        0.2262,
+        0.2269
+      ],
+      [
+        0.358,
+        0.358
+      ]
+    ],
+    "inner_to_eave_rise_m": [
+      1.4091,
+      1.276
+    ]
+  },
+  "checked": {
+    "mesh_references": {
+      "guid": "7d3978c2986efeb4da6d71c98dcb7941",
+      "fileIDs": [
+        "-4717050247385379717",
+        "1291247432581136521",
+        "-1179435197494004938"
+      ]
+    },
+    "prefab_colliders": {
+      "BoxCollider": 23,
+      "MeshCollider": 1
+    },
+    "clear_volumes_m": {
+      "instrument": [
+        [
+          -1.57,
+          -1.44,
+          0.002
+        ],
+        [
+          1.57,
+          1.44,
+          3.29
+        ]
+      ],
+      "axial_passage_at_shoes": [
+        [
+          -1.29,
+          -5.6,
+          0.002
+        ],
+        [
+          1.29,
+          5.6,
+          0.3
+        ]
+      ],
+      "axial_passage_above_shoes": [
+        [
+          -1.36,
+          -5.6,
+          0.3
+        ],
+        [
+          1.36,
+          5.6,
+          2.5
+        ]
+      ],
+      "skylight": [
+        [
+          -1.32,
+          -1.32,
+          3.29
+        ],
+        [
+          1.32,
+          1.32,
+          6.3
+        ]
+      ]
+    },
+    "asset_validation": "正式路径重导入 Blender 后检查各档；Prefab、FBX 导入设置、碰撞文件、材质和贴图比对 SHA-256。两场景 Unity 运行与头显验收由父会话负责。",
+    "qa_notes": "构件有意共用平铺 UV；石台基础从步行面向下延伸 0.20 m。"
+  },
+  "production_unchanged": [
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinth.mat",
+      "sha256": "c13d6c9b735b58c267a0bdb67c8f9107b5277083fe0eb825185225a3b16303dc"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinth.mat.meta",
+      "sha256": "f3fdfb2840ace3942e3bf99134b705712f06f6a97c263c0b9f34d1df0a4aed97"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinthColor.png",
+      "sha256": "255876a31aaa81a74db59ca575fcafbaa2e48f584579dc45bc909ebb05704449"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinthColor.png.meta",
+      "sha256": "55d0a624af4c160376d55918c222c0179a12027b920ad6e96184a99099a0e759"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinthNormal.png",
+      "sha256": "37aa2288e0b8d8ced8d1bf8c7fb349cada05587a09217be2d6c367c9c85e9f99"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/EarthPlinthNormal.png.meta",
+      "sha256": "67ac524915f9739b49c681bdc2d9a983e9f8497ff3d4cbda8f8ffda2e9068047"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/RoofCollision.asset",
+      "sha256": "10c227eb753a8e2f10539da9ddec7d013f20a7655e8cef22852740806f4c76fd"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/RoofCollision.asset.meta",
+      "sha256": "dad08092e8d21bd42efb41ecae0ba469d507bea8ef3bd90964d828db4b6d2889"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilion.fbx.meta",
+      "sha256": "ee549aa86789f238ae5735ecfabe018b123d8f468cfb4d9b6e147cc958b74048"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilion.prefab",
+      "sha256": "702b733bc0c88085dec254b0611d9720120cc37b8a0df14d8020ca4bacc307fe"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilion.prefab.meta",
+      "sha256": "e88db681282e7c8204491008ef8bb443f0f90f5f85cada135f496c2533b0d150"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilionSet.prefab",
+      "sha256": "0c6bf991cef5d93aaa1975d9caedf13ae5b9f65c017e74233d31b950da05090d"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilionSet.prefab.meta",
+      "sha256": "9bb1754fcc5c7c84adafc50d52799d7f44890f29decaa9ffc47d91ff37d41cdf"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/Tile.mat",
+      "sha256": "28c537bf1050f570ff6d1053011bd824386443e1eca9630912ac9a954c4ae2b4"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/Tile.mat.meta",
+      "sha256": "a96f33d95fb0e2d33918b8df753a22d9565f2cf7082b909c196126c12163b39b"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TileColor.png",
+      "sha256": "915d2c7b4d24782560f1eac8dd34027377a4e0ad1aed988a0ee522e71d82fdc8"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TileColor.png.meta",
+      "sha256": "eb3560469b6dbc3b650a446aca04c2ca9fd71d48bce2ace36988d2fcdfa70512"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TileNormal.png",
+      "sha256": "36c59a692f3d7709b534f307b0dd8bd15725f9c687a06078e6be581aad6e9f00"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TileNormal.png.meta",
+      "sha256": "bd2ebbed36e039a5d7d73d303ef71abdbb975ba6fdbfade49de9df963db81f4d"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/Timber.mat",
+      "sha256": "1131a7a96a026d24c223df256574c37155010625488cef91fc06a03bb2a22651"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/Timber.mat.meta",
+      "sha256": "1bea6d878538e85da25317a1f2d84a8080034cd19f6fa5aec12c6fd5d3a7ff53"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TimberColor.png",
+      "sha256": "cccca2aaf4f078b5323f2c1220028076221d5a1bd0c3807958278621adc6a338"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TimberColor.png.meta",
+      "sha256": "6b5eab4ab8aa792d886a49456ebdba570b040984d666d7da8a87e9f11e3816d7"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TimberNormal.png",
+      "sha256": "1a5b49eba00733154e578c49e83a758b68449b31bf855c20b56690b9df539a41"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TimberNormal.png.meta",
+      "sha256": "10b355f8db76e37e2ac76a40cce813c4da8e4654293bc9aa7f96c2fb9d52fa47"
+    }
+  ],
+  "files": [
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/blender-qa.json",
+      "role": "可编辑源 QA",
+      "change": "modified",
+      "bytes": 3344,
+      "sha256": "7a8faa7e162d8da1cd20ca2ae1e4f25700a0c617a028d617d1fa4a40a31f408b",
+      "previous_sha256": "04a341d90f18c1d162b65735965b1f50c83a00e91864b9220fe9cb4d10badea5"
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/build_pavilion.py",
+      "role": "模型生成源",
+      "change": "modified",
+      "bytes": 28742,
+      "sha256": "13db0925efaf48161cabeec05a5e343e926d7be0e1f037eb399cd5766dfe99bd",
+      "previous_sha256": "d64e49026742d07c23a958ab4ca311d9ec3a0f03917013db1617baf165687047"
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/mesh-counts.json",
+      "role": "高模及游戏三档面数",
+      "change": "modified",
+      "bytes": 106,
+      "sha256": "4540e48f8cb64204ae7a053d2b043af10a44f013ba4320dcce9b71f753e5613f",
+      "previous_sha256": "ef55ad82ed8906c178ed218c36c6e30babca3121f3976f0c7efa8622f6aa579f"
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-front.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 83235,
+      "sha256": "187096804756712a006b02d76831dc8bfd394e34ff74decb93711a2dfff60ff0",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-left-eave.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 153112,
+      "sha256": "afdee8bd39bcf5af8e2aa13ab84906cf3c1cafd7d8b9606711bc22871012f3b8",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-readback.json",
+      "role": "实物 FBX 回读与检查",
+      "change": "added",
+      "bytes": 8096,
+      "sha256": "a8b219719b5c18e78743a93471ae3a32ea625d86c7311ba28df712d56ceb73ce",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-right-eave.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 152188,
+      "sha256": "4d3e252e71729d50969028fb800f5ad82a2ab39cf63399f85c1b5d0ee66bbc55",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-skylight.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 147086,
+      "sha256": "8f97b4678e119f7deb599e48f507c404b6f874752ace36cab1c11d36450730de",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/A1-wing.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 180981,
+      "sha256": "6e4f8ba6a2f2ef4b0426e3bf3cef332aa770e2c2f8b589288c7e4c56534e0242",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/geometry-qa.json",
+      "role": "正式 FBX 网格 QA",
+      "change": "added",
+      "bytes": 3344,
+      "sha256": "7a8faa7e162d8da1cd20ca2ae1e4f25700a0c617a028d617d1fa4a40a31f408b",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/input-sha256.json",
+      "role": "作业前双目录完整 SHA-256 快照",
+      "change": "added",
+      "bytes": 9906,
+      "sha256": "100464e1ee58dbf4a518f308484bdca3fc65b319d40cc84d1efc407559d1da65",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-random.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 254379,
+      "sha256": "9b9efc1d5016ff237a155c7cc9ae725a749965e46572de1a3d774e6120516abc",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-random_front.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 116513,
+      "sha256": "ddcbfec9b60cc66a2685c6c3036b29c8ea3ea55e035787e8dc5d565a2837b562",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-random_three_quarter.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 138514,
+      "sha256": "638ff230fe85d7d40f3633a34a7c9152a646668c53ffb2080fb83c8d98227a56",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-wire.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 346488,
+      "sha256": "022d39ae7fa28a3737797b792a4cd4efdc5b790e1f160ba6847b98b8019ab5f0",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-wire_front.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 152984,
+      "sha256": "59b2da4bf7c66f95f4fe8fff9df5b35156b40b4a7eee54b7aaada77b741c91b5",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/LOD0-wire_three_quarter.png",
+      "role": "近级源网格工作台 QA 图",
+      "change": "added",
+      "bytes": 189925,
+      "sha256": "16ddd72617d07cf44aa0a552140a4b150ec122fc18084fbab31ffcdae0b78af6",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-front.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 86419,
+      "sha256": "5b422a1a252ca09ec258e722525758e560fc8066f78b4e322a6abee841a65775",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-left-eave.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 152415,
+      "sha256": "00cc97f0c86fcd3bfcf661c8ae6c7e5ece9e154a388e5f135f79a680e6fb917a",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-readback.json",
+      "role": "实物 FBX 回读与检查",
+      "change": "added",
+      "bytes": 10231,
+      "sha256": "ae8a519ec600c9edfca7ef1adfe1ad9b797170485ba29b563514ae09bc9f2c13",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-right-eave.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 151885,
+      "sha256": "91ec01566f149fc51356a54e5ebf1afa871b6d5c5b214b07e58ac22ee81a40be",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-skylight.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 148840,
+      "sha256": "b3c463df6d27444ad7a0179302acc89227646b33a9c32335f0c515feb6c4042d",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/R2-wing.jpg",
+      "role": "FBX 同机位单张渲染",
+      "change": "added",
+      "bytes": 183980,
+      "sha256": "530e7d3757f7d6dbc6d6699c24ca82b3754f49d246ec04765b4bec26c6863a3c",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/双檐角近景.jpg",
+      "role": "同机位对照图",
+      "change": "added",
+      "bytes": 756047,
+      "sha256": "f9a096a74ad73ef05b9731c317110b42e02dd7df24e177e34fb2a8f16ec6a12a",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/格栅与采光口近景.jpg",
+      "role": "同机位对照图",
+      "change": "added",
+      "bytes": 821860,
+      "sha256": "3f0f9d4cee0d3542f4d2e110fea9fe71e0b6024e0982cd7a6ecce13b2d9faef0",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/正面同机位.jpg",
+      "role": "同机位对照图",
+      "change": "added",
+      "bytes": 222869,
+      "sha256": "fd1cc6122ec7d84caa419a3c903be86a90801fec82eeed676e21b69d6ee12d2a",
+      "previous_sha256": null
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/TianyiPavilion.blend",
+      "role": "可编辑高模及三档网格，八张已打包贴图",
+      "change": "modified",
+      "bytes": 23505811,
+      "sha256": "ab60d344192f2c8472b490edb2effbbbbe4e011c6397f674f6eca3477f759cbd",
+      "previous_sha256": "f89ea81d6da5b2ac8b1e19e668022100de73249406021997763cb7c16ec6d1bc"
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/verify_pavilion.py",
+      "role": "FBX 回读、净空、引用及同机位实物模型渲染生成源",
+      "change": "modified",
+      "bytes": 15961,
+      "sha256": "c025424b415a2f90db513eeb88888ec8d4c4d7f0a43c08aa51b415f14f09e556",
+      "previous_sha256": "dec3d68b493e8aec71c8fcab7284d7b5be09aa9f1333823fc644af2036fd5f6e"
+    },
+    {
+      "path": "Assets/Art/Environment/Opening/TianyiPavilionKit/TianyiPavilion.fbx",
+      "role": "正式三档网格",
+      "change": "modified",
+      "bytes": 659884,
+      "sha256": "49e46e645b04d26574f0a97cce6b16838a5f51eb882a52aada99f49b41a3cfc6",
+      "previous_sha256": "15d6023c76b2332da813a3b1fdafbbd85123ffef48ffd94212459651c65e4719"
+    },
+    {
+      "path": "ArtSource/Environment/Opening/TianyiPavilionKit/Review/R2/交付清单.json",
+      "role": "本清单自身",
+      "change": "added",
+      "sha256": null
+    }
+  ],
+  "removed": []
+}

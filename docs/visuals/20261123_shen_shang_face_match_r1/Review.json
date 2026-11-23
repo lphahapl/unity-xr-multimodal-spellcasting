@@ -1,0 +1,168 @@
+{
+  "id": "shen-face-match-r1",
+  "label": "面部对稿 R1",
+  "state": "independent review candidate",
+  "timestamp": "2026-11-23T00:23:56+08:00",
+  "sourceFile": "ArtSource/Characters/ShenShangRebuild/PortraitStudies/03_FaceReferenceMatch_R1/ShenShang_FaceMatch_R1.blend",
+  "sourceBytes": 48914998,
+  "comparisonImage": "FaceCompare_Registered.jpg",
+  "comparisonImageSHA256": "2715a857beea05459b3cdb925729202907bc2c67351b6ebe30aec3428bc2ecd8",
+  "registeredPanelOrder": [
+    "reference",
+    "eyelids and jaw",
+    "R1"
+  ],
+  "registeredViewOrder": [
+    "front",
+    "35 degrees",
+    "left profile"
+  ],
+  "webModel": "SharedWorkSpace/assets/shen-face-match-r1/ShenShang_FaceMatch_R1.glb",
+  "registration": {
+    "sourceHash": "5f6f1c267639025463f6406a56022efd2a740c789a2b5d91d42f7b3f464ef7eb",
+    "webHash": "8190d11d96d2f51008047e578b539e1ce5477455107d0393d7bb6b9e44abe126",
+    "unchangedPreviousVersions": 23,
+    "unchangedPriorData": true,
+    "count": 24,
+    "revision": "e4f1164287e2c4918ef24424119ca1af7bb0b2f0c11bc6460579ae20b850df0d",
+    "default": "shen-archive-08",
+    "id": "shen-face-match-r1"
+  },
+  "glb": {
+    "file_bytes": 38643076,
+    "sha256": "8190d11d96d2f51008047e578b539e1ce5477455107d0393d7bb6b9e44abe126",
+    "triangles": 860621,
+    "primitives": 70,
+    "meshes": 55,
+    "materials": 33,
+    "textures": 18,
+    "skin_count": 0,
+    "animation_count": 0
+  },
+  "gltfValidation": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 10
+  },
+  "coldImportComparedVertices": {
+    "V2_HandMesh.L": {
+      "source_count": 1409,
+      "cold_split_vertices": 1808,
+      "maximum_nearest_vertex_displacement_mm": 0.00012377834115800374
+    },
+    "V2_HandMesh.R": {
+      "source_count": 1409,
+      "cold_split_vertices": 1808,
+      "maximum_nearest_vertex_displacement_mm": 0.00012401636318651815
+    },
+    "Zhunwang_Body": {
+      "source_count": 4489,
+      "cold_split_vertices": 9872,
+      "maximum_nearest_vertex_displacement_mm": 0.000124281848353239
+    },
+    "Upper wet margin.R": {
+      "source_count": 752,
+      "cold_split_vertices": 866,
+      "maximum_nearest_vertex_displacement_mm": 0.0
+    },
+    "Upper wet margin.L": {
+      "source_count": 752,
+      "cold_split_vertices": 866,
+      "maximum_nearest_vertex_displacement_mm": 0.0
+    },
+    "ShenShang_Head": {
+      "source_count": 72261,
+      "cold_split_vertices": 90762,
+      "maximum_nearest_vertex_displacement_mm": 0.0
+    },
+    "Eye.R": {
+      "source_count": 4866,
+      "cold_split_vertices": 5416,
+      "maximum_nearest_vertex_displacement_mm": 0.0
+    },
+    "Eye.L": {
+      "source_count": 4866,
+      "cold_split_vertices": 5416,
+      "maximum_nearest_vertex_displacement_mm": 0.0
+    }
+  },
+  "sourceSculptQA": {
+    "topology": true,
+    "faces": 72160,
+    "flipped": 0,
+    "max_surface_movement_mm": 6.99,
+    "front_width_before_after_mm": {
+      "350": [
+        151.27,
+        146.8
+      ],
+      "390": [
+        147.52,
+        140.8
+      ],
+      "420": [
+        147.79,
+        138.03
+      ],
+      "455": [
+        150.59,
+        138.05
+      ],
+      "475": [
+        144.11,
+        130.76
+      ],
+      "500": [
+        128.25,
+        115.73
+      ],
+      "530": [
+        93.7,
+        84.44
+      ]
+    }
+  },
+  "blenderGeometryQA": {
+    "0": {
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+        "asset lowest point z=1.389 (not resting on ground plane z=0)"
+      ]
+    },
+    "1": {
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+        "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+        "asset lowest point z=1.389 (not resting on ground plane z=0)"
+      ]
+    }
+  },
+  "browser": {
+    "rdp": "Chrome 157.0.8103.79, hidden workbench target",
+    "default": "http://127.0.0.1:4190/rig/?collection=shen&model=shen-archive-08",
+    "direct": "http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r1",
+    "selectedLabel": "面部对稿 R1",
+    "filename": "ShenShang_FaceMatch_R1.glb",
+    "status": "0 根骨骼 · 0 个蒙皮网格",
+    "versions": 24,
+    "exceptions": []
+  },
+  "artReview": {
+    "source": "https://gemini.google.com/app/6a49eff0f573b63d",
+    "provider": "Gemini through the user-authorized Chrome session",
+    "reviewMedia": "Design references and the registered front/35 degree/left comparison. The full R1 archive reached the session; Gemini reported access only to its ZIP metadata.",
+    "keep": "The reference comparison supports preserving the narrower mandible and masseter.",
+    "issuesRaised": [
+      "Brow ridge into upper lid",
+      "35 degree malar to mouth-corner planes",
+      "Profile nose tip, lips and chin taper"
+    ],
+    "projectReview": "The jaw and brow/upper-lid observations are supported visually. Preserve previously requested cheek support. Nose projection and lip thickness need a same-scale profile registration.",
+    "geometryChangeAfterReview": false
+  }
+}

@@ -16,7 +16,9 @@
 
 P1 场景的「游戏会话 · 异步敌人服务」配置目录及预热列表。目录位于 `Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset`，定义位于同级 `EnemyDefinition/残机偶.asset`。默认预热一只，最多缓存四只闲置实例。上限限制闲置池，不限制同时存在的敌人数；关卡数量由出生点控制。
 
-原房间实例的调参保存为 `Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab` 变体。模型被标为 Addressable，放在 `Enemies_Local` 本地组，地址为 `enemies/canjiou`。定义里的 AssetReference 通过 GUID 加载，不把模型作为场景的普通 GameObject 字段引用。
+残机偶的战斗房间变体使用地址 `enemies/canjiou`，侧廊巡行使用同一机偶的美术预制体 `models/canjiou-patrol`。这两个条目在 `Enemies_Local` 中一起打包，共用两档网格和三张贴图。战斗生成由 `EnemyManager` 管理。侧廊宿主 `CourtyardPatrol` 持有巡行模型的一份租约，绑定原步行动画，离开可见阶段或卸载场景时释放。另一个需要独立按需下载的敌人可以使用自己的资源组。[战斗房间变体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab) · [巡行美术预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab)
+
+在首章场景中移动侧廊工役时，调整「侧廊工役 · 巡行」宿主和轨道终点。编辑器中的模型子物体用于取景。要修改运行外观，请编辑正式美术预制体；更换宿主的 Visual 引用后，从该组件菜单执行「从巡行外观同步编辑预览」。章节显隐绑定在宿主上。原行走片段继续由场景引用。[巡行组件](../../Assets/scripts/logic/Rpg/CourtyardPatrol.cs) · [正式阶段及走完全程的验证](../../Logs/model-display-20261112/enemy/patrol-shared/final-results.txt)
 
 新增怪物时创建异步敌人定义，填写唯一 ID、Addressable 预制体、战斗 SO 和闲置上限，再加入本关目录。预制体根节点需有 EnemyController、EnemyObj、NavMeshAgent，Animator 与攻击数据必须有效。出生点须位于匹配 Agent Type 的 NavMesh 附近；找不到导航面会明确失败，不会把怪物强放到空中。
 
@@ -39,6 +41,14 @@ manager.Recycle(lease);
 `isSummoned=true` 透传原有逻辑：有目标直接追击、无目标待机、不巡逻。它不是阵营或网络所有权。普通怪的巡逻点仍由场景配置；需要动态巡逻时，生成后给 `lease.Controller.patrolPoints` 注入对应路线，不把场景 Transform 存进共享 SO。
 
 `ActiveEnemies` 是只读字典，键为本管理器内每次出生的新 ID。池化复用同一个 GameObject 也会产生新租约，旧租约无法回收新一轮怪物。调用方不要直接 Destroy、禁用或挪走池内物体，正常释放走 `Recycle`。ID 只在当前管理器生命周期内有效，不是存档 ID 或联机 ID。
+
+## 在房间配置派生敌人
+
+选中挂有 `CombatRoomEncounter` 的房间，绑定「敌人管理服务」。在「怪物出生点」中添加一项，「怪物类型 ID」填 `zhihuocanji` 或 `canjiou`，「出生位置与朝向」拖入场景 Transform，勾选「派生怪物（直接追目标）」。出生点应落在匹配代理类型的 NavMesh 上，高台需要有自己的可采样导航面。房间进入时会把玩家头部目标传给生成器，离开房间暂停敌人，检查点重置时回收。
+
+普通敌人由 `EnemyController` 顺序读取「巡逻点（按顺序循环）」，按巡逻速度行走，到达后按停留秒数等待。手摆敌人可直接在实例上拖入场景路点。按 ID 生成的普通敌人由调用方在每次出生后把该次路线赋给 `lease.Controller.patrolPoints`，空路线会待机。派生模式直接追指定目标，进入射程后仍检查朝向和视线。目标无效时待机。
+
+掷火残机使用 [战斗 Prefab](../../Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab)，目录 ID 为 `zhihuocanji`，Addressables 地址为 `enemies/zhihuocanji`。
 
 ## 生命周期与性能边界
 

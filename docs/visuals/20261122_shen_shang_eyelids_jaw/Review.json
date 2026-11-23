@@ -1,0 +1,374 @@
+{
+  "archiveSHA256": "b6f79252a887152761b24cc2bd65157d8c7e7468c822e880ab6a5c6fa2679e4b",
+  "candidateSHA256": "f8eec57fca58ba2eb40ae0960fd89b8c4d30c28ded2834c83347fd2219d57fc7",
+  "app": "5.2.2 LTS",
+  "skin": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "ShenShang_Skin: ShenShang • Lip and eyelid microstructure • 2048 is Non-Color but drives Base Color (looks washed out)",
+      "ShenShang_Skin: PreauricularDiffuseGain.png is Non-Color but drives Base Color (looks washed out)",
+      "asset lowest point z=1.389 (not resting on ground plane z=0)"
+    ],
+    "ground_z": 1.389,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "ShenShang_Head": {
+        "verts": 72261,
+        "faces": 72160,
+        "tris": 144320,
+        "ngons": 0,
+        "boundary_edges": 200,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 23.9
+      }
+    }
+  },
+  "skinShapeKeysAtEnd": [
+    "J · medial lower lid into cheek",
+    "J4 · brow-side skin over the tarsal plate",
+    "J5 · abbreviated lateral commissure",
+    "J5 · distribute temporal skin rows across closed commissure",
+    "J2 · Mandibular plane and preauricular ramus"
+  ],
+  "geometryModifiers": [
+    "Editable facial quads",
+    "I3 · upper-lid fold and tarsal plate"
+  ],
+  "embeddedImageCount": 40,
+  "stubble": {
+    "Stubble · Upper lip · outward slant": [
+      365,
+      -0.0329,
+      -0.013,
+      0.1391,
+      0.8684
+    ],
+    "Stubble · Mouth corners · scattered": [
+      37,
+      -0.0324,
+      -0.0131,
+      0.117,
+      0.4773
+    ],
+    "Stubble · Under lip · central tuft": [
+      59,
+      -0.0318,
+      -0.0133,
+      0.1321,
+      0.4996
+    ],
+    "Stubble · Chin · varied growth": [
+      378,
+      -0.033,
+      -0.013,
+      0.0681,
+      0.542
+    ]
+  },
+  "browSamples": {
+    "G.眉底毛根.Right": [
+      3038,
+      0,
+      0.055476
+    ],
+    "G.眉底毛根.Left": [
+      3038,
+      0,
+      0.060159
+    ],
+    "G.独立眉毛.Right": [
+      3078,
+      0,
+      0.148227
+    ],
+    "G.独立眉毛.Left": [
+      2959,
+      0,
+      0.148722
+    ]
+  },
+  "lightsAndCamerasMatched": true,
+  "wardrobeAndHandsMatched": true,
+  "parent35DegreeNearEyeRayReadbackAt724px": {
+    "archive": {
+      "lastGlobeX": 291.25,
+      "lastExposedWetMarginX": 295.5,
+      "pupilX": 254.903,
+      "maxXWithGlobeHeightAboveOnePx": 286.75
+    },
+    "published": {
+      "lastGlobeX": 283.0,
+      "lastExposedWetMarginX": 268.0,
+      "pupilX": 254.908,
+      "maxXWithGlobeHeightAboveOnePx": 280.25
+    }
+  },
+  "outerCornerDevelopment": {
+    "J4": {
+      "lastVisibleScleraNativeX": 292.625,
+      "pupilNearNativeX": 254.6967,
+      "lastVisibleStructure": {
+        "2": 292.625,
+        "6": 293.625,
+        "7": null,
+        "8": 286.625
+      },
+      "wedgeThresholdHeightStartAndLengthPx": [
+        [
+          3.0,
+          283.5,
+          9.125
+        ],
+        [
+          4.0,
+          282.125,
+          10.5
+        ],
+        [
+          5.0,
+          280.75,
+          11.875
+        ]
+      ],
+      "darkLineEndAndGapPastScleraPxByRequiredTwoSidedLumaContrast": {
+        "3.0": [
+          314.0,
+          21.375
+        ],
+        "4.0": [
+          314.0,
+          21.375
+        ],
+        "5.0": [
+          312.875,
+          20.25
+        ],
+        "6.0": [
+          312.625,
+          20.0
+        ],
+        "8.0": [
+          312.25,
+          19.625
+        ]
+      },
+      "actualGeometryDepthDifferenceAcross2PxAtXmm": [
+        [
+          286.0,
+          3.939
+        ],
+        [
+          290.0,
+          3.48
+        ],
+        [
+          294.0,
+          2.057
+        ],
+        [
+          298.0,
+          1.806
+        ],
+        [
+          302.0,
+          1.884
+        ],
+        [
+          305.0,
+          1.528
+        ]
+      ]
+    },
+    "J5Fair": {
+      "lastVisibleScleraNativeX": 283.125,
+      "pupilNearNativeX": 254.6967,
+      "lastVisibleStructure": {
+        "2": 283.125,
+        "6": 269.125,
+        "7": null,
+        "8": 279.25
+      },
+      "wedgeThresholdHeightStartAndLengthPx": [
+        [
+          3.0,
+          278.5,
+          4.625
+        ],
+        [
+          4.0,
+          277.625,
+          5.5
+        ],
+        [
+          5.0,
+          276.875,
+          6.25
+        ]
+      ],
+      "darkLineEndAndGapPastScleraPxByRequiredTwoSidedLumaContrast": {
+        "3.0": [
+          296.875,
+          13.75
+        ],
+        "4.0": [
+          295.5,
+          12.375
+        ],
+        "5.0": [
+          290.875,
+          7.75
+        ],
+        "6.0": [
+          289.75,
+          6.625
+        ],
+        "8.0": [
+          288.0,
+          4.875
+        ]
+      },
+      "actualGeometryDepthDifferenceAcross2PxAtXmm": [
+        [
+          286.0,
+          1.262
+        ],
+        [
+          290.0,
+          0.205
+        ],
+        [
+          294.0,
+          0.174
+        ],
+        [
+          298.0,
+          0.159
+        ],
+        [
+          302.0,
+          0.136
+        ],
+        [
+          305.0,
+          0.115
+        ]
+      ]
+    }
+  },
+  "jawAlbedo": {
+    "camera": "HeadLeft positive anatomical X, same lighting, scene-linear luminance after native EXR read",
+    "core_center_724_px": [
+      302,
+      493
+    ],
+    "upper_control_center": [
+      303,
+      469
+    ],
+    "rear_control_center": [
+      329,
+      496
+    ],
+    "ellipses_radii_px": [
+      4.5,
+      3.8
+    ],
+    "values": {
+      "Full": {
+        "core": 0.073792,
+        "upper": 0.129388,
+        "rear": 0.154524,
+        "control": 0.141956,
+        "fractional_drop": 0.48017,
+        "log_contrast": 0.65426
+      },
+      "Albedo": {
+        "core": 0.078014,
+        "upper": 0.154465,
+        "rear": 0.13968,
+        "control": 0.147073,
+        "fractional_drop": 0.46956,
+        "log_contrast": 0.63404
+      },
+      "Clay": {
+        "core": 0.255913,
+        "upper": 0.242516,
+        "rear": 0.313341,
+        "control": 0.277928,
+        "fractional_drop": 0.07921,
+        "log_contrast": 0.08253
+      },
+      "WhiteLit": {
+        "core": 0.258235,
+        "upper": 0.244643,
+        "rear": 0.318124,
+        "control": 0.281383,
+        "fractional_drop": 0.08226,
+        "log_contrast": 0.08585
+      },
+      "Reverse": {
+        "core": 0.041936,
+        "upper": 0.065825,
+        "rear": 0.098571,
+        "control": 0.082198,
+        "fractional_drop": 0.48982,
+        "log_contrast": 0.67299
+      },
+      "Albedo_B": {
+        "core": 0.112283,
+        "upper": 0.154514,
+        "rear": 0.141253,
+        "control": 0.147884,
+        "fractional_drop": 0.24073,
+        "log_contrast": 0.2754
+      },
+      "Full_B": {
+        "core": 0.102144,
+        "upper": 0.129512,
+        "rear": 0.156207,
+        "control": 0.14286,
+        "fractional_drop": 0.285,
+        "log_contrast": 0.33548
+      },
+      "opposite_Albedo": {
+        "core": 0.082824,
+        "upper": 0.139904,
+        "rear": 0.143214,
+        "control": 0.141559,
+        "fractional_drop": 0.41492,
+        "log_contrast": 0.536
+      }
+    },
+    "albedo_log_ratio_to_measured_lit_contrast": 0.969,
+    "residual_of_additive_log_model": -0.0656,
+    "UV_mask_pixels_nonzero": 24715,
+    "UV_size": [
+      3072,
+      3072
+    ]
+  },
+  "note": "J4 and J5 in the development data are intermediate and corrected eye-only variants. MacroBefore and final are independent renders of the previous I and the combined candidate. Upper face is orthographic. The guide retains the earlier production branch and T pose."
+}

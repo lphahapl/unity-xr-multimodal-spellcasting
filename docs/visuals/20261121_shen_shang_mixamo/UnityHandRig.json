@@ -1,0 +1,2304 @@
+{
+    "unityVersion": "6000.3.10f1",
+    "prefabPath": "Assets/Art/Characters/ShenShangMixamo/ShenShangMixamoPlayer.prefab",
+    "modelPath": "Assets/Art/Characters/ShenShangMixamo/ShenShangMixamo.fbx",
+    "animatorPath": "",
+    "avatarName": "ShenShangMixamoAvatar",
+    "sourceReturnSha256": "39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f",
+    "importedFbxSha256": "39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f",
+    "conventions": "Serialized Unity rest transforms after Animator.Rebind, before sampling animations. All paths relative to the Animator. Quaternions are xyzw in Unity. Local positions are native local units (ancestor scales apply), avatar-relative positions use the prefab's metre-based root. Each bindpose maps renderer local to joint bind space; row-major 4 x 4. Hand position and rotations are target references for calibration; do not equate them with OpenXR source joint axes.",
+    "hands": [
+        {
+            "side": "Left",
+            "forearm": {
+                "humanoidSlot": "LeftLowerArm",
+                "humanName": "LeftLowerArm",
+                "boneName": "mixamorig:LeftForeArm",
+                "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm",
+                "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm",
+                "humanoidIndex": 15,
+                "restLocalPosition": {
+                    "x": -1.643670616280346e-10,
+                    "y": 0.20301996171474458,
+                    "z": -6.410930120104297e-10
+                },
+                "restLocalScale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "restLocalRotation": {
+                    "x": 1.7537149687996135e-7,
+                    "y": -0.0017259832238778473,
+                    "z": 1.3451976599299088e-7,
+                    "w": 0.9999985098838806
+                },
+                "restPositionInAvatar": {
+                    "x": -0.37191683053970339,
+                    "y": 1.3140064477920533,
+                    "z": -0.02462991513311863
+                },
+                "restRotationInAvatar": {
+                    "x": 0.4924129545688629,
+                    "y": -0.49241209030151369,
+                    "z": 0.5074751377105713,
+                    "w": 0.5074731707572937
+                },
+                "directChildPaths": [
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand"
+                ],
+                "skinBindings": [
+                    {
+                        "rendererPath": "ShenShang_Multi_OpenHands",
+                        "boneIndex": 14,
+                        "verticesWithWeight": 3923,
+                        "strongestVertexWeight": 1.0,
+                        "meshBindPoseRowMajor": [
+                            0.3578825891017914,
+                            -99.95010375976563,
+                            3.1379873752593996,
+                            -0.014633308164775372,
+                            -99.99576568603516,
+                            -0.38429877161979678,
+                            -0.83619225025177,
+                            -0.3601752519607544,
+                            0.8478343486785889,
+                            -3.134861946105957,
+                            -99.94725036621094,
+                            1.3458757400512696,
+                            0.0,
+                            0.0,
+                            0.0,
+                            1.0
+                        ]
+                    }
+                ]
+            },
+            "wrist": {
+                "humanoidSlot": "LeftHand",
+                "humanName": "LeftHand",
+                "boneName": "mixamorig:LeftHand",
+                "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm",
+                "humanoidIndex": 17,
+                "restLocalPosition": {
+                    "x": -2.0766935046601099e-11,
+                    "y": 0.264140784740448,
+                    "z": -1.9416006996619829e-11
+                },
+                "restLocalScale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "restLocalRotation": {
+                    "x": 0.00525824585929513,
+                    "y": -0.02179166115820408,
+                    "z": 0.03711700811982155,
+                    "w": 0.9990594983100891
+                },
+                "restPositionInAvatar": {
+                    "x": -0.6360576152801514,
+                    "y": 1.3140056133270264,
+                    "z": -0.02463015727698803
+                },
+                "restRotationInAvatar": {
+                    "x": 0.4874001145362854,
+                    "y": -0.5186161994934082,
+                    "z": 0.5176924467086792,
+                    "w": 0.4748402237892151
+                },
+                "directChildPaths": [
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1"
+                ],
+                "skinBindings": [
+                    {
+                        "rendererPath": "ShenShang_Multi_OpenHands",
+                        "boneIndex": 15,
+                        "verticesWithWeight": 1668,
+                        "strongestVertexWeight": 0.9588325619697571,
+                        "meshBindPoseRowMajor": [
+                            -3.6446192264556886,
+                            -25.905406951904298,
+                            96.51749420166016,
+                            -1.3103723526000977,
+                            -99.72240447998047,
+                            -5.332324028015137,
+                            -5.196842670440674,
+                            -0.5628829002380371,
+                            6.492888927459717,
+                            -96.43898010253906,
+                            -25.63915252685547,
+                            0.4092101454734802,
+                            0.0,
+                            0.0,
+                            0.0,
+                            1.0
+                        ]
+                    }
+                ]
+            },
+            "fingers": [
+                {
+                    "humanoidSlot": "LeftThumbProximal",
+                    "humanName": "Left Thumb Proximal",
+                    "boneName": "mixamorig:LeftHandThumb1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                    "humanoidIndex": 24,
+                    "restLocalPosition": {
+                        "x": 0.026335401460528375,
+                        "y": 0.03745957836508751,
+                        "z": 0.016963889822363855
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 0.20909620821475984,
+                        "y": -0.07985283434391022,
+                        "z": -0.3729883134365082,
+                        "w": 0.9004343748092651
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.6751533150672913,
+                        "y": 1.2962614297866822,
+                        "z": -0.0013661570847034455
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.7729361057281494,
+                        "y": -0.21485507488250733,
+                        "z": 0.3585585951805115,
+                        "w": 0.47732916474342348
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 22,
+                            "verticesWithWeight": 721,
+                            "strongestVertexWeight": 0.8905476331710815,
+                            "meshBindPoseRowMajor": [
+                                68.548583984375,
+                                -14.361383438110352,
+                                71.37816619873047,
+                                -0.5091698169708252,
+                                -65.57648468017578,
+                                -54.77485656738281,
+                                51.95611572265625,
+                                -1.1476038694381714,
+                                31.635669708251954,
+                                -82.42247009277344,
+                                -46.96508026123047,
+                                0.8513561487197876,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftThumbIntermediate",
+                    "humanName": "Left Thumb Intermediate",
+                    "boneName": "mixamorig:LeftHandThumb2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1",
+                    "humanoidIndex": 25,
+                    "restLocalPosition": {
+                        "x": -0.006595613434910774,
+                        "y": 0.038504645228385928,
+                        "z": 2.7950888825678535e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 0.00011371861910447478,
+                        "y": -0.001392168109305203,
+                        "z": 0.08812621235847473,
+                        "w": 0.99610835313797
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7054132223129273,
+                        "y": 1.2787907123565674,
+                        "z": 0.01610470376908779
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.7515471577644348,
+                        "y": -0.2827586233615875,
+                        "z": 0.39817681908607485,
+                        "w": 0.44348621368408205
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 29,
+                            "verticesWithWeight": 197,
+                            "strongestVertexWeight": 0.7957868576049805,
+                            "meshBindPoseRowMajor": [
+                                68.54857635498047,
+                                -14.361379623413086,
+                                71.37816619873047,
+                                -0.50257408618927,
+                                -64.45599365234375,
+                                -57.56210708618164,
+                                50.31925964355469,
+                                -1.156293511390686,
+                                33.8602409362793,
+                                -80.50064086914063,
+                                -48.71478271484375,
+                                0.8914294242858887,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftThumbDistal",
+                    "humanName": "Left Thumb Distal",
+                    "boneName": "mixamorig:LeftHandThumb3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2",
+                    "humanoidIndex": 26,
+                    "restLocalPosition": {
+                        "x": 0.00022441188048105687,
+                        "y": 0.03281604126095772,
+                        "z": -2.625874517825366e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 0.00021148154337424785,
+                        "y": 0.0017412088345736266,
+                        "z": 0.11364854872226715,
+                        "w": 0.9935194849967957
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7308326363563538,
+                        "y": 1.2641146183013917,
+                        "z": 0.030781133100390435
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.7139421105384827,
+                        "y": -0.365481972694397,
+                        "z": 0.447366327047348,
+                        "w": 0.395693302154541
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandThumb1/mixamorig:LeftHandThumb2/mixamorig:LeftHandThumb3/mixamorig:LeftHandThumb4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 28,
+                            "verticesWithWeight": 146,
+                            "strongestVertexWeight": 0.9901390671730042,
+                            "meshBindPoseRowMajor": [
+                                68.548583984375,
+                                -14.3613862991333,
+                                71.37815856933594,
+                                -0.5027984976768494,
+                                -63.44930648803711,
+                                -59.86721420288086,
+                                48.888671875,
+                                -1.1628189086914063,
+                                35.71103286743164,
+                                -78.80143737792969,
+                                -50.15032196044922,
+                                0.9254617691040039,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftIndexProximal",
+                    "humanName": "Left Index Proximal",
+                    "boneName": "mixamorig:LeftHandIndex1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                    "humanoidIndex": 27,
+                    "restLocalPosition": {
+                        "x": 0.030639469623565675,
+                        "y": 0.10945086181163788,
+                        "z": 0.002311053918674588
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.006077600177377462,
+                        "y": -0.0003314820060040802,
+                        "z": -0.0383429229259491,
+                        "w": 0.9992461204528809
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7474382519721985,
+                        "y": 1.3100508451461793,
+                        "z": -0.002217225730419159
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.504203736782074,
+                        "y": -0.5028405785560608,
+                        "z": 0.4957817792892456,
+                        "w": 0.4971223771572113
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 37,
+                            "verticesWithWeight": 242,
+                            "strongestVertexWeight": 0.977336585521698,
+                            "meshBindPoseRowMajor": [
+                                9.043213844299317,
+                                -25.018993377685548,
+                                96.39643096923828,
+                                -1.2448210716247559,
+                                -98.92882537841797,
+                                -13.39385986328125,
+                                5.804504871368408,
+                                -0.8157016634941101,
+                                11.458972930908204,
+                                -95.88875579833985,
+                                -25.962230682373048,
+                                0.448289692401886,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftIndexIntermediate",
+                    "humanName": "Left Index Intermediate",
+                    "boneName": "mixamorig:LeftHandIndex2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1",
+                    "humanoidIndex": 28,
+                    "restLocalPosition": {
+                        "x": -0.00008001842070370913,
+                        "y": 0.029561972245573999,
+                        "z": -5.672639094567167e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 4.110033842152916e-7,
+                        "y": 0.000050410111725796014,
+                        "z": 0.001390428515151143,
+                        "w": 0.9999990463256836
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.777000367641449,
+                        "y": 1.3100507259368897,
+                        "z": -0.0022172853350639345
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5034791827201843,
+                        "y": -0.5035158395767212,
+                        "z": 0.496498167514801,
+                        "w": 0.49645766615867617
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 35,
+                            "verticesWithWeight": 152,
+                            "strongestVertexWeight": 0.9624045491218567,
+                            "meshBindPoseRowMajor": [
+                                9.043212890625,
+                                -25.018993377685548,
+                                96.39641571044922,
+                                -1.2447410821914673,
+                                -99.51473236083985,
+                                -6.039126873016357,
+                                7.768338203430176,
+                                -0.8770017027854919,
+                                3.8779425621032717,
+                                -96.63114929199219,
+                                -25.44371223449707,
+                                0.38249504566192629,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftIndexDistal",
+                    "humanName": "Left Index Distal",
+                    "boneName": "mixamorig:LeftHandIndex3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2",
+                    "humanoidIndex": 29,
+                    "restLocalPosition": {
+                        "x": 0.0000015280388652172406,
+                        "y": 0.02686343528330326,
+                        "z": -8.742162375952045e-12
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -6.890150530125538e-7,
+                        "y": -0.00006766015576431528,
+                        "z": 0.0014967935858294368,
+                        "w": 0.9999988675117493
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.8038638234138489,
+                        "y": 1.3100507259368897,
+                        "z": -0.0022178515791893007
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5027581453323364,
+                        "y": -0.5043028593063355,
+                        "z": 0.49720630049705508,
+                        "w": 0.4956802725791931
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandIndex1/mixamorig:LeftHandIndex2/mixamorig:LeftHandIndex3/mixamorig:LeftHandIndex4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 36,
+                            "verticesWithWeight": 75,
+                            "strongestVertexWeight": 0.8674207329750061,
+                            "meshBindPoseRowMajor": [
+                                9.043213844299317,
+                                -25.018993377685548,
+                                96.39642333984375,
+                                -1.2447426319122315,
+                                -99.48009490966797,
+                                2.2820701599121095,
+                                9.924795150756836,
+                                -0.9333750009536743,
+                                -4.68291711807251,
+                                -96.79277038574219,
+                                -24.682544708251954,
+                                0.30345582962036135,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftMiddleProximal",
+                    "humanName": "Left Middle Proximal",
+                    "boneName": "mixamorig:LeftHandMiddle1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                    "humanoidIndex": 30,
+                    "restLocalPosition": {
+                        "x": 0.00834188237786293,
+                        "y": 0.11251301318407059,
+                        "z": -0.001367726712487638
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.006163883022964001,
+                        "y": -0.0026208742056041958,
+                        "z": -0.036802906543016437,
+                        "w": 0.9993001222610474
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7488877773284912,
+                        "y": 1.3140051364898682,
+                        "z": -0.024630501866340638
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5045756101608276,
+                        "y": -0.5047510266304016,
+                        "z": 0.4953804612159729,
+                        "w": 0.4952055811882019
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 30,
+                            "verticesWithWeight": 191,
+                            "strongestVertexWeight": 0.9552297592163086,
+                            "meshBindPoseRowMajor": [
+                                -8.234110832214356,
+                                -26.12352752685547,
+                                96.17567443847656,
+                                -1.3484244346618653,
+                                -99.6456527709961,
+                                3.8190701007843019,
+                                -7.493847846984863,
+                                -0.6456506848335266,
+                                -1.7153596878051758,
+                                -96.45193481445313,
+                                -26.345422744750978,
+                                0.3586476445198059,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftMiddleIntermediate",
+                    "humanName": "Left Middle Intermediate",
+                    "boneName": "mixamorig:LeftHandMiddle2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1",
+                    "humanoidIndex": 31,
+                    "restLocalPosition": {
+                        "x": 0.000010554122127359733,
+                        "y": 0.03150886297225952,
+                        "z": 4.804341646735821e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -8.571793941314354e-9,
+                        "y": -0.000023663062165724114,
+                        "z": -0.000946104759350419,
+                        "w": 0.9999995827674866
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.780396580696106,
+                        "y": 1.3140050172805787,
+                        "z": -0.02463098056614399
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5050646066665649,
+                        "y": -0.5042850971221924,
+                        "z": 0.49489980936050417,
+                        "w": 0.495662122964859
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 38,
+                            "verticesWithWeight": 160,
+                            "strongestVertexWeight": 0.9562796354293823,
+                            "meshBindPoseRowMajor": [
+                                -8.234109878540039,
+                                -26.123523712158204,
+                                96.17567443847656,
+                                -1.3484348058700562,
+                                -99.46849060058594,
+                                -3.8319501876831056,
+                                -9.556873321533204,
+                                -0.6466274261474609,
+                                6.1819963455200199,
+                                -96.451416015625,
+                                -25.669151306152345,
+                                0.4111524820327759,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftMiddleDistal",
+                    "humanName": "Left Middle Distal",
+                    "boneName": "mixamorig:LeftHandMiddle3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2",
+                    "humanoidIndex": 32,
+                    "restLocalPosition": {
+                        "x": -0.000044902655645273626,
+                        "y": 0.029160836711525918,
+                        "z": -1.1398206684054557e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -4.27655180601505e-7,
+                        "y": 0.000007963502866914496,
+                        "z": 0.0014107227325439454,
+                        "w": 0.9999990463256836
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.8095574378967285,
+                        "y": 1.3140050172805787,
+                        "z": -0.024630920961499215
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5043485760688782,
+                        "y": -0.5049933791160584,
+                        "z": 0.49560239911079409,
+                        "w": 0.4949676990509033
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandMiddle1/mixamorig:LeftHandMiddle2/mixamorig:LeftHandMiddle3/mixamorig:LeftHandMiddle4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 39,
+                            "verticesWithWeight": 104,
+                            "strongestVertexWeight": 0.9610944390296936,
+                            "meshBindPoseRowMajor": [
+                                -8.234111785888672,
+                                -26.12352752685547,
+                                96.1756820678711,
+                                -1.3483901023864747,
+                                -99.4883804321289,
+                                7.8225321769714359,
+                                -6.392950534820557,
+                                -0.720422089099884,
+                                -5.853308200836182,
+                                -96.21002960205078,
+                                -26.633989334106447,
+                                0.32669299840927126,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftRingProximal",
+                    "humanName": "Left Ring Proximal",
+                    "boneName": "mixamorig:LeftHandRing1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                    "humanoidIndex": 33,
+                    "restLocalPosition": {
+                        "x": -0.012349371798336506,
+                        "y": 0.10673543810844422,
+                        "z": -0.001097612315788865
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.0061987098306417469,
+                        "y": -0.0035795890726149084,
+                        "z": -0.03704163432121277,
+                        "w": 0.9992880821228027
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7415933012962341,
+                        "y": 1.3140870332717896,
+                        "z": -0.04483859986066818
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5051732659339905,
+                        "y": -0.5051016807556152,
+                        "z": 0.49477559328079226,
+                        "w": 0.4948432147502899
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 23,
+                            "verticesWithWeight": 284,
+                            "strongestVertexWeight": 0.9054968357086182,
+                            "meshBindPoseRowMajor": [
+                                -37.38390350341797,
+                                -26.173004150390626,
+                                88.9798583984375,
+                                -1.4484668970108033,
+                                -92.648681640625,
+                                6.0693182945251469,
+                                -37.14006042480469,
+                                -0.19717878103256226,
+                                4.320199966430664,
+                                -96.32308959960938,
+                                -26.517898559570314,
+                                0.40579289197921755,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftRingIntermediate",
+                    "humanName": "Left Ring Intermediate",
+                    "boneName": "mixamorig:LeftHandRing2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1",
+                    "humanoidIndex": 34,
+                    "restLocalPosition": {
+                        "x": -0.0000042434849092387598,
+                        "y": 0.028270725160837175,
+                        "z": 3.6910703660186786e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 3.91532807952899e-7,
+                        "y": 7.721989163655962e-7,
+                        "z": 0.00009000300633488223,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.769864022731781,
+                        "y": 1.3140869140625,
+                        "z": -0.04483886808156967
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5051276087760925,
+                        "y": -0.5051465630531311,
+                        "z": 0.49482065439224245,
+                        "w": 0.494798868894577
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2/mixamorig:LeftHandRing3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 31,
+                            "verticesWithWeight": 163,
+                            "strongestVertexWeight": 0.9733591675758362,
+                            "meshBindPoseRowMajor": [
+                                -37.38390350341797,
+                                -26.173002243041993,
+                                88.97985076904297,
+                                -1.448462963104248,
+                                -92.7366943359375,
+                                8.962884902954102,
+                                -36.325904846191409,
+                                -0.23754936456680299,
+                                1.5324199199676514,
+                                -96.09703063964844,
+                                -27.622661590576173,
+                                0.3988305926322937,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftRingDistal",
+                    "humanName": "Left Ring Distal",
+                    "boneName": "mixamorig:LeftHandRing3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2/mixamorig:LeftHandRing3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2",
+                    "humanoidIndex": 35,
+                    "restLocalPosition": {
+                        "x": 0.0000011165554951730883,
+                        "y": 0.02598508447408676,
+                        "z": -6.227800219971158e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -2.9338505669329609e-7,
+                        "y": 0.000006424736056942493,
+                        "z": 0.00004398822056828067,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7958492040634155,
+                        "y": 1.3140867948532105,
+                        "z": -0.04483884200453758
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5051020383834839,
+                        "y": -0.5051656365394592,
+                        "z": 0.4948454797267914,
+                        "w": 0.4947804808616638
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandRing1/mixamorig:LeftHandRing2/mixamorig:LeftHandRing3/mixamorig:LeftHandRing4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 32,
+                            "verticesWithWeight": 67,
+                            "strongestVertexWeight": 1.0,
+                            "meshBindPoseRowMajor": [
+                                -37.38390350341797,
+                                -26.17300796508789,
+                                88.97986602783203,
+                                -1.448464274406433,
+                                -91.3445053100586,
+                                -6.244679927825928,
+                                -40.21422576904297,
+                                -0.19760829210281373,
+                                16.081783294677736,
+                                -96.31187438964844,
+                                -21.573101043701173,
+                                0.43527835607528689,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftLittleProximal",
+                    "humanName": "Left Little Proximal",
+                    "boneName": "mixamorig:LeftHandPinky1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand",
+                    "humanoidIndex": 36,
+                    "restLocalPosition": {
+                        "x": -0.026631977409124376,
+                        "y": 0.09101396054029465,
+                        "z": 0.0035281702876091005
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.006344444118440151,
+                        "y": -0.0076491557992994789,
+                        "z": -0.037567757070064548,
+                        "w": 0.9992446899414063
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7248039245605469,
+                        "y": 1.309835433959961,
+                        "z": -0.057976193726062778
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5074625611305237,
+                        "y": -0.5068305134773254,
+                        "z": 0.49244415760040285,
+                        "w": 0.49305543303489687
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 24,
+                            "verticesWithWeight": 482,
+                            "strongestVertexWeight": 0.9198766350746155,
+                            "meshBindPoseRowMajor": [
+                                -53.46555709838867,
+                                -25.056304931640626,
+                                80.70696258544922,
+                                -1.4382785558700562,
+                                -84.44493865966797,
+                                12.18079662322998,
+                                -52.1601676940918,
+                                0.067507803440094,
+                                3.2386586666107179,
+                                -96.04065704345703,
+                                -27.671306610107423,
+                                0.4085894823074341,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftLittleIntermediate",
+                    "humanName": "Left Little Intermediate",
+                    "boneName": "mixamorig:LeftHandPinky2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1",
+                    "humanoidIndex": 37,
+                    "restLocalPosition": {
+                        "x": -0.00003371615457581356,
+                        "y": 0.027283091098070146,
+                        "z": -5.511722675488606e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 1.0589106835823259e-7,
+                        "y": -0.000016476475138915703,
+                        "z": 0.0007123053655959666,
+                        "w": 0.9999997615814209
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7520871162414551,
+                        "y": 1.309835433959961,
+                        "z": -0.05797596275806427
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5071095824241638,
+                        "y": -0.5071999430656433,
+                        "z": 0.4927870035171509,
+                        "w": 0.4926961362361908
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2/mixamorig:LeftHandPinky3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 33,
+                            "verticesWithWeight": 171,
+                            "strongestVertexWeight": 0.940814197063446,
+                            "meshBindPoseRowMajor": [
+                                -53.46554946899414,
+                                -25.05630874633789,
+                                80.70697784423828,
+                                -1.4382450580596924,
+                                -84.08419036865235,
+                                6.231542587280273,
+                                -53.7681884765625,
+                                0.06535947322845459,
+                                8.443033218383789,
+                                -96.6092529296875,
+                                -24.400121688842775,
+                                0.4053288698196411,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "LeftLittleDistal",
+                    "humanName": "Left Little Distal",
+                    "boneName": "mixamorig:LeftHandPinky3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2/mixamorig:LeftHandPinky3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2",
+                    "humanoidIndex": 38,
+                    "restLocalPosition": {
+                        "x": 0.00000429235251431237,
+                        "y": 0.02238599769771099,
+                        "z": -4.4711098712291177e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -3.2628648227728265e-7,
+                        "y": 4.622842766366375e-7,
+                        "z": 0.0006111564580351114,
+                        "w": 0.9999998211860657
+                    },
+                    "restPositionInAvatar": {
+                        "x": -0.7744731307029724,
+                        "y": 1.309835433959961,
+                        "z": -0.05797571688890457
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5067991614341736,
+                        "y": -0.5075098276138306,
+                        "z": 0.49308809638023379,
+                        "w": 0.4923953413963318
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/mixamorig:LeftHandPinky1/mixamorig:LeftHandPinky2/mixamorig:LeftHandPinky3/mixamorig:LeftHandPinky4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 34,
+                            "verticesWithWeight": 106,
+                            "strongestVertexWeight": 0.8877902626991272,
+                            "meshBindPoseRowMajor": [
+                                -53.46555709838867,
+                                -25.05630874633789,
+                                80.70698547363281,
+                                -1.4382494688034058,
+                                -84.07428741455078,
+                                6.118972301483154,
+                                -53.79658508300781,
+                                0.043445587158203128,
+                                8.540999412536621,
+                                -96.61643981933594,
+                                -24.337453842163087,
+                                0.4052785634994507,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "referenceBasisDefinition": "Forward = normalized wrist to MiddleProximal. Reference normal = -normalize(cross(IndexProximal-Wrist,LittleProximal-Wrist)). Quaternion = LookRotation(forward,referenceNormal).",
+            "toMiddleProximalInWrist": {
+                "x": 0.0739331990480423,
+                "y": 0.9971895813941956,
+                "z": -0.012122760526835919
+            },
+            "toMiddleProximalInWristParent": {
+                "x": -0.0000019046755141971517,
+                "y": 1.0000001192092896,
+                "z": 0.0000014444447060668609
+            },
+            "toLittleProximalInWrist": {
+                "x": -0.28064388036727908,
+                "y": 0.9590916633605957,
+                "z": 0.037179794162511829
+            },
+            "toIndexProximalInWrist": {
+                "x": 0.26951882243156435,
+                "y": 0.962780773639679,
+                "z": 0.02032940834760666
+            },
+            "palmReferenceNormalInWrist": {
+                "x": -0.03079921379685402,
+                "y": 0.029717806726694108,
+                "z": -0.9990837574005127
+            },
+            "palmReferenceNormalInWristParent": {
+                "x": 0.010216547176241875,
+                "y": 0.03947031870484352,
+                "z": -0.9991685748100281
+            },
+            "wristToElbowInWrist": {
+                "x": -0.07393532246351242,
+                "y": -0.997189462184906,
+                "z": 0.012123813852667809
+            },
+            "palmReferenceRotationInWrist": {
+                "x": -0.7103632092475891,
+                "y": 0.03802294284105301,
+                "z": -0.01442847028374672,
+                "w": 0.7026596665382385
+            },
+            "palmReferenceRotationInWristParent": {
+                "x": -0.7070971727371216,
+                "y": -0.003615681082010269,
+                "z": -0.0036143499892205,
+                "w": 0.707098126411438
+            },
+            "wristToMiddleProximalMetres": 0.11283016204833985
+        },
+        {
+            "side": "Right",
+            "forearm": {
+                "humanoidSlot": "RightLowerArm",
+                "humanName": "RightLowerArm",
+                "boneName": "mixamorig:RightForeArm",
+                "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm",
+                "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm",
+                "humanoidIndex": 16,
+                "restLocalPosition": {
+                    "x": 2.9750799046546208e-10,
+                    "y": 0.20595547556877137,
+                    "z": -2.1082706691544219e-9
+                },
+                "restLocalScale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "restLocalRotation": {
+                    "x": -1.0931831440075257e-8,
+                    "y": 0.007197489496320486,
+                    "z": 2.479924603449035e-7,
+                    "w": 0.9999741315841675
+                },
+                "restPositionInAvatar": {
+                    "x": 0.3749268651008606,
+                    "y": 1.3140085935592652,
+                    "z": -0.018096648156642915
+                },
+                "restRotationInAvatar": {
+                    "x": 0.44061681628227236,
+                    "y": 0.4406188726425171,
+                    "z": -0.5530415177345276,
+                    "w": 0.5530434846878052
+                },
+                "directChildPaths": [
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand"
+                ],
+                "skinBindings": [
+                    {
+                        "rendererPath": "ShenShang_Multi_OpenHands",
+                        "boneIndex": 16,
+                        "verticesWithWeight": 2867,
+                        "strongestVertexWeight": 0.9822113513946533,
+                        "meshBindPoseRowMajor": [
+                            1.4742735624313355,
+                            97.36024475097656,
+                            -22.777324676513673,
+                            0.25563594698905947,
+                            99.98188781738281,
+                            -1.7095690965652466,
+                            -0.8360673785209656,
+                            -0.35758501291275027,
+                            -1.2033915519714356,
+                            -22.760875701904298,
+                            -97.36782836914063,
+                            1.3221780061721802,
+                            0.0,
+                            0.0,
+                            0.0,
+                            1.0
+                        ]
+                    }
+                ]
+            },
+            "wrist": {
+                "humanoidSlot": "RightHand",
+                "humanName": "RightHand",
+                "boneName": "mixamorig:RightHand",
+                "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm",
+                "humanoidIndex": 18,
+                "restLocalPosition": {
+                    "x": -1.5629346428180924e-10,
+                    "y": 0.26417744159698489,
+                    "z": 4.157527447312681e-11
+                },
+                "restLocalScale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                },
+                "restLocalRotation": {
+                    "x": -0.0012828672770410777,
+                    "y": 0.11494626849889755,
+                    "z": -0.042213525623083118,
+                    "w": 0.9924735426902771
+                },
+                "restPositionInAvatar": {
+                    "x": 0.639104425907135,
+                    "y": 1.314009666442871,
+                    "z": -0.018096763640642167
+                },
+                "restRotationInAvatar": {
+                    "x": 0.4815610349178314,
+                    "y": 0.5201823115348816,
+                    "z": -0.5210124254226685,
+                    "w": 0.4754529893398285
+                },
+                "directChildPaths": [
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1",
+                    "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1"
+                ],
+                "skinBindings": [
+                    {
+                        "rendererPath": "ShenShang_Multi_OpenHands",
+                        "boneIndex": 17,
+                        "verticesWithWeight": 1612,
+                        "strongestVertexWeight": 0.9768028259277344,
+                        "meshBindPoseRowMajor": [
+                            -12.708464622497559,
+                            26.06806755065918,
+                            -95.70240020751953,
+                            1.3525465726852418,
+                            98.8544921875,
+                            -4.590871334075928,
+                            -14.377527236938477,
+                            -0.43191319704055788,
+                            -8.14151668548584,
+                            -96.43328857421875,
+                            -25.186025619506837,
+                            0.4291393756866455,
+                            0.0,
+                            0.0,
+                            0.0,
+                            1.0
+                        ]
+                    }
+                ]
+            },
+            "fingers": [
+                {
+                    "humanoidSlot": "RightThumbProximal",
+                    "humanName": "Right Thumb Proximal",
+                    "boneName": "mixamorig:RightHandThumb1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                    "humanoidIndex": 39,
+                    "restLocalPosition": {
+                        "x": -0.025371313095092775,
+                        "y": 0.03559025377035141,
+                        "z": 0.01705566793680191
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 0.21240772306919099,
+                        "y": 0.08667725324630737,
+                        "z": 0.3974720239639282,
+                        "w": 0.8884739875793457
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.6765791177749634,
+                        "y": 1.296574592590332,
+                        "z": 0.0041053686290979389
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.780762255191803,
+                        "y": 0.20130528509616853,
+                        "z": -0.34267711639404299,
+                        "w": 0.48214027285575869
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 18,
+                            "verticesWithWeight": 468,
+                            "strongestVertexWeight": 0.7138808965682983,
+                            "meshBindPoseRowMajor": [
+                                65.71405029296875,
+                                13.805572509765625,
+                                -74.10176086425781,
+                                0.5611552596092224,
+                                66.53317260742188,
+                                -56.82717514038086,
+                                48.414955139160159,
+                                -1.0929605960845948,
+                                -35.42597198486328,
+                                -81.11768341064453,
+                                -46.528717041015628,
+                                0.881800651550293,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightThumbIntermediate",
+                    "humanName": "Right Thumb Intermediate",
+                    "boneName": "mixamorig:RightHandThumb2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1",
+                    "humanoidIndex": 40,
+                    "restLocalPosition": {
+                        "x": 0.007919487543404103,
+                        "y": 0.036689091473817828,
+                        "z": -2.823270436880243e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 0.00023005020921118557,
+                        "y": 0.0020527488086372616,
+                        "z": -0.10068392008543015,
+                        "w": 0.9949163198471069
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7056531310081482,
+                        "y": 1.2797890901565552,
+                        "z": 0.02089075930416584
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.7573391199111939,
+                        "y": 0.27980300784111025,
+                        "z": -0.38792240619659426,
+                        "w": 0.44459429383277895
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 40,
+                            "verticesWithWeight": 260,
+                            "strongestVertexWeight": 0.9141671061515808,
+                            "meshBindPoseRowMajor": [
+                                65.71403503417969,
+                                13.805571556091309,
+                                -74.10175323486328,
+                                0.5532357096672058,
+                                65.18244934082031,
+                                -59.777950286865237,
+                                46.66736602783203,
+                                -1.0963858366012574,
+                                -37.85382080078125,
+                                -78.9683609008789,
+                                -48.28132247924805,
+                                0.9228320121765137,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightThumbDistal",
+                    "humanName": "Right Thumb Distal",
+                    "boneName": "mixamorig:RightHandThumb3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2",
+                    "humanoidIndex": 41,
+                    "restLocalPosition": {
+                        "x": 0.00035984060377813876,
+                        "y": 0.033116571605205539,
+                        "z": -1.481836875427689e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.0013583420077338815,
+                        "y": 0.009195864200592041,
+                        "z": -0.15688784420490266,
+                        "w": 0.9875726699829102
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7313066124916077,
+                        "y": 1.2649781703948975,
+                        "z": 0.035702019929885867
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.7069931626319885,
+                        "y": 0.3997584581375122,
+                        "z": -0.4455086290836334,
+                        "w": 0.3766646087169647
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 41,
+                            "verticesWithWeight": 166,
+                            "strongestVertexWeight": 1.0,
+                            "meshBindPoseRowMajor": [
+                                65.71405029296875,
+                                13.805574417114258,
+                                -74.10174560546875,
+                                0.5528756380081177,
+                                69.40716552734375,
+                                -49.425743103027347,
+                                52.342552185058597,
+                                -1.2361087799072266,
+                                -29.39915657043457,
+                                -85.82833099365235,
+                                -42.06171798706055,
+                                0.7742290496826172,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightIndexProximal",
+                    "humanName": "Right Index Proximal",
+                    "boneName": "mixamorig:RightHandIndex1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                    "humanoidIndex": 42,
+                    "restLocalPosition": {
+                        "x": -0.030348410829901696,
+                        "y": 0.10720567405223847,
+                        "z": 0.00241774576716125
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.0036139029543846847,
+                        "y": 0.0007985649863258004,
+                        "z": 0.04406169801950455,
+                        "w": 0.9990219473838806
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7484621405601502,
+                        "y": 1.3107037544250489,
+                        "z": 0.0031131040304899217
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5027079582214356,
+                        "y": 0.5007176399230957,
+                        "z": -0.49728915095329287,
+                        "w": 0.49926960468292239
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 42,
+                            "verticesWithWeight": 331,
+                            "strongestVertexWeight": 0.7235682010650635,
+                            "meshBindPoseRowMajor": [
+                                12.288846969604493,
+                                24.10584831237793,
+                                -96.26988983154297,
+                                1.20525324344635,
+                                98.63206481933594,
+                                -13.70527458190918,
+                                9.158597946166993,
+                                -0.8536161184310913,
+                                -10.986295700073243,
+                                -96.07847595214844,
+                                -25.460315704345704,
+                                0.45148980617523196,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightIndexIntermediate",
+                    "humanName": "Right Index Intermediate",
+                    "boneName": "mixamorig:RightHandIndex2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1",
+                    "humanoidIndex": 43,
+                    "restLocalPosition": {
+                        "x": 0.00011663006443995982,
+                        "y": 0.029464028775691987,
+                        "z": 4.6509349149737036e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -2.701631274248939e-7,
+                        "y": -0.00007211759657366201,
+                        "z": -0.0013829218223690987,
+                        "w": 0.9999990463256836
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7779264450073242,
+                        "y": 1.3107038736343384,
+                        "z": 0.003113461658358574
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5019790530204773,
+                        "y": 0.5013765692710877,
+                        "z": -0.4980153441429138,
+                        "w": 0.49861767888069155
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 48,
+                            "verticesWithWeight": 203,
+                            "strongestVertexWeight": 0.8402029275894165,
+                            "meshBindPoseRowMajor": [
+                                12.288849830627442,
+                                24.105850219726564,
+                                -96.2698974609375,
+                                1.205136775970459,
+                                99.09068298339844,
+                                -8.335834503173829,
+                                10.561641693115235,
+                                -0.9068431258201599,
+                                -5.478926181793213,
+                                -96.6924057006836,
+                                -24.91103172302246,
+                                0.40163350105285647,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightIndexDistal",
+                    "humanName": "Right Index Distal",
+                    "boneName": "mixamorig:RightHandIndex3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2",
+                    "humanoidIndex": 44,
+                    "restLocalPosition": {
+                        "x": 0.00003236142947571352,
+                        "y": 0.0265516210347414,
+                        "z": 5.796593413598394e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -7.525671321673144e-7,
+                        "y": 0.0001883757795440033,
+                        "z": -0.0037238711956888439,
+                        "w": 0.999993085861206
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.8044780492782593,
+                        "y": 1.310703992843628,
+                        "z": 0.0031131338328123094
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.500201940536499,
+                        "y": 0.5033366680145264,
+                        "z": -0.49977371096611025,
+                        "w": 0.4966656267642975
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3/mixamorig:RightHandIndex4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 49,
+                            "verticesWithWeight": 108,
+                            "strongestVertexWeight": 0.9930580258369446,
+                            "meshBindPoseRowMajor": [
+                                12.288847923278809,
+                                24.10584831237793,
+                                -96.26988983154297,
+                                1.2051044702529908,
+                                98.8036117553711,
+                                6.13656759262085,
+                                14.148865699768067,
+                                -0.9827446937561035,
+                                9.31836986541748,
+                                -96.85684967041016,
+                                -23.06333351135254,
+                                0.25835633277893069,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightMiddleProximal",
+                    "humanName": "Right Middle Proximal",
+                    "boneName": "mixamorig:RightHandMiddle1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                    "humanoidIndex": 45,
+                    "restLocalPosition": {
+                        "x": -0.009537830017507077,
+                        "y": 0.11302527040243149,
+                        "z": -0.0008122915751300752
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.003628217615187168,
+                        "y": 0.0010629929602146149,
+                        "z": 0.041310157626867297,
+                        "w": 0.9991392493247986
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7525343894958496,
+                        "y": 1.314010500907898,
+                        "z": -0.018096907064318658
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5014641880989075,
+                        "y": 0.5022369027137756,
+                        "z": -0.4985237419605255,
+                        "w": 0.4977611303329468
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 19,
+                            "verticesWithWeight": 149,
+                            "strongestVertexWeight": 0.9872450232505798,
+                            "meshBindPoseRowMajor": [
+                                -8.607070922851563,
+                                25.85577392578125,
+                                -96.21537017822266,
+                                1.3383690118789673,
+                                99.60630798339844,
+                                4.2891974449157719,
+                                -7.757784366607666,
+                                -0.6418927907943726,
+                                2.121032238006592,
+                                -96.50431823730469,
+                                -26.1231632232666,
+                                0.3658321499824524,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightMiddleIntermediate",
+                    "humanName": "Right Middle Intermediate",
+                    "boneName": "mixamorig:RightHandMiddle2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1",
+                    "humanoidIndex": 46,
+                    "restLocalPosition": {
+                        "x": -0.000047685083700343966,
+                        "y": 0.03125143051147461,
+                        "z": 6.91980500677758e-11
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -4.889286628895206e-7,
+                        "y": -0.000015351239198935218,
+                        "z": 0.0010961593361571432,
+                        "w": 0.9999994039535523
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7837857604026794,
+                        "y": 1.3140106201171876,
+                        "z": -0.018097205087542535
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5020064115524292,
+                        "y": 0.501679539680481,
+                        "z": -0.49798527359962466,
+                        "w": 0.4983152151107788
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 50,
+                            "verticesWithWeight": 149,
+                            "strongestVertexWeight": 0.8285441398620606,
+                            "meshBindPoseRowMajor": [
+                                -8.607069969177246,
+                                25.85577392578125,
+                                -96.21537017822266,
+                                1.338416576385498,
+                                99.51268005371094,
+                                -2.4324123859405519,
+                                -9.555692672729493,
+                                -0.6460732817649841,
+                                -4.8110527992248539,
+                                -96.5689468383789,
+                                -25.520410537719728,
+                                0.4117591381072998,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightMiddleDistal",
+                    "humanName": "Right Middle Distal",
+                    "boneName": "mixamorig:RightHandMiddle3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2",
+                    "humanoidIndex": 47,
+                    "restLocalPosition": {
+                        "x": 0.00001858537143561989,
+                        "y": 0.02894376404583454,
+                        "z": -9.042224434485658e-12
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 9.813621915100157e-8,
+                        "y": 0.000007750581062282436,
+                        "z": 0.0002616943675093353,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.8127294778823853,
+                        "y": 1.314010739326477,
+                        "z": -0.018096785992383958
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.502141535282135,
+                        "y": 0.5015519857406616,
+                        "z": -0.49785101413726809,
+                        "w": 0.49844157695770266
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandMiddle1/mixamorig:RightHandMiddle2/mixamorig:RightHandMiddle3/mixamorig:RightHandMiddle4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 51,
+                            "verticesWithWeight": 120,
+                            "strongestVertexWeight": 1.0,
+                            "meshBindPoseRowMajor": [
+                                -8.607069969177246,
+                                25.855775833129884,
+                                -96.21537017822266,
+                                1.3383979797363282,
+                                99.41825103759766,
+                                -4.047677993774414,
+                                -9.981314659118653,
+                                -0.6680339574813843,
+                                -6.475234031677246,
+                                -96.51473999023438,
+                                -25.356975555419923,
+                                0.42299437522888186,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightRingProximal",
+                    "humanName": "Right Ring Proximal",
+                    "boneName": "mixamorig:RightHandRing1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                    "humanoidIndex": 48,
+                    "restLocalPosition": {
+                        "x": 0.012579654343426228,
+                        "y": 0.10812491923570633,
+                        "z": -0.0007707888726145029
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.003785335225984454,
+                        "y": 0.004819149151444435,
+                        "z": 0.04211655259132385,
+                        "w": 0.9990939497947693
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7457913160324097,
+                        "y": 1.3141248226165772,
+                        "z": -0.039723701775074008
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5037440657615662,
+                        "y": 0.5036926865577698,
+                        "z": -0.49622613191604617,
+                        "w": 0.4962814748287201
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 20,
+                            "verticesWithWeight": 437,
+                            "strongestVertexWeight": 0.9045127630233765,
+                            "meshBindPoseRowMajor": [
+                                -33.10734939575195,
+                                26.451671600341798,
+                                -90.57711029052735,
+                                1.423292875289917,
+                                94.32717895507813,
+                                6.727222442626953,
+                                -32.51347732543945,
+                                -0.27302902936935427,
+                                -2.5070345401763918,
+                                -96.20319366455078,
+                                -27.178319931030275,
+                                0.4143295884132385,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightRingIntermediate",
+                    "humanName": "Right Ring Intermediate",
+                    "boneName": "mixamorig:RightHandRing2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1",
+                    "humanoidIndex": 49,
+                    "restLocalPosition": {
+                        "x": 0.0000032950442800938619,
+                        "y": 0.028113069012761117,
+                        "z": -2.7632332533222839e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -3.815189018041565e-7,
+                        "y": 0.000001744153337313037,
+                        "z": 0.00005623698962153867,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7739043235778809,
+                        "y": 1.3141249418258668,
+                        "z": -0.03972399979829788
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5037731528282166,
+                        "y": 0.5036655068397522,
+                        "z": -0.49619725346565249,
+                        "w": 0.496308833360672
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2/mixamorig:RightHandRing3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 44,
+                            "verticesWithWeight": 176,
+                            "strongestVertexWeight": 0.8673552870750427,
+                            "meshBindPoseRowMajor": [
+                                -33.10734558105469,
+                                26.45166778564453,
+                                -90.57711029052735,
+                                1.4232892990112305,
+                                94.24777221679688,
+                                4.578948974609375,
+                                -33.11182403564453,
+                                -0.29182204604148867,
+                                -4.611149311065674,
+                                -96.329345703125,
+                                -26.446077346801759,
+                                0.42094576358795168,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightRingDistal",
+                    "humanName": "Right Ring Distal",
+                    "boneName": "mixamorig:RightHandRing3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2/mixamorig:RightHandRing3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2",
+                    "humanoidIndex": 50,
+                    "restLocalPosition": {
+                        "x": 0.000005617431270366069,
+                        "y": 0.02739502117037773,
+                        "z": -1.9503779147278522e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 3.0410308227146745e-7,
+                        "y": 0.000005229861471889308,
+                        "z": -0.00029787421226501465,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.8012993335723877,
+                        "y": 1.3141252994537354,
+                        "z": -0.039723582565784457
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.503625750541687,
+                        "y": 0.5038179755210877,
+                        "z": -0.4963425099849701,
+                        "w": 0.49615809321403506
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandRing1/mixamorig:RightHandRing2/mixamorig:RightHandRing3/mixamorig:RightHandRing4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 43,
+                            "verticesWithWeight": 95,
+                            "strongestVertexWeight": 0.955059289932251,
+                            "meshBindPoseRowMajor": [
+                                -33.10734939575195,
+                                26.451671600341798,
+                                -90.57711029052735,
+                                1.4232840538024903,
+                                94.04338073730469,
+                                17.112709045410158,
+                                -29.376819610595704,
+                                -0.37142831087112429,
+                                7.7295355796813969,
+                                -94.90764617919922,
+                                -30.541606903076173,
+                                0.3756803870201111,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightLittleProximal",
+                    "humanName": "Right Little Proximal",
+                    "boneName": "mixamorig:RightHandPinky1",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand",
+                    "humanoidIndex": 51,
+                    "restLocalPosition": {
+                        "x": 0.02730659395456314,
+                        "y": 0.09400738775730133,
+                        "z": 0.0029469721484929325
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": -0.0036818920634686949,
+                        "y": 0.0023629507049918176,
+                        "z": 0.042036328464746478,
+                        "w": 0.9991065263748169
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7304592132568359,
+                        "y": 1.3105839490890504,
+                        "z": -0.05322914570569992
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5024779438972473,
+                        "y": 0.5025162100791931,
+                        "z": -0.49750757217407229,
+                        "w": 0.4974735379219055
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 45,
+                            "verticesWithWeight": 320,
+                            "strongestVertexWeight": 0.7695578336715698,
+                            "meshBindPoseRowMajor": [
+                                -54.284034729003909,
+                                25.483327865600587,
+                                -80.02400970458985,
+                                1.4222575426101685,
+                                83.67466735839844,
+                                8.245929718017579,
+                                -54.13459014892578,
+                                0.09536612033843994,
+                                -7.196570873260498,
+                                -96.34626770019531,
+                                -25.79931640625,
+                                0.42729729413986208,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightLittleIntermediate",
+                    "humanName": "Right Little Intermediate",
+                    "boneName": "mixamorig:RightHandPinky2",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1",
+                    "humanoidIndex": 52,
+                    "restLocalPosition": {
+                        "x": -0.00000153140001657448,
+                        "y": 0.027919277548789979,
+                        "z": -1.9066312417770349e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 1.4996876984696429e-7,
+                        "y": 5.519115120478091e-7,
+                        "z": -0.00002950430462078657,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7583783864974976,
+                        "y": 1.3105840682983399,
+                        "z": -0.053229618817567828
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5024634003639221,
+                        "y": 0.5025312304496765,
+                        "z": -0.4975219666957855,
+                        "w": 0.49745848774909975
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2/mixamorig:RightHandPinky3"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 46,
+                            "verticesWithWeight": 220,
+                            "strongestVertexWeight": 0.9302289485931397,
+                            "meshBindPoseRowMajor": [
+                                -54.28404235839844,
+                                25.483327865600587,
+                                -80.02401733398438,
+                                1.4222593307495118,
+                                83.74267578125,
+                                9.212406158447266,
+                                -53.872947692871097,
+                                0.06315523386001587,
+                                -6.356483459472656,
+                                -96.2586669921875,
+                                -26.341291427612306,
+                                0.42795270681381228,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "humanoidSlot": "RightLittleDistal",
+                    "humanName": "Right Little Distal",
+                    "boneName": "mixamorig:RightHandPinky3",
+                    "animatorRelativePath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2/mixamorig:RightHandPinky3",
+                    "parentPath": "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2",
+                    "humanoidIndex": 53,
+                    "restLocalPosition": {
+                        "x": -0.000002989713721035514,
+                        "y": 0.02295948751270771,
+                        "z": -3.2764610469193658e-10
+                    },
+                    "restLocalScale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "restLocalRotation": {
+                        "x": 1.6565468285989483e-7,
+                        "y": -5.528747237804055e-7,
+                        "z": 0.00018265841936226934,
+                        "w": 1.0
+                    },
+                    "restPositionInAvatar": {
+                        "x": 0.7813379168510437,
+                        "y": 1.3105841875076295,
+                        "z": -0.05322970822453499
+                    },
+                    "restRotationInAvatar": {
+                        "x": 0.5025550127029419,
+                        "y": 0.5024391412734985,
+                        "z": -0.4974314868450165,
+                        "w": 0.4975495934486389
+                    },
+                    "directChildPaths": [
+                        "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandPinky1/mixamorig:RightHandPinky2/mixamorig:RightHandPinky3/mixamorig:RightHandPinky4"
+                    ],
+                    "skinBindings": [
+                        {
+                            "rendererPath": "ShenShang_Multi_OpenHands",
+                            "boneIndex": 47,
+                            "verticesWithWeight": 96,
+                            "strongestVertexWeight": 0.8931546807289124,
+                            "meshBindPoseRowMajor": [
+                                -54.28404235839844,
+                                25.483327865600587,
+                                -80.02400970458985,
+                                1.4222619533538819,
+                                83.8380126953125,
+                                10.835036277770996,
+                                -53.42088317871094,
+                                0.0329703688621521,
+                                -4.942790985107422,
+                                -96.08955383300781,
+                                -27.24641227722168,
+                                0.4285699725151062,
+                                0.0,
+                                0.0,
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "referenceBasisDefinition": "Forward = normalized wrist to MiddleProximal. Reference normal = +normalize(cross(IndexProximal-Wrist,LittleProximal-Wrist)). Quaternion = LookRotation(forward,referenceNormal).",
+            "toMiddleProximalInWrist": {
+                "x": -0.08408579975366593,
+                "y": 0.9964327812194824,
+                "z": -0.007161448709666729
+            },
+            "toMiddleProximalInWristParent": {
+                "x": -2.8915337679791265e-8,
+                "y": 1.0,
+                "z": -0.000003379938107173075
+            },
+            "toLittleProximalInWrist": {
+                "x": 0.27881693840026858,
+                "y": 0.959872841835022,
+                "z": 0.03009084239602089
+            },
+            "toIndexProximalInWrist": {
+                "x": -0.2723182141780853,
+                "y": 0.9619626402854919,
+                "z": 0.02169489488005638
+            },
+            "palmReferenceNormalInWrist": {
+                "x": 0.015328571200370789,
+                "y": 0.026881294324994088,
+                "z": -0.999521017074585
+            },
+            "palmReferenceNormalInWristParent": {
+                "x": -0.21104787290096284,
+                "y": 0.03265119716525078,
+                "z": -0.9769302010536194
+            },
+            "wristToElbowInWrist": {
+                "x": 0.08408662676811218,
+                "y": -0.9964327216148377,
+                "z": 0.007158215623348951
+            },
+            "palmReferenceRotationInWrist": {
+                "x": -0.7087163925170898,
+                "y": -0.036080826073884967,
+                "z": 0.023472720757126809,
+                "w": 0.7041792273521423
+            },
+            "palmReferenceRotationInWristParent": {
+                "x": -0.7031106948852539,
+                "y": 0.0750809982419014,
+                "z": 0.07508080452680588,
+                "w": 0.7031082510948181
+            },
+            "wristToMiddleProximalMetres": 0.1134299635887146
+        }
+    ]
+}

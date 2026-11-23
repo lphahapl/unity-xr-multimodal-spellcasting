@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>配置与检索</title>
+    <script src="../ui/open.js" data-route="reader/"></script>
+    <link rel="stylesheet" href="/ui/base.css" />
+  </head>
+  <body>
+    <nav aria-label="工作台导航">
+      <a href="/">共享工作空间</a><a href="/rig/">骨骼与动画</a><a href="/plans/">策划案</a
+      ><a href="/scenes/">场景原型</a><a href="/reader/">配置与检索</a>
+    </nav>
+    <main>
+      <div class="heading">
+        <h1>配置与检索</h1>
+        <div class="tools">
+          <a href="/api/context">完整 JSON</a><button id="reload">重新读取文件</button
+          ><button id="new" class="primary">新建记录</button>
+        </div>
+      </div>
+      <div class="inline">
+        <label class="field"
+          >工作台<select id="kind">
+            <option value="">全部</option>
+            <option value="rig">骨骼与动画</option>
+            <option value="plans">策划案</option>
+            <option value="scenes">场景原型</option>
+          </select></label
+        ><label class="field">检索正文、批注或元素<input type="search" id="query" /></label>
+      </div>
+      <p id="status" class="status" role="status"></p>
+      <section id="results" aria-label="共享记录"></section>
+      <details>
+        <summary>旧浏览器资料</summary>
+        <p>从这个浏览器旧版工作台的 IndexedDB 合并人物、附件与批注。原库保留。</p>
+        <button id="migrate">迁入旧浏览器资料</button>
+      </details>
+      <dialog id="dialog">
+        <form id="form">
+          <h2 id="title">配置文件</h2>
+          <label class="field"
+            >工作台<select id="editKind">
+              <option value="rig">骨骼与动画</option>
+              <option value="plans">策划案</option>
+              <option value="scenes">场景原型</option>
+            </select></label
+          ><label class="field"
+            >文件内容（JSON）<textarea id="jsonText" required rows="16" spellcheck="false"></textarea>
+          </label>
+          <p class="status" id="error" role="alert"></p>
+          <div class="tools">
+            <button class="primary" id="write">保存配置</button
+            ><button type="button" id="cancel">关闭</button>
+          </div>
+        </form>
+      </dialog>
+    </main>
+    <script type="module" src="/ui/reader.js"></script>
+  </body>
+</html>

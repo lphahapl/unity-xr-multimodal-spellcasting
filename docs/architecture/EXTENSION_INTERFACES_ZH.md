@@ -4,7 +4,7 @@
 
 ## 添加配方或共享行为
 
-增加新的结印或语音入口时使用独立技能 ID。两个配方需要共享冷却时填写相同的冷却组。使用既有火球、护盾或雷光剑执行方式时，直接引用相应配置。首章还需要在技能资源清单登记该 ID、地址和组，并为所属章节配置解锁或许可。独立训练场在训练目录登记。[技能配置与目录](../guides/CONFIGURATION_GUIDE_ZH.md)
+增加新的结印或语音入口时使用独立技能 ID。两个配方需要共享冷却时填写相同的冷却组。使用既有火球、护盾或雷光剑执行方式时，直接引用相应配置。首章还需要在技能资源清单登记该 ID、地址和组，并按需要在玩家基础 SO 配置起始技能，或在阶段配置临时授权。独立训练场在训练目录登记。[技能配置与目录](../guides/CONFIGURATION_GUIDE_ZH.md)
 
 ## 添加执行行为
 
@@ -24,6 +24,6 @@
 | `InputClock`、`HandInputClock`、`GameClock` | 分别驱动确定性的输入、手部观察和游戏时间检查 |
 | `WristPoseOverride`、`ThrowGripProvider` | 注入腕部位姿或握持样本，继续经过同一投掷判定 |
 | `ThrowObserved`、`ProjectileStageChanged`、`ShieldImpact` | 读取动作诊断、投射物阶段和实际吸收的盾量 |
-| `WristMenuController.LatestInput` | 读取最近消费的腕部输入值拷贝 |
+| `LinearRpgController.Input.LatestHand` | 读取所属玩家的最近手部观测，包括来源、时间及关节有效性；铜叶、转盘和腕扣使用同一次采样 |
 
-`SkillEffectConfigurationChecks` 验证扩展注册、失败回滚、发布异常、共享冷却、发射点重叠和真实雷光剑。输入时间、旧目录迁移和控制器的策略准入分别有独立检查。硬件追踪质量使用真实戴机采样记录。[执行检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs) · [口令时序](../../Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs) · [迁移检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillMigrationChecks.cs)
+`SkillEffectConfigurationChecks` 验证扩展注册、失败回滚、发布异常、共享冷却、发射点重叠和真实雷光剑。输入时间和控制器的施法许可各有独立检查。硬件追踪质量使用真实戴机采样记录。[执行检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillEffectConfigurationChecks.cs) · [口令时序](../../Assets/scripts/logic/Editor/Skills/Checks/SkillClockRegressionChecks.cs) · [施法许可检查](../../Assets/scripts/logic/Editor/Skills/Checks/SkillArchitectureChecks.cs)

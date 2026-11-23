@@ -35,6 +35,8 @@ namespace NarutoVR.SealCombat.Rpg
         public ChapterObjective operationTarget;
         [InspectorName("首次达成即记住"), Tooltip("到达一次即可完成的操作使用此项。持续条件在本句推进前仍会重新检查。")]
         public bool rememberTargetSuccess;
+        [InspectorName("本句视觉引导"), Tooltip("路线与手势分别覆盖阶段配置；两者都留空时沿用本段设置。")]
+        public QuestVisualHints visuals = new();
     }
 
     /// <summary>
@@ -53,7 +55,7 @@ namespace NarutoVR.SealCombat.Rpg
 
     /// <summary>
     /// 首章的一个阶段：关联 RPG 阶段、逐句教学、旁白、临时术式和场景表现。
-    /// sections 的顺序必须与 LinearRpgController.stages 一致。
+    /// 按阶段 ID 匹配路线，数组顺序不影响运行。
     /// </summary>
     [Serializable]
     public sealed class OpeningSection
@@ -73,7 +75,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>
         /// 仅在本阶段授权的练习技能 ID；临时授权本身不写入永久解锁存档。
         /// </summary>
-        [Tooltip("此段可用的练习术，不写入角色存档。")] public string[] trialSkills = Array.Empty<string>();
+        [InspectorName("本阶段追加试用技能"), Tooltip("填写技能 ID。进入本段时加入玩家可用技能，退出本段时收回试用。")] public string[] trialSkills = Array.Empty<string>();
         /// <summary>
         /// 阶段通过后关闭的门体或阻挡对象：当前及后续阶段保持激活，已完成阶段设为不激活。
         /// 这里通过 SetActive 实现放行，不负责门扇开启动画。
@@ -89,6 +91,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// 本段按顺序播放的卡住提示；播放完数组后不再追加提示。
         /// </summary>
         public OpeningHint[] hints = Array.Empty<OpeningHint>();
+        [InspectorName("本段视觉引导")] public QuestVisualHints visuals = new();
     }
 
     /// <summary>
@@ -104,15 +107,11 @@ namespace NarutoVR.SealCombat.Rpg
         /// </summary>
         public LinearRpgController rpg;
         /// <summary>
-        /// Awake 时应用到移动组件的探索步速；运行中修改本字段不会在每帧自动同步。
-        /// </summary>
-        [InspectorName("首章探索步速（米／秒）"), Min(.05f)] public float explorationWalkSpeed = 1.25f;
-        /// <summary>
         /// 清房教学使用的遭遇控制器，在对应台词期间启用并监听清场结果。
         /// </summary>
         public CombatRoomEncounter encounter;
         /// <summary>
-        /// 首章阶段列表，按 RPG 阶段下标读取；长度也用作章节结束的哨兵下标。
+        /// 首章教学按阶段 ID 绑定会话路线。
         /// </summary>
         public OpeningSection[] sections;
         /// <summary>
@@ -131,8 +130,6 @@ namespace NarutoVR.SealCombat.Rpg
         public TrainingTargetGroup targetGroup;
         /// <summary>新角色了解的基础术式；临时施放由各教学阶段授权。</summary>
         public string[] initialDiscoveries = Array.Empty<string>();
-        /// <summary>首章完成该安全校验阶段后才允许永久术式施放。</summary>
-        public RpgStageDefinition permanentSkillGate;
         /// <summary>
         /// 左腕吸附区；只有收到吸附完成事件并验证铜叶身份，才确认入匣操作。
         /// </summary>
@@ -157,18 +154,22 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>
         /// 当前激活的阶段；清理阶段或首章结束时为 null。
         /// </summary>
-        OpeningSection section;
+        [NonSerialized] OpeningSection section;
+        Dictionary<string, OpeningSection> sectionsByStage;
         /// <summary>
         /// 当前等待玩家完成的教学步骤；不是整段旁白的独立进度存档。
         /// </summary>
-        OpeningLesson line;
-        NarrationController.Step boundStep;
+        [NonSerialized] OpeningLesson line;
+        NarrationController.Step boundStep, failedPlayback;
+        bool AwaitingPlaybackRetry => failedPlayback?.PlaybackError != null && failedPlayback == section?.narration.CurrentStep;
         long dialogueGeneration;
         Action onOperation, onCollected;
         Action<ChapterObjective> onObjectiveChanged, onEntryChanged;
         Action onPuzzleSolved;
         UnityAction onDialogueCompleted;
         object sectionBinding;
+        bool startsWithEncounter;
+        int firstEncounterFrame = -1;
         Action<bool> onWrist;
         Action<GameObject> onInserted;
         Action<SkillTrainingTarget> onHit;
@@ -199,7 +200,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// 是否正在播放补充提示，或主线当前句的音频尚未完成。
         /// </summary>
         public override bool Speaking => (promptVoice && promptVoice.isPlaying) ||
-            (section?.narration && section.narration.CurrentStep != null && !section.narration.AudioCompleted);
+            (section?.narration && section.narration.CurrentStep != null && section.narration.CurrentStep.PlaybackError == null && !section.narration.AudioCompleted);
         bool CanPlayPrompt => promptVoice && promptVoice.isActiveAndEnabled &&
             (!AudioListener.pause || promptVoice.ignoreListenerPause);
         /// <summary>
@@ -214,26 +215,30 @@ namespace NarutoVR.SealCombat.Rpg
         /// 供外部 UI 读取的当前目标文字：优先当前台词，最后回退到阶段说明。
         /// </summary>
         public override string ObjectiveText => rpg.CampaignComplete ? "已抵达测候台，首章完成" :
+            AwaitingPlaybackRetry ? failedPlayback.PlaybackError + " 请从腕匣重听本句。" :
+            line?.id == "MV01" && rpg.locomotion ? rpg.locomotion.ExplorationHint :
             line != null ? LineText(section?.narration?.CurrentLine, line) : section?.stage.instructions ?? "";
-        /// <summary>
-        /// 检查指定技能 ID 是否属于当前阶段的临时练习授权。
-        /// </summary>
-        public override bool AllowsTrialSkill(string id)
-        {
-            // 章节授权随已恢复的阶段立即生效。旁白与场景物件会在随后的 Update 接入。
-            int currentStage = ActiveStageIndex;
-            if (sections == null || currentStage < 0 || currentStage >= sections.Length) return false;
-            var allowed = sections[currentStage]?.trialSkills;
-            return allowed != null && Array.IndexOf(allowed, id) >= 0;
-        }
+        /// <inheritdoc/>
+        public override string[] StageSkillGrants(int index) => sectionsByStage[rpg.StageAt(index).stageId].trialSkills;
 
         /// <inheritdoc/>
         public override LinearRpgController Owner => rpg;
+
+        // The section route can lead the player to the condition that starts its first line.
+        internal override QuestVisualHints TrailHints => boundStep != null && !boundStep.OperationDone && line?.visuals?.route
+            ? line.visuals : section?.visuals;
+
+        internal override QuestGestureHint[] GestureHints
+        {
+            get
+            {
+                if (!started || AwaitingPlaybackRetry || boundStep?.OperationDone == true) return null;
+                var authored = line?.visuals?.gestures;
+                return authored != null && authored.Length > 0 ? authored : section?.visuals?.gestures;
+            }
+        }
         /// <inheritdoc/>
         public override string[] InitialDiscoveries => initialDiscoveries;
-        /// <inheritdoc/>
-        public override bool AllowsPermanentSkill(string id) => rpg.Model != null &&
-            rpg.Model.Chapter.IsComplete(permanentSkillGate.stageId);
         /// <inheritdoc/>
         public override NavigationNode FinalCheckpoint => finalCheckpoint;
         /// <inheritdoc/>
@@ -248,7 +253,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>首章的双训练靶按本阶段参数重置；通用主控不再承担训练靶复位。</summary>
         public override void OnStageEntered()
         {
-            targetGroup.ResetForStage(rpg.StageIndex);
+            targetGroup.ResetForStage(rpg.StageAt(rpg.StageIndex).stageId);
         }
 
         /// <summary>首章专属接线检查留在首章，通用 RPG 无需知道铜叶机关的结构。</summary>
@@ -256,18 +261,15 @@ namespace NarutoVR.SealCombat.Rpg
         {
             base.ValidateChapter(owner);
             if (!targetGroup) throw new InvalidOperationException("首章教学训练靶组缺失");
-            targetGroup.Validate(owner.stages.Length);
+            targetGroup.Validate(owner);
             if (!inventory || inventory.Owner != owner || !inventory.catalog || !puzzle || puzzle.inventory != inventory)
                 throw new InvalidOperationException("首章物品模块或实物机关接线缺失");
-            if (sections == null || sections.Length != owner.stages.Length)
-                throw new InvalidOperationException("首章阶段数量与 RPG 配置不一致");
-            for (int i = 0; i < sections.Length; i++)
-                if (sections[i] == null || sections[i].stage != owner.stages[i] || !sections[i].narration ||
-                    sections[i].lines == null || sections[i].lines.Length == 0 ||
-                    sections[i].lines.Length != sections[i].narration.lines.Count)
-                    throw new InvalidOperationException("首章步骤与旁白接线不一致：" + i);
-            if (!permanentSkillGate || !Array.Exists(owner.stages, s => s == permanentSkillGate) || inventory.catalog.Find(puzzle.leafId) == null)
-                throw new InvalidOperationException("首章校验阶段或奖励物品配置缺失");
+            sectionsByStage = BindStages(owner, sections, row => row?.stage, "首章教学");
+            foreach (var row in sections)
+                if (!row.narration || row.lines == null || row.lines.Length == 0 || row.lines.Length != row.narration.lines.Count)
+                    throw new InvalidOperationException("首章步骤与旁白接线不一致：" + row.stage.stageId);
+            if (inventory.catalog.Find(puzzle.leafId) == null)
+                throw new InvalidOperationException("首章奖励物品配置缺失");
             var usedObjectives = new HashSet<ChapterObjective>();
             var lineIds = new HashSet<string>(StringComparer.Ordinal);
             var doors = new HashSet<GameObject>();
@@ -299,36 +301,32 @@ namespace NarutoVR.SealCombat.Rpg
             }
             foreach (var section in sections)
                 if (section.trialSkills == null || Array.Exists(section.trialSkills, id =>
-                    !Array.Exists(initialDiscoveries, known => known == id) || !owner.skills.catalog.skills.Exists(skill => skill.skillId == id)))
-                    throw new InvalidOperationException("首章试用技能必须属于初始了解的真实配方");
+                    !owner.skills.catalog.skills.Exists(skill => skill.skillId == id)))
+                    throw new InvalidOperationException("首章试用技能必须属于已配置的技能目录");
         }
 
         /// <summary>
-        /// 应用探索步速，并在字幕、移动组件和头部引用齐全时创建字幕呈现器。
+        /// 在字幕、移动组件和头部引用齐全时创建字幕呈现器。
         /// </summary>
         void Awake()
         {
             if (!rpg || rpg.chapter != this) return;
-            if (rpg && rpg.locomotion)
-                rpg.locomotion.exploreSpeed = Mathf.Max(.05f, explorationWalkSpeed);
             if (subtitle && rpg && rpg.locomotion && rpg.locomotion.head)
                 captions = new OpeningSubtitlePresenter(subtitle, rpg.locomotion.head);
         }
         /// <summary>
-        /// 订阅检查点恢复事件，并在渲染前更新字幕位置以跟随最新头部姿态。
+        /// 订阅检查点恢复事件。
         /// </summary>
         protected override void OnEnable()
         {
             base.OnEnable();
             if (rpg) rpg.CheckpointRestored += Restore;
-            if (captions != null) Application.onBeforeRender += captions.Place;
         }
         /// <summary>
         /// 解除生命周期事件并离开当前阶段；下次启用时重新接入阶段、重建机关状态。
         /// </summary>
         protected override void OnDisable()
         {
-            if (captions != null) Application.onBeforeRender -= captions.Place;
             if (rpg) rpg.CheckpointRestored -= Restore;
             LeaveSection();
             index = -1;
@@ -337,11 +335,10 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         /// <summary>
-        /// 每帧更新字幕位置与显示进度；不能行动或游戏暂停时通知呈现器暂停处理。
+        /// 每帧更新字幕显示进度；不能行动或游戏暂停时通知呈现器暂停处理。
         /// </summary>
         void LateUpdate()
         {
-            captions?.Place();
             captions?.Tick(!rpg || !rpg.CanAct || Time.timeScale <= 0);
         }
 
@@ -386,11 +383,11 @@ namespace NarutoVR.SealCombat.Rpg
         /// </summary>
         void TickHints()
         {
-            if (section == null || !started || section.hints == null || hintIndex >= section.hints.Length || !CanPlayPrompt ||
+            if (section == null || !started || AwaitingPlaybackRetry || section.hints == null || hintIndex >= section.hints.Length || !CanPlayPrompt ||
                 rpg.UiInputOwned || Speaking || (!section.alignDiscs && (line == null || line.action == OpeningAction.Listen)) ||
                 (section.startCondition && !section.startCondition.IsComplete)) return;
-            var hand = rpg.wristMenu.LatestInput;
-            if (!WristMenuState.Fresh(hand.rightValid, hand.rightObserved, Time.realtimeSinceStartupAsDouble, rpg.wristMenu.settings.maxAge)) return;
+            var hand = rpg.Input.LatestHand;
+            if (!PlayerHandObservation.Fresh(hand.rightValid, hand.rightObserved, Time.realtimeSinceStartupAsDouble, rpg.handSampleMaxAge)) return;
             waiting += Time.deltaTime;
             if (waiting < (hintIndex == 0 ? 18 : 25)) return;
             while (hintIndex < section.hints.Length)
@@ -415,7 +412,19 @@ namespace NarutoVR.SealCombat.Rpg
         /// </summary>
         public override void ReplayGuidance()
         {
-            if (section == null || !started || Speaking || !rpg.CanAct || !CanPlayPrompt) return;
+            if (section == null || !started || !rpg.CanAct) return;
+            var failed = failedPlayback;
+            if (failed != null && failed == section.narration.CurrentStep)
+            {
+                if (index == rpg.StageIndex && failed.Target == section.narration &&
+                    failed.Target.RetryPlayback(failed))
+                {
+                    failedPlayback = null;
+                    captions?.Begin(failed.Target.GetComponent<AudioSource>(), failed.Line.speaker, LineText(failed.Line, line));
+                }
+                return;
+            }
+            if (Speaking || !CanPlayPrompt) return;
             if (section.narration.CurrentLineIndex < 0 && !section.narration.DialogueCompleted) return;
             var row = GuidanceLine();
             var lesson = Array.Find(section.lines, item => item.id == row.EffectiveLineId);
@@ -477,8 +486,8 @@ namespace NarutoVR.SealCombat.Rpg
             rpg.RefreshProgress();
             LeaveSection();
             index = next;
-            for (int i = 0; i < sections.Length; i++)
-                if (sections[i].doorOpenedOnCompletion) sections[i].doorOpenedOnCompletion.SetActive(i >= index);
+            foreach (var entry in sections)
+                if (entry.doorOpenedOnCompletion) entry.doorOpenedOnCompletion.SetActive(!rpg.Model.Chapter.IsComplete(entry.stage.stageId));
             if (restoreWorld)
             {
                 puzzle.Restore(rpg.Model.Chapter.CompletedStages);
@@ -488,14 +497,16 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 return;
             }
-            section = sections[index];
-            if (!section.narration || section.stage != rpg.stages[index] || section.lines == null ||
+            section = sectionsByStage[rpg.StageAt(index).stageId];
+            if (!section.narration || section.lines == null ||
                 section.lines.Length != section.narration.lines.Count || section.lines.Length == 0)
             {
                 Debug.LogError("首章步骤与旁白接线不一致：" + index, this);
                 enabled = false;
                 return;
             }
+            startsWithEncounter = Array.Exists(section.lines, lesson => lesson.action == OpeningAction.ClearRoom);
+            section.narration.PlaybackFailed += OnPlaybackFailed;
             section.narration.StepStarted += BeginLine;
             section.narration.StepEnded += EndStep;
             var binding = sectionBinding = new object();
@@ -518,6 +529,10 @@ namespace NarutoVR.SealCombat.Rpg
         /// </summary>
         void LeaveSection()
         {
+            failedPlayback = null;
+            if (startsWithEncounter && encounter) encounter.enabled = false;
+            startsWithEncounter = false;
+            firstEncounterFrame = -1;
             sectionBinding = null;
             captions?.Clear();
             EndLine();
@@ -533,6 +548,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (puzzle) puzzle.Solved -= onPuzzleSolved;
             if (section?.narration)
             {
+                section.narration.PlaybackFailed -= OnPlaybackFailed;
                 section.narration.StepStarted -= BeginLine;
                 section.narration.StepEnded -= EndStep;
                 if (onDialogueCompleted != null) section.narration.onDialogueCompleted.RemoveListener(onDialogueCompleted);
@@ -552,9 +568,26 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (expected == null || section != expected || started || !rpg.CanAct || index != rpg.StageIndex) return;
             if (expected.startCondition && !expected.startCondition.IsComplete) return;
+            if (startsWithEncounter)
+            {
+                encounter.enabled = true;
+                if (!encounter.HasStarted || (!encounter.PlayerInside && !encounter.IsComplete)) return;
+                // Let both eyes render the newly activated model before starting the warning.
+                if (firstEncounterFrame < 0) firstEncounterFrame = Time.frameCount;
+                if (Time.frameCount == firstEncounterFrame) return;
+            }
             started = true;
             if (expected.alignDiscs) { puzzle.Solved += onPuzzleSolved; puzzle.EnablePuzzle(); }
             expected.narration.StartDialogue();
+        }
+
+        void OnPlaybackFailed(NarrationController.Step step)
+        {
+            if (section?.narration != step.Target || step != step.Target.CurrentStep || index != rpg.StageIndex) return;
+            failedPlayback = step;
+            // A load failure before the step binds leaves the visible wave paused until retry.
+            // Interrupting an already running line retains its existing wave and operation.
+            if (startsWithEncounter && boundStep != step) encounter.enabled = false;
         }
 
         bool CanActOn(NarrationController.Step step) =>
@@ -567,7 +600,9 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (section == null || section.narration != step.Target || !step.Target.IsCurrentStep(step)) return;
             EndLine();
+            failedPlayback = null;
             boundStep = step;
+            if (startsWithEncounter && step.Index == 0) encounter.enabled = true;
             line = Array.Find(section.lines, lesson => lesson.id == step.LineId);
             if (line == null) throw new InvalidOperationException("当前台词没有操作接线：" + step.LineId);
             if (dialogueGeneration != step.Generation || (!refreshingBinding && step.Index == 0))
@@ -624,7 +659,7 @@ namespace NarutoVR.SealCombat.Rpg
                     if (!refreshingBinding || !defense.ReplaceCompletion(onOperation)) defense.BeginShield(onOperation);
                     break;
                 case OpeningAction.Retreat:
-                    rpg.SetEncounterCombat(true);
+                    rpg.RequestEncounterCombat(this, true);
                     if (!refreshingBinding || !defense.ReplaceCompletion(onOperation)) defense.BeginRetreat(onOperation);
                     break;
                 case OpeningAction.ClearRoom:
@@ -667,7 +702,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!refreshingBinding && !line.operationTarget && defense && (line.action == OpeningAction.AbsorbBolt || line.action == OpeningAction.Retreat))
             {
                 defense.StopDrill();
-                if (line.action == OpeningAction.Retreat && rpg) rpg.SetEncounterCombat(false);
+                if (line.action == OpeningAction.Retreat && rpg) rpg.RequestEncounterCombat(this, false);
             }
             if (encounter && line.action == OpeningAction.ClearRoom)
             {
@@ -677,7 +712,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (puzzle) puzzle.Collected -= onCollected;
             if (wristSlot) wristSlot.OnSnapCompleted -= onInserted;
             // 句内操作在此解绑。靶命中观察延续到本句的句间等待，直到下句、重播或离开本段。
-            if (!old.Target.IsWaitingForNextLine) RemoveHitObserver();
+            if (old == null || !old.Target || !old.Target.IsWaitingForNextLine) RemoveHitObserver();
             onWrist = null; onObjectiveChanged = null; onCollected = onOperation = null; onInserted = null;
             line = null;
         }

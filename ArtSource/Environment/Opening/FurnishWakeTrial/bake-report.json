@@ -1,0 +1,61 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 2048,
+  "cage_m": 0.0028,
+  "ray_m": 0.013,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 2K atlas.",
+  "meshes": {
+    "WakeClothesChest": {
+      "high_tri": 10278,
+      "LOD_tri": [
+        2522,
+        1588,
+        856
+      ],
+      "dimensions_xyz_blender_m": [
+        1.0292963981628418,
+        0.49129998683929443,
+        1.7510000467300415
+      ]
+    },
+    "WakeTeaStand": {
+      "high_tri": 5020,
+      "LOD_tri": [
+        1480,
+        932,
+        502
+      ],
+      "dimensions_xyz_blender_m": [
+        0.44599997997283936,
+        0.3619999885559082,
+        0.9230000972747803
+      ]
+    },
+    "TrialSpareTargets": {
+      "high_tri": 32032,
+      "LOD_tri": [
+        2408,
+        1516,
+        818
+      ],
+      "dimensions_xyz_blender_m": [
+        1.5720000267028809,
+        0.43400001525878906,
+        1.150418996810913
+      ]
+    },
+    "TrialMendingBench": {
+      "high_tri": 6528,
+      "LOD_tri": [
+        1660,
+        1044,
+        564
+      ],
+      "dimensions_xyz_blender_m": [
+        1.4110000133514404,
+        0.421999990940094,
+        1.225000023841858
+      ]
+    }
+  }
+}

@@ -165,8 +165,9 @@ namespace NarutoVR.SealCombat.Editor
                 Controller.DeferVoiceUntilLateUpdate = true;
                 Controller.InputClock = () => { double value = now; now += .001; return value; };
                 skill = ScriptableObject.CreateInstance<SkillDefinition>();
+                skill.effectDefinition = ScriptableObject.CreateInstance<ProjectileEffectDefinition>();
                 skill.skillId = "clock.fire"; skill.displayName = "火球术";
-                skill.triggerMode = SkillTriggerMode.VoiceAndGesture; skill.phrase = "火球术"; skill.sealName = "寅";
+                skill.triggerMode = SkillTriggerMode.VoiceAndGesture; skill.phrase = "火球术"; skill.sealName = "律印";
                 Engine = new SkillMatchEngine(new[] { skill }); Engine.Tick(100);
                 Require(Engine.ActiveRecipes.Count == 1, "检查配方必须有效");
                 typeof(SkillInputController).GetProperty(nameof(SkillInputController.Engine)).GetSetMethod(true).Invoke(Controller, new object[] { Engine });
@@ -179,7 +180,7 @@ namespace NarutoVR.SealCombat.Editor
             public void Dispose()
             {
                 if (root) Object.DestroyImmediate(root);
-                if (skill) Object.DestroyImmediate(skill);
+                if (skill) { Object.DestroyImmediate(skill.effectDefinition); Object.DestroyImmediate(skill); }
             }
         }
     }

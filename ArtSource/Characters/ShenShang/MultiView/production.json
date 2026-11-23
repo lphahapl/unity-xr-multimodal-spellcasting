@@ -1,0 +1,91 @@
+{
+  "character": "沈商",
+  "sourceSheet": "docs/visuals/20261121_shen_shang_character/02_沈商_服装三视图.png",
+  "views": {
+    "front": "Front.png",
+    "left": "Left.png",
+    "back": "Back.png"
+  },
+  "hunyuan": {
+    "task": "r_a894fa30e58611f181abe2b54b129978",
+    "edition": "3.1",
+    "triangles": 497608,
+    "quotaBefore": 4,
+    "quotaAfter": 3,
+    "file": "ShenShang_HunyuanMulti.glb",
+    "sha256": "698d1296e3988153b525f7c364896e81762cf2bdfb7549a7a66891d21750f125"
+  },
+  "mixamo": {
+    "selectedSkeleton": "Standard Skeleton (65)",
+    "attempts": [
+      {
+        "adobeCharacterID": "95136d6d-feed-4e4d-b82a-1df7a214a470",
+        "sourceTriangles": 31998,
+        "uploadSha256": "7cd614a031e5c817273e293944b32148a1fee1d768a2efab64f539835b3da3a2",
+        "export": "ShenShang_Mixamo_Original.fbx",
+        "exportSha256": "96187204ef559b3734cf5b0b535f803a2786649a69db638f7b29a8da805f27c7",
+        "actualFingerChainsPerHand": [
+          "Thumb",
+          "Index"
+        ],
+        "status": "诊断回件。缺少中指、无名指和小指独立指链。",
+        "humanoidSlots": 34,
+        "unityFingerJointsPerHand": 6,
+        "fbxArmatureBones": 41,
+        "missingFingerChainsPerHand": [
+          "Middle",
+          "Ring",
+          "Little"
+        ],
+        "inPlaceRunVerified": true
+      },
+      {
+        "adobeCharacterID": "752cb61c-fcbd-470c-b16e-09ba4042c917",
+        "sourceTriangles": 33094,
+        "uploadSha256": "003c0f454aa1152799519ba6025598e42b6f64d4edade0b75c91b2f973da1313",
+        "handGeometry": "项目已定稿 V2 网格在角色工作副本接腕，张开五指后作为静态网格上传。",
+        "inputSkinBones": 0,
+        "status": "已下载，实际 FBX 包含两手共30个指节与十个手指末端。",
+        "export": "ShenShang_Mixamo_Final.fbx",
+        "exportSha256": "39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f",
+        "actualFingerChainsPerHand": [
+          "Thumb",
+          "Index",
+          "Middle",
+          "Ring",
+          "Pinky"
+        ],
+        "skeletonJoints": 65,
+        "staticUpload": "ShenShang_Mixamo_StaticInput.fbx",
+        "editableStaticMesh": "ShenShang_OpenHands.blend",
+        "unityHumanoidSlots": 52,
+        "unityFingerJointsPerHand": 15,
+        "weightedVerticesPerPhalanxAtThreshold0_001": [
+          52,
+          482
+        ],
+        "desktopRunClip": "CanJiOu_RunForward_InPlace",
+        "desktopRunSeconds": 0.733
+      }
+    ]
+  },
+  "delivery": "已发布到正式 Unity 工程；隔离 Unity 验出两手各15指节、十指逐一变形、项目跑步通过，正式包14个文件（含元数据）哈希已核对。",
+  "gameAsset": {
+    "asset": "Assets/Art/Characters/ShenShangMixamo/ShenShangMixamoPlayer.prefab",
+    "engine": "Unity 6000.3.10f1",
+    "renderers": 1,
+    "triangles": 33094,
+    "materialSlots": [
+      "body including hair, sleeves, wrist tool",
+      "V2 left hand",
+      "V2 right hand"
+    ],
+    "baseColorSha256": "d3706a7672da5482f3806d88b2f6253ec1a875828b70619858db970a537b3a63",
+    "normalSha256": "1807920f960ce171d6dbeeb122236e2c186f95e818fe2daef0a77f5ad63df8b7",
+    "assetReturn": "byte-identical game FBX and second Adobe return",
+    "firstPersonSource": "original V2 left and right hand geometry at the wrist",
+    "localFaceMaterialEdit": "eye region base color and normal",
+    "reports": "docs/visuals/20261121_shen_shang_mixamo",
+    "deviceTest": "本任务验收为 Unity 桌面测试。"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "provider": "Hyper3D Rodin Gen-2.5 Low",
+  "input": "Independent single view per component. Shared five-view board retained as design evidence.",
+  "source": "Source/provenance.json",
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "parts": {
+    "Body": {
+      "id": "ddaa80bb-139d-4557-b04d-c229c52914cc",
+      "input": "BodyViews/02-right45.png",
+      "model": "Body-Rodin.glb",
+      "sha256": "03479b5392775e5aa2ac019aa7086a31ac9b4372a70c500945feb06d7e269d1e"
+    },
+    "Socket": {
+      "id": "82ee82d9-51d1-44c7-a3eb-665cd2ddb202",
+      "input": "SocketViews/01-left45.png",
+      "model": "Socket-Rodin.glb",
+      "sha256": "ee78f7aa50b7ebba2954056dad194d5eb2d797e24c25172d122364038cffdd1b"
+    }
+  }
+}

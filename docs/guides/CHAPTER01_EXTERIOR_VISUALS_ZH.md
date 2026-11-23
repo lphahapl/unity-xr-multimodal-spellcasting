@@ -1,16 +1,34 @@
 # 首章外景、连接路与性能配置
 
-当前外景已于2026-11-09发布至正式工程。正式场景为 `Assets/Scene/Chapter01_Awakening.unity`，外景预制体为 `Assets/Art/Environment/Opening/MountainPolish/EnvironmentPolish.prefab`，实例名为“首章外景细化”。Quest实测范围与状态见本页“重建与验证状态”。
+[当前建筑外观与材质验收](../visuals/chapter01_preqin_architecture/README.md) 收录正式模型、瓦木表面、原机位对照及 Gemini 复审。
+
+[首章建筑实拍取材与六机位对照](../visuals/20261123_chapter01_architecture/README.md) 记录苏醒室柱础、短廊椽架、庭院砖墙与石坪的现行材质和碰撞回读结果。
+
+2026-11-19 的山间校院重排使用独立场景 `Assets/Scene/Chapter01_Courtyard.unity`。天仪阁设在量水道和崖端石门之间。新场景的实际机位、资产与玩法测试见[山间校院场景验收](../visuals/20261119_courtyard_scene/场景验收.md)。下文的原场景及 Quest 采样记录对应各自列明的日期和版本。
+
+首章外景于 2026-11-09 发布，2026-11-12 更新了三座校器坊的模型和资源依赖。正式场景为 `Assets/Scene/Chapter01_Awakening.unity`，外景预制体为 `Assets/Art/Environment/Opening/MountainPolish/EnvironmentPolish.prefab`，实例名为“首章外景细化”。Quest 实测范围见本页“重建与验证状态”。
 
 [玩家视点360°全景](../visuals/20261109_exterior_world_lod/01_panorama.png) · [展开预览](../visuals/20261109_exterior_world_lod/01_panorama_wide.png) · [全场俯瞰](../visuals/20261109_exterior_world_lod/world-overview.png) · [门庭](../visuals/20261109_exterior_world_lod/world-portal.png) · [校器工作台](../visuals/20261109_exterior_world_lod/world-workbench.png)。这些是Unity实际渲染，使用与发布版本相同的美术资产；不是头显截屏。
 
 ## 空间与美术
 
-主屋使用直坡硬山屋顶、青灰石基、旧木直梁、哑光铜箍和白石嵌尺；保留原房间、门窗及教学布局。外围三座校器坊替代旧图生工坊的显示，每坊一张可近看的校器工作台。屋顶有向下的木底板和闭边，室内不再透出天空。旧 Workshop 实例仍以 inactive 保留；这不意味着旧贴图依赖已经从内存卸除。
+量水道的水尺旁已接入浅水试作。靠步道低头可看渠底石缝，贴近水面能看到落水和环境倒影。普通渠段维持原有绘制。已核对 Unity 桌面画面和 Android Vulkan 双目编译，Quest 头显帧时待测。[前后对照与实现参数](../architecture/开场教学与首枚铜叶/07_校规庭与量水道制作单.md#量水道的主渠与落水)
+
+主屋使用直坡硬山屋顶、青灰石基、旧木直梁、哑光铜箍和白石嵌尺。外围三座校器坊各有一张校器工作台，屋顶有向下的木底板和闭边。旧图生工坊的模型和贴图保存在 `Assets/Art/Environment/Opening/Workshop/` 供查阅。正式外景已移除三处停用的旧工坊实例，首章也随之解除对旧模型、材质和三张 2K 纹理的依赖。
 
 西、东坊支路、门庭横接和门后北坊支路接入原步道。台基、岸基及支墩按实际三角网格地面落位；原连续侧栏只在指定两处开口，其余关卡碰撞与脚本保持。三坊有固定地板、墙体、门柱和工作台盒碰撞，视觉 LOD 不改变碰撞。
 
-门庭中心 `(10,0,63)`、朝向 Y=180°，双门扇预置开启。`SceneTravelGate` 的 `destinationScene` 为空，`loadEnabled=false`，所以目前不会加载其他场景。以后将目的场景加入启用的 Build Settings，再配置目标并开启加载；组件只认头部进入体积，不因手或敌人进入触发。它没有自动接入新章节的存档、淡入淡出或返回规则。
+三座校器坊入口的白石嵌尺都以地板为基准，近景每 10 厘米一划，每 50 厘米使用长线。中档模型仅绘长线，最远档省略尺面。分度已合入建筑网格，使用原有图集。[西坊入口同机位对照](../visuals/20261112_model_display/校器坊门柱嵌尺.jpg)
+
+门庭在预制体中的中心为 `(10,0,63)`、朝向 Y=180°，双门扇预置开启。`Chapter01_Courtyard` 的残规门庭已启用传送，目标为 [第二章断衡悬道](../../Assets/Scene/Chapter02_SuspendedPath.unity)，最短等待为 `0`，进门显示现有加载蒙版。当前门实例读取 `CenterEyeAnchor`。玩家头部从门外进入触发区时，门会异步切换场景。出生在门内时，需要先离开再进入。
+
+门庭预制体默认关闭加载。配置其他场景实例时，在 Build Profiles 的 Scene List 中加入并勾选目标场景，将其完整路径填入门组件的 **目标场景**，再勾选 **启用传送**。章节存档衔接、淡入淡出和返程路线仍需单独配置或实现。
+
+如需在穿门时播放一段 3 秒的头显剧情镜头，将门组件的 **最短等待时间（秒）** 设为 `3`，把源场景的 **剧情镜头序列**（`StoryCameraSequence`）拖入 **进门演出**。目标场景会在演出期间预加载。Timeline 播完或跳过后显示蒙版，达到最短等待时间后允许激活目标场景。若演出会暂停游戏时间，把 Director 的 **Update Method** 设为 **Unscaled Game Time**。填 `0` 会跳过演出，进门就显示蒙版。组件接线与消息示例见[玩家剧情镜头](CONFIGURATION_GUIDE_ZH.md#玩家剧情镜头)。
+
+门庭的 **加载蒙版** 已引用[默认蒙版预制体](../../Assets/Prefabs/SceneLoadingOverlay.prefab)，每扇门都可单独替换。整套 UI 由全屏背景和画面下方居中的进度条两个子预制体组成，进度条绘制在背景上。蒙版至少显示 0.6 秒，进度从 0% 平滑追到异步加载进度。等待激活时可停在 90%，新场景激活并显示 100% 后才收起。
+
+其他传送门脚本可在 Unity 主线程调用 `NarutoVR.SceneArt.AsyncSceneLoader.TryLoad(destinationScene)`，或用 `TryLoad(destinationScene, 3f)` 指定最短等待时间。返回 `Result.Started` 表示已提交切换，`Busy` 表示已有切换在进行，`InvalidDestination` 表示目标为空或不可加载，`AlreadyInScene` 表示目标就是活动场景，`Failed` 表示 Unity 未能启动加载。所有调用者共享一次进行中的切换。[加载器源码](../../Assets/scripts/logic/Environment/AsyncSceneLoader.cs)
 
 测候天仪仅完整内环以 7°/秒绕自身斜轴转动；破碎外框、断轴与承托固定。运行组件见 [ArmillaryRingMotion.cs](../../Assets/scripts/logic/Environment/ArmillaryRingMotion.cs) 和 [SceneTravelGate.cs](../../Assets/scripts/logic/Environment/SceneTravelGate.cs)。
 
@@ -18,7 +36,7 @@
 
 | 资产 | 三角形或结构 | 来源与限制 |
 |---|---|---|
-| 三段主屋、三坊及三张工作台 | 全近级 17,396 | 建筑程序网格，保留主要梁柱、粗檐和铜箍，小瓦棱/刻度交给图集 |
+| 三段主屋、三坊及三张工作台 | 全近级 17,656 | 建筑程序网格，保留主要梁柱、粗檐和铜箍。三坊嵌尺近档合计 260 个三角形，中档合计 52 个，瓦棱用图集呈现 |
 | 单张 A07 工作台 | 3,400 / 1,400 / 500 | 混元 V3.1 图生高模；静态 COLLAPSE 减面，各级重新展开 UV、分别烘焙至共享 1K 图集 |
 | 自然物 | 8 个空间块，44 件；23,420 / 18,694 / 15,396 | 山松、闭合远冠、低灌、层岩、苔砾；不透明材质，分块合并 |
 | 自然块内的单棵松源 | Blender 回读 2,022 / 1,750 / 1,484 | 保守减面，复用原 UV/法线图；不是重新烘焙。Unity 导入可能相差两面 |
@@ -52,6 +70,8 @@
 
 地形使用 [ExteriorTerrain.shader](../../Assets/Shaders/ExteriorTerrain.shader)：单不透明前向 Pass、一次底色采样、顶点级大尺度色差、主光/环境光/主阴影与雾。无额外灯光、法线图采样或附加相机。其 RidgeStrata、DistantStrata、ValleyMossScree 材质在 ExteriorLOD 目录；`_TextureMetres` 控制纹理尺度。M01/M02 源贴图是 AI 底色经周期化处理，法线/AO 由颜色派生，不是高模烘焙。
 
+首章共使用四张 M01/M02 纹理。山脊和谷地只绑定各自的底色，18 个层岩分块 Renderer 上的 `NatureStrata` 使用 URP/Lit，会读取 M01 的底色、法线和遮罩。M02 的法线和遮罩保存在源材质目录，正式谷地材质已清除旧 Lit 纹理槽。清理前后的 Windows 外景包逐字节相同，Android 原构建清单也仅打入上述四张纹理。[依赖、实包与五机位复核](../../Logs/visual-review-20261112/terrain-slots/summary.json)
+
 保留此前天空绑定与艺术参数、唯一太阳及雾设置；太阳强度 1.2、硬阴影 .7，雾距 45–185m。Android 仍使用现有 Forward、4x MSAA、HDR 关闭、renderScale=.8、单级 1024 主阴影/50m；没有因本轮把 PC 的 Forward+/SSAO 配置套到移动端，也不声称已开启运行时固定注视点渲染。
 
 水面沿用 752 三角网格，[CanalFlow.shader](../../Assets/Shaders/CanalFlow.shader) 仍是一次 RGBA 采样、单不透明 Pass；没有屏幕折射/反射相机。`CanalFlow.mat` 的 `_FlowSpeed` 调流速，`_WaveHeight` 调起伏。`WaterAudio.prefab` 的单个空间声源沿渠寻找听者最近点，播放 18 秒循环，读取现有 DuckGain；未改技能音效接线。空间混音还需真人试听。
@@ -60,9 +80,15 @@
 
 [几何预算 CSV](../../Logs/exterior-world-lod-20261109/integration/world-lod-budget.csv) 记录五个地面机位和俯瞰。当前五个 110° 单目 XR 代理视锥估算约 3.01–4.91 万三角形。它仅按包围盒/投影 LOD 统计整网格，不做遮挡或三角裁剪，不等于双目实际提交、draw calls、GPU 时间或设备帧率；inactive 资源也未计入此几何统计。
 
-当前有限场景继续采用分块 Mesh+LOD，不为草地整体改成 Terrain。草地调研推荐稀疏不透明低模草簇、离线分块、根部固定的顶点弯曲和远处剔除；并非只旋转整片草。最多约 192 簇、每簇 18–24 三角形是试验起点，不是零开销保证。**草地研究已完成，但草地资产和风动 Shader 尚未制作/接入，也未做设备 A/B**，先测基线再定密度。见 [草地调研](../../Logs/exterior-world-lod-20261109/grass-research/调研.md) 与 [Quest/PICO 官方资料核查](../research/QUEST_PICO_EXTERIOR_PERFORMANCE_20261109_ZH.md)。
+正式首章在东西坊支路外坡与校规庭西侧铺了 8 块风动花草，共 200 簇草、40 株野花、7,577 个三角面。草叶有连续弯曲和宽窄变化，奶白、淡紫花株有独立的茎、叶、花瓣和花心。花草使用同一个不透明双面 Shader Pass，无草地贴图、实时投影或碰撞。烘焙器同时采样谷地三档网格，筛掉高差超过 8 厘米的位置，根锚略埋入最低一档表面。[草地 Prefab](../../Assets/Art/Environment/Opening/Grass/OpeningGrass.prefab) · [原方案调研](../../Logs/exterior-world-lod-20261109/grass-research/调研.md)
+
+近处草根固定，草尖最大摆幅 2.5 厘米，频率 0.5 Hz。两眼使用同一个头部中心。风动在 6–12 米减弱，草簇在 14–18 米向根部收缩，控制器按整块包围盒在 19 米外剔除、18 米内恢复。可在草地材质将 `_WindAmplitude` 设为零对比静态草，或在首章停用 `OpeningGrass` 对比无草。需要调整布置时，在首章执行 `NarutoVR/Environment/Rebake Opening Grass` 重建已引用的资源。[烘焙器](../../Assets/scripts/logic/Editor/Environment/OpeningGrassBaker.cs) · [Shader](../../Assets/Shaders/OpeningGrass.shader)
+
+新版已在 Unity 6000.3.10f1 使用 Mobile 质量档做四机位桌面实渲，确认支路可见、近景花瓣形状、风向变化、整块远距剔除和位置跳变恢复。Android 草地资源包编译通过，编译器记录了 Vulkan 双目变体。上方原外景预算属于无草历史基线。Quest/PICO 实体双目和帧时对照待测。[东侧支路](../../Logs/grass-20261114-dense/east-wind.png) · [西侧支路](../../Logs/grass-20261114-dense/west-wind.png) · [花草近景](../../Logs/grass-20261114-dense/east-close-wind.png)
 
 ## 重建与验证状态
+
+2026-11-12 在 Unity 6000.3.10f1、Windows D3D11 下以四个固定机位单独验证旧工坊依赖清理。三座坊门前与西坊台面的 1440×900 画面均逐像素相同。将整个外景 Prefab 单独构建为 Windows LZ4 资源包，清理前为 32,644,878 字节，清理后为 24,774,072 字节，加入门柱分度后为 24,789,703 字节。分度另在三座坊门前和近看机位复拍，西坊最远档画面逐像素相同。用旧外景和九块原始地形运行建筑生成器两次，每次均得到三座正式坊，六件近中档网格与发布资产逐字节相同。头显双目显示及帧时待测。[资源包与画面对照](../../Logs/visual-review-20261112/environment/) · [门柱分档验证](../../Logs/visual-review-20261112/hall-scale/) · [两次重建记录](../../Logs/visual-review-20261112/hall-scale/rebuild-final/rebuild.txt)
 
 工具在 [ExteriorWorldLOD](../../Tools/Environment/ExteriorWorldLOD)。`sync_world.py` 只在重建前使用，会重置隔离工程的外景 Prefab；不要在最终审查/发布之间再次执行。依次运行 `WorldExteriorAuthor.Run`、`merge_world.py`、新 Unity 进程中的 `WorldExteriorAuthor.ReviewAndAccept`。最终发布用 `publish_world.py` 的哈希门槛，禁止整场 SaveScene 覆盖主工程。这些工具绑定本轮原始快照；发布后再次制作应新建任务快照并更新验收基线，不能沿用旧 proof 或绕过哈希保护。
 

@@ -1,0 +1,224 @@
+{
+  "WallStraight": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "WallStraight": {
+          "verts": 638,
+          "faces": 1256,
+          "tris": 1256,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 5,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 31.4
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 1256,
+        "dimensions": [
+          2.0,
+          1.6200000047683716,
+          0.4699999988079071
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 790,
+        "dimensions": [
+          2.0,
+          1.6200000047683716,
+          0.4699999988079071
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 426,
+        "dimensions": [
+          2.0,
+          1.6200000047683716,
+          0.4699999988079071
+        ],
+        "materials": 1
+      }
+    ]
+  },
+  "WallCorner": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "WallCorner": {
+          "verts": 656,
+          "faces": 1292,
+          "tris": 1292,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 5,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 20.0
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 1292,
+        "dimensions": [
+          1.2350000143051147,
+          1.6200000047683716,
+          1.2350000143051147
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 812,
+        "dimensions": [
+          1.2350000143051147,
+          1.6200000047683716,
+          1.2350000143051147
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 438,
+        "dimensions": [
+          1.235005259513855,
+          1.6247378587722778,
+          1.235005259513855
+        ],
+        "materials": 1
+      }
+    ]
+  },
+  "WallEnd": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "WallEnd": {
+          "verts": 224,
+          "faces": 420,
+          "tris": 420,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 7,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 13.5
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 420,
+        "dimensions": [
+          0.4000000059604645,
+          1.6200000047683716,
+          0.4699999988079071
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 264,
+        "dimensions": [
+          0.40000003576278687,
+          1.6200000047683716,
+          0.4699999988079071
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 142,
+        "dimensions": [
+          0.40000003576278687,
+          1.6247378587722778,
+          0.4699999988079071
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

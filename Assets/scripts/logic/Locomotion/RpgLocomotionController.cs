@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("在点水平容差（米）"), Min(0.03f)] public float nodeTolerance = 0.25f;
         [InspectorName("在点楼层容差（米）"), Min(0.02f)] public float nodeHeightTolerance = 0.18f;
         [InspectorName("最小选向点积"), Range(0.5f, 1f)] public float directionDot = 0.72f;
-        [InspectorName("离点选向最大距离（米）"), Min(0.3f)] public float offNodeRange = 6f;
+        [InspectorName("探索与战斗选点距离（米）"), Min(0.3f)] public float offNodeRange = 12f;
         [Header("朝向、视线与手指融合选点")]
         [InspectorName("导航评分设置")] public NavigationScoringSettings scoring = new NavigationScoringSettings();
         [InspectorName("导航输入平滑")] public NavigationSmoothingSettings smoothing = new NavigationSmoothingSettings();
@@ -61,39 +61,87 @@ namespace NarutoVR.SealCombat.Rpg
         bool selectionPending;
         readonly NavigationInputSmoother inputSmoother = new();
         NavigationHandInput rawInput, filteredInput;
+        RaycastHit selectedRayFloor;
         readonly List<(string id, NavigationScore score, float distance)> debugCandidates = new(4);
         int evaluated, invalidNodes, directionRejected, floorRejected, occupiedRejected, occludedRejected;
         double inputNow;
         double lastSelectionObserved = double.NegativeInfinity;
         double lastNow, nextDodgeAt = double.NegativeInfinity;
 
-        public bool NavigationActive => UsesEncounterModes && !EncounterCombat ? walking : (UsesEncounterModes || useRayNavigation) ? rayState.Active : state != null && state.NavigationActive;
+        public bool NavigationActive => UsesEncounterModes && !EncounterCombat ? walking || autoWalking || (PickingGround && rayState.Active) : (UsesEncounterModes || useRayNavigation) ? rayState.Active : state != null && state.NavigationActive;
         public bool SealProtectionActive => state != null && state.SealProtectionActive;
+        internal bool LeftNavigationPoseActive => head && rawInput.leftValid &&
+            rawInput.leftWrist.y >= head.position.y - navigationDropBelowHead &&
+            (rawInput.leftPointing || (UsesEncounterModes && rawInput.leftNavigationPointing));
         public Vector3 PlayerFloorPosition => ReferencesValid() ? ExpectedFloor : transform.position;
         public event Action<RpgActionCue> Feedback;
         public string CurrentNodeId => currentNode == null ? string.Empty : currentNode.nodeId;
         public bool OnNode => currentNode != null;
         public float DodgeRemaining => (float)Math.Max(0, nextDodgeAt - lastNow);
         public string Status { get; private set; } = "等待手部输入";
-        public float DwellProgress => CandidateNode == null ? 0 : (UsesEncounterModes || useRayNavigation) ? rayState.Progress : state == null ? 0 : state.DwellProgress;
+        public float DwellProgress => PickingGround ? rayState.Progress : CandidateNode == null ? 0 : (UsesEncounterModes || useRayNavigation) ? rayState.Progress : state == null ? 0 : state.DwellProgress;
         public NavigationNode CandidateNode { get; private set; }
-        // Presentation reads the same adjacency and landing checks used for ray navigation.
-        internal IReadOnlyList<NavigationNode> NearbyNavigationNodes => currentNode ? currentNode.neighbors : NavigationNode.ActiveNodes;
+        internal string LandingDescription => PickingGround && TryGetTeleportPreview(out _, out var floor)
+            ? $"所指地面 {Vector3.Distance(PlayerFloorPosition, floor.point):0.0} 米"
+            : CandidateNode ? CandidateNode.nodeId : "未选择";
+        internal bool TryGetTeleportPreview(out Vector3 hand, out RaycastHit floor)
+        {
+            hand = filteredInput.leftRayOrigin;
+            if (PickingGround)
+            {
+                floor = selectedRayFloor;
+                return isActiveAndEnabled && aimingAtGround && rayState.IsTracking(groundTarget);
+            }
+            floor = selectedRayFloor;
+            return isActiveAndEnabled && (UsesEncounterModes ? EncounterCombat : useRayNavigation) &&
+                CandidateNode && rayState.IsTracking(CandidateNode);
+        }
+        readonly List<NavigationNode> connectedNodes = new();
+        readonly HashSet<NavigationNode> visitedNodes = new();
+        internal IReadOnlyList<NavigationNode> NearbyNavigationNodes
+        {
+            get
+            {
+                if (!currentNode) return NavigationNode.ActiveNodes;
+                if (!UsesEncounterModes) return currentNode.neighbors;
+                // Follow authored one-way edges. Disabled nodes also break the route.
+                connectedNodes.Clear();
+                visitedNodes.Clear();
+                visitedNodes.Add(currentNode);
+                void AddNeighbors(NavigationNode parent)
+                {
+                    if (parent.neighbors == null) return;
+                    foreach (var node in parent.neighbors)
+                        if (node && node.isActiveAndEnabled && node.gameObject.scene == gameObject.scene &&
+                            NavigationNode.IsRegistered(node) && visitedNodes.Add(node)) connectedNodes.Add(node);
+                }
+                AddNeighbors(currentNode);
+                int first = 0;
+                for (int hop = 1; hop < 4 && first < connectedNodes.Count; hop++)
+                {
+                    int end = connectedNodes.Count;
+                    while (first < end) AddNeighbors(connectedNodes[first++]);
+                }
+                return connectedNodes;
+            }
+        }
         internal bool PreviewNavigationOrigin(out RaycastHit floor)
         {
             floor = default;
             return ReferencesValid() && TryFloor(ExpectedFloor, floorLayers, out floor, out _);
         }
-        internal bool PreviewNavigationLanding(NavigationNode node, Vector3 from, out RaycastHit landing)
+        internal bool PreviewNavigationLanding(NavigationNode node, RaycastHit from, out RaycastHit landing)
         {
             landing = default;
             if (!node || node == currentNode || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene ||
                 !RpgGestureState.Finite(node.floorPosition)) return false;
-            float distance = Vector3.Distance(from, node.floorPosition);
+            float distance = Vector3.Distance(from.point, node.floorPosition);
             if (distance < nodeTolerance || distance > offNodeRange ||
-                !TryNodeDestination(node, from, out landing, out _)) return false;
+                !TryNodeDestination(node, from.point, out landing, out _)) return false;
+            if (PickingGround)
+                return TrySmoothLeg(from, from.point, landing.point - from.point, 0f, out _, out _, out _);
             int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
-            return ClearCapsule(landing, from, obstacles, out _) && Visible(from, landing.point, obstacles);
+            return ClearCapsule(landing, from.point, obstacles, out _) && NavigationPathClear(from, landing, obstacles);
         }
         public string SelectionDetail { get; private set; } = "尚未选点";
         public event Action CancelRequested;
@@ -101,6 +149,7 @@ namespace NarutoVR.SealCombat.Rpg
         readonly MovementEvent<Vector3> movedEvent = new();
         public event Action<Vector3> Moved { add => movedEvent.Add(value); remove => movedEvent.Remove(value); }
         /// <summary>移动执行器确认的世界位移与落点。停止步伐报告零位移，用于重置步距。</summary>
+        internal event Action MovementStarting;
         readonly MovementEvent<MovementResult> movementCommitted = new();
         public event Action<MovementResult> MovementCommitted { add => movementCommitted.Add(value); remove => movementCommitted.Remove(value); }
         void ReportMovement(PlayerMovementKind kind, Vector3 delta)
@@ -123,6 +172,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!RpgGestureState.Finite(lastNow)) { ResetInput(); Status = "闪避时钟无效"; return; }
             if (!ReferencesValid()) { ResetInput(); Status = "请指定有效的Rig根节点与头部锚点"; return; }
             RefreshCurrentNode();
+            if (UsesEncounterModes) frame.leftPointing |= frame.leftNavigationPointing;
             if (frame.leftWrist.y < head.position.y - navigationDropBelowHead) frame.leftPointing = false;
             if (blockActions) inputSmoother.Reset();
             else frame = inputSmoother.Process(frame, smoothing, gestures, now);
@@ -214,12 +264,21 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>Cancel a pending node selection without rearming the held-low cancel gesture.</summary>
         public void CancelPendingNavigation()
         {
+            if (UsesEncounterModes && !EncounterCombat) StopExploration();
             State.InterruptDwell(); rayState.Suspend(); CandidateNode = null; candidateDirection = Vector2.zero; ClearChallenger();
         }
 
         /// <summary>Safe respawn teleport. Requires a registered checkpoint in this scene; adjacency and line of sight do not apply.</summary>
         public bool TryRestoreCheckpoint(NavigationNode node)
         {
+            if (!TryPrepareCheckpointLanding(node, out var delta)) return false;
+            CommitCheckpointLanding(node, delta);
+            return true;
+        }
+
+        internal bool TryPrepareCheckpointLanding(NavigationNode node, out Vector3 delta)
+        {
+            delta = default;
             if (!ReferencesValid() || node == null || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene)
             { Status = "检查点恢复失败：玩家引用或检查点场景无效"; return false; }
             bool registered = false;
@@ -235,16 +294,37 @@ namespace NarutoVR.SealCombat.Rpg
             Vector3 currentFloor = TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out _) ? from.point : ExpectedFloor;
             if (!ClearCapsule(target, currentFloor, obstacles, out reason))
             { Status = "检查点恢复失败：" + reason; return false; }
-            ResetInput();
-            Translate(target.point - currentFloor, PlayerMovementKind.Checkpoint);
-            Status = "已恢复检查点：" + node.nodeId;
+            delta = target.point - currentFloor;
             return true;
+        }
+
+        internal void CommitCheckpointLanding(NavigationNode node, Vector3 delta)
+        {
+            ResetInput();
+            Translate(delta, PlayerMovementKind.Checkpoint);
+            Status = "已恢复检查点：" + node.nodeId;
         }
 
         /// <summary>Explicit simulated action. Uses the same target and physics rules as real input.</summary>
         public bool TryDebugStep(Vector2 direction, double now)
         {
             if (!DebugArgumentsValid(direction, now)) return false;
+            if (PickingGround)
+            {
+                // The desktop buttons have a direction but no hand ray. Probe two metres in that direction.
+                var heading = RpgGestureState.ToWorld(RpgGestureState.Cardinal(direction),
+                    RpgGestureState.HorizontalForward(head.forward, Vector3.forward));
+                var point = ExpectedFloor + heading * Mathf.Min(2f, offNodeRange);
+                if (!SmoothFloor(point, out var floor, out _) || !CanLandAt(floor))
+                {
+                    Status = "模拟选点：该方向地面不可达";
+                    RpgFeedbackSignals.Raise(Feedback, RpgActionCue.Blocked, this);
+                    return false;
+                }
+                ResetInput();
+                CommitExplorationLanding(floor.point);
+                return true;
+            }
             RefreshCurrentNode();
             NavigationNode node = SelectNode(RpgGestureState.Cardinal(direction),
                 RpgGestureState.HorizontalForward(head.forward, Vector3.forward));
@@ -323,7 +403,7 @@ namespace NarutoVR.SealCombat.Rpg
             debugCandidates.Clear(); evaluated = invalidNodes = directionRejected = floorRejected = occupiedRejected = occludedRejected = 0;
             selectionPending = false;
             if (scoring == null || !scoring.Valid) { ClearChallenger(); SelectionDetail = "导航评分参数无效"; return null; }
-            IReadOnlyList<NavigationNode> candidates = NearbyNavigationNodes;
+            IReadOnlyList<NavigationNode> candidates = currentNode ? currentNode.neighbors : NavigationNode.ActiveNodes;
             if (candidates == null) { ClearChallenger(); SelectionDetail = "没有相邻节点"; return null; }
             Vector3 origin = ExpectedFloor;
             Vector3 desired = RpgGestureState.ToWorld(direction, forward).normalized;
@@ -334,7 +414,7 @@ namespace NarutoVR.SealCombat.Rpg
             foreach (NavigationNode node in candidates)
             {
                 evaluated++;
-                if (node == null || node.gameObject.scene != gameObject.scene || node == currentNode || !node.isActiveAndEnabled || !Registered(node) ||
+                if (node == null || node.gameObject.scene != gameObject.scene || node == currentNode || !node.isActiveAndEnabled || !NavigationNode.IsRegistered(node) ||
                     !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
                 Vector3 delta = node.floorPosition - origin;
                 delta.y = 0;
@@ -392,14 +472,14 @@ namespace NarutoVR.SealCombat.Rpg
             bool fresh = double.IsFinite(frame.leftObserved) && frame.leftObserved <= now + .01 &&
                 now - frame.leftObserved <= gestures.sampleMaxAge;
             bool observed = frame.leftValid && fresh && RpgGestureState.Finite(frame.leftIndex) && RpgGestureState.Finite(frame.leftWrist);
-            bool allowed = observed && !blocked && !SealProtectionActive && !frame.bothHandsLow;
+            bool allowed = observed && !frame.leftPoseUnconfirmed && !blocked && !SealProtectionActive && !frame.bothHandsLow;
             debugCandidates.Clear(); evaluated = invalidNodes = directionRejected = floorRejected = occupiedRejected = occludedRejected = 0;
             ClearChallenger();
             NavigationNode next = null;
             bool validRay = frame.leftRayValid && RpgGestureState.Finite(frame.leftRayOrigin) &&
                 RpgGestureState.Finite(frame.leftRayDirection) && frame.leftRayDirection.sqrMagnitude > .0001f;
             if (allowed && frame.leftPointing && validRay && rayNavigation != null && rayNavigation.Valid)
-                next = SelectRayNode(frame);
+                next = SelectRayNode(frame, out selectedRayFloor);
             else SelectionDetail = blocked ? "动作被界面或其他事件占用" : SealProtectionActive ? "双手结印保护" :
                 !observed ? "左手追踪失效或样本过期" : !frame.leftPointing ? "左手未作指向手型或已放下" : "射线无效或配置错误";
             // Loss, ownership and malformed rays never count as a deliberate release.
@@ -407,7 +487,7 @@ namespace NarutoVR.SealCombat.Rpg
             bool changed = next != CandidateNode;
             CandidateNode = next;
             bool confirmed = rayState.Process(next, allowed && (!frame.leftPointing || validRay), release,
-                frame.leftObserved, now, rayNavigation, gestures);
+                frame.leftObserved, now, rayNavigation, gestures, countPreparationTowardsDwell: UsesEncounterModes && EncounterCombat);
             if (changed && next != null) RpgFeedbackSignals.Raise(Feedback, RpgActionCue.TargetSelected, this);
             if (confirmed && next != null)
             {
@@ -418,11 +498,13 @@ namespace NarutoVR.SealCombat.Rpg
             else Status = SelectionDetail + "｜" + rayState.Status + (next ? "：" + next.nodeId : "");
         }
 
-        NavigationNode SelectRayNode(NavigationHandInput frame)
+        NavigationNode SelectRayNode(NavigationHandInput frame, out RaycastHit bestFloor)
         {
+            bestFloor = default;
+            RaycastHit previousFloor = default;
             bool combat=UsesEncounterModes;
             if (combat && !rayNavigation.CombatScoringValid) { SelectionDetail="战斗候选角或评分权重无效"; return null; }
-            IReadOnlyList<NavigationNode> candidates = currentNode != null ? currentNode.neighbors : NavigationNode.ActiveNodes;
+            IReadOnlyList<NavigationNode> candidates = NearbyNavigationNodes;
             if (candidates == null) { SelectionDetail = "没有相邻节点"; return null; }
             if (!TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out string reason))
             { SelectionDetail = "玩家地面无效：" + reason; return null; }
@@ -434,39 +516,33 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 evaluated++;
                 if (node == null || node == currentNode || !node.isActiveAndEnabled || node.gameObject.scene != gameObject.scene ||
-                    !Registered(node) || !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
+                    !NavigationNode.IsRegistered(node) || !RpgGestureState.Finite(node.floorPosition)) { invalidNodes++; continue; }
                 float distance = Vector3.Distance(from.point, node.floorPosition);
                 if (distance < nodeTolerance || distance > offNodeRange) { rangeRejected++; directionRejected++; continue; }
                 NavigationScore score=default;
                 if (!combat && !NavigationTargetScoring.TryEvaluateRay(node.floorPosition, frame.leftRayOrigin,
                     frame.leftRayDirection, rayNavigation.hitRadius, out score)) { angleRejected++; directionRejected++; continue; }
+                if (combat && !NavigationTargetScoring.TryEvaluateCombatRay(rayNavigation,node.floorPosition,
+                    head.position,head.forward,frame.leftRayOrigin,frame.leftRayDirection,distance,offNodeRange,out score))
+                { angleRejected++; directionRejected++; continue; }
                 if (!TryNodeDestination(node, from.point, out RaycastHit destination, out _)) { floorRejected++; continue; }
                 int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
                 if (!ClearCapsule(destination, from.point, obstacles, out _)) { occupiedRejected++; continue; }
-                if (!Visible(from.point, destination.point, obstacles)) { occludedRejected++; continue; }
-                if (combat && !NavigationTargetScoring.TryEvaluateCombatRay(rayNavigation,destination.point,
-                    head.position,head.forward,frame.leftRayOrigin,frame.leftRayDirection,distance,offNodeRange,out score))
-                { angleRejected++; directionRejected++; continue; }
+                if (!NavigationPathClear(from, destination, obstacles)) { occludedRejected++; continue; }
                 int rank = 0;
                 while (rank < debugCandidates.Count && score.total <= debugCandidates[rank].score.total) rank++;
                 if (rank < 3) { debugCandidates.Insert(rank, (node.nodeId, score, distance)); if (debugCandidates.Count > 3) debugCandidates.RemoveAt(3); }
-                if (node == CandidateNode) { previousEligible = true; previousScore = score; }
+                if (node == CandidateNode) { previousEligible = true; previousScore = score; previousFloor = destination; }
                 if (best == null || score.total > bestScore.total || score.total == bestScore.total && string.CompareOrdinal(node.nodeId,best.nodeId) < 0)
-                { best = node; bestScore = score; }
+                { best = node; bestScore = score; bestFloor = destination; }
             }
             // Only a still-eligible, still-reachable target may benefit from hysteresis.
             if (previousEligible && best != CandidateNode && bestScore.total - previousScore.total < rayNavigation.switchAdvantage)
-            { best = CandidateNode; bestScore = previousScore; }
+            { best = CandidateNode; bestScore = previousScore; bestFloor = previousFloor; }
             string result=best ? combat ? $"战斗候选 {best.nodeId}：{bestScore.DescribeCombatRay(rayNavigation)}" :
                 $"射线命中：{best.nodeId}，总分 {bestScore.total:F2} / 射线 {bestScore.handRay:F2}" : "无可达候选";
             SelectionDetail=$"{result}｜排除：{(combat?"角度":"射线未命中")} {angleRejected}，距离 {rangeRejected}，楼层 {floorRejected}，占位 {occupiedRejected}，遮挡 {occludedRejected}";
             return best;
-        }
-
-        static bool Registered(NavigationNode node)
-        {
-            foreach (NavigationNode active in NavigationNode.ActiveNodes) if (active == node) return true;
-            return false;
         }
 
         bool TryMoveToNode(NavigationNode node)
@@ -481,15 +557,20 @@ namespace NarutoVR.SealCombat.Rpg
             // Revalidate current adjacency, dynamic occupancy and floors at the actual execution point.
             Physics.SyncTransforms();
             RefreshCurrentNode();
-            if (node == null || node.gameObject.scene != gameObject.scene || !node.isActiveAndEnabled || (currentNode != null &&
-                (currentNode.neighbors == null || !currentNode.neighbors.Contains(node))))
+            var candidates = NearbyNavigationNodes;
+            bool reachable = false;
+            if (candidates != null)
+                for (int i = 0; i < candidates.Count && !reachable; i++) reachable = candidates[i] == node;
+            if (!node || !reachable || node.gameObject.scene != gameObject.scene || !node.isActiveAndEnabled)
             { Status = "导航失败：节点已失效或不再相邻"; return false; }
             if (!TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out string reason))
             { Status = "导航失败：" + reason; return false; }
+            if ((UsesEncounterModes || useRayNavigation || !currentNode) && Vector3.Distance(from.point, node.floorPosition) > offNodeRange)
+            { Status = "导航失败：超出选点距离"; return false; }
             if (!TryNodeDestination(node, from.point, out RaycastHit target, out reason))
             { Status = "导航失败：" + reason; return false; }
             int obstacles = node.overrideLayers ? node.obstacleLayers.value : obstacleLayers.value;
-            if (!ClearCapsule(target, from.point, obstacles, out reason) || !Visible(from.point, target.point, obstacles))
+            if (!ClearCapsule(target, from.point, obstacles, out reason) || !NavigationPathClear(from, target, obstacles))
             { Status = "导航失败：" + (reason ?? "目标不可见"); return false; }
             Translate(target.point - from.point, PlayerMovementKind.Navigation);
             Status = "已移动至 " + node.nodeId + (useRayNavigation ? "" : "；左指回中立后可再次选择");
@@ -552,11 +633,13 @@ namespace NarutoVR.SealCombat.Rpg
             result = default;
             reason = "未找到合法地面";
             if (!RpgGestureState.Finite(expected)) return false;
-            RaycastHit[] hits = Physics.RaycastAll(expected + Vector3.up * floorSearchUp, Vector3.down,
+            int count = Physics.RaycastNonAlloc(expected + Vector3.up * floorSearchUp, Vector3.down, smoothHits,
                 floorSearchUp + floorSearchDown, floors, QueryTriggerInteraction.Ignore);
+            if (count == smoothHits.Length) return false;
             float best = float.PositiveInfinity;
-            foreach (RaycastHit hit in hits)
+            for (int i = 0; i < count; i++)
             {
+                var hit = smoothHits[i];
                 if (Ignored(hit.collider) || Vector3.Angle(hit.normal, Vector3.up) > maximumSlope) continue;
                 float difference = Mathf.Abs(hit.point.y - expected.y);
                 if (difference > maximumFloorStep || difference >= best) continue;
@@ -571,9 +654,11 @@ namespace NarutoVR.SealCombat.Rpg
         bool ClearCapsule(RaycastHit floor, Vector3 currentFloor, int obstacles, out string reason)
         {
             Capsule(floor, currentFloor, out Vector3 bottom, out Vector3 top, out float radius);
-            foreach (Collider overlap in Physics.OverlapCapsule(bottom, top, radius, obstacles, QueryTriggerInteraction.Ignore))
+            int count = Physics.OverlapCapsuleNonAlloc(bottom, top, radius, smoothOverlaps, obstacles, QueryTriggerInteraction.Ignore);
+            if (count == smoothOverlaps.Length) { reason = "身体附近碰撞密集"; return false; }
+            for (int i = 0; i < count; i++)
             {
-                if (Ignored(overlap)) continue;
+                if (Ignored(smoothOverlaps[i])) continue;
                 reason = "身体占位被阻挡";
                 return false;
             }
@@ -591,14 +676,27 @@ namespace NarutoVR.SealCombat.Rpg
             top = floor.point + Vector3.up * Mathf.Max(bottomHeight, height - radius);
         }
 
+        bool NavigationPathClear(RaycastHit from, RaycastHit to, int obstacles)
+        {
+            if (!Visible(from.point, to.point, obstacles)) return false;
+            if (!UsesEncounterModes) return true;
+            Capsule(from, from.point, out var bottom, out var top, out var radius);
+            Vector3 delta = to.point - from.point;
+            int count = Physics.CapsuleCastNonAlloc(bottom, top, radius, delta.normalized, smoothHits,
+                delta.magnitude, obstacles, QueryTriggerInteraction.Ignore);
+            if (count == smoothHits.Length) return false;
+            for (int i = 0; i < count; i++) if (!Ignored(smoothHits[i].collider)) return false;
+            return true;
+        }
+
         bool Visible(Vector3 from, Vector3 to, int obstacles)
         {
             float eyeHeight = Mathf.Max(0.4f, head.position.y - from.y);
             Vector3 start = from + Vector3.up * eyeHeight;
             Vector3 delta = to + Vector3.up * eyeHeight - start;
-            foreach (RaycastHit hit in Physics.RaycastAll(start, delta.normalized, delta.magnitude,
-                         obstacles, QueryTriggerInteraction.Ignore))
-                if (!Ignored(hit.collider)) return false;
+            int count = Physics.RaycastNonAlloc(start, delta.normalized, smoothHits, delta.magnitude, obstacles, QueryTriggerInteraction.Ignore);
+            if (count == smoothHits.Length) return false;
+            for (int i = 0; i < count; i++) if (!Ignored(smoothHits[i].collider)) return false;
             return true;
         }
 
@@ -607,6 +705,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         void Translate(Vector3 delta, PlayerMovementKind kind)
         {
+            if (delta.sqrMagnitude > 0) MovementStarting?.Invoke();
             inputSmoother.Reset();
             // XZ delta is measured from the current HMD ground projection, preserving room-scale offset.
             var previous = rigRoot.position;
@@ -621,22 +720,23 @@ namespace NarutoVR.SealCombat.Rpg
         {
             var b = new System.Text.StringBuilder();
             bool combatRay=UsesEncounterModes && EncounterCombat;
-            bool rayMode=UsesEncounterModes ? combatRay : useRayNavigation;
-            string mode=UsesEncounterModes ? combatRay ? "战斗头向与手指融合选点" : "探索沿头显朝向行走" :
+            bool rayMode=UsesEncounterModes ? combatRay || PickingGround : useRayNavigation;
+            string mode=UsesEncounterModes ? combatRay ? "战斗头向与手指融合选点" : ExplorationModeName :
                 rayMode ? "射线直接选点（无需食指位移）" : "旧四向位移";
-            b.AppendLine($"导航模式：{mode}；候选 {(CandidateNode ? CandidateNode.nodeId : "无")}");
+            b.AppendLine($"导航模式：{mode}；候选 {LandingDescription}");
             if (rayMode) b.AppendLine($"射线状态：{rayState.Status}；准备 {rayNavigation?.readySeconds:F2}s / 驻留 {rayNavigation?.dwellSeconds:F2}s；等待重备={rayState.NeedsRelease}");
-            b.AppendLine($"左手：{(rawInput.leftValid ? "追踪有效" : "无效")} / 指向={rawInput.leftPointing}；样本年龄 {Age(now,rawInput.leftObserved):0} ms");
+            b.AppendLine($"左手：{(rawInput.leftValid ? "追踪有效" : "无效")} / 指向={rawInput.leftPointing} / 移动手型={rawInput.leftPointing || rawInput.leftNavigationPointing}；样本年龄 {Age(now,rawInput.leftObserved):0} ms");
             b.AppendLine($"右手：{(rawInput.rightValid ? "追踪有效" : "无效")} / 张掌={rawInput.rightOpen}；样本年龄 {Age(now,rawInput.rightObserved):0} ms");
             if (!UsesEncounterModes && !useRayNavigation) b.AppendLine($"导航位移 左右/前后：{State.NavigationDisplacement.x*100:0.0}/{State.NavigationDisplacement.y*100:0.0} cm；阈值 {gestures.directionDistance*100:0.0} cm");
             b.AppendLine($"平滑：{inputSmoother.Status}；位置滞后 {inputSmoother.PositionLag*1000:0.0} mm / 射线差 {inputSmoother.RayLagDegrees:0.0}°");
             b.AppendLine($"原始指尖 {rawInput.leftIndex:F3} → 导航指尖 {filteredInput.leftIndex:F3}");
             b.AppendLine($"原始射线 {rawInput.leftRayDirection:F2} → 导航射线 {filteredInput.leftRayDirection:F2}；有效={filteredInput.leftRayValid}");
-            if (!UsesEncounterModes || combatRay) b.AppendLine($"驻留 {DwellProgress*100:0}% / {(rayMode ? rayNavigation?.dwellSeconds ?? 0 : gestures.dwellSeconds):0.00}s；{(rayMode ? rayState.Status : selectionPending ? "换点确认中，保留进度" : State.NavigationNeedsNeutral ? "等待左手回中" : "等待或累计有效输入")}");
+            if (!UsesEncounterModes || rayMode) b.AppendLine($"驻留 {DwellProgress*100:0}% / {(rayMode ? rayNavigation?.dwellSeconds ?? 0 : gestures.dwellSeconds):0.00}s；{(rayMode ? rayState.Status : selectionPending ? "换点确认中，保留进度" : State.NavigationNeedsNeutral ? "等待左手回中" : "等待或累计有效输入")}");
             if (!UsesEncounterModes && !useRayNavigation) b.AppendLine($"换点候选 {(challenger ? challenger.nodeId : "无")}；优势要求 {scoring?.switchAdvantage:0.00}；已保持 {(challenger ? Math.Max(0,inputNow-challengerSince)*1000 : 0):0} ms");
-            if (!UsesEncounterModes || combatRay) b.AppendLine($"上次候选检查 {evaluated}：无效 {invalidNodes} / 方向距离 {directionRejected} / 地面楼层 {floorRejected} / 占位 {occupiedRejected} / 遮挡 {occludedRejected}");
+            if (!UsesEncounterModes || rayMode) b.AppendLine($"上次候选检查 {evaluated}：无效 {invalidNodes} / 方向距离 {directionRejected} / 地面楼层 {floorRejected} / 占位 {occupiedRejected} / 遮挡 {occludedRejected}");
             if (combatRay && rayNavigation!=null)
                 b.AppendLine($"候选半角 {rayNavigation.combatCandidateAngle:0}°；{SelectionDetail}");
+            if (UsesEncounterModes && !combatRay && walkContact) b.AppendLine($"步行接触：{walkContact.name}");
             if (!UsesEncounterModes || combatRay) foreach(var c in debugCandidates)
                 b.AppendLine(rayMode ? combatRay ? $"{c.id} · {c.distance:0.0}m · 可达 · {c.score.DescribeCombatRay(rayNavigation)}" :
                     $"{c.id} · {c.distance:0.0}m · 总分 {c.score.total:F2} / 射线 {c.score.handRay:F2}" :
@@ -646,6 +746,15 @@ namespace NarutoVR.SealCombat.Rpg
         }
         static double Age(double now, double stamp) => double.IsFinite(now) && double.IsFinite(stamp) ? Math.Max(0,now-stamp)*1000 : -1;
 
-        void OnDisable() { ResetInput(); }
+        internal void RefreshAuthoredMarkers() =>
+            NavigationNode.SetExploring(gameObject.scene, isActiveAndEnabled && UsesEncounterModes && !EncounterCombat);
+
+        void OnEnable() => RefreshAuthoredMarkers();
+
+        void OnDisable()
+        {
+            NavigationNode.SetExploring(gameObject.scene, false);
+            ResetInput();
+        }
     }
 }

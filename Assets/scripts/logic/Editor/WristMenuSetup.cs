@@ -91,7 +91,7 @@ namespace NarutoVR.SealCombat.Editor
                 var origin = new Vector3(0,1000,0);
                 view.ShowLauncher(new Pose(origin+new Vector3(-.36f,-.12f,1.1f),Quaternion.identity));
                 view.ShowPanel(new Pose(origin+new Vector3(.22f,.02f,1.1f),Quaternion.identity),"结印教学",
-                    "火球术 · 已解锁\n触发方式：咒语＋结印\n需要结印：寅\n完整口令：火球术\n组合窗口：8 秒；顺序不限\n消耗 20 MP · 冷却 3 秒\n握住火球，甩手后松开。",
+                    "火球术 · 已解锁\n触发方式：咒语＋结印\n需要结印：律印\n完整口令：火球术\n组合窗口：8 秒；顺序不限\n消耗 20 MP · 冷却 3 秒\n握住火球，甩手后松开。",
                     "2 / 4　放腕保留 · 高亮后轻捏确认\n松开后可再次点击；速查卡不暂停战斗");
                 view.SetDecoration(new Pose(origin+new Vector3(-.36f,-.26f,1.1f),Quaternion.identity),true);
                 view.SetHover("next",.7f);

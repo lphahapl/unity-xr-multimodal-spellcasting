@@ -1,0 +1,235 @@
+{
+  "ArcCabinet": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "hidden back-to-back faces: ArcCabinet (6 pairs) - delete to save tris"
+      ],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [
+        {
+          "where": "ArcCabinet",
+          "tri_pairs": 6
+        }
+      ],
+      "enclosed": [],
+      "objects": {
+        "ArcCabinet": {
+          "verts": 2114,
+          "faces": 4044,
+          "tris": 4044,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 61,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 34.0
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 4044,
+        "dimensions": [
+          2.440000057220459,
+          1.3180655241012573,
+          0.6228042244911194
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 2546,
+        "dimensions": [
+          2.440000057220459,
+          1.3180655241012573,
+          0.6228204965591431
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 1374,
+        "dimensions": [
+          2.4338464736938477,
+          1.31424081325531,
+          0.6194871664047241
+        ],
+        "materials": 1
+      }
+    ]
+  },
+  "BenchDressing": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.1263 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.1263,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "BenchDressing": {
+          "verts": 732,
+          "faces": 1432,
+          "tris": 1432,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 8,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 17.0
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 1432,
+        "dimensions": [
+          1.3200000524520874,
+          0.3393012285232544,
+          0.6809989213943481
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 902,
+        "dimensions": [
+          1.3200000524520874,
+          0.33841264247894287,
+          0.6810033321380615
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 486,
+        "dimensions": [
+          1.3200000524520874,
+          0.3391093611717224,
+          0.681934654712677
+        ],
+        "materials": 1
+      }
+    ]
+  },
+  "HangingDivider": {
+    "qa": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.4132 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.4132,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "HangingDivider": {
+          "verts": 168,
+          "faces": 316,
+          "tris": 316,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 6,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 2.6
+        }
+      }
+    },
+    "roundtrip": [
+      {
+        "level": 0,
+        "tris": 316,
+        "dimensions": [
+          0.20965081453323364,
+          0.4241688847541809,
+          0.025500014424324036
+        ],
+        "materials": 1
+      },
+      {
+        "level": 1,
+        "tris": 198,
+        "dimensions": [
+          0.20965081453323364,
+          0.4241688847541809,
+          0.02476603165268898
+        ],
+        "materials": 1
+      },
+      {
+        "level": 2,
+        "tris": 106,
+        "dimensions": [
+          0.20965081453323364,
+          0.4226771891117096,
+          0.024536587297916412
+        ],
+        "materials": 1
+      }
+    ]
+  }
+}

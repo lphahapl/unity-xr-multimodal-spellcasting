@@ -22,7 +22,10 @@ namespace NarutoVR.SealCombat.Rpg
             if (State != null) return State;
             var state = definition ? definition.CreateState() : new RpgPlayerState();
             state.Tick(0);
-            Model = new PlayerModel(state);
+            var model = new PlayerModel(state);
+            if (definition && (definition.startingSkills == null || !model.Unlock(definition.StartingSkillIds)))
+                throw new System.InvalidOperationException("玩家起始永久技能配置无效或超出上限");
+            Model = model;
             BindPlayerPresentation();
             return State;
         }
@@ -37,7 +40,7 @@ namespace NarutoVR.SealCombat.Rpg
             result = default;
             if (State == null || !State.SettleHit(hitId,amount,gameNow,out result)) return false;
             LastSettledDamage = result;
-            PresentDamage(result);
+            PresentDamage(hitId, result);
             return true;
         }
     }

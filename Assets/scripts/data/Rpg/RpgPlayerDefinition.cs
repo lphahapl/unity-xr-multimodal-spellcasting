@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -15,9 +17,15 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("恢复等待秒数"), Tooltip("成功消耗能量后等待多久开始恢复；暂停不推进游戏时钟。"), Range(0, 86400)]
         public float regenDelay = 2;
 
+        [Header("起始技能")]
+        [InspectorName("起始永久技能"), Tooltip("将技能定义资产拖入列表。创建新角色时永久解锁，已有存档沿用已保存的技能。")]
+        public SkillDefinition[] startingSkills = System.Array.Empty<SkillDefinition>();
+
         [Header("受击反馈")]
         [InspectorName("视口边缘提示强度"), Range(0, 1), Tooltip("实际损失生命时在视野边缘显示短暂朱砂色。设为 0 可关闭。")]
         public float hitVignetteIntensity = 1;
+
+        internal IEnumerable<string> StartingSkillIds => startingSkills.Select(skill => skill ? skill.skillId : null);
 
         public RpgPlayerState CreateState() => new RpgPlayerState(maxHealth, maxMana, manaRegen, regenDelay);
     }

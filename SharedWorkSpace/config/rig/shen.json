@@ -1,0 +1,553 @@
+{
+  "id": "shen",
+  "name": "沈商",
+  "versions": [
+    {
+      "id": "shen",
+      "label": "上一版 · Mixamo",
+      "created": 1795253022550,
+      "filename": "ShenShangMixamo.fbx",
+      "files": [
+        "shen/ShenShangMixamo.fbx",
+        "shen/Material1_BaseColor.png",
+        "shen/Material1_Normal.png"
+      ],
+      "material": {
+        "color": "shen/Material1_BaseColor.png",
+        "normal": "shen/Material1_Normal.png",
+        "metalness": 0
+      },
+      "notes": []
+    },
+    {
+      "id": "hand-left-v2",
+      "label": "左手 · 玩家 V2 · OpenXR",
+      "filename": "PlayerLeftHand.fbx",
+      "files": [
+        "shen-hands-v2/PlayerLeftHand.fbx",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/LeftCuffAlbedo.png"
+      ],
+      "slotAlbedos": {
+        "HandBody": "LeftHandAlbedo.png",
+        "ForearmEnd": "LeftCuffAlbedo.png"
+      },
+      "created": 1795335365981,
+      "notes": [
+        {
+          "id": "hand-left-v2-gemini-first",
+          "created": 1795335841399,
+          "text": "Gemini 网页首轮审阅。26 关节与官方一致，40 组合成姿态通过，腕后 302 个控制点刚性跟腕。完全握拳有 5 对无名指近、中节内侧三角面自交，同侧母版全手 16 对。极限姿态留待修订。左手佩戴准望匣，需实测翻腕穿模。"
+        }
+      ]
+    },
+    {
+      "id": "hand-right-v2",
+      "label": "右手 · 玩家 V2 · OpenXR",
+      "filename": "PlayerRightHand.fbx",
+      "files": [
+        "shen-hands-v2/PlayerRightHand.fbx",
+        "shen-hands-v2/RightHandAlbedo.png",
+        "shen-hands-v2/RightCuffAlbedo.png"
+      ],
+      "slotAlbedos": {
+        "HandBody": "RightHandAlbedo.png",
+        "ForearmEnd": "RightCuffAlbedo.png"
+      },
+      "created": 1795335366027,
+      "notes": [
+        {
+          "id": "hand-right-v2-gemini-first",
+          "created": 1795335841399,
+          "text": "Gemini 网页首轮审阅。26 关节与官方一致，40 组合成姿态通过，腕后 302 个控制点刚性跟腕。完全握拳有 5 对无名指近、中节内侧三角面自交，同侧母版全手 16 对。极限姿态留待修订。无名指需要同角度右手近景复查。"
+        }
+      ]
+    },
+    {
+      "id": "hand-left-v3",
+      "label": "左手 · V3 掌侧修订 · OpenXR",
+      "filename": "PlayerLeftHand.fbx",
+      "files": [
+        "shen-hands-v3/PlayerLeftHand.fbx",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/LeftCuffAlbedo.png"
+      ],
+      "slotAlbedos": {
+        "HandBody": "LeftHandAlbedo.png",
+        "ForearmEnd": "LeftCuffAlbedo.png"
+      },
+      "created": 1795336530132,
+      "notes": [
+        {
+          "id": "gemini-final-left-v3",
+          "text": "Gemini 网页终审、Codex 实测复核均通过。左手 V3 与同侧 Meta OpenXR 母版的 26 关节、绑定矩阵和驱动槽位对应。Unity 61 种合成姿态零自交；V2 完全握拳 5 对、四指勾握 14 对。完全握拳最薄面保留约 12.4% 的静置面积，V2 约 6.3%。302 个腕后控制点 100% 跟随 XRHand_Wrist。原 UV 和手背纹路保留。极限弯曲时，对应点相对各自静置位置的位移矢量与官方最大相差 6.42 mm。待 Quest 实测深握、结印，并佩戴左腕准望匣翻腕核对袖口和表带。",
+          "created": 1795336680278
+        }
+      ]
+    },
+    {
+      "id": "hand-right-v3",
+      "label": "右手 · V3 掌侧修订 · OpenXR",
+      "filename": "PlayerRightHand.fbx",
+      "files": [
+        "shen-hands-v3/PlayerRightHand.fbx",
+        "shen-hands-v2/RightHandAlbedo.png",
+        "shen-hands-v2/RightCuffAlbedo.png"
+      ],
+      "slotAlbedos": {
+        "HandBody": "RightHandAlbedo.png",
+        "ForearmEnd": "RightCuffAlbedo.png"
+      },
+      "created": 1795336530133,
+      "notes": [
+        {
+          "id": "gemini-final-right-v3",
+          "text": "Gemini 网页终审、Codex 实测复核均通过。右手 V3 与同侧 Meta OpenXR 母版的 26 关节、绑定矩阵和驱动槽位对应。Unity 61 种合成姿态零自交；V2 完全握拳 5 对、四指勾握 14 对。完全握拳最薄面保留约 12.4% 的静置面积，V2 约 6.3%。302 个腕后控制点 100% 跟随 XRHand_Wrist。原 UV 和手背纹路保留。极限弯曲时，对应点相对各自静置位置的位移矢量与官方最大相差 6.42 mm。待 Quest 实测深握、双手结印、遮挡后的手追恢复与袖口双目渐隐。",
+          "created": 1795336680278
+        }
+      ]
+    },
+    {
+      "id": "shen-eyelids-jaw",
+      "label": "全身 · 眼皮与下颌修订",
+      "filename": "ShenShang_EyelidsAndJaw.glb",
+      "files": [
+        "shen-eyelids-jaw/ShenShang_EyelidsAndJaw.glb",
+        "shen-eyelids-jaw/Turnaround.jpg"
+      ],
+      "turnaround": "shen-eyelids-jaw/Turnaround.jpg",
+      "created": 1795353008002,
+      "notes": [
+        {
+          "id": "fullbody-appearance",
+          "created": 1795353008002,
+          "text": "最新整身 A 姿外观审阅。顶部「全身三视图」可对照同一 Blender 模型的正面、左侧与背面。此 GLB 固定为当前姿态，查看全身绑定和动作请切换「上一版 · Mixamo」。"
+        }
+      ]
+    },
+    {
+      "id": "shen-proportions",
+      "label": "全身 · 头身比例修订",
+      "filename": "ShenShang_Proportions.glb",
+      "files": [
+        "shen-proportions/ShenShang_Proportions.glb",
+        "shen-proportions/Turnaround.jpg"
+      ],
+      "turnaround": "shen-proportions/Turnaround.jpg",
+      "created": 1795355121637,
+      "notes": [
+        {
+          "id": "proportions-review",
+          "created": 1795355121637,
+          "text": "按定稿 A 姿对齐头顶和鞋底，比对头脸、领口、肩腰轮廓。静态外观审阅，可切回「全身 · 眼皮与下颌修订」看上一版。"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-08",
+      "label": "08 · 自然神态 I（修眼角前）",
+      "created": 1795341754552,
+      "filename": "ShenShang_Archive08.glb",
+      "files": [
+        "shen-archive-08/ShenShang_Archive08.glb",
+        "shen-archive-08/Turnaround.jpg"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780512,
+          "text": "完整 A 姿，用户指定的回退版本。归档于眼角和下颌修改前。"
+        }
+      ],
+      "turnaround": "shen-archive-08/Turnaround.jpg"
+    },
+    {
+      "id": "shen-archive-07",
+      "label": "07 · 额头、面颊与颈部 H2 · 全身",
+      "created": 1795336002812,
+      "filename": "ShenShang_Archive07.glb",
+      "files": [
+        "shen-archive-07/ShenShang_Archive07.glb",
+        "shen-archive-07/Turnaround.jpg"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780610,
+          "text": "额头与远侧面颊回填、后颈与领根贴合后的完整存档。"
+        }
+      ],
+      "turnaround": "shen-archive-07/Turnaround.jpg"
+    },
+    {
+      "id": "shen-archive-06",
+      "label": "06 · 面颊与衣领 G · 全身",
+      "created": 1795332343329,
+      "filename": "ShenShang_Archive06.glb",
+      "files": [
+        "shen-archive-06/ShenShang_Archive06.glb",
+        "shen-archive-06/Turnaround.jpg"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780721,
+          "text": "额头和脖子调整之前保存的整身。"
+        }
+      ],
+      "turnaround": "shen-archive-06/Turnaround.jpg"
+    },
+    {
+      "id": "shen-archive-05",
+      "label": "05 · 衣领与面颊调整前 F · 全身",
+      "created": 1795307191152,
+      "filename": "ShenShang_Archive05.glb",
+      "files": [
+        "shen-archive-05/ShenShang_Archive05.glb",
+        "shen-archive-05/Turnaround.jpg"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780832,
+          "text": "开始面颊、眉眼和衣领新一轮修改前保存的整身。"
+        }
+      ],
+      "turnaround": "shen-archive-05/Turnaround.jpg"
+    },
+    {
+      "id": "shen-archive-04",
+      "label": "04 · 眼皮与嘴唇 · 头部",
+      "created": 1795303029498,
+      "filename": "ShenShang_Archive04.glb",
+      "files": [
+        "shen-archive-04/ShenShang_Archive04.glb"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780889,
+          "text": "原存档范围为头颈、眼球和眼部细节。"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-03",
+      "label": "03 · 眼鼻修订 · 头部",
+      "created": 1795301575158,
+      "filename": "ShenShang_Archive03.glb",
+      "files": [
+        "shen-archive-03/ShenShang_Archive03.glb"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356780928,
+          "text": "原存档范围为头颈、眼球和眼部细节。"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-02",
+      "label": "02 · 五官比例中间稿 · 全身",
+      "created": 1795300066553,
+      "filename": "ShenShang_Archive02.glb",
+      "files": [
+        "shen-archive-02/ShenShang_Archive02.glb",
+        "shen-archive-02/Turnaround.jpg"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356781021,
+          "text": "整身中已包含当期独立存档的头和头发。"
+        }
+      ],
+      "turnaround": "shen-archive-02/Turnaround.jpg"
+    },
+    {
+      "id": "shen-archive-01",
+      "label": "01 · 轮廓初修 · 头脸与头发",
+      "created": 1795292703164,
+      "filename": "ShenShang_Archive01.glb",
+      "files": [
+        "shen-archive-01/ShenShang_Archive01.glb"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356781106,
+          "text": "组合此检查点同一时期保存的头脸与毛发分件，保持源世界坐标。"
+        }
+      ]
+    },
+    {
+      "id": "shen-archive-native",
+      "label": "原生首稿 · 头脸与头发",
+      "created": 1795264444962,
+      "filename": "ShenShang_NativeHead.glb",
+      "files": [
+        "shen-archive-native/ShenShang_NativeHead.glb"
+      ],
+      "notes": [
+        {
+          "id": "archive-origin",
+          "created": 1795356781174,
+          "text": "重做三视图之前的 Blender 原生首审头脸存档。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-single-high",
+      "label": "单图 · 原始高模",
+      "filename": "ShenShang_High.glb",
+      "files": [
+        "shen-old-single-high/ShenShang_High.glb"
+      ],
+      "created": 1795239361927,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "原始单图生成高模，496,900 三角形；内嵌原始底色、法线和金属粗糙度。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-local-rig",
+      "label": "单图 · 本地绑定与准望匣",
+      "filename": "ShenShang_LocalWrist.glb",
+      "files": [
+        "shen-old-local-rig/ShenShang_LocalWrist.glb",
+        "shen-old-local-rig/ShenShang_BaseColor.png",
+        "shen-old-local-rig/ShenShang_Normal.png",
+        "shen-old-local-rig/ShenShang_Metallic.png",
+        "shen-old-local-rig/Zhunwang_BaseColor.png",
+        "shen-old-local-rig/Zhunwang_Normal.png",
+        "shen-old-local-rig/Zhunwang_MetalRough.png"
+      ],
+      "created": 1795248291064,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "原项目 52 骨本地绑定、四枚校准环、修正后的肤色与身体 PBR。按当时 Unity Prefab 的佩戴实测将实体准望匣挂入左前臂骨，保留设备、按键和读数装饰。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-multi-high",
+      "label": "三视图 · 原始高模",
+      "filename": "ShenShang_HunyuanMulti.glb",
+      "files": [
+        "shen-old-multi-high/ShenShang_HunyuanMulti.glb"
+      ],
+      "created": 1795251239153,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "原始三视图生成高模，497,608 三角形；内嵌原底色、法线和金属粗糙度，左腕外观属于原网格。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-first-input",
+      "label": "三视图 · 第一轮送绑",
+      "filename": "ShenShang_FirstInput.glb",
+      "files": [
+        "shen-old-first-input/ShenShang_FirstInput.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png"
+      ],
+      "created": 1795251278005,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "第一轮静态送绑输入，31,998 三角形。当前显示同 UV 的原始 4K PBR，云上传件自带较小的预览色图。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-first-return",
+      "label": "三视图 · 第一轮绑定回件",
+      "filename": "ShenShang_FirstReturn.glb",
+      "files": [
+        "shen-old-first-return/ShenShang_FirstReturn.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png"
+      ],
+      "created": 1795251772145,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "第一轮 Adobe Mixamo 原回件，41 骨，左右手仅有拇指和食指链。保留原文件的两帧 Layer0 片段，显示原始三视图 PBR。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-open-input",
+      "label": "三视图 · 分指送绑",
+      "filename": "ShenShang_OpenInput.glb",
+      "files": [
+        "shen-old-open-input/ShenShang_OpenInput.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/RightHandAlbedo.png"
+      ],
+      "created": 1795252669409,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "重新张臂、张开五指后的静态送绑件，33,094 三角形。身体和 V2 左右手共三个原始材质槽。"
+        }
+      ]
+    },
+    {
+      "id": "shen-old-full-return",
+      "label": "三视图 · 十指绑定原回件",
+      "filename": "ShenShang_FullReturn.glb",
+      "files": [
+        "shen-old-full-return/ShenShang_FullReturn.glb",
+        "shen-old-multi-maps/ArchiveMulti_Color.png",
+        "shen-old-multi-maps/ArchiveMulti_Normal.png",
+        "shen-old-multi-maps/ArchiveMulti_MetalRough.png",
+        "shen-hands-v2/LeftHandAlbedo.png",
+        "shen-hands-v2/RightHandAlbedo.png"
+      ],
+      "created": 1795253022550,
+      "notes": [
+        {
+          "id": "archived-source",
+          "created": 1795360579197,
+          "text": "第二轮 Adobe Mixamo 原回件，65 骨，双手五指各含三节和末端。与「上一版 · Mixamo」为字节相同的源 FBX，本项显示修眼睛之前的 4K 原始身体贴图与 V2 双手底色；保留原始两帧 Layer0 片段。"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r1",
+      "label": "面部对稿 R1",
+      "filename": "ShenShang_FaceMatch_R1.glb",
+      "files": [
+        "shen-face-match-r1/ShenShang_FaceMatch_R1.glb"
+      ],
+      "created": 1795357541009,
+      "notes": [
+        {
+          "id": "r1-origin",
+          "created": 1795364246635,
+          "text": "从眼皮与下颌修订分支对照设定继续雕形。可从正面、35°转面和侧面查看眼睑、颧颊至下颌的变化。该候选独立保存，集合默认仍为 08。"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r2",
+      "label": "面部对稿 R2",
+      "filename": "ShenShang_FaceMatch_R2.glb",
+      "files": [
+        "shen-face-match-r2/ShenShang_FaceMatch_R2.glb"
+      ],
+      "created": 1795375659448,
+      "notes": [
+        {
+          "id": "shen-face-match-r2-review",
+          "created": 1795379061612,
+          "text": "整体审稿中间版。Gemini 在正面和 35° 都指出眉中段露肤、发际线偏齐、眼窝和颧下转折偏平。复核已在 Blender 与工作台冷导同时重现断眉，保留此版供对照。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r3",
+      "label": "面部对稿 R3",
+      "filename": "ShenShang_FaceMatch_R3.glb",
+      "files": [
+        "shen-face-match-r3/ShenShang_FaceMatch_R3.glb"
+      ],
+      "created": 1795379799256,
+      "notes": [
+        {
+          "id": "shen-face-match-r3-review",
+          "created": 1795380571291,
+          "text": "R3 已修复正面和转面两眉中段的穿插，额角、碎发和颧下转折有调整。Gemini 认为是截至本轮最自然的一版，但高而整齐的发际、紧绷的眼神和中下颊形状仍影响身份辨识，作为中间版存档。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r4",
+      "label": "面部对稿 R4",
+      "filename": "ShenShang_FaceMatch_R4.glb",
+      "files": [
+        "shen-face-match-r4/ShenShang_FaceMatch_R4.glb"
+      ],
+      "created": 1795383950196,
+      "notes": [
+        {
+          "id": "shen-face-match-r4-review",
+          "created": 1795385199308,
+          "text": "眉眼、颧点和发际按设定配准。外审认可轮廓接近，但仍认为眼神紧、发束偏整齐，鼻梁有局部橘色。原生三视为审美依据，此工作台文件用颜色属性正确还原了眼球。作为 R5 的修前对照。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r5",
+      "label": "面部对稿 R5",
+      "filename": "ShenShang_FaceMatch_R5.glb",
+      "files": [
+        "shen-face-match-r5/ShenShang_FaceMatch_R5.glb"
+      ],
+      "created": 1795387188432,
+      "notes": [
+        {
+          "id": "shen-face-match-r5-review",
+          "created": 1795388197250,
+          "text": "R5 修正鼻梁橘斑，并将真实参考发束和面部肌理映射到三维模型。实渲与外审都发现眉根比原设厚实，侧面眉弓前凸，颧下过渡偏硬。作为下一版的修前对照。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r6",
+      "label": "面部对稿 R6",
+      "filename": "ShenShang_FaceMatch_R6.glb",
+      "files": [
+        "shen-face-match-r6/ShenShang_FaceMatch_R6.glb"
+      ],
+      "created": 1795390206656,
+      "notes": [
+        {
+          "id": "shen-face-match-r6-review",
+          "created": 1795391165827,
+          "text": "眉弓回收、外眼角沿球面包到颞侧，整体眉形与瞳色恢复。Gemini 认为单看脸有很强的同一人辨识度，整头仍有上庭发缘、颧下明暗转折两项差距，作为面部基准存档。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        }
+      ]
+    },
+    {
+      "id": "shen-face-match-r7",
+      "label": "面部对稿 R7",
+      "filename": "ShenShang_FaceMatch_R7_Display.glb",
+      "files": [
+        "shen-face-match-r7/ShenShang_FaceMatch_R7_Display.glb"
+      ],
+      "created": 1795392309426,
+      "notes": [
+        {
+          "id": "shen-face-match-r7-review",
+          "created": 1795392780276,
+          "text": "Gemini 已确认整张脸比较准确地还原原设，加入发型与颈肩后也可以作为外观候选。额前真实碎发和颧下自然转折是本轮主要变化。建议保留供作者定稿；可选润色为耳后散发、胡茬与颈部风霜感及侧面鼻尖。 https://gemini.google.com/app/6a49eff0f573b63d?dest=create"
+        },
+        {
+          "id": "r7-display-clamp",
+          "created": 1795393719255,
+          "text": "同一份已通过外观审阅的 Blender 模型。工作台将头皮纹理的纵向边缘设为夹紧，修复放大时额前出现的极淡 V 线。送审时的原 GLB 与审阅图已保留。"
+        }
+      ]
+    }
+  ],
+  "defaultVersion": "shen-archive-08"
+}

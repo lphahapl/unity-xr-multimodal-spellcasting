@@ -1,0 +1,788 @@
+{
+  "blender": "5.2.2 LTS",
+  "unit": "metre",
+  "triangles": {
+    "Bed": 952,
+    "Outer": 1868,
+    "Inner": 1240,
+    "Box": 992,
+    "Lid": 736
+  },
+  "bronze_total": 5788,
+  "stone_total_user_provided": 2954,
+  "combined_total": 8742,
+  "assembly_world_y": {
+    "Bed": 0.99,
+    "Outer": 0.99,
+    "Inner": 1.008,
+    "Box": 0.9,
+    "Lid": 1.036
+  },
+  "blender_game_profile": {
+    "Bed": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.02 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.02,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Bed": {
+          "verts": 482,
+          "faces": 952,
+          "tris": 952,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 3,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 16.9
+        }
+      },
+      "performance": {
+        "ok": true,
+        "objects": {
+          "Bed": {
+            "tris": 952,
+            "verts": 482,
+            "materials": 1,
+            "modifiers": [],
+            "uv_maps": 1,
+            "shape_keys": 0
+          }
+        },
+        "total_tris": 952,
+        "total_verts": 482,
+        "draw_calls_est": 1,
+        "unique_materials": 1,
+        "textures": [
+          {
+            "name": "CG_A1_Normal.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_BaseColor.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_MetalSmooth.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          }
+        ],
+        "texture_vram_mb_uncompressed": 64.0,
+        "bones": 0,
+        "kind": "prop",
+        "budget": {
+          "name": "vr",
+          "limits": {
+            "char_tris": 40000,
+            "prop_tris": 10000,
+            "materials": 3,
+            "tex": 2048,
+            "bones": 100
+          },
+          "over": [],
+          "pass": true
+        }
+      }
+    },
+    "Outer": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0005,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Outer": {
+          "verts": 940,
+          "faces": 1868,
+          "tris": 1868,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 4,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 14.7
+        }
+      },
+      "performance": {
+        "ok": true,
+        "objects": {
+          "Outer": {
+            "tris": 1868,
+            "verts": 940,
+            "materials": 1,
+            "modifiers": [],
+            "uv_maps": 1,
+            "shape_keys": 0
+          }
+        },
+        "total_tris": 1868,
+        "total_verts": 940,
+        "draw_calls_est": 1,
+        "unique_materials": 1,
+        "textures": [
+          {
+            "name": "CG_A1_Normal.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_BaseColor.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_MetalSmooth.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          }
+        ],
+        "texture_vram_mb_uncompressed": 64.0,
+        "bones": 0,
+        "kind": "prop",
+        "budget": {
+          "name": "vr",
+          "limits": {
+            "char_tris": 40000,
+            "prop_tris": 10000,
+            "materials": 3,
+            "tex": 2048,
+            "bones": 100
+          },
+          "over": [],
+          "pass": true
+        }
+      }
+    },
+    "Inner": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0003,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Inner": {
+          "verts": 626,
+          "faces": 1240,
+          "tris": 1240,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 4,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 3.7
+        }
+      },
+      "performance": {
+        "ok": true,
+        "objects": {
+          "Inner": {
+            "tris": 1240,
+            "verts": 626,
+            "materials": 1,
+            "modifiers": [],
+            "uv_maps": 1,
+            "shape_keys": 0
+          }
+        },
+        "total_tris": 1240,
+        "total_verts": 626,
+        "draw_calls_est": 1,
+        "unique_materials": 1,
+        "textures": [
+          {
+            "name": "CG_A1_Normal.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_BaseColor.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_MetalSmooth.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          }
+        ],
+        "texture_vram_mb_uncompressed": 64.0,
+        "bones": 0,
+        "kind": "prop",
+        "budget": {
+          "name": "vr",
+          "limits": {
+            "char_tris": 40000,
+            "prop_tris": 10000,
+            "materials": 3,
+            "tex": 2048,
+            "bones": 100
+          },
+          "over": [],
+          "pass": true
+        }
+      }
+    },
+    "Box": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [],
+      "ground_z": 0.0,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Box": {
+          "verts": 506,
+          "faces": 992,
+          "tris": 992,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 5,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 13.2
+        }
+      },
+      "performance": {
+        "ok": true,
+        "objects": {
+          "Box": {
+            "tris": 992,
+            "verts": 506,
+            "materials": 1,
+            "modifiers": [],
+            "uv_maps": 1,
+            "shape_keys": 0
+          }
+        },
+        "total_tris": 992,
+        "total_verts": 506,
+        "draw_calls_est": 1,
+        "unique_materials": 1,
+        "textures": [
+          {
+            "name": "CG_A1_Normal.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_BaseColor.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_MetalSmooth.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          }
+        ],
+        "texture_vram_mb_uncompressed": 64.0,
+        "bones": 0,
+        "kind": "prop",
+        "budget": {
+          "name": "vr",
+          "limits": {
+            "char_tris": 40000,
+            "prop_tris": 10000,
+            "materials": 3,
+            "tex": 2048,
+            "bones": 100
+          },
+          "over": [],
+          "pass": true
+        }
+      }
+    },
+    "Lid": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.035 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.035,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "Lid": {
+          "verts": 372,
+          "faces": 736,
+          "tris": 736,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 6.9
+        }
+      },
+      "performance": {
+        "ok": true,
+        "objects": {
+          "Lid": {
+            "tris": 736,
+            "verts": 372,
+            "materials": 1,
+            "modifiers": [],
+            "uv_maps": 1,
+            "shape_keys": 0
+          }
+        },
+        "total_tris": 736,
+        "total_verts": 372,
+        "draw_calls_est": 1,
+        "unique_materials": 1,
+        "textures": [
+          {
+            "name": "CG_A1_Normal.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_BaseColor.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          },
+          {
+            "name": "CG_A1_MetalSmooth.png",
+            "size": [
+              2048,
+              2048
+            ],
+            "mb": 21.3
+          }
+        ],
+        "texture_vram_mb_uncompressed": 64.0,
+        "bones": 0,
+        "kind": "prop",
+        "budget": {
+          "name": "vr",
+          "limits": {
+            "char_tris": 40000,
+            "prop_tris": 10000,
+            "materials": 3,
+            "tex": 2048,
+            "bones": 100
+          },
+          "over": [],
+          "pass": true
+        }
+      }
+    }
+  },
+  "accepted_warnings": {
+    "Bed": "The foot is 20 mm below its fixed pivot to seat on the stone at Y 0.970 m.",
+    "Lid": "The flange extends 35 mm below its closing pivot at Y 1.036 m."
+  },
+  "rotational_sweep": "1080 triangle-BVH intersection checks passed; 360 relative yaw positions for each of Bed/Outer, Bed/Inner and Outer/Inner.",
+  "fbx_geometry_and_blender_surface_measurements": {
+    "Bed": {
+      "triangles": 952,
+      "bounds_m": [
+        [
+          -0.193,
+          -0.02,
+          -0.193
+        ],
+        [
+          0.193,
+          0.056,
+          0.193
+        ]
+      ]
+    },
+    "Outer": {
+      "triangles": 1868,
+      "bounds_m": [
+        [
+          -0.18,
+          0.0005,
+          -0.18
+        ],
+        [
+          0.18,
+          0.0604,
+          0.18
+        ]
+      ],
+      "groove_vertex_window_unique": [
+        [
+          -0.092,
+          0.01455,
+          0.0
+        ],
+        [
+          -0.091984,
+          0.01455,
+          -0.0017
+        ],
+        [
+          -0.091984,
+          0.01455,
+          0.0017
+        ],
+        [
+          -0.089,
+          0.01525,
+          0.0
+        ],
+        [
+          -0.088984,
+          0.01525,
+          -0.0017
+        ],
+        [
+          -0.088984,
+          0.01525,
+          0.0017
+        ],
+        [
+          0.088984,
+          0.01525,
+          -0.0017
+        ],
+        [
+          0.088984,
+          0.01525,
+          0.0017
+        ],
+        [
+          0.089,
+          0.01525,
+          -0.0
+        ],
+        [
+          0.091984,
+          0.01455,
+          -0.0017
+        ],
+        [
+          0.091984,
+          0.01455,
+          0.0017
+        ],
+        [
+          0.092,
+          0.01455,
+          -0.0
+        ]
+      ],
+      "physical_grip_m": [
+        0.155,
+        0.055,
+        0
+      ],
+      "shoulder_to_floor_m": 0.00145
+    },
+    "Inner": {
+      "triangles": 1240,
+      "bounds_m": [
+        [
+          -0.084,
+          0.0003,
+          -0.084
+        ],
+        [
+          0.084,
+          0.0674,
+          0.084
+        ]
+      ],
+      "physical_grip_m": [
+        0,
+        0.062,
+        0.068
+      ]
+    },
+    "Box": {
+      "triangles": 992,
+      "bounds_m": [
+        [
+          -0.107,
+          0.0,
+          -0.0995
+        ],
+        [
+          0.107,
+          0.105,
+          0.095
+        ]
+      ],
+      "leaf_support_world_y_m": 0.9691
+    },
+    "Lid": {
+      "triangles": 736,
+      "bounds_m": [
+        [
+          -0.108,
+          -0.035,
+          -0.096
+        ],
+        [
+          0.108,
+          0.047,
+          0.096
+        ]
+      ],
+      "minimum_underface_world_y_m": 1.001
+    }
+  },
+  "fbx_names_checked_against_before": {
+    "Bed": [
+      [
+        "Geometry",
+        "Bed"
+      ],
+      [
+        "Model",
+        "Bed"
+      ],
+      [
+        "Material",
+        "CG_A1_Bronze"
+      ]
+    ],
+    "Box": [
+      [
+        "Geometry",
+        "Box"
+      ],
+      [
+        "Model",
+        "Box"
+      ],
+      [
+        "Material",
+        "CG_A1_Bronze"
+      ]
+    ],
+    "Inner": [
+      [
+        "Geometry",
+        "Inner"
+      ],
+      [
+        "Model",
+        "Inner"
+      ],
+      [
+        "Material",
+        "CG_A1_Bronze"
+      ]
+    ],
+    "Lid": [
+      [
+        "Geometry",
+        "Lid"
+      ],
+      [
+        "Model",
+        "Lid"
+      ],
+      [
+        "Material",
+        "CG_A1_Bronze"
+      ]
+    ],
+    "Outer": [
+      [
+        "Geometry",
+        "Outer"
+      ],
+      [
+        "Model",
+        "Outer"
+      ],
+      [
+        "Material",
+        "CG_A1_Bronze"
+      ]
+    ]
+  },
+  "unity_replay": "Reserved for integration. All positions above come from FBX control points or Blender surface tests.",
+  "material": "CG_A1_Bronze (URP/Lit)",
+  "all_meta_byte_identical": true,
+  "material_check": "Original shader, GUID and all texture/parameter bindings. Concurrent serialization added _EMISSION to valid keywords; emission color remains black.",
+  "atlas": {
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "CG_A1_BaseColor": "sRGB _BaseMap",
+    "CG_A1_MetalSmooth": "linear _MetallicGlossMap R metallic A smoothness",
+    "CG_A1_Normal": "tangent-space _BumpMap",
+    "bake_input_matches_final_geometry_and_uv": true
+  },
+  "files_sha256": {
+    "Bed.fbx": "5a3957e1b12de10e7d93f6b317fc44a5cd427fe42b55d393646e5879aa163d8e",
+    "Bed.fbx.meta": "7f9a57c156dda3b4c18846a2044384be3a0126f306aa1a8836bf65d59d6470aa",
+    "Box.fbx": "b1f84250260230789f4dd95525de50b80a2b032a849736c3c7f1562c023162e3",
+    "Box.fbx.meta": "e678ffe53809c39461b9ac04c5e5caf3e4e10d90db10532d77edf2ad3a547f3c",
+    "CG_A1_BaseColor.png": "18d9bd18914ea11bcdbb54dc94dc4fafd076156e483dbcb24876707f33c65f2f",
+    "CG_A1_BaseColor.png.meta": "f3a3e8f59950035f599e9abc31c484f37c698dc2163a948ebfbd90434890b247",
+    "CG_A1_Bronze.mat": "fc579e2274d67f546e93303b8b3a540bb5e45cd6d744ba2abc4657ea1efb5d21",
+    "CG_A1_Bronze.mat.meta": "7a9c7354ec9682f373e3b457b4e32b8422c54d1a0ddeb54772b119b1d82a470b",
+    "CG_A1_MetalSmooth.png": "5a9ce3f7283600d8e826e77fd101b7cfff111de9ff0923b0e0ed26928d6441ed",
+    "CG_A1_MetalSmooth.png.meta": "c4463b46d33dc88199443adbe2ff4cb83b48f0697f2b56c001f0be0a9a734705",
+    "CG_A1_Normal.png": "9ae418666cf7cba327e0ac612b282fc21e90df85a4d44dcc926012ed4dd0d504",
+    "CG_A1_Normal.png.meta": "ed8917f7d493c9502c6fafd1a43704476d2e6c77f001ecdb228bcc091d7bb345",
+    "Inner.fbx": "588983390c4a77551ca85b24a60dbea197afe752933d1de00f82ced2be642159",
+    "Inner.fbx.meta": "93ac02d1c379b95a30c6e1748f5ce1dbb6520e0ae593a7d116003e91153c7804",
+    "Lid.fbx": "8503e4041663cbb7cd72dd3b2a082f52568de92d37ad382366c8d30cc75dce06",
+    "Lid.fbx.meta": "7fbeda7ffb3a1021a16ec4d4aff9fb15c21477a8bd0de39d2fc01adf0c990869",
+    "Outer.fbx": "f067ef48f2b678daf77993ef86d8940aa255a057ea47c06bbafb6aa971c8789f",
+    "Outer.fbx.meta": "7269838dc88237949a44018fa5dd1a65274c257c238983c9d9dbd26dc86e6905"
+  },
+  "source_and_review_sha256": {
+    "atlas.py": "9289bdab1e71e802c4e511303e8266d5c18ec3668b7f66ac6ebd86d05fbfcee1",
+    "ConcentricGauge_A1_Bronze.blend": "08d3f4fb493837e3e4563165a9ca20e3eb4b832fb871e132bb85afdf6bcdfe6b",
+    "forge.py": "067ac954fc3c31da99a5f6ad72e7ed7f37c009b24717dd89ea339870e0872cc9",
+    "Assembled.png": "0fd9f4e6f8e97643b22e361019fbd19838374819ba937dbbbfca38073cb46d82",
+    "Open.png": "78f47600eda72dae6174b7ac631562f96f8ae5b93d766da96e7301157dc32a48",
+    "Topology.png": "97c936f87fad1beb3619847aa263ccd0cd0537dff3a6d4e8357365ee15c430c7"
+  }
+}

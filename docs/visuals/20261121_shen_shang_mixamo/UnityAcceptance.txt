@@ -1,0 +1,24 @@
+Unity 6000.3.10f1 D3D Direct3D11; desktop isolated
+Original Mixamo return ShenShang_Mixamo_Final.fbx SHA256=39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f
+Unity FBX SHA256=39d0ff1ddd3098504833d0c81eb3285d4fc2e5e5f09d08c8cf8409203516cd7f
+Avatar ShenShangMixamoAvatar isHuman=True isValid=True mapped humanoid slots=52
+Body dimensions=(1.679, 1.740, 0.370) m, sole Y=0.000 m
+Skinned meshes=1, tris=33094
+Renderer path: ShenShang_Multi_OpenHands, mesh: ShenShang_Multi_OpenHands, submeshes: 3
+Submesh 0; body, hair, sleeves, wrist device and costume; triangles=28355; material=Assets/Art/Characters/ShenShangMixamo/BodyPreview1_001.mat
+Submesh 1; approved left hand; triangles=2362; material=Assets/Art/PlayerHands/LeftHand.mat
+Submesh 2; approved right hand; triangles=2377; material=Assets/Art/PlayerHands/RightHand.mat
+A renderer toggle hides the whole character. Each hand has its own submesh material slot. The head, hair, sleeves and built-in wrist device share the body submesh; independent object toggles for those regions are unavailable.
+Left mapped finger joints=15/15
+Right mapped finger joints=15/15
+Left Thumb max skin movement=0.0502m, outside hand area=0.0000m
+Left Index max skin movement=0.1186m, outside hand area=0.0000m
+Left Middle max skin movement=0.1310m, outside hand area=0.0000m
+Left Ring max skin movement=0.1247m, outside hand area=0.0000m
+Left Little max skin movement=0.1072m, outside hand area=0.0000m
+Right Thumb max skin movement=0.0500m, outside hand area=0.0000m
+Right Index max skin movement=0.1181m, outside hand area=0.0000m
+Right Middle max skin movement=0.1334m, outside hand area=0.0000m
+Right Ring max skin movement=0.1206m, outside hand area=0.0000m
+Right Little max skin movement=0.1062m, outside hand area=0.0000m
+PASS

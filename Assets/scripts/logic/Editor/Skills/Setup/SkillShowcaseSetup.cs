@@ -59,8 +59,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void BuildScene(Scene scene, SkillScenarioKind kind)
         {
             var controller = scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillInputController>(true)).Single();
-            // New showcases choose the shared VFX configuration explicitly; the base lab can keep basic visuals.
-            controller.catalog = SkillConfigurationSetup.EnsureDefaults();
+            controller.catalog = SkillConfigurationSetup.LoadTrainingCatalog();
             if(controller.view)
             {
                 controller.view.shortcuts.Clear();
@@ -69,9 +68,6 @@ namespace NarutoVR.SealCombat.Editor
             if (!controller.effects || !controller.lab || controller.ConfiguredSkills.Count == 0) throw new InvalidOperationException("复制场景缺少技能、骨骼或效果绑定。");
             font = controller.chineseFont;
             if (!font) throw new InvalidOperationException("原场景缺少中文字体，无法生成可读试炼说明。");
-            controller.effects.fireballPrefab = LoadPrefab(SkillVisualAssets.FireballPath);
-            controller.effects.shieldPrefab = LoadPrefab(SkillVisualAssets.ShieldPath);
-            controller.effects.impactPrefab = LoadPrefab(SkillVisualAssets.ImpactPath);
             controller.statusText.canvas.sortingOrder = 100;
             // Only copied training targets are replaced; the original scene and tracking rig are never touched.
             foreach (var target in scene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<SkillTrainingTarget>(true)).ToArray())
@@ -86,7 +82,7 @@ namespace NarutoVR.SealCombat.Editor
             else BuildCombo(root, scenario);
             scenario.worldText = WorldPanel(root, "试炼说明", scenario.title + "\n\n" + scenario.instructions,
                 new Vector3(2.85f, 1.8f, 1.75f), new Vector2(940, kind == SkillScenarioKind.FireballRange ? 650 : 1000), .0016f, cyan, 34);
-            if (controller.statusText) controller.statusText.text = scenario.title + "\n\n原有三种配方与骨骼追踪保留。\n\n播放后显示实时语音、匹配、护盾和施法状态。";
+            if (controller.statusText) controller.statusText.text = scenario.title + "\n\n当前技能与输入状态\n\n播放后显示实时语音、匹配、护盾和施法状态。";
         }
 
         [MenuItem("Tools/NarutoVR/技能展示/修复头显面板遮挡")]
@@ -118,7 +114,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void BuildFireball(Transform root, SkillScenario scenario)
         {
             scenario.title = "焰道 · 火球靶场";
-            scenario.instructions = "寅印 ＋ “火球术” → 右手火球\n准备后向前轻推发射\n\n三只漂浮靶：3米 / 5米 / 7米\n青色地面箭头指向射击方向\n侧墙后另有阻挡测试靶\n\n取消：张开双手，或“取消施法”";
+            scenario.instructions = "律印 ＋ “火球术” → 右手火球\n抓握瞄准，松手投掷\n\n三只漂浮靶：3米 / 5米 / 7米\n青色地面箭头指向射击方向\n侧墙后另有阻挡测试靶\n\n取消：张开双手，或“取消施法”";
             Box(root, "庭院石台", new Vector3(0, -.28f, 3.6f), new Vector3(13, .5f, 13), stone, true);
             for (int z = -1; z <= 9; z++)
                 for (int x = -4; x <= 4; x++)
@@ -153,7 +149,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void BuildShield(Transform root, SkillScenario scenario)
         {
             scenario.title = "澄心 · 护盾试炼";
-            scenario.instructions = "子印 或 “护体咒” → 自身护盾\n首次获得护盾后自动开始\n0.5 秒后首击，此后每 2.5 秒\n每次 30 点，最多 4 次\n\nF8：准备 / 停止一轮测试\n未吸收伤害只报告，不扣玩家生命\n玩家生命系统尚未接入";
+            scenario.instructions = "规印 或 “护体咒” → 自身护盾\n首次获得护盾后自动开始\n0.5 秒后首击，此后每 2.5 秒\n每次 30 点，最多 4 次\n\nF8：准备 / 停止一轮测试\n未吸收伤害只报告，不扣玩家生命\n玩家生命系统尚未接入";
             var center = new Vector3(0, 0, 3);
             Cylinder(root, "圆形试炼台基座", center + Vector3.down * .22f, new Vector3(12, .2f, 12), stone, true);
             Cylinder(root, "青蓝内台", center + Vector3.down * .005f, new Vector3(10.8f, .015f, 10.8f), dark);
@@ -185,7 +181,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void BuildCombo(Transform root, SkillScenario scenario)
         {
             scenario.title = "合契 · 组合施法试炼";
-            scenario.instructions = "同一 8 秒窗口，顺序不限\n\n① 先完成寅印，再念“火球术”\n② 先念“火球术”，再完成寅印\n\n匹配后火球立即生成到右手\n向前轻推，命中远端训练靶\n\n地面阵法为场景美术；没有领域效果\n当前按关键词触发，请直接念口令；\n否定句也可能命中。";
+            scenario.instructions = "同一 8 秒窗口，顺序不限\n\n① 先完成律印，再念“火球术”\n② 先念“火球术”，再完成律印\n\n匹配后火球立即生成到右手\n松手投掷，命中远端训练靶\n\n地面阵法为场景美术；没有领域效果\n当前按关键词触发，请直接念口令；\n否定句也可能命中。";
             var center = new Vector3(0, 0, 4);
             Cylinder(root, "几何阵台", center + Vector3.down * .25f, new Vector3(14, .23f, 14), stone, true);
             Cylinder(root, "阵台暗面", center + Vector3.down * .005f, new Vector3(13.3f, .015f, 13.3f), dark);
@@ -201,7 +197,7 @@ namespace NarutoVR.SealCombat.Editor
             }
             for (int i = 0; i < vertices.Length; i++) Line(root, "八向几何契线", vertices[i], vertices[(i + 3) % 8], i % 2 == 0 ? violet : cyan, .028f);
             Header(root, "合 契  /  八 秒 双 向 施 法", new Vector3(0, 4.8f, 9.7f), violet);
-            WorldPanel(root, "先印后咒说明", "01  先印后咒\n\n完成寅印\n↓\n8 秒内念“火球术”", new Vector3(-2.65f, 1.9f, 2.75f), new Vector2(900, 570), .00165f, violet, 37);
+            WorldPanel(root, "先印后咒说明", "01  先印后咒\n\n完成律印\n↓\n8 秒内念“火球术”", new Vector3(-2.65f, 1.9f, 2.75f), new Vector2(900, 570), .00165f, violet, 37);
             Target(root, new Vector3(0, 1.7f, 8.3f), "组合验证靶 · 正前方", cyan);
             Target(root, new Vector3(-2.25f, 1.7f, 7.4f), "左侧训练靶", violet);
             Target(root, new Vector3(2.25f, 1.7f, 7.4f), "右侧训练靶", cyan);

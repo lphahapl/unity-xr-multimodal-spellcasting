@@ -94,9 +94,37 @@ def strip(samples, flow_direction=1):
             for j in range(4):
                 k=initial+(i-1)*5+j
                 indices.extend([k,k+5,k+1,k+1,k+5,k+6])
-def make_mesh():
-    z_values=np.unique(np.round(np.r_[np.arange(49.32,61.285,.20),[49.32,50.12,50.25,50.40,50.53,61.285]],4))
-    strip([main_band(z) for z in z_values])
+def wet_lining(stations):
+    """Face the existing bed and its bevels. Stop at the wet edge of the exposed shelf."""
+    faces = []
+    previous = None
+    for z in stations:
+        water, _, _, _ = main_band(z)
+        left = max(.113, water[0, 0])
+        waterline = water[-1, 1] + .024 + .004 * np.sin(5.4*z)
+        bank_x = .998 + (waterline - .123) * (.05/.332)
+        # Preserve the sloping transition of the original channel and its dry shelf.
+        left_bank = 1 - smooth(.113, .16, left)
+        profile = [(left, .097), (.967, .097), (.998, .124), (bank_x, waterline)]
+        if left_bank > 0:
+            profile = [(left - left_bank*(left-.082+(waterline-.123)*.15), .097+left_bank*(waterline-.097)),
+                       (left-left_bank*(left-.082), .097+left_bank*.027)] + profile
+        start = len(rows)
+        for j, (x, y) in enumerate(profile):
+            dx, dy = unit(np.subtract(profile[min(j+1,len(profile)-1)], profile[max(j-1,0)]))
+            # Wet stone uses this metric UV; independent of the animated water UV.
+            rows.append([x,y,z, -dy,dx,0, dx,dy,0,-1, (x+abs(y-.097))*.86,z*.86, 0,0,0,0])
+        if previous is not None:
+            old_start, old_count = previous
+            common = min(len(profile), old_count)
+            for j in range(common-1):
+                a = old_start + old_count-common+j
+                b = start + len(profile)-common+j
+                faces.extend([a,b,a+1,a+1,b,b+1])
+        previous = start, len(profile)
+    return faces
+
+def elevated_stream():
     points=np.array([[.41,.117,52.02,.41],[.416,.138,52.23,.44],[.425,.171,52.44,.51],[.442,.258,52.68,.55],[.45,.55,53.10,.52],[.39,.86,53.65,.50],
         [-.06,1.43,54.40,.51],[-.68,2.20,55.15,.48],[-1.34,2.94,55.90,.36]])
     length=np.linalg.norm(np.diff(points[:,:3],axis=0),axis=1).sum()
@@ -119,28 +147,107 @@ def make_mesh():
         # The low end is the landing. Keep visible turbulence there and a quieter high source.
         foam=.82*np.exp(-((distance-.46)/.46)**2)+.14*smooth(length-.70,length-.05,distance)
         samples.append((np.array(pts),width,float(smooth(.28,1.18,distance)),foam))
+    return samples
+
+def courtyard_spill():
+    """Water rests in the stone lip before leaving it and falling into the gauge pool."""
+    samples = []
+    for x in np.linspace(.51, .016, 17):
+        flight = max(0., (x-.168)/(.51-.168))
+        y = .352 - .222*flight**2
+        width = .268 + .042*flight
+        pts = np.array([[x, y+.004*flight*np.sin(np.pi*u), 52.52+(u-.5)*width]
+                        for u in cross_section])
+        samples.append((pts, width, min(1., flight*2), .6*flight))
+    return samples
+
+def stone_spout():
+    # U-shaped stone channel embedded in the inner bank. The water and stone share the lip at x=.168.
+    back, lip = .005, .168
+    base, floor, rim = .267, .337, .391
+    outer, inner = .196, .135
+    profile = [(-outer,base),(outer,base),(outer,rim),(inner,rim),
+               (inner,floor),(-inner,floor),(-inner,rim),(-outer,rim)]
+    faces = []
+    def quad(points):
+        p = np.array(points)
+        tangent = unit(p[1]-p[0])
+        normal = unit(np.cross(tangent,p[3]-p[0]))
+        bitangent = np.cross(normal,tangent)
+        start = len(rows)
+        for v in p:
+            rows.append([*v,*normal,*tangent,1, np.dot(v,tangent)*1.8,np.dot(v,bitangent)*1.8,0,0,0,0])
+        faces.extend(start+i for i in (0,1,2,0,2,3))
+    def point(x, zy):
+        return (x, zy[1], 52.52+zy[0])
+    for i, a in enumerate(profile):
+        b = profile[(i+1)%len(profile)]
+        quad([point(back,a),point(lip,a),point(lip,b),point(back,b)])
+    for z0,z1,y0,y1 in [(-outer,outer,base,floor),(-outer,-inner,floor,rim),(inner,outer,floor,rim)]:
+        corners = [(z0,y0),(z0,y1),(z1,y1),(z1,y0)]
+        quad([point(lip,c) for c in corners])
+        quad([point(back,c) for c in reversed(corners)])
+    return faces
+
+def make_mesh(courtyard=False):
+    rows.clear()
+    indices.clear()
+    z_values=np.unique(np.round(np.r_[np.arange(49.32,61.285,.20),[49.32,50.12,50.25,50.40,50.53,61.285]],4))
+    strip([main_band(z) for z in z_values])
+    main_index_count = len(indices)
+    samples = courtyard_spill() if courtyard else elevated_stream()
     # Stations are authored from the shared pool upwards. Their signed phase and
     # longitudinal ripple normal point downhill, towards the phase-matched landing.
     strip(samples, flow_direction=-1)
+    # Split along existing station edges so the transparent reach meets the opaque canal exactly.
+    far_indices, near_indices = [], []
+    for i in range(0, main_index_count, 3):
+        triangle = indices[i:i+3]
+        z = sum(rows[v][2] for v in triangle) / 3.
+        (near_indices if 50.12 <= z < 55.92 else far_indices).extend(triangle)
+    near_indices.extend(indices[main_index_count:])
+    bed_indices = wet_lining(z_values[(z_values >= 50.12) & (z_values <= 55.92)])
+    if courtyard:
+        bed_indices.extend(stone_spout())
+    groups = [far_indices, near_indices, bed_indices]
+    flat_indices = [v for group in groups for v in group]
     rows_np=np.array(rows,dtype='<f4');positions=rows_np[:,:3]
     low=positions.min(axis=0)-[.035,.035,.035];high=positions.max(axis=0)+[.035,.035,.035]
     center=(low+high)*.5;ext=(high-low)*.5
-    asset=ASSETS/'Meshes/Chapter01/CanalRibbon.asset';s=(HERE/'CanalRibbon.template.yml').read_text(encoding='utf8')
+    asset=ASSETS/('Art/Environment/Opening/CourtLayout/CourtGaugeChannel.asset' if courtyard else 'Meshes/Chapter01/CanalRibbon.asset')
+    asset.parent.mkdir(parents=True,exist_ok=True)
+    s=(HERE/'CanalRibbon.template.yml').read_text(encoding='utf8').replace('m_Name: CanalRibbon','m_Name: '+asset.stem)
     def assign(name,value):
         nonlocal s
         s=re.sub(r'(?m)^(\s*'+name+r': ).*$',lambda m:m[1]+str(value),s)
-    assign('indexCount',len(indices));assign('vertexCount',len(rows));assign('m_VertexCount',len(rows))
-    assign('m_DataSize',rows_np.nbytes);assign('m_IndexBuffer',np.asarray(indices,'<u2').tobytes().hex());assign('_typelessdata',rows_np.tobytes().hex())
+    assign('m_VertexCount',len(rows))
+    assign('m_DataSize',rows_np.nbytes);assign('m_IndexBuffer',np.asarray(flat_indices,'<u2').tobytes().hex());assign('_typelessdata',rows_np.tobytes().hex())
     for key,vec in [('m_Center',center),('m_Extent',ext)]:assign(key,'{'+', '.join(c+': '+format(v,'.7g') for c,v in zip('xyz',vec))+'}')
+    template = re.search(r'(?s)(?<=  m_SubMeshes:\n)(.*?)(?=  m_Shapes:)',s)[0]
+    descriptors, levels = [], []
+    offset = 0
+    for group in groups:
+        block = template
+        for key,val in [('firstByte',2*offset),('indexCount',len(group)),('firstVertex',min(group)),('vertexCount',max(group)-min(group)+1)]:
+            block = re.sub(r'(?m)^(    '+key+r': ).*$',lambda m:m[1]+str(val),block)
+        descriptors.append(block)
+        levels.append(f'    - serializedVersion: 2\n      m_Levels:\n      - serializedVersion: 1\n        m_IndexStart: {offset}\n        m_IndexCount: {len(group)}\n')
+        offset += len(group)
+    s = s.replace(template, ''.join(descriptors),1)
+    s = s[:s.index('    m_SubMeshes:',s.index('  m_MeshLodInfo:'))]+'    m_SubMeshes:\n'+''.join(levels)
     chans=[(0,3),(12,3),(24,4),(0,0),(40,2),(48,4)]+[(0,0)]*8
     channel_text=''.join('    - stream: 0\n      offset: '+str(o)+'\n      format: 0\n      dimension: '+str(d)+'\n' for o,d in chans)
     s=re.sub(r'(?s)(    m_Channels:\n).*?(    m_DataSize:)',lambda m:m[1]+channel_text+m[2],s)
-    asset.write_text(s,encoding='utf8');print(f'{len(rows)} vertices; {len(indices)//3} tris; AABB {center} {ext} | {len(z_values)} main stations, {len(path)} fall stations')
+    asset.write_text(s,encoding='utf8');print(f'{len(rows)} vertices; triangles by material {[len(g)//3 for g in groups]}')
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-root',type=Path,default=PROJECT,
                         help='Project-style output folder. An empty temporary folder can be used for independent validation.')
-    ASSETS=parser.parse_args().output_root.resolve()/'Assets'
+    parser.add_argument('--courtyard',action='store_true',help='Rebuild the courtyard gauge mesh with its bank outlet.')
+    args=parser.parse_args()
+    ASSETS=args.output_root.resolve()/'Assets'
     (ASSETS/'Materials/Chapter01').mkdir(parents=True,exist_ok=True)
     (ASSETS/'Meshes/Chapter01').mkdir(parents=True,exist_ok=True)
-    make_pattern();make_mesh()
+    if not args.courtyard:
+        make_pattern()
+    make_mesh(args.courtyard)

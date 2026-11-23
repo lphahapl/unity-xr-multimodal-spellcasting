@@ -14,7 +14,7 @@ namespace NarutoVR.SealCombat.Editor
             int checks = 0;
             void Check(bool ok,string message) { if (!ok) throw new Exception("腕饰检查："+message); checks++; }
             var s = new WristMenuSettings { activation=WristMenuActivation.RaiseFist }; // Legacy comparison path.
-            WristMenuInput f = Sample(0);
+            PlayerHandObservation f = Sample(0);
             var state = new WristMenuState();
             for (int i=0;i<5;i++) state.Tick(f,false,false,i*.025,s);
             Check(!state.LauncherOpen,"重复快照不能累计开启时间");
@@ -64,13 +64,14 @@ namespace NarutoVR.SealCombat.Editor
                 menu.settings.activation=WristMenuActivation.RaiseFist;
                 var rpg = root.AddComponent<LinearRpgController>();
                 rpg.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)rpg.chapter).rpg = rpg; ((TrainingChapterFlow)rpg.chapter).initialSkills = new[]{"fireball"}; var locomotion=root.AddComponent<RpgLocomotionController>();
+                ((TrainingChapterFlow)rpg.chapter).rpg = rpg;
+                rpg.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath); var locomotion=root.AddComponent<RpgLocomotionController>();
                 rpg.locomotion=locomotion; locomotion.rigRoot=root.transform;
                 var head=new GameObject("头部"); head.transform.SetParent(root.transform); head.transform.position=new Vector3(0,1.7f,0); locomotion.head=head.transform;
                 CheckPlayerInputBoundary(rpg, menu, Check);
                 root.SetActive(true); view.EnsureBuilt(); view.audioFeedback=false;
-                int targetCount=view.Targets.Count; view.EnsureBuilt();
-                Check(targetCount==10 && view.Targets.Count==10,"视图重复构建不能复制十个目标（含故障时才显示的麦克风重试）");
+                view.EnsureBuilt();
+                Check(HasExpectedTargets(view),"重复构建后各入口和面板按钮均应只存在一个");
                 for (int i=0;i<10;i++) menu.Tick(Sample(10+i*.05),rpg,false,10+i*.05);
                 Check(menu.State.LauncherOpen,"完整控制器可通过输入DTO开启入口");
                 RectTransform seal=view.Targets.Single(t=>t.id=="seal").rect;
@@ -124,8 +125,17 @@ namespace NarutoVR.SealCombat.Editor
                 Check(!menu.PanelOpen,"同一子面板切换为随腕策略后应放腕关闭");
                 Check(WristMenuController.TryRay(seal,seal.position-seal.forward*.4f,seal.forward,1,out _,out float distance) && Mathf.Abs(distance-.4f)<.001f,"射线正面命中距离准确");
                 Check(!WristMenuController.TryRay(seal,seal.position+seal.forward*.4f,-seal.forward,1,out _,out _),"背面射线不能穿透点击");
+                f=Sample(11.45); f.raySource="检查光线"; f.pinchDistance=.049f;
+                menu.Tick(f,rpg,false,11.45);
+                string detail=menu.PointerStatus;
+                Check(detail.Contains("射线来源=检查光线") && detail.Contains("轻捏=49毫米"),"按需诊断保留当前射线来源及真实指距");
+                f=Sample(11.5); f.systemPinch=true; f.systemPressed=true;
+                menu.Tick(f,rpg,true,11.5,"右手已占用");
+                detail=menu.PointerStatus;
+                Check(detail.Contains("轻捏=系统按下") && detail.Contains("外部门控=右手已占用"),"切换输入及门控后立即显示新诊断");
                 menu.ResetForWorldChange();
                 Check(!menu.PanelOpen && !menu.State.LauncherOpen,"世界坐标改变关闭旧界面并清空点击历史");
+                Check(!menu.PointerVisible && menu.PointerStatus=="等待输入","空间重置后清除旧射线读数");
                 var materialCount=Resources.FindObjectsOfTypeAll<Material>().Count(m=>m.name.StartsWith("腕饰 ·"));
                 Check(materialCount>=3,"程序化腕饰材质已建立");
             }
@@ -139,7 +149,8 @@ namespace NarutoVR.SealCombat.Editor
             input.SetActive(false);
             var previousSkills = rpg.skills;
             var previousMenu = rpg.wristMenu;
-            float previousMaxAge = menu.settings.maxAge;
+            var previousTracking = rpg.handTracking;
+            float previousMaxAge = rpg.handSampleMaxAge;
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             var boundary = typeof(PlayerInputController).GetField("inputReadyAt", flags);
             double previousBoundary = (double)boundary.GetValue(rpg.Input);
@@ -147,7 +158,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var lab = input.AddComponent<NarutoVR.SealLab.SealLab>();
                 rpg.skills = input.AddComponent<SkillInputController>();
-                rpg.skills.lab = lab;
+                rpg.skills.lab = rpg.handTracking = lab;
                 rpg.wristMenu = menu;
                 var frame = new NarutoVR.SealLab.SealFrame();
                 int wrist = (int)Oculus.Interaction.Input.HandJointId.HandWristRoot;
@@ -158,10 +169,11 @@ namespace NarutoVR.SealCombat.Editor
                 }
                 typeof(NarutoVR.SealLab.SealLab).GetProperty(nameof(lab.Frame)).SetValue(lab, frame);
                 // 所有样本都在当前时间之前，单独检验装配边界，机器负载不会使新帧因样本过期而误报。
-                menu.settings.maxAge = float.MaxValue;
+                rpg.handSampleMaxAge = float.MaxValue;
+                rpg.wristMenu = null;
                 double cutoff = Time.realtimeSinceStartupAsDouble - 1;
                 boundary.SetValue(rpg.Input, cutoff);
-                WristMenuInput Read(double left, double right)
+                PlayerHandObservation Read(double left, double right)
                 {
                     frame.left.observedAt = left;
                     frame.right.observedAt = right;
@@ -180,7 +192,8 @@ namespace NarutoVR.SealCombat.Editor
             finally
             {
                 boundary.SetValue(rpg.Input, previousBoundary);
-                menu.settings.maxAge = previousMaxAge;
+                rpg.handSampleMaxAge = previousMaxAge;
+                rpg.handTracking = previousTracking;
                 rpg.skills = previousSkills;
                 rpg.wristMenu = previousMenu;
                 UnityEngine.Object.DestroyImmediate(input);
@@ -194,6 +207,7 @@ namespace NarutoVR.SealCombat.Editor
             var root = new GameObject("腕匣麦克风恢复检查") { hideFlags=HideFlags.HideAndDontSave };
             root.SetActive(false);
             var skill = ScriptableObject.CreateInstance<SkillDefinition>();
+            var catalog = ScriptableObject.CreateInstance<SkillCatalog>();
             int checks = 0;
             void Check(bool ok,string message) { if (!ok) throw new Exception("腕匣麦克风检查："+message); checks++; }
             const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
@@ -209,7 +223,7 @@ namespace NarutoVR.SealCombat.Editor
                 var capture=root.AddComponent<NativeSkillVoiceSource>();
                 Field(receiver,"nativeSource",capture); Field(menu,"owner",rpg);
                 skill.skillId="retry.check"; skill.displayName="恢复检查"; skill.phrase="测试口令";
-                skill.triggerMode=SkillTriggerMode.VoiceOnly; rpg.skills.skills.Add(skill);
+                skill.triggerMode=SkillTriggerMode.VoiceOnly; rpg.skills.catalog=catalog; catalog.skills.Add(skill);
                 var execute=typeof(WristMenuController).GetMethod("Execute",flags);
                 var refresh=typeof(WristMenuController).GetMethod("RefreshPanel",flags);
                 void Open(string command) => execute.Invoke(menu,new object[]{command});
@@ -233,10 +247,17 @@ namespace NarutoVR.SealCombat.Editor
                 Check(!root.activeInHierarchy,"检查未启用麦克风及玩法组件");
                 view.ReleaseVisuals(true);
             }
-            finally { UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(skill); }
+            finally { UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(skill); UnityEngine.Object.DestroyImmediate(catalog); }
             return checks;
         }
-        public static WristMenuInput Sample(double time) => new()
+        internal static bool HasExpectedTargets(WristMenuView view)
+        {
+            string[] ids = { "seal", "glyph", "voice", "status", "follow", "drag", "retry-microphone",
+                "previous", "next", "relocate", "close", "right-status", "seal-hints", "exploration" };
+            return view.Targets.Count == ids.Length && ids.All(id => view.Targets.Count(target => target.id == id) == 1);
+        }
+
+        public static PlayerHandObservation Sample(double time) => new()
         {
             leftValid=true,rightValid=true,leftClosed=true,wristFacing=true,leftObserved=time,rightObserved=time,
             leftWrist=new Vector3(-.12f,1.48f,.38f),leftRotation=Quaternion.identity,

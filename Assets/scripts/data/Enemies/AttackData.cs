@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Enemies
 {
-    public enum AttackShape { [InspectorName("前方扇形")] Sector, [InspectorName("周围圆形")] Circle }
+    public enum AttackShape { [InspectorName("前方扇形")] Sector, [InspectorName("周围圆形")] Circle, [InspectorName("炮口发射")] Projectile }
 
     /// <summary>每个独立动画的一次攻击配置。水平范围以米计，不受模型缩放影响。</summary>
     [Serializable]
@@ -45,6 +45,7 @@ namespace NarutoVR.SealCombat.Enemies
 
         public bool Contains(Vector3 center, Vector3 forward, Vector3 point)
         {
+            if (shape == AttackShape.Projectile) return false;
             Vector3 delta = point - center;
             if (!float.IsFinite(delta.sqrMagnitude) || Mathf.Abs(delta.y) > halfHeight) return false;
             delta.y = forward.y = 0;

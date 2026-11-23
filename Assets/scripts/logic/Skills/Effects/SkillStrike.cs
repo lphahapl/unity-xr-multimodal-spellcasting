@@ -41,7 +41,7 @@ namespace NarutoVR.SealCombat
         }
 
         public static bool Ignore(Collider c, Transform owner, Transform playerRoot) =>
-            !c || !c.enabled || c.transform.IsChildOf(owner) || (playerRoot && c.transform.IsChildOf(playerRoot)) ||
+            !c || !c.enabled || (owner && c.transform.IsChildOf(owner)) || (playerRoot && c.transform.IsChildOf(playerRoot)) ||
             (c.isTrigger && (!c.TryGetComponent<EnemyHitZone>(out var zone) || !zone.isActiveAndEnabled || !zone.Owner));
 
         public bool Apply(string id, float damage, float poiseDamage, Transform attacker) =>

@@ -10,7 +10,9 @@ namespace NarutoVR.SealCombat
         [InspectorName("护盾容量"), Tooltip("本技能成功时刷新到此容量，不与已有护盾相加；时长来自技能配置。"), Min(1)]
         public float capacity = 100;
         [Header("二、护盾表现")]
-        [InspectorName("护盾视觉预置体"), Tooltip("纯视觉资源；留空时使用基础护腕光环。")]
+        [InspectorName("周身盾壳"), Tooltip("根节点带 MeshRenderer 的球壳预制体。预制体以直径 1 米制作，随玩家躯干移动。")]
+        public MeshRenderer bodyPrefab;
+        [InspectorName("附加腕部视觉预置体"), Tooltip("附加在左腕的表现；周身护盾独立跟随玩家。")]
         public GameObject visualPrefab;
         [InspectorName("基础光环材质"), Tooltip("没有视觉预置体时使用；留空自动创建基础材质。")]
         public Material material;

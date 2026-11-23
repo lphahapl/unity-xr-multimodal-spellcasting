@@ -3,13 +3,13 @@ from pathlib import Path
 import json, re, shutil, datetime
 root = Path(__file__).resolve().parent.parent
 selected = {
-    '子': {'L.Index.Curl':2, 'R.Index.Curl':1,
+    '规印': {'L.Index.Curl':2, 'R.Index.Curl':1,
            'Both.WristDistance':2.5, 'Both.PalmAngle':1, 'Both.RightWristInLeft.X':1,
            'Both.RightWristInLeft.Y':2, 'Both.RightWristInLeft.Z':1},
-    '丑': {'L.Index.Curl':2, 'R.Index.Curl':2, 'L.Middle.Curl':1, 'R.Middle.Curl':1,
+    '矩印': {'L.Index.Curl':2, 'R.Index.Curl':2, 'L.Middle.Curl':1, 'R.Middle.Curl':1,
            'Both.WristDistance':1.5, 'Both.PalmAngle':1, 'Both.IndexTipDistance':1.5,
            'Both.IndexDirectionAngle':3, 'Both.RightWristInLeft.Y':1, 'Both.RightWristInLeft.Z':0.5},
-    '寅': {'L.Index.Curl':3, 'R.Index.Curl':3, 'L.Middle.Curl':1.5, 'R.Middle.Curl':1.5,
+    '律印': {'L.Index.Curl':3, 'R.Index.Curl':3, 'L.Middle.Curl':1.5, 'R.Middle.Curl':1.5,
            'Both.IndexTipDistance':3, 'Both.IndexDirectionAngle':2, 'Both.MiddleTipDistance':1,
            'Both.WristDistance':1, 'Both.PalmAngle':0.5}
 }
@@ -28,7 +28,7 @@ for p in data['profiles']:
         r['required'] = False
         r['tolerance'] = 25 if fid.endswith(('Curl','Flexion','Abduction','Angle')) else 0.03 if ('Wrist' in fid) else 0.025
     overrides['profiles'].append(p)
-    asset = root / 'Assets/ScriptableObjects/SealProfile' / (p['sealName'] + '.asset')
+    asset = root / 'Assets/ScriptableObjects/手印识别配置' / (p['sealName'] + '.asset')
     shutil.copy2(asset, backup / asset.name)
     original = asset.read_text(encoding='utf-8-sig')
     config = {r['featureId']: r for r in p['rules']}

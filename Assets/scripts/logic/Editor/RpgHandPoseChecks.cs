@@ -84,6 +84,102 @@ namespace NarutoVR.SealCombat.Editor
                 var input = f.Warm(features: values => Replace(values, "L.Middle.Curl", 210));
                 Require(!input.leftPointing && input.rightOpen, "Neutral不能满足Closed");
             });
+            Check("自然指向步行、握拳快跑转向及追踪失效", f =>
+            {
+                var ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                try
+                {
+                    var rig = f.Controller.transform;
+                    rig.position = new Vector3(60, 0, 60);
+                    f.Lab.recordingOrigin = rig;
+                    ground.transform.position = rig.position + Vector3.down * .1f;
+                    ground.transform.localScale = new Vector3(4, .2f, 4);
+                    Physics.SyncTransforms();
+                    f.Movement.rigRoot = rig;
+                    f.Movement.encounterModesEnabled = true;
+                    f.Movement.SetEncounterCombat(false);
+                    Vector3 start = rig.position;
+                    NavigationHandInput Feed(int index, bool pointing, bool tracked = true, bool curlIndex = false,
+                        bool fist = false, float yaw = 0f, bool steeringJoints = true, bool verticalFist = false)
+                    {
+                        double time = 10 + index * .02;
+                        var input = f.Tick(time, pointing, mutate: frame =>
+                        {
+                            var hand = frame.left;
+                            hand.tracked = tracked;
+                            var wrist = hand.joints[(int)HandJointId.HandWristRoot].position;
+                            var forward = Quaternion.Euler(0f, yaw, 0f) * Quaternion.FromToRotation(Vector3.up, Vector3.forward);
+                            for (int joint = 0; joint < hand.joints.Length; joint++)
+                                hand.joints[joint].position = wrist + forward * (hand.joints[joint].position - wrist);
+                            if (fist)
+                            {
+                                var knuckles = wrist + (verticalFist ? Vector3.up : forward * Vector3.up) * .05f;
+                                var across = forward * (Vector3.right * .0125f);
+                                hand.joints[(int)HandJointId.HandIndex1].position = knuckles - across;
+                                hand.joints[(int)HandJointId.HandMiddle1].position = knuckles + across;
+                            }
+                            if (!steeringJoints) hand.jointValid[(int)HandJointId.HandMiddle1] = false;
+                        }, features: values =>
+                        {
+                            if (!pointing) return;
+                            Replace(values, "L.Middle.Curl", 210);
+                            Replace(values, "L.Ring.Curl", 210);
+                            if (curlIndex) Replace(values, "L.Index.Curl", 260);
+                            if (fist)
+                                foreach (var finger in new[] { HandFinger.Index, HandFinger.Middle, HandFinger.Ring, (HandFinger)4 })
+                                    Replace(values, $"L.{finger}.Curl", 260);
+                        });
+                        Require(!input.leftPointing, "自然弯指或张掌应保留腕部操作的严格手型");
+                        f.Movement.ProcessInput(input, false, false, time);
+                        return input;
+                    }
+                    for (int i = 0; i < 9; i++) Feed(i, true);
+                    var aiming = Feed(9, true);
+                    Require(aiming.leftNavigationPointing && aiming.leftRayValid && rig.position.z > start.z + .08f,
+                        "自然弯指应能起步，同时为战斗选点提供真实食指射线");
+                    for (int i = 10; i < 16; i++) Feed(i, false);
+                    Vector3 stopped = rig.position;
+                    for (int i = 16; i < 24; i++) Feed(i, false);
+                    Require(!f.Movement.NavigationActive && rig.position == stopped, "张掌后应停止步行");
+                    for (int i = 24; i < 32; i++) Feed(i, true);
+                    Require(f.Movement.NavigationActive, "恢复自然指向后应重新起步");
+                    stopped = rig.position;
+                    Feed(32, true, tracked: false);
+                    Require(!f.Movement.NavigationActive && rig.position == stopped, "丢追踪当帧停止");
+                    for (int i = 33; i < 42; i++) Feed(i, true);
+                    Require(f.Movement.NavigationActive, "追踪重新确认后能起步");
+                    for (int i = 42; i < 51; i++) Feed(i, true, curlIndex: true);
+                    Require(!f.Movement.NavigationActive, "其余手指仍弯曲时单独收回食指也应停止");
+                    for (int i = 51; i < 62; i++) Feed(i, true);
+                    for (int i = 62; i < 71; i++) Feed(i, true, fist: true);
+                    Vector3 beforeSprint = rig.position;
+                    var grip = Feed(71, true, fist: true);
+                    float minimumSprintStep = f.Movement.exploreSpeed * .027f;
+                    Require(grip.leftClosed && !grip.leftRayValid && rig.position.z - beforeSprint.z > minimumSprintStep,
+                        "确认左拳后沿拳头方向快跑，食指选点射线未开启");
+                    Vector3 beforeTurn = rig.position;
+                    Feed(72, true, fist: true, yaw: 90f);
+                    Vector3 turned = rig.position - beforeTurn;
+                    Require(turned.x > minimumSprintStep && Mathf.Abs(turned.z) < .001f,
+                        $"保持握拳并向右转拳时应向右快跑，实际位移 {turned:F5}");
+                    beforeTurn = rig.position;
+                    grip = Feed(73, true, fist: true, yaw: -90f, steeringJoints: false);
+                    Require(grip.leftClosed && rig.position.x - beforeTurn.x > minimumSprintStep &&
+                        Mathf.Abs(rig.position.z - beforeTurn.z) < .001f, "指根不可靠时维持最近有效的快跑方向");
+                    beforeTurn = rig.position;
+                    Feed(74, true, fist: true, yaw: -90f);
+                    Require(beforeTurn.x - rig.position.x > minimumSprintStep, "拳头换向后跟随新的朝向");
+                    beforeTurn = rig.position;
+                    Feed(75, true, fist: true, verticalFist: true);
+                    Require(beforeTurn.x - rig.position.x > minimumSprintStep && Mathf.Abs(rig.position.z - beforeTurn.z) < .001f,
+                        "拳头近垂直时保持上次朝向");
+                    stopped = rig.position;
+                    Feed(76, true, tracked: false, fist: true);
+                    for (int i = 77; i < 88; i++) Feed(i, true, fist: true, yaw: 90f);
+                    Require(!f.Movement.NavigationActive && rig.position == stopped, "追踪恢复后原地握拳不会重新起跑");
+                }
+                finally { UnityEngine.Object.DestroyImmediate(ground); }
+            });
             Check("重复快照不能推进确认时间", f =>
             {
                 for (int i = 0; i < 8; i++) Require(!f.Tick(10, now: 10 + i * .01).rightOpen, "渲染轮询不能充当新骨骼");
@@ -210,6 +306,16 @@ namespace NarutoVR.SealCombat.Editor
                     Require(dodges == (held ? 0 : 1), "持球前推必须禁止前闪；无持球正常前闪");
                 }
             });
+            Check("探索指示线只需食指几何，完整手型仍控制驻留", f =>
+            {
+                f.Movement.encounterModesEnabled = true;
+                f.Movement.SetExplorationMode(ExplorationMovement.Teleport);
+                var input = f.Tick(10, features: values => values.RemoveAll(feature => feature.id == "L.Middle.Curl"));
+                Require(input.leftIndexAim && input.leftRayValid && input.leftPoseUnconfirmed && !input.leftNavigationPointing,
+                    "其余手指特征暂缺时仍可显示指示线");
+                input = f.Tick(10.02, mutate: frame => frame.left.jointValid[(int)HandJointId.HandIndexTip] = false);
+                Require(!input.leftIndexAim && !input.leftRayValid, "失去食指尖不得保留指示线");
+            });
             Directory.CreateDirectory("Logs/official-hand-poses");
             File.WriteAllText("Logs/official-hand-poses/pose-checks.json", JsonUtility.ToJson(new Report { passed = true, utc = DateTime.UtcNow.ToString("O"), checks = checks.ToArray() }, true));
             return checks.Count;
@@ -231,7 +337,8 @@ namespace NarutoVR.SealCombat.Editor
                 Movement = root.AddComponent<RpgLocomotionController>(); Movement.head = head.transform;
                 Controller = root.AddComponent<LinearRpgController>();
                 Controller.chapter = root.AddComponent<TrainingChapterFlow>();
-                ((TrainingChapterFlow)Controller.chapter).rpg = Controller; ((TrainingChapterFlow)Controller.chapter).initialSkills = new[]{"fireball"}; Controller.skills = skills; Controller.locomotion = Movement;
+                ((TrainingChapterFlow)Controller.chapter).rpg = Controller;
+                Controller.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath); Controller.skills = skills; Controller.locomotion = Movement;
                 Controller.handPoseSettings = OfficialHandPoseSetup.EnsureProfile();
             }
             public NavigationHandInput Warm(bool pointing = true, Action<SealFrame> mutate = null, Action<List<SealFeature>> features = null)

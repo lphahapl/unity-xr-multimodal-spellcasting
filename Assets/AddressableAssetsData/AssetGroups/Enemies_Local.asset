@@ -15,6 +15,17 @@ MonoBehaviour:
   m_GroupName: Enemies_Local
   m_GUID: 994c2f8b372500e429fa62d604018135
   m_SerializeEntries:
+  - m_GUID: 5e11519f2781b0f468d0ddbf8103df43
+    m_Address: enemies/zhihuocanji
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemyPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd7e52445124ba94d8a64bc8706c8d3d
+    m_Address: models/canjiou-patrol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f3e018d3130a4af41b0e8e6d6ca30331
     m_Address: enemies/canjiou
     m_ReadOnly: 0

@@ -2,7 +2,7 @@
 
 > 文档定位：架构基线与设计约束；文内早期方案不是自动实施指令。当前操作以[移动指南](../guides/ENCOUNTER_LOCOMOTION_ZH.md)、[火球指南](../guides/FIREBALL_TUNING_ZH.md)和[腕饰指南](../guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)为准；功能是否完成须核对源码、场景与带版本的验收。
 
-更新于 2026-11-02。**Unity 包管理器已解析 Cinemachine 3.1.7，沿用 Timeline 1.8.10。** 运行时演出调度器和正式场景机位仍处于设计阶段。总体状态见[开发索引](../README.md)。
+2026-11-21 更新。工程使用 Cinemachine 3.1.7 与 Timeline 1.8.10。下文的观众镜头和技能调度仍是 11 月 2 日的设计。头显过场由全局 `StoryCameraManager` 接收播放请求，暂时将指定机位的位置和旋转应用到玩家头节点。每段的 Director、轨道及机位由源场景的 `StoryCameraSequence` 持有。正式镜头轨道由关卡作者绑定。[玩家剧情镜头配置](../guides/CONFIGURATION_GUIDE_ZH.md#玩家剧情镜头)
 
 ## 1. 选型结论
 

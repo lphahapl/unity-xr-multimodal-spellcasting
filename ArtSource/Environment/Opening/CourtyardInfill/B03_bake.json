@@ -1,0 +1,48 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.009,
+  "ray_m": 0.035,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared family atlas at the recorded resolution.",
+  "meshes": {
+    "StairFlight": {
+      "high_tri": 560,
+      "LOD_tri": [
+        28,
+        16,
+        8
+      ],
+      "dimensions_xyz_blender_m": [
+        3.0,
+        0.9599999785423279,
+        0.44999998807907104
+      ]
+    },
+    "PlatformEdge": {
+      "high_tri": 332,
+      "LOD_tri": [
+        24,
+        14,
+        8
+      ],
+      "dimensions_xyz_blender_m": [
+        2.0,
+        0.3409999907016754,
+        0.44999998807907104
+      ]
+    },
+    "PlatformCorner": {
+      "high_tri": 524,
+      "LOD_tri": [
+        38,
+        22,
+        12
+      ],
+      "dimensions_xyz_blender_m": [
+        1.180999994277954,
+        1.180999994277954,
+        0.44999998807907104
+      ]
+    }
+  }
+}

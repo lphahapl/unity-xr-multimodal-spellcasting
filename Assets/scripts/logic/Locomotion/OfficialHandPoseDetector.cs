@@ -15,10 +15,13 @@ namespace NarutoVR.SealCombat
     {
         public readonly struct Result
         {
-            public readonly bool pointing, open, closed, valid, releaseOpen;
+            public readonly bool pointing, navigationPointing, open, closed, valid, releaseOpen;
             public readonly string detail;
-            public Result(bool pointing, bool open, string detail, bool closed = false, bool valid = false, bool releaseOpen = false)
-            { this.pointing = pointing; this.open = open; this.detail = detail; this.closed = closed; this.valid = valid; this.releaseOpen = valid && (open || releaseOpen); }
+            public Result(bool pointing, bool open, string detail, bool closed = false, bool valid = false, bool releaseOpen = false, bool navigationPointing = false)
+            {
+                this.pointing = pointing; this.navigationPointing = navigationPointing; this.open = open;
+                this.detail = detail; this.closed = closed; this.valid = valid; this.releaseOpen = valid && (open || releaseOpen);
+            }
         }
 
         sealed class HandState
@@ -88,7 +91,9 @@ namespace NarutoVR.SealCombat
                     if(states[i]=="0") opened++;
                     if(states[i]=="2") folded++;
                 }
-                cached = new Result(pointing, open, $"食{StateName(states[0])} 中{StateName(states[1])} 无{StateName(states[2])} 小{StateName(states[3])}", closed, valid, opened>=3 && folded==0);
+                bool navigationPointing = valid && states[0] == "0" && states[1] != "0" &&
+                    (states[2] != "0" || states[3] != "0");
+                cached = new Result(pointing, open, $"食{StateName(states[0])} 中{StateName(states[1])} 无{StateName(states[2])} 小{StateName(states[3])}", closed, valid, opened>=3 && folded==0, navigationPointing);
                 return cached;
             }
         }

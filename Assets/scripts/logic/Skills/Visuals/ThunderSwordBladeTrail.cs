@@ -20,7 +20,7 @@ namespace NarutoVR.SealCombat
         GameObject root;
         Mesh mesh;
         MeshRenderer renderer;
-        int count;
+        int count, indexedCount;
         double lastTime = double.NaN;
         bool disposed;
 
@@ -51,28 +51,34 @@ namespace NarutoVR.SealCombat
 
         public void Sample(Vector3 bladeBase, Vector3 bladeTip, double now)
         {
-            if (disposed || !mesh || !Finite(now) || !Finite(bladeBase) || !Finite(bladeTip)) return;
-            Prepare(now);
-            if (count > 0 && (bladeBase - bases[count - 1]).sqrMagnitude < MinimumMotionSquared &&
-                (bladeTip - tips[count - 1]).sqrMagnitude < MinimumMotionSquared) return;
-            if (count == Capacity) RemoveOldest();
-            bases[count] = bladeBase; tips[count] = bladeTip; stamps[count] = now; count++;
-            Upload(now);
+            if (disposed || !mesh || !Finite(now)) return;
+            bool expired = Prepare(now);
+            bool moved = Finite(bladeBase) && Finite(bladeTip) && (count == 0 ||
+                (bladeBase - bases[count - 1]).sqrMagnitude >= MinimumMotionSquared ||
+                (bladeTip - tips[count - 1]).sqrMagnitude >= MinimumMotionSquared);
+            if (moved)
+            {
+                if (count == Capacity) RemoveOldest();
+                bases[count] = bladeBase; tips[count] = bladeTip; stamps[count] = now; count++;
+            }
+            Upload(now, moved || expired);
         }
 
         /// <summary>Call every cast update even when stationary, so the ribbon expires without movement.</summary>
         public void Tick(double now)
         {
             if (disposed || !mesh || !Finite(now)) return;
-            Prepare(now);
-            Upload(now);
+            bool expired = Prepare(now);
+            Upload(now, expired);
         }
 
-        void Prepare(double now)
+        bool Prepare(double now)
         {
             if (!double.IsNaN(lastTime) && now < lastTime) Clear();
             lastTime = now;
+            int previousCount = count;
             while (count > 0 && now - stamps[0] >= lifetime) RemoveOldest();
+            return count != previousCount;
         }
 
         void RemoveOldest()
@@ -84,24 +90,33 @@ namespace NarutoVR.SealCombat
             }
         }
 
-        void Upload(double now)
+        void Upload(double now, bool geometryChanged)
         {
             if (count < 2) { if (renderer) renderer.enabled = false; return; }
-            Vector3 minimum = bases[0], maximum = bases[0];
+            if (geometryChanged)
+            {
+                Vector3 minimum = bases[0], maximum = bases[0];
+                for (int i = 0; i < count; i++)
+                {
+                    vertices[i * 2] = bases[i]; vertices[i * 2 + 1] = tips[i];
+                    minimum = Vector3.Min(minimum, Vector3.Min(bases[i], tips[i]));
+                    maximum = Vector3.Max(maximum, Vector3.Max(bases[i], tips[i]));
+                }
+                mesh.SetVertices(vertices);
+                if (indexedCount != count)
+                {
+                    mesh.SetTriangles(indices, 0, (count - 1) * 6, 0, false);
+                    indexedCount = count;
+                }
+                mesh.bounds = new Bounds((minimum + maximum) * .5f, maximum - minimum + Vector3.one * .002f);
+            }
+
             for (int i = 0; i < count; i++)
             {
-                vertices[i * 2] = bases[i]; vertices[i * 2 + 1] = tips[i];
                 float fade = Mathf.Clamp01(1f - (float)((now - stamps[i]) / lifetime));
-                var color = new Color32(36, 185, 255, (byte)(82 * fade));
-                colors[i * 2] = color; colors[i * 2 + 1] = color;
-                minimum = Vector3.Min(minimum, Vector3.Min(bases[i], tips[i]));
-                maximum = Vector3.Max(maximum, Vector3.Max(bases[i], tips[i]));
+                colors[i * 2] = colors[i * 2 + 1] = new Color32(36, 185, 255, (byte)(82 * fade));
             }
-            // Arrays and topology are allocated once; unused vertices are outside the active index range.
-            mesh.SetVertices(vertices);
             mesh.SetColors(colors);
-            mesh.SetTriangles(indices, 0, (count - 1) * 6, 0, false);
-            mesh.bounds = new Bounds((minimum + maximum) * .5f, maximum - minimum + Vector3.one * .002f);
             if (renderer) renderer.enabled = true;
         }
 

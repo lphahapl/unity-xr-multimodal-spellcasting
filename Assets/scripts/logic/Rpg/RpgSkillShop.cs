@@ -39,6 +39,6 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
         /// <summary>商店没有独立持久状态；余额和等级交给存档层校验，解锁来源交给物品模块校验。</summary>
-        public bool ValidateProgress(RpgProgressData progress) => true;
+        public bool ValidateProgress(IPlayerReadModel progress) => true;
     }
 }

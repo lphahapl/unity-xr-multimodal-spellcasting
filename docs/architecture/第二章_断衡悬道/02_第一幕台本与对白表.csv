@@ -1,0 +1,14 @@
+stepId,lineId,controllerGroup,audioFileName,speaker,text,advanceMode,entryCondition,eventKey,delayAfter
+C2_S01,GE01,GATE_EXIT,GE01.wav,申屠（老考工官）,沈商，推开这扇门。眼前看到的，才是三千年前大钟脱扣后的真正天下。,自动继续,gateDoorOpened,,0.8
+C2_S01,GE02,GATE_EXIT,GE02.wav,申屠（老考工官）,别怕高。你在校院里有定界基石护着，出了门，全凭你左腕准望匣辟出的一丈方圆界。,自动继续,gateDoorOpened,,0.6
+C2_S01,GE03,GATE_EXIT,GE03.wav,申屠（老考工官）,看见绝壁边上挑出来的那条青铜石栈了么？伸直左手食指，顺着光点慢慢走过去。,音频和操作都完成,chasmEdgeEnabled,playerReachedCliffEdge,0.7
+C2_S02,SP01,SUSPENDED_PATH,SP01.wav,申屠（老考工官）,站实了。听听脚下，踩着石板的声音是实的。方圆界里头，重力还是朝下，掉不下去。,自动继续,suspendedPathEntered,,0.6
+C2_S02,SP02,SUSPENDED_PATH,SP02.wav,申屠（老考工官）,瞧那半截浮在空里的汉白玉大梁，那是司衡殿的承重桁。天地失了衡权，万斤巨岩也轻如柳絮。,自动继续,suspendedPathEntered,,0.7
+C2_S02,SP03,SUSPENDED_PATH,SP03.wav,申屠（老考工官）,前头栈道有个转角歇脚台。收指停步，在那块平整的青铜校方石上站稳歇一口气。,音频和操作都完成,restPlatformEnabled,playerReachedRestMarker,0.8
+C2_S03,CV01,CHASM_VIEW,CV01.wav,申屠（老考工官）,往左前方的深渊看。看见那道倒流向天上的瀑布了么？水准散轶，大江逆理。这便是大脱扣之厄。,自动继续,playerReachedRestMarker,,1.0
+C2_S03,CV02,CHASM_VIEW,CV02.wav,申屠（老考工官）,师傅当年把毕生工矩铸在这枚青铜铎里，就是盼着有朝一日，你能带着尺规，把散了架的天地给规整回来。,自动继续,playerReachedRestMarker,,0.8
+C2_S04,BA01,BRIDGE_APPROACH,BA01.wav,申屠（老考工官）,好，气息调顺了。顺着挑梁继续往前走，前面是当年引地脉重水的青铜复道渡槽。,音频和操作都完成,canalApproachEnabled,playerApproachedCanalBase,0.7
+C2_S04,BA02,BRIDGE_APPROACH,BA02.wav,申屠（老考工官）,渡槽被卡在半空合不拢，过不去了。走近那座锁台，师傅教你用匣侧的墨规笔破局。,自动继续,playerApproachedCanalBase,,0.6
+C2_S01,HG01,HINT_GATE,HG01.wav,申屠（老考工官）,伸直左食指朝前走，脚下有一丈方圆界护着，放心迈步，走到悬崖边上。,提示,gateDoorOpened,noProgress18s,0
+C2_S02,HS01,HINT_PATH,HS01.wav,申屠（老考工官）,不用急，看着前头的青铜石板走。走到前头那个宽平的歇脚方台，把食指收回来停住。,提示,suspendedPathEntered,noProgress18s,0
+C2_S04,HB01,HINT_BRIDGE,HB01.wav,申屠（老考工官）,看见那根横在两山之间的巨大铜槽了么？走过去，到石台机座跟前站稳。,提示,canalApproachEnabled,noProgress18s,0

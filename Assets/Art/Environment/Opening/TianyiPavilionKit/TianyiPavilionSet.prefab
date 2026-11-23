@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7211894979090079102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7585120757640606091}
+  m_Layer: 0
+  m_Name: TianyiPavilionSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7585120757640606091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211894979090079102}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4183411178310888378}
+  - {fileID: 3574250225884901758}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2893723792392268531
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7585120757640606091}
+    m_Modifications:
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348731932241692247, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+      propertyPath: m_Name
+      value: TianyiPavilion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+--- !u!4 &4183411178310888378 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1307983672900403529, guid: 22ac1931679fa834db5edde4f80b6994, type: 3}
+  m_PrefabInstance: {fileID: 2893723792392268531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7243031983537968561
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7585120757640606091}
+    m_Modifications:
+    - target: {fileID: 3604100708687489992, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_Name
+      value: TianyiInstrument
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00012123585
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00005221367
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+--- !u!4 &3574250225884901758 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6133377753382675663, guid: 95abbdf9fd203ac4eb3ceccd1c23db80, type: 3}
+  m_PrefabInstance: {fileID: 7243031983537968561}
+  m_PrefabAsset: {fileID: 0}

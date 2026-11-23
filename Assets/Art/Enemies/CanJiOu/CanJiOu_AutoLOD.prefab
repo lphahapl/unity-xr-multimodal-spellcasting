@@ -114,8 +114,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 6529947186213377656}
   m_AABB:
-    m_Center: {x: 0.10003707, y: -0.1638022, z: 0.034065664}
-    m_Extent: {x: 0.7495346, y: 0.60844886, z: 0.2490325}
+    m_Center: {x: 0.09649998, y: 0.08549994, z: 0.18800002}
+    m_Extent: {x: 0.7715, y: 0.87049997, z: 0.674}
   m_DirtyAABB: 0
 --- !u!1001 &7770499336988801455
 PrefabInstance:
@@ -168,6 +168,30 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
       propertyPath: m_Name
       value: CanJiOu_AutoLOD
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.09649998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.08549994
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.18800002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.7715
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.87049997
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604534192975647664, guid: 7a854ed51d41cf1408a16cce0ad456e2, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.674
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -305,12 +329,12 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: 0.1623342, y: 0.8189087, z: 0.075270295}
   m_Size: 2.418367
-  m_FadeMode: 0
+  m_FadeMode: 1
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
   - screenRelativeHeight: 0.25
-    fadeTransitionWidth: 0
+    fadeTransitionWidth: 0.05
     renderers:
     - renderer: {fileID: 3494334956419426847}
   - screenRelativeHeight: 0

@@ -1,0 +1,233 @@
+{
+  "percentiles": [
+    5,
+    50,
+    95
+  ],
+  "domain": "Linear uncompressed source Mask.A, bilinear filtering at mip 0. Samples weighted by metric triangle area for each of the three LOD0 halls; device mip selection and ASTC are not measured.",
+  "binding": {
+    "texture_guid": "d3b851bc4d9a6d24b8de50344e2ea109",
+    "mask_sha256": "1799cba9b567e317828292089863be27bcbe78a11956789ff1abc9233c9965be",
+    "smoothness_multiplier": 1.0,
+    "roughness": "1 - A * _Smoothness",
+    "GGX_alpha": "max(perceptualRoughness^2, HALF_MIN_SQRT)",
+    "shader": "Universal Render Pipeline/Lit metallic workflow"
+  },
+  "sample_count_per_hall_per_band": 48000,
+  "per_hall": {
+    "CalibrationHall_0_Grounded_LOD0": {
+      "pan": {
+        "perceptual_p05_median_p95": [
+          0.7124,
+          0.7457,
+          0.7869
+        ],
+        "GGX_median": 0.5561
+      },
+      "timber": {
+        "perceptual_p05_median_p95": [
+          0.7569,
+          0.7634,
+          0.7889
+        ],
+        "GGX_median": 0.5828
+      },
+      "masonry": {
+        "perceptual_p05_median_p95": [
+          0.7783,
+          0.7868,
+          0.7956
+        ],
+        "GGX_median": 0.6191
+      },
+      "plaster": {
+        "perceptual_p05_median_p95": [
+          0.8678,
+          0.8824,
+          0.9009
+        ],
+        "GGX_median": 0.7787
+      },
+      "terminal": {
+        "perceptual_p05_median_p95": [
+          0.6825,
+          0.7048,
+          0.7446
+        ],
+        "GGX_median": 0.4967
+      },
+      "cover_and_ridge": {
+        "perceptual_p05_median_p95": [
+          0.7147,
+          0.7462,
+          0.7881
+        ],
+        "GGX_median": 0.5569
+      }
+    },
+    "CalibrationHall_1_Grounded_LOD0": {
+      "pan": {
+        "perceptual_p05_median_p95": [
+          0.7121,
+          0.7439,
+          0.7831
+        ],
+        "GGX_median": 0.5534
+      },
+      "timber": {
+        "perceptual_p05_median_p95": [
+          0.7569,
+          0.7633,
+          0.7899
+        ],
+        "GGX_median": 0.5826
+      },
+      "masonry": {
+        "perceptual_p05_median_p95": [
+          0.7781,
+          0.7868,
+          0.7956
+        ],
+        "GGX_median": 0.6191
+      },
+      "plaster": {
+        "perceptual_p05_median_p95": [
+          0.8681,
+          0.8826,
+          0.901
+        ],
+        "GGX_median": 0.7791
+      },
+      "terminal": {
+        "perceptual_p05_median_p95": [
+          0.6829,
+          0.7054,
+          0.7458
+        ],
+        "GGX_median": 0.4975
+      },
+      "cover_and_ridge": {
+        "perceptual_p05_median_p95": [
+          0.7137,
+          0.7449,
+          0.785
+        ],
+        "GGX_median": 0.5549
+      }
+    },
+    "CalibrationHall_2_Grounded_LOD0": {
+      "pan": {
+        "perceptual_p05_median_p95": [
+          0.7112,
+          0.7449,
+          0.7832
+        ],
+        "GGX_median": 0.5549
+      },
+      "timber": {
+        "perceptual_p05_median_p95": [
+          0.7569,
+          0.7633,
+          0.7887
+        ],
+        "GGX_median": 0.5826
+      },
+      "masonry": {
+        "perceptual_p05_median_p95": [
+          0.7783,
+          0.7868,
+          0.7956
+        ],
+        "GGX_median": 0.6191
+      },
+      "plaster": {
+        "perceptual_p05_median_p95": [
+          0.8678,
+          0.8826,
+          0.9008
+        ],
+        "GGX_median": 0.7789
+      },
+      "terminal": {
+        "perceptual_p05_median_p95": [
+          0.6832,
+          0.7058,
+          0.7461
+        ],
+        "GGX_median": 0.4982
+      },
+      "cover_and_ridge": {
+        "perceptual_p05_median_p95": [
+          0.7151,
+          0.7482,
+          0.7892
+        ],
+        "GGX_median": 0.5597
+      }
+    }
+  },
+  "three_halls_equal_weight": {
+    "pan": [
+      0.7119,
+      0.7449,
+      0.7844
+    ],
+    "timber": [
+      0.7569,
+      0.7633,
+      0.7892
+    ],
+    "masonry": [
+      0.7782,
+      0.7868,
+      0.7956
+    ],
+    "plaster": [
+      0.8679,
+      0.8825,
+      0.9009
+    ],
+    "terminal": [
+      0.6829,
+      0.7053,
+      0.7454
+    ],
+    "cover_and_ridge": [
+      0.7145,
+      0.7464,
+      0.7876
+    ]
+  },
+  "full_atlas_band_perceptual": {
+    "pan": [
+      0.7137,
+      0.7451,
+      0.7843
+    ],
+    "timber": [
+      0.7569,
+      0.7608,
+      0.7922
+    ],
+    "masonry": [
+      0.7765,
+      0.7882,
+      0.7961
+    ],
+    "plaster": [
+      0.8667,
+      0.8824,
+      0.902
+    ],
+    "terminal": [
+      0.6784,
+      0.702,
+      0.7529
+    ],
+    "cover_and_ridge": [
+      0.7137,
+      0.7451,
+      0.7882
+    ]
+  }
+}

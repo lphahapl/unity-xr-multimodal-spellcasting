@@ -1,0 +1,427 @@
+{
+  "blender": "5.2.2 LTS",
+  "meshes": {
+    "Pavilion_LOD0": {
+      "triangles": 12684,
+      "before_triangles": 12716,
+      "max_triangles": 12716,
+      "dimensions_m": [
+        11.712703704833984,
+        11.712703704833984,
+        6.244999885559082
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      },
+      "wall_atlas_triangles": {
+        "stone": 524,
+        "earth": 100
+      },
+      "roof": {
+        "width_m": 11.7127,
+        "eave_bed_centre_z_m": 3.9939,
+        "left_right_corner_lift_m": [
+          0.358,
+          0.358
+        ],
+        "inner_to_eave_rise_m": 1.276,
+        "four_corner_raycast": {
+          "(-1, -1)": {
+            "samples": 1539,
+            "minimum_tile_over_timber_m": 0.0779
+          },
+          "(1, -1)": {
+            "samples": 1539,
+            "minimum_tile_over_timber_m": 0.0779
+          },
+          "(-1, 1)": {
+            "samples": 1539,
+            "minimum_tile_over_timber_m": 0.0779
+          },
+          "(1, 1)": {
+            "samples": 1539,
+            "minimum_tile_over_timber_m": 0.0779
+          }
+        }
+      },
+      "joints": {
+        "hip_seating": {
+          "(-1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0348
+          },
+          "(1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0348
+          },
+          "(-1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0348
+          },
+          "(1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0348
+          }
+        },
+        "outboard_timber_vertices": 1200,
+        "min_tile_above_outboard_timber_m": 0.0841,
+        "min_sill_top_above_hip_end_m": 0.0491
+      }
+    },
+    "Pavilion_LOD1": {
+      "triangles": 5180,
+      "before_triangles": 5492,
+      "max_triangles": 5500,
+      "dimensions_m": [
+        11.64995288848877,
+        11.64995288848877,
+        6.244999885559082
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      },
+      "wall_atlas_triangles": {
+        "stone": 348,
+        "earth": 100
+      },
+      "roof": {
+        "width_m": 11.65,
+        "eave_bed_centre_z_m": 3.9776,
+        "left_right_corner_lift_m": [
+          0.3589,
+          0.3589
+        ],
+        "inner_to_eave_rise_m": 1.3053,
+        "four_corner_raycast": {
+          "(-1, -1)": {
+            "samples": 1613,
+            "minimum_tile_over_timber_m": 0.0943
+          },
+          "(1, -1)": {
+            "samples": 1613,
+            "minimum_tile_over_timber_m": 0.0943
+          },
+          "(-1, 1)": {
+            "samples": 1613,
+            "minimum_tile_over_timber_m": 0.0943
+          },
+          "(1, 1)": {
+            "samples": 1613,
+            "minimum_tile_over_timber_m": 0.0943
+          }
+        }
+      },
+      "joints": {
+        "hip_seating": {
+          "(-1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0029
+          },
+          "(1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0029
+          },
+          "(-1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0029
+          },
+          "(1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0029
+          }
+        },
+        "outboard_timber_vertices": 332,
+        "min_tile_above_outboard_timber_m": 0.0995,
+        "min_sill_top_above_hip_end_m": 0.0512
+      }
+    },
+    "Pavilion_LOD2": {
+      "triangles": 1732,
+      "before_triangles": 1836,
+      "max_triangles": 1836,
+      "dimensions_m": [
+        11.524454116821289,
+        11.524454116821289,
+        6.244999885559082
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      },
+      "wall_atlas_triangles": {
+        "stone": 252,
+        "earth": 100
+      },
+      "roof": {
+        "width_m": 11.5245,
+        "eave_bed_centre_z_m": 3.9604,
+        "left_right_corner_lift_m": [
+          0.3775,
+          0.3775
+        ],
+        "inner_to_eave_rise_m": 1.3362,
+        "four_corner_raycast": {
+          "(-1, -1)": {
+            "samples": 1764,
+            "minimum_tile_over_timber_m": 0.146
+          },
+          "(1, -1)": {
+            "samples": 1764,
+            "minimum_tile_over_timber_m": 0.146
+          },
+          "(-1, 1)": {
+            "samples": 1764,
+            "minimum_tile_over_timber_m": 0.146
+          },
+          "(1, 1)": {
+            "samples": 1764,
+            "minimum_tile_over_timber_m": 0.146
+          }
+        }
+      },
+      "joints": {
+        "hip_seating": {
+          "(-1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0218
+          },
+          "(1, -1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0218
+          },
+          "(-1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0218
+          },
+          "(1, 1)": {
+            "sample_count": 130,
+            "min_seating_depth_m": 0.0218
+          }
+        },
+        "outboard_timber_vertices": 48,
+        "min_tile_above_outboard_timber_m": 0.146,
+        "min_sill_top_above_hip_end_m": 0.0494
+      }
+    }
+  },
+  "changed": [
+    "TianyiPavilion.fbx"
+  ],
+  "sha256": {
+    "TianyiPavilion.fbx": "49e46e645b04d26574f0a97cce6b16838a5f51eb882a52aada99f49b41a3cfc6"
+  },
+  "unity_surfaces": {
+    "Paving": {
+      "material": "Flags.mat",
+      "guid": "bd8ac03b79e92f44a9619135a3ecb27a",
+      "albedo": "Flags_Color.jpg",
+      "normal": "Flags_Normal.png",
+      "bump": 0.53,
+      "smoothness": 0.18
+    },
+    "Fieldstone": {
+      "material": "EarthPlinth.mat",
+      "guid": "4b2f012d366850cfa6a2c7436265bb3c",
+      "albedo": "EarthPlinthColor.png",
+      "normal": "EarthPlinthNormal.png",
+      "bump": 0.93,
+      "smoothness": 0.13
+    },
+    "Timber": {
+      "material": "Timber.mat",
+      "guid": "5b2eeb364bd430542bdafe3ded96ef47",
+      "albedo": "TimberColor.png",
+      "normal": "TimberNormal.png",
+      "bump": 0.74,
+      "smoothness": 0.19
+    },
+    "Tile": {
+      "material": "Tile.mat",
+      "guid": "818cbc61fec254748b2d4b1c37391b46",
+      "albedo": "TileColor.png",
+      "normal": "TileNormal.png",
+      "bump": 0.86,
+      "smoothness": 0.31
+    }
+  },
+  "prefab_mesh_refs": {
+    "guid": "7d3978c2986efeb4da6d71c98dcb7941",
+    "fileIDs": [
+      "-4717050247385379717",
+      "1291247432581136521",
+      "-1179435197494004938"
+    ]
+  },
+  "prefab_colliders": {
+    "BoxCollider": 23,
+    "MeshCollider": 1
+  },
+  "textures": {},
+  "surface_sources": "PhotoArchitecture Flags paving; PhotoArchitecture Brick split-block colour and normal pair with Workshop Ashlar mineral detail; Workshop Plaster with PhotoArchitecture Lime detail; photographed end grain with latewood and drying checks.",
+  "qa_notes": [
+    "Repeated trim UVs share texels across separate members.",
+    "The existing stone footing reaches -0.20 m. Its walking plane is z=0.",
+    "Prefab fileIDs are the saved references. Unity import, Play and VR performance belong to the integration session."
+  ]
+}

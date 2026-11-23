@@ -1,0 +1,417 @@
+{
+  "blenderVersion": "5.2.2 LTS",
+  "rigSource": "Blender fit to measured body landmarks, finger surface distances and four normalized weights.",
+  "qaProfile": {
+    "mode": "game",
+    "coplanarEpsilonMeters": 6e-05
+  },
+  "geometry": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "hidden back-to-back faces: ShenShangBody<->ShenShangCalibrationRings (17 pairs) - delete to save tris"
+    ],
+    "ground_z": 0.0002,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [
+      {
+        "where": "ShenShangBody<->ShenShangCalibrationRings",
+        "tri_pairs": 17
+      }
+    ],
+    "enclosed": [],
+    "objects": {
+      "ShenShangBody": {
+        "verts": 15234,
+        "faces": 30500,
+        "tris": 30500,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "unweighted_verts": 0,
+        "verts_over_4_influences": 0,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.03,
+        "uv_coverage_pct": 42.0
+      },
+      "ShenShangCalibrationRings": {
+        "verts": 864,
+        "faces": 864,
+        "tris": 1728,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 4,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "unweighted_verts": 0,
+        "verts_over_4_influences": 0,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 95.4
+      }
+    },
+    "review": "The 17 close back-to-back pairs are the hidden interior surfaces of closed finger bands against skin, intentional contact. No visible front-facing coplanar pairs."
+  },
+  "fbxReadback": {
+    "app": "5.2.2 LTS",
+    "input": "ShenShang.fbx",
+    "armature": "ShenShangRig",
+    "bones": [
+      "Hips",
+      "Spine",
+      "Spine1",
+      "Spine2",
+      "Neck",
+      "Head",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftHand",
+      "LeftHandThumb1",
+      "LeftHandThumb2",
+      "LeftHandThumb3",
+      "LeftHandIndex1",
+      "LeftHandIndex2",
+      "LeftHandIndex3",
+      "LeftHandMiddle1",
+      "LeftHandMiddle2",
+      "LeftHandMiddle3",
+      "LeftHandRing1",
+      "LeftHandRing2",
+      "LeftHandRing3",
+      "LeftHandPinky1",
+      "LeftHandPinky2",
+      "LeftHandPinky3",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightHand",
+      "RightHandThumb1",
+      "RightHandThumb2",
+      "RightHandThumb3",
+      "RightHandIndex1",
+      "RightHandIndex2",
+      "RightHandIndex3",
+      "RightHandMiddle1",
+      "RightHandMiddle2",
+      "RightHandMiddle3",
+      "RightHandRing1",
+      "RightHandRing2",
+      "RightHandRing3",
+      "RightHandPinky1",
+      "RightHandPinky2",
+      "RightHandPinky3",
+      "LeftUpLeg",
+      "LeftLeg",
+      "LeftFoot",
+      "LeftToeBase",
+      "RightUpLeg",
+      "RightLeg",
+      "RightFoot",
+      "RightToeBase"
+    ],
+    "meshes": {
+      "ShenShangBody": {
+        "vertices": 15234,
+        "triangles": 30500,
+        "uvLayers": 1
+      },
+      "ShenShangCalibrationRings": {
+        "vertices": 864,
+        "triangles": 1728,
+        "uvLayers": 1
+      }
+    },
+    "tests": [
+      {
+        "label": "elbow Left",
+        "bone": "LeftForeArm",
+        "degrees": 75,
+        "movedVertices": 3049,
+        "peakMotionMeters": 0.55287,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 717,
+        "strainP95": 0.416
+      },
+      {
+        "label": "knee Left",
+        "bone": "LeftLeg",
+        "degrees": 50,
+        "movedVertices": 1268,
+        "peakMotionMeters": 0.45374,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 764,
+        "strainP95": 0.451
+      },
+      {
+        "label": "wrist Left",
+        "bone": "LeftHand",
+        "degrees": 25,
+        "movedVertices": 2554,
+        "peakMotionMeters": 0.07819,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 1207,
+        "strainP95": 0.143
+      },
+      {
+        "label": "Thumb Left",
+        "bone": "LeftHandThumb1",
+        "degrees": 42,
+        "movedVertices": 637,
+        "peakMotionMeters": 0.03997,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 712,
+        "strainP95": 0.287
+      },
+      {
+        "label": "Index Left",
+        "bone": "LeftHandIndex1",
+        "degrees": 42,
+        "movedVertices": 595,
+        "peakMotionMeters": 0.05294,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 688,
+        "strainP95": 0.264
+      },
+      {
+        "label": "Middle Left",
+        "bone": "LeftHandMiddle1",
+        "degrees": 42,
+        "movedVertices": 341,
+        "peakMotionMeters": 0.0586,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 589,
+        "strainP95": 0.195
+      },
+      {
+        "label": "Ring Left",
+        "bone": "LeftHandRing1",
+        "degrees": 42,
+        "movedVertices": 310,
+        "peakMotionMeters": 0.05642,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 571,
+        "strainP95": 0.211
+      },
+      {
+        "label": "Pinky Left",
+        "bone": "LeftHandPinky1",
+        "degrees": 42,
+        "movedVertices": 205,
+        "peakMotionMeters": 0.04755,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 429,
+        "strainP95": 0.23
+      },
+      {
+        "label": "elbow Right",
+        "bone": "RightForeArm",
+        "degrees": 75,
+        "movedVertices": 3030,
+        "peakMotionMeters": 0.55286,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 716,
+        "strainP95": 0.41
+      },
+      {
+        "label": "knee Right",
+        "bone": "RightLeg",
+        "degrees": 50,
+        "movedVertices": 1324,
+        "peakMotionMeters": 0.45394,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 963,
+        "strainP95": 0.503
+      },
+      {
+        "label": "wrist Right",
+        "bone": "RightHand",
+        "degrees": 25,
+        "movedVertices": 2543,
+        "peakMotionMeters": 0.07808,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 1271,
+        "strainP95": 0.171
+      },
+      {
+        "label": "Thumb Right",
+        "bone": "RightHandThumb1",
+        "degrees": 42,
+        "movedVertices": 637,
+        "peakMotionMeters": 0.04127,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 745,
+        "strainP95": 0.307
+      },
+      {
+        "label": "Index Right",
+        "bone": "RightHandIndex1",
+        "degrees": 42,
+        "movedVertices": 580,
+        "peakMotionMeters": 0.05308,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 661,
+        "strainP95": 0.271
+      },
+      {
+        "label": "Middle Right",
+        "bone": "RightHandMiddle1",
+        "degrees": 42,
+        "movedVertices": 343,
+        "peakMotionMeters": 0.05901,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 593,
+        "strainP95": 0.204
+      },
+      {
+        "label": "Ring Right",
+        "bone": "RightHandRing1",
+        "degrees": 42,
+        "movedVertices": 311,
+        "peakMotionMeters": 0.0559,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 595,
+        "strainP95": 0.197
+      },
+      {
+        "label": "Pinky Right",
+        "bone": "RightHandPinky1",
+        "degrees": 42,
+        "movedVertices": 217,
+        "peakMotionMeters": 0.04654,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 446,
+        "strainP95": 0.21
+      },
+      {
+        "label": "head",
+        "bone": "Head",
+        "degrees": 25,
+        "movedVertices": 2727,
+        "peakMotionMeters": 0.10171,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 2696,
+        "strainP95": 0.16
+      },
+      {
+        "label": "spine",
+        "bone": "Spine1",
+        "degrees": 20,
+        "movedVertices": 11113,
+        "peakMotionMeters": 0.23698,
+        "unrelatedMovementMeters": 0.0,
+        "transitionalEdges": 2595,
+        "strainP95": 0.152
+      }
+    ],
+    "unweighted": 0,
+    "maxInfluences": 4,
+    "maxWeightError": 4.470348358154297e-08,
+    "materials": [
+      "ShenShang_Body",
+      "ShenShang_Bronze"
+    ],
+    "dimensions": [
+      1.130340814590454,
+      0.3517528176307678,
+      1.7398444414138794
+    ],
+    "vertexCount": 16098,
+    "complete": true
+  },
+  "packedBlendPlayback": {
+    "source": "ShenShang.blend",
+    "animatedAction": "ShenShang_RigCheck",
+    "fps": 30,
+    "frames": {
+      "1": {
+        "verticesMovedAtLeast1mm": 0,
+        "maxDisplacementMeters": 0.0
+      },
+      "16": {
+        "verticesMovedAtLeast1mm": 6003,
+        "maxDisplacementMeters": 0.49159
+      },
+      "32": {
+        "verticesMovedAtLeast1mm": 6069,
+        "maxDisplacementMeters": 0.7798
+      },
+      "48": {
+        "verticesMovedAtLeast1mm": 6069,
+        "maxDisplacementMeters": 0.7798
+      },
+      "64": {
+        "verticesMovedAtLeast1mm": 6005,
+        "maxDisplacementMeters": 0.51334
+      },
+      "80": {
+        "verticesMovedAtLeast1mm": 0,
+        "maxDisplacementMeters": 0.0
+      }
+    },
+    "packedTextures": {
+      "BASE COLOR": {
+        "size": [
+          4096,
+          4096
+        ],
+        "sha256": "71bb7597a174f182631a3756e6c38714b7a8916e3c456c4df8fa090c9197dede"
+      },
+      "METALLIC ROUGHNESS": {
+        "size": [
+          4096,
+          4096
+        ],
+        "sha256": "7392c7d6bc6e0e87ff244a8fa413ff210bd8e919aad964a4da4cbcd2f027c3de"
+      },
+      "NORMAL MAP": {
+        "size": [
+          4096,
+          4096
+        ],
+        "sha256": "807099469bf8612150bf0bbe54d779f138230ebfd55346eba84dc7739bb2cf1b"
+      }
+    }
+  },
+  "previewMovie": {
+    "frames": 80,
+    "durationSeconds": 2.66
+  },
+  "sha256": {
+    "ShenShang.blend": "4f53e4d86be4dfd640945706ee5b329452db07591599cc30c7f24d7755ab6fe8",
+    "ShenShang.fbx": "2a2fc7c3194c00eed3a7e34c5709483df9163a436b59e09ebf096afc8d6ecce4",
+    "Blender_RigCheck.mp4": "91497f46e75bf2720873d211487add933d9c9a3c9b9a13e20f8fce700f68eb6b"
+  }
+}

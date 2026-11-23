@@ -37,6 +37,7 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -147,9 +148,11 @@ Material:
     - _Cull: 0
     - _Cutoff: 0.5
     - _DEPTHFADE: 0
+    - _DepthFadeDistance: 100
     - _DepthFadeMax: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _EDGEFADE: 0
     - _EdgeFadeMax: 0.6
     - _EdgeFadeMin: 1
@@ -178,6 +181,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Stretch: 0
     - _Surface: 1
     - _USEMASK: 0
@@ -186,6 +190,7 @@ Material:
     - _WARP: 0
     - _WarpIntensity: 0
     - _WarpScale: 1
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
@@ -193,6 +198,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _InitOffset: {r: 0, g: 0, b: 0, a: 0}
     - _LimitUVRange: {r: 0, g: 1, b: 0, a: 1}
     - _MaskOffset: {r: 0, g: 0, b: 0, a: 0}
     - _MaskOffset2: {r: 0, g: 0, b: 0, a: 0}
@@ -209,6 +215,7 @@ Material:
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _WarpScroll: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &186343895988066018
 MonoBehaviour:
   m_ObjectHideFlags: 11

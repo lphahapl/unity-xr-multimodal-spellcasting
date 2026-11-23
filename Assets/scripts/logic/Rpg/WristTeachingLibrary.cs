@@ -82,8 +82,7 @@ namespace NarutoVR.SealCombat.Rpg
         void Add(string name, SkillDefinition gesture, SkillDefinition voice, string actionHint)
         {
             if (!gesture && !voice) return;
-            // 当前配方只匹配一个手印，备选施放方式不能被拼成连续手印序列。
-            var order = gesture && !string.IsNullOrWhiteSpace(gesture.sealName) ? new[] { gesture.sealName } : Array.Empty<string>();
+            var order = gesture ? gesture.GetSealSequence() : Array.Empty<string>();
             entries.Add(new WristTeachingLesson(name, gesture, voice, order, actionHint));
         }
 

@@ -13,13 +13,6 @@ MonoBehaviour:
   m_Name: 训练场技能商店
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.SkillShopCatalog
   offers:
-  - offerId: unlock.hidden
-    displayName: 购买隐藏术式
-    skillId: buff.hidden
-    kind: 0
-    cost: 60
-    maximumLevel: 3
-    requiredStage: {fileID: 11400000, guid: 1a882e2ff97663d4599541de6e583467, type: 2}
   - offerId: upgrade.fireball
     displayName: 升级火球
     skillId: fireball

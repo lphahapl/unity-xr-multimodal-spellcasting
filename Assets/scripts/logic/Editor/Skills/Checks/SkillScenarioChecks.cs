@@ -35,12 +35,11 @@ namespace NarutoVR.SealCombat.Editor
                 previousRunInBackground=Application.runInBackground;Application.runInBackground=true;
                 root=new GameObject("自动验收_护盾试炼");root.transform.position=new Vector3(200,100,100);
                 effects=root.AddComponent<SkillController>();effects.head=root.transform;effects.playerRoot=root.transform;
-                effects.shieldPrefab=source.effects.shieldPrefab;effects.shieldCapacity=source.effects.shieldCapacity;
                 trial=root.AddComponent<SkillScenario>();trial.kind=SkillScenarioKind.ShieldTrial;trial.effects=effects;
                 trial.showDesktopControls=false;trial.autoRunOnFirstShield=true;
                 trial.firstPulseDelay=source.firstPulseDelay;trial.pulseInterval=source.pulseInterval;
                 trial.pulsesPerTrial=source.pulsesPerTrial;trial.testDamage=source.testDamage;
-                skill=ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.skillscenariochecks.skill"; skill.cooldownSeconds = 0;skill.effectKind=SkillEffectKind.SelfBuff;skill.durationSeconds=10;
+                skill=ScriptableObject.CreateInstance<SkillDefinition>(); skill.skillId = "fixture.skillscenariochecks.skill"; skill.cooldownSeconds = 0;skill.effectDefinition=SkillConfigurationSetup.LoadTrainingCatalog().skills.Find(s => s.skillId == "buff.zi").effectDefinition;skill.durationSeconds=10;
                 effects.TryCast(skill);
                 deadline=EditorApplication.timeSinceStartup+14;
                 EditorApplication.update+=Poll;AssemblyReloadEvents.beforeAssemblyReload+=Abort;

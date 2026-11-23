@@ -1,0 +1,78 @@
+{
+  "checked": "2026-11-19T00:55:14.360438+08:00",
+  "source": "Tencent Hunyuan 3D V3.1, 3-view input, imported high mesh with 500000 triangles",
+  "source_sha256": "bca65281e15f4b542e6f667f8ff3106877bd791cba89400c83924a8085ffde8d",
+  "blender": "5.2.2 LTS",
+  "blender_fbx_readback": {
+    "StarShell_LOD0": {
+      "triangles": 4100,
+      "dimensions_m": [
+        0.9147411584854126,
+        1.6020827293395996,
+        1.2673325538635254
+      ],
+      "material": "StarShell_Baked"
+    },
+    "StarShell_LOD1": {
+      "triangles": 1500,
+      "dimensions_m": [
+        0.9147225022315979,
+        1.6026179790496826,
+        1.267425537109375
+      ],
+      "material": "StarShell_Baked"
+    },
+    "StarShell_LOD2": {
+      "triangles": 550,
+      "dimensions_m": [
+        0.9102808833122253,
+        1.6040834188461304,
+        1.2621448040008545
+      ],
+      "material": "StarShell_Baked"
+    }
+  },
+  "bake": "2K selected-to-active: color, tangent-space normal, original metallic, baked ambient occlusion, inverted roughness. Post-bake longitude/latitude and star punches on exterior mapped PBR channels to match reference.",
+  "unity": "6000.3.10f1 Android; independent project reloaded assembled prefab; two LODGroups, one persistent convex plinth collider, existing ArmillaryRingMotion intactRing binding at 7 deg/s",
+  "unity_mesh_world_coordinates": {
+    "pivot_m": [
+      0.0,
+      2.009999990463257,
+      0.0
+    ],
+    "axis": [
+      -0.7790771722793579,
+      -0.47426843643188477,
+      0.41000983119010925
+    ],
+    "stationary_ring_min_radius_m": 0.98872309923172,
+    "results": {
+      "Shell0": {
+        "tris": 4100,
+        "fixed_face_intersections": 0,
+        "moving_face_intersections_72_samples": 0,
+        "all_phase_clearance_lower_bound_m": 0.10141099262578779
+      },
+      "Shell1": {
+        "tris": 1500,
+        "fixed_face_intersections": 0,
+        "moving_face_intersections_72_samples": 0,
+        "all_phase_clearance_lower_bound_m": 0.10067270481718582
+      },
+      "Shell2": {
+        "tris": 550,
+        "fixed_face_intersections": 0,
+        "moving_face_intersections_72_samples": 0,
+        "all_phase_clearance_lower_bound_m": 0.09781831505614147
+      },
+      "Mounts": {
+        "tris": 88,
+        "fixed_face_intersections": 26,
+        "moving_face_intersections_72_samples": 0,
+        "all_phase_clearance_lower_bound_m": 0.1929784299483417
+      }
+    }
+  },
+  "method": "Tested triangle intersection at each 5 degree step in Unity-exported mesh coordinates. All-phase bound uses closest point on a ring triangle to its pivot minus the largest vertex radius of each stationary part; radius invariant under rotation. Fixed supports deliberately join the stationary axle and shell.",
+  "quest": "Actual headset timing not measured."
+}

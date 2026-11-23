@@ -1,0 +1,25 @@
+{
+  "name": "共享工作空间",
+  "links": [
+    {
+      "title": "骨骼与动画工作台",
+      "path": "rig/",
+      "description": "拖动关节检查蒙皮，预览同骨架动画，按模型版本留批注。"
+    },
+    {
+      "title": "策划案工作台",
+      "path": "plans/",
+      "description": "编写玩法与流程，按状态审阅方案。"
+    },
+    {
+      "title": "场景原型工作台",
+      "path": "scenes/",
+      "description": "调整现有 3D 场景模型，或用白盒搭建空间并导出 GLB。"
+    },
+    {
+      "title": "配置与检索",
+      "path": "reader/",
+      "description": "跨工作台检索正文、元素和批注，直接编辑 JSON。"
+    }
+  ]
+}

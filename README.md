@@ -8,7 +8,7 @@ A Unity XR prototype combining skeletal hand gesture recognition and offline Chi
 
 项目探索无需手柄的 VR 技能交互：从实际追踪的双手骨骼提取特征，以可配置规则识别固定手势，再与中文口令进行时间窗口匹配，驱动护盾、手持火球和战斗演示。仓库包含采样录制、识别诊断、技能配置、编辑器工具及单机关卡原型。
 
-> **当前状态：开发原型。** Quest / Steam Link 基础双手追踪链路已有实机观察；技能、玩家状态和关卡有自动检查记录。识别准确率、完整头显交互、舒适性和长期性能仍需专项验证。十二个手印资产不代表十二种手势均已完成标定。
+> **当前状态：开发原型。** Quest / Steam Link 基础双手追踪链路已有实机观察；技能、玩家状态和关卡有自动检查记录。识别准确率、完整头显交互、舒适性和长期性能仍需专项验证。六工矩印中，规印、矩印、律印已有标定规则，准印、绳印、衡印为空模板。衡印只采左手，标定后用于左手护盾。
 
 ## 功能概览
 
@@ -20,9 +20,10 @@ A Unity XR prototype combining skeletal hand gesture recognition and offline Chi
 | 离线语音 | 编辑器使用 Python + sherpa-onnx 回环服务；Quest Android 包使用 ARM64 原生 KWS 与设备麦克风，统一口令白名单、采集时间与过期过滤 |
 | 多模态配方 | 纯手势、纯口令、手势与口令组合；组合支持先手势后口令或相反顺序 |
 | 技能系统 | ScriptableObject 配置、独立匹配器、效果定义与运行时生命周期；投射物、护盾、取消和冷却 |
-| 移动与关卡 | 战斗视线选点传送、胸前快推后撤、探索视线行走、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |
+| 移动与关卡 | 战斗视线选点传送、胸前快推后撤、三种探索移动、HP/MP、三阶段试炼、固定奖励、升级和版本化检查点 |
 | 基础手形 | Meta官方状态引擎与默认阈值；左右手独立确认与失效撤销；[串流调试说明](docs/guides/OFFICIAL_HAND_POSES_ZH.md) |
-| 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。文字速查已实现，画符识别与完整课程未做 |
+| 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。文字速查已实现，完整课程待制作 |
+| 墨规笔画符 | 上腹轻捏取笔，在板上描符。独立试验场可用千钧符推拉镇石、绘制方直之矩开启铜栅。[试验场操作](docs/architecture/GLYPH_DESIGN_ZH.md#运行试验场) |
 | 开发支持 | 中文 Inspector / HUD、模拟输入入口、配置冲突检查、场景生成与编辑/播放模式检查 |
 | 天空原型 | 青灰底色与两层缓慢薄云、中文材质参数、独立预览；[使用与性能边界](docs/guides/THIN_CLOUD_SKY_ZH.md)，正式首章未应用 |
 
@@ -61,9 +62,9 @@ flowchart TD
 
 ### 最近一次串流与下一版操作
 
-已验证：火球抬腕显示预测线，三种手势只负责发射；寅印可配合新的口令再次施法。Steam 串流中记录到 8 发成功发射，其中一次侧甩命中；也记录到一次玩家未主动操作菜单却被判为腕部独占。该次测试使用旧射线导航（手指 98%、距离 2%）。
+已验证：火球抬腕显示预测线，三种手势只负责发射；律印可配合新的口令再次施法。Steam 串流中记录到 8 发成功发射，其中一次侧甩命中；也记录到一次玩家未主动操作菜单却被判为腕部独占。该次测试使用旧射线导航（手指 98%、距离 2%）。
 
-已接入线性 RPG：靠近腕饰或悬停只提示，不打断施法。战斗时左食指启用视线为主的节点传送，空手右手胸前快推触发向后滑退；探索时左食指沿水平视线走，收指即停，无闪避。见[战斗／探索移动与腕部仲裁](docs/guides/ENCOUNTER_LOCOMOTION_ZH.md)，包含实际默认参数、Debug 操作和真机验收步骤。2026-11-01 的既有报告记录 531 项编辑模式检查及 Play Mode 集成通过；报告时间与边界见[验证说明](docs/guides/VALIDATION_ZH.md)，本次文档整理未重跑这些检查。
+已接入线性 RPG：靠近腕饰或悬停只提示，不打断施法。战斗时左食指启用视线为主的节点传送，空手右手胸前快推触发向后滑退；探索时可在腕匣切换选点传送、食指指向行走（握拳快跑）和选点自动行走。见[战斗／探索移动与腕部仲裁](docs/guides/ENCOUNTER_LOCOMOTION_ZH.md)，包含实际默认参数、Debug 操作和真机验收步骤。2026-11-01 的既有报告记录 531 项编辑模式检查及 Play Mode 集成通过；报告时间与边界见[验证说明](docs/guides/VALIDATION_ZH.md)，本次文档整理未重跑这些检查。
 
 ### 本轮串流操作
 
@@ -82,7 +83,7 @@ Hierarchy 中的“腕部界面 · 自有世界根”是程序生成的 UI 容�
 | 资产 / 模块 | 职责 |
 |---|---|
 | `SealProfile` | 手势特征范围、权重、覆盖率与保持时间 |
-| `SkillDefinition` | 技能 ID、输入模式、单印、口令、窗口、冷却与效果引用 |
+| `SkillDefinition` | 技能 ID、输入模式、有序手印、口令、窗口、冷却与效果引用 |
 | `SkillCatalog` | 当前场景的可用技能、共享匹配规则与取消口令 |
 | `ProjectileEffectDefinition` / `ShieldEffectDefinition` | 投射物或护盾的数值与基础视觉 |
 | `SkillMatchEngine` | 输入缓存、配方匹配与消费，不创建场景物体 |
@@ -144,7 +145,7 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 | 组合施法 | `Assets/Scene/ComboSanctum.unity` | 两种输入顺序、超时与取消 |
 | 线性 RPG | `Assets/Scene/LinearRpgTest.unity` | 玩家资源、导航、闪避、关卡、升级与检查点 |
 
-默认训练配方示例：**子印 → 护盾**、**“护体咒” → 护盾**、**寅印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
+默认训练配方示例：**规印 → 护盾**、**“护体咒” → 护盾**、**律印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
 
 ### 4. 启动离线中文口令（可选）
 
@@ -206,7 +207,7 @@ docs/                        # guides / architecture / research / world / 模型
 - 手势评分是相似度，不是经过校准的正确概率；XR Hands 的派生质量标记也不等同于 Meta 原生置信度。
 - KWS 不理解否定语义，“不要释放火球术”仍可能命中“火球术”；合成音检查不能替代真人误报/漏检测试。
 - 基础双手追踪已观察可用，新增导航、闪避和完整玩法仍需头显实测与舒适性调参。
-- 当前只实现单印配方；多印序列、画符、领域、完整敌人 AI、头显交互式商店与剧情尚未完成。
+- 技能已支持精确有序多印。画符已接入独立灰盒；正式章节画符、领域、完整敌人 AI、头显交互式商店与剧情仍在开发。
 - PICO、MR 空间能力、多人和独立观众镜头属于后续设计；XR Hands 接入仍包含 Meta 类型依赖，不能据此宣称跨设备即插即用。
 
 ## 文档导航
@@ -214,7 +215,7 @@ docs/                        # guides / architecture / research / world / 模型
 - [文档总索引](docs/README.md)：当前操作、架构设计、世界观和资料来源。
 - [配置与扩展](docs/guides/CONFIGURATION_GUIDE_ZH.md) · [RPG 场景与存档](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)。
 - [手势录制与标定](docs/guides/SEAL_LAB_QUICKSTART_ZH.md) · [中文口令](docs/guides/SKILL_VOICE_SETUP_ZH.md)。
-- [画符设计](docs/architecture/GLYPH_DESIGN_ZH.md)：战斗外抓笔进入，期间不结印/攻击，P2，尚未实现运行时。
+- [墨规笔画符设计与试验场操作](docs/architecture/GLYPH_DESIGN_ZH.md#运行试验场) 包含战斗外抓笔、笔尖采点、剧情板、主动板和千钧符操作。
 - [模型交火规则](docs/模型交火/README.md)：代码审阅、需求变更和世界观变更统一追加交接，逐项记录模型、时间及文件改动。
 
 ## 第三方资源与许可

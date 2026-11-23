@@ -1,0 +1,48 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.0028,
+  "ray_m": 0.013,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 1K atlas.",
+  "meshes": {
+    "WestWallSquares": {
+      "high_tri": 4404,
+      "LOD_tri": [
+        572,
+        360,
+        194
+      ],
+      "dimensions_xyz_blender_m": [
+        1.0920000076293945,
+        0.11299999803304672,
+        0.5995000004768372
+      ]
+    },
+    "EastFiveStraightedges": {
+      "high_tri": 13752,
+      "LOD_tri": [
+        668,
+        420,
+        226
+      ],
+      "dimensions_xyz_blender_m": [
+        1.9800000190734863,
+        0.1470000147819519,
+        0.9399999976158142
+      ]
+    },
+    "AssemblySaddle": {
+      "high_tri": 4816,
+      "LOD_tri": [
+        988,
+        622,
+        334
+      ],
+      "dimensions_xyz_blender_m": [
+        0.7976399660110474,
+        0.43648001551628113,
+        0.6359999179840088
+      ]
+    }
+  }
+}

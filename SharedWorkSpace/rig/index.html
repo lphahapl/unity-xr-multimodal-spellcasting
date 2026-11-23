@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <script src="../ui/open.js" data-route="rig/"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>骨骼与动画工作台</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three/build/three.module.min.js",
+          "three/addons/": "/vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="portal">
+      <a href="/">共享工作空间</a><a href="/plans/">策划案</a><a href="/scenes/">场景原型</a
+      ><a href="/reader/?kind=rig">配置与检索</a><button id="reloadLibrary">重新读取文件</button>
+    </nav>
+    <header>
+      <div class="identity">
+        <span class="logo">⟐</span>
+        <h1>骨骼与动画工作台</h1>
+      </div>
+      <div id="filename">载入模型…</div>
+      <label class="picker">人物集合<select id="collection" aria-label="人物集合"></select></label>
+      <label class="picker">版本<select id="version" aria-label="模型版本"></select></label>
+      <button id="turnaround" hidden>全身三视图</button>
+      <button id="annotations" disabled>版本批注</button>
+      <button id="open" class="accent" disabled>＋ 导入模型</button
+      ><input
+        id="files"
+        type="file"
+        accept=".fbx,.glb,.gltf,.bin,.png,.jpg,.jpeg,.webp"
+        multiple
+        hidden
+      />
+    </header>
+    <main>
+      <aside class="hierarchy">
+        <div class="paneltitle">
+          <h2>骨骼层级</h2>
+          <b id="count">0</b>
+        </div>
+        <input id="search" type="search" placeholder="搜索骨骼名称" aria-label="搜索骨骼名称" />
+        <div id="tree" role="listbox" aria-label="选择骨骼"></div>
+      </aside>
+      <section id="stage" aria-label="交互模型视图">
+        <canvas id="view"></canvas><canvas id="overlay"></canvas>
+        <div class="stagebar">
+          <div class="seg">
+            <button id="texture" class="on">材质</button><button id="heat">权重热图</button>
+          </div>
+          <div class="seg">
+            <button id="dots" class="on">骨架</button><button id="labels">骨名</button>
+          </div>
+        </div>
+        <div id="axis">Y ↑</div>
+        <div class="stagefoot">
+          <button id="fit">全身</button><button id="focus">聚焦关节</button
+          ><span id="viewstatus" role="status">读取中</span>
+        </div>
+      </section>
+      <aside class="inspector">
+        <p id="libraryErrors" role="alert"></p>
+        <h2>关节检查</h2>
+        <div id="selection">—</div>
+        <dl>
+          <dt>父骨骼</dt>
+          <dd id="parent">—</dd>
+          <dt>影响顶点</dt>
+          <dd id="affected">—</dd>
+          <dt>最大权重</dt>
+          <dd id="maxWeight">—</dd>
+        </dl>
+        <div class="legend"></div>
+        <div class="ends"><span>0</span><span>0.5</span><span>1</span></div>
+        <h2>动画预览</h2>
+        <label for="clips">片段</label
+        ><select id="clips"></select>
+        <div class="actions">
+          <button id="play" disabled>播放</button><button id="animStop" disabled>退出动画</button>
+        </div>
+        <label><input id="loop" type="checkbox" checked />循环</label>
+        <label for="time">播放时间</label
+        ><input id="time" type="range" min="0" max="1" step=".001" value="0" disabled /><output
+          id="timecode"
+          >0.00 秒</output
+        >
+        <button id="addAnim" disabled>导入匹配骨架的动画</button
+        ><input
+          type="file"
+          id="animFiles"
+          multiple
+          hidden
+          accept=".fbx,.glb,.gltf,.bin,.png,.jpg,.jpeg,.webp"
+        />
+        <p id="animStatus" role="status"></p>
+        <h2>姿态预览</h2>
+        <div class="seg wide">
+          <button id="pull" class="on">牵拉骨链</button><button id="rotation">旋转单骨</button>
+        </div>
+        <div class="actions">
+          <button id="undo">撤销</button><button id="redo">重做</button><button id="reset">还原</button>
+        </div>
+        <h2>权重检查</h2>
+        <div id="audit" aria-live="polite">—</div>
+        <h2>操作</h2>
+        <p>拖动关节点预览变形。拖空白处环绕，右拖平移，滚轮缩放。双击骨骼可聚焦。</p>
+        <p>可拖入 FBX、GLB 或 glTF。外部贴图和 BIN 文件可一起选择。</p>
+      </aside>
+    </main>
+    <dialog id="turnaroundDialog" aria-label="全身三视图">
+      <a id="turnaroundOriginal" target="_blank" rel="noopener" title="打开原尺寸三视图">
+        <img id="turnaroundImage" alt="模型全身三视图" />
+      </a>
+      <form method="dialog"><footer><button autofocus>关闭</button></footer></form>
+    </dialog>
+    <dialog id="importDialog" aria-labelledby="importTitle">
+      <form id="importForm">
+        <h2 id="importTitle">导入模型版本</h2>
+        <p id="importFile"></p>
+        <label>归入集合<select id="destination" required></select></label>
+        <label id="newNameRow" hidden>新人物名称<input id="newName" maxlength="80" /></label>
+        <label>版本名称<input id="versionName" maxlength="80" required /></label>
+        <p class="dialogError" id="importError" role="alert"></p>
+        <footer>
+          <button type="button" id="cancelImport">取消</button
+          ><button type="submit" class="accent" id="confirmImport">导入此版本</button>
+        </footer>
+      </form>
+    </dialog>
+    <dialog id="notesDialog" aria-labelledby="notesTitle">
+      <form id="notesForm">
+        <h2 id="notesTitle">版本批注</h2>
+        <p id="noteVersion"></p>
+        <div id="noteHistory" aria-live="polite"></div>
+        <label
+          >新批注<textarea
+            id="noteText"
+            required
+            rows="4"
+            maxlength="8000"
+            placeholder="记录关节、姿态或权重问题"
+          ></textarea>
+        </label>
+        <p class="dialogError" id="notesError" role="alert"></p>
+        <footer>
+          <button type="button" id="closeNotes">关闭</button
+          ><button type="submit" class="accent" id="saveNote">保存批注</button>
+        </footer>
+      </form>
+    </dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

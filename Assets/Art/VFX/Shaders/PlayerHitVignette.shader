@@ -60,9 +60,9 @@ Shader "NarutoVR/PlayerHitVignette"
                 p.y *= 0.94h;
                 half minor = min(p.x, p.y);
                 half edge = max(p.x, p.y) + 0.19h * minor * minor;
-                half wash = smoothstep(0.62h, 1.07h, edge);
+                half wash = smoothstep(0.52h, 1.02h, edge);
                 half rim = smoothstep(0.87h, 1.11h, edge);
-                half alpha = (0.47h * wash + 0.16h * rim) * saturate(_Strength) * _Cinnabar.a;
+                half alpha = (0.60h * wash + 0.19h * rim) * saturate(_Strength) * _Cinnabar.a;
                 return half4(_Cinnabar.rgb, alpha);
             }
             ENDHLSL

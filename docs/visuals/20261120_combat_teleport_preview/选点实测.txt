@@ -1,0 +1,21 @@
+ready=0.12 dwell=0.32 release=0.12 halfAngle=50 smoothing=True range=6 worldMarks=True, CanAct=True, ui=False, head=CenterEyeAnchor
+PASS real courtyard node with two legal neighbors
+nodes courtyard.1.2 -> courtyard.0.0 or courtyard.2.4; feet=(0.00, -0.03, 1.50)
+PASS arc visible first observation before readiness
+PASS arc originates at pointing hand
+PASS arc ends on physical target A
+PASS dwell phase visible before travel
+PASS line changes 2305 real camera pixels
+PASS retarget follows B without moving player
+PASS withdraw finger cancels preview
+PASS lost tracking clears preview
+PASS input ownership clears preview
+PASS physical obstruction removes line
+PASS dwell teleports then clears preview at 0.32 sec
+PASS continued pointing cannot chain
+PASS explore walk hides teleport line
+ALL PASS
+Unity 6000.3.10f1 · 既有移动回归
+PASS ray=44
+PASS encounter=22
+PASS locomotion=28

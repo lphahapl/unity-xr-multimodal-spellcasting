@@ -53,7 +53,6 @@ namespace NarutoVR.SealCombat.Editor
             Group("腕饰生命周期与重载清理", WristViewLifecycleChecks.Run);
             Group("技能核心匹配与取消", SkillCoreChecks.Run);
             Group("可扩展配置架构", SkillArchitectureChecks.Run);
-            Group("旧配置迁移", SkillMigrationChecks.Run);
             Group("三个展示场景与特效接线", SkillShowcaseChecks.ValidateScenes);
             Group("结印评分、录制与回放", () =>
             {

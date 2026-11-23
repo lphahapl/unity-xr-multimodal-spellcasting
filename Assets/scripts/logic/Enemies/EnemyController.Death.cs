@@ -4,7 +4,6 @@ namespace NarutoVR.SealCombat.Enemies
 {
     public sealed partial class EnemyController
     {
-        static readonly int DeathState = Animator.StringToHash("Base Layer.Dead");
         EnemyLease spawnLease;
         bool keepDeadInstanceForReset, retiredDeath;
         DeathPlayback deathPlayback;
@@ -95,14 +94,14 @@ namespace NarutoVR.SealCombat.Enemies
             if (state == null || state.Paused || Time.timeScale <= 0) return;
             if (!IsDead || !ReferenceEquals(state.Life, enemyObj.Combat)) { CancelDeathPlayback(); return; }
             var player = state.Animator;
-            if (!player || !player.isActiveAndEnabled || !player.runtimeAnimatorController || !player.HasState(0, DeathState))
+            if (!player || !player.isActiveAndEnabled || !player.runtimeAnimatorController || !player.HasState(0, enemyObj.DeathState))
             {
                 FinishDeathPlayback(state);
                 return;
             }
             if (player.speed == 0) return;
             var current = player.GetCurrentAnimatorStateInfo(0);
-            if (current.fullPathHash == DeathState)
+            if (current.fullPathHash == enemyObj.DeathState)
             {
                 state.Entered = true;
                 if (current.normalizedTime >= 1 || current.length <= 0) FinishDeathPlayback(state);
@@ -114,7 +113,7 @@ namespace NarutoVR.SealCombat.Enemies
             if (!state.Entered && state.Waiting < Mathf.Max(1, reactionTimeout)) return;
             if (state.ForcedEntry) { FinishDeathPlayback(state); return; }
             state.Waiting = 0; state.Entered = false; state.ForcedEntry = true;
-            player.Play(DeathState, 0, 0);
+            player.Play(enemyObj.DeathState, 0, 0);
         }
 
         void FinishDeathPlayback(DeathPlayback state)

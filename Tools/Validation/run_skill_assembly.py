@@ -6,6 +6,7 @@ The baseline ref supplies old Assets files that differ from the live candidate. 
 """
 import argparse
 from datetime import datetime
+import filecmp
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ PLAY_REPORTS = {
     "objective-binding": ("NarutoVR.SealCombat.Editor.ChapterObjectiveBindingChecks.RunBatch", "chapter-objective-binding.txt"),
     "checkpoint-recovery": ("NarutoVR.SealCombat.Editor.CheckpointRecoveryChecks.RunBatch", "checkpoint-recovery.txt"),
     "enemy-hit": ("NarutoVR.SealCombat.Editor.EnemyHitFeedbackChecks.RunBatch", "enemy-hit-feedback.txt"),
+    "skills-actions": ("SkillActionChecks.Run", "skill-actions.txt"),
     "enemy-animation": ("EnemyAnimationContinuityChecks.Run", "enemy-animation/result.txt"),
 }
 
@@ -113,6 +115,17 @@ def prepare_clone(clone):
             shutil.copytree(REPO / rel, clone / rel)
     elif not (clone / MARKER).is_file() or (clone / "Temp/UnityLockfile").exists():
         raise RuntimeError("Use a marked, idle test project")
+    else:
+        # A reused project may predate this baseline. Files unchanged in git diff can still be stale in Unity.
+        owned = paths(git("ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", "Assets"))
+        for rel in sorted(owned):
+            source = REPO / rel
+            destination = local_file(clone, rel)
+            if not source.is_file():
+                destination.unlink(missing_ok=True)
+            elif not destination.is_file() or not filecmp.cmp(source, destination, shallow=False):
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, destination)
     settings = clone / "ProjectSettings/ProjectSettings.asset"
     content = settings.read_bytes()
     name = re.search(rb"(?m)^  productName: ([^\r\n]*)", content)
@@ -133,9 +146,16 @@ def execute(unity, clone, output, phase):
     args = [str(unity), "-batchmode", "-nographics", "-buildTarget", "StandaloneWindows64",
             "-projectPath", str(clone), "-logFile", str(log), "-executeMethod"]
     if phase in PLAY_REPORTS:
-        if phase == "enemy-animation":
-            write_if_changed(clone/"Assets/scripts/logic/Editor/EnemyAnimationContinuityChecks.cs",
-                             Path(__file__).with_name("EnemyAnimationContinuityChecks.cs").read_bytes())
+        fixture = {"enemy-animation": "EnemyAnimationContinuityChecks.cs", "skills-actions": "SkillActionChecks.cs"}.get(phase)
+        if fixture:
+            write_if_changed(clone/"Assets/scripts/logic/Editor"/fixture, Path(__file__).with_name(fixture).read_bytes())
+        if phase == "skills-actions":
+            # The editor export checks the desktop model vocabulary at this path.
+            # A fresh validation clone carries the same vocabulary in StreamingAssets.
+            vocabulary = Path("Tools/SkillVoice/models/sherpa-onnx-kws-zipformer-zh-en-3M-2025-12-20/tokens.txt")
+            desktop_tokens = REPO / vocabulary
+            tokens = desktop_tokens if desktop_tokens.is_file() else clone / "Assets/StreamingAssets/SkillVoice/tokens.txt"
+            write_if_changed(clone / vocabulary, tokens.read_bytes())
         method, filename = PLAY_REPORTS[phase]
         play_report = clone / "Logs" / filename
         # This project is explicitly marked and idle. Only accept the newly produced report.
@@ -177,7 +197,7 @@ def main():
     parser.add_argument("--unity",type=Path,required=True)
     parser.add_argument("--clone",type=Path,required=True)
     parser.add_argument("--baseline-ref",required=True)
-    parser.add_argument("--phases",nargs="+",choices=(*PHASES, "training-chapter", "fight-entry", "objective-binding", "checkpoint-recovery", "enemy-hit", "enemy-animation", *MVC_SCENES),default=list(PHASES))
+    parser.add_argument("--phases",nargs="+",choices=(*PHASES, "training-chapter", "fight-entry", "objective-binding", "checkpoint-recovery", "enemy-hit", "enemy-animation", "skills-actions", *MVC_SCENES),default=list(PHASES))
     parser.add_argument("--baseline-save",type=Path,help="Previously captured v2 sample when repeating candidate phases")
     args=parser.parse_args()
     clone=args.clone.resolve()

@@ -36,8 +36,9 @@ namespace NarutoVR.SealCombat
 
         internal void Prepare()
         {
+            // Play 模式重载脚本后保留了姿态快照，但材质属性块需要重新创建。
+            properties ??= new MaterialPropertyBlock();
             if (prepared) return;
-            prepared = true;
             rotations = new Quaternion[orbits.Length];
             for (int i = 0; i < orbits.Length; ++i) rotations[i] = orbits[i].node ? orbits[i].node.localRotation : Quaternion.identity;
             trailWidths = new float[flightTrails.Length];
@@ -46,7 +47,7 @@ namespace NarutoVR.SealCombat
             if (expansionNode) expansionScale = expansionNode.localScale;
             particles = GetComponentsInChildren<ParticleSystem>(true);
             renderers = GetComponentsInChildren<Renderer>(true);
-            properties = new MaterialPropertyBlock();
+            prepared = true;
         }
 
         private void OnEnable()

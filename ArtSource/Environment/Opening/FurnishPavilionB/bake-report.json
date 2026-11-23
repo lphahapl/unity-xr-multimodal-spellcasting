@@ -1,0 +1,48 @@
+{
+  "blender": "5.2.2 LTS",
+  "bake_resolution": 1024,
+  "cage_m": 0.0028,
+  "ray_m": 0.013,
+  "method": "Cycles selected-to-active, per component exploded color, tangent normal, roughness, metallic; assembled AO. Source materials procedurally textured. Unique shared 1K atlas.",
+  "meshes": {
+    "ArcCabinet": {
+      "high_tri": 22608,
+      "LOD_tri": [
+        4044,
+        2546,
+        1374
+      ],
+      "dimensions_xyz_blender_m": [
+        2.440000057220459,
+        0.6228042244911194,
+        1.3180655241012573
+      ]
+    },
+    "BenchDressing": {
+      "high_tri": 4964,
+      "LOD_tri": [
+        1432,
+        902,
+        486
+      ],
+      "dimensions_xyz_blender_m": [
+        1.3200000524520874,
+        0.6809989213943481,
+        0.3393012285232544
+      ]
+    },
+    "HangingDivider": {
+      "high_tri": 1968,
+      "LOD_tri": [
+        316,
+        198,
+        106
+      ],
+      "dimensions_xyz_blender_m": [
+        0.20965081453323364,
+        0.025500014424324036,
+        0.4241688847541809
+      ]
+    }
+  }
+}

@@ -42,33 +42,33 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!rpg.CanAct)
             {
-                inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.SetEncounterCombat(false);
+                inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.RequestEncounterCombat(this, false);
                 status = rpg.Player.Alive ? "玩家暂停，敌人已暂停" : "玩家倒下，等待恢复检查点"; return;
             }
-            if (complete) { rpg.SetEncounterCombat(false); status = "房间已完成，探索中"; return; }
+            if (complete) { rpg.RequestEncounterCombat(this, false); status = "房间已完成，探索中"; return; }
             if (started && CheckRoomDefeats()) return;
             if (!ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside))
             {
-                inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.SetEncounterCombat(false);
+                inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.RequestEncounterCombat(this, false);
                 status = started ? "已离开房间，敌人保留生命并暂停" : "练习区：等待玩家进入房间"; return;
             }
             inside = true;
             if (!started)
             {
-                if (spawnFailed) { rpg.SetEncounterCombat(false); return; }
+                if (spawnFailed) { rpg.RequestEncounterCombat(this, false); return; }
                 if (pendingSpawns == null)
                 {
                     var request = new CancellationTokenSource(); pendingSpawns = request;
                     SpawnTask = SpawnRoomAsync(revision, request);
                 }
-                if (!started) { if (!spawnFailed) { status = "正在异步准备房间敌人"; rpg.SetEncounterCombat(true); } return; }
+                if (!started) { if (!spawnFailed) { status = "正在异步准备房间敌人"; rpg.RequestEncounterCombat(this, true); } return; }
             }
             if (pausedEnemies)
             {
                 pausedEnemies = false;
                 foreach (var lease in roomLeases) if (enemyManager.IsCurrent(lease) && !Defeated(lease.Controller)) lease.Controller.SetSuspended(false);
             }
-            rpg.SetEncounterCombat(true); status = "房间战斗中";
+            rpg.RequestEncounterCombat(this, true); status = "房间战斗中";
         }
 
         bool CheckRoomDefeats()
@@ -87,7 +87,7 @@ namespace NarutoVR.SealCombat.Rpg
                 {
                     enemies[i] = null;
                     if (!PauseManagedEnemies()) return true;
-                    rpg.SetEncounterCombat(false);
+                    rpg.RequestEncounterCombat(this, false);
                     status = "房间实例已被外部回收或管理器重启，请重置遭遇";
                     return true;
                 }
@@ -100,31 +100,34 @@ namespace NarutoVR.SealCombat.Rpg
         {
             var created = new List<EnemyLease>();
             var manager = enemyManager;
+            var owner = rpg;
+            bool Current() => this && isActiveAndEnabled && token == revision && !request.IsCancellationRequested &&
+                owner && owner == rpg && manager == enemyManager;
             try
             {
                 // Snapshot the batch so Inspector changes do not change an in-flight request.
                 var batch = spawnPoints.Select(s => (s.enemyId, s.point.position, s.point.rotation, s.isSummoned)).ToArray();
                 foreach (var item in batch)
                 {
-                    var lease = await manager.SpawnEnemyAsync(item.enemyId, item.position, item.rotation, rpg.locomotion.head, item.isSummoned, request.Token);
+                    var lease = await manager.SpawnEnemyAsync(item.enemyId, item.position, item.rotation, owner.locomotion.head, item.isSummoned, request.Token);
                     created.Add(lease);
-                    if (!this || !isActiveAndEnabled || token != revision || request.IsCancellationRequested) throw new OperationCanceledException();
+                    if (!Current()) throw new OperationCanceledException();
                     if (!manager.IsCurrent(lease)) throw new OperationCanceledException("出生租约已失效");
                     lease.Controller.SetSuspended(true);
                 }
-                if (!this || !isActiveAndEnabled || token != revision || request.IsCancellationRequested ||
-                    !rpg.CanAct || !ContainsFloor(rpg.locomotion.PlayerFloorPosition, false) || created.Any(l => !manager.IsCurrent(l))) throw new OperationCanceledException();
+                if (!Current() || !owner.CanAct || !ContainsFloor(owner.locomotion.PlayerFloorPosition, false) ||
+                    created.Any(l => !manager.IsCurrent(l))) throw new OperationCanceledException();
                 roomLeases.AddRange(created); created.Clear();
                 enemies = roomLeases.Select(l => l.Controller).ToArray();
                 started = true; pausedEnemies = false;
                 foreach (var lease in roomLeases) if (manager.IsCurrent(lease)) lease.Controller.SetSuspended(false);
-                rpg.SetEncounterCombat(true); status = "房间战斗中";
+                rpg.RequestEncounterCombat(this, true); status = "房间战斗中";
             }
             catch (OperationCanceledException) { /* Leaving/resetting invalidates just this batch. */ }
             catch (Exception error)
             {
-                if (this && token == revision)
-                { spawnFailed = true; status = "敌人准备失败：" + error.Message; if (rpg) rpg.SetEncounterCombat(false); Debug.LogWarning(status, this); }
+                if (Current())
+                { spawnFailed = true; status = "敌人准备失败：" + error.Message; owner.RequestEncounterCombat(this, false); Debug.LogWarning(status, this); }
             }
             finally
             {
@@ -166,7 +169,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 RecycleRoomLeases(); enemies = Array.Empty<EnemyController>();
                 started = complete = inside = spawnFailed = false; pausedEnemies = true;
-                if (rpg) rpg.SetEncounterCombat(false); status = "遭遇已重置，实例已回池，等待进入";
+                if (rpg) rpg.RequestEncounterCombat(this, false); status = "遭遇已重置，实例已回池，等待进入";
             }
             finally { resetting = false; }
         }

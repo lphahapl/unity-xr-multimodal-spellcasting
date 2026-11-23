@@ -55,11 +55,9 @@ namespace NarutoVR.SealCombat.Rpg
             detectionSubscription = null;
             CancelPendingSpawns();
             ++revision;
-            if (subscribed) subscribed.CheckpointRestored -= ResetEncounter;
-            subscribed = null;
+            ReleaseSession();
             inside = false;
             PauseEnemies();
-            if (rpg) rpg.SetEncounterCombat(false);
         }
         void OnDestroy()
         {
@@ -103,8 +101,23 @@ namespace NarutoVR.SealCombat.Rpg
                 $"削韧={hit.PoiseDamage:0.##} 死亡={hit.Dead} hitId={hit.HitId}");
         }
 
+        void ReleaseSession()
+        {
+            if (subscribed)
+            {
+                subscribed.CheckpointRestored -= ResetEncounter;
+                subscribed.RequestEncounterCombat(this, false);
+            }
+            subscribed = null;
+        }
+
         bool EnsureSetup()
         {
+            if (subscribed && (subscribed != rpg || !area || !subscribed.roomControlsEncounter))
+            {
+                CancelPendingSpawns();
+                ReleaseSession();
+            }
             if (!rpg || !area || !rpg.roomControlsEncounter)
             { status = "未接线：需要玩家、范围及玩家的房间管理开关"; return false; }
             if (UsesEnemyManager) return EnsureManagedSetup();
@@ -143,11 +156,11 @@ namespace NarutoVR.SealCombat.Rpg
                 if (UsesEnemyManager) { TickManagedEncounter(); return; }
                 if (!rpg.CanAct)
                 {
-                    inside = false; PauseEnemies(); rpg.SetEncounterCombat(false);
+                    inside = false; PauseEnemies(); rpg.RequestEncounterCombat(this, false);
                     status = rpg.Player.Alive ? "玩家暂停，敌人已暂停" : "玩家倒下，等待恢复检查点";
                     return;
                 }
-                if (complete) { rpg.SetEncounterCombat(false); status = "房间已完成，探索中"; return; }
+                if (complete) { rpg.RequestEncounterCombat(this, false); status = "房间已完成，探索中"; return; }
                 if (started && AllDefeated())
                 {
                     FinishEncounter(); return;
@@ -155,7 +168,7 @@ namespace NarutoVR.SealCombat.Rpg
                 bool nextInside = ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside);
                 if (!nextInside)
                 {
-                    inside = false; PauseEnemies(); rpg.SetEncounterCombat(false);
+                    inside = false; PauseEnemies(); rpg.RequestEncounterCombat(this, false);
                     status = started ? "已离开房间，敌人保留生命并暂停" : "练习区：等待玩家进入房间";
                     return;
                 }
@@ -182,7 +195,7 @@ namespace NarutoVR.SealCombat.Rpg
                         if (revision != token || !isActiveAndEnabled) return;
                     }
                 }
-                rpg.SetEncounterCombat(true); status = "房间战斗中";
+                rpg.RequestEncounterCombat(this, true); status = "房间战斗中";
             }
             finally { ticking = false; }
         }
@@ -190,7 +203,7 @@ namespace NarutoVR.SealCombat.Rpg
         void FinishEncounter()
         {
             complete = true; inside = false; pausedEnemies = true;
-            rpg.SetEncounterCombat(false);
+            rpg.RequestEncounterCombat(this, false);
             status = "房间敌人已全部击败";
             Cleared?.Invoke();
             if (complete) CompletionChanged?.Invoke();
@@ -253,7 +266,7 @@ namespace NarutoVR.SealCombat.Rpg
                     spawn.Enemy.gameObject.SetActive(false);
                     spawn.Enemy.transform.SetPositionAndRotation(spawn.Position, spawn.Rotation);
                 }
-                if (rpg) rpg.SetEncounterCombat(false);
+                if (rpg) rpg.RequestEncounterCombat(this, false);
                 status = "遭遇已重置，等待进入房间";
             }
             finally { resetting = false; }

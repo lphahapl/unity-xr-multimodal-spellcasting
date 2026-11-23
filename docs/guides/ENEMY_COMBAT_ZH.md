@@ -2,9 +2,19 @@
 
 当前入口是 `CanJiOu_Enemy.prefab`，搭配 [导航与动画说明](ENEMY_NAVIGATION_ZH.md)。本轮参考本机 `D:/unity_training/Practice/Assets/Scripts/Data/WeaponData.cs`、`Logic/WeaponObj.cs`、`Logic/EnemyObj.cs`、`Logic/EnemyAI.cs`、`Logic/EventCenter.cs` 的数据和事件分工；没有修改 Practice，也没有整套搬入它的武器、任务或 Root Motion 系统。
 
+## 掷火残机的远程攻击
+
+[掷火残机战斗 Prefab](../../Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab) 使用同一套 `EnemyController` 和 `EnemyObj`。在 `EnemyObj → 每招攻击数据 → 司衡掷火` 设置「炮口发射」、伤害、着地点伤害半径和动画生效窗口。当前弹速 6 米/秒，射程 15 米，命中伤害 40，地面落点半径 1 米。
+
+`EnemyRangedAttack` 在蓄力前段跟踪玩家脚下，在动画进度 0.55 锁定红圈；动画进度约 0.70 发射。右上臂和前臂在 Animator 采样后对准锁定点，右手下 `Muzzle` 的蓝色 Z 轴沿着实际筒口向外。火核从该位置沿该方向直线飞行。命中角色或落地才经 `CombatDamageReceiver` 进入伤害管线，障碍物可以挡住火核。配置派生模式和巡逻路线见[敌人生成指南](ENEMY_SPAWNING_ZH.md)。
+
+火核与玩家飞炎术共用「飞炎术效果」中的火焰预制体和特效缩放，粒子与照明配置会一起生效。敌方弹速在掷火残机的 `EnemyRangedAttack` 上调整，命中伤害和落点半径按该招的攻击数据结算。
+
 ## Inspector 配置位置
 
 P1 的残机偶从 [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab) 继承招式。在 Project 中打开它，选根物体，展开 **EnemyObj → 每招攻击数据 → Element 0（挥砍）或 Element 1（转圈）→ 单次伤害**。房间使用的 `CanJiOu_Room` 变体继承这两个值。
+
+在玩家的 **PlayerObj** 上分别绑定「本体受击音效」和「护盾吸收音效」，在敌人预制体的 **EnemyObj** 上绑定「本体受击音效」。跨组件可订阅 `PlayerEvents.DamageSettled`，消息包含玩家、命中 ID、实际掉血和护盾吸收量。敌人沿用 `EnemyEvents.VitalsChanged`，按 Enemy 和非空 HitId 筛出命中。每次有效结算由受击实体播放一次。玩家掉血时视野边缘泛红，完全吸收时播放盾面撞击声。残机偶从自身位置发出木质撞击声，同时短暂亮起暖金色；普通命中保留当前攻击动作。
 
 | 配置位置 | 调整内容 | P1 当前值 |
 |---|---|---|
@@ -29,6 +39,16 @@ P1 的残机偶从 [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_En
 [受击后的双条](../visuals/20261108_enemy_nameplate/残机偶_受击.png) · [破韧坐地后的名牌](../visuals/20261108_enemy_nameplate/残机偶_破韧.png)
 
 `attackCount` 是独立动作总数，必须同时存在相应 Animator 动作入口和 `AttackData`。数量不足或数值无效会拒绝行动/攻击并显示原因。老 `contactNormalizedTime` 只用于首次迁移默认两招，隐藏后不再控制当前生效时间。
+
+每种敌人的动画图在预制体根节点 **EnemyObj → 动画图映射（完整状态路径）** 配置。填写待机、首招、受击、坐地和死亡的完整路径，以及攻击标签、动作参数和后续攻击触发器前缀。现有残机偶沿用 `Base Layer.Attack.挥砍` 和 `EnemyAttack`。替换动画控制器时同步修改该敌人的映射，招式伤害窗口继续读取实际动画的归一化进度。临时关闭 Animator 会关闭攻击窗口。普通韧性恢复继续使用战斗时钟，房间暂停和全局暂停期间冻结，死亡后结束。
+
+### 残机偶的蒙皮边界与远近切换
+
+残机偶举刀时，刀尖会先于身体进入视野。如果蒙皮边界只包住站立姿势，Unity 会提前剔除整个人物，屏幕边缘原本应出现的刀身也会消失。P1 房间变体从基础预制体继承两档 `SkinnedMeshRenderer.localBounds`。两档共用根骨坐标下的中心 `(0.0965, 0.0855, 0.1880)` 和半尺寸 `(0.7715, 0.8705, 0.6740)`，`Update When Offscreen` 保持关闭。[举刀时同机位的裁剪对照](../visuals/20261112_model_display/残机偶_举刀视野边缘.png)
+
+更换网格、骨架或动作后，从实际使用的控制器取出所引用的动画。目前共有 10 段，包括下劈、转圈攻击和破韧坐地。按每段动画的源帧率采样两个 LOD 的蒙皮顶点，转换到各自的根骨坐标，再取两档的联合边界。当前边界在每侧额外留出 0.012 个根骨局部单位，并向外取整。将结果同步到基础预制体和独立美术预制体，重开房间变体，检查两档继承值和举刀入画的时刻。[残机偶动画控制器](../../Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller) · [基础预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab) · [独立美术预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab)
+
+两档在屏幕相对高度 0.25 附近按距离交叉淡变。LOD0 的 `Fade Transition Width` 为 0.05，`Animate Cross-fading` 关闭。平时近档渲染 4,058 个三角形，远档 2,250 个，过渡区同时渲染两档，共 6,308 个。调整宽度时，沿相同视角穿过分界，观察肩甲、刀刃轮廓和后脑铜色弱点，同时核对双档一起绘制的距离范围。
 
 ## 判定、扣血和瘫痪
 

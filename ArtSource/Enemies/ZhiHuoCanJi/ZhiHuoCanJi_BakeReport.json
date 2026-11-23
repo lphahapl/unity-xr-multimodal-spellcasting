@@ -1,0 +1,179 @@
+{
+  "task": "ZHIHUO-QUEST-BAKE-FEIYAN-20261122",
+  "blender": "5.2.2 LTS",
+  "unity": "6000.3.10f1",
+  "sourceTriangles": 50000,
+  "importedSourceVerts": 36909,
+  "finalUnityVerts": 4259,
+  "shader": "URP Lit",
+  "materials": 1,
+  "platform": "Android ASTC 6x6, 2048x2048, mipmaps",
+  "maskChannels": {
+    "R": "source metallic",
+    "G": "baked AO, ray distance 0.115 m, 24 samples",
+    "B": "unused",
+    "A": "source smoothness"
+  },
+  "sourceFBXSHA256": "600b9dbce4c608be863b9e88ed513e1db96d81ace20f0f0b719991a6366d8365",
+  "method": "joint-weighted quadric edge collapse, triangle atlas with 9 isolated UVs, 4 claw contact anchors restored from source positions/weights",
+  "bake": {
+    "primaryCageM": 0.021,
+    "primaryDistanceM": 0.055,
+    "recoveryCageM": 0.048,
+    "recoveryDistanceM": 0.12,
+    "edgeDilationPx": 13,
+    "occupied": 2013926,
+    "primary": 0.9924028986169303,
+    "secondaryAdded": 10156,
+    "combined": 0.9974457849990516,
+    "nearestFilled": 5144,
+    "maxFillPixels": 8.94427190999916
+  },
+  "mesh": {
+    "triangles": 4110,
+    "verts": 2007,
+    "bones": 25,
+    "weightedBones": 22,
+    "maxInfluences": 4,
+    "maximumNormalizationError": 4.470348358154297e-08,
+    "dimensions": [
+      1.5799309015274048,
+      0.6029704809188843,
+      1.8497132062911987
+    ],
+    "maxUVError": 0.0
+  },
+  "qa": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": -0.0003,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "QuestMesh": {
+        "verts": 2007,
+        "faces": 4110,
+        "tris": 4110,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 48.2
+      }
+    }
+  },
+  "motions": {
+    "SlowRun": {
+      "p95SurfaceMm": 8.753304835408926,
+      "maxSurfaceMm": 23.91369827091694,
+      "maxFootDeltaMm": [
+        7.397254399999998,
+        2.8609039999999974
+      ],
+      "minimumSoleHeightM": [
+        0.05234062,
+        0.00159101747
+      ],
+      "oldMinimumSoleHeightM": [
+        0.0510707051,
+        0.00338328187
+      ]
+    },
+    "Gunplay": {
+      "p95SurfaceMm": 8.800541516393423,
+      "maxSurfaceMm": 26.52517706155777,
+      "maxFootDeltaMm": [
+        0.0,
+        2.092100700000002
+      ],
+      "minimumSoleHeightM": [
+        -0.00129192439,
+        0.07625676
+      ],
+      "oldMinimumSoleHeightM": [
+        -0.00129192439,
+        0.07421727
+      ]
+    },
+    "Idle": {
+      "p95SurfaceMm": 8.638080675154924,
+      "maxSurfaceMm": 21.516434848308563,
+      "maxFootDeltaMm": [
+        0.0,
+        0.68385917
+      ],
+      "minimumSoleHeightM": [
+        0.002494124,
+        -0.0009887791
+      ],
+      "oldMinimumSoleHeightM": [
+        0.002494124,
+        -0.0007061166
+      ]
+    }
+  },
+  "stance": {
+    "sampleRate": 120,
+    "cycles": 4,
+    "cycleFrames": 88,
+    "stanceFramesInclusive": [
+      30,
+      43
+    ],
+    "leftForeMinMm": 1.1222999999999999,
+    "leftForeMaxMm": 3.4711999999999996,
+    "maxClawDeltaVsOriginalMm": 0.0
+  },
+  "playmode": [
+    "Existing melee geometry/window/deduplication and RPG shield regression",
+    "SpawnEnemyAsync on baked elevated NavMesh, summoned flag, animator and muzzle references",
+    "Live projectile uses Feiyan burst prefab, scale, particle hierarchy and lights",
+    "shot 1 angle 0.159 frame 47 position (0.56, 3.57, -0.37) target (1.10, 0.06, 6.70)",
+    "Muzzle aligned to locked landing on shot 1",
+    "Live projectile uses Feiyan burst prefab, scale, particle hierarchy and lights",
+    "shot 2 angle 0.133 frame 172 position (0.59, 3.62, -0.56) target (3.55, 0.06, 6.70)",
+    "Muzzle aligned to locked landing on shot 2",
+    "Stationary target hit once for 40 on second projectile impact",
+    "Live projectile uses Feiyan burst prefab, scale, particle hierarchy and lights",
+    "shot 3 angle 0.133 frame 296 position (0.59, 3.62, -0.56) target (3.55, 0.06, 6.70)",
+    "Muzzle aligned to locked landing on shot 3",
+    "Wall blocked third core; cancelling fourth charge removed warning without firing",
+    "Four attack cycles finished",
+    "Pool recycle",
+    "Reused actor as ordinary enemy, patrolling assigned waypoint",
+    "PASS firstShot=47 hit=215 frames=375"
+  ],
+  "playerBreathCheck": "PASS",
+  "headsetTested": false,
+  "outputs": {
+    "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi.fbx": "4a77a15c1b6f4d365edd2e948e3d147dee723b135a407c80a8b914bd013f6839",
+    "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi.mat": "89dcb687356ecf392988c9c911f2be7ab9ddc795451c39dbbe8b44851e825ff4",
+    "Assets/Art/Enemies/ZhiHuoCanJi/Textures/BaseColor.png": "faddae895498fb3484256ff81b0b1a2ea831325b98df7a9b71522d133b17171d",
+    "Assets/Art/Enemies/ZhiHuoCanJi/Textures/MetallicSmoothness.png": "0a40c72c04385ad951013c16c322e753b050474fece549505751041bdf7cc68b",
+    "Assets/Art/Enemies/ZhiHuoCanJi/Textures/Normal.png": "7a850a48dce1d26322a5e674bb6662b2d8fcb98a0708ca72fc14701dc930a7d0",
+    "ArtSource/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Bake.blend": "fe9538bf92c893cb8f47b9ccea3e58eb0b26c5c48229ac56524482dda6b3e03f",
+    "docs/visuals/20261121_zhihuo_enemy_turnaround/ZhiHuoCanJi_QuestBake_AB.jpg": "03e0e2cb19596227c650e608d51ab361037783fc7801b66038f6b6da35412d8f",
+    "docs/visuals/20261121_zhihuo_enemy_turnaround/ZhiHuoCanJi_QuestBake.mp4": "eda1c19d74b1fccaf86d5422ae064297eef7508cac56c66128bbb92c2fd5b556"
+  }
+}

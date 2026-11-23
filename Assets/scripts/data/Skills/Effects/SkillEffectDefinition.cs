@@ -9,6 +9,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("音频配置（可选）")] public SkillAudioProfile audioProfile;
         public virtual string Summary => GetType().Name;
         public virtual string ValidateDefinition() => null;
+        public virtual float CooldownOnActivation(float configuredSeconds) => configuredSeconds;
         /// <summary>本效果是否实现可购买的等级成长；商店不能向无等级规则的效果出售升级。</summary>
         public virtual bool SupportsLevels => false;
         /// <summary>在玩家副本上从原始配置重建等级参数，不能修改 original 或累乘本次副本。</summary>

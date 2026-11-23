@@ -1,0 +1,39 @@
+{
+  "modelSourceSHA256": "afef1640d35bde6e848bbba11cd14040af51871730eac0c3250f6e1797122328",
+  "originalWebSHA256": "3e28f6b9d106930ea734d82f3ed07758b7c4e34ae04e68bcc0f91c66541094c4",
+  "correctedWebSHA256": "50cbf27e9e32d849a392e9848188acd3412f82f1b560412f90533836c85d8b3e",
+  "originalWebFile": "ShenShang_FaceMatch_R7.glb",
+  "correctedWebFile": "ShenShang_FaceMatch_R7_Display.glb",
+  "correctedZipSHA256": "0830a4103486f55aa481de03a1ab4e966c0ac64087c72c69debdcf32d35f9fd4",
+  "sourceImagesUnchanged": true,
+  "sameGeometryAndBinaryChunk": true,
+  "changedTexture": [
+    [
+      {
+        "sampler": 0,
+        "source": 32
+      },
+      {
+        "sampler": 2,
+        "source": 32
+      }
+    ]
+  ],
+  "glTFSampler": {
+    "magFilter": 9729,
+    "minFilter": 9987,
+    "wrapT": 33071
+  },
+  "browserDeepLink": {
+    "label": "面部对稿 R7",
+    "file": "ShenShang_FaceMatch_R7_Display.glb",
+    "status": "0 根骨骼 · 0 个蒙皮网格",
+    "audit": "原始顶点\n0\n未加权\n0\n权重和异常\n0\n超过四骨\n0\n无效权重或引用\n0\n\n统计原文件蒙皮。热图显示浏览器使用的前四项影响，权重和误差阈值为 0.001。",
+    "deep": "http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r7",
+    "visibility": "hidden",
+    "versionCount": 30
+  },
+  "errors": 0,
+  "warnings": 0,
+  "secondReview": "R7_DisplayGemini.json"
+}

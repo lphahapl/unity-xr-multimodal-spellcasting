@@ -1,0 +1,185 @@
+{
+  "source": "ArtSource/Environment/Opening/CourtyardModelOrders/H04/H04_Hunyuan.glb",
+  "source_sha256": "5e37e3c747fbbffbb8b4f6ea823dcde8ccf15129a8b91bdf6c89a16657349656",
+  "source_dimensions": {
+    "min": [
+      -0.45577099919319153,
+      -0.41192805767059326,
+      -4.9857884931725494e-08
+    ],
+    "max": [
+      0.5381199717521667,
+      0.41014906764030457,
+      0.6238300800323486
+    ],
+    "triangles": 499502
+  },
+  "unit": "m",
+  "anchors_local_Unity": {
+    "Foot": [
+      0,
+      0,
+      0
+    ],
+    "Summit": [
+      4.059765213507394,
+      42.0,
+      -1.2414106598116599
+    ]
+  },
+  "lods": {
+    "GraniteSpire_LOD0": {
+      "triangles": 5100,
+      "size_m": [
+        28.924148559570312,
+        24.911090850830078,
+        42.10569381713867
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-0.0669 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -0.0669,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GraniteSpire_LOD0": {
+            "verts": 2504,
+            "faces": 5100,
+            "tris": 5100,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.31,
+            "uv_coverage_pct": 21.6
+          }
+        }
+      },
+      "support": {}
+    },
+    "GraniteSpire_LOD1": {
+      "triangles": 1650,
+      "size_m": [
+        28.32413101196289,
+        24.818721771240234,
+        42.031009674072266
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=-0.0125 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -0.0125,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GraniteSpire_LOD1": {
+            "verts": 779,
+            "faces": 1650,
+            "tris": 1650,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.19,
+            "uv_coverage_pct": 15.9
+          }
+        }
+      },
+      "support": {}
+    },
+    "GraniteSpire_LOD2": {
+      "triangles": 480,
+      "size_m": [
+        27.609195709228516,
+        23.229686737060547,
+        41.748233795166016
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "asset lowest point z=0.0645 (not resting on ground plane z=0)"
+        ],
+        "ground_z": 0.0645,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GraniteSpire_LOD2": {
+            "verts": 194,
+            "faces": 480,
+            "tris": 480,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.08,
+            "uv_coverage_pct": 7.9
+          }
+        }
+      },
+      "support": {}
+    }
+  }
+}

@@ -19,7 +19,7 @@
 1. 玩家进入首章后，控制器先读取清单中稳定的技能与冷却组 ID，再读取 v2 检查点。场景中的实际落点通过本场景节点 ID 验证。
 2. `RuntimeSkillCatalog` 异步取得正式目录的配方租约，为当前玩家复制技能和效果配置，按存档等级从原始参数计算数值。当前匹配器、口令词表和冲突校验需要完整的正式目录。P1 与训练场使用各自显式配置的目录。
 3. 资源和章节校验通过后，建立匹配器、绑定权限和游戏时钟，再开放输入。加载期间离开场景会取消该拥有者的等待，加载失败可重试。等待期间产生的输入会失效。
-4. 激活时分别检查永久解锁加章节许可，或当前章节的试用许可，再检查共享手槽、所需锚点、MP 与冷却。旧 v2 若只在 `discoveredSkillIds` 中存有 `thunder.sword`，授权阶段可以试用。收起剑、换阶段或缓存命中都不会把这个 ID 写入 `unlockedSkillIds`。
+4. 激活时先确认配方属于当前玩家。永久解锁或当前临时授权满足其一即可获得施放资格，再检查共享手槽、所需锚点、MP 与冷却。旧 v2 若只在 `discoveredSkillIds` 中存有 `thunder.sword`，授权阶段可以试用。收起剑、换阶段或缓存命中都不会把这个 ID 写入 `unlockedSkillIds`。
 
 例如，存档用 `thunder.sword` 标识技能。中文名可用于面板显示，Addressables 地址由清单映射，修改显示名或保持同一 ID 的资源迁址可以独立于玩家存档。配置规则见 [首章技能资源清单](../guides/CONFIGURATION_GUIDE_ZH.md#首章技能资源清单)，装配实现见 [RuntimeSkillCatalog](../../Assets/scripts/logic/Rpg/RuntimeSkillCatalog.cs)。
 

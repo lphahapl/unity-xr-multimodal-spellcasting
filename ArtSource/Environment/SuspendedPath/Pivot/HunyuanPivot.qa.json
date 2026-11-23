@@ -1,0 +1,561 @@
+{
+  "pivotBearingAssetYUp": [
+    0,
+    50,
+    0
+  ],
+  "lods": {
+    "HunyuanPivotTower_LOD0": {
+      "boundsBlender": [
+        [
+          -2.7013847827911377,
+          -2.8512890338897705,
+          -2.1301278252394695e-07
+        ],
+        [
+          2.704399585723877,
+          2.8483898639678955,
+          50.77053451538086
+        ]
+      ],
+      "triangles": 20348,
+      "materials": [
+        "CH_HunyuanPivot",
+        "CH_Ashlar",
+        "CH_Timber"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanPivotTower_LOD0: ~91.24% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "HunyuanPivotTower_LOD0": {
+            "verts": 10068,
+            "faces": 20348,
+            "tris": 20348,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 3,
+            "uv_maps": 1,
+            "uv_oob_pct": 19.28,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 91.24,
+            "uv_coverage_pct": 97.3
+          }
+        }
+      }
+    },
+    "HunyuanPivotTower_LOD1": {
+      "boundsBlender": [
+        [
+          -2.7177000045776367,
+          -2.845369815826416,
+          -1.7064355972706835e-07
+        ],
+        [
+          2.700941324234009,
+          2.846242904663086,
+          50.77840805053711
+        ]
+      ],
+      "triangles": 10320,
+      "materials": [
+        "CH_HunyuanPivot",
+        "CH_Ashlar",
+        "CH_Timber"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanPivotTower_LOD1: ~90.74% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "HunyuanPivotTower_LOD1": {
+            "verts": 5052,
+            "faces": 10320,
+            "tris": 10320,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 3,
+            "uv_maps": 1,
+            "uv_oob_pct": 18.78,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 90.74,
+            "uv_coverage_pct": 97.2
+          }
+        }
+      }
+    },
+    "HunyuanPivotTower_LOD2": {
+      "boundsBlender": [
+        [
+          -2.7543914318084717,
+          -2.8022031784057617,
+          -8.143806695670719e-08
+        ],
+        [
+          2.6943037509918213,
+          2.8620550632476807,
+          50.83526611328125
+        ]
+      ],
+      "triangles": 5114,
+      "materials": [
+        "CH_HunyuanPivot",
+        "CH_Ashlar",
+        "CH_Timber"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "HunyuanPivotTower_LOD2: ~91.13% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "HunyuanPivotTower_LOD2": {
+            "verts": 2449,
+            "faces": 5114,
+            "tris": 5114,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 3,
+            "uv_maps": 1,
+            "uv_oob_pct": 21.82,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 91.13,
+            "uv_coverage_pct": 96.5
+          }
+        }
+      }
+    }
+  },
+  "footSectionsUnityMetres": {
+    "0.0": {
+      "minXZ": [
+        -2.6926205158233643,
+        -2.8214402198791504
+      ],
+      "maxXZ": [
+        2.6872968673706055,
+        2.8512890338897705
+      ],
+      "spanXZ": [
+        5.379917144775391,
+        5.6727294921875
+      ]
+    },
+    "0.02": {
+      "minXZ": [
+        -2.7042582035064697,
+        -2.848360300064087
+      ],
+      "maxXZ": [
+        2.697279691696167,
+        2.8505218029022217
+      ],
+      "spanXZ": [
+        5.401537895202637,
+        5.698882102966309
+      ]
+    },
+    "0.1": {
+      "minXZ": [
+        -2.7021617889404297,
+        -2.8480384349823
+      ],
+      "maxXZ": [
+        2.700314998626709,
+        2.847414493560791
+      ],
+      "spanXZ": [
+        5.402476787567139,
+        5.695452690124512
+      ]
+    },
+    "0.4": {
+      "minXZ": [
+        -2.4762191772460938,
+        -2.64650821685791
+      ],
+      "maxXZ": [
+        2.4291553497314453,
+        2.6163859367370605
+      ],
+      "spanXZ": [
+        4.905374526977539,
+        5.262894153594971
+      ]
+    },
+    "0.8": {
+      "minXZ": [
+        -2.27162766456604,
+        -2.159073829650879
+      ],
+      "maxXZ": [
+        2.216794013977051,
+        2.202866315841675
+      ],
+      "spanXZ": [
+        4.488421440124512,
+        4.361940383911133
+      ]
+    },
+    "1.2": {
+      "minXZ": [
+        -2.069094181060791,
+        -1.9260790348052979
+      ],
+      "maxXZ": [
+        2.064321517944336,
+        1.9677681922912598
+      ],
+      "spanXZ": [
+        4.133415699005127,
+        3.8938472270965576
+      ]
+    },
+    "1.6": {
+      "minXZ": [
+        -2.04329776763916,
+        -1.89546537399292
+      ],
+      "maxXZ": [
+        2.053615093231201,
+        2.2194087505340576
+      ],
+      "spanXZ": [
+        4.096912860870361,
+        4.114873886108398
+      ]
+    }
+  },
+  "footY0To1p6UnityBoundsXZ": [
+    [
+      -2.704399585723877,
+      -2.8483898639678955
+    ],
+    [
+      2.7013847827911377,
+      2.8512890338897705
+    ]
+  ],
+  "sweepChannelFloorSamples": [
+    {
+      "unityX": 0.67,
+      "unityZ": 1.5,
+      "topOfStock": null
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": 1.0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": 0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": 0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": -0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": -1,
+      "topOfStock": null
+    },
+    {
+      "unityX": 0.67,
+      "unityZ": -1.5,
+      "topOfStock": null
+    },
+    {
+      "unityX": 0,
+      "unityZ": 1.5,
+      "topOfStock": null
+    },
+    {
+      "unityX": 0,
+      "unityZ": 1.0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0,
+      "unityZ": 0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0,
+      "unityZ": 0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0,
+      "unityZ": -0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": 0,
+      "unityZ": -1,
+      "topOfStock": 44.22011184692383
+    },
+    {
+      "unityX": 0,
+      "unityZ": -1.5,
+      "topOfStock": null
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": 1.5,
+      "topOfStock": null
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": 1.0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": 0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": 0,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": -0.5,
+      "topOfStock": 47.25
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": -1,
+      "topOfStock": null
+    },
+    {
+      "unityX": -0.67,
+      "unityZ": -1.5,
+      "topOfStock": null
+    }
+  ],
+  "bearingChannelGap": [
+    {
+      "height": 48.6,
+      "unityZ": 0.8,
+      "leftInsideUnityX": -0.7550000548362732,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5100000500679016
+    },
+    {
+      "height": 48.6,
+      "unityZ": -0.0,
+      "leftInsideUnityX": -0.7550000548362732,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5100000500679016
+    },
+    {
+      "height": 48.6,
+      "unityZ": -0.8,
+      "leftInsideUnityX": -0.7549999952316284,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5099999904632568
+    },
+    {
+      "height": 49.25,
+      "unityZ": 0.8,
+      "leftInsideUnityX": -0.7567487359046936,
+      "rightInsideUnityX": 0.7550000548362732,
+      "clearWidth": 1.5117487907409668
+    },
+    {
+      "height": 49.25,
+      "unityZ": -0.0,
+      "leftInsideUnityX": -0.7550000548362732,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5100000500679016
+    },
+    {
+      "height": 49.25,
+      "unityZ": -0.8,
+      "leftInsideUnityX": -0.7550000548362732,
+      "rightInsideUnityX": 0.8532803058624268,
+      "clearWidth": 1.6082803606987
+    },
+    {
+      "height": 50.0,
+      "unityZ": 0.8,
+      "leftInsideUnityX": -0.7594779133796692,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5144779086112976
+    },
+    {
+      "height": 50.0,
+      "unityZ": -0.0,
+      "leftInsideUnityX": -0.7549999952316284,
+      "rightInsideUnityX": 0.7549999952316284,
+      "clearWidth": 1.5099999904632568
+    },
+    {
+      "height": 50.0,
+      "unityZ": -0.8,
+      "leftInsideUnityX": -0.7550000548362732,
+      "rightInsideUnityX": 0.8492406606674194,
+      "clearWidth": 1.6042407155036926
+    },
+    {
+      "height": 50.6,
+      "unityZ": 0.8,
+      "leftInsideUnityX": null,
+      "rightInsideUnityX": null,
+      "clearWidth": null
+    },
+    {
+      "height": 50.6,
+      "unityZ": -0.0,
+      "leftInsideUnityX": -0.7549999356269836,
+      "rightInsideUnityX": 0.7550000548362732,
+      "clearWidth": 1.5099999904632568
+    },
+    {
+      "height": 50.6,
+      "unityZ": -0.8,
+      "leftInsideUnityX": null,
+      "rightInsideUnityX": null,
+      "clearWidth": null
+    }
+  ],
+  "beamCentralWidth1p41Sweep": [
+    {
+      "degrees": -41.8103,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": -34.84191666666666,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": -27.873533333333334,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": -20.90515,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": -13.936766666666667,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": -6.968383333333335,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 0.0,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 6.968383333333328,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 13.936766666666664,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 20.90515,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 27.873533333333327,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 34.84191666666666,
+      "crossingPairs": 0
+    },
+    {
+      "degrees": 41.8103,
+      "crossingPairs": 0
+    }
+  ]
+}

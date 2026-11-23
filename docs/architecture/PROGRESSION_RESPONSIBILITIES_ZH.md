@@ -8,12 +8,13 @@
 |---|---|---|
 | 技能配方 | `SkillDefinition` / `SkillCatalog` | 技能 ID、输入、资源及效果引用 |
 | 教学内容 | `TeachingCatalog` / `TeachingEntry` | 页面标题、配方分组、操作文案；不授予技能 |
-| 技能进度 | `PlayerModel` / `IPlayerReadModel` | 模型存放了解、永久解锁与等级，UI 读取投影 |
+| 技能进度 | `PlayerModel` / `IPlayerReadModel` | 模型保存知识、永久技能和等级，会话内另存当前阶段授予的技能。施法和腕匣共用玩家许可 |
 | 成长物品 | `ProgressionItemCatalog` / `RpgItemInventory` | 物品身份、收集、激活与对应奖励；不判断入匣动作或校验门 |
 | 商品交易 | `RpgSkillShop` / `ProgressionController` | 对候选模型检查商品、余额、阶段及等级上限 |
 | 一次性奖励 | `PlayerModel.ClaimStage` / `ChapterModel` | 在同一候选对象写阶段、奖励收据、货币与永久解锁 |
-| 章节许可 | `RpgChapterFlow` 的实现 | 临时授权、永久技能在当前阶段是否允许使用 |
-| 会话与提交 | `LinearRpgController` / `CheckpointSaveCoordinator` | 会话核对实际节点与章节许可，保存协调器保留最新有效快照并重试 |
+| 起始永久技能 | `RpgPlayerDefinition.startingSkills` | 用技能定义引用配置新角色，读档时使用角色已保存的永久技能 |
+| 阶段试用 | `RpgChapterFlow` 的实现 | 提供当前阶段追加的技能 ID，切换、通关或禁用时收回旧阶段的授权 |
+| 会话与提交 | `LinearRpgController` / `CheckpointSaveCoordinator` | 会话核对实际节点、玩家技能目录与施放资格，保存协调器保留最新有效快照并重试 |
 | 磁盘格式 | `RpgProgressData` / `RpgSaveStore` | 纯数据快照，以及版本、白名单、备份、原子替换 |
 | 技能副本 | `RuntimeSkillCatalog` | 每名玩家的技能/效果副本及生命周期；按各自 ID 应用等级 |
 | 训练设施 | `TrainingTargetGroup` | 训练靶引用、各阶段靶生命、复位时间和状态汇总 |
@@ -21,8 +22,10 @@
 ```mermaid
 flowchart LR
     Content[TeachingCatalog 内容] --> UI[腕匣教学展示]
-    Skill[PlayerModel 技能进度] --> UI
-    Chapter[RpgChapterFlow 章节授权] --> Session[LinearRpgController 会话]
+    Initial[RpgPlayerDefinition 新档起始技能] --> Skill[PlayerModel 技能进度]
+    Skill --> UI
+    Chapter[RpgChapterFlow 阶段试用] --> Session[LinearRpgController 会话]
+    Session -->|更新阶段授权| Skill
     Interaction[首章捏取 / 吸附成功] --> Items[RpgItemInventory]
     ItemConfig[ProgressionItemCatalog] --> Items
     ShopConfig[SkillShopCatalog] --> Shop[RpgSkillShop]
@@ -37,7 +40,7 @@ flowchart LR
     Runtime --> Effect[各效果自己的等级规则]
 ```
 
-“已了解”表示能查看内容；“永久解锁”表示获得资格；“当前可施放”还需章节许可，实际施放继续检查生命、度力、冷却与输入占用。教学页可配置展示未了解的配方，这只改变可见性。
+“已了解”表示能查看内容；玩家目录中的技能只要永久解锁或获得临时授权，就有施放资格。实际施放还检查生命、度力、冷却与输入占用。教学页可配置展示未了解的配方，这只改变可见性。
 
 ## 首章作为具体实现
 
@@ -45,13 +48,15 @@ flowchart LR
 2. 首章每段的 `trialSkills` 给出临时许可，不授予永久技能。
 3. 真实拾取成功调用 `RpgItemInventory.Collect(itemId)`，物品奖励开放新的技能知识。
 4. 列表吸附完成后调用 `Activate(itemId)`。物品模块授予永久技能；首章交互再固定铜叶并推进台词。
-5. `OpeningTrialChapter.permanentSkillGate` 决定何时允许永久技能施放。物品模块与技能进度模块均不知道校验座。
+5. 入匣授予的永久技能即时可用。后续校验座负责开门和推进章节。
 
 物品查询返回 `ProgressionItemState`，交互方拿不到可修改的物品记录。物品的独占技能必须与实际激活记录双向一致；同一技能不能同时由阶段奖励、初始授予或商店解锁绕过该物品。
 
+阶段切换成功后，会话通过事件中心发布 `PlayerEvents.StageExited`、`PlayerEvents.StageEntered`。通知带有玩家实体和阶段资产，监听者在回调内即可读取对应的玩家许可。`PlayerModel.AvailableSkills` 枚举去重后的可用术，`CanUseSkill(id)` 查询许可。试用期间永久解锁同一技能，退出阶段时会保留永久资格。检查点只保存永久技能，恢复时依据落地成功的阶段重建授权。
+
 ## 进度变更与失败处理
 
-`ProgressionController` 接收领取、购买与授予命令。会话在独立候选模型上计算，通过 v2 结构和章节约束后提交。只有章节完成入口能写一整段的奖励收据。UI 可获取只读玩家接口，诊断导出的检查点是独立副本。
+`ProgressionController` 接收领取、购买与授予命令。每次命令在独立玩家模型上计算。玩家核对阶段前缀和奖励收据，会话核对章节配置，物品模块核对独占解锁。通过后，会话采用该模型并生成 v2 快照。读档先校验磁盘格式，再将数据映射回玩家模型，复用相同的业务检查。只有章节完成入口能结算阶段奖励。UI 可获取只读玩家接口，诊断导出的检查点是独立副本。
 
 提交结果区分 `Rejected`、`Saved` 和 `PendingSave`。拒绝时不应用草稿；写盘失败时，本轮成功交互继续生效并保留最新待保存快照。后续有效交易替换较早快照；恢复检查点优先使用待保存快照，避免丢掉已经成功的物品或扣费。重试只确认实际写出的那一份快照。读档落地、提交以及发布通知共享同一条命令边界，监听者重入保存或恢复时会被拒绝。主档为未知版本时，临时角色从本轮内存检查点恢复。
 

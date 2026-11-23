@@ -182,8 +182,10 @@ public static class MvcSceneAcceptance
             throw new InvalidDataException("当前场景使用了另一份会话。");
         var view = session.GetComponentsInChildren<RpgSessionView>(true).Single();
         var feedback = session.GetComponentsInChildren<RpgInteractionFeedback>(true).Single();
+        string hud = view.BuildHud();
         if (view.controller != session || feedback.controller != session || view.gameObject != feedback.gameObject ||
-            !view.BuildHud().Contains("提示：" + feedback.LastFeedback))
+            !hud.Contains("目标：" + session.ObjectiveStatus) || !hud.Contains("提示：" + feedback.LastFeedback) ||
+            (sceneName != "LinearRpgTest" && hud.Contains("【攻击预警】")))
             throw new InvalidDataException("子物体 HUD 没有显示本会话的交互反馈。");
         if (sceneName == "LinearRpgTest") return "会话分组、练习红圈、玩家 HUD 通过。";
         var audio = session.GetComponentsInChildren<P1AudioManager>(true).Single();

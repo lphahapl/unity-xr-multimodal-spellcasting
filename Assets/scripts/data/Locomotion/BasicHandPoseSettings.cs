@@ -14,7 +14,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("无名指与小指阈值")] public FingerFeatureStateThresholds ringAndPinky;
         [Header("二、说明：原始Curl伸直约180度；拇指不参与")]
         [SerializeField, InspectorName("检测规则"), TextArea(2, 4)]
-        string description = "左手指向：食指Open，其余三指Closed。右手张掌：四指Open。直接使用SDK状态引擎的滞回和最短确认时间；失效数据立即清空。十二印仍使用原加权评分。";
+        string description = "移动时伸直左食指，中指与无名指或小指自然弯曲即可。严格指向要求食指 Open、其余三指 Closed。右张掌要求四指 Open。使用 SDK 的滞回和最短确认时间。";
 
         public FingerFeatureStateThresholds ForFinger(int finger) => finger == 1 ? index : finger == 2 ? middle : ringAndPinky;
 

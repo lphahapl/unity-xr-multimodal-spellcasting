@@ -12,6 +12,13 @@ namespace NarutoVR.SealLab
         private readonly SnapshotHand right = new() { Handedness = Handedness.Right };
         public const float MaximumHandSkew = 0.06f;
 
+        public void ExtractLeft(HandSnapshot snapshot, List<SealFeature> output)
+        {
+            output.Clear();
+            left.Set(snapshot);
+            if (snapshot != null) AddFingers("L", snapshot, left, output);
+        }
+
         public void Extract(SealFrame frame, List<SealFeature> output)
         {
             output.Clear(); left.Set(frame.left); right.Set(frame.right);
@@ -81,7 +88,7 @@ namespace NarutoVR.SealLab
             l = frame.left.joints[(int)lj].position; r = frame.right.joints[(int)rj].position;
             return frame.left.jointValid[(int)lj] && frame.right.jointValid[(int)rj];
         }
-        private static bool PalmNormal(HandSnapshot hand, bool isLeft, out Vector3 normal)
+        internal static bool PalmNormal(HandSnapshot hand, bool isLeft, out Vector3 normal)
         {
             int wrist = (int)HandJointId.HandWristRoot, index = (int)HandJointId.HandIndex1, pinky = (int)HandJointId.HandPinky1;
             normal = Vector3.Cross(hand.joints[index].position - hand.joints[wrist].position,

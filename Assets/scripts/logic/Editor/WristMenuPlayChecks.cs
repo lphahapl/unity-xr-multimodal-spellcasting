@@ -20,7 +20,7 @@ namespace NarutoVR.SealCombat.Editor
             var property=lab.GetType().GetProperty("Frame");
             var late=typeof(LinearRpgController).GetMethod("LateUpdate",BindingFlags.Instance|BindingFlags.NonPublic);
             double now=Time.realtimeSinceStartupAsDouble;
-            WristMenuInput Sample(double time)
+            PlayerHandObservation Sample(double time)
             {
                 var f=WristMenuChecks.Sample(time);
                 var head=rpg.locomotion.head;

@@ -1,0 +1,37 @@
+{
+  "tool": "Offline Unity YAML and binary buffer readback; Blender 5.2.2 LTS",
+  "active_lod_renderers": {
+    "Chapter01_Courtyard": 9,
+    "Chapter01_Awakening": 18
+  },
+  "mesh_fileID": 4300000,
+  "draw_slots_per_renderer": 1,
+  "active_material": "4f0c767a0aedd0b4a8af671e0518e7e0",
+  "texture_maps": {
+    "BaseColor": {
+      "guid": "7d961a14afb17734ca0c1978f96035b9",
+      "sha256": "6b1ca4793569d39c5c4d6f6fbfb7ee1fe2935d2c27c71e99aa3ee89fa83c6ec0"
+    },
+    "Normal": {
+      "guid": "facc56eea9aa85c43acc9fba9f4a496d",
+      "sha256": "764db744190d108ccfa81b953f0f7319ddbb1579b512e450391ef0cc858c7f38"
+    },
+    "Mask": {
+      "guid": "d3b851bc4d9a6d24b8de50344e2ea109",
+      "sha256": "1799cba9b567e317828292089863be27bcbe78a11956789ff1abc9233c9965be"
+    }
+  },
+  "architecture_lod_tris": [
+    7795,
+    3414,
+    2190
+  ],
+  "with_three_A07_near": 17995,
+  "mesh_collider_refs_in_source_prefab": [],
+  "accepted_QA_warnings": [
+    "UV0 intentionally repeats the shared trim sheet.",
+    "Local minimum Z follows the original terrain contacts below the assembly pivot."
+  ],
+  "texture_source": "ArtSource/Environment/SuspendedPath/Surfaces/Workshop/sources.json (CC0)",
+  "unity_runtime": "Reserved to parent session"
+}

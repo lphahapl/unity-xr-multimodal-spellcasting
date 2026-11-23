@@ -76,11 +76,16 @@ namespace NarutoVR.Editor
             }
             else displayed = Application.isPlaying && lab ? lab.Frame : null;
 
+            if (!profile && lab && lab.profiles.Count > 0) profile = lab.profiles[0];
+            profile = (SealProfile)EditorGUILayout.ObjectField("当前印模板", profile, typeof(SealProfile), false);
+            if (profile) EditorGUILayout.LabelField("采集用手", profile.handMode == SealHandMode.LeftOnly ? "仅左手" : "双手");
             if (lab && !HasReplay)
             {
                 using (new EditorGUI.DisabledScope(lab.IsPreparing || lab.IsRecording))
                 {
                     lab.sampleLabel = EditorGUILayout.TextField("录制样本标签", lab.sampleLabel);
+                    if (profile && lab.sampleLabel != profile.sealName && GUILayout.Button($"使用当前印模板标签「{profile.sealName}」"))
+                        lab.sampleLabel = profile.sealName;
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         lab.preparationSeconds = EditorGUILayout.FloatField("准备倒计时（秒）", lab.preparationSeconds);
@@ -94,8 +99,6 @@ namespace NarutoVR.Editor
                     { if (lab.IsPreparing || lab.IsRecording) lab.StopRecording(); else lab.StartRecording(); }
                 EditorGUILayout.SelectableLabel(lab.RecordingPath ?? lab.RecordingDirectory, GUILayout.Height(18));
             }
-            profile = (SealProfile)EditorGUILayout.ObjectField("当前印模板", profile, typeof(SealProfile), false);
-            if (!profile && lab && lab.profiles.Count > 0) profile = lab.profiles[0];
             if (HasReplay && profile)
             {
                 string[] labels = replay.Select(f => f.label ?? "").Distinct().ToArray();
@@ -129,7 +132,8 @@ namespace NarutoVR.Editor
             }
             EditorGUILayout.LabelField("特征名称（悬停查看固定标识）         原始值 / 单位           质量      权重        最小 / 最大目标值       容差       必需");
             scroll = EditorGUILayout.BeginScrollView(scroll);
-            foreach (var feature in features) DrawFeature(feature);
+            foreach (var feature in features)
+                if (!profile || SealProfile.AcceptsFeature(profile.handMode, feature.id)) DrawFeature(feature);
             EditorGUILayout.EndScrollView();
             if (profile && GUILayout.Button("保存模板修改")) AssetDatabase.SaveAssetIfDirty(profile);
         }
@@ -150,7 +154,7 @@ namespace NarutoVR.Editor
                 EditorGUI.ProgressBar(EditorGUILayout.GetControlRect(false, 22), lab.HoldProgress, "候选：" + lab.Candidate.sealName + " / 保持进度");
             if (lab.testExpectedSeal)
                 EditorGUILayout.LabelField("预期：" + lab.testExpectedSeal.sealName + "    对比：" +
-                    (!lab.Recognized ? "等待结果" : lab.Recognized == lab.testExpectedSeal ? "正确" : "不一致"));
+                    (!lab.Recognized ? "等待结果" : lab.Recognized.sealName == lab.testExpectedSeal.sealName ? "正确" : "不一致"));
             EditorGUILayout.LabelField(SealLabView.HandState("LEFT", lab.Frame.left) + "    " + SealLabView.HandState("RIGHT", lab.Frame.right));
             EditorGUILayout.LabelField($"歧义保护：两个达标模板分差至少 {lab.minimumScoreMargin:P0}");
             testScroll = EditorGUILayout.BeginScrollView(testScroll);
@@ -177,7 +181,7 @@ namespace NarutoVR.Editor
         private static string ReasonChinese(string reason) => SealChineseText.Reason(reason);
         private void CaptureRecordingDraft()
         {
-            var draft = SealTemplateFromRecording.Build(replay, referenceLabel);
+            var draft = SealTemplateFromRecording.Build(replay, referenceLabel, profile.handMode, lab ? lab.staleAfterSeconds : Lab.DefaultStaleAfterSeconds);
             if (draft.error != null) { message = draft.error; return; }
             Undo.RecordObject(profile, "Build template from recording");
             profile.rules = draft.rules; profile.calibrated = false;
@@ -219,10 +223,15 @@ namespace NarutoVR.Editor
         private void CaptureDraft()
         {
             if (!profile) { message = "请先创建或选择结印模板。"; return; }
-            if (!displayed.left.fresh || !displayed.right.fresh || !displayed.left.tracked || !displayed.right.tracked)
+            if (profile.handMode == SealHandMode.LeftOnly && (!SealTemplateFromRecording.Usable(displayed.left) ||
+                !Lab.IsCurrentHand(displayed.left, displayed.time, lab ? lab.staleAfterSeconds : Lab.DefaultStaleAfterSeconds)))
+            { message = "需要左手有效且高置信的原始快照。"; return; }
+            if (profile.handMode == SealHandMode.BothHands &&
+                (!displayed.left.fresh || !displayed.right.fresh || !displayed.left.tracked || !displayed.right.tracked))
             { message = "需要双手有效的原始快照。"; return; }
             var rules = new List<FeatureRule>();
-            foreach (var feature in features) if (feature.valid && feature.highConfidence) rules.Add(NewRule(feature));
+            foreach (var feature in features)
+                if (SealProfile.AcceptsFeature(profile.handMode, feature.id) && feature.valid && feature.highConfidence) rules.Add(NewRule(feature));
             if (rules.Count == 0) { message = "没有高置信的特征可用于草稿。"; return; }
             Undo.RecordObject(profile, "Capture draft"); profile.rules = rules; profile.calibrated = false; EditorUtility.SetDirty(profile);
             message = "已生成草稿。请对照多次正样本、相近印及过渡动作调整范围/权重，再勾选已确认模板。";
@@ -233,7 +242,7 @@ namespace NarutoVR.Editor
             if (string.IsNullOrEmpty(path)) return;
             try
             {
-                var loaded = SealRecording.Read(path);
+                var loaded = SealRecording.Read(path, handMode: profile ? profile.handMode : SealHandMode.BothHands);
                 if (lab && lab.IsTesting) lab.SetTestMode(false);
                 replay = loaded; replayPath = path; replayIndex = 0; playReplay = false;
                 referenceLabel = profile && replay.Any(f => f.label == profile.sealName) ? profile.sealName : replay[0].label;

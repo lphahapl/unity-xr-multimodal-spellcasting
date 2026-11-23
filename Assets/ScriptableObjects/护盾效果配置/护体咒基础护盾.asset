@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e2bab753b6814ba8da990ce7b3243, type: 3}
+  m_Name: "\u62A4\u4F53\u5492\u57FA\u7840\u62A4\u76FE"
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.ShieldEffectDefinition
+  audioProfile: {fileID: 0}
+  capacity: 100
+  bodyPrefab: {fileID: 8022397349549641109, guid: 13f90d41de1cfb1479a2e7d349b41b5d, type: 3}
+  visualPrefab: {fileID: 8755404590397060305, guid: 2c505620e9924e2468350cf891d79d9b, type: 3}
+  material: {fileID: 0}

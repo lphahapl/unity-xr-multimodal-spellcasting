@@ -1,0 +1,67 @@
+{
+  "pivot_blender": [
+    0.0,
+    0.0,
+    1.4600000381469727
+  ],
+  "axis_blender": [
+    -0.7790772914886475,
+    -0.41000986099243164,
+    -0.47426849603652954
+  ],
+  "step_degrees": 5,
+  "bracket_endpoints_blender": [
+    {
+      "shaft": [
+        -0.16065509617328644,
+        0.05490011349320412,
+        1.3769999742507935
+      ],
+      "shell": [
+        -0.6266071796417236,
+        0.1643475890159607,
+        1.0654267072677612
+      ],
+      "span_m": 0.5711112022399902
+    },
+    {
+      "shaft": [
+        -0.1661028265953064,
+        -0.1449998915195465,
+        1.525173306465149
+      ],
+      "shell": [
+        -0.6878189444541931,
+        -0.30415406823158264,
+        1.706745982170105
+      ],
+      "span_m": 0.5748794674873352
+    }
+  ],
+  "results": {
+    "StarShell_LOD0": {
+      "triangles": 4100,
+      "stationary_intersection_pairs": 0,
+      "sampled_moving_pairs": 0,
+      "sphere_bound_clearance_m": 0.10487714396115977
+    },
+    "StarShell_LOD1": {
+      "triangles": 1500,
+      "stationary_intersection_pairs": 0,
+      "sampled_moving_pairs": 0,
+      "sphere_bound_clearance_m": 0.10413885618048069
+    },
+    "StarShell_LOD2": {
+      "triangles": 550,
+      "stationary_intersection_pairs": 0,
+      "sampled_moving_pairs": 0,
+      "sphere_bound_clearance_m": 0.10128446652695766
+    },
+    "StarShellMounts": {
+      "triangles": 88,
+      "stationary_intersection_pairs": 18,
+      "sampled_moving_pairs": 0,
+      "sphere_bound_clearance_m": 0.1964446242339346
+    }
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "scene_instances_in_shared_parent": [
+    {
+      "type": "GalleryCorner",
+      "parent": "294288712",
+      "position": [
+        29.7,
+        0.0,
+        45.95
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "quaternion": [
+        0.0,
+        0.7071068,
+        0.0,
+        0.7071068
+      ]
+    },
+    {
+      "type": "GalleryStraight",
+      "parent": "294288712",
+      "position": [
+        28.1,
+        0.0,
+        47.45
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "GalleryStraight",
+      "parent": "294288712",
+      "position": [
+        29.7,
+        0.0,
+        43.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "quaternion": [
+        0.0,
+        0.7071068,
+        0.0,
+        0.7071068
+      ]
+    },
+    {
+      "type": "GalleryStraight",
+      "parent": "294288712",
+      "position": [
+        25.1,
+        0.0,
+        47.45
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "type": "GalleryStraight",
+      "parent": "294288712",
+      "position": [
+        29.7,
+        0.0,
+        40.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "quaternion": [
+        0.0,
+        0.7071068,
+        0.0,
+        0.7071068
+      ]
+    }
+  ],
+  "tiers": {
+    "0": {
+      "triangles": 8012,
+      "dimensions_blender_xyz_m": [
+        6.186732769012451,
+        4.611778259277344,
+        4.788000106811523
+      ],
+      "shell_self_intersections": 0,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD0: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "hidden back-to-back faces: GalleryCorner_LOD0 (2 pairs) - delete to save tris"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [
+          {
+            "where": "GalleryCorner_LOD0",
+            "tri_pairs": 2
+          }
+        ],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD0": {
+            "verts": 4284,
+            "faces": 8012,
+            "tris": 8012,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 139,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 100.0,
+            "uv_coverage_pct": 15.6
+          }
+        }
+      },
+      "actual_connections": [
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5618405342102051,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5618405342102051,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5618405342102051,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5260233879089355,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5260233879089355,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5260233879089355,
+          "ridge_overlap_m": 1.6050002574920654
+        }
+      ]
+    },
+    "1": {
+      "triangles": 1052,
+      "dimensions_blender_xyz_m": [
+        6.186732769012451,
+        4.611778259277344,
+        4.788000106811523
+      ],
+      "shell_self_intersections": 0,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD1: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD1": {
+            "verts": 600,
+            "faces": 1052,
+            "tris": 1052,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 37,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 100.0,
+            "uv_coverage_pct": 15.6
+          }
+        }
+      },
+      "actual_connections": [
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        }
+      ]
+    },
+    "2": {
+      "triangles": 450,
+      "dimensions_blender_xyz_m": [
+        6.186732769012451,
+        4.611778259277344,
+        4.788000106811523
+      ],
+      "shell_self_intersections": 0,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "GalleryCorner_LOD2: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "GalleryCorner_LOD2": {
+            "verts": 275,
+            "faces": 450,
+            "tris": 450,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 25,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 100.0,
+            "uv_coverage_pct": 15.6
+          }
+        }
+      },
+      "actual_connections": [
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            1.5,
+            1.600000023841858
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5054507255554199,
+          "ridge_overlap_m": 2.150000810623169
+        },
+        {
+          "straight_lod": 0,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 1,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        },
+        {
+          "straight_lod": 2,
+          "center_blender_xy": [
+            -2.950000047683716,
+            0.0
+          ],
+          "gable_profile_vertices": 24,
+          "minimum_cover_height_over_gable_m": 0.5222253799438477,
+          "ridge_overlap_m": 1.6050002574920654
+        }
+      ]
+    }
+  },
+  "nominal_3m_sockets_covered": true
+}

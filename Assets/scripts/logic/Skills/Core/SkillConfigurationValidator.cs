@@ -33,11 +33,27 @@ namespace NarutoVR.SealCombat
                     string ap=SkillPhrase.Normalize(a.phrase),bp=SkillPhrase.Normalize(b.phrase);
                     if(a.triggerMode!=SkillTriggerMode.GestureOnly && b.triggerMode!=SkillTriggerMode.GestureOnly &&
                         ap.Length>0&&bp.Length>0&&(ap.Contains(bp)||bp.Contains(ap)))conflict="完整口令重复或包含冲突";
-                    if(a.triggerMode!=SkillTriggerMode.VoiceOnly && b.triggerMode!=SkillTriggerMode.VoiceOnly && a.sealName==b.sealName &&
-                        (a.triggerMode==SkillTriggerMode.GestureOnly||b.triggerMode==SkillTriggerMode.GestureOnly))conflict="纯结印配方与其他配方使用同印";
+                    if (Interferes(a, b) || Interferes(b, a))
+                        conflict = "纯结印配方会在另一印序内提前或同时触发";
                     if(conflict!=null){errors[i]=conflict;errors[j]=conflict;}
                 }
             return errors;
+        }
+
+        // Only a proper prefix shared by two automatic spells has a hold-to-commit rule.
+        private static bool Interferes(SkillDefinition automatic, SkillDefinition other)
+        {
+            if (automatic.triggerMode != SkillTriggerMode.GestureOnly || other.triggerMode == SkillTriggerMode.VoiceOnly) return false;
+            var needle = automatic.GetSealSequence();
+            var sequence = other.GetSealSequence();
+            for (int i = 0; i <= sequence.Length - needle.Length; i++)
+            {
+                int j = 0;
+                while (j < needle.Length && sequence[i + j] == needle[j]) j++;
+                if (j == needle.Length)
+                    return !(i == 0 && needle.Length < sequence.Length && other.triggerMode == SkillTriggerMode.GestureOnly);
+            }
+            return false;
         }
     }
 }

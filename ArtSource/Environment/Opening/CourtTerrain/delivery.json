@@ -1,0 +1,309 @@
+{
+  "time": "2026-11-19T03:32:55.494740+08:00",
+  "Unity": "6000.3.10f1",
+  "Blender": "5.2.2",
+  "validation": "独立 Unity Android 编辑器进程强制导入、实例化、重载并向碰撞体投射探针；独立 Blender 进程重读 12 个 FBX。",
+  "assets": {
+    "CourtPlateau": {
+      "purpose": "院台底部随多层石壁外扩。上表面中心为枢轴。中央可靠承面 25×35 m，轴路以 3 m 宽继续延至 ±24 m。肩部与陡壁保留原岩轮廓。",
+      "prefab": "Assets/Art/Environment/Opening/CourtTerrain/CourtPlateau.prefab",
+      "prefab_sha256": "45ebda51f994e1144981183dd3b7d1e23242d95daab9f5282e1129e4a180a753",
+      "high": "ArtSource/Environment/Opening/CourtyardModelOrders/H03/H03_Hunyuan.glb",
+      "high_triangles": 500000,
+      "high_sha256": "3931d26664bf2e1947a8a942316129dd2771c34c928ed6613f57cfd61a88a49b",
+      "editable_scene": "CourtPlateau_pipeline.blend",
+      "preview": "CourtPlateau-preview.jpg",
+      "anchors_from_final_prefab_XYZ_m": {
+        "Approach": [
+          0.0,
+          0.0,
+          -24.0
+        ],
+        "JoinNorth": [
+          0.0,
+          0.0,
+          24.0
+        ],
+        "CourtCenter": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "EastCourt": [
+          12.0,
+          0.0,
+          0.0
+        ],
+        "WestCourt": [
+          -12.0,
+          0.0,
+          0.0
+        ]
+      },
+      "lod": {
+        "CourtPlateau_LOD0": {
+          "triangles": 6496,
+          "fbx_sha256": "e9316b10cc1e124dc17beed55c70256edcc0736be88a1934456d1f5f8a3e24b1",
+          "bounds_local_Unity_XYZ_m": [
+            58.95975112915039,
+            15.045755386352539,
+            65.22142028808594
+          ],
+          "raycast": {
+            "samples": 266,
+            "misses": 0,
+            "max_abs_height": 0.0060482025146484375,
+            "min": -0.0060482025146484375,
+            "max": 1.9073486328125e-06
+          }
+        },
+        "CourtPlateau_LOD1": {
+          "triangles": 2200,
+          "fbx_sha256": "2cc3930fc7bf7061106e6b57ac5e84473ded690ace955079b19129538f225abb",
+          "bounds_local_Unity_XYZ_m": [
+            59.06644058227539,
+            15.049421310424805,
+            65.22605895996094
+          ],
+          "raycast": {
+            "samples": 266,
+            "misses": 0,
+            "max_abs_height": 0.007099151611328125,
+            "min": -0.007099151611328125,
+            "max": 0.001987457275390625
+          }
+        },
+        "CourtPlateau_LOD2": {
+          "triangles": 680,
+          "fbx_sha256": "ee6b3ed70ab9e4dffc4e66c2b9924bdbcc1b611fd2e900e37674341cbb54a94d",
+          "bounds_local_Unity_XYZ_m": [
+            59.148101806640625,
+            15.049694061279297,
+            65.14466094970703
+          ],
+          "raycast": {
+            "samples": 266,
+            "misses": 0,
+            "max_abs_height": 0.022684097290039062,
+            "min": -0.022684097290039062,
+            "max": -0.001201629638671875
+          }
+        }
+      },
+      "asset_qa_report": "CourtPlateau-audit.json",
+      "unity_proof": "COURT_PREFAB_OK CourtPlateau LOD=3 anchors=5 colliders=3 material=CourtPlateau_Baked AndroidASTC6x6_2048"
+    },
+    "GateSpur": {
+      "purpose": "负 Z 端接院落，正 Z 收窄至石门。步面从 Z=-5.7 延续至 +5.7 m，净宽 2.6 m；GateStand 在 +4.8 m，CliffTip 在 +6.0 m。",
+      "prefab": "Assets/Art/Environment/Opening/CourtTerrain/GateSpur.prefab",
+      "prefab_sha256": "d1165c2728715670beb45323365f4fa2d5219bb672cf7d98282b213c7dfa8e4e",
+      "high": "ArtSource/Environment/Opening/CourtyardModelOrders/H03/H03_Hunyuan.glb",
+      "high_triangles": 500000,
+      "high_sha256": "3931d26664bf2e1947a8a942316129dd2771c34c928ed6613f57cfd61a88a49b",
+      "editable_scene": "GateSpur_pipeline.blend",
+      "preview": "GateSpur-preview.jpg",
+      "anchors_from_final_prefab_XYZ_m": {
+        "JoinCourt": [
+          0.0,
+          0.0,
+          -5.7
+        ],
+        "CliffTip": [
+          0.0,
+          0.0,
+          6.0
+        ],
+        "GateStand": [
+          0.0,
+          0.0,
+          4.8
+        ]
+      },
+      "lod": {
+        "GateSpur_LOD0": {
+          "triangles": 4200,
+          "fbx_sha256": "9b9c33a1fd36338bd19a321884df504403a5ba3c32154ee8347ac968b7f5246e",
+          "bounds_local_Unity_XYZ_m": [
+            9.333044052124023,
+            8.04737377166748,
+            17.850536346435547
+          ],
+          "raycast": {
+            "samples": 133,
+            "misses": 0,
+            "max_abs_height": 0.0014448165893554688,
+            "min": -0.0014448165893554688,
+            "max": -5.7220458984375e-06
+          }
+        },
+        "GateSpur_LOD1": {
+          "triangles": 1320,
+          "fbx_sha256": "52edf63d6bb9bceb15f4795cc996d0d7e2e9e4a43af868ee7e1a3bbff7b6cfa7",
+          "bounds_local_Unity_XYZ_m": [
+            9.329912185668945,
+            8.037280082702637,
+            17.824756622314453
+          ],
+          "raycast": {
+            "samples": 133,
+            "misses": 0,
+            "max_abs_height": 0.008531570434570312,
+            "min": -0.008531570434570312,
+            "max": 0.0006818771362304688
+          }
+        },
+        "GateSpur_LOD2": {
+          "triangles": 420,
+          "fbx_sha256": "cd3a6412f38e1c6e94e951f78490c71b30e2bb9faceb4f219d20d5baf003b15e",
+          "bounds_local_Unity_XYZ_m": [
+            9.172660827636719,
+            8.06275463104248,
+            17.695838928222656
+          ],
+          "raycast": {
+            "samples": 133,
+            "misses": 0,
+            "max_abs_height": 0.02821063995361328,
+            "min": -0.02821063995361328,
+            "max": 0.01165771484375
+          }
+        }
+      },
+      "asset_qa_report": "GateSpur-audit.json",
+      "unity_proof": "COURT_PREFAB_OK GateSpur LOD=3 anchors=3 colliders=1 material=GateSpur_Baked AndroidASTC6x6_2048"
+    },
+    "GraniteSpire": {
+      "purpose": "保留原峰细长峰脊，抬升主尖顶，压窄冠部。作为场外远景，脚部锚点可埋入云海或山体。",
+      "prefab": "Assets/Art/Environment/Opening/CourtTerrain/GraniteSpire.prefab",
+      "prefab_sha256": "51eb82c6b0843a9c2d1a311d7621d83c4192952531636ac754bc63c8938f3504",
+      "high": "ArtSource/Environment/Opening/CourtyardModelOrders/H04/H04_Hunyuan.glb",
+      "high_triangles": 499502,
+      "high_sha256": "5e37e3c747fbbffbb8b4f6ea823dcde8ccf15129a8b91bdf6c89a16657349656",
+      "editable_scene": "GraniteSpire_pipeline.blend",
+      "preview": "GraniteSpire-preview.jpg",
+      "anchors_from_final_prefab_XYZ_m": {
+        "Foot": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Summit": [
+          -4.200333,
+          42.038754,
+          -1.3206367
+        ]
+      },
+      "lod": {
+        "GraniteSpire_LOD0": {
+          "triangles": 5100,
+          "fbx_sha256": "eb46a8518865755326f75affe4338f4aadf6a5c48dd927134032b77c3e7a5b02",
+          "bounds_local_Unity_XYZ_m": [
+            28.924148559570312,
+            42.10569381713867,
+            24.911090850830078
+          ],
+          "raycast": {}
+        },
+        "GraniteSpire_LOD1": {
+          "triangles": 1650,
+          "fbx_sha256": "e9e7b5d569cee9de7f236c88feb3a66e1b93b902462b5946d546bc4dcb6a2f28",
+          "bounds_local_Unity_XYZ_m": [
+            28.32413101196289,
+            42.031009674072266,
+            24.818721771240234
+          ],
+          "raycast": {}
+        },
+        "GraniteSpire_LOD2": {
+          "triangles": 480,
+          "fbx_sha256": "330e10fd8abf1dbe713bd7ef6ea696dded3e524b6bba06031e36651439dcb978",
+          "bounds_local_Unity_XYZ_m": [
+            27.609195709228516,
+            41.748233795166016,
+            23.229686737060547
+          ],
+          "raycast": {}
+        }
+      },
+      "asset_qa_report": "GraniteSpire-audit.json",
+      "unity_proof": "COURT_PREFAB_OK GraniteSpire LOD=3 anchors=2 colliders=0 material=GraniteSpire_Baked AndroidASTC6x6_2048"
+    },
+    "SaddlePeaks": {
+      "purpose": "从同一真实母峰独立调整峰顶切线和宽度，降低中央鞍部并向两侧分出尖冠。作为中景山峰，脚部可入云。",
+      "prefab": "Assets/Art/Environment/Opening/CourtTerrain/SaddlePeaks.prefab",
+      "prefab_sha256": "66abdc2b12f1816bf52be7e2152ebcfcbe8b3546a0f68d38a39082b023415903",
+      "high": "ArtSource/Environment/Opening/CourtyardModelOrders/H04/H04_Hunyuan.glb",
+      "high_triangles": 499502,
+      "high_sha256": "5e37e3c747fbbffbb8b4f6ea823dcde8ccf15129a8b91bdf6c89a16657349656",
+      "editable_scene": "SaddlePeaks_pipeline.blend",
+      "preview": "SaddlePeaks-preview.jpg",
+      "anchors_from_final_prefab_XYZ_m": {
+        "Foot": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Summit": [
+          0.73151785,
+          32.141582,
+          0.7274601
+        ]
+      },
+      "lod": {
+        "SaddlePeaks_LOD0": {
+          "triangles": 4800,
+          "fbx_sha256": "7dca3046f96d1a002b5031ac6891dc091b7f0075cdfeb8071c6823c6e99c3608",
+          "bounds_local_Unity_XYZ_m": [
+            36.95710372924805,
+            32.16611099243164,
+            26.114334106445312
+          ],
+          "raycast": {}
+        },
+        "SaddlePeaks_LOD1": {
+          "triangles": 1760,
+          "fbx_sha256": "be3ebb541d0fb09d023303ca00c8cb1033d90c8696b420ec09762a26bd98ec82",
+          "bounds_local_Unity_XYZ_m": [
+            36.785526275634766,
+            32.224761962890625,
+            25.848281860351562
+          ],
+          "raycast": {}
+        },
+        "SaddlePeaks_LOD2": {
+          "triangles": 460,
+          "fbx_sha256": "95651efa757d66115518bf460e40fddb4855d7e7cf53e7c68d4097e9d2879ee4",
+          "bounds_local_Unity_XYZ_m": [
+            34.32585144042969,
+            30.38422203063965,
+            25.165897369384766
+          ],
+          "raycast": {}
+        }
+      },
+      "asset_qa_report": "SaddlePeaks-audit.json",
+      "unity_proof": "COURT_PREFAB_OK SaddlePeaks LOD=3 anchors=2 colliders=0 material=SaddlePeaks_Baked AndroidASTC6x6_2048"
+    }
+  },
+  "Headset": "设备帧耗与最终场景步行另行实测。",
+  "texture_packing": "BaseColor (sRGB). Normal (Unity tangent-space normal importer). Mask linear R=metallic from source, G=geometry ambient occlusion, B=unused, A=one minus source roughness. 2048², mipmaps, Android ASTC 6x6.",
+  "independent_FBX_readback": "fbx_readback.json",
+  "isolated_unity": [
+    "COURT_MESH CourtPlateau LOD0 6496 (58.960, 15.046, 65.221)",
+    "COURT_MESH CourtPlateau LOD1 2200 (59.066, 15.049, 65.226)",
+    "COURT_MESH CourtPlateau LOD2 680 (59.148, 15.050, 65.145)",
+    "COURT_PREFAB_OK CourtPlateau LOD=3 anchors=5 colliders=3 material=CourtPlateau_Baked AndroidASTC6x6_2048",
+    "COURT_MESH GateSpur LOD0 4200 (9.333, 8.047, 17.851)",
+    "COURT_MESH GateSpur LOD1 1320 (9.330, 8.037, 17.825)",
+    "COURT_MESH GateSpur LOD2 420 (9.173, 8.063, 17.696)",
+    "COURT_PREFAB_OK GateSpur LOD=3 anchors=3 colliders=1 material=GateSpur_Baked AndroidASTC6x6_2048",
+    "COURT_MESH GraniteSpire LOD0 5100 (28.924, 42.106, 24.911)",
+    "COURT_MESH GraniteSpire LOD1 1650 (28.324, 42.031, 24.819)",
+    "COURT_MESH GraniteSpire LOD2 480 (27.609, 41.748, 23.230)",
+    "COURT_PREFAB_OK GraniteSpire LOD=3 anchors=2 colliders=0 material=GraniteSpire_Baked AndroidASTC6x6_2048",
+    "COURT_MESH SaddlePeaks LOD0 4800 (36.957, 32.166, 26.114)",
+    "COURT_MESH SaddlePeaks LOD1 1760 (36.786, 32.225, 25.848)",
+    "COURT_MESH SaddlePeaks LOD2 460 (34.326, 30.384, 25.166)",
+    "COURT_PREFAB_OK SaddlePeaks LOD=3 anchors=2 colliders=0 material=SaddlePeaks_Baked AndroidASTC6x6_2048"
+  ]
+}

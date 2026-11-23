@@ -1,0 +1,960 @@
+{
+  "blender": "5.2.2 LTS",
+  "time": "2026-11-23T11:37:27+08:00",
+  "fbx_sha256": "2e385551bdc1b1391b81cd62dd51803b9f26940813188955b2c74959c2b540ed",
+  "scope": "Staging FBX",
+  "passed": false,
+  "tiers": {
+    "CourtMainRoof_Tier0": {
+      "triangles": 11600,
+      "bounds_blender": [
+        [
+          -9.699159622192383,
+          -8.287130355834961,
+          -0.0
+        ],
+        [
+          9.699159622192383,
+          8.287130355834961,
+          5.541440010070801
+        ]
+      ],
+      "game_qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "CourtMainRoof_Tier0: ~92.49% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "CourtMainRoof_Tier0: duplicate verts=8 loose verts=0",
+          "hidden back-to-back faces: CourtMainRoof_Tier0 (211 pairs) - delete to save tris"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [
+          {
+            "where": "CourtMainRoof_Tier0",
+            "tri_pairs": 211
+          }
+        ],
+        "enclosed": [],
+        "objects": {
+          "CourtMainRoof_Tier0": {
+            "verts": 6862,
+            "faces": 11600,
+            "tris": 11600,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 8,
+            "islands": 531,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 2,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 92.49,
+            "uv_coverage_pct": 73.5
+          }
+        }
+      },
+      "lightmap_uv": {
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 18.4
+      },
+      "surface": {
+        "tiled_surface_samples": 150000,
+        "smoothness_multiplier": 0.82,
+        "mask_A_p05_p50_p95": [
+          0.1765,
+          0.2636,
+          0.3523
+        ],
+        "effective_smoothness_p05_p50_p95": [
+          0.1447,
+          0.2161,
+          0.2889
+        ],
+        "detailed_end_triangles": 580,
+        "side_faces_on_detailed_end_texture": 0
+      },
+      "measurements": {
+        "whole_roof": {
+          "rays": 15429,
+          "misses": 0,
+          "examples": []
+        },
+        "knee": {
+          "rays": 1510,
+          "misses": 0,
+          "examples": []
+        },
+        "four_hips": {
+          "rays": 2020,
+          "misses": 0,
+          "examples": []
+        },
+        "wood_through_roof_skin": {
+          "rays": 37297,
+          "misses": 0,
+          "examples": []
+        },
+        "gable_closure": {
+          "rays": 4402,
+          "misses": 0,
+          "examples": []
+        },
+        "eave_skin_thickness_m": {
+          "sample_count": 132,
+          "p05_p50_p95": [
+            0.0904,
+            0.1211,
+            0.1288
+          ]
+        },
+        "cap_-1": {
+          "contact_triangle_pairs": 414,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0346,
+                -0.0041
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0058,
+                -0.0044
+              ]
+            }
+          ]
+        },
+        "cap_1": {
+          "contact_triangle_pairs": 408,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0058,
+                -0.0044
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0346,
+                -0.0041
+              ]
+            }
+          ]
+        },
+        "all_cap_LODs": {
+          "0": {
+            "cap_-1": {
+              "contact_triangle_pairs": 414,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 408,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                }
+              ]
+            }
+          },
+          "1": {
+            "cap_-1": {
+              "contact_triangle_pairs": 308,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 298,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                }
+              ]
+            }
+          },
+          "2": {
+            "cap_-1": {
+              "contact_triangle_pairs": 203,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 205,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0058,
+                    -0.0044
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.0041
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "CourtMainRoof_Tier1": {
+      "triangles": 4208,
+      "bounds_blender": [
+        [
+          -9.699159622192383,
+          -8.277310371398926,
+          -0.0
+        ],
+        [
+          9.699159622192383,
+          8.277310371398926,
+          5.531789779663086
+        ]
+      ],
+      "game_qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "CourtMainRoof_Tier1: ~93.93% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "CourtMainRoof_Tier1: duplicate verts=8 loose verts=0",
+          "hidden back-to-back faces: CourtMainRoof_Tier1 (28 pairs) - delete to save tris"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [
+          {
+            "where": "CourtMainRoof_Tier1",
+            "tri_pairs": 28
+          }
+        ],
+        "enclosed": [],
+        "objects": {
+          "CourtMainRoof_Tier1": {
+            "verts": 2558,
+            "faces": 4208,
+            "tris": 4208,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 8,
+            "islands": 227,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 2,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 93.93,
+            "uv_coverage_pct": 73.1
+          }
+        }
+      },
+      "lightmap_uv": {
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 32.2
+      },
+      "surface": {
+        "tiled_surface_samples": 150000,
+        "smoothness_multiplier": 0.82,
+        "mask_A_p05_p50_p95": [
+          0.1786,
+          0.2621,
+          0.3502
+        ],
+        "effective_smoothness_p05_p50_p95": [
+          0.1465,
+          0.2149,
+          0.2872
+        ],
+        "detailed_end_triangles": 328,
+        "side_faces_on_detailed_end_texture": 0
+      },
+      "measurements": {
+        "whole_roof": {
+          "rays": 15429,
+          "misses": 0,
+          "examples": []
+        },
+        "knee": {
+          "rays": 1510,
+          "misses": 0,
+          "examples": []
+        },
+        "four_hips": {
+          "rays": 2020,
+          "misses": 0,
+          "examples": []
+        },
+        "wood_through_roof_skin": {
+          "rays": 37297,
+          "misses": 0,
+          "examples": []
+        },
+        "gable_closure": {
+          "rays": 4402,
+          "misses": 0,
+          "examples": []
+        },
+        "eave_skin_thickness_m": {
+          "sample_count": 132,
+          "p05_p50_p95": [
+            0.0976,
+            0.1,
+            0.1035
+          ]
+        },
+        "cap_-1": {
+          "contact_triangle_pairs": 269,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0331,
+                -0.011
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0325,
+                -0.011
+              ]
+            }
+          ]
+        },
+        "cap_1": {
+          "contact_triangle_pairs": 261,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0325,
+                -0.011
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0331,
+                -0.011
+              ]
+            }
+          ]
+        },
+        "all_cap_LODs": {
+          "0": {
+            "cap_-1": {
+              "contact_triangle_pairs": 390,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 364,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          },
+          "1": {
+            "cap_-1": {
+              "contact_triangle_pairs": 269,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 261,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          },
+          "2": {
+            "cap_-1": {
+              "contact_triangle_pairs": 174,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 175,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0325,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0331,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "CourtMainRoof_Tier2": {
+      "triangles": 918,
+      "bounds_blender": [
+        [
+          -9.68317985534668,
+          -8.27698040008545,
+          -0.0
+        ],
+        [
+          9.68317985534668,
+          8.27698040008545,
+          5.5294599533081055
+        ]
+      ],
+      "game_qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "CourtMainRoof_Tier2: ~89.14% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "CourtMainRoof_Tier2: duplicate verts=8 loose verts=0",
+          "hidden back-to-back faces: CourtMainRoof_Tier2 (12 pairs) - delete to save tris"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [
+          {
+            "where": "CourtMainRoof_Tier2",
+            "tri_pairs": 12
+          }
+        ],
+        "enclosed": [],
+        "objects": {
+          "CourtMainRoof_Tier2": {
+            "verts": 608,
+            "faces": 918,
+            "tris": 918,
+            "ngons": 0,
+            "boundary_edges": 6,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 8,
+            "islands": 74,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 2,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 89.14,
+            "uv_coverage_pct": 65.7
+          }
+        }
+      },
+      "lightmap_uv": {
+        "uv_maps": 2,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 53.0
+      },
+      "surface": {
+        "tiled_surface_samples": 150000,
+        "smoothness_multiplier": 0.82,
+        "mask_A_p05_p50_p95": [
+          0.1858,
+          0.2635,
+          0.3489
+        ],
+        "effective_smoothness_p05_p50_p95": [
+          0.1524,
+          0.2161,
+          0.2861
+        ],
+        "detailed_end_triangles": 0,
+        "side_faces_on_detailed_end_texture": 0
+      },
+      "measurements": {
+        "whole_roof": {
+          "rays": 15429,
+          "misses": 2,
+          "examples": [
+            [
+              -7.266,
+              0.0
+            ],
+            [
+              7.266,
+              0.0
+            ]
+          ]
+        },
+        "knee": {
+          "rays": 1510,
+          "misses": 0,
+          "examples": []
+        },
+        "four_hips": {
+          "rays": 2020,
+          "misses": 0,
+          "examples": []
+        },
+        "wood_through_roof_skin": {
+          "rays": 37297,
+          "misses": 0,
+          "examples": []
+        },
+        "gable_closure": {
+          "rays": 4402,
+          "misses": 0,
+          "examples": []
+        },
+        "eave_skin_thickness_m": {
+          "sample_count": 132,
+          "p05_p50_p95": [
+            0.0976,
+            0.1,
+            0.1
+          ]
+        },
+        "cap_-1": {
+          "contact_triangle_pairs": 133,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0145,
+                -0.011
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0346,
+                -0.011
+              ]
+            }
+          ]
+        },
+        "cap_1": {
+          "contact_triangle_pairs": 138,
+          "feet": [
+            {
+              "side": -1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0346,
+                -0.011
+              ]
+            },
+            {
+              "side": 1,
+              "hits": 36,
+              "tested": 36,
+              "gap_range_m": [
+                -0.0145,
+                -0.011
+              ]
+            }
+          ]
+        },
+        "all_cap_LODs": {
+          "0": {
+            "cap_-1": {
+              "contact_triangle_pairs": 275,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 275,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          },
+          "1": {
+            "cap_-1": {
+              "contact_triangle_pairs": 196,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 196,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          },
+          "2": {
+            "cap_-1": {
+              "contact_triangle_pairs": 133,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                }
+              ]
+            },
+            "cap_1": {
+              "contact_triangle_pairs": 138,
+              "feet": [
+                {
+                  "side": -1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0346,
+                    -0.011
+                  ]
+                },
+                {
+                  "side": 1,
+                  "hits": 36,
+                  "tested": 36,
+                  "gap_range_m": [
+                    -0.0145,
+                    -0.011
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

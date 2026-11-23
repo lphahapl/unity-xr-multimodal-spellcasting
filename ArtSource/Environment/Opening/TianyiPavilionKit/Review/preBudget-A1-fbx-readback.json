@@ -1,0 +1,250 @@
+{
+  "blender": "5.2.2 LTS",
+  "changed_from_baseline": [
+    "TianyiPavilion.fbx",
+    "TileColor.png",
+    "TileNormal.png",
+    "TimberColor.png",
+    "TimberNormal.png"
+  ],
+  "meshes": {
+    "Pavilion_LOD0": {
+      "triangles": 50932,
+      "dimensions_m": [
+        10.996000289916992,
+        10.996000289916992,
+        6.299999713897705
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      }
+    },
+    "Pavilion_LOD1": {
+      "triangles": 15836,
+      "dimensions_m": [
+        10.996000289916992,
+        10.996000289916992,
+        6.299999713897705
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      }
+    },
+    "Pavilion_LOD2": {
+      "triangles": 3524,
+      "dimensions_m": [
+        10.94243335723877,
+        10.94243335723877,
+        6.299999713897705
+      ],
+      "materials": [
+        "Paving",
+        "Fieldstone",
+        "Timber",
+        "Tile"
+      ],
+      "UV": "TilingUV",
+      "clear_volumes_m": {
+        "instrument": [
+          [
+            -1.57,
+            -1.44,
+            0.002
+          ],
+          [
+            1.57,
+            1.44,
+            3.29
+          ]
+        ],
+        "axial_passage_at_shoes": [
+          [
+            -1.29,
+            -5.6,
+            0.002
+          ],
+          [
+            1.29,
+            5.6,
+            0.3
+          ]
+        ],
+        "axial_passage_above_shoes": [
+          [
+            -1.36,
+            -5.6,
+            0.3
+          ],
+          [
+            1.36,
+            5.6,
+            2.5
+          ]
+        ],
+        "skylight": [
+          [
+            -1.32,
+            -1.32,
+            3.29
+          ],
+          [
+            1.32,
+            1.32,
+            6.3
+          ]
+        ]
+      }
+    }
+  },
+  "sha256": {
+    "TianyiPavilion.fbx": "746841a2d95e179e44414e854ca58fad3b6d9ce00cc3629ffe3707fcbb1ef7f2",
+    "TileColor.png": "915d2c7b4d24782560f1eac8dd34027377a4e0ad1aed988a0ee522e71d82fdc8",
+    "TileNormal.png": "730293972006e31b1cb5bafcd17fc4e29d5f281c9def7c4568a256748575a8fa",
+    "TimberColor.png": "d5040e518a96af8d23a4546a36b278606c99d2d7e6e0869725a901172e4f5c73",
+    "TimberNormal.png": "72be91801af5afb54366bda236a0fd37b06a72ccce56ade63526d69e86a3bb38"
+  },
+  "prefab_mesh_refs": {
+    "guid": "7d3978c2986efeb4da6d71c98dcb7941",
+    "fileIDs": [
+      "-4717050247385379717",
+      "1291247432581136521",
+      "-1179435197494004938"
+    ]
+  },
+  "prefab_colliders": {
+    "BoxCollider": 23,
+    "MeshCollider": 1
+  },
+  "textures": {
+    "TileColor.png": [
+      1024,
+      1024
+    ],
+    "TileNormal.png": [
+      1024,
+      1024
+    ],
+    "TimberColor.png": [
+      2048,
+      2048
+    ],
+    "TimberNormal.png": [
+      2048,
+      2048
+    ]
+  },
+  "surface_sources": "Workshop/Timber, EndGrain and Tile photograph and tangent normal pairs; see prepare_surfaces.py",
+  "qa_notes": [
+    "Repeated trim UVs share texels across separate members.",
+    "The existing stone footing reaches -0.20 m. Its walking plane is z=0.",
+    "Prefab fileIDs are the saved references. Unity import, Play and VR performance belong to the integration session."
+  ]
+}
