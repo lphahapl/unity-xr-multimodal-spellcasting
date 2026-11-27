@@ -1,0 +1,648 @@
+{
+  "unit": "metre",
+  "provider": "Original Hunyuan closed shell. New working components created in Blender from approved T-23 plate.",
+  "state": "Closed shell, open cloth / oilpaper panels and four separately named biscuits; Unity user interaction delivered by T-07/08 runtime owner.",
+  "originalClosedShell": "TravelRationBag-Review.glb",
+  "geometryChecks": [
+    {
+      "name": "ClothBase",
+      "tris": 1248,
+      "checks": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "ClothBase: ~93.35% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": 0.0008,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "ClothBase": {
+            "verts": 626,
+            "faces": 1248,
+            "tris": 1248,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 93.35,
+            "uv_coverage_pct": 12.7
+          }
+        }
+      }
+    },
+    {
+      "name": "ClothFlap",
+      "tris": 1316,
+      "checks": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "ClothFlap: ~94.18% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": 0.0009,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "ClothFlap": {
+            "verts": 662,
+            "faces": 1316,
+            "tris": 1316,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 2,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 94.18,
+            "uv_coverage_pct": 14.4
+          }
+        }
+      }
+    },
+    {
+      "name": "PaperBase",
+      "tris": 880,
+      "checks": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "PaperBase: ~95.2% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "asset lowest point z=0.0036 (not resting on ground plane z=0)"
+        ],
+        "ground_z": 0.0036,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "PaperBase": {
+            "verts": 442,
+            "faces": 880,
+            "tris": 880,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 95.2,
+            "uv_coverage_pct": 14.7
+          }
+        }
+      }
+    },
+    {
+      "name": "PaperFlap",
+      "tris": 880,
+      "checks": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "PaperFlap: ~95.36% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "asset lowest point z=0.0044 (not resting on ground plane z=0)"
+        ],
+        "ground_z": 0.0044,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "PaperFlap": {
+            "verts": 442,
+            "faces": 880,
+            "tris": 880,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 95.36,
+            "uv_coverage_pct": 15.1
+          }
+        }
+      }
+    },
+    {
+      "name": "TravelRationBiscuit",
+      "tris": 1200,
+      "checks": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "TravelRationBiscuit: ~9.41% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+          "asset lowest point z=-0.0159 (not resting on ground plane z=0)"
+        ],
+        "ground_z": -0.0159,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "TravelRationBiscuit": {
+            "verts": 602,
+            "faces": 1200,
+            "tris": 1200,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 9.41,
+            "uv_coverage_pct": 29.1
+          }
+        }
+      }
+    }
+  ],
+  "packedBiscuitBoundsUnityMM": [
+    31.8695,
+    31.2792,
+    2.3761
+  ],
+  "packedBiscuitStackThicknessMM": 9.84613,
+  "minimumAxialAirGapMM": 0.11387,
+  "coordinateNotes": "FBX unit scale is 1m. +Z is the front and the incision-facing side of the individual biscuit. LOD-verified closed pouch is its own FBX.",
+  "socketRoot": "TravelRationContents",
+  "transforms": {
+    "ClothBase": {
+      "closed": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "open": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "ClothFlap": {
+      "closed": {
+        "position": [
+          0.0,
+          0.0067,
+          0.00493
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "open": {
+        "position": [
+          0.0,
+          0.0067,
+          0.00493
+        ],
+        "rotationQuaternionXYZW": [
+          0.8480481,
+          0.0,
+          0.0,
+          0.5299193
+        ]
+      }
+    },
+    "PaperBase": {
+      "closed": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "open": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "PaperFlap": {
+      "closed": {
+        "position": [
+          -0.01546,
+          0.0256,
+          0.00421
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "open": {
+        "position": [
+          -0.01546,
+          0.0256,
+          0.00421
+        ],
+        "rotationQuaternionXYZW": [
+          -0.0,
+          -0.9799247,
+          -0.0,
+          0.199368
+        ]
+      }
+    },
+    "Biscuit01": {
+      "closed": {
+        "position": [
+          0.0001,
+          0.02515,
+          -0.00307
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          -0.1132032,
+          0.9935718
+        ]
+      },
+      "open": {
+        "position": [
+          0.0062,
+          0.0298,
+          -0.00163
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          -0.0784591,
+          0.9969173
+        ]
+      }
+    },
+    "Biscuit02": {
+      "closed": {
+        "position": [
+          -9e-05,
+          0.02585,
+          -0.00058
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0958458,
+          0.9953962
+        ]
+      },
+      "open": {
+        "position": [
+          -0.0023,
+          0.0266,
+          0.0032
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.0871558,
+          0.9961947
+        ]
+      }
+    },
+    "Biscuit03": {
+      "closed": {
+        "position": [
+          -0.00021,
+          0.02505,
+          0.00191
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          -0.0261769,
+          0.9996573
+        ]
+      },
+      "open": {
+        "position": [
+          0.00175,
+          0.0188,
+          0.0091
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          -0.052336,
+          0.9986295
+        ]
+      }
+    },
+    "Biscuit04": {
+      "closed": {
+        "position": [
+          7e-05,
+          0.02545,
+          0.0044
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.1391731,
+          0.9902681
+        ]
+      },
+      "open": {
+        "position": [
+          -0.0105,
+          0.014,
+          0.0145
+        ],
+        "rotationQuaternionXYZW": [
+          0.0,
+          0.0,
+          0.1391731,
+          0.9902681
+        ]
+      }
+    }
+  },
+  "openBoundsUnityM": {
+    "ClothBase": {
+      "min": [
+        -0.022488,
+        0.000766,
+        -0.006515
+      ],
+      "max": [
+        0.022194,
+        0.049114,
+        -0.002104
+      ]
+    },
+    "ClothFlap": {
+      "min": [
+        -0.022466,
+        -0.016001,
+        -0.00045
+      ],
+      "max": [
+        0.022138,
+        0.009927,
+        0.048691
+      ]
+    },
+    "PaperBase": {
+      "min": [
+        -0.019406,
+        0.003619,
+        -0.004315
+      ],
+      "max": [
+        0.019073,
+        0.045326,
+        -0.002761
+      ]
+    },
+    "PaperFlap": {
+      "min": [
+        -0.047738,
+        0.004448,
+        0.001886
+      ],
+      "max": [
+        -0.01212,
+        0.045902,
+        0.017891
+      ]
+    },
+    "Biscuit01": {
+      "min": [
+        -0.009927,
+        0.014046,
+        -0.00275
+      ],
+      "max": [
+        0.022175,
+        0.045419,
+        -0.000374
+      ]
+    },
+    "Biscuit02": {
+      "min": [
+        -0.018386,
+        0.010853,
+        0.00208
+      ],
+      "max": [
+        0.013419,
+        0.042251,
+        0.004456
+      ]
+    },
+    "Biscuit03": {
+      "min": [
+        -0.014423,
+        0.002966,
+        0.00798
+      ],
+      "max": [
+        0.017615,
+        0.034372,
+        0.010356
+      ]
+    },
+    "Biscuit04": {
+      "min": [
+        -0.02654,
+        -0.001584,
+        0.01338
+      ],
+      "max": [
+        0.005423,
+        0.029685,
+        0.015756
+      ]
+    }
+  },
+  "reviewGLB": {
+    "file": "TravelRation-ExpandedReview.glb",
+    "sha256": "d1aab0202972509ba2702005eff57fd9f995d622485e8341f9677360dd6535ac",
+    "byteLength": 5445408,
+    "animation": "展开和取食",
+    "channels": 19,
+    "markers": [
+      {
+        "timeSeconds": 0.333,
+        "state": "合拢",
+        "biscuits": 0,
+        "closed": true
+      },
+      {
+        "timeSeconds": 2.367,
+        "state": "四块",
+        "biscuits": 4,
+        "closed": false
+      },
+      {
+        "timeSeconds": 4.433,
+        "state": "三块",
+        "biscuits": 3,
+        "closed": false
+      },
+      {
+        "timeSeconds": 5.9,
+        "state": "两块",
+        "biscuits": 2,
+        "closed": false
+      },
+      {
+        "timeSeconds": 7.4,
+        "state": "一块",
+        "biscuits": 1,
+        "closed": false
+      },
+      {
+        "timeSeconds": 9.1,
+        "state": "空袋",
+        "biscuits": 0,
+        "closed": false
+      },
+      {
+        "timeSeconds": 10.767,
+        "state": "重新收合",
+        "biscuits": 0,
+        "closed": true
+      }
+    ],
+    "default": "四块",
+    "embeddedImages": 6
+  },
+  "gameFiles": {
+    "TravelRationBiscuit.fbx": "4097605c2a83f7cd5e1a40f36b9588374a5ef03485404d5dee2cd48bf8380edd",
+    "TravelRationContents.fbx": "71b5d7f7691ead33f8f1651421845b109b72116d0236265307b86270ec8418b6",
+    "TravelRationContents_Atlas.mat": "e69394544613c7108096b2bdfcbc5dee1b6636ef8901121f660dfe03eec3de95",
+    "TravelRationContents_BaseColor.png": "21b38d34c9ba3e6b62fe235b8b038705b5368267e9fd8fd9ee1f65351aecb7bf",
+    "TravelRationContents_Mask.png": "6fd6d979da833561533552ec61502fffa0b748b46195885639b919e2be08e006",
+    "TravelRationContents_NormalGL.png": "0a3157cad475fd339e5ba2caf3042a72d521d00f67648aa0881710db63f959b6"
+  },
+  "atlas": {
+    "filePrefix": "TravelRationContents",
+    "sizePX": [
+      1024,
+      1024
+    ],
+    "regionLayout": "Hunyuan jute and pull-tab base color, oilpaper and wheat/date texture quadrants; deliberate two-sided UV reuse.",
+    "maskChannels": {
+      "R": "metallic",
+      "G": "ambient occlusion",
+      "A": "smoothness"
+    }
+  }
+}
