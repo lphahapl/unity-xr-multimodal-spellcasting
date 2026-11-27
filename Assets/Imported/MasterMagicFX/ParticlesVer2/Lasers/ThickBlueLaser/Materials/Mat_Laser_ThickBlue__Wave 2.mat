@@ -42,6 +42,7 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -142,6 +143,7 @@ Material:
     - _DepthFadeMin: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _EDGEFADE: 1
     - _EdgeFade: 0.652
     - _EdgeFadeMax: 1
@@ -170,6 +172,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Surface: 1
     - _USEMASK: 1
     - _USEMASK2: 0
@@ -180,6 +183,7 @@ Material:
     - _WARP: 1
     - _WarpIntensity: 0
     - _WarpScale: 6.43
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
@@ -200,6 +204,7 @@ Material:
     - _UVNoiseTiling: {r: 1, g: 1, b: 0, a: 0}
     - _WarpScroll: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &5479773957948915870
 MonoBehaviour:
   m_ObjectHideFlags: 11
