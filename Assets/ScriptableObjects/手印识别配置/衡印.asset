@@ -129,3 +129,17 @@ MonoBehaviour:
     tolerance: 0.015
     weight: 1
     required: 0
+  pico:
+    minimumCoverage: 0.65
+    toleranceMultiplier: 1.09
+    releaseMargin: 0.04
+    evidenceMatch: 0.38
+    evidence:
+    - anyOf:
+      - L.Index.Flexion
+    - anyOf:
+      - L.Middle.Flexion
+    - anyOf:
+      - L.Ring.Curl
+      - L.Max.Curl
+    additionalRules: []

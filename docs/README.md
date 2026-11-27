@@ -69,6 +69,8 @@
 
 - [VR 裸手追踪、结印与工具笔尖的稳定性](research/HAND_STABILITY_20261121_ZH.md)，含开发者实装案例、庭院输入接线、历史骨骼录制回放与 Quest 对照方法。
 
+- [PICO 与 Quest 手模变形和遮挡核查](research/PICO_QUEST_HAND_MESH_DEFORMATION_20261127_ZH.md)，含官方手模绑定方式、关节置信度对照和 PICO 现场日志。
+
 - [长短术共用印序时如何确认释放](research/SEAL_SHORT_CAST_20261121_ZH.md)，含《Arx Fatalis》的实际配方、裸手 VR 收招案例和 Quest 对照试验建议。
 
 - [单印确认、充能完成与条件解锁的视听反馈](research/SEAL_MATCH_FEEDBACK_20261121_ZH.md)，含裸手 VR 游戏案例、铜扣与聚气两种成印样片提案。

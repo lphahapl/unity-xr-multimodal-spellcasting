@@ -19,14 +19,14 @@ namespace NarutoVR.SealLab
             if (snapshot != null) AddFingers("L", snapshot, left, output);
         }
 
-        public void Extract(SealFrame frame, List<SealFeature> output)
+        public void Extract(SealFrame frame, List<SealFeature> output, bool pico = false)
         {
             output.Clear(); left.Set(frame.left); right.Set(frame.right);
-            AddFingers("L", frame.left, left, output);
-            AddFingers("R", frame.right, right, output);
+            AddFingers("L", frame.left, left, output, pico);
+            AddFingers("R", frame.right, right, output, pico);
             bool pair = left.IsTrackedDataValid && right.IsTrackedDataValid &&
                         System.Math.Abs(frame.left.observedAt - frame.right.observedAt) <= MaximumHandSkew;
-            bool confident = pair && left.IsHighConfidence && right.IsHighConfidence;
+            bool confident = pair && (pico || left.IsHighConfidence && right.IsHighConfidence);
             bool wrists = PairPositions(frame, HandJointId.HandWristRoot, HandJointId.HandWristRoot, out var l, out var r);
             output.Add(new SealFeature("Both.WristDistance", "m", Vector3.Distance(l, r), pair && wrists, confident));
 
@@ -40,7 +40,17 @@ namespace NarutoVR.SealLab
                              PairPositions(frame, HandJointId.HandIndexTip, HandJointId.HandIndexTip, out var lt, out var rt);
             direction &= (lt - lb).sqrMagnitude > 1e-8f && (rt - rb).sqrMagnitude > 1e-8f;
             output.Add(new SealFeature("Both.IndexDirectionAngle", "deg", Vector3.Angle(lt - lb, rt - rb),
-                pair && direction, confident && frame.left.fingerConfidence[1] && frame.right.fingerConfidence[1]));
+                pair && direction, confident && (pico || frame.left.fingerConfidence[1] && frame.right.fingerConfidence[1])));
+            if (pico)
+            {
+                bool lProximal = IndexSegments(frame.left, out var lFirst, out var lSecond);
+                bool rProximal = IndexSegments(frame.right, out var rFirst, out var rSecond);
+                output.Add(new SealFeature("L.Index.ProximalBend", "deg", Vector3.Angle(lFirst, lSecond), left.IsTrackedDataValid && lProximal, lProximal));
+                output.Add(new SealFeature("R.Index.ProximalBend", "deg", Vector3.Angle(rFirst, rSecond), right.IsTrackedDataValid && rProximal, rProximal));
+                bool directionValid = pair && lProximal && rProximal;
+                output.Add(new SealFeature("Both.IndexProximalDirectionAngle", "deg", Vector3.Angle(lFirst + lSecond, rFirst + rSecond),
+                    directionValid, directionValid));
+            }
             // Left wrist frame removes global translation/rotation while keeping left/right relation.
             Quaternion inverse = Quaternion.Inverse(frame.left.joints[(int)HandJointId.HandWristRoot].rotation);
             Vector3 offset = inverse * (r - l);
@@ -52,11 +62,11 @@ namespace NarutoVR.SealLab
             {
                 bool valid = PairPositions(frame, lj, rj, out var a, out var b);
                 output.Add(new SealFeature(id, "m", Vector3.Distance(a, b), pair && valid,
-                    confident && frame.left.fingerConfidence[(int)finger] && frame.right.fingerConfidence[(int)finger]));
+                    confident && (pico || frame.left.fingerConfidence[(int)finger] && frame.right.fingerConfidence[(int)finger])));
             }
         }
 
-        private void AddFingers(string side, HandSnapshot snapshot, SnapshotHand hand, List<SealFeature> output)
+        private void AddFingers(string side, HandSnapshot snapshot, SnapshotHand hand, List<SealFeature> output, bool pico = false)
         {
             for (int f = 0; f < 5; ++f)
             for (int k = 0; k < 4; ++k)
@@ -65,22 +75,43 @@ namespace NarutoVR.SealLab
                 // SDK returns 0 for these unsupported combinations; expose them as N/A instead.
                 if ((f == 4 && feature == FingerFeature.Abduction) || (f == 0 && feature == FingerFeature.Opposition)) continue;
                 bool valid = hand.IsTrackedDataValid && snapshot.wristPosesValid;
-                bool confidence = snapshot.fingerConfidence[f];
-                foreach (var joint in HandJointUtils.FingerToJointList[f]) valid &= snapshot.jointValid[(int)joint];
-                if (feature == FingerFeature.Abduction)
+                bool confidence = pico || snapshot.fingerConfidence[f];
+                if (pico)
                 {
-                    confidence &= snapshot.fingerConfidence[f + 1];
-                    foreach (var joint in HandJointUtils.FingerToJointList[f + 1]) valid &= snapshot.jointValid[(int)joint];
+                    var proximal = HandJointUtils.GetHandFingerProximal(finger);
+                    if (feature == FingerFeature.Curl || feature == FingerFeature.Flexion)
+                        valid &= snapshot.jointValid[(int)proximal];
+                    if (feature != FingerFeature.Flexion)
+                        foreach (var joint in shapes.GetJointsAffected(finger, feature))
+                            valid &= snapshot.jointValid[(int)joint];
                 }
-                if (feature == FingerFeature.Opposition)
+                else
                 {
-                    confidence &= snapshot.fingerConfidence[0];
-                    valid &= snapshot.jointValid[(int)HandJointId.HandThumbTip];
+                    foreach (var joint in HandJointUtils.FingerToJointList[f]) valid &= snapshot.jointValid[(int)joint];
+                    if (feature == FingerFeature.Abduction)
+                    {
+                        confidence &= snapshot.fingerConfidence[f + 1];
+                        foreach (var joint in HandJointUtils.FingerToJointList[f + 1]) valid &= snapshot.jointValid[(int)joint];
+                    }
+                    if (feature == FingerFeature.Opposition)
+                    {
+                        confidence &= snapshot.fingerConfidence[0];
+                        valid &= snapshot.jointValid[(int)HandJointId.HandThumbTip];
+                    }
                 }
                 float value = valid ? shapes.GetValue(finger, feature, hand) : 0;
                 output.Add(new SealFeature($"{side}.{finger}.{feature}", feature == FingerFeature.Opposition ? "m@scale1" : "deg",
                     value, valid, confidence));
             }
+        }
+
+        private static bool IndexSegments(HandSnapshot hand, out Vector3 first, out Vector3 second)
+        {
+            int a = (int)HandJointId.HandIndex1, b = (int)HandJointId.HandIndex2, c = (int)HandJointId.HandIndex3;
+            first = hand.joints[b].position - hand.joints[a].position;
+            second = hand.joints[c].position - hand.joints[b].position;
+            return hand.jointValid[a] && hand.jointValid[b] && hand.jointValid[c] &&
+                first.sqrMagnitude > 1e-8f && second.sqrMagnitude > 1e-8f && (first + second).sqrMagnitude > 1e-8f;
         }
 
         private static bool PairPositions(SealFrame frame, HandJointId lj, HandJointId rj, out Vector3 l, out Vector3 r)

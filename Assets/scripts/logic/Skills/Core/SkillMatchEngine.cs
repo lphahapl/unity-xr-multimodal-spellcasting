@@ -225,8 +225,9 @@ namespace NarutoVR.SealCombat
             {
                 for (int i = 0; i < scores.Count; i++)
                 {
-                    var profile = scores[i]?.profile;
-                    if (!profile || profile.handMode != SealHandMode.LeftOnly || profile.allowLowConfidence) continue;
+                    var sample = scores[i];
+                    var profile = sample?.profile;
+                    if (!profile || profile.handMode != SealHandMode.LeftOnly || profile.allowLowConfidence || sample.picoApplied) continue;
                     string seal = profile.sealName;
                     if (string.IsNullOrEmpty(seal)) continue;
                     if (seals.TryGetValue(seal, out var held))
@@ -275,13 +276,26 @@ namespace NarutoVR.SealCombat
                 bool found = TryGetScore(slot, state.Seal, out var target);
                 state.LeftOnly = found && target.LeftOnly;
                 if (state.LeftOnly && target.Quality && !newLeft && !suppressActivation) continue;
-                double sampleAt = state.LeftOnly ? frame.left.observedAt : frame.time;
+                double sampleAt = state.LeftOnly ? frame.left.observedAt : target.Pico ? observed : frame.time;
+                if (target.Pico && (!state.LeftOnly && !fresh || !double.IsFinite(sampleAt)))
+                {
+                    foreach (var tracker in state.Trackers) tracker.Start = double.NaN;
+                    state.ExitSince = double.NaN;
+                    state.LastPicoSample = double.NegativeInfinity;
+                    continue;
+                }
                 bool continuous = state.LeftOnly ? leftContiguous : contiguous;
+                if (target.Pico && !state.LeftOnly)
+                {
+                    if (sampleAt <= state.LastPicoSample + Epsilon && !suppressActivation) continue;
+                    continuous = sampleAt - state.LastPicoSample <= MaximumSampleGap + Epsilon;
+                    state.LastPicoSample = sampleAt;
+                }
                 bool quality = found && target.Quality;
                 float minimum = 1;
                 foreach (var tracker in state.Trackers) minimum = Math.Min(minimum, Threshold(recipes[tracker.Recipe], target));
-                bool shapePresent = quality && target.Score + Epsilon >= minimum;
-                if (quality && !shapePresent)
+                bool shapePresent = quality && target.Score + Epsilon >= minimum - target.ReleaseMargin;
+                if (found && target.TrackingQuality && !shapePresent)
                 {
                     if (!continuous || double.IsNaN(state.ExitSince)) state.ExitSince = sampleAt;
                     if (sampleAt - state.ExitSince + Epsilon >= ExitSeconds) state.Rearm();
@@ -301,7 +315,9 @@ namespace NarutoVR.SealCombat
                     var recipe = recipes[tracker.Recipe];
                     if (state.Blocked && recipe.Mode != SkillTriggerMode.VoiceAndGesture) continue;
                     if (tracker.Complete && recipe.Mode == SkillTriggerMode.GestureOnly) continue;
-                    bool qualifies = quality && target.Score + Epsilon >= Threshold(recipe, target) && Unambiguous(slot, target);
+                    float threshold = Threshold(recipe, target);
+                    if (!double.IsNaN(tracker.Start)) threshold -= target.ReleaseMargin;
+                    bool qualifies = quality && target.Score + Epsilon >= threshold && Unambiguous(slot, target);
                     if (!qualifies) { tracker.Start = double.NaN; continue; }
                     if (state.Action == 0) state.Action = ++nextAction;
                     if (double.IsNaN(tracker.Start)) tracker.Start = sampleAt;
@@ -799,7 +815,7 @@ namespace NarutoVR.SealCombat
             {
                 var profile = scores[i]?.profile;
                 bool eligible = profile && profile.handMode == SealHandMode.LeftOnly
-                    ? leftValid && (leftHighConfidence || profile.allowLowConfidence) : bothValid;
+                    ? leftValid && (leftHighConfidence || profile.allowLowConfidence || scores[i].picoApplied) : bothValid;
                 slot.Scores[i] = new ScoreFact(scores[i], eligible && ValidateProfile(profile));
             }
         }
@@ -884,6 +900,8 @@ namespace NarutoVR.SealCombat
                     double observed = target.LeftOnly ? lastLeftObservation : lastSample;
                     double held=double.IsNaN(tracker.Start)?0:Math.Max(0,observed-tracker.Start);
                     text.Append($"\n{recipe.Id}/{state.Seal}：分数 {target.Score:P1} / {Threshold(recipe,target):P1}，质量通过={found&&target.Quality}，歧义通过={Unambiguous(slot,target)}；竞争印 {other} {best:P1}，要求领先 {Margin:P0}");
+                    if (target.Pico)
+                        text.Append($"；PICO 覆盖 {target.Coverage:P1}/{target.MinimumCoverage:P1}，关键观测缺失={target.EvidenceUnobserved}，关键匹配不足={target.EvidenceMissing}");
                     if(!state.Blocked)text.Append($"；保持 {held:F3}/{target.Hold:F3}s");
                     else if(recipe.Mode==SkillTriggerMode.GestureOnly)text.Append("；此动作已消耗，纯印须退出后重结");
                     else if(diagnosticSuppressed||diagnosticHeld)text.Append($"；组合重备暂停（{(diagnosticHeld?"手上有持有物":"其他交互占用输入")}），松开后重新计时");
@@ -983,7 +1001,7 @@ namespace NarutoVR.SealCombat
             readonly Dictionary<string, List<Recipe>> thresholds = new(StringComparer.Ordinal);
             readonly bool recipeSpecific;
             string held, candidate;
-            double since, exitSince = double.NaN;
+            double since, exitSince = double.NaN, lastPicoCandidateAt = double.NegativeInfinity;
             public string Confirmed { get; private set; }
 
             public SealHistory(Recipe recipe = null)
@@ -1065,9 +1083,10 @@ namespace NarutoVR.SealCombat
                 Confirmed = null;
                 if (held != null)
                 {
-                    bool released = TryGetScore(slot, held, out var prior) && prior.Quality &&
-                        prior.Score + Epsilon < Required(prior);
-                    double releasedAt = prior.LeftOnly ? slot.Frame.left.observedAt : time;
+                    bool released = TryGetScore(slot, held, out var prior) && prior.TrackingQuality &&
+                        (!prior.Quality || prior.Score + Epsilon < Required(prior) - prior.ReleaseMargin);
+                    double releasedAt = prior.LeftOnly ? slot.Frame.left.observedAt :
+                        prior.Pico ? Math.Min(slot.Frame.left.observedAt, slot.Frame.right.observedAt) : time;
                     if (!released) exitSince = double.NaN;
                     else if (!prior.LeftOnly || slot.LeftAdvanced)
                     {
@@ -1080,14 +1099,22 @@ namespace NarutoVR.SealCombat
                 {
                     var score = slot.Scores[i];
                     if (leftFeedbackOnly && !score.LeftOnly) continue;
-                    if (score.Quality && score.Score + Epsilon >= Required(score) && (!best.Quality || score.Score > best.Score))
+                    float threshold = Required(score) - (candidate == score.Seal ? score.ReleaseMargin : 0);
+                    if (score.Quality && score.Score + Epsilon >= threshold && (!best.Quality || score.Score > best.Score))
                         best = score;
                 }
                 if (!best.Quality || best.Seal == held || !TryGetScore(slot, best.Seal, out _) || !engine.Unambiguous(slot,best))
                 { candidate = null; return; }
                 if (best.LeftOnly && !slot.LeftAdvanced) return;
-                double sampleAt = best.LeftOnly ? slot.Frame.left.observedAt : time;
-                if (candidate != best.Seal || (best.LeftOnly && !slot.LeftContiguous)) { candidate = best.Seal; since = sampleAt; }
+                double sampleAt = best.LeftOnly ? slot.Frame.left.observedAt :
+                    best.Pico ? Math.Min(slot.Frame.left.observedAt, slot.Frame.right.observedAt) : time;
+                bool picoGap = best.Pico && !best.LeftOnly && sampleAt - lastPicoCandidateAt > engine.MaximumSampleGap + Epsilon;
+                if (best.Pico && !best.LeftOnly)
+                {
+                    if (sampleAt <= lastPicoCandidateAt + Epsilon) return;
+                    lastPicoCandidateAt = sampleAt;
+                }
+                if (candidate != best.Seal || (best.LeftOnly && !slot.LeftContiguous) || picoGap) { candidate = best.Seal; since = sampleAt; }
                 if (sampleAt - since + Epsilon < best.Hold) return;
                 Confirmed = held = best.Seal;
                 candidate = null;
@@ -1116,6 +1143,7 @@ namespace NarutoVR.SealCombat
             public bool LeftOnly;
             public double BlockedAt;
             public double ExitSince = double.NaN;
+            public double LastPicoSample = double.NegativeInfinity;
             public SealState(string seal) { Seal = seal; }
             public void ResetTrackers(double seed = double.NaN)
             {
@@ -1160,15 +1188,23 @@ namespace NarutoVR.SealCombat
         private readonly struct ScoreFact
         {
             public readonly string Seal;
-            public readonly float Score, Coverage, Threshold, MinimumCoverage, Hold;
-            public readonly bool ValidProfile, MissingRequired, LeftOnly;
-            public bool Quality => ValidProfile && !MissingRequired && float.IsFinite(Score) && float.IsFinite(Coverage) && Coverage + Epsilon >= MinimumCoverage;
+            public readonly float Score, Coverage, Threshold, MinimumCoverage, Hold, ReleaseMargin;
+            public readonly bool ValidProfile, MissingRequired, LeftOnly, Pico, EvidenceMissing, EvidenceUnobserved;
+            public bool TrackingQuality => ValidProfile && !MissingRequired && !EvidenceUnobserved &&
+                float.IsFinite(Score) && float.IsFinite(Coverage) && Coverage + Epsilon >= MinimumCoverage;
+            public bool Quality => TrackingQuality && !EvidenceMissing;
             public ScoreFact(SealScore source, bool validProfile)
             {
                 var profile = source?.profile;
                 LeftOnly = profile && profile.handMode == SealHandMode.LeftOnly;
                 Seal = profile ? profile.sealName : ""; Score = source?.score ?? 0; Coverage = source?.coverage ?? 0;
-                Threshold = profile ? profile.threshold : 1; MinimumCoverage = profile ? profile.minimumCoverage : 1; Hold = profile ? profile.holdSeconds : 0;
+                Pico = source?.picoApplied == true;
+                EvidenceMissing = Pico && source.picoEvidenceMissing;
+                EvidenceUnobserved = Pico && source.picoEvidenceUnobserved;
+                ReleaseMargin = Pico ? source.picoReleaseMargin : 0;
+                Threshold = profile ? profile.threshold : 1;
+                MinimumCoverage = Pico ? source.picoMinimumCoverage : profile ? profile.minimumCoverage : 1;
+                Hold = profile ? profile.holdSeconds : 0;
                 ValidProfile = validProfile;
                 bool missing = source?.reason == "Required feature missing";
                 if (source != null) foreach (var detail in source.details)

@@ -31,6 +31,32 @@ namespace NarutoVR.SealLab
         public bool required;
     }
 
+    [Serializable]
+    public sealed class PicoSealEvidence
+    {
+        [Tooltip("组内任一特征达到匹配线即可。所有已配置的组都需要证据。")]
+        public string[] anyOf = Array.Empty<string>();
+    }
+
+    [Serializable]
+    public sealed class PicoSealAlternative
+    {
+        [InspectorName("缺失时才启用替代的原特征")] public string onlyIfMissing;
+        [InspectorName("有独立实测值的替代规则")] public FeatureRule rule;
+    }
+
+    [Serializable]
+    public sealed class PicoSealTuning
+    {
+        [InspectorName("有效覆盖下限（0 走原判定）"), Range(0, 1)]
+        public float minimumCoverage;
+        [InspectorName("规则容差倍数"), Range(1, 1.5f)] public float toleranceMultiplier = 1;
+        [InspectorName("续持分数差"), Range(0, .10f)] public float releaseMargin;
+        [InspectorName("每组证据最低匹配"), Range(0.1f, 1)] public float evidenceMatch = .5f;
+        [InspectorName("必须各有一项支持的证据组")] public PicoSealEvidence[] evidence = Array.Empty<PicoSealEvidence>();
+        [InspectorName("PICO 补充特征")] public PicoSealAlternative[] additionalRules = Array.Empty<PicoSealAlternative>();
+    }
+
     [CreateAssetMenu(menuName = "NarutoVR/结印模板")]
     public sealed class SealProfile : ScriptableObject
     {
@@ -74,6 +100,8 @@ namespace NarutoVR.SealLab
         [InspectorName("特征规则列表")]
         [Tooltip("逐项配置目标范围、软容差和权重。中文名称用于阅读，固定特征标识用于匹配录制数据。")]
         public List<FeatureRule> rules = new();
+        [Header("四、PICO 原生 OpenXR 遮挡判定")]
+        [InspectorName("PICO 识印参数")] public PicoSealTuning pico = new();
 
         public string ValidateRules()
         {
@@ -108,36 +136,99 @@ namespace NarutoVR.SealLab
         public SealProfile profile;
         public float score, coverage;
         public bool passes;
+        public bool picoApplied, picoEvidenceMissing, picoEvidenceUnobserved;
+        public float picoMinimumCoverage, picoReleaseMargin;
         public string reason;
         public readonly List<RuleScore> details = new();
     }
 
     public static class SealScorer
     {
-        public static SealScore Evaluate(SealProfile profile, IReadOnlyList<SealFeature> features)
+        public static SealScore Evaluate(SealProfile profile, IReadOnlyList<SealFeature> features, bool pico = false)
         {
             var result = new SealScore { profile = profile, reason = profile ? profile.ValidateRules() : "No profile" };
             if (result.reason != null) return result;
-            float total = 0, available = 0, weighted = 0; bool missingRequired = false;
-            foreach (var rule in profile.rules)
+            var tuning = pico && profile.pico?.minimumCoverage > 0 ? profile.pico : null;
+            result.picoApplied = tuning != null;
+            float total = 0, available = 0, weighted = 0;
+            bool missingRequired = false;
+            float tolerance = tuning == null ? 1 : Mathf.Clamp(tuning.toleranceMultiplier, 1, 1.5f);
+            foreach (var rule in profile.rules) Score(rule);
+            if (tuning != null)
             {
-                if (rule.weight <= 0) continue;
-                SealFeature feature = default; bool found = false;
-                for (int i = 0; i < features.Count; i++) if (features[i].id == rule.featureId) { feature = features[i]; found = true; break; }
-                bool valid = found && feature.valid && float.IsFinite(feature.value) && (profile.allowLowConfidence || feature.highConfidence);
+                foreach (var alternative in tuning.additionalRules ?? Array.Empty<PicoSealAlternative>())
+                {
+                    var standard = alternative == null ? null :
+                        result.details.Find(item => item.rule.featureId == alternative.onlyIfMissing);
+                    if (standard == null || !ValidAdditionalRule(alternative.rule))
+                        result.picoEvidenceMissing = result.picoEvidenceUnobserved = true;
+                    else if (!standard.available)
+                        Score(alternative.rule);
+                }
+
+                result.picoMinimumCoverage = Mathf.Clamp(tuning.minimumCoverage, .5f, 1);
+                result.picoReleaseMargin = Mathf.Clamp(tuning.releaseMargin, 0, .10f);
+                var groups = tuning.evidence;
+                if (groups == null || groups.Length == 0)
+                    result.picoEvidenceMissing = result.picoEvidenceUnobserved = true;
+                else foreach (var group in groups)
+                {
+                    float match = BestEvidence(group, result.details);
+                    result.picoEvidenceUnobserved |= match < 0;
+                    result.picoEvidenceMissing |= match < Mathf.Clamp(tuning.evidenceMatch, .1f, 1);
+                }
+            }
+
+            result.score = tuning == null ? weighted / total : available > 0 ? weighted / available : 0;
+            result.coverage = available / total;
+            float minimumCoverage = tuning == null ? profile.minimumCoverage : result.picoMinimumCoverage;
+            result.passes = !missingRequired && !result.picoEvidenceMissing &&
+                result.coverage >= minimumCoverage && result.score >= profile.threshold;
+            result.reason = missingRequired ? "Required feature missing" : result.picoEvidenceMissing ? "PICO evidence missing" :
+                result.coverage < minimumCoverage ? "Insufficient tracking coverage" :
+                result.passes ? "Score passed; waiting for hold time" : "Below score threshold";
+            return result;
+
+            void Score(FeatureRule rule)
+            {
+                if (rule.weight <= 0) return;
+                SealFeature feature = default;
+                bool found = false;
+                for (int i = 0; i < features.Count; i++)
+                {
+                    if (features[i].id != rule.featureId) continue;
+                    feature = features[i];
+                    found = true;
+                    break;
+                }
+                bool valid = found && feature.valid && float.IsFinite(feature.value) &&
+                    (profile.allowLowConfidence || feature.highConfidence);
                 float distance = valid ? Mathf.Max(rule.min - feature.value, feature.value - rule.max, 0) : 0;
-                float match = valid ? Mathf.Clamp01(1 - distance / rule.tolerance) : 0;
+                float match = valid ? Mathf.Clamp01(1 - distance / (rule.tolerance * tolerance)) : 0;
                 total += rule.weight;
                 if (valid) available += rule.weight;
                 else missingRequired |= rule.required;
                 weighted += rule.weight * match;
                 result.details.Add(new RuleScore { rule = rule, feature = feature, available = valid, match = match, contribution = rule.weight * match });
             }
-            result.score = weighted / total; result.coverage = available / total;
-            result.passes = !missingRequired && result.coverage >= profile.minimumCoverage && result.score >= profile.threshold;
-            result.reason = missingRequired ? "Required feature missing" : result.coverage < profile.minimumCoverage ? "Insufficient tracking coverage" :
-                result.passes ? "Score passed; waiting for hold time" : "Below score threshold";
-            return result;
+
+            bool ValidAdditionalRule(FeatureRule rule) =>
+                rule != null && !string.IsNullOrWhiteSpace(rule.featureId) &&
+                SealProfile.AcceptsFeature(profile.handMode, rule.featureId) &&
+                float.IsFinite(rule.min) && float.IsFinite(rule.max) && rule.min <= rule.max &&
+                float.IsFinite(rule.tolerance) && rule.tolerance > 0 &&
+                float.IsFinite(rule.weight) && rule.weight > 0 &&
+                !result.details.Exists(item => item.rule.featureId == rule.featureId);
+        }
+
+        private static float BestEvidence(PicoSealEvidence group, List<RuleScore> details)
+        {
+            if (group?.anyOf == null) return -1;
+            float best = -1;
+            foreach (var detail in details)
+                if (detail.available && Array.IndexOf(group.anyOf, detail.rule.featureId) >= 0)
+                    best = Mathf.Max(best, detail.match);
+            return best;
         }
     }
 }

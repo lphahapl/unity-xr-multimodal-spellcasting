@@ -1,3 +1,5 @@
+using UnityEngine.XR.OpenXR;
+using Unity.XR.OpenXR.Features.PICOSupport;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -111,6 +113,9 @@ namespace NarutoVR.SealLab
         private static bool RawTrackingHand(MonoBehaviour source) => source && source.GetType() == typeof(Hand) &&
             source.GetComponent<FromOVRHandDataSource>() != null;
 
+        private bool PicoMatching => xrHandsSource && Application.platform == RuntimePlatform.Android &&
+            OpenXRSettings.Instance?.GetFeature<PICOFeature>()?.enabled == true;
+
         private void LateUpdate()
         {
             double now = Time.realtimeSinceStartupAsDouble;
@@ -145,8 +150,9 @@ namespace NarutoVR.SealLab
             Frame = new SealFrame { time = now, label = IsRecording ? recordingLabel : sampleLabel, source = TrackingSource,
                 left = xrLeft ?? CaptureHand(left, recordingOrigin, leftObserved, now, staleAfterSeconds),
                 right = xrRight ?? CaptureHand(right, recordingOrigin, rightObserved, now, staleAfterSeconds) };
-            extractor.Extract(Frame, Features);
-            Evaluate(now);
+            bool pico = PicoMatching;
+            extractor.Extract(Frame, Features, pico);
+            Evaluate(now, pico);
             if (IsRecording)
             {
                 try { recorder.Write(Frame); }
@@ -194,13 +200,13 @@ namespace NarutoVR.SealLab
                    float.IsFinite(q.x) && float.IsFinite(q.y) && float.IsFinite(q.z) && float.IsFinite(q.w) &&
                    q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w > 0.0001f;
         }
-        private void Evaluate(double now)
+        private void Evaluate(double now, bool pico)
         {
             var previous = Recognized;
             bool bothHands = Frame.left.connected && Frame.left.tracked && Frame.left.fresh &&
                 Frame.right.connected && Frame.right.tracked && Frame.right.fresh &&
                 Math.Abs(Frame.left.observedAt - Frame.right.observedAt) <= SealFeatureExtractor.MaximumHandSkew;
-            recognition.Update(profiles, Features, now, bothHands, minimumScoreMargin, Frame.left, staleAfterSeconds);
+            recognition.Update(profiles, Features, now, bothHands, minimumScoreMargin, Frame.left, staleAfterSeconds, pico, Frame);
             if (Recognized && Recognized != previous) WhenSealRecognized?.Invoke(Recognized);
         }
         public void SetTestMode(bool active)

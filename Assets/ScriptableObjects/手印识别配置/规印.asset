@@ -290,3 +290,20 @@ MonoBehaviour:
     tolerance: 0.045
     weight: 1
     required: 0
+  pico:
+    minimumCoverage: 0.68
+    toleranceMultiplier: 1.1
+    releaseMargin: 0.035
+    evidenceMatch: 0.42
+    evidence:
+    - anyOf:
+      - Both.WristDistance
+    - anyOf:
+      - L.Index.Curl
+    - anyOf:
+      - R.Index.Curl
+    - anyOf:
+      - Both.RightWristInLeft.X
+      - Both.RightWristInLeft.Y
+      - Both.RightWristInLeft.Z
+    additionalRules: []

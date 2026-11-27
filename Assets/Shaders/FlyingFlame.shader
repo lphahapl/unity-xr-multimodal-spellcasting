@@ -5,7 +5,7 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
         [NoScaleOffset] _FireAtlas ("Dragon breath flame atlas (2x2)", 2D) = "white" {}
         [NoScaleOffset] _HeatRamp ("Dragon breath temperature ramp", 2D) = "white" {}
         [NoScaleOffset] _FlowNoise ("Turbulence", 2D) = "gray" {}
-        [HideInInspector] _FlameShape ("Age, radius, length, sustained stream", Vector) = (.62,.45,.92,0)
+        [HideInInspector] _FlameShape ("Age, radius, tail length", Vector) = (.62,.45,.92,0)
     }
     SubShader
     {
@@ -41,7 +41,6 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 float4 uvCell : TEXCOORD0;
                 float2 rollingField : TEXCOORD2;
                 half4 flame : TEXCOORD1; // layer, fuel, density, variation
-                float streamDepth : TEXCOORD3;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -52,92 +51,60 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 float layer = v.patch.x, phase = v.patch.y, bearing = v.patch.z, variation = v.patch.w;
                 float age = _FlameShape.x, r = _FlameShape.y, tail = _FlameShape.z;
-                float u = frac(phase + age * (.89 + .40*variation));
+                float speed = layer > 1.5 ? 1.35 + .52 * variation : .92 + .39 * variation;
+                float u = frac(phase + age * speed);
                 float angle = 6.28318*bearing + u*(.68+.43*variation);
                 float2 side = float2(cos(angle),sin(angle));
                 float3 center;
                 float size, lengthening = 0, fuel, density;
                 // Fade each wisp at birth and burnout; the envelope itself never pulses.
                 float life = smoothstep(0,.14,u) * (1-smoothstep(.72,1,u));
-                if (_FlameShape.w > .5)
+                float trailOn = smoothstep(.06, .45, tail);
+                float trailingWidth = (1 - u) * (1 - u);
+                if (layer < .5) // Cooler gas follows the head and opens into the wake.
                 {
-                    // Soft overlapping pulses move away from the mouth and roll around the hot core.
-                    u = frac(phase + age * (4.8 + .55 * variation));
-                    float z = lerp(.055, tail, u);
-                    float spread = smoothstep(.23, .67, z);
-                    float plume = smoothstep(.53, 1.15, z);
-                    float lobes = .9 + .15 * sin(age * 13 - u * 15 + 2.0 * bearing);
-                    float plumeWidth = lerp(.019, r * lerp(.72, 1.16, plume) * lobes, spread)
-                        * (1 - .19 * smoothstep(.82 * tail, tail, z));
-                    angle = 6.28318 * bearing + u * (3.5 + variation) + age * .75;
-                    side = float2(cos(angle), sin(angle));
-                    float outer = .24 + .4 * variation;
-                    center = float3(side * plumeWidth * outer, z);
-                    center.y += plumeWidth * (.10 + .63 * u * u);
-                    size = plumeWidth * (.40 + .26 * variation);
-                    lengthening = plumeWidth * (.27 + .37 * variation);
-                    fuel = .98 - .35 * u;
-                    density = layer < .5 ? .18 : .68;
-                    if (layer > 1.5 && layer < 2.5)
-                    {
-                        float jet = 1 - spread;
-                        center.xy *= lerp(1, .28, jet);
-                        size = lerp(size, .015 + .013 * variation, jet);
-                        lengthening = lerp(lengthening, .105, jet);
-                        density = lerp(density, 1, jet);
-                    }
-                    if (layer > 3.5)
-                    {
-                        size = plumeWidth * (.03 + .015 * variation);
-                        lengthening = size * (1.8 + 2.1 * variation);
-                        density = .61;
-                    }
-                    float front = min(tail + .13, age * 9.5);
-                    float filling = smoothstep(z - .12, z + .09, front);
-                    float ignition = layer > 1.5 && layer < 2.5 ? .055 : .19;
-                    density *= filling * smoothstep(0, ignition, u) * (1 - smoothstep(.83, 1, u))
-                        * (.84 + .16 * sin(age * 18 + 8 * u + bearing * 6.28318));
+                    center = float3(side * r * (.27 + .42 * u), -(.32 * r + tail * (.28 + .68 * u)));
+                    center.y += r * (.11 + .64 * u * u);
+                    size = r * (.27 + .29 * u);
+                    lengthening = tail * (.08 + .08 * u);
+                    fuel = .07;
+                    density = .16 * life * trailOn;
                 }
-                else if (layer < .5) // Cooler combustion products, behind the flame.
+                else if (layer < 1.5) // Compact and hot along the forward cap.
                 {
-                    center = float3(side*r*(.28+.65*u),-tail*(.18+.63*u));
-                    center.y += r * (.2+1.15*u*u);
-                    size = r*(.36+.43*u);
-                    fuel = .07; density = .22*life;
+                    float radial = sqrt(saturate(1 - (1 - 2 * u) * (1 - 2 * u))) * (.40 + .29 * variation);
+                    center = float3(side * radial * r, (1.04 - 1.70 * u) * r);
+                    size = r * (.75 + .20 * variation + .10 * u);
+                    lengthening = r * (.12 + .17 * (1 - u));
+                    fuel = .96 - .36 * u + .07 * variation;
+                    density = (.92 + .10 * (1 - u)) * life;
                 }
-                else if (layer < 1.5) // Gas rolls off the stagnation point and around the head.
+                else if (layer < 2.5) // Connected tapered wake shows the flight axis.
                 {
-                    float radial = sqrt(saturate(1-(1-2*u)*(1-2*u))) * (.43+.30*variation);
-                    center = float3(side*radial*r, (.91-1.81*u)*r);
-                    size = r * (.83+.20*variation+.085*u);
-                    fuel = .82-.30*u + .08*variation;
-                    density = .91*life;
+                    center = float3(side * r * (.04 + .36 * trailingWidth), -(.18 * r + tail * .91 * u));
+                    center.y += r * (.04 + .13 * u * u);
+                    size = r * (.07 + .51 * trailingWidth);
+                    lengthening = tail * (.10 + .13 * (1 - u));
+                    fuel = .88 - .58 * u;
+                    density = (1.05 - .47 * u) * life * trailOn;
                 }
-                else if (layer < 2.5) // Narrow feed with a widening neck towards the head.
+                else if (layer < 3.5) // Uneven flame tongues peel backward off the cap.
                 {
-                    center = float3(side*r*(.022+.19*(1-u)), -tail*u);
-                    center.y += r*.12*u*(1-u);
-                    size = r * lerp(.47,.036,pow(u,.72));
-                    lengthening = tail * (.055+.043*(1-u));
-                    fuel = .83-.18*u;
-                    density = .94*life;
+                    center = float3(side * r * (.26 + .44 * (1 - u)), -(.32 * r + tail * (.16 + .76 * u)));
+                    center.y += r * (.12 + .47 * u * u) * (.45 + variation);
+                    size = r * (.10 + .26 * (1 - u));
+                    lengthening = tail * (.08 + .10 * variation);
+                    fuel = .72 - .46 * u;
+                    density = .73 * life * trailOn;
                 }
-                else if (layer < 3.5) // Torn strands continue to drift after the mouth jet breaks.
+                else // Slender embers remain behind the body and follow its axis.
                 {
-                    center = float3(side*r*(.53+.25*u), -(.16*r+u*.83*tail));
-                    center.y += r*.32*u*u;
-                    size = r*(.29-.15*u);
-                    lengthening = .12*tail;
-                    fuel = .55-.30*u;
-                    density = .58*life;
-                }
-                else // Slender flecks cool and slow away from the hot gas.
-                {
-                    center = float3(side*r*(.40+1.08*u),-.86*tail*u);
-                    center.y += r*.72*u*u;
-                    size = r*(.014+.014*variation);
-                    lengthening = size*(1.6+2.4*variation);
-                    fuel = .97-.44*u; density = .86*life;
+                    center = float3(side * r * (.30 + .72 * u), -(.26 * r + tail * (.30 + .77 * u)));
+                    center.y += r * .60 * u * u;
+                    size = r * (.013 + .015 * variation);
+                    lengthening = size * (2 + 2.9 * variation);
+                    fuel = .95 - .56 * u;
+                    density = .87 * life * trailOn;
                 }
 
                 float3 centerWS = TransformObjectToWorld(center);
@@ -154,12 +121,12 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 float3 world = centerWS + (card.x*right + card.y*up)*scale;
                 o.positionCS = TransformWorldToHClip(world);
                 // A broad convection roll spans adjoining wisps rather than flashing independently on every card.
-                float3 localGas = TransformWorldToObject(world);
-                o.streamDepth = localGas.z;
-                float3 gas = localGas / max(r,.032);
+                float3 gas = TransformWorldToObject(world) / max(r,.032);
                 o.rollingField = float2(dot(gas,float3(.55,.28,.48)), dot(gas,float3(-.24,.64,.31)));
 
-                float spin = layer > 3.5 ? 0 : bearing*6.28318 + (variation-.44)*u*1.9;
+                float spin = 0;
+                if (layer < 1.5) spin = bearing * 6.28318 + (variation - .44) * u * 1.9;
+                else if (layer < 3.5) spin = (variation - .5) * .86;
                 float s,c; sincos(spin,s,c);
                 float2 rotated = float2(c*v.corner.x-s*v.corner.y, s*v.corner.x+c*v.corner.y);
                 o.uvCell.xy = .5+.51*rotated;
@@ -174,9 +141,6 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 float2 uv = i.uvCell.xy;
                 half layer = i.flame.x, fuel = i.flame.y, density = i.flame.z;
-                if (_FlameShape.w > .5)
-                    density *= smoothstep(.04, .14, i.streamDepth)
-                        * (1 - smoothstep(_FlameShape.z * .88, _FlameShape.z + .10, i.streamDepth));
                 if (layer > 3.5h)
                 {
                     half glow = saturate(1 - length(2*uv-1));
@@ -205,11 +169,8 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 else
                 {
                     color *= half3(1.12,.72,.40) * (.82 + .77*heat*heat);
-                    if (_FlameShape.w > .5)
-                    {
-                        half brightCore = smoothstep(.69h, .96h, heat) * smoothstep(.18h, .64h, mask);
-                        color = lerp(color, half3(1.55, 1.22, .66), brightCore * .73h);
-                    }
+                    half headLight = layer < 1.5h ? smoothstep(.74h, .98h, heat) * mask : 0;
+                    color = lerp(color, half3(1.52, 1.13, .62), headLight * .68h);
                 }
                 return half4(color*a, a);
             }

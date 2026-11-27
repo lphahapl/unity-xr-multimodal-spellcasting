@@ -290,3 +290,46 @@ MonoBehaviour:
     tolerance: 0.03
     weight: 0
     required: 0
+  pico:
+    minimumCoverage: 0.58
+    toleranceMultiplier: 1.09
+    releaseMargin: 0.045
+    evidenceMatch: 0.4
+    evidence:
+    - anyOf:
+      - Both.WristDistance
+    - anyOf:
+      - L.Index.Curl
+      - L.Index.ProximalBend
+    - anyOf:
+      - R.Index.Curl
+      - R.Index.ProximalBend
+    - anyOf:
+      - Both.IndexTipDistance
+      - Both.IndexDirectionAngle
+      - Both.IndexProximalDirectionAngle
+    additionalRules:
+    - onlyIfMissing: L.Index.Curl
+      rule:
+        featureId: L.Index.ProximalBend
+        min: 0
+        max: 19
+        tolerance: 24
+        weight: 2
+        required: 0
+    - onlyIfMissing: R.Index.Curl
+      rule:
+        featureId: R.Index.ProximalBend
+        min: 0
+        max: 19
+        tolerance: 24
+        weight: 2
+        required: 0
+    - onlyIfMissing: Both.IndexDirectionAngle
+      rule:
+        featureId: Both.IndexProximalDirectionAngle
+        min: 28
+        max: 49
+        tolerance: 24
+        weight: 2
+        required: 0

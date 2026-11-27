@@ -16,15 +16,17 @@ namespace NarutoVR.SealLab
         private double candidateSince;
         private double lastLeftTime = double.NegativeInfinity;
         private int lastLeftVersion;
+        private double lastPicoPairAt = double.NegativeInfinity;
 
         public void Reset()
         {
             Candidate = Recognized = null; HoldProgress = 0; State = SealRecognitionState.NoTracking;
-            lastLeftTime = double.NegativeInfinity;
+            lastLeftTime = lastPicoPairAt = double.NegativeInfinity;
             Scores.Clear();
         }
         public void Update(IReadOnlyList<SealProfile> profiles, IReadOnlyList<SealFeature> features,
-            double now, bool bothHandsAvailable, float minimumMargin, HandSnapshot left = null, double staleAfterSeconds = SealLab.DefaultStaleAfterSeconds)
+            double now, bool bothHandsAvailable, float minimumMargin, HandSnapshot left = null, double staleAfterSeconds = SealLab.DefaultStaleAfterSeconds,
+            bool pico = false, SealFrame pairFrame = null)
         {
             bool leftReady = SealLab.IsCurrentHand(left, now, staleAfterSeconds);
             bool newLeft = leftReady && left.observedAt > lastLeftTime && (double.IsNegativeInfinity(lastLeftTime) || left.version != lastLeftVersion);
@@ -38,17 +40,33 @@ namespace NarutoVR.SealLab
             else if (leftReady)
                 leftReady = left.version == lastLeftVersion && left.observedAt == lastLeftTime;
 
+            double pairedAt = pico && bothHandsAvailable && pairFrame?.left != null && pairFrame.right != null ?
+                Math.Min(pairFrame.left.observedAt, pairFrame.right.observedAt) : double.NegativeInfinity;
+            bool newPair = pairedAt > lastPicoPairAt && pairedAt <= now;
+            if (newPair)
+            {
+                if (Candidate && Candidate.handMode == SealHandMode.BothHands && pairedAt - lastPicoPairAt > staleAfterSeconds)
+                    Reject(SealRecognitionState.NoTracking);
+                lastPicoPairAt = pairedAt;
+            }
+
             Scores.Clear(); int enabledCount = 0;
             bool trackingAvailable = bothHandsAvailable;
             foreach (var profile in profiles)
             {
-                var score = SealScorer.Evaluate(profile, features);
+                var score = SealScorer.Evaluate(profile, features, pico);
                 Scores.Add(score);
                 if (!profile || profile.ValidateRules() != null) continue;
                 enabledCount++;
                 bool available = profile.handMode == SealHandMode.LeftOnly
-                    ? leftReady && (left.highConfidence || profile.allowLowConfidence) : bothHandsAvailable;
+                    ? leftReady && (left.highConfidence || profile.allowLowConfidence || score.picoApplied)
+                    : bothHandsAvailable && (!score.picoApplied || double.IsFinite(pairedAt) && now - pairedAt <= staleAfterSeconds);
                 trackingAvailable |= available;
+                if (available && score.picoApplied && Candidate == profile && !score.picoEvidenceMissing &&
+                    score.coverage >= score.picoMinimumCoverage && score.details.TrueForAll(detail => !detail.rule.required || detail.available) &&
+                    score.score >= profile.threshold - score.picoReleaseMargin)
+                    score.passes = true;
+
                 if (!available)
                 {
                     score.passes = false;
@@ -70,7 +88,8 @@ namespace NarutoVR.SealLab
             { Reject(SealRecognitionState.Ambiguous); return; }
             if (best.profile.handMode == SealHandMode.LeftOnly && !newLeft && Candidate != best.profile)
             { Reject(SealRecognitionState.Unknown); return; }
-            double observed = best.profile.handMode == SealHandMode.LeftOnly ? lastLeftTime : now;
+            if (best.picoApplied && best.profile.handMode == SealHandMode.BothHands && !newPair) return;
+            double observed = best.profile.handMode == SealHandMode.LeftOnly ? lastLeftTime : best.picoApplied ? pairedAt : now;
             if (Candidate != best.profile || observed < candidateSince)
             { Candidate = best.profile; candidateSince = observed; Recognized = null; }
             HoldProgress = Candidate.holdSeconds <= 0 ? 1 : Mathf.Clamp01((float)((observed - candidateSince) / Candidate.holdSeconds));
