@@ -1,0 +1,35 @@
+{
+  "units": "metres",
+  "basis": "OBJ+glTF numeric x,y,z = Blender X,Z,-Y. +Z is marked front. OBJ faces CCW with outward normals.",
+  "origin": "production BallastStone collider center",
+  "boundsMin": [
+    -0.5058000087738037,
+    -0.5249999761581421,
+    -0.5058000087738037
+  ],
+  "boundsMax": [
+    0.5058000087738037,
+    0.5220000147819519,
+    0.5149999856948853
+  ],
+  "triangles": {
+    "01_HewnGreywacke_RecessedSeals": 12496,
+    "02_BronzeGirth_EastWest": 4256,
+    "03_BronzeGirth_FrontBack": 4256,
+    "04_InsetLoadShoe": 64,
+    "05_FrontScarfPlate": 48,
+    "06_FrontPeen_1": 112,
+    "06_FrontPeen_2": 112,
+    "07_CrownPeen": 112
+  },
+  "sha256": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+  "bearing_area_m2_at_y_minus_0_525": 0.39407488240344024,
+  "files_sha256": {
+    "T25-A4-stone-local.obj": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+    "T25-A4.blend": "a07a26b03e299e8c8ee2dc2f1cc9d4ea8551ba8a17e523aa7c480dacdf806f5d",
+    "T25-A4.fbx": "45dfa42d9f2b6a146854598ad6c4f77700374de587dc1aeb7e22b1b47d93d5c8",
+    "T25-A4.glb": "46727397ab8c063e4a0b7a78da13d88fb4eab976c54c8989897732f610f395c3",
+    "T25-A4.mtl": "839fc6b5f3a3696b72ce0cece3357c1cba73536b630f90a880e12cbffbb5445c",
+    "T25-A4-Unity.fbx": "297a3ef837361576654a97eac4293f9c2f20f56358761755f5a2e45a780cabc4"
+  }
+}
