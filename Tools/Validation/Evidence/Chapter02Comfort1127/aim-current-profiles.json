@@ -1,0 +1,24 @@
+{
+  "verifiedSO": {
+    "Assets/ScriptableObjects/吐火效果配置/龙火之术效果.asset": "48cf054d86cde3d6b8ae8be0979418cda702d4e7e7a19fcff830a7617baa4831",
+    "Assets/ScriptableObjects/吐火效果配置/飞炎术效果_玩家.asset": "257b25b9cb219bf3ed4fecd4863ce1922ff9b7d3a0a3fcaae6bdc06a30306713"
+  },
+  "directDependencies": {
+    "Assets/ScriptableObjects/吐火效果配置/龙火之术效果.asset": [
+      "Assets/Art/VFX/SurfaceMarks/Scorch.asset",
+      "Assets/Art/VFX/Skills/Prefabs/龙火待吹火苗.prefab",
+      "Assets/Art/VFX/Skills/Prefabs/龙火定向喷流.prefab",
+      "Assets/scripts/data/Skills/Effects/BreathEffectDefinition.cs"
+    ],
+    "Assets/ScriptableObjects/吐火效果配置/飞炎术效果_玩家.asset": [
+      "Assets/Art/VFX/SurfaceMarks/Scorch.asset",
+      "Assets/Art/VFX/Skills/Prefabs/飞炎掌心火种.prefab",
+      "Assets/Art/VFX/Skills/Prefabs/飞炎命中爆散.prefab",
+      "Assets/Art/VFX/Skills/Prefabs/飞炎吐火球.prefab",
+      "Assets/scripts/data/Skills/Effects/BreathEffectDefinition.cs"
+    ]
+  },
+  "checks": 38,
+  "sceneSHA256": "a51820e4939dedb3302e4736b9f6b2b8e39a6211e821aa5ff1044f6aab706ac7",
+  "logSHA256": "a08c9a25cceb8af29946d010b9b77a303343d9bff203bf791e92bad48639bc4b"
+}

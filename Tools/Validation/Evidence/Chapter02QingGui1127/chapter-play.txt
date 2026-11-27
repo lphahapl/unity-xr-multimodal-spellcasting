@@ -1,0 +1,52 @@
+2026-11-27T11:43:28.6766231+08:00 6000.3.10f1 Assets/Scene/Chapter02_SuspendedPath.unity fresh
+PASS formal player ready
+MESH QingGuiR03_BronzeFrame_LOD0 QingGuiR03_BronzeFrame_LOD0 mat=BronzeFrame (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Opaque Gold
+MESH QingGuiR03_GoldWire_LOD0 QingGuiR03_GoldWire_LOD0 mat=GoldWire (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Opaque Gold
+MESH QingGuiR03_JadeCore_LOD0 QingGuiR03_JadeCore_LOD0 mat=WarmWhiteJade (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Warm Nephrite
+PASS visible mesh
+PASS independent jade, bronze and gold renderers
+PASS all visible materials supported
+LOCAL AABB (-0.056801, 0.000000, -0.053784) (0.053828, 0.350000, 0.053784)
+PASS bottom pivot and nominal 35 cm geometry
+PASS grip at 230 mm
+PEDESTAL holder=(29.900000, 0.650000, 44.500000) item=(29.900000, 0.650000, 44.500000) holderYaw=317.0772 itemYaw=317.0772 frameYaw=317.0772
+PASS jade rests at B1 collision top in locked state
+PASS B1 frame and real jade faces indexed in locked state
+PASS bridge stage active
+PASS upper stage
+PASS actual workshop stage entered
+PASS sealed & unpowered before both rooms complete
+PASS normal player input cannot take locked tenon
+PASS real workshop spawned two roof and one courtyard
+PASS damage killed ZhiHuoCanJi_Enemy
+PASS damage killed ZhiHuoCanJi_Enemy
+PASS roof room completed
+PASS roof clear alone remains locked
+PASS damage killed CanJiOu_Room(Clone)
+PASS two-room clear unlocks same item
+PASS visible tenon selected from 0.89m by chapter pickup ray
+PASS tracked hover refreshed after photo
+PASS far pinch picks real held tenon; movement free
+SCALE held=1.4
+PASS held tenon enlarged
+PASS fallen item recovered to pedestal
+PASS near pinch picks the same tenon
+PASS wrong yaw rejected
+PASS near pinch picks the same tenon
+PASS 4 cm off axis rejected
+PASS near pinch picks the same tenon
+PASS correct pose began snap
+SCALE snap-start=1
+PASS nominal dimensions on accepted insertion, before animated travel
+PASS cancelled snap does not power or commit
+PASS release from unfinished socket returns world use size
+PASS near pinch picks the same tenon
+PASS indexed 90 degree insertion seated and advanced chapter
+DEPTH (0.000000, -0.104060, 0.000000)
+PASS 104 mm below console mouth
+PASS single commit powers console and both circuits at bottom
+PASS repeat insertion rejected
+SEATED GEOMETRY bottom/top=(-0.053783, -0.104060, -0.053829) / (0.053783, 0.245940, 0.056801)
+PASS seated jade tip tracks socket floor
+PASS formal checkpoint persisted
+PASS END

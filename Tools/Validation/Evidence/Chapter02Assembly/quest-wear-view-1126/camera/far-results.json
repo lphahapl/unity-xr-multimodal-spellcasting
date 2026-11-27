@@ -1,0 +1,593 @@
+{
+  "chapter": "Chapter02_SuspendedPath",
+  "sceneSha256AtCapture": "ce338bb531b220345ad43673dc4e5aad8bf655ed274f7d72adec445c3732cc83",
+  "actualCamera": "二章 · 玩家与工坊校准/XROriginCameraRig/TrackingSpace/CenterEyeAnchor",
+  "siteCount": 6,
+  "viewsPerSite": 24,
+  "farLevels": 12,
+  "maskSweepRecords": 1728,
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU / D3D11 / reversed-Z",
+  "backgroundInEveryComparison": "Assets/Art/Environment/SuspendedPath/ApprovedGorge/GorgeSky.mat",
+  "clipSummary": {
+    "1000": {
+      "terrain_lost": 37743,
+      "trees_lost": 0,
+      "terrain_extra": 2,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 2320,
+      "viewsTerrainLoss": 60
+    },
+    "1200": {
+      "terrain_lost": 11713,
+      "trees_lost": 0,
+      "terrain_extra": 3,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 1265,
+      "viewsTerrainLoss": 43
+    },
+    "1350": {
+      "terrain_lost": 3087,
+      "trees_lost": 0,
+      "terrain_extra": 0,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 506,
+      "viewsTerrainLoss": 25
+    },
+    "1450": {
+      "terrain_lost": 1033,
+      "trees_lost": 0,
+      "terrain_extra": 2,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 306,
+      "viewsTerrainLoss": 12
+    },
+    "1550": {
+      "terrain_lost": 363,
+      "trees_lost": 0,
+      "terrain_extra": 2,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 121,
+      "viewsTerrainLoss": 11
+    },
+    "1650": {
+      "terrain_lost": 111,
+      "trees_lost": 0,
+      "terrain_extra": 1,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 44,
+      "viewsTerrainLoss": 5
+    },
+    "1750": {
+      "terrain_lost": 58,
+      "trees_lost": 0,
+      "terrain_extra": 1,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 24,
+      "viewsTerrainLoss": 5
+    },
+    "1850": {
+      "terrain_lost": 7,
+      "trees_lost": 0,
+      "terrain_extra": 2,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 6,
+      "viewsTerrainLoss": 2
+    },
+    "1950": {
+      "terrain_lost": 0,
+      "trees_lost": 0,
+      "terrain_extra": 1,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 0,
+      "viewsTerrainLoss": 0
+    },
+    "2050": {
+      "terrain_lost": 0,
+      "trees_lost": 0,
+      "terrain_extra": 1,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 0,
+      "viewsTerrainLoss": 0
+    },
+    "2200": {
+      "terrain_lost": 0,
+      "trees_lost": 0,
+      "terrain_extra": 3,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 0,
+      "viewsTerrainLoss": 0
+    },
+    "2400": {
+      "terrain_lost": 0,
+      "trees_lost": 0,
+      "terrain_extra": 0,
+      "trees_extra": 0,
+      "largestMissingTerrainPixels": 0,
+      "viewsTerrainLoss": 0
+    }
+  },
+  "eligibleCandidate": 1950,
+  "maximumActualMountainPineVertexDistanceMetres": 1886.89,
+  "vertexHeadroomMeters": 63.11,
+  "foregroundRgbSameSky1000to1950": {
+    "near_gate_and_rail": {
+      "stableIdFrame0": {
+        "selectedPixels": 28057,
+        "maxChannelDifference8bit": 52,
+        "pixelsGt4": 3115
+      },
+      "rectPixelsPerFrame": 28290,
+      "maxChangedPixelsOf12": 3115,
+      "largestMeanDeltaOf12": 2.4188,
+      "largestRgbDeltaOf12": 52
+    },
+    "far_altar_rail": {
+      "stableIdFrame0": {
+        "selectedPixels": 1852,
+        "maxChannelDifference8bit": 222,
+        "pixelsGt4": 47
+      },
+      "rectPixelsPerFrame": 2322,
+      "maxChangedPixelsOf12": 47,
+      "largestMeanDeltaOf12": 4.444,
+      "largestRgbDeltaOf12": 222
+    },
+    "single_rope": {
+      "stableIdFrame0": {
+        "selectedPixels": 170,
+        "maxChannelDifference8bit": 0,
+        "pixelsGt4": 0
+      },
+      "rectPixelsPerFrame": 790,
+      "maxChangedPixelsOf12": 0,
+      "largestMeanDeltaOf12": 0.2013,
+      "largestRgbDeltaOf12": 1
+    },
+    "beam": {
+      "stableIdFrame0": {
+        "selectedPixels": 1371,
+        "maxChannelDifference8bit": 0,
+        "pixelsGt4": 0
+      },
+      "rectPixelsPerFrame": 2805,
+      "maxChangedPixelsOf12": 0,
+      "largestMeanDeltaOf12": 0.0585,
+      "largestRgbDeltaOf12": 1
+    },
+    "floor": {
+      "stableIdFrame0": {
+        "selectedPixels": 10120,
+        "maxChannelDifference8bit": 4,
+        "pixelsGt4": 0
+      },
+      "rectPixelsPerFrame": 10120,
+      "maxChangedPixelsOf12": 0,
+      "largestMeanDeltaOf12": 0.2818,
+      "largestRgbDeltaOf12": 4
+    }
+  },
+  "entryKeyTerrainPixelsAdded960x540": 9328,
+  "sameRay": {
+    "sequence": "swing",
+    "reference": 14,
+    "switchingFixedWorldRays": 4582,
+    "largest": [
+      [
+        175,
+        235,
+        159,
+        86,
+        4460
+      ],
+      [
+        351,
+        215,
+        29,
+        19,
+        119
+      ],
+      [
+        348,
+        233,
+        2,
+        1,
+        2
+      ],
+      [
+        346,
+        234,
+        1,
+        1,
+        1
+      ]
+    ],
+    "example": {
+      "pixel": [
+        272,
+        265
+      ],
+      "baseline": [
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "sky",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      "extended": [
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "terrain",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+      ],
+      "yaw": [
+        -42,
+        -40,
+        -38,
+        -36,
+        -34,
+        -32,
+        -30,
+        -28,
+        -26,
+        -24,
+        -22,
+        -20,
+        -18,
+        -16,
+        -14,
+        -12,
+        -10,
+        -8,
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        22,
+        24,
+        26,
+        28
+      ]
+    }
+  },
+  "recordedClipsAndTelemetry": "20:37:36 clip lasts 58.20 s, through 20:38:34.20; desktop timings start 20:39:15.884, not simultaneous.",
+  "independentControls": {
+    "swing": {
+      "far1650": {
+        "meanAbsRgbMax": 1.366,
+        "maxPixelsDiff8": 7707,
+        "maxSkyToSolid": 7707,
+        "maxContiguousInfill": 7006,
+        "key": 14
+      },
+      "far2200": {
+        "meanAbsRgbMax": 1.384,
+        "maxPixelsDiff8": 7707,
+        "maxSkyToSolid": 7707,
+        "maxContiguousInfill": 7006,
+        "key": 14
+      },
+      "far2800": {
+        "meanAbsRgbMax": 1.328,
+        "maxPixelsDiff8": 7707,
+        "maxSkyToSolid": 7707,
+        "maxContiguousInfill": 7006,
+        "key": 14
+      },
+      "lod0": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 0,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      }
+    },
+    "crane-swing": {
+      "far1650": {
+        "meanAbsRgbMax": 0.254,
+        "maxPixelsDiff8": 608,
+        "maxSkyToSolid": 571,
+        "maxContiguousInfill": 247,
+        "key": 0
+      },
+      "far2200": {
+        "meanAbsRgbMax": 0.269,
+        "maxPixelsDiff8": 645,
+        "maxSkyToSolid": 571,
+        "maxContiguousInfill": 247,
+        "key": 0
+      },
+      "far2800": {
+        "meanAbsRgbMax": 0.249,
+        "maxPixelsDiff8": 617,
+        "maxSkyToSolid": 571,
+        "maxContiguousInfill": 247,
+        "key": 0
+      },
+      "lod0": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 0,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      }
+    },
+    "mountain": {
+      "far1650": {
+        "meanAbsRgbMax": 0.155,
+        "maxPixelsDiff8": 281,
+        "maxSkyToSolid": 281,
+        "maxContiguousInfill": 157,
+        "key": 1
+      },
+      "far2200": {
+        "meanAbsRgbMax": 0.175,
+        "maxPixelsDiff8": 281,
+        "maxSkyToSolid": 281,
+        "maxContiguousInfill": 157,
+        "key": 1
+      },
+      "far2800": {
+        "meanAbsRgbMax": 0.103,
+        "maxPixelsDiff8": 281,
+        "maxSkyToSolid": 281,
+        "maxContiguousInfill": 157,
+        "key": 1
+      },
+      "lod0": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 0,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "depth": {
+        "meanAbsRgbMax": 0.082,
+        "maxPixelsDiff8": 8,
+        "maxSkyToSolid": 8,
+        "maxContiguousInfill": 0,
+        "key": 8
+      },
+      "noocclusion": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 0,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "noshadows": {
+        "meanAbsRgbMax": 3.71,
+        "maxPixelsDiff8": 59461,
+        "maxSkyToSolid": 3,
+        "maxContiguousInfill": 0,
+        "key": 5
+      },
+      "smaa": {
+        "meanAbsRgbMax": 0.396,
+        "maxPixelsDiff8": 3303,
+        "maxSkyToSolid": 345,
+        "maxContiguousInfill": 0,
+        "key": 11
+      },
+      "supersample": {
+        "meanAbsRgbMax": 1.319,
+        "maxPixelsDiff8": 5477,
+        "maxSkyToSolid": 175,
+        "maxContiguousInfill": 0,
+        "key": 13
+      }
+    },
+    "platform": {
+      "far1650": {
+        "meanAbsRgbMax": 0.308,
+        "maxPixelsDiff8": 604,
+        "maxSkyToSolid": 558,
+        "maxContiguousInfill": 221,
+        "key": 12
+      },
+      "far2200": {
+        "meanAbsRgbMax": 0.32,
+        "maxPixelsDiff8": 651,
+        "maxSkyToSolid": 558,
+        "maxContiguousInfill": 221,
+        "key": 12
+      },
+      "far2800": {
+        "meanAbsRgbMax": 0.309,
+        "maxPixelsDiff8": 577,
+        "maxSkyToSolid": 558,
+        "maxContiguousInfill": 221,
+        "key": 12
+      },
+      "lod0": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 5,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "depth": {
+        "meanAbsRgbMax": 0.13,
+        "maxPixelsDiff8": 64,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "noocclusion": {
+        "meanAbsRgbMax": 0.0,
+        "maxPixelsDiff8": 0,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "noshadows": {
+        "meanAbsRgbMax": 2.061,
+        "maxPixelsDiff8": 27699,
+        "maxSkyToSolid": 0,
+        "maxContiguousInfill": 0,
+        "key": 0
+      },
+      "smaa": {
+        "meanAbsRgbMax": 0.708,
+        "maxPixelsDiff8": 4482,
+        "maxSkyToSolid": 148,
+        "maxContiguousInfill": 0,
+        "key": 11
+      },
+      "supersample": {
+        "meanAbsRgbMax": 1.335,
+        "maxPixelsDiff8": 8082,
+        "maxSkyToSolid": 60,
+        "maxContiguousInfill": 0,
+        "key": 11
+      }
+    }
+  },
+  "sourceAssetsChangedInFormalProject": false,
+  "captureDirectory": "D:\\Temp\\Ch02DistanceFlicker1126\\sky-identity",
+  "warmingNote": "Initial capture following a large camera reorientation and ID override may retain previous state while editor render/streaming history warms. Warm-only comparisons drop each pose’s first frame; use i01..i11 for foreground and RGB count. Dedicated identity sweep uses a fog-independent shader and separate unaltered sky.",
+  "foregroundMotionWarm": {
+    "near_gate_and_rail": {
+      "warmFrames": 11,
+      "crossSettingRgbMeanMaxChannel": 0.292,
+      "crossSettingP95": 1.0,
+      "crossSettingP99": 4.0,
+      "motionLumaResidualMean": {
+        "1000": 1.638,
+        "1950": 1.629
+      },
+      "motionLumaResidualP95": {
+        "1000": 10.0,
+        "1950": 10.0
+      }
+    },
+    "far_altar_rail": {
+      "warmFrames": 11,
+      "crossSettingRgbMeanMaxChannel": 0.162,
+      "crossSettingP95": 1.0,
+      "crossSettingP99": 2.0,
+      "motionLumaResidualMean": {
+        "1000": 3.816,
+        "1950": 3.817
+      },
+      "motionLumaResidualP95": {
+        "1000": 27.0,
+        "1950": 27.0
+      }
+    },
+    "single_rope": {
+      "warmFrames": 11,
+      "crossSettingRgbMeanMaxChannel": 0.174,
+      "crossSettingP95": 1.0,
+      "crossSettingP99": 1.0,
+      "motionLumaResidualMean": {
+        "1000": 7.51,
+        "1950": 7.512
+      },
+      "motionLumaResidualP95": {
+        "1000": 48.0,
+        "1950": 48.0
+      }
+    },
+    "beam": {
+      "warmFrames": 11,
+      "crossSettingRgbMeanMaxChannel": 0.047,
+      "crossSettingP95": 0.0,
+      "crossSettingP99": 1.0,
+      "motionLumaResidualMean": {
+        "1000": 2.702,
+        "1950": 2.701
+      },
+      "motionLumaResidualP95": {
+        "1000": 18.0,
+        "1950": 18.0
+      }
+    },
+    "foreground_floor": {
+      "warmFrames": 11,
+      "crossSettingRgbMeanMaxChannel": 0.277,
+      "crossSettingP95": 1.0,
+      "crossSettingP99": 1.0,
+      "motionLumaResidualMean": {
+        "1000": 0.362,
+        "1950": 0.365
+      },
+      "motionLumaResidualP95": {
+        "1000": 1.0,
+        "1950": 1.0
+      }
+    }
+  }
+}

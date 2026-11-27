@@ -1,0 +1,37 @@
+2026-11-26T23:08:06.4927584+08:00 Unity 6000.3.10f1
+PASS locked before stone-table objective
+PASS enter authored approach
+PASS real pen taken from chapter holster
+floor=近岸残段 y=80.0000 rigFloor=(-8.6514, 80.0000, 59.5200) authoredHead=(-8.6514, 81.2000, 59.5200) ground=(-8.3014, 80.0000, 59.9800) reach=0.090 home=(-8.8065, 80.7029, 59.4166)
+PASS release gives gravity and clears both owners
+standing downward ray support=近岸残段 contact=(-8.3084, 80.0000, 59.8790) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01587 colliderMin=0.00000 colliderMax=0.01601 actualGrip=0.00800 tipAboveContact=1.05000 handToGrip=1.1226 surfaceGap=1.0897 hasOwner=False worldFloor=80.0000
+hand to anchor PhysicalMoGuiPen@1.1140
+head to anchor PhysicalMoGuiPen@1.7228
+RESULT standing downward ray: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS same recovered brush writes on original story board
+PASS release gives gravity and clears both owners
+lower-view angled ray support=门外崖肩 contact=(-8.3084, 80.0000, 60.1070) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=0.42000 handToGrip=0.5029 surfaceGap=0.4538 hasOwner=False worldFloor=80.0000
+hand to anchor PhysicalMoGuiPen@0.4932
+head to anchor PhysicalMoGuiPen@1.0958
+RESULT lower-view angled ray: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS same recovered brush writes on original story board
+PASS release gives gravity and clears both owners
+crouched visible shaft near far end, seven mm away support=近岸残段 contact=(-8.3084, 80.0000, 59.8790) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01587 colliderMin=0.00000 colliderMax=0.01601 actualGrip=0.00800 tipAboveContact=0.02301 handToGrip=0.1166 surfaceGap=0.0070 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched visible shaft near far end, seven mm away: shown=False held=False gate=True reason= bodyKinematic=False
+crouched rear-middle shaft, hand seven cm above support=近岸残段 contact=(-8.3084, 80.0000, 59.8790) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01587 colliderMin=0.00000 colliderMax=0.01601 actualGrip=0.00800 tipAboveContact=0.08801 handToGrip=0.1071 surfaceGap=0.0720 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched rear-middle shaft, hand seven cm above: shown=False held=False gate=True reason= bodyKinematic=False
+crouched shaft centre, seven mm above support=近岸残段 contact=(-8.3084, 80.0000, 59.8790) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01587 colliderMin=0.00000 colliderMax=0.01601 actualGrip=0.00800 tipAboveContact=0.02301 handToGrip=0.0199 surfaceGap=0.0070 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched shaft centre, seven mm above: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS same recovered brush writes on original story board
+inserting actual tip distance=0.00000 angle=0.000
+PASS explicit release at original pen pocket
+FAIL System.InvalidOperationException: all five physical floor pickups
+  at NarutoVR.SealCombat.Editor.GroundPenChecks.Assert (System.Boolean p, System.String s) [0x0001a] in D:\Temp\HandPenPickup-1126\Assets\scripts\logic\Editor\GroundPenChecks.cs:38 
+  at NarutoVR.SealCombat.Editor.GroundPenChecks+<Execute>d__18.MoveNext () [0x00e8a] in D:\Temp\HandPenPickup-1126\Assets\scripts\logic\Editor\GroundPenChecks.cs:177 
+  at NarutoVR.SealCombat.Editor.GroundPenChecks.Tick () [0x00048] in D:\Temp\HandPenPickup-1126\Assets\scripts\logic\Editor\GroundPenChecks.cs:62 

@@ -1,0 +1,318 @@
+{
+  "time": "2026-11-27T19:58:13.434151+08:00",
+  "editor": {
+    "utc": "2026-11-27T19:58:12.4943589+08:00",
+    "requestWrittenUtc": "2026-11-27T11:58:12.3754228Z",
+    "action": "state",
+    "scene": "Assets/Scene/Chapter01_Courtyard.unity",
+    "playing": false,
+    "paused": false
+  },
+  "files": {
+    "Assets/Materials/StakeGauze.mat": [
+      null,
+      "e8b083f6739c5042940795c39bb719fcd5207ab397b901c616f8416e19d00b6f"
+    ],
+    "Assets/Materials/StakeGauze.mat.meta": [
+      null,
+      "d804b1588ffbeb4ba668b8aa3379add993996155ccf841f247feba4e848e1529"
+    ],
+    "Assets/Samples/ToolBeltItems/CooldownStake.prefab": [
+      "95fd7252f0c81eba5df41e655af4c23de75e4e71db8261a2f948c246b9079f1f",
+      "13c726f0a412a9f29ff98de111498399be76db9b9073dd517d7cf2ee14c40f30"
+    ],
+    "Assets/Scene/Chapter02_SuspendedPath.unity": [
+      "c4c7405401736733962f1b1d4e02bca30ef623e57dedea56f03c8a5ddad0e3b3",
+      "a51820e4939dedb3302e4736b9f6b2b8e39a6211e821aa5ff1044f6aab706ac7"
+    ],
+    "Assets/ScriptableObjects/术法瞄准配置/火球术瞄准.asset": [
+      "e360695dcf5ecbf7b0712b630fb3e066c5ddc960db4aee63cc84a9e1e8941488",
+      "0bfd6c6b066126c25ebb6ba48ca5a26a3f51235189ccc5a25d393f6414e59f0c"
+    ],
+    "Assets/ScriptableObjects/术法瞄准配置/雷光剑瞄准.asset": [
+      "dbf9362b4098dfd25c48eaab0835fe35f240989f534e31b1ccdc354c21ef179e",
+      "01acac852432b7e7b8ef2ad899cd62ceaf93221c25263cec629222279d00b6c4"
+    ],
+    "Assets/ScriptableObjects/术法瞄准配置/飞炎术瞄准.asset": [
+      "8bcd0eaadeb3ace23281e79badbdef6300c0bfbf3b183a17a944485745255f44",
+      "6ca024b5b3c2973beda103b4caf3dc9915cb99bbe5cfb15e03a01f4b023cbc80"
+    ],
+    "Assets/ScriptableObjects/术法瞄准配置/龙火之术瞄准.asset": [
+      "a0c15abc5ae6ffe766ba08d012bb6c9ef2d244f1af9eea5945ca205a88e04405",
+      "c1e7b3f7182f6a63b78937e6c99b2f42cb0a5368b2fcd736a1a2e52004f24ca4"
+    ],
+    "Assets/scripts/data/Skills/Core/SkillAimProfile.cs": [
+      "dcd6ab224d54eb5490a6efa42ad5544641407a5edc4bd822a2ff64dc4eab7fd8",
+      "e1a4674e79b20afe17d46c88f337d3c32948a5c56f29e65b611a2acde1d3d651"
+    ],
+    "Assets/scripts/logic/Editor/EncounterMovementChecks.cs": [
+      "07bcc30a705347f9b807ce2db47a546a6a9008938d1671b35736a5d3e92a262d",
+      "b7b360b6464d7c028a8ef88dcf19fe302de5d4bb5212cca1892dec8641dba039"
+    ],
+    "Assets/scripts/logic/Editor/GlyphPlayChecks.cs": [
+      "0f368fde8be40ed3cbce35d120e640cfa422d19674bd556b67b552bec7df16ed",
+      "1412de4c7af9a105851a28e35068d3484e3be0d2e4a2c89635ed606a3a9536df"
+    ],
+    "Assets/scripts/logic/Editor/RayNavigationChecks.cs": [
+      "ccbc2e60c3178b4220e7a6c7d239bf0bf6fbc015bb4bf5f3db5d76fa507f4897",
+      "ae17e70501f84c73cfee4a7a57714b6df79e65303f17634a62beefbea05c89f1"
+    ],
+    "Assets/scripts/logic/Editor/WristMenuChecks.cs": [
+      "5ccbd6c21f503f1ec9425658124fa031a7827479e536aa6a89bac81931042e44",
+      "accf3e1280cc6d2fa7b21d4e0a7089f9e8e333c96e556aa5e01602c31940f5d4"
+    ],
+    "Assets/scripts/logic/Editor/WristTapChecks.cs": [
+      "7bfd06b26d6bb39a5995660133f3ecd44a67b96c79128a007b3cf21da90cdeec",
+      "07745414efbb9baa5390b65bc010c34c7716fc9a1c5023c7069fff68c81854a3"
+    ],
+    "Assets/scripts/logic/Editor/UI/KaogongUIRedesignChecks.cs": [
+      "83f08539edb592d332a5919cfe7644592bb73c764db33c192541ecbb4c5a7095",
+      "ccb7be928779f55a9964d1881730da741ca7cdccbf0e1066f3d123c31994626d"
+    ],
+    "Assets/scripts/logic/Enemies/CombatDamageReceiver.cs": [
+      "7f73afdfd8138d8c5a2dfb7eb751af826fb5a9083dd4ded264bfa45a30d7f2c0",
+      "e7f5757ea28ccaecd89faf4c23fdd2d38cb4b6602c94561cb674225b9f0e9aa9"
+    ],
+    "Assets/scripts/logic/Enemies/EnemyFireCore.cs": [
+      "c33039b08ee4cb4ec6393a4a304f9c1aa14314871ad6e91e8871f9c9176a9ec1",
+      "601ed7116abfcc18f08f95c1a4345cef09265dcc5cea57b4159bed4c0a583bf6"
+    ],
+    "Assets/scripts/logic/Enemies/EnemyObj.cs": [
+      "ceca3c0a86ce3eff24168a585bbe7d28d7c17c0f79bcdde2e9289e0eaf672fe4",
+      "ff084ab50b931ce60b40ba1cb2c7cb08745186d9fecf79a4dbee9e8ee247af5c"
+    ],
+    "Assets/scripts/logic/Enemies/EnemyRangedAttack.cs": [
+      "1812136c5a22cc01506e4cdd2c874ce79784e49170b38b4c8551a67e426bf7ba",
+      "bd34c68591e4ea85453ce01b2fdd3c2d35c348a5c446b4b6e1d7e8a4e01ad628"
+    ],
+    "Assets/scripts/logic/Interaction/Items/ChapterStakeSupply.cs": [
+      "0a66173354d4993184b4bd7f8d96a458bb2e0fea7329e982dfc3ebfb7760466b",
+      "3e67a89de44f5664a8f7b6ece9c34daa58dc507953c2a785899af13f0d88710d"
+    ],
+    "Assets/scripts/logic/Interaction/Items/CooldownStake.cs": [
+      "3caa9b8a746ad780f877a3dcc0f8d85707acbf477f400cd80dfa37b8025bda2d",
+      "831ba46894b7868979ff06a2fa1ee47cb97fcc015647dea2f9746daee6d1c295"
+    ],
+    "Assets/scripts/logic/Interaction/Items/GameItemBase.cs": [
+      "6d34305a74064884f645d4929ebb63474dce79c96bd47603bd97cd24d43ef9ea",
+      "ce9829b1f956af3430dc8c37e375b475a95398ff3b46592b9042bbb9d341f9d0"
+    ],
+    "Assets/scripts/logic/Interaction/Items/StakeScreen.cs": [
+      null,
+      "d61058449435dcb7728bb5e6ab801691240efa11128d9d306b10335978380ee9"
+    ],
+    "Assets/scripts/logic/Interaction/Items/StakeScreen.cs.meta": [
+      null,
+      "71f2f9e6e32961bfa6582f90bf2b998de930a8b97678bcf268c1428af2344e49"
+    ],
+    "Assets/scripts/logic/Interaction/Items/ToolBeltSlot.cs": [
+      "744d8306b0bf5ae202547ae2c8ecfeb64b76e7edb4cec91d73211982999615f1",
+      "e3dce7a7b4f482058ec3a82d35292539f82f0c12ee6fb3e8bf5d40e45296fc71"
+    ],
+    "Assets/scripts/logic/Interaction/Items/Sample/CooldownStakeLabControls.cs": [
+      "57ca3b4d7cbf0ef1ceb8b9c469ec808fa95db46a534e68eadf597ab28dfd3cf4",
+      "2d91d4fb6a08c9d1c8248051c3438861b46429a2460971762b06f2479b7a84dc"
+    ],
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.cs": [
+      "734f11e0cb2fe6f96fa847197e16baa409fccb10a520c36dc8c2c61f8bce9a6a",
+      "df17faa96aa2a1c0a2893fa254ef7a868cda5a4d0b66c28f933ec31cfc2a4130"
+    ],
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": [
+      "4d0b5905215c04ac94d8e3487debed38443b1bd8cdf6d8d8373729f848fc5443",
+      "11ed5c8f341af438d8fa7e5d217605333d4d143d588b536ccfb837377d441bd7"
+    ],
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Exploration.cs": [
+      "e4d4ac052ce8f08cf81e224c20a29680bad4f257760d42424b8e0159eebe679b",
+      "a149418fe39b01c60d69ecc6a31f29ee3d69fec2de5033372e9b12004d00c605"
+    ],
+    "Assets/scripts/logic/Rpg/LinearRpgController.cs": [
+      "718b0b6d3d0ce09b84dd0a31608590453a5621254856fb18dd9cede5adc539c4",
+      "f9491d4df5a356848501d92644cde0e63b89d4adf00fd89322182de1148227f8"
+    ],
+    "Assets/scripts/logic/Rpg/RpgChapterFlow.cs": [
+      "6cb5c26adcc29f313d3452b52fe709c7dff2d188b1f264f684f56419c69b021f",
+      "057723242d93cae8d38492ca92122128a20882132f80e45c4e2797702dcca848"
+    ],
+    "Assets/scripts/logic/Rpg/RpgDamageReceiver.cs": [
+      "2d9d7987b6df5c0d4e88b09dffa95aa9b71aaaf86740d04e326af902d45c3e9d",
+      "3fbc8bdf18501a0f60343efa510ca480f88eb2271f394f8dc7d83abd463fdd55"
+    ],
+    "Assets/scripts/logic/Rpg/WristMenuController.cs": [
+      "5b5410b843894c5710186ccc3491a867543d506e0e9d0e8cb6d028a3fbf7dc84",
+      "d85977fa30c9085033578dd83035267d2347a1e343c1f37b1c5fc13e848ecaff"
+    ],
+    "Assets/scripts/logic/Skills/Effects/SkillController.Aim.cs": [
+      "0da0a93375e0a31c2b16a30cb94df01307c7ab642feadd530da2cce4b00ce798",
+      "e4222fc10045dec205a769388595cc3f4547bc3ad82a2d72e2f689a434aeed6b"
+    ],
+    "Assets/scripts/logic/Skills/Effects/SkillController.Breath.cs": [
+      "0871c7037a7e774031ab3ad4d0840992397ab5cb869cfaec9aeb98f52874e13e",
+      "d5ef7b977113486a2e1f28115f0f3646a568b4e3b6915737b4fe91f23b52d955"
+    ],
+    "Assets/scripts/logic/Skills/Effects/SkillController.cs": [
+      "0d2c9591a3506843d8d5eb66cbe17f00b123be982f40af09fbf25a2e1c596f62",
+      "2fbb86b4b46df80a2b23994ef5006467076eb374ffd04b4edf35d80ea2c51aab"
+    ],
+    "Assets/scripts/logic/Skills/Effects/SkillController.ThunderSword.cs": [
+      "abc08a2c40dc61c8b25c6b35abb0faded55c51ae09f77595b0eb9615e024fee6",
+      "dd01373faa22ef0772009852389939f973271abd2dd69dd05e1bbb40074daae5"
+    ],
+    "Assets/scripts/logic/Skills/Effects/SkillProjectile.cs": [
+      "cb009ca0a8c6c320fc4c6e6c2e202e8be87db285c50de6d9fb3114341f9e6b54",
+      "99f3bc850b87ec60b60fd9c05b51830f522e325a288f31f4bc8edff66dbdeb22"
+    ],
+    "Assets/scripts/logic/Skills/Effects/ThunderSwordCast.cs": [
+      "24e0051f3d6bf641afc0fac845d2de33af301d8adf5eb5891f9e92e5227d5d93",
+      "c5eacbfc9499eeee2658db419363484e08fc63babb61c30b40b8f1a333a17574"
+    ],
+    "Assets/scripts/ui/Rpg/OpeningNavigationMarks.cs": [
+      "5c199943c88e4a05d1ef05a3622fa0043acd528793c26a74b6035a6417a983be",
+      "1837c5ed38cd7d3c5b40af298dbe3f3c473679dc1b543ee2d627a3af6def173f"
+    ],
+    "Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs": [
+      "6d62c8a1aa02d61a41d2bad3541277363ae27ec3a47342f04c0242c37d0330ed",
+      "a503214151c315f8e3bbf8cf760522c621c603bfad7bcbcc8252ee5b216592d3"
+    ],
+    "Assets/scripts/ui/Rpg/WristMenuView.cs": [
+      "8b0ed6a90d4304be8abded2389f3a1e2e225beb103dce8abb050a90fc9964da6",
+      "53b0160d47afc7a3d75fd3abd7c517e4067e2637a64c6bd19bda6b5f2a5bf844"
+    ],
+    "Assets/Shaders/StakeGauze.shader": [
+      null,
+      "a5f6a8504a501a3bcb2d84d4d3f4dbc79f1778036b62f2744723d8fb156579a1"
+    ],
+    "Assets/Shaders/StakeGauze.shader.meta": [
+      null,
+      "3a479622a39adb3962091626d2f580a01f50864bf3bae899649f08d4a4b4e455"
+    ],
+    "docs/README.md": [
+      "113e28e026ca8a394ffd57300f1e7fc36170ad49eda0f059966181e0eacd0b42",
+      "8b7b927a553cda4a368885a7c63d582826ea88112cdd73a0e6c3355bbf503504"
+    ],
+    "docs/architecture/第二章_断衡悬道/06_正式关卡装配.md": [
+      "261cbcb72b963f332d8d66ab50f901788c98fddcfdb1ab1afa3bf6fbd83d0ffc",
+      "233b73a086365599a078a96498859136dbaed4ad4acf033cff64247c5e07d17a"
+    ],
+    "docs/guides/ALL_ITEMS_LAB_ZH.md": [
+      "8146b9740aa6efaca7c2a069a8459c9c5ba108bea6c1d5fe10000f2a91869292",
+      "4a385b94a35323b19fdad3985b562af2dfdf396a47740c2cdac19d32c0842f51"
+    ],
+    "docs/guides/CONFIGURATION_GUIDE_ZH.md": [
+      "49061ff889df4dc1ebee6383121b0e37f1433cc7b29971c3ec23461752be52d3",
+      "59e161ff68eff7011a8801fb5c90290a9d6c93081d8f2cb46b67f3e81518da50"
+    ],
+    "docs/guides/ENCOUNTER_LOCOMOTION_ZH.md": [
+      "883349dc8289b8a1352364fb1a7f6816d128741443035ecc45cc7239c21efa99",
+      "079c3d4765bc5a384be2ffa616393a34242fcd913f81aa1347916b4df697f43a"
+    ],
+    "docs/guides/SNAP_TOOL_ZH.md": [
+      "58ff907b74aaed534dd69a0728c2f4a7a9b843ed3fef21311db0f6101f509e45",
+      "6c14e062dd5de0c901c943eb7d0bfd4fc2f7e1d717560dd13fb273ed3358f63f"
+    ],
+    "docs/world/沈商_五口工具带与补给道具设定规范.md": [
+      "660edc858f8c490ba01977c08d40115ae688ab3a37327aac0a6dacb933c1ea59",
+      "510e347b7bdb4aaa04b723171e07a0e5d43094ec9959ac4e6cef89a762f23ba3"
+    ],
+    "Tools/Validation/BuildCooldownStakeLab.cs": [
+      "15f02fa228f2ca5da81e23927f42748d58a21d201923c73fca36d1f1cd47fdbd",
+      "f28ce7f1acbf72fb040f8e1bf5e9b55bf6a778c696175a56ab71c1d6ab40d771"
+    ],
+    "Tools/Validation/ChapterStakeChecks.cs": [
+      "927e154110f37fe1ba01f4bc3e64dba0e6f5b4c38225989dc7c44a79b5d40287",
+      "ae1fb5b7c69de083000595e02043313e88c7463403052e8c50f8526e3e875c68"
+    ],
+    "Tools/Validation/CooldownStakePlayChecks.cs": [
+      "9ac154a33234d7394b6561d1e1316fee822f0dea8d671b91f0ae2b767c9a4194",
+      "fe05b249dd058eb34e9a9f7ae2a798c1a75598086b3b72ccea35fc5a9530e2a0"
+    ],
+    "Tools/Validation/ChapterEntry/ChapterEntryPlayChecks.cs": [
+      "9231cd0ce13f79d837550fa7cc57e0c57e616a6942ee7c1521a38558885629b4",
+      "7c25171230c5899bfa87414c3bd26ecbf7d1f777dd8abcfa28ff67b1a9314add"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/aim-current-profiles.json": [
+      null,
+      "111681d2de9e75783963d87e542f55ac5120a572fb581a6b6cefc4959233d49e"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/aim.txt": [
+      null,
+      "a08c9a25cceb8af29946d010b9b77a303343d9bff203bf791e92bad48639bc4b"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/combat-runtime.json": [
+      null,
+      "f6a9ef9139ef233d48cfad0a21afbd49c44ee115d7e261169104be1c264e0860"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/damage.txt": [
+      null,
+      "823ac305c4fe787c8556e74b8855747940653a81272f8395382ca5ddebc0973b"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/entry-fresh-override.txt": [
+      null,
+      "7a7b48825f878757f0f58c3c7f5178873f3df2ec1e747c4b4d82b00c16fba042"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/entry-legacy.txt": [
+      null,
+      "67267ba635d776bb4ddb6eca76b778391ddb7d0ae6d4c2d49868d192a734b5ff"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/entry-travel.txt": [
+      null,
+      "b12f27fee43d2c80b0bb7fc74282b1f46560f74174c8234621a3a5d6758e36ea"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/movement.json": [
+      null,
+      "728164a5a50e33e3d1f5a1a05f13e7f392d6ff08cdf80093ade4fabdb5e6b118"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/movement.txt": [
+      null,
+      "f108559a4d8940b33c25cbd6625fc45cdc067c2870cad294325aded79f81b551"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/ranged.txt": [
+      null,
+      "2d768c391131555ac0afe5f43613849ab3274d6390cefc6203df795236770f45"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/README.md": [
+      null,
+      "f50e9c1437551c2ba9971f8f1f0ba6673de0aabfb22598e7032d650b1e26cb5c"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/scene-delta.json": [
+      null,
+      "40569db8884b0471ad2c3a6780963972927927938184e185726dedabebea10e7"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/shader-compiler.txt": [
+      null,
+      "e60f4ea0f9ea552e77a665c354077ff021e7671035f39399d19ed9fe6d3046f1"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/shader-vulkan.txt": [
+      null,
+      "acf746c0469e3cff09367dc1efcc9057b482a1e33eda1c74f62e9d196b200d7c"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/stake-chapter.txt": [
+      null,
+      "101ee5acfe642e17e227d88e81d0ce6fe45f01a4c495e7df2d1f18e939d4f812"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/stake-lab.txt": [
+      null,
+      "4ca4c0880bbc4d3213dad07b2e38fa70160c6c41d2c8c2d291ff0b42a0367663"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/stake-planted-cold.txt": [
+      null,
+      "403b205ff7b26cb4e8d6d63b47a820a7db75f9b3223aff92eb6e8d9b72f64a63"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/stake-stowed-cold.txt": [
+      null,
+      "7e743e9dc509419c6208dec7b29eb98f63dcb789c8dc2c41c816f7e3f449f445"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/StakeChapter-curtain.mp4": [
+      null,
+      "e81c94d62e897c0a3ca502e1748b4d241c7b8433b8195c03817d32ad599e1af9"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/StakeChapter-open.jpg": [
+      null,
+      "342bbff49427e5b71deeeb70fbfa37480a22790b25b8d94961382ad49af80fb4"
+    ],
+    "Tools/Validation/Evidence/Chapter02Comfort1127/StakeChapter-unfold.jpg": [
+      null,
+      "daaf629c8ec45b4b7345f78d774578dad1874b154ffb097424bb9dc9b12a7643"
+    ]
+  },
+  "protected_count": 4
+}

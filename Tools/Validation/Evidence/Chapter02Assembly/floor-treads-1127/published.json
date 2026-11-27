@@ -1,0 +1,58 @@
+{
+  "baseline": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "loadedBefore": "a61d3b7dc601c6f911a1ab92ad38258eedd92e021635a961fb053a38581720cc",
+  "approvedCandidate": "8c8189e23ed2a6ca15a6365ca3a15fe13c593367434b5a3062fbbe03c165fbc9",
+  "published": "2cb44e6278de75e4eb571290bd9fd2200087dcd065550b8e44811291fa7dcad5",
+  "liveObjectCount": 1028,
+  "sceneObjectMembershipChanged": false,
+  "changedFromEditorMemory": [
+    "2100812006"
+  ],
+  "additionalDefaultSerializedFromDisk": [
+    "206717574"
+  ],
+  "addedAsset": {
+    "Assets/Art/Environment/SuspendedPath/Chapter02EntranceShoulderTread.asset": "fd7830a66a5177091fa2d7b3022715de7f0030287311eee8a7fbc6bcf194e0cd",
+    "Assets/Art/Environment/SuspendedPath/Chapter02EntranceShoulderTread.asset.meta": "11024ab7b1a819bd29562ebb861f6e71e2848fb4c330f3b22c0d694dc50f2173"
+  },
+  "changedAsset": {
+    "Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset": "f54f03c9def9bf756bb29a6ae0b2af5381f423c908049bf29cfaad5b9c676861"
+  },
+  "otherProductionDependenciesBeforeAndAfter": {
+    "pickupProductionSources": {
+      "Assets/scripts/logic/Rpg/LinearRpgController.cs": "718b0b6d3d0ce09b84dd0a31608590453a5621254856fb18dd9cede5adc539c4",
+      "Assets/scripts/logic/Rpg/PlayerInputController.cs": "6a52724db8e84ea4905af5bc03709456be173cb9020aa8b8bb582e73e4ad2799",
+      "Assets/scripts/logic/Rpg/WristHandChannels.cs": "d93dd8758d521cdf272e53e63928df7c500b6c9cf8433fd687a13668197ca34d",
+      "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": "6d4cf74a7412f4a3d61a63d1d06a091a9f1b035d0557eb038ca2b0dc78bf06af",
+      "Assets/scripts/logic/Rpg/OpeningLeafPuzzle.cs": "18bc7628f6d56d6a99ad4741a9b39e82f8c89ec49caedc1a3f0758fa764ae0e5",
+      "Assets/scripts/logic/Rpg/WorkshopTenon/WorkshopTenonObjective.cs": "6819753ae02f23f1bbb7f6bbd7f007585fe541b97ca011853307b04145cc4df9",
+      "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs": "26a23a0ac243482458e6920392694b4e37a8fe96b80e4c25434b351fa63d140a",
+      "Assets/scripts/logic/Interaction/Items/HandPickupQuery.cs": "d5dd3c9a2b5b88d0b28c9472b4d31ffc2e75f1a4069001eff6bbcfc6c1835d15",
+      "Assets/scripts/logic/Interaction/Items/DistanceGrabInteractionController.cs": "59ce60ab817f3284c249882a0518642285527561488be37ee6a4efce7ace7c5e",
+      "Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs": "6c0f5ef4d2dbfa13cf6a1a688f7a50ce872da0bf62925c6c78ec2ba44025ea94",
+      "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs": "9d96c83cbdee69f374511cc2ed43e8ac3a3f649fb0f3c976eb5911326970f85b",
+      "Assets/scripts/logic/Interaction/Items/Sample/TravelRationDesktopLab.cs": "5f1492bcdeb4ff8c5b5be68aac55ff50030d1e401c01106e51cba9ae5320b7eb",
+      "Assets/scripts/logic/Interaction/Items/Sample/PineInkPrototype.cs": "30183fe2ce4d880624321e528c72178a55e0825caf4b71aa6ee26e6700668b6f",
+      "Assets/scripts/logic/Editor/GlyphHandPickupChecks.cs": "5d728036d655db20a37a99c9abcfc980da601799bd76c97e941e35321f9fb8d0",
+      "Assets/scripts/logic/Editor/Interaction/HandPickupPlayChecks.cs": "625a26479d17d592108128d5f8d93d798a4f157fa5097e887a3b67e6eaa94fdf",
+      "Assets/scripts/logic/Editor/Interaction/RationPickupChecks.cs": "46bcd829e5f35bab031ef434b961ab5e0ff473f6cbd5e79567ee72bbfe5d7910",
+      "Assets/scripts/logic/Interaction/Items/HandPickupQuery.cs.meta": "bfb72f8ba49d41274a8eaa186b9be24f9105499b945617f737b5c79332ca1da9",
+      "Assets/scripts/logic/Interaction/Items/DistanceGrabInteractionController.cs.meta": "f996bba2339da80f0f9e5901e00ef551351d1267512b581819c02fd77a8b5c35",
+      "Assets/scripts/logic/Editor/GlyphHandPickupChecks.cs.meta": "c96bb13a7cb60d763842111ebb9dc8ed6f1d160a4a46066291290d8001f3486f",
+      "Assets/scripts/logic/Editor/Interaction/HandPickupPlayChecks.cs.meta": "1159fe793fdcd67726d7457fa5afc69737beaf66889fadbdfb44182feb7454f9",
+      "Assets/scripts/logic/Editor/Interaction/RationPickupChecks.cs.meta": "6544e940337a42c6ebb17cc4adb23f65111738040887e671503f6cd4af0f6274"
+    },
+    "passageAndPlayerSources": {
+      "Assets/scripts/logic/Editor/QuestFloorContactCapture.cs": "05a3f3371bf55518e5e685e8f961771973e1d5de2aafb3b54b0c9480abde7249",
+      "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": "4d0b5905215c04ac94d8e3487debed38443b1bd8cdf6d8d8373729f848fc5443",
+      "Assets/scripts/logic/Locomotion/RpgLocomotionController.cs": "734f11e0cb2fe6f96fa847197e16baa409fccb10a520c36dc8c2c61f8bce9a6a",
+      "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphEffect.cs": "a311cab9a2594938712311e7439036b518883bb1ed7f3f65d3d7f1a017568ae1"
+    },
+    "runtimeAssembly": "a148f4815c293705929df45319e3e84aa0e7c7b96a19e56a17abf1cbec68c3c3",
+    "lastCompiledRuntime": "a148f4815c293705929df45319e3e84aa0e7c7b96a19e56a17abf1cbec68c3c3",
+    "preview": "0729d438a6fbd45ab17f5002823bfc85e601058c16be4566e0e40f69fdc888a6",
+    "sharedGeometry": "2f70f45cd13de268cee793c264cb11eaebb1362f940b23ba3a7adbb2487d4275",
+    "bankB": "a09bf0e6a9391868df0b39ac8f0c1f7e50aa7a1f7abf92b93dea74248b0a64f0",
+    "forgeRamp": "9530f121e35db6205aa6b55f14876fa924c52507eae0c9d1dce2e787a62d3dd3"
+  }
+}

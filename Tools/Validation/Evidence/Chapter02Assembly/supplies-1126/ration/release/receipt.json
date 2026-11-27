@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-11-26T04:09:41+08:00",
+  "editor": "Unity 6000.3.10f1",
+  "baselineSHA256": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+  "sceneSHA256": "5fde465963731f04617d87206389f89f14391f10b2455e8aaf5fbd00b1e94e0f",
+  "sceneMetaSHA256": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "sourceManifestSHA256": "316ac023bf7d570a8f15750c2adeb5d67df8a4fe21608e83a57ed4077521fba7",
+  "sourceFilesVerified": 15,
+  "exitCodes": {
+    "fresh": 0,
+    "cold": 0,
+    "bridge": 0
+  },
+  "assertions": {
+    "fresh": 36,
+    "cold": 4,
+    "bridge": 27
+  },
+  "sceneDiff": {
+    "baselineObjects": 806,
+    "currentObjects": 815,
+    "existingUnchanged": 804,
+    "added": {
+      "206717583": "114",
+      "206717584": "114",
+      "562539566": "1",
+      "562539567": "4",
+      "562539568": "114",
+      "562539569": "82",
+      "562539570": "114",
+      "1511223459": "114",
+      "1511223460": "114"
+    },
+    "removed": [],
+    "changed": {
+      "79008830": [
+        "+    - targetCorrespondingSourceObject: {fileID: 521555727555064246, guid: f9f107e8ecae49048bda9d4fd7e1d1ec, type: 3}",
+        "+      insertIndex: -1",
+        "+      addedObject: {fileID: 562539567}"
+      ],
+      "206717572": [
+        "+  - component: {fileID: 206717584}",
+        "+  - component: {fileID: 206717583}"
+      ]
+    }
+  },
+  "evidenceSHA256": {
+    "main-inspect.txt": "2d3cdc9ac0ad29d7cc74a4665abe7b0a221a253437df4122d54ac7d876d42e42",
+    "main-publish.txt": "66281b3198eb2f4369c3fee28a99a5e39a265a6f0f9df7e25dc555c7640c80d6",
+    "official-hands.txt": "592bf8e1e721ae38ee487c714546fd2ea3a57aeec8737ace0063bfad95af83df",
+    "receiver-bridge.txt": "add65e80a35c1a928b3f48c7831d4e5fd409837369451dd2a142d33a7cbb25f6",
+    "receiver-ration.txt": "cdb9af110e89e24c6f49ff57a1a572a4be1d7e7c180894be5fbf5a2219b49ac6"
+  }
+}

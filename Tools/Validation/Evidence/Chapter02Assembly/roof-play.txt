@@ -1,0 +1,19 @@
+scene=Assets/Scene/T16_InstalledRoofTrial.unity originalNavTriangles=16 originalRangedActors=2 yard=(20.600, -0.260, 54.500)
+installed F1 · 锻造房 spawn=(11.497, 4.463, 44.422) route=(11.200, 4.494, 41.035) -> (11.793, 4.462, 47.809) area=3 dwell=1.5 nav=Assets/Prefabs/WorkshopRoofEncounter/ForgeRoofPostNav.asset
+installed F2 · 炭棚 spawn=(10.483, 2.691, 55.872) route=(10.751, 2.774, 54.497) -> (10.216, 2.744, 57.246) area=4 dwell=1.5 nav=Assets/Prefabs/WorkshopRoofEncounter/ShedRoofPostNav.asset
+bakedAreas=3:8 4:8 0:12
+patrol.area=3 visited=True,True travel=9.032828
+patrol.area=4 visited=True,True travel=6.056137
+clear control target=(19.483, 2.691, 55.872) valid firing point=(8.283, 2.411, 54.927)
+fallback: dynamic射手有目标，遮挡确认、院落断路确认，两种情况均实际选择原屋顶巡逻点。
+combat playerFloor=(17.710, 0.000, 51.700) head=(17.710, 1.600, 51.700)
+fire -4260 pos=(12.180, 5.003, 45.922) frame=989
+fire -3928 pos=(10.120, 3.330, 56.319) frame=994
+cast frame=1066 coreDistances=2.124269,1.441986
+return -4260 frame=1070
+return -3928 frame=1078
+result F1 · 锻造房 hp=150 agentSamples=1164 travel=12.16746 maxTileHeightError=0.1812272
+result F2 · 炭棚 hp=150 agentSamples=1164 travel=9.175062 maxTileHeightError=0.16435
+installed outcome: 双核均弹回，命中原主 0/2，玩家生命100、盾量100。
+room: 正式 CombatRoomEncounter.enemies 登记两名驻点，进入绑定 locomotion.head，退出暂停，重入恢复，双亡清场，重置通过。
+ROOF_TRIAL_PASS

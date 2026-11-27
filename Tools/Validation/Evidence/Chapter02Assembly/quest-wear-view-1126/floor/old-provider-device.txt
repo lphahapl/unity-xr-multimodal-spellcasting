@@ -1,0 +1,35 @@
+CONFIG serialized=NotSpecified local=1.2 yOffset=1.1176 rigScale=(1.00, 1.00, 1.00) OVR=0 ovrRig=0
+manager=OpenXRLoader state=Focused
+RUNTIME Unity Mock Runtime subs=True/Floor/11 xrCurrent=Floor rawHead=(0.00, 0.00, 0.00)
+PASS private Unity Mock OpenXR actual XRInputSubsystem
+PASS 受支持的模拟提供者选择 Device 起始模式
+PASS 确认提供者在应用请求前已是 Device
+APPLIED requested=NotSpecified actual=Device trackedSpaceOffset=1.1176
+PASS 相同原生起始状态下回读选择
+POSE want=1.67 mode=Device valid=True tracked=True get=True sdk=(0.0400, 0.0000, 0.0600) anchor=(0.0400, 0.0000, 0.0600) offset=1.1176 eyeFloor=1.1176 floor=(-9.161, 80.000, 63.640) root=(-9.121, 80.000, 63.700)
+PASS valid tracked HMD sample / actual TPD
+PASS world eye agrees with active origin
+FRAME_FLOORS (-8.80, 80.00, 59.23) 近岸残段 80.000
+FRAME_FLOORS (-7.87, 80.00, 60.30) 门外崖肩 80.000
+PASS 真实出生节点恢复
+POSE want=1.67 mode=Device valid=True tracked=True get=True sdk=(0.0400, 0.0000, 0.0600) anchor=(0.0400, 0.0000, 0.0600) offset=1.1176 eyeFloor=1.1176 floor=(-9.121, 80.000, 63.700) root=(-9.081, 80.000, 63.760)
+PASS valid tracked HMD sample / actual TPD
+PASS world eye agrees with active origin
+POSE want=1.14 mode=Device valid=True tracked=True get=True sdk=(0.0400, -0.5300, 0.0600) anchor=(0.0400, -0.5300, 0.0600) offset=1.1176 eyeFloor=0.5876 floor=(-9.121, 80.000, 63.700) root=(-9.081, 80.000, 63.760)
+PASS valid tracked HMD sample / actual TPD
+PASS world eye agrees with active origin
+PASS 低头/下蹲时脚底保持
+POSE want=1.67 mode=Device valid=True tracked=True get=True sdk=(0.0400, 0.0000, 0.0600) anchor=(0.0400, 0.0000, 0.0600) offset=1.1176 eyeFloor=1.1176 floor=(-9.121, 80.000, 63.700) root=(-9.081, 80.000, 63.760)
+PASS valid tracked HMD sample / actual TPD
+PASS world eye agrees with active origin
+PASS 原步行
+PASS 原存档恢复
+PASS 横移与读档不另外累加眼高
+RESIDUAL injected=0.180 actual=0.1800 headFloor=1.2976
+PASS 读档脚底误差独立对账
+RESIDUAL injected=-0.120 actual=-0.1200 headFloor=0.9976
+PASS 读档脚底误差独立对账
+PASS 实际走至石案使按钮开放
+CLICK eye=(-8.6543, 81.1176, 59.5461) cap=(-8.3191, 81.0341, 59.0427) eyeTargetDist=0.610
+PASS 世界空间物理压面展开剧情画板
+PASS END

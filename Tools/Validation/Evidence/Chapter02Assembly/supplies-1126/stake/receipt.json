@@ -1,0 +1,47 @@
+{
+  "initialBase": "5fde465963731f04617d87206389f89f14391f10b2455e8aaf5fbd00b1e94e0f",
+  "initialCleanCandidate": "ca2f01810a7b7b277ad2b3262274b9dcad0486f650120fea5fab0935553c4411",
+  "currentBase": "5dd207725cd973a5cc2f32b04b52322bdf7aa38fbeef5cd4adf79577f7f4818c",
+  "currentCandidateLF": "f85438c38e5a4bac93c3de7ac29154efe68335ff203455ae987d9feeddafe734",
+  "currentCandidateCRLF": "91e4c6b89f95d26d66c216815d9662096ed0fb780ebf601c43173440939b1d0a",
+  "sceneMeta": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "scenePatch": "b96cfaa11aafe62d14d0e7a04ebe324796c611deeb275e8292bf20d2f1540040",
+  "addedObjects": [
+    "1116713812",
+    "206717585"
+  ],
+  "editedObjects": [
+    "206717572"
+  ],
+  "removedObjects": [],
+  "sourceSha256": {
+    "Assets/scripts/logic/Interaction/Items/ChapterStakeSupply.cs": "33e3648665f8d3502100fe738d3e131077f5dcd6fb2de0dbdf74f969b0142e98",
+    "Assets/scripts/logic/Editor/Interaction/ChapterStakeInstaller.cs": "da06b11a47ee30e97ac0dd882a091cce8ce6444fa5a534f17fd863d2c5fb1620",
+    "Assets/scripts/logic/Interaction/Items/CooldownStake.cs": "967121b3ba8f6c3772761c35fc6b519ed5ca2cbf3a483ecdcc3a1b7e0f7650b8",
+    "Assets/scripts/logic/Interaction/Items/GameItemBase.cs": "5b7bb0085e5da5d3a87dad0d00f032fb074c22f0d74d46e613b59fdb5376bbe3",
+    "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs": "3e36d631301d128b8bf0cfeeed3f56e846567256e61e87e43bc73c42c6879d28",
+    "Assets/scripts/Persistence/RpgProgressData.cs": "06c674f211ea54121b3dda199bb378b4811c4d14d963e8835f2004e13f847086",
+    "Assets/scripts/Persistence/RpgSaveMapper.cs": "40d2d95cc54cc17d8fbd1de40a5fce74b745059b58603fb4d952dad8de76bbf5",
+    "Assets/scripts/logic/Rpg/LinearRpgController.cs": "dca9bfd2cd9096cfb1a1f3d8e4e7cbae249fe0aa78534329817cf17fbfcfb9cd",
+    "Assets/Samples/ToolBeltItems/ChapterStakeGraybox.prefab": "55e96a931a8a379dcb69154cd922e4256e3bf667b0199e4ca64a2b3d472a7f6c",
+    "Assets/Samples/ToolBeltItems/CooldownStake.prefab": "95fd7252f0c81eba5df41e655af4c23de75e4e71db8261a2f948c246b9079f1f",
+    "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs": "fe088ec306890ed8153b9d04ac862e951d9700c621b6446ddb9e72a5ee7fdd59"
+  },
+  "verification": {
+    "5fde4659": [
+      "fresh",
+      "cold docked",
+      "cold planted"
+    ],
+    "5dd20772": [
+      "fresh from patched scene",
+      "cold docked",
+      "cold planted",
+      "ration fresh 36",
+      "ration cold 4",
+      "LF exact candidate cold planted"
+    ],
+    "allExitCodes": 0,
+    "time": "2026-11-26T12:13:22+08:00"
+  }
+}

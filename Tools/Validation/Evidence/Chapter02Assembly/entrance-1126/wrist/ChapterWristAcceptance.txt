@@ -1,0 +1,23 @@
+2026-11-26T14:10:04.4656713+08:00 Unity 6000.3.10f1
+PASS first-chapter menu and distinct stone-table button are correctly wired
+PASS fresh spawn: old eye HUD and all three wrist panels hidden
+PASS default glance enabled; test uses current preference without writing it
+PASS raising right palm shows status without consuming combat input
+PASS lowering right wrist hides readout
+PASS two-hand seal pose does not open the glance or claim UI
+PASS physical wrist button opens launcher and suspends combat and pickups
+PASS withdraw and press again closes launcher
+PASS closing releases combat ownership
+PASS ray and pinch activated status once
+PASS manual status panel opened
+PASS manual status stays open with wrist lowered; idle card releases input
+PASS ray and pinch activated follow once
+PASS follow moves visible panel with rig
+PASS ray and pinch activated follow once
+PASS fixed panel stays in world when rig moves
+PASS ray and pinch activated close once
+PASS explicit close hides status card
+PASS physical belt pen owns the chapter drawing input
+PASS wrist press and glance cannot steal the drawing hand
+PASS drawing hand blocks combat gesture matching
+PASS END

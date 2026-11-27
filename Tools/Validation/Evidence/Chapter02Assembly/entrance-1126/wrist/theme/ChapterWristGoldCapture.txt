@@ -1,0 +1,34 @@
+2026-11-26T14:25:29.8788145+08:00 Unity 6000.3.10f1
+PASS right palm opened live glance without taking command input
+PASS rendered native skill icon thunder.sword / 雷光剑
+PASS rendered native skill icon breath.burst / 飞炎术
+PASS rendered native skill icon breath.stream / 龙火之术
+FRESH_KEYS breath.burst,breath.stream,thunder.sword
+FRAME 01-glance-fresh head CenterEyeAnchor position=(-9.12137, 81.20000, 63.70000) forward=(0.00000, 0.00000, -1.00000) viewport=(0.422, 0.324, 0.394),(0.424, 0.578, 0.400),(0.797, 0.585, 0.366),(0.801, 0.308, 0.360)
+PASS same player eye and entire active UI in frame 01-glance-fresh
+PASS native sprite subassets used by loader Button_Hover,Button_Normal,Divider_Gold,Frame_Bronze_Main,Frame_Jade_Plaque,Gauge_Fill,Gauge_Fill_Inner,Gauge_Track,Gauge_Vertical_Track,Icon_GlyphBrush,Icon_Seals,Icon_StatusWheel,Icon_VoiceBell,Reticle_Fangyuan,Ring_Astrolabe,Subtitle_Smoke_Scrim
+TEMP_STAGE_GRANTS buff.zi,fireball,thunder.sword,breath.burst,breath.stream
+PASS rendered native skill icon thunder.sword / 雷光剑
+PASS rendered native skill icon breath.burst / 飞炎术
+PASS rendered native skill icon breath.stream / 龙火之术
+PASS rendered native skill icon shield / 护盾
+PASS rendered native skill icon fireball / 火球术
+PASS all five skill sprites on active glance
+FRAME 02-glance-five head CenterEyeAnchor position=(-9.12137, 81.20000, 63.70000) forward=(0.00000, 0.00000, -1.00000) viewport=(0.422, 0.324, 0.394),(0.424, 0.578, 0.400),(0.797, 0.585, 0.366),(0.801, 0.308, 0.360)
+PASS same player eye and entire active UI in frame 02-glance-five
+PASS pressing physical switch opens the real launcher
+PASS theme switch is on and heading draws in warm jade E3DDD0FF
+LAUNCHER_IMAGES Button_Normal,Divider_Gold,Frame_Bronze_Main,Gauge_Track,Icon_GlyphBrush,Icon_Seals,Icon_StatusWheel,Icon_VoiceBell
+PASS bronze frame, sliced buttons and four launcher emblems reference imported sprites
+FRAME 03-case head CenterEyeAnchor position=(-9.12137, 81.20000, 63.70000) forward=(0.00000, 0.00000, -1.00000) viewport=(0.192, 0.412, 0.524),(0.180, 0.820, 0.496),(0.635, 0.793, 0.542),(0.624, 0.419, 0.570)
+PASS same player eye and entire active UI in frame 03-case
+PASS ray and pinch activated status once
+PASS rendered native skill icon shield / 护盾
+PASS rendered native skill icon fireball / 火球术
+PASS rendered native skill icon thunder.sword / 雷光剑
+PASS rendered native skill icon breath.burst / 飞炎术
+PASS rendered native skill icon breath.stream / 龙火之术
+PASS manual status page renders five skill sprites independently of launcher
+FRAME 04-status-five head CenterEyeAnchor position=(-9.12137, 81.20000, 63.70000) forward=(0.00000, 0.00000, -1.00000) viewport=(0.203, 0.044, 0.613),(0.235, 0.604, 0.687),(0.765, 0.604, 0.687),(0.797, 0.044, 0.613)
+PASS same player eye and entire active UI in frame 04-status-five
+PASS END

@@ -1,0 +1,48 @@
+{
+  "recordedAt": "2026-11-26T22:35:17+08:00",
+  "method": "Unity 6000.3.10f1 Editor batch D3D11, URP SingleCameraRequest, fixed CenterEyeAnchor. Render before and after WorkshopTenonAssembly.CreateChapterPlayer on the already-assembled chapter, in memory. No Play or headset for this image pair.",
+  "testInputSceneSha256": "ce338bb531b220345ad43673dc4e5aad8bf655ed274f7d72adec445c3732cc83",
+  "installer": "Assets/scripts/logic/Editor/WorkshopTenon/WorkshopTenonAssembly.cs",
+  "installerSha256": "af5b214a7ef6fb67c0a0a8759a5ea6302117be9c0b81a8ef18a744a5b49dd7df",
+  "cameraPosition": [
+    -8.66,
+    81.6,
+    59.51
+  ],
+  "cameraForwardBeforeNormalize": [
+    0,
+    0.18,
+    -1
+  ],
+  "sizePx": [
+    768,
+    432
+  ],
+  "material": "GorgeSky",
+  "shader": "Skybox/Panoramic",
+  "flags": [
+    "SolidColor",
+    "Skybox"
+  ],
+  "samplePixelXY": [
+    384,
+    40
+  ],
+  "sampleRGB": [
+    [
+      3,
+      6,
+      14
+    ],
+    [
+      133,
+      168,
+      193
+    ]
+  ],
+  "pixelsWithMaxChannelDeltaOver15": 185887,
+  "sha256": {
+    "before.png": "01ac7dcc0375e78b9f073be660850aef6cec7238e7971e3b3bd23293ae059ce5",
+    "after.png": "4874ac6859df9608bdbff5b3186d366e63b9402fcb1ff15442e8c0b378a88ede"
+  }
+}

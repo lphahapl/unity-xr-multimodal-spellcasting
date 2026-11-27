@@ -1,0 +1,119 @@
+{
+  "desktopUnity": "6000.3.10f1 D3D11; tracked poses replayed, physical stone/colliders, official glyph and production locomotion",
+  "fixtureQualification": {
+    "occupied": "Stone passed through the intended point without stopping, then docked after successful reverse pull from an unoccupied side plank. Correct gameplay, this is retained as a missed occupancy test, exit 1.",
+    "yield-1": "Actual occupied final pose, waiting / evacuation / ride / walk off, same QA as occupied; stationary and moving contact cases use separate captures.",
+    "yield-latest": "Updated QA holds its opposite occupied station on overshoot instead of vacating it. Consult its own result."
+  },
+  "scene": "1be75566173fe09ec6efd8ff2bee7f00bcecc8aec5c652f3496469fbd8ef0353",
+  "candidate": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\clearance\\candidate.unity",
+  "sceneDelta": {
+    "before": "c56d7380bef12e6104f59a28f1926009e74b425db6c9c62621ee414c142022d2",
+    "candidate": "1be75566173fe09ec6efd8ff2bee7f00bcecc8aec5c652f3496469fbd8ef0353",
+    "modifiedBoxColliders": [
+      "1134560533",
+      "1134560534",
+      "1134560535",
+      "1134560536"
+    ],
+    "unchanged": 925,
+    "added": 0,
+    "removed": 0,
+    "dimensions": {
+      "heightBefore": 0.3,
+      "heightAfter": 0.27,
+      "localTopBefore": 0.03,
+      "localTopAfter": 0.0,
+      "localBottomBefore": -0.27,
+      "localBottomAfter": -0.27
+    }
+  },
+  "R02": {
+    "Assets/scripts/data/Enemies/Spawning/StoneCarryPose.cs": "d23258c7e0a54f29603460c4649d66295a59e389fed94ed291893bf84f248eeb",
+    "Assets/scripts/data/Enemies/Spawning/StoneCarrierProfile.cs": "66e3cc3713175021e87d713df94556add16d7189ded8cab5f0ad441f33e8cea8",
+    "Assets/scripts/logic/Enemies/StoneCarrier.cs": "0e3566754d4f4982c3f7a43b49da82f763716495da6b1caae85124bc1679a451",
+    "Assets/scripts/logic/Enemies/EnemyController.cs": "94d390e2358624d9c40a307f6f97567e16bc22b0ad82290f97397f96e1cac0ef",
+    "Assets/scripts/logic/Enemies/BallastStone.cs": "ca31be948cbe76524c25e1d2cc7c66e06c9337d96bed7120a20319b776951ec9",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller": "62f421f3d789542c9fcc276d14ba39c414cf2054896134b0254b33551af9385f",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx.meta": "1cce95b821f2ee858556a792598386cb9f6e652078b465bd81bb579abb025a89",
+    "Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset": "7efe0cf04be867ec685d736b62981af42ec2f3d17f396822314df6e59f5e755c",
+    "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset": "e9cc0679a55a4540d30b1f8b713c28f5373bdda286d0166c34f1e1be2e9899f4",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx": "bc9b990a9546daadaa00189dc6ca265c61aa7dc1dcb18b8f91db393a4035671c"
+  },
+  "sources": {
+    "Assets/scripts/logic/Enemies/BallastBasket.cs": "d8999d34033b574b23c7b96970b63eb0fb878c7d0370cee85430a7c4ad4f4e63",
+    "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs": "0fb0aa65aab8c0c5dfecccd59f5707428f3d4a54bc662d9ac4a0b5118e2cd926",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": "3306023dae07002cc8a7a6766d16488523f75503fc0aa202908e3b047452699c",
+    "Assets/scripts/logic/Editor/Chapter02Entry/Chapter02OccupiedSlotChecks.cs": "61d26de7ba916f559fdb102f4eaf2fbcdb6d1755c9635294724a5f2fa34733cc",
+    "Assets/scripts/logic/Editor/Chapter02Entry/Chapter02TrioFreePenChecks.cs": "0c8ebecc75b5c0dc69465ee4dd507fa3377a64ef7756fead531f6c3ef5179410",
+    "Assets/scripts/logic/Editor/Chapter02Entry/Chapter02AltarTrioChecks.cs": "4246b835f96b17a43d2f6a3c447f3bb1f5320a3b3f4dd8968e3fceec7310c178"
+  },
+  "cases": {
+    "primary": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\checked\\primary\\trio.txt",
+      "reportSHA256": "860c75bce2c9b114b4e23e4c75ff352137be6bd0aa9918474f59bf7c18d0e4e0"
+    },
+    "alternate": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\checked\\alternate\\trio.txt",
+      "reportSHA256": "b23212e3d39d4fedb1e4c65af7e71bd4705054d4bc1d2369a869089d178925e9"
+    },
+    "cold": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\checked\\cold\\a-cold.txt",
+      "reportSHA256": "9ea5fde1d25179a7a42ee88273d47487c7a4f79ec9acb4f520f848687ea33763"
+    },
+    "passage": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\checked\\passage\\report-directory.txt",
+      "reportSHA256": "cb2ced9dea874f8ff24a19d22a9abc7804a8fd0a8b66e2e38b4e3d149af158d6"
+    },
+    "verify": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\checked\\verify\\play.log",
+      "reportSHA256": "1a8a25401513d56659d5a42ffc185426f34090fdb1e49c25b33f06bba807cb94"
+    },
+    "third": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\third\\trio-free-pen.txt",
+      "reportSHA256": "2d7dde37c95cb8f449524eb5c0719565e2eeff1c8c17714f2416ad7c33d6281a",
+      "physicsCSV_SHA256": "2f4baf2560e7ebc0432a8b2e141658e8ae10f7b8c442aacfa2da2aa34fe28268"
+    },
+    "occupied": {
+      "exit": 1,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\occupied\\occupied-slot.txt",
+      "reportSHA256": "6d3341aadfe20950304e4ff220d3e8d37ea2e903152a044c9bb1270241e85b1d",
+      "physicsCSV_SHA256": "13e8b684e9399b80c92ac9cd5e5773bc39028e77d18b258aab391a477362b3f4"
+    },
+    "yield-1": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\yield-1\\occupied-slot.txt",
+      "reportSHA256": "65b45e03da5f12c6872796603898dcbe84e83fb59afad5f0f5a1f59cda783e01",
+      "physicsCSV_SHA256": "95d32e3fb84035fe6c54a6d0f95b37431be08d6f29eb5acf09025cf3a82bb623"
+    },
+    "yield-latest": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\yield-latest\\occupied-slot.txt",
+      "reportSHA256": "324c67c9d90cd526380fec66af4234f96cd2e7bf94c038cbe6b3620f1e06f56f",
+      "physicsCSV_SHA256": "1aeca6aff6163f73da5a0db0eaaf5fdad2909dbfe1174fc02429013590c0a4fa"
+    },
+    "occupied-touch": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\occupied-touch\\occupied-slot.txt",
+      "reportSHA256": "66357aad3a9ff8c91c8cdee83d6c1aca0ec4bfb7d592a54a8564dcae35bc3550",
+      "physicsCSV_SHA256": "6ba1e55994d10974d05e6f7be85202bc553d5a7f9f3c505a32f46709ff892649"
+    },
+    "occupied-restore": {
+      "exit": 0,
+      "report": "D:\\Temp\\Ch02Entrance1126\\trio\\final\\r02-rider\\occupied-restore\\occupied-slot.txt",
+      "reportSHA256": "fba6dfd6942a905253a83cfed21ceec9cda3b91036b9f289f892c7ee86639129",
+      "physicsCSV_SHA256": "d14efc7c05033c76ce724982a5f8e7ceedcb43e7687ac8177f7f351cb5b4282d"
+    }
+  },
+  "evidenceQASources": {
+    "third": "0c8ebecc75b5c0dc69465ee4dd507fa3377a64ef7756fead531f6c3ef5179410",
+    "yield-1/occupied-touch/occupied-restore": "97a7ac06794dc62089cc1b91ff5291264257e3b5b0bb2d9fd961c68e7b05104b",
+    "yield-latest": "61d26de7ba916f559fdb102f4eaf2fbcdb6d1755c9635294724a5f2fa34733cc"
+  }
+}

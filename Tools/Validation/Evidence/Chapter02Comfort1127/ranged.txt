@@ -1,0 +1,34 @@
+2026-11-27T19:26:33.064946+08:00 Unity 6000.3.10f1
+PASS formal chapter player ready
+PASS chapter uses loaded shooter prefabs
+PASS real attack enters windup
+height=1.7 aim=(0.0000, 1.2240, 0.0000) ring=(0.000, 0.020, 0.000)
+PASS tracks torso at tracked eye height 1.7
+PASS telegraph on floor under tracked body
+height=0.91 aim=(0.0000, 0.6552, 0.0000) ring=(0.000, 0.020, 0.000)
+PASS tracks torso at tracked eye height 0.91
+PASS telegraph on floor under tracked body
+trajectory error in m=3.146225E-07 posed barrel error in m=0.02583114
+PASS physical muzzle trajectory passes locked body
+PASS actual launched fire core renderer materials supported on Direct3D11
+PASS unshielded crouching player struck in torso
+PASS actual contact above knees
+PASS real attack enters windup
+trajectory error in m=0.001175091 posed barrel error in m=0.001174947
+PASS physical muzzle trajectory passes locked body
+PASS dodge freezes muzzle target and floor warning before player translation
+PASS moving clear avoids frozen shot
+PASS real attack enters windup
+trajectory error in m=0.004186113 posed barrel error in m=0.004186825
+PASS physical muzzle trajectory passes locked body
+PASS crouch beneath released torso shot avoids damage
+PASS real attack enters windup
+trajectory error in m=0.001456056 posed barrel error in m=0.001456615
+PASS physical muzzle trajectory passes locked body
+PASS foreground wall blocks shot
+PASS real attack enters windup
+trajectory error in m=0.001483996 posed barrel error in m=0.001483602
+PASS physical muzzle trajectory passes locked body
+PASS unshielded standing player struck in torso
+PASS existing real two-shooter parry and projectile obstruction regression
+PASS END

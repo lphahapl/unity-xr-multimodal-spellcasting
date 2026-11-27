@@ -1,0 +1,107 @@
+{
+  "stage": "ration",
+  "unity": "6000.3.10f1",
+  "scope": "isolated editor Play Mode, original chapter controller and simulated hand observations; no headset",
+  "files": [
+    {
+      "path": "Assets/scripts/Persistence/RpgProgressData.cs",
+      "beforeSHA256": "791948855e6c6ec2efdb96da4e14cff135c61fba1ceb0dff02ac4b301d1bca86",
+      "candidateSHA256": "4c3e2e0762355695cdff1e1ce8b49c6c7ac1844c1029b665ca0c40b7ab3be0a0"
+    },
+    {
+      "path": "Assets/scripts/Persistence/RpgSaveMapper.cs",
+      "beforeSHA256": "c165db466acca900a3eae9b51b573fd86c17a08c2f0acadd6c3bed397bc98ccc",
+      "candidateSHA256": "452aa130711a00184d6f3bc560db985ef824b207ab2a21310d22d2325efced15"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "21b207aac21e4a39b5ea624b033f2a0c25ba7731635b3a9e68a2096539e966e5"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "31c066c4152928fd70624efcd74a653f1a9d8c9e5dd8236ca83f9e8ec3fbd5c3"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "29feeb51f2c59ca21a0ebda8fe23e05d088e4c40c8b1c1bada4ac6dac9444fac"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "092b4c09a5297f59e6344f58d43d35d77962a7d022150890ec67aa88e6effec6"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "fe088ec306890ed8153b9d04ac862e951d9700c621b6446ddb9e72a5ee7fdd59"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "b6a47ab450ac46fd0feae6033c011ad408ec89d522b57221a64e93e9f1c1e263"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/GameItemBase.cs",
+      "beforeSHA256": "b92701987ff2d0683ee1bd107970fc3fae58267bc199085e4bdf417a667675fb",
+      "candidateSHA256": "88bb8f5d373df45c413391233a0a962347feb8bec387604f1e7d9f33c6bb5cba"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs",
+      "beforeSHA256": "0c462c0fd84ea5b867785cefd407cb62772c437a4bd2a83803ed4d1d505b508e",
+      "candidateSHA256": "b0970cb2d92549a1676921086dbfe40b0a8eef81ef975f0126eb0dfc611a6e07"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs",
+      "beforeSHA256": "dc2835ecf1e763b68ee796a8bbe8a502ed38683dc7ea61c9e9ef38ad9c879a7a",
+      "candidateSHA256": "b7fdc02eac311ef9980b106abb2b5c810fbaba61ca3a3d84872eb1349e2545a0"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs",
+      "beforeSHA256": "4ba5e6237e638557c2e77c4db2128de2037484076bd53e8fa369d9abd5e543f9",
+      "candidateSHA256": "7e8dc5141829ef865327b90723d71feec1aac7e979d090ed3de0df51ab7b2ef5"
+    },
+    {
+      "path": "Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "70904aa4d61ea88133477f073ee6ffbe519695e86b3eae1e29f3d755ec227be9"
+    },
+    {
+      "path": "Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "b9ee151f66c8b3b662ef2a1441a55b8b405457fd89985fec9017dcc217e501f0"
+    },
+    {
+      "path": "Assets/scripts/logic/Rpg/LinearRpgController.cs",
+      "beforeSHA256": "3ffd1f9eede0eff474473c50141fded5c89ad6aa123ff34f20a4d2903bef3c18",
+      "candidateSHA256": "904ca21bb8012d259b2c8511db47c514dee806f885a6e4f9ff83c23191e2d1e2"
+    }
+  ],
+  "applicationCheckedInCleanTextTree": true,
+  "bundleSHA256": "60e9fc0271c0aafa6976f371da462e5f74db0986f55a667157867c1330b1f02f",
+  "sourcePatchSHA256": "1e63c77a558fcbb46ed6ff2486bad6e3e19b570fa15833fa94022d72690e234c",
+  "tests": {
+    "fresh": {
+      "assertions": 36,
+      "report": "play-fresh.txt",
+      "sha256": "991c3c71d2b72c764c49f41d051a7a957eead14efd2c91210238a30295cdd2e3"
+    },
+    "cold": {
+      "assertions": 4,
+      "report": "play-cold.txt",
+      "sha256": "caa02d6f17a21f308157a3f13b163ad653769cfcccf31f6e2ed1d7abc6765613"
+    }
+  },
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "sceneBaselineSHA256": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+  "isolatedCandidateSHA256": "5fde465963731f04617d87206389f89f14391f10b2455e8aaf5fbd00b1e94e0f",
+  "scenePatchSHA256": "20afab6cd0c56626da2fb280e20952ae242d80d290e89bb34acb005b7f21ec23",
+  "sceneMetaSHA256": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "sceneObjectDelta": {
+    "existingModified": 2,
+    "added": 9,
+    "removed": 0
+  }
+}

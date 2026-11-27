@@ -1,0 +1,82 @@
+PASS 编辑态 Standalone 已禁用自动初始化／运行，配置的 loader 数与活动 loader 数均为 0
+PASS 发布场景的玩家请求 Floor，正式相机/头锚点相同，Rig 比例为 1
+PASS 正式相机 Skybox 和 1950m 远裁切
+STARTUP stage=0 ready=True canAct=True beltInitialised=False beltBound=True beltEnabled=True stageNode=CH02_ENTRANCE slot=qa-noXR-release-4a55263e30694a7695c108d6acebf043.json status=章节已就绪
+STARTUP FINAL stage=0 ready=True canAct=True beltInitialised=True beltBound=True beltEnabled=True stageNode=CH02_ENTRANCE slot=qa-noXR-release-4a55263e30694a7695c108d6acebf043.json status=章节已就绪
+PASS 新档玩家装配完成，已进入章节阶段
+PASS 玩家已可行动
+PASS 真实腰带已执行首次更新
+PASS 腰带交互已绑定该玩家
+PASS 腰带有场景内实体
+PASS 二章干粮交互引用同一玩家、同一腰带及实际嘴区
+PASS 无奖励新档开局没有干粮袋
+PASS 从新档首阶段进入二章
+PASS 五个真实开口及唯一墨规笔鞘绑定于同一腰带
+PASS 核对批准的腰带偏移 (0.000, -0.640, 0.120)
+INFO 无设备桌面原追踪空间 localY=1.2，以 Floor 原点的零偏移回放已知姿态；不测真人地板标定。
+INFO 上层站姿 使用正式奖励入口为当前私有状态提供干粮袋，hasPouch=True
+PASS 上层站姿 桌面头姿眼/脚=81.6700/80.0000
+PASS 上层站姿 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS 上层站姿 五个真实开口处于眼下 0.5400..0.5522 m
+PASS 上层站姿 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS 上层站姿 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 正常玩家存档入口写入私有上层存档
+PASS 带已有脚底偏差 0.18 从正式入口读档
+PASS 注入 0.18 m 后归脚/眼 80.0000/81.6700
+PASS 带已有脚底偏差 -0.12 从正式入口读档
+PASS 注入 -0.12 m 后归脚/眼 80.0000/81.6700
+PASS 上层蹲姿 桌面头姿眼/脚=81.1400/80.0000
+PASS 上层蹲姿 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS 上层蹲姿 五个真实开口处于眼下 0.5400..0.5522 m
+PASS 上层蹲姿 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS 上层蹲姿 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 上层起立 桌面头姿眼/脚=81.6700/80.0000
+PASS 上层起立 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS 上层起立 五个真实开口处于眼下 0.5400..0.5522 m
+PASS 上层起立 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS 上层起立 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 同一玩家读取旧档 middle
+PASS CH02_A_MIDDLE 实际脚=0.0000 眼=1.6700
+INFO middle 低头蹲下 使用正式奖励入口为当前私有状态提供干粮袋，hasPouch=True
+PASS middle 低头蹲下 桌面头姿眼/脚=1.1400/0.0000
+PASS middle 低头蹲下 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS middle 低头蹲下 五个真实开口处于眼下 0.5400..0.5522 m
+PASS middle 低头蹲下 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS middle 低头蹲下 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS middle 起立转身 桌面头姿眼/脚=1.6700/0.0000
+PASS middle 起立转身 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS middle 起立转身 五个真实开口处于眼下 0.5400..0.5522 m
+PASS middle 起立转身 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS middle 起立转身 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 中层原存档/读档保持
+INFO 成功执行合法落点与4cm步进，炉房接坡 playerFloor=(13.57, 0.11, 44.24) 原命中=门槛接坡 normal=(0.16, 0.99, -0.01)
+PASS 炉房门槛接坡 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 同一玩家读取旧档 upper
+PASS CH02_ENTRANCE 实际脚=80.0000 眼=81.6700
+INFO upper 低头蹲下 使用正式奖励入口为当前私有状态提供干粮袋，hasPouch=True
+PASS upper 低头蹲下 桌面头姿眼/脚=81.1400/80.0000
+PASS upper 低头蹲下 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS upper 低头蹲下 五个真实开口处于眼下 0.5400..0.5522 m
+PASS upper 低头蹲下 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS upper 低头蹲下 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS upper 起立转身 桌面头姿眼/脚=81.6700/80.0000
+PASS upper 起立转身 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS upper 起立转身 五个真实开口处于眼下 0.5400..0.5522 m
+PASS upper 起立转身 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS upper 起立转身 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS 正式墨规笔跨层读档后的归鞘运动已经结束，握点=(-9.3033, 81.1729, 63.6591)
+PASS 右食指 world=(-9.3033, 81.1729, 63.6591) 实物笔握点=(-9.3033, 81.1729, 63.6591)；经 ToolBeltInteraction.Step 成功取笔
+PASS 同一玩家读取旧档 valley
+PASS CH02_B_VALLEY 实际脚=-80.0000 眼=-78.3300
+INFO valley 低头蹲下 使用正式奖励入口为当前私有状态提供干粮袋，hasPouch=True
+PASS valley 低头蹲下 桌面头姿眼/脚=-78.8600/-80.0000
+PASS valley 低头蹲下 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS valley 低头蹲下 五个真实开口处于眼下 0.5400..0.5522 m
+PASS valley 低头蹲下 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS valley 低头蹲下 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS valley 起立转身 桌面头姿眼/脚=-78.3300/-80.0000
+PASS valley 起立转身 腰带实体跟随实际眼锚和水平朝向，偏差=0.0000 m
+PASS valley 起立转身 五个真实开口处于眼下 0.5400..0.5522 m
+PASS valley 起立转身 实际干粮嘴区跟随头与俯仰，位置偏差=0.0000 m
+PASS valley 起立转身 双手经正式 SDK 世界变换、SealLab 捕捉、玩家消费，实地射线间隙 0 / 0.03 / 0.15 m
+PASS END

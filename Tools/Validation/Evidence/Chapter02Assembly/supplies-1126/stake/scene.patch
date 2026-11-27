@@ -1,0 +1,51 @@
+--- a/Assets/Scene/Chapter02_SuspendedPath.unity
++++ b/Assets/Scene/Chapter02_SuspendedPath.unity
+@@ -1812,6 +1812,7 @@
+   - component: {fileID: 206717581}
+   - component: {fileID: 206717584}
+   - component: {fileID: 206717583}
++  - component: {fileID: 206717585}
+   m_Layer: 0
+   m_Name: "\u4E8C\u7AE0 \xB7 \u73A9\u5BB6\u4E0E\u5DE5\u574A\u6821\u51C6"
+   m_TagString: Untagged
+@@ -2202,6 +2203,22 @@
+   bagReach: 0.04
+   biscuitReach: 0.023
+   returnReach: 0.16
++--- !u!114 &206717585
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 206717572}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 828ac2729b474a008fd53cc0b67c734a, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Items.ChapterStakeSupply
++  belt: {fileID: 1511223460}
++  pocket: {fileID: 1116713812}
++  prefab: {fileID: 2624158998596013663, guid: 23e54269ff4d50947ba844e394f9bfe6, type: 3}
++  worldFallBoundary: {fileID: 711498177}
+ --- !u!1 &214994857
+ GameObject:
+   m_ObjectHideFlags: 0
+@@ -9790,6 +9807,17 @@
+   - {fileID: 1990190898}
+   m_Father: {fileID: 591531694}
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!114 &1116713812 stripped
++MonoBehaviour:
++  m_CorrespondingSourceObject: {fileID: 629874475283942338, guid: 4665f0f2ec7646943b8fe9524cdf39ef, type: 3}
++  m_PrefabInstance: {fileID: 856396326}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 0}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 718aecc28f0a4447a04f721baf833e27, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Items.ToolBeltSlot
+ --- !u!1 &1118676964
+ GameObject:
+   m_ObjectHideFlags: 0

@@ -1,0 +1,57 @@
+{
+  "stage": "ink",
+  "unity": "6000.3.10f1",
+  "scope": "isolated editor Play Mode, original chapter controller and simulated hand observations; no headset",
+  "files": [
+    {
+      "path": "Assets/Samples/ToolBeltItems/InkRubbingLab.unity",
+      "beforeSHA256": null,
+      "candidateSHA256": "8bc13aee08e42401160e091de983bca49b1507029baedfdf5b08b810e44ef66e"
+    },
+    {
+      "path": "Assets/Samples/ToolBeltItems/InkRubbingLab.unity.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "1d9f177a783b93242a35f117ef42fe3a9914673d27cc64033ef070096fc0d3c1"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.Ink.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "8a03787f1a48a1769fe1705d3bdc73faad9ccec233c5ea2286ac8f787f598c09"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.Ink.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "4a84fb1e9c0956cb02ed2b830aca717c6d7d5d98b8fcc2f8749b3a5906057e14"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/InkRubbingLabBuilder.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "a5c6bd3c3905fc8de98d8c85f451f2c64af1af6f207992b32c0467282017d482"
+    },
+    {
+      "path": "Assets/scripts/logic/Editor/Interaction/InkRubbingLabBuilder.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "bd23a812443cc3f6f99c19db2d77a5f03d9bda2f92e41031e573209ac2fe0915"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/Sample/PineInkPrototype.cs",
+      "beforeSHA256": null,
+      "candidateSHA256": "e14ae2454ed2d9425ffd19dc9f294d0ffdeb53a16ee701ae6c5623b6e8d1d2ae"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/Sample/PineInkPrototype.cs.meta",
+      "beforeSHA256": null,
+      "candidateSHA256": "6fada09ce1155b584993954234f408d359c02771da56e26b91561bc7a3212983"
+    }
+  ],
+  "applicationCheckedInCleanTextTree": true,
+  "bundleSHA256": "2c72f96b4909928eed95924f28f443e5805cab85dd6babcd0a6434b5b13fab1c",
+  "sourcePatchSHA256": "39cb8985b4035d005b4e96650f97e23f86882442447ebd6fbe977d3b030b4863",
+  "tests": {
+    "ink": {
+      "assertions": 12,
+      "report": "play-ink.txt",
+      "sha256": "e601dcda68d22b875d99fbcf2a0596714e4cc0c7a6f9e6d04807bcd4485fce98"
+    }
+  }
+}

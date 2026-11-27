@@ -1,0 +1,37 @@
+PASS 真实玩家 Game 相机 二章 · 玩家与工坊校准/XROriginCameraRig/TrackingSpace/CenterEyeAnchor
+PASS 全新玩家与原工具带初始化
+PASS 从正式出生点开始，独立新档未复制存档；floor=(-9.1214, 80.0000, 63.7000)
+PASS 入口时尚未进祭坛，没有预先生出的工奴
+CAMERA eye=(-9.1214, 81.2000, 63.7000) forward=(0.0000, 0.0000, -1.0000) fov=60 mask=-1 GPU=NVIDIA GeForce RTX 4050 Laptop GPU pipeline=Mobile_RPAsset (UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)
+APPROACH node=(-9.1214, 80.0000, 57.8500) bounds=Center: (-9.12, 80.10, 57.85), Extents: (0.43, 0.35, 0.70) room=02 · 祭坛战场  +80 m/首次接敌线/祭坛工奴 · 接敌区域 area=Center: (-9.12, 81.00, 31.50), Extents: (11.00, 1.50, 9.50) carrierPost=(-9.1214, 80.0000, 35.0000)
+SHOT 01-fresh-entry 1280x960 eye=(-9.1214, 81.2000, 63.7000) forward=(0.0000, 0.0000, -1.0000)
+PASS 出生时画符面板实际渲染件隐藏，提前尝试调用不能展开
+PASS 沿真实地板到达绘制区域前，面板及按钮均未显示
+PASS 抵达绘制位开放取笔与铜扣
+PASS 绘符位仍未触发祭坛
+SHOT 02-at-broken-bridge 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 真实手势观测从腰槽拿取同一实笔
+PASS 按实体铜扣才打开方直之矩；template=Assets/Art/Glyphs/SquareRule.asset floor=(-9.1214, 80.0000, 57.8501)
+SHOT 03-panel-open-player-direction 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 原笔尖模板轨迹匹配成功，结算前仍为断桥
+PASS 方直之矩结算，正式修复桥面开启
+PASS 成功只结算一次并收起视图
+SHOT 04-bridge-repaired 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 真实玩家沿修复后的实体桥面跨过缺口
+PASS 实际进入祭坛首次启动房间，前一脚=(-9.1214, 80.0000, 37.8310) 首次触发脚=(-9.1214, 80.0000, 37.7660) camera=(-9.1214, 81.2000, 37.7660) cameraForward=(0.0000, 0.0000, -1.0000) walked=25.934m steps=399
+PASS 首次房间出生真实背石工奴及镇石
+PASS 同一活动租约、完整生命、原工奴配置与背载状态；prefab=Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab HP=50 carrier=(-9.1214, 80.0833, 35.0000) stone=(-8.4350, 81.8988, 34.9977) lease=1
+PASS 真实 Animator 已进入工奴持石剪辑
+ANIM controller=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller avatar=Assets/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx state=1590997948 carry=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkCarryingPerson.fbx clipName=CanJiOu_WalkCarryingPerson phase=0.00000 culling=AlwaysAnimate
+PASS 首遇 Game 相机剔除层与视锥内存在有效材质工奴实体 renderer；active=2 frustum=2
+OCCLUSION eye=(-9.1214, 81.2000, 37.7660) actorBounds=Center: (-8.79, 81.26, 34.84), Extents: (1.10, 1.41, 1.25) viewport=(0.4263, 0.2680, 2.9250) first=no physics blocker | viewport=(0.4263, 0.5183, 2.9250) first=no physics blocker | viewport=(0.4263, 0.7685, 2.9250) first=no physics blocker
+SHOT 05-first-encounter 1280x960 eye=(-9.1214, 81.2000, 37.7660) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-encounter-without-carrier-body 1280x960 eye=(-9.1214, 81.2000, 37.7660) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-encounter-repeat 1280x960 eye=(-9.1214, 81.2000, 37.7660) forward=(0.0000, 0.0000, -1.0000)
+PROJECTED BODY RECT left/bottom/right/top=0,0,1022,959
+PASS 同一玩家相机同帧 A/B/A 实拍，仅关工奴实体 renderer 后，模型投影范围存在可分辨像素；within=59926 changed=59926 changedRect(bottomLeft)=323,0..906,676 stableRepeat=1228800/1228800
+PASS 产线受击入口接受非致命攻击，生命下降并携原石撤离；HP 50 → 49
+PASS 真实撤离行为产生位移
+SHOT 06-hit-and-retreat 1280x960 eye=(-9.1214, 81.2000, 37.7660) forward=(0.0000, 0.0000, -1.0000)
+END floor=(-9.1214, 80.0000, 37.7660) start=(-9.1214, 80.0000, 57.8501) total=25.934m
+PASS END

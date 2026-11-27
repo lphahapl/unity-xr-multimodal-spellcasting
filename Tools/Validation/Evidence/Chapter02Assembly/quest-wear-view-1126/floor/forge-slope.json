@@ -1,0 +1,75 @@
+{
+  "formalSceneSha256": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "meshAsset": "Assets/Art/Environment/SuspendedPath/ApprovedWorkshop/ForgeR3/门槛接坡.asset",
+  "meshSha256": "9530f121e35db6205aa6b55f14876fa924c52507eae0c9d1dce2e787a62d3dd3",
+  "guid": "10f3a23799362494aa469628acae0ffd",
+  "gameObjectFileId": "609277341",
+  "componentFileIds": {
+    "64": "609277343",
+    "33": "609277345"
+  },
+  "upperSlopeTriangles": [
+    {
+      "centreWorld": [
+        13.273704591852079,
+        0.1546666668727994,
+        43.871242949943785
+      ],
+      "upNormal": [
+        0.1625749319400286,
+        0.9865936776453064,
+        -0.014223457209992936
+      ],
+      "slopeDegrees": 9.392449032216833,
+      "vertices": [
+        [
+          14.088434771233965,
+          0.00800000037997961,
+          43.01029175925662
+        ],
+        [
+          12.763495775556237,
+          0.2280000001192093,
+          43.12620884983135
+        ],
+        [
+          12.969183228766036,
+          0.2280000001192093,
+          45.477228240743386
+        ]
+      ]
+    },
+    {
+      "centreWorld": [
+        13.783913408147923,
+        0.0813333336263895,
+        44.61627705005622
+      ],
+      "upNormal": [
+        0.16257493194002856,
+        0.9865936776453064,
+        -0.01422345720999293
+      ],
+      "slopeDegrees": 9.392449032216833,
+      "vertices": [
+        [
+          14.088434771233965,
+          0.00800000037997961,
+          43.01029175925662
+        ],
+        [
+          12.969183228766036,
+          0.2280000001192093,
+          45.477228240743386
+        ],
+        [
+          14.294122224443765,
+          0.00800000037997961,
+          45.36131115016865
+        ]
+      ]
+    }
+  ],
+  "supportHeightDifferenceFor30cmHorizontalAlongSteepestSlope": 0.049624058490327236,
+  "method": "Decoded Unity vertex/index buffers; both renderer MeshFilter and nonconvex MeshCollider on the same scene GameObject reference this exact mesh. Ideal surface differential, before PhysX contact skin and XR sampling."
+}

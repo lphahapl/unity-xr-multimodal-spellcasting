@@ -1,0 +1,296 @@
+{
+  "kind": "static binding + deterministic numerical replay (no Unity Play and no HMD)",
+  "sceneSHA": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "files": {
+    "Assets/Scene/Chapter02_SuspendedPath.unity": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\XROriginCameraRig.prefab": "724dc5ab12bd4ae631b51eb3f0b6ab49a92b5e91d9427921910f57ecc0f95166",
+    "Library/Bee/artifacts/1300b0aE.dag/Oculus.Interaction.UnityXR.rsp": "dffb7fc133f3e0b13be53e6a8a895fcc22c3b3530e4e5340c3b719745b1e7719",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\OpenXR\\OpenXRHandPrimitives.cs": "e6bc5b19878db6c5fc545990f65522e80d42ed9fcf110d94849311e610f89dce",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualLeft.prefab": "6a1f132a6444866b4ab28c8006c0b216a89631c7ef8c0cf0d6ecab9828493221",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualLeft.prefab.meta": "539ec85835504d2063f6c5d808d408651db933185b002646fb69747b2b22c63a",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualRight.prefab": "3e8d96338dfc8aa662bb4e25218cfaabf83b42b65422a50d1b9737289d30d6fd",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualRight.prefab.meta": "4060203771eeb1abe5c4881558870c572519a1f4de2d1b2b926f3bead312c196",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Scripts\\FromUnityXRHandDataSource.cs": "e083063f8582d93543affed1f732a71fbabc7d7b8da772881a2d278d0328df8a",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\Hands\\Hand.cs": "e7ce1439c98c6d0574a20451a001f89c1071b637835b8157cc7c6512c4e061d0",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\Hands\\HandJointsCache.cs": "8905633228183cea7953e2c27d7fdc6d3b4ff9c6fc2c759c55ee1a4380598912",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\TransformTrackingToWorldTransformer.cs": "45e3d7dfa4da122e5693327d24d4449c42bef3af43204affff3d6b5395c816a4",
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Interaction\\Visuals\\HandVisual.cs": "8666e532a08e4fc2a26cac4d82898b7095805385d7966376e63db137820d0e9e",
+    "Assets/scripts/logic/SealLab/SealLab.cs": "4c948cd6c7ff1c8d552900c57790f88cf603ce90fc6a92ec4022ee139540a6d5",
+    "Assets/scripts/logic/SealLab/SealXRHandsSource.cs": "575418251da123043a0cd94e6e51946daa85d4b1fbac13dc3912d7e29bb333da",
+    "Assets/scripts/logic/Rpg/PlayerInputController.cs": "a5f8481a66e24e0e63d76be6365fbcffd15b0d9679478b542890ad0b62283b77",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": "ac1202bccaf116f0cf2dad9101bb6661c0050fb7216a2741b129b885e22077d3",
+    "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs": "3e36d631301d128b8bf0cfeeed3f56e846567256e61e87e43bc73c42c6879d28",
+    "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs": "b7fdc02eac311ef9980b106abb2b5c810fbaba61ca3a3d84872eb1349e2545a0",
+    "Assets/Art/Props/ShenShangToolBelt/ChapterToolBelt.prefab": "3a7677f59b4e18f8baada83af1b3282e91643a6940960003a3d1caa73d99dd53",
+    "Assets/Art/Props/MoGuiPen/MoGuiPen.prefab": "d14bddb548bd07ebf2855974cbb47c61da8d664101f8414068a8b64373748648",
+    "Assets/Art/Props/TravelRation/TravelRationPouch.prefab": "de8f5cf3be219fe734c758111f9467712be496b52180c34f98d903c3eeaf85e3"
+  },
+  "lineMarkers": {
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Scripts\\FromUnityXRHandDataSource.cs": {
+      "_dataAsset.Root = hand.rootPose": 272,
+      "PoseUtils.Delta(_dataAsset.Root, pose)": 305,
+      "Config.TrackingToWorldTransformer = TrackingToWorldTransformer": 220
+    },
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\Hands\\Hand.cs": {
+      "_jointPosesCache.GetWorldJointPose(handJointId)": 187,
+      "TrackingToWorldTransformer?.Transform": 126
+    },
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\Hands\\HandJointsCache.cs": {
+      "base.Update(dataVersion, data.Root, data.JointPoses, data.HandScale, trackingSpace)": 181
+    },
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Input\\TransformTrackingToWorldTransformer.cs": {
+      "trackingToWorldSpace.TransformPoint(pose.position)": 35
+    },
+    "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\Scripts\\Interaction\\Visuals\\HandVisual.cs": {
+      "Root.position = handRootPose.position": 295,
+      "Root.localScale = Hand.Scale / parentScale": 305,
+      "Joints[i].SetPose(localJoints[i], Space.Self)": 319
+    },
+    "Assets/scripts/logic/SealLab/SealLab.cs": {
+      "hand.GetJointPose((HandJointId)i": 176,
+      "recordingOrigin.InverseTransformPoint(pose.position)": 178,
+      "xrHandsSource.Capture(true, recordingOrigin": 126
+    },
+    "Assets/scripts/logic/SealLab/SealXRHandsSource.cs": {
+      "SealLab.CaptureHand(hand, origin": 103,
+      "XRHandJointID.Wrist => (int)HandJointId.HandWristRoot": 91,
+      "snapshot.jointValid[i] &= available && valid[i]": 116
+    },
+    "Assets/scripts/logic/Rpg/PlayerInputController.cs": {
+      "f.rightTip=World(hand.joints[tip].position)": 271,
+      "result.leftIndex = World(frame.left.joints[index].position)": 171,
+      "Tracking.recordingOrigin.TransformPoint(position)": 328
+    },
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": {
+      "carriedBelt.StepFromGlyph(hand, now)": 138
+    },
+    "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs": {
+      "!input.tipUnavailable && input.gripPoseValid && input.pinchValid": 86,
+      "if (!Held) PickNearest(input.rightTip)": 104,
+      "float sq = (tip - item.GripPosition).sqrMagnitude": 124,
+      "(tip - dock.opening.position).sqrMagnitude": 126,
+      "TryTake(nearest, false)": 130
+    },
+    "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs": {
+      "if (leftDown && TryLiftBag(0, left))": 115,
+      "if (rightDown) TryLiftBag(1, right)": 116,
+      "new PinchSample((a + b) * .5f": 92,
+      "(sample.Position - pouch.GripPosition).sqrMagnitude > bagReach * bagReach": 162,
+      "sharedBelt.TryTake(pouch, true)": 165
+    }
+  },
+  "trackingSpace": {
+    "sceneTransform": "79008832",
+    "sdkPrefabTransform": "521555727181035328",
+    "sdkGameObject": "521555727181035329",
+    "transformer": "379468230"
+  },
+  "officialHands": {
+    "Left": {
+      "prefab": "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualLeft.prefab",
+      "handFileId": "1508473943",
+      "skinFileId": "6322248457788874492",
+      "indexTipFileId": "5338448253101427836",
+      "indexTipName": "XRHand_IndexTip"
+    },
+    "Right": {
+      "prefab": "Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\UnityXR\\Prefabs\\Hands\\UnityXRHandVisualRight.prefab",
+      "handFileId": "1827239490",
+      "skinFileId": "4977767668859285325",
+      "indexTipFileId": "4829731987705770480",
+      "indexTipName": "XRHand_IndexTip"
+    }
+  },
+  "rigidSpaceReplays": 108,
+  "maximumVisualToInputErrorM": 1.4238583238573986e-14,
+  "itemGeometry": {
+    "PhysicalMoGuiPen": {
+      "grip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "boxCenter": [
+        0.0,
+        0.0,
+        -0.013
+      ],
+      "boxSize": [
+        0.014,
+        0.016,
+        0.228
+      ],
+      "grabRadius": 0.09
+    },
+    "TravelRationPouch": {
+      "grip": [
+        0.0,
+        0.055,
+        0.007423
+      ],
+      "boxCenter": [
+        0.0,
+        0.0301,
+        0.0
+      ],
+      "boxSize": [
+        0.0448,
+        0.0603,
+        0.0158
+      ],
+      "grabRadius": 0.04
+    }
+  },
+  "actualPrefabContactReplays": [
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "tail-top touch",
+      "floorY": -33.0,
+      "worldContactY": -32.983999999999995,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 127.2517,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "tail-top touch",
+      "floorY": 0.0,
+      "worldContactY": 0.016,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 127.2517,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "tail-top touch",
+      "floorY": 80.0,
+      "worldContactY": 80.01599999999999,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 127.2517,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "nib-end top touch",
+      "floorY": -33.0,
+      "worldContactY": -32.983999999999995,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 101.3163,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "nib-end top touch",
+      "floorY": 0.0,
+      "worldContactY": 0.016,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 101.3163,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "nib-end top touch",
+      "floorY": 80.0,
+      "worldContactY": 80.01599999999999,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 101.3163,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "middle-top touch",
+      "floorY": -33.0,
+      "worldContactY": -32.983999999999995,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 8.0,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": true
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "middle-top touch",
+      "floorY": 0.0,
+      "worldContactY": 0.016,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 8.0,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": true
+    },
+    {
+      "item": "PhysicalMoGuiPen",
+      "contact": "middle-top touch",
+      "floorY": 80.0,
+      "worldContactY": 80.01599999999999,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 8.0,
+      "radiusMm": 90.0,
+      "existingPickupAccepts": true
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "bottom seam touch",
+      "floorY": -33.0,
+      "worldContactY": -32.9842,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 55.0521,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "bottom seam touch",
+      "floorY": 0.0,
+      "worldContactY": 0.0158,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 55.0521,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "bottom seam touch",
+      "floorY": 80.0,
+      "worldContactY": 80.01580000000001,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 55.0521,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": false
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "grip seam touch",
+      "floorY": -33.0,
+      "worldContactY": -32.9842,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 0.477,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": true
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "grip seam touch",
+      "floorY": 0.0,
+      "worldContactY": 0.015800000000000005,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 0.477,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": true
+    },
+    {
+      "item": "TravelRationPouch",
+      "contact": "grip seam touch",
+      "floorY": 80.0,
+      "worldContactY": 80.01580000000001,
+      "surfaceGapMm": 0.0,
+      "gripGapMm": 0.477,
+      "radiusMm": 40.0,
+      "existingPickupAccepts": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+PASS 修桥后存档恢复实笔与原腰槽
+PASS 本次进入真实修桥后的阶段
+PASS 玩家自由画板实际绑定一个千钧模板；全部可用模板=glyph.passage,glyph.qianjun
+配置原引用 template=Assets/Art/Glyphs/Qianjun.asset effect=Assets/Art/Glyphs/QianjunTether.asset
+PASS 旧档恢复后尚未交战，三个不同的正式非召唤出生点均在原房间
+PASS 读档后接入既有守敌预显，三只正式租约及背载 A4 已就位
+PASS 尚未入场，三敌待机、A4 仍背载，入槽与符力锁定
+PASS 读修桥档后经实桥走入祭坛 (-9.1214, 80.0000, 63.7000) → (-9.1214, 80.0000, 40.9509)
+PASS 原房间全体正式租约到场：远程、搬运、近战
+PASS 首次步入原房间直接启用同一批守敌租约与原 A4
+PASS 三只敌人使用不同租约，A4 由原工奴背载，刚体=-6254 石=-6258
+PASS 原镇石活动渲染件来自定稿 A4 FBX，网格实例编号=73148,73160,73170,73174,73182,73166,73190,73178
+出场租约 zhihuocanji=3, stone-carrier=1, canjiou=2
+PASS 三敌可受击，工奴持石姿态有效
+PASS 实际租约与 A4 的上背剪辑=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx 背负局部位置=(0.0002, 1.6704, -0.1698)
+PASS 真实受击结算 zhihuocanji 租约=3
+PASS 已败 1/3，玩家在原乘员盒，剩余守备阻止石受力、入槽和 A 启动；同石 -6258/-6254
+PASS 回祭坛后同一批存活租约恢复可命中
+PASS 远程先死，A4 仍在搬运者身上
+PASS 原工奴未死，轻击触发原撤退
+PASS 撤到正式掉落边缘
+DROP-BEFORE stone=-6258 rigid=-6254 local=(-0.0208, 1.6948, -0.1713) world=(-9.1006, 81.7781, 29.7074)
+PASS 真实受击结算 stone-carrier 租约=1
+DROP-AFTER stone=-6258 rigid=-6254 world=(-9.1006, 81.7781, 29.7074) dynamic=True
+PASS 搬运第二死，同一 A4 和刚体实物落地
+PASS 已败 2/3，玩家在原乘员盒，剩余守备阻止石受力、入槽和 A 启动；同石 -6258/-6254
+PASS 回祭坛后同一批存活租约恢复可命中
+PASS 真实受击结算 canjiou 租约=2
+PASS 近战最后死，原战区首次且仅一次清场
+PASS 清场后人在篮外，需登篮并实笔施符才能入槽
+PASS 进入原乘员盒才开放原石受力
+施符起点实际胶囊 floor=衡梁 · 支点与绳路/双臂衡梁 · 120 m/A 梁端吊点/A · 镇石配重吊篮 hits=[]
+PASS 施符站在原 A 乘员盒 (-9.1213, 81.2000, 21.8500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=1
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1218, 81.0500, 22.7500) hit=(-9.1265, 80.7437, 29.1271)
+PULL cast=1 from=(-9.1269, 80.7325, 29.7805) to=(-9.0872, 80.6862, 22.8746) toSlot=1.92613 movedByGlyph=True id=-6258
+PASS 玩家松手回同一笔套，释放前一轮持笔认领
+施符起点实际胶囊 floor=衡梁 · 支点与绳路/双臂衡梁 · 120 m/A 梁端吊点/A · 镇石配重吊篮/A 配重槽 · 净口 1.25 hits=[]
+PASS 施符站在原 A 乘员盒 (-9.1210, 81.2000, 20.3500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=2
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1215, 81.0500, 21.2500) hit=(-9.1049, 80.5630, 22.6134)
+PULL cast=2 from=(-9.1039, 80.5251, 23.1397) to=(-9.1214, 80.2450, 21.0000) toSlot=0.00000 movedByGlyph=True id=-6258
+PASS 从自由画板经自然玩家施符和物理牵引至真实入槽仅一次，前后同一镇石/刚体；matched=2 events=1 id=-6258/-6254
+PASS 入槽时原乘员与同一 A4 都在篮，三敌清场只发过一次
+PASS 入槽事件经正式运输开始 A 降程
+DELIVERED same mature stone -6258 rigidbody -6254 original clip CanJiOu_BackCarryWalk
+PASS END

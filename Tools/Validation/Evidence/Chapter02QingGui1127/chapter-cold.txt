@@ -1,0 +1,14 @@
+2026-11-27T11:45:38.3703823+08:00 6000.3.10f1 Assets/Scene/Chapter02_SuspendedPath.unity cold
+PASS formal player ready
+MESH QingGuiR03_BronzeFrame_LOD0 QingGuiR03_BronzeFrame_LOD0 mat=BronzeFrame (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Opaque Gold
+MESH QingGuiR03_GoldWire_LOD0 QingGuiR03_GoldWire_LOD0 mat=GoldWire (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Opaque Gold
+MESH QingGuiR03_JadeCore_LOD0 QingGuiR03_JadeCore_LOD0 mat=WarmWhiteJade (UnityEngine.Material) shader=NarutoVR/Props/QingGui R03 Warm Nephrite
+PASS visible mesh
+PASS independent jade, bronze and gold renderers
+PASS all visible materials supported
+LOCAL AABB (-0.056801, 0.000000, -0.053783) (0.053829, 0.350000, 0.053783)
+PASS bottom pivot and nominal 35 cm geometry
+PASS grip at 230 mm
+PASS cold checkpoint restores seated milestone
+PASS seated item, circuits, no duplicate commit on cold start
+PASS END

@@ -1,0 +1,24 @@
+{
+  "unity": "6000.3.10f1",
+  "activeProject": "D:/Temp/Ch02WalkContact-1126/Project",
+  "headset": false,
+  "editMode": {
+    "exitCode": 0,
+    "suites": [
+      "EncounterMovementChecks PASS 71",
+      "RayNavigationChecks PASS 47",
+      "WristTapChecks PASS 40",
+      "WristMenuChecks PASS 52"
+    ]
+  },
+  "glyphPlayMode": {
+    "exitCode": 0,
+    "summary": "GlyphPlayChecks PASS: 真实 GlyphLab 引用，右手取笔/多笔千钧/指物/断线/移动抢占/剧情方矩。",
+    "combatModes": [
+      "NodeTeleport / held pen on no floor, movement refused",
+      "PointWalk / story glyph and first valid right-hand push"
+    ]
+  },
+  "aimProfileSHA256": "e1a4674e79b20afe17d46c88f337d3c32948a5c56f29e65b611a2acde1d3d651",
+  "verifiedTargets": 16
+}

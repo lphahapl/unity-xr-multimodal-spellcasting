@@ -1,0 +1,48 @@
+{
+  "method": "Formal editor state, asset refresh, state. No Play, no headset.",
+  "actions": [
+    {
+      "utc": "2026-11-26T23:57:12.0737860+08:00",
+      "requestWrittenUtc": "2026-11-26T15:57:11.9798608Z",
+      "action": "state",
+      "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+      "playing": false,
+      "paused": false
+    },
+    {
+      "utc": "2026-11-26T23:58:32.6533069+08:00",
+      "requestWrittenUtc": "2026-11-26T15:58:32.6331294Z",
+      "action": "refresh",
+      "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+      "playing": false,
+      "paused": false
+    },
+    {
+      "utc": "2026-11-26T23:59:39.8758089+08:00",
+      "requestWrittenUtc": "2026-11-26T15:59:39.8579910Z",
+      "action": "state",
+      "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+      "playing": false,
+      "paused": false
+    }
+  ],
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "sceneSha256": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "officialCompiledAssemblies": {
+    "Runtime": {
+      "sha256": "a148f4815c293705929df45319e3e84aa0e7c7b96a19e56a17abf1cbec68c3c3",
+      "symbols": [
+        "HandPickupQuery",
+        "TryWalkStep",
+        "PassageGlyphEffect"
+      ]
+    },
+    "Editor": {
+      "sha256": "5d96ae05d2be27d3002d1ec453ea1299cc408ffce89d00de02b95cae28157f31",
+      "symbols": [
+        "QuestFloorContactCapture"
+      ]
+    }
+  },
+  "oneShotArmed": true
+}

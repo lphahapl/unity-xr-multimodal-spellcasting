@@ -1,0 +1,331 @@
+{
+  "before": {
+    "disk": {
+      "exit": 0,
+      "shaBefore": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+      "shaAfter": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6"
+    },
+    "xr": "PASS samples=4523 updates=2199 fixedUpdates=123 lateUpdates=2198 frameRange=0..2199 runningDisplays=0 runningInputs=0 activeLoaders=0",
+    "pass": 56,
+    "pointer": "6db3e9bbadb5aebd06888b445d0eac499bb43a374baf0c373a43d891c98d1888"
+  },
+  "after": {
+    "disk": {
+      "exit": 0,
+      "shaBefore": "8c8189e23ed2a6ca15a6365ca3a15fe13c593367434b5a3062fbbe03c165fbc9",
+      "shaAfter": "8c8189e23ed2a6ca15a6365ca3a15fe13c593367434b5a3062fbbe03c165fbc9"
+    },
+    "xr": "PASS samples=4168 updates=2021 fixedUpdates=124 lateUpdates=2020 frameRange=0..2021 runningDisplays=0 runningInputs=0 activeLoaders=0",
+    "pass": 82,
+    "pointer": "c3124ef0829f22bbc52d0cae39dee6257f2082199349c29e5287757b78bc2676"
+  },
+  "targets": [
+    {
+      "name": "上层站姿L",
+      "x": "-9.021400",
+      "z": "63.630000",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层站姿R",
+      "x": "-9.221400",
+      "z": "63.630000",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层蹲姿L",
+      "x": "-9.004600",
+      "z": "63.664300",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层蹲姿R",
+      "x": "-9.194800",
+      "z": "63.602500",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层起立L",
+      "x": "-9.026500",
+      "z": "63.623200",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层起立R",
+      "x": "-9.226000",
+      "z": "63.637200",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "upper 低头蹲下L",
+      "x": "-8.999400",
+      "z": "63.695800",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "upper 低头蹲下R",
+      "x": "-9.167100",
+      "z": "63.586800",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "upper 起立转身L",
+      "x": "-9.053100",
+      "z": "63.598800",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "upper 起立转身R",
+      "x": "-9.239800",
+      "z": "63.670500",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层崖肩 / 明确板面",
+      "x": "-9.004400",
+      "z": "63.630000",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层崖肩 / 明确板缝",
+      "x": "-8.324400",
+      "z": "63.630000",
+      "beforeMm": -19.997,
+      "afterMm": -4.997,
+      "highest": "FoundationStone",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "上层共边崖肩",
+      "x": "-9.021400",
+      "z": "60.120000",
+      "beforeMm": -14.999,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "middle 低头蹲下L",
+      "x": "-5.999400",
+      "z": "20.395800",
+      "beforeMm": -20.0,
+      "afterMm": -5.0,
+      "highest": "FoundationStone",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "middle 低头蹲下R",
+      "x": "-6.167100",
+      "z": "20.286800",
+      "beforeMm": -15.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "middle 起立转身L",
+      "x": "-6.053100",
+      "z": "20.298800",
+      "beforeMm": -15.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "middle 起立转身R",
+      "x": "-6.239800",
+      "z": "20.370500",
+      "beforeMm": -15.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "中层A栈道 / 明确板面",
+      "x": "-6.036100",
+      "z": "20.298800",
+      "beforeMm": -15.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "中层A栈道 / 明确板缝",
+      "x": "-6.104100",
+      "z": "20.298800",
+      "beforeMm": -20.0,
+      "afterMm": -5.0,
+      "highest": "FoundationStone",
+      "newMinusOldMm": 15.0
+    },
+    {
+      "name": "中层共边A岸",
+      "x": "21.480000",
+      "z": "20.400000",
+      "beforeMm": -20.0,
+      "afterMm": -5.0,
+      "highest": "FoundationStone",
+      "newMinusOldMm": 15.0
+    }
+  ],
+  "controls": [
+    {
+      "name": "上层共边近岸",
+      "x": "-9.021400",
+      "z": "59.880000",
+      "beforeMm": -14.999,
+      "afterMm": -14.999,
+      "highest": "WorkshopPaving",
+      "newMinusOldMm": 0.0
+    },
+    {
+      "name": "中层共边换篮地坪",
+      "x": "21.730000",
+      "z": "20.400000",
+      "beforeMm": -15.0,
+      "afterMm": -15.0,
+      "highest": "WorkshopFlagstones",
+      "newMinusOldMm": 0.0
+    },
+    {
+      "name": "炉房坡L",
+      "x": "13.637300",
+      "z": "44.142800",
+      "beforeMm": 0.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopFlagstones",
+      "newMinusOldMm": 0.0
+    },
+    {
+      "name": "炉房坡R",
+      "x": "13.450600",
+      "z": "44.214500",
+      "beforeMm": 0.0,
+      "afterMm": 0.0,
+      "highest": "WorkshopFlagstones",
+      "newMinusOldMm": 0.0
+    },
+    {
+      "name": "谷底L",
+      "x": "77.039600",
+      "z": "20.298800",
+      "beforeMm": 0.0,
+      "afterMm": 0.0,
+      "highest": "GorgeStrata",
+      "newMinusOldMm": 0.0
+    },
+    {
+      "name": "谷底R",
+      "x": "76.839600",
+      "z": "20.400000",
+      "beforeMm": 0.0,
+      "afterMm": 0.0,
+      "highest": "GorgeStrata",
+      "newMinusOldMm": 0.0
+    }
+  ],
+  "brush": [
+    {
+      "area": "上层崖肩",
+      "part": "尾段",
+      "beforeMeshMm": 15.709,
+      "afterMeshMm": 0.71,
+      "beforePhysicalMm": 14.992,
+      "afterPhysicalMm": -0.008,
+      "contactSupport": "01 · 石门与断桥  +80 m/门外崖肩"
+    },
+    {
+      "area": "上层崖肩",
+      "part": "中段",
+      "beforeMeshMm": 15.129,
+      "afterMeshMm": 0.13,
+      "beforePhysicalMm": 14.992,
+      "afterPhysicalMm": -0.008,
+      "contactSupport": "01 · 石门与断桥  +80 m/门外崖肩"
+    },
+    {
+      "area": "上层崖肩",
+      "part": "尖段",
+      "beforeMeshMm": 15.244,
+      "afterMeshMm": 0.244,
+      "beforePhysicalMm": 14.992,
+      "afterPhysicalMm": -0.008,
+      "contactSupport": "01 · 石门与断桥  +80 m/门外崖肩"
+    },
+    {
+      "area": "中层A栈道",
+      "part": "尾段",
+      "beforeMeshMm": 15.716,
+      "afterMeshMm": 0.716,
+      "beforePhysicalMm": 15.001,
+      "afterPhysicalMm": 0.001,
+      "contactSupport": "04 · 衡梁中控  ±0 m/A 岸接驳栈道"
+    },
+    {
+      "area": "中层A栈道",
+      "part": "中段",
+      "beforeMeshMm": 15.138,
+      "afterMeshMm": 0.138,
+      "beforePhysicalMm": 15.001,
+      "afterPhysicalMm": 0.001,
+      "contactSupport": "04 · 衡梁中控  ±0 m/A 岸接驳栈道"
+    },
+    {
+      "area": "中层A栈道",
+      "part": "尖段",
+      "beforeMeshMm": 15.247,
+      "afterMeshMm": 0.247,
+      "beforePhysicalMm": 15.001,
+      "afterPhysicalMm": 0.001,
+      "contactSupport": "04 · 衡梁中控  ±0 m/A 岸接驳栈道"
+    }
+  ],
+  "sources": {
+    "Assets/Art/Glyphs/PassageEffect.asset": "da41497be3f46a6d9a3368dce79ae649b3c9bf6f3dc2670b5ce6c1993ae2fd1a",
+    "Assets/scripts/logic/Interaction/Items/HandPickupQuery.cs": "d5dd3c9a2b5b88d0b28c9472b4d31ffc2e75f1a4069001eff6bbcfc6c1835d15",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": "4d0b5905215c04ac94d8e3487debed38443b1bd8cdf6d8d8373729f848fc5443",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Exploration.cs": "e4d4ac052ce8f08cf81e224c20a29680bad4f257760d42424b8e0159eebe679b",
+    "Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs": "26a23a0ac243482458e6920392694b4e37a8fe96b80e4c25434b351fa63d140a",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": "6d4cf74a7412f4a3d61a63d1d06a091a9f1b035d0557eb038ca2b0dc78bf06af",
+    "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphRoad.cs": "b1352efe65e0e871cc70b6983353ba06245b23e99a7a4beb4577f874e85f968f"
+  },
+  "candidate": {
+    "Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset": "f54f03c9def9bf756bb29a6ae0b2af5381f423c908049bf29cfaad5b9c676861",
+    "Assets/Art/Environment/SuspendedPath/Chapter02EntranceShoulderTread.asset": "fd7830a66a5177091fa2d7b3022715de7f0030287311eee8a7fbc6bcf194e0cd",
+    "Assets/Art/Environment/SuspendedPath/Chapter02EntranceShoulderTread.asset.meta": "11024ab7b1a819bd29562ebb861f6e71e2848fb4c330f3b22c0d694dc50f2173",
+    "Assets/Scene/Chapter02_SuspendedPath.unity": "8c8189e23ed2a6ca15a6365ca3a15fe13c593367434b5a3062fbbe03c165fbc9"
+  }
+}

@@ -1,0 +1,44 @@
+2026-11-27T19:52:22.495209+08:00 Unity 6000.3.10f1
+PASS authored profile
+PASS live chapter shooter used for aiming
+PASS live chapter shooter used for aiming
+multitarget dir=(0.02254, 0.00000, 0.99975)
+PASS closest visible silhouette receives bounded nudge
+PASS switch off restores raw direction and persists
+PASS direct hit preserves exact direction
+PASS occluded target cannot attract gaze
+PASS occluded cast origin refuses assistance even with clear view
+PASS inactive enemies and empty space keep raw ray
+PASS real sword wave travels along assisted preview
+PASS live chapter shooter used for aiming
+PASS real fireball cast starts
+fire mode=GripThrow 1 status=火球已发射 dir=(0.02310, 0.01111, 0.99967)
+PASS real fireball hand release launches toward off-axis enemy
+PASS Feiyan imported 20 m / 0.30 m, blocked=False
+PASS Feiyan ember armed
+PASS live chapter shooter used for aiming
+PASS Feiyan ember reticle
+PASS Feiyan reticle shows actual occlusion=False
+PASS actual Feiyan release matches reticle, blocked=False
+PASS visible 16 m near miss gets bounded correction
+PASS actual player fireball materials supported
+PASS real 0.30 m bolt hits corrected enemy at 16 m
+PASS Feiyan imported 20 m / 0.30 m, blocked=True
+PASS Feiyan ember armed
+PASS live chapter shooter used for aiming
+PASS Feiyan ember reticle
+PASS Feiyan reticle shows actual occlusion=True
+PASS actual Feiyan release matches reticle, blocked=True
+PASS actual player fireball materials supported
+PASS real 0.30 m bolt hits cover without damaging target
+PASS real sustained stream starts
+PASS actual sustained Dragon spray materials supported on Direct3D11
+PASS Dragon imported 2.1 m / 0.28 m
+PASS live chapter shooter used for aiming
+body radius=0.3200073 spray=0.28
+dragon raw=(0.2470, 0.1593, 0.9558) corrected=(0.2722, 0.1593, 0.9490) head=(0.00, 0.00, 1.00)
+PASS stream assist uses actual seal direction and retains head orientation
+PASS active dragon stream and reticle share corrected hand-seal ray
+PASS corrected short-range stream actually damages its visible target
+PASS 0.28 m continuous stream blocked by wall
+PASS END

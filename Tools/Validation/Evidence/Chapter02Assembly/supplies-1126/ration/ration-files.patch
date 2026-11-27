@@ -1,0 +1,739 @@
+diff --git a/Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs b/Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs
+--- a/Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs
++++ b/Assets/scripts/logic/Interaction/Items/ToolBeltInteraction.cs
+@@ -24,6 +24,7 @@
+         internal bool OwnsHeldItem(GameItemBase item) => item && Held == item && item.IsHeld &&
+             player && player.Input.OwnsInteraction(this, claim);
+         long claim;
++        bool auxiliaryGrip;
+         bool armed, confirmPinchAfterLoss;
+         Quaternion yaw = Quaternion.identity;
+ 
+@@ -81,6 +82,7 @@
+             if (mouth) mouth.UpdateFinish(player.Player, canAct);
+             if (!canAct || (claim != 0 && (!Held || !Held.isActiveAndEnabled || !player.Input.OwnsInteraction(this, claim))))
+             { ReleaseHand(false); armed = false; if (mouth) mouth.ResetContact(); return; }
++            if (auxiliaryGrip) return;
+             bool fresh = !input.tipUnavailable && input.gripPoseValid && input.pinchValid && !input.pinchTransition &&
+                 PlayerHandObservation.Fresh(input.rightValid, input.rightObserved, now, player.handSampleMaxAge);
+             if (!fresh || (confirmPinchAfterLoss && !input.PinchDown(.03f)))
+@@ -125,15 +127,35 @@
+                 if (sq < distance || (sq == distance && (!nearest || (nearest.Dock && !item.Dock))))
+                 { distance = sq; nearest = item; }
+             }
+-            if (!nearest || !player.Input.TryAcquireInteraction(this, out claim)) return;
+-            if (nearest.Take()) { Held = nearest; player.skills.InvalidateEarlierVoice(); }
+-            else { player.Input.ReleaseInteraction(this, claim); claim = 0; }
++            TryTake(nearest, false);
++        }
++
++        internal bool TryTake(GameItemBase item, bool auxiliary)
++        {
++            if (!item || !isActiveAndEnabled || Held || !player.CanAct || player.UiInputOwned ||
++                player.StateCommitInProgress || !player.Input.TryAcquireInteraction(this, out claim)) return false;
++            if (!item.Take())
++            {
++                player.Input.ReleaseInteraction(this, claim);
++                claim = 0;
++                return false;
++            }
++            Held = item;
++            auxiliaryGrip = auxiliary;
++            if (player.skills) player.skills.InvalidateEarlierVoice();
++            return true;
++        }
++
++        internal void ReleaseAuxiliary(GameItemBase item, bool putAway)
++        {
++            if (auxiliaryGrip && Held == item) ReleaseHand(putAway);
+         }
+ 
+         void ReleaseHand(bool putAway)
+         {
+             var item = Held;
+             Held = null;
++            auxiliaryGrip = false;
+             confirmPinchAfterLoss = false;
+             if (player && claim != 0) player.Input.ReleaseInteraction(this, claim);
+             claim = 0;
+diff --git a/Assets/scripts/logic/Interaction/Items/GameItemBase.cs b/Assets/scripts/logic/Interaction/Items/GameItemBase.cs
+--- a/Assets/scripts/logic/Interaction/Items/GameItemBase.cs
++++ b/Assets/scripts/logic/Interaction/Items/GameItemBase.cs
+@@ -25,6 +25,7 @@
+         public SnapZone Dock { get; private set; }
+         public SnapZone LastDock { get; private set; }
+         public SnapZone PickupSource { get; private set; }
++        internal Quaternion PickupRotation => lastDockRotation;
+         Quaternion dockRotation, lastDockRotation;
+         public Vector3 GripPosition => grip ? grip.position : transform.position;
+         Rigidbody body;
+diff --git a/Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs b/Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs
+--- a/Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs
++++ b/Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs
+@@ -13,6 +13,8 @@
+         public TravelRationPouch pouch;
+         public MouthConsumeZone mouth;
+         public Transform belt;
++        // When supplied, the chapter belt alone owns both the input claim and return-to-slot policy.
++        [HideInInspector] public ToolBeltInteraction sharedBelt;
+         public Vector3 beltOffset = new(0, -.39f, .16f);
+         public Vector3 mouthOffset = new(0, -.085f, .055f);
+         public float bagReach = .04f;
+@@ -47,9 +49,9 @@
+             if (!head) return;
+             var forward = Vector3.ProjectOnPlane(head.forward, Vector3.up);
+             if (forward.sqrMagnitude > .01f) yaw = Quaternion.LookRotation(forward);
+-            if (belt) belt.SetPositionAndRotation(head.position + yaw * beltOffset, yaw);
++            if (!sharedBelt && belt) belt.SetPositionAndRotation(head.position + yaw * beltOffset, yaw);
+             mouth.transform.SetPositionAndRotation(head.TransformPoint(mouthOffset), head.rotation);
+-            if (!initialised)
++            if (!sharedBelt && !initialised)
+             {
+                 if (pouch.home is ToolBeltSlot slot && slot.opening)
+                 {
+@@ -64,7 +66,9 @@
+             Step(ReadHand(true, now), ReadHand(false, now), Time.deltaTime);
+         }
+ 
+-        protected virtual PinchSample ReadHand(bool left, double now)
++        protected virtual PinchSample ReadHand(bool left, double now) => ObserveHand(player, left, now);
++
++        internal static PinchSample ObserveHand(LinearRpgController player, bool left, double now)
+         {
+             var tracking = player.handTracking ? player.handTracking : player.skills ? player.skills.lab : null;
+             var frame = tracking ? tracking.Frame : null;
+@@ -90,12 +94,19 @@
+ 
+         internal void Step(PinchSample left, PinchSample right, float delta)
+         {
+-            if (!player.CanAct || player.UiInputOwned || player.StateCommitInProgress ||
++            if (!pouch || !pouch.isActiveAndEnabled || !mouth || !player.CanAct || player.UiInputOwned || player.StateCommitInProgress ||
++                (bagHand >= 0 && sharedBelt && !sharedBelt.OwnsHeldItem(pouch)) ||
+                 (claim != 0 && !player.Input.OwnsInteraction(this, claim)))
+             { Release(false); armed[0] = armed[1] = false; return; }
+ 
+             bool leftDown = Pressed(0, left);
+             bool rightDown = Pressed(1, right);
++            // Re-confirm both pinches after a tracking gap before the last bite can commit.
++            if (finishing && (!left.Valid || !right.Valid || left.Span >= .045f || right.Span >= .045f))
++            {
++                FinishServing();
++                armed[0] = armed[1] = false;
++            }
+             mouth.UpdateFinish(player.Player, true);
+             if (pouch.HasLifted && !serving) FinishServing();
+ 
+@@ -124,13 +135,17 @@
+                 { FinishServing(); return; }
+                 if (finishing) return;
+                 lostServing = !free.Valid || (lostServing && free.Span > .03f);
+-                if (lostServing) { mouth.Observe(serving, player.Player, false, 0); return; }
++                if (lostBag || lostServing) { mouth.Observe(serving, player.Player, false, 0); return; }
+                 if (free.Span >= .045f) { FinishServing(); return; }
+                 serving.MoveHeld(free.Position, free.Rotation);
+                 finishing = mouth.Observe(serving, player.Player, true, delta);
+                 return;
+             }
+-            if (!lostBag && (bagHand == 0 ? rightDown : leftDown)) serving = pouch.LiftBiscuit(free.Position, biscuitReach);
++            if (!lostBag && (bagHand == 0 ? rightDown : leftDown))
++            {
++                serving = pouch.LiftBiscuit(free.Position, biscuitReach);
++                if (serving && sharedBelt) serving.transform.SetParent(player.locomotion.transform, true);
++            }
+         }
+ 
+         bool Pressed(int index, PinchSample sample)
+@@ -144,13 +159,21 @@
+ 
+         bool TryLiftBag(int index, PinchSample sample)
+         {
+-            if (!pouch.isActiveAndEnabled || (sample.Position - pouch.GripPosition).sqrMagnitude > bagReach * bagReach ||
+-                !player.Input.TryAcquireInteraction(this, out claim)) return false;
+-            if (!pouch.Take()) { player.Input.ReleaseInteraction(this, claim); claim = 0; return false; }
++            if (!pouch.isActiveAndEnabled || (sample.Position - pouch.GripPosition).sqrMagnitude > bagReach * bagReach) return false;
++            if (sharedBelt)
++            {
++                if (!sharedBelt.TryTake(pouch, true)) return false;
++                pouch.transform.SetParent(player.locomotion.transform, true);
++            }
++            else
++            {
++                if (!player.Input.TryAcquireInteraction(this, out claim)) return false;
++                if (!pouch.Take()) { player.Input.ReleaseInteraction(this, claim); claim = 0; return false; }
++            }
+             bagHand = index;
+             lostBag = false;
+             pouch.MoveHeld(sample.Position, sample.Rotation);
+-            if (player.skills) player.skills.InvalidateEarlierVoice();
++            if (!sharedBelt && player.skills) player.skills.InvalidateEarlierVoice();
+             return true;
+         }
+ 
+@@ -176,6 +199,12 @@
+             if (bagHand < 0) return;
+             bagHand = -1;
+             if (!pouch) return;
++            if (sharedBelt)
++            {
++                sharedBelt.ReleaseAuxiliary(pouch, putAway);
++                if (!pouch.Dock && !pouch.IsHeld) pouch.transform.SetParent(null, true);
++                return;
++            }
+             pouch.Drop();
+             var home = pouch.PickupSource as ToolBeltSlot;
+             if (putAway && home && home.opening &&
+@@ -183,7 +212,13 @@
+                 pouch.ReturnToPickupSource();
+         }
+ 
+-        void OnDisable() => Release(false);
++        internal void ResetInteraction()
++        {
++            Release(false);
++            armed[0] = armed[1] = false;
++        }
++
++        void OnDisable() => ResetInteraction();
+     }
+ }
+ 
+diff --git a/Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs b/Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs
+--- a/Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs
++++ b/Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs
+@@ -17,6 +17,24 @@
+ 
+         readonly bool[] eaten = new bool[4];
+         int lifted = -1;
++        ConsumableItem liftedItem;
++        internal int ConsumedMask
++        {
++            get
++            {
++                int mask = 0;
++                for (int i = 0; i < eaten.Length; i++)
++                    if (eaten[i] || (i == lifted && liftedItem && liftedItem.Remaining == 0)) mask |= 1 << i;
++                return mask;
++            }
++        }
++
++        internal void RestoreContents(int mask)
++        {
++            for (int i = 0; i < eaten.Length; i++) eaten[i] = (mask & (1 << i)) != 0;
++            UpdateAppearance();
++        }
++
+         float openness;
+         Quaternion clothOpen, paperOpen;
+         readonly Vector3[] displayedPositions = new Vector3[4];
+@@ -83,6 +101,7 @@
+                 return null;
+             }
+             lifted = candidate;
++            liftedItem = serving;
+             UpdateAppearance();
+             return serving;
+         }
+@@ -97,6 +116,7 @@
+                 Destroy(serving.gameObject);
+             }
+             lifted = -1;
++            liftedItem = null;
+             UpdateAppearance();
+         }
+ 
+diff --git a/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs b/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs
+@@ -0,0 +1,104 @@
++using System;
++using NarutoVR.SealCombat.Rpg;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Items
++{
++    [DisallowMultipleComponent, DefaultExecutionOrder(365)]
++    public sealed class ChapterRationSupply : MonoBehaviour, IRpgCheckpointEquipment
++    {
++        [SerializeField] internal TravelRationInteraction interaction;
++        [SerializeField] internal TravelRationPouch pouchPrefab;
++        [SerializeField] internal ToolBeltSlot centralPocket;
++        RpgRationCheckpoint pending;
++
++        public bool HasPouch => interaction && interaction.pouch;
++        bool Ready => interaction && interaction.sharedBelt && interaction.sharedBelt.Initialised &&
++            interaction.sharedBelt.isActiveAndEnabled && interaction.player.IsReady;
++
++        // Optional quest/pickup UnityEvent entry. No chapter grants a pouch by default.
++        public void GrantFromReward() => TryGrant();
++
++        public bool TryGrant()
++        {
++            if (!Ready || HasPouch || pending != null || !pouchPrefab || !centralPocket ||
++                centralPocket.SnappedObject || !interaction.player.CanAct || interaction.player.StateCommitInProgress) return false;
++            var pouch = Spawn(centralPocket.opening.position, centralPocket.opening.rotation);
++            if (pouch.TryDock(centralPocket, Quaternion.Euler(pouch.stowEuler))) return true;
++            RemovePouch();
++            return false;
++        }
++
++        TravelRationPouch Spawn(Vector3 position, Quaternion rotation)
++        {
++            var pouch = Instantiate(pouchPrefab, position, rotation);
++            if (pouch.gameObject.scene != gameObject.scene)
++                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(pouch.gameObject, gameObject.scene);
++            pouch.transform.SetParent(interaction.player.locomotion.transform, true);
++            pouch.home = centralPocket;
++            interaction.pouch = pouch;
++            return pouch;
++        }
++
++        public void CaptureEquipment(RpgCheckpointData checkpoint)
++        {
++            if (pending != null) { checkpoint.ration = pending; return; }
++            if (!HasPouch) return;
++            var pouch = interaction.pouch;
++            var source = pouch.Dock ? pouch.Dock : pouch.IsHeld ? pouch.PickupSource : null;
++            var slot = source as ToolBeltSlot;
++            int index = slot ? Array.IndexOf(interaction.sharedBelt.slots, slot) : -1;
++            var rotation = pouch.transform.rotation;
++            if (index >= 0)
++                rotation = pouch.IsHeld ? pouch.PickupRotation : Quaternion.Inverse(slot.opening.rotation) * slot.LandingPose.rotation;
++            var position = pouch.transform.position;
++            checkpoint.ration = new RpgRationCheckpoint {
++                owned = true, spentMask = pouch.ConsumedMask, pocket = index + 1,
++                x = position.x, y = position.y, z = position.z,
++                qx = rotation.x, qy = rotation.y, qz = rotation.z, qw = rotation.w
++            };
++        }
++
++        public void RestoreEquipment(RpgCheckpointData checkpoint)
++        {
++            RemovePouch();
++            pending = checkpoint.ration != null && checkpoint.ration.owned ? checkpoint.ration : null;
++        }
++
++        void LateUpdate()
++        {
++            if (pending == null || !Ready) return;
++            var saved = pending;
++            pending = null;
++            var rotation = new Quaternion(saved.qx, saved.qy, saved.qz, saved.qw);
++            var position = new Vector3(saved.x, saved.y, saved.z);
++            var slot = saved.pocket > 0 && saved.pocket <= interaction.sharedBelt.slots.Length
++                ? interaction.sharedBelt.slots[saved.pocket - 1] as ToolBeltSlot : null;
++            var pouch = Spawn(position, slot && slot.opening ? slot.opening.rotation * rotation : rotation);
++            pouch.RestoreContents(saved.spentMask);
++            if (slot && slot.opening && !slot.SnappedObject)
++            {
++                pouch.transform.position = slot.opening.position;
++                if (pouch.TryDock(slot, rotation)) return;
++                pouch.transform.position = position;
++            }
++            pouch.transform.SetParent(null, true);
++            var body = pouch.GetComponent<Rigidbody>();
++            body.isKinematic = false;
++            body.useGravity = true;
++        }
++
++        void RemovePouch()
++        {
++            if (!interaction) return;
++            interaction.ResetInteraction();
++            var pouch = interaction.pouch;
++            if (!pouch) return;
++            interaction.pouch = null;
++            pouch.gameObject.SetActive(false);
++            Destroy(pouch.gameObject);
++        }
++
++        void OnDestroy() => RemovePouch();
++    }
++}
+diff --git a/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs b/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs
+@@ -0,0 +1,8 @@
++namespace NarutoVR.SealCombat.Rpg
++{
++    public interface IRpgCheckpointEquipment
++    {
++        void CaptureEquipment(RpgCheckpointData checkpoint);
++        void RestoreEquipment(RpgCheckpointData checkpoint);
++    }
++}
+diff --git a/Assets/scripts/logic/Rpg/LinearRpgController.cs b/Assets/scripts/logic/Rpg/LinearRpgController.cs
+--- a/Assets/scripts/logic/Rpg/LinearRpgController.cs
++++ b/Assets/scripts/logic/Rpg/LinearRpgController.cs
+@@ -154,6 +154,7 @@
+         RuntimeSkillCatalog runtimeSkills;
+         IRpgProgressConstraint[] progressConstraints = Array.Empty<IRpgProgressConstraint>();
+         IRpgCheckpointMigration checkpointMigration;
++        IRpgCheckpointEquipment checkpointEquipment;
+         IRpgStageInteractionContinuity stageInteractionContinuity;
+         public RpgSkillShop SkillShop { get; private set; }
+         internal RpgItemInventory ItemInventory { get; private set; }
+@@ -626,7 +627,9 @@
+         /// <summary>复制当前进度，补入章节检查点与资源，避免保存快照继续跟随会话变化。</summary>
+         RpgProgressData CaptureSaveCandidate()
+         {
+-            return Model.Export(Player.CaptureCheckpoint(GameTime), SaveNode(StageIndex, CampaignComplete).nodeId);
++            var snapshot = Player.CaptureCheckpoint(GameTime);
++            checkpointEquipment?.CaptureEquipment(snapshot);
++            return Model.Export(snapshot, SaveNode(StageIndex, CampaignComplete).nodeId);
+         }
+ 
+         /// <summary>排队保存最新快照；后来的有效进度覆盖更早快照，避免重试把玩家回滚。</summary>
+@@ -695,6 +698,7 @@
+             RefreshProgress();
+             skills.CancelInputOnly(); skills.effects.ClearAll(); locomotion.ResetInput();
+             locomotion.CommitCheckpointLanding(node, delta);
++            checkpointEquipment?.RestoreEquipment(restored.checkpoint);
+             stageEntered = true;
+             SyncStageSkills();
+             ApplyStage();
+@@ -880,6 +884,7 @@
+             if (!skills || !skills.catalog || !skills.effects || !skills.lab || !locomotion || !locomotion.head) throw new InvalidOperationException("缺少技能、效果、骨骼或导航接线");
+             var errors = skills.catalog.Validate(); if (errors.Count != 0) throw new InvalidOperationException(string.Join("；", errors));
+             if (!chapter) throw new InvalidOperationException("必须配置章节流程");
++            checkpointEquipment = GetComponent<IRpgCheckpointEquipment>();
+             checkpointMigration = GetComponents<IRpgCheckpointMigration>().SingleOrDefault();
+             stageInteractionContinuity = GetComponents<IRpgStageInteractionContinuity>().SingleOrDefault();
+             if (stages.Length == 0 || checkpointNodes.Length != stages.Length) throw new InvalidOperationException("阶段或检查点配置不完整");
+diff --git a/Assets/scripts/Persistence/RpgProgressData.cs b/Assets/scripts/Persistence/RpgProgressData.cs
+--- a/Assets/scripts/Persistence/RpgProgressData.cs
++++ b/Assets/scripts/Persistence/RpgProgressData.cs
+@@ -12,10 +12,25 @@
+     /// <summary>检查点资源快照，不包含临时效果或敌人状态。</summary>
+     [Serializable] public sealed class RpgCheckpointData
+     {
++        public RpgRationCheckpoint ration;
+         public float health = 100;
+         public float mana = 100;
+         public float manaRegenDelayRemaining;
+         public List<RpgCooldownData> cooldowns = new();
++    }
++    /// <summary>不存在或未持有时兼容旧档。pocket 从 1 计数，0 记录世界姿态。</summary>
++    [Serializable] public sealed class RpgRationCheckpoint
++    {
++        public bool owned;
++        public int spentMask, pocket;
++        public float x, y, z, qx, qy, qz, qw;
++        public bool IsValid()
++        {
++            if (!owned) return spentMask == 0 && pocket == 0;
++            float norm = qx*qx + qy*qy + qz*qz + qw*qw;
++            return spentMask >= 0 && spentMask <= 15 && pocket >= 0 && pocket <= 5 &&
++                float.IsFinite(x) && float.IsFinite(y) && float.IsFinite(z) && norm > .98f && norm < 1.02f;
++        }
+     }
+     /// <summary>技能 ID 与已获得等级；实际数值由该技能效果解释。</summary>
+     [Serializable] public sealed class RpgSkillLevelData
+diff --git a/Assets/scripts/Persistence/RpgSaveMapper.cs b/Assets/scripts/Persistence/RpgSaveMapper.cs
+--- a/Assets/scripts/Persistence/RpgSaveMapper.cs
++++ b/Assets/scripts/Persistence/RpgSaveMapper.cs
+@@ -51,7 +51,8 @@
+ 
+         internal static bool ValidateCheckpoint(RpgCheckpointData data, float maxHealth, float maxMana, out string reason)
+         {
+-            bool valid = TryReadVitals(data, out var state) && state.IsValid(maxHealth, maxMana);
++            bool valid = TryReadVitals(data, out var state) && state.IsValid(maxHealth, maxMana) &&
++                (data.ration == null || data.ration.IsValid());
+             reason = valid ? null : "检查点生命、能量或冷却无效";
+             return valid;
+         }
+diff --git a/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs b/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs
+@@ -0,0 +1,65 @@
++using System;
++using System.Linq;
++using NarutoVR.SealCombat.Items;
++using NarutoVR.SealCombat.Rpg;
++using NeuGameMRTools.Runtime.Components;
++using UnityEditor;
++using UnityEditor.SceneManagement;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    public static class ChapterRationInstaller
++    {
++        const string ScenePath = "Assets/Scene/Chapter02_SuspendedPath.unity";
++        const string PouchPath = "Assets/Art/Props/TravelRation/TravelRationPouch.prefab";
++
++        public static void Install()
++        {
++            var scene = EditorSceneManager.OpenScene(ScenePath);
++            var lesson = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Chapter02BridgeEquipment>(true)).Single();
++            var belt = lesson.equipment.interaction;
++            var pocket = belt.slots.OfType<ToolBeltSlot>().Single(slot => slot.opening && slot.opening.name == "SoftPouch");
++            if (!pocket || pocket.penHolster || !pocket.opening || pocket.width < .0448f || pocket.thickness < .0158f || pocket.depth < .0603f)
++                throw new InvalidOperationException("The central soft pouch cannot accept the approved packed ration.");
++            var item = AssetDatabase.LoadAssetAtPath<GameObject>(PouchPath).GetComponent<TravelRationPouch>();
++            if (!item || !item.servingPrefab) throw new InvalidOperationException(PouchPath);
++            var owner = lesson.player;
++            var supply = owner.GetComponent<ChapterRationSupply>();
++            if (supply)
++            {
++                if (supply.pouchPrefab != item || supply.centralPocket != pocket || !supply.interaction ||
++                    supply.interaction.player != owner || supply.interaction.sharedBelt != belt ||
++                    !supply.interaction.mouth || supply.interaction.mouth.transform.parent != owner.locomotion.head)
++                    throw new InvalidOperationException("Existing chapter ration wiring differs; inspect before merging.");
++                return;
++            }
++            var grab = owner.gameObject.AddComponent<TravelRationInteraction>();
++            var point = new GameObject("干粮口部判定");
++            point.transform.SetParent(owner.locomotion.head, false);
++            point.transform.localPosition = grab.mouthOffset;
++            var snap = point.AddComponent<SnapZone>();
++            var opts = new SerializedObject(snap);
++            opts.FindProperty("_requireNameMatch").boolValue = false;
++            opts.FindProperty("_followZoneDuringSnap").boolValue = true;
++            opts.FindProperty("_snapDuration").floatValue = .18f;
++            opts.ApplyModifiedPropertiesWithoutUndo();
++            var mouth = point.AddComponent<MouthConsumeZone>();
++            mouth.haptics = owner.GetComponent<HapticFeedbackService>();
++            var audio = point.GetComponent<AudioSource>();
++            audio.playOnAwake = false;
++            audio.spatialBlend = 1f;
++            grab.player = owner;
++            grab.sharedBelt = belt;
++            grab.mouth = mouth;
++            supply = owner.gameObject.AddComponent<ChapterRationSupply>();
++            supply.interaction = grab;
++            supply.centralPocket = pocket;
++            supply.pouchPrefab = item;
++            EditorSceneManager.MarkSceneDirty(scene);
++            if (!EditorSceneManager.SaveScene(scene)) throw new InvalidOperationException("Scene save failed.");
++            Debug.Log($"Chapter ration bound to {owner.name}, central opening {pocket.opening.name}; initial award disabled.");
++        }
++    }
++}
+diff --git a/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs b/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs
+@@ -0,0 +1,191 @@
++using System;
++using System.Collections;
++using System.Collections.Generic;
++using System.IO;
++using System.Linq;
++using NarutoVR.SealCombat.Items;
++using NarutoVR.SealCombat.Rpg;
++using UnityEditor;
++using UnityEditor.SceneManagement;
++using UnityEngine;
++using Object = UnityEngine.Object;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    [InitializeOnLoad]
++    public static partial class ChapterSupplyChecks
++    {
++        const string Key = "NarutoVR.Ch02Supplies1126";
++        const string Report = "Logs/ChapterSupplyChecks.txt";
++        const string CaseFile = "Logs/ChapterSupplyPrivateSave.txt";
++        static readonly Stack<IEnumerator> queue = new();
++        static int frame;
++        static double deadline;
++        static partial void ResolveLab(string name, ref IEnumerator test);
++        static ChapterSupplyChecks() => EditorApplication.playModeStateChanged += state => {
++            if (string.IsNullOrEmpty(SessionState.GetString(Key,""))) return;
++            if (state == PlayModeStateChange.EnteredPlayMode)
++            {
++                var mode=SessionState.GetString(Key,"");
++                IEnumerator test = mode == "fresh" || mode == "cold" ? Ration(mode=="cold") : null;
++                ResolveLab(mode, ref test);
++                queue.Clear(); queue.Push(test ?? throw new InvalidOperationException("Unknown test "+mode));
++                deadline=EditorApplication.timeSinceStartup+155;
++                EditorApplication.update+=Tick;
++            }
++            if (state==PlayModeStateChange.EnteredEditMode)
++            {
++                SessionState.EraseString(Key);
++                EditorApplication.Exit(SessionState.GetInt(Key+"Code",1));
++            }
++        };
++
++        public static void Fresh() => Start("fresh");
++        public static void Cold() => Start("cold");
++        
++        static void Start(string mode, string isolatedLab = null)
++        {
++            if (!Application.isBatchMode) throw new InvalidOperationException("Use an isolated batch editor.");
++            Directory.CreateDirectory("Logs");
++            if (isolatedLab == null) ChapterRationInstaller.Install();
++            var scene=EditorSceneManager.OpenScene(isolatedLab ?? "Assets/Scene/Chapter02_SuspendedPath.unity");
++            var player=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<LinearRpgController>(true)).Single();
++            if (mode=="fresh") File.WriteAllText(CaseFile,"ration-qa-"+Guid.NewGuid().ToString("N")+".json");
++            player.saveFileName=mode=="ink" ? "ink-qa-"+Guid.NewGuid().ToString("N")+".json" : File.ReadAllText(CaseFile);
++            player.autoLoad=mode=="cold";
++            File.AppendAllText(Report,"\n"+DateTimeOffset.Now.ToString("o")+" "+mode+" "+Application.unityVersion+"\n");
++            SessionState.SetString(Key,mode);SessionState.SetInt(Key+"Code",1);
++            EditorApplication.EnterPlaymode();
++        }
++        static void Tick()
++        {
++            if (!EditorApplication.isPlaying || frame==Time.frameCount) return;
++            frame=Time.frameCount;
++            try
++            {
++                if (EditorApplication.timeSinceStartup>deadline) throw new TimeoutException("Timed out");
++                while(queue.Count>0)
++                {
++                    if (!queue.Peek().MoveNext()) { queue.Pop();continue; }
++                    if (queue.Peek().Current is IEnumerator child) {queue.Push(child);continue;}
++                    return;
++                }
++                File.AppendAllText(Report,"PASS END\n");SessionState.SetInt(Key+"Code",0);
++            }
++            catch(Exception e) { File.AppendAllText(Report,"FAIL "+e+"\n"); }
++            EditorApplication.update-=Tick;EditorApplication.ExitPlaymode();
++        }
++        static IEnumerator Wait(Func<bool> ready,string label)
++        {
++            double until=EditorApplication.timeSinceStartup+25;
++            while(!ready())
++            {
++                if(EditorApplication.timeSinceStartup>until) throw new TimeoutException(label);
++                yield return null;
++            }
++        }
++        static void Check(bool condition,string label)
++        {
++            if(!condition) throw new InvalidOperationException(label);
++            File.AppendAllText(Report,"PASS "+label+"\n");
++        }
++        static IEnumerator Ration(bool cold)
++        {
++            var supply=Object.FindFirstObjectByType<ChapterRationSupply>();var grab=supply.interaction;
++            var player=grab.player;var belt=grab.sharedBelt;var home=supply.centralPocket;var lesson=player.GetComponent<Chapter02BridgeEquipment>();
++            yield return Wait(()=>player.CanAct && belt.Initialised,"real player and belt: "+player.Status);
++            Check(Path.GetFileName(player.SavePath)==File.ReadAllText(CaseFile),"uses only private QA save");
++            var hands=Object.FindObjectsByType<Oculus.Interaction.HandVisual>(FindObjectsInactive.Include,FindObjectsSortMode.None);
++            Check(new[]{"UnityXRHandVisualLeft","UnityXRHandVisualRight"}.All(n=>hands.Any(h=>h.name.Contains(n) ||
++                (PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(h.gameObject) ?? "").Contains(n))),"chapter retains both SDK hand visuals");
++            Check(belt.slots.Length==5 && home.opening.name=="SoftPouch" && grab.mouth.transform.parent==player.locomotion.head,"one authored five-pocket belt, physical central pouch and head mouth");
++            if(cold)
++            {
++                yield return Wait(()=>supply.HasPouch && grab.pouch.Dock==home && !home.IsSnapping,"fresh process restored saved pocket");
++                Check(grab.pouch.InPouch==2 && grab.pouch.ConsumedMask!=0 && Mathf.Approximately(player.Player.Health,50),"cold disk read restores two portions, health, central dock");
++                yield break;
++            }
++            Check(!supply.HasPouch && !home.SnappedObject,"new game does not award a pouch");
++            var initial=new RpgCheckpointData();supply.CaptureEquipment(initial);
++            var legacy=JsonUtility.FromJson<RpgCheckpointData>("{\"health\":52,\"mana\":11,\"cooldowns\":[]}");
++            supply.RestoreEquipment(legacy);
++            Check(initial.ration==null && !supply.HasPouch && (legacy.ration==null || !legacy.ration.owned),"legacy JSON with no ration field and absent record grant nothing");
++            Check(supply.TryGrant() && !supply.TryGrant(),"configured award once only");
++            yield return Wait(()=>!home.IsSnapping,"central dock");
++            var bag=grab.pouch;
++            Check(bag.InPouch==4 && bag.Dock==home,"approved art folded and seated with four pieces");
++            grab.enabled=false; // The following samples replace only live hand observations in this replay.
++            player.Player.Respawn(20f,10f,player.GameTime);
++            var mouth=grab.mouth.transform;
++            var rot=mouth.rotation;
++            var far=mouth.position+mouth.right*.30f;
++            var holdPos=mouth.position-mouth.right*.18f-mouth.up*.15f;
++            TravelRationInteraction.PinchSample S(Vector3 pos,bool down)=>new(pos,rot,down ? .012f : .065f);
++            void Step(Vector3 left,bool l,Vector3 right,bool rr,float dt=.02f)=>grab.Step(S(left,l),S(right,rr),dt);
++            void TakeBag() {Step(bag.GripPosition,false,far,false);Step(bag.GripPosition,true,far,false);Step(holdPos,true,far,false);bag.AdvanceOpening(1f);}
++            void PickPiece(){Step(holdPos,true,far,false);Step(holdPos,true,bag.NextBiscuitPosition,true);}
++            IEnumerator EatOne(int expected)
++            {
++                PickPiece();Check(grab.HasServing,"physical biscuit picked; count before eat "+expected);
++                var bite=mouth.position-mouth.forward*.022f;
++                for(int i=0;i<6;i++) Step(holdPos,true,bite,true,.08f);
++                yield return Wait(()=>!grab.mouth.GetComponent<NeuGameMRTools.Runtime.Components.SnapZone>().IsSnapping,"finish mouth travel");
++                Step(holdPos,true,bite,true);Step(holdPos,true,bite,true);
++                Check(!grab.HasServing && bag.InPouch==expected && Mathf.Approximately(player.Player.Health,20+(4-expected)*15),"exactly one 15 HP effect for piece; remaining "+expected);
++                for(int i=0;i<8;i++) Step(holdPos,true,bite,true,.1f);
++                Check(bag.InPouch==expected && Mathf.Approximately(player.Player.Health,20+(4-expected)*15),"lingering pinch cannot repeat piece "+expected);
++            }
++            Step(mouth.position,false,mouth.position,false);Step(mouth.position,true,mouth.position,true);
++            Check(grab.BagHand<0 && bag.InPouch==4 && player.Player.Health==20,"empty hands near mouth cannot eat");
++            TakeBag();
++            Check(grab.BagHand==0 && belt.OwnsHeldItem(bag) && player.Input.InteractionOwnsHand,"left-held bag uses chapter belt's exclusive claim");
++            PickPiece();
++            Step(holdPos,true,mouth.position-mouth.forward*.022f,true,.08f);
++            grab.Step(S(holdPos,true),default,.45f);
++            Step(holdPos,true,far,false);
++            Check(grab.HasServing && player.Player.Health==20,"tracking loss and an open reacquired hand do not consume or simulate a drop");
++            Step(holdPos,true,far,true);Step(holdPos,true,far,false);
++            Check(!grab.HasServing && bag.InPouch==4 && player.Player.Health==20,"deliberate release after reacquiring pinch returns the unconsumed piece");
++            PickPiece();
++            var bitePoint=mouth.position-mouth.forward*.022f;
++            for(int i=0;i<6;i++) Step(holdPos,true,bitePoint,true,.08f);
++            Check(grab.mouth.GetComponent<NeuGameMRTools.Runtime.Components.SnapZone>().SnappedObject,"last bite has entered mouth snap");
++            grab.Step(S(holdPos,true),default,.1f);
++            Check(!grab.HasServing && bag.InPouch==4 && player.Player.Health==20,"loss during final attraction cancels without awarding or losing food");
++            yield return EatOne(3);
++            yield return EatOne(2);
++            int savedMask=bag.ConsumedMask;
++            Step(home.opening.position,false,far,false);
++            yield return Wait(()=>bag.Dock==home && !home.IsSnapping,"bag returned");
++            Check(!belt.Held && !player.Input.InteractionOwnsHand && bag.InPouch==2,"normal release docks bag and releases input");
++            Check(player.SaveCheckpoint() && File.Exists(player.SavePath),"official save writes private file");
++            var disk=JsonUtility.FromJson<SaveEnvelope>(File.ReadAllText(player.SavePath));
++            Check(disk.progress.checkpoint.ration.owned && disk.progress.checkpoint.ration.spentMask==savedMask && disk.progress.checkpoint.ration.pocket==Array.IndexOf(belt.slots,home)+1,"disk stores exact piece mask and actual dock");
++            TakeBag();yield return EatOne(1);yield return EatOne(0);
++            PickPiece();Check(!grab.HasServing && bag.InPouch==0,"empty pouch cannot dispense a fifth piece");
++            bool restored=player.RestoreCheckpoint();
++            Check(restored,"official restore accepted while holding empty bag: "+player.Status+" / "+player.locomotion.Status);
++            yield return Wait(()=>supply.HasPouch && grab.pouch.Dock==home && !home.IsSnapping,"restore recreates one folded pouch");
++            bag=grab.pouch;
++            Check(bag.ConsumedMask==savedMask && bag.InPouch==2 && player.Player.Health==50 && !belt.Held,"restore atomically rolls inventory and vitals back");
++            // Reverse hands on the same physical pouch and return the loose biscuit without eating.
++            Step(far,false,bag.GripPosition,false);Step(far,false,bag.GripPosition,true);
++            Step(far,false,holdPos,true);bag.AdvanceOpening(1);
++            Step(bag.NextBiscuitPosition,true,holdPos,true);
++            Check(grab.BagHand==1 && grab.HasServing && belt.OwnsHeldItem(bag),"right hand holds pouch, left hand can select a piece");
++            Step(far,false,holdPos,true);Step(far,false,home.opening.position,false);
++            yield return Wait(()=>bag.Dock==home && !home.IsSnapping,"right hand pouch returns to real central dock");
++            Check(bag.ConsumedMask==savedMask && !belt.Held,"unused piece and both input claims restored");
++            // Use the existing pen/holster and its belt acquisition contract without advancing the chapter or overwriting the QA save.
++            lesson.equipment.SetWritingAvailable(true);
++            var pen=lesson.equipment.pen;
++            yield return Wait(()=>pen.Dock && !pen.Dock.IsSnapping,"pen in dedicated holster");
++            Check(belt.TryTake(pen,true),"existing pen acquires belt");TakeBag();
++            Check(!bag.IsHeld && belt.OwnsHeldItem(pen),"bag cannot steal pen claim");
++            belt.ReleaseAuxiliary(pen,true);yield return Wait(()=>!pen.home.IsSnapping,"release real pen");
++            TakeBag();Check(!belt.TryTake(pen,true) && belt.OwnsHeldItem(bag),"pen cannot steal occupied hands");
++            Step(home.opening.position,false,far,false);
++        }
++
++    }
++}
+diff --git a/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs.meta b/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 61103adf1d224fd6b67285ca4914a137
+diff --git a/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs.meta b/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: e6bfd373f7ff438bb74c755f7701a647
+diff --git a/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs.meta b/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/Interaction/ChapterRationInstaller.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 96656861a542469ba4da6f2a15553888
+diff --git a/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs.meta b/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 97d7899811a039e42ac65c1a22f1ced0

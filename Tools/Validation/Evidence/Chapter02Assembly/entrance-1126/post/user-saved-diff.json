@@ -1,0 +1,63 @@
+{
+  "priorDisk": "8c476f15b1774330aeb1ec0461b5bf328b5dc94f506a7de5441a50d2bb0a7af9",
+  "userSavedBaseline": "709bc6e69cf282cb7de1ddc062181e651d56a0961cfb68ae41b27b6692b77446",
+  "newObjects": [
+    "452442397",
+    "1683971041",
+    "452442398"
+  ],
+  "removedObjects": [],
+  "changed": {
+    "206717574": {
+      "object": "二章 · 玩家与工坊校准",
+      "type": "114",
+      "delta": [
+        "+    alternateCheckpoint: {fileID: 0}",
+        "+    alternateCheckpoint: {fileID: 0}",
+        "+    alternateCheckpoint: {fileID: 0}",
+        "+    alternateCheckpoint: {fileID: 0}"
+      ]
+    },
+    "206717578": {
+      "object": "二章 · 玩家与工坊校准",
+      "type": "114",
+      "delta": [
+        "+  dodgeAvatar: {fileID: 0}"
+      ]
+    },
+    "452442396": {
+      "object": "",
+      "type": "1001",
+      "delta": [
+        "-    m_AddedComponents: []",
+        "+    m_AddedComponents:",
+        "+    - targetCorrespondingSourceObject: {fileID: 521555727555064247, guid: f9f107e8ecae49048bda9d4fd7e1d1ec, type: 3}",
+        "+      insertIndex: -1",
+        "+      addedObject: {fileID: 452442398}"
+      ]
+    },
+    "1613491247": {
+      "object": "B 梁端吊点",
+      "type": "4",
+      "delta": [
+        "-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}",
+        "+  m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}"
+      ]
+    },
+    "1683971038": {
+      "object": "缺榫 · 朱砂",
+      "type": "1",
+      "delta": [
+        "+  - component: {fileID: 1683971041}"
+      ]
+    },
+    "1703141755": {
+      "object": "A 梁端吊点",
+      "type": "4",
+      "delta": [
+        "-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}",
+        "+  m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}"
+      ]
+    }
+  }
+}

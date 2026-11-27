@@ -1,0 +1,92 @@
+{
+  "planted": {
+    "stake": {
+      "owned": true,
+      "planted": true,
+      "pocket": 0,
+      "x": -9.121367454528809,
+      "y": 80.0,
+      "z": 63.14999771118164,
+      "qx": 0.0,
+      "qy": 0.0,
+      "qz": 0.0,
+      "qw": 1.0,
+      "fieldSeconds": 11.619999885559082
+    },
+    "ration": {
+      "owned": true,
+      "spentMask": 0,
+      "pocket": 2,
+      "x": -11.621367454528809,
+      "y": 80.86385345458984,
+      "z": 63.51966857910156,
+      "qx": 0.0,
+      "qy": 0.0,
+      "qz": 0.0,
+      "qw": 1.0
+    },
+    "cooldowns": [
+      {
+        "group": "breath.burst",
+        "remainingSeconds": 0.9200002551078796
+      },
+      {
+        "group": "fireball",
+        "remainingSeconds": 2.4200003147125244
+      },
+      {
+        "group": "shield",
+        "remainingSeconds": 2.4200003147125244
+      },
+      {
+        "group": "thunder.sword",
+        "remainingSeconds": 3.4200003147125244
+      }
+    ]
+  },
+  "docked": {
+    "stake": {
+      "owned": true,
+      "planted": false,
+      "pocket": 5,
+      "x": -8.968401908874512,
+      "y": 80.8742446899414,
+      "z": 63.572265625,
+      "qx": 0.0,
+      "qy": 8.494007275317017e-09,
+      "qz": 0.0,
+      "qw": 1.000000238418579,
+      "fieldSeconds": 0.0
+    },
+    "ration": {
+      "owned": true,
+      "spentMask": 0,
+      "pocket": 2,
+      "x": -9.121367454528809,
+      "y": 80.86385345458984,
+      "z": 63.51966857910156,
+      "qx": 0.0,
+      "qy": 0.0,
+      "qz": 0.0,
+      "qw": 1.0
+    },
+    "cooldowns": [
+      {
+        "group": "breath.burst",
+        "remainingSeconds": 0.6400003433227539
+      },
+      {
+        "group": "fireball",
+        "remainingSeconds": 2.140000343322754
+      },
+      {
+        "group": "shield",
+        "remainingSeconds": 2.140000343322754
+      },
+      {
+        "group": "thunder.sword",
+        "remainingSeconds": 3.140000343322754
+      }
+    ]
+  }
+}

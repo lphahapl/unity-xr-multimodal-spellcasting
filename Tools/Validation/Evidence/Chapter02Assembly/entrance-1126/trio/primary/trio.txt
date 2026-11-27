@@ -1,0 +1,103 @@
+PASS 真实玩家 Game 相机 二章 · 玩家与工坊校准/XROriginCameraRig/TrackingSpace/CenterEyeAnchor
+PASS 全新玩家与原工具带初始化
+PASS 从正式出生点开始，独立新档未复制存档；floor=(-9.1214, 80.0000, 63.7000)
+PASS 出生点未触发战斗
+PASS 原章节笔、腰带、左腕准望匣与双手输入齐备
+PASS 正式官方 左 手网格与输入源
+PASS 正式官方 右 手网格与输入源
+PASS ③ 的两名屋顶敌人、独立院场和精英出生引用保留，均未提前进战
+PASS 祭坛恰有三种真实生产出生点
+CAMERA eye=(-9.1214, 81.2000, 63.7000) forward=(0.0000, 0.0000, -1.0000) fov=60 mask=-1 GPU=NVIDIA GeForce RTX 4050 Laptop GPU pipeline=PC_RPAsset (UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)
+APPROACH node=(-9.1214, 80.0000, 57.8500) bounds=Center: (-9.12, 80.10, 57.85), Extents: (0.43, 0.35, 0.70) room=02 · 祭坛战场  +80 m/首次接敌线/祭坛工奴 · 接敌区域 area=Center: (-9.12, 81.00, 31.50), Extents: (11.00, 1.50, 9.50) carrierPost=(-9.1214, 80.0000, 35.0000)
+SHOT 01-fresh-entry 1280x960 eye=(-9.1214, 81.2000, 63.7000) forward=(0.0000, 0.0000, -1.0000)
+PASS 出生时画符面板实际渲染件隐藏，提前尝试调用不能展开
+PASS 沿真实地板到达绘制区域前，面板及按钮均未显示
+PASS 抵达绘制位开放取笔与铜扣
+PASS 绘符前桥头已能看到三名生产工奴/守备的实际实例
+PASS 桥头原工奴身上有真实镇石
+PASS 绘符位战斗未激活，三敌未攻击或发射火核
+PREVIEW stone=-6472 ids=stone-carrier lease=1 instance=-6306 ready=False beh=Suspended hasTarget=False world=(-9.1214, 80.0833, 35.0000) | canjiou lease=2 instance=-6614 ready=False beh=Suspended hasTarget=False world=(-11.9214, 80.0833, 34.5000) | zhihuocanji lease=3 instance=-6842 ready=False beh=Suspended hasTarget=False world=(-5.0214, 80.0833, 32.0000)
+SHOT 02-bridge-before-writing 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-visible-no-shadow-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-without-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-repeat-no-shadow-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 02-bridge-before-writing Game 相机同帧只隐藏 stone-carrier 的身体，无该角色投影之配对画面内的可辨像素=608 rect=(x:561, y:401, width:127, height:135) visibleBottomLeft=621,439..653,491 activeRenderers=2 materialsSupported=True
+SHOT 02-bridge-before-writing-visible-no-shadow-canjiou 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-without-canjiou 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-repeat-no-shadow-canjiou 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 02-bridge-before-writing Game 相机同帧只隐藏 canjiou 的身体，无该角色投影之配对画面内的可辨像素=780 rect=(x:663, y:413, width:143, height:124) visibleBottomLeft=709,438..758,496 activeRenderers=2 materialsSupported=True
+SHOT 02-bridge-before-writing-visible-no-shadow-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-without-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+SHOT 02-bridge-before-writing-repeat-no-shadow-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 02-bridge-before-writing Game 相机同帧只隐藏 zhihuocanji 的身体，无该角色投影之配对画面内的可辨像素=919 rect=(x:465, y:439, width:86, height:66) visibleBottomLeft=492,444..522,502 activeRenderers=1 materialsSupported=True
+SHOT 02-at-broken-bridge 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 真实手势观测从腰槽拿取同一实笔
+PASS 按实体铜扣才打开方直之矩；template=Assets/Art/Glyphs/SquareRule.asset floor=(-9.1214, 80.0000, 57.8501)
+SHOT 03-panel-open-player-direction 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 原笔尖模板轨迹匹配成功，结算前仍为断桥
+PASS 方直之矩结算，正式修复桥面开启
+PASS 成功只结算一次并收起视图
+SHOT 04-bridge-repaired 1280x960 eye=(-9.1214, 81.2000, 57.8501) forward=(0.0000, 0.0000, -1.0000)
+PASS 真实玩家沿修复后的实体桥面跨过缺口
+PASS 实际进入祭坛首次启动房间，前一脚=(-9.1214, 80.0000, 41.0159) 首次触发脚=(-9.1214, 80.0000, 40.9509) camera=(-9.1214, 81.2000, 40.9509) cameraForward=(0.0000, 0.0000, -1.0000) walked=22.749m steps=350
+PASS 接敌后三个原租约被激活，三种实体可受击
+PASS 桥头展示→开战沿用同一人 stone-carrier lease=1 instance=-6306 ready=True beh=Patrol hasTarget=False world=(-9.1214, 80.0833, 35.0000)
+ASSET stone-carrier prefab=Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab combat=Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset controller=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller actualSpawn=(-9.1214, 80.0000, 35.0000)
+PASS 桥头展示→开战沿用同一人 canjiou lease=2 instance=-6614 ready=True beh=Chase hasTarget=True world=(-11.9214, 80.0833, 34.5000)
+ASSET canjiou prefab=Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab combat=Assets/ScriptableObjects/敌人战斗配置/CanJiOu_Combat.asset controller=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller actualSpawn=(-11.9214, 80.0000, 34.5000)
+PASS 桥头展示→开战沿用同一人 zhihuocanji lease=3 instance=-6842 ready=True beh=Attack hasTarget=True world=(-5.0214, 80.0833, 32.0000)
+ASSET zhihuocanji prefab=Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab combat=missing controller=Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Combat.controller actualSpawn=(-5.0214, 80.0000, 32.0000)
+PASS 首遇无重复角色，三名玩家先前所见的原租约及同一镇石 -6472
+SHOT 05-first-altar-trio 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-visible-no-shadow-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-without-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-repeat-no-shadow-stone-carrier 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+PASS 05-first-altar-trio Game 相机同帧只隐藏 stone-carrier 的身体，无该角色投影之配对画面内的可辨像素=9503 rect=(x:281, y:123, width:577, height:610) visibleBottomLeft=565,318..709,526 activeRenderers=2 materialsSupported=True
+PASS 首遇原相机全景需容纳 stone-carrier 的实测轮廓并至少留 8px 边距，实际=318
+SHOT 05-first-altar-trio-visible-no-shadow-canjiou 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-without-canjiou 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-repeat-no-shadow-canjiou 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+PASS 05-first-altar-trio Game 相机同帧只隐藏 canjiou 的身体，无该角色投影之配对画面内的可辨像素=12185 rect=(x:713, y:168, width:567, height:577) visibleBottomLeft=887,309..1102,542 activeRenderers=2 materialsSupported=True
+PASS 首遇原相机全景需容纳 canjiou 的实测轮廓并至少留 8px 边距，实际=177
+SHOT 05-first-altar-trio-visible-no-shadow-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-without-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+SHOT 05-first-altar-trio-repeat-no-shadow-zhihuocanji 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+PASS 05-first-altar-trio Game 相机同帧只隐藏 zhihuocanji 的身体，无该角色投影之配对画面内的可辨像素=8327 rect=(x:104, y:354, width:293, height:202) visibleBottomLeft=205,374..306,547 activeRenderers=1 materialsSupported=True
+PASS 首遇原相机全景需容纳 zhihuocanji 的实测轮廓并至少留 8px 边距，实际=205
+PASS 掷火敌使用原炮口与火核预置体 Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoFireCore.prefab muzzle=二章 · 玩家与工坊校准·敌人会话/ZhiHuoCanJi_Enemy(Clone)/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/Muzzle
+PASS 普通残机偶正常检测、锁定并实际朝玩家追击；start=(-11.9214, 80.0833, 34.5000) offset=2.372 forwardProgress=2.372 state=Chase
+PASS 掷火敌原动画开窗后由原炮口发出有效实弹，实弹引用本尊且向前飞行；starts=1 windows=1 fireId=enemy:00c4ce76fc8d47dcad23cfb5c8eb4c9c:1 position=(-4.7104, 80.6770, 32.5101) travel=0.060 playerHP=100
+PASS 玩家仍可行动，三敌尚在房间中
+PASS 原工奴非致命受击，保留镇石并开始撤离
+PASS 真实持石 Animator 已进入负重剪辑
+SHOT 06-carrier-carry-early-full 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+CROP 06-carrier-carry-early same Game view native pixels=(x:451, y:148, width:438, height:582) cameraOriginalForward=(0.0000, 0.0000, -1.0000)
+PASS 原工奴负重行走时动画相位和自身位置均前进
+PASS 负重实际播放 clip=CanJiOu_BackCarryWalk asset=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx poseProfile=Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset phase=0.7404→0.8775 rootTravel=0.121m stoneLocal=(0.0231, 1.7018, -0.1700)→(0.0161, 1.6846, -0.1715) stoneTurn=1.89°
+SHOT 06-carrier-carry-later-full 1280x960 eye=(-9.1214, 81.2000, 40.9509) forward=(0.0000, 0.0000, -1.0000)
+CROP 06-carrier-carry-later same Game view native pixels=(x:446, y:154, width:439, height:567) cameraOriginalForward=(0.0000, 0.0000, -1.0000)
+PASS 在战区内可对 stone-carrier 产生有效受击
+PASS 对原实体造成真实致命伤 stone-carrier lease=1
+PASS 当轮击破人数 1/3，其他租约未被误结算
+PASS 仍有原敌人存活时清场事件未发生
+PASS 资格探测使用真实乘员盒和桥头所见的原石 head=(-8.3514, 81.2000, 20.0800)
+PASS 已杀 1，本人已进乘员盒亦无法施力取石
+PASS 在战区内可对 canjiou 产生有效受击
+PASS 对原实体造成真实致命伤 canjiou lease=2
+PASS 当轮击破人数 2/3，其他租约未被误结算
+PASS 仍有原敌人存活时清场事件未发生
+PASS 资格探测使用真实乘员盒和桥头所见的原石 head=(-8.3514, 81.2000, 20.0800)
+PASS 已杀 2，本人已进乘员盒亦无法施力取石
+PASS 在战区内可对 zhihuocanji 产生有效受击
+PASS 对原实体造成真实致命伤 zhihuocanji lease=3
+PASS 当轮击破人数 3/3，其他租约未被误结算
+PASS 最后一人倒下后当轮清场只发布一次
+PASS 资格探测使用真实乘员盒和桥头所见的原石 head=(-8.3514, 81.2000, 20.0800)
+PASS 已杀 3/3，真实入盒开放原石符力
+PASS 原章节笔、腰带、左腕准望匣与双手输入齐备
+PASS 正式官方 左 手网格与输入源
+PASS 正式官方 右 手网格与输入源
+PASS ③ 的两名屋顶敌人、独立院场和精英出生引用保留，均未提前进战
+PASS 章节官方双手、实笔、左腕及③工坊两屋顶和精英原接线与首次进入前相同
+END order=stone-carrier→canjiou→zhihuocanji floor=(-9.1214, 80.0000, 40.9509)
+PASS END

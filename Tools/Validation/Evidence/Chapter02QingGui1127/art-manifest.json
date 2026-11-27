@@ -1,0 +1,80 @@
+{
+  "QingGuiR03A.prefab": {
+    "sha256": "39b7012e6c121fe80e75c9a10f491d438027b485d965110177fdc20013f68e4a",
+    "source_sha256": "6c2beeb7aa996002dd829d3fd3090fd85af00937a4daa144bb1d7e6265b105cc",
+    "guid": "a9c2afa332ef5af4b09d8be9ee394d9e",
+    "source": "Generated/QingGuiR03_FirstLook.prefab"
+  },
+  "Textures/JadeDensity.asset": {
+    "sha256": "6df92fcc46749ac3b9a5cc746b176251c5ea5ce9bdf0741bb8eb8db929a68530",
+    "source_sha256": "6df92fcc46749ac3b9a5cc746b176251c5ea5ce9bdf0741bb8eb8db929a68530",
+    "guid": "752d1b2cb9485c1d8272e932a4a2f676",
+    "source": "Generated/JadeDensity.asset"
+  },
+  "Textures/JadeThickness.png": {
+    "sha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+    "source_sha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+    "guid": "d0306df7f7fc51e0a53888ed098daca2",
+    "source": "Model/RevisionA/CandidateTextures/QingGuiR03_JadeCore_Thickness.png"
+  },
+  "QingGuiR03A.fbx": {
+    "sha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3",
+    "source_sha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3",
+    "guid": "ab8193af8a1b5f57a96434d987695cdd",
+    "source": "Model/RevisionA/QingGuiR03_StructureCandidate.fbx"
+  },
+  "Materials/WarmWhiteJade.mat": {
+    "sha256": "a82d7e48a48e097672e73a49f3faf49785c48df4b00443a839fe32a55ea04627",
+    "source_sha256": "d296b559983b981b93baa8ebb6246799c3cf92f102b456015cfe0cd14bde0eae",
+    "guid": "806e50c5d3a653bfb80b67f99ab9056a",
+    "source": "Generated/WarmWhiteJade.mat"
+  },
+  "Materials/BronzeFrame.mat": {
+    "sha256": "8fa60c554832a0fc8a332c8636e4306ce67a9300fa077f4c06631489e73ccb33",
+    "source_sha256": "e0e4be6d3ccd15d7ccb4ff15229d846efe2261137f5b58d45d26e9b95251ab8d",
+    "guid": "914dfc951979586184318dc7813b2aae",
+    "source": "Generated/BronzeFrame.mat"
+  },
+  "Materials/GoldWire.mat": {
+    "sha256": "6fcee1c1f4c3b684eba8d8d16602ef3a9da0d651c9334cec33cf049ab4ae8568",
+    "source_sha256": "fc288a712c7407df381557af9c45b901f77a04d58bc9386073db6949761f79a1",
+    "guid": "c54a9e49cf8250118320ed26e53df002",
+    "source": "Generated/GoldWire.mat"
+  },
+  "Shaders/QingGuiR03GoldForward.hlsl": {
+    "sha256": "0153f0567f1bb0cab2b0d3ed81e684a8efb8d3f6b20e3c988fd1d860ea4817f3",
+    "source_sha256": "0153f0567f1bb0cab2b0d3ed81e684a8efb8d3f6b20e3c988fd1d860ea4817f3",
+    "guid": "134f171ed57259bbaff95e41e3403b5f",
+    "source": "Shaders/QingGuiR03GoldForward.hlsl"
+  },
+  "Shaders/QingGuiR03GoldLit.shader": {
+    "sha256": "0043a5827f8ba6a53a58ec1b443a0fc8d34f52cc43304966e33d67ee5758c093",
+    "source_sha256": "2d4ef8e488e72399168a236d03a1713fb3ecace223b84dc64463b05e6cede24f",
+    "guid": "65003bef756e511a8a3825e4b2035328",
+    "source": "Shaders/QingGuiR03GoldLit.shader"
+  },
+  "Shaders/QingGuiR03Jade.shader": {
+    "sha256": "cc4cad4be322985ae742d049835f00fa2bd34042b02080239b7b5a1b3f4091bd",
+    "source_sha256": "069ae1c21f6618058c03efc19d4d4b3907f6fc82f9f9193b5abb0f845944289b",
+    "guid": "974f548f27fe5f86bec60af7adecb3a8",
+    "source": "Shaders/QingGuiR03Jade.shader"
+  },
+  "Shaders/QingGuiR03LitInput.hlsl": {
+    "sha256": "18ed15f9e36c95360e3a5a0c4a23603daf9aec921fb1d252c7d9029fd710f02a",
+    "source_sha256": "18ed15f9e36c95360e3a5a0c4a23603daf9aec921fb1d252c7d9029fd710f02a",
+    "guid": "4b9b519c82c751a7afabccea99c1719d",
+    "source": "Shaders/QingGuiR03LitInput.hlsl"
+  },
+  "Shaders/QingGuiR03Scattering.hlsl": {
+    "sha256": "b6d6cb4c6616146cafe28d8b5509db4b959f652249cec9dfdead5da362e8f4e6",
+    "source_sha256": "b6d6cb4c6616146cafe28d8b5509db4b959f652249cec9dfdead5da362e8f4e6",
+    "guid": "9f1acfcd3f785d7eb03485cbe3c2b772",
+    "source": "Shaders/QingGuiR03Scattering.hlsl"
+  },
+  "Shaders/QingGuiR03ShadowCaster.hlsl": {
+    "sha256": "ef9eb5e65938d39494cf5f8dfc8f5f56b7409168326103e896057e3a315452d7",
+    "source_sha256": "ef9eb5e65938d39494cf5f8dfc8f5f56b7409168326103e896057e3a315452d7",
+    "guid": "a779ac129ae450438618766db064676d",
+    "source": "Shaders/QingGuiR03ShadowCaster.hlsl"
+  }
+}

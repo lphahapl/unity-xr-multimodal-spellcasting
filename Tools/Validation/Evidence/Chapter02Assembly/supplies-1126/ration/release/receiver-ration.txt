@@ -1,0 +1,46 @@
+
+2026-11-26T03:58:12.4184663+08:00 fresh 6000.3.10f1
+PASS uses only private QA save
+PASS chapter retains both SDK hand visuals
+PASS one authored five-pocket belt, physical central pouch and head mouth
+PASS new game does not award a pouch
+PASS legacy JSON with no ration field and absent record grant nothing
+PASS configured award once only
+PASS approved art folded and seated with four pieces
+PASS empty hands near mouth cannot eat
+PASS left-held bag uses chapter belt's exclusive claim
+PASS tracking loss and an open reacquired hand do not consume or simulate a drop
+PASS deliberate release after reacquiring pinch returns the unconsumed piece
+PASS last bite has entered mouth snap
+PASS loss during final attraction cancels without awarding or losing food
+PASS physical biscuit picked; count before eat 3
+PASS exactly one 15 HP effect for piece; remaining 3
+PASS lingering pinch cannot repeat piece 3
+PASS physical biscuit picked; count before eat 2
+PASS exactly one 15 HP effect for piece; remaining 2
+PASS lingering pinch cannot repeat piece 2
+PASS normal release docks bag and releases input
+PASS official save writes private file
+PASS disk stores exact piece mask and actual dock
+PASS physical biscuit picked; count before eat 1
+PASS exactly one 15 HP effect for piece; remaining 1
+PASS lingering pinch cannot repeat piece 1
+PASS physical biscuit picked; count before eat 0
+PASS exactly one 15 HP effect for piece; remaining 0
+PASS lingering pinch cannot repeat piece 0
+PASS empty pouch cannot dispense a fifth piece
+PASS official restore accepted while holding empty bag: 已恢复检查点；阶段目标重置，临时效果已清理 / 已恢复检查点：CH02_ENTRANCE
+PASS restore atomically rolls inventory and vitals back
+PASS right hand holds pouch, left hand can select a piece
+PASS unused piece and both input claims restored
+PASS existing pen acquires belt
+PASS bag cannot steal pen claim
+PASS pen cannot steal occupied hands
+PASS END
+
+2026-11-26T04:00:05.5431219+08:00 cold 6000.3.10f1
+PASS uses only private QA save
+PASS chapter retains both SDK hand visuals
+PASS one authored five-pocket belt, physical central pouch and head mouth
+PASS cold disk read restores two portions, health, central dock
+PASS END

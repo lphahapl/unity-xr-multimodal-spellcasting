@@ -1,0 +1,24 @@
+PASS isolated company/product
+PASS isolated persistentDataPath C:/Users/鲁迅/AppData/LocalLow/ChapterEntryValidation/ChapterEntryQAComfort1127
+PASS authored player Assets/Scene/Chapter01_Courtyard.unity
+PASS Inspector entry policy is serialized
+PASS Inspector has CurrentScene
+PASS seed runtime currency in courtyard
+PASS fresh chapter one keeps its authored shield progression
+PASS grant non-default permanent skill in source
+PASS add source-only trial permission
+PASS live health differs from last source save
+PASS Single scene unload destroys old player and gate
+PASS destination starts at its first checkpoint despite old hub save
+PASS live travel currency and unsaved HP restored; HP=43 coins=31
+PASS first arrival has destination chapter objectives
+PASS permanent skill survives, source trial permission expires
+PASS first landing atomically replaces stale destination hub save
+PASS first gate save contains entry shield exactly once
+PASS chapter two has its tool-belt stake supply
+PASS one starter stake is stowed in the real narrow sheath
+PASS chapter two permanently knows the left-hand Heng seal
+PASS entering the chapter does not cast the shield
+PASS Heng seal uses the normal cast transaction, activates shield and pays authored mana
+positions source=(0.00, 0.00, 0.00) destination node=(-9.12, 80.00, 63.70)
+PASS END travel

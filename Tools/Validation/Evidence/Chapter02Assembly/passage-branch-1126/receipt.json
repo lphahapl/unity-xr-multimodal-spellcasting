@@ -1,0 +1,115 @@
+{
+  "engine": "6000.3.10f1",
+  "backend": "D3D11 desktop Play, simulated tracked hand joints, fresh private save",
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "sourceSha256": "e7aeb66bbe4f23bd8ff8b209db005a47565c2e4736f6c92625302145fe785cc6",
+  "candidateSha256": "586d04a981f14758d402386d24137f35728d81b338ba7d1878a80ba0f6110958",
+  "publishedAtVerificationSha256": "e7aeb66bbe4f23bd8ff8b209db005a47565c2e4736f6c92625302145fe785cc6",
+  "patchSha256": "08a36d711219fa5742244dbe9a2fcd13c9b526e3ab96dbca8be37b46a2c87651",
+  "rawCapture": "D:/Temp/NarutoVR-ParryQA-20261124/Logs/ChapterPassage-20261126-145057",
+  "video": "docs/visuals/20261126_ch02_passage/二章通路符_石案至乙岸.mp4",
+  "videoSha256": "866693c24cc535a9f6691a247b147dd0f1c79a57b974cabda1b6b24aaafde713",
+  "frames": 701,
+  "fps": 30,
+  "heldBackUntilComplete": 73,
+  "growth": [
+    {
+      "frame": 527,
+      "unityFrame": 1209,
+      "progress": 0.0,
+      "collider": false,
+      "front": [
+        -5.7214,
+        80.0,
+        51.98
+      ]
+    },
+    {
+      "frame": 545,
+      "unityFrame": 1227,
+      "progress": 0.25,
+      "collider": false,
+      "front": [
+        -5.7214,
+        80.0,
+        53.0
+      ]
+    },
+    {
+      "frame": 563,
+      "unityFrame": 1245,
+      "progress": 0.5,
+      "collider": false,
+      "front": [
+        -5.7214,
+        80.0,
+        54.02
+      ]
+    },
+    {
+      "frame": 581,
+      "unityFrame": 1263,
+      "progress": 0.75,
+      "collider": false,
+      "front": [
+        -5.7214,
+        80.0,
+        55.04
+      ]
+    },
+    {
+      "frame": 600,
+      "unityFrame": 1283,
+      "progress": 1.0,
+      "collider": true,
+      "front": [
+        -5.7214,
+        80.0,
+        56.06
+      ]
+    }
+  ],
+  "arrived": [
+    -5.7228,
+    80.0,
+    57.2019
+  ],
+  "files": {
+    "Assets/scripts/logic/Editor/WorkshopTenon/Chapter02PassageBranch.cs": "2c20ad2321e90ad21a868f49cc2d43cc3d7e78724235d9e46ff7c4f05d13d142",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphEffectDefinition.cs": "7372c6059b4539cb2196f01ab5bf8846d01bfc435a32a689622226c8eb7f00cc",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": "b362d1d7034bf70c5edb2b07e3b12b6708bc0d1871f31a5f9385c3a9afe1d15d",
+    "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphEffect.cs": "f930720fe19176ebbf7b4eb2f26eaed5964ff2ae4a64110dfa8b247233621980",
+    "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphRoad.cs": "3b111c2f3cf8808891787cbbbc373919af5f849c3df4654436f774f93129b69a",
+    "Assets/Art/Glyphs/Passage.asset": "9dcc7cae95d9ce95309d2dc757536330ca218f25ba2a471b0fe24f2461d0c482",
+    "Assets/Art/Glyphs/Qianjun.asset": "31762f7f1ba70bf01cdb76d58c44d29c516e280b067a2ab19ee5b1d6cf044941",
+    "Assets/Art/Glyphs/SquareRule.asset": "c612a76987f67e1e0983885e71e34d80279a6a2e494791f50bdaebe193da20d5",
+    "Assets/Art/Glyphs/PassageEffect.asset": "9f49e0dcb5d80578c6382f4c69e0fab084c112f5d88fa74691b334f04949cb89",
+    "Assets/Art/Glyphs/PassageBankSocket.prefab": "f2b12caa09a641a92f9a2eea6f291bd3de2b8236a95d097e1496c492bf17bf30"
+  },
+  "checksSha256": "03972d1447d196ee7f693c1b4d3841226a38ebd7c3ad109dcfefdcd61826b6d4",
+  "frameCsvSha256": "53cf5b48c7149d9cd72eb8b49c9fe3f253ad819ec63da813041f27005acecb72",
+  "verifiedAt": "2026-11-26T14:55:23+08:00",
+  "sweepSha256": "64fb85c6f349b4a55d3ee033b8519645361b10a00236a551d172ec60b5b285dd",
+  "approachSweeps": {
+    "directions": 6,
+    "offsetsMetres": [
+      -0.16,
+      -0.08,
+      0,
+      0.08,
+      0.16
+    ],
+    "withOriginalSolidSocketBlocked": 28,
+    "withSelectionTriggersBlocked": 0
+  },
+  "patchedSceneRecords": {
+    "added": 78,
+    "modified": 2,
+    "deleted": 0
+  },
+  "checksumsOfReplaySources": {
+    "Chapter02PassageReplay.cs": "38ed53966198b116650e851abb0ca22617db295981c60004a5fd5dc2b35601e7",
+    "Chapter02PassageBuild.cs": "faeba50a48c8b605fb34fd5e468181cb1611587d840b29ae2b457796c8d1d7b5",
+    "encode.py": "25f0970923ba13d63c9b1c260026cdbe0e772ec8b590f55443192598b2dcaa28"
+  }
+}

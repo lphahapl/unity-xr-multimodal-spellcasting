@@ -1,0 +1,11 @@
+--- a/Assets/scripts/logic/Locomotion/RpgLocomotionController.cs
++++ b/Assets/scripts/logic/Locomotion/RpgLocomotionController.cs
+@@ -296,7 +296,7 @@
+             if (!TryFloor(node.floorPosition, floors, out RaycastHit target, out string reason) ||
+                 Mathf.Abs(target.point.y - node.floorPosition.y) > targetFloorTolerance)
+             { Status = "检查点恢复失败：" + (reason ?? "节点地面高度不合法"); return false; }
+-            Vector3 currentFloor = TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out _) ? from.point : ExpectedFloor;
++            Vector3 currentFloor = ExpectedFloor;
+             if (!ClearCapsule(target, currentFloor, obstacles, out reason))
+             { Status = "检查点恢复失败：" + reason; return false; }
+             delta = target.point - currentFloor;

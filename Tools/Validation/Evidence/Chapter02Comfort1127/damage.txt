@@ -1,0 +1,28 @@
+6000.3.10f1
+PASS formal ch2: strike and receiver reference same tracked head
+PASS 敌人攻击范围/窗口/去重/事件/RPG护盾 39 项通过（隔离 Play 合成检查）。 (1x baseline)
+PASS legacy player damage factor = 1 expected 1
+PASS legacy enemy damage factor = 1 expected 1
+PASS scene player damage factor = 1.5 expected 1.5
+PASS scene enemy damage factor = 0.65 expected 0.65
+PASS detached XR head resolves skill owner
+PASS environment vs enemy unaffected = 10 expected 10
+PASS NPC vs enemy unaffected = 10 expected 10
+PASS direct environment damage to player unaffected = 5 expected 5
+PASS ordinary enemy strike 0 base 8 = 5.199997 expected 5.2
+PASS ordinary enemy strike 1 base 6 = 3.900002 expected 3.9
+PASS weak body multiplier plus flat 7 = 37 expected 37
+PASS poise unaffected = 6 expected 6
+PASS same hit id blocked = 0 expected 0
+PASS real enemy body
+PASS fireball base 25 at common skill hit = 37.5 expected 37.5
+PASS dragon fire pulse base 4 = 6 expected 6
+PASS flying flame base 24 = 36 expected 36
+PASS sword strike/wave base 6 = 9 expected 9
+PASS actual thunder lightning base 7 = 10.5 expected 10.5
+PASS spawn shooter strike 
+PASS actual shooter impact base 40 = 26 expected 26
+PASS shield cast
+PASS spawn shooter strike 
+PASS actual shield parry return base 80 = 120 expected 120
+PASS END

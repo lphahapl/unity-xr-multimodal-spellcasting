@@ -1,0 +1,558 @@
+{
+  "units": "ms, main thread elapsed; min, median, max across fresh Editor processes",
+  "perAssetSummary": {
+    "火球": {
+      "firstLoad": [
+        4.14,
+        6.206,
+        159.964
+      ],
+      "firstClone": [
+        0.532,
+        0.696,
+        1.184
+      ],
+      "firstEnable": [
+        3.375,
+        4.367,
+        8.664
+      ],
+      "firstCloneAndEnable": [
+        3.922,
+        5.063,
+        9.848
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.24,
+        0.495,
+        0.558
+      ]
+    },
+    "龙火待吹火苗": {
+      "firstLoad": [
+        1.066,
+        1.367,
+        12.087
+      ],
+      "firstClone": [
+        0.035,
+        0.05,
+        0.766
+      ],
+      "firstEnable": [
+        0.007,
+        0.011,
+        0.068
+      ],
+      "firstCloneAndEnable": [
+        0.042,
+        0.067,
+        0.777
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.015,
+        0.022,
+        0.073
+      ]
+    },
+    "龙火定向喷流": {
+      "firstLoad": [
+        1.716,
+        2.219,
+        3.55
+      ],
+      "firstClone": [
+        0.384,
+        0.596,
+        0.675
+      ],
+      "firstEnable": [
+        0.035,
+        0.038,
+        0.094
+      ],
+      "firstCloneAndEnable": [
+        0.421,
+        0.69,
+        0.728
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.593,
+        0.864,
+        1.076
+      ]
+    },
+    "飞炎吐火球": {
+      "firstLoad": [
+        0.906,
+        2.426,
+        31.036
+      ],
+      "firstClone": [
+        0.104,
+        0.121,
+        0.189
+      ],
+      "firstEnable": [
+        0.769,
+        1.505,
+        1.989
+      ],
+      "firstCloneAndEnable": [
+        0.89,
+        1.608,
+        2.106
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.024,
+        0.042,
+        0.054
+      ]
+    },
+    "飞炎命中爆散": {
+      "firstLoad": [
+        1.419,
+        1.817,
+        8.307
+      ],
+      "firstClone": [
+        0.504,
+        0.916,
+        3.885
+      ],
+      "firstEnable": [
+        0.24,
+        0.398,
+        0.526
+      ],
+      "firstCloneAndEnable": [
+        0.745,
+        1.442,
+        4.285
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.524,
+        0.952,
+        1.366
+      ]
+    },
+    "命中爆散": {
+      "firstLoad": [
+        1.624,
+        5.798,
+        36.757
+      ],
+      "firstClone": [
+        0.248,
+        0.366,
+        1.016
+      ],
+      "firstEnable": [
+        0.082,
+        0.093,
+        10.493
+      ],
+      "firstCloneAndEnable": [
+        0.341,
+        0.464,
+        11.509
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.234,
+        0.419,
+        0.494
+      ]
+    },
+    "CanJiOu_Enemy": {
+      "firstLoad": [
+        14.34,
+        15.0,
+        15.659
+      ],
+      "firstClone": [
+        0.584,
+        1.733,
+        2.883
+      ],
+      "firstEnable": [
+        88.451,
+        96.584,
+        104.716
+      ],
+      "firstCloneAndEnable": [
+        91.334,
+        98.317,
+        105.3
+      ],
+      "repeatCloneAndEnableMedian": [
+        1.841,
+        2.574,
+        3.306
+      ]
+    },
+    "ZhiHuoCanJi_Enemy": {
+      "firstLoad": [
+        12.506,
+        19.215,
+        25.924
+      ],
+      "firstClone": [
+        0.511,
+        2.484,
+        4.458
+      ],
+      "firstEnable": [
+        72.501,
+        108.006,
+        143.511
+      ],
+      "firstCloneAndEnable": [
+        73.012,
+        110.49,
+        147.969
+      ],
+      "repeatCloneAndEnableMedian": [
+        0.417,
+        0.752,
+        1.087
+      ]
+    }
+  },
+  "firstScenePool": [
+    {
+      "repeat": "0",
+      "warmAllSixMs": "30.64450",
+      "firstLeaseMs": "1.61070",
+      "repeatLeaseMedianMs": "0.00650",
+      "firstAndLaterSameObject": "True",
+      "capacity": "6",
+      "activeAtEnd": "0"
+    },
+    {
+      "repeat": "0",
+      "warmAllSixMs": "20.96940",
+      "firstLeaseMs": "1.60610",
+      "repeatLeaseMedianMs": "0.01170",
+      "firstAndLaterSameObject": "True",
+      "capacity": "6",
+      "activeAtEnd": "0"
+    },
+    {
+      "repeat": "0",
+      "warmAllSixMs": "11.81440",
+      "firstLeaseMs": "1.05680",
+      "repeatLeaseMedianMs": "0.00770",
+      "firstAndLaterSameObject": "True",
+      "capacity": "6",
+      "activeAtEnd": "0"
+    },
+    {
+      "repeat": "0",
+      "warmAllSixMs": "16.82570",
+      "firstLeaseMs": "1.60530",
+      "repeatLeaseMedianMs": "0.01200",
+      "firstAndLaterSameObject": "True",
+      "capacity": "6",
+      "activeAtEnd": "0"
+    },
+    {
+      "repeat": "0",
+      "warmAllSixMs": "21.89290",
+      "firstLeaseMs": "3.18940",
+      "repeatLeaseMedianMs": "0.01140",
+      "firstAndLaterSameObject": "True",
+      "capacity": "6",
+      "activeAtEnd": "0"
+    }
+  ],
+  "perProcess": {
+    "火球": [
+      {
+        "process": 1,
+        "firstLoad": 159.9642,
+        "firstClone": 1.1836,
+        "firstEnable": 8.6639,
+        "firstCloneAndEnable": 9.8475,
+        "repeatCloneAndEnableMedian": 0.28235
+      },
+      {
+        "process": 2,
+        "firstLoad": 5.9505,
+        "firstClone": 0.5465,
+        "firstEnable": 3.3753,
+        "firstCloneAndEnable": 3.9218,
+        "repeatCloneAndEnableMedian": 0.4951
+      },
+      {
+        "process": 3,
+        "firstLoad": 4.1396,
+        "firstClone": 0.696,
+        "firstEnable": 4.3673,
+        "firstCloneAndEnable": 5.0633,
+        "repeatCloneAndEnableMedian": 0.2398
+      },
+      {
+        "process": 4,
+        "firstLoad": 6.2059,
+        "firstClone": 0.5316,
+        "firstEnable": 4.3593,
+        "firstCloneAndEnable": 4.8909,
+        "repeatCloneAndEnableMedian": 0.55765
+      },
+      {
+        "process": 5,
+        "firstLoad": 11.6121,
+        "firstClone": 0.8847,
+        "firstEnable": 8.1088,
+        "firstCloneAndEnable": 8.993500000000001,
+        "repeatCloneAndEnableMedian": 0.5119
+      }
+    ],
+    "龙火待吹火苗": [
+      {
+        "process": 1,
+        "firstLoad": 12.0874,
+        "firstClone": 0.7659,
+        "firstEnable": 0.0108,
+        "firstCloneAndEnable": 0.7767000000000001,
+        "repeatCloneAndEnableMedian": 0.022449999999999998
+      },
+      {
+        "process": 2,
+        "firstLoad": 1.2795,
+        "firstClone": 0.0503,
+        "firstEnable": 0.068,
+        "firstCloneAndEnable": 0.1183,
+        "repeatCloneAndEnableMedian": 0.07305
+      },
+      {
+        "process": 3,
+        "firstLoad": 1.0662,
+        "firstClone": 0.035,
+        "firstEnable": 0.0074,
+        "firstCloneAndEnable": 0.04240000000000001,
+        "repeatCloneAndEnableMedian": 0.014849999999999999
+      },
+      {
+        "process": 4,
+        "firstLoad": 1.3671,
+        "firstClone": 0.0474,
+        "firstEnable": 0.0094,
+        "firstCloneAndEnable": 0.056799999999999996,
+        "repeatCloneAndEnableMedian": 0.02565
+      },
+      {
+        "process": 5,
+        "firstLoad": 3.6152,
+        "firstClone": 0.0557,
+        "firstEnable": 0.0109,
+        "firstCloneAndEnable": 0.06659999999999999,
+        "repeatCloneAndEnableMedian": 0.0225
+      }
+    ],
+    "龙火定向喷流": [
+      {
+        "process": 1,
+        "firstLoad": 2.232,
+        "firstClone": 0.6755,
+        "firstEnable": 0.0526,
+        "firstCloneAndEnable": 0.7281,
+        "repeatCloneAndEnableMedian": 0.8749
+      },
+      {
+        "process": 2,
+        "firstLoad": 2.2192,
+        "firstClone": 0.6661,
+        "firstEnable": 0.0376,
+        "firstCloneAndEnable": 0.7037,
+        "repeatCloneAndEnableMedian": 1.0762
+      },
+      {
+        "process": 3,
+        "firstLoad": 1.7163,
+        "firstClone": 0.3838,
+        "firstEnable": 0.0374,
+        "firstCloneAndEnable": 0.42119999999999996,
+        "repeatCloneAndEnableMedian": 0.5925499999999999
+      },
+      {
+        "process": 4,
+        "firstLoad": 1.9075,
+        "firstClone": 0.4072,
+        "firstEnable": 0.0347,
+        "firstCloneAndEnable": 0.4419,
+        "repeatCloneAndEnableMedian": 0.6834
+      },
+      {
+        "process": 5,
+        "firstLoad": 3.5499,
+        "firstClone": 0.5955,
+        "firstEnable": 0.0941,
+        "firstCloneAndEnable": 0.6896,
+        "repeatCloneAndEnableMedian": 0.8636
+      }
+    ],
+    "飞炎吐火球": [
+      {
+        "process": 1,
+        "firstLoad": 31.0362,
+        "firstClone": 0.1036,
+        "firstEnable": 1.5049,
+        "firstCloneAndEnable": 1.6084999999999998,
+        "repeatCloneAndEnableMedian": 0.0543
+      },
+      {
+        "process": 2,
+        "firstLoad": 1.9175,
+        "firstClone": 0.1893,
+        "firstEnable": 1.7447,
+        "firstCloneAndEnable": 1.934,
+        "repeatCloneAndEnableMedian": 0.03075
+      },
+      {
+        "process": 3,
+        "firstLoad": 0.906,
+        "firstClone": 0.1212,
+        "firstEnable": 0.7687,
+        "firstCloneAndEnable": 0.8899,
+        "repeatCloneAndEnableMedian": 0.02355
+      },
+      {
+        "process": 4,
+        "firstLoad": 2.4261,
+        "firstClone": 0.1334,
+        "firstEnable": 1.2833,
+        "firstCloneAndEnable": 1.4167,
+        "repeatCloneAndEnableMedian": 0.04185
+      },
+      {
+        "process": 5,
+        "firstLoad": 3.9928,
+        "firstClone": 0.117,
+        "firstEnable": 1.9887,
+        "firstCloneAndEnable": 2.1057,
+        "repeatCloneAndEnableMedian": 0.0436
+      }
+    ],
+    "飞炎命中爆散": [
+      {
+        "process": 1,
+        "firstLoad": 1.8168,
+        "firstClone": 0.9162,
+        "firstEnable": 0.5259,
+        "firstCloneAndEnable": 1.4421,
+        "repeatCloneAndEnableMedian": 0.7248
+      },
+      {
+        "process": 2,
+        "firstLoad": 8.3067,
+        "firstClone": 3.885,
+        "firstEnable": 0.3999,
+        "firstCloneAndEnable": 4.2848999999999995,
+        "repeatCloneAndEnableMedian": 1.3657499999999998
+      },
+      {
+        "process": 3,
+        "firstLoad": 1.4186,
+        "firstClone": 0.5044,
+        "firstEnable": 0.2402,
+        "firstCloneAndEnable": 0.7445999999999999,
+        "repeatCloneAndEnableMedian": 0.52415
+      },
+      {
+        "process": 4,
+        "firstLoad": 1.5442,
+        "firstClone": 1.2592,
+        "firstEnable": 0.3981,
+        "firstCloneAndEnable": 1.6573000000000002,
+        "repeatCloneAndEnableMedian": 0.95215
+      },
+      {
+        "process": 5,
+        "firstLoad": 3.8141,
+        "firstClone": 0.7078,
+        "firstEnable": 0.3761,
+        "firstCloneAndEnable": 1.0838999999999999,
+        "repeatCloneAndEnableMedian": 0.9780499999999999
+      }
+    ],
+    "命中爆散": [
+      {
+        "process": 1,
+        "firstLoad": 36.7566,
+        "firstClone": 0.6159,
+        "firstEnable": 0.0815,
+        "firstCloneAndEnable": 0.6974,
+        "repeatCloneAndEnableMedian": 0.32004999999999995
+      },
+      {
+        "process": 2,
+        "firstLoad": 5.9649,
+        "firstClone": 1.0161,
+        "firstEnable": 10.493,
+        "firstCloneAndEnable": 11.5091,
+        "repeatCloneAndEnableMedian": 0.49365000000000003
+      },
+      {
+        "process": 3,
+        "firstLoad": 1.6243,
+        "firstClone": 0.2483,
+        "firstEnable": 0.0931,
+        "firstCloneAndEnable": 0.3414,
+        "repeatCloneAndEnableMedian": 0.23420000000000002
+      },
+      {
+        "process": 4,
+        "firstLoad": 2.3564,
+        "firstClone": 0.3529,
+        "firstEnable": 0.0924,
+        "firstCloneAndEnable": 0.4453,
+        "repeatCloneAndEnableMedian": 0.41925
+      },
+      {
+        "process": 5,
+        "firstLoad": 5.7982,
+        "firstClone": 0.3663,
+        "firstEnable": 0.0973,
+        "firstCloneAndEnable": 0.4636,
+        "repeatCloneAndEnableMedian": 0.47895
+      }
+    ],
+    "CanJiOu_Enemy": [
+      {
+        "process": 4,
+        "firstLoad": 14.3403,
+        "firstClone": 2.8834,
+        "firstEnable": 88.4507,
+        "firstCloneAndEnable": 91.33409999999999,
+        "repeatCloneAndEnableMedian": 1.84055
+      },
+      {
+        "process": 5,
+        "firstLoad": 15.6595,
+        "firstClone": 0.5835,
+        "firstEnable": 104.7164,
+        "firstCloneAndEnable": 105.2999,
+        "repeatCloneAndEnableMedian": 3.3064999999999998
+      }
+    ],
+    "ZhiHuoCanJi_Enemy": [
+      {
+        "process": 4,
+        "firstLoad": 12.506,
+        "firstClone": 0.5109,
+        "firstEnable": 72.5006,
+        "firstCloneAndEnable": 73.01150000000001,
+        "repeatCloneAndEnableMedian": 0.41679999999999995
+      },
+      {
+        "process": 5,
+        "firstLoad": 25.9241,
+        "firstClone": 4.4577,
+        "firstEnable": 143.5113,
+        "firstCloneAndEnable": 147.969,
+        "repeatCloneAndEnableMedian": 1.0867
+      }
+    ]
+  }
+}

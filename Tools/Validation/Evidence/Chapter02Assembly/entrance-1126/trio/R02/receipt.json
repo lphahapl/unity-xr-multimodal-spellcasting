@@ -1,0 +1,66 @@
+{
+  "unity": "6000.3.10f1 D3D11 desktop Play; simulated head and hand samples",
+  "snapshot": "2026-11-26T16:51:27.522882+08:00",
+  "officialSceneWhenCopied": "c56d7380bef12e6104f59a28f1926009e74b425db6c9c62621ee414c142022d2",
+  "testedScene": "1be75566173fe09ec6efd8ff2bee7f00bcecc8aec5c652f3496469fbd8ef0353",
+  "registeredProductionClip": "CanJiOu_BackCarryWalk",
+  "runtimeSpeed": "SPEED asset=Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset authoredClipMetersPerSec=0.54 configuredPatrol=0.54 configuredRetreat=0.72 measuredMaxPatrol=0.5426 measuredMaxRetreat=0.7228 m/s; retreatAnimatorRate=1.3337",
+  "poseMetricMeans": {
+    "R01": {
+      "hips": 0.8681618565833333,
+      "head": 1.3725556793333333,
+      "shoulders": 1.2903264698541668,
+      "spineForwardDeg": 21.276052305976958,
+      "stoneHeight": 1.6679417389166666,
+      "stoneRootZ": -0.27851472666666666
+    },
+    "R02": {
+      "hips": 0.7071619775625,
+      "head": 1.1693143737708334,
+      "shoulders": 1.0951578847083334,
+      "spineForwardDeg": 31.276050652123935,
+      "stoneHeight": 1.5602270408541667,
+      "stoneRootZ": -0.16990958666666667
+    },
+    "delta": {
+      "hips": -0.16099987902083335,
+      "head": -0.20324130556249997,
+      "shoulders": -0.19516858514583335,
+      "spineForwardDeg": 9.999998346146977,
+      "stoneHeight": -0.10771469806249989,
+      "stoneRootZ": 0.10860513999999999
+    }
+  },
+  "roleInputSHA256": {
+    "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab": "515a0bc0845a03ef263cc6dcafa09463d02ee0e2e1b5f02b5fd28eb7a123d62f",
+    "Assets/ScriptableObjects/敌人定义配置/背石工奴.asset": "8a8c160ac471e2ed63f40676cf013a8fdc98a277ca26611e1c391ef76b9e0f7d",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller": "62f421f3d789542c9fcc276d14ba39c414cf2054896134b0254b33551af9385f",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx": "bc9b990a9546daadaa00189dc6ca265c61aa7dc1dcb18b8f91db393a4035671c",
+    "Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset": "7efe0cf04be867ec685d736b62981af42ec2f3d17f396822314df6e59f5e755c",
+    "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset": "e9cc0679a55a4540d30b1f8b713c28f5373bdda286d0166c34f1e1be2e9899f4",
+    "Assets/scripts/logic/Enemies/StoneCarrier.cs": "0e3566754d4f4982c3f7a43b49da82f763716495da6b1caae85124bc1679a451",
+    "Assets/scripts/logic/Enemies/BallastStone.cs": "ca31be948cbe76524c25e1d2cc7c66e06c9337d96bed7120a20319b776951ec9",
+    "Assets/Art/Enemies/CanJiOu/BallastStone.prefab": "dcbffbd58c8f88294918dfc7de556a6d6c8cb81d2942152f77c8b94b1cde0689",
+    "Assets/Art/Enemies/CanJiOu/BallastStoneA4/T25-A4-Unity.fbx": "297a3ef837361576654a97eac4293f9c2f20f56358761755f5a2e45a780cabc4"
+  },
+  "evidenceSHA256": {
+    "primary/01-fresh-entry.png": "2293472205b79274c40131bf5e186362e4a52e822ee11e5207c81e3d5a3d7e71",
+    "primary/02-bridge-before-writing.png": "36843fd7f76fffe97f87b489559bcd31808f6e0bed3244847400f1b77e3e7aaf",
+    "primary/05-first-altar-trio.png": "f8cf9c50774836e3361d92572aae02cd3c971e3a52dd7fdd5c3ad147b9d3a74d",
+    "primary/05-first-altar-trio-numbered.png": "863926e9db5a41507e918fbea0c7272583ba6f20137f0973651b39291f920180",
+    "primary/06-carrier-carry-early-crop.png": "b908a1b6559e6814074550d5eefeb1c67549f548ff2049bfc265ca18f6782f0c",
+    "primary/06-carrier-carry-later-crop.png": "321e49066a412f9e580a7a9b400de7630285369af4e92d9370cf1156074ae7ba",
+    "primary/carrying-motion.csv": "bbb55091613eaaa3cc00697f2bd9613a75f089730f081200eb07ebf6c5dd4e47",
+    "primary/trio.txt": "2c61d7894d79436ff0e5b47d3828bc0a06b7be277f5d1d4b5bab3b4708f5d77c",
+    "free-pen/trio-free-pen.txt": "756db9131e7baf2ddce3760d097365904e69ab8eee58b436afb9a0325789b9ec",
+    "free-pen/trio-free-pen.csv": "d63fb088a3b400dcd2f8d99b97e2ada9eb074cc51c045971d42b4ecc614462cd",
+    "pose-metrics.csv": "7ff4ceb2b5d589ec51f1d7329c7caf045d97a744bf8622fcb727832b515191ba",
+    "dependencies.json": "b4e44f459d89a93a2d6f2d09999c4f6097af52a2eb536b1be4445d22b151a4a5",
+    "exits.json": "ab395cb4c41927dc03d8d0b9e1de32ba2761d97d7d85b9c89fc54ae3591dc0e1"
+  },
+  "results": [
+    0,
+    0
+  ],
+  "scope": "First encounter from a new save and physical pen/real stone through single docking and start of A descent. Section after descent is owned by scene integration."
+}

@@ -1,0 +1,217 @@
+--- a/Assets/Scene/Chapter02_SuspendedPath.unity
++++ b/Assets/Scene/Chapter02_SuspendedPath.unity
+@@ -1859,7 +1859,7 @@
+   locomotion: {fileID: 206717578}
+   handTracking: {fileID: 436909644}
+   handSampleMaxAge: 0.15
+-  wristMenu: {fileID: 0}
++  wristMenu: {fileID: 121289191}
+   playerDefinition: {fileID: 11400000, guid: 072add108bc83c7499152c051a0d8d51, type: 2}
+   route:
+   - stage: {fileID: 11400000, guid: 30a3a457d260fc843acfd7af0303c481, type: 2}
+@@ -19689,6 +19689,199 @@
+   m_CorrespondingSourceObject: {fileID: 2957821414946320460, guid: bcad6525a1495a046bb1e04520706078, type: 3}
+   m_PrefabInstance: {fileID: 2485012484675128110}
+   m_PrefabAsset: {fileID: 0}
++--- !u!1 &121289189
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 121289192}
++  - component: {fileID: 121289191}
++  - component: {fileID: 121289190}
++  m_Layer: 0
++  m_Name: "\u5DE6\u8155\u672F\u5F0F\u83DC\u5355\u4E0E\u6559\u5B66\u5361"
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &121289190
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 121289189}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 603c63f6e2610df40a90fd962a6ca5bc, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristMenuView
++  acceptedSound: {fileID: 0}
++  rejectedSound: {fileID: 0}
++  font: {fileID: 12800000, guid: ec5ab58a407030848b756f5338a2f8ed, type: 3}
++  canvasScale: 0.0005
++  plateColor: {r: 0.105, g: 0.084, b: 0.063, a: 0.96}
++  buttonColor: {r: 0.21, g: 0.16, b: 0.11, a: 0.98}
++  textColor: {r: 0.96, g: 0.88, b: 0.73, a: 1}
++  mutedTextColor: {r: 0.78, g: 0.69, b: 0.54, a: 1}
++  cyanColor: {r: 0.47, g: 0.76, b: 0.65, a: 1}
++  violetColor: {r: 0.68, g: 0.34, b: 0.24, a: 1}
++  goldColor: {r: 0.86, g: 0.68, b: 0.43, a: 1}
++  audioFeedback: 1
++  cueVolume: 0.18
++--- !u!114 &121289191
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 121289189}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: d6903dfbe0d473a49a06df8211311028, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.WristMenuController
++  teachingCatalog: {fileID: 11400000, guid: e070a250224846459a36a908f35a8347, type: 2}
++  showUndiscoveredEntries: 0
++  view: {fileID: 121289190}
++  settings:
++    activation: 0
++    decorationOffset: {x: 0, y: 0, z: 0}
++    tapRadius: 0.055
++    tapReleaseRadius: 0.1
++    tapReserveRadius: 0.22
++    tapHold: 0.025
++    tapReadyHold: 0.08
++    tapApproachDistance: 0.02
++    rayHoverHold: 0.04
++    rayTargetGrace: 0.12
++    rayCaptureDistance: 0.06
++    openHold: 0.24
++    raiseBelowHead: 0.5
++    lowerBelowHead: 0.66
++    attentionAngle: 60
++    stableRadius: 0.12
++    requireWristFacing: 0
++    poseGrace: 0.09
++    lowerHold: 0.12
++    reopenRelease: 0.1
++    maxAge: 0.15
++    maxGap: 0.18
++    lostGrace: 0.35
++    neutralHold: 0.18
++    rayDistance: 3
++    pinchClose: 0.03
++    pinchOpen: 0.045
++    dragLossGrace: 0.3
++  sealPolicy:
++    closeWithWrist: 0
++    allowRay: 1
++  glyphPolicy:
++    closeWithWrist: 0
++    allowRay: 1
++  voicePolicy:
++    closeWithWrist: 0
++    allowRay: 1
++  skillStatusPolicy:
++    closeWithWrist: 0
++    allowRay: 1
++  launcherOffset: {x: 0.08, y: 0.07, z: 0.05}
++  panelDistance: 0.65
++  panelLower: 0.12
++  wornDevice: {fileID: 505742256}
++  playerWatchMount: {fileID: 0}
++  deviceOffset: {x: -0.003, y: -0.02, z: -0.052}
++  deviceEuler: {x: 0, y: 0, z: 0}
++--- !u!4 &121289192
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 121289189}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!1001 &505742255
++PrefabInstance:
++  m_ObjectHideFlags: 0
++  serializedVersion: 2
++  m_Modification:
++    serializedVersion: 3
++    m_TransformParent: {fileID: 0}
++    m_Modifications:
++    - target: {fileID: 1438754485859498317, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: handInput
++      value: 
++      objectReference: {fileID: 121289191}
++    - target: {fileID: 2635539775903153077, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_Name
++      value: Zhunwang_ButtonSplit
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalPosition.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalPosition.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalPosition.z
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalRotation.w
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalRotation.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalRotation.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalRotation.z
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalEulerAnglesHint.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalEulerAnglesHint.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 4190335315695736760, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++      propertyPath: m_LocalEulerAnglesHint.z
++      value: 0
++      objectReference: {fileID: 0}
++    m_RemovedComponents: []
++    m_RemovedGameObjects: []
++    m_AddedGameObjects: []
++    m_AddedComponents: []
++  m_SourcePrefab: {fileID: 100100000, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++--- !u!114 &505742256 stripped
++MonoBehaviour:
++  m_CorrespondingSourceObject: {fileID: 1438754485859498317, guid: c1eb1761084677d43afc9e01ce8c014b, type: 3}
++  m_PrefabInstance: {fileID: 505742255}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 0}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 0d636c896efd0c94f83bb855688502fc, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.ZhunwangPressButton
+ --- !u!1660057539 &9223372036854775807
+ SceneRoots:
+   m_ObjectHideFlags: 0
+@@ -19711,3 +19904,5 @@
+   - {fileID: 206717577}
+   - {fileID: 741926984}
+   - {fileID: 1361897482}
++  - {fileID: 121289192}
++  - {fileID: 505742255}

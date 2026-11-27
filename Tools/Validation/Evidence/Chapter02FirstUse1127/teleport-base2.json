@@ -1,0 +1,89 @@
+{
+  "commits": 20,
+  "sameGameFrameContiguous": true,
+  "commitFirstMs": 0.1426,
+  "ordinaryCommitMs": {
+    "n": 18,
+    "median": 0.0263,
+    "p95": 0.1426,
+    "maximum": 0.1426
+  },
+  "inputOnFirst18CommitMs": {
+    "n": 18,
+    "median": 0.0975,
+    "p95": 0.5848,
+    "maximum": 0.5848
+  },
+  "wallIntervalOnOrdinaryCommitMs": {
+    "n": 18,
+    "median": 1.9744,
+    "p95": 3.257,
+    "maximum": 3.257
+  },
+  "ordinaryWallIntervalMs": {
+    "n": 850,
+    "median": 1.8238,
+    "p95": 2.8127,
+    "maximum": 6.7519
+  },
+  "stageFrame": 929,
+  "stagePrevNavigationFrame": 928,
+  "stageMs": [
+    14.4269
+  ],
+  "stagePersistMs": [
+    10.7172
+  ],
+  "wallMsAroundStage": {
+    "927": 1.3795,
+    "928": 17.398,
+    "929": 18.1303,
+    "930": 2.3644,
+    "931": 1.0868
+  },
+  "stageFloor": [
+    "-8.65136",
+    "80.00000",
+    "59.52000"
+  ],
+  "storageChecks": {
+    "firstStageWrite": {
+      "storeMs": 9.0993,
+      "flushMs": 1.5455,
+      "verifyMs": 3.5764
+    },
+    "explicitWriteStoreMs": {
+      "n": 8,
+      "median": 5.7188,
+      "p95": 7.3659,
+      "maximum": 7.3659
+    },
+    "explicitFlushMs": {
+      "n": 8,
+      "median": 0.847,
+      "p95": 1.1597,
+      "maximum": 1.1597
+    },
+    "explicitVerifyMs": {
+      "n": 8,
+      "median": 2.1387,
+      "p95": 2.353,
+      "maximum": 2.353
+    }
+  },
+  "directRestoreMs": [
+    7.6153
+  ],
+  "events": {
+    "apply_checkpoint": 1,
+    "can_land": 700,
+    "commit": 20,
+    "explicit_restore": 1,
+    "explicit_save": 8,
+    "movement_input": 1009,
+    "on_moved": 21,
+    "persist": 9,
+    "stage": 1,
+    "translate": 21
+  }
+}

@@ -1,0 +1,167 @@
+{
+    "basis": "Unity stone-local metres; +X right, +Y up, +Z forward. Preserve Unity triangle order.",
+    "originalHierarchy": "02 · 祭坛战场  +80 m/背石工奴 · 机体占位/背载镇石 · 含铜箍",
+    "physicalStone": "QA正式 EnemyManager·敌人会话/CanJiOu_Room(Clone)/BallastStone(Clone)",
+    "visualRoot": "背载镇石 · 含铜箍",
+    "originalVisualWorld": {
+        "x": -9.121365547180176,
+        "y": 82.66000366210938,
+        "z": 34.6199951171875
+    },
+    "originalVisualLocal": {
+        "x": 0.0,
+        "y": 2.6600000858306886,
+        "z": -0.3799999952316284
+    },
+    "carryOffset": {
+        "x": 0.0,
+        "y": 1.100000023841858,
+        "z": -0.41999998688697817
+    },
+    "visualLocalPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "visualLocalScale": {
+        "x": 1.000000238418579,
+        "y": 1.0,
+        "z": 1.000000238418579
+    },
+    "visualLocalRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+    },
+    "stoneWorldToLocal": [
+        -1.0,
+        0.0,
+        0.0,
+        -9.121365547180176,
+        0.0,
+        1.0,
+        0.0,
+        -81.18333435058594,
+        0.0,
+        0.0,
+        -1.0,
+        35.41999435424805,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+    ],
+    "visualLocalToWorld": [
+        -1.000000238418579,
+        0.0,
+        0.0,
+        -9.121365547180176,
+        0.0,
+        1.0,
+        0.0,
+        81.18333435058594,
+        0.0,
+        0.0,
+        -1.000000238418579,
+        35.41999435424805,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+    ],
+    "visualLocalToStone": [
+        1.000000238418579,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.000000238418579,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+    ],
+    "boundsMin": {
+        "x": -0.5250000953674316,
+        "y": -0.6549999713897705,
+        "z": -0.5250000953674316
+    },
+    "boundsMax": {
+        "x": 0.5250000953674316,
+        "y": 0.5149999856948853,
+        "z": 0.7200002074241638
+    },
+    "vertices": 180,
+    "triangles": 60,
+    "meshes": [
+        {
+            "node": "QA正式 EnemyManager·敌人会话/CanJiOu_Room(Clone)/BallastStone(Clone)/背载镇石 · 含铜箍",
+            "mesh": "背载镇石 · 含铜箍",
+            "asset": "Assets/Art/Environment/SuspendedPath/SuspendedPathGeometry.asset",
+            "assetGuid": "9269cec67ee957643b90e6ec3eb180ee",
+            "localFileId": "5343060100998540203",
+            "filterLocalPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "filterLocalScale": {
+                "x": 1.000000238418579,
+                "y": 1.0,
+                "z": 1.000000238418579
+            },
+            "filterLocalRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "filterLocalToStone": [
+                1.000000238418579,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.000000238418579,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "vertices": 180,
+            "groups": [
+                {
+                    "index": 0,
+                    "triangles": 12,
+                    "name": "submesh_0_FoundationStone",
+                    "material": "FoundationStone"
+                },
+                {
+                    "index": 1,
+                    "triangles": 24,
+                    "name": "submesh_1_旧铜",
+                    "material": "旧铜"
+                },
+                {
+                    "index": 2,
+                    "triangles": 24,
+                    "name": "submesh_2_Timber",
+                    "material": "Timber"
+                }
+            ]
+        }
+    ]
+}
