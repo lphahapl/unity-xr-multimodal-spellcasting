@@ -1,0 +1,74 @@
+{
+  "version": "R04",
+  "modelSHA256": "a1b3b67221765f86589cd8c6b0e04803a7667d9c2a9b2b3ec8ccab31fb870c67",
+  "opaqueNape": {
+    "rear": {
+      "comparedOpaquePosteriorPixels": 7997,
+      "skinInFront": 91,
+      "minimumClearanceAlongRay_mm": -1.22
+    },
+    "left_3q": {
+      "comparedOpaquePosteriorPixels": 8066,
+      "skinInFront": 85,
+      "minimumClearanceAlongRay_mm": -1.44
+    },
+    "right_3q": {
+      "comparedOpaquePosteriorPixels": 8115,
+      "skinInFront": 60,
+      "minimumClearanceAlongRay_mm": -1.802
+    },
+    "above": {
+      "comparedOpaquePosteriorPixels": 9343,
+      "skinInFront": 43,
+      "minimumClearanceAlongRay_mm": -2.107
+    },
+    "highRear": {
+      "comparedOpaquePosteriorPixels": 7570,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 14.193
+    }
+  },
+  "shoulders": {
+    "negativeX": {
+      "occupiedSampleRays": 6441,
+      "exposedNeckOrShoulderSkin": 0
+    },
+    "positiveX": {
+      "occupiedSampleRays": 6388,
+      "exposedNeckOrShoulderSkin": 0
+    }
+  },
+  "singleSidedClothingRays": {
+    "rear": {
+      "baseVisibleClothing": 14274,
+      "afterCullingBackground": 17,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1
+    },
+    "left_3q": {
+      "baseVisibleClothing": 13265,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1
+    },
+    "right_3q": {
+      "baseVisibleClothing": 13374,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 2
+    },
+    "high": {
+      "baseVisibleClothing": 13016,
+      "afterCullingBackground": 1,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 0
+    },
+    "underHem": {
+      "baseVisibleClothing": 13547,
+      "afterCullingBackground": 43,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1
+    }
+  },
+  "notes": "Camera-to-surface signed separation in millimetres is an oblique ray measurement. Hair and shoulder checks use actual reimported GLB geometry. After-culling other opaque may be a cuff, adjacent garment or underlayer."
+}

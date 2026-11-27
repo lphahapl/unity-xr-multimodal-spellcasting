@@ -1,0 +1,84 @@
+{
+  "version": "R05",
+  "modelSHA256": "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0",
+  "opaqueNape": {
+    "rear": {
+      "comparedOpaquePosteriorPixels": 7996,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 4.018
+    },
+    "left_3q": {
+      "comparedOpaquePosteriorPixels": 8103,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 4.006
+    },
+    "right_3q": {
+      "comparedOpaquePosteriorPixels": 8136,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 3.719
+    },
+    "above": {
+      "comparedOpaquePosteriorPixels": 9461,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 6.553
+    },
+    "highRear": {
+      "comparedOpaquePosteriorPixels": 7638,
+      "skinInFront": 0,
+      "minimumClearanceAlongRay_mm": 14.886
+    }
+  },
+  "shoulders": {
+    "negativeX": {
+      "occupiedSampleRays": 6441,
+      "exposedNeckOrShoulderSkin": 0
+    },
+    "positiveX": {
+      "occupiedSampleRays": 6388,
+      "exposedNeckOrShoulderSkin": 0
+    }
+  },
+  "singleSidedClothingRays": {
+    "rear": {
+      "baseVisibleClothing": 14271,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1,
+      "backgroundFirstPart": {},
+      "backgroundWorldHits": []
+    },
+    "left_3q": {
+      "baseVisibleClothing": 13260,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1,
+      "backgroundFirstPart": {},
+      "backgroundWorldHits": []
+    },
+    "right_3q": {
+      "baseVisibleClothing": 13385,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1,
+      "backgroundFirstPart": {},
+      "backgroundWorldHits": []
+    },
+    "high": {
+      "baseVisibleClothing": 13020,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 0,
+      "backgroundFirstPart": {},
+      "backgroundWorldHits": []
+    },
+    "underHem": {
+      "baseVisibleClothing": 13556,
+      "afterCullingBackground": 0,
+      "afterCullingSkin": 0,
+      "afterCullingOtherOpaque": 1,
+      "backgroundFirstPart": {},
+      "backgroundWorldHits": []
+    }
+  },
+  "notes": "Camera-to-surface signed separation in millimetres is an oblique ray measurement. Hair and shoulder checks use actual reimported GLB geometry. After-culling other opaque may be a cuff, adjacent garment or underlayer."
+}

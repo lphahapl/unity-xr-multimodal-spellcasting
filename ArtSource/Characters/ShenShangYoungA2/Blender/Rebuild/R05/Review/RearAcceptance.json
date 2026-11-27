@@ -1,0 +1,194 @@
+{
+  "annotation": {
+    "id": "f2a96a81-0111-4379-b453-0d3ea1939d55",
+    "text": "任务后面衣服是破的，并且后面秃头",
+    "created": 1795594901928
+  },
+  "viewReconstruction": "The R01 text annotation has no camera transform. R01, R04 and R05 have been imported anew and photographed with shared rear cameras.",
+  "R04andR05IdenticalGLBPositions": {
+    "R01 | anatomical head and neck": {
+      "count": 4644,
+      "positionSHA256": "20a68ee4db0f410a6a24523dce35f274a8bee49ccceeaeca325c34e3922b799f"
+    },
+    "R03 | bifurcated high-waist work trousers": {
+      "count": 21651,
+      "positionSHA256": "724faacb742493db6fffe06f642f941c505387d893975a269cb4c1c5444ee485"
+    },
+    "R01 | L ocular globe exposed surface": {
+      "count": 129,
+      "positionSHA256": "d84b039dffd129e8653e0ff47e9cdbb2a7687320b144135e52c321e0286e8454"
+    },
+    "R01 | R ocular globe exposed surface": {
+      "count": 129,
+      "positionSHA256": "0f71ca0a6c0ca34c6373565faac03b166dd9dd2cf8e89152b23b57a50b38b459"
+    }
+  },
+  "stages": {
+    "R01": {
+      "modelSHA256": "dcfac78e265b15e8df93e9ddf3d4d805cb368ad07452fee0a2a483f8aa610707",
+      "totalNape": 43350,
+      "napeSkinInFront": 0,
+      "minAlongRay_mm": 5.958,
+      "shoulderOccupied": 13350,
+      "shoulderSkin": 2537,
+      "singleSidedGarmentRays": 54554,
+      "toBackground": 12,
+      "toSkin": 0,
+      "blenderFrameHashes": {
+        "01_Back_Full.png": "40092fb327010ac4f3bce96169527ad56e70b6e5e0afb0fddeb8e1645f4fdbbb",
+        "01_Back_Full_CullBack.png": "75a112a213ac5187fc645a4c84ea3d3e7614e7ebff01b1af964f1a90a3f968bc",
+        "02_Top_Rear_Head.png": "9f3171bac098b34b806a4e6fca39e7dcdad7447b03b329a7d6c11d347a04b7c3",
+        "03_Nape_Straight.png": "7468667ede0081870b340befa2f15883b2d0a429311cfa2cc434bfa5ab35741f",
+        "04_Shoulders_Left.png": "4f7fd76813ba819eabaeeba7d28e33246d74451cf1f69ef3aa0c70b19b45b2e5",
+        "05_Shoulders_Right.png": "043b5e89ec507057b76d6d8b291aae7be234f02891a3decd0b20ee6933a42bae",
+        "06_Back_Waist_Hem.png": "9f13427ea4132d3dd9fda4dad1b33372134a9414fa50401aa47ae37f5ddea3da",
+        "06_Back_Waist_Hem_CullBack.png": "b6c50bfe24c1ec5e860f5be5ed64a43506148aff84b086073baac6a0acfa4ab4",
+        "07_Neck_Shoulders.png": "28d529c7589fc354943ef357642a33cdfe91d9e3b33b02010797be6a1ecdb05c",
+        "07_Neck_Shoulders_CullBack.png": "2dafcf39235d7ebb7df8d63a3db430b483bc588a5d362a036deebbc08b866671"
+      },
+      "unityFrameHashes": {
+        "01_Back_Full.png": "ea53f12deb2e229535a3d9815c9391dc41fb7e4d2ec36a8167be3dd20fdff092",
+        "02_Top_Rear_Head.png": "91a1938109203b7b152ed836ccc8f532c629cb7e39773c30b5fb02c7593e0118",
+        "03_Nape_Straight.png": "abd5d30fddf7803f99ccb279491943c992b3d84d02ecc205c11f1f4a3c846f38",
+        "04_Oblique_Shoulder.png": "f4db5eba4ec40c430adec727ec50363889b7e7a330428ab1af74e21c941b4353",
+        "05_Waist_And_Hem.png": "d73627e71540b3e33117447310982164a512a7c06775cea55fd9074ceff8d246",
+        "06_Back_Collar.png": "0b6d6f07e53322ef2bb8e4198d4d2ec5e21118e1efa067f963ca32142654f4d3"
+      }
+    },
+    "R04": {
+      "modelSHA256": "a1b3b67221765f86589cd8c6b0e04803a7667d9c2a9b2b3ec8ccab31fb870c67",
+      "totalNape": 41091,
+      "napeSkinInFront": 279,
+      "minAlongRay_mm": -2.107,
+      "shoulderOccupied": 12829,
+      "shoulderSkin": 0,
+      "singleSidedGarmentRays": 67476,
+      "toBackground": 61,
+      "toSkin": 0,
+      "blenderFrameHashes": {
+        "01_Back_Full.png": "16f34244098f17ee63b87b3545a7ca5b3d8c7ccc307cc9a447d1106702929f85",
+        "01_Back_Full_CullBack.png": "d7fa98dcfa601a25fcfb64caa508d1fb8b0b931c88e083ed7a65d49fa967d079",
+        "02_Top_Rear_Head.png": "36edbc5edcda51420d16b728e55fdb432d933de3c3564516425cbe4da87167c0",
+        "03_Nape_Straight.png": "e7cdfddf269ede1d9a3d134a48279f05b1507f79ac7264c386a1050205cc93d4",
+        "04_Shoulders_Left.png": "7b8372c0958e0acc5d5c2d819e3018286cd51131a2df66e25a897dbdc5496c8d",
+        "05_Shoulders_Right.png": "7617230b5b74dcd04b86620522bc90d3aecf05f17453dc811118dda517d2269a",
+        "06_Back_Waist_Hem.png": "5f0f98a64441d0455d1ee4b0729ffa9e90ec8e0ac35f55fbe735031df9f51c67",
+        "06_Back_Waist_Hem_CullBack.png": "906ef88acca45e80eee3186fc41bd65a464f857718dd3f377bd8780c87490d5a",
+        "07_Neck_Shoulders.png": "b7c08bb49af37d2d1ea5f32a72d08c0e284ca441144b0d1af3c4997a7caf76aa",
+        "07_Neck_Shoulders_CullBack.png": "828fa794cb605997a929d55bf3fa93f505d19c6dc90bbe7b5f4a3bf48e46557c"
+      },
+      "unityFrameHashes": {
+        "01_Back_Full.png": "b33b393f26621a86a78de001797107fef5533eba016fa5538707c8cb8480c584",
+        "02_Top_Rear_Head.png": "05d64df7db9aad83a34f25a304a5c8e27f4a07dcfa07cfbc1785866a59d88518",
+        "03_Nape_Straight.png": "93aaa98883f5cf49606bebd04b1a566d87cf962f2c13eb030d04bae62a01c9d6",
+        "04_Oblique_Shoulder.png": "758828163cbe6cd1861641276ce3a14e15c35289269af3601a581be84ca2cc04",
+        "05_Waist_And_Hem.png": "0332663d026d7cdb1a81b24f6d94294c8aaa76b78ac41f680981ebc892467359",
+        "06_Back_Collar.png": "b9290f1b4b1455ef526b5db8c82cb25ad9d7a9cd45e1242c5ddec3c9182c020b"
+      }
+    },
+    "R05": {
+      "modelSHA256": "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0",
+      "totalNape": 41334,
+      "napeSkinInFront": 0,
+      "minAlongRay_mm": 3.719,
+      "shoulderOccupied": 12829,
+      "shoulderSkin": 0,
+      "singleSidedGarmentRays": 67492,
+      "toBackground": 0,
+      "toSkin": 0,
+      "blenderFrameHashes": {
+        "01_Back_Full.png": "5f929e54848c0c4344ffcae78ab5fc293dae496478255a9496e72ff0e4384dec",
+        "01_Back_Full_CullBack.png": "6e9084471c8982431cc7836976ac13f52239e2fa0cd2bda13ec8f45dc0d5f66e",
+        "02_Top_Rear_Head.png": "500086f68329df5105dc0d447ef998196279a5b4cd64c9b8ef987630e1ac64e9",
+        "03_Nape_Straight.png": "f48cc5dd3827e18072acdf6d4197cc865fb6a08a238a81d6ddd123eca560c9d8",
+        "04_Shoulders_Left.png": "319febc582438bec842178573d5cc1ec3d8695b532ff41ba00d3cea0f32ffe3d",
+        "05_Shoulders_Right.png": "891a2c28b86619b61c81ffe4475cfa8a509df9dd35a84dbef4faf31ee95f5b63",
+        "06_Back_Waist_Hem.png": "53869426d5e28f60d2214bd568935d530830e5d9bb94f606aa58a3aa5d85d588",
+        "06_Back_Waist_Hem_CullBack.png": "44a1b80b9d60220d1bee652306eda003bd12da75b97a35c897715966a39196b9",
+        "07_Neck_Shoulders.png": "10dcb310e9accdab1a98cb1a7b006e575b3d703e7d3568f864ade723100b5bbf",
+        "07_Neck_Shoulders_CullBack.png": "cce5eca256e8af87fad6ac63b91a28971d9ae6cae3d3392261929fb5b4aecd75"
+      },
+      "unityFrameHashes": {
+        "01_Back_Full.png": "0e2e664c5d2c566c1a4920347c3be546f927e45f5197082e1bdbd444c0833db8",
+        "02_Top_Rear_Head.png": "480160ca41eef10794439dcc829ed944aa22fffef7197e97be0d9d8cbde58f37",
+        "03_Nape_Straight.png": "9ea48a14ef6d994d334c74b82259dc6bd53881de9bcb923aad3bfa38f637c414",
+        "04_Oblique_Shoulder.png": "22da9fb6ca44142a0b6ff05313c59cd03fd792e8b46da082e83679d95b73bb3e",
+        "05_Waist_And_Hem.png": "d26f7cc54daad961cd0d8b5f138a7e94f23ddc1eb9dc411845210c36134b7359",
+        "06_Back_Collar.png": "02593d453c79815c6685b0a7e7fd74f001a5cd6afa5aace5e4a4b1b9dfd041df"
+      }
+    }
+  },
+  "limits": "Static rendered pose. This audit did not test deformations, headset performance, or production readiness.",
+  "observed": {
+    "R01": "后脑有大片肤色状斑块。发帽不透明且其表面在受测头皮之前。后领两侧可见大片真实肩颈皮肤。",
+    "R04": "大片浅斑和肩部露肤已消失。后发际仍见数处小亮点，直接测得两处头皮突出约 0.65–0.90 mm；仰视时单面衣摆不完整。",
+    "R05": "把后侧发层向外错开，移动相邻碎发。焊接并封闭原有滚边截面，给下摆做内衬，修补左卷袖和腰绳局部露底。后领和两侧肩线按原来的已闭合状态保留。"
+  },
+  "wearStudySHA256": "fef5cea14cb24f2007b1a8ac290f5f30fc60199819a831c3f2c0ae7fd4972427",
+  "gameQA": {
+    "pass": false,
+    "errors": [
+      "z-fighting: Zhunwang readout (278 overlapping coplanar tri pairs)",
+      "z-fighting: R05 | irregular hairline and nape fibres (92 overlapping coplanar tri pairs)",
+      "z-fighting: Zhunwang_Body (9 overlapping coplanar tri pairs)",
+      "z-fighting: Jacket<->R05 | continuous crossed collar with linen reveal (3 overlapping coplanar tri pairs)"
+    ],
+    "warnings": [
+      "A2 Short coat | drafted flared skirt: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "A2 Short coat | drafted flared skirt: duplicate verts=646 loose verts=0",
+      "A2 Short coat | hem bead: duplicate verts=146 loose verts=0",
+      "A2 Short coat | warm narrow hem return: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "A2 Short coat | warm narrow hem return: duplicate verts=308 loose verts=0",
+      "A2 Sleeve L | inset cuff lining: duplicate verts=11 loose verts=0",
+      "A2 Sleeve R | inset cuff lining: duplicate verts=11 loose verts=0",
+      "Boot.L: duplicate verts=345 loose verts=0",
+      "Boot.R: duplicate verts=340 loose verts=0",
+      "Forearm.L: duplicate verts=71 loose verts=0",
+      "Forearm.R: duplicate verts=72 loose verts=0",
+      "Gaiter.L: duplicate verts=84 loose verts=0",
+      "Gaiter.R: duplicate verts=89 loose verts=0",
+      "Jacket: duplicate verts=3 loose verts=0",
+      "Jacket closures: duplicate verts=42 loose verts=0",
+      "Jacket collar: duplicate verts=232 loose verts=0",
+      "R05 | anatomical head and neck: duplicate verts=193 loose verts=0",
+      "R05 | asymmetrical coiled topknot: duplicate verts=176 loose verts=0",
+      "R05 | bifurcated high-waist work trousers: duplicate verts=211 loose verts=0",
+      "R05 | continuous crossed collar with linen reveal: duplicate verts=165 loose verts=0",
+      "R05 | hairpin: ~49.41% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "R05 | hairpin: duplicate verts=66 loose verts=0",
+      "R05 | inner linen throat return: duplicate verts=3 loose verts=0",
+      "R05 | irregular hairline and nape fibres: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "R05 | swept scalp and sideburns: duplicate verts=242 loose verts=0",
+      "Sleeve.L: duplicate verts=334 loose verts=0",
+      "Sleeve.R: duplicate verts=184 loose verts=0",
+      "Undertunic: duplicate verts=158 loose verts=0",
+      "V2_HandMesh.L: ~39.64% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "V2_HandMesh.L: duplicate verts=174 loose verts=0",
+      "V2_HandMesh.R: ~39.64% UV overlap (ok only if mirrored/stacked on purpose; bakes break)",
+      "V2_HandMesh.R: duplicate verts=178 loose verts=0",
+      "Waist sash: duplicate verts=768 loose verts=0",
+      "Zhunwang readout: duplicate verts=6764 loose verts=0",
+      "Zhunwang_Body: duplicate verts=2212 loose verts=0",
+      "Zhunwang_ButtonCap: duplicate verts=92 loose verts=0",
+      "hidden back-to-back faces: Zhunwang readout (256 pairs) - delete to save tris",
+      "hidden back-to-back faces: Zhunwang_Body (56 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket collar (41 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket<->Jacket collar (29 pairs) - delete to save tris",
+      "hidden back-to-back faces: Boot.R (19 pairs) - delete to save tris",
+      "hidden back-to-back faces: Waist sash (18 pairs) - delete to save tris",
+      "hidden back-to-back faces: Undertunic (17 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket collar<->Undertunic (16 pairs) - delete to save tris",
+      "hidden back-to-back faces: Boot.L (12 pairs) - delete to save tris",
+      "hidden back-to-back faces: Zhunwang readout<->Zhunwang_Body (11 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket<->Undertunic (9 pairs) - delete to save tris",
+      "hidden back-to-back faces: Gaiter.R (4 pairs) - delete to save tris",
+      "hidden back-to-back faces: Jacket collar<->R05 | continuous crossed collar with linen reveal (4 pairs) - delete to save tris",
+      "hidden back-to-back faces: R05 | swept scalp and sideburns (3 pairs) - delete to save tris",
+      "hidden back-to-back faces: Sleeve.L (2 pairs) - delete to save tris",
+      "hidden back-to-back faces: Boot.R<->Gaiter.R (1 pairs) - delete to save tris",
+      "hidden back-to-back faces: A2 Sleeve R | inset cuff lining<->Sleeve.R (1 pairs) - delete to save tris",
+      "hidden back-to-back faces: R05 | anatomical head and neck (1 pairs) - delete to save tris",
+      "hidden back-to-back faces: Sleeve.R (1 pairs) - delete to save tris"
+    ]
+  }
+}
