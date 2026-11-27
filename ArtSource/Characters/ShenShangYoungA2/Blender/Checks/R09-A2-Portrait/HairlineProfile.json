@@ -1,0 +1,136 @@
+{
+  "sourceHashes": {
+    "A2": "0e39502e8065a9765cebd138833e97c16f8c5c7aa9bbe442ad8bc5f9b867cf86",
+    "R08": "f1cb08f5c398bf7141c204875f87e0bf3ec42a6c17f19ffcfa358875aa72f16e",
+    "R09": "0ad540ca6d889f5caa43d834cc67a97cc29b3fbb5d4cb93f86cd361b0af9dcea"
+  },
+  "method": "First 6 contiguous skin pixels and 17/20 skin pixels at 50 percent local luma, on median of 7 columns. x positions relative to iris midpoint in units of interpupillary distance. Y increases downward. 40/60 percent sensitivity included. This supplemental comparison follows publication without modifying its inputs.",
+  "samples": {
+    "A2": {
+      "-0.65": {
+        "x_px": 265,
+        "edgeY_px": 192,
+        "edge40to60_px": [
+          189,
+          194
+        ]
+      },
+      "-0.4": {
+        "x_px": 294,
+        "edgeY_px": 185,
+        "edge40to60_px": [
+          184,
+          188
+        ]
+      },
+      "0": {
+        "x_px": 342,
+        "edgeY_px": 193,
+        "edge40to60_px": [
+          189,
+          196
+        ]
+      },
+      "0.4": {
+        "x_px": 390,
+        "edgeY_px": 186,
+        "edge40to60_px": [
+          185,
+          186
+        ]
+      },
+      "0.65": {
+        "x_px": 419,
+        "edgeY_px": 193,
+        "edge40to60_px": [
+          191,
+          195
+        ]
+      }
+    },
+    "R08": {
+      "-0.65": {
+        "x_px": 265,
+        "edgeY_px": 188,
+        "edge40to60_px": [
+          186,
+          191
+        ]
+      },
+      "-0.4": {
+        "x_px": 294,
+        "edgeY_px": 187,
+        "edge40to60_px": [
+          186,
+          187
+        ]
+      },
+      "0": {
+        "x_px": 342,
+        "edgeY_px": 193,
+        "edge40to60_px": [
+          193,
+          194
+        ]
+      },
+      "0.4": {
+        "x_px": 390,
+        "edgeY_px": 184,
+        "edge40to60_px": [
+          183,
+          185
+        ]
+      },
+      "0.65": {
+        "x_px": 419,
+        "edgeY_px": 189,
+        "edge40to60_px": [
+          108,
+          191
+        ]
+      }
+    },
+    "R09": {
+      "-0.65": {
+        "x_px": 265,
+        "edgeY_px": 194,
+        "edge40to60_px": [
+          193,
+          194
+        ]
+      },
+      "-0.4": {
+        "x_px": 295,
+        "edgeY_px": 192,
+        "edge40to60_px": [
+          192,
+          193
+        ]
+      },
+      "0": {
+        "x_px": 343,
+        "edgeY_px": 204,
+        "edge40to60_px": [
+          203,
+          205
+        ]
+      },
+      "0.4": {
+        "x_px": 391,
+        "edgeY_px": 193,
+        "edge40to60_px": [
+          193,
+          193
+        ]
+      },
+      "0.65": {
+        "x_px": 421,
+        "edgeY_px": 194,
+        "edge40to60_px": [
+          193,
+          195
+        ]
+      }
+    }
+  }
+}
