@@ -1,0 +1,63 @@
+{
+  "Unity": "6000.3.10f1",
+  "source": "VFXPreviewTest Windows D3D11",
+  "reference": {
+    "page": "https://www.bilibili.com/video/BV1q441157iy/",
+    "lake": [
+      69.8,
+      73
+    ],
+    "side": [
+      122.4,
+      124.0
+    ]
+  },
+  "checkedAssetsSHA256": {
+    "Assets/scripts/logic/Skills/Effects/FlyingFlameVisual.cs": "afdf15c78860a15e9b94d0068e432efb756f5830efb8a621a4dea711f49e6aa7",
+    "Assets/Art/VFX/Skills/Meshes/飞炎翻卷火头.asset": "193f4f1b74fd8f09cf1b164e20b039df4a0b2fd6f2276366449cc121bcf93fa4",
+    "Assets/Shaders/FlyingFlame.shader": "3184030eee8e16006601dd61a83261efc90b475498116f44c7c57e00ffaa374f",
+    "Assets/Art/VFX/Skills/Materials/飞炎翻焰.mat": "1559c9c4418faf25edda86db9d4f221722bf0c40c5dd7ece5cb7130780e3b9c5",
+    "Assets/Art/VFX/Shaders/DragonPilotFlame.shader": "6c98e1fc50b1c01cda6ca556068efb1d63dbc5e912b506b8490abe3351a3db6b",
+    "Assets/Art/VFX/Skills/Materials/DragonPilotFlame.mat": "d53d3bfb3a301b7e050bb96827e93005555558bda5cebd04709caee923cd78ef"
+  },
+  "gallery": [
+    "PASS opens on dragon pilot",
+    "PASS all 42 scene prefab references resolve in player",
+    "PASS native pixel CJK UI at 1280x720",
+    "PASS pilot frame 24 active=True",
+    "PASS stream frame 24",
+    "PASS pilot frame 65 active=False",
+    "PASS stream frame 65",
+    "PASS pilot frame 116 active=True",
+    "PASS stream frame 116",
+    "PASS pilot frame 151 active=False",
+    "PASS stream frame 151",
+    "PASS fly selected with next button",
+    "PASS visible ball moves along launch path",
+    "PASS flight sequence ends",
+    "PASS native 1080p pixel UI",
+    "PASS one active preview canvas"
+  ],
+  "AndroidVulkan": [
+    "FLAME_STEREO_PASS NarutoVR/Feiyan/Rolling Fireball STEREO_INSTANCING_ON 10709 bytes",
+    "FLAME_STEREO_PASS NarutoVR/Feiyan/Rolling Fireball STEREO_MULTIVIEW_ON 10675 bytes",
+    "FLAME_STEREO_PASS NarutoVR/DragonPilotFlame STEREO_INSTANCING_ON 15450 bytes",
+    "FLAME_STEREO_PASS NarutoVR/DragonPilotFlame STEREO_MULTIVIEW_ON 15466 bytes"
+  ],
+  "frames": 322,
+  "fps": 30,
+  "order": "飞炎正常、飞炎慢放、龙火确认/吹停/结束",
+  "mp4": "飞炎与龙火_豪火球参考版.mp4",
+  "sha256": "3db43c6b005bedbd22d5ad7b9c2d9a5e9618079a0c8d4a7a9377604bfd944392",
+  "brightPixelCountsOriginalFrameOrder": {
+    "24": 2387,
+    "65": 20934,
+    "116": 2236,
+    "151": 0,
+    "166": 27688,
+    "171": 71963,
+    "178": 90185,
+    "190": 84723,
+    "207": 0
+  }
+}

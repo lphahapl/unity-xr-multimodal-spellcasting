@@ -1,0 +1,51 @@
+{
+  "provenance": "Actual Unity captures. Overlaid labels only; original Unity mixed PCM used. No source clip replacement.",
+  "segments": [
+    {
+      "seal": "Lv",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Lv\\unity-output.wav",
+      "source_audio_sha256": "4071bb6d6eb4e2e247c484e39b4a2302896d1a249b604be7af907be125a67252",
+      "mp4": "LvSealPreview.mp4"
+    },
+    {
+      "seal": "Gui",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Gui\\unity-output.wav",
+      "source_audio_sha256": "4fb02d45358413cfb5b3e7bb8a64fb165fbe147eb10be01744da384650e5a0a9",
+      "mp4": "GuiSealPreview.mp4"
+    },
+    {
+      "seal": "Ju",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Ju\\unity-output.wav",
+      "source_audio_sha256": "e475a5407b76216563dc931d8f934c91102d2b94346642063316a99fbee065cf",
+      "mp4": "JuSealPreview.mp4"
+    },
+    {
+      "seal": "Zhun",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Zhun\\unity-output.wav",
+      "source_audio_sha256": "d0f6e9a37159b612f060fdf0204cb0aabeb8b701a1a7c0ae1b1a1adc20248d15",
+      "mp4": "ZhunSealPreview.mp4"
+    },
+    {
+      "seal": "Sheng",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Sheng\\unity-output.wav",
+      "source_audio_sha256": "83d128c4528eddb2aa94b6eaadb2a14afb0b968bdb55b8e345a722e6ef289b91",
+      "mp4": "ShengSealPreview.mp4"
+    },
+    {
+      "seal": "Heng",
+      "source_frame_count": 120,
+      "source_audio": "Logs\\t01-seal-audio-v3_1-20261125\\unity\\Heng\\unity-output.wav",
+      "source_audio_sha256": "cbcfaba1bb61209843f1a4a065bc0f857b9565ca1864db556fd1d31aa4294ff6",
+      "mp4": "HengSealPreview.mp4"
+    }
+  ],
+  "decode_checks": [
+    "SixSealPreview.mp4: exit 0",
+    "GuiJuHengPreview.mp4: exit 0"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "editor": "6000.3.10f1",
+  "frames": 322,
+  "fps": 30,
+  "filename": "龙火与飞炎_预览.mp4",
+  "sha256": "8ec63d64fc7ebd5b5c66988f1502f60f1ff26eda8a506fcb3ccb87cc80bedd2d",
+  "gallery": [
+    "PASS opens on dragon pilot",
+    "PASS all 42 scene prefab references resolve in player",
+    "PASS native pixel CJK UI at 1280x720",
+    "PASS pilot frame 24 active=True",
+    "PASS stream frame 24",
+    "PASS pilot frame 65 active=False",
+    "PASS stream frame 65",
+    "PASS pilot frame 116 active=True",
+    "PASS stream frame 116",
+    "PASS pilot frame 151 active=False",
+    "PASS stream frame 151",
+    "PASS fly selected with next button",
+    "PASS visible ball moves along launch path",
+    "PASS flight sequence ends",
+    "PASS native 1080p pixel UI",
+    "PASS one active preview canvas"
+  ],
+  "silhouettePixelsAtSampleFrames": {
+    "24": 3732,
+    "65": 21379,
+    "116": 3782,
+    "151": 0,
+    "166": 3483,
+    "171": 51613,
+    "178": 51778,
+    "190": 49343,
+    "207": 0
+  },
+  "play": [
+    "FLYING_PLAYER_ENEMY_SPLIT_PASS player=飞炎吐火球 enemy=FireballMissileFire",
+    "BREATH_PLAY_PASS 认印后变形、迟到口令、分手作废、SO 起手和停喷边界、口令等手、曲指关节与掌心印顶、单手换点滞回与重选、近等高印顶混合、指尖遮挡、仅腕暂停与恢复、嘴后拒发、移动与转头、阻挡、松印、距离、耗尽、持续冷却、检查点、独立飞行",
+    "PILOT1126_PASS"
+  ]
+}

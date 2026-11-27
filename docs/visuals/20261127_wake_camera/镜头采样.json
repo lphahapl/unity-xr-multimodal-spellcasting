@@ -1,0 +1,54 @@
+{
+  "original": {
+    "frames": 179,
+    "start": [
+      -1.26667,
+      1.13,
+      -1.31399
+    ],
+    "lastShot": [
+      -1.12667,
+      1.13,
+      -1.31398
+    ],
+    "heightRange": [
+      1.13,
+      1.13
+    ],
+    "horizontalTravelM": 3.220000000935279,
+    "yawTravelDeg": 164.46199999999996,
+    "peakYawDegPerSecond": 44.51643868490527,
+    "rollMaxDeg": 0.0,
+    "returnTime": "at Director stop",
+    "returnMask": 0.0,
+    "returnStepM": 0.42294057419453146,
+    "restoredDriver": true
+  },
+  "revised": {
+    "frames": 179,
+    "start": [
+      -5.09767,
+      0.82,
+      -1.48399
+    ],
+    "lastShot": [
+      -4.78767,
+      1.09,
+      -1.41399
+    ],
+    "heightRange": [
+      0.82,
+      1.09
+    ],
+    "horizontalTravelM": 0.3178093343733704,
+    "yawTravelDeg": 51.99999999999999,
+    "peakYawDegPerSecond": 15.4104656745079,
+    "rollMaxDeg": 0.0,
+    "returnTime": 6.5,
+    "returnMask": 1.0,
+    "returnStepM": 3.2906339433306773,
+    "restoredDriver": true
+  },
+  "test": "Chapter01_Courtyard / real WK01 from new private file, Windows Unity 6000.3.10f1 D3D11, no XR loader or active display, 24 fps game time, 640x360 per eye-camera monoscopic view",
+  "cotMeshTopAtOpeningXZApproxM": 0.71945
+}

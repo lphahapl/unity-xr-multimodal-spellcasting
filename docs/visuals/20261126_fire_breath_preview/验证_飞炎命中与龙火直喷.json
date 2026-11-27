@@ -1,0 +1,75 @@
+{
+  "unity": "6000.3.10f1",
+  "scene": "VFXPreviewTest",
+  "buildBackend": "StandaloneWindows64 / D3D11",
+  "staticAndPlayerArt": {
+    "Assets/Art/VFX/Skills/Prefabs/龙火定向喷流.prefab": "73faeb4e2338b56aae19aae9e541891138cb90f74a8be91d21fb306db82eba81",
+    "Assets/Art/VFX/Skills/Prefabs/飞炎命中爆散.prefab": "d8d835fc7e5f8680c63472374acbea31ff2b265aa28216dfa5deb46215503d1e",
+    "Assets/Art/VFX/Skills/Materials/ImpactFlame.mat": "a86c64eaafae80e35276d97ab5805a5ec018484208ed5eb79c1bd8144fe38148",
+    "Assets/Art/VFX/Shaders/ImpactFlame.shader": "e0baff24418cc2e6f8adcf9bd1d96ffe78ae68b4d51e6f2c40ee56b8083134fe",
+    "Assets/Scene/VFXPreviewTest.unity": "f58b1e1e7f30e2388b8e71d5866aa9806dc2302a8c409f22ce3d214218e3bab4",
+    "Assets/scripts/ui/Skills/VFXShowcasePreviewer.cs": "07cea2bbf38aed43dbe944978271af97915791d3dcced477c2888a79f3262d7d",
+    "Assets/ScriptableObjects/吐火效果配置/龙火之术效果.asset": "36854c04d03dc04cc132f04a935b30e9b0bc585d7f9ea8b1fe9895b907288d99",
+    "Assets/ScriptableObjects/吐火效果配置/飞炎术效果_玩家.asset": "e0a080aa9b74d0653f2267e73661004d7b82a36898a7fe85703967b7dc98aa29"
+  },
+  "physicsPlay": [
+    "FLYING_PLAYER_ENEMY_SPLIT_PASS player=飞炎吐火球 enemy=FireballMissileFire",
+    "FEIYAN_IMPACT_PASS angled-wall+decal, pooled training damage x1 + lease returned, enemy trigger overlap x1, timeout/cancel x0",
+    "PILOT1126_PASS"
+  ],
+  "existingMarkAndThrow": [
+    "IMPACT_EXISTING_PASS SurfaceMarkChecks 火球斜射/初始重叠/擦墙、实体过滤、移动表面、单挥接触、横竖方向、池上限、持续刷新及消退通过。焦痕变化 3846 像素，剑痕 241 像素。",
+    "IMPACT_EXISTING_PASS ThrowPresentationChecks 10"
+  ],
+  "dragonTrajectory": [
+    "Smoke world-gravity coefficient: -1 -> 0; smoke is still active",
+    "axis (0.00, 0.00, 1.00): 45 live smoke particles, mean axial 1.254 m, lateral 0.145 m, removed vertical drift 1.899 m, max rotated trajectory delta 0.00000 m",
+    "axis (0.00, 0.71, 0.71): 45 live smoke particles, mean axial 1.254 m, lateral 0.145 m, removed vertical drift 1.899 m, max rotated trajectory delta 0.00000 m",
+    "axis (0.00, -0.71, 0.71): 45 live smoke particles, mean axial 1.254 m, lateral 0.145 m, removed vertical drift 1.899 m, max rotated trajectory delta 0.00000 m",
+    "axis (1.00, 0.00, 0.00): 45 live smoke particles, mean axial 1.254 m, lateral 0.145 m, removed vertical drift 1.899 m, max rotated trajectory delta 0.00000 m",
+    "PASS original main flame and secondary sparks identical across four aim directions"
+  ],
+  "gallery": [
+    "PASS opens on dragon pilot",
+    "PASS all 42 scene prefab references resolve in player",
+    "PASS native pixel CJK UI at 1280x720",
+    "PASS standalone sustained-stream gallery entry uses corrected variant",
+    "PASS pilot frame 24 active=True",
+    "PASS stream frame 24",
+    "PASS pilot frame 65 active=False",
+    "PASS stream frame 65",
+    "PASS pilot frame 116 active=True",
+    "PASS stream frame 116",
+    "PASS pilot frame 151 active=False",
+    "PASS stream frame 151",
+    "PASS fly selected with next button",
+    "PASS visible ball travels towards slab",
+    "PASS contact hides projectile and emits detached burst",
+    "PASS URP scorch projector active on impact",
+    "PASS scorch outlasts fire",
+    "PASS 0.2x slow motion keeps live impact particles",
+    "PASS native 1080p pixel UI",
+    "PASS one active preview canvas"
+  ],
+  "androidVulkanVertexVariants": [
+    "IMPACT_STEREO_PASS Vertex STEREO_INSTANCING_ON 3488 bytes",
+    "IMPACT_STEREO_PASS Vertex STEREO_MULTIVIEW_ON 3459 bytes"
+  ],
+  "questHardware": "未测试",
+  "reference": {
+    "source": "https://tenor.com/view/fireball-jutsu-katon-goukakyuu-no-jutsu-sasuke-uchiha-sasuke-uzumaki-naruto-gif-25957302",
+    "contactSeconds": [
+      4.9,
+      5.14
+    ]
+  },
+  "video": {
+    "file": "飞炎命中与龙火直喷.mp4",
+    "frames": 402,
+    "fps": 30,
+    "durationSeconds": 13.4,
+    "sha256": "bb933ff62bdd8c281e95faafa2e7af79c7565fac56d71deacc70d550272d0725"
+  },
+  "stills": "飞炎撞墙三帧.jpg",
+  "editorDiagnostics": "完整隔离工程的 UnityEditor.Search.SearchDatabase 在启动索引时抛出一个 ArgumentOutOfRangeException。Play 碰撞回归随后运行完毕。Windows 播放器捕获日志没有此异常。"
+}
