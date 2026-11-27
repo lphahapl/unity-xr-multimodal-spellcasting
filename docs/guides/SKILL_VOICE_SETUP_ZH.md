@@ -2,7 +2,7 @@
 
 当前接入状态（2026-11-08）：`SkillVoiceReceiver` 保留同一个业务门面。Android 非 Editor 自动使用设备内 sherpa-onnx 2.0.1 C API；Windows/PC 编辑器默认仍使用 Python＋回环 UDP。编辑器只有显式勾选 `useNativeInEditor` 才在 Play 中使用本机原生库和麦克风；普通编辑模式不会启动采集。P1 APK 已构建并以独立包名安装到 Quest 3，用户已进入训练场；截至本次 520.6 秒现场记录，收到「雷光剑」6 次、「火球术」4 次，成功召剑 4 次、生成火球 3 次并发射 1 次。首次授权、两次失焦释放及恢复识别已记录。独立 .NET 26 项、最终 Unity 132 项、Quest ARM64 C API 合成音 7 项和 APK 审核 23 项通过。取消口令现场验证及系统权限异常、噪声/准确率和长时性能仍待验，分层证据见下文。
 
-在 Windows 编辑器进入 Play 时，自动启动器按接收器对应的运行时技能目录生成词表，写入 `Library/SkillVoice/play-config.json` 并交给本机服务。首章等待异步技能装配完成，P1 直接使用场景目录。P1 使用「护体咒」「火球术」「雷光剑」「取消施法」。修改目录后重新进入 Play 即可加载。退出播放会停止该编辑器启动的服务。
+在 Windows 编辑器进入 Play 时，自动启动器按接收器对应的运行时技能目录生成词表，写入 `Library/SkillVoice/play-config.json` 并交给本机服务。首章等待异步技能装配完成，P1 直接使用场景目录。P1 使用「衡印」「火球术」「雷光剑」「取消施法」。修改目录后重新进入 Play 即可加载。退出播放会停止该编辑器启动的服务。
 
 手动启动服务时可以给 `Start.ps1` 传 `-Config 'Assets/Configuration/LinearRpg/skill-voice-config.json'` 以使用随工程提供的 P1 词表。手动服务由启动者负责停止和重启，Unity 会使用已经在运行的服务。手动命令默认读 `Tools/SkillVoice/skill-voice-config.json`，也可通过 Unity 菜单导出当前场景目录覆盖该文件。[配置指南](CONFIGURATION_GUIDE_ZH.md)
 
@@ -127,7 +127,7 @@ if (-not $voiceBuild.passed) { throw '本次 APK 构建尚未通过' }
 ```powershell
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --self-test
 & './Tools/SkillVoice/Generate-TtsFixtures.ps1'
-& './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --wav './Tools/SkillVoice/fixtures/shield.wav' --expect '护体咒'
+& './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --wav './Tools/SkillVoice/fixtures/shield.wav' --expect '衡印'
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --wav './Tools/SkillVoice/fixtures/fireball.wav' --expect '火球术'
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --wav './Tools/SkillVoice/fixtures/cancel.wav' --expect '取消施法'
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --wav './Tools/SkillVoice/fixtures/negative.wav'
@@ -143,7 +143,7 @@ if (-not $voiceBuild.passed) { throw '本次 APK 构建尚未通过' }
 ```powershell
 & './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --test-event all
 # 组合测试时可只发一个口令；命令启动后 1.5 秒发出：
-& './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --test-event '护体咒'
+& './Tools/SkillVoice/.venv/Scripts/python.exe' -X utf8 './Tools/SkillVoice/skill_voice.py' --test-event '衡印'
 ```
 
 同一端口只允许一个服务；先停止连续麦克风服务再运行 WAV 或模拟。正式使用时可在 `SkillVoiceReceiver` Inspector 取消「允许显式模拟接线测试」和「允许 WAV 回放测试」。

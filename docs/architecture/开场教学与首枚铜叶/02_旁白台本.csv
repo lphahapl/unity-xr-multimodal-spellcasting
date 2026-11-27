@@ -10,7 +10,7 @@ T04,FR02,ROOM_FIRE,FR02.wav,申屠（老考工官）,等火核在掌心成了形
 T05,FR03,ROOM_FIRE2,FR03.wav,申屠（老考工官）,打中了。旁边还有一面靶，你自己凝一枚火核，再试一回。,音频和操作都完成,targetTwoEnabled,targetTwoDamagedByPlayerFireball,0.7
 T06,RS01,ROOM_REST,RS01.wav,申屠（老考工官）,看看腕上，刚才那一击耗了些度力。把手放下来，歇一口气，等它慢慢回升。,音频和操作都完成,energyHasBeenSpent,energyRecoveredToThreshold,0.6
 T06,RS02,ROOM_REST,RS02.wav,申屠（老考工官）,这就缓过来了。以后每出一招，都记得给自己留点余力。,自动继续,energyRecoveredToThreshold,,0.5
-T07,SH01,ROOM_SHIELD,SH01.wav,申屠（老考工官）,出手会了，还得学会护着自己。照图结个规印，或是念一声“护体咒”，都能起盾。,自动继续,shieldTemporaryGranted,,0.5
+T07,SH01,ROOM_SHIELD,SH01.wav,申屠（老考工官）,出手会了，还得学会护着自己。照图用左手结衡印，或是念一声衡印，都能起盾。,自动继续,shieldTemporaryGranted,,0.5
 T07,SH02,ROOM_SHIELD,SH02.wav,申屠（老考工官）,等盾立稳了，试炼器就会朝你打一发。稳住，让这一击落在盾上。,音频和操作都完成,safeShieldEmitterEnabled,trainingProjectileAbsorbed,0.7
 T08,DG01,ROOM_DODGE,DG01.wav,申屠（老考工官）,遇上硬接不住的招，就要让开。先放低双手，把架势收了，右手也腾出来。,自动继续,dodgeTemporaryGranted,,0.5
 T08,DG02,ROOM_DODGE,DG02.wav,申屠（老考工官）,右手收到胸前，再向前快推一下，人便会向后滑。试着这样退出地上的攻击带。,音频和操作都完成,safeDodgeEmitterEnabled,trainingAttackEvadedByBackwardSlide,0.6

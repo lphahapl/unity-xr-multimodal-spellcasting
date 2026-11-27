@@ -57,7 +57,7 @@ enemy.Die();                        // 进入 Dead，播完后由该次出生的
 
 敌人伤害已走 `RpgDamageReceiver → LinearRpgController.ReceiveDamage → PlayerObj` 的护盾和去重入口。命中 ID 含敌人运行实例标识和递增攻击序号，池化重生不复用旧 ID。不要直接修改玩家 HP，也不要把开始攻击事件等同于命中。
 
-上述三个反应方法可直接绑定 UnityEvent。程序可通过 `TryNotifyHit()`、`TryEnterSeated()`、`TryDie()` 取得本次请求结果。优先级依次是死亡、坐地、受击，同级请求只播放一次。房间暂停时保存 Hit 或 Seated 的播放速度，同时冻结反应等待时间，恢复后继续该动作。韧性归零时进入 Seated，片段结束后按配置回韧。
+上述三个反应方法可直接绑定 UnityEvent。程序可通过 `TryNotifyHit()`、`TryEnterSeated()`、`TryDie()` 取得本次请求结果。优先级依次是死亡、坐地、受击，同级请求只播放一次。房间暂停时保存 Hit 或 Seated 的播放速度，同时冻结反应等待时间，恢复后继续该动作。韧性归零时进入 Seated，残机偶与掷火残机再经 StandUp 回到待机，起身期间锁导航与攻击，保持零韧性。其他敌人可将 seatedRecoverState 清空以继续使用自己的坐地状态。
 
 残机偶的 `Base Layer.Dead` 使用现有的 `CanJiOu_ParalysisEnter` 倒地片段。致死当帧即锁定行动并结算本次击败，动画按自身进度到达片尾后才清理物体。屏幕外仍计算这段动画，死亡态或 Animator 缺失时也能结束本次生命。[生成和回收说明](ENEMY_SPAWNING_ZH.md) · [Unity 动画状态进度](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/AnimatorStateInfo-normalizedTime.html)
 
@@ -71,7 +71,7 @@ P1 固定机位录像以每秒 24 帧记录。第 93 帧仍可看到接近片尾
 - 新增 `motionState` 整数，0 待机、1 巡逻走路、2 追击跑步、3 近身转向。脚本决定行为，Animator 表现动画。
 - 非攻击状态先检查 `isAttacking`，其他移动连线要求 `isAttacking=false`，消除 Run 抢占攻击。
 - 攻击子状态机保留默认挥砍和 `attack1` 条件转圈，标签为 `EnemyAttack`。退出由脚本完成/取消标志驱动，不再等待 Idle 的 Exit Time。
-- 新增状态使用用户的 `dead` Bool、`Hit` Trigger、`isSeated` Trigger。Any State 的死亡入口优先且不允许自重入；Hit/Seated 入口要求 `dead=false`，动画在 0.98 进度后退出到待机；死亡态保留无普通出口。
+- 新增状态使用用户的 `dead` Bool、`Hit` Trigger、`isSeated` Trigger。Any State 的死亡入口优先且不允许自重入；Hit/Seated 入口要求 `dead=false`，两种残机的 Seated 经 StandUp 后回到待机；死亡态保留无普通出口。
 - 导航负责位移，脚本负责水平转向。`applyRootMotion=false`、`agent.updateRotation=false`。左转和右转片段设为循环，近处目标持续绕行时肢体会继续转步。头显中的距离感与脚底滑动仍需现场核验。
 - 当前资产只有两种独立攻击。增加第三种时须同时加动作、`attack2` Trigger、Attack Entry 条件和 EnemyObj 第三项 AttackData，并将总数设为 3；只改总数不会凭空生成动画。运行时基础验证能拦缺参数/数据，编辑器回归核对现有两招的实际入口。
 - 攻击总数和 Animator Controller 请退出 Play 后修改，再开始新一轮；生成时会重新验证配置。移动速度、攻击距离、冷却等数值可在 Play 中调试。

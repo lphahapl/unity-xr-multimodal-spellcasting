@@ -1,0 +1,22 @@
+Assets/Scene/Chapter02_SuspendedPath.unity
+sha256 15779cec810f1a072e754e90161ba8658e9461f93a7165100bc1a9dad4958450
+Unity 6000.3.10f1
+navigation vertices 425 triangles 187 canonical sha256 73388702f52891f93a21537e69c28946192aa290d236da3c4f839520bdf03e99
+nav source 03 · 失衡工坊战区  ±0 m/F1 · 锻造房/ForgeRoofPost Assets/Prefabs/WorkshopRoofEncounter/ForgeRoofPostNav.asset at 10.5999947,0,44.4999962
+nav source 03 · 失衡工坊战区  ±0 m/F2 · 炭棚/ShedRoofPost Assets/Prefabs/WorkshopRoofEncounter/ShedRoofPostNav.asset at 9.599993,0,55.7
+nav source 战区地面导航/祭坛 · 工奴地面导航 Assets/Art/Environment/SuspendedPath/Navigation/Chapter02AltarStoneCarrier_NavMesh.asset at 0,0,0
+nav source 战区地面导航/工坊 · 院场地面导航 Assets/Art/Environment/SuspendedPath/Navigation/WorkshopCourtyardGround.asset at 0,0,0
+nav sample 15.7802086,0,44.04679 True -> 15.7802086,0.0733335,44.04679
+nav sample 11.1977119,0.23,44.44771 False
+nav sample 10.1716309,0.23,44.5374756 False
+roof ForgeRoofPost id=GlobalObjectId_V1-2-c52b4ab6325717d4f84f2080d7252f93-102204763107735735-1220357627 position=10.5999947,0,44.4999962 surface=ForgeRoofPostTiles roofCollider=True
+shooter 03 · 失衡工坊战区  ±0 m/F1 · 锻造房/ForgeRoofPost/ZhiHuoCanJi_Enemy id=GlobalObjectId_V1-2-c52b4ab6325717d4f84f2080d7252f93-4812624877036768182-1220357627 position=11.4965706,4.46324968,44.42156 rotation=0,0,0 capsule=True,0.32,1.70 animator=True agent=True roofHit=True hitAt=11.4965706,4.36993265,44.4215546
+roof ShedRoofPost id=GlobalObjectId_V1-2-c52b4ab6325717d4f84f2080d7252f93-5538715396140977064-1359819329 position=9.599993,0,55.7 surface=ShedRoofPostTiles roofCollider=True
+shooter 03 · 失衡工坊战区  ±0 m/F2 · 炭棚/ShedRoofPost/ZhiHuoCanJi_Enemy id=GlobalObjectId_V1-2-c52b4ab6325717d4f84f2080d7252f93-2665480242116464433-1359819329 position=10.4834576,2.69075012,55.871727 rotation=0,-6.83019E-06,0 capsule=True,0.32,1.70 animator=True agent=True roofHit=True hitAt=10.4834509,2.59322262,55.871727
+F1 body collider enabled=True trigger=False localCenter=0,0.11,0 size=10.45,0.22,4.95
+F1 body collider enabled=True trigger=False localCenter=0,1.865,1.87 size=9.13,3.33,0.24
+F1 body collider enabled=True trigger=False localCenter=-4.51,1.865,0 size=0.24,3.33,3.685
+F1 body collider enabled=True trigger=False localCenter=4.51,1.865,0 size=0.24,3.33,3.685
+F1 body collider enabled=True trigger=False localCenter=0,1.775,0 size=10.35,3.55,4.85
+missing renderer materials or meshes 0
+source hash after read 15779cec810f1a072e754e90161ba8658e9461f93a7165100bc1a9dad4958450

@@ -1,4 +1,6 @@
-# 首章玩家手模与左腕准望匣
+# 玩家手模与左腕准望匣
+
+正式玩家使用 Meta 官方手模。2026-11-26 起，自制双手和沈商角色模型作为美术资产留存，暂缓接入正式玩家或章节角色。下文的制作、装配与替换步骤供独立样板试装。青年沈商的各版模型、源文件和审图回执可从 [R09 批注工作台](http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r09) 与 [逐版审图目录](../../ArtSource/Characters/ShenShangYoungA2/GeminiReview) 查阅。
 
 适用 Unity 6000.3.10f1、Meta Interaction SDK 207.0.1、URP 17.3.0。玩家手接入首章现有的 Unity XR Hands 数据源。教学右手由 CourtyardTaskGuide 单独持有。
 
@@ -37,7 +39,7 @@ Unity 端在工具内同步同侧母版的 ModelImporter。手动复核 Model �
 - 左腕 WatchMount 使用独立配置和静置手掌基准，承接已有准望匣的场景实例。腕部菜单只有一个位姿来源，朱砂扣、原有事件与铜叶槽继续属于原实例。可选视线组件以表盘法线、距离、朝向和连续停留时间决定读数/交互唤醒，提供 UnityEvent 与 C# 事件。注视本身不会打开教学菜单。
 - 安装器限定首章两个已保存的场景路径，显式连接真实左右 Hand，通过 Undo 支持切换。只在用户操作后编辑当前打开的场景，不自动保存。
 
-## 阶段 4 · Unity 替换操作
+## 阶段 4 · 独立样板中的 Unity 替换操作
 
 1. 打开 **Tools → NarutoVR → 首章 → 玩家手模与准望匣**。项目随附 `Assets/Art/PlayerHands/PlayerLeftHand.prefab` 和 `PlayerRightHand.prefab`，可直接从第 4 步试戴。需要制作新皮肤时，把新 FBX 放入 Assets，在窗口选左手或右手，将新资产拖到「自定义 FBX」，核对「官方母版 FBX」对应同侧。使用「同步导入参数并重新导入」，再点「校验骨架和蒙皮」。报告中的缺骨、重名、父链、缩放或矩阵错误须回 DCC 纠正。左右分别校验。
 2. 选左手时，槽 0 与槽 1 分别为 `LeftHand.mat`、`LeftCuff.mat`，右手对应 `RightHand.mat`、`RightCuff.mat`。窗口随侧别自动选材质。主体贴图 RGB 控制底色，Alpha 为铜环高光遮罩，材质启用 Copper highlight from Skin alpha。末段使用独立缠布贴图与 UV 裁剪，Start (UV0 V) 和 Feather (UV0 V) 默认为 0、1，Dither cells per UV unit 调整裁剪点大小。需要单看形变时可在窗口手动选 `HandBody.mat` 和 `ForearmEnd.mat` 两个中性材质。

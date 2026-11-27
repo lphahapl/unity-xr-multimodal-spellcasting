@@ -1,0 +1,199 @@
+Unity 6000.3.10f1 | D3D11 | 2026-11-25T09:21:20+08:00
+Tested scene: Assets/Scene/Chapter02_SuspendedPath.unity
+Before: b12654ed204cb3aef062b61cf40b9953e1e60559e1f7ff006fc1f481fa203b8e
+Final: 9f31591f216a7d927e978ebd4ff293ba51d995803fce28e4c9ef6c122f545a42
+MountainPreview: 0729d438a6fbd45ab17f5002823bfc85e601058c16be4566e0e40f69fdc888a6
+Verified against the integration copy: 145 runtime files including metadata.
+Unity asset dependency paths resolved: 236.
+Both in-scene cameras re-created at approved viewpoints. Captures 1600 × 900.
+Before / after collision identity, type, enabled and active flag, world bounds: 112 / 112, 0 differences.
+Ch2Ravine.Verify: passed. Ch2RavinePlay.Start: passed, desktop Play Mode.
+All scene references resolved
+Old redirect and diagonal rope assemblies absent
+A rope 7.665 m; horizontal delta 0.000008 m
+A rendered rope meets pin and yoke
+B rope 87.665 m; horizontal delta 0.000008 m
+B rendered rope meets pin and yoke
+Beam 120 m; starting stops A upper +80 and B bottom -80
+A mid route 46.465 m
+B mid route 46.365 m
+Workshop 34.37 m return and both initial basket thresholds clear
+B landing free of colliders
+525 valley samples at -80 m, no scenery enters reserved volume
+Upper route and ballast pull retain alignment
+Five static cliff meshes: 77750 triangles; collisions: 2050
+upper: 5/5 eye-level samples, cliff 6.99..12.01 m from centreline
+workshop: 6/6 eye-level samples, cliff 5.86..6.68 m from centreline
+west dock: 21/21 eye-level samples, cliff 5.32..7.59 m from centreline
+east dock: 21/21 eye-level samples, cliff 6.13..8.48 m from centreline
+Upper gap still 4 m wide
+Upper repair and three middle bridge interiors retain clear width
+Visual triangles clear both combat courts, valley 24 x 20 m, baskets and both lines in 41 rocker poses
+XR active and spawn grounded (-9.12, 80.00, 63.70)
+cloud eye A error 0.000004 m
+t=0.00 A level=80.000 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.00 B level=-80.000 lateral=0.000008 m
+cloud eye A error 0.000009 m
+t=0.05 A level=76.633 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.05 B level=-76.633 lateral=0.000015 m
+cloud eye A error 0.000009 m
+t=0.10 A level=73.071 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.10 B level=-73.071 lateral=0.000000 m
+cloud eye A error 0.000004 m
+t=0.15 A level=69.333 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.15 B level=-69.333 lateral=0.000000 m
+cloud eye A error 0.000009 m
+t=0.20 A level=65.439 lateral=0.000008 m
+cloud eye B error 0.000010 m
+t=0.20 B level=-65.439 lateral=0.000008 m
+cloud eye A error 0.000009 m
+t=0.25 A level=61.409 lateral=0.000008 m
+cloud eye B error 0.000006 m
+t=0.25 B level=-61.409 lateral=0.000008 m
+cloud eye A error 0.000008 m
+t=0.30 A level=57.266 lateral=0.000008 m
+cloud eye B error 0.000004 m
+t=0.30 B level=-57.266 lateral=0.000015 m
+cloud eye A error 0.000004 m
+t=0.35 A level=53.030 lateral=0.000008 m
+cloud eye B error 0.000004 m
+t=0.35 B level=-53.030 lateral=0.000015 m
+cloud eye A error 0.000009 m
+t=0.40 A level=48.726 lateral=0.000011 m
+cloud eye B error 0.000011 m
+t=0.40 B level=-48.726 lateral=0.000015 m
+cloud eye A error 0.000009 m
+t=0.45 A level=44.374 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.45 B level=-44.374 lateral=0.000038 m
+cloud eye A error 0.000008 m
+t=0.50 A level=40.000 lateral=0.000015 m
+cloud eye B error 0.000008 m
+t=0.50 B level=-40.000 lateral=0.000046 m
+cloud eye A error 0.000009 m
+t=0.55 A level=35.626 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.55 B level=-35.626 lateral=0.000031 m
+cloud eye A error 0.000008 m
+t=0.60 A level=31.274 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.60 B level=-31.274 lateral=0.000023 m
+cloud eye A error 0.000009 m
+t=0.65 A level=26.970 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.65 B level=-26.970 lateral=0.000031 m
+cloud eye A error 0.000005 m
+t=0.70 A level=22.734 lateral=0.000008 m
+cloud eye B error 0.000008 m
+t=0.70 B level=-22.734 lateral=0.000061 m
+cloud eye A error 0.000009 m
+t=0.75 A level=18.591 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.75 B level=-18.591 lateral=0.000023 m
+cloud eye A error 0.000012 m
+t=0.80 A level=14.561 lateral=0.000008 m
+cloud eye B error 0.000008 m
+t=0.80 B level=-14.561 lateral=0.000008 m
+cloud eye A error 0.000005 m
+t=0.85 A level=10.667 lateral=0.000011 m
+cloud eye B error 0.000000 m
+t=0.85 B level=-10.667 lateral=0.000008 m
+cloud eye A error 0.000005 m
+t=0.90 A level=6.929 lateral=0.000008 m
+cloud eye B error 0.000011 m
+t=0.90 B level=-6.929 lateral=0.000038 m
+cloud eye A error 0.000005 m
+t=0.95 A level=3.367 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.95 B level=-3.367 lateral=0.000031 m
+cloud eye A error 0.000005 m
+t=1.00 A level=0.000 lateral=0.000008 m
+cloud eye B error 0.000008 m
+t=1.00 B level=0.000 lateral=0.000023 m
+cloud eye A error 0.000005 m
+t=0.95 A level=3.367 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.95 B level=-3.367 lateral=0.000031 m
+cloud eye A error 0.000005 m
+t=0.90 A level=6.929 lateral=0.000008 m
+cloud eye B error 0.000011 m
+t=0.90 B level=-6.929 lateral=0.000038 m
+cloud eye A error 0.000005 m
+t=0.85 A level=10.667 lateral=0.000011 m
+cloud eye B error 0.000000 m
+t=0.85 B level=-10.667 lateral=0.000008 m
+cloud eye A error 0.000012 m
+t=0.80 A level=14.561 lateral=0.000008 m
+cloud eye B error 0.000008 m
+t=0.80 B level=-14.561 lateral=0.000008 m
+cloud eye A error 0.000009 m
+t=0.75 A level=18.591 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.75 B level=-18.591 lateral=0.000023 m
+cloud eye A error 0.000005 m
+t=0.70 A level=22.734 lateral=0.000008 m
+cloud eye B error 0.000008 m
+t=0.70 B level=-22.734 lateral=0.000061 m
+cloud eye A error 0.000009 m
+t=0.65 A level=26.970 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.65 B level=-26.970 lateral=0.000031 m
+cloud eye A error 0.000008 m
+t=0.60 A level=31.274 lateral=0.000004 m
+cloud eye B error 0.000008 m
+t=0.60 B level=-31.274 lateral=0.000023 m
+cloud eye A error 0.000009 m
+t=0.55 A level=35.626 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.55 B level=-35.626 lateral=0.000031 m
+cloud eye A error 0.000008 m
+t=0.50 A level=40.000 lateral=0.000015 m
+cloud eye B error 0.000008 m
+t=0.50 B level=-40.000 lateral=0.000046 m
+cloud eye A error 0.000009 m
+t=0.45 A level=44.374 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.45 B level=-44.374 lateral=0.000038 m
+cloud eye A error 0.000009 m
+t=0.40 A level=48.726 lateral=0.000011 m
+cloud eye B error 0.000011 m
+t=0.40 B level=-48.726 lateral=0.000015 m
+cloud eye A error 0.000004 m
+t=0.35 A level=53.030 lateral=0.000008 m
+cloud eye B error 0.000004 m
+t=0.35 B level=-53.030 lateral=0.000015 m
+cloud eye A error 0.000008 m
+t=0.30 A level=57.266 lateral=0.000008 m
+cloud eye B error 0.000004 m
+t=0.30 B level=-57.266 lateral=0.000015 m
+cloud eye A error 0.000009 m
+t=0.25 A level=61.409 lateral=0.000008 m
+cloud eye B error 0.000006 m
+t=0.25 B level=-61.409 lateral=0.000008 m
+cloud eye A error 0.000009 m
+t=0.20 A level=65.439 lateral=0.000008 m
+cloud eye B error 0.000010 m
+t=0.20 B level=-65.439 lateral=0.000008 m
+cloud eye A error 0.000004 m
+t=0.15 A level=69.333 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.15 B level=-69.333 lateral=0.000000 m
+cloud eye A error 0.000009 m
+t=0.10 A level=73.071 lateral=0.000011 m
+cloud eye B error 0.000008 m
+t=0.10 B level=-73.071 lateral=0.000000 m
+cloud eye A error 0.000009 m
+t=0.05 A level=76.633 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.05 B level=-76.633 lateral=0.000015 m
+cloud eye A error 0.000004 m
+t=0.00 A level=80.000 lateral=0.000008 m
+cloud eye B error 0.000009 m
+t=0.00 B level=-80.000 lateral=0.000008 m
+
+Independent serialized GUID traversal matched all 236 Unity dependency paths in both directions. 66 production files are runtime dependencies and five more are builder inputs. No unresolved external GUID or path conflict.
+SharedWorkSpace / Chrome: 2 x 1600x900 scene captures, 2 x 1672x941 concept images; workshop GLB 46 mesh nodes, 33 embedded images; basket GLB 8 mesh nodes, 13 embedded images. All review assets matched local bytes via HTTP. Both comment forms loaded.

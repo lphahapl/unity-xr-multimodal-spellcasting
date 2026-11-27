@@ -1,0 +1,202 @@
+{
+  "time": "2026-11-27T11:12:47.379929+08:00",
+  "editor": {
+    "utc": "2026-11-27T11:12:47.0887550+08:00",
+    "requestWrittenUtc": "2026-11-27T03:12:46.9852927Z",
+    "action": "state",
+    "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+    "playing": false,
+    "paused": false
+  },
+  "files": {
+    "Assets/Resources/Narration/Chapter02/HT02_WorkshopHearth.wav": [
+      null,
+      "18ecdc5048af224630b1132c4ad2fbbd09445af4bc67c1e827a6b3a3a2881fe4"
+    ],
+    "Assets/Resources/Narration/Chapter02/HT02_WorkshopHearth.wav.meta": [
+      null,
+      "cfaae0563fd9ccbfe61ef565cc11a13bd4e3e886c11940bce2995d8a1d7eb6a7"
+    ],
+    "Assets/Resources/Narration/Chapter02/RT01_WorkshopHearth.wav": [
+      null,
+      "8ed77bae2e2b7dc4dab9507b07d6ecedce6a163f8e663ed86c57231aaa8896f5"
+    ],
+    "Assets/Resources/Narration/Chapter02/RT01_WorkshopHearth.wav.meta": [
+      null,
+      "ca66409d342bdff1288f2ae5f77ecae6636c3285662eed0db41382f940562fb9"
+    ],
+    "Assets/Resources/Narration/Chapter02/RT03_WorkshopHearth.wav": [
+      null,
+      "1e41d01f372f7404764aa65bdc0a31f320ce3916790df1a1ec8e1dc033f0c862"
+    ],
+    "Assets/Resources/Narration/Chapter02/RT03_WorkshopHearth.wav.meta": [
+      null,
+      "2e049adb7e2666c5525227f0765d4780f2b34f29f28443d777938b56ada8376c"
+    ],
+    "Assets/Scene/Chapter02_SuspendedPath.unity": [
+      "0e35b9133b5d83bcededbbcb3acd138b3dc53ac255c5fe76cbdd210f01308cdb",
+      "6c30b163aa06ec42bfb14822dc4f26fbe494e6cbb257ed62d6c405077c3bfbb1"
+    ],
+    "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.Ink.cs": [
+      "8a03787f1a48a1769fe1705d3bdc73faad9ccec233c5ea2286ac8f787f598c09",
+      "4604de5c5ac4e6fb92c2eb0e4cf73b6d100ab2724d2b5c42cf7f1b9a7ad60bd5"
+    ],
+    "Assets/scripts/logic/Editor/Interaction/HandPickupPlayChecks.cs": [
+      "625a26479d17d592108128d5f8d93d798a4f157fa5097e887a3b67e6eaa94fdf",
+      "e62f8b7a2e1559e6d47a44b3413eab679df7898920cde514279aa462925bfa75"
+    ],
+    "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.Hearth.cs": [
+      "e1ae63f9e82347c59bc1d5238fe505c56c455efb9319afdd6de22adae79df8f8",
+      "dc0984ee699a189936541ff8e06dc0461608ee2a76c8348a52f19ccd078acee4"
+    ],
+    "Assets/scripts/logic/Interaction/Items/GameItemBase.cs": [
+      "31e1e1993fc264b46871b11846fedda09b32e588310f7fecd8b6eaf294a280d7",
+      "6d34305a74064884f645d4929ebb63474dce79c96bd47603bd97cd24d43ef9ea"
+    ],
+    "Assets/scripts/logic/Rpg/Chapter02Guidance/Chapter02Narration.cs": [
+      "e3a4bf899135c57d2f2019af646811db069dbcdd924bbe82c4de6d5dce9b2a84",
+      "bcbe4026a135a0094b4a74ae5aaf3950c7ed8cb2aea10d12ee4e4b50f699236c"
+    ],
+    "docs/architecture/第二章_断衡悬道/01_第二章流程与玩法设计.md": [
+      "44814353dc40ccee836bf0fbb6e7c19f03c658d2019d520a940ee87bd0b9fdd5",
+      "967d8ee922722439aab95df9652d5d0de8f8e2100364e1f423bebd116b7bfd5a"
+    ],
+    "docs/guides/ALL_ITEMS_LAB_ZH.md": [
+      "9249cf6ea9cb3f46e748cd34f16f164ea75a1debd11f0e76a618a1a0da8abf25",
+      "257eb46f33b647ead2a1aecbaaade04bf3fb85954770ef3a2ae5d7003a63dc8c"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/f8-receipt.json": [
+      null,
+      "2547518bddde83de02ec17b6c735cfc1180869bf7e1e4e75cb21b03efe8b3318"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/food.txt": [
+      null,
+      "844f15b70f5e005418ff6c0afffef172cdda2997c57367091d0d1b8416cb0f39"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/joint.txt": [
+      null,
+      "9d999d89a8e12730f001e2bc8f3f00f473f6f48bd820f54f97038491e2b00a3c"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-chapterpen.txt": [
+      null,
+      "10531aac681577be87753d6144e5f6076a5fa6887a4ede8e4d5a271dc3c7ea9a"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-generic.txt": [
+      null,
+      "21f2a3e17238ca970e5ac70cd8d65b8ad41cdc60673a02723d199e78afadc3f4"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-ink.txt": [
+      null,
+      "6ada6c546d92f2507acfe16edf8cbf2562f0ca50e2d0dd63ad2d4ad802a5c372"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-ration.txt": [
+      null,
+      "2ec5bcfdcc4063d559bdf84baa41786689b2aefbc516b6dab598948acb29b2cf"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-receipt.json": [
+      null,
+      "f8bb07d2c4a68cf33e35254c1645de2072d7a09cdf791103f7bcce8285b6490d"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-split.txt": [
+      null,
+      "e46d752843f4f0b44dbc70f8d8afe450220e5067528a039a15bd021bfa82dbc5"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/ray-stake.txt": [
+      null,
+      "57e598000112bb5295fb839b690572f20ba229e2af74aa250c595e36b68d078e"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/snap-receipt.json": [
+      null,
+      "3f3c0165e162154ab8f1aefdb63a70fdc010b68e18de40300ed3b0b75e2151b8"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/supply-Cold.txt": [
+      null,
+      "fe9590dc648235ad4954dd2cc3d5a9970818b76d6e74fb7bf4a0a7f8a8e93e11"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/supply-Fresh.txt": [
+      null,
+      "1c5a958a6af689f667642ebb6120681e7db5db8823021d5c8926edb69d22507d"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/supply-Ink.txt": [
+      null,
+      "d66811b74c2ce30601350f240647430a6d44277f26bb337461b1d8472c2c0fdf"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/adjacent/walk.txt": [
+      null,
+      "08326cd063ea1e24692ae083c174871c51f60fad265a12512aa29b336d09ef1e"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/android/checks.txt": [
+      null,
+      "ea5c942e1b58cb63c49aaec7e537dd52bbd7840d2aff67f5047dec11273c423e"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/android/player-defines.txt": [
+      null,
+      "2929591d9ea306305a97f3f64321873f8a5bca43f2a9e2c6dc98856f701fb133"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/checks.txt": [
+      null,
+      "eb1bb8be092d7db475e03df8c52134b046693d14529047f0d6fc39b082272a7b"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/cold/checks.txt": [
+      null,
+      "4412eabc321f124b860ea9af78db40aeae61bfbbcd000a22b0865acf2c41cbd5"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/context.png": [
+      null,
+      "82838c7d0c07d432f1b596a5cc6d8082cd037ee6330fa259980e2e3e72510407"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/placement.txt": [
+      null,
+      "9f5c1fd1a101f570696a42e7f8a1215cb66716d09141c497ba044b9ee6bcda04"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/standing.png": [
+      null,
+      "876da7eab4ca37633e86bb59e74ac6d6fef8268156e8f6d6d312c77338a87875"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/validation.json": [
+      null,
+      "b284d6684ea7ce290033261220d6088f45d3c6d7acff67f3f366798e90d20e55"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/furnace/wrists.csv": [
+      null,
+      "169068cdfb927faa3c2725617de24127293b57fc7b749b6d5e37bfbea1c22751"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/integration/chapter-cold.txt": [
+      null,
+      "79a2b714a4d63b9c33102db52c39ee5015082e5ad4d8185773c405e114f109f7"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/integration/chapter-fresh.txt": [
+      null,
+      "e42632c44ea5d9a61cb4ef729698ac92bbf0cfd2cdbd8ccb2e7f635a7d7d7fa8"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/integration/cold-result.json": [
+      null,
+      "a6027a14b3d9f3a5282a25ee03e16dd1b59c52d4efd4320859fbac8389d57470"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/integration/fresh-result.json": [
+      null,
+      "3550ac3c2d8789f52fd885cc3c25b40273a1fc93ce5432aab299e0532f28376b"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/narration/checks.txt": [
+      null,
+      "d8d671cd419f1e524edadfb648c9893f81ba229d1231fabf223b0461faba4f61"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/narration/script-audit.json": [
+      null,
+      "9c99f51ec0761013d80c16bb345ff8c2e5c7f6373dc771aa4d6921175df83409"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/narration/steps.txt": [
+      null,
+      "1f779f0a1624a7de74664f8cfd16f6dda03c1b1d32f4420890b97ccd1c9d28cc"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/README.md": [
+      null,
+      "83664cf6b372c745fb5475e3682c3f2489014dea577f6a9649cf78e135aefd8c"
+    ],
+    "Tools/Validation/Evidence/WorkshopHearth1127/reference-audit.json": [
+      null,
+      "0d0f98f6f2cbcaa2323fd6f6813bb3a917c6ffd1809cdde92af0ba204564ce92"
+    ]
+  },
+  "protected_count": 0
+}

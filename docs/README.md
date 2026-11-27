@@ -12,12 +12,18 @@
 | 火球与施法诊断 | [参数/算法](guides/FIREBALL_TUNING_ZH.md) · [施法链路](guides/SKILL_CAST_TRACE_ZH.md) |
 | 配置技能与展示 | [配置与扩展](guides/CONFIGURATION_GUIDE_ZH.md) · [雷光剑与可选近战判定](guides/CONFIGURATION_GUIDE_ZH.md#雷光剑与可选近战判定) · [旧四场景](guides/SKILL_SHOWCASES_ZH.md) · [中文 UI](guides/CHINESE_UI_ZH.md) |
 | 手势采样与识别 | [实验台](guides/SEAL_LAB.md) · [录制标定](guides/SEAL_LAB_QUICKSTART_ZH.md) · [识别测试](guides/RECOGNITION_TEST_ZH.md) · [官方基础手形](guides/OFFICIAL_HAND_POSES_ZH.md) |
+| 六印小篆成印字影 | [字源、实际播放与验证边界](guides/SIX_SEAL_CONFIRMATION_VISUALS_ZH.md) · [同屏、带声视频与批注](http://127.0.0.1:4190/plans/seal-confirmation-xiaozhuan-r1.html) |
 | 制作玩家双手、试戴左腕准望匣 | [成品 Prefab、Blender 源文件、实绘预览与首章安装](guides/PLAYER_HANDS_ZH.md) |
-| 勘律使沈商的外观候选 | [全身主设](visuals/20261121_shen_shang_character/01_沈商_全身主设.png) · [服装三视图](visuals/20261121_shen_shang_character/02_沈商_服装三视图.png) · [工坊校尺](visuals/20261121_shen_shang_character/03_沈商_工坊校尺.png) |
+| 勘律使沈商的外观候选 | [青年短摆 A2 主设](visuals/20261125_shen_shang_young/沈商_青年短摆_A2.png) · [A2 四向](visuals/20261125_shen_shang_young/沈商_青年短摆_A2_四向.png) · [看图与批注](http://127.0.0.1:4190/plans/shen-young-short-hem-a2.html) · [原版全身主设](visuals/20261121_shen_shang_character/01_沈商_全身主设.png) · [原版服装三视图](visuals/20261121_shen_shang_character/02_沈商_服装三视图.png) · [工坊校尺](visuals/20261121_shen_shang_character/03_沈商_工坊校尺.png) |
 | 沈商玩家造型与模型 | [整身 Blender、面部还原对照、T 姿 FBX 与历史模型](guides/SHEN_SHANG_PLAYER_MODEL_ZH.md) |
 | 中文口令与 Quest APK | [PC/Quest 离线接入、原生检查、构建与权限重试](guides/SKILL_VOICE_SETUP_ZH.md) · [测试录音](guides/AUDIO_TEST_RECORDING_ZH.md) |
 | P1 反馈试炼 | [启动和操作](guides/P1_TRIAL_ZH.md) · [敌人战斗](guides/ENEMY_COMBAT_ZH.md) · [敌人加载](guides/ENEMY_SPAWNING_ZH.md) · [旁白](guides/NARRATION_FLOW_ZH.md) · [吸附工具](guides/SNAP_TOOL_ZH.md) |
+| 道具统一试验场 | [头显操作、起始陈列与验收](guides/ALL_ITEMS_LAB_ZH.md) · [AllItemsLab 场景](../Assets/Samples/ToolBeltItems/AllItemsLab.unity) |
+| 定律铜橛与素纱屏风 | [插地、拦截与收回](guides/SNAP_TOOL_ZH.md#定律铜橛隔离样板) · [二章及全道具场验收](../Tools/Validation/Evidence/Chapter02Comfort1127/README.md) |
 | 常态音乐制作与循环验收 | [《一寸山河》v11复现与实测](guides/MUSIC_PRODUCTION_RUNTIME_ZH.md) |
+| 第二章工坊屋顶射手 | [安装双驻点、登记房间敌人及重放回归](guides/CH02_WORKSHOP_ROOF_ENCOUNTER_ZH.md) |
+| 通路符 | [二章支路副本，从石案修桥到符渡乙岸](visuals/20261126_ch02_passage/二章通路符_石案至乙岸.mp4) · [二章接入包](../Tools/Validation/Evidence/Chapter02Assembly/passage-branch-1126/README.md) · [三岸试验场与关卡接线](guides/PASSAGE_GLYPH_LAB_ZH.md) · [手部符纹与射线近景](visuals/20261125_dodge_glyph_play/通路符_手光与射线实录.mp4) · [试验场过桥实录](visuals/20261125_dodge_glyph_play/通路符_断口识路与过桥.mp4) |
+| 第二章汉白玉校准主榫 | [R03分件与暖白玉首样；同光对照、灰模与转动，B历史保留](guides/WORKSHOP_MASTER_TENON_REVIEW_ZH.md) |
 | 检查与验收 | [命令、报告快照与真机边界](guides/VALIDATION_ZH.md) |
 
 当前 RPG 使用战斗头向/手指融合选点、空手胸前快推后撤和探索食指行走／握拳快跑、选点自动行走或传送；火球按头向瞄准，手部动作触发发射。旧四个展示场景维持自己的前推/取消行为。参数以实际场景引用资产为准。
@@ -40,34 +46,43 @@
 
 - [章节流程与目标配置](guides/CHAPTER_FLOW_ZH.md)说明单目标、AND / OR 组合、试炼间段入口、清房句和训练场接线。[首章章节模块图与类图](architecture/FULL_MODULE_MVC_REFACTOR_PROPOSAL_20261109_ZH.md#首批实施的章节模块图) · [旁白的监听与重听](guides/NARRATION_FLOW_ZH.md)
 
-- 六工矩印中的规、矩、律已标定，准、绳、衡待采样。左手护盾使用单手衡印。[六种基础手印设计](architecture/SIX_SEAL_DESIGN_ZH.md) · [录制单手衡印](guides/SEAL_LAB_QUICKSTART_ZH.md#录制单手衡印)
+- 六工矩印中的规、矩、律已有标定；准、绳待采样。衡印已有左手追踪模板，首章可用左手结印或念“衡印”起盾。[六种基础手印设计](architecture/SIX_SEAL_DESIGN_ZH.md) · [录制单手衡印](guides/SEAL_LAB_QUICKSTART_ZH.md#录制单手衡印)
 - 正式首章与首枚铜叶：[交接入口](architecture/开场教学与首枚铜叶/00_交接说明.md) · [室内教学](architecture/开场教学与首枚铜叶/01_室内教学流程.md) · [试炼室实景与交互](architecture/开场教学与首枚铜叶/08_试炼室制作与交互.md) · [窗庭远山扩建与实景](architecture/开场教学与首枚铜叶/07_校规庭与量水道制作单.md) · [外景路线与失度出图提示词](architecture/开场教学与首枚铜叶/04_室外场景与线性路线.md) · [同心合矩与方圆规印](architecture/开场教学与首枚铜叶/05_首枚铜叶解谜.md) · [外景三大重排方案比选](architecture/开场教学与首枚铜叶/09_外景三大重排方案比选.md)。
-- 第二章《断衡悬道》已建[独立 Unity 场景](../Assets/Scene/Chapter02_SuspendedPath.unity)，分区入口及实景截图见[美术场景搭建记录](architecture/第二章_断衡悬道/05_美术场景搭建.md)。白盒和成品交付使用 [V2.4 场景距离规格](architecture/第二章_断衡悬道/04_场景距离规格.md) · [可编辑规格书](architecture/第二章_断衡悬道/断衡悬道_V2.4_场景距离规格.docx) · [衡梁吊索与动线图](architecture/第二章_断衡悬道/断衡悬道_V2.4_衡梁吊索与动线.pdf)。早期参考保存在 [流程与玩法设计](architecture/第二章_断衡悬道/01_第二章流程与玩法设计.md)、[第一幕台本](architecture/第二章_断衡悬道/02_第一幕台本与对白表.csv)、[出图指南](architecture/第二章_断衡悬道/03_第二章关卡动线与出图指南.md) 和 [核心概念图集](visuals/20261121_chapter02_level_flow/README.md)。
+- 第二章《断衡悬道》已建[独立 Unity 场景](../Assets/Scene/Chapter02_SuspendedPath.unity)（Build 序号 3，`Chapter01_Courtyard.unity` 门庭已启用直连），分区入口及实景截图见[美术场景搭建记录](architecture/第二章_断衡悬道/05_美术场景搭建.md)与[正式关卡装配](architecture/第二章_断衡悬道/06_正式关卡装配.md)（现行场景已挂统一 RPG 玩家，Zone 05 `−80 m` 谷底为 24×20 m 待布置平地，现行 V2.4 至谷底止的单向传音对白草案见 [08_第二章单向传音台本_V2.4.csv](architecture/第二章_断衡悬道/08_第二章单向传音台本_V2.4.csv)，正式场景已接入 32 句申屠配音和字幕，炉台四条在整包实物启用后触发，见[播放验收](../Tools/Validation/Evidence/Chapter02Voice1127/README.md)；工坊与主榫独立契约已在 `Chapter02_WorkshopTenon_Slice.unity` 验证）。白盒和成品交付使用 [V2.4 场景距离规格](architecture/第二章_断衡悬道/04_场景距离规格.md) · [可编辑规格书](architecture/第二章_断衡悬道/断衡悬道_V2.4_场景距离规格.docx) · [衡梁吊索与动线图](architecture/第二章_断衡悬道/断衡悬道_V2.4_衡梁吊索与动线.pdf)。`V1.0–V2.0` 早期参考保存在 [流程与玩法设计](architecture/第二章_断衡悬道/01_第二章流程与玩法设计.md)（含 V2.4 实景对照头节）、[第一幕台本](architecture/第二章_断衡悬道/02_第一幕台本与对白表.csv)、[出图指南](architecture/第二章_断衡悬道/03_第二章关卡动线与出图指南.md) 和 [核心概念图集](visuals/20261121_chapter02_level_flow/README.md)。
 - [技能框架](architecture/SKILL_FRAMEWORK_AND_INTERACTION_ZH.md) · [扩展接口](architecture/EXTENSION_INTERFACES_ZH.md) · [玩家数据](architecture/PLAYER_DATA_DESIGN_ZH.md) · [线性 RPG 范围](architecture/LINEAR_RPG_DESIGN_ZH.md)。
 - [墨规笔试验场操作与画符设计](architecture/GLYPH_DESIGN_ZH.md#运行试验场) 更新于 2026-11-22。独立 GlyphLab 场景已接入主动千钧符和剧情方直之矩，可练习停笔辨符、连线推拉镇石和描符开栅。
-- [Quest/PICO 兼容](architecture/QUEST_PICO_COMPATIBILITY_PLAN_ZH.md) · [同房多人](architecture/MULTIPLAYER_LAN_PLAN_ZH.md) · [观众镜头](architecture/CAMERA_PRESENTATION_DESIGN_ZH.md)：保留原设计日期与契约；Quest 文档已标注原生语音后续接入，其余接口/跨平台/联网计划不因此视为已完成。
+- [沈商墨规笔方案 3 三视图](visuals/沈商_墨规笔_方案3_三视图.jpg) 作为[项目任务表](策划需求/考工律度_任务排期与进度跟踪表.xlsx)中 T-21 的建模依据。
+- [Quest/PICO 兼容](architecture/QUEST_PICO_COMPATIBILITY_PLAN_ZH.md) · [Quest 迁 PICO 业界实践与本工程对照](research/QUEST_TO_PICO_INDUSTRY_PORTING_PRACTICES_20261127_ZH.md) · [手模变形、关节遮挡与律印技术报告](research/QUEST_PICO_HAND_TRACKING_TECH_REPORT_20261127_ZH.md) · [同房多人](architecture/MULTIPLAYER_LAN_PLAN_ZH.md) · [观众镜头](architecture/CAMERA_PRESENTATION_DESIGN_ZH.md)：保留原设计日期与契约；Quest 文档已标注原生语音后续接入，其余接口/跨平台/联网计划不因此视为已完成。
 
+- [Quest 食指根折角的同帧检查与公开实例](research/QUEST_HAND_KNUCKLE_SKINNING_20261127_ZH.md)，附蒙皮权重、指骨轴向和候选手形的对照。
 - [手部与准望匣资产交付要求](architecture/HAND_AND_WRIST_ASSET_DESIGN_ZH.md)：SDK骨架/蒙皮、可见前臂140—160mm建议、一体双绑带组件与真机验收边界；未导入美术手模或实现前臂IK。
 - [残机偶模型与机制设计](architecture/MONSTER_DESIGN_CANJIOU_ZH.md)：基础人形小怪（失控工奴）世界观、3D模型规范（栎木青铜/无面单目/外露发条弱点）、VR战斗行为树（快推后撤闪避1.2s蓄力、发条卡死3.5s瘫痪窗口与火核暴击）。
-- [掷火残机模型与机制设计](architecture/MONSTER_DESIGN_ZHIHUO_ZH.md)：第二章司衡外库远程高台小怪（高空安防与熔铸机偶）世界观、3D模型规范（饕餮火铳/单目游标镜/背心发条300%暴击弱点/三爪沉箱地锚）、VR战斗机制（1.5s视听蓄力预警、6.0m/s弧线火核、定规障弹反/火球空中对轰与高低立体压制）。
+- [掷火残机模型与机制设计](architecture/MONSTER_DESIGN_ZHIHUO_ZH.md)：原按“司衡外库”构想编写的远程高台小怪（高空安防与熔铸机偶）世界观与 3D 规范；现行第二章实景中已部署至“03 · 失衡工坊”屋顶（`ForgeRoofPost`/`ShedRoofPost`，`150 HP` / `40` 伤害 / `0.3s` 衡印弹反；背部 300% 弱点待接入预制体）。
 - [掷火残机三视图与图鉴指南](visuals/20261121_zhihuo_enemy_turnaround/README.md)：3D 角色制作标准三视图定稿（Front/Side/Back，1376×768）、各部位骨骼拓扑与自发光通道分配。
 
 ## 世界观与专业需求
 
-- [世界观设定](world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md) · [世界观白皮书](world/考工律度_世界观设定白皮书.md)：已完成 V1.6 大圆通修订，正式裁决并统一六工矩手印（规矩律准绳衡）、五正度铜叶（规矩律准绳）、天宪雷度尺（雷光剑）、留音青铜铎（申屠律识冷铸）与亚稳定工坊（定界铜基石）的世界观闭环。
+- [世界观设定](world/KAO_GONG_LU_DU_WORLD_SETTING_ZH.md) · [世界观白皮书](world/考工律度_世界观设定白皮书.md)：已完成 V1.6 大圆通修订并附 **2026-11-25 现行 Unity 实景对照块**，统一六工矩手印（规矩律准绳衡，首章当前用左手衡印起盾）、五正度铜叶（规矩律准绳）、天宪雷度尺（雷光剑）、留音青铜铎、工具带右鞘取墨规笔与第二章 V2.4 `+80 / ±0 / −80 m` 双垂铅吊篮实景边界。
 - [音画规范与三版战斗曲方案](architecture/AUDIO_VFX_SPECIFICATION_ZH.md)：方案 A（紧绷机巧型）已接首章/P1，B/C保留候选；记录实际素材与尚未实现的破韧音乐联动。
 - [设定与机制全案（Word）](考工律度_世界观设定与机制全案.docx)。
 - 美术概念示意（评审用）：[一体佩戴组件与短前臂新图](visuals/20261102_zhunwang_hand_leaf_schematic/07_v3_worn_design_inscriptions.png) · [比例核对与实际出图词](visuals/20261102_zhunwang_hand_leaf_schematic/07_v3_worn_design_generation.txt) · [比例修改前V3备份](visuals/20261102_zhunwang_hand_leaf_schematic/prompts_v3_before_proportion_20261102.txt) · [现行 V3.6 共用提示词](visuals/20261102_zhunwang_hand_leaf_schematic/prompts.txt) · [左右手分开·16张单手视图提示词](visuals/20261102_zhunwang_hand_leaf_schematic/08_hand_turnaround_8views_prompts.txt) · [16张单手原图与建模说明](visuals/20261102_single_hand_16views/README.md) · [原图压缩包](visuals/20261102_single_hand_16views.zip) · [原图外形基准](visuals/20261102_zhunwang_hand_leaf_schematic/06_original_shape_reference.png)。V3明确长八角轮廓、中央实体圆度盘、侧面朱砂按扣，以及五种铜叶外露面的小篆感名称/差异纹样；07已另存为带连接耳、双绑带与搭扣的一体组件/腕后150mm模型方案；图中185mm为项目参照，不是Quest统一手尺寸，图示比例与字形仍需建模复核。历史试稿：[V2佩戴尺寸图](visuals/20261102_zhunwang_hand_leaf_schematic/05_v2_worn_dimensions.png) · [该图实际提示词](visuals/20261102_zhunwang_hand_leaf_schematic/05_v2_worn_dimensions_generation.txt) · [V2榫卯结构图](visuals/20261102_zhunwang_hand_leaf_schematic/04_v2_tenon_pull_ring.png) · [结构图实际提示词](visuals/20261102_zhunwang_hand_leaf_schematic/04_v2_tenon_pull_ring_generation.txt) · [V2修订前完整词](visuals/20261102_zhunwang_hand_leaf_schematic/prompts_v2_before_inscriptions_20261102.txt)。用户已允许继续保留金属主体80×48×40mm、含环95mm及5.5mm层距建议；不将它们当作含绕臂绑带的整套三维包络或工程验收。首轮历史稿：[佩戴与菜单](visuals/20261102_zhunwang_hand_leaf_schematic/01_zhunwang_worn_menu.png) · [铜叶与导轨](visuals/20261102_zhunwang_hand_leaf_schematic/02_copper_leaf_rail.png) · [手部](visuals/20261102_zhunwang_hand_leaf_schematic/03_hands_reference.png) · [首轮实际提示词](visuals/20261102_zhunwang_hand_leaf_schematic/prompts_v1_generated_20261102.txt)。均非工程验收依据。
 - [程序需求](程序需求/考工律度_程序架构与交互底层技术需求规范.docx) · [策划需求](策划需求/考工律度_核心玩法机制与关卡首领数值策划案.docx) · [美术需求](美术需求/考工律度_美术资产与视效制作需求规范.docx) · [音频需求](音频音乐需求/考工律度_音频音效与离线语音工程需求规范.docx) · [跨专业交接](交接文档/考工律度_XR项目研发全景与跨专业交接指南.docx)。这些非 Markdown 资料本次保持原样，涉及变更同样要记录具体位置与内容。
 
+- [11 月 24 日策划审定与会话派工](策划需求/20261124_策划审定与会话派工.md)给出云盘提交的逐项裁定、制作负责人和 D 盘验收用例。[项目策划案修订版](策划需求/考工律度_项目策划案_修订版.docx)收录 T-01～23 及通路符选面规则。[沈商五口下胸工具带定稿](visuals/沈商_五口下胸工具带_定稿.jpg)是 T-06 分件建模与贴图的美术基准。
+- [五口工具带与补给道具设定规范](world/沈商_五口工具带与补给道具设定规范.md)记录五口的收纳关系、材质和四件新增道具的结构。[沈商道具送审工作台](http://127.0.0.1:4190/rig/?collection=shenshang-props&model=mogui-pen-v1)可旋转查看已上传模型、对照参考图并添加版本批注。
+
 ## 调研与参考
 
+- [T-28 取用台的先秦青铜纹样](research/T28_BRONZE_MOTIFS_20261125_ZH.md)，含馆藏实物、侧板与盘面选稿、B1 试装接线与证据。
 - [游戏画符识别调研](research/游戏画符识别_20261122.md) 核对 Arx Libertatis 的方向识别、Spell Caster 的单笔模板和《Magic Cat Academy》的目标提示，并列出墨规笔的重描、补笔与缺边判例。
+- [GitHub 开源笔刷与 VR 朱砂墨迹](research/VR_GLYPH_BRUSH_GITHUB_20261126_ZH.md)，含笔速、转向、收锋、飞白和 Unity 画板接入取舍。
 
 - [共享工作空间](../SharedWorkSpace/README.md)，含骨骼与动画、策划案、3D 场景模型及白盒编辑、Chrome 检索与本地文件格式。
 - [Quest 追踪手与沈商全身动画](research/QUEST_CHARACTER_HANDS_20261121_ZH.md)，含 Mixamo 指骨验收、腕部 IK、第一人称与观众相机接线，以及浏览器骨骼工作台的人物集合、版本与批注。
 
 - [VR 裸手追踪、结印与工具笔尖的稳定性](research/HAND_STABILITY_20261121_ZH.md)，含开发者实装案例、庭院输入接线、历史骨骼录制回放与 Quest 对照方法。
+
+- [Quest 与 PICO 手模变形和律印遮挡技术报告](research/QUEST_PICO_HAND_TRACKING_TECH_REPORT_20261127_ZH.md)，含 Gemini 调研复核、Quest 显示手 A/B、PICO 局部遮挡判定及验收。
 
 - [长短术共用印序时如何确认释放](research/SEAL_SHORT_CAST_20261121_ZH.md)，含《Arx Fatalis》的实际配方、裸手 VR 收招案例和 Quest 对照试验建议。
 
@@ -79,8 +94,14 @@
 
 - [技能配方、命中效果与视听表现的职责](research/SKILL_EFFECT_OWNERSHIP_20261109_ZH.md)。对照 Epic 的火球示例和 Unity Boss Room，说明本项目两种护盾配方为何共享效果、收剑后剑波由谁管理，以及技能重构应验证的行为。
 
+- [首两章的 VR 环境 Shader 调研](research/GLOBAL_SHADER_VR_20261125_ZH.md) 核对正式场景与移动／PC 渲染基线，给出远景空气透视、庭院云影和双眼真机 A/B 方案。
+- [VR 游戏光影 Shader 调研](research/VR_LIGHTING_SHADERS_20261125_ZH.md) 对照《阿卡姆之影》等作品，给出天仪阁烘焙阴影、衡梁铜件探针和局部动态光的样件。
+- [VR 游戏 UI 设计理念调研与全套 UI 重做总案](research/VR_UI_DESIGN_AND_REDESIGN_20261125_ZH.md)：基于 Meta Horizon OS、Alyx、The Room VR、Red Matter 等规范与本作青铜错金温玉美学，完成准望匣、场景加载、墨规画符及周边引导 UI 的现行代码审阅与重做总案（待确认）。
 - [第二章 40 米高差的 Quest / PICO 性能评估](research/CHAPTER02_VERTICAL_VISIBILITY_QUEST_PICO_20261122_ZH.md)，含断桥、双战区和吊篮的可见范围、平台帧预算与白盒对照方案。
 - [第二章实测高程、水力侵蚀与远山分层](research/CHAPTER02_MOUNTAIN_TERRAIN_20261123_ZH.md) · [断衡悬道群山样件与 Unity 对照](visuals/20261123_chapter02_mountain/README.md)。
+- [断衡悬道 A1、A2 场景美术定稿](visuals/20261124_ch02_scene_art_review/README.md) · [正式场景实拍、贴图与制作验收](visuals/20261124_ch02_scene_art_review/制作验收/README.md) · [V2.4 分区资产清单与正式引用](visuals/20261124_ch02_scene_art_review/分区资产清单.md)。
+- [断衡悬道正式关卡装配、出生与清场接线](architecture/第二章_断衡悬道/06_正式关卡装配.md)。
+- [第二章五口与实笔的生产接线和录入状态](architecture/第二章_断衡悬道/07_工具带与实笔画符接线.md)。
 - [Quest/PICO外景性能与LOD核查（2026-11-09）](research/QUEST_PICO_EXTERIOR_PERFORMANCE_20261109_ZH.md)：官方资料、Android实际配置、PC画面差异及仍需完成的真机测量。
 - [首章山松低开销风动方案（2026-11-14）](research/CHAPTER01_PINE_WIND_20261114_ZH.md)：样板树、顶点风动、LOD 与阴影接线及 Quest/PICO 对照验收。
 - [首章草地的密度、风幅与三个预制体样板（2026-11-18）](research/CHAPTER01_GRASS_REFERENCES_20261118_ZH.md)，含移动端与 Quest 游戏参照、同机位风动对照和 Unity 重建入口。
@@ -97,6 +118,7 @@
 
 ## 首章山间校院
 
+- [侧廊与渠尾第一轮图稿及素材清单](visuals/20261124_ch01_scene_art_review/素材清单与批注说明.md) 对应 T-11、T-12，可在[共享工作台](http://127.0.0.1:4190/plans/ch01-t11-t12-a1.html)对照两张策划原截图并分别批注。
 - [美术资产表与复用审查](美术需求/首章场景美术资产需求与缺口审查.xlsx) 收录首章所需资源、原工程中的对应资产、缺口与模型交付证据。
 - [山间校院场景、实拍与流程验证](visuals/20261119_courtyard_scene/场景验收.md) 提供独立 Unity 场景入口、初稿对照、玩家视角和测试记录。
 - [七区陈设定稿与物件特写](visuals/20261119_courtyard_furnishing_concepts/七区陈设.md) 收录每间房的定稿、陈设用途与选稿对照。[查看七区定稿总图](visuals/20261119_courtyard_furnishing_concepts/七区陈设定稿.jpg)。

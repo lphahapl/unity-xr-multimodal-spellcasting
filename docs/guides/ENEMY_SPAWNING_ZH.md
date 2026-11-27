@@ -8,13 +8,15 @@
 | --- | --- | --- |
 | GameManager | 本关启动时按列表预加载、预热；暴露 Ready、IsReady、Status | AI、伤害结算、全局静态敌人表 |
 | EnemyCatalog | 怪物 ID 到 EnemyDefinition 的索引，校验重复 ID | 运行实例 |
-| EnemyDefinition | 稳定 ID、名称、Addressables 模型引用、可选战斗数值覆盖、闲置池上限 | 每只怪当前血量 |
+| EnemyDefinition | 稳定 ID、Addressables 模型、战斗数值、闲置池上限，可选精英召唤或背石工奴配置 | 每只怪当前血量 |
 | SharedAssetLoader | 原型异步加载与跨池共享、最后一位使用者释放 | 怪物出生与 AI |
 | EnemyManager | 原型租约、实例池、出生租约、活跃字典、回收与会话清理 | 房间胜负、目标选择、联机同步 |
 | CombatRoomEncounter | 入房生成批次，出房暂停，检查点回收，全灭判定 | 资源句柄 |
-| EnemyController / EnemyObj | 保留原有决策、导航、攻击、生命和削韧逻辑 | 其它怪物的管理 |
+| EnemyController / EnemyObj | 决策、导航、攻击与受击；精英通过本次出生的召唤会话调度本组随从 | 场景实例池与房间胜负 |
 
-P1 场景的「游戏会话 · 异步敌人服务」配置目录及预热列表。目录位于 `Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset`，定义位于同级 `EnemyDefinition/残机偶.asset`。默认预热一只，最多缓存四只闲置实例。上限限制闲置池，不限制同时存在的敌人数；关卡数量由出生点控制。
+P1 场景的「游戏会话 · 异步敌人服务」配置目录及预热列表。当前目录收录普通残机偶、掷火残机、精英和背石工奴。普通残机偶默认预热一只，可缓存四只闲置实例。房间出生点控制初始数量，精英的召唤配置另设本组活随从上限。[本关怪物目录](../../Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset) · [残机偶定义](../../Assets/ScriptableObjects/敌人定义配置/残机偶.asset)
+
+`elite-canjiou` 的每次出生拥有独立的召唤会话。只有整波成功后才将随从租约加入名单，生成中被打断会回收本波暂存实例。`stone-carrier` 使用同一残机模型并按照工奴定义挂载镇石。布置巡逻点、配重篮和指挥表现见[敌人战斗指南](ENEMY_COMBAT_ZH.md)。
 
 残机偶的战斗房间变体使用地址 `enemies/canjiou`，侧廊巡行使用同一机偶的美术预制体 `models/canjiou-patrol`。这两个条目在 `Enemies_Local` 中一起打包，共用两档网格和三张贴图。战斗生成由 `EnemyManager` 管理。侧廊宿主 `CourtyardPatrol` 持有巡行模型的一份租约，绑定原步行动画，离开可见阶段或卸载场景时释放。另一个需要独立按需下载的敌人可以使用自己的资源组。[战斗房间变体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab) · [巡行美术预制体](../../Assets/Art/Enemies/CanJiOu/CanJiOu_AutoLOD.prefab)
 

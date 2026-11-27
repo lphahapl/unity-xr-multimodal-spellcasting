@@ -1,0 +1,68 @@
+{
+  "scene_baseline_sha256": "0e35b9133b5d83bcededbbcb3acd138b3dc53ac255c5fe76cbdd210f01308cdb",
+  "scene_food_only_sha256": "4041db10ecfe7d52f932c9da8bcb778b754e2c6966a2af16f50a5402362b1e12",
+  "runtime_scope": "Isolated Unity 6000.3.10f1 desktop Play, D3D11 new game, XR disabled, serialized production scene candidate and actual food prefabs. Existing narration separate re-test. Bridge unrelated prior step was completed via objective, and combat triggered after placing rig at authored approach. Food hand/pinch and body input supplied programmatically to production input and interaction code.",
+  "fresh_checks": 128,
+  "wrists": {
+    "total": 23,
+    "accepted": 23
+  },
+  "cold_process_checks": 7,
+  "files": [
+    {
+      "path": "confirmed-play-r02/checks.txt",
+      "sha256": "eb1bb8be092d7db475e03df8c52134b046693d14529047f0d6fc39b082272a7b",
+      "size": 6864
+    },
+    {
+      "path": "confirmed-play-r02/placement.txt",
+      "sha256": "9f5c1fd1a101f570696a42e7f8a1215cb66716d09141c497ba044b9ee6bcda04",
+      "size": 424
+    },
+    {
+      "path": "confirmed-play-r02/wrists.csv",
+      "sha256": "169068cdfb927faa3c2725617de24127293b57fc7b749b6d5e37bfbea1c22751",
+      "size": 3603
+    },
+    {
+      "path": "confirmed-play-r02/pair.png",
+      "sha256": "3bc11e5dfe9c955557b7bd735192f1398488b4a141eac98d2722a41c2f8c8ad2",
+      "size": 999624
+    },
+    {
+      "path": "confirmed-play-r02/standing.png",
+      "sha256": "876da7eab4ca37633e86bb59e74ac6d6fef8268156e8f6d6d312c77338a87875",
+      "size": 1002093
+    },
+    {
+      "path": "confirmed-play-r02/before-after.png",
+      "sha256": "c21a932b2a8a1b514d4ce0c443a528f08a03d950c304dc0cb6ed0869342f3727",
+      "size": 647646
+    },
+    {
+      "path": "confirmed-play-r02/context.png",
+      "sha256": "82838c7d0c07d432f1b596a5cc6d8082cd037ee6330fa259980e2e3e72510407",
+      "size": 1016213
+    },
+    {
+      "path": "confirmed-play-r02/hearth-candidate-private.json",
+      "sha256": "590d9a2b6a7311d92b6a841f1cdcc108e8bc9c444d51a14345fa68ce90c606a5",
+      "size": 2091
+    },
+    {
+      "path": "confirmed-cold-r02/checks.txt",
+      "sha256": "4412eabc321f124b860ea9af78db40aeae61bfbbcd000a22b0865acf2c41cbd5",
+      "size": 384
+    },
+    {
+      "path": "confirmed-candidate/Assets/Scene/Chapter02_SuspendedPath.unity",
+      "sha256": "4041db10ecfe7d52f932c9da8bcb778b754e2c6966a2af16f50a5402362b1e12",
+      "size": 766571
+    },
+    {
+      "path": "confirmed-candidate/HearthFoodPlay.cs",
+      "sha256": "c64058d3e4a2a7758323cef5371fc848d37f6f122a0823d6c2255a83d667ab7f",
+      "size": 21131
+    }
+  ]
+}

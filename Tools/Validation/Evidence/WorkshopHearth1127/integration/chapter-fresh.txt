@@ -1,0 +1,49 @@
+2026-11-27T10:35:39.6632768+08:00 6000.3.10f1 Assets/Scene/Chapter02_SuspendedPath.unity
+PASS reopened serialized narration source, upper encounter and both hearth anchors
+PASS single live narration controller
+PASS player and belt ready; lines=
+PASS new game has no food before three real deaths
+PASS drawing stage; lines=
+PASS upper stage; lines=
+PASS upper combat started with 3; lines=
+PASS actual combat death 1
+PASS food remains withheld after 1
+PASS actual combat death 2
+PASS food remains withheld after 2
+PASS actual combat death 3
+PASS upper clear produced pack plus single; lines=
+PASS upper clear does not play RT01, A basket main can start before any pickup
+PASS actual reach objective advances into workshop with bag untouched; lines=
+PASS distant workshop entry can bypass food
+PASS one four-piece pack and one independent biscuit
+PASS actual furnace proximity makes RT01 eligible
+LINE end EN01 operation=False audio=True
+LINE start WS01 near=True stage=3
+LINE end WS01 operation=False audio=True
+LINE start WS02 near=True stage=3
+LINE end WS02 operation=False audio=True
+LINE start RT01 near=True stage=3
+PASS RT01 plays the new audio at this furnace; lines=WS01,WS02,RT01
+PASS real RT01 audio and operation start pending
+PASS distance target TravelRationBiscuit(Clone) from 0.60m selected=TravelRationBiscuit(Clone) (UnityEngine.Transform)
+PASS distance grab TravelRationBiscuit(Clone)
+PASS loose biscuit pickup cannot satisfy RT01
+PASS full health leaves biscuit intact
+PASS real mouth consumes only the loose biscuit; lines=WS01,WS02,RT01
+PASS loose bite restores 15 HP while RT01 remains pending
+PASS distance target TravelRationPouch(Clone) from 0.60m selected=TravelRationPouch(Clone) (UnityEngine.Transform)
+PASS distance grab TravelRationPouch(Clone)
+PASS RT01 completes its operation on actual whole-bag grab
+LINE end RT01 operation=True audio=True
+LINE start RT02 near=True stage=3
+LINE end RT02 operation=False audio=True
+LINE start RT03 near=True stage=3
+PASS RT02 followed by audible RT03; lines=WS01,WS02,RT01,RT02,RT03
+PASS RT02/03 ordered, pocket operation pending
+PASS real pocket snap completed even without eating a bag serving; lines=WS01,WS02,RT01,RT02,RT03
+PASS RT03 operation completes on completed stow
+PASS full bag retained all four
+LINE end RT03 operation=True audio=True
+PASS controller ends the voiced RT03 after audio and stow; lines=WS01,WS02,RT01,RT02,RT03
+PASS private checkpoint written by real game
+PASS END

@@ -23,6 +23,7 @@
 | [面部对稿 R5](http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r5) | 把参考发束和多视肌理转入真实模型，鼻梁色差改善。双眉的根部和尾部过实，侧面眉弓前凸，此版留作对照。 |
 | [面部对稿 R6](http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r6) | 眉座、眼眦深度与瞳色对齐。Gemini 认为单看脸已具备很强的同一人辨识度，仍建议改前发际和颧颊阴影。 |
 | [面部对稿 R7](http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-match-r7) | 额前散发按原设重做，保留清瘦脸型并柔化颧下转折。Gemini 通过整张脸和含发型、颈肩的外观候选。 |
+| [净肤调色 R8](http://127.0.0.1:4190/rig/?collection=shen&model=shen-face-clean-r8) | 沿用 R7 整身，淡化两颊、额头和鼻梁的褐色斑驳，保留细纹和短胡茬。[同光对照](../visuals/20261124_shen_face_clean/R7_R8_Face.jpg) · [可编辑整身](../../ArtSource/Characters/ShenShangRebuild/PortraitStudies/10_FaceClean_R8/ShenShang_FaceClean_R8.blend) |
 
 02 单独保存的头部 3 件与眉发 56 件，与同目录整身中的部件逐点一致。H2 主工程与 07、自然神态研究源与 08 的 Blender 文件分别具有相同的 SHA-256，每组共用一个工作台入口。
 

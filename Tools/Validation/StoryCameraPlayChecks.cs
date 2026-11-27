@@ -169,6 +169,30 @@ public static class StoryCameraPlayChecks
                 "A fixed Animation Track turns the player camera 45 degrees without translating while headset input changes");
             manager.Stop();
             Check(driver.enabled && !legacy.enabled, "Explicit skip restores tracking during a pan");
+            var blackout = new GameObject("Tracking return cue");
+            blackout.SetActive(false);
+            fields.Update();
+            fields.FindProperty("trackingReturnCue").objectReferenceValue = blackout;
+            fields.ApplyModifiedPropertiesWithoutUndo();
+            sequence.Play();
+            await SamplePan(.25);
+            Check(!driver.enabled, "An inactive return cue keeps the authored shot in control");
+            blackout.SetActive(true);
+            await SamplePan(.5);
+            Check(driver.enabled && !legacy.enabled && manager.ActiveDirector == director,
+                "An active blackout returns head tracking while the same Director continues");
+            MoveHead(new Vector3(.25f, 1.42f, -.16f), -31);
+            await SamplePan(.85);
+            var returnedPose = new Pose(head.transform.localPosition, head.transform.localRotation);
+            Check(Vector3.Distance(returnedPose.position, new Vector3(.25f, 1.42f, -.16f)) < .001f &&
+                Quaternion.Angle(returnedPose.rotation, Quaternion.Euler(0, -31, 0)) < .1f,
+                "A new headset sample owns the pose during the remaining Timeline");
+            sequence.Stop();
+            Check(Vector3.Distance(head.transform.localPosition, returnedPose.position) < .001f &&
+                Quaternion.Angle(head.transform.localRotation, returnedPose.rotation) < .1f,
+                "Stopping after the handoff preserves the new headset pose");
+            blackout.SetActive(false);
+
             var second = new GameObject("Second director, same asset").AddComponent<PlayableDirector>();
             second.playOnAwake = false;
             second.playableAsset = panTimeline;

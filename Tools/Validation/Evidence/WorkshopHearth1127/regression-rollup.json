@@ -1,0 +1,221 @@
+{
+  "scope": "Unity 6000.3.10f1 desktop batch, OpenXR disabled, input/rig/encounter driven through local test fixtures. References include SHA256 snapshots.",
+  "chapter": {
+    "chapter-fresh": {
+      "at": "2026-11-27T10:34:14.629672+08:00",
+      "end": "2026-11-27T10:37:12.644357+08:00",
+      "pass": true,
+      "code": 0,
+      "scene": "6c30b163aa06ec42bfb14822dc4f26fbe494e6cbb257ed62d6c405077c3bfbb1",
+      "checks": 36,
+      "sha256Report": "e42632c44ea5d9a61cb4ef729698ac92bbf0cfd2cdbd8ccb2e7f635a7d7d7fa8"
+    },
+    "chapter-cold": {
+      "at": "2026-11-27T10:37:12.646880+08:00",
+      "end": "2026-11-27T10:38:40.301309+08:00",
+      "pass": true,
+      "code": 0,
+      "scene": "6c30b163aa06ec42bfb14822dc4f26fbe494e6cbb257ed62d6c405077c3bfbb1",
+      "checks": 6,
+      "sha256Report": "79a2b714a4d63b9c33102db52c39ee5015082e5ad4d8185773c405e114f109f7",
+      "teardown": [
+        "LINE end HB01 operation=False audio=False"
+      ]
+    }
+  },
+  "groups": {
+    "chapter-supply/Cold": {
+      "start": "2026-11-27T11:04:15.449189+08:00",
+      "end": "2026-11-27T11:06:10.494946+08:00",
+      "code": 0,
+      "pass": true,
+      "checks": 4
+    },
+    "chapter-supply/Fresh": {
+      "start": "2026-11-27T11:02:20.426179+08:00",
+      "end": "2026-11-27T11:04:15.449189+08:00",
+      "code": 0,
+      "pass": true,
+      "checks": 36
+    },
+    "grab/generic.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 53,
+      "sha256": "21f2a3e17238ca970e5ac70cd8d65b8ad41cdc60673a02723d199e78afadc3f4",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\generic.txt"
+    },
+    "grab/split.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 3,
+      "sha256": "e46d752843f4f0b44dbc70f8d8afe450220e5067528a039a15bd021bfa82dbc5",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\split.txt"
+    },
+    "grab/ink.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 35,
+      "sha256": "6ada6c546d92f2507acfe16edf8cbf2562f0ca50e2d0dd63ad2d4ad802a5c372",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\ink.txt"
+    },
+    "grab/stake.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 18,
+      "sha256": "57e598000112bb5295fb839b690572f20ba229e2af74aa250c595e36b68d078e",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\stake.txt"
+    },
+    "grab/chapterpen.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 19,
+      "sha256": "10531aac681577be87753d6144e5f6076a5fa6887a4ede8e4d5a271dc3c7ea9a",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\chapterpen.txt"
+    },
+    "grab/ration.txt": {
+      "fresh": true,
+      "green": true,
+      "count": 12,
+      "sha256": "2ec5bcfdcc4063d559bdf84baa41786689b2aefbc516b6dab598948acb29b2cf",
+      "end": "PASS END",
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\ray-release\\grab\\ration.txt"
+    },
+    "verified/f8": {
+      "start": "2026-11-27T10:58:30.478621+08:00",
+      "end": "2026-11-27T11:00:25.640732+08:00",
+      "exit": 0,
+      "method": "NarutoVR.SealCombat.Editor.ItemInteractionLabChecks.RunBatch",
+      "reports": {
+        "item-interaction-lab.txt": {
+          "fresh": true,
+          "green": true,
+          "count": 58,
+          "sha256": "1c52465a6c45e84ed43d2e4e75302da7af0c8fdd5773f05fff5d1e80433b4e27",
+          "end": "PASS END"
+        }
+      }
+    },
+    "verified/food": {
+      "start": "2026-11-27T10:56:57.967661+08:00",
+      "end": "2026-11-27T10:58:30.477102+08:00",
+      "exit": 0,
+      "method": "FinalFood1127.Run",
+      "reports": {
+        "checks.txt": {
+          "fresh": true,
+          "green": true,
+          "sha256": "844f15b70f5e005418ff6c0afffef172cdda2997c57367091d0d1b8416cb0f39",
+          "end": "PASS END",
+          "totalReportRows": 89,
+          "counting": "This harness mixes plain-language checks and diagnostic measurements; rows are not an assertion count.",
+          "stackCheckSummary": "stack checks 17/17",
+          "angleCases": 4,
+          "finalWristSummary": "干粮远抓：左右手世界新包、转头、主动转腕、真实中央与通用开口共 30 项"
+        }
+      }
+    },
+    "verified/joint": {
+      "start": "2026-11-27T10:55:26.445675+08:00",
+      "end": "2026-11-27T10:56:57.965673+08:00",
+      "exit": 0,
+      "method": "AllItemsPlay1127.Run",
+      "reports": {
+        "checks.txt": {
+          "fresh": true,
+          "green": true,
+          "sha256": "9d999d89a8e12730f001e2bc8f3f00f473f6f48bd820f54f97038491e2b00a3c",
+          "end": "PASS END",
+          "totalReportRows": 61,
+          "counting": "This harness mixes plain-language checks and diagnostic measurements; rows are not an assertion count."
+        }
+      }
+    },
+    "verified/snap": {
+      "start": "2026-11-27T11:00:25.641747+08:00",
+      "end": "2026-11-27T11:02:20.424170+08:00",
+      "exit": 0,
+      "method": "NarutoVR.SealCombat.Editor.SnapZoneChecks.RunBatch",
+      "reports": {
+        "check.txt": {
+          "fresh": true,
+          "green": true,
+          "count": 72,
+          "sha256": "65cdcab58a8f449af86a1e37f639635657731393180d97798244116398c7abb0",
+          "end": "区域内释放后不自动无限重吸附"
+        }
+      }
+    },
+    "verified/walk": {
+      "start": "2026-11-27T10:53:47.161809+08:00",
+      "end": "2026-11-27T10:55:26.444155+08:00",
+      "exit": 0,
+      "method": "MovePlay1127.Run",
+      "reports": {
+        "final-walk-checks.txt": {
+          "fresh": true,
+          "green": true,
+          "count": 29,
+          "sha256": "08326cd063ea1e24692ae083c174871c51f60fad265a12512aa29b336d09ef1e",
+          "end": "PASS END"
+        }
+      }
+    },
+    "chapter-supply/Ink": {
+      "start": "2026-11-27T11:10:11.096971+08:00",
+      "end": "2026-11-27T11:12:18.278871+08:00",
+      "code": 0,
+      "pass": true,
+      "checks": 12,
+      "path": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\chapter-supply-final\\Ink\\result.json"
+    }
+  },
+  "candidateEditor": {
+    "path": "D:\\Temp\\FurnaceRegression1127-1022\\test-fix\\Assets\\scripts\\logic\\Editor\\Interaction\\HandPickupPlayChecks.cs",
+    "sha256": "e62f8b7a2e1559e6d47a44b3413eab679df7898920cde514279aa462925bfa75"
+  },
+  "supersededEditorChecks": [
+    {
+      "case": "hand rays",
+      "source": "D:\\Temp\\FurnaceRegression1127-1022\\grab\\generic.txt",
+      "fixed": "D:\\Temp\\FurnaceRegression1127-1022\\test-fix\\Assets\\scripts\\logic\\Editor\\Interaction\\HandPickupPlayChecks.cs",
+      "issue": "Legacy check expected the index ray as primary; candidate and authored split targets demonstrate tracked pointer first, explicit index on miss."
+    },
+    {
+      "case": "ink travel",
+      "source": "D:\\Temp\\FurnaceRegression1127-1022\\final-runtime\\chapter-supply\\Ink\\checks.txt",
+      "prior": {
+        "start": "2026-11-27T11:06:10.494946+08:00",
+        "end": "2026-11-27T11:08:05.527483+08:00",
+        "code": 1,
+        "pass": false,
+        "checks": 4
+      },
+      "fixed": "D:\\Temp\\FurnaceRegression1127-1022\\test-fix\\Assets\\scripts\\logic\\Editor\\Interaction\\ChapterSupplyChecks.Ink.cs",
+      "issue": "Old fixture used unscaled world displacement for local sleeve travel and overwrote the shipped asset; fixed assertions drive world offsets of authored local travel on the actual shipped greybox."
+    }
+  ],
+  "editorTestPatches": {
+    "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.Ink.cs": {
+      "relative": "Assets/scripts/logic/Editor/Interaction/ChapterSupplyChecks.Ink.cs",
+      "candidate": "D:\\Temp\\FurnaceRegression1127-1022\\test-fix\\Assets\\scripts\\logic\\Editor\\Interaction\\ChapterSupplyChecks.Ink.cs",
+      "sha256": "4604de5c5ac4e6fb92c2eb0e4cf73b6d100ab2724d2b5c42cf7f1b9a7ad60bd5"
+    },
+    "Assets/scripts/logic/Editor/Interaction/HandPickupPlayChecks.cs": {
+      "relative": "Assets/scripts/logic/Editor/Interaction/HandPickupPlayChecks.cs",
+      "candidate": "D:\\Temp\\FurnaceRegression1127-1022\\test-fix\\Assets\\scripts\\logic\\Editor\\Interaction\\HandPickupPlayChecks.cs",
+      "sha256": "e62f8b7a2e1559e6d47a44b3413eab679df7898920cde514279aa462925bfa75"
+    }
+  },
+  "verifiedAssets": {
+    "AllItemsLab": "75c2d59e5c5342a5d220fb9c715889a6e44826999c0a8ab6f4997a7b96f32dea",
+    "InkRubbingLab": "8bc13aee08e42401160e091de983bca49b1507029baedfdf5b08b810e44ef66e",
+    "Chapter02": "6c30b163aa06ec42bfb14822dc4f26fbe494e6cbb257ed62d6c405077c3bfbb1"
+  },
+  "pass": true
+}

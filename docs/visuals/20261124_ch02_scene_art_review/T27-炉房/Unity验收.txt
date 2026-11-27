@@ -1,0 +1,108 @@
+Unity 6000.3.10f1 | F1 Forge R3 | desktop; no headset test.
+Production base SHA256: 15779cec810f1a072e754e90161ba8658e9461f93a7165100bc1a9dad4958450
+Source scene archive SHA256: 38d53b79dd590d1f0c74b3eb0b8e1dafd17182d770aad9c3052f00a8c100e9df
+Candidate scene and 14 generated dependencies included. Existing project assets are reused.
+
+A1: 1600x900; RGB max channel delta > 8/255 0.9893%, exact changed pixels 69388
+A2: 1600x900; RGB max channel delta > 8/255 0.0000%, exact changed pixels 0
+exterior: 1600x900; RGB max channel delta > 8/255 22.9456%, exact changed pixels 757911
+entry: 1600x900; RGB max channel delta > 8/255 49.7395%, exact changed pixels 858995
+eye: 1600x900; RGB max channel delta > 8/255 22.8177%, exact changed pixels 735239
+bench: 1600x900; RGB max channel delta > 8/255 39.8578%, exact changed pixels 957542
+
+Baseline
+solidColliders=113
+roof=(10.600, 0.000, 44.500) ForgeRoofPostTiles
+shooter=(11.497, 4.463, 44.422)
+navigation=425 vertices / 187 triangles
+nav_sha256=c65a6fe698a1eb240fb71fc832196f4f966bb7a6a1b87f71c0636515e16be982
+frame=(10.600, 0.000, 44.500) (0.0, 275.0, 0.0)
+lane -1.3 10/54 工坊器物 · 炉与工案|F1 · 锻造房|TrialMendingBench
+lane -1.2 10/54 工坊器物 · 炉与工案|F1 · 锻造房|TrialMendingBench
+lane -1.1 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -1.0 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.9 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.8 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.7 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.6 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.5 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.4 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.3 10/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.2 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane -0.1 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.0 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.1 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.2 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.3 11/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.4 12/54 工坊器物 · 炉与工案|F1 · 锻造房
+lane 0.5 21/54 F1 · 锻造房
+lane 0.6 21/54 F1 · 锻造房
+lane 0.7 21/54 F1 · 锻造房
+lane 0.8 21/54 F1 · 锻造房
+lane 0.9 21/54 F1 · 锻造房
+lane 1.0 21/54 F1 · 锻造房
+lane 1.1 21/54 F1 · 锻造房
+lane 1.2 21/54 F1 · 锻造房
+lane 1.3 21/54 F1 · 锻造房
+
+R3
+solidColliders=117
+roof=(10.600, 0.000, 44.500) ForgeRoofPostTiles
+shooter=(11.497, 4.463, 44.422)
+navigation=425 vertices / 187 triangles
+nav_sha256=c65a6fe698a1eb240fb71fc832196f4f966bb7a6a1b87f71c0636515e16be982
+frame=(10.600, 0.000, 44.500) (0.0, 275.0, 0.0)
+lane -1.3 40/54 门槛接坡|F1 · 锻造房
+lane -1.2 38/54 门槛接坡|F1 · 锻造房
+lane -1.1 49/54 F1 · 锻造房
+lane -1.0 54/54 
+lane -0.9 54/54 
+lane -0.8 54/54 
+lane -0.7 54/54 
+lane -0.6 54/54 
+lane -0.5 54/54 
+lane -0.4 54/54 
+lane -0.3 54/54 
+lane -0.2 54/54 
+lane -0.1 54/54 
+lane 0.0 54/54 
+lane 0.1 54/54 
+lane 0.2 54/54 
+lane 0.3 54/54 
+lane 0.4 54/54 
+lane 0.5 54/54 
+lane 0.6 54/54 
+lane 0.7 54/54 
+lane 0.8 54/54 
+lane 0.9 54/54 
+lane 1.0 54/54 
+lane 1.1 49/54 右窗栏板 · 门洞净开
+lane 1.2 38/54 门槛接坡|F1 · 锻造房|右窗栏板 · 门洞净开
+lane 1.3 40/54 门槛接坡|F1 · 锻造房|右窗栏板 · 门洞净开
+
+Canonical navigation and ground samples
+Assets/Scene/Chapter02_SuspendedPath.unity canonical oriented polygon geometry and areas 73388702f52891f93a21537e69c28946192aa290d236da3c4f839520bdf03e99 triangles=187
+ForgeRoofPost Assets/Prefabs/WorkshopRoofEncounter/ForgeRoofPostNav.asset 10.5999947,0,44.4999962
+ShedRoofPost Assets/Prefabs/WorkshopRoofEncounter/ShedRoofPostNav.asset 9.599993,0,55.7
+祭坛 · 工奴地面导航 Assets/Art/Environment/SuspendedPath/Navigation/Chapter02AltarStoneCarrier_NavMesh.asset 0,0,0
+工坊 · 院场地面导航 Assets/Art/Environment/SuspendedPath/Navigation/WorkshopCourtyardGround.asset 0,0,0
+nav sample at 15.7802086,0,44.04679: True (15.78, 0.07, 44.05)
+nav sample at 11.1977119,0.23,44.44771: False
+nav sample at 10.1716309,0.23,44.5374756: False
+Assets/T27Candidate/F1-ForgeR3.unity canonical oriented polygon geometry and areas 73388702f52891f93a21537e69c28946192aa290d236da3c4f839520bdf03e99 triangles=187
+ForgeRoofPost Assets/Prefabs/WorkshopRoofEncounter/ForgeRoofPostNav.asset 10.5999947,0,44.4999962
+ShedRoofPost Assets/Prefabs/WorkshopRoofEncounter/ShedRoofPostNav.asset 9.599993,0,55.7
+祭坛 · 工奴地面导航 Assets/Art/Environment/SuspendedPath/Navigation/Chapter02AltarStoneCarrier_NavMesh.asset 0,0,0
+工坊 · 院场地面导航 Assets/Art/Environment/SuspendedPath/Navigation/WorkshopCourtyardGround.asset 0,0,0
+nav sample at 15.7802086,0,44.04679: True (15.78, 0.07, 44.05)
+nav sample at 11.1977119,0.23,44.44771: False
+nav sample at 10.1716309,0.23,44.5374756: False
+
+Cold readback, matching cameras
+view	before_after_pixels_over_8_percent	cold_vs_approval_max_channel_difference	before_sha256	after_sha256
+exterior	22.946	0	18d77470409aefcbe4bee03ddbb65e9b2721dc8e69ef24d038e24c892c666da8	303ae69419b4f63ba26b862165b817106a11acd4316404c41983e4edcb59ef5e
+entry	49.740	0	af87cd29aae82cacaa8af1c3e4189f4cdfb37ed0eca18e1e98de592f24f057c1	22e968954ca37786fc98c83b4c9cb3157b94926d12673c55a411c1d62dc1cca1
+eye	22.818	0	d36a860a6a3ef7d631124acc098d4c1c3385217a22d18240fb07c938e34b8e4a	486502cc2a90a19236164ff03192f2d4720c9af2b93a50a74ad284e88e1df410
+bench	39.858	0	713b61630910cb6bf80ae204af490530705ef5855dfda185f5a879f73ea1c6af	ad2b1c3c3cd3482dba6b195bb2f099830bbbf7b7928e6d40e83a592d90d94663
+A1	0.989	0	ac8cbb127a1ca3645ccbe34d757ade1aadca65f9b015ff314c65802e9cb9c673	df7335561aa530cc4ff4a7c6c6ff7656d61f8546089b2cdf9884e48c963f3c0f
+A2	0.000	0	7d005d43af50dfa6ad59a813704da0405a55c233013b06f0a106f25c87e43848	7d005d43af50dfa6ad59a813704da0405a55c233013b06f0a106f25c87e43848

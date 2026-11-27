@@ -44,7 +44,8 @@ flowchart LR
 
 ## 首章作为具体实现
 
-1. `OpeningTrialChapter.initialDiscoveries` 配置初始了解的三个配方；护盾的两个配方在教学目录中合并为一项。
+1. `OpeningTrialChapter.initialDiscoveries` 在当前两个首章场景中实际配置了 **6** 个标识（`fireball`、`shield.left`、`buff.voice`、`thunder.sword`、`breath.burst`、`breath.stream`）；其中护盾的手印与口令配方在教学目录界面中合并呈现。
+   - 注：按资产实际状态，[默认玩家.asset](../../Assets/ScriptableObjects/玩家定义配置/默认玩家.asset) 的 `startingSkills` 当前已预置 `breath.stream`、`thunder.sword`、`breath.burst`；`GATE_CHECK.asset` 实际配置的 `unlockSkillIds` 为 `[fireball, buff.zi]`，[首章成长物品.asset](../../Assets/ScriptableObjects/成长物品配置/首章成长物品.asset)（`leaf.fangyuan`）实际配置的 `unlockSkillIds` 为 `[buff.voice]`，存档文件为 `kaogong-chapter01-v2.json`。
 2. 首章每段的 `trialSkills` 给出临时许可，不授予永久技能。
 3. 真实拾取成功调用 `RpgItemInventory.Collect(itemId)`，物品奖励开放新的技能知识。
 4. 列表吸附完成后调用 `Activate(itemId)`。物品模块授予永久技能；首章交互再固定铜叶并推进台词。
@@ -74,11 +75,14 @@ flowchart LR
 
 ## 配置与存档
 
-| 场景 | 教学 | 物品 | 商店 | 训练设施 |
-|---|---|---|---|---|
-| Chapter01_Awakening | 首章术式教学 | 首章成长物品 | 首章技能商店，只有火球升级商品 | 两靶，按首章阶段配置生命 |
-| LinearRpgTest | 按技能目录显示，允许查看未了解条目 | 无 | 训练场技能商店 | 三靶，60/90/120 生命 |
-| KaogongP1Trial | 按技能目录显示，允许查看未了解条目 | 无 | 训练场技能商店 | 单靶，3 秒复位；房间接管战斗 |
+| 场景 | 教学 | 物品 | 商店 | 训练设施 | 备注 |
+|---|---|---|---|---|---|
+| `Chapter01_Awakening` | 首章术式教学（`衡印` 盾、`律印` 火） | 首章成长物品（`leaf.fangyuan` 解锁 `buff.voice`） | 首章技能商店，只有火球升级商品 | 两靶，按首章阶段配置生命 | Build #0；`青灰薄云.mat`；门庭 `SceneTravelGate` 留空关闭 |
+| `Chapter01_Courtyard` | 同上（另含 `CourtyardTaskGuide` 与 `QuestGuideRoute`） | 同上 | 同上 | 同上 | Build #2；`MountainCloudSky.mat`；含 `StoryCameraSequence`「醒来」；门庭已直连 `Chapter02_SuspendedPath` |
+| `SealLab` | 手诀试验台 | 无 | 无 | 原始追踪、特征提取与评分 | Build #1 |
+| `Chapter02_SuspendedPath` | 几何与双吊篮实景已搭毕；全章玩法流待接入 | 待接入 | 待接入 | Zone 03 失衡工坊含 `ForgeRoofPost` / `ShedRoofPost` | Build #3；`TenonConsole` 与工坊清场/插榫契约已在独立切片 `Chapter02_WorkshopTenon_Slice.unity` 验证 |
+| `LinearRpgTest` | 按技能目录显示，允许查看未了解条目 | 无 | 训练场技能商店 | 三靶，60/90/120 生命 | 单场独立回归 |
+| `KaogongP1Trial` | 按技能目录显示，允许查看未了解条目 | 无 | 训练场技能商店 | 单靶，3 秒复位；房间接管战斗 | 语音与房间战斗集成 |
 
 存档格式为 **v2**，新增 `discoveredSkillIds`，以通用 `items[{itemId, activated}]` 替代旧铜叶专属字段。三个场景分别使用 `kaogong-chapter01-v2.json`、`linear-rpg-v2.json`、`kaogong-p1-trial-v2.json`。首次使用这些文件从新角色开始；原磁盘文件未删除，运行时不做旧格式迁移。
 
