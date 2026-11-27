@@ -1,0 +1,515 @@
+{
+  "sourceFile": "WrappedCore.glb",
+  "sourceSHA256": "c31e749887c0fa7479819e9d61c3c937be9b0e98641caddfd5bfc8738cfd2d5d",
+  "blenderVersion": "5.2.2 LTS",
+  "state": "derived standalone proof; candidate remains source-scaled until assembly dimensions are selected",
+  "axisInterpretation": {
+    "gripEnd": "positive Blender Z / positive +Y of Y-up glTF",
+    "seamAndDetachableEnd": "negative Blender Z / negative Y of Y-up glTF",
+    "recommendedPresentationFront": "Blender +Y (clear rope winding), authored dimensions and roll should be set together with both remaining cloud parts",
+    "suggestedFirstFitUpperBoundMm": [
+      30,
+      29,
+      16
+    ],
+    "firstFitBoundAxisOrder": "Unity X width, Y axial height, Z thickness. Suggested allowance only, not final assembled dimensions.",
+    "whyNotNativePose": "Visible rope crown and lower fracture identify the axis. The generated bounding-box major axis points in depth, not along the ink core."
+  },
+  "sourceJointProbe": {
+    "belowRays": 1089,
+    "hits": 1089,
+    "zAboveLowestPoint_sourceUnits_percentiles0_10_25_50_75_90_99_100": [
+      0.4957189789215519,
+      0.5725020637909367,
+      0.5910789003769352,
+      0.6101679435173466,
+      0.6265176763931706,
+      0.643606876413007,
+      0.6514679971138432,
+      0.652568422834058
+    ],
+    "medianCenterZAboveLowestPoint_sourceUnits": 0.646453761140485,
+    "medianCenterPctOfPartHeight": 98.444,
+    "medianAllPctOfPartHeight": 92.918,
+    "nearLowestPlanePct": 0.0,
+    "axisNote": "Probes are from the bare seam end (-Blender Z) across the central 74% of the X,Y footprint."
+  },
+  "sourceContourSections": [
+    {
+      "heightFraction": 0.07,
+      "zSourceUnits": 0.045967078343648854,
+      "spanXySourceUnits": [
+        0.7031003204096602,
+        0.8895033272133628
+      ],
+      "midpointXySourceUnits": [
+        -0.0009136179601550443,
+        -0.06516187729366849
+      ],
+      "intersectedTriangleCount": 782
+    },
+    {
+      "heightFraction": 0.12,
+      "zSourceUnits": 0.07880067953429432,
+      "spanXySourceUnits": [
+        0.7012255808222896,
+        0.8845039724469559
+      ],
+      "midpointXySourceUnits": [
+        -0.001443517247253473,
+        -0.06560819243734528
+      ],
+      "intersectedTriangleCount": 820
+    },
+    {
+      "heightFraction": 0.16,
+      "zSourceUnits": 0.1050675604868107,
+      "spanXySourceUnits": [
+        0.6998496932382442,
+        0.8753173292811844
+      ],
+      "midpointXySourceUnits": [
+        -0.001862341693429026,
+        -0.06336521478013826
+      ],
+      "intersectedTriangleCount": 840
+    },
+    {
+      "heightFraction": 0.21,
+      "zSourceUnits": 0.13790116167745614,
+      "spanXySourceUnits": [
+        0.6978792050822018,
+        0.863405244620457
+      ],
+      "midpointXySourceUnits": [
+        -0.002260557913155631,
+        -0.06036001970704505
+      ],
+      "intersectedTriangleCount": 797
+    },
+    {
+      "heightFraction": 0.26,
+      "zSourceUnits": 0.17073476286810163,
+      "spanXySourceUnits": [
+        0.6959568115435639,
+        0.8517577966953714
+      ],
+      "midpointXySourceUnits": [
+        -0.0017663533863423175,
+        -0.057474017608871275
+      ],
+      "intersectedTriangleCount": 733
+    },
+    {
+      "heightFraction": 0.31,
+      "zSourceUnits": 0.2035683640587471,
+      "spanXySourceUnits": [
+        0.7037939799879709,
+        0.8486988817541801
+      ],
+      "midpointXySourceUnits": [
+        0.00015046356781789338,
+        -0.05039252925291557
+      ],
+      "intersectedTriangleCount": 632
+    }
+  ],
+  "lods": {
+    "WrappedCore_LOD0": {
+      "triangles": 3598,
+      "vertices": 1801,
+      "boundsBlenderSourceScale": {
+        "min": [
+          -0.35300588607788086,
+          -0.5127741098403931,
+          -0.0005261512123979628
+        ],
+        "max": [
+          0.35446298122406006,
+          0.3817175030708313,
+          0.6571622490882874
+        ],
+        "extent": [
+          0.7074688673019409,
+          0.8944916129112244,
+          0.6576884003006853
+        ]
+      },
+      "shapeError": {
+        "sourceVertexToLowSurfacePct50_90_95_99_100": {
+          "sourceUnits": [
+            0.0002977633848786354,
+            0.0007020631455816329,
+            0.0008296765154227614,
+            0.0010852644918486476,
+            0.0015664072707295418
+          ],
+          "percentOfHeight": [
+            0.045344307977321474,
+            0.10691229717769365,
+            0.12634564673629867,
+            0.1652673560763489,
+            0.2385372322753044
+          ]
+        },
+        "lowVerticesToCloudSurfacePct50_90_95_99_100": {
+          "sourceUnits": [
+            0.0004964594263583422,
+            0.0008559016278013587,
+            0.0009530892129987478,
+            0.001101617468520999,
+            0.0012781950645148754
+          ],
+          "percentOfHeight": [
+            0.0756023415579201,
+            0.13033928609165346,
+            0.14513930522952959,
+            0.16775763677650715,
+            0.19464740664497115
+          ]
+        },
+        "sourceSampledVertices": 12501,
+        "candidateSampledVertices": 1801
+      },
+      "jointProbe": {
+        "belowRays": 1089,
+        "hits": 1089,
+        "zAboveLowestPoint_sourceUnits_percentiles0_10_25_50_75_90_99_100": [
+          0.4953418882214464,
+          0.5725156636559404,
+          0.5916425199829973,
+          0.6109438152634539,
+          0.6267612190567888,
+          0.6437699289643206,
+          0.6517081876122393,
+          0.6533555598580278
+        ],
+        "medianCenterZAboveLowestPoint_sourceUnits": 0.6465324373566546,
+        "medianCenterPctOfPartHeight": 98.304,
+        "medianAllPctOfPartHeight": 92.893,
+        "nearLowestPlanePct": 0.0,
+        "axisNote": "Probes are from the bare seam end (-Blender Z) across the central 74% of the X,Y footprint."
+      },
+      "candidateContourSections": [
+        {
+          "heightFraction": 0.07,
+          "zSourceUnits": 0.045512036808650014,
+          "spanXySourceUnits": [
+            0.7029696454921389,
+            0.8902932873956866
+          ],
+          "midpointXySourceUnits": [
+            -0.000645837244267089,
+            -0.06541252528945954
+          ],
+          "intersectedTriangleCount": 162
+        },
+        {
+          "heightFraction": 0.12,
+          "zSourceUnits": 0.07839645682368428,
+          "spanXySourceUnits": [
+            0.7013068017512645,
+            0.8849475234062423
+          ],
+          "midpointXySourceUnits": [
+            -0.0011686164745714211,
+            -0.06560442911906358
+          ],
+          "intersectedTriangleCount": 169
+        },
+        {
+          "heightFraction": 0.16,
+          "zSourceUnits": 0.10470399283571169,
+          "spanXySourceUnits": [
+            0.6999765267585647,
+            0.8757287617149199
+          ],
+          "midpointXySourceUnits": [
+            -0.0015868398588148869,
+            -0.06328687693286325
+          ],
+          "intersectedTriangleCount": 170
+        },
+        {
+          "heightFraction": 0.21,
+          "zSourceUnits": 0.13758841285074594,
+          "spanXySourceUnits": [
+            0.698100933850485,
+            0.8642053096007668
+          ],
+          "midpointXySourceUnits": [
+            -0.002003244505516588,
+            -0.060389936700112834
+          ],
+          "intersectedTriangleCount": 168
+        },
+        {
+          "heightFraction": 0.26,
+          "zSourceUnits": 0.17047283286578022,
+          "spanXySourceUnits": [
+            0.6955962342281903,
+            0.8526818574866137
+          ],
+          "midpointXySourceUnits": [
+            -0.0014242502351884123,
+            -0.05749299646736242
+          ],
+          "intersectedTriangleCount": 159
+        },
+        {
+          "heightFraction": 0.31,
+          "zSourceUnits": 0.2033572528808145,
+          "spanXySourceUnits": [
+            0.7036866659810839,
+            0.8487610062651793
+          ],
+          "midpointXySourceUnits": [
+            0.0003507798931224049,
+            -0.05079475578825271
+          ],
+          "intersectedTriangleCount": 159
+        }
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0005,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "WrappedCore_LOD0": {
+            "verts": 1801,
+            "faces": 3598,
+            "tris": 3598,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.06,
+            "uv_coverage_pct": 63.5
+          }
+        }
+      }
+    },
+    "WrappedCore_LOD1": {
+      "triangles": 1500,
+      "vertices": 752,
+      "boundsBlenderSourceScale": {
+        "min": [
+          -0.35376349091529846,
+          -0.5127633810043335,
+          0.0002815428888425231
+        ],
+        "max": [
+          0.3542896509170532,
+          0.38182106614112854,
+          0.6573667526245117
+        ],
+        "extent": [
+          0.7080531418323517,
+          0.894584447145462,
+          0.6570852097356692
+        ]
+      },
+      "shapeError": {
+        "sourceVertexToLowSurfacePct50_90_95_99_100": {
+          "sourceUnits": [
+            0.0006780860712751746,
+            0.0016478706384077668,
+            0.001957181142643094,
+            0.0025956365279853344,
+            0.0038796239532530308
+          ],
+          "percentOfHeight": [
+            0.1032609958526825,
+            0.25094272005674134,
+            0.29804545826071455,
+            0.39527137351062946,
+            0.5908008583533573
+          ]
+        },
+        "lowVerticesToCloudSurfacePct50_90_95_99_100": {
+          "sourceUnits": [
+            0.0011979073169641197,
+            0.0018462523701600728,
+            0.002050374203827232,
+            0.002509345856960863,
+            0.0030806013382971287
+          ],
+          "percentOfHeight": [
+            0.18242094584882335,
+            0.2811528896023266,
+            0.3122371792119164,
+            0.3821307693893465,
+            0.46912328020461164
+          ]
+        },
+        "sourceSampledVertices": 12501,
+        "candidateSampledVertices": 752
+      },
+      "jointProbe": {
+        "belowRays": 1089,
+        "hits": 1089,
+        "zAboveLowestPoint_sourceUnits_percentiles0_10_25_50_75_90_99_100": [
+          0.49425345624331385,
+          0.5720784481847658,
+          0.5908772047841921,
+          0.6092853840673342,
+          0.6260631378972903,
+          0.6423525151098147,
+          0.6506712159002199,
+          0.652143269428052
+        ],
+        "medianCenterZAboveLowestPoint_sourceUnits": 0.6450870331609622,
+        "medianCenterPctOfPartHeight": 98.174,
+        "medianAllPctOfPartHeight": 92.725,
+        "nearLowestPlanePct": 0.0,
+        "axisNote": "Probes are from the bare seam end (-Blender Z) across the central 74% of the X,Y footprint."
+      },
+      "candidateContourSections": [
+        {
+          "heightFraction": 0.07,
+          "zSourceUnits": 0.04627750757033937,
+          "spanXySourceUnits": [
+            0.7032058433097206,
+            0.8903981290775638
+          ],
+          "midpointXySourceUnits": [
+            -0.0007276904137411,
+            -0.06550890805285667
+          ],
+          "intersectedTriangleCount": 102
+        },
+        {
+          "heightFraction": 0.12,
+          "zSourceUnits": 0.07913176805712283,
+          "spanXySourceUnits": [
+            0.7018156905651065,
+            0.8842373365598666
+          ],
+          "midpointXySourceUnits": [
+            -0.0014036038724416222,
+            -0.06529619455103094
+          ],
+          "intersectedTriangleCount": 107
+        },
+        {
+          "heightFraction": 0.16,
+          "zSourceUnits": 0.1054151764465496,
+          "spanXySourceUnits": [
+            0.7007035683694152,
+            0.8750535641262803
+          ],
+          "midpointXySourceUnits": [
+            -0.0019443346394020233,
+            -0.06299845453985603
+          ],
+          "intersectedTriangleCount": 100
+        },
+        {
+          "heightFraction": 0.21,
+          "zSourceUnits": 0.13826943693333305,
+          "spanXySourceUnits": [
+            0.699313415624801,
+            0.8635738485842974
+          ],
+          "midpointXySourceUnits": [
+            -0.002620248098102518,
+            -0.06012627952588748
+          ],
+          "intersectedTriangleCount": 97
+        },
+        {
+          "heightFraction": 0.26,
+          "zSourceUnits": 0.17112369742011652,
+          "spanXySourceUnits": [
+            0.695595760348771,
+            0.8520941330423146
+          ],
+          "midpointXySourceUnits": [
+            -0.0009202887790003833,
+            -0.057254104511918924
+          ],
+          "intersectedTriangleCount": 93
+        },
+        {
+          "heightFraction": 0.31,
+          "zSourceUnits": 0.20397795790689996,
+          "spanXySourceUnits": [
+            0.7026532586765302,
+            0.8482191500875544
+          ],
+          "midpointXySourceUnits": [
+            0.00038689086341153756,
+            -0.05057956320433901
+          ],
+          "intersectedTriangleCount": 97
+        }
+      ],
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0003,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "WrappedCore_LOD1": {
+            "verts": 752,
+            "faces": 1500,
+            "tris": 1500,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.04,
+            "uv_coverage_pct": 61.9
+          }
+        }
+      }
+    }
+  },
+  "exports": {
+    "WrappedCore-Low.glb": "bc2ad93559620a416c61a75fddab7388c333bf9b6dcd88ccf9f1ba4b17f3492c",
+    "WrappedCore-LOD1.glb": "4ac54c7cc6febde18a47c420e975016f72e22a8c25e3f249295d3894495b20eb"
+  }
+}
