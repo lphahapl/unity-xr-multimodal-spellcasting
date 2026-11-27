@@ -1,0 +1,42 @@
+{
+  "version": "R08",
+  "glbSHA256": "491a7053a2e6fe2f07db4884b6f0fa74c6d0b62d9b85098541a03538abb3e40d",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r08",
+  "workbenchLabel": "R08 · 脸型与发际需返修，可批注中间稿",
+  "noteId": "aa6ff3d5-68d2-495d-85db-ca3ab5a22ac4",
+  "workbenchRevision": "b311c224bbe0f6edcb4208986e35f99fb10e16f734c52fe7ec2fae0d48251d32",
+  "webURL": "https://gemini.google.com/app/c90904ee0ae83841",
+  "webReplyElement": "message-content-id-r_ee3b63ac3ca16297",
+  "webMode": "打开模式选择器，当前模式为“Hydrogen”",
+  "backendModel": null,
+  "pixelChecks": {
+    "R08_Likeness": {
+      "token": "E041D8",
+      "match": true
+    },
+    "R08_Clay": {
+      "token": "5BE49D",
+      "match": true
+    },
+    "R08_Hairline": {
+      "token": "0A03B1",
+      "match": true
+    },
+    "R08_Features": {
+      "token": "3E26E8",
+      "match": true
+    }
+  },
+  "submissionCount": 1,
+  "replySHA256": "cb5fe348c0271695136e38abdf8010889e36e807f85febeb67c114d7f4d693ca",
+  "review": [
+    "R08 独立 Gemini 头脸静态复审，依据为 A2 脸部三向与 R04、R05 用户原批注。颧颌、五官精细度、发际过渡均判返修。可作中间稿核对方向，最终相貌待用户裁定。",
+    "第一优先看 Likeness 与 Clay 第三列的四分之三侧面。R08 的颧弓外缘明显鼓出，颧下随即内凹，与 A2 连续收向下颌的轮廓有差距；侧影鼻根偏浅，下颌缘仍显短斜。保留正面下巴收窄的幅度和侧面鼻尖、人中、唇的相对投影。",
+    "第二优先看 Hairline 的近正面、斜侧额角与 Likeness 侧视。保留前额起伏和额角位置，打散等长密排的短发束，理顺额角向发髻的梳向。耳上鬓角有深色边点，前额发片转入主发层有接缝感；复查可见侧的贴合并补对侧近照。静帧不能确定深点的几何或透明裁切成因。",
+    "第三优先看 Features 的素模。鼻翼包裹和上唇唇峰比 R07 清楚，可以保留；上下眼睑仍薄平，内眼角偏尖，嘴角外端有尖折。建议用相同材质和无贴图机位复拍，复核眼睑包裹及嘴角端点。另一侧鬓角、发旋后颈、受遮挡的眼鼻内侧及表情变形本组未充分验证。"
+  ],
+  "producerEvidence": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/R08/EngineeringEvidence.json",
+    "sha256": "077ae7405f21885057017cab2cdd3cd9517117926ff9176d32ed0b61fe3fb2ba"
+  }
+}

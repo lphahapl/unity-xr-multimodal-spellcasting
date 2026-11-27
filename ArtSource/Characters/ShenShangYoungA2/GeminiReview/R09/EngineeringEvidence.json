@@ -1,0 +1,106 @@
+{
+  "version": "R09",
+  "modelSHA256": "65c43cd3a1f42cd297b54647a1317c41ec20a8bea749dacee5ef42bc460352d4",
+  "priorModelSHA256": "491a7053a2e6fe2f07db4884b6f0fa74c6d0b62d9b85098541a03538abb3e40d",
+  "latestUserAnnotation": {
+    "id": "99adff08-aa0f-4e83-9ef2-ddcf97f0e304",
+    "text": "脸型不像 还有发际线不行，有点高",
+    "created": 1795618106780
+  },
+  "A2Reference": {
+    "file": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_脸部三向.png",
+    "sha256": "ed10ec1c8bb0a58e5b7faa5437553d916c5e3659f4c07ddff8a264e67c10ded3"
+  },
+  "portraitMeasureMethod": "Central median over 9 image columns at iris midpoint. Edge is sustained 6-pixel run above 50 percent of local hair-to-skin luminance, occupied at least 85 percent of next 20 pixels; 40 and 60 percent sensitivity given. Brow is mean of indices 105/334, IPD 468/473. Jaw guide from each actual raster landmark detection, not a calibrated 3D measurement on concept art.",
+  "rasterSize": [
+    640,
+    819
+  ],
+  "foreheadMeasurementsFromProducer": {
+    "A2": {
+      "height": 81.12,
+      "brow": 274.12,
+      "edge": 193,
+      "ipd": 118.79,
+      "ratio": 0.683,
+      "edges40_60": [
+        189,
+        196
+      ]
+    },
+    "R08": {
+      "height": 82.85,
+      "brow": 275.85,
+      "edge": 193,
+      "ipd": 119.02,
+      "ratio": 0.696,
+      "edges40_60": [
+        193,
+        194
+      ]
+    },
+    "R09": {
+      "height": 71.33,
+      "brow": 275.33,
+      "edge": 204,
+      "ipd": 119.61,
+      "ratio": 0.596,
+      "edges40_60": [
+        203,
+        205
+      ]
+    }
+  },
+  "matchedCameraSource": "A2_Cameras.json from frozen R08, fixed for R09",
+  "sourceRendersSHA256": {
+    "A2/front": "0e39502e8065a9765cebd138833e97c16f8c5c7aa9bbe442ad8bc5f9b867cf86",
+    "A2/side": "5a4e0b6a12e24202ce20f71428096e9865252bdcb0cd0cca39d809af5868c924",
+    "A2/turn": "3780fcc2e2dbda169ca541d8329955f3ffaef9e1c1b951e4c4f852c49bb640e4",
+    "R08/front": "f1cb08f5c398bf7141c204875f87e0bf3ec42a6c17f19ffcfa358875aa72f16e",
+    "R08/side": "ceafcee9dcab238b74343ae50afe170a26a51d8ed7c9cb1812739fc7ebc7f772",
+    "R08/turn": "d6b5b1be980b3ba6c5a72468668720b84c48f556329c50531d2dc73ea99999d4",
+    "R09/front": "0ad540ca6d889f5caa43d834cc67a97cc29b3fbb5d4cb93f86cd361b0af9dcea",
+    "R09/side": "57e8c90e0d07672d74240e07aeed88f5f13d6c8be1b43e8a57a9a110f2bc89ea",
+    "R09/turn": "aa43c2fd0ef838c7f08c3957e852769ffb4241cb349b02a71153672b64dcb1ac"
+  },
+  "matchedRenderPathsByHash": {
+    "R08/front": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R08/A2_front.png",
+    "R08/side": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R08/A2_side.png",
+    "R08/turn": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R08/A2_turn.png",
+    "R09/front": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R09/A2_front.png",
+    "R09/side": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R09/A2_side.png",
+    "R09/turn": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/MatchedFace/R09/A2_turn.png"
+  },
+  "R09MinusA2HeightPixels": -9.79,
+  "centralEdgeDownFromR08Pixels": 11,
+  "napeSkinInFrontFromProducer": 0,
+  "opaqueNapeSamplesFromProducer": 41306,
+  "limits": "Static GLB and common neutral studio. Formal rigging, moving lids and headset performance are untested. Visual acceptance reserved for user.",
+  "measurementQualifier": "Central brow-to-hair edge on matched front raster. Height is sensitive to threshold and hairstyle; it is neither a 3D anatomical dimension nor a user approval.",
+  "producerReports": [
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/PortraitMeasurements.json",
+      "sha256": "f6b55a513eb985d81bc170a2a1d77861c77300a0c7d777632e83d5f30d482032"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/A2_Cameras.json",
+      "sha256": "5bdfea6f8e960b0c7c29585a560a8c1045d285b643d2ee9e03fa6622f828c61d"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/FaceAcceptance.json",
+      "sha256": "fec4a46886bf172d2d92b1758655ab5ca36738cd28cb73240735a4dd201f764c"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/ChangesFromR08.json",
+      "sha256": "c0265f18dadde6ee2127bf4b322af4bd8f53f35bf089f3afac138cd247cbe031"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/CrownSeam.json",
+      "sha256": "a5c95c95988685d4a9f3b9d55a068065f14b0531f787ced48362baa93cc555f9"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R09/Review/RearRegression.json",
+      "sha256": "ef923ab60d84264f8c22c90290c2cf9bc1111eada26b89bea40f5e9e2c3cc85c"
+    }
+  ]
+}
