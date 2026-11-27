@@ -1,0 +1,62 @@
+{
+  "source": "WoodCase.glb",
+  "sourceHash": "d738aff449bd5a704046f07aa65480800ecbd8a3f103689daf65213495b3a9cd",
+  "provider": "Tencent Hunyuan3D",
+  "mapNotes": {
+    "BaseColor": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "047c98a06159c28804af97e758bd4050faea268a653291ea10f633da9ab42e67"
+    },
+    "NormalGL": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "3eae31b3a15cda801c51ec6fa6c3d366729c2144cb30d1c6a733aadecd51bf71"
+    },
+    "MetalRough": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "06e88b4950321fc6ac8bc5a1924ab8cb4b5a7e528d2bcb4ef89a9108e6ce2bd6"
+    },
+    "Occlusion": {
+      "source": "editor constant",
+      "value": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "outputs": {
+    "BaseColor": {
+      "sha256": "df1685223f229d5eb08b8b41fd47f9fa31a0997c2af6104e35134b6855629728",
+      "width": 1024,
+      "height": 1024
+    },
+    "NormalGL": {
+      "sha256": "89556720be143a21e3695691e246971a94f131039315ca4004112ec72418b492",
+      "width": 1024,
+      "height": 1024
+    },
+    "Mask": {
+      "sha256": "31f03ecd07666a2351fe95cdf2fd1adc1a49e76f72dff8b2e4088a736b320024",
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  "fabricTreatment": {
+    "source": "Cloud atlas with woven fabric selected by color/material",
+    "metallicReduction": "Up to zero",
+    "roughnessFloor": "0.80 at full selection",
+    "notes": "No procedural high-frequency normal was added to protect mip stability"
+  }
+}

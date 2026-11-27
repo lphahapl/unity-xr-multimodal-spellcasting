@@ -1,0 +1,62 @@
+{
+  "source": "SoftPouch.glb",
+  "sourceHash": "924331f0fa1a6fc13534459f12ea41cefd4b88e87ff8bf0307121401d638c1d9",
+  "provider": "Tencent Hunyuan3D",
+  "mapNotes": {
+    "BaseColor": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "dcd4e261d6b7df38e804eae7655deafbf6ced2807d4e1478d24d0a7ce7a1292a"
+    },
+    "NormalGL": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "f731679da36fec8cc32170e32e254671fcf4b2d0a8558432f54fa999dded92cc"
+    },
+    "MetalRough": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "2164c4e3b3cced04ae7ae08e3ba60d211814a0f949ebb031d7de661483b8c160"
+    },
+    "Occlusion": {
+      "source": "editor constant",
+      "value": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "outputs": {
+    "BaseColor": {
+      "sha256": "1a44588bef0120b40cc6edd19f9aeb152ecb18086edd930554d8aa0102c20dda",
+      "width": 2048,
+      "height": 2048
+    },
+    "NormalGL": {
+      "sha256": "de904877d2af5d8f434181fe95259e558dea0c1a7c0b430d272b3927b30f7f46",
+      "width": 2048,
+      "height": 2048
+    },
+    "Mask": {
+      "sha256": "8750d7dfb6162496e93fcd6f5bafa5baeeef5b769e0b3d333a8f6468caec6df4",
+      "width": 2048,
+      "height": 2048
+    }
+  },
+  "fabricTreatment": {
+    "source": "Cloud atlas with woven fabric selected by color/material",
+    "metallicReduction": "Up to zero",
+    "roughnessFloor": "0.80 at full selection",
+    "notes": "No procedural high-frequency normal was added to protect mip stability"
+  }
+}

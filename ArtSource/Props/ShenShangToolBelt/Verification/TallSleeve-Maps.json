@@ -1,0 +1,56 @@
+{
+  "source": "TallSleeve.glb",
+  "sourceHash": "b51c8054367580d8dce54778e258cee27daa5d5602e58453239a45f9e8a632be",
+  "provider": "Tencent Hunyuan3D",
+  "mapNotes": {
+    "BaseColor": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "a485023aa8b0e63e5bfc89acb8ef2b43fde48122ae9f8e197cefb21e4ea95b0b"
+    },
+    "NormalGL": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "089fceda088dda60b9044b8660eca4a1d58c62fd7de158f77739ba0240f443bf"
+    },
+    "MetalRough": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "ada103cc089dd00f8e9efbc37d93e5545bd1dd6477088efd9b4eb1be85701202"
+    },
+    "Occlusion": {
+      "source": "editor constant",
+      "value": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "outputs": {
+    "BaseColor": {
+      "sha256": "736b54301514c029b8053b36c7b38338931031a4c1de1a89cc16543d7c76295e",
+      "width": 1024,
+      "height": 1024
+    },
+    "NormalGL": {
+      "sha256": "659e53fb47a3e9e73828aec76baee1a9bf0aab32923c31f528c4b8c899176291",
+      "width": 1024,
+      "height": 1024
+    },
+    "Mask": {
+      "sha256": "d4fd403ed66f1dff3a34f2f572fa48466a4774a1b50289d695cccb43ed20d5d1",
+      "width": 1024,
+      "height": 1024
+    }
+  }
+}

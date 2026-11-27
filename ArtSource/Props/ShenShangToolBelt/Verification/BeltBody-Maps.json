@@ -1,0 +1,62 @@
+{
+  "source": "BeltBody.glb",
+  "sourceHash": "bf79a9ec248dc0eefd6d34e5e4305eb44aacdd74485052e5eeb5e40350bc3c06",
+  "provider": "Tencent Hunyuan3D",
+  "mapNotes": {
+    "BaseColor": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "2272bb9a8db3015f08e2023adfb79b526fac3cdba9b620188580192a447d8522"
+    },
+    "NormalGL": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "ef0f3dbce3f1e05c2367ade659983680b93001ca022429edd9d56db62a49387d"
+    },
+    "MetalRough": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "1fc1c6730202629e5d489974564c86a6e878b1e003686db28bfc7c79b0e73a86"
+    },
+    "Occlusion": {
+      "source": "editor constant",
+      "value": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "outputs": {
+    "BaseColor": {
+      "sha256": "96a63de412bb829b244615b1c6e95acef10369640319ca96f2d66b4fe9b3447c",
+      "width": 2048,
+      "height": 2048
+    },
+    "NormalGL": {
+      "sha256": "032ab0f4b3a1953dade40900edf43a440669c75e6996c0c5f45248372c4f2622",
+      "width": 2048,
+      "height": 2048
+    },
+    "Mask": {
+      "sha256": "9f905cb90027658e3ff488eb355dc7a033890141b6cfa184208fe0c7c2fbc443",
+      "width": 2048,
+      "height": 2048
+    }
+  },
+  "fabricTreatment": {
+    "source": "Cloud atlas with woven fabric selected by color/material",
+    "metallicReduction": "Up to zero",
+    "roughnessFloor": "0.80 at full selection",
+    "notes": "No procedural high-frequency normal was added to protect mip stability"
+  }
+}

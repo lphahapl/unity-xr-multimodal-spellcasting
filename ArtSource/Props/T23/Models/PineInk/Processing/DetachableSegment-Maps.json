@@ -1,0 +1,98 @@
+{
+  "BaseColor": {
+    "file": "DetachableSegmentTextures/DetachableSegment_BaseColor.png",
+    "sourceName": "texture_pbr_20250901",
+    "sourcePngSHA256": "a771086a76c8f0b284b0bb2e881f636a60290a1e443f3f4c7551ce42cb87885c",
+    "derivedPngSHA256": "521178f578e202e784db3a39a17703d3cfefcf388a684b7d0ba43949b5ef2363",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Compressed bright source contamination using an ink lightness curve",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        41.0,
+        42.0,
+        32.0
+      ],
+      [
+        78.0,
+        77.0,
+        63.0
+      ],
+      [
+        86.0,
+        83.0,
+        70.0
+      ]
+    ]
+  },
+  "NormalGL": {
+    "file": "DetachableSegmentTextures/DetachableSegment_NormalGL.png",
+    "sourceName": "texture_pbr_20250901_normal",
+    "sourcePngSHA256": "8e5215791da35861f5f5a451ea390eedcb00cec7e07dd7a9d730ca5870695e6a",
+    "derivedPngSHA256": "a93abf3987b7295023b858196801d8aacdb81034f205aa642a7307e4a3f2b0b6",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Resampled embedded PNG",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        123.0,
+        125.0,
+        254.0
+      ],
+      [
+        127.0,
+        127.0,
+        255.0
+      ],
+      [
+        132.0,
+        130.0,
+        255.0
+      ]
+    ]
+  },
+  "ORM": {
+    "file": "DetachableSegmentTextures/DetachableSegment_ORM.png",
+    "sourceName": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+    "sourcePngSHA256": "d79e7f2322c82cd9c50a5f1a9d81dcb3566e92870cd792747955663948fcdc64",
+    "derivedPngSHA256": "0b581b349fb465d5faf188a2665d2576198cf59a0c25366c21736f972146999f",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Resampled embedded PNG",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        255.0,
+        140.0,
+        5.0
+      ],
+      [
+        255.0,
+        250.0,
+        10.0
+      ],
+      [
+        255.0,
+        253.0,
+        16.0
+      ]
+    ]
+  }
+}

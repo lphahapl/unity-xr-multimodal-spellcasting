@@ -1,0 +1,520 @@
+{
+  "officialPrefab": "Assets/Art/Props/ShenShangToolBelt/ChapterToolBelt.prefab",
+  "checkedAt": "2026-11-25T23:51:53+08:00",
+  "beforePrefabSha256": "276bb319d46b78861cb97a636b790f70ca77b09921ca4abe4cde2ec37c0fb9ff",
+  "newPrefabSha256": "39b816138aa7addead4ad298779ff5cd5955dfd74b68cbfdd3be5a6936b745b1",
+  "approvedBeltBodyFbxSha256": "9758b6f8dc9b7437b160297471a560859deb03af1bf755de0517d883577e52af",
+  "prefabMetaSha256": "610d44e03f69aebb46f5e336bb06040b42c9f77a802d24dcb1867dc63954e95b",
+  "sourceLocation": "D:/Temp/NarutoVR-GlyphFilm-1795334636292/Project",
+  "oldObjectIdsPreserved": 43,
+  "newObjectIdsAdded": 75,
+  "newMissingInternalReferences": [],
+  "verifiedNestedPrefabCounts": {
+    "943f8f70076a96145966963f2e01f78a": 1,
+    "f127eb574579ffb4cb026265961fb323": 1
+  },
+  "approvedFlatPoseAndFitInputs": {
+    "unityQuaternion": [
+      0,
+      0.20023054686348588,
+      0,
+      0.9797488086763614
+    ],
+    "unityPosition": [
+      0.07515600323677063,
+      0.007000000216066837,
+      0.001116267405450344
+    ],
+    "fitAssemblySha256": "6f49df11166eda7c895e04336cad0985d53acea4fec99d5a74bedaf3d60954fb",
+    "fitAssemblyPath": "D:/Temp/ToolBeltV2/FlatReposition/FitAssembly.json",
+    "geometricQaPath": "D:/Temp/ToolBeltV2/FlatReposition/Clearance.json",
+    "midpoint": {
+      "convention": "Actual fitted lower-chest belt arc from profile, at fractional band height .45 with approved surface relief and 6.9 mm reference outward offset. Endpoints are unchanged registered support axes from LayoutBase, not world centres or piece edges.",
+      "referenceRank": [
+        [
+          "SoftPouch",
+          -4.6193599700927736e-08,
+          142.4029034134573
+        ],
+        [
+          "WoodCase",
+          0.6731015846133231,
+          240.31173832659485
+        ],
+        [
+          "TallSleeve",
+          1.0221134468913076,
+          298.8032538553395
+        ]
+      ],
+      "endpointsRadians": [
+        -0.8917442992329595,
+        -4.6193599700927736e-08
+      ],
+      "midpointRadians": -0.5305084930284737,
+      "halfArcMillimetres": [
+        71.2015951833271,
+        71.20384433714602
+      ],
+      "midpointSupportRefBlenderMetres": [
+        -0.06884197145700455,
+        0.009647507220506668,
+        0.028549790382385254
+      ]
+    },
+    "bodyFbxSha256": "9758b6f8dc9b7437b160297471a560859deb03af1bf755de0517d883577e52af",
+    "validatedFlatUsableWidthThicknessDepthMm": [
+      24.3,
+      6,
+      56
+    ]
+  },
+  "staticVerification": {
+    "unityVersion": "6000.3.10f1",
+    "chapterPrefabGuid": "4665f0f2ec7646943b8fe9524cdf39ef",
+    "visualSourceGuid": "fa882611702d1764e8ffbac3de8c4df4",
+    "woodPrefabGuid": "f127eb574579ffb4cb026265961fb323",
+    "penPrefabGuid": "943f8f70076a96145966963f2e01f78a",
+    "geometricQaPath": "D:/Temp/ToolBeltV2/FlatReposition/Clearance.json",
+    "slotCount": 5,
+    "rendererCount": 12,
+    "matchingArtParts": 6,
+    "startingHolsterCount": 1,
+    "bodyFbxGuid": "a7d8c6b4ea070e541a8b3c5d4df01a26",
+    "bodyMeshFileIds": [
+      -1818930237617293503,
+      2451235923457882616
+    ],
+    "bodyLodTriangleCounts": [
+      3504,
+      2100
+    ],
+    "flatToPenEntryDistanceMm": 73.71224212646484,
+    "flatToSoftEntryDistanceMm": 77.67565155029297,
+    "beltOffset": {
+      "x": 0.0,
+      "y": -0.38999998569488525,
+      "z": 0.1599999964237213
+    },
+    "slots": [
+      {
+        "name": "PenSleeve",
+        "pointInBelt": {
+          "x": 0.14730125665664673,
+          "y": 0.08778461813926697,
+          "z": -0.010868468321859837
+        },
+        "insertionAxisInBelt": {
+          "x": -0.1404843032360077,
+          "y": -0.9848077893257141,
+          "z": 0.10206781327724457
+        },
+        "clearanceWidthDepthThickness": {
+          "x": 0.020999999716877937,
+          "y": 0.0860000029206276,
+          "z": 0.01899999938905239
+        },
+        "visualMesh": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/PenSleeve/PenSleeve.fbx",
+        "material": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve.mat",
+        "fittedPenDepthMetres": 0.052000001072883606,
+        "entryDisagreementMm": 0.0,
+        "lod0Triangles": 1718,
+        "lod1Triangles": 768
+      },
+      {
+        "name": "SoftPouch",
+        "pointInBelt": {
+          "x": 6.767716165256843e-09,
+          "y": 0.09300000220537186,
+          "z": 0.02032778039574623
+        },
+        "insertionAxisInBelt": {
+          "x": 0.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        "clearanceWidthDepthThickness": {
+          "x": 0.04699999839067459,
+          "y": 0.06800000369548798,
+          "z": 0.017000000923871994
+        },
+        "visualMesh": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch.fbx",
+        "material": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch.mat",
+        "fittedPenDepthMetres": 0.0,
+        "entryDisagreementMm": 0.0,
+        "lod0Triangles": 3538,
+        "lod1Triangles": 1474
+      },
+      {
+        "name": "FlatSleeve",
+        "pointInBelt": {
+          "x": 0.07515600323677063,
+          "y": 0.09700000286102295,
+          "z": 0.001116267405450344
+        },
+        "insertionAxisInBelt": {
+          "x": 0.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        "clearanceWidthDepthThickness": {
+          "x": 0.024299999698996544,
+          "y": 0.0560000017285347,
+          "z": 0.006000000052154064
+        },
+        "visualMesh": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/FlatSleeve/FlatSleeve.fbx",
+        "material": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve.mat",
+        "fittedPenDepthMetres": 0.0,
+        "entryDisagreementMm": 0.0,
+        "lod0Triangles": 1718,
+        "lod1Triangles": 712
+      },
+      {
+        "name": "WoodCase",
+        "pointInBelt": {
+          "x": -0.10355319827795029,
+          "y": 0.09799999743700027,
+          "z": 0.0028517572209239006
+        },
+        "insertionAxisInBelt": {
+          "x": 0.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        "clearanceWidthDepthThickness": {
+          "x": 0.03799999877810478,
+          "y": 0.07999999821186066,
+          "z": 0.01899999938905239
+        },
+        "visualMesh": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.fbx",
+        "material": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.mat",
+        "fittedPenDepthMetres": 0.052000001072883606,
+        "entryDisagreementMm": 0.0,
+        "lod0Triangles": 2200,
+        "lod1Triangles": 760
+      },
+      {
+        "name": "TallSleeve",
+        "pointInBelt": {
+          "x": -0.15296466648578644,
+          "y": 0.10000000149011612,
+          "z": -0.03227107226848602
+        },
+        "insertionAxisInBelt": {
+          "x": 0.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        "clearanceWidthDepthThickness": {
+          "x": 0.013000000268220901,
+          "y": 0.05700000002980232,
+          "z": 0.01600000075995922
+        },
+        "visualMesh": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.fbx",
+        "material": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.mat",
+        "fittedPenDepthMetres": 0.0,
+        "entryDisagreementMm": 0.0,
+        "lod0Triangles": 1742,
+        "lod1Triangles": 630
+      }
+    ]
+  },
+  "glyphLabPlay": [
+    "Unity 6000.3.10f1",
+    "PASS normal GlyphLab starts with the approved on-disk pen and Nib",
+    "PASS closed chapter gates do not expose belt or pen",
+    "PASS writing signal alone does not bypass storage gate",
+    "PASS five physical receivers can open while pen and glyph remain locked",
+    "PASS explicit chapter availability docks approved nib at measured 52 mm, before any player gesture",
+    "PASS unlock reveals the approved active V2 body under WornSlots",
+    "PASS head translation/yaw moves the V2 body and receiver together at actual FlatSleeve mouth",
+    "PASS one toolbelt pickup claim drives the actual same pen in glyph controller",
+    "PASS near release returns to its source and ends the stroke session",
+    "PASS generic rectangle is picked up without taking the pen input",
+    "PASS actual release docks the 23.6 x 5.5 x 40 mm rectangle at relocated FlatSleeve opening",
+    "PASS actual FlatSleeve receiver rejects an otherwise fitting rectangle over the 6 mm thickness",
+    "PASS no story board or gate completion before its existing opener",
+    "PASS real same-frame Nib traced the existing story template before resolution",
+    "PASS existing persistent story completion actually opens lab gate exactly once",
+    "PASS explicit new approved WoodCase slot takes the same pen on the opening axis",
+    "PASS repick records the newly completed slot",
+    "PASS ordinary nearby release now returns to WoodCase",
+    "PASS far release drops the actual approved pen and releases its claim",
+    "PASS END"
+  ],
+  "geometricQA": {
+    "flatLodTriangles": [
+      1718,
+      712
+    ],
+    "bodyLodTriangles": [
+      3504,
+      2100
+    ],
+    "results": {
+      "0": {
+        "PenSleeve": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 30.483
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 30.762
+          }
+        ],
+        "SoftPouch": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 9.038
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 8.841
+          }
+        ],
+        "WoodCase": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 118.706
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 118.843
+          }
+        ],
+        "TallSleeve": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 196.556
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 196.543
+          }
+        ],
+        "BeltBodyV2": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 0.197
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 0.197
+          }
+        ],
+        "R04": {
+          "Forearm.L": {
+            "overlap": 0,
+            "sampledMinMm": 244.611
+          },
+          "Jacket closures": {
+            "overlap": 0,
+            "sampledMinMm": 9.664
+          },
+          "Sleeve.L": {
+            "overlap": 0,
+            "sampledMinMm": 220.48
+          },
+          "Forearm.R": {
+            "overlap": 0,
+            "sampledMinMm": 105.545
+          },
+          "Jacket collar": {
+            "overlap": 0,
+            "sampledMinMm": 15.311
+          },
+          "Sleeve.R": {
+            "overlap": 0,
+            "sampledMinMm": 83.64
+          },
+          "Undertunic": {
+            "overlap": 0,
+            "sampledMinMm": 37.766
+          },
+          "Waist sash": {
+            "overlap": 0,
+            "sampledMinMm": 45.939
+          },
+          "Jacket": {
+            "overlap": 0,
+            "sampledMinMm": 12.058
+          }
+        }
+      },
+      "1": {
+        "PenSleeve": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 30.59
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 30.843
+          }
+        ],
+        "SoftPouch": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 9.098
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 8.931
+          }
+        ],
+        "WoodCase": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 118.57
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 118.708
+          }
+        ],
+        "TallSleeve": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 196.362
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 196.349
+          }
+        ],
+        "BeltBodyV2": [
+          {
+            "neighborLod": 0,
+            "overlap": 0,
+            "sampledMinMm": 0.202
+          },
+          {
+            "neighborLod": 1,
+            "overlap": 0,
+            "sampledMinMm": 0.202
+          }
+        ],
+        "R04": {
+          "Forearm.L": {
+            "overlap": 0,
+            "sampledMinMm": 244.513
+          },
+          "Jacket closures": {
+            "overlap": 0,
+            "sampledMinMm": 9.766
+          },
+          "Sleeve.L": {
+            "overlap": 0,
+            "sampledMinMm": 220.489
+          },
+          "Forearm.R": {
+            "overlap": 0,
+            "sampledMinMm": 105.601
+          },
+          "Jacket collar": {
+            "overlap": 0,
+            "sampledMinMm": 15.311
+          },
+          "Sleeve.R": {
+            "overlap": 0,
+            "sampledMinMm": 83.64
+          },
+          "Undertunic": {
+            "overlap": 0,
+            "sampledMinMm": 37.68
+          },
+          "Waist sash": {
+            "overlap": 0,
+            "sampledMinMm": 45.906
+          },
+          "Jacket": {
+            "overlap": 0,
+            "sampledMinMm": 12.057
+          }
+        }
+      }
+    },
+    "bodyActor": {
+      "0": {
+        "Forearm.L": 0,
+        "Jacket closures": 0,
+        "Sleeve.L": 0,
+        "Forearm.R": 0,
+        "Jacket collar": 0,
+        "Sleeve.R": 0,
+        "Undertunic": 0,
+        "Waist sash": 0,
+        "Jacket": 0
+      },
+      "1": {
+        "Forearm.L": 0,
+        "Jacket closures": 0,
+        "Sleeve.L": 0,
+        "Forearm.R": 0,
+        "Jacket collar": 0,
+        "Sleeve.R": 0,
+        "Undertunic": 0,
+        "Waist sash": 0,
+        "Jacket": 0
+      }
+    },
+    "entryPath": {
+      "PenSleeve": [
+        0,
+        0
+      ],
+      "SoftPouch": [
+        0,
+        0
+      ],
+      "WoodCase": [
+        0,
+        0
+      ],
+      "TallSleeve": [
+        0,
+        0
+      ],
+      "BeltBodyV2": [
+        0,
+        0
+      ],
+      "R04": {
+        "Forearm.L": 0,
+        "Jacket closures": 0,
+        "Sleeve.L": 0,
+        "Forearm.R": 0,
+        "Jacket collar": 0,
+        "Sleeve.R": 0,
+        "Undertunic": 0,
+        "Waist sash": 0,
+        "Jacket": 0
+      },
+      "checkedBoxMm": [
+        24.3,
+        50,
+        6
+      ]
+    }
+  },
+  "published": true
+}

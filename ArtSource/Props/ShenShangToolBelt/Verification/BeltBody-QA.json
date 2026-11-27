@@ -1,0 +1,509 @@
+{
+  "component": "BeltBody",
+  "provider": "Tencent Hunyuan3D",
+  "source": "BeltBody.glb",
+  "sourceSha256": "bf79a9ec248dc0eefd6d34e5e4305eb44aacdd74485052e5eeb5e40350bc3c06",
+  "sourceVertices": 29859,
+  "sourceTriangles": 50000,
+  "sourceBoundsMetres": [
+    0.8192370235919952,
+    0.9516181498765945,
+    0.2756080327715349
+  ],
+  "rotationBlenderDegrees": 0.0,
+  "nominalUnityDimensions": [
+    0.3499999940395355,
+    0.2493114322423935,
+    0.2170000015757978
+  ],
+  "modelPipeline": "Texture-preserving collapse of cloud geometry and embedded PBR maps",
+  "orientation": "Unity +Y opens upward, +Z front (Blender -Y). Origin at bottom center.",
+  "lods": {
+    "BeltBody_LOD0": {
+      "triangles": 3300,
+      "vertices": 1636,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0001,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "BeltBody_LOD0": {
+            "verts": 1636,
+            "faces": 3300,
+            "tris": 3300,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.07,
+            "uv_coverage_pct": 49.3
+          }
+        }
+      },
+      "exportReadback": {
+        "metresBlender": [
+          0.35011234879493713,
+          0.21710406010970473,
+          0.24940078296640422
+        ],
+        "material": "BeltBody_Atlas",
+        "faces": 3300,
+        "uvMaps": 1,
+        "frontPanel": [
+          {
+            "unityX": -0.155,
+            "unityY": 0.018,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.035,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.053,
+            "frontUnityZ": -0.0006204843521118164
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0016576647758483887
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0020308494567871094
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.035,
+            "frontUnityZ": 0.002142190933227539
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.053,
+            "frontUnityZ": -1.430511474609375e-05
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.071,
+            "frontUnityZ": 0.00047153234481811523
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0032694339752197266
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0014376044273376465
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.053,
+            "frontUnityZ": 0.001770317554473877
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.071,
+            "frontUnityZ": 0.00019669532775878906
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0021889209747314453
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0014899969100952148
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.053,
+            "frontUnityZ": 0.00037932395935058594
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0011402368545532227
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.018,
+            "frontUnityZ": 0.002116858959197998
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0013699531555175781
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.053,
+            "frontUnityZ": 4.9114227294921875e-05
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0003821849822998047
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0016270279884338379
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0011020898818969727
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.053,
+            "frontUnityZ": 0.0010175704956054688
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0006543397903442383
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0019670724868774414
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0017077326774597168
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.053,
+            "frontUnityZ": 0.0008423924446105957
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.071,
+            "frontUnityZ": 0.00033992528915405273
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.018,
+            "frontUnityZ": 0.001779794692993164
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0009845495223999023
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.053,
+            "frontUnityZ": 0.003516554832458496
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0023481249809265137
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.018,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.035,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.053,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.071,
+            "frontUnityZ": null
+          }
+        ]
+      }
+    },
+    "BeltBody_LOD1": {
+      "triangles": 1100,
+      "vertices": 536,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0001,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "BeltBody_LOD1": {
+            "verts": 536,
+            "faces": 1100,
+            "tris": 1100,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.66,
+            "uv_coverage_pct": 46.5
+          }
+        }
+      },
+      "exportReadback": {
+        "metresBlender": [
+          0.3500451296567917,
+          0.21728319046087563,
+          0.2492252455340349
+        ],
+        "material": "BeltBody_Atlas",
+        "faces": 1100,
+        "uvMaps": 1,
+        "frontPanel": [
+          {
+            "unityX": -0.155,
+            "unityY": 0.018,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.035,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.053,
+            "frontUnityZ": 0.0015704631805419922
+          },
+          {
+            "unityX": -0.155,
+            "unityY": 0.071,
+            "frontUnityZ": -0.0017267465591430664
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.018,
+            "frontUnityZ": 0.001864790916442871
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0021482110023498535
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.053,
+            "frontUnityZ": 7.790327072143555e-05
+          },
+          {
+            "unityX": -0.13,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0004247426986694336
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0032221078872680664
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0014143586158752441
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.053,
+            "frontUnityZ": 0.0017334222793579102
+          },
+          {
+            "unityX": -0.1,
+            "unityY": 0.071,
+            "frontUnityZ": 5.2988529205322266e-05
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0021702051162719727
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0014212727546691895
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.053,
+            "frontUnityZ": 0.00039005279541015625
+          },
+          {
+            "unityX": -0.05,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0009931325912475586
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.018,
+            "frontUnityZ": 0.002001047134399414
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0012146830558776855
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.053,
+            "frontUnityZ": 0.00013720989227294922
+          },
+          {
+            "unityX": 0,
+            "unityY": 0.071,
+            "frontUnityZ": 0.00035071372985839844
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0015202760696411133
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0009709596633911133
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.053,
+            "frontUnityZ": 0.001052260398864746
+          },
+          {
+            "unityX": 0.05,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0006333589553833008
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.018,
+            "frontUnityZ": 0.001983344554901123
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0019821524620056152
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.053,
+            "frontUnityZ": 0.0007832646369934082
+          },
+          {
+            "unityX": 0.1,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0002684593200683594
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.018,
+            "frontUnityZ": 0.0015714168548583984
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.035,
+            "frontUnityZ": 0.0009238123893737793
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.053,
+            "frontUnityZ": 0.003446340560913086
+          },
+          {
+            "unityX": 0.13,
+            "unityY": 0.071,
+            "frontUnityZ": 0.0025440454483032227
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.018,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.035,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.053,
+            "frontUnityZ": null
+          },
+          {
+            "unityX": 0.155,
+            "unityY": 0.071,
+            "frontUnityZ": null
+          }
+        ]
+      }
+    }
+  },
+  "wearerFit": {
+    "nativeCloudAlteration": "Raise rear fabric path from the native horizontal loop using a smooth diagonal transform; retain its original mesh and texture UVs",
+    "origin": "Front cloth plane near Unity Z=0, +Z toward viewer",
+    "frontPanelHeightM": 0.1,
+    "rearDepthM": 0.217,
+    "note": "Static unrigged geometry; anatomical fitting and reach require the actual avatar"
+  },
+  "exportedFbxSha256": "e0dc951fbfa506adc2a65841893daf2285ec27925d33792ac652ed0983ebb15a",
+  "cloudEvidence": {
+    "provider": "Tencent Hunyuan3D V3.1 workbench",
+    "modelId": "e408ae1eb8a959a37fe23e4ebecd76c1",
+    "referencePath": "ArtSource/Props/ShenShangToolBelt/References/BeltBody.png",
+    "archivePath": "ArtSource/Props/ShenShangToolBelt/Models/BeltBody.glb"
+  }
+}

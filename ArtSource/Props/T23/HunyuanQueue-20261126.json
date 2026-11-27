@@ -1,0 +1,356 @@
+{
+  "checkedAt": "2026-11-26T13:13:19+08:00",
+  "provider": "Tencent Hunyuan 3D V3.1",
+  "entryPoint": "https://3d.hunyuan.tencent.com/creation",
+  "verifiedBrowser": "Original Chrome session at 127.0.0.1:9222",
+  "availableGenerationCount": 2,
+  "browserObservation": "松墨锭三件已核对原混元下载记录，均含三张嵌入贴图。拓片提交前 Windows 锁定，Chrome 的系统输入被拒绝。",
+  "localVerification": {
+    "modelDirs": [
+      "PineInk",
+      "TravelRation"
+    ],
+    "workbenchVersions": [
+      "mogui-pen-v1",
+      "toolbelt-soft-pouch-source-v1",
+      "travel-ration-v1",
+      "travel-ration-v2",
+      "pine-ink-v1"
+    ],
+    "unmatchedT23DownloadFound": false
+  },
+  "orderedItems": [
+    {
+      "name": "醒神松墨锭",
+      "workbenchVersion": "pine-ink-v1",
+      "workbenchPublished": true,
+      "assemblyPoseReferences": [
+        {
+          "path": "References/PineInk_SlideAssemblyRef.png",
+          "sha256": "1336ed8dd3b65481f8d086bed9177595020c6a9c942646440db29b4dea36ce86",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 487208,
+          "approvedSource": "docs/visuals/醒神松墨锭_概念图_定稿.jpg",
+          "approvedSourceSha256": "35db952bd1575d254d382a72d9310b2cfd4ef0d3bac854a5e49eb1022f23d731"
+        },
+        {
+          "path": "References/PineInk_BreakAssemblyRef.png",
+          "sha256": "42ba32bc2bd71a6e2af0c8c23db04a2f95062d160840cf4765b24a65c9be0eb4",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 502613,
+          "approvedSource": "docs/visuals/醒神松墨锭_预分块折断概念图.jpg",
+          "approvedSourceSha256": "a7af50bb64700fd2f5562dff4c3b04c1197cd930c142e681bfe65ba6a18118d5"
+        }
+      ],
+      "parts": [
+        {
+          "part": "WrappedCore",
+          "references": [
+            {
+              "path": "References/PineInk_WrappedCore.png",
+              "sha256": "06c0b50588b3bfe3a6aee4f085e8a2ac43b006961028b04facbb0d98d3e74afa",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 462760,
+              "approvedSource": "docs/visuals/醒神松墨锭_预分块折断概念图.jpg",
+              "approvedSourceSha256": "a7af50bb64700fd2f5562dff4c3b04c1197cd930c142e681bfe65ba6a18118d5"
+            }
+          ],
+          "cloudJobId": "2b839eb9-e94c-11f1-add4-a660c92ad1f0",
+          "submitted": true,
+          "cloudState": "downloaded",
+          "acceptance": "灰绿绳握段与保留墨身。保留与下段对缝及独立枢轴。",
+          "cloudAssetEvidence": "资产弹窗最新 PBR V3.1 卡片，生成图路径的资产 UUID，与已上传缠绳段预览相符。详情页为 50,000 三角面、27,220 顶点。",
+          "localSource": {
+            "path": "Models/PineInk/Source/WrappedCore.glb",
+            "sha256": "c31e749887c0fa7479819e9d61c3c937be9b0e98641caddfd5bfc8738cfd2d5d",
+            "bytes": 44928268,
+            "triangles": 50000,
+            "vertices": 27220,
+            "embeddedPngCount": 3
+          }
+        },
+        {
+          "part": "DetachableSegment",
+          "references": [
+            {
+              "path": "References/PineInk_DetachableSegment.png",
+              "sha256": "71a8f530ed6589a2535aa3ce457104706aaa7e16b1312dd48e782116f0ca79b7",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 381633,
+              "approvedSource": "docs/visuals/醒神松墨锭_预分块折断概念图.jpg",
+              "approvedSourceSha256": "a7af50bb64700fd2f5562dff4c3b04c1197cd930c142e681bfe65ba6a18118d5"
+            }
+          ],
+          "cloudJobId": "bced3021-e950-11f1-add4-a660c92ad1f0",
+          "submitted": true,
+          "cloudState": "downloaded",
+          "acceptance": "可拆下的黑色墨段。对齐预分线。",
+          "cloudAssetEvidence": "已核对混元资产与 Chrome 下载记录中的同一资产 ID，原始下载名 a7b1447f246aac13a76aca7f3776374f.glb。",
+          "localSource": {
+            "path": "Models/PineInk/Source/DetachableSegment.glb",
+            "sha256": "52f7c6d44c5193ea07f82a0d715b104302995470f8b5ee4aadaf62f114081656",
+            "bytes": 29442372,
+            "triangles": 50000,
+            "vertices": 26153,
+            "embeddedPngCount": 3
+          }
+        },
+        {
+          "part": "SlideSleeve",
+          "references": [
+            {
+              "path": "References/PineInk_SlideSleeve.png",
+              "sha256": "23359a6986fb43d12d63473f23633efb6f00ec8ea0862a44276dce8294c72328",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 463930,
+              "approvedSource": "docs/visuals/醒神松墨锭_预分块折断概念图.jpg",
+              "approvedSourceSha256": "a7af50bb64700fd2f5562dff4c3b04c1197cd930c142e681bfe65ba6a18118d5"
+            },
+            {
+              "path": "References/PineInk_SlideSleeveSide.png",
+              "sha256": "5cc88f2b2d76664952c1eb3c388461147ce3e8cf851d2568eca111add30025fb",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 273989,
+              "approvedSource": "docs/visuals/醒神松墨锭_预分块折断概念图.jpg",
+              "approvedSourceSha256": "a7af50bb64700fd2f5562dff4c3b04c1197cd930c142e681bfe65ba6a18118d5"
+            }
+          ],
+          "cloudJobId": "0dbae242-e954-11f1-add4-a660c92ad1f0",
+          "submitted": true,
+          "cloudState": "downloaded",
+          "acceptance": "胡桃木青铜空套，保持开口和滑动净空。两图对应同件。",
+          "submittedViews": [
+            {
+              "slot": "正图",
+              "path": "References/PineInk_SlideSleeveFrontAligned.png",
+              "sha256": "c73726d75c87998a2d65e08b6f8d59ccd8ca77f2f41985705ebd3524fca08e29",
+              "derivedFrom": "References/PineInk_SlideSleeveSide.png",
+              "transform": "rotate_180_to_match_lower_notch_in_approved_break_assembly"
+            },
+            {
+              "slot": "左45°图",
+              "path": "References/PineInk_SlideSleeve.png",
+              "sha256": "23359a6986fb43d12d63473f23633efb6f00ec8ea0862a44276dce8294c72328"
+            }
+          ],
+          "cloudAssetEvidence": "已核对混元资产与 Chrome 下载记录中的同一资产 ID，原始下载名 559ac49b9df7446bd23d12d33eb29fa9.glb。",
+          "localSource": {
+            "path": "Models/PineInk/Source/SlideSleeve.glb",
+            "sha256": "2f9fb191898c4ccb7b7af16e173b1631474a15049f90fe9777385f65cb270087",
+            "bytes": 31187960,
+            "triangles": 49990,
+            "vertices": 28389,
+            "embeddedPngCount": 3
+          }
+        }
+      ],
+      "reviewChecks": [
+        "合套",
+        "沿长轴滑开",
+        "折离耗用段",
+        "保留段回套"
+      ],
+      "workbenchReceipt": "Models/PineInk/Processing/PineInk-WorkbenchReceipt.json",
+      "workbenchUrl": "http://127.0.0.1:4190/rig/?collection=shenshang-props&model=pine-ink-v1",
+      "reviewTriangles": 9214
+    },
+    {
+      "name": "冷铸青铜拓片",
+      "workbenchVersion": "bronze-rubbing-v1",
+      "workbenchPublished": false,
+      "assemblyPoseReferences": [],
+      "parts": [
+        {
+          "part": "Plate",
+          "references": [
+            {
+              "path": "References/BronzeRubbing_Front.png",
+              "sha256": "180ec7b92c852c7d60bd75090a08653643371ab08184e4a057621d2fcedef370",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 694847,
+              "approvedSource": "docs/visuals/冷铸青铜拓片_三视图.jpg",
+              "approvedSourceSha256": "47b5fb8d81c4219edafce92c8b27dc276bb7aaf8857f66d9426bbb388069b44a"
+            },
+            {
+              "path": "References/BronzeRubbing_Back.png",
+              "sha256": "e1cf6c7d3182c95b8d3cd658454c7eef8c332f22ee99cf7c1c1cad834b98435b",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 717177,
+              "approvedSource": "docs/visuals/冷铸青铜拓片_三视图.jpg",
+              "approvedSourceSha256": "47b5fb8d81c4219edafce92c8b27dc276bb7aaf8857f66d9426bbb388069b44a"
+            },
+            {
+              "path": "References/BronzeRubbing_Edge.png",
+              "sha256": "1529aaaf5dcaa1efc00aa2056bc39e88f8210f2d5d04531f7170f0f00ff9a15f",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 65158,
+              "approvedSource": "docs/visuals/冷铸青铜拓片_三视图.jpg",
+              "approvedSourceSha256": "47b5fb8d81c4219edafce92c8b27dc276bb7aaf8857f66d9426bbb388069b44a"
+            }
+          ],
+          "cloudJobId": null,
+          "submitted": false,
+          "cloudState": "awaiting_ordered_submission",
+          "acceptance": "同一块约 2 mm 厚板的三视。保留 U 口、正面阴刻朱印、背面锤纹和戳记。"
+        }
+      ],
+      "reviewChecks": [
+        "正反和窄边同一物体",
+        "掌心握边",
+        "按真实扁套开口试放"
+      ]
+    },
+    {
+      "name": "定律铜橛",
+      "workbenchVersion": "cooldown-stake-v1",
+      "workbenchPublished": false,
+      "assemblyPoseReferences": [
+        {
+          "path": "References/CooldownStake_TopRef.png",
+          "sha256": "ecc7711748b1f3f5657bf873ad902889ee4d164e5c37a80ac7de5a96975fe339",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 451500,
+          "approvedSource": "docs/visuals/定律铜橛_冷却加速力场道具概念图.jpg",
+          "approvedSourceSha256": "0d60bd04d387355113f27373172aeab19159a2c36c7d931919838250c09b0a74"
+        },
+        {
+          "path": "References/CooldownStake_AssembledRef.png",
+          "sha256": "24dd7d12feb9779b213819ccbc23d2e68bc4d2e4c0f14e3128adfd51bf4992aa",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 283306,
+          "approvedSource": "docs/visuals/定律铜橛_冷却加速力场道具概念图.jpg",
+          "approvedSourceSha256": "0d60bd04d387355113f27373172aeab19159a2c36c7d931919838250c09b0a74"
+        }
+      ],
+      "parts": [
+        {
+          "part": "RigidBody",
+          "references": [
+            {
+              "path": "References/CooldownStake_Body.png",
+              "sha256": "16c562741d4fb420bcaea796795d210fa6b401ce1538619d99ee153528e1bc7d",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 127647,
+              "approvedSource": "docs/visuals/定律铜橛_冷却加速力场道具概念图.jpg",
+              "approvedSourceSha256": "0d60bd04d387355113f27373172aeab19159a2c36c7d931919838250c09b0a74"
+            }
+          ],
+          "cloudJobId": null,
+          "submitted": false,
+          "cloudState": "awaiting_ordered_submission",
+          "acceptance": "顶盘方孔、麻绳、握位、下锥固定。吻合独立齿环轴段。"
+        },
+        {
+          "part": "RotatingRing",
+          "references": [
+            {
+              "path": "References/CooldownStake_Gear.png",
+              "sha256": "4526b68b6d126ef251bd697b09213e3d1ba6996c48b2c52a7b07a61bf9b0d5d8",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 193446,
+              "approvedSource": "docs/visuals/定律铜橛_冷却加速力场道具概念图.jpg",
+              "approvedSourceSha256": "0d60bd04d387355113f27373172aeab19159a2c36c7d931919838250c09b0a74"
+            },
+            {
+              "path": "References/CooldownStake_GearFront.png",
+              "sha256": "ed54885d8a1059c7eeccb9f600b27a1918755f0ffc5ba1981bee6e9a5de59552",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 308532,
+              "approvedSource": "docs/visuals/定律铜橛_冷却加速力场道具概念图.jpg",
+              "approvedSourceSha256": "0d60bd04d387355113f27373172aeab19159a2c36c7d931919838250c09b0a74"
+            }
+          ],
+          "cloudJobId": null,
+          "submitted": false,
+          "cloudState": "awaiting_ordered_submission",
+          "acceptance": "保留中心通孔。环轴与杆同轴，只有齿环转动。"
+        }
+      ],
+      "reviewChecks": [
+        "插地点与齿环轴可定位",
+        "旋转时不穿杆",
+        "力场可独立关闭"
+      ]
+    }
+  ],
+  "quotaEvidence": "第三单滑套提交后账户右上角显示剩余 2 次；拓片、杆身与独立齿环均未提交。",
+  "historyEvidence": {
+    "scope": "原 Chrome 原账号创作页的资产弹窗及本地云回件、下载散列",
+    "visiblePriorAssetDateRange": [
+      "2026-11-24",
+      "2026-11-25"
+    ],
+    "latestThumbnails": [
+      "干粮外袋",
+      "工具带窄长筒",
+      "工具带窄平套",
+      "工具带木骨匣"
+    ],
+    "knownT23Download": "6d1b2edbb32e7c56a16802c35cffad66.glb（干粮外袋）",
+    "matchingPriorAssetFoundForOpenItems": false,
+    "submittedThisRun": 3
+  },
+  "uploadBlocker": {
+    "part": "PineInk/WrappedCore",
+    "reference": "References/PineInk_WrappedCore.png",
+    "stage": "fileChooser.setFiles",
+    "reason": "Chrome ChatGPT 扩展未启用 Allow access to file URLs",
+    "uploadSucceeded": true,
+    "generateButtonPressed": true,
+    "resolvedBy": "在原 Chrome 窗口选中任务标签，从页面打开 Windows 系统文件选择框，输入正式参考图的绝对路径"
+  },
+  "blockerAfterPineInk": {
+    "observedOn": "2026-11-26T13:09:40+08:00",
+    "cause": "Windows 锁屏，原 Chrome 可读但系统输入被拒绝，附件上传尚未开始。",
+    "nextPart": "Plate",
+    "remainingQuotaAtLastChromeVerification": 2,
+    "remainingQueueJobs": 3,
+    "lastRecheck": {
+      "at": "2026-11-26T13:13:19+08:00",
+      "originalTabStillPresent": true,
+      "status": "Windows 会话可读后原 Chrome 窗口仍最小化，既有混元标签的后台调试无法接管，未执行第四次提交。"
+    }
+  }
+}

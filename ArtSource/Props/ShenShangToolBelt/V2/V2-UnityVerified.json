@@ -1,0 +1,527 @@
+{
+    "unityVersion": "6000.3.10f1",
+    "projectPath": "D:\\Temp\\NarutoVR-ItemsLab-20261124a",
+    "prefabPath": "Assets/Art/Props/ShenShangToolBelt/V2/ShenShangToolBeltV2.prefab",
+    "prefabGuid": "fa882611702d1764e8ffbac3de8c4df4",
+    "prefabSha256": "1e746624fedaba4cb69da3a298e13b2046ce8d3d7cf2f861b1d581207a5e731f",
+    "fitSha256": "6a14882cd7f579037d13753d4fcaab71c3e43224d47f3e1b21e77244f80defbf",
+    "graphicsApi": "Direct3D11",
+    "activeInteractionBehaviourCount": 0,
+    "directPartCount": 6,
+    "totalLod0Triangles": 14420,
+    "totalLod1Triangles": 6444,
+    "inputAssetReceipts": [
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/BeltBody/BeltBody.mat",
+            "sha256": "3509da55b892ceaa0b6f2dbe0a21a5670fd002e7a709ef5a3aa6021b0ee7923e",
+            "guid": "6c8ff057506fc8849b3a6c90a2cf3f18"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/BeltBody/BeltBody_BaseColor.png",
+            "sha256": "96a63de412bb829b244615b1c6e95acef10369640319ca96f2d66b4fe9b3447c",
+            "guid": "c5249d088a446ee42af7aca6e370a0c5"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/BeltBody/BeltBody_NormalGL.png",
+            "sha256": "032ab0f4b3a1953dade40900edf43a440669c75e6996c0c5f45248372c4f2622",
+            "guid": "e2e5deb7eb033e64db884d9022a0c945"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/BeltBody/BeltBody_Mask.png",
+            "sha256": "9f905cb90027658e3ff488eb355dc7a033890141b6cfa184208fe0c7c2fbc443",
+            "guid": "2a41fede7af2f6845ac16f5880893237"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve.mat",
+            "sha256": "4416960801810dc17a20837efb0d26946982a7e7aa691724f9e8b8c6c8688539",
+            "guid": "65a0b33c1d632a546a326a29c0b11786"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve_BaseColor.png",
+            "sha256": "131ddc5b12291ed889b5caf6441f4b5bd7efd8c580ae4114dd9220e1a6e3a876",
+            "guid": "9b3760fc28e948745bfe3ffaa645c8ed"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve_NormalGL.png",
+            "sha256": "5adfad69c6f42648935a10d7d86c43263e70195ef60fea69cc484cbe81f0788f",
+            "guid": "0289ae663f1318a44981ec8fcdcc0d19"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve_Mask.png",
+            "sha256": "e0f6d9ced3f807d252cba9c570045dbcd3acb156b2d41719e6d2aed758e58ede",
+            "guid": "7ae1c6788a8b4814da56c81e8fe5cabf"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve.mat",
+            "sha256": "29d5194b4cb7c5e383e0c44483981344d49981a305197546aeeb4d74c5440ebc",
+            "guid": "065542a366e70d447aea4e73ed88718a"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve_BaseColor.png",
+            "sha256": "4910c9c64c6837fba5a2d1f09a6762fb526cf55e86f2428d64e951d8cf446071",
+            "guid": "05b5bbcd2fced084d9f8050443e7f05f"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve_NormalGL.png",
+            "sha256": "c2f3c1c3c275a000f5bd80156029f6cf36ee9fdccdee57c6ebcc7b0acd73fc33",
+            "guid": "0730edfe4f515c34d974035e839ab21d"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve_Mask.png",
+            "sha256": "ca70e67ad3e443bb2f5227ab1a917fc4e8e03acf0716b8b3fd838f56cdb54158",
+            "guid": "7796dd4f341be3c4cae1559b950694ab"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/SoftPouch/SoftPouch.mat",
+            "sha256": "b9e3fbd4210ca667358590b02639e2ee353a713190f7be3c1344f79056976feb",
+            "guid": "749bcbb589859404e844546ce47b78a8"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/SoftPouch/SoftPouch_BaseColor.png",
+            "sha256": "1a44588bef0120b40cc6edd19f9aeb152ecb18086edd930554d8aa0102c20dda",
+            "guid": "9f67c9da4d121e848bc32fb935f41a5b"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/SoftPouch/SoftPouch_NormalGL.png",
+            "sha256": "de904877d2af5d8f434181fe95259e558dea0c1a7c0b430d272b3927b30f7f46",
+            "guid": "985767a31c6f22344a66aa5034f153c3"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/SoftPouch/SoftPouch_Mask.png",
+            "sha256": "8750d7dfb6162496e93fcd6f5bafa5baeeef5b769e0b3d333a8f6468caec6df4",
+            "guid": "2be46dc05d69191439a3db66c0ee9b33"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.mat",
+            "sha256": "9e7cdcd9f5e86be851f6b59f8d847cf019823ecc5863c6830181f539ae3970bb",
+            "guid": "2f60bad044d873d4cb7560d102f69d7a"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase_BaseColor.png",
+            "sha256": "df1685223f229d5eb08b8b41fd47f9fa31a0997c2af6104e35134b6855629728",
+            "guid": "579f79d11febf18468b115cdd6d1d841"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase_NormalGL.png",
+            "sha256": "89556720be143a21e3695691e246971a94f131039315ca4004112ec72418b492",
+            "guid": "4b816daf416644649864636139b29eeb"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase_Mask.png",
+            "sha256": "31f03ecd07666a2351fe95cdf2fd1adc1a49e76f72dff8b2e4088a736b320024",
+            "guid": "e3c9312baa42a2c4eb2ebc47c0c366bb"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.fbx",
+            "sha256": "0d26dcabced654e68f9f956d39fb73c3bc37d5a031af83e0a132396ca46985e0",
+            "guid": "e62cd652b2e763143921e9ab3897c7ae"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.mat",
+            "sha256": "dc1a9f295bd3a3edeed0c705a0d5574877fb1cffe8037cc24089c646c9c6f52b",
+            "guid": "a57d4f1b601bb6d4f9044f08fdfebad5"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve_BaseColor.png",
+            "sha256": "736b54301514c029b8053b36c7b38338931031a4c1de1a89cc16543d7c76295e",
+            "guid": "c70a4e94b66dd7c4dbd1035f36b5e763"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve_NormalGL.png",
+            "sha256": "659e53fb47a3e9e73828aec76baee1a9bf0aab32923c31f528c4b8c899176291",
+            "guid": "0e72cc519e2710b4d87ef12131eaa8fe"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve_Mask.png",
+            "sha256": "d4fd403ed66f1dff3a34f2f572fa48466a4774a1b50289d695cccb43ed20d5d1",
+            "guid": "d6960e793ac1da14eb4017fb191b008a"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.fbx",
+            "sha256": "d9c453ed8e40867a232ca96655e36aad1c77da7f46d5043865c05af97b18d3a5",
+            "guid": "a887a48d351bd224a8bf4da2592d17ec"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2.fbx",
+            "sha256": "46ff6a0418d196936e8683f199644508782a4143d43024305c58932a68144d10",
+            "guid": "a7d8c6b4ea070e541a8b3c5d4df01a26"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2_BaseColor.png",
+            "sha256": "f06a045e984b3f11abeeebeb9f8d0734a1feb25b1cc003c4f8ba1036e5281fd7",
+            "guid": "399da60d87abe5d49970a179f8c503e1"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2_NormalGL.png",
+            "sha256": "400f3e81d91de645be0f4b9a2d4d6e575d5428cd24b38beb108f3234a613b077",
+            "guid": "7d046a3b1d9db394da8d6df82fc2b0a9"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2_Mask.png",
+            "sha256": "1a75de1cbcb537a21062bb0b4bd7cf04bc88b7b24935ad99f39540c5ada018a3",
+            "guid": "73c182550e8d4fa4ab91f5cca341a6b3"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/PenSleeve/PenSleeve.fbx",
+            "sha256": "061526f2e714c1cda12bd32d66e8317b4725828f49e9c1e62660bf52c64f23b5",
+            "guid": "b97ff7246462e5b4f9228c906dc1e59f"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/FlatSleeve/FlatSleeve.fbx",
+            "sha256": "71dff79d7a9d93e2f305eb45f631cea668d673fe5c1dc7675ac3eb834669ac7f",
+            "guid": "e226bb2aed6130a4eaf8a406f9f09118"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch.fbx",
+            "sha256": "35f05575f8cf327515d14a14f42554d1dc1d767af377cf00d2e6684dfb8cbca5",
+            "guid": "09ff6e7f4a3e62643b79c1fb4d339a23"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch_BaseColor.png",
+            "sha256": "cc5e62193f5432b20a0ffa1e3065762b4c5081b332a2881fb56c846eaca405cf",
+            "guid": "3769b384de60fd64f94a15e4b6d987c9"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch_NormalGL.png",
+            "sha256": "1ee31b7582abf8f490a4a704875362f4adea2e4c4bc89b5325d1f934599fd332",
+            "guid": "e488b6ec6bf32b44694d350102c51593"
+        },
+        {
+            "path": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch_Mask.png",
+            "sha256": "88547bf2ee0e65f1a57f154b46668ed63020134f269ac9d726123f85e22c5107",
+            "guid": "630e1e6cb31b4a34d89227927fa72c62"
+        }
+    ],
+    "parts": [
+        {
+            "name": "BeltBody",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2.fbx",
+            "modelGuid": "a7d8c6b4ea070e541a8b3c5d4df01a26",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2.mat",
+            "materialGuid": "b2cecf39e1d8479408ef60988bab5080",
+            "mapGuids": [
+                "399da60d87abe5d49970a179f8c503e1",
+                "7d046a3b1d9db394da8d6df82fc2b0a9",
+                "73c182550e8d4fa4ab91f5cca341a6b3"
+            ],
+            "triangles": [
+                3504,
+                2100
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": 0.001536637544631958,
+                    "y": 0.18953825533390046,
+                    "z": -0.1140848696231842
+                },
+                "m_Extent": {
+                    "x": 0.18185210227966309,
+                    "y": 0.18753831088542939,
+                    "z": 0.12831085920333863
+                }
+            },
+            "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "hasEntryAnchor": false,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "insertionAxisInBelt": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "PenSleeve",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/PenSleeve/PenSleeve.fbx",
+            "modelGuid": "b97ff7246462e5b4f9228c906dc1e59f",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/PenSleeve/PenSleeve.mat",
+            "materialGuid": "65a0b33c1d632a546a326a29c0b11786",
+            "mapGuids": [
+                "9b3760fc28e948745bfe3ffaa645c8ed",
+                "0289ae663f1318a44981ec8fcdcc0d19",
+                "7ae1c6788a8b4814da56c81e8fe5cabf"
+            ],
+            "triangles": [
+                1718,
+                768
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": -0.0002781897783279419,
+                    "y": 0.039985284209251407,
+                    "z": 0.00019158516079187393
+                },
+                "m_Extent": {
+                    "x": 0.017013702541589738,
+                    "y": 0.03999277949333191,
+                    "z": 0.012796131893992424
+                }
+            },
+            "localPosition": {
+                "x": 0.13606251776218415,
+                "y": 0.008999999612569809,
+                "z": -0.0027030433993786575
+            },
+            "localRotation": {
+                "x": -0.026932600885629655,
+                "y": 0.30784109234809878,
+                "z": -0.08289001882076264,
+                "w": 0.9474374651908875
+            },
+            "hasEntryAnchor": true,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.07999999821186066,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": 0.14730125665664674,
+                "y": 0.08778461813926697,
+                "z": -0.010868468321859837
+            },
+            "insertionAxisInBelt": {
+                "x": -0.1404843032360077,
+                "y": -0.9848077893257141,
+                "z": 0.10206781327724457
+            }
+        },
+        {
+            "name": "FlatSleeve",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/FlatSleeve/FlatSleeve.fbx",
+            "modelGuid": "e226bb2aed6130a4eaf8a406f9f09118",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/FlatSleeve/FlatSleeve.mat",
+            "materialGuid": "065542a366e70d447aea4e73ed88718a",
+            "mapGuids": [
+                "05b5bbcd2fced084d9f8050443e7f05f",
+                "0730edfe4f515c34d974035e839ab21d",
+                "7796dd4f341be3c4cae1559b950694ab"
+            ],
+            "triangles": [
+                1718,
+                712
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": -0.0001165829598903656,
+                    "y": 0.045028865337371829,
+                    "z": 0.000008051283657550812
+                },
+                "m_Extent": {
+                    "x": 0.021179284900426866,
+                    "y": 0.04497300088405609,
+                    "z": 0.008487066254019738
+                }
+            },
+            "localPosition": {
+                "x": 0.10608974099159241,
+                "y": 0.007000000216066837,
+                "z": -0.010719327256083489
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.27731040120124819,
+                "z": 0.0,
+                "w": 0.9607803821563721
+            },
+            "hasEntryAnchor": true,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.09000000357627869,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": 0.10608974099159241,
+                "y": 0.09700000286102295,
+                "z": -0.010719327256083489
+            },
+            "insertionAxisInBelt": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "SoftPouch",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch.fbx",
+            "modelGuid": "09ff6e7f4a3e62643b79c1fb4d339a23",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/V2/Geometry/SoftPouch/SoftPouch.mat",
+            "materialGuid": "7e2076df69a095d4ca160f3d7e293706",
+            "mapGuids": [
+                "3769b384de60fd64f94a15e4b6d987c9",
+                "e488b6ec6bf32b44694d350102c51593",
+                "630e1e6cb31b4a34d89227927fa72c62"
+            ],
+            "triangles": [
+                3538,
+                1474
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": 0.000015556812286376953,
+                    "y": 0.04394600912928581,
+                    "z": 0.00019572675228118896
+                },
+                "m_Extent": {
+                    "x": 0.049063779413700107,
+                    "y": 0.044044796377420428,
+                    "z": 0.015467900782823563
+                }
+            },
+            "localPosition": {
+                "x": 6.767716165256843e-9,
+                "y": 0.004999999888241291,
+                "z": 0.02032778039574623
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "hasEntryAnchor": true,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.08799999952316284,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": 6.767716165256843e-9,
+                "y": 0.09300000220537186,
+                "z": 0.02032778039574623
+            },
+            "insertionAxisInBelt": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "WoodCase",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.fbx",
+            "modelGuid": "e62cd652b2e763143921e9ab3897c7ae",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.mat",
+            "materialGuid": "2f60bad044d873d4cb7560d102f69d7a",
+            "mapGuids": [
+                "579f79d11febf18468b115cdd6d1d841",
+                "4b816daf416644649864636139b29eeb",
+                "e3c9312baa42a2c4eb2ebc47c0c366bb"
+            ],
+            "triangles": [
+                2200,
+                760
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": 0.000015810132026672363,
+                    "y": 0.046002745628356937,
+                    "z": 0.00004272721707820892
+                },
+                "m_Extent": {
+                    "x": 0.03898310661315918,
+                    "y": 0.045988112688064578,
+                    "z": 0.022015418857336046
+                }
+            },
+            "localPosition": {
+                "x": -0.10355319827795029,
+                "y": 0.006000000052154064,
+                "z": 0.0028517572209239008
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": -0.25299888849258425,
+                "z": 0.0,
+                "w": 0.9674665927886963
+            },
+            "hasEntryAnchor": true,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.09200000017881394,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": -0.10355319827795029,
+                "y": 0.09799999743700028,
+                "z": 0.0028517572209239008
+            },
+            "insertionAxisInBelt": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "name": "TallSleeve",
+            "modelPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.fbx",
+            "modelGuid": "a887a48d351bd224a8bf4da2592d17ec",
+            "materialPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/TallSleeve/TallSleeve.mat",
+            "materialGuid": "a57d4f1b601bb6d4f9044f08fdfebad5",
+            "mapGuids": [
+                "c70a4e94b66dd7c4dbd1035f36b5e763",
+                "0e72cc519e2710b4d87ef12131eaa8fe",
+                "d6960e793ac1da14eb4017fb191b008a"
+            ],
+            "triangles": [
+                1742,
+                630
+            ],
+            "lod0BoundsInPart": {
+                "m_Center": {
+                    "x": 0.000023064203560352325,
+                    "y": 0.04600538685917854,
+                    "z": -0.000007709488272666931
+                },
+                "m_Extent": {
+                    "x": 0.014005661010742188,
+                    "y": 0.04600406065583229,
+                    "z": 0.016522454097867013
+                }
+            },
+            "localPosition": {
+                "x": -0.15296466648578645,
+                "y": 0.00800000037997961,
+                "z": -0.03227107226848602
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": -0.3090170621871948,
+                "z": 0.0,
+                "w": 0.9510565400123596
+            },
+            "hasEntryAnchor": true,
+            "entryInPart": {
+                "x": 0.0,
+                "y": 0.09200000017881394,
+                "z": 0.0
+            },
+            "entryInBelt": {
+                "x": -0.15296466648578645,
+                "y": 0.10000000149011612,
+                "z": -0.03227107226848602
+            },
+            "insertionAxisInBelt": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        }
+    ]
+}
