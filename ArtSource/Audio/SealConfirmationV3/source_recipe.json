@@ -1,0 +1,717 @@
+{
+  "version": 3,
+  "status": "first_audition_candidates_not_deployed",
+  "source_policy_file": "Logs/t01-seal-audio-v3-20261125/source-policy.json",
+  "source_policy_sha256": "9668c7beceb2f91180a17185432a029cb7c0fab8396af51fcca7bb3239fd145c",
+  "publisher": "Infinity PBR / Magic Pig Games",
+  "asset_store_product_id": "176417",
+  "publisher_id": "4645",
+  "source_basis": "Existing user-directed project assets; publisher-recorded Foley provenance per parent-verified policy. No new personal recording and no purchase-receipt claim.",
+  "raw_library_copied": false,
+  "raw_audio_uploaded": false,
+  "synthetic_body_added": false,
+  "production_sources_unchanged": true,
+  "production_source_sha256": {
+    "Lv": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+    "Gui": "5d446dca6c6b841e4aa20970016b6d744e0bac62d278504e39e1ceaf5caaaa33",
+    "Ju": "e937fa1f5cf1b23ebdd53841b7b8ade75d0479e7f3cc82e2d4bc18f71ed6271c",
+    "Zhun": "122690883e5d30c414212d8f19927b8c6e74427b528d60d59be62746e24d9fdd",
+    "Sheng": "81b97bc3613e82f7016b440d2644701ccd1725742cad59bb4fcbc8e3ba5bccd8",
+    "Heng": "9f135f9e6bd79ad5a2b7043fd1a1c5ea161c5b76f23d4617f3a314cc8ff44cfd"
+  },
+  "recipes": {
+    "Gui": {
+      "label": "规",
+      "meaning": "围合守界",
+      "action": "柔软摩擦向内回拢，轻轻收口",
+      "layers": [
+        {
+          "source_key": "leather5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Breaks/Leather Armour/Leather_Armour_Break_5.wav",
+          "decoder_dtype": "int16",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.6249886621315193,
+          "sha256": "6f47bd06c639e071c4ad203e8b038a6d12186cf08a74f6b9fa07e1cf7fc028a1",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.18,
+          "source_end_seconds": 0.38,
+          "source_start_sample": 7938,
+          "source_end_sample": 16758,
+          "placement_seconds": 0,
+          "gain_db": 0,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "pull5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Pulled Back\\Arrow_Pulled_Back_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Pulled Back/Arrow_Pulled_Back_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 1.0,
+          "sha256": "56aa482e8c6b1ed6b668ec7f1ea01f202592b62a5f65d39f8d9de339d23122ff",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.23,
+          "source_end_seconds": 0.35,
+          "source_start_sample": 10143,
+          "source_end_sample": 15435,
+          "placement_seconds": 0.105,
+          "gain_db": 2,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "notch5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Notched\\Arrow_Notched_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Notched/Arrow_Notched_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.16925170068027212,
+          "sha256": "d36c3c9e061b664fe4a048b5a95de638f456fcd3536a1003735ebea47e21e31e",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.068,
+          "source_end_seconds": 0.13,
+          "source_start_sample": 2999,
+          "source_end_sample": 5733,
+          "placement_seconds": 0.21,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        }
+      ],
+      "recorded_material_truth": "Publisher-labeled arrow handling, fist/wood contact and leather handling. Meaning is an interpretation, not a claim of newly recorded compass/paper/scale.",
+      "output_duration_seconds": 0.42,
+      "output_master_gain_db": 0,
+      "transient_control": {
+        "threshold_dbfs": -13,
+        "ratio": 2.5,
+        "attack_ms": 0.45,
+        "release_ms": 18,
+        "lookahead_ms": 1,
+        "maximum_allowed_reduction_db": 5,
+        "maximum_observed_reduction_db": 4.100556869897721,
+        "makeup_gain_db": 0
+      },
+      "oscillators_or_synthetic_layers": false
+    },
+    "Ju": {
+      "label": "矩",
+      "meaning": "转折成形",
+      "action": "摩擦包裹一次木面接触，短促转角归位",
+      "layers": [
+        {
+          "source_key": "leather4",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_4.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Breaks/Leather Armour/Leather_Armour_Break_4.wav",
+          "decoder_dtype": "int16",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.8124943310657596,
+          "sha256": "636f767d0a6d6342e44dc8f814186241a8b3270c4f926e4bcae6b3c4cb5ab5a9",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.36,
+          "source_start_sample": 8820,
+          "source_end_sample": 15876,
+          "placement_seconds": 0,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "wood4",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_4.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Wood/Fist_On_Wood_Wood_4.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7062358276643991,
+          "sha256": "001fa847cc2ca507038f7ea7f7c21b0a6bf749a3a654461d6bc48265595016db",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.24,
+          "source_start_sample": 3308,
+          "source_end_sample": 10584,
+          "placement_seconds": 0.025,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "fist5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Fist\\Fist_On_Wood_Fist_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Fist/Fist_On_Wood_Fist_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7083219954648526,
+          "sha256": "998b7c01bdbe95262e7035672c1681b2e7a4e68343b6708ba00f436474e2efee",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.125,
+          "source_end_seconds": 0.22,
+          "source_start_sample": 5512,
+          "source_end_sample": 9702,
+          "placement_seconds": 0.04,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        }
+      ],
+      "recorded_material_truth": "Publisher-labeled arrow handling, fist/wood contact and leather handling. Meaning is an interpretation, not a claim of newly recorded compass/paper/scale.",
+      "output_duration_seconds": 0.39,
+      "output_master_gain_db": 0,
+      "transient_control": {
+        "threshold_dbfs": -13,
+        "ratio": 2.5,
+        "attack_ms": 0.45,
+        "release_ms": 18,
+        "lookahead_ms": 1,
+        "maximum_allowed_reduction_db": 5,
+        "maximum_observed_reduction_db": 1.5597989922633833,
+        "makeup_gain_db": 0
+      },
+      "oscillators_or_synthetic_layers": false
+    },
+    "Zhun": {
+      "label": "准",
+      "meaning": "校齐稳定",
+      "action": "一段平缓擦动后轻轻定住，避免承重砸落",
+      "layers": [
+        {
+          "source_key": "pull2",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Pulled Back\\Arrow_Pulled_Back_2.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Pulled Back/Arrow_Pulled_Back_2.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.8749886621315193,
+          "sha256": "1809b8b374359f9b9e3ad2eb6d8bdf30314607d962d733f11a1aecf00d3ba841",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.24,
+          "source_end_seconds": 0.38,
+          "source_start_sample": 10584,
+          "source_end_sample": 16758,
+          "placement_seconds": 0,
+          "gain_db": 4,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "wood5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Wood/Fist_On_Wood_Wood_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7083219954648526,
+          "sha256": "a36ee66defeeb4fb25df925443f5933dc0069f7191ae02cd8788f2047ab9102c",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.135,
+          "source_end_seconds": 0.23,
+          "source_start_sample": 5954,
+          "source_end_sample": 10143,
+          "placement_seconds": 0.12,
+          "gain_db": -2,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "notch5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Notched\\Arrow_Notched_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Notched/Arrow_Notched_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.16925170068027212,
+          "sha256": "d36c3c9e061b664fe4a048b5a95de638f456fcd3536a1003735ebea47e21e31e",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.05,
+          "source_end_seconds": 0.115,
+          "source_start_sample": 2205,
+          "source_end_sample": 5072,
+          "placement_seconds": 0.11,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        }
+      ],
+      "recorded_material_truth": "Publisher-labeled arrow handling, fist/wood contact and leather handling. Meaning is an interpretation, not a claim of newly recorded compass/paper/scale.",
+      "output_duration_seconds": 0.4,
+      "output_master_gain_db": 0,
+      "transient_control": {
+        "threshold_dbfs": -13,
+        "ratio": 2.5,
+        "attack_ms": 0.45,
+        "release_ms": 18,
+        "lookahead_ms": 1,
+        "maximum_allowed_reduction_db": 5,
+        "maximum_observed_reduction_db": 1.7126572232794661,
+        "makeup_gain_db": 0
+      },
+      "oscillators_or_synthetic_layers": false
+    },
+    "Sheng": {
+      "label": "绳",
+      "meaning": "联结约束",
+      "action": "短抽拉带出纤维细节，随即束紧",
+      "layers": [
+        {
+          "source_key": "pull2",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Pulled Back\\Arrow_Pulled_Back_2.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Pulled Back/Arrow_Pulled_Back_2.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.8749886621315193,
+          "sha256": "1809b8b374359f9b9e3ad2eb6d8bdf30314607d962d733f11a1aecf00d3ba841",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.22,
+          "source_end_seconds": 0.38,
+          "source_start_sample": 9702,
+          "source_end_sample": 16758,
+          "placement_seconds": 0,
+          "gain_db": 5,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "leather4",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_4.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Breaks/Leather Armour/Leather_Armour_Break_4.wav",
+          "decoder_dtype": "int16",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.8124943310657596,
+          "sha256": "636f767d0a6d6342e44dc8f814186241a8b3270c4f926e4bcae6b3c4cb5ab5a9",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.36,
+          "source_start_sample": 8820,
+          "source_end_sample": 15876,
+          "placement_seconds": 0.1,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "notch5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Notched\\Arrow_Notched_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Bow & Arrow/Arrow Notched/Arrow_Notched_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.16925170068027212,
+          "sha256": "d36c3c9e061b664fe4a048b5a95de638f456fcd3536a1003735ebea47e21e31e",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.06,
+          "source_end_seconds": 0.13,
+          "source_start_sample": 2646,
+          "source_end_sample": 5733,
+          "placement_seconds": 0.22,
+          "gain_db": -10,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        }
+      ],
+      "recorded_material_truth": "Publisher-labeled arrow handling, fist/wood contact and leather handling. Meaning is an interpretation, not a claim of newly recorded compass/paper/scale.",
+      "output_duration_seconds": 0.42,
+      "output_master_gain_db": 0,
+      "transient_control": {
+        "threshold_dbfs": -13,
+        "ratio": 2.5,
+        "attack_ms": 0.45,
+        "release_ms": 18,
+        "lookahead_ms": 1,
+        "maximum_allowed_reduction_db": 5,
+        "maximum_observed_reduction_db": 2.3128829346579605,
+        "makeup_gain_db": 0
+      },
+      "oscillators_or_synthetic_layers": false
+    },
+    "Heng": {
+      "label": "衡",
+      "meaning": "承重镇定",
+      "action": "包裹的低厚接触承重，保留轻微摆停尾声",
+      "layers": [
+        {
+          "source_key": "fist5",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Fist\\Fist_On_Wood_Fist_5.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Fist/Fist_On_Wood_Fist_5.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7083219954648526,
+          "sha256": "998b7c01bdbe95262e7035672c1681b2e7a4e68343b6708ba00f436474e2efee",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.23,
+          "source_start_sample": 3308,
+          "source_end_sample": 10143,
+          "placement_seconds": 0,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "wood1",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_1.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Wood/Fist_On_Wood_Wood_1.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7187301587301588,
+          "sha256": "24c143627be3d57880a2080a9eacb900967877d23bb182bcfb721c77ad1b6e6e",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.085,
+          "source_end_seconds": 0.27,
+          "source_start_sample": 3749,
+          "source_end_sample": 11907,
+          "placement_seconds": 0.04,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "leather4",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_4.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Breaks/Leather Armour/Leather_Armour_Break_4.wav",
+          "decoder_dtype": "int16",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.8124943310657596,
+          "sha256": "636f767d0a6d6342e44dc8f814186241a8b3270c4f926e4bcae6b3c4cb5ab5a9",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.4,
+          "source_start_sample": 8820,
+          "source_end_sample": 17640,
+          "placement_seconds": 0.11,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        },
+        {
+          "source_key": "wood4",
+          "source_absolute_path": "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_4.wav",
+          "source_project_relative_path": "Assets/Imported/BattleSoundLibrary/Battle 1/Fist/Fist On Wood/Wood/Fist_On_Wood_Wood_4.wav",
+          "decoder_dtype": "int32",
+          "channels": 2,
+          "source_sample_rate": 44100,
+          "duration_seconds": 0.7062358276643991,
+          "sha256": "001fa847cc2ca507038f7ea7f7c21b0a6bf749a3a654461d6bc48265595016db",
+          "mono_downmix": "arithmetic mean L/R",
+          "source_start_seconds": 0.18,
+          "source_end_seconds": 0.29,
+          "source_start_sample": 7938,
+          "source_end_sample": 12789,
+          "placement_seconds": 0.175,
+          "gain_db": -1,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20,
+          "crossfade_method": "Overlapping real layers, each with 12ms sine-squared entry / 20ms cosine-squared exit",
+          "time_stretch_ratio": 1,
+          "pitch_shift_semitones": 0,
+          "sample_rate_conversion": "scipy.signal.resample_poly 44100 -> 48000; no musical time stretch"
+        }
+      ],
+      "recorded_material_truth": "Publisher-labeled arrow handling, fist/wood contact and leather handling. Meaning is an interpretation, not a claim of newly recorded compass/paper/scale.",
+      "output_duration_seconds": 0.51,
+      "output_master_gain_db": 0,
+      "transient_control": {
+        "threshold_dbfs": -13,
+        "ratio": 2.5,
+        "attack_ms": 0.45,
+        "release_ms": 18,
+        "lookahead_ms": 1,
+        "maximum_allowed_reduction_db": 5,
+        "maximum_observed_reduction_db": 2.884420079479737,
+        "makeup_gain_db": 0
+      },
+      "oscillators_or_synthetic_layers": false
+    }
+  },
+  "preliminary_metrics": {
+    "Gui": {
+      "duration_seconds": 0.42,
+      "peak_dbfs": -10.00431917426019,
+      "first400_k_rms_dbfs": -30.085270417598625,
+      "delta_k400_vs_Lv_db": -10.93287720376966,
+      "last10ms_peak_dbfs": -240.0,
+      "sha256": "a5d70425ffdfe62a4f62720064947509b99d7548e6876ca3def639cc95e4e6fb"
+    },
+    "Ju": {
+      "duration_seconds": 0.39,
+      "peak_dbfs": -11.886719222460744,
+      "first400_k_rms_dbfs": -30.368457623160616,
+      "delta_k400_vs_Lv_db": -11.21606440933165,
+      "last10ms_peak_dbfs": -240.0,
+      "sha256": "a8dc515980bf2c9d1857d8cf3763ddf64fa05a43bb2f45b73855a135a1093210"
+    },
+    "Zhun": {
+      "duration_seconds": 0.4,
+      "peak_dbfs": -11.61801974587142,
+      "first400_k_rms_dbfs": -27.5141712463785,
+      "delta_k400_vs_Lv_db": -8.361778032549534,
+      "last10ms_peak_dbfs": -240.0,
+      "sha256": "333c2ec70feb863cd4b003bfe5130bcc6f1a2b5651ade5027dc425fedd6588b2"
+    },
+    "Sheng": {
+      "duration_seconds": 0.42,
+      "peak_dbfs": -11.22028897262471,
+      "first400_k_rms_dbfs": -26.541756186280484,
+      "delta_k400_vs_Lv_db": -7.389362972451519,
+      "last10ms_peak_dbfs": -240.0,
+      "sha256": "1d93e8224f3963384031fac52323dbfdeb86d2f42c0476b6f05f3800f4d022c3"
+    },
+    "Heng": {
+      "duration_seconds": 0.51,
+      "peak_dbfs": -10.851987582249755,
+      "first400_k_rms_dbfs": -28.35485551578746,
+      "delta_k400_vs_Lv_db": -9.202462301958494,
+      "last10ms_peak_dbfs": -240.0,
+      "sha256": "4872e4cf18f880f3a50a14a57740e3a883624947b8152d23dae88dc72122ced1"
+    }
+  },
+  "auditions": {
+    "candidate_comparison.wav": {
+      "file": "candidate_comparison.wav",
+      "spacing_seconds": 1.2,
+      "master_gain_linear": 1,
+      "master_gain_db": 0.0,
+      "peak_dbfs": -3.8315865683841785,
+      "timeline": [
+        {
+          "label": "律 Lv",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "规 Gui",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "矩 Ju",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "准 Zhun",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "绳 Sheng",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "衡 Heng",
+          "start_seconds": 6.0
+        }
+      ],
+      "per_clip_loudness_normalization": false
+    },
+    "AB_V2_V3.wav": {
+      "file": "AB_V2_V3.wav",
+      "spacing_seconds": 1.2,
+      "master_gain_linear": 1,
+      "master_gain_db": 0.0,
+      "peak_dbfs": -2.5672559259742616,
+      "timeline": [
+        {
+          "label": "Lv V2",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "Lv V3",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "Gui V2",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "Gui V3",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "Ju V2",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "Ju V3",
+          "start_seconds": 6.0
+        },
+        {
+          "label": "Zhun V2",
+          "start_seconds": 7.2
+        },
+        {
+          "label": "Zhun V3",
+          "start_seconds": 8.4
+        },
+        {
+          "label": "Sheng V2",
+          "start_seconds": 9.6
+        },
+        {
+          "label": "Sheng V3",
+          "start_seconds": 10.8
+        },
+        {
+          "label": "Heng V2",
+          "start_seconds": 12.0
+        },
+        {
+          "label": "Heng V3",
+          "start_seconds": 13.2
+        }
+      ],
+      "per_clip_loudness_normalization": false
+    },
+    "rapid_game_gain.wav": {
+      "file": "rapid_game_gain.wav",
+      "spacing_seconds": 0.4,
+      "master_gain_linear": 0.62,
+      "master_gain_db": -4.152166210034923,
+      "peak_dbfs": -7.983752778419101,
+      "timeline": [
+        {
+          "label": "Lv round1",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "Gui round1",
+          "start_seconds": 0.4
+        },
+        {
+          "label": "Ju round1",
+          "start_seconds": 0.8
+        },
+        {
+          "label": "Zhun round1",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "Sheng round1",
+          "start_seconds": 1.6
+        },
+        {
+          "label": "Heng round1",
+          "start_seconds": 2.0
+        },
+        {
+          "label": "Lv round2",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "Gui round2",
+          "start_seconds": 2.8
+        },
+        {
+          "label": "Ju round2",
+          "start_seconds": 3.2
+        },
+        {
+          "label": "Zhun round2",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "Sheng round2",
+          "start_seconds": 4.0
+        },
+        {
+          "label": "Heng round2",
+          "start_seconds": 4.4
+        },
+        {
+          "label": "Lv round3",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "Gui round3",
+          "start_seconds": 5.2
+        },
+        {
+          "label": "Ju round3",
+          "start_seconds": 5.6
+        },
+        {
+          "label": "Zhun round3",
+          "start_seconds": 6.0
+        },
+        {
+          "label": "Sheng round3",
+          "start_seconds": 6.4
+        },
+        {
+          "label": "Heng round3",
+          "start_seconds": 6.8
+        }
+      ],
+      "per_clip_loudness_normalization": false
+    }
+  },
+  "listening_status": "NOT HUMAN-LISTENED by audio worker; send candidates to user for judgment before polishing or deploying.",
+  "loudness_policy": "Preserve comfortable actual candidate gains. No equal-loudness lift toward V2 or Lv. Rapid uses common prefab .62 gain; spatial attenuation is not simulated."
+}

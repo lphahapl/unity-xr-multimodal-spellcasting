@@ -1,0 +1,320 @@
+{
+  "status": "candidate_files_verified_pending_user_listening",
+  "production_deployed": false,
+  "subjective_listening": "Not performed by audio worker; no claim of user approval.",
+  "clips": {
+    "Gui": {
+      "sha256": "a5d70425ffdfe62a4f62720064947509b99d7548e6876ca3def639cc95e4e6fb",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.42,
+      "peak_dbfs": -10.00431917426019,
+      "K400_difference_vs_Lv_db": -10.93287720376966,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "source_layer_count": 3,
+      "intended_action": "柔软摩擦向内回拢，轻轻收口",
+      "preferred_Lv_minus3_to6dB_target_met": false,
+      "technical_checks_pass": true
+    },
+    "Ju": {
+      "sha256": "a8dc515980bf2c9d1857d8cf3763ddf64fa05a43bb2f45b73855a135a1093210",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.39,
+      "peak_dbfs": -11.886719222460744,
+      "K400_difference_vs_Lv_db": -11.21606440933165,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "source_layer_count": 3,
+      "intended_action": "摩擦包裹一次木面接触，短促转角归位",
+      "preferred_Lv_minus3_to6dB_target_met": false,
+      "technical_checks_pass": true
+    },
+    "Zhun": {
+      "sha256": "333c2ec70feb863cd4b003bfe5130bcc6f1a2b5651ade5027dc425fedd6588b2",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.4,
+      "peak_dbfs": -11.61801974587142,
+      "K400_difference_vs_Lv_db": -8.361778032549534,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "source_layer_count": 3,
+      "intended_action": "一段平缓擦动后轻轻定住，避免承重砸落",
+      "preferred_Lv_minus3_to6dB_target_met": false,
+      "technical_checks_pass": true
+    },
+    "Sheng": {
+      "sha256": "1d93e8224f3963384031fac52323dbfdeb86d2f42c0476b6f05f3800f4d022c3",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.42,
+      "peak_dbfs": -11.22028897262471,
+      "K400_difference_vs_Lv_db": -7.389362972451519,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "source_layer_count": 3,
+      "intended_action": "短抽拉带出纤维细节，随即束紧",
+      "preferred_Lv_minus3_to6dB_target_met": false,
+      "technical_checks_pass": true
+    },
+    "Heng": {
+      "sha256": "4872e4cf18f880f3a50a14a57740e3a883624947b8152d23dae88dc72122ced1",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.51,
+      "peak_dbfs": -10.851987582249755,
+      "K400_difference_vs_Lv_db": -9.202462301958494,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "source_layer_count": 4,
+      "intended_action": "包裹的低厚接触承重，保留轻微摆停尾声",
+      "preferred_Lv_minus3_to6dB_target_met": false,
+      "technical_checks_pass": true
+    }
+  },
+  "auditions": {
+    "candidate_comparison.wav": {
+      "sha256": "489d30df8f89f428595265c665e8a02b24fa1ea1805f06bbdcb61c3765fcdff2",
+      "duration_seconds": 8.2,
+      "peak_dbfs": -3.8319986222583076,
+      "master_gain_linear": 1,
+      "no_per_clip_equal_loudness_lift": true,
+      "clipped_samples": 0,
+      "order": [
+        {
+          "label": "律 Lv",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "规 Gui",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "矩 Ju",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "准 Zhun",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "绳 Sheng",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "衡 Heng",
+          "start_seconds": 6.0
+        }
+      ]
+    },
+    "AB_V2_V3.wav": {
+      "sha256": "73945bf818f732652a86e399772229311d67df0a8361e81e905bf71b16c36db7",
+      "duration_seconds": 15.4,
+      "peak_dbfs": -2.567612160553951,
+      "master_gain_linear": 1,
+      "no_per_clip_equal_loudness_lift": true,
+      "clipped_samples": 0,
+      "order": [
+        {
+          "label": "Lv V2",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "Lv V3",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "Gui V2",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "Gui V3",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "Ju V2",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "Ju V3",
+          "start_seconds": 6.0
+        },
+        {
+          "label": "Zhun V2",
+          "start_seconds": 7.2
+        },
+        {
+          "label": "Zhun V3",
+          "start_seconds": 8.4
+        },
+        {
+          "label": "Sheng V2",
+          "start_seconds": 9.6
+        },
+        {
+          "label": "Sheng V3",
+          "start_seconds": 10.8
+        },
+        {
+          "label": "Heng V2",
+          "start_seconds": 12.0
+        },
+        {
+          "label": "Heng V3",
+          "start_seconds": 13.2
+        }
+      ]
+    },
+    "rapid_game_gain.wav": {
+      "sha256": "ae4eb0948aa381e45564699ca96e2283c2d7e04858fc62c5967d3446a1f84b80",
+      "duration_seconds": 8.2,
+      "peak_dbfs": -7.984151539927656,
+      "master_gain_linear": 0.62,
+      "no_per_clip_equal_loudness_lift": true,
+      "clipped_samples": 0,
+      "order": [
+        {
+          "label": "Lv round1",
+          "start_seconds": 0.0
+        },
+        {
+          "label": "Gui round1",
+          "start_seconds": 0.4
+        },
+        {
+          "label": "Ju round1",
+          "start_seconds": 0.8
+        },
+        {
+          "label": "Zhun round1",
+          "start_seconds": 1.2
+        },
+        {
+          "label": "Sheng round1",
+          "start_seconds": 1.6
+        },
+        {
+          "label": "Heng round1",
+          "start_seconds": 2.0
+        },
+        {
+          "label": "Lv round2",
+          "start_seconds": 2.4
+        },
+        {
+          "label": "Gui round2",
+          "start_seconds": 2.8
+        },
+        {
+          "label": "Ju round2",
+          "start_seconds": 3.2
+        },
+        {
+          "label": "Zhun round2",
+          "start_seconds": 3.6
+        },
+        {
+          "label": "Sheng round2",
+          "start_seconds": 4.0
+        },
+        {
+          "label": "Heng round2",
+          "start_seconds": 4.4
+        },
+        {
+          "label": "Lv round3",
+          "start_seconds": 4.8
+        },
+        {
+          "label": "Gui round3",
+          "start_seconds": 5.2
+        },
+        {
+          "label": "Ju round3",
+          "start_seconds": 5.6
+        },
+        {
+          "label": "Zhun round3",
+          "start_seconds": 6.0
+        },
+        {
+          "label": "Sheng round3",
+          "start_seconds": 6.4
+        },
+        {
+          "label": "Heng round3",
+          "start_seconds": 6.8
+        }
+      ]
+    }
+  },
+  "source_verification": {
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_5.wav": {
+      "sha256": "6f47bd06c639e071c4ad203e8b038a6d12186cf08a74f6b9fa07e1cf7fc028a1",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Pulled Back\\Arrow_Pulled_Back_5.wav": {
+      "sha256": "56aa482e8c6b1ed6b668ec7f1ea01f202592b62a5f65d39f8d9de339d23122ff",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Notched\\Arrow_Notched_5.wav": {
+      "sha256": "d36c3c9e061b664fe4a048b5a95de638f456fcd3536a1003735ebea47e21e31e",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Breaks\\Leather Armour\\Leather_Armour_Break_4.wav": {
+      "sha256": "636f767d0a6d6342e44dc8f814186241a8b3270c4f926e4bcae6b3c4cb5ab5a9",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_4.wav": {
+      "sha256": "001fa847cc2ca507038f7ea7f7c21b0a6bf749a3a654461d6bc48265595016db",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Fist\\Fist_On_Wood_Fist_5.wav": {
+      "sha256": "998b7c01bdbe95262e7035672c1681b2e7a4e68343b6708ba00f436474e2efee",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Bow & Arrow\\Arrow Pulled Back\\Arrow_Pulled_Back_2.wav": {
+      "sha256": "1809b8b374359f9b9e3ad2eb6d8bdf30314607d962d733f11a1aecf00d3ba841",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_5.wav": {
+      "sha256": "a36ee66defeeb4fb25df925443f5933dc0069f7191ae02cd8788f2047ab9102c",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    },
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Imported\\BattleSoundLibrary\\Battle 1\\Fist\\Fist On Wood\\Wood\\Fist_On_Wood_Wood_1.wav": {
+      "sha256": "24c143627be3d57880a2080a9eacb900967877d23bb182bcfb721c77ad1b6e6e",
+      "unchanged": true,
+      "no_full_raw_copy_created": true
+    }
+  },
+  "five_candidate_K400_range_db": 3.826701436880132,
+  "five_candidate_K400_half_range_db": 1.913350718440066,
+  "five_candidates_within_plusminus2dB": true,
+  "loudness_deviation": "Comfort-first candidate mix is deliberately 7.39-11.22dB below Lv K400, quieter than the suggested 3-6dB target. No loudness-acceptance claim; judge by user listening before raising.",
+  "production_sources_unchanged": true
+}
