@@ -1,0 +1,111 @@
+{
+  "id": "shenshang-props",
+  "name": "沈商道具送审",
+  "versions": [
+    {
+      "id": "mogui-pen-v1",
+      "label": "墨规笔 · 方案三 · 第一版待审",
+      "created": 1795527666462,
+      "filename": "MoGuiPen_LOD0.glb",
+      "files": [
+        "784fd735b7489b0b8cb7b04fef871109da283b591043d800989f8f5c3274a9ff/MoGuiPen_LOD0.glb",
+        "02753c97724f0ca2086a0206b2f9db55cdbfef62be53b03f7ee2a4d75b014d91/沈商_墨规笔_方案3_三视图.jpg"
+      ],
+      "turnaround": "02753c97724f0ca2086a0206b2f9db55cdbfef62be53b03f7ee2a4d75b014d91/沈商_墨规笔_方案3_三视图.jpg",
+      "notes": [
+        {
+          "id": "ac028b2f-b2b8-4fb8-a04b-27a312bee890",
+          "text": "模型第一版通过，有什么办法让笔尖到时候画的时候正常摆动吗 反着移动方向摆动正常吗",
+          "created": 1795529142277
+        },
+        {
+          "id": "e6fe3f7c-17bb-4b84-b580-b5bde659dddf",
+          "text": "可以通过",
+          "created": 1795594518185
+        }
+      ]
+    },
+    {
+      "id": "toolbelt-soft-pouch-source-v1",
+      "label": "工具带中央软布袋 · 混元原模 · 外观待批注",
+      "filename": "SoftPouch.glb",
+      "files": [
+        "924331f0fa1a6fc13534459f12ea41cefd4b88e87ff8bf0307121401d638c1d9/SoftPouch.glb",
+        "bca70497fdd2987e8dd3ce5297c12a75d06440de4c67605307a55d2659ba55e7/沈商_五口下胸工具带_定稿.jpg"
+      ],
+      "turnaround": "bca70497fdd2987e8dd3ce5297c12a75d06440de4c67605307a55d2659ba55e7/沈商_五口下胸工具带_定稿.jpg",
+      "notes": [
+        {
+          "id": "d9fc2bd0-9c39-400c-a30b-5f8b01e63694",
+          "text": "袋子应该是扁平的不然不美观，到时候上工具带会突出一块，先改形状 等工具带整个都好了之后我看整体效果再做进一步改动",
+          "created": 1795541598990
+        }
+      ],
+      "created": 1795529877569
+    },
+    {
+      "id": "travel-ration-v1",
+      "label": "行旅麦枣干粮包 · 四块至空袋 V1 · 待批注",
+      "created": 1795584669351,
+      "filename": "TravelRation-ExpandedReview.glb",
+      "files": [
+        "d1aab0202972509ba2702005eff57fd9f995d622485e8341f9677360dd6535ac/TravelRation-ExpandedReview.glb",
+        "3805d0d81c8f5e8cc529e31a87c73468fd7caa617ef154d3d48955d05596f0eb/TravelRationContents-States.jpg"
+      ],
+      "turnaround": "3805d0d81c8f5e8cc529e31a87c73468fd7caa617ef154d3d48955d05596f0eb/TravelRationContents-States.jpg",
+      "notes": [
+        {
+          "id": "v1-scope",
+          "text": "选「展开和取食」后拖动进度条。2 秒看四块，4.8 秒三块，6.2 秒两块，7.8 秒一块，9.2 秒空袋，11 秒重新收合。保留混元合拢外袋，内件按定稿在本地制作。",
+          "created": 1795584669351
+        },
+        {
+          "id": "7702d066-cf87-49eb-bb5d-654007ed1247",
+          "text": "你下端应该是连着的才对，，而不是两块离散的圆 旁边棕色的类圆形块是什么",
+          "created": 1795594495575
+        }
+      ]
+    },
+    {
+      "id": "travel-ration-v2",
+      "label": "行旅麦枣干粮包 · 连布底与油纸折口 V2",
+      "created": 1795611394736,
+      "filename": "TravelRation-V2.glb",
+      "files": [
+        "c669cf5aa5d9e5b43a4b471e2aa3fab1dd5ae7361b01bc8d02f6806dde68c327/TravelRation-V2.glb",
+        "7d8402f4e1ddbfe255b5c7f33eed23d97741a93775c2da7bf7d3c78c2c40b440/TravelRation-V2-Comparison.jpg"
+      ],
+      "turnaround": "7d8402f4e1ddbfe255b5c7f33eed23d97741a93775c2da7bf7d3c78c2c40b440/TravelRation-V2-Comparison.jpg",
+      "notes": [
+        {
+          "id": "v2-scope",
+          "text": "选「展开和取食」后拖动进度条。2 秒看四块，4.8 秒三块，6.2 秒两块，7.8 秒一块，9.2 秒空袋，11 秒重新收合。加宽袋底的麻布接缝，开合都连着。侧边棕色件是油纸翻边，改为连着内衬的短折片。四块有十字纹的麦枣饼分别取食。对照图含 V1/V2 展开正侧面和空袋。",
+          "created": 1795611394736
+        },
+        {
+          "id": "55899a4b-1bd4-4cb2-b13f-ee7923ec9def",
+          "text": "通过",
+          "created": 1795611416319
+        }
+      ]
+    },
+    {
+      "id": "pine-ink-v1",
+      "label": "醒神松墨锭 · 三件滑开与折段 V1 · 待批注",
+      "filename": "PineInk-Review.glb",
+      "created": 1795669706703,
+      "files": [
+        "52d26af4beb68863818bae6b56b63e21bf575b5f391b27181a9c930747f62904/PineInk-Review.glb",
+        "a505919db0da0093c3e397ac309d2aef641a8f94be3be9d3a7be1efead6a9380/PineInk-Review-States.jpg"
+      ],
+      "turnaround": "a505919db0da0093c3e397ac309d2aef641a8f94be3be9d3a7be1efead6a9380/PineInk-Review-States.jpg",
+      "notes": [
+        {
+          "id": "v1-scope",
+          "text": "在动画预览选择「推开、折段、收套」。0 秒收合，2.27 秒推开，3.83 秒看到折下的耗用墨块，7.37 秒收套。缠绳握段、耗用墨块、胡桃木铜边滑套可独立检查。此版合拢 18.46 × 36.58 × 12.00 mm，9,214 三角面，滑程 31 mm。桌面用正式木骨匣的两档几何试插通过。折下后的缩小仅用于预览耗用状态，效果与度力结算另行接线。",
+          "created": 1795669706703
+        }
+      ]
+    }
+  ]
+}

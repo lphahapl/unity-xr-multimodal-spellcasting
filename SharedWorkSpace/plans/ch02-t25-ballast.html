@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T-25 镇石 · 单件审稿</title>
+<style>
+  * { box-sizing: border-box }
+  body { margin: 0 auto; max-width: 1660px; padding: 24px clamp(16px, 3vw, 52px); background: #f7f5ee; color: #27372f; font: 16px/1.55 system-ui, sans-serif }
+  header { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; border-bottom: 1px solid #a5afa2; margin-bottom: 22px }
+  h1 { font-size: clamp(27px, 3.8vw, 48px); margin: 0 0 12px; font-family: "STZhongsong", "SimSun", serif }
+  h2 { margin: 0 0 .65rem; font-size: 21px }
+  a { color: #246358 }
+  main { display: grid; grid-template-columns: minmax(0, 3fr) minmax(270px, 1fr); gap: clamp(16px, 3vw, 46px) }
+  figure { margin: 0 }
+  img { display: block; width: 100%; height: auto }
+  nav { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 12px }
+  button { font: inherit; color: #28594d; border: 1px solid #91a699; background: #faf9f2; padding: .35em .85em; border-radius: 4px; cursor: pointer }
+  button[aria-pressed=true], button[type=submit] { background: #295e50; color: white }
+  textarea { font: inherit; padding: .55rem; width: 100%; min-height: 105px; resize: vertical; background: #fffdf6; border: 1px solid #a5afa2; border-radius: 4px; margin: .45em 0 }
+  aside p { margin: 0 0 .85rem }
+  #feedback { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .93em; border-top: 1px solid #b8c2b6; padding-top: .8rem }
+  #flash { margin: .55rem 0; color: #28594d; min-height: 1.5rem }
+  figcaption { font-size: .94em; margin-top: .6rem }
+  @media(max-width: 800px) { main { grid-template-columns: 1fr } }
+</style>
+<header><h1 id="heading">T-25 镇石</h1><nav aria-label="审稿版本"><a id="other"></a>　<a id="topRevision" href="?v=a3">A3 顶面修稿</a>　<a id="a4" href="?v=a4">A4 十字铜带实物</a></nav></header>
+<main>
+  <section aria-label="图稿"><nav aria-label="选择参考图" id="views"></nav>
+    <figure><a id="original" target="_blank" rel="noopener"><img id="sheet" alt=""></a><figcaption id="caption"></figcaption></figure>
+  </section>
+  <aside><h2 id="status"></h2><p id="brief"></p>
+    <form id="comment"><label for="note">本版批注</label><textarea id="note" required maxlength="3000" placeholder="指出图名、部位和希望保留或修改的地方"></textarea>
+    <button type="submit">保存批注</button></form><div id="flash" role="status"></div>
+    <div id="feedback" aria-label="已保存的批注"></div><p><a id="full">打开策划记录</a></p>
+  </aside>
+</main>
+<script type="module">
+import { get, save, fileURL } from '/ui/data.js';
+const requested = new URL(location.href).searchParams.get('v');
+const version = ({ a1: 'A1', a2: 'A2', a3: 'A3', a4: 'A4' })[requested] || 'A2';
+const old = version === 'A1';
+const revised = version === 'A3';
+const modeled = version === 'A4';
+const id = 'ch02-t25-ballast-' + version.toLowerCase();
+const byId = s => document.getElementById(s);
+const sceneViews = [
+  ['现场石侧视', '2d6bcb1705308cffbf369a448bbcab9fe9afa0ded9f698a33d6a4957a7c372d4/T25-A2-scene-side.png', '运输实测用的现场镇石，保留铜箍和两条木托。原动画第 21 帧。独立调整石位后，87 帧整身均无穿模，右手长件最小净空 50.18 毫米。', 'scene-side'],
+  ['现场石双腕', '93f45b6744555daffbd3b71d294c47b9136b5ac0e21c27d4b3f1907be04d9cf2/T25-A2-scene-hands.png', '同一试位的石底与双腕。左掌最近距离在 2.2～11.1 毫米之间，右掌在 3.1～31.8 毫米之间。', 'scene-hands'],
+  ['现场石背侧', 'd35c7e73c211408e58187689950e81c9d5025e88a91d70bd87b0183698b223c1/T25-A2-scene-rear.png', '背侧能看到原有两条木托和石体倾角。石芯中心沿角色前方超出双掌最前缘约 19～22 厘米，请审其重量感。', 'scene-rear'],
+  ['木托穿点', '3f3c7258f8ffb3e7eaf586aec335450fb74602dbda81ae057f27547b1aaf6f7f/T25-A2-timber-hit.png', '直接沿用三方块试位时，右手长件在 87 帧里全都碰到现场木托。橙圈是第 21 帧测得的三角面交点。', 'scene-hit']
+];
+const views = modeled ? (await get('plans', id)).doc.reviewViews : old ? [
+  ['单件图', 'be9f7c0de0d3a3ddb693f357ab3ee13c6a3e4892cb2b791f48ff9c923201dc36/T25-A1-turnaround.png', 'A1 留档：初稿曾提出在石背设挂口，当前方案见 A2。'],
+  ['原尺度图', '0bcb22fd77b287401c4a57c4f7d0af3c39d4f0b8659d6445f79d158f8682d50e/T25-A1-fit.png', 'A1 的背挂及承托为已撤回设想。']
+] : revised ? [
+  ['顶面识别稿', '9021b7919d820ab1dbc78f045558ba08e8443e1fcec0711a580da4d72f0286cd/T25-A3-ballast-top.png', 'A3 顶视与玩家斜俯视。正面旧朱记保留，在顶面双铜箍之间放大同一四角方印，刻槽填朱，外廓与挂接尺寸沿用 A2。', 'top'],
+  ...sceneViews
+] : [
+  ['单件三视图', 'e90fb9ea03a7864fb39a8c980023635de87774bbbf1395635ae9b37e5db47af8/T25-A2-turnaround.png', '正面朱刻朝外，平整内面朝腹；两道铜箍绕过顶面与底面。点击可看原图。'],
+  ['搬运与槽口', '661fb73e53a3964241121ce82e37f84283e79af9e58f8d360efb5609b3fde9df/T25-A2-motion.png', '早期尺度图按 2.60 米机体估算，红点表示进入试放盒的顶点。实际 Unity 角色的测量见“搬运侧视”。'],
+  ['原搬运循环', '5f9f04bf6ae4d5d2c74651a49e5e2a49300d12ed0ea42b9772caf14c7dac880a/T25-A2-carry.webp', '原工程 LOD0 网格与搬运动画。两角度同步循环，已扣除向前位移，保留四肢动作。'],
+  ['搬运侧视', '53ff0268f194d549bc37de970543004c758165fb352470d711f4be9247f4102a/T25-A2-palm-frame-21-side.png', 'Unity 第 21 帧。斜托试位保留原动作，右手长件在 87 个采样帧中最近仍距石面 7.05 厘米。石体几何中心在双掌前方，搬运审稿请看重量是否托得住。', 'fit-side'],
+  ['双腕近景', '14fe9aa9daa5f3e1dffcc237dc5c1b07e51c9e4d9c940537026a3b9c005005d5/T25-A2-palm-frame-21-wrists.png', 'Unity 第 21 帧，由前下方查看石底。全段左右掌面到可见石体的最近距离分别为 3.9～20.0 毫米和 3.6～19.6 毫米。', 'fit-hands'],
+  ['背侧全身', '4d71f10e53759fd6f76fbd824d52c08af2bdec5fa35fc9a8b619eb74cae2ae0a/T25-A2-palm-frame-43-rear-oblique.png', 'Unity 第 43 帧。从工奴背侧查看原模型和三实体灰盒，石与双箍保持原尺寸。', 'fit-rear'],
+  ...sceneViews
+];
+byId('heading').textContent = 'T-25 / ' + version + '　镇石';
+byId('other').textContent = old || revised ? '查看 A2 与批注' : '查看 A1 旧稿';
+byId('other').href = '?v=' + (old || revised ? 'a2' : 'a1');
+byId('topRevision').hidden = revised;
+if (modeled) {
+  byId('other').textContent = '查看 A3 原批注';
+  byId('other').href = '?v=a3&view=top';
+  byId('topRevision').hidden = true;
+  byId('a4').textContent = '旋转模型 / 三维批注';
+  byId('a4').href = '/rig/?collection=t25-ballast&model=t25-ballast-a4';
+}
+byId('full').href = '/plans/?id=' + id;
+byId('brief').textContent = modeled ? 'A4 已通过。玩家俯看图与三维模型各保留一条用户通过记录。可按视图查看铜带交叠、顶面朱记和底托。' : old ? '上背挂接草案已撤回。本页保留该版本原图和意见。' : revised ?
+  '请审从上方能否认出镇石，以及朱记的大小。其余视图展示现有二章带木托的运输实物，用于对照原动画中的承重姿态。' :
+  '请审石体、铜箍和搬运姿态。“现场石”视图使用运输实测的同一件带木托灰盒。倾斜后可避开右手长件，石芯中心仍超出掌缘约 19～22 厘米。';
+let selected = 0;
+function select(index) {
+  selected = index;
+  const [label, path, caption] = views[index];
+  byId('original').href = byId('sheet').src = fileURL(path);
+  byId('sheet').alt = version + ' ' + label;
+  byId('caption').textContent = caption;
+  [...byId('views').children].forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
+}
+views.forEach(([label], i) => {
+  const button = document.createElement('button'); button.textContent = label;
+  button.onclick = () => {
+    select(i);
+    const url = new URL(location.href);
+    if (views[i][3]) url.searchParams.set('view', views[i][3]);
+    else url.searchParams.delete('view');
+    history.replaceState(null, '', url);
+  };
+  byId('views').append(button);
+});
+const initialView = new URL(location.href).searchParams.get('view');
+select(Math.max(0, views.findIndex(v => v[3] === initialView)));
+const marker = '【版本批注】';
+function display(doc) {
+  byId('status').textContent = version + ' · ' + doc.status;
+  const start = doc.body.indexOf(marker);
+  byId('feedback').textContent = start < 0 ? '' : doc.body.slice(start + marker.length).trim() || '暂无批注';
+}
+try { display((await get('plans', id)).doc); }
+catch (error) { byId('flash').textContent = error.message; }
+byId('comment').onsubmit = async event => {
+  event.preventDefault();
+  const note = byId('note').value.trim();
+  if (!note) return;
+  const button = event.currentTarget.querySelector('button');
+  const view = views[selected][0];
+  button.disabled = true;
+  try {
+    const {doc, revision} = await get('plans', id);
+    const line = new Date().toLocaleString('zh-CN', {timeZone:'Asia/Shanghai',hour12:false}) + '（北京时间） · ' + view + '\n' + note;
+    const body = doc.body.includes(marker) ? doc.body.trimEnd() : doc.body.trimEnd() + '\n\n' + marker;
+    const saved = await save('plans', {...doc, body: body + '\n\n' + line + '\n'}, revision);
+    display(saved.doc); byId('note').value = ''; byId('flash').textContent = '批注已保存到 ' + version;
+  } catch (error) { byId('flash').textContent = error.status === 412 ? '记录刚刚更新，请再次保存。输入内容已保留。' : error.message; }
+  finally { button.disabled = false; }
+};
+</script>
+</html>
