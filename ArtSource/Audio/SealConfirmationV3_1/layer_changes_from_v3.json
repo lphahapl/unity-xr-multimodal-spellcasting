@@ -1,0 +1,461 @@
+{
+  "Gui": {
+    "rationale": "降低开头皮革摩擦；将原微弱搭扣尾换成独立木面短接触，形成回拢→收口，不整体抬高。",
+    "layer_changes": [
+      {
+        "source_key": "leather5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.18,
+          "source_end_seconds": 0.38,
+          "placement_seconds": 0,
+          "gain_db": 0,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.195,
+          "source_end_seconds": 0.355,
+          "placement_seconds": 0,
+          "gain_db": -3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 24
+        }
+      },
+      {
+        "source_key": "notch5",
+        "operation": "removed",
+        "V3": {
+          "source_start_seconds": 0.068,
+          "source_end_seconds": 0.13,
+          "placement_seconds": 0.21,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": null
+      },
+      {
+        "source_key": "pull5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.23,
+          "source_end_seconds": 0.35,
+          "placement_seconds": 0.105,
+          "gain_db": 2,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.23,
+          "source_end_seconds": 0.35,
+          "placement_seconds": 0.075,
+          "gain_db": 1,
+          "fade_in_ms": 12,
+          "fade_out_ms": 22
+        }
+      },
+      {
+        "source_key": "wood5",
+        "operation": "added",
+        "V3": null,
+        "V3_1": {
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.172,
+          "placement_seconds": 0.192,
+          "gain_db": 1,
+          "fade_in_ms": 9,
+          "fade_out_ms": 24
+        }
+      }
+    ],
+    "V3_transient_control": {
+      "threshold_dbfs": -13,
+      "ratio": 2.5,
+      "attack_ms": 0.45,
+      "release_ms": 18,
+      "lookahead_ms": 1,
+      "maximum_allowed_reduction_db": 5,
+      "maximum_observed_reduction_db": 4.100556869897721,
+      "makeup_gain_db": 0
+    },
+    "V3_1_transient_control": {
+      "threshold_dbfs": -11,
+      "ratio": 1.6,
+      "max_reduction_db": 3,
+      "attack_ms": 0.6,
+      "release_ms": 22,
+      "lookahead_ms": 1,
+      "actual_max_reduction_db": 1.5046722209950625,
+      "makeup_gain_db": 0
+    },
+    "V3_output_master_gain_db": 0,
+    "V3_1_output_master_gain_db": 0,
+    "not_a_global_gain_rewrite": true
+  },
+  "Ju": {
+    "rationale": "主木层由-6改-0.5dB且提前11ms；辅层改为低增益掌面接触，不复制V2双木击，也不提升低电平底噪。",
+    "layer_changes": [
+      {
+        "source_key": "fist5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.125,
+          "source_end_seconds": 0.22,
+          "placement_seconds": 0.04,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.165,
+          "placement_seconds": 0.016,
+          "gain_db": -10,
+          "fade_in_ms": 10,
+          "fade_out_ms": 24
+        }
+      },
+      {
+        "source_key": "leather4",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.36,
+          "placement_seconds": 0,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.33,
+          "placement_seconds": 0,
+          "gain_db": 0,
+          "fade_in_ms": 12,
+          "fade_out_ms": 22
+        }
+      },
+      {
+        "source_key": "wood4",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.24,
+          "placement_seconds": 0.025,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.25,
+          "placement_seconds": 0.014,
+          "gain_db": -0.5,
+          "fade_in_ms": 8,
+          "fade_out_ms": 24
+        }
+      }
+    ],
+    "V3_transient_control": {
+      "threshold_dbfs": -13,
+      "ratio": 2.5,
+      "attack_ms": 0.45,
+      "release_ms": 18,
+      "lookahead_ms": 1,
+      "maximum_allowed_reduction_db": 5,
+      "maximum_observed_reduction_db": 1.5597989922633833,
+      "makeup_gain_db": 0
+    },
+    "V3_1_transient_control": {
+      "threshold_dbfs": -10.5,
+      "ratio": 1.55,
+      "max_reduction_db": 3,
+      "attack_ms": 0.35,
+      "release_ms": 16,
+      "lookahead_ms": 0.75,
+      "actual_max_reduction_db": 2.327871182190579,
+      "makeup_gain_db": 0
+    },
+    "V3_output_master_gain_db": 0,
+    "V3_1_output_master_gain_db": 0,
+    "not_a_global_gain_rewrite": true
+  },
+  "Zhun": {
+    "rationale": "摩擦层缩短一半并降低8dB；从搭扣原录音前段取明确轻点而非只放大其尾；后接很短木体平复。",
+    "layer_changes": [
+      {
+        "source_key": "notch5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.05,
+          "source_end_seconds": 0.115,
+          "placement_seconds": 0.11,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.018,
+          "source_end_seconds": 0.083,
+          "placement_seconds": 0.045,
+          "gain_db": -5,
+          "fade_in_ms": 8,
+          "fade_out_ms": 18
+        }
+      },
+      {
+        "source_key": "pull2",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.24,
+          "source_end_seconds": 0.38,
+          "placement_seconds": 0,
+          "gain_db": 4,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.265,
+          "source_end_seconds": 0.335,
+          "placement_seconds": 0,
+          "gain_db": -4,
+          "fade_in_ms": 12,
+          "fade_out_ms": 22
+        }
+      },
+      {
+        "source_key": "wood5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.135,
+          "source_end_seconds": 0.23,
+          "placement_seconds": 0.12,
+          "gain_db": -2,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.105,
+          "source_end_seconds": 0.185,
+          "placement_seconds": 0.085,
+          "gain_db": -5,
+          "fade_in_ms": 12,
+          "fade_out_ms": 24
+        }
+      }
+    ],
+    "V3_transient_control": {
+      "threshold_dbfs": -13,
+      "ratio": 2.5,
+      "attack_ms": 0.45,
+      "release_ms": 18,
+      "lookahead_ms": 1,
+      "maximum_allowed_reduction_db": 5,
+      "maximum_observed_reduction_db": 1.7126572232794661,
+      "makeup_gain_db": 0
+    },
+    "V3_1_transient_control": {
+      "threshold_dbfs": -14,
+      "ratio": 1.4,
+      "max_reduction_db": 2,
+      "attack_ms": 0.35,
+      "release_ms": 12,
+      "lookahead_ms": 0.75,
+      "actual_max_reduction_db": 0.8035605095016192,
+      "makeup_gain_db": 0
+    },
+    "V3_output_master_gain_db": 0,
+    "V3_1_output_master_gain_db": 0,
+    "not_a_global_gain_rewrite": true
+  },
+  "Sheng": {
+    "rationale": "抽拉从160ms延长到290ms，保留原片自然由疏到密的摩擦；增益反降2.5dB，末端搭扣前后连贯，不添加规则扫频或合成弦。",
+    "layer_changes": [
+      {
+        "source_key": "leather4",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.36,
+          "placement_seconds": 0.1,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.37,
+          "placement_seconds": 0.21,
+          "gain_db": -3,
+          "fade_in_ms": 14,
+          "fade_out_ms": 24
+        }
+      },
+      {
+        "source_key": "notch5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.06,
+          "source_end_seconds": 0.13,
+          "placement_seconds": 0.22,
+          "gain_db": -10,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.05,
+          "source_end_seconds": 0.105,
+          "placement_seconds": 0.285,
+          "gain_db": -10,
+          "fade_in_ms": 10,
+          "fade_out_ms": 20
+        }
+      },
+      {
+        "source_key": "pull2",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.22,
+          "source_end_seconds": 0.38,
+          "placement_seconds": 0,
+          "gain_db": 5,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.145,
+          "source_end_seconds": 0.435,
+          "placement_seconds": 0,
+          "gain_db": 2.5,
+          "fade_in_ms": 12,
+          "fade_out_ms": 24
+        }
+      }
+    ],
+    "V3_transient_control": {
+      "threshold_dbfs": -13,
+      "ratio": 2.5,
+      "attack_ms": 0.45,
+      "release_ms": 18,
+      "lookahead_ms": 1,
+      "maximum_allowed_reduction_db": 5,
+      "maximum_observed_reduction_db": 2.3128829346579605,
+      "makeup_gain_db": 0
+    },
+    "V3_1_transient_control": {
+      "threshold_dbfs": -11,
+      "ratio": 1.35,
+      "max_reduction_db": 2,
+      "attack_ms": 0.6,
+      "release_ms": 24,
+      "lookahead_ms": 1,
+      "actual_max_reduction_db": 0.0,
+      "makeup_gain_db": 0
+    },
+    "V3_output_master_gain_db": 0,
+    "V3_1_output_master_gain_db": 0,
+    "not_a_global_gain_rewrite": true
+  },
+  "Heng": {
+    "rationale": "主承重木体由-6改0dB并保留更长自然衰减；掌面先承接，Wood_4取主击之后的中频木体在85ms接续，提供承重细节而非只堆超低频；移除皮革底层，区别于准的轻点与细擦。",
+    "layer_changes": [
+      {
+        "source_key": "fist5",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.075,
+          "source_end_seconds": 0.23,
+          "placement_seconds": 0,
+          "gain_db": -8,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.08,
+          "source_end_seconds": 0.19,
+          "placement_seconds": 0,
+          "gain_db": -5,
+          "fade_in_ms": 12,
+          "fade_out_ms": 25
+        }
+      },
+      {
+        "source_key": "leather4",
+        "operation": "removed",
+        "V3": {
+          "source_start_seconds": 0.2,
+          "source_end_seconds": 0.4,
+          "placement_seconds": 0.11,
+          "gain_db": 3,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": null
+      },
+      {
+        "source_key": "wood1",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.085,
+          "source_end_seconds": 0.27,
+          "placement_seconds": 0.04,
+          "gain_db": -6,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.079,
+          "source_end_seconds": 0.315,
+          "placement_seconds": 0.038,
+          "gain_db": 0,
+          "fade_in_ms": 12,
+          "fade_out_ms": 30
+        }
+      },
+      {
+        "source_key": "wood4",
+        "operation": "revised",
+        "V3": {
+          "source_start_seconds": 0.18,
+          "source_end_seconds": 0.29,
+          "placement_seconds": 0.175,
+          "gain_db": -1,
+          "fade_in_ms": 12,
+          "fade_out_ms": 20
+        },
+        "V3_1": {
+          "source_start_seconds": 0.105,
+          "source_end_seconds": 0.295,
+          "placement_seconds": 0.085,
+          "gain_db": 3,
+          "fade_in_ms": 15,
+          "fade_out_ms": 30
+        }
+      }
+    ],
+    "V3_transient_control": {
+      "threshold_dbfs": -13,
+      "ratio": 2.5,
+      "attack_ms": 0.45,
+      "release_ms": 18,
+      "lookahead_ms": 1,
+      "maximum_allowed_reduction_db": 5,
+      "maximum_observed_reduction_db": 2.884420079479737,
+      "makeup_gain_db": 0
+    },
+    "V3_1_transient_control": {
+      "threshold_dbfs": -9,
+      "ratio": 1.75,
+      "max_reduction_db": 4.5,
+      "attack_ms": 0.8,
+      "release_ms": 35,
+      "lookahead_ms": 1,
+      "actual_max_reduction_db": 3.342488555745703,
+      "makeup_gain_db": 0
+    },
+    "V3_output_master_gain_db": 0,
+    "V3_1_output_master_gain_db": 0,
+    "not_a_global_gain_rewrite": true
+  }
+}
