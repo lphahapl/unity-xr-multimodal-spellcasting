@@ -1,0 +1,89 @@
+{
+  "clip": "CanJiOu_BackCarryWalk",
+  "frames": 49,
+  "seconds": 1.6,
+  "speed_m_s": 0.54,
+  "geometry_samples": 84672,
+  "a4_sha256": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+  "behind_upper_spine_mm": [
+    476.72,
+    488.13
+  ],
+  "seam_worst_mesh_vertex_mm": 0.0,
+  "stone_seam_mm": 0.0,
+  "stone_surface_distance_mm": {
+    "body": [
+      4.43,
+      15.96
+    ],
+    "back_and_shoulders": [
+      6.11,
+      15.96
+    ],
+    "head_and_neck": [
+      39.8,
+      52.72
+    ],
+    "right_hand_long_tool": [
+      133.03,
+      139.65
+    ]
+  },
+  "intersecting_frames": {
+    "body": [],
+    "back_and_shoulders": [],
+    "head_and_neck": [],
+    "right_hand_long_tool": []
+  },
+  "collided_actor_triangle_frames_by_bone": {},
+  "feet": {
+    "Left": {
+      "lowest_sole_height_mm": [
+        1.25,
+        69.93
+      ],
+      "sole_height_during_authored_stance_mm": [
+        1.25,
+        1.5
+      ],
+      "stance_intervals": [
+        {
+          "frames": [
+            0,
+            28
+          ],
+          "seconds": 0.933,
+          "accumulated_horizontal_slip_mm": 0.59
+        }
+      ]
+    },
+    "Right": {
+      "lowest_sole_height_mm": [
+        3.4,
+        71.08
+      ],
+      "sole_height_during_authored_stance_mm": [
+        3.4,
+        3.4
+      ],
+      "stance_intervals": [
+        {
+          "frames": [
+            0,
+            4
+          ],
+          "seconds": 0.133,
+          "accumulated_horizontal_slip_mm": 0.03
+        },
+        {
+          "frames": [
+            24,
+            48
+          ],
+          "seconds": 0.8,
+          "accumulated_horizontal_slip_mm": 0.34
+        }
+      ]
+    }
+  }
+}
