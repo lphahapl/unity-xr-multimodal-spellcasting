@@ -1,0 +1,31 @@
+{
+  "source": "https://polyhaven.com/a/red_sandstone_pavement",
+  "license": "CC0-1.0",
+  "license_url": "https://polyhaven.com/license",
+  "authors": {
+    "Amal Kumar": "All"
+  },
+  "dimensions_mm": [
+    2150.0000953674316,
+    2150.0000953674316
+  ],
+  "channels": {
+    "Diffuse": {
+      "size": 2722687,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_sandstone_pavement/red_sandstone_pavement_diff_2k.jpg",
+      "md5": "a1259b901bce5c5b428ca1fdbb5c8ac7"
+    },
+    "nor_gl": {
+      "size": 3573918,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_sandstone_pavement/red_sandstone_pavement_nor_gl_2k.jpg",
+      "md5": "331f734509e5354c74012364d1c19faa"
+    },
+    "Rough": {
+      "size": 2013023,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_sandstone_pavement/red_sandstone_pavement_rough_2k.jpg",
+      "md5": "fe131d7b65d3bd7a71e20efd162f73aa"
+    }
+  },
+  "processing": "Diffuse lightly desaturated for a weathered cool plateau, alpha=1-roughness, GL normal unchanged. Source channel JPG hashes verified before packing.",
+  "texel_tile_m": 2.15
+}
