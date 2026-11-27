@@ -1,0 +1,80 @@
+PASS R03
+PASS Real model root remains scale 1; imported .120 x .350 x .120 m envelope
+PASS Explicit grip and insertion anchors; no belt home / key-item auto-return
+PASS Separate disabled 120mm measurement gauge and enabled slim compound physical colliders
+PASS Main tenon excluded from generic ToolBeltInteraction item registry (review scope)
+PASS Initial 03 display supports the item using physical collision
+PASS GameItemBase.Take acquires and freezes item
+PASS Duplicate take rejected while already held
+PASS GameItemBase.MoveHeld places the grip at the requested point
+PASS R02 insertion-end/shoulder extents preserved at height 0.005 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.05 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.104 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.105 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.11 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.12 m within 50 micrometres
+PASS R02 insertion-end/shoulder extents preserved at height 0.127 m within 50 micrometres
+PASS Drop restores dynamic rigidbody/gravity and keeps actual compound colliders enabled, gauge disabled
+PASS Released item settles on separate display without passing through
+PASS Item can be picked up again after free drop
+PASS Dedicated socket refuses held item
+PASS Unmodified generic ToolBeltSlot rejects master tenon envelope at actual slot 0 dimensions (0.08, 0.12, 0.02)
+PASS Unmodified generic ToolBeltSlot rejects master tenon envelope at actual slot 1 dimensions (0.04, 0.27, 0.04)
+PASS Unmodified generic ToolBeltSlot rejects master tenon envelope at actual slot 2 dimensions (0.09, 0.12, 0.08)
+PASS Unmodified generic ToolBeltSlot rejects master tenon envelope at actual slot 3 dimensions (0.04, 0.26, 0.04)
+PASS Unmodified generic ToolBeltSlot rejects master tenon envelope at actual slot 4 dimensions (0.08, 0.26, 0.08)
+PASS Purpose socket rejects a geometrically small foreign item
+PASS Reacquire before pose rejection tests
+PASS 45-degree yaw rejected by index/alignment rule; not claimed to be a physical block for slim R03 stem
+PASS Reacquire after rejected yaw
+PASS 30 mm off-center insertion is rejected
+PASS Reacquire after rejected offset
+PASS Horizontal insertion axis is rejected
+PASS 120mm conservative measurement gauge detects 45-degree interference; not the R03 slim physical body
+PASS Actual compound contact shape detects unsafe depth into console body
+PASS Actual compound contact shape detects 50mm off-center interference
+PASS Take / release SnapZone owner for quarter 0
+PASS Accepted centered quarter 0 through original SnapZone route: 
+PASS Take blocked while actual SnapZone interpolation owns item
+PASS Quarter 0 completed exactly once
+PASS Quarter 0 returns to indexed pose and sample seat
+PASS Quarter 0 actual contact and separate conservative gauge both clear wall/body
+PASS Repeated request while occupied does not create second completion
+PASS Held seat remains one completion for quarter 0
+PASS Take / release SnapZone owner for quarter 1
+PASS Accepted centered quarter 1 through original SnapZone route: 
+PASS Take blocked while actual SnapZone interpolation owns item
+PASS Quarter 1 completed exactly once
+PASS Quarter 1 returns to indexed pose and sample seat
+PASS Quarter 1 actual contact and separate conservative gauge both clear wall/body
+PASS Repeated request while occupied does not create second completion
+PASS Held seat remains one completion for quarter 1
+PASS Take / release SnapZone owner for quarter 2
+PASS Accepted centered quarter 2 through original SnapZone route: 
+PASS Take blocked while actual SnapZone interpolation owns item
+PASS Quarter 2 completed exactly once
+PASS Quarter 2 returns to indexed pose and sample seat
+PASS Quarter 2 actual contact and separate conservative gauge both clear wall/body
+PASS Repeated request while occupied does not create second completion
+PASS Held seat remains one completion for quarter 2
+PASS Take / release SnapZone owner for quarter 3
+PASS Accepted centered quarter 3 through original SnapZone route: 
+PASS Take blocked while actual SnapZone interpolation owns item
+PASS Quarter 3 completed exactly once
+PASS Quarter 3 returns to indexed pose and sample seat
+PASS Quarter 3 actual contact and separate conservative gauge both clear wall/body
+PASS Repeated request while occupied does not create second completion
+PASS Held seat remains one completion for quarter 3
+PASS Completed item can be released from socket and re-grabbed
+PASS Final return for the inspectable 0-degree seated view
+PASS Five deliberate complete insertions; no extra completion events
+Scope: independent R03 mechanical previews. Current installed top bars retain original positions, dimensions and 57.5mm stroke. New shoulder proposal is Z-axis, not a pre-existing shoulder implementation or chapter binding.
+Proposal: pin size XYZ=(.030,.012,.048)m, closed centers=(0,.146,+/-.0775), open centers=(0,.146,+/-.135), bottom=.140, closed inner edge=+/-.0535, nominal initial radial gap=1mm at y=.140. New fixed guide centers=(0,.146,+/-.130), size(.050,.024,.070). Contact target is the narrowing shoulder surface above y=.127, not a ledge spanning the 153mm console opening.
+Frozen exact triangle band y=.140..152 maximum absolute depth 0.05250000m; measured initial radial gap 0.00100000m; retracted inner edge=.111m, full-envelope clearance >=.051m; uppermost fixture y=.158m is below grip y=.231m.
+Contact proxy: convex hulls of actual LOD0 mesh slices at profile boundaries. Thumb concavity is conservatively filled. This precision clamp specimen is independent from the gameplay review's outer boxes; no claim that those boxes already fit the 1mm shoulder gap.
+PASS current installed top latch: initial exact surface intersection 0.00000002m; +10mm lift exact intersection 0.00699999m; closed dynamic max lift 0.00000000m, rest 0.00000000m under repeatedly requested +.06m/s; open 401-point/400mm path intersection 0.00000000m; open dynamic rise 0.41990280m. No Take/clearance event linked.
+PASS new shoulder proposal: initial exact surface intersection 0.00000000m; +10mm lift exact intersection 0.00413108m; closed dynamic max lift 0.00173044m, rest 0.00173044m under repeatedly requested +.06m/s; open 401-point/400mm path intersection 0.00000000m; open dynamic rise 0.41990280m. No Take/clearance event linked.
+PASS actual per-frame maximum console penetration during all snaps = 0.00000000 m
+PASS separate conservative 120mm gauge maximum console intersection = 0.00000000 m
+BOUNDARY: desktop/API synthetic control only. Meta/XR grab events are NOT wired; real headset grab entry is not connected or verified. No user ergonomics or artistic acceptance asserted.
+BOUNDARY: independent review only. No chapter layout, unlock, generic inventory code or production assets modified.
