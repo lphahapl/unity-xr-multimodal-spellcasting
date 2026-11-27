@@ -1,0 +1,48 @@
+{
+  "version": "R02",
+  "glbSHA256": "7ab9c180f058ba893728051db5943ba01a700a173b082b01e1d1ba1f6d03a54b",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r02",
+  "workbenchNote": "bd7b1b3b-c711-4a89-b71e-74c3992255e5",
+  "workbenchLabel": "R02 · Gemini 已审，待返修与用户批注",
+  "originalResponse": "https://gemini.google.com/app/ad138f5662dece1e",
+  "replyElement": "message-content-id-r_070eead8dc4b0ad8",
+  "verifiedPixels": {
+    "Face": {
+      "token": "F90F73",
+      "matched": true
+    },
+    "Full": {
+      "token": "5DDF00",
+      "matched": true
+    },
+    "Trousers": {
+      "token": "18E13B",
+      "matched": true
+    },
+    "T06": {
+      "token": "61F4F5",
+      "matched": true
+    }
+  },
+  "localChecks": {
+    "frozenFiles": 17,
+    "meshNodes": 35,
+    "separateT06": {
+      "source": "SharedWorkSpace\\assets\\shenshang-toolbelt\\assembled-v1.glb",
+      "verifiedSHA256": "1041b462e8b09a24d95e0265c5b483d7b8d8b74c8adc2b59e906f58a0ac15a8d",
+      "prefab": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+      "components": [
+        "BeltBody",
+        "FlatSleeve",
+        "PenSleeve",
+        "SoftPouch",
+        "TallSleeve",
+        "WoodCase"
+      ],
+      "legacyKitNodesOrT06ComponentNodesInCharacter": [],
+      "animatedFitTested": false
+    }
+  },
+  "scope": "静态外观。胸前肩带与衣扣在图上重叠；精确穿透量、反面接触及抬臂变形均未由此图测量。",
+  "note": "R02 静态外观 · Gemini 网页复审已完成，建议定向返修后再提主审。此次回读 17 个冻结文件，模型 7ab9c180f058。网页 Neon 高模式，后端版本未披露。一个版本、一轮提交、四张带编号的对照图，四枚图内编号均正确。\n可保留：正脸颧颌眉眼、侧影鼻唇颏基本通过；髻下浅斑和领缘缺口已消除，R01 的规则裤面方格已去除，膝高和整体腿宽已接近设定。\n先修三处：① 保留裤子宽度，做出膝弯、裤脚绑腿上方的堆褶，放松贴体的前裆与臀缝，恢复粗麻织纹并核对上衣冷蓝灰偏色。② T-06 独立试装图中肩带与胸前盘扣重叠，带端疑似翘起，需调整走线并以侧后图核实间隙。③ 打散额角与鬓角硬边、规整发槽，清理耳前少量残灰。\n正面可见工具带与腰绳上下分层，袋面未见衣料穿出。背侧、袋内和动态贴合尚无图证。已从本地 GLB 节点及外部试装来源核对 T-06 保持独立。\n原文与逐图回执：https://gemini.google.com/app/ad138f5662dece1e 。工程归档 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R02/。"
+}

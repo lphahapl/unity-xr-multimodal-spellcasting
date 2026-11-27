@@ -1,0 +1,44 @@
+{
+  "task_id": "d93881f4-2a1c-469c-8b2c-94dbcde496bd",
+  "conversation_id": "b143bf24-21f8-4f1a-b086-94d6af866bb5",
+  "requested_model": "gemini-3.8-flash-high",
+  "resolved_model": "Gemini 3.8 Flash (High)",
+  "status": "failed",
+  "created_at": "2026-11-25T02:10:18.368Z",
+  "finished_at": "2026-11-25T02:10:58.711Z",
+  "cli_status": "ERROR",
+  "exit_code": 1,
+  "error": "FAILED_PRECONDITION (code 400): User location is not supported for the API use.",
+  "diagnostics": "error: FAILED_PRECONDITION (code 400): User location is not supported for the API use.\nAGY_ERROR: {\"short_error\":\"FAILED_PRECONDITION (code 400): User location is not supported for the API use.\",\"status\":\"INVALID_ARGUMENT\",\"error_code\":400,\"code_kind\":\"http\",\"retryable\":false,\"error_id\":\"354e4bf8-98d2-4d05-8f4a-3cc55044f444-2\"}\n",
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "cache_read_tokens": 0,
+    "total_tokens": 0
+  },
+  "failure_class": "service_access",
+  "tree_stop_confirmed": true,
+  "worker_stopped": true,
+  "acceptance_state": "not_started",
+  "tool_calls": [],
+  "gemini_visual_review": null,
+  "verdicts": {
+    "frontFace": "无法判断",
+    "profile": "无法判断",
+    "trouserCrotch": "无法判断",
+    "trouserKnees": "无法判断",
+    "trouserAnkles": "无法判断",
+    "clothFoldsAndWeave": "无法判断",
+    "beltAppearance": "无法判断"
+  },
+  "localChecks": {
+    "reviewer": "Codex / GPT-6",
+    "pixelChecks": "仅为本地基线定位，Gemini 没有返回任何审图文字。对照各图及源文件散列见 Inputs.json。",
+    "frontFace": "B 的眼裂窄、眉尾上挑，颊部平面转折硬；A 的眉线更平，眼周和颊部体积更自然。",
+    "profile": "C 的耳前发块边缘呈清晰三角形，A 的鬓角是渐细散发。鼻唇颏精确偏差需同焦距、同头部角度叠图复核。",
+    "trousers": "对照 E、F：实拍膝附近呈大块折面，绑腿上沿处收口生硬。裆点被短摆遮挡。无法据此量化真实裆深，待无外衣正侧裤形图。",
+    "fabric": "G 的前襟平滑，A、D 的领口和前襟能读出粗织纹。目前没有裤料近照，不能判布纱密度。",
+    "belt": "返修。T-06 独立 Prefab 有六个模型引用和五个 EntryAnchor。旧角色 GLB 自带 A2 Harness、A2 Kit、A2 Pocket 1–5 和 A2 Pouch 节点，叠挂 T-06 会重复。回查明细见 Inputs.json。"
+  }
+}
