@@ -1,0 +1,591 @@
+{
+  "asset": "QingGuiR02B",
+  "status": "FROZEN",
+  "generated_at": "2026-11-26T03:54:36.034739+08:00",
+  "core_manifest": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\frozen-manifest.json",
+  "core_verified": true,
+  "files": [
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\assemble_review.py",
+      "relative_path": "assemble_review.py",
+      "bytes": 1626,
+      "sha256": "4a58405cfdd18bbe01eb07c6e4ab1a378ff6cf972ba1dbea2cd8d76b6ac7b839"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\build_delivery.py",
+      "relative_path": "build_delivery.py",
+      "bytes": 13552,
+      "sha256": "82d51e6d0b078f325607d2e83d09ae522345779549ae77fbc6a75e2730ef5477"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\build_source.py",
+      "relative_path": "build_source.py",
+      "bytes": 3725,
+      "sha256": "a87e0cf0e2d7f4054703b35d41a77bf3d79a895e140e2c5620a3b10d64e061dd"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\candidate-ready.json",
+      "relative_path": "candidate-ready.json",
+      "bytes": 12354,
+      "sha256": "d788f8e532e352d9c0ab313eeae912a84c8f435e98e4e09cd65911e53066bc2e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\check_edge_topology.py",
+      "relative_path": "check_edge_topology.py",
+      "bytes": 475,
+      "sha256": "28e13a65b9c4e0c696ebc37c0e815f8bf56ba07c3f52496356890fbdd7bcfae7"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\check_glb_seams.py",
+      "relative_path": "check_glb_seams.py",
+      "bytes": 1930,
+      "sha256": "4f60a9df72c8938f09739d8be32e01204ba6ead51b8e670634a6a0663ebb95e6"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\check_overlap_projection.py",
+      "relative_path": "check_overlap_projection.py",
+      "bytes": 1480,
+      "sha256": "e8458905a08212d7438a1f86ea2cf7d34a42ceecffdf66f3e68b71a889ebfc63"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Checks\\QingGui_ProjectionCheck.png",
+      "relative_path": "Checks/QingGui_ProjectionCheck.png",
+      "bytes": 118820,
+      "sha256": "58efcfbc375e70f7c0ec3445e547618efe9f2f0c6a4e7957f7324e5fd9336537"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\clean_revision_fins.py",
+      "relative_path": "clean_revision_fins.py",
+      "bytes": 1535,
+      "sha256": "0f0d2f6cb360fa562ce1a3aac72cb7ca136b3e2b48e3b746df2b32d08f514c8f"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\diagnose_source_overlap.py",
+      "relative_path": "diagnose_source_overlap.py",
+      "bytes": 778,
+      "sha256": "e1b46f81bb0aad5ad344944efc9f9f65f5a022119bacac10755efdbd2ffa77ed"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\fine_patterns.py",
+      "relative_path": "fine_patterns.py",
+      "bytes": 1053,
+      "sha256": "d4f29f82248f31bc3d27ff04c60c810dcca7232678d05d5b986a196354e07b46"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\freeze_delivery.py",
+      "relative_path": "freeze_delivery.py",
+      "bytes": 3933,
+      "sha256": "9aa322c94ae18b281dc962004e5d0b278dc2971750d16a8e54df8b63353eb209"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\frozen-manifest.json",
+      "relative_path": "frozen-manifest.json",
+      "bytes": 12354,
+      "sha256": "d788f8e532e352d9c0ab313eeae912a84c8f435e98e4e09cd65911e53066bc2e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\geometry-candidate.json",
+      "relative_path": "geometry-candidate.json",
+      "bytes": 9048,
+      "sha256": "acf9d4b6419d29cd86d1723d032ba31a71cb9dbff3737f78e855badd3367ee14"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\lookdev-glb-report.json",
+      "relative_path": "lookdev-glb-report.json",
+      "bytes": 1201,
+      "sha256": "a74bb4d8ac897addcd84f415143c704455dc5a6dcfb9819fc6c5b4b286ef1486"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\make_lookdev_glb.py",
+      "relative_path": "make_lookdev_glb.py",
+      "bytes": 2926,
+      "sha256": "8353204c08922a92b49ab279b8b07fd5e626c94e818d831d826149c1fa224572"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\measure_candidate.py",
+      "relative_path": "measure_candidate.py",
+      "bytes": 518,
+      "sha256": "4b9d479218082af081b4039be3791dcc69bee3c33012585484aea626b99a93fb"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\measure_interface.py",
+      "relative_path": "measure_interface.py",
+      "bytes": 3061,
+      "sha256": "1ff0a12b523d74744866b0df47dea0229cd1857b708a0d916d7c1efee4b2affa"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\media-contract.json",
+      "relative_path": "media-contract.json",
+      "bytes": 12817,
+      "sha256": "aa4a8be798990fdcd2141d34b00f5c374bfe3bc99a582e66ad5b8c0e095d1cdc"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\model-report.json",
+      "relative_path": "model-report.json",
+      "bytes": 32634,
+      "sha256": "71ccd4d0d85aab3e549854ba5ef3253cc7ffefd83e6f613dbcb258085e6411f5"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\package_media.py",
+      "relative_path": "package_media.py",
+      "bytes": 4291,
+      "sha256": "c95b4fea6bf1a5fdf5c8d6d328c445085fb93a2853644fd0929faa373732db65"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\prepare_delivery.py",
+      "relative_path": "prepare_delivery.py",
+      "bytes": 1089,
+      "sha256": "7c7c47a6546209a8f9b36f7a76fd179c85830940088326160fb0ea4009c99a72"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\prepare_revision.py",
+      "relative_path": "prepare_revision.py",
+      "bytes": 808,
+      "sha256": "6e4160d86bc23fcdb068fe9c3734d2df11cb5dc98dda2808ad3efffc18b1efed"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\01_Front.png",
+      "relative_path": "Previews/01_Front.png",
+      "bytes": 1222358,
+      "sha256": "7763357688c93c7f6535eedbeea47d733b2dc18835a9e2f7b8ae97188a74d0ef"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\02_Right.png",
+      "relative_path": "Previews/02_Right.png",
+      "bytes": 1153133,
+      "sha256": "6fac885b13e92c254da3618e550ef5a168984c269247804e58689d67d9d4b485"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\03_Back.png",
+      "relative_path": "Previews/03_Back.png",
+      "bytes": 1181196,
+      "sha256": "8809847a3d0af8efc65a968363d25607cd74a87c056ea645a4c793c2db7803fd"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\04_Front45.png",
+      "relative_path": "Previews/04_Front45.png",
+      "bytes": 1234472,
+      "sha256": "a3383f377f6c774592b454ff50f3a12bd7c8acdc752f52ddbc7a92eb379a2d5c"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\05_GoldContact.png",
+      "relative_path": "Previews/05_GoldContact.png",
+      "bytes": 1545096,
+      "sha256": "0116d332fa3c190e88a51580c36eeea8b7a1eccef92ace3d271832f672256ad9"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\06_Aperture.png",
+      "relative_path": "Previews/06_Aperture.png",
+      "bytes": 1420571,
+      "sha256": "99a40f9e50b526ec7adc60b7e4245aea2481cd923abc77fd27f212c3965d4cea"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\07_Shoulder.png",
+      "relative_path": "Previews/07_Shoulder.png",
+      "bytes": 1299752,
+      "sha256": "e2eb50ae45f10f0f9ffb0c3c95a1ce90b6f6d94b6b9bafa326a859f9e31cc2fc"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\08_HighSameView.png",
+      "relative_path": "Previews/08_HighSameView.png",
+      "bytes": 1231039,
+      "sha256": "d8183a67bfefb81fdd9aff58aadf17472643cd5fe827c965431897a013c56227"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\09_HighAperture.png",
+      "relative_path": "Previews/09_HighAperture.png",
+      "bytes": 1400718,
+      "sha256": "9ca38276199c6641b827bfff614d06230f5b5eb67db78bf5dee00f54fa80c9c3"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\10_CleanWire45.png",
+      "relative_path": "Previews/10_CleanWire45.png",
+      "bytes": 955961,
+      "sha256": "b7d25c0673c1203e8b8fff567d939894043dd6bf74237b1b79cadf86da5db7e1"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\11_CleanWireFront.png",
+      "relative_path": "Previews/11_CleanWireFront.png",
+      "bytes": 897182,
+      "sha256": "490cef65043ecf541c3b64d042e32d486bf66da8e1964d683a61a71affe491e7"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\12_ThreeView_SameScale.png",
+      "relative_path": "Previews/12_ThreeView_SameScale.png",
+      "bytes": 668893,
+      "sha256": "a756f17b46b18f928ea6226a33c65c51858fbbc7baf09c9a852973b613bdcb3e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\13_R02_B_45.png",
+      "relative_path": "Previews/13_R02_B_45.png",
+      "bytes": 789017,
+      "sha256": "e50dcf2e8e1adac813dcffbc429072c24c404ea51419949e85f9d087569b0342"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\14_R02_B_Aperture.png",
+      "relative_path": "Previews/14_R02_B_Aperture.png",
+      "bytes": 1185150,
+      "sha256": "56bbab505be4e3ae51f3cb996306a42b81fda31b54d6c96132ea6a41530cd6b9"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\15_R02_B_Shoulder.png",
+      "relative_path": "Previews/15_R02_B_Shoulder.png",
+      "bytes": 938617,
+      "sha256": "a288b25a250cdbd519af7bf35589c3c1a74dad74c4e007360108a0eda1d0a469"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\B_Game_BackCrownCopperTail.png",
+      "relative_path": "Previews/B_Game_BackCrownCopperTail.png",
+      "bytes": 1336527,
+      "sha256": "675ca2e47b91952b2418d0b67f80aa8dca77c7bfba4e66813db3ae031c0a6a17"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\B_Game_BackHeld.png",
+      "relative_path": "Previews/B_Game_BackHeld.png",
+      "bytes": 1189193,
+      "sha256": "b6ad6514d42683a4f1df36a095b0b2b3d372278b064ff978de027d06feff29c6"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\B_Game_BackShoulder.png",
+      "relative_path": "Previews/B_Game_BackShoulder.png",
+      "bytes": 1278508,
+      "sha256": "4934d3c3d7220dae353d37679348a323555a492120b1793a12467bd8c7f76b25"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\B_Game_FrontCrownCopperTail.png",
+      "relative_path": "Previews/B_Game_FrontCrownCopperTail.png",
+      "bytes": 1438282,
+      "sha256": "38a654c7bb856ea6928b0e0fc9acfaec48d2f160649c02ad80b8eedfab83a4d8"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\B_Game_LeftCopperWrap.png",
+      "relative_path": "Previews/B_Game_LeftCopperWrap.png",
+      "bytes": 1204257,
+      "sha256": "65e857954c7719bccee3222c40041fe96ae08166409aaad673011243641850eb"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\LOD1_SameView.png",
+      "relative_path": "Previews/LOD1_SameView.png",
+      "bytes": 1236069,
+      "sha256": "f76ed869e8d2a20ea84752ec23454eef48e25af453396fde2117c5a34ca04dfe"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\LOD2_SameView.png",
+      "relative_path": "Previews/LOD2_SameView.png",
+      "bytes": 1232117,
+      "sha256": "097320d8ce5784195e361348361ebedaef18f78825a410040809a95a4fbea5d3"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_material.png",
+      "relative_path": "Previews/QA_material.png",
+      "bytes": 691788,
+      "sha256": "28107767434dfa34c1aaf45bb963257bbffa2d9dedf9c6771855f71f39a8761e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_material_back.png",
+      "relative_path": "Previews/QA_material_back.png",
+      "bytes": 182878,
+      "sha256": "d7577c52a134ba6817f46cfd5e7137d2ac54eb779a174d120f7ad6cbd10d0fbc"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_material_front.png",
+      "relative_path": "Previews/QA_material_front.png",
+      "bytes": 191963,
+      "sha256": "6888bc57306daed5adcd2112c5a84454b2938c86e49f5116c8dba14b92fc4439"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_material_right.png",
+      "relative_path": "Previews/QA_material_right.png",
+      "bytes": 170029,
+      "sha256": "0bac1c65272241e91749df2f590ceb6639ccd337a49ae63ff3222a681af75966"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_material_three_quarter.png",
+      "relative_path": "Previews/QA_material_three_quarter.png",
+      "bytes": 192366,
+      "sha256": "bd3ac88d4d00a30011b43a1ea70138e5a0ac33f42080bcddcd6e5a20e581a851"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_wire.png",
+      "relative_path": "Previews/QA_wire.png",
+      "bytes": 1014735,
+      "sha256": "49c8a6ccecc98696042bf1ffa6227b207ff921a0701ce51f8584fc2bbd509e33"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_wire_back.png",
+      "relative_path": "Previews/QA_wire_back.png",
+      "bytes": 257109,
+      "sha256": "ad681099beb660b60744cbf73dc1b54e3d3bef7137b1ad5bcfe90cd715529bac"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_wire_front.png",
+      "relative_path": "Previews/QA_wire_front.png",
+      "bytes": 259236,
+      "sha256": "6aeae107ed71bb8f93efd34121b0be197b0bef53e795d3c0f24fdfd02b712639"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_wire_right.png",
+      "relative_path": "Previews/QA_wire_right.png",
+      "bytes": 239736,
+      "sha256": "9247b753398c7840c00e71f88ac7cf4e41c97bef3ed6bee202c8218aa5c4ce7e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Previews\\QA_wire_three_quarter.png",
+      "relative_path": "Previews/QA_wire_three_quarter.png",
+      "bytes": 265841,
+      "sha256": "8cec9233611082a2b693714b6acd3c9ffba9d986d79d1b71fe666ef43cd866b6"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\qinggui_detail.py",
+      "relative_path": "qinggui_detail.py",
+      "bytes": 10447,
+      "sha256": "60c32c7b850d8fe2eb34b5908eb64ff2179e5e2e52fbbca3ace96c8e7398c4ec"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\qinggui_geometry.py",
+      "relative_path": "qinggui_geometry.py",
+      "bytes": 12454,
+      "sha256": "eecf08b819c76fa79ab48218f807ac395644f44d58b7ea01f9ab2fa2b7b4d43d"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\qinggui_wires.py",
+      "relative_path": "qinggui_wires.py",
+      "bytes": 9122,
+      "sha256": "59fee5361848a388ff2480f89cd492110d3707e3ad1ece21fa2755ff88f385c0"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B.blend",
+      "relative_path": "QingGuiR02B.blend",
+      "bytes": 42875803,
+      "sha256": "a81eb66662b639920df7799de10be8cca7caceff5a8c021346de0b622ffcb8ba"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B.glb",
+      "relative_path": "QingGuiR02B.glb",
+      "bytes": 2098088,
+      "sha256": "26c8cd7472c1a332a5da29a2ca4cb72e7b427d8e11e0115d50c5fe89c29709d4"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_BodyCheckpoint.blend",
+      "relative_path": "QingGuiR02B_BodyCheckpoint.blend",
+      "bytes": 39392521,
+      "sha256": "f7f831395472b676d80e58779a8906aaac1fdb75d010d1810b3be3e062bac441"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_GeometryCandidate.fbx",
+      "relative_path": "QingGuiR02B_GeometryCandidate.fbx",
+      "bytes": 463692,
+      "sha256": "58002bb03f5946646f4b013c4b361903af6cf7ff2a69f5154d1d2e616f6c38b1"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LOD0.fbm\\QingGui_BaseColor.png",
+      "relative_path": "QingGuiR02B_LOD0.fbm/QingGui_BaseColor.png",
+      "bytes": 912564,
+      "sha256": "2b81bcc2d22856bb695accc908d166fce3d9feb0afc77b8c4d93840e5b6507cf"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LOD0.fbm\\QingGui_Metallic.png",
+      "relative_path": "QingGuiR02B_LOD0.fbm/QingGui_Metallic.png",
+      "bytes": 112705,
+      "sha256": "eff81370be8033b9ea458ab9a41b2d3826f3867e37ddaec05af801764e9547ab"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LOD0.fbm\\QingGui_NormalGL.png",
+      "relative_path": "QingGuiR02B_LOD0.fbm/QingGui_NormalGL.png",
+      "bytes": 527965,
+      "sha256": "e97f511c6ea1733d2a1c132b2cc686a87b50fa4aa8086cbc2e19f4ee61c2fbc2"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LOD0.fbm\\QingGui_Roughness.png",
+      "relative_path": "QingGuiR02B_LOD0.fbm/QingGui_Roughness.png",
+      "bytes": 111658,
+      "sha256": "98387d6b4a316c7730f8a0648fb10b52c4516a0da03a431816b887e376a7fb24"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LOD0.fbx",
+      "relative_path": "QingGuiR02B_LOD0.fbx",
+      "bytes": 470972,
+      "sha256": "57ff891ee579d2d36c28e5487c6c193ab369e7ae0715b01ad7b2447e5eccc15a"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LODs.fbm\\QingGui_BaseColor.png",
+      "relative_path": "QingGuiR02B_LODs.fbm/QingGui_BaseColor.png",
+      "bytes": 912564,
+      "sha256": "2b81bcc2d22856bb695accc908d166fce3d9feb0afc77b8c4d93840e5b6507cf"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LODs.fbm\\QingGui_Metallic.png",
+      "relative_path": "QingGuiR02B_LODs.fbm/QingGui_Metallic.png",
+      "bytes": 112705,
+      "sha256": "eff81370be8033b9ea458ab9a41b2d3826f3867e37ddaec05af801764e9547ab"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LODs.fbm\\QingGui_NormalGL.png",
+      "relative_path": "QingGuiR02B_LODs.fbm/QingGui_NormalGL.png",
+      "bytes": 527965,
+      "sha256": "e97f511c6ea1733d2a1c132b2cc686a87b50fa4aa8086cbc2e19f4ee61c2fbc2"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LODs.fbm\\QingGui_Roughness.png",
+      "relative_path": "QingGuiR02B_LODs.fbm/QingGui_Roughness.png",
+      "bytes": 111658,
+      "sha256": "98387d6b4a316c7730f8a0648fb10b52c4516a0da03a431816b887e376a7fb24"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_LODs.fbx",
+      "relative_path": "QingGuiR02B_LODs.fbx",
+      "bytes": 766956,
+      "sha256": "2fe815a9104287e243d0ee1b99f4ce5c1008793f64e180f22affffc8c9ae3bdf"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_Lookdev.glb",
+      "relative_path": "QingGuiR02B_Lookdev.glb",
+      "bytes": 2587360,
+      "sha256": "237ae9cb651d8be7bb3f841e501c2766a7ac7723d7b06ef6a00a3c0168157aa8"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\QingGuiR02B_Source.blend",
+      "relative_path": "QingGuiR02B_Source.blend",
+      "bytes": 41166963,
+      "sha256": "00ee763cf9c107273a9fe270558a161e94e6bee222ec011e1330238827260621"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\README.md",
+      "relative_path": "README.md",
+      "bytes": 6549,
+      "sha256": "990be903aefd1b42895d6ce3898918a34ad91dd815f0177ac8221b747ce4d051"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\refine_edge_shading.py",
+      "relative_path": "refine_edge_shading.py",
+      "bytes": 1877,
+      "sha256": "ca9dcbef767e0eccb2e602320b367cbf4582ad4c5b463e014ea71693dffaab43"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\review_delivery.py",
+      "relative_path": "review_delivery.py",
+      "bytes": 3685,
+      "sha256": "347aeb54f088b36cbfecd497e318132d1691e92e815782f19ae0d7b449d865a9"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\source_optics.py",
+      "relative_path": "source_optics.py",
+      "bytes": 2291,
+      "sha256": "5afc76f2a45232a826f071297b40de6a7968f51648d94369a226d0aaa8efb9a2"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourceMasks\\FinePattern.png",
+      "relative_path": "SourceMasks/FinePattern.png",
+      "bytes": 18517,
+      "sha256": "63315f41ff97cffb5edf6e4707baab8808c2882e2e776059527d1b5f455c244e"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\01_Front45.png",
+      "relative_path": "SourcePreview/01_Front45.png",
+      "bytes": 1231215,
+      "sha256": "68a776c9304c14f6574cee2e4b44c17ca486903f1438988a9794aba580e854ef"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\02_GoldContact.png",
+      "relative_path": "SourcePreview/02_GoldContact.png",
+      "bytes": 1502080,
+      "sha256": "61e40aa825d62e5b7ba2b027c6f7c22ab00ccd3a015e0851f9497a380c4d5bda"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\03_Aperture.png",
+      "relative_path": "SourcePreview/03_Aperture.png",
+      "bytes": 1400609,
+      "sha256": "97569dfced12803a3186a596d51d9ed8a5de0076bec275c9265370ccd18f1a40"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\04_Shoulder.png",
+      "relative_path": "SourcePreview/04_Shoulder.png",
+      "bytes": 1293043,
+      "sha256": "6491813fbb33e11c8435ecb2e907ce7744269e3a304e4865d2c3c0b3acc63788"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\04b_CopperJadeClose.png",
+      "relative_path": "SourcePreview/04b_CopperJadeClose.png",
+      "bytes": 1393133,
+      "sha256": "31818e616c03388a2c93c0768984ac9ac65b67d8a782a918a4e166b3e740c4e3"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\05_Clay45.png",
+      "relative_path": "SourcePreview/05_Clay45.png",
+      "bytes": 1125566,
+      "sha256": "a0b943d0db9189b8808ff51d85a5c44790c99980c1b7b3ba927241c6efaf2c7b"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\SourcePreview\\06_ClayShoulder.png",
+      "relative_path": "SourcePreview/06_ClayShoulder.png",
+      "bytes": 1063823,
+      "sha256": "0f5df606c7680d25f8044ca63a8578634070165f8e64cda91904402a51d13089"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_AO.png",
+      "relative_path": "Textures/QingGui_AO.png",
+      "bytes": 825716,
+      "sha256": "5bc7b984cbbb57784bed4ca0e1028a798837815ee1d1f3dbe8f9dee7f825e847"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_BaseColor.png",
+      "relative_path": "Textures/QingGui_BaseColor.png",
+      "bytes": 912564,
+      "sha256": "2b81bcc2d22856bb695accc908d166fce3d9feb0afc77b8c4d93840e5b6507cf"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_JadeMask.png",
+      "relative_path": "Textures/QingGui_JadeMask.png",
+      "bytes": 94257,
+      "sha256": "4c4ad17cf4ec5913020a3c580af7374276dc1be9c07d47be31f860b38e8fedf7"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Metallic.png",
+      "relative_path": "Textures/QingGui_Metallic.png",
+      "bytes": 112705,
+      "sha256": "eff81370be8033b9ea458ab9a41b2d3826f3867e37ddaec05af801764e9547ab"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_MetallicSmoothness.png",
+      "relative_path": "Textures/QingGui_MetallicSmoothness.png",
+      "bytes": 139476,
+      "sha256": "22b520f57edc54b4396fbf86ebea8975a4d66b8b5f1f12ae98a4435891a7f6bf"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_NormalGL.png",
+      "relative_path": "Textures/QingGui_NormalGL.png",
+      "bytes": 527965,
+      "sha256": "e97f511c6ea1733d2a1c132b2cc686a87b50fa4aa8086cbc2e19f4ee61c2fbc2"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_ORM.png",
+      "relative_path": "Textures/QingGui_ORM.png",
+      "bytes": 912869,
+      "sha256": "c064d76f395da35a641d3f50a54b8ab92d55909171cc707d5eac08a5ef10a542"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Roughness.png",
+      "relative_path": "Textures/QingGui_Roughness.png",
+      "bytes": 111658,
+      "sha256": "98387d6b4a316c7730f8a0648fb10b52c4516a0da03a431816b887e376a7fb24"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Thickness.png",
+      "relative_path": "Textures/QingGui_Thickness.png",
+      "bytes": 394042,
+      "sha256": "62ee125064e2dcc3f45504b359d98745d820aa2f586e0a2ced4b2300ff43c45c"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\verify_delivery.py",
+      "relative_path": "verify_delivery.py",
+      "bytes": 5707,
+      "sha256": "4304dbfefe721fe5f3a2f19f216fa5b11c6975b344ae6d308255a51c4e1c65b6"
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\verify_source_precision.py",
+      "relative_path": "verify_source_precision.py",
+      "bytes": 1362,
+      "sha256": "7a6ce5bc53a6e6b5a1e9463667d6131dd746248444f763834748a54d843ee43f"
+    }
+  ]
+}
