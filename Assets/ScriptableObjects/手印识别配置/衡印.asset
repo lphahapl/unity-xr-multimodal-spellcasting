@@ -22,110 +22,110 @@ MonoBehaviour:
   holdSeconds: 0.15
   rules:
   - featureId: L.Thumb.Curl
-    min: 221.744324
-    max: 223.952774
+    min: 215.5942
+    max: 217.17111
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Thumb.Flexion
-    min: 337.402344
-    max: 339.139832
+    min: 339.05176
+    max: 343.23773
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Thumb.Abduction
-    min: 54.0445824
-    max: 55.3627815
+    min: 46.56831
+    max: 47.80194
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Curl
-    min: 176.004944
-    max: 176.006088
+    min: 176.5196
+    max: 176.91388
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Flexion
-    min: 182.274628
-    max: 183.698135
+    min: 183.50056
+    max: 185.46608
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Abduction
-    min: 19.6764183
-    max: 21.9929123
+    min: 14.860439
+    max: 18.261126
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Opposition
-    min: 0.0982733294
-    max: 0.0997936428
+    min: 0.08992024
+    max: 0.09118125
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Middle.Curl
-    min: 174.42395
-    max: 174.424606
+    min: 174.66293
+    max: 175.29866
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Flexion
-    min: 189.310715
-    max: 190.90416
+    min: 192.06876
+    max: 192.86429
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Abduction
-    min: 109.31691
-    max: 113.355576
+    min: 102.520485
+    max: 105.57876
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Opposition
-    min: 0.102327868
-    max: 0.104519859
+    min: 0.09398233
+    max: 0.09535132
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Ring.Curl
-    min: 251.716888
-    max: 257.036621
+    min: 252.27736
+    max: 253.74373
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Flexion
-    min: 236.709839
-    max: 239.419418
+    min: 233.6176
+    max: 236.63608
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Abduction
-    min: 20.8111267
-    max: 22.6063232
+    min: 19.3808
+    max: 20.858746
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Opposition
-    min: 0.0238999799
-    max: 0.0284876563
+    min: 0.026572555
+    max: 0.027716793
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Max.Curl
-    min: 239.453354
-    max: 241.349396
+    min: 238.39157
+    max: 239.41515
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Max.Flexion
-    min: 252.477829
-    max: 257.481567
+    min: 246.46176
+    max: 248.37248
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Max.Opposition
-    min: 0.0328044184
-    max: 0.0365040079
+    min: 0.033672847
+    max: 0.036886528
     tolerance: 0.015
     weight: 1
     required: 0
