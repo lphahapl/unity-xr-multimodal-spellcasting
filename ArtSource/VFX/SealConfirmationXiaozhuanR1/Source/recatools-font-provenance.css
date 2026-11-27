@@ -1,0 +1,349 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   RECATOOLS · Oriental — QIN modifier layer  (小篆 converter, RT-CHN-106)
+
+   NOT a second theme system. This file adds ONE class, .o-qin, which re-points
+   the custom properties oriental.css already defines and adds the few
+   components a bamboo-slip page needs. Buttons, chips, seals, brush rules,
+   motion and the reduced-motion guard are inherited unchanged. Load
+   oriental.css FIRST; this file is meaningless on its own.
+
+   WHY A QIN LAYER AT ALL — oriental.css is a RICE-PAPER aesthetic, and on a
+   page about Qin script that is an anachronism of exactly the kind this tool
+   exists to refuse. Paper is conventionally dated to Cai Lun, 105 CE; ink-wash
+   painting is a Tang–Song literati form. Both post-date small seal script by
+   centuries to a millennium. Qin writing surfaces were bamboo and wooden slips
+   (簡牘), bronze, stone stelae, and clay sealing impressions (封泥).
+
+   Every colour below is defensible from the material record rather than picked
+   for mood, and every pair is MEASURED, not assumed:
+
+     --o-ink   on --o-paper   13.05   body text, modern characters   AA/AAA
+     --o-ink-soft on --o-paper 6.89   captions, pinyin               AA
+     --o-seal  on --o-paper    5.34   the one cinnabar accent        AA
+     --o-bronze on --o-paper   6.44   labels, mode control           AA
+     --o-cord  on --o-paper    4.89   hairline rules + cord motif    AA
+     --o-paper on --o-inkwash 13.18   rubbing mode (pale on dark)    AA/AAA
+
+   The cinnabar rule from oriental.css is kept exactly: paper and ink do the
+   work, red appears ONCE per view as the seal. Nothing else here is red.
+
+   NOTE ON --o-gold: oriental.css uses antique gold for corner hairlines. It
+   measures 2.85 on this ground and gilding reads Ming, not Qin, so .o-qin
+   re-points it to bronze verdigris. It stays decorative — never text.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.o-scope.o-qin {
+    /* Bamboo and stone replace rice paper. */
+    --o-paper: #e6d9b8;      /* fresh bamboo slip */
+    --o-paper-2: #ddcea6;    /* aged slip */
+    --o-paper-3: #cfc6b0;    /* weathered stone / rubbing ground */
+    /* Lacquer black is already right; ink-soft is darkened to clear AA on tan. */
+    --o-ink-soft: #4a4438;
+    /* 朱砂 cinnabar is genuinely a Qin pigment — unchanged. */
+    /* Bronze verdigris takes over the gold hairline role. */
+    --o-bronze: #2f4f45;
+    --o-gold: #2f4f45;
+    --o-cord: #6f5638;       /* hemp binding cord */
+    --o-line: rgba(22, 21, 15, .26);
+    --o-line-soft: rgba(22, 21, 15, .12);
+    /* Slip geometry lives in tokens so the reserved box and the glyph inside it
+       can never drift apart — see the CLS note under .xz-slip. */
+    --xz-slip-w: 74px;
+    --xz-slip-seal: 74px;
+}
+
+/* ── The seal face ────────────────────────────────────────────────────────
+   崇羲篆體 Chong Xi Small Seal (chongxi_seal.otf), 王心怡 × 季旭昇,
+   中央研究院 Academia Sinica 小學堂. Self-hosted, as every asset must be — no
+   CDN, ever, and that rule is NOT lifted for this tool. What IS lifted, by
+   explicit owner ruling on 2026-08-03, is the <200 KB per-page performance
+   budget in CLAUDE.md:416, and the instruction is to vendor the COMPLETE font
+   with NO SUBSETTING.
+
+   ⚠️ DO NOT "fix" this back under budget and DO NOT add a subsetting step.
+   That was the owner's ruling before, and since 2026-08-08 it is also a LICENCE
+   REQUIREMENT — see below. Two independent reasons, same answer.
+
+   ── SERVED AS THE PUBLISHER'S OWN BYTES. DO NOT CONVERT IT. ──────────────
+   Replaced 全字庫說文解字 (ebas927.woff2) on 2026-08-08 for a LICENCE reason,
+   not a technical one: that face was never covered by 全字庫's open-data grant.
+   Owner ruling 2026-08-06 (D-15) — nothing ships on a licence that needs an
+   email to confirm.
+
+   崇羲篆體 is CC BY-ND 3.0 TW or later. It explicitly permits commercial
+   redistribution (得重製、散布、傳輸本著作（包括商業性利用）) and explicitly
+   forbids modification (亦不得修改本著作 / 整體字型禁止被修改). So we ship the
+   file byte-identical to the publisher's download — no subsetting, and no
+   WOFF2 conversion either.
+
+   The WOFF2 question was settled by measurement, not by argument, and this is
+   the number that makes the conservative choice free:
+
+     21,817,868 B  chongxi_seal.otf  — what we serve, byte-identical to vendor
+     10,517,527 B  the same file, brotli q11  (what a supporting client gets)
+     12,265,479 B  the same file, gzip -9     (fallback, no br in Accept-Encoding)
+     10,637,848 B  a WOFF2 of it — LARGER than plain brotli
+
+   ⚠️ "what a supporting client gets" only became true on 2026-08-09. Until
+   then nothing in the stack could emit brotli — nginx gzipped, Caddy 2 has no
+   brotli compressor, and Cloudflare will not re-compress an already-gzipped
+   origin response — so every visitor got the 12.3 MB gzip and this line was
+   describing a path that did not exist. nginx now serves a precompressed
+   sidecar (docker/nginx/default.conf, `brotli_static`; built by the
+   `font-brotli` Dockerfile stage).
+
+   This is a CFF/OTF font, and WOFF2's compression IS brotli, so re-containering
+   buys essentially NOTHING over letting the transport compress the original.
+   Converting would trade a documented licence position for 0.6% of a megabyte.
+   Don't.
+
+   Budget lifted is not budget ignored, so the weight is kept off the critical
+   path by construction:
+     · font-display:swap — text is never invisible waiting for it;
+     · the face is applied ONLY under .xz-ready, a class app.js adds after
+       first paint (on idle, or immediately on first conversion), so the
+       download does not compete with the page rendering;
+     · it applies to ONE selector and never to body text.
+
+   ONE src, and it is 'opentype': the file is the vendor's OTF. A woff2 entry
+   would mean shipping a modified derivative, which is the thing the licence
+   forbids.  */
+@font-face {
+    font-family: 'ChongXiSeal';
+    src: url('../fonts/chongxi-seal/chongxi_seal.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ── Bamboo ground ────────────────────────────────────────────────────────
+   Vertical fibre instead of the fibrous rice-paper tile: bamboo reads as
+   lengthwise grain. Still one inline SVG data URI — self-hosted by
+   construction. */
+.o-qin .xz-ground {
+    background-color: var(--o-paper);
+    background-image:
+        repeating-linear-gradient(90deg, rgba(111, 86, 56, .05) 0 1px, rgba(111, 86, 56, 0) 1px 7px),
+        radial-gradient(120% 80% at 10% 0%, rgba(255, 250, 232, .7) 0%, rgba(255, 250, 232, 0) 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7 0.04' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23b)' opacity='0.34'/%3E%3C/svg%3E");
+    background-blend-mode: normal, normal, multiply;
+    background-size: auto, auto, 160px 160px;
+}
+
+/* ── The slip strip ───────────────────────────────────────────────────────
+   Wide content scrolls in its OWN container. min-width:0 is load-bearing: a
+   flex/grid ancestor defaults to min-width:auto, which refuses to shrink below
+   its content and lets the overflow escape to the page instead of scrolling
+   here. Without it the whole document scrolls sideways on mobile. */
+.o-qin .xz-strip-wrap {
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.35rem 1rem 1.1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.o-qin .xz-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    position: relative;
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Binding cord — the visual signature of 簡牘. Two hemp cords crossing the
+   strip at the upper and lower third, drawn behind the slips. */
+.o-qin .xz-strip::before,
+.o-qin .xz-strip::after {
+    content: '';
+    position: absolute;
+    left: -1rem; right: -1rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--o-cord) 4%, var(--o-cord) 96%, transparent);
+    opacity: .34;
+    pointer-events: none;
+    z-index: 0;
+}
+.o-qin .xz-strip::before { top: 28%; }
+.o-qin .xz-strip::after { bottom: 22%; }
+
+/* ── One slip ─────────────────────────────────────────────────────────────
+   CLS BY CONSTRUCTION. Width and the seal box height are FIXED in CSS and do
+   not depend on the font. The glyph is centred inside an already-reserved box,
+   so when the 10 MB face finally swaps in it changes what is INSIDE the box and
+   never the box itself. Measured shift contribution: zero. */
+.o-qin .xz-slip {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 var(--xz-slip-w);
+    width: var(--xz-slip-w);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem .35rem .55rem;
+    background: linear-gradient(180deg, var(--o-paper) 0%, var(--o-paper-2) 100%);
+    border: 1px solid var(--o-line-soft);
+    border-radius: 2px;
+    box-shadow: inset 1px 0 0 rgba(255, 250, 232, .55), 0 1px 2px rgba(22, 21, 15, .12);
+}
+
+.o-qin .xz-seal {
+    height: var(--xz-slip-seal);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.05rem;
+    line-height: 1;
+    color: var(--o-ink);
+    /* Deliberately NOT the seal face until .xz-ready — see @font-face above.
+       The fallback is the system 宋体 stack, so an un-swapped slip shows the
+       ordinary character rather than a tofu box. */
+    font-family: var(--o-han);
+}
+.o-qin.xz-ready .xz-seal { font-family: 'ChongXiSeal', var(--o-han); }
+
+/* The blank slip. NOT a tofu box and NOT an error state: a calm, designed,
+   deliberately empty slot — an unwritten slip. A single dry diagonal hairline
+   marks it as intentionally blank rather than broken. */
+.o-qin .xz-seal--blank {
+    background-image: linear-gradient(to top right, transparent calc(50% - .5px), var(--o-line) 50%, transparent calc(50% + .5px));
+    opacity: .5;
+}
+
+.o-qin .xz-modern {
+    margin-top: .3rem;
+    font-family: var(--o-han);
+    font-size: 1.32rem;
+    line-height: 1.15;
+    color: var(--o-ink);
+    text-align: center;
+}
+.o-qin .xz-pinyin {
+    font-family: var(--o-serif);
+    font-style: italic;
+    font-size: .76rem;
+    color: var(--o-ink-soft);
+    text-align: center;
+    min-height: 1.05em;          /* reserved — pinyin may be absent */
+}
+.o-qin .xz-note {
+    margin-top: .18rem;
+    font-family: var(--o-mono);
+    font-size: .56rem;
+    letter-spacing: .04em;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--o-ink-soft);
+    min-height: 1.4em;           /* reserved so captions never shift the row */
+}
+
+/* The ⟡ ambiguity affordance — a simplified character with more than one
+   attested traditional reading. Bronze, not red: cinnabar is reserved. */
+.o-qin .xz-alt {
+    background: none;
+    border: 0;
+    padding: 0 0 0 .14rem;
+    font: inherit;
+    color: var(--o-bronze);
+    cursor: pointer;
+    line-height: 1;
+}
+.o-qin .xz-alt:hover { color: var(--o-ink); }
+.o-qin .xz-slip[data-state="converted"] .xz-modern { border-bottom: 1px dotted var(--o-cord); }
+
+/* ── Rubbing mode 拓片 ────────────────────────────────────────────────────
+   How seal inscriptions are actually reproduced: ink rubbed off a stele, so
+   the characters come out PALE on a dark field. Visually the strongest mode
+   and the highest contrast on the page (13.18). */
+.o-qin .xz-strip-wrap[data-mode="rubbing"] { background-color: #14140f; }
+.o-qin [data-mode="rubbing"] .xz-slip {
+    background: transparent;
+    border-color: rgba(230, 217, 184, .2);
+    box-shadow: none;
+}
+.o-qin [data-mode="rubbing"] .xz-seal,
+.o-qin [data-mode="rubbing"] .xz-modern { color: var(--o-paper); }
+.o-qin [data-mode="rubbing"] .xz-pinyin,
+.o-qin [data-mode="rubbing"] .xz-note { color: var(--o-paper-3); }
+.o-qin [data-mode="rubbing"] .xz-seal--blank {
+    background-image: linear-gradient(to top right, transparent calc(50% - .5px), rgba(230, 217, 184, .45) 50%, transparent calc(50% + .5px));
+}
+
+/* ── Vertical mode 豎 — authentic right-to-left reading order ─────────── */
+.o-qin .xz-strip-wrap[data-mode="vertical"] .xz-strip { flex-direction: row-reverse; }
+.o-qin [data-mode="vertical"] .xz-slip { flex-direction: column; }
+.o-qin .xz-strip-wrap[data-mode="vertical"] .xz-strip::before,
+.o-qin .xz-strip-wrap[data-mode="vertical"] .xz-strip::after { display: none; }
+
+/* ── Controls, input, advisory ────────────────────────────────────────── */
+.o-qin .xz-input {
+    width: 100%;
+    min-height: 92px;
+    padding: .8rem .9rem;
+    font-family: var(--o-han);
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--o-ink);
+    background: rgba(255, 250, 232, .62);
+    border: 1px solid var(--o-line);
+    border-radius: 2px;
+    resize: vertical;
+}
+.o-qin .xz-input:focus { outline: 2px solid var(--o-bronze); outline-offset: 1px; }
+
+.o-qin .xz-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .7rem; }
+.o-qin .xz-modes { display: inline-flex; gap: .3rem; margin-left: auto; }
+.o-qin .xz-modes .o-btn { min-height: 38px; padding: .38rem .8rem; font-size: .86rem; }
+.o-qin .xz-modes .o-btn[aria-pressed="true"] {
+    background: linear-gradient(160deg, var(--o-ink-2), var(--o-ink));
+    color: var(--o-paper);
+    border-color: var(--o-ink);
+}
+
+/* Coverage advisory — the honest note. Bronze keyline, never red: this is
+   information, not an error, and cinnabar belongs to the seal. */
+.o-qin .xz-advisory {
+    margin: .9rem 0 0;
+    padding: .7rem .9rem;
+    font-size: .88rem;
+    line-height: 1.6;
+    color: var(--o-ink);
+    background: rgba(255, 250, 232, .5);
+    border-left: 3px solid var(--o-bronze);
+    border-radius: 2px;
+}
+.o-qin .xz-advisory strong { color: var(--o-ink); }
+
+.o-qin .xz-method {
+    margin-top: .9rem;
+    font-size: .82rem;
+    line-height: 1.65;
+    color: var(--o-ink-soft);
+}
+.o-qin .xz-credit {
+    margin-top: .7rem;
+    font-family: var(--o-mono);
+    font-size: .68rem;
+    line-height: 1.6;
+    color: var(--o-ink-soft);
+}
+.o-qin .xz-credit a { color: var(--o-bronze); }
+
+/* Daily chengyu block — server-rendered, never inserted post-paint. */
+.o-qin .xz-daily { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid var(--o-line-soft); }
+.o-qin .xz-daily-head {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    align-items: baseline; justify-content: space-between;
+}
+.o-qin .xz-daily-gloss { margin: .5rem 0 0; font-size: .92rem; line-height: 1.6; color: var(--o-ink); }
+
+/* ── Narrow viewports ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .o-scope.o-qin { --xz-slip-w: 62px; --xz-slip-seal: 62px; }
+    .o-qin .xz-seal { font-size: 2.5rem; }
+    .o-qin .xz-modern { font-size: 1.16rem; }
+    .o-qin .xz-modes { margin-left: 0; }
+}
+
