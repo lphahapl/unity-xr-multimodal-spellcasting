@@ -1,0 +1,124 @@
+{
+  "PedestalBody": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": 0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "PedestalBody": {
+        "verts": 4904,
+        "faces": 9572,
+        "tris": 9572,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 59,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 36.4
+      }
+    },
+    "extentsMeters": [
+      0.85,
+      0.85,
+      0.65
+    ],
+    "all_materials": [
+      "B1BodyAtlas"
+    ],
+    "edgesByNumberOfFaces": {
+      "2": 14358
+    }
+  },
+  "RightSlidingPin": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "asset lowest point z=0.616 (not resting on ground plane z=0)"
+    ],
+    "ground_z": 0.616,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "RightSlidingPin": {
+        "verts": 224,
+        "faces": 432,
+        "tris": 432,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 4,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 80.1
+      }
+    },
+    "extentsMeters": [
+      0.092,
+      0.042,
+      0.03295
+    ],
+    "all_materials": [
+      "B1PinAtlas"
+    ],
+    "edgesByNumberOfFaces": {
+      "2": 648
+    }
+  },
+  "B1BodyColdFBX": {
+    "triangles": 9572,
+    "meters": [
+      0.85,
+      0.65,
+      0.85
+    ],
+    "uvLayers": 1
+  },
+  "B1PinColdFBX": {
+    "triangles": 432,
+    "meters": [
+      0.092,
+      0.03295,
+      0.042
+    ],
+    "uvLayers": 1
+  }
+}
