@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-27T06:32:35.286050+08:00",
+  "scope": "Desktop Unity Play: no XR, official Meta feature extractor on synthetic joint time series. Private fixture save only. Formal project not edited.",
+  "candidate": {
+    "Assets/Samples/ToolBeltItems/AllItemsLab.unity": {
+      "before": "39de0dfebe239e7e8da8ecbbffc189dcbe0ccc19428ba65f11328eb171442af0",
+      "after": "75c2d59e5c5342a5d220fb9c715889a6e44826999c0a8ab6f4997a7b96f32dea"
+    },
+    "docs/guides/ALL_ITEMS_LAB_ZH.md": {
+      "before": "e877c32462d9dde9ac8a8c6cd24757e2488864d7cb34cfcfffd5c8f6676010ba",
+      "after": "9249cf6ea9cb3f46e748cd34f16f164ea75a1debd11f0e76a618a1a0da8abf25"
+    }
+  },
+  "integrated": {
+    "Assets/scripts/logic/Interaction/Items/HandPickupQuery.cs": {
+      "before": "ac1da97940ab5bde685073f42ed5bc9f6734e7b7e78d21e40d6889ae4fffa1e0",
+      "after": "d9993162a83f42ec6371fb187b378151db9eb1c4814d5a2e0bca2594bedc7142",
+      "from": "D:\\Temp\\AllItemsRayFix1127\\candidate\\Assets\\scripts\\logic\\Interaction\\Items\\HandPickupQuery.cs"
+    },
+    "Assets/Art/Props/TravelRation/TravelRationBiscuit.asset": {
+      "before": "73bcdf916da54d5da034a12237712d6bd16e5afd27f47be5484ddc8857fddfe0",
+      "after": "7d814d0648274a57b4d26410339029e62e867a0af019e03b8fd17d1a8be1f57f",
+      "from": "D:\\Temp\\AllItemsEatFix1127\\candidate\\Assets\\Art\\Props\\TravelRation\\TravelRationBiscuit.asset"
+    },
+    "Assets/Art/Props/TravelRation/TravelRationPouch.prefab": {
+      "before": "3f766cc164b531ecbf8c8397d655d31d9c2cee61cdf31aadded6f0d9d53d1eba",
+      "after": "e5d86a6a9b9745fd367fa9b0fa4e7fb8867fc13869e01643d4f62d4f2ca37629",
+      "from": "D:\\Temp\\AllItemsEatFix1127\\candidate\\Assets\\Art\\Props\\TravelRation\\TravelRationPouch.prefab"
+    },
+    "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs": {
+      "before": "125d909622e572f00fb9c2bd2fdf46c50d192076031c388018a96be0ac5e6092",
+      "intermediate": "40abb14cc5f52e411ebad98e704c22939c89914a0841e96b60689dbab2091a76",
+      "after": "8042def41b7f3c98a57b993c3739859c24e2c38e8c7dab170009d9fbd7e5e75d",
+      "from": "D:\\Temp\\AllItemsEatFix1127\\wrist\\candidate\\Assets\\scripts\\logic\\Interaction\\Items\\TravelRationInteraction.cs"
+    },
+    "Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs": {
+      "before": "5a062ff822c453cb174f99e1f9461dc2abc68da700e8d8e06de87d24bd10b105",
+      "after": "65f13268e5680e05cf273fed19c2ce61779f5526cacfd53832883ff3f6bf7b3b",
+      "from": "D:\\Temp\\AllItemsEatFix1127\\candidate\\Assets\\scripts\\logic\\Interaction\\Items\\TravelRationPouch.cs"
+    }
+  },
+  "foodFixture": "c0d3436bb46421832e1890034e7cecf60f60400c83db99c57b833090205a21cc",
+  "receipts": {
+    "red-checks.txt": "0527b5890dd4a995aeb64864b4a10658da5a825f84c74bc1d2d7b1b1ab8c3dfd",
+    "final-walk-checks.txt": "08326cd063ea1e24692ae083c174871c51f60fad265a12512aa29b336d09ef1e",
+    "final-checks.txt": "9d999d89a8e12730f001e2bc8f3f00f473f6f48bd820f54f97038491e2b00a3c",
+    "final-food/checks.txt": "844f15b70f5e005418ff6c0afffef172cdda2997c57367091d0d1b8416cb0f39",
+    "final-walk.log": "b1bc73d440b6b746856a9a182070ce412e4e9d4470f17786145cbd72e86e128f",
+    "combined-joint.log": "2d334deb22a45bc0860c6c2a533ee3300dfc4eec6bb8deea87c58ad2b96bf9d3",
+    "final-food.log": "5f21b02303aa23cf9a2a59c6052b1478c648de7f284c07811ae16defee7f4537"
+  }
+}

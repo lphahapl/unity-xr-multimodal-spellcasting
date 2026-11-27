@@ -1,0 +1,50 @@
+隔离Play硬件XR自动初始化=False，活动显示子系统=0，原XR玩家和双手保留。
+祭坛独立测试用正式绘桥目标的完成回调进入对应阶段；未模拟书写和指岸。
+新档=qa-quest-patrol-955e1922cecc481fa7f03a758576d171.json 站点=(-9.1214, 80.0000, 43.0000) 模拟眼高=1.20000 原摄像机=CenterEyeAnchor 有效=True
+线外 租约/控制器=stone-carrier=1/-6170,canjiou=2/-6478,zhihuocanji=3/-6706 石/刚体=-6336/-6332 新建=3 取池=0
+配置 stone-carrier patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.80000
+配置 canjiou patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.80000
+配置 zhihuocanji patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.85000
+几何清单 CanJiOu_Room(Clone) 身体/手持蒙皮=CanJiOu_Body/CanJiOu_Body(5301) prop=False 独立刚性附件=01_HewnGreywacke_RecessedSeals rock=True|02_BronzeGirth_EastWest rock=True|03_BronzeGirth_FrontBack rock=True|04_InsetLoadShoe rock=True|05_FrontScarfPlate rock=True|06_FrontPeen_1 rock=True|06_FrontPeen_2 rock=True|07_CrownPeen rock=True
+几何清单 CanJiOu_Room(Clone) 身体/手持蒙皮=CanJiOu_Body/CanJiOu_Body(5301) prop=False 独立刚性附件=
+几何清单 ZhiHuoCanJi_Enemy(Clone) 身体/手持蒙皮=ZhiHuoCanJi/ZhiHuoCanJi(4259) prop=False 独立刚性附件=
+蒙皮世界坐标校准 CanJiOu_Room(Clone) CanJiOu_Body basis=0 RMS_m=0.002156 足部权重≥0.5顶点=522 手部权重≥0.5顶点=254 collider=SphereCollider:头部受击区 trigger=False|SphereCollider:后脑弱点 trigger=True|SphereCollider:近距探测范围 trigger=True|CapsuleCollider:身体受击区 trigger=False|BoxCollider:BallastStone(Clone) trigger=False
+蒙皮世界坐标校准 CanJiOu_Room(Clone) CanJiOu_Body basis=0 RMS_m=0.001727 足部权重≥0.5顶点=522 手部权重≥0.5顶点=254 collider=SphereCollider:头部受击区 trigger=False|SphereCollider:后脑弱点 trigger=True|SphereCollider:近距探测范围 trigger=True|CapsuleCollider:身体受击区 trigger=False
+蒙皮世界坐标校准 ZhiHuoCanJi_Enemy(Clone) ZhiHuoCanJi basis=0 RMS_m=0.000966 足部权重≥0.5顶点=300 手部权重≥0.5顶点=352 collider=CapsuleCollider:ZhiHuoCanJi_Enemy(Clone) trigger=False|SphereCollider:Proximity trigger=True
+PASS 1.68m对照眼位可见且无遮挡 3/3，点位=(-9.1214, 81.6800, 43.0000)
+preview stone-carrier n=239 path_m=3.16868 away_m=3.16868 mean_mps=0.39609 max_mps=0.40003 visible=239/239 state=Patrol
+preview canjiou n=239 path_m=4.16879 away_m=2.27522 mean_mps=0.52110 max_mps=0.65005 visible=239/239 state=Patrol
+preview zhihuocanji n=239 path_m=0.00000 away_m=0.00000 mean_mps=0.00000 max_mps=0.00000 visible=239/239 state=Idle
+PASS 线外拒绝实际受击 stone-carrier
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 stone-carrier
+PASS 两名巡逻守敌各自至少半程可见 stone-carrier 239/239
+PASS 8秒预巡逻地面净位移≥0.7m stone-carrier 实际=3.16868
+PASS 线外拒绝实际受击 canjiou
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 canjiou
+PASS 两名巡逻守敌各自至少半程可见 canjiou 239/239
+PASS 8秒预巡逻地面净位移≥0.7m canjiou 实际=2.27522
+PASS 线外拒绝实际受击 zhihuocanji
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 zhihuocanji
+PASS 进入前无人攻击、无火核、无伤害、未开战
+过线同批 租约/控制器=stone-carrier=1/-6170,canjiou=2/-6478,zhihuocanji=3/-6706 石/刚体=-6336/-6332 新建=3 取池=0
+新火核 frame=297 phase=engaged id=-7066 shooter=-6706 from=(-4.7284, 80.7305, 32.5017)
+实伤 frame=332 zhihuocanji enemy:3de94e134b964a34a4200ce923af3470:1 target=69988 amount=40.00000 point=(-9.0596, 80.0900, 37.9129)
+engaged stone-carrier n=90 path_m=1.18675 away_m=1.18675 mean_mps=0.39558 max_mps=0.40003 visible=90/90 state=Patrol
+engaged canjiou n=90 path_m=1.47055 away_m=1.32686 mean_mps=0.49018 max_mps=1.15003 visible=90/90 state=Chase
+engaged zhihuocanji n=90 path_m=0.68665 away_m=0.68665 mean_mps=0.22888 max_mps=0.95004 visible=90/90 state=Chase
+PASS 非致命实际受击改为撤离
+PASS 撤离目标与原巡逻点一致且完整可达 marker=示例落石 target=(-9.1214, 80.0833, 29.0000) path=PathComplete corners=(-9.1214, 80.0833, 30.6046)/(-9.1214, 80.0833, 29.0000) from=1.60456
+实伤 frame=416 canjiou enemy:5efeeda2db134d54bc967b0eeafcda62:1 target=69988 amount=8.00000 point=(-9.1214, 81.2000, 38.0000)
+retreat stone-carrier n=78 path_m=1.11833 away_m=1.11833 mean_mps=0.43013 max_mps=0.61998 visible=78/78 state=Idle
+retreat canjiou n=78 path_m=1.37999 away_m=1.37999 mean_mps=0.53076 max_mps=1.15003 visible=78/78 state=Attack
+retreat zhihuocanji n=78 path_m=1.10334 away_m=1.10334 mean_mps=0.42436 max_mps=0.95004 visible=15/78 state=Attack
+PASS 工奴受击实际撤离 1.11833m
+PASS 撤离实际接近该巡逻点 from=1.60456 to=0.48623
+PASS 三人都在场时当前掷火实例新火核=1 玩家实伤=1 攻击开始=2
+PASS 实际击杀 stone-carrier
+PASS 第1亡 原落石=-6336/-6332 清场=False 事件=0
+PASS 实际击杀 canjiou
+PASS 第2亡 原落石=-6336/-6332 清场=False 事件=0
+PASS 实际击杀 zhihuocanji
+PASS 第3亡 原落石=-6336/-6332 清场=True 事件=1
+PASS TOTAL

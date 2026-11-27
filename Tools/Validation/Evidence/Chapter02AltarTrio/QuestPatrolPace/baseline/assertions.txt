@@ -1,0 +1,40 @@
+祭坛独立测试用正式绘桥目标的完成回调进入对应阶段；未模拟书写和指岸。
+新档=qa-quest-patrol-8c2c3a4034b9405a9bfd9f8867ce8475.json 站点=(-9.1214, 80.0000, 43.0000) 模拟眼高=1.11760 原摄像机=CenterEyeAnchor 有效=True
+线外 租约/控制器=stone-carrier=1/-6156,canjiou=2/-6464,zhihuocanji=3/-6692 石/刚体=-6322/-6318 新建=3 取池=0
+配置 stone-carrier patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.80000
+配置 canjiou patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.80000
+配置 zhihuocanji patrol=0.90000 chase=2.00000 scale=(1.0000, 1.0000, 1.0000) nav-height=1.85000
+几何清单 CanJiOu_Room(Clone) 身体/手持蒙皮=CanJiOu_Body/CanJiOu_Body(5301) prop=False 独立刚性附件=01_HewnGreywacke_RecessedSeals rock=True|02_BronzeGirth_EastWest rock=True|03_BronzeGirth_FrontBack rock=True|04_InsetLoadShoe rock=True|05_FrontScarfPlate rock=True|06_FrontPeen_1 rock=True|06_FrontPeen_2 rock=True|07_CrownPeen rock=True
+几何清单 CanJiOu_Room(Clone) 身体/手持蒙皮=CanJiOu_Body/CanJiOu_Body(5301) prop=False 独立刚性附件=
+几何清单 ZhiHuoCanJi_Enemy(Clone) 身体/手持蒙皮=ZhiHuoCanJi/ZhiHuoCanJi(4259) prop=False 独立刚性附件=
+蒙皮世界坐标校准 CanJiOu_Room(Clone) CanJiOu_Body basis=0 RMS_m=0.002156 足部权重≥0.5顶点=522 collider=SphereCollider:头部受击区|SphereCollider:后脑弱点|SphereCollider:近距探测范围|CapsuleCollider:身体受击区|BoxCollider:BallastStone(Clone)
+蒙皮世界坐标校准 CanJiOu_Room(Clone) CanJiOu_Body basis=0 RMS_m=0.001401 足部权重≥0.5顶点=522 collider=SphereCollider:头部受击区|SphereCollider:后脑弱点|SphereCollider:近距探测范围|CapsuleCollider:身体受击区
+蒙皮世界坐标校准 ZhiHuoCanJi_Enemy(Clone) ZhiHuoCanJi basis=0 RMS_m=0.000966 足部权重≥0.5顶点=300 collider=CapsuleCollider:ZhiHuoCanJi_Enemy(Clone)|SphereCollider:Proximity
+preview stone-carrier n=240 path_m=0.00000 away_m=0.00000 mean_mps=0.00000 max_mps=0.00000 visible=240/240 state=Suspended
+preview canjiou n=240 path_m=0.00000 away_m=0.00000 mean_mps=0.00000 max_mps=0.00000 visible=240/240 state=Suspended
+preview zhihuocanji n=240 path_m=0.00000 away_m=0.00000 mean_mps=0.00000 max_mps=0.00000 visible=240/240 state=Suspended
+PASS 线外拒绝实际受击 stone-carrier
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 stone-carrier
+FAIL 8秒预巡逻地面净位移≥0.7m stone-carrier 实际=0.00000
+PASS 线外拒绝实际受击 canjiou
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 canjiou
+FAIL 8秒预巡逻地面净位移≥0.7m canjiou 实际=0.00000
+PASS 线外拒绝实际受击 zhihuocanji
+PASS 线外启用身体网格、原摄像机视锥内、到躯干无遮挡 zhihuocanji
+PASS 进入前无人攻击、无伤害、未开战
+过线同批 租约/控制器=stone-carrier=1/-6156,canjiou=2/-6464,zhihuocanji=3/-6692 石/刚体=-6322/-6318 新建=3 取池=0
+engaged stone-carrier n=90 path_m=1.57480 away_m=1.57480 mean_mps=0.52493 max_mps=0.54005 visible=90/90 state=Patrol
+engaged canjiou n=90 path_m=2.91561 away_m=2.91561 mean_mps=0.97187 max_mps=2.00004 visible=90/90 state=Attack
+engaged zhihuocanji n=90 path_m=1.31555 away_m=1.31555 mean_mps=0.43852 max_mps=2.00000 visible=90/90 state=Chase
+PASS 非致命实际受击改为撤离
+retreat stone-carrier n=78 path_m=1.83591 away_m=1.83591 mean_mps=0.70612 max_mps=0.72001 visible=78/78 state=Patrol
+retreat canjiou n=78 path_m=0.00000 away_m=0.00000 mean_mps=0.00000 max_mps=0.00000 visible=78/78 state=Attack
+retreat zhihuocanji n=78 path_m=2.29332 away_m=2.29332 mean_mps=0.88204 max_mps=1.99999 visible=78/78 state=Attack
+PASS 工奴受击实际撤离 1.83591m
+PASS 实际击杀 stone-carrier
+PASS 第1亡 原落石=-6322/-6318 清场=False 事件=0
+PASS 实际击杀 canjiou
+PASS 第2亡 原落石=-6322/-6318 清场=False 事件=0
+PASS 实际击杀 zhihuocanji
+PASS 第3亡 原落石=-6322/-6318 清场=True 事件=1
+FAIL TOTAL 2

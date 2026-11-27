@@ -1,0 +1,19 @@
+Unity 6000.3.10f1
+sourceSceneSHA256=E7AEB66BBE4F23BD8FF8B209DB005A47565C2E4736F6C92625302145FE785CC6
+PASS 输入是祭坛单工奴版本
+PASS 在原登记后补齐缺少的两只
+PASS 原工奴出生登记不变，新登记各一只
+stone-carrier world_m=(-9.121366, 80.000000, 35.000000) yaw_deg=90.000 marker=背石起始位
+canjiou world_m=(-12.121360, 80.083340, 37.999990) yaw_deg=45.000 marker=普通近战出生点
+zhihuocanji world_m=(-5.121361, 80.083340, 32.999990) yaw_deg=333.435 marker=掷火残机出生点
+PASS 一次 Undo 还原单工奴与原层级
+PASS 一次 Redo 恢复登记、点位和朝向
+PASS 仅保存独立工程内的测试场景
+PASS 重开后重复安装返回 false，场景和磁盘均未改变
+PASS 原工奴的 post、原篮、巡逻点和祭坛以外所有房间的范围、服务、敌人与出生引用完全保留
+PASS 既有三只可自定名字、排列、地面位置和朝向，保持逐项原值
+PASS 重复 ID/锚点拒绝，祭坛和其他房间零改动
+PASS 误配召唤标志拒绝，祭坛和其他房间零改动
+PASS 跨房间锚点拒绝，工坊和祭坛零改动
+PASS 部分已有登记只补缺失项，同时复用预布置的远程锚点
+ALTAR_TRIO_EDIT_PASS

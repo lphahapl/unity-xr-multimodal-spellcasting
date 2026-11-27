@@ -1,0 +1,55 @@
+Private Unity Play, XR off
+canAct=True init=True bagDock=Receiver (NarutoVR.SealCombat.Items.ToolBeltSlot) floor=(120.000, 0.000, 120.000) head=(120.000, 1.230, 120.000) direction=(0.000, 0.000, 1.000)
+Spawn at platform
+One active XR player and one shared belt source
+Visible HP20, MP10 and 4 biscuits
+Center eye camera
+Signs in forward view
+Chinese label has glyphs 铭牌 · 松墨锭
+Chinese label has glyphs 铭牌 · 青铜拓片
+Chinese label has glyphs 铭牌 · 定律铜橛
+Chinese label has glyphs 铭牌 · 铜叶样件
+Chinese label has glyphs 铭牌 · 主榫样件
+Chinese label has glyphs 铭牌 · 腰间取笔和干粮　／　台上五件可远近抓
+Chinese label has glyphs 铭牌 · 气血　度力
+Ground 25 points visually match physical surface <=0.1mm
+干粮远抓：左手从中央袋口远取原干粮包，沿用原所有者
+干粮远抓：未展开时不能隔袋取饼
+干粮远抓：持袋时另一手射线取出一块，尚未消耗
+干粮远抓：短时失追后张手不会误吃或放掉饼
+干粮远抓：重新确认捏合再松手，原饼归包
+干粮远抓：远取归还的同一饼
+干粮远抓：嘴部停留后进入原有最后吸附
+干粮远抓：一块仅结算一次 +15 气血，持续捏合不重发
+干粮远抓：将原包拉远松手，世界内掉落
+干粮远抓：右手射线从世界重新取得同一干粮包
+干粮远抓：右手将包放入原中央口并交回所有权
+pouch retake dock=Receiver (NarutoVR.SealCombat.Items.ToolBeltSlot) snapping=False held=False claim=False belt= canAct=True index=-1
+Grab intact actual pouch for natural floor release
+Far release creates a dynamic world pouch
+Rest pouch grip (120.800, 0.077, 120.220) bottom=-9.641051E-06 speed=0
+Pouch rests on visible floor and remains exposed
+Natural resting bag receives remote highlight
+Natural resting bag is remotely recovered
+Remote ray highlights PhysicalMoGuiPen at (120.155, 0.733, 120.103) first=PhysicalMoGuiPen (UnityEngine.Transform)
+Pinch picked PhysicalMoGuiPen
+Open hand releases PhysicalMoGuiPen
+Remote ray highlights 松墨锭（独立灰盒） at (119.200, 0.980, 121.200) first=松墨锭（独立灰盒） (UnityEngine.Transform)
+Pinch picked 松墨锭（独立灰盒）
+Actual two-hand slide opens ink cover
+Lateral bend separates exactly one scored segment
+Open hand releases 松墨锭（独立灰盒）
+Remote ray highlights 冷铸拓片（独立灰盒） at (119.600, 0.974, 121.350) first=冷铸拓片（独立灰盒） (UnityEngine.Transform)
+Pinch picked 冷铸拓片（独立灰盒）
+Open hand releases 冷铸拓片（独立灰盒）
+Remote ray highlights ChapterStakeGraybox at (120.000, 1.122, 121.420) first=ChapterStakeGraybox (UnityEngine.Transform)
+Pinch picked ChapterStakeGraybox
+Open hand releases ChapterStakeGraybox
+Stake tip plants on the real floor and opens dial
+Remote ray highlights 铜叶 · 取放样品 at (120.400, 0.967, 121.350) first=铜叶 · 取放样品 (UnityEngine.Transform)
+Pinch picked 铜叶 · 取放样品
+Open hand releases 铜叶 · 取放样品
+Remote ray highlights WhiteboxMasterTenon at (120.800, 1.167, 121.200) first=WhiteboxMasterTenon (UnityEngine.Transform)
+Pinch picked WhiteboxMasterTenon
+Open hand releases WhiteboxMasterTenon
+PASS END

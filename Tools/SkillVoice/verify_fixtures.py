@@ -15,7 +15,7 @@ def main():
     rate = 16000
     cases = []
     samples = {}
-    for name, phrase in [("shield", "护体咒"), ("fireball", "火球术"), ("cancel", "取消施法"), ("negative", None)]:
+    for name, phrase in [("shield", "衡印"), ("fireball", "火球术"), ("cancel", "取消施法"), ("negative", None)]:
         audio, sr = read_wav(ROOT / "fixtures" / (name + ".wav"))
         assert sr == rate
         samples[name] = audio
@@ -24,7 +24,7 @@ def main():
     gap = np.zeros(rate, dtype="float32")
     cases.append(("sequence_and_repeat", np.concatenate([samples["shield"], gap, samples["fireball"], gap,
                                                         samples["cancel"], gap, samples["shield"]]),
-                  ["护体咒", "火球术", "取消施法", "护体咒"]))
+                  ["衡印", "火球术", "取消施法", "衡印"]))
     report = {"model": MODEL.name, "synthetic_tts_only": True, "human_accuracy_tested": False, "cases": []}
     for name, audio, expected in cases:
         decoder = Decoder(kws, args)

@@ -1,0 +1,200 @@
+{
+  "scene": "D:\\UnityProjects\\mr-aiwo-education-science\\Assets\\_Project\\Scenes\\s1-e01-space-journey.unity",
+  "sha256": "ec7f80bc147c85421b91d39b917fbc2cd824026355cf68888d895bde22d18e9c",
+  "managed": [
+    [
+      "Rocket_Booster",
+      "0"
+    ],
+    [
+      "Rocket_Booster",
+      "0"
+    ],
+    [
+      "Rocket_Middle",
+      "0"
+    ],
+    [
+      "Rocket_Booster",
+      "0"
+    ],
+    [
+      "HGun",
+      "1"
+    ],
+    [
+      "Rocket_Top",
+      "0"
+    ],
+    [
+      "OGun",
+      "1"
+    ],
+    [
+      "Rocket_Booster",
+      "0"
+    ],
+    [
+      "Rocket_Bottom",
+      "0"
+    ]
+  ],
+  "interactors": [
+    {
+      "name": "DistanceControllerHandGrabInteractor",
+      "origin": "FilteredWristPoint",
+      "delay": "0.1",
+      "frustums": {
+        "selection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "10"
+        },
+        "deselection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "20"
+        },
+        "aid": {
+          "_minLength": "0.4",
+          "_maxLength": "5",
+          "_radiusStart": "0.15",
+          "_apertureDegrees": "25"
+        }
+      }
+    },
+    {
+      "name": "DistanceControllerHandGrabInteractor",
+      "origin": "FilteredWristPoint",
+      "delay": "0.1",
+      "frustums": {
+        "selection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "10"
+        },
+        "deselection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "20"
+        },
+        "aid": {
+          "_minLength": "0.4",
+          "_maxLength": "5",
+          "_radiusStart": "0.15",
+          "_apertureDegrees": "25"
+        }
+      }
+    },
+    {
+      "name": "DistanceHandGrabInteractor",
+      "origin": "FilteredWristPoint",
+      "delay": "0.1",
+      "frustums": {
+        "selection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "10"
+        },
+        "deselection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "20"
+        },
+        "aid": {
+          "_minLength": "0.4",
+          "_maxLength": "5",
+          "_radiusStart": "0.15",
+          "_apertureDegrees": "25"
+        }
+      }
+    },
+    {
+      "name": "DistanceHandGrabInteractor",
+      "origin": "FilteredWristPoint",
+      "delay": "0.1",
+      "frustums": {
+        "selection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "10"
+        },
+        "deselection": {
+          "_minLength": "0.05",
+          "_maxLength": "5",
+          "_radiusStart": "0.03",
+          "_apertureDegrees": "20"
+        },
+        "aid": {
+          "_minLength": "0.4",
+          "_maxLength": "5",
+          "_radiusStart": "0.15",
+          "_apertureDegrees": "25"
+        }
+      }
+    }
+  ],
+  "managedDescendantGrabTypes": [
+    {
+      "owner": "Rocket_Booster",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Bottom",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Booster",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Top",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "OGun",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "HGun",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Middle",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Booster",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    },
+    {
+      "owner": "Rocket_Booster",
+      "name": "ISDK_DistanceHandGrabInteraction",
+      "grabTypes": "3",
+      "script": "{fileID: 11500000, guid: baed3e011583e1844a6e85b1cd0657f2, type: 3}"
+    }
+  ]
+}

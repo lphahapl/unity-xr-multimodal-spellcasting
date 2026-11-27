@@ -197,9 +197,9 @@ public static class EnemyAnimationContinuityChecks
         for(int i=0;i<360;i++)
         {
             Step(e);
-            var state=e.animator.GetCurrentAnimatorStateInfo(0);
             bool acting=e.CurrentBehaviour.ToString()==reaction.ToString();
-            bool visible=state.IsName("Base Layer."+reaction) || e.animator.IsInTransition(0);
+            e.Entity.ReadReactionAnimation(reaction, out bool active, out bool transitioning);
+            bool visible = active || transitioning;
             if(acting&&visible) {played=true;postMotion=Mathf.Max(postMotion,Displacement(bones,before));}
             orphan=acting&&!visible?orphan+1:0;longest=Math.Max(longest,orphan);
             if(!acting){released=true;break;}

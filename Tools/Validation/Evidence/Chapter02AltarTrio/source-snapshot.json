@@ -1,0 +1,104 @@
+{
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "sceneSha256": "e7aeb66bbe4f23bd8ff8b209db005a47565c2e4736f6c92625302145fe785cc6",
+  "rooms": [
+    {
+      "componentId": 1288984683,
+      "path": "③ 工坊清场与④主榫归座/工坊实际院坪区域/F1/F2 屋顶预置",
+      "spawnPoints": [],
+      "preplaced": [
+        "1220357629",
+        "1359819331"
+      ]
+    },
+    {
+      "componentId": 1486636670,
+      "path": "02 · 祭坛战场  +80 m/首次接敌线/祭坛工奴 · 接敌区域",
+      "spawnPoints": [
+        {
+          "enemyId": "stone-carrier",
+          "anchor": "02 · 祭坛战场  +80 m/背石起始位",
+          "isSummoned": 0
+        }
+      ],
+      "preplaced": []
+    },
+    {
+      "componentId": 1804162018,
+      "path": "③ 工坊清场与④主榫归座/工坊实际院坪区域/院场精英租约",
+      "spawnPoints": [
+        {
+          "enemyId": "elite-canjiou",
+          "anchor": "03 · 失衡工坊战区  ±0 m/空地中央/精英出生位",
+          "isSummoned": 0
+        }
+      ],
+      "preplaced": []
+    }
+  ],
+  "altarMarkers": [
+    {
+      "path": "02 · 祭坛战场  +80 m/背石起始位",
+      "localPosition": "{x: 15, y: 0, z: 11}"
+    },
+    {
+      "path": "02 · 祭坛战场  +80 m/首次接敌线/祭坛工奴 · 接敌区域",
+      "localPosition": "{x: 0, y: 0, z: 0}"
+    },
+    {
+      "path": "02 · 祭坛战场  +80 m/首次接敌线",
+      "localPosition": "{x: 9, y: 0, z: 11}"
+    }
+  ],
+  "entries": [
+    {
+      "id": "stone-carrier",
+      "name": "背石工奴",
+      "definition": "Assets/ScriptableObjects/敌人定义配置/背石工奴.asset",
+      "definitionGUID": "dcf3667c5b09b3448ac8eb18f52cf30d",
+      "prefab": "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab",
+      "prefabGUID": "f3e018d3130a4af41b0e8e6d6ca30331",
+      "address": "enemies/canjiou"
+    },
+    {
+      "id": "canjiou",
+      "name": "残机偶",
+      "definition": "Assets/ScriptableObjects/敌人定义配置/残机偶.asset",
+      "definitionGUID": "255c44f9f0294f148acf0660fcb9957e",
+      "prefab": "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab",
+      "prefabGUID": "f3e018d3130a4af41b0e8e6d6ca30331",
+      "address": "enemies/canjiou"
+    },
+    {
+      "id": "zhihuocanji",
+      "name": "掷火残机",
+      "definition": "Assets/ScriptableObjects/敌人定义配置/掷火残机.asset",
+      "definitionGUID": "3ca0160aa43e3e04f82b81214dd4d179",
+      "prefab": "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab",
+      "prefabGUID": "5e11519f2781b0f468d0ddbf8103df43",
+      "address": "enemies/zhihuocanji"
+    }
+  ],
+  "assets": {
+    "Assets/AddressableAssetsData/AssetGroups/Enemies_Local.asset": "4599b0713d71fb075b6bd8c2a39ad431e4b17c3afc2d583c45c1a7101144c009",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller": "bcf7382520085863f63fc66edd982e31451307c113460dddbdb19705c5f2c95b",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkCarryingPerson.fbx": "5477a0519ec6bf3d2dcabeb2776368fb057a8c92aa1c687df31af97ed8d6c909",
+    "Assets/Art/Enemies/CanJiOu/BallastStone.prefab": "dcbffbd58c8f88294918dfc7de556a6d6c8cb81d2942152f77c8b94b1cde0689",
+    "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab": "515a0bc0845a03ef263cc6dcafa09463d02ee0e2e1b5f02b5fd28eb7a123d62f",
+    "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab.meta": "ed8ad5c8ec59e1e1ec238b92f0e6ba8002a55f1b508dbf2dd1654f70bea2b1f2",
+    "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab": "5c6f8d6244f1f8a3817ef1314f78029c45d23c39f3d7c0f440f060de9349c0bb",
+    "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab.meta": "65bc1d85335fe880227a985cfb0edcfa973421e4f7836ea68e9b4c65a0c975cf",
+    "Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoFireCore.prefab": "09be15f45baf273a19b5b12e05d3d001eed2b99bac3598cc8603fdc19250f9a7",
+    "Assets/ScriptableObjects/敌人定义配置/掷火残机.asset": "db8dd8c80a140f7828b09d9099e135e257b69cc6411231fef825aa9939a5402e",
+    "Assets/ScriptableObjects/敌人定义配置/掷火残机.asset.meta": "d15049b2dbec87f54f4e2157bc4e1b3f583070a5a3dae01b1540bb07db18fb40",
+    "Assets/ScriptableObjects/敌人定义配置/残机偶.asset": "313aa57aa3eb22b5495ddd3cacd6ebb287edeede2f44a05cd043ca453abfe5a5",
+    "Assets/ScriptableObjects/敌人定义配置/残机偶.asset.meta": "1f716fdb604f32f72e0a271fb58a43ca7c0e53baed4318d236236a4a8ad45546",
+    "Assets/ScriptableObjects/敌人定义配置/背石工奴.asset": "8a8c160ac471e2ed63f40676cf013a8fdc98a277ca26611e1c391ef76b9e0f7d",
+    "Assets/ScriptableObjects/敌人定义配置/背石工奴.asset.meta": "9c92bb68e6520b2a3f885ce779d094e3d645e2b53588f75fbe73880334e66bd3",
+    "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset": "408baf739b8647b057ffa8f3a2a72933cdc4a4016332b0f9115ed9eb923012da",
+    "Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset": "3ad09174e845731b339a0586b41ac0f344f1803adfd5166398ab3771a12bb068",
+    "Assets/ScriptableObjects/敌人目录配置/本关怪物目录.asset": "fb557be827aff60dea5fb11d18a5656713912a0699a23d7595abf7767096a4a5",
+    "Assets/scripts/logic/Enemies/Spawning/EnemyManager.cs": "9f02a710c4401a944049b5354f2825379b4bb7bdc51ad26a8093466acaa9cf38",
+    "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs": "573edc5ce42059d4d7f5e66dd62da7fe2b59c94235506bdbbfd75f6b14e4d20d"
+  }
+}

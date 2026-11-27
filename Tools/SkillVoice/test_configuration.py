@@ -13,7 +13,7 @@ from configuration import load_configuration, materialize_keywords, normalize_ph
 BASE = {
     "schema": 1, "cancelPhrase": "取消施法", "unityPort": 47831, "servicePort": 47832,
     "keywords": [
-        {"phrase": "护体咒", "tokens": "h ù t ǐ zh òu"},
+        {"phrase": "衡印", "tokens": "h éng y ìn"},
         {"phrase": "火球术", "tokens": "h uǒ q iú sh ù"},
         {"phrase": "取消施法", "tokens": "q ǔ x iāo sh ī f ǎ"},
     ],
@@ -38,7 +38,7 @@ class ConfigurationTests(unittest.TestCase):
     def test_default_json_wins_over_legacy_file(self):
         path = self.export()
         config = load_configuration(self.root)
-        self.assertEqual(config.phrases, ("护体咒", "火球术", "取消施法"))
+        self.assertEqual(config.phrases, ("衡印", "火球术", "取消施法"))
         self.assertEqual(config.source, str(path.resolve()))
 
     def test_fourth_phrase_is_accepted_by_cli_without_code_changes(self):

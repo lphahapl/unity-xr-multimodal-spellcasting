@@ -1,0 +1,114 @@
+diff --git a/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopTenonAssembly.cs b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopTenonAssembly.cs
+--- a/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopTenonAssembly.cs
++++ b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopTenonAssembly.cs
+@@ -50,7 +50,7 @@
+             var descent=Stage("CH02_B_DESCENT","呼唤 B 篮","中枢已归正，在分控台操作 B 篮。");
+             var checkpoint=Child(root.transform,"④ 中控返程检查点",Find(scene,"中控操作位").position).gameObject.AddComponent<NavigationNode>();
+             checkpoint.nodeId="CH02_HUB";
+-            var obj=BindWorkshop(scene,player,manager,workshop,AssetDatabase.LoadAssetAtPath<GameObject>(ReviewProp));
++            var obj=BindWorkshop(scene,player,manager,workshop,AssetDatabase.LoadAssetAtPath<GameObject>(ReviewProp), includeReviewJaws:true);
+             var next=root.AddComponent<SignalChapterObjective>();
+             flow.stages=new[]{new ChapterObjectiveStage{stage=workshop,objectives=new ChapterObjective[]{obj}},new ChapterObjectiveStage{stage=descent,objectives=new ChapterObjective[]{next}}};
+             player.ConfigureRoute(new[]{workshop,descent},new[]{checkpoint,checkpoint}); flow.finalCheckpoint=checkpoint;
+@@ -135,7 +135,7 @@
+             return Child(root,"主榫插入端 · 取用座",stand.TransformPoint(top));
+         }
+ 
+-        public static WorkshopTenonObjective BindWorkshop(Scene scene,LinearRpgController player,EnemyManager manager,RpgStageDefinition stage,GameObject propPrefab,Transform authoredHolder=null)
++        public static WorkshopTenonObjective BindWorkshop(Scene scene,LinearRpgController player,EnemyManager manager,RpgStageDefinition stage,GameObject propPrefab,Transform authoredHolder=null,bool includeReviewJaws=false)
+         {
+             if(!scene.isLoaded || !player || !manager || !stage || !propPrefab || !propPrefab.GetComponent<GameItemBase>() ||
+                player.gameObject.scene!=scene || manager.gameObject.scene!=scene)
+@@ -185,7 +185,9 @@
+                 }
+                 return pair.gameObject;
+             }
+-            obj.closedJaws=Jaws("取用座 · 抱紧",.0725f); obj.openJaws=Jaws("取用座 · 退开",.13f); obj.openJaws.SetActive(false);
++            obj.closedJaws = includeReviewJaws ? Jaws("取用座 · 抱紧",.0725f) : Child(root.transform,"取用座 · 锁定状态",origin).gameObject;
++            obj.openJaws = includeReviewJaws ? Jaws("取用座 · 退开",.13f) : Child(root.transform,"取用座 · 可取状态",origin).gameObject;
++            obj.openJaws.SetActive(false);
+             var at=console.TransformPoint(new Vector3(-.12f,1.028f,0));
+             var zone=Child(root.transform,"方榫中控 · 对位与下压",at).gameObject.AddComponent<WorkshopTenonSocket>();
+             zone.objective=obj; obj.socket=zone;
+diff --git a/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs
+@@ -0,0 +1,69 @@
++using System;
++using System.Collections.Generic;
++using System.Linq;
++using NarutoVR.SealCombat.Items;
++using UnityEditor;
++using UnityEngine;
++
++namespace NarutoVR.SealCombat.Editor
++{
++    // Extract the existing fixed marker so its first pickup removes exactly what was visible on the stand.
++    public static class WorkshopWhiteboxTenon
++    {
++        const string Folder = "Assets/ScriptableObjects/Chapter02Workshop";
++        public const string PrefabPath = Folder + "/WhiteboxMasterTenon.prefab";
++
++        public static GameObject FromStand(MeshFilter stand)
++        {
++            var saved = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
++            if (saved) return saved;
++            const int marker = 3;
++            var mesh = stand ? stand.sharedMesh : null;
++            var renderer = stand ? stand.GetComponent<MeshRenderer>() : null;
++            if (!mesh || mesh.subMeshCount != 5 || !renderer || renderer.sharedMaterials.Length != 5 ||
++                !renderer.sharedMaterials[marker] || renderer.sharedMaterials[marker].name != "WorkshopLimeInlay")
++                throw new InvalidOperationException("当前承座已经替换，请直接传入它的可持主榫 Prefab");
++            var indices = mesh.GetTriangles(marker);
++            var bounds = mesh.GetSubMesh(marker).bounds;
++            if (indices.Length == 0 || Mathf.Abs(bounds.size.y - .35f) > .001f)
++                throw new InvalidOperationException("无法从承座识别原有白盒主榫");
++            var pivot = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
++            var vertices = mesh.vertices;
++            var normals = mesh.normals;
++            var uv = mesh.uv;
++            var source = indices.Distinct().ToArray();
++            var remap = new Dictionary<int,int>();
++            for (int i = 0; i < source.Length; i++) remap.Add(source[i], i);
++            string meshPath = Folder + "/WhiteboxMasterTenon.asset";
++            var part = AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
++            if (!part)
++            {
++                part = new Mesh { name = "白盒主榫", vertices = source.Select(i => vertices[i] - pivot).ToArray() };
++                if (normals.Length == vertices.Length) part.normals = source.Select(i => normals[i]).ToArray();
++                if (uv.Length == vertices.Length) part.uv = source.Select(i => uv[i]).ToArray();
++                part.triangles = indices.Select(i => remap[i]).ToArray();
++                if (normals.Length != vertices.Length) part.RecalculateNormals();
++                part.RecalculateBounds();
++                AssetDatabase.CreateAsset(part, meshPath);
++            }
++            var root = new GameObject("校准主榫 · 现有白盒");
++            try
++            {
++                root.AddComponent<MeshFilter>().sharedMesh = part;
++                root.AddComponent<MeshRenderer>().sharedMaterial = renderer.sharedMaterials[marker];
++                var collider = root.AddComponent<BoxCollider>();
++                collider.center = part.bounds.center;
++                collider.size = part.bounds.size;
++                var item = root.AddComponent<GameItemBase>();
++                item.grip = new GameObject("握心").transform;
++                item.grip.SetParent(root.transform, false);
++                item.grip.localPosition = Vector3.up * .215f;
++                item.insertionTip = root.transform;
++                var prefab = PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
++                if (!prefab) throw new InvalidOperationException("保存白盒主榫失败");
++                return prefab;
++            }
++            finally { UnityEngine.Object.DestroyImmediate(root); }
++        }
++    }
++}
+diff --git a/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs.meta b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Assets/scripts/logic/Editor/WorkshopTenon/WorkshopWhiteboxTenon.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: d95ae8560c47480409c6052e4d38896a
+\ No newline at end of file

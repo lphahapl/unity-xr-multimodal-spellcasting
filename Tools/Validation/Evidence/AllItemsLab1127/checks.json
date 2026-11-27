@@ -1,0 +1,123 @@
+{
+  "time": "2026-11-27T04:22:24+08:00",
+  "unity": "6000.3.10f1",
+  "mode": "isolated desktop Play with simulated input, XR disabled",
+  "headsetPending": true,
+  "deposited": {
+    "unified-play.txt": "45b2a22b17802005c176f188d93d5bc5194af12395c15a3c1bea9b494ba0cad1",
+    "starting-view.png": "cf5e984f5a6f7f7997146067b9f61f697dc442276302ce57f9eff9f3aeb3bac7",
+    "pouch-play.txt": "5b369f616c231f9cd77e588375c07614d6dbe46c5b645817b1761cc073adf129",
+    "held-size.txt": "9a2029f19a3a5d48cb8c11af2e41b5747c24ef5a3d88ef84d4df37e0415a6f2e",
+    "pouch-before.txt": "773fc9a4509e944bf85548ccb39ca9195af5204419a8287dcac497f39270614c",
+    "leaf-play.txt": "76060003ce2d7b0ce396804535cec37551aaa3639cd5d591439066b97d1e50ba",
+    "wrist-play.txt": "551eeadba30581fbe9cee37ef6df7a4603cb72cdebbe035713d061ac85634ce2"
+  },
+  "proofs": {
+    "HeldItemsScale1127": {
+      "Assets/scripts/data/Items/GameItemConfigSO.cs": {
+        "sha256": "185be4b0a05ba46389f5b9408fd823e8002342510ec4a37a975c563d77b3ba03",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/GameItemBase.cs": {
+        "sha256": "b13aee9775b1239d095275307ea98e4922f2618ba49a0d19cf177838e6cb481c",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/ToolBeltSlot.cs": {
+        "sha256": "744d8306b0bf5ae202547ae2c8ecfeb64b76e7edb4cec91d73211982999615f1",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs": {
+        "sha256": "bd3ce1af178d17051c77afa4d27d1ea48524c7ee399aa5da916e437dbfb0a832",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/CooldownStake.cs": {
+        "sha256": "3caa9b8a746ad780f877a3dcc0f8d85707acbf477f400cd80dfa37b8025bda2d",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/ChapterStakeSupply.cs": {
+        "sha256": "0a66173354d4993184b4bd7f8d96a458bb2e0fea7329e982dfc3ebfb7760466b",
+        "match": true
+      },
+      "Assets/scripts/logic/Rpg/WorkshopTenon/WorkshopTenonObjective.cs": {
+        "sha256": "aa42eca045c9de733fff652d3a3751c9b61c33ff79f8b6804be613eff4b255c7",
+        "match": true
+      },
+      "Assets/Samples/ToolBeltItems/MoGuiPenItem.asset": {
+        "sha256": "a369d39e040fc307f4814af9c6b4b4ecd596034e8025a77db6688c0938a1dc2b",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/Sample/ItemLabControls.cs": {
+        "sha256": "618cfc0631c6d029ff1e83f04aa5bc0724bcd42e8deb83e2a2b7895c54996248",
+        "match": true
+      },
+      "Assets/scripts/logic/Editor/Interaction/ItemInteractionLabChecks.cs": {
+        "sha256": "d5dba7598d25f89deda0e17970946e1b9e5e2850f41694825d5d55b5df2c0116",
+        "match": true
+      }
+    },
+    "CopperLeafSize1127": {
+      "Assets/scripts/logic/Rpg/OpeningLeafPuzzle.cs": {
+        "sha256": "95f0ad51f79124523338bfa70d1b1373aa5931d14c1abe1a1c1b6c7a521db84c",
+        "match": true
+      }
+    },
+    "RationReach1127": {
+      "Assets/Samples/ToolBeltItems/TravelRationLab.unity": {
+        "sha256": "b9e66c3071d6dfe58222eb35fbda96698a842f3bf91175a792175bddb4345503",
+        "match": true
+      },
+      "Assets/Art/Props/TravelRation/TravelRationPouch.prefab": {
+        "sha256": "3f766cc164b531ecbf8c8397d655d31d9c2cee61cdf31aadded6f0d9d53d1eba",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/TravelRationPouch.cs": {
+        "sha256": "5a062ff822c453cb174f99e1f9461dc2abc68da700e8d8e06de87d24bd10b105",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/TravelRationInteraction.cs": {
+        "sha256": "125d909622e572f00fb9c2bd2fdf46c50d192076031c388018a96be0ac5e6092",
+        "match": true
+      }
+    },
+    "UnifiedItems1127": {
+      "Assets/Samples/ToolBeltItems/AllItemsLab.unity": {
+        "sha256": "39de0dfebe239e7e8da8ecbbffc189dcbe0ccc19428ba65f11328eb171442af0",
+        "match": true
+      },
+      "Assets/Samples/ToolBeltItems/AllItemsLab.unity.meta": {
+        "sha256": "bcfb4e44013e7e45f2e7bfd17710ba8b64ff383d48b63a573142007df6f5d06c",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/Sample/AllItemsLab.cs": {
+        "sha256": "958195770cfce70cba60ea78c9edba000b5ea0b4967c50c278f7cbac04c8a313",
+        "match": true
+      },
+      "Assets/scripts/logic/Interaction/Items/Sample/AllItemsLab.cs.meta": {
+        "sha256": "4cd6b94ea6aa38a86eea11e75b5f500039d34b941cc21e10f0609beda3fc46ef",
+        "match": true
+      }
+    }
+  },
+  "liveOriginal": {
+    "source": "Logs/QuestFloorContact/20261127-032412-685.jsonl",
+    "samples": 1721,
+    "firstUtc": "2026-11-26T19:24:12.6872372Z",
+    "lastUtc": "2026-11-26T19:27:32.3830336Z",
+    "scene": "Assets/Samples/ToolBeltItems/TravelRationLab.unity",
+    "runtime": "SteamVR/OpenXR",
+    "pickupLeft": {
+      "highlightedFrames": {
+        "TravelRationPouch": 15
+      },
+      "freshPinchDownFrames": {}
+    },
+    "pickupRight": {
+      "highlightedFrames": {
+        "TravelRationPouch": 33,
+        "Biscuit03": 9,
+        "Biscuit04": 2
+      },
+      "freshPinchDownFrames": {}
+    }
+  }
+}

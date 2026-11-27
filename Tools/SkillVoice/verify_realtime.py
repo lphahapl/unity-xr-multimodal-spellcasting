@@ -49,8 +49,8 @@ def main():
                     if packet["kind"] == "phrase":
                         assert mapping is not None and packet["mode"] == "wav-replay"
                         age = now - (packet["ended_at"] + mapping)
-                        assert packet["phrase"] == "护体咒" and 0 <= age < 1
-                        result = {"passed": True, "actual_kws": True, "source": "Windows TTS WAV",
+                        assert packet["phrase"] == "衡印" and 0 <= age < 1
+                        result = {"passed": True, "actual_kws": True, "source": "synthesized Heng WAV",
                                   "phrase": packet["phrase"], "epoch_offset_seconds": epoch_offset,
                                   "measured_offset_seconds": mapping, "mapped_end_to_receive_ms": age * 1000,
                                   "service_processing_latency_ms": packet["processing_latency_ms"],

@@ -1,0 +1,89 @@
+干粮远抓：左手从中央袋口远取原干粮包，沿用原所有者
+干粮远抓：未展开时不能隔袋取饼
+pose L localGrip=(0.0000, 0.0180, -0.0073) up=(0.065, 0.272, 0.960) free=0.2240351 facing=0.2800438
+observed=True lower support, paper bed faces up and leans to other hand
+mesh Biscuit01 local centre=(0.0044, 0.0263, -0.0018) min=(-0.0141, 0.0081, -0.0029) max=(0.0223, 0.0440, -0.0005)
+observed=True stack sits in liner footprint with exposed face 0
+mesh Biscuit02 local centre=(0.0034, 0.0268, 0.0007) min=(-0.0152, 0.0083, -0.0004) max=(0.0216, 0.0447, 0.0020)
+observed=True stack sits in liner footprint with exposed face 1
+observed=True adjacent layers separated in depth, slight stagger 1
+mesh Biscuit03 local centre=(0.0024, 0.0273, 0.0032) min=(-0.0154, 0.0099, 0.0021) max=(0.0196, 0.0443, 0.0045)
+observed=True stack sits in liner footprint with exposed face 2
+observed=True adjacent layers separated in depth, slight stagger 2
+mesh Biscuit04 local centre=(0.0014, 0.0278, 0.0057) min=(-0.0184, 0.0080, 0.0046) max=(0.0208, 0.0469, 0.0069)
+observed=True stack sits in liner footprint with exposed face 3
+observed=True adjacent layers separated in depth, slight stagger 3
+observed=True outer layer only offered to opposite hand
+observed=True ray through underside does not select biscuit
+observed=True exposed edge from free hand is highlighted
+干粮远抓：持袋时另一手射线取出一块，尚未消耗
+observed=True taking first exposes the next layer
+干粮远抓：短时失追后张手不会误吃或放掉饼
+干粮远抓：重新确认捏合再松手，原饼归包
+干粮远抓：远取归还的同一饼
+observed=True release at body returns to home; original size restored
+observed=True right hand ray picks up same docked pouch
+pose R localGrip=(0.0000, 0.0180, -0.0073) up=(-0.065, 0.272, 0.960) free=0.2240351 facing=0.2800438
+observed=True lower support, paper bed faces up and leans to other hand
+observed=True opposite left hand highlights upper biscuit
+observed=True left hand pinches top edge at 10 mm
+stack checks 17/17
+干粮远抓：双手与袋内摆放、外露边取用、归口缩放
+干粮远抓：从袋内取得供角度与停留测试的实饼 0
+干粮远抓：嘴外 17 cm 停留 0.70 秒不吃
+干粮远抓：口边掠过 0.10 秒不吃
+case=0 angle=170 radius=0.052 seconds=0.56 accepted=True
+干粮远抓：一次结算 +15，饼消耗一次
+干粮远抓：持续捏合不会重复回血
+干粮远抓：从袋内取得供角度与停留测试的实饼 1
+干粮远抓：嘴外 17 cm 停留 0.70 秒不吃
+干粮远抓：口边掠过 0.10 秒不吃
+case=1 angle=95 radius=0.064 seconds=0.38 accepted=True
+干粮远抓：一次结算 +15，饼消耗一次
+干粮远抓：持续捏合不会重复回血
+干粮远抓：从袋内取得供角度与停留测试的实饼 2
+干粮远抓：嘴外 17 cm 停留 0.70 秒不吃
+干粮远抓：口边掠过 0.10 秒不吃
+case=2 angle=20 radius=0.070 seconds=0.34 accepted=True
+干粮远抓：一次结算 +15，饼消耗一次
+干粮远抓：持续捏合不会重复回血
+干粮远抓：从袋内取得供角度与停留测试的实饼 3
+干粮远抓：嘴外 17 cm 停留 0.70 秒不吃
+干粮远抓：口边掠过 0.10 秒不吃
+case=3 angle=115 radius=0.048 seconds=0.36 accepted=True
+干粮远抓：一次结算 +15，饼消耗一次
+干粮远抓：持续捏合不会重复回血
+干粮远抓：四种握向接近角均进食，四块共恢复60气血
+干粮远抓：将原包拉远松手，世界内掉落
+干粮远抓：右手射线从世界重新取得同一干粮包
+干粮远抓：右手将包放入原中央口并交回所有权
+干粮远抓：世界新包无原槽记忆，目标槽确实空闲 SoftPouch
+干粮远抓：非中性手腕通过射线取世界新包 0
+干粮远抓：第一帧托面朝上 0
+head-only test side=0 headYaw=80 itemDegrees=0.0000
+observed=True turning head while holding still cannot rotate pouch 0
+observed=True deliberate 43 degree wrist movement turns paper by same amount 0
+observed=True visible pre-release pouch fit matches actual opening SoftPouch
+observed=True 13-degree oblique folded envelope is too thick, with actual grip within 18 mm of central opening
+manual pouch placement side=0 slot=SoftPouch opening=(0.047, 0.068, 0.017) before-release deg=0.000 realDock=SoftPouch fitReason=
+observed=True source-free loose pouch manually seated in requested slot 0
+干粮远抓：世界新包无原槽记忆，目标槽确实空闲 AuthoredWidePocketFixture
+干粮远抓：非中性手腕通过射线取世界新包 1
+干粮远抓：第一帧托面朝上 1
+head-only test side=1 headYaw=80 itemDegrees=0.0000
+observed=True turning head while holding still cannot rotate pouch 1
+observed=True deliberate 43 degree wrist movement turns paper by same amount 1
+observed=True visible pre-release pouch fit matches actual opening AuthoredWidePocketFixture
+manual pouch placement side=1 slot=AuthoredWidePocketFixture opening=(0.086, 0.122, 0.081) before-release deg=0.000 realDock=AuthoredWidePocketFixture fitReason=
+observed=True source-free loose pouch manually seated in requested slot 1
+干粮远抓：世界新包无原槽记忆，目标槽确实空闲 EntryAnchor
+干粮远抓：非中性手腕通过射线取世界新包 1
+干粮远抓：第一帧托面朝上 1
+head-only test side=1 headYaw=80 itemDegrees=0.0000
+observed=True turning head while holding still cannot rotate pouch 1
+observed=True deliberate 43 degree wrist movement turns paper by same amount 1
+observed=True visible pre-release pouch fit matches actual opening EntryAnchor
+manual pouch placement side=1 slot=EntryAnchor opening=(0.038, 0.080, 0.019) before-release deg=0.000 realDock=null fitReason=放入姿态超过开口宽厚或可用深度
+observed=True actual narrower wearable pocket rejected; new pouch dropped
+干粮远抓：左右手世界新包、转头、主动转腕、真实中央与通用开口共 30 项
+PASS END

@@ -1,0 +1,17 @@
+FAIL desk along=0.0000m maxAddedOverlap=0.00000m initialDepth=[0.0350] end=(-8.3814, 80.0000, 59.0300)
+PASS altar-tangent along=0.9881m maxAddedOverlap=0.00016m initialDepth=[0.0000] end=(1.3138, 80.0000, 35.9881)
+FAIL A-rail along=0.0000m maxAddedOverlap=0.00000m initialDepth=[0.0360] end=(6.0000, 0.0000, 18.2590)
+FAIL B-post-release along=0.0000m maxAddedOverlap=0.00000m initialDepth=[0.0320,0.0320] end=(78.2584, 0.0000, 18.2630)
+PASS B-closed-corner end=(78.2257, 0.0000, 22.5043)
+FAIL same-concave-mesh slide along first face, stop at second face of same mesh; local=(0.00000, 0.00000, 0.19600)
+PASS same-concave-mesh can exit same-mesh corner; end=(8.5000, 0.0000, 20.1960)
+PASS deep-overlap travel=0.0000
+PASS thin-wall 8cm wall end=(-9.1200, 80.0000, 57.2310)
+PASS A-cliff end=(-7.6130, 0.0000, 20.4000)
+PASS free 50 x 20ms=0.9500m speed=0.950
+PASS auto-graze ground dwell selected; start=(63.0190, 0.0000, 18.3350)
+FAIL auto-graze distance to destination=1.4629m end=(63.0380, 0.0000, 18.2837)
+PASS auto-block ground dwell selected; start=(63.0190, 0.0000, 18.3350)
+PASS auto-block new 25mm obstacle halted route at (63.3965, 0.0000, 18.3350)
+PASS legacy existing encounter movement checks=52
+assertions=16 failures=5 XR auto=false loaders=0 runningDisplays=0 checked every input frame

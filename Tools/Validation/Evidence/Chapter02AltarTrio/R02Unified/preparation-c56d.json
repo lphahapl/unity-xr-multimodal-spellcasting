@@ -1,0 +1,55 @@
+{
+  "scene": "c56d7380bef12e6104f59a28f1926009e74b425db6c9c62621ee414c142022d2",
+  "registrations": [
+    [
+      "stone-carrier",
+      "298544025",
+      "0"
+    ],
+    [
+      "canjiou",
+      "1373830078",
+      "0"
+    ],
+    [
+      "zhihuocanji",
+      "1595391172",
+      "0"
+    ]
+  ],
+  "previewDistanceMetres": 32,
+  "handPrefabGUIDs": {
+    "Left": "67c4027c76c769346ab6711c6a38d07a",
+    "Right": "7c1640bff2820dd4ebbbc9aca5d3322d"
+  },
+  "clip": "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx",
+  "clipFileID": "-203655887218126122",
+  "clipGuid": "fd6ab94ab06e1b042ae628900e686368",
+  "clipSha256": "44ccd1e720be944546ed8b0bbf6d3e99f918c117181a9bd2e9bad9f59023362d",
+  "pose": "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset",
+  "poseSha256": "bec2500d6c78ff755fbb9e4caefb70e1fc998449ced0bf300a8e2c66bfe88b65",
+  "files": {
+    "Assets/Scene/Chapter02_SuspendedPath.unity": "c56d7380bef12e6104f59a28f1926009e74b425db6c9c62621ee414c142022d2",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller": "62f421f3d789542c9fcc276d14ba39c414cf2054896134b0254b33551af9385f",
+    "Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset": "7efe0cf04be867ec685d736b62981af42ec2f3d17f396822314df6e59f5e755c",
+    "Packages/packages-lock.json": "090d55a2332103cb7a706bb1fd9f65fa8b00614f4f14766c9636aff4560503f4",
+    "Packages/manifest.json": "815dd483f880c7321af2ef360b398bdcb4037a1f89e4b7d138d0d258bf0de6eb",
+    "Assets/Art/Enemies/CanJiOu/BallastStone.prefab": "dcbffbd58c8f88294918dfc7de556a6d6c8cb81d2942152f77c8b94b1cde0689",
+    "Assets/Art/Enemies/CanJiOu/CanJiOu_Room.prefab": "515a0bc0845a03ef263cc6dcafa09463d02ee0e2e1b5f02b5fd28eb7a123d62f",
+    "Assets/scripts/logic/Enemies/StoneCarrier.cs": "0e3566754d4f4982c3f7a43b49da82f763716495da6b1caae85124bc1679a451",
+    "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs": "0fb0aa65aab8c0c5dfecccd59f5707428f3d4a54bc662d9ac4a0b5118e2cd926",
+    "Assets/scripts/logic/Enemies/BallastBasket.cs": "d2a55fcfa2b67d90f0734e186505827a5a08dbcd63aac6d769b9253dbebc0636",
+    "Assets/Art/Glyphs/QianjunTether.asset": "b4f69091f5151927f594691491f9d7114dfa22e4d228d56524e2cd1fe562b20c",
+    "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset": "bec2500d6c78ff755fbb9e4caefb70e1fc998449ced0bf300a8e2c66bfe88b65",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx": "44ccd1e720be944546ed8b0bbf6d3e99f918c117181a9bd2e9bad9f59023362d",
+    "Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset.meta": "fb1afa808948a9935b764570500433c1024f7f23a8cda021a86d1eade05d96d9",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_BackCarryWalk.fbx.meta": "1cce95b821f2ee858556a792598386cb9f6e652078b465bd81bb579abb025a89",
+    "Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset.meta": "b06a067b1f595a827d50a646fde0312983bea804c54d8e0f3232104566fada9b",
+    "Assets/Art/Enemies/CanJiOu/Animations/CanJiOu.controller.meta": "903be2d082fbf9d1016e21f885012b97d77e32f9bc10e87d1b17c2fd80466f7b",
+    "Library/PackageCache/com.meta.xr.sdk.interaction@61177ebcfd9a/Runtime/UnityXR/Prefabs/Hands/UnityXRHandVisualLeft.prefab": "6a1f132a6444866b4ab28c8006c0b216a89631c7ef8c0cf0d6ecab9828493221",
+    "Library/PackageCache/com.meta.xr.sdk.interaction@61177ebcfd9a/Runtime/UnityXR/Prefabs/Hands/UnityXRHandVisualLeft.prefab.meta": "539ec85835504d2063f6c5d808d408651db933185b002646fb69747b2b22c63a",
+    "Library/PackageCache/com.meta.xr.sdk.interaction@61177ebcfd9a/Runtime/UnityXR/Prefabs/Hands/UnityXRHandVisualRight.prefab": "3e8d96338dfc8aa662bb4e25218cfaabf83b42b65422a50d1b9737289d30d6fd",
+    "Library/PackageCache/com.meta.xr.sdk.interaction@61177ebcfd9a/Runtime/UnityXR/Prefabs/Hands/UnityXRHandVisualRight.prefab.meta": "4060203771eeb1abe5c4881558870c572519a1f4de2d1b2b926f3bead312c196"
+  },
+  "playExecuted": false
+}

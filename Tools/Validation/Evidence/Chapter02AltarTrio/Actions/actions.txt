@@ -1,0 +1,37 @@
+2026-11-26T14:55:38.9636348+08:00 Unity 6000.3.10f1
+scene before install=e7aeb66bbe4f23bd8ff8b209db005a47565c2e4736f6c92625302145fe785cc6
+QA scene after install + isolated save=1970e8b79dbe04481269597be8cb69b639fea73b63728af1e7f53bd317ed0722 installerAdded=True
+PASS real RPG damage receiver ready hp=100
+PASS three registered starts stone-carrier=(-9.1214, 80.0000, 35.0000), canjiou=(-12.1214, 80.0833, 38.0000), zhihuocanji=(-5.1214, 80.0833, 33.0000)
+altar navigation Assets/Art/Environment/SuspendedPath/Navigation/Chapter02AltarStoneCarrier_NavMesh.asset sha256=8701c5813dd0d8b770d8ad78f1c9d9cfb61db3d7106a7d029317b37ec5e710a6
+PASS spawn samples stone-carrier (-9.1214, 80.0833, 35.0000)
+PASS spawn samples canjiou (-12.1214, 80.0833, 38.0000)
+PASS spawn samples zhihuocanji (-5.1214, 80.0833, 33.0000)
+QA placed real rig floor=(-9.1214, 80.0000, 40.0000) head=(-9.1214, 81.2000, 40.0000) forward=(0.0000, 0.0000, -1.0000)
+PASS floor entered actual managed room; active=3 status=房间战斗中
+PASS all current actors use authored ordinary AI and the live player's head on NavMesh
+spawn observed carrier=(-9.1214, 80.0833, 35.0000) melee=(-12.1214, 80.0833, 38.0000) ranged=(-5.1214, 80.0833, 33.0000) nav=(0.0000, 0.0000, 0.0000)
+PASS same carried physical stone id=-10662 eight active mesh filters 01_HewnGreywacke_RecessedSeals|02_BronzeGirth_EastWest|03_BronzeGirth_FrontBack|04_InsetLoadShoe|05_FrontScarfPlate|06_FrontPeen_1|06_FrontPeen_2|07_CrownPeen
+carry clip Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_WalkCarryingPerson.fbx sha256=5477a0519ec6bf3d2dcabeb2776368fb057a8c92aa1c687df31af97ed8d6c909
+pose samples Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset sha256=408baf739b8647b057ffa8f3a2a72933cdc4a4016332b0f9115ed9eb923012da
+carrier profile Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset sha256=3ad09174e845731b339a0586b41ac0f344f1803adfd5166398ab3771a12bb068
+carry clip length=2.866667 samples=87 animator=CanJiOu patrol=0.85 retreat=2.1 route=(-9.1214, 80.0000, 29.0000),(-9.1214, 80.0000, 35.0000)
+PASS real patrol distance=0.713 speedMax=0.850 clipPhase=0.0058..0.3140 matching stone poses=54/54
+PASS nonfatal real hit triggered retreat hp=50->49 origin=(-9.1214, 80.0833, 34.2874)
+PASS retreated from attacker distance 5.713->6.073m, endpoint=(-9.1214, 80.0833, 33.9266)
+melee release from isolation (-12.1214, 80.0833, 38.0000) player distance=3.605555 attackDistance=1.6
+melee start index=0 at distance=1.572236 health=100
+melee contact index=0 range=2.1 window=0.55..0.7
+PASS melee discovered via 巡逻视野 and moved 2.033m to (-10.4295, 80.0833, 39.1279) status=攻击动作 0
+PASS melee reached actual damage window, received attackId=enemy:e4f13064a4404227bb1e02e742dd82a0:1 raw damage=8 HP 100->92
+prefab fire core Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoFireCore.prefab sha256=09be15f45baf273a19b5b12e05d3d001eed2b99bac3598cc8603fdc19250f9a7
+PASS ranged live muzzle, warning ring and projectile assigned
+ranged start index=0, dist=8.062
+aim locked clipP=0.5546875 configured=0.55 aim=(-9.1214, 80.0600, 40.0000) ring=(-9.1214, 80.0200, 40.0000) muzzle=(-4.8230, 80.7222, 33.5210)
+QA placed real rig floor=(-10.5714, 80.0000, 40.0000) head=(-10.5714, 81.2000, 40.0000) forward=(0.4961, 0.0000, -0.8682)
+real projectile ZhiHuoFireCore(Clone) id=-11180 launch observed=(-4.8834, 80.6768, 33.5792) muzzleDist=0.1000006 aimAngle=0.1440177 speed=6 attackId=enemy:59e0da20269b4ae9b6793cc8c89f0404:2 progress=0.7109375
+PASS real spawned EnemyFireCore owned by ranged actor and configured speed
+PASS actual pre-release aim remains at original point after moving player 1.45m
+PASS same projectile actual flight 5.500m across 55 frames, aiming at pre-dodge mark angle=0.144
+PASS ranged discovered via 巡逻视野; travel=0.367m yaw from start=39.11 degrees final=(-5.4856, 80.0833, 32.9581) status=前往掷火射位
+TRIO_ACTIONS_PASS 18

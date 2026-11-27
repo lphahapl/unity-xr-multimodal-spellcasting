@@ -1,12 +1,22 @@
 {
-  "source": "Windows System.Speech local TTS",
+  "source": "Windows System.Speech local TTS and Qwen3-TTS narration excerpt",
   "phrases": {
-    "shield": "护体咒",
+    "shield": "衡印",
     "fireball": "火球术",
     "cancel": "取消施法",
     "negative": "今天天气很好，我们出去散步。"
   },
   "note": "合成音仅验证接线与模型可运行，不代表真人准确率",
   "generatedUtc": "2026-10-29T12:28:04.5572904Z",
-  "voice": "Microsoft Huihui Desktop"
+  "voice": "Microsoft Huihui Desktop",
+  "shieldFixture": {
+    "source": "Assets/Resources/Narration/Chapter01/SH01.wav",
+    "sourceSHA256": "b142b5b0bc280481d52135c58514a58ca8f88a555648f3fd7d904e192e88e15f",
+    "engine": "Qwen3-TTS 0.6B Base",
+    "startSeconds": 7.42,
+    "endSeconds": 8.06,
+    "headSilenceSeconds": 0.15,
+    "tailSilenceSeconds": 0.35,
+    "generatedUtc": "2026-11-23T15:12:22.388511+00:00"
+  }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealLab.SealProfile
   sealName: "\u8861\u5370"
   handMode: 1
-  confirmationPrefab: {fileID: 0}
+  confirmationPrefab: {fileID: 479509920300367230, guid: c4f8bdb522c7408495527a52d01d9e5b, type: 3}
   calibrated: 1
   threshold: 0.8
   minimumCoverage: 0.8
@@ -22,110 +22,110 @@ MonoBehaviour:
   holdSeconds: 0.15
   rules:
   - featureId: L.Thumb.Curl
-    min: 189.58035
-    max: 189.58035
+    min: 215.5942
+    max: 217.17111
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Thumb.Flexion
-    min: 338.04987
-    max: 338.04987
+    min: 339.05176
+    max: 343.23773
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Thumb.Abduction
-    min: 50.316982
-    max: 50.316982
+    min: 46.56831
+    max: 47.80194
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Curl
-    min: 196.19153
-    max: 196.19153
+    min: 176.5196
+    max: 176.91388
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Flexion
-    min: 206.21819
-    max: 206.21819
+    min: 183.50056
+    max: 185.46608
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Abduction
-    min: 30.227324
-    max: 30.227324
+    min: 14.860439
+    max: 18.261126
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Index.Opposition
-    min: 0.062392674
-    max: 0.062392674
+    min: 0.08992024
+    max: 0.09118125
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Middle.Curl
-    min: 205.87894
-    max: 205.87894
+    min: 174.66293
+    max: 175.29866
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Flexion
-    min: 188.26823
-    max: 188.26823
+    min: 192.06876
+    max: 192.86429
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Abduction
-    min: 22.482971
-    max: 22.482971
+    min: 102.520485
+    max: 105.57876
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Middle.Opposition
-    min: 0.079027705
-    max: 0.079027705
+    min: 0.09398233
+    max: 0.09535132
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Ring.Curl
-    min: 192.52731
-    max: 192.52731
+    min: 252.27736
+    max: 253.74373
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Flexion
-    min: 212.80116
-    max: 212.80116
+    min: 233.6176
+    max: 236.63608
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Abduction
-    min: 32.420277
-    max: 32.420277
+    min: 19.3808
+    max: 20.858746
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Ring.Opposition
-    min: 0.05460583
-    max: 0.05460583
+    min: 0.026572555
+    max: 0.027716793
     tolerance: 0.015
     weight: 1
     required: 0
   - featureId: L.Max.Curl
-    min: 202.25504
-    max: 202.25504
+    min: 238.39157
+    max: 239.41515
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Max.Flexion
-    min: 225.19057
-    max: 225.19057
+    min: 246.46176
+    max: 248.37248
     tolerance: 15
     weight: 1
     required: 0
   - featureId: L.Max.Opposition
-    min: 0.022189341
-    max: 0.022189341
+    min: 0.033672847
+    max: 0.036886528
     tolerance: 0.015
     weight: 1
     required: 0

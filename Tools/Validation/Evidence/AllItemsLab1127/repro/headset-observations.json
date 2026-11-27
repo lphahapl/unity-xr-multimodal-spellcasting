@@ -1,0 +1,88 @@
+{
+  "recording": {
+    "source": "/sdcard/Oculus/VideoShots/com.valvesoftware.steamlinkvr-20261127-043531-0.mp4",
+    "bytes": 61878948,
+    "sha256": "0fab7ffc5aa2db1ba036ffd0f22317a67691d49bcfbe174be45276ff711a0b0b",
+    "fps": 29.997884796797674,
+    "duration": 158.94454000000002,
+    "frames": 4768,
+    "start": "2026-11-27T04:35:31+08:00"
+  },
+  "sourceType": "Quest 3 recording of Steam Link VR, PC Unity Play",
+  "visibleEvents": [
+    {
+      "seconds": 5,
+      "observation": "铭牌显示气血20，袋内4/4"
+    },
+    {
+      "seconds": 65,
+      "observation": "气血20，袋内3/4，右手举起一块饼"
+    },
+    {
+      "seconds": 85,
+      "observation": "饼仍在手，铭牌仍显示气血20及袋内3/4"
+    },
+    {
+      "seconds": 105,
+      "observation": "铭牌显示气血20，袋内4/4"
+    },
+    {
+      "seconds": 120,
+      "observation": "腕匣打开，玩家尝试切换探索移动"
+    },
+    {
+      "seconds": 145,
+      "observation": "腕匣页面显示另一项探索移动选择"
+    }
+  ],
+  "inputClips": {
+    "20261127-043010.jsonl": {
+      "frames": 282,
+      "navigationMessages": {
+        "左手未作指向手型或已放下": 130,
+        "左手追踪失效或样本过期": 1,
+        "双手结印保护": 151
+      }
+    },
+    "20261127-043405.jsonl": {
+      "frames": 165,
+      "navigationMessages": {
+        "左手追踪失效或样本过期": 2,
+        "左手未作指向手型或已放下": 152,
+        "双手结印保护": 10,
+        "输入被占用或取消": 1
+      }
+    },
+    "20261127-043706.jsonl": {
+      "frames": 281,
+      "navigationMessages": {
+        "左手未作指向手型或已放下": 113,
+        "双手结印保护": 146,
+        "正在向后滑退": 2,
+        "战斗候选 courtyard.1.1：总分 0.099": 1,
+        "无可达候选": 16,
+        "战斗候选 courtyard.1.1：总分 0.145": 1,
+        "战斗候选 courtyard.1.1：总分 0.199": 1,
+        "战斗候选 courtyard.1.1：总分 0.277": 1
+      }
+    },
+    "20261127-043739.jsonl": {
+      "frames": 283,
+      "navigationMessages": {
+        "双手结印保护": 161,
+        "左手未作指向手型或已放下": 41,
+        "无可达候选": 62,
+        "射线无效或配置错误": 1,
+        "左手追踪失效或样本过期": 18
+      }
+    },
+    "20261127-043812.jsonl": {
+      "frames": 279,
+      "navigationMessages": {
+        "左手追踪失效或样本过期": 7,
+        "左手未作指向手型或已放下": 263,
+        "双手结印保护": 9
+      }
+    }
+  }
+}

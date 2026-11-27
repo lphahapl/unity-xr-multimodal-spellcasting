@@ -18,14 +18,17 @@ MonoBehaviour:
   phrase: 飞炎术
   phraseTokens: f ēi y án sh ù
   sealName: 律印
-  followingSeals: []
+  followingSeals:
+  - 规印
+  reserveFinalSeal: 1
   matchWindow: 4
   voiceDiscount: 0.05
   thresholdFloor: 0.65
-  castCondition: 1
+  castCondition: 0
   mouthStartDistance: 0.22
   mouthStopDistance: 0.3
-  effectDefinition: {fileID: 11400000, guid: 7cabf4e35e8951cdbf2939c43523a832, type: 2}
+  effectDefinition: {fileID: 11400000, guid: a163baa9d83447eb90ac6331eaba790e, type: 2}
+  aimProfile: {fileID: 11400000, guid: 30dc7cc80d044f19a359b6a6a9c8631c, type: 2}
   leftHand: 0
   cooldownSeconds: 1.5
   manaCost: 12

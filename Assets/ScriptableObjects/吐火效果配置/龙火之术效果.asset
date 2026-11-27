@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.BreathEffectDefinition
   audioProfile: {fileID: 0}
   mode: 1
-  visualPrefab: {fileID: 3576796116252384622, guid: 2621ef0c678909246af2535384887631, type: 3}
+  visualPrefab: {fileID: 7783603696140898861, guid: 7c0a4b8fe6c0409d90d97bce34d9832a, type: 3}
+  pilotFlamePrefab: {fileID: 100100, guid: 7ea6b7cf933b480292c703bd927081fa, type: 3}
   mouthOffset: {x: 0, y: -0.09, z: 0.08}
   manaPerSecond: 8
   minCooldownSeconds: 2
@@ -22,8 +23,8 @@ MonoBehaviour:
   maxCooldownSeconds: 8
   damage: 4
   damageInterval: 0.2
-  radius: 0.16
-  range: 1.5
+  radius: 0.28
+  range: 2.1
   speed: 9
   poiseDamage: 3
   visualScale: 0.1

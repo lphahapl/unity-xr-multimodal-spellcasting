@@ -1,0 +1,34 @@
+PASS Isolated Play, XR off
+start=(120.000, 0.000, 120.000) head=(120.000, 1.230, 120.000) closestAdjacentNode=167.6m rooms=0 roomControls=True combat=False mode=PointWalk speed=0.950
+PASS Start node on isolated lab, linked practice nodes outside
+PASS Visible platform is the actual walkable layer and first floor hit
+PASS Standard 0.95 m/s walk speed and no input owner at spawn
+empty forward 0.52s delta=(0.0000, 0.0000, 0.4559) valid=True naturalPoint=True ray=True heading=(0.00, 0.00, 1.00) status=探索：沿食指方向行走 sealProtected=False
+PASS Official Meta joint extractor and hand-shape adapter recognize the horizontal left index
+PASS Exploration actually advances from the sample platform
+PASS Turn the left hand right while walking and travel sideways (0.570, 0.000, 0.003)
+PASS Opening the left hand stops walking
+PASS Real right-hand bag owner acquired the belt pouch
+PASS Held pouch permits left movement, protects right dodge
+PASS Right pouch remains held while the free left index walks (-0.532, 0.000, 0.000)
+PASS Public pickup acquires biscuit in left hand while the pouch is held on right
+PASS Two hands pinching with remaining left fingers straight give no left pointing gesture; no unintended walking
+PASS No all-hands walking gate, right dodge remains unavailable
+PASS Release both supplies through the actual interaction
+Teleport start=(120.038, 0.000, 120.649) end=(118.723, 0.000, 120.661) goal=(118.688, 0.000, 120.649) status=本次已执行：请移开射线或放松左手
+PASS Teleport moves to the acquired platform surface
+AutoWalk start=(118.723, 0.000, 120.661) end=(117.412, 0.000, 120.674) goal=(117.373, 0.000, 120.661) status=本次已执行：请移开射线或放松左手
+PASS AutoWalk moves to the acquired platform surface
+PASS Scene inspector pickup range is 5m
+PASS Target outside range stays unmarked, eye distance 5.588
+PASS 5m ray highlights real stake, eye distance 4.696 first=ChapterStakeGraybox (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects 冷铸拓片（独立灰盒） actual=冷铸拓片（独立灰盒） (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects 铜叶 · 取放样品 actual=铜叶 · 取放样品 (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects ChapterStakeGraybox actual=ChapterStakeGraybox (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects 铜叶 · 取放样品 actual=铜叶 · 取放样品 (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects 冷铸拓片（独立灰盒） actual=冷铸拓片（独立灰盒） (UnityEngine.Transform)
+PASS Aim between neighboring front row targets with different finger ray selects ChapterStakeGraybox actual=ChapterStakeGraybox (UnityEngine.Transform)
+PASS Wall introduced after marking blocks the retained pinch target
+PASS Removing occluder and aiming again reacquires stake
+PASS Ray pinch acquires the actual stake
+PASS END

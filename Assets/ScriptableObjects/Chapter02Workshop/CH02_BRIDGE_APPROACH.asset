@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fe9d2a506b04409a70cb3479eabdd, type: 3}
+  m_Name: CH02_BRIDGE_APPROACH
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgStageDefinition
+  stageId: CH02_BRIDGE_APPROACH
+  displayName: "\u524D\u5F80\u65AD\u6865\u77F3\u6848"
+  instructions: "\u8D70\u5230\u65AD\u6865\u65C1\u7684\u58A8\u89C4\u753B\u7B26\u77F3\u6848\u3002"
+  enableHazards: 0
+  startsInCombat: 0
+  rewardCurrency: 0
+  unlockSkillIds: []

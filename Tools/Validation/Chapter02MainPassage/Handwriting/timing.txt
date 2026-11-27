@@ -1,0 +1,21 @@
+PASSAGE_INK_CHECK 真实 44 点，停笔 0.88 秒尚不提交
+PASSAGE_INK_CHECK 原 44 点 3.425 秒，原决策间隔 0.902 秒，内横已留，抬笔再补门框，得分 0.000
+PASSAGE_INK_CHECK 停笔完成一次辨符
+PASSAGE_INK_CHECK 原内横补独立外框 0.946
+PASSAGE_INK_CHECK 停笔完成一次辨符
+PASSAGE_INK_CHECK 先画外框后提示第二笔起止和内横，外框单独不通过
+PASSAGE_INK_CHECK 撤销还原第一笔
+PASSAGE_INK_CHECK 停笔完成一次辨符
+PASSAGE_INK_CHECK 两笔逆向仍辨认 0.946
+PASSAGE_INK_CHECK 停笔完成一次辨符
+PASSAGE_INK_CHECK 仅画竖线拒识并提示缺框
+PASSAGE_INK_CHECK 清空还原第一笔
+PASSAGE_INK_CHECK 千钧剧情板没有通路提示
+PASSAGE_INK_CHECK 主动板保留自由绘制
+PASSAGE_INK_CHECK 停笔完成一次辨符
+PASSAGE_INK_CHECK 主动板同形正确归类
+PASSAGE_INK_CHECK 20:38 现场 42 点 2.434 秒，停笔 0.902 秒，内横已留，抬笔再补门框
+GlyphBoardChecks 千钧截图投影补笔：剧情=False，局部采点=23，得分=0.965741
+GlyphBoardChecks 千钧截图投影补笔：剧情=True，局部采点=23，得分=0.965741
+GlyphBoardChecks PASS: 画板接触、分笔、失追、主动/剧情匹配、一次消费及拒识。
+PASSAGE_INK_CHECK PASS END

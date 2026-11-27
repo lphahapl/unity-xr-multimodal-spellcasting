@@ -1,0 +1,63 @@
+2026-11-27T02:00:20.7176870+08:00 Unity 6000.3.10f1
+PASS fresh isolated QA save path C:/Users/鲁迅/AppData/LocalLow/DefaultCompany/NarutoVR_ArmReachPenQA\pen-floor-qa-97e90b1304e94a728ffe2668b416a54e.json
+PASS locked before stone-table objective
+PASS enter authored approach
+PASS story unlock settled the authored physical pen in its own holster
+PASS same pen has completed docking before next pickup
+PASS real pen taken from the same original holster
+PASS straight from holster: low side grip XZ=0.405m, head height above grip=1.020m, nearest opening=0.552m
+PASS straight from holster: low loose release returns this same pen to its previous slot
+PASS same pen has completed docking before next pickup
+PASS real pen taken from the same original holster
+floor=门外崖肩 y=80.0000 rigFloor=(-8.6514, 80.0000, 59.5200) authoredHead=(-8.6514, 81.2000, 59.5200) ground=(-8.1714, 80.0000, 60.1700) reach=0.090 home=(-8.7987, 80.6478, 59.4109) penId=-1836
+PASS intentional far release at 0.808m horizontal from head
+PASS release gives gravity and clears both owners
+standing downward ray support=门外崖肩 contact=(-8.1784, 80.0000, 60.0690) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=1.05000 handToGrip=1.1226 surfaceGap=1.0897 hasOwner=False worldFloor=80.0000
+hand to anchor PhysicalMoGuiPen@1.1140
+head to anchor PhysicalMoGuiPen@1.8122
+RESULT standing downward ray: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS recovered the marked physical pen and retained its last successful holster
+PASS same recovered brush writes on original story board
+PASS after a floor pickup and a stroke: low side grip XZ=0.565m, head height above grip=1.020m, nearest opening=0.638m
+PASS after a floor pickup and a stroke: low loose release returns this same pen to its previous slot
+PASS same pen has completed docking before next pickup
+PASS real pen taken from the same original holster
+PASS intentional far release at 0.808m horizontal from head
+PASS release gives gravity and clears both owners
+lower-view angled ray support=门外崖肩 contact=(-8.1784, 80.0000, 60.0690) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=0.42000 handToGrip=0.5029 surfaceGap=0.4538 hasOwner=False worldFloor=80.0000
+hand to anchor PhysicalMoGuiPen@0.4932
+head to anchor PhysicalMoGuiPen@1.2305
+RESULT lower-view angled ray: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS recovered the marked physical pen and retained its last successful holster
+PASS same recovered brush writes on original story board
+PASS intentional far release at 0.808m horizontal from head
+PASS release gives gravity and clears both owners
+crouched visible shaft near far end, seven mm away support=门外崖肩 contact=(-8.1784, 80.0000, 60.0690) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=0.02302 handToGrip=0.1166 surfaceGap=0.0070 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched visible shaft near far end, seven mm away: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS recovered the marked physical pen and retained its last successful holster
+PASS same recovered brush writes on original story board
+PASS intentional far release at 0.808m horizontal from head
+PASS release gives gravity and clears both owners
+crouched rear-middle shaft, hand seven cm above support=门外崖肩 contact=(-8.1784, 80.0000, 60.0690) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=0.08801 handToGrip=0.1071 surfaceGap=0.0720 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched rear-middle shaft, hand seven cm above: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS recovered the marked physical pen and retained its last successful holster
+PASS same recovered brush writes on original story board
+PASS intentional far release at 0.808m horizontal from head
+PASS release gives gravity and clears both owners
+crouched shaft centre, seven mm above support=门外崖肩 contact=(-8.1784, 80.0000, 60.0690) normal=(0.0000, 1.0000, 0.0000) visualVertices=1704 meshMin=0.00014 meshMax=0.01588 colliderMin=0.00001 colliderMax=0.01601 actualGrip=0.00801 tipAboveContact=0.02302 handToGrip=0.0199 surfaceGap=0.0070 hasOwner=False worldFloor=80.0000
+hand to anchor 
+head to anchor 
+RESULT crouched shaft centre, seven mm above: shown=True held=True gate=False reason=右手已持有物品 bodyKinematic=True
+PASS recovered the marked physical pen and retained its last successful holster
+PASS same recovered brush writes on original story board
+inserting actual tip distance=0.00000 angle=0.000
+PASS explicit release at original pen pocket
+PASS returned pen marked from afar with snap drivers parked
+PASS returned same pen can be drawn a second time
+PASS reseated cleanly after second pickup
+PASS all five physical floor pickups
+PASS END

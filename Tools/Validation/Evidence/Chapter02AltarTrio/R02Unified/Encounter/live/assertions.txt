@@ -1,0 +1,15 @@
+原玩家=69900 rig=69798 head=69794 左/右手=71584/71588 左/右网格=77058/74956
+线外守敌 租约/控制器=stone-carrier=1/-6068,canjiou=2/-6376,zhihuocanji=3/-6604 石/刚体=-6234/-6230 新建=3 取池=0
+过线同批 租约/控制器=stone-carrier=1/-6068,canjiou=2/-6376,zhihuocanji=3/-6604 石/刚体=-6234/-6230 新建=3 取池=0
+时长=10.262s 玩家HP=100→0 头世界=(-9.121, 81.200, 38.000) 最终=(-9.121, 81.200, 38.000) 转角=0.000° 朝向=(0.000, 0.000, -1.000) 进房状态=房间战斗中
+stone-carrier lease=1 最大位移=5.479m 行为=Patrol 启动=0 生效窗=0 玩家接受命中=0
+canjiou lease=2 最大位移=2.883m 行为=Chase/Attack/Idle 启动=3 生效窗=3 玩家接受命中=3
+zhihuocanji lease=3 最大位移=8.882m 行为=Attack/Idle/Chase/Turn 启动=2 生效窗=2 玩家接受命中=2
+玩家伤害事件 source=zhihuocanji id=enemy:2dddea53442141818b959337b437b7af:1 damage=40
+玩家伤害事件 source=canjiou id=enemy:aa2ed6c34d764fe4907cfe9af7fade27:1 damage=8
+玩家伤害事件 source=canjiou id=enemy:aa2ed6c34d764fe4907cfe9af7fade27:2 damage=8
+玩家伤害事件 source=zhihuocanji id=enemy:2dddea53442141818b959337b437b7af:2 damage=40
+玩家伤害事件 source=canjiou id=enemy:aa2ed6c34d764fe4907cfe9af7fade27:3 damage=8
+掷火源确认的独立在飞火核=2 ids=-6740,-6794 三对最小水平距离 工奴近战=2.166 m 工奴掷火=0.899 m 近战掷火=3.445 m
+结束 原玩家=69900 rig=69798 head=69794 左/右手=71584/71588 左/右网格=77058/74956
+PASS 三敌同时实战

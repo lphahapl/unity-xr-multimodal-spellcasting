@@ -1,0 +1,34 @@
+2026-11-27T04:19:30.0052257+08:00 Assets/Samples/ToolBeltItems/TravelRationLab.unity 6000.3.10f1
+PASS lab-before: position=(-2.79, 1.38, -1.25) head=(-2.80, 1.72, -1.44) home=(-2.79, 1.42, -1.25) selected=TravelRationPouch (UnityEngine.Transform) inputOK=True reason=
+PASS 干粮远抓：左手从中央袋口远取原干粮包，沿用原所有者
+PASS 干粮远抓：取用触发时持有倍率 1.4，对齐同一握点
+PASS 干粮远抓：未展开时不能隔袋取饼
+PASS face 0 target=Biscuit01 actual=Biscuit01 face_y=0.067 rim=0.060
+PASS face 1 target=Biscuit02 actual=Biscuit02 face_y=0.071 rim=0.060
+PASS face 2 target=Biscuit03 actual=Biscuit03 face_y=0.072 rim=0.060
+PASS face 3 target=Biscuit04 actual=Biscuit04 face_y=0.068 rim=0.060
+PASS display: above rim=4/4, same piece marked from 45cm=4/4
+PASS geom:Biscuit01 gripLocal=(-0.0320, 0.0650, -0.0060) visLocal=(-0.0323, 0.0648, -0.0059) bounds=(0.0509, 0.0502, 0.0033) size=(1.400, 1.400, 1.400)
+PASS geom:Biscuit02 gripLocal=(-0.0120, 0.0730, -0.0020) visLocal=(-0.0122, 0.0727, -0.0019) bounds=(0.0515, 0.0509, 0.0033) size=(1.400, 1.400, 1.400)
+PASS geom:Biscuit03 gripLocal=(0.0120, 0.0730, 0.0020) visLocal=(0.0117, 0.0728, 0.0021) bounds=(0.0490, 0.0482, 0.0033) size=(1.400, 1.400, 1.400)
+PASS geom:Biscuit04 gripLocal=(0.0320, 0.0650, 0.0060) visLocal=(0.0318, 0.0647, 0.0061) bounds=(0.0550, 0.0544, 0.0033) size=(1.400, 1.400, 1.400)
+PASS 干粮远抓：持袋时另一手射线取出一块，尚未消耗
+PASS 干粮远抓：短时失追后张手不会误吃或放掉饼
+PASS 干粮远抓：重新确认捏合再松手，原饼归包
+PASS 干粮远抓：远取归还的同一饼
+PASS 干粮远抓：嘴部停留后进入原有最后吸附
+PASS 干粮远抓：一块仅结算一次 +15 气血，持续捏合不重发
+PASS 干粮远抓：将原包拉远松手，世界内掉落
+PASS 干粮远抓：远丢后仍保留落地取用尺寸
+PASS ground:(-2.8000, 1.5804, -0.7170) to=(-2.8000, 0.0261, -0.7170) collider=True bounds=(0.0627, 0.0221, 0.0844) vel=(0.000, 0.000, 0.000) sleep=True
+PASS 干粮远抓：整包从手部真实下坠并在现场地板上停稳
+PASS rests on visible slab=True rendererTop=0.0369 colliderBottom=0.0150
+PASS 干粮远抓：右手射线从世界重新取得同一干粮包
+PASS 干粮远抓：地面指尖接近 18 mm 拾回原包
+PASS 干粮远抓：左手将包放入原中央口并交回所有权
+PASS snap begin True hasObj=True dock=True local=(1.40, 1.40, 1.40) initial=(1.00, 1.00, 1.00) absolute=1.4 rel=1.4
+PASS snap end False hasObj=True dock=True eventCount=1 local=(1.00, 1.00, 1.00) initial=(1.00, 1.00, 1.00) absolute=1 rel=1
+PASS 干粮远抓：吸附完成触发后已收缩为 1.0
+PASS 干粮远抓：四块饼可见面均可独立指中，横置的整包没有沉在可见地板下
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

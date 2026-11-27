@@ -1,0 +1,50 @@
+{
+  "utc": "2026-11-26T11:26:01.898909+00:00",
+  "unity": "6000.3.10f1 batch Play/d3d11; simulated OpenXR pose and pinches, actual XR camera/raycast/physics/transport",
+  "isolated": true,
+  "baseline": {
+    "Assets/Scene/Chapter02_SuspendedPath.unity": "3ed6f9c6fb768192a8b78fab125c3d78cd750dfef638e09a3c67f8e69782cd85",
+    "Assets/scripts/logic/Rpg/Chapter02Transport/Chapter02BasketBControl.cs": "007da2cf3ad2e4dd189243bd70bc5ac0244e5f9ffc16eb1a4317098516506c53",
+    "Assets/scripts/logic/Rpg/Chapter02Transport/Chapter02BasketBControl.Remote.cs": "04e774d93065ae502a779cb4ff9020c71da4037b713a705f63596b35b2d5c294",
+    "Assets/scripts/logic/Rpg/Chapter02Transport/Chapter02BasketMotion.cs": "8a7e5cba24e84b2a2526e4f73e107cfc999e0f2b0d7a0256f4d2f4dcfb1129ce",
+    "Assets/scripts/logic/Enemies/BallastBasket.cs": "af0597c5f785aec30417d6120ac13e24601acb70a5c99ed427bf616598a269bf",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.cs": "bb672030e551acecc763d23fb9e263d8fd853e13cbc0cccefbe0a7fd124d5348"
+  },
+  "logDirectory": "D:\\Temp\\Naruto-ChapterEntry-QA-1126\\LeverPublished",
+  "cases": {
+    "ride": {
+      "file": "b-ride-3ed6.txt",
+      "sha256": "e9f557055d5e45b0736ec786bf03d070ce4eeee82e3dde49b427ce0fccc76f95"
+    },
+    "near": {
+      "file": "b-near.txt",
+      "sha256": "09c5db55ee9bea7b8ed2740f06e1786d1917d23a4fc2b63f8bcb46e334f4eca7"
+    },
+    "interrupted": {
+      "file": "b-interrupted.txt",
+      "sha256": "d49243e02951c01d9c652961f6146cfd081f28b01b9056f5e844e29af319e231"
+    },
+    "early": {
+      "file": "b-early.txt",
+      "sha256": "30fe74c765495038e19f806a158c7473a493a42d33d3d51366bc76fc4eacaf02"
+    },
+    "cold": {
+      "file": "b-cold.txt",
+      "sha256": "c314bae2ebc6f57b82bc815c12b43d71047a3bd8b1642a1ef71d66c1bf6675fe"
+    }
+  },
+  "photos": {
+    "standing-aim.png": "2a9272bb86e6c9ce7464e57ee62cf265fe48defdfdad3cbaac25b32d4e5e44da",
+    "standing-pull.png": "1fb0491ce1107337a2cf75473b44ea2022ccb9a450f2e17662979dd459a3abaf",
+    "standing-blocked.png": "f53ae58d4e72b0cfb6eb2078d8d8ab2d1d9ae075bcf63e9526ad2e445202765c"
+  },
+  "final_rerun": {
+    "scene_sha256": "ce338bb531b220345ad43673dc4e5aad8bf655ed274f7d72adec445c3732cc83",
+    "evidence": "D:\\Temp\\Naruto-ChapterEntry-QA-1126\\LeverCe338",
+    "ride": {
+      "file": "b-ride.txt",
+      "sha256": "e9f557055d5e45b0736ec786bf03d070ce4eeee82e3dde49b427ce0fccc76f95"
+    }
+  },
+  "photos_from": "final_rerun"
+}

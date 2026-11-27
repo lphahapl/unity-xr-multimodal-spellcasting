@@ -17,7 +17,7 @@ from configuration import load_configuration, materialize_keywords, normalize_ph
 ROOT = Path(__file__).resolve().parent
 MODEL = ROOT / "models/sherpa-onnx-kws-zipformer-zh-en-3M-2025-12-20"
 # Historical fixtures may import this constant; live vocabulary comes from configuration.
-PHRASES = ("护体咒", "火球术", "取消施法")
+PHRASES = ("衡印", "火球术", "取消施法")
 
 
 def log(kind, **data):

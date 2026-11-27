@@ -1,0 +1,65 @@
+        [Serializable] sealed class RecordedPoint { public float x, y; public double t; }
+        [Serializable] sealed class PenCase { public double decisionAfterStart; public RecordedPoint[] inner, outer; }
+
+        IEnumerable Ink(GlyphBoard board,GlyphTemplate t,string label)
+        {
+            Check(board && board.IsOpen && t.SymbolKey=="glyph.passage",label+" 正常取笔，目标为通路符");
+            var data=JsonUtility.FromJson<PenCase>(File.ReadAllText("Logs/passage-handwriting.json"));
+            var orientation=board.transform.rotation;
+            void Raw(RecordedPoint p, float z) => Grip(board.transform.TransformPoint(new Vector3(p.x,p.y,z))-orientation*nibFromGrip,orientation,true);
+            string Step() => board.GetComponentsInChildren<UnityEngine.UI.Text>().First(x=>x.name=="笔顺").text;
+            bool story = label=="square";
+            if(story) Check(Step().Contains("1/2") && Step().Contains("向上"), "首笔门框在纸上标起、止和拐向");
+            var first=story?data.inner:data.outer;
+            var second=story?data.outer:data.inner;
+            IEnumerable Draw(RecordedPoint[] trace,bool timed)
+            {
+                Raw(trace[0],-.045f);yield return null;yield return null;
+                double start=Time.realtimeSinceStartupAsDouble;
+                for(int i=0;i<trace.Length;i++)
+                {
+                    if(timed)while(Time.realtimeSinceStartupAsDouble-start<trace[i].t)yield return null;
+                    Raw(trace[i],.002f);yield return null;
+                    if(i%5==0)Snap(label);
+                }
+            }
+            if(story)
+            {
+                foreach(var k in Draw(data.outer,false))yield return k;
+                Raw(data.outer[data.outer.Length-1],-.035f);
+                double dueAt=Time.realtimeSinceStartupAsDouble+1.15;
+                while(Time.realtimeSinceStartupAsDouble<dueAt)yield return null;
+                Check(!board.IsShowingSuccess && Step().Contains("2/2") && board.Status.Contains("门框已留"),"实体笔画框抬离后，高亮第二笔内横");
+                Snap(label);
+                var clear=new RecordedPoint{x=0,y=-.179f};
+                Raw(clear,-.035f);yield return null;yield return null;
+                Raw(clear,.002f);yield return null;yield return null;
+                Raw(clear,-.035f);yield return null;yield return null;
+                Check(board.PointCount==0 && Step().Contains("1/2"),"实体笔触清空，重新指引第一笔门框");
+            }
+            foreach(var k in Draw(first,story))yield return k;
+            var end=first[first.Length-1];
+            // Hold close to the paper, then withdraw across the real raw-depth release threshold.
+            Raw(end,-.014f);yield return null;yield return null;
+            var tip=board.transform.InverseTransformPoint(pen.nib.position);
+            Check(Mathf.Abs(tip.z)<.002f,label+" 距板14毫米仍保持接触");
+            Raw(end,-.029f);yield return null;yield return null;
+            tip=board.transform.InverseTransformPoint(pen.nib.position);
+            Check(tip.z<-.019f,label+" 距板29毫米已抬笔");
+            double waitStart=Time.realtimeSinceStartupAsDouble;
+            while(Time.realtimeSinceStartupAsDouble-waitStart<1.15)yield return null;
+            Check(board.IsOpen && !board.IsShowingSuccess && board.StrokeCount==1 && board.LastScore<t.threshold,
+                label+" 单笔保留，得分="+board.LastScore.ToString("F3")+" 状态="+board.Status+" 点数="+board.PointCount);
+            if(story)
+            {
+                Check(board.Status.Contains("内横已留") && Step().Contains("门框"),"用户原录横笔停笔后明确提示补框");
+                Snap(label);
+            }
+            foreach(var k in Draw(second,!story))yield return k;
+            Raw(second[second.Length-1],-.035f);yield return null;yield return null;
+            var n=board.StrokeCount;
+            double due=Time.realtimeSinceStartupAsDouble;
+            while(board.IsOpen&&!board.IsShowingSuccess&&Time.realtimeSinceStartupAsDouble-due<3)
+            { if(Time.frameCount%4==0)Snap(label); yield return null; }
+            Check(n==2 && (board.IsShowingSuccess||!board.IsOpen),label+" 补第二笔成功，笔数="+n+(board.IsShowingSuccess?" 得分="+board.LastScore.ToString("F3"):" 已消费主动板"));
+        }

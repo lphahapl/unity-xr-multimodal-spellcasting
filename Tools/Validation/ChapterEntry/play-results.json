@@ -1,0 +1,284 @@
+{
+  "unity": "6000.3.10f1 Windows Editor batchmode, authored scenes in independent copy",
+  "time": "2026-11-26T18:32:12.001751+08:00",
+  "test_project": "D:\\Temp\\Naruto-ChapterEntry-QA-1126\\Project",
+  "evidence": "D:\\Temp\\Naruto-ChapterEntry-QA-1126\\run1",
+  "source_sha256": {
+    "Assets/scripts/logic/Rpg/LinearRpgController.cs": "8286c2d50c7cb2f888925bf339b378ac7ed7cc8a085ee14dc833ba47f1424f38",
+    "Assets/scripts/logic/Rpg/LinearRpgController.Travel.cs": "0b86d7c8de3e61b8406713fe38bb7bd1807090f3e9453e27e8733bdac6d9730f",
+    "Assets/scripts/logic/Rpg/LinearRpgController.SaveRouting.cs": "4b03546594fe6b64b956b4a2a1866dcd7700187459a1d6b499fe3c8a3eeffa0a",
+    "Assets/scripts/logic/Environment/SceneTravelGate.cs": "dd9fc9c6de5180e2d7b3969ca355c2f1af521fc6044b808b083594d4ebe07497",
+    "Assets/scripts/logic/Rpg/IRpgCheckpointEquipment.cs": "f00cb603ad157a2bbf09a2fb5e32e7886c6f5e15a3c2077f2cf0e3ee2e9c4e93",
+    "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs": "f598003ea78003f9855d681fa08d66b154f9bfe8b0130c3f76a2457c8b462e9b",
+    "Assets/scripts/logic/Interaction/Items/ChapterStakeSupply.cs": "7f3174688e52b3336b1647362dedd901dc51e6d9230d39759621da3f2dbea4c8",
+    "Assets/scripts/Persistence/RpgProgressData.cs": "7093f2194c377eca1e766118faa62a5091e063db0764094dac8e52c901b23389",
+    "Assets/scripts/Persistence/RpgSaveStore.cs": "0463affbb973f07a07d19603fec32671a6f3818fb131e70a5103cae06a8b32ef",
+    "Assets/scripts/logic/Rpg/WorkshopTenon/WorkshopTenonObjective.cs": "d9a2f97a93a66134e5563f17a8830e98a63edee9c0d67621c6d5274b68d56d48",
+    "Assets/Scene/Chapter01_Courtyard.unity": "071380a2f9ebf66ca78d3f168fd5a4746c4086856a8faa631d38d75e7001d02c",
+    "Assets/Scene/Chapter02_SuspendedPath.unity": "1be75566173fe09ec6efd8ff2bee7f00bcecc8aec5c652f3496469fbd8ef0353"
+  },
+  "initial_passes": [
+    "fresh",
+    "legacy",
+    "fresh-override",
+    "redirect",
+    "manual",
+    "training",
+    "corrupt"
+  ],
+  "final_retests": [
+    "manual-missing",
+    "seed-court",
+    "exact-court",
+    "travel",
+    "unavailable",
+    "backup-owner"
+  ],
+  "cases": [
+    {
+      "case": "fresh",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS direct fresh uses authored player and first stage",
+        "PASS END fresh"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {}
+    },
+    {
+      "case": "legacy",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has CurrentScene",
+        "PASS restored exact hub and stage",
+        "PASS restored saved character",
+        "PASS resaved old v2 checkpoint",
+        "PASS END legacy"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      }
+    },
+    {
+      "case": "fresh-override",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS direct fresh uses authored player and first stage",
+        "PASS END fresh-override"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {
+        "chapter02-suspended-path.json": "c1b2a56274b4b94e9abe06f745f98daec8196e451100a2abf5661d5a3fef8cb4"
+      }
+    },
+    {
+      "case": "redirect",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter01_Courtyard.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS restored exact hub and stage",
+        "PASS restored saved character",
+        "PASS END redirect"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      }
+    },
+    {
+      "case": "manual",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter01_Courtyard.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS same default-load command as UI accepted in wrong scene",
+        "PASS restored exact hub and stage",
+        "PASS restored saved character",
+        "PASS END manual"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      }
+    },
+    {
+      "case": "training",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/KaogongP1Trial.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS training save uses its own slot",
+        "PASS END training"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf",
+        "kaogong-p1-trial-v2.json": "b5860371bba667cd3be807ffa0fd23cb4aca870f1bfface852e8ad53bd292917"
+      }
+    },
+    {
+      "case": "corrupt",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has CurrentScene",
+        "PASS bad local save blocks writes",
+        "PASS END corrupt"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "d5d113ae77a1ef252e14bb0e5a92256016da1eba5a9f3d942af2d9ef0dbbf2fc"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "d5d113ae77a1ef252e14bb0e5a92256016da1eba5a9f3d942af2d9ef0dbbf2fc"
+      }
+    },
+    {
+      "case": "manual-missing",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS missing requested save rejected",
+        "PASS missing manual load preserves current scene and player",
+        "PASS END manual-missing"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {}
+    },
+    {
+      "case": "seed-court",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter01_Courtyard.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS saved in actual courtyard of shared chapter-one slot",
+        "PASS END seed-court"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {
+        "kaogong-chapter01-v2.json": "7880ffcce081c17ea0a79809bd9a553de9180fc77282a05852fed94bdf8890bc"
+      }
+    },
+    {
+      "case": "exact-court",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has ChapterOne",
+        "PASS loaded exact courtyard, not the other Chapter One scene",
+        "PASS END exact-court"
+      ],
+      "exit": 0,
+      "before": {
+        "kaogong-chapter01-v2.json": "7880ffcce081c17ea0a79809bd9a553de9180fc77282a05852fed94bdf8890bc"
+      },
+      "after": {
+        "kaogong-chapter01-v2.json": "7880ffcce081c17ea0a79809bd9a553de9180fc77282a05852fed94bdf8890bc"
+      }
+    },
+    {
+      "case": "travel",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter01_Courtyard.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS seed runtime currency in courtyard",
+        "PASS grant non-default permanent skill in source",
+        "PASS add source-only trial permission",
+        "PASS live health differs from last source save",
+        "PASS Single scene unload destroys old player and gate",
+        "PASS destination starts at its first checkpoint despite old hub save",
+        "PASS live travel currency and unsaved HP restored; HP=43 coins=31",
+        "PASS first arrival has destination chapter objectives",
+        "PASS permanent skill survives, source trial permission expires",
+        "PASS first landing atomically replaces stale destination hub save",
+        "positions source=(0.00, 0.00, 0.00) destination node=(-9.12, 80.00, 63.70)",
+        "PASS END travel"
+      ],
+      "exit": 0,
+      "before": {},
+      "after": {
+        "chapter02-suspended-path.json": "695f144f855d188e41c329ea88d1abfa2597826f1ae9e5dae72e8e28f2026a9f",
+        "chapter02-suspended-path.json.bak": "c1b2a56274b4b94e9abe06f745f98daec8196e451100a2abf5661d5a3fef8cb4",
+        "kaogong-chapter01-v2.json": "fc32ba7f4456959ea04d92cb7db54708c021907c34010027f3ae2076f844530b",
+        "kaogong-chapter01-v2.json.bak": "486151ba6e3f180cebc74692d4ebd38791f3b217613f0e601fe1236eb31f1550"
+      }
+    },
+    {
+      "case": "unavailable",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter01_Courtyard.unity",
+        "PASS destination initially enabled",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS unavailable destination rejected",
+        "PASS rejected load keeps source playable",
+        "PASS END unavailable"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      }
+    },
+    {
+      "case": "backup-owner",
+      "checks": [
+        "PASS isolated company/product",
+        "PASS authored player Assets/Scene/Chapter02_SuspendedPath.unity",
+        "PASS Inspector entry policy is serialized",
+        "PASS Inspector has LatestCampaign",
+        "PASS restored exact hub and stage",
+        "PASS restored saved character",
+        "PASS resaved restored checkpoint",
+        "PASS END backup-owner"
+      ],
+      "exit": 0,
+      "before": {
+        "chapter02-suspended-path.json": "8497af1781f3226149db7b13f0c1a0f78823ed85c2f7f154b612b25b7ef5e61c",
+        "chapter02-suspended-path.json.bak": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      },
+      "after": {
+        "chapter02-suspended-path.json": "f58030966e57fe6b537fa89f38dcde14229a8788e77f5b9c8f729b2e623a95d6",
+        "chapter02-suspended-path.json.bak": "dd85b6295b81d8964e360520a8ce41938ce630eda540589c267a8b22294388cf"
+      }
+    }
+  ],
+  "workshop_hub_teardown": "No MissingReferenceException in final backup-owner Unity log"
+}

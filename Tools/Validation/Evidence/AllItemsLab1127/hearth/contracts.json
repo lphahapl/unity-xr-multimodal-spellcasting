@@ -1,0 +1,130 @@
+{
+  "runtime": [
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/GameItemBase.cs",
+      "before": "b13aee9775b1239d095275307ea98e4922f2618ba49a0d19cf177838e6cb481c",
+      "after": "31e1e1993fc264b46871b11846fedda09b32e588310f7fecd8b6eaf294a280d7"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.cs",
+      "before": "bd3ce1af178d17051c77afa4d27d1ea48524c7ee399aa5da916e437dbfb0a832",
+      "after": "308226b9e3715f4eb49df917863609b28106d5f8e0dc30d351455333869e15d2"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.Hearth.cs",
+      "before": null,
+      "after": "e1ae63f9e82347c59bc1d5238fe505c56c455efb9319afdd6de22adae79df8f8"
+    },
+    {
+      "path": "Assets/scripts/logic/Interaction/Items/ChapterRationSupply.Hearth.cs.meta",
+      "before": null,
+      "after": "1fa0f98ebbee2b4380a52d43f5fc60bc5f26852a17777aeb96f6f9c9192d60f5"
+    },
+    {
+      "path": "Assets/scripts/Persistence/RpgProgressData.cs",
+      "before": "7093f2194c377eca1e766118faa62a5091e063db0764094dac8e52c901b23389",
+      "after": "8083f52f68b7c2bbb4b51fd46bcc90b836bb36940dcb3b0704ddac929054d444"
+    },
+    {
+      "path": "Assets/scripts/Persistence/RpgSaveMapper.cs",
+      "before": "40d2d95cc54cc17d8fbd1de40a5fce74b745059b58603fb4d952dad8de76bbf5",
+      "after": "718742181c4d2fc3db85dd5bb60470ee58a158b582d76e8145951ed0aacd3c93"
+    }
+  ],
+  "formal_baseline": {
+    "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+    "scene_sha": "0e35b9133b5d83bcededbbcb3acd138b3dc53ac255c5fe76cbdd210f01308cdb",
+    "narration": "e3a4bf899135c57d2f2019af646811db069dbcdd924bbe82c4de6d5dce9b2a84",
+    "passage_hint": "9351aad97f04265916def75e63fe1cfdc643c28cfe6f86aa425c65c17b400ccd",
+    "ration_interaction": "8042def41b7f3c98a57b993c3739859c24e2c38e8c7dab170009d9fbd7e5e75d",
+    "hand_query": "d9993162a83f42ec6371fb187b378151db9eb1c4814d5a2e0bca2594bedc7142"
+  },
+  "scene_patch": {
+    "status": "awaiting confirmed physical location; no formal scene edit",
+    "existing": [
+      {
+        "object": 206717583,
+        "field": "hearthEncounter",
+        "target": 1486636670
+      },
+      {
+        "object": 1511223460,
+        "field": "mouth",
+        "target": 562539568,
+        "scope": "scene prefab-instance override only"
+      },
+      {
+        "object": 206717583,
+        "field": "bagSurface",
+        "target": "$bagSurface"
+      },
+      {
+        "object": 206717583,
+        "field": "biscuitSurface",
+        "target": "$biscuitSurface"
+      }
+    ],
+    "new_transforms": [
+      {
+        "key": "$bagSurface",
+        "parent": "$userApprovedSupport",
+        "position": "$rayVerifiedBagSurface",
+        "worldEuler": [
+          -90,
+          0,
+          0
+        ]
+      },
+      {
+        "key": "$biscuitSurface",
+        "parent": "$userApprovedSupport",
+        "position": "$rayVerifiedBiscuitSurface",
+        "worldEuler": [
+          -90,
+          0,
+          0
+        ]
+      }
+    ],
+    "installer": "HearthFoodInstaller.Configure(supply, route, layoutFile)",
+    "constraints": [
+      "Idempotent on the exact hierarchy and scene instance",
+      "Do not alter 朱砂祭坛 collider",
+      "Do not save the QA Fixture Only object or its photos as final placement"
+    ]
+  },
+  "checks": {
+    "freshPassed": true,
+    "freshChecks": 108,
+    "coldPassed": true,
+    "wrists": {
+      "fixture4": {
+        "total": 23,
+        "completed": 0
+      },
+      "fixture5": {
+        "total": 23,
+        "completed": 23
+      },
+      "formal": {
+        "total": 23,
+        "completed": 23
+      }
+    }
+  },
+  "files": {
+    "formal/checks.txt": "fd8b47036a7fb955950623c4408588a41865defdc024ee7979c846375b75195f",
+    "formal/wrists.csv": "a181019e7087da3e23de81067f62961074f95712ffd23ed6295ca253e4ab7a88",
+    "formal/pair.png": "4bd9eb7f61028f07b28b561dcb1ece5c70db4176f1a23a66ee505d0ef53dc0bb",
+    "formal/context.png": "924e2203ad22d76f605ac73f60ec0c8edf7f321d85cceaa9c7cacfe67252b4e7",
+    "geometry.csv": "d17ede36fb7e2d0fd9c7ed692bc0cd38a7a249f69bde0bb1457593219a921030",
+    "grip-releases.json": "cc1196995bb7b5cf8fbd6ff674cab02893f245c093309233d88ea1e76370bc2a",
+    "fixture4/wrists.csv": "e70729dbc94e5e5b9abb7b7cc8ea5879ffc380293604ea5047af3884903f1d75",
+    "fixture5/wrists.csv": "1b66dfaf930ea77fb9c1d287ec86e5ca00ffe4765641e672a5a2e14275c61705",
+    "HearthFoodInstaller.cs": "f3b7623fdb5783f537a17f178aaf3299b15ebba1a074998f03a119e4a5b4d931",
+    "HearthFoodPlay.cs": "249481a729050297f9258c8947e375dd34a23a38abc130e37e0369fce7e0426f",
+    "runtime-manifest.json": "d516688df3249d6957e8a7f069361ae9dbb011944c40fe708829aaeda7987042",
+    "README.md": "0e3a5db4b7424dca3c3d2417d70d5f437ba8c7d64a5841317dd823b9348856f4",
+    "cold/checks.txt": "1ff2090eece1b82eaa0bbe370103484b68df47630be7fd8c821360774e190d3a"
+  }
+}

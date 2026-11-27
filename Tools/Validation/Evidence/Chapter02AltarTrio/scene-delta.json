@@ -1,0 +1,71 @@
+{
+  "scope": "同房间组件 ID 的出生类型与预置敌人引用，按文件一次性读取。",
+  "firstSource": "e7aeb66bbe4f23bd8ff8b209db005a47565c2e4736f6c92625302145fe785cc6",
+  "finalTestSource": "a5842a97dadeed8482750c2a95e8b810d39f42848f2bc7212e24a94952a4f13c",
+  "formalAtHandoff": "a5842a97dadeed8482750c2a95e8b810d39f42848f2bc7212e24a94952a4f13c",
+  "firstRooms": {
+    "1288984683": {
+      "spawnIds": [],
+      "preplaced": [
+        "1220357629",
+        "1359819331"
+      ]
+    },
+    "1486636670": {
+      "spawnIds": [
+        "stone-carrier"
+      ],
+      "preplaced": []
+    },
+    "1804162018": {
+      "spawnIds": [
+        "elite-canjiou"
+      ],
+      "preplaced": []
+    }
+  },
+  "finalTestRooms": {
+    "1288984683": {
+      "spawnIds": [],
+      "preplaced": [
+        "1220357629",
+        "1359819331"
+      ]
+    },
+    "1486636670": {
+      "spawnIds": [
+        "stone-carrier"
+      ],
+      "preplaced": []
+    },
+    "1804162018": {
+      "spawnIds": [
+        "elite-canjiou"
+      ],
+      "preplaced": []
+    }
+  },
+  "formalRooms": {
+    "1288984683": {
+      "spawnIds": [],
+      "preplaced": [
+        "1220357629",
+        "1359819331"
+      ]
+    },
+    "1486636670": {
+      "spawnIds": [
+        "stone-carrier"
+      ],
+      "preplaced": []
+    },
+    "1804162018": {
+      "spawnIds": [
+        "elite-canjiou"
+      ],
+      "preplaced": []
+    }
+  },
+  "sameRosterBetweenTestSources": true,
+  "sameRosterInFormalAtHandoff": true
+}

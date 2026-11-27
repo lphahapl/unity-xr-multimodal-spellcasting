@@ -1,0 +1,95 @@
+PASS Standalone XR auto-init off, running XR displays=0
+PASS 新局从原入口开始，符岸已布、笔尚未开放
+SHOT entrance (-9.12, 80.00, 63.70)
+SHOT approach (-9.12, 80.00, 63.70)
+PASS approach 原左食指步行到 (-8.662, 80.000, 59.613)
+PASS 步行到石案触发原教学
+PASS 空挥和空捏未展开主动板
+PASS approach 原左食指步行到 (-8.613, 80.000, 59.531)
+PASS 指尖按铜扣，剧情板打开
+PASS 真实青铜压面由右手指尖按下，正式石案面板展示通路符
+PASS 两岸使用已清除旧地线的网格
+PASS 正式章节保留金色浮光引导组件
+PASS 正式阶段资产直接绑定通路符和铜榫
+PASS 已播放石案绘符旁白
+PASS 正式玩家目录 fireball 准心=火球术瞄准 可用=False
+PASS 正式玩家目录 thunder.sword 准心=雷光剑瞄准 可用=True
+PASS 正式玩家目录 breath.stream 准心=龙火之术瞄准 可用=True
+PASS 正式玩家目录 breath.burst 准心=飞炎术瞄准 可用=True
+PASS square 从原五槽取出实体墨规笔
+SHOT square (-8.61, 80.00, 59.53)
+PASS square 正常取笔，目标为通路符
+PASS 首笔门框在纸上标起、止和拐向
+PASS 实体笔画框抬离后，高亮第二笔内横
+PASS 实体笔触清空，重新指引第一笔门框
+PASS square 距板14毫米仍保持接触
+PASS square 距板29毫米已抬笔
+PASS square 单笔保留，得分=0.000 状态=内横已留，抬笔再补门框 点数=44
+PASS 用户原录横笔停笔后明确提示补框
+PASS square 补第二笔成功，笔数=2 得分=0.946
+PASS 符成金闪中立即归笔
+PASS 笔归原槽
+PASS 画对只进入选岸，断桥仍封闭
+PASS 已播放归笔选岸与握拳旁白
+PASS 金闪内归笔后，空手接续同一次认符
+INPUT 归笔低手保持 seconds=1.199 frames=37 tracked=True fist=False owned=True open=False hand=True first=False preview=False ray=False
+PASS 未抬手瞄准前，停留在笔套处保留符
+SHOT first (-8.61, 80.00, 59.53)
+PASS 食指锁定甲岸 / 已选第一岸，指向另一岸；空手低位张掌保持取消 / 近岸铜榫 2.64, 近岸残段 2.83
+INPUT 第一岸后短失追 seconds=0.503 frames=16 tracked=False fist=False owned=True open=False hand=False first=True preview=False ray=False
+PASS 失追只隐藏手光和射线，保留第一岸
+SHOT preview (-8.61, 80.00, 59.53)
+PASS 从石案前穿过隐形防坠挡选中对岸，出现预览
+INPUT 射线指空 seconds=0.576 frames=18 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=True
+PASS 指空仍保留同一无碰撞预览
+INPUT 短暂放低 seconds=0.295 frames=9 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=False
+INPUT 重新抬手 seconds=0.462 frames=14 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=False
+PASS 自然换姿、低手再抬仍有两岸
+INPUT 预览阶段失追 seconds=1.355 frames=41 tracked=False fist=False owned=True open=False hand=False first=True preview=True ray=False
+PASS 预览失追仍留在世界
+INPUT 以握拳重获追踪 seconds=0.432 frames=13 tracked=True fist=True owned=True open=False hand=True first=True preview=True ray=False
+PASS 重获时已有握拳不会误搭桥
+INPUT 取消前抬手放松 seconds=0.329 frames=10 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=False
+INPUT 低手前中断 seconds=0.164 frames=5 tracked=False fist=False owned=True open=False hand=False first=True preview=True ray=False
+INPUT 握拳低放不取消 seconds=1.162 frames=35 tracked=True fist=True owned=True open=False hand=True first=True preview=True ray=False
+PASS 低处非张掌不算主动取消
+INPUT 主动低位张掌 seconds=1.458 frames=44 tracked=True fist=False owned=False open=True hand=False first=False preview=False ray=False
+PASS 取消仍在石案教学，未开桥
+PASS ink 从原五槽取出实体墨规笔
+SHOT ink (-8.61, 80.00, 59.53)
+PASS 正常松手，原笔留在脚边，可再次拾取
+PASS 从地面重新拾取同一支笔，公共交互交还书写输入
+PASS ink 正常取笔，目标为通路符
+PASS ink 距板14毫米仍保持接触
+PASS ink 距板29毫米已抬笔
+PASS ink 单笔保留，得分=0.000 状态=符形未匹配，请修改或清空 点数=83
+PASS ink 补第二笔成功，笔数=2 已消费主动板
+PASS 笔归原槽
+SHOT first (-8.61, 80.00, 59.53)
+SHOT preview (-8.61, 80.00, 59.53)
+INPUT 两岸已选但面前出现实体遮挡 seconds=0.354 frames=11 tracked=True fist=True owned=True open=False hand=True first=True preview=True ray=False
+PASS 保留选择，握拳无法穿过新遮挡成路
+INPUT 移除遮挡，重新伸食指 seconds=0.399 frames=12 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=True
+PASS 目标岸失效时撤销预览
+INPUT 对岸恢复后主动重选 seconds=0.367 frames=11 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=True
+PASS 重选合法对岸后再次出现预览
+INPUT 食指至握拳间张手 seconds=0.830 frames=25 tracked=True fist=False owned=True open=False hand=True first=True preview=True ray=False
+PASS 超过旧 0.32 秒仍有确认资格
+SHOT fist (-8.61, 80.00, 59.53)
+PASS 握拳确认成路
+SHOT grow (-8.61, 80.00, 59.53)
+PASS 中途逐帧无碰撞，前沿到乙岸才可通行，增长采样=73
+SHOT joined (-8.61, 80.00, 59.53)
+SHOT lineup (-8.61, 80.00, 59.53)
+PASS lineup 原左食指步行到 (-9.116, 80.000, 57.728)
+SHOT cross (-9.12, 80.00, 57.73)
+cross floor=(-9.12, 80.00, 52.74) target=(-9.12, 80.00, 52.19) gap=0.5798647 status=探索：沿食指方向行走 pose=左：指向通过 [食伸直 中收拢 无收拢 小收拢]
+右：张掌未通过 [追踪无效或过期]
+PASS cross 原左食指步行到 (-9.121, 80.000, 52.266)
+PASS 断口中点的可走面就是淡金符桥
+PASS 原石桥网格与宽走面已停用
+PASS 过桥到祭坛阶段
+SHOT arrived (-9.12, 80.00, 52.27)
+PASS 重新加载正式场景与祭坛存档，恢复唯一一条完成且可走的淡金符桥
+PASS 已完成存档不重复石案教学
+PASS END

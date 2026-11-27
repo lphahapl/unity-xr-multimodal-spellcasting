@@ -1,0 +1,53 @@
+{
+  "editor": "6000.3.10f1",
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "scene_sha256": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "production_scene_at_publish": "fd442e951f0c8b14bca022a3085cb0d772d42f7be2c617ba26b848a92d14fed6",
+  "xr_auto_init": false,
+  "xr_configured_loaders": 0,
+  "running_xr_displays": 0,
+  "input": "desktop navigation-hand samples, 50 Hz, one per Unity Play frame",
+  "runtime": {
+    "RpgLocomotionController.Encounter.cs": {
+      "before": "3306023dae07002cc8a7a6766d16488523f75503fc0aa202908e3b047452699c",
+      "after": "4d0b5905215c04ac94d8e3487debed38443b1bd8cdf6d8d8373729f848fc5443"
+    },
+    "RpgLocomotionController.Exploration.cs": {
+      "before": "db0334d847f23e1a679e5bc8cf53c4fbddec9712d2c37985f73fc7deb0d60d3c",
+      "after": "e4d4ac052ce8f08cf81e224c20a29680bad4f257760d42424b8e0159eebe679b"
+    }
+  },
+  "input_frames_per_run": 760,
+  "per_route_frames": {
+    "desk": 54,
+    "altar-tangent": 54,
+    "A-rail": 54,
+    "B-post-release": 54,
+    "B-closed-corner": 79,
+    "same-concave-mesh": 92,
+    "deep-overlap": 17,
+    "thin-wall": 72,
+    "A-cliff": 62,
+    "free": 52,
+    "auto-graze": 115,
+    "auto-block": 55
+  },
+  "checks": {
+    "before_exit": 1,
+    "after_exit": 0,
+    "assertions": 16,
+    "existing_checks_embedded_in_one_assertion": 52,
+    "before_failed": 5,
+    "after_failed": 0
+  },
+  "source_sha256": {
+    "after.tsv": "6f99c34c80becdcd019c1f6db8eea837784152393b7700b938c116aa50af6fe5",
+    "after.txt": "865c270b9d7e2ce3fe907d24e5a504f675594ade5a879eeb5a0407535751bf3a",
+    "before.tsv": "04e57249d8d2941cc6a100de097147e8f281ad40c51ea28a6e48133d64a3e9fe",
+    "before.txt": "97afb3de317360c85d385c2ec637e0827364e1ff829758391808f38e3157e63a",
+    "ChapterWalkCheck.cs": "1d7461b0fdf8f7bd3c277eb42e347ab94a69d45a7cdc8463b2e36bcb6f720d63",
+    "ChapterWalkRoutes.cs": "e1809b492be6219166c09f33601f1548ccff1fb833ca05bc1a3fcef12039b3c2",
+    "geometry.tsv": "a1eafd4d5dcf0f360a788877cd946a8a197955f069e752711da3a6cca8e212b8",
+    "run.ps1": "989b7396ff46fabbd8f51bb87e5258d3dbdf54037ad016aa04f154c1a11db117"
+  }
+}

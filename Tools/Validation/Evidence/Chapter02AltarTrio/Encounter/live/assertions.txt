@@ -1,0 +1,11 @@
+时长=10.403s 玩家HP=100→0 头世界=(-9.121, 81.200, 38.000) 最终=(-9.121, 81.200, 38.000) 转角=0.000° 朝向=(0.000, 0.000, -1.000) 进房状态=房间战斗中
+stone-carrier lease=1 最大位移=5.501m 行为=Patrol/Idle 启动=0 生效窗=0 玩家接受命中=0
+canjiou lease=2 最大位移=1.400m 行为=Chase/Attack/Idle 启动=3 生效窗=3 玩家接受命中=3
+zhihuocanji lease=3 最大位移=3.346m 行为=Attack/Idle/Chase/Turn 启动=3 生效窗=2 玩家接受命中=2
+玩家伤害事件 source=zhihuocanji id=enemy:51ff8fdf4c33433286c0525932143ef4:1 damage=40
+玩家伤害事件 source=canjiou id=enemy:d7e35795aa994f489acc3c9ca3897549:1 damage=6
+玩家伤害事件 source=canjiou id=enemy:d7e35795aa994f489acc3c9ca3897549:2 damage=8
+玩家伤害事件 source=zhihuocanji id=enemy:51ff8fdf4c33433286c0525932143ef4:2 damage=40
+玩家伤害事件 source=canjiou id=enemy:d7e35795aa994f489acc3c9ca3897549:3 damage=8
+掷火源确认的独立在飞火核=2 ids=-6766,-6820 三对最小水平距离 工奴近战=3.990 m 工奴掷火=3.884 m 近战掷火=6.944 m
+PASS 三敌同时实战

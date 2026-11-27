@@ -1,0 +1,18 @@
+2026-11-27T02:13:22.4804520+08:00 Assets/Samples/ToolBeltItems/TravelRationLab.unity 6000.3.10f1 privateSave=reach-only-eb2fd12cf5404b2ea491435f1d9f0cce.json
+PASS standalone ration uses a 0.600m serialized default
+PASS standalone ration public TryPickup attaches bag to hand grip while the index fingertip is outside 0.60m
+PASS standalone ration on release with fingertip outside and articulated grip inside, the same bag returns
+PASS standalone ration 0.590m below the eye returns
+PASS standalone ration deliberate far release keeps original bag in world
+PASS standalone ration re-picked original bag from world returns to its remembered pocket
+PASS standalone ration uses the authoritative path's adjusted 0.450m threshold
+PASS standalone ration restoring radius also restores the expected return
+PASS standalone ration passive loss and open sample preserve bag ownership
+PASS standalone ration reconfirmed release restores selected pocket
+PASS standalone ration the other hand lifts a biscuit at its fingertip
+PASS standalone ration ordinary biscuit release restores it untouched
+PASS standalone ration one swallowed biscuit awards exactly +15 once
+PASS standalone ration normal bag return after a bite
+PASS standalone ration return preserves used portion and health
+PASS XR standalone init=false, configured loaders=0, active loader=null, running display/input=0
+PASS END

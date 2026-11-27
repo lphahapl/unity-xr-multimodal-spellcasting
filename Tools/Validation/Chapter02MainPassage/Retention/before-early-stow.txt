@@ -1,0 +1,36 @@
+PASS Standalone XR auto-init off, running XR displays=0
+PASS 新局从原入口开始，符岸已布、笔尚未开放
+SHOT entrance (-9.12, 80.00, 63.70)
+SHOT approach (-9.12, 80.00, 63.70)
+PASS approach 原左食指步行到 (-8.662, 80.000, 59.618)
+PASS 步行到石案触发原教学
+PASS 空挥和空捏未展开主动板
+PASS approach 原左食指步行到 (-8.598, 80.000, 59.509)
+PASS 指尖按铜扣，剧情板打开
+PASS 真实青铜压面由右手指尖按下，正式石案面板展示通路符
+PASS 两岸使用已清除旧地线的网格
+PASS 正式章节保留金色浮光引导组件
+PASS 正式阶段资产直接绑定通路符和铜榫
+PASS 已播放石案绘符旁白
+PASS 正式玩家目录 fireball 准心=火球术瞄准 可用=False
+PASS 正式玩家目录 thunder.sword 准心=雷光剑瞄准 可用=True
+PASS 正式玩家目录 breath.stream 准心=龙火之术瞄准 可用=True
+PASS 正式玩家目录 breath.burst 准心=飞炎术瞄准 可用=True
+PASS square 从原五槽取出实体墨规笔
+SHOT square (-8.60, 80.00, 59.51)
+PASS square 正常取笔，目标为通路符
+PASS 首笔门框在纸上标起、止和拐向
+PASS 实体笔画框抬离后，高亮第二笔内横
+PASS 实体笔触清空，重新指引第一笔门框
+PASS square 距板14毫米仍保持接触
+PASS square 距板29毫米已抬笔
+PASS square 单笔保留，得分=0.000 状态=内横已留，抬笔再补门框 点数=44
+PASS 用户原录横笔停笔后明确提示补框
+PASS square 补第二笔成功，笔数=2 得分=0.946
+PASS 符成金闪中立即归笔
+PASS 笔归原槽
+FAIL System.InvalidOperationException: 画对只进入选岸，断桥仍封闭
+  at Chapter02MainPassageReplay.Check (System.Boolean ok, System.String msg) [0x0001a] in D:\Temp\NarutoVR-ParryQA-20261124\Assets\scripts\logic\Editor\Chapter02MainPassageReplay.cs:53 
+  at Chapter02MainPassageReplay+Film+<Route>d__35.MoveNext () [0x00a79] in D:\Temp\NarutoVR-ParryQA-20261124\Assets\scripts\logic\Editor\Chapter02MainPassageReplay.cs:186 
+  at Chapter02MainPassageReplay+<Play>d__11.MoveNext () [0x0010b] in D:\Temp\NarutoVR-ParryQA-20261124\Assets\scripts\logic\Editor\Chapter02MainPassageReplay.cs:64 
+  at Chapter02MainPassageReplay.Tick () [0x00066] in D:\Temp\NarutoVR-ParryQA-20261124\Assets\scripts\logic\Editor\Chapter02MainPassageReplay.cs:48 

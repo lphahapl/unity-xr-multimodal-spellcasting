@@ -1,0 +1,85 @@
+现场旧工奴根及其子外观均未启用
+已安装的祭坛房间使用现场 RPG、头部/移动根和 EnemyManager
+现场 RPG 初始化完毕，可进入真实房间，存档隔离：ch02-basket-test-7888f3968bc24d39a3d1153c92309016.json
+Cold post-repair checkpoint restored into altar with bridge repaired
+实笔工具带完成首次 LateUpdate 挂回
+双手来源已配置，场景恰有两个 HandVisual
+Left 官方可见手和对应输入引用
+Right 官方可见手和对应输入引用
+断桥画符与原玩家、唯一工具带的交互器接线
+实笔为启用的原章节物品，工具带已完成初始化
+实笔确在工具带归位槽，槽与物品双向引用一致
+干粮使用原工具带、同一玩家和正式挂在头部的嘴区
+剧情或配置尚未发放口粮，未生成初始口粮包
+上层定目帘初始透明、隶属头部相机，无 GraphicRaycaster 或接收射线的图形；相机=二章 · 玩家与工坊校准/XROriginCameraRig/TrackingSpace/CenterEyeAnchor
+桌面模拟进入战区：head=(-9.1214, 81.2000, 38.0000) floor=(-9.1214, 80.0000, 38.0000) rig=二章 · 玩家与工坊校准/XROriginCameraRig
+玩家脚底进入祭坛后由 CombatRoomEncounter 自动出生、绑定现有 post 和 A 篮
+出生时 A4 活动渲染网格 ID=73092,73104,73114,73118,73126,73110,73134,73122 搬运者根=(-9.1214, 80.0833, 35.0000)
+Chapter room owns carrier, normal and ranged production leases
+ordinary role uses its original animator: canjiou
+ordinary role uses its original animator: zhihuocanji
+正式 A4 外观随房间出生 lease=1 stoneID=-6260 rigidbodyID=-6256 source=Assets/Art/Enemies/CanJiOu/BallastStoneA4/T25-A4-Unity.fbx
+工奴进入生产搬运 Animator 状态
+stop keeps a planted pose with zero animation rate
+new FBX on actual Humanoid actor, 1.6s
+Leased BakeMesh vs authoring skinning quality max m=0.06208483 joints=4.220634E-06 quality=Auto / TwoBones
+production skeleton follows authored back pose
+持姿 phase=0.000000 local=(0.0002, 1.6704, -0.1698) rotation=(0.36942, 0.00051, 0.00245, 0.92926) profile=Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset curve=Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset
+背载状态不能施力
+正式非致命受击进入撤离
+实际撤离至示例落石边缘 (-9.1219, 80.0833, 29.5288)
+production clip=CanJiOu_BackCarryWalk seconds=1.6 world=(-9.1019, 81.7766, 29.7002)
+moving gait rate follows actual navigation speed
+Nav velocity=0.6770456, animation rate=1.253788
+生产受击结算掉下原石/原刚体 ID=-6260/-6256
+No death-frame teleport or rotation
+first physics step falls without depenetration shove
+first physics frame displacement=0.003921509 pos=(-9.1019, 81.7727, 29.7002)
+second physics step remains continuous
+second physics frame cumulative displacement=0.01177216
+Trio gate: aboard with both remaining enemies alive rejects stone
+Inside arena accepts damage: canjiou
+Same-room combat defeated canjiou
+Trio gate: one surviving enemy still rejects stone
+Inside arena accepts damage: zhihuocanji
+Same-room combat defeated zhihuocanji
+原房间确认当轮清场
+free-rotation solid settles under gravity
+已清场但玩家尚未登篮，符力继续关闭，石心=(-9.1334, 80.5250, 30.3062)
+真实玩家代表点进入原乘员盒，符力开放；head=(-9.1205, 81.2000, 20.3500)
+Center ray: 二章 · 玩家与工坊校准·敌人会话/CanJiOu_Room(Clone)/身体受击区 distance=6.546627
+Qianjun sweep=1 lock=True tip=(-9.1223, 81.0500, 22.7500) from=(-9.1334, 80.5250, 30.3059)
+收力后站在 A 篮右侧乘员板，离开镇石槽 (-8.2814, 80.0000, 20.0600)
+Qianjun sweep=2 lock=True tip=(-8.2825, 81.0500, 20.9600) from=(-9.5012, 80.5250, 22.5115)
+onDocked count=1 stone=-6260 at=(-9.1214, 80.2450, 21.0000)
+同一 A4 实例、刚体和渲染网格锁定，onDocked 恰好一次
+原篮、乘员盒、锁槽保持同一实例
+中程定目帘 activeInHierarchy 且 alpha>0.9、无 GraphicRaycaster，落稳后 alpha=0；采样头部朝向=(0.0000, 0.0000, -1.0000)
+A 实际运输 14794 帧，rig/head相对篮漂移 0.00002/0.00002 m，旋转 0.000/0.000°，始末头部方向 (0.0000, 0.0000, -1.0000)/(0.0000, 0.0000, -1.0000)
+A 下降约 80m，仅一次入槽，原镇石与网格抵中层
+静态西口检查点已自动写入玩家私有磁盘档
+抵西口时仍等待玩家步行至④
+A 篮内对准侧向豁口 (-8.2814, 0.0000, 20.0600) → (-8.2814, 0.0000, 20.3600)，累计 0.30m / 4 步
+A 中层篮口 (-8.2814, 0.0000, 20.3600) → (-7.6214, 0.0000, 20.4000)，累计 0.96m / 13 步
+西端静态地板 (-7.6214, 0.0000, 20.4000) → (-6.1214, 0.0000, 20.4000)，累计 2.46m / 33 步
+已步出 A，西边栈道尚未触发④
+西栈桥折向 (-6.1214, 0.0000, 20.4000) → (21.5536, 0.0000, 20.4000)，累计 30.14m / 402 步
+司衡台西接驳 (21.5536, 0.0000, 20.4000) → (29.5811, 0.0000, 12.5185)，累计 41.39m / 552 步
+步行抵达④原场景区域后才推进至工坊阶段
+抵达④后的持久化节点已切换至 CH02_HUB
+工坊转向 (29.5811, 0.0000, 12.5185) → (33.5561, 0.0000, 12.5002)，累计 45.36m / 605 步
+工坊桥南端 (33.5561, 0.0000, 12.5002) → (30.6000, 0.0000, 24.5000)，累计 57.72m / 770 步
+③ 工坊院口 (30.6000, 0.0000, 24.5000) → (30.6000, 0.0000, 36.5000)，累计 69.72m / 930 步
+进入工坊院坪 (30.6000, 0.0000, 36.5000) → (30.6000, 0.0000, 37.2500)，累计 70.47m / 940 步
+脚底入③，真实工坊战区已响应
+出篮至工坊全程 A 静止，同一石留在原槽
+双手来源已配置，场景恰有两个 HandVisual
+Left 官方可见手和对应输入引用
+Right 官方可见手和对应输入引用
+断桥画符与原玩家、唯一工具带的交互器接线
+实笔为启用的原章节物品，工具带已完成初始化
+实笔确在工具带归位槽，槽与物品双向引用一致
+干粮使用原工具带、同一玩家和正式挂在头部的嘴区
+剧情或配置尚未发放口粮，未生成初始口粮包
+抵工坊后官方手、实笔和口粮接线对象实例连续
+PASS ride

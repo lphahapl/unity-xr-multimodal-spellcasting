@@ -2,13 +2,13 @@
 
 **Unity XR 多模态施法交互原型：手部骨骼识别 × 离线中文口令 × 数据驱动技能。**
 
-《考工律度》的正式开场从设木格窗的试炼室开始。玩家练习打靶与防护、击败一具残机偶，随后走出外门，到校规庭取得第一枚方圆规印。[打开首章场景](Assets/Scene/Chapter01_Awakening.unity) · [关卡与接线说明](docs/guides/CHAPTER01_AWAKENING_ZH.md) · [外景全景与美术配置](docs/guides/CHAPTER01_EXTERIOR_VISUALS_ZH.md)
+《考工律度》的正式首章共有两个 Build 场景：[Chapter01_Awakening](Assets/Scene/Chapter01_Awakening.unity)（设木格窗试炼室与紧邻小院，门庭传送默认关闭）与 [Chapter01_Courtyard](Assets/Scene/Chapter01_Courtyard.unity)（补全“醒来”开场镜头、`CourtyardTaskGuide`、大面积草甸/陈设，且门庭 `SceneTravelGate` 已直连 [第二章断衡悬道](Assets/Scene/Chapter02_SuspendedPath.unity)）。玩家练习打靶与「衡印」防护、击败一具残机偶后走出外门，到校规庭取得第一枚方圆规印铜叶。[关卡与接线说明](docs/guides/CHAPTER01_AWAKENING_ZH.md) · [外景全景与美术配置](docs/guides/CHAPTER01_EXTERIOR_VISUALS_ZH.md)
 
 A Unity XR prototype combining skeletal hand gesture recognition and offline Chinese keyword spotting for configurable spellcasting, gesture locomotion, and a lightweight RPG demo.
 
 项目探索无需手柄的 VR 技能交互：从实际追踪的双手骨骼提取特征，以可配置规则识别固定手势，再与中文口令进行时间窗口匹配，驱动护盾、手持火球和战斗演示。仓库包含采样录制、识别诊断、技能配置、编辑器工具及单机关卡原型。
 
-> **当前状态：开发原型。** Quest / Steam Link 基础双手追踪链路已有实机观察；技能、玩家状态和关卡有自动检查记录。识别准确率、完整头显交互、舒适性和长期性能仍需专项验证。六工矩印中，规印、矩印、律印已有标定规则，准印、绳印、衡印为空模板。衡印只采左手，标定后用于左手护盾。
+> **当前状态：开发原型。** Quest / Steam Link 基础双手追踪链路已有实机观察；技能、玩家状态和关卡有自动检查记录。识别准确率、完整头显交互、舒适性和长期性能仍需专项验证。六工矩印中，规印、矩印、律印已有标定规则，准印、绳印为空模板。衡印使用已录制的左手手形，首章可左手结印或念“衡印”起盾。
 
 ## 功能概览
 
@@ -25,7 +25,7 @@ A Unity XR prototype combining skeletal hand gesture recognition and offline Chi
 | 腕饰教学卡 | 抬左腕＋右食指点腕饰开关，无需握拳；按钮高亮后轻捏即确认，松开重备；分页和独立放腕关闭策略。[操作与配置](docs/guides/WRIST_MENU_INTERACTION_DESIGN_ZH.md)。文字速查已实现，完整课程待制作 |
 | 墨规笔画符 | 上腹轻捏取笔，在板上描符。独立试验场可用千钧符推拉镇石、绘制方直之矩开启铜栅。[试验场操作](docs/architecture/GLYPH_DESIGN_ZH.md#运行试验场) |
 | 开发支持 | 中文 Inspector / HUD、模拟输入入口、配置冲突检查、场景生成与编辑/播放模式检查 |
-| 天空原型 | 青灰底色与两层缓慢薄云、中文材质参数、独立预览；[使用与性能边界](docs/guides/THIN_CLOUD_SKY_ZH.md)，正式首章未应用 |
+| 天空原型 | 青灰底色与两层缓慢薄云、中文材质参数、独立预览；[使用与性能边界](docs/guides/THIN_CLOUD_SKY_ZH.md)，已绑定至 `Chapter01_Awakening.unity`（`Chapter01_Courtyard.unity` 使用 `MountainCloudSky.mat`） |
 
 手势采用**特征与规则评分**；语音采用**关键词检测（KWS）**。本仓库没有训练通用手势分类模型，也不把关键词命中当作整句语义理解。
 
@@ -138,14 +138,15 @@ git clone https://github.com/lphahapl/unity-xr-multimodal-spellcasting.git
 
 | 场景 | 路径 | 观察重点 |
 |---|---|---|
-| 手部实验台 | `Assets/Scene/SealLabSteamLink.unity` | 原始追踪、录制、特征和评分 |
+| 手部实验台 | `Assets/Scene/SealLabSteamLink.unity` | 原始追踪、录制、特征和评分（Build 中对应 `SealLab.unity`） |
+| 扩展庭院与第二章 | `Assets/Scene/Chapter01_Courtyard.unity` / `Chapter02_SuspendedPath.unity` | 完整首章外景与已直连的第二章 V2.4 悬道场景（Build 中序号 2 / 3） |
 | 基础技能测试 | `Assets/Scene/SkillTest.unity` | 三种配方与最小接线 |
 | 火球靶场 | `Assets/Scene/FireballRange.unity` | 手持生成、前推发射、命中与遮挡 |
-| 护盾试炼 | `Assets/Scene/ShieldTrial.unity` | 自身加持与有限伤害演示 |
+| 护盾试炼 | `Assets/Scene/ShieldTrial.unity` | 左手衡印/口令加持与有限伤害演示 |
 | 组合施法 | `Assets/Scene/ComboSanctum.unity` | 两种输入顺序、超时与取消 |
 | 线性 RPG | `Assets/Scene/LinearRpgTest.unity` | 玩家资源、导航、闪避、关卡、升级与检查点 |
 
-默认训练配方示例：**规印 → 护盾**、**“护体咒” → 护盾**、**律印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
+默认训练配方示例：**左手结衡印或念“衡印” → 护盾**、**律印 + “火球术” → 火球**。RPG 场景使用独立目录和取消规则，按[运行指南](docs/guides/LINEAR_RPG_QUICKSTART_ZH.md)配置。电脑调试入口可模拟口令；火球等依赖手锚的效果仍需要有效手姿，模拟输入不代表真实识别成功。
 
 ### 4. 启动离线中文口令（可选）
 

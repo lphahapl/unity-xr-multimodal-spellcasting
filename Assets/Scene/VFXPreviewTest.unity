@@ -421,7 +421,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d2862e6cbd8159b4fa5ef5e168b8aa50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -487,17 +487,329 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9644fb855d45dbb5c7db993ced5c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.VFXShowcasePreviewer
-  categories: []
-  currentCategoryIndex: 4
+  categories:
+  - categoryName: "[1] 风遁"
+    themeColor: {r: 0.35, g: 1, b: 0.85, a: 1}
+    entries:
+    - title: "风遁·龙卷飓风 (持续风暴)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Winds/LargeTornado/Prefabs/WindContinous.prefab"
+      description: "持续性多层旋转飓风，气流升腾与外围旋转风环，极度震撼 (风遁·龙卷飓风)"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 3779071182227284033, guid: 0b64d0c860bc7e54c91f3020d4edfbcf, type: 3}
+      motion: 0
+    - title: "风遁·大龙卷 (瞬间爆发)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Winds/TornadoOneShotLarge/Prefabs/Par_TornadoOneShotLarge.prefab"
+      description: "单发瞬发巨型风暴爆发，地面气浪狂暴外扩冲击"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8136324697203328686, guid: 79acaf27f30988f4097eff2efdb8fe3c, type: 3}
+      motion: 0
+    - title: "风遁·大突破 (横向推进风压)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Winds/HorizontalWind/Prefabs/Par_HorizontalWind.prefab"
+      description: "强力横向气浪喷涌，经典风遁大突破推进"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1994029076158903789, guid: d0e85749e7513e2409f42bc85a17ca5b, type: 3}
+      motion: 0
+    - title: "风遁·螺旋聚气 (气旋蓄力)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Winds/WindCharge/Prefabs/WindCharge.prefab"
+      description: "中心高速内吸汇聚气流，极度贴合螺旋丸/风遁聚气蓄力"
+      spawnOffset: {x: 0, y: 1.2, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 7007953901473171864, guid: 0a2e23f9108d5c145b5c6736fcee97e9, type: 3}
+      motion: 0
+    - title: "风遁·真空连波 (疾风剑气飞刃)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Slashes/WindSlashes/Prefabs/Par_WindSwordBeam.prefab"
+      description: "凌厉青风刀光呼啸前斩，镰鼬之术/真空风刃"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1858485398176448756, guid: e0a9c77793f214c4ca83c30c371d9e40, type: 3}
+      motion: 0
+    - title: "风遁·压害 (压缩空气风弹)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Shoots/WindShoots/Prefabs/Par_WindBullet.prefab"
+      description: "高速压缩空气炮/风遁查克拉风弹"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 9103632281160831739, guid: c9ea76b8c484ef747976084556ecc86b, type: 3}
+      motion: 0
+    - title: "风遁·瞬身气浪 (气旋瞬爆)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Winds/WindFlash/Prefabs/Par_WindFlash.prefab"
+      description: "瞬身移动或短距冲刺时的环形气流爆散"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 7912708666193520125, guid: e49b028ed03ee374f8cd90ca7092b9e3, type: 3}
+      motion: 0
+    - title: "风遁·剑舞回天 (白色旋风气壁)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Sword/Whirlwind/SwordWhirlwindWhite.prefab"
+      description: "周身环绕白色真空风壁，回天式剑舞防御"
+      spawnOffset: {x: 0, y: 0.2, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1342876954156012, guid: 8243470e37cffc541978addf2dccb436, type: 3}
+      motion: 0
+  - categoryName: "[2] 火遁"
+    themeColor: {r: 1.0, g: 0.45, b: 0.15, a: 1}
+    entries:
+    - title: "龙火之术 · 待吹火苗"
+      assetPath: "Assets/Art/VFX/Skills/Prefabs/龙火待吹火苗.prefab"
+      description: "开吹隐藏火苗，停吹复现，施术结束熄灭。"
+      spawnOffset: {x: 0, y: 1, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 100100, guid: 7ea6b7cf933b480292c703bd927081fa, type: 3}
+      motion: 1
+    - title: "飞炎术 · 吐火成球"
+      assetPath: "Assets/Art/VFX/Skills/Prefabs/飞炎吐火球.prefab"
+      description: "按 C 慢放，观察火球撞上石板后的爆散与焦痕。"
+      spawnOffset: {x: 0, y: 1, z: -2.8}
+      spawnScale: 1
+      prefab: {fileID: 100100, guid: 6f81a414f5ce4021a071ad75333bc902, type: 3}
+      motion: 2
+    - title: "火遁·豪火灭却 (烈焰风暴喷涌)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/FlameThrower/StormFlameThrower/Prefabs/StormFlameThrower.prefab"
+      description: "狂暴多重火舌奔涌铺天盖地，极具斑爷豪火灭却压迫感"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8394330443960385053, guid: a136052a3cb87b447af0fb251a461d18, type: 3}
+      motion: 0
+    - title: "火遁·龙火之术 (火柱持续喷射)"
+      assetPath: "Assets/Art/VFX/Skills/Prefabs/龙火定向喷流.prefab"
+      description: "标准前方持续炽烈喷吐，火柱吞噬前方目标"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 7783603696140898861, guid: 7c0a4b8fe6c0409d90d97bce34d9832a, type: 3}
+      motion: 0
+    - title: "火遁·天照幽炎 (紫炎喷射)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/FlameThrower/PurpleFlameThrower/Prefabs/FlameThrower.prefab"
+      description: "异色幽冥紫炎/天照黑紫烈火，神秘冷酷且视觉张力极强"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8414465710923323189, guid: af4056451401d0b48b647cf596168cfa, type: 3}
+      motion: 0
+    - title: "火遁·烈焰冲击 (贯穿粗火柱)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/Lasers/FireLaser/Prefabs/Par_Laser_FireThickLaser.prefab"
+      description: "高聚能高亮粗火柱贯穿轰击，热浪冲击"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8506907108213092316, guid: 759bb421bddda2d4c9ce6f287dbd0403, type: 3}
+      motion: 0
+    - title: "火遁·豪火球大爆炸 (起爆炎爆)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer1/Explosions/Explosion_Fire/Prefabs/Par_FireExplosion3_Explosion.prefab"
+      description: "起爆符/巨型火球命中的剧烈冲击波与火焰爆散"
+      spawnOffset: {x: 0, y: 0.2, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8210520550165414391, guid: 9961a36d668ff3142a3e35e13e558862, type: 3}
+      motion: 0
+    - title: "火遁·焦土残焰 (地面燃烧)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer1/Shoots/Shoot_Fire3/Prefabs/Par_GroundFire.prefab"
+      description: "火遁掠过后的地表火焰持续灼烧"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 6839958377064539316, guid: 75168bc031a8d1a438ddd3bcf9e8853a, type: 3}
+      motion: 0
+    - title: "火遁·豪火球飞弹 (经典火球)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Missiles/Fireball/FireballMissileFire.prefab"
+      description: "经典巨大橘红火焰球向前呼啸飞行（已补偿静态预览发射率）"
+      spawnOffset: {x: 0, y: 1.2, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 147436, guid: 3b671081e44be1c4aa4355e8ba6e8a5e, type: 3}
+      motion: 0
+    - title: "火遁·豪火球爆散"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Explosions/FireballExplosion/ExplosionFireballFire.prefab"
+      description: "火球撞击炸裂，向四周溅射烈火与浓烟"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 130848, guid: d16221e794fe16e4e8994a7f8c770561, type: 3}
+      motion: 0
+  - categoryName: "[3] 雷遁"
+    themeColor: {r: 0.95, g: 0.95, b: 0.3, a: 1}
+    entries:
+    - title: "雷遁·天罚麒麟 (天降重雷轰顶)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/ThickLightningExp/Prefabs/Par_LightExplosion_Explosion.prefab"
+      description: "天降极粗雷蟒贯地，狂暴电光四散炸裂 (雷遁·麒麟)"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 5982508095046914737, guid: 4cc9ada0c1ae61e429f7bf9413859b77, type: 3}
+      motion: 0
+    - title: "雷遁·雷电球 (千鸟球/雷遁聚能)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/LightningBalls/Prefabs/Par_LightningBall.prefab"
+      description: "高聚能电芒跃动的雷球，适合雷遁掌心聚能"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 4136234833820346069, guid: 37d06094382805540be8d1eee4f9f720, type: 3}
+      motion: 0
+    - title: "雷遁·伪暗 (青白雷光贯穿束)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/LightningLaser/Prefabs/Par_Laser_CyanLaser.prefab"
+      description: "青白色高能雷光贯穿射线，角都雷遁·伪暗风格"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 6872395224543704785, guid: 8f912873894cde4489885a2c7bab088f, type: 3}
+      motion: 0
+    - title: "雷遁·金雷霹雳 (金光雷击)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/YellowLightning/Prefabs/Par_LightExplosion_Explosion.prefab"
+      description: "金黄色霹雳破空劈下，高能电火花四溅"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8917610613738701571, guid: 4aa2c378f3970624ea2144f571fd5c11, type: 3}
+      motion: 0
+    - title: "雷遁·雷环爆发 (周身电磁环)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/LightningRing/Prefabs/Par_LightningRing.prefab"
+      description: "周身扩散的多道雷电环，适合雷遁护体/防反"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1333988597064202756, guid: 13ff231b7f2f60449a15f7e90eccc47b, type: 3}
+      motion: 0
+    - title: "雷遁·雷切牵引 (电弧连线残影)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer3/Lightnings/LightningLine/Prefabs/LightningLine.prefab"
+      description: "雷切高速突刺时的拉扯电流残影"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 8844849722638472504, guid: f0bcc9c4f21f2a148a7972ff44d6213e, type: 3}
+      motion: 0
+    - title: "雷遁·青电爆散 (千鸟电芒)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Explosions/LightningExplosion/LightningExplosionBlue.prefab"
+      description: "千鸟击中时爆散出的青蓝电芒残弧"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 121496, guid: 5e8a137808d7d374487f34e236c723db, type: 3}
+      motion: 0
+    - title: "雷遁·雷光剑 (项目现行雷剑)"
+      assetPath: "Assets/Art/VFX/ThunderSword/雷光剑.prefab"
+      description: "项目内置雷剑附魔与挥砍青弧"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 4602954251851788563, guid: 207b6449bbd4937408ee0db2379405aa, type: 3}
+      motion: 0
+  - categoryName: "[4] 查克拉"
+    themeColor: {r: 0.3, g: 0.65, b: 1.0, a: 1}
+    entries:
+    - title: "查克拉·常态聚气外衣 (纯蓝查克拉)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Magic/Aura/MagicAuraBlue.prefab"
+      description: "湛蓝纯净查克拉蒸腾升华外衣，无西洋符号"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 108178, guid: e053c479a3add9649af9d847a748547d, type: 3}
+      motion: 0
+    - title: "查克拉·九尾/死门血红外衣"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/Auras/RedAura/Prefabs/Par_RedAura.prefab"
+      description: "狂暴猩红尾兽外衣 / 八门遁甲死门蒸腾血气"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 341581593045227246, guid: f5d803785c0de7345996cc6338d78e83, type: 3}
+      motion: 0
+    - title: "查克拉·八门遁甲景门绿气"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/Auras/GreenAura/Prefabs/Par_GreenAura.prefab"
+      description: "八门遁甲景门全开蒸腾绿色汗气气浪"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1450494902877035768, guid: 79f98b59ef4aff540ad43d55f053ab88, type: 3}
+      motion: 0
+    - title: "奥义·尾兽玉光炮 (粗能量柱)"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/Lasers/ThickBlueLaser/Prefabs/Par_Laser_BlueThickLaser.prefab"
+      description: "震撼的纯蓝查克拉光炮，尾兽玉发射贯穿波"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 5947073060024291013, guid: 9a0e1f975ca55c84e9c8e30812f4dad8, type: 3}
+      motion: 0
+    - title: "查克拉·螺旋能量弹"
+      assetPath: "Assets/Imported/MasterMagicFX/ParticlesVer2/Shoots/BlueEnergyShoot/Prefabs/Par_BlueShoot_Bullet.prefab"
+      description: "高密度查克拉球弹向前飞出"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 640159756336666435, guid: 7239517f4fc1543459ddedaff75ba6c5, type: 3}
+      motion: 0
+    - title: "体术·八卦空掌 (纯空气冲击环)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Brawling/RoundHit/RoundHitBlue.prefab"
+      description: "日向柔拳·八卦空掌/怪力打出的纯空气冲击环"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 127072, guid: 7f45705f5f30d8a45af0fc2eb8c8998a, type: 3}
+      motion: 0
+    - title: "剑术·查克拉月牙飞刃"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Combat/Sword/Wave/SwordWaveBlue.prefab"
+      description: "武士刀挥出的月牙形湛蓝查克拉剑波"
+      spawnOffset: {x: 0, y: 1.0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1140404083555214, guid: e66bddc96394d4a45b8c8fd1ed37a43d, type: 3}
+      motion: 0
+    - title: "封印术·八卦金光阵法 (项目自制)"
+      assetPath: "Assets/Art/VFX/Skills/Prefabs/地面阵法.prefab"
+      description: "项目自制八卦封印道家金光符文阵，绝无六芒星"
+      spawnOffset: {x: 0, y: 0, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 4381639857415107168, guid: 24d91bfe21fb5de4eaf6ea227ee53b35, type: 3}
+      motion: 0
+  - categoryName: "[5] 小火苗"
+    themeColor: {r: 1.0, g: 0.72, b: 0.22, a: 1}
+    entries:
+    - title: "烛光微火·金黄 (柔和摇曳)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Candle/CandleLightSoft/CandleLightSoftYellow.prefab"
+      description: "仅十余厘米高的微型烛火，带柔和光晕与微小火星跳跃，极度适合指尖起火、点燃起爆符或微型查克拉火苗"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1777281648745504, guid: 10068c0e5a2b4da4d8507a63381abb73, type: 3}
+      motion: 0
+    - title: "烛光微火·赤红 (指尖明火)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Candle/CandleLightSoft/CandleLightSoftRed.prefab"
+      description: "纯正赤红小火苗，微弱点光源与细腻火星跳动"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1078164729107494, guid: 19936ebf972cace4c9f2e3b814ca212c, type: 3}
+      motion: 0
+    - title: "幽冥鬼火·幽紫 (异色微火)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Candle/CandleLightSoft/CandleLightSoftPurple.prefab"
+      description: "幽暗紫火小火苗，天照余烬/暗夜通灵鬼火风格"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1735799270612616, guid: 2a66ba9a1a43f7d4397850f765d76f91, type: 3}
+      motion: 0
+    - title: "查克拉冷火·青蓝 (冷色火苗)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Candle/CandleLightSoft/CandleLightSoftBlue.prefab"
+      description: "青蓝色冰焰/二尾又旅青火小火苗，冷色调极具神秘感"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1222757194388906, guid: 62b0b93adb89a644bb8bd0d81f7b97ea, type: 3}
+      motion: 0
+    - title: "柔和火苗·金黄 (团状小篝火)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Soft/SoftFireADD/SoftFireAdditiveYellow.prefab"
+      description: "约半米高的团状柔和跳动小火簇，带热空气微光与火星上升，适合掌心托火或忍具附火"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 149992, guid: 4e395833a91102b4a93cdeb0213682db, type: 3}
+      motion: 0
+    - title: "柔和微火·赤红 (短簇明焰)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Soft/SoftFireAB/SoftFireABRed.prefab"
+      description: "经典赤红小火团，半透明混合，火焰升腾自然"
+      spawnOffset: {x: 0, y: 0.5, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 1423784243368200, guid: 78892530d39aaea41a7f4adc11f8c866, type: 3}
+      motion: 0
+    - title: "火把火苗·卡通 (火炬跳焰)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Cartoon/Torch/CartoonFireTorchRed.prefab"
+      description: "赛璐璐动漫风格的火把火苗，边缘轮廓鲜明，带卡通跳跃火星"
+      spawnOffset: {x: 0, y: 0.8, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 149928, guid: 0b5e7793d4d1e854385c5ce9b1e79f47, type: 3}
+      motion: 0
+    - title: "刺状火苗·查克拉 (烈炎锐火)"
+      assetPath: "Assets/Imported/EpicToonFX/Prefabs/Environment/Fire/Spiky/Additive/SpikyFireAdditiveYellow.prefab"
+      description: "跳动剧烈的尖刺火舌与火星青烟，具有强烈的查克拉灼烧感"
+      spawnOffset: {x: 0, y: 0.6, z: 0}
+      spawnScale: 1
+      prefab: {fileID: 153628, guid: 58ed8557dea39c14f94fc6fbc306e4d7, type: 3}
+      motion: 0
+  currentCategoryIndex: 1
   currentEntryIndex: 0
   spawnRoot: {fileID: 4002}
   currentInstance: {fileID: 0}
+  dragonBreath: {fileID: 11400000, guid: 9f344c645bb455b6a59978eecac02dd4, type: 2}
+  flyingBreath: {fileID: 11400000, guid: a163baa9d83447eb90ac6331eaba790e, type: 2}
+  impactTargetMaterial: {fileID: 2100000, guid: e12d8b2674539ff4d90248e5b0939bba, type: 2}
   showcaseCamera: {fileID: 1003}
   cameraPivot: {x: 0, y: 1, z: 0}
   cameraDistance: 5
   cameraPitch: 18
   cameraYaw: 0
-  autoRotateCamera: 1
+  autoRotateCamera: 0
   autoRotateSpeed: 12
   slowMotion: 0
   showHUD: 1

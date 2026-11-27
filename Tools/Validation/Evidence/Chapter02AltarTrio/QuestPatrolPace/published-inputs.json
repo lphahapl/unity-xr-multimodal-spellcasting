@@ -1,0 +1,46 @@
+{
+  "scene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "previous": "ce338bb531b220345ad43673dc4e5aad8bf655ed274f7d72adec445c3732cc83",
+  "production": "e24e6a26cd18e97a2856bf60baae08b8bae3da1731b2fe748aed6348d55264e3",
+  "verifiedReplica": "e24e6a26cd18e97a2856bf60baae08b8bae3da1731b2fe748aed6348d55264e3",
+  "unchangedExistingDocuments": 1019,
+  "changedExistingDocuments": [
+    298544024,
+    1373830077,
+    1373830078,
+    1595391171
+  ],
+  "addedDocuments": [
+    1812612001,
+    1812612002,
+    1812612003,
+    1812612004,
+    1812612005
+  ],
+  "runtime": {
+    "Assets/scripts/logic/Enemies/EnemyController.cs": {
+      "before": "94d390e2358624d9c40a307f6f97567e16bc22b0ad82290f97397f96e1cac0ef",
+      "after": "1ceba730f27ab877a15417323d9836057ffa3397d02669cf3f4e1f0f9a19666c"
+    },
+    "Assets/scripts/logic/Enemies/Spawning/EncounterEnemyPace.cs": {
+      "before": null,
+      "after": "8405ec17697213a1b6d4440d6ca651168c2d3980a7952dfd8255cbe3ec8d5f74"
+    },
+    "Assets/scripts/logic/Enemies/Spawning/EncounterEnemyPace.cs.meta": {
+      "before": null,
+      "after": "cfa458b3ee80177a39db00bac92481c7abccc9a6a7070f9923ad743c1db60662"
+    },
+    "Assets/scripts/logic/Enemies/Spawning/EnemyLease.cs": {
+      "before": "9b3b482a61e70bf26bea6a3d5c469bac25a11a6d369be7574410b82b2accfe14",
+      "after": "d24fae6f7fe071136f79b7ed279884ba0481ed6c1b2836233db57c4897eea0f0"
+    },
+    "Assets/scripts/logic/Enemies/StoneCarrier.cs": {
+      "before": "0e3566754d4f4982c3f7a43b49da82f763716495da6b1caae85124bc1679a451",
+      "after": "95d4997664b947ae18271a7ab9fb09da6eae22ae4fbda5754b3669a83c882cb2"
+    },
+    "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs": {
+      "before": "0fb0aa65aab8c0c5dfecccd59f5707428f3d4a54bc662d9ac4a0b5118e2cd926",
+      "after": "879e436da0d1bbbef2bc3040e968fe37ae0ca10a09eac8acac93b423be1716e0"
+    }
+  }
+}

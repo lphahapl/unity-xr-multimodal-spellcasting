@@ -1,0 +1,53 @@
+2026-11-27T02:12:53.4764062+08:00 Assets/Scene/Chapter02_SuspendedPath.unity 6000.3.10f1 privateSave=reach-only-22a0079a2b3b438991c95796e8fca388.json
+PASS fixture fit EntryAnchor projectedXYZmm=(4.00, 8.00, 4.00) capacityXYZmm=(38.00, 80.00, 19.00) openingLossyScale=(1.000, 1.000, 1.000)
+PASS fixture fit SoftPouch projectedXYZmm=(4.00, 8.00, 4.00) capacityXYZmm=(47.00, 68.00, 17.00) openingLossyScale=(1.000, 1.000, 1.000)
+PASS chapter belt default discardReach is 0.600 m
+PASS never stowed, close to body and home configured: loose object falls
+PASS right grip 0.599m, 0.83m below eye: returns to A
+PASS left grip at exactly 0.600m: gravity drop
+PASS same live object remembers A after intentional drop
+PASS right grip at 0.601m remains a world drop
+PASS diagonal 0.636m is outside even though both axes are below 0.60
+PASS ground re-pick of the same instance returns to its remembered source A
+PASS lost tracking then open sample does not manufacture a discard
+PASS a subsequent real pinch/open re-arms release
+PASS room-scale move changes tracked eye independently of rig
+PASS room-scale walked toward a fixed grip: return uses live head XZ
+PASS room-scale stepped away from fixed grip: original ring no longer counts
+PASS explicitly seated in a different legal free pocket B
+PASS taking the reseated object records B
+PASS B returns after switching pockets; A stays free
+PASS far drop after switching from A to B
+PASS ground re-pick after switching returns to B, not initial home A
+PASS occupied remembered pocket falls without searching free slot A
+PASS original occupant and other empty pocket are preserved
+PASS same fallen item returns when remembered pocket B becomes free
+PASS disabled source pocket rejects return without indirect fallback
+PASS disabled-source return leaves the other pocket free
+PASS re-enabled source can accept the same live item again
+PASS source still exists but was removed from this belt: gravity drop
+PASS detached source cannot be reclaimed and no slot was substituted
+PASS reinstalled still-valid slot accepts re-picked item
+PASS remembered pocket now too narrow for the stored shape: drops
+PASS a failed size check does not reroute to a different pocket
+PASS restored fit permits the next pickup to return
+PASS fixture splits object root, finger tip and actual grip across boundary
+PASS actual grip, not object origin or index tip, controls return
+PASS Inspector threshold changed to 0.45m: 0.46m drops
+PASS chapter shared auxiliary uses a 0.600m serialized default
+PASS chapter shared auxiliary public TryPickup attaches bag to hand grip while the index fingertip is outside 0.60m
+PASS chapter shared auxiliary on release with fingertip outside and articulated grip inside, the same bag returns
+PASS chapter shared auxiliary 0.590m below the eye returns
+PASS chapter shared auxiliary deliberate far release keeps original bag in world
+PASS chapter shared auxiliary re-picked original bag from world returns to its remembered pocket
+PASS chapter shared auxiliary uses the authoritative path's adjusted 0.450m threshold
+PASS chapter shared auxiliary restoring radius also restores the expected return
+PASS chapter shared auxiliary passive loss and open sample preserve bag ownership
+PASS chapter shared auxiliary reconfirmed release restores selected pocket
+PASS chapter shared auxiliary the other hand lifts a biscuit at its fingertip
+PASS chapter shared auxiliary ordinary biscuit release restores it untouched
+PASS chapter shared auxiliary one swallowed biscuit awards exactly +15 once
+PASS chapter shared auxiliary normal bag return after a bite
+PASS chapter shared auxiliary return preserves used portion and health
+PASS XR standalone init=false, configured loaders=0, active loader=null, running display/input=0
+PASS END

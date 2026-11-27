@@ -1,0 +1,30 @@
+2026-11-27T03:52:02.0723633+08:00 Assets/Samples/ToolBeltItems/TravelRationLab.unity 6000.3.10f1
+PASS lab-before: position=(-2.79, 1.38, -1.25) head=(-2.80, 1.72, -1.44) home=(-2.79, 1.42, -1.25) selected=TravelRationPouch (UnityEngine.Transform) inputOK=True reason=
+PASS 干粮远抓：左手从中央袋口远取原干粮包，沿用原所有者
+PASS 干粮远抓：未展开时不能隔袋取饼
+PASS face 0 target=Biscuit01 actual=Biscuit02 face_y=0.032 rim=0.060
+PASS face 1 target=Biscuit02 actual=Biscuit04 face_y=0.025 rim=0.060
+PASS face 2 target=Biscuit03 actual=Biscuit03 face_y=0.018 rim=0.060
+PASS face 3 target=Biscuit04 actual=Biscuit03 face_y=0.017 rim=0.060
+PASS display: above rim=0/4, same piece marked from 45cm=1/4
+PASS geom:Biscuit01 gripLocal=(0.0062, 0.0298, -0.0016) visLocal=(0.0059, 0.0296, -0.0016) bounds=(0.0364, 0.0359, 0.0024) size=(1.000, 1.000, 1.000)
+PASS geom:Biscuit02 gripLocal=(-0.0023, 0.0266, 0.0032) visLocal=(-0.0025, 0.0263, 0.0033) bounds=(0.0368, 0.0363, 0.0024) size=(1.000, 1.000, 1.000)
+PASS geom:Biscuit03 gripLocal=(0.0017, 0.0188, 0.0091) visLocal=(0.0015, 0.0186, 0.0092) bounds=(0.0350, 0.0344, 0.0024) size=(1.000, 1.000, 1.000)
+PASS geom:Biscuit04 gripLocal=(-0.0105, 0.0140, 0.0145) visLocal=(-0.0107, 0.0137, 0.0146) bounds=(0.0393, 0.0389, 0.0024) size=(1.000, 1.000, 1.000)
+PASS 干粮远抓：持袋时另一手射线取出一块，尚未消耗
+PASS 干粮远抓：短时失追后张手不会误吃或放掉饼
+PASS 干粮远抓：重新确认捏合再松手，原饼归包
+PASS 干粮远抓：远取归还的同一饼
+PASS 干粮远抓：嘴部停留后进入原有最后吸附
+PASS 干粮远抓：一块仅结算一次 +15 气血，持续捏合不重发
+PASS 干粮远抓：将原包拉远松手，世界内掉落
+PASS ground:(-2.8000, 1.5774, -0.6950) to=(-2.8000, -0.0221, -0.6950) collider=True bounds=(0.0448, 0.0158, 0.0603) vel=(0.000, 0.000, 0.000) sleep=True
+PASS 干粮远抓：整包从手部真实下坠并在现场地板上停稳
+PASS rests on visible slab=False rendererTop=-0.0144 colliderBottom=-0.0300
+PASS 干粮远抓：右手射线从世界重新取得同一干粮包
+PASS 干粮远抓：地面指尖接近 18 mm 拾回原包
+PASS 干粮远抓：左手将包放入原中央口并交回所有权
+FAIL System.InvalidOperationException: 干粮远抓：四块饼可见面均可独立指中，横置的整包没有沉在可见地板下
+  at NarutoVR.SealCombat.Editor.RationPickupChecks+<>c__DisplayClass0_0.<Run>g__Check|1 (System.Boolean ok, System.String what) [0x0002a] in D:\Temp\BackCarryUnity1126\Assets\scripts\logic\Editor\Interaction\RationPickupChecks.cs:52 
+  at NarutoVR.SealCombat.Editor.RationPickupChecks+<Run>d__0.MoveNext () [0x0111f] in D:\Temp\BackCarryUnity1126\Assets\scripts\logic\Editor\Interaction\RationPickupChecks.cs:171 
+  at NarutoVR.SealCombat.Editor.HandPickupPlayChecks.Tick () [0x00028] in D:\Temp\BackCarryUnity1126\Assets\scripts\logic\Editor\Interaction\HandPickupPlayChecks.cs:109 

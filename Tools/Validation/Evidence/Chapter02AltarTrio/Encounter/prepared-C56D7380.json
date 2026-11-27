@@ -1,0 +1,70 @@
+{
+  "verifiedAt": "2026-11-26T16:32:00+08:00",
+  "scope": "static only",
+  "scene": {
+    "sha256": "c56d7380bef12e6104f59a28f1926009e74b425db6c9c62621ee414c142022d2",
+    "roomFileID": 1486636670,
+    "spawnPoints": [
+      [
+        "stone-carrier",
+        "298544025",
+        "0"
+      ],
+      [
+        "canjiou",
+        "1373830078",
+        "0"
+      ],
+      [
+        "zhihuocanji",
+        "1595391172",
+        "0"
+      ]
+    ],
+    "preview": true,
+    "previewDistanceMetres": 32
+  },
+  "playerRigGUID": "f9f107e8ecae49048bda9d4fd7e1d1ec",
+  "officialHands": [
+    {
+      "side": "Left",
+      "visualPrefabGUID": "67c4027c76c769346ab6711c6a38d07a",
+      "handComponentFileID": 1508473943,
+      "rendererMeshGUID": "63d10a535aa014c4f9e3f04185131351"
+    },
+    {
+      "side": "Right",
+      "visualPrefabGUID": "7c1640bff2820dd4ebbbc9aca5d3322d",
+      "handComponentFileID": 1827239490,
+      "rendererMeshGUID": "700142580560ace4cbddcacbae9ae39b"
+    }
+  ],
+  "runtimeSpawningSHA256": "0fb0aa65aab8c0c5dfecccd59f5707428f3d4a54bc662d9ac4a0b5118e2cd926",
+  "files": [
+    {
+      "path": "Tools/Validation/Evidence/Chapter02AltarTrio/Encounter/Chapter02AltarEncounterCheck.cs",
+      "sha256": "78a07315ce907c98c24c8a150147334c8ac7180f1ae825771c1649ab94530274"
+    },
+    {
+      "path": "Tools/Validation/Evidence/Chapter02AltarTrio/Encounter/Chapter02AltarLiveCheck.cs",
+      "sha256": "5f82867c95fdcbd1ae7ecde3eeedcb88892e158687c23b9a8d6d40a74781306b"
+    },
+    {
+      "path": "Tools/Validation/Evidence/Chapter02AltarTrio/Encounter/Chapter02AltarPreviewWitness.cs",
+      "sha256": "dca39a2edcc0316b04d9e98842d9c5941f6bf5bfaf4b55fd4bebd6d9cbced53a"
+    },
+    {
+      "path": "Tools/Validation/Evidence/Chapter02AltarTrio/SceneHandoff/Chapter02AltarTrioInstaller.cs",
+      "sha256": "b76b5b22da2eea6def90644e0818987cca7fc39c36838e3bf286ed83b9a323b1"
+    }
+  ],
+  "compile": {
+    "tool": "Unity 6000.3.10f1 DotNetSdkRoslyn/csc.dll",
+    "references": "Unity editor compiler response with production Library/ScriptAssemblies",
+    "exitCode": 0,
+    "bytes": 60928,
+    "sha256": "08acb275e11d8f25ccef53e705b283c13da23bef7501e058b4471c35a3faf304"
+  },
+  "playRun": false,
+  "captureRun": false
+}

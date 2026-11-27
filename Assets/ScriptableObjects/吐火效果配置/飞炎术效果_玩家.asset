@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cf9d4dedd645ef910ea6b4786a0580, type: 3}
+  m_Name: 飞炎术效果_玩家
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.BreathEffectDefinition
+  audioProfile: {fileID: 0}
+  mode: 2
+  pilotFlamePrefab: {fileID: 100100, guid: b38eb9f50e094ef29dabe3f8b1b1adb4, type: 3}
+  visualPrefab: {fileID: 100100, guid: 6f81a414f5ce4021a071ad75333bc902, type: 3}
+  impactPrefab: {fileID: 100100, guid: 94c4ee6745ac47e096d73646e330b279, type: 3}
+  mouthOffset: {x: 0, y: -0.09, z: 0.08}
+  manaPerSecond: 0
+  damage: 24
+  damageInterval: 0.2
+  radius: 0.3
+  range: 20
+  speed: 9
+  poiseDamage: 12
+  visualScale: 0.7
+  surfaceMark: {fileID: 11400000, guid: ffcad8a3c33646c887196c6c8e0dc09b, type: 2}
