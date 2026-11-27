@@ -1,0 +1,36 @@
+{
+  "originalToolbelt": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+  "originalAssemblySHA256": "1041b462e8b09a24d95e0265c5b483d7b8d8b74c8adc2b59e906f58a0ac15a8d",
+  "originalMeshParts": [
+    "BeltBody",
+    "FlatSleeve",
+    "PenSleeve",
+    "SoftPouch",
+    "TallSleeve",
+    "WoodCase"
+  ],
+  "frontShoulderStrapToJacketClosures_mm": 65.23,
+  "frontStrapVertexSamples": 370,
+  "wearStudyAdditions": [
+    "detachable rear backing",
+    "front and rear keeper"
+  ],
+  "savedScene": "ExternalFit/T06_R05_WearStudy.blend",
+  "sourceCharacterGLBIncludesToolbelt": false,
+  "staticPose": true,
+  "riggingAndAnimatedContactTested": false,
+  "wearOnlyCordMaxRadialTakeIn_mm": 17.0,
+  "wearOnlyCordMaxLowering_mm": 6.5,
+  "narrowCarrierToCord": {
+    "PenSleeve": {
+      "minimum_before_mm": 10.99,
+      "minimum_after_mm": 21.32
+    },
+    "FlatSleeve": {
+      "minimum_before_mm": 19.29,
+      "minimum_after_mm": 26.33
+    }
+  },
+  "linkedCharacterParts": 32,
+  "localCordOverride": true
+}
