@@ -1,0 +1,75 @@
+{
+  "id": "ch02-t25-ballast-a4",
+  "name": "T-25 A4 · 十字铜带镇石实物",
+  "status": "已通过",
+  "summary": "A4 十字铜带镇石已通过并接入主工程。可查看正式四向、原搬运动画及 A 篮入槽结果。",
+  "reviewViews": [
+    [
+      "玩家俯看",
+      "3ce92ade918c22ccb5aace4a0e017d31622aaa5528d50dbaabf9c966d04b857f/T25-A4-player-top.png",
+      "顶面四角朱记刻入 5 毫米。两条铜带在中心分上下交叠，四角各自留出识别空间。",
+      "top"
+    ],
+    [
+      "侧背近照",
+      "a8125ff3209cd521522ae20c29700d3d8a2f32625df8b408dd037254692ac49d/T25-A4-side.png",
+      "两条铜带连续包覆四侧。侧光显示灰石层理、凿痕和铜带边缘。",
+      "side"
+    ],
+    [
+      "正面扣件",
+      "475d4ab106f24f54b2a7ba03b520d06530d9d469eea4b54e739062e835974ed7/T25-A4-clasp.png",
+      "正面保留小朱记，搭接铜片用铆钉压紧。",
+      "clasp"
+    ],
+    [
+      "底部承托",
+      "ad5e26ccae5f12c62d78bdac361b8aaae79ff63f414625f4703a6f5dcc6be4f3/T25-A4-base.png",
+      "十字带收进内缩底托，托底和原物理盒底齐平。",
+      "base"
+    ],
+    [
+      "石材近照",
+      "2e65752303f191f1fef507100b17c1e1d988bed817f32c51db336e168efcdee2/T25-A4-stone.png",
+      "独立材质样块近照，按一米平铺密度查看层理、敲凿与断面。",
+      "stone"
+    ],
+    [
+      "铜材近照",
+      "623b5255ef84dfb0ba84ea1e4f6826eccbfc91f5a60289d729e5b35a102f2833/T25-A4-bronze.png",
+      "独立材质样块近照，可检查拉丝方向、局部氧化与反光粗糙度。",
+      "bronze"
+    ],
+    [
+      "搬运侧视",
+      "07d9a66761127e9bcbe9ecc6fd94b2dedf79d6777e0fc865edf3b4a947abff54/T25-A4-carry.png",
+      "原搬运动画第 55 帧。右手长件距青铜底托最近，为 39.29 毫米。",
+      "carry"
+    ],
+    [
+      "双腕近景",
+      "698ad699de0d02da90782d39307c36bf3ef08734df87f9c3792a9d3dea90bb99/T25-A4-wrists.png",
+      "第 67 帧左右掌到石体间隙最大，分别为 8.41、9.40 毫米。",
+      "wrists"
+    ],
+    [
+      "搬运背侧",
+      "ad1b6a6446ab6eaed13e466742878ffc74c45d67690c3498b8a6117019edf4d3/T25-A4-carry-back.png",
+      "第 21 帧。可从石背和手肘判断石体倾角、承重点与遮挡。",
+      "carry-back"
+    ],
+    [
+      "A 篮槽口",
+      "13c46524a58213e20e67a10d3dd95474d4ec060608fe056d037215f77921270a/T25-A4-basket.png",
+      "正式槽口净宽 1.25 米。锁槽朝向下最窄单边余 110 毫米，45° 不能直落。",
+      "basket"
+    ],
+    [
+      "正式四向回读",
+      "525c9b32e27c7f397bbde9e151f297f3c13209ed870ef2f8adad300df4dafd30/T25-A4-formal-four-views.png",
+      "从正式 BallastStone.prefab 在 Unity 中实例化。依次是正面、背面、左侧和右侧，均为水平视角。",
+      "production-four"
+    ]
+  ],
+  "body": "依据 A3 17:02 批注，制作独立十字铜带版本。石芯、交叠铜带、内收底托、铆扣、朱记为实物。石、铜各有 2048² PBR 贴图。\n\n审图 http://127.0.0.1:4190/plans/ch02-t25-ballast.html?v=a4&view=top\n模型 http://127.0.0.1:4190/rig/?collection=t25-ballast&model=t25-ballast-a4\n\n审批时的原搬运动画采样共 87 帧。该次整身最小净空 4.01 毫米，右长件最小 39.29 毫米，双掌最远均小于 10 毫米。正式 A 篮槽正放最窄单边 110 毫米。玩家俯看图与同版三维模型均已收到用户“通过”，本版定稿。\n\n正式工程现已使用 A4。实际生成的工奴与石根逐帧复测，87 帧均无穿模，整身最近 3.775 毫米，右手长件最近 39.285 毫米。场景副本内同一镇石经千钧符锁入原 A 篮，事件一次。正式场景的祭坛遭遇补丁见 Tools/Validation/Evidence/T25Approved/SceneHandoff/README.md。\n\n【版本批注】\n\n2026/11/25 21:40:14（北京时间） · 玩家俯看\n通过\n"
+}

@@ -45,6 +45,25 @@ function display(value, rev) {
   else {
     $('planStatus').value = doc.status;
     $('body').value = doc.body;
+    const preview = $('reviewPreview');
+    preview.replaceChildren();
+    preview.hidden = !/^\/plans\/[a-z0-9-]+\.html$/.test(doc.reviewPage || '');
+    if (!preview.hidden) {
+      const frame = document.createElement('iframe');
+      frame.title = doc.name + ' · 图稿与模型对照';
+      frame.style.cssText = 'display:block;width:100%;height:480px;border:0';
+      frame.onload = () => {
+        const content = frame.contentDocument?.body;
+        if (!content) return;
+        const observer = new ResizeObserver(() => {
+          frame.style.height = Math.ceil(content.getBoundingClientRect().height) + 2 + 'px';
+        });
+        observer.observe(content);
+        frame.contentWindow.addEventListener('pagehide', () => observer.disconnect(), {once:true});
+      };
+      frame.src = doc.reviewPage;
+      preview.append(frame);
+    }
   }
   $('raw').hidden = $('delete').disabled = !rev;
   $('raw').href = '/config/' + kind + '/' + doc.id + '.json';
