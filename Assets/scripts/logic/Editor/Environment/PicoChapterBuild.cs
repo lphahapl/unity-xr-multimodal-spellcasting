@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NarutoVR.SceneArt;
+using NarutoVR.SealCombat;
 using NarutoVR.SealCombat.Rpg;
 using Unity.XR.OpenXR.Features.PICOSupport;
 using UnityEditor;
@@ -50,6 +51,8 @@ namespace NarutoVR.Editor
             SubsystemManager.GetSubsystems(displays);
             Require(displays.All(display => !display.running), "Close the active editor XR session before building.");
 
+            ValidateVoiceAssets();
+
             var scenes = EnabledScenes();
             Require(scenes.Length > 1 && scenes[0] == Courtyard && scenes.Contains(Chapter02),
                 "The chapter APK must launch the courtyard and include the second chapter.");
@@ -96,6 +99,23 @@ namespace NarutoVR.Editor
 
         static T[] InScene<T>(GameObject[] roots) where T : Component =>
             roots.SelectMany(root => root.GetComponentsInChildren<T>(true)).ToArray();
+
+        static void ValidateVoiceAssets()
+        {
+            string root = Path.Combine(Application.streamingAssetsPath, "SkillVoice");
+            string manifestPath = Path.Combine(root, "model-manifest.json");
+            Require(File.Exists(manifestPath), "The PICO build is missing its offline voice model manifest.");
+            var manifest = JsonUtility.FromJson<NativeVoiceModelFiles.Manifest>(File.ReadAllText(manifestPath));
+            NativeVoiceModelFiles.ValidateManifest(manifest);
+            foreach (var entry in manifest.files)
+            {
+                string path = Path.Combine(root, entry.name);
+                Require(File.Exists(path) && new FileInfo(path).Length == entry.bytes,
+                    $"Offline voice model file is missing or has the wrong byte length: {entry.name}.");
+                Require(NativeVoiceModelFiles.Hash(File.ReadAllBytes(path)) == entry.sha256,
+                    $"Offline voice model file does not match the manifest: {entry.name}.");
+            }
+        }
 
         static string[] EnabledScenes() => EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(scene => scene.path).ToArray();
 
