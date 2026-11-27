@@ -27,6 +27,9 @@ namespace NarutoVR.SealCombat
         Vector3 previousTip, previousWorldTip, previousWrist, previousHead, anchor, anchorWorldTip, strokeDirection;
         Vector3 anchorHand, anchorWorldHand;
         Quaternion previousRigRotation;
+        double lastLocalPalmAt = double.NegativeInfinity, lastObservedAt = double.NegativeInfinity;
+        Pose localPalm;
+        float GripGrace => Mathf.Min(settings.picoGripGrace, settings.sampleGap);
         bool needsRearm, released, cancelled, previousPalm, verticalWave;
 
         ThunderSwordCast(SkillController owner, ThunderSwordEffectDefinition settings, float duration, SkillAimProfile aimProfile)
@@ -50,11 +53,12 @@ namespace NarutoVR.SealCombat
                 cast.sword = Object.Instantiate(settings.swordPrefab, owner.StagingRoot);
                 cast.sword.SetActive(false);
                 cast.melee = cast.sword.GetComponentInChildren<MeleeHitDetector>(true);
-                Pose grip = default;
+                Pose grip = default, wrist = default;
                 double stamp = 0;
                 bool hasPalm = false;
                 return new PreparedSkillCast(
-                    () => owner.RightHandActionAllowed && owner.TryGetSwordGrip(out grip, out stamp, out hasPalm) && owner.TryRegisterRightHandEffect(cast),
+                    () => owner.RightHandActionAllowed && owner.TryGetSwordGrip(cast.GripGrace > 0, out grip, out stamp,
+                        out hasPalm, out wrist, out _) && owner.TryRegisterRightHandEffect(cast),
                     () =>
                     {
                         try
@@ -66,6 +70,7 @@ namespace NarutoVR.SealCombat
                                 if (settings.surfaceMark) cast.melee.SurfaceTouched += cast.OnSurfaceTouched;
                             }
                             cast.CreatePresentation();
+                            if (cast.GripGrace > 0 && hasPalm) grip = cast.UpdateObservedGrip(grip, wrist, stamp);
                             cast.Sample(grip, stamp, cast.Now, hasPalm);
                             if (!cast.sword) return;
                             owner.SetActivationAudioAnchor(cast.sword.transform);
@@ -102,27 +107,60 @@ namespace NarutoVR.SealCombat
             visuals.Tick(now);
             if (released) return;
             if (now >= expires || !sword || !owner.WeaponAttacker) { ReleaseHand(); return; }
-            if (!owner.TryGetSwordGrip(out var grip, out var stamp, out bool hasPalm))
-            {
-                preview?.Hide();
-                ResetSamples();
-                if (double.IsNaN(unavailableSince)) unavailableSince = now;
-                // Tracking loss is not a cancel gesture. Keep the cast until explicit release or expiry.
-                // Very brief occlusion holds the last rendered pose; all hit sampling is already stopped.
-                if (now - unavailableSince >= settings.trackingHideDelay && sword.activeSelf) sword.SetActive(false);
-                return;
-            }
-            unavailableSince = double.NaN;
+            bool adaptive = GripGrace > 0;
             if (!owner.RightHandActionAllowed)
             {
                 if (sword.activeSelf) sword.SetActive(false);
                 preview?.Hide();
                 ResetSamples();
+                lastLocalPalmAt = double.NegativeInfinity;
+                unavailableSince = double.NaN;
                 return;
             }
+
+            bool fullGrip = owner.TryGetSwordGrip(adaptive, out var grip, out var stamp, out bool hasPalm,
+                out var wrist, out bool wristTracked);
+            bool estimated = !fullGrip && adaptive && wristTracked && stamp >= lastLocalPalmAt &&
+                stamp - lastLocalPalmAt <= GripGrace;
+            if (!fullGrip && !estimated)
+            {
+                preview?.Hide();
+                ResetSamples(adaptive);
+                if (double.IsNaN(unavailableSince)) unavailableSince = now;
+                // No current wrist means no swept segment or new swing.
+                if (now - unavailableSince >= settings.trackingHideDelay && sword.activeSelf) sword.SetActive(false);
+                return;
+            }
+
+            if (adaptive && fullGrip && hasPalm) grip = UpdateObservedGrip(grip, wrist, stamp);
+            if (estimated)
+            {
+                grip = FromWrist(wrist);
+                hasPalm = true;
+            }
             if (!sword.activeSelf) sword.SetActive(true);
-            Sample(grip, stamp, now, hasPalm);
+            bool shortResume = adaptive && now - unavailableSince <= GripGrace;
+            if (!adaptive || stamp > lastObservedAt) unavailableSince = double.NaN;
+            Sample(grip, stamp, now, hasPalm, estimated, shortResume);
         }
+
+        Pose UpdateObservedGrip(Pose grip, Pose wrist, double stamp)
+        {
+            if (stamp > lastLocalPalmAt)
+            {
+                Quaternion inverse = Quaternion.Inverse(wrist.rotation);
+                var observed = new Pose(inverse * (grip.position - wrist.position), inverse * grip.rotation);
+                // Suppress tiny movement in the palm-to-wrist offset. The measured wrist still moves every frame.
+                if (stamp - lastLocalPalmAt > GripGrace ||
+                    (observed.position - localPalm.position).sqrMagnitude > .000001f ||
+                    Quaternion.Angle(observed.rotation, localPalm.rotation) > .8f)
+                    localPalm = observed;
+                lastLocalPalmAt = stamp;
+            }
+            return FromWrist(wrist);
+        }
+
+        Pose FromWrist(Pose wrist) => new Pose(wrist.position + wrist.rotation * localPalm.position, wrist.rotation * localPalm.rotation);
 
         void UpdatePreview(Vector3 waveOrigin, double now)
         {
@@ -132,16 +170,16 @@ namespace NarutoVR.SealCombat
             else preview?.Hide();
         }
 
-        void ResetSamples()
+        void ResetSamples(bool preserveRearm = false)
         {
             previousTime = double.NaN;
-            needsRearm = false;
+            if (!preserveRearm) needsRearm = false;
             strike = null;
             if (melee) melee.ResetTracking();
             bladeTrail?.Clear();
         }
 
-        void Sample(Pose gripPose, double stamp, double now, bool hasPalm)
+        void Sample(Pose gripPose, double stamp, double now, bool hasPalm, bool estimated = false, bool shortResume = false)
         {
             var grip = gripPose.position + gripPose.rotation * settings.gripOffset;
             var rotation = gripPose.rotation * Quaternion.Euler(settings.gripEuler);
@@ -149,12 +187,14 @@ namespace NarutoVR.SealCombat
             if (hasPalm != previousPalm) ResetSamples();
             previousPalm = hasPalm;
             Vector3 waveOrigin = grip + rotation * Vector3.forward * settings.waveOriginOffset;
-            if (stamp == previousTime)
+            if (GripGrace > 0 ? stamp <= lastObservedAt : stamp == previousTime)
             {
                 UpdatePreview(waveOrigin, now);
                 bladeTrail?.Tick(now);
                 return;
             }
+
+            lastObservedAt = stamp;
 
             // Measure motion relative to the player's position, without using gaze rotation.
             // Room movement and snap turns must never create a swing through world geometry.
@@ -172,15 +212,16 @@ namespace NarutoVR.SealCombat
             bool fired = false;
             if (gap)
             {
-                ResetSamples();
+                bool reseed = shortResume && double.IsNaN(previousTime);
+                ResetSamples(reseed);
                 anchor = tip;
                 anchorWorldTip = worldTip;
                 anchorHand = hand;
                 anchorWorldHand = gripPose.position;
                 anchorTime = stamp;
-                armedAt = now + settings.rearmDelay;
+                if (!reseed) armedAt = now + settings.rearmDelay;
             }
-            else if (Recognize(tip, worldTip, hand, gripPose.position, rig, stamp, now, (float)dt))
+            else if (!estimated && Recognize(tip, worldTip, hand, gripPose.position, rig, stamp, now, (float)dt))
             {
                 nextSwing = now + settings.waveInterval;
                 closeUntil = now + settings.contactWindow;
@@ -197,7 +238,11 @@ namespace NarutoVR.SealCombat
                 melee && melee.bladeTip ? melee.bladeTip.position : worldTip, now);
             UpdatePreview(waveOrigin, now);
             if (now > closeUntil) strike = null;
-            if (melee) melee.Sample(strike, owner.WeaponOwnerRoot, owner.WeaponHitMask, owner.playerLayers);
+            if (melee)
+            {
+                if (estimated) melee.ResetTracking();
+                else melee.Sample(strike, owner.WeaponOwnerRoot, owner.WeaponHitMask, owner.playerLayers);
+            }
             if (fired && !released && !cancelled)
             {
                 owner.PlayAudio(settings.audioProfile, SkillAudioCue.Swing, grip);

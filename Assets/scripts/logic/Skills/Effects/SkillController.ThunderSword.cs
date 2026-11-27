@@ -12,17 +12,21 @@ namespace NarutoVR.SealCombat
         {
             if (!skill || skill.leftHand || !float.IsFinite(skill.durationSeconds) || skill.durationSeconds <= 0)
             { Report("雷光剑需要右手和有效持续时间"); return null; }
-            if (HasOccupiedHand || !RightHandActionAllowed || !WeaponAttacker || !TryGetSwordGrip(out _, out _, out _))
+            if (HasOccupiedHand || !RightHandActionAllowed || !WeaponAttacker || !TryGetSwordGrip(settings.picoGripGrace > 0, out _, out _, out _, out _, out _))
             { Report("当前无法使用右手雷光剑"); return null; }
             return ThunderSwordCast.Prepare(this, settings, skill.durationSeconds, skill.aimProfile);
         }
 
         // Build a grip from the rigid palm bones, not the SDK wrist's arbitrary local +Z.
         // Blade exits the thumb/index side of the fist; curled fingertips cannot flip it.
-        internal bool TryGetSwordGrip(out Pose pose, out double stamp, out bool hasPalm)
+        internal bool TryGetSwordGrip(bool useLocalWrist, out Pose pose, out double stamp, out bool hasPalm,
+            out Pose wrist, out bool wristTracked)
         {
             hasPalm = false;
-            if (!TryGetRightWeaponWrist(out pose, out stamp)) return false;
+            wristTracked = useLocalWrist ? TryGetWrist(false, out wrist, out stamp) && double.IsFinite(stamp) :
+                TryGetRightWeaponWrist(out wrist, out stamp);
+            pose = wrist;
+            if (!wristTracked) return false;
             if (WristPoseOverride == null)
             {
                 var hand = lab.Frame.right;

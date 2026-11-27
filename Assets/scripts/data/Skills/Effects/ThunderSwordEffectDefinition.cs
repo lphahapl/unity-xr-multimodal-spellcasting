@@ -34,6 +34,9 @@ namespace NarutoVR.SealCombat
         [InspectorName("挥砍余光距握柄（米）"), Min(0)] public float slashOffset = .36f;
         [InspectorName("丢失追踪后隐藏延迟（秒）"), Min(0)] public float trackingHideDelay = .18f;
         [InspectorName("允许的采样间隔（秒）"), Min(.001f)] public float sampleGap = .12f;
+        [InspectorName("PICO 握姿短遮挡宽限（秒）"), Range(0, .15f)]
+        [Tooltip("腕骨有效时保留最近一次实测掌姿与腕骨的相对关系。设为 0 使用原判定。")]
+        public float picoGripGrace;
         [InspectorName("识别窗口（秒）"), Min(.01f)] public float swingWindow = .35f;
         [InspectorName("挥动最短时间（秒）"), Min(.001f)] public float minSwingTime = .06f;
         [InspectorName("手腕单帧跳变（米）"), Min(.001f)] public float wristJump = .26f;
@@ -92,7 +95,7 @@ namespace NarutoVR.SealCombat
                 !InRange(lightningVisualLifetime, .05f, 5f)) return "瞬时视觉寿命无效";
             if (!InRange(bladeTrailLifetime, .05f, .3f)) return "刃轨寿命无效";
             if (!(bladeReach > 0 && waveOriginOffset >= 0 && trailBaseOffset >= 0 && slashOffset >= 0 &&
-                trackingHideDelay >= 0 && sampleGap > 0 && swingWindow >= minSwingTime && minSwingTime > 0 &&
+                trackingHideDelay >= 0 && sampleGap > 0 && InRange(picoGripGrace, 0, .15f) && swingWindow >= minSwingTime && minSwingTime > 0 &&
                 wristJump > 0 && tipJump > 0 && headJump > 0 && InRange(rigJump, .1f, 180f) &&
                 InRange(rearmSpeedRatio, .01f, 1) && InRange(reverseDot, -1, 0) &&
                 InRange(previewTravelRatio, .01f, 1))) return "剑身挂点或挥动采样配置无效";
