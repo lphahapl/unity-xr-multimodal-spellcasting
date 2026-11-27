@@ -1,0 +1,92 @@
+{
+  "version": "R04",
+  "R03Review": "../../../../GeminiReview/R03/WebReceipt.json",
+  "characterGLBSHA256": "a1b3b67221765f86589cd8c6b0e04803a7667d9c2a9b2b3ec8ccab31fb870c67",
+  "headAndLowerLegControls": {
+    "R03HeadVertexSHA256": "e18171d9652731ae1a0748f4d6a83954fa89ae2c68cb12f4ae4cbf08adeee469",
+    "R04HeadVertexSHA256": "e18171d9652731ae1a0748f4d6a83954fa89ae2c68cb12f4ae4cbf08adeee469",
+    "protectedLowerLegVertices": 9280,
+    "protectedLowerLegVertexSHA256_R03": "8ed4e7ca4027bea8d31e1049af722f7b36a20a36487dafba728eff084b3bc6c3",
+    "protectedLowerLegVertexSHA256_R04": "8ed4e7ca4027bea8d31e1049af722f7b36a20a36487dafba728eff084b3bc6c3",
+    "protectedTopZ": 0.593,
+    "saddleHeightMetres": 0.678,
+    "kneeCentreHeightMetres": 0.49,
+    "cuffHeightMetres": 0.338
+  },
+  "trousers": "仅调整大腿上端、裆臀过渡的轮廓和切线，降低面料低频色差与粗糙度起伏；保留膝踝几何与近景织纹。",
+  "albedoFrequency": {
+    "scale": "Gaussian sigma 15 texture pixels; sRGB luminance proxy",
+    "largePatternSD_R03": 3.698418140411377,
+    "largePatternSD_R04": 0.7171189785003662,
+    "meanSRGB_R03": [
+      60.70901107788086,
+      53.6801643371582,
+      47.656497955322266
+    ],
+    "meanSRGB_R04": [
+      60.73427963256836,
+      53.66201400756836,
+      47.67267990112305
+    ],
+    "fineGrainRMSRatio": 0.9777918457984924
+  },
+  "hair": "保留额颞肤色与脸，调整发根透明过渡和额、鬓、后颈分组碎发。",
+  "wearStudy": {
+    "originalToolbelt": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+    "originalAssemblySHA256": "1041b462e8b09a24d95e0265c5b483d7b8d8b74c8adc2b59e906f58a0ac15a8d",
+    "originalMeshParts": [
+      "BeltBody",
+      "FlatSleeve",
+      "PenSleeve",
+      "SoftPouch",
+      "TallSleeve",
+      "WoodCase"
+    ],
+    "frontShoulderStrapToJacketClosures_mm": 65.23,
+    "frontStrapVertexSamples": 370,
+    "wearStudyAdditions": [
+      "detachable rear backing",
+      "front and rear keeper"
+    ],
+    "savedScene": "ExternalFit/T06_R04_WearStudy.blend",
+    "sourceCharacterGLBIncludesToolbelt": false,
+    "staticPose": true,
+    "riggingAndAnimatedContactTested": false,
+    "wearOnlyCordMaxRadialTakeIn_mm": 17.0,
+    "wearOnlyCordMaxLowering_mm": 6.5,
+    "narrowCarrierToCord": {
+      "PenSleeve": {
+        "minimum_before_mm": 12.41,
+        "minimum_after_mm": 22.98
+      },
+      "FlatSleeve": {
+        "minimum_before_mm": 19.29,
+        "minimum_after_mm": 26.36
+      }
+    },
+    "linkedCharacterParts": 32,
+    "localCordOverride": true
+  },
+  "hem": {
+    "units": "mm",
+    "radialSamples": 7807,
+    "minimum": 3.7995593884261325,
+    "penetrations": 0,
+    "below2mm": 0
+  },
+  "heldForArtDirection": [
+    "肩带宽度、后扣的形制和位置沿用 R03，供用户选择。",
+    "本轮沿用靛蓝短衣底色。"
+  ],
+  "QA": {
+    "pass": false,
+    "nearCoplanar": [
+      "z-fighting: Zhunwang readout (278 overlapping coplanar tri pairs)",
+      "z-fighting: R04 | irregular hairline and nape fibres (92 overlapping coplanar tri pairs)",
+      "z-fighting: Zhunwang_Body (9 overlapping coplanar tri pairs)",
+      "z-fighting: Jacket<->R04 | continuous crossed collar with linen reveal (3 overlapping coplanar tri pairs)"
+    ],
+    "warnings": 53,
+    "tris": 143173
+  }
+}
