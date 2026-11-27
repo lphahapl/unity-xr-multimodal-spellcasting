@@ -1,0 +1,95 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using GLTFast;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UObject = UnityEngine.Object;
+
+public static class R07WaistCapture
+{
+    static readonly string Source = @"D:/UnityProjects/NarutoVR/ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild";
+    static readonly string Output = Path.Combine(Source, "R07/Review/UnityWaist");
+    static Vector3 Coordinates(float x, float y, float z) => new Vector3(-x, z, -y);
+    public static void Run() => EditorApplication.delayCall += () => RunAsync();
+    static async void RunAsync()
+    {
+        try
+        {
+            Directory.CreateDirectory(Output);
+            RenderSettings.ambientMode = AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(.44f,.44f,.44f);
+            QualitySettings.shadows = ShadowQuality.Disable;
+            foreach (var light in UObject.FindObjectsByType<Light>(FindObjectsSortMode.None))
+                light.enabled = false;
+            AddLight("rear left", Coordinates(-1.5f, 2, 2.8f), .84f);
+            AddLight("rear fill", Coordinates(1.3f, 1.5f, 2.1f), .49f);
+            AddLight("crown rim", Coordinates(.8f, -.9f, 2.8f), .38f);
+            var camera = new GameObject("Rear inspection camera").AddComponent<Camera>();
+            camera.orthographic = true;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(.40f, .41f, .42f);
+            camera.nearClipPlane = .015f;
+            camera.farClipPlane = 12f;
+            camera.allowHDR = false;
+            foreach (var version in new[] { "R01", "R05", "R06", "R07" })
+            {
+                var path = Path.Combine(Source, version, "ShenShang_" + version + ".glb");
+                var subject = new GameObject(version);
+                using (var importer = new GltfImport(deferAgent: new UninterruptedDeferAgent()))
+                {
+                    var bytes = File.ReadAllBytes(path);
+                    string sha;
+                    using (var digest = System.Security.Cryptography.SHA256.Create()) sha = BitConverter.ToString(digest.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+                    if (!await importer.LoadGltfBinary(bytes, new Uri(path)))
+                        throw new Exception("Could not parse " + path);
+                    if (!await importer.InstantiateMainSceneAsync(subject.transform))
+                        throw new Exception("Could not instantiate " + version);
+                    var renderers = subject.GetComponentsInChildren<MeshRenderer>();
+                    if (renderers.Length < 20) throw new Exception("Missing renderers in " + version);
+                    var shaders = renderers.SelectMany(r => r.sharedMaterials).Select(m => m.shader.name).Distinct().ToArray();
+                    if (shaders.Any(s => s.Contains("Error"))) throw new Exception("Unsupported shader " + string.Join(", ",shaders));
+                    var dir = Path.Combine(Output,version);
+                    Directory.CreateDirectory(dir);
+                    Capture(camera,dir,"01_Back", Coordinates(0,.01f,.978f), Coordinates(0,2.8f,.13f),.685f,700,585);
+                    Capture(camera,dir,"02_High_Rear", Coordinates(0,.005f,.922f), Coordinates(.28f,2.4f,1.22f),.64f,720,555);
+                    Capture(camera,dir,"03_Low_Rear", Coordinates(0,.005f,.90f), Coordinates(-.26f,2.4f,-.95f),.64f,720,555);
+                    Capture(camera,dir,"04_Front_Waist", Coordinates(0,.0f,1.016f), Coordinates(.40f,-2.6f,.6f),.43f,700,460);
+                    File.WriteAllText(Path.Combine(dir,"Capture.txt"),version+"\nGLB SHA256 "+sha+"\nUnity "+Application.unityVersion+"\nglTFast "+typeof(GltfImport).Assembly.GetName().Name+"\nMeshRenderer count "+renderers.Length+"\nShaders "+string.Join(", ",shaders)+"\nGraphics "+SystemInfo.graphicsDeviceType+"\n");
+                    UObject.DestroyImmediate(subject);
+                }
+            }
+            Debug.Log("R07 Unity waist captures complete");
+            EditorApplication.Exit(0);
+        }
+        catch (Exception ex) { Debug.LogException(ex); EditorApplication.Exit(3); }
+    }
+    static void AddLight(string name, Vector3 position,float intensity)
+    {
+        var light=new GameObject(name).AddComponent<Light>();
+        light.type=LightType.Directional;
+        light.transform.rotation=Quaternion.LookRotation(new Vector3(0,1.27f,0)-position);
+        light.intensity=intensity;
+    }
+    static void Capture(Camera camera,string dir,string name,Vector3 target,Vector3 offset,float height,int w,int h)
+    {
+        camera.transform.SetPositionAndRotation(target+offset,Quaternion.LookRotation(-offset,Vector3.up));
+        camera.orthographicSize=height*.5f*Mathf.Min(1f,(float)h/w);
+        camera.aspect=(float)w/h;
+        var rt=RenderTexture.GetTemporary(w,h,24,RenderTextureFormat.ARGB32,RenderTextureReadWrite.sRGB,4);
+        var previous=RenderTexture.active;
+        var texture=new Texture2D(w,h,TextureFormat.RGB24,false);
+        try
+        {
+            camera.targetTexture=rt;
+            camera.Render();
+            RenderTexture.active=rt;
+            texture.ReadPixels(new Rect(0,0,w,h),0,0);
+            texture.Apply();
+            File.WriteAllBytes(Path.Combine(dir,name+".png"),texture.EncodeToPNG());
+        }
+        finally {camera.targetTexture=null;RenderTexture.active=previous;UObject.DestroyImmediate(texture);RenderTexture.ReleaseTemporary(rt);}
+    }
+}
