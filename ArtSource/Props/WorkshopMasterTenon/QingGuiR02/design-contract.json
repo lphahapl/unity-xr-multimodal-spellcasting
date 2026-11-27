@@ -1,0 +1,79 @@
+{
+  "task_id": "T28-QINGGUI-R02-20261126",
+  "user_request": "过渡细节修一下 而且金丝是在表面的不是一体的 玉石可能需要借助shader实现，它应该有透明光泽",
+  "authorization": "Direct revision of the existing approved C4-derived model, with reviewable R02 output; no additional concept selection needed",
+  "reference": "../QingGuiR01/Model and approved ../BronzeConceptC4/Tenon_C4.png",
+  "preserve": [
+    "C4 silhouette and gold flow composition",
+    "350mm total height",
+    "106x106x105mm protected lower insertion geometry",
+    "bottom centre origin",
+    "original console geometry and seat logic",
+    "R01 frozen source, preview, package and annotations"
+  ],
+  "geometry": {
+    "transitions": "Actually round and refine jade/bronze rim, shoulder and aperture junctions; not only smoothing normals",
+    "gold_wire": "Separate named solid wire geometry conforming to the visible surface, rounded section, smoothly tapered/capped terminals, intentional shallow contact; remove previous recessed gold treatment on corresponding paths",
+    "wire_starting_diameter_mm": [
+      0.8,
+      1.2
+    ],
+    "wire_contact": "Slight seating into jade permitted to prevent a visible gap, no raised line floating above an empty space",
+    "part_names": "Body/Jade/Bronze material contract to be supplied by model owner, GoldWire separate",
+    "temporary_budget": "Initial preference below 10000 triangles; parent accepted 12474 for near-hand LOD0 to preserve 18 solid wires and the continuous rounded aperture. LOD1/2 reduce detail. This is an explicit geometry exception, not a measured Quest budget.",
+    "accepted_geometry_candidate": "QingGuiR02_GeometryCandidate.fbx SHA256 53db3046fbae445a2eda1b1a9f65ef66df9e76d620f2280f6af0b420404ea1ef; final exports must match vertex/triangle signatures even when UVs are optimized"
+  },
+  "jade": {
+    "intent": "Warm white, polished, translucent depth; soft reflected highlights and thinner regions more luminous under actual light",
+    "initial_route": "Isolated Unity opaque PBR surface with physically motivated polished reflection, shallow-scatter appearance and measured-thickness absorption; visually reviewed and found insufficient alone",
+    "selected_route": "Isolated jade-only local transparent renderer, measured-thickness/view-path opacity, shallow internal density tint, active clearcoat and a captured studio reflection probe. Jade transparency weight 0.60 main and 0.50 restrained preset. Bronze and separate GoldWire remain opaque. Final new-model verification is required; no refraction or physically exact volume transport claim.",
+    "not_a_completion_criterion": "Only raising a backlight scalar, hidden parameters without active shader branches, or Blender-only appearance",
+    "constraints": [
+      "No emission substitute",
+      "Gold and bronze remain fully metallic and light-occluding",
+      "Do not uniformly alpha-fade the entire item",
+      "If actual semi-transparency/refraction is introduced, isolate jade and disclose pipeline, sorting, stereo and cost limits",
+      "No claims of physical volume transport or Quest performance from desktop screenshots"
+    ],
+    "texture_contract": "BaseColor sRGB; NormalGL normal map; thickness linear R times 0.12 metres; JadeMask linear; metallic/smoothness/AO linear"
+  },
+  "acceptance": [
+    "Actual same-camera R01/R02 geometry closeups and clean wire/cross-section evidence",
+    "Game LOD retains visibly raised gold wires",
+    "Mesh QA and cold import with accepted intentional-contact warnings documented",
+    "Final-model Unity neutral front/side lighting and moving-light visual comparison",
+    "Separate thin/thick, metal, all-lights-off and occluder controls",
+    "Android Vulkan shader compilation",
+    "Actual new mesh contact envelope, grip and original socket insertion regression"
+  ],
+  "ownership": {
+    "model": "ArtSource/Props/WorkshopMasterTenon/QingGuiR02/Model and Logs/workshop-master-tenon-qinggui-r02-20261126/model",
+    "unity": "ArtSource/Props/WorkshopMasterTenon/QingGuiR02/UnityReview and Logs/workshop-master-tenon-qinggui-r02-20261126/unity; warm independent Unity Assets/Review/QingGuiR02 only",
+    "page": "New R02 page/assets/media, current guide/index after final evidence available",
+    "parent": "Review, shared API publication, root contract/readme, final manifests and append-only handovers"
+  },
+  "not_authorized_by_this_revision": [
+    "Replacing formal chapter scene",
+    "Overwriting R01",
+    "Changing six seal sounds or glyphs",
+    "Claiming pickup pedestal/new latch compatibility without testing",
+    "Claiming actual XR grab or Quest hardware verification"
+  ],
+  "final_revision": {
+    "name": "R02B / RevisionB",
+    "geometry": "0.5mm bronze lip,0.3mm narrow transition,0.1mm jade-side seam; separate surface gold wire",
+    "source_lod_triangles": [
+      15834,
+      6650,
+      3444
+    ],
+    "forward_submitted_triangles": [
+      24672,
+      8650,
+      4144
+    ],
+    "renderers_materials_per_lod": 3,
+    "preserved_insertion": "106x106x105mm;141points max1.013e-9m difference",
+    "scope": "independent review, not formal chapter or Quest acceptance"
+  }
+}

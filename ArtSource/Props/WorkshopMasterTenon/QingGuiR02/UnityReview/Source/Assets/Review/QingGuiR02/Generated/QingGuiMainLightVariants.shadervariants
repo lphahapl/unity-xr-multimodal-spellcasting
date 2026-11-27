@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: QingGuiMainLightVariants
+  m_Shaders:
+  - first: {fileID: 4800000, guid: ae2216e740aa55a399dc1d11744b2267, type: 3}
+    second:
+      variants:
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS
+        passType: 13
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+        passType: 13
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS_CASCADE _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+          _REFLECTION_PROBE_ATLAS
+        passType: 13
+  - first: {fileID: 4800000, guid: 9e287fc74b80d624b9ee093c2ad5238a, type: 3}
+    second:
+      variants:
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS
+        passType: 13
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+        passType: 13
+      - keywords: _CLEARCOAT _MAIN_LIGHT_SHADOWS_CASCADE _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+          _REFLECTION_PROBE_ATLAS
+        passType: 13

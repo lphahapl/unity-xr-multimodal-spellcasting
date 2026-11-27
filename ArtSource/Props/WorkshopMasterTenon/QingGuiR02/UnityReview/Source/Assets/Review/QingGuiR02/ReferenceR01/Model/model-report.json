@@ -1,0 +1,824 @@
+{
+  "status": "FROZEN_MODEL_MAPS_AFTER_PARENT_SHAPE_REVIEW_HOLE_FIX_AND_COLD_IMPORT",
+  "asset": "QingGuiR01",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axes": {
+    "up_blender": "+Z",
+    "up_unity": "+Y",
+    "front": "-Y",
+    "right": "+X"
+  },
+  "origin": "bottom insertion center",
+  "budget_temporary": true,
+  "meshes": [
+    {
+      "name": "QingGui_HIGH",
+      "triangles": 1207404,
+      "vertices": 603702,
+      "dimensions_m": [
+        0.11168088018894196,
+        0.10706532746553421,
+        0.35000020265579224
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGui_LOD0",
+      "triangles": 4916,
+      "vertices": 2458,
+      "dimensions_m": [
+        0.11100000143051147,
+        0.10599999874830246,
+        0.35000020265579224
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGui_LOD1",
+      "triangles": 1800,
+      "vertices": 900,
+      "dimensions_m": [
+        0.11099303513765335,
+        0.10594861954450607,
+        0.35000914335250854
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGui_LOD2",
+      "triangles": 600,
+      "vertices": 300,
+      "dimensions_m": [
+        0.1109711080789566,
+        0.10573710501194,
+        0.3500159680843353
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "section_profile": [
+    {
+      "z_m": 0.0,
+      "left_x_m": -0.0505,
+      "right_x_m": 0.0505,
+      "width_x_m": 0.101,
+      "depth_y_m": 0.101,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.003,
+      "left_x_m": -0.052,
+      "right_x_m": 0.052,
+      "width_x_m": 0.104,
+      "depth_y_m": 0.104,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.006,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.05,
+      "left_x_m": -0.053000000000000005,
+      "right_x_m": 0.053000000000000005,
+      "width_x_m": 0.10600000000000001,
+      "depth_y_m": 0.10600000000000001,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.101,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.105,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.115,
+      "left_x_m": -0.055,
+      "right_x_m": 0.055,
+      "width_x_m": 0.11,
+      "depth_y_m": 0.10041015624999998,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.13,
+      "left_x_m": -0.049,
+      "right_x_m": 0.054,
+      "width_x_m": 0.10300000000000001,
+      "depth_y_m": 0.06686120605468748,
+      "center_x_m": 0.0024999999999999988,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.145,
+      "left_x_m": -0.043,
+      "right_x_m": 0.049,
+      "width_x_m": 0.092,
+      "depth_y_m": 0.052,
+      "center_x_m": 0.0030000000000000027,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.17,
+      "left_x_m": -0.039,
+      "right_x_m": 0.043,
+      "width_x_m": 0.08199999999999999,
+      "depth_y_m": 0.048,
+      "center_x_m": 0.0019999999999999983,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.2,
+      "left_x_m": -0.041,
+      "right_x_m": 0.04,
+      "width_x_m": 0.081,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.23,
+      "left_x_m": -0.044,
+      "right_x_m": 0.041,
+      "width_x_m": 0.08499999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0014999999999999979,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.26,
+      "left_x_m": -0.046,
+      "right_x_m": 0.045,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.28,
+      "left_x_m": -0.041,
+      "right_x_m": 0.05,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": 0.0045000000000000005,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.295,
+      "left_x_m": -0.031,
+      "right_x_m": 0.053,
+      "width_x_m": 0.08399999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": 0.011,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.308,
+      "left_x_m": -0.016,
+      "right_x_m": 0.055,
+      "width_x_m": 0.07100000000000001,
+      "depth_y_m": 0.044,
+      "center_x_m": 0.0195,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.32,
+      "left_x_m": 0.003,
+      "right_x_m": 0.056,
+      "width_x_m": 0.053,
+      "depth_y_m": 0.042,
+      "center_x_m": 0.029500000000000002,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.33,
+      "left_x_m": 0.02,
+      "right_x_m": 0.056,
+      "width_x_m": 0.036000000000000004,
+      "depth_y_m": 0.039,
+      "center_x_m": 0.038,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.339,
+      "left_x_m": 0.025,
+      "right_x_m": 0.055,
+      "width_x_m": 0.03,
+      "depth_y_m": 0.034,
+      "center_x_m": 0.04,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.345,
+      "left_x_m": 0.029,
+      "right_x_m": 0.055,
+      "width_x_m": 0.026,
+      "depth_y_m": 0.032,
+      "center_x_m": 0.042,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.349,
+      "left_x_m": 0.034,
+      "right_x_m": 0.052,
+      "width_x_m": 0.017999999999999995,
+      "depth_y_m": 0.026,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.35,
+      "left_x_m": 0.038,
+      "right_x_m": 0.048,
+      "width_x_m": 0.010000000000000002,
+      "depth_y_m": 0.02,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    }
+  ],
+  "grip_suggestion": {
+    "blender_xyz_m": [
+      -0.0015,
+      0,
+      0.23
+    ],
+    "unity_xyz_m": [
+      -0.0015,
+      0.23,
+      0
+    ],
+    "width_m": 0.085,
+    "depth_m": 0.046,
+    "note": "comfort/finger clearance needs actual hand and new collision fit; do not infer latch compatibility"
+  },
+  "thickness": {
+    "method": "BVH inward ray from each actual final high vertex, epsilon15um; opposite surface distance + epsilon",
+    "normalization_metres": [
+      0,
+      0.12
+    ],
+    "decode": "thickness_metres = R * 0.12",
+    "raw_min_m": 0.00011339824413880706,
+    "raw_max_m": 0.3185192346572876,
+    "percentiles_m": {
+      "1": 0.011889494024217129,
+      "5": 0.04249466583132744,
+      "25": 0.04590509459376335,
+      "50": 0.10599999129772186,
+      "75": 0.10599999129772186,
+      "95": 0.1329491138458252,
+      "99": 0.15147793292999268
+    },
+    "rays": 603702,
+    "base_normal_retry_count": 6,
+    "unresolved_miss_count": 6,
+    "miss_fallback": "0.12m conservative opaque value, explicitly reported",
+    "clamped_above_120mm": 44903,
+    "seconds": 2.7913877964019775,
+    "independent_of_AO": true
+  },
+  "source_geometry": "real cut seats and bronze layer geometry, continuous 4K source masks plus continuous intended relief normals; runtime maps2K",
+  "maps": {
+    "BaseColor": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_BaseColor.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    "NormalGL": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_NormalGL.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "AO": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_AO.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Roughness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_Roughness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Metallic": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_Metallic.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Thickness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_Thickness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "JadeMask": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_JadeMask.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "ORM": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_ORM.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "MetallicSmoothness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model\\Textures\\QingGui_MetallicSmoothness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  },
+  "bake": {
+    "engine": "Cycles",
+    "high_to_low": true,
+    "cage_m": 0.003,
+    "max_ray_m": 0.012,
+    "margin_px": 16,
+    "seconds": 36.67484140396118
+  },
+  "uv": "body perimeter in metres U and vertical height V each at 2UV/m; caps/hole separate islands; final triangle normals fixed before bake",
+  "limitations": [
+    "No formal Assets changed.",
+    "New crown/shoulder latch fit not inherited; Unity owner verifies.",
+    "Source Cycles SSS is not Unity URP subsurface shading; opaque game material requires supplied Thickness/JadeMask shader integration.",
+    "User aesthetic and headset acceptance pending."
+  ],
+  "bake_source_snapshot_sha256": "cc4f300f03f8e0f7ca453cfaa7f74eb1dee6268c41e85e442de4834949a588f9",
+  "continuous_source_masks_sha256": {
+    "CutSeat_Back.png": "1ca6befdc472bd3e80221106030662f022ba36c8dddb8e6f2a72120c7dfc6d30",
+    "CutSeat_Front.png": "8d6e0a9fcabd7432ac8bb7d7bab1a6a35e70b9fb75d4092f0b1923bfddeee863",
+    "Gold_Back.png": "08477fa5d99d98d602f4eafe4abd98f3ebde7990b1027ecc8765c7a37b57d95a",
+    "Gold_Front.png": "00e98782bdb9a141a226a1e8e0d794fe02f4662f850cdc2c4e46c103beadac32"
+  },
+  "bake_source_note": "Baked after analytic front/back hole-wall mask cleanup; subsequent SSS/transmission-only preview tuning does not change baked channels.",
+  "measured_mesh_section_profile": [
+    {
+      "height_m": 0,
+      "min_x_m": -0.05050000175833702,
+      "max_x_m": 0.05050000175833702,
+      "width_x_m": 0.10100000351667404,
+      "min_depth_blender_y_m": -0.05050000175833702,
+      "max_depth_blender_y_m": 0.05050000175833702,
+      "depth_m": 0.10100000351667404,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 85
+    },
+    {
+      "height_m": 0.003,
+      "min_x_m": -0.052000001072883606,
+      "max_x_m": 0.052000001072883606,
+      "width_x_m": 0.10400000214576721,
+      "min_depth_blender_y_m": -0.052000001072883606,
+      "max_depth_blender_y_m": 0.052000001072883606,
+      "depth_m": 0.10400000214576721,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.006,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.05,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 56
+    },
+    {
+      "height_m": 0.101,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.105,
+      "min_x_m": -0.05300000016748687,
+      "max_x_m": 0.05300000016748687,
+      "width_x_m": 0.10600000033497374,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.11,
+      "min_x_m": -0.0542339988225692,
+      "max_x_m": 0.0542339988225692,
+      "width_x_m": 0.1084679976451384,
+      "min_depth_blender_y_m": -0.052487161398722296,
+      "max_depth_blender_y_m": 0.052487161398722296,
+      "depth_m": 0.10497432279744459,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.115,
+      "min_x_m": -0.054999999701976776,
+      "max_x_m": 0.054999999701976776,
+      "width_x_m": 0.10999999940395355,
+      "min_depth_blender_y_m": -0.0502050790589164,
+      "max_depth_blender_y_m": 0.0502050790589164,
+      "depth_m": 0.1004101581178328,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.12,
+      "min_x_m": -0.053782223202320976,
+      "max_x_m": 0.054846419075160545,
+      "width_x_m": 0.10862864227748152,
+      "min_depth_blender_y_m": -0.04545137774031597,
+      "max_depth_blender_y_m": 0.04545137774031597,
+      "depth_m": 0.09090275548063194,
+      "center_x_m": 0.0005320979364197842,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.125,
+      "min_x_m": -0.051433780269489866,
+      "max_x_m": 0.054496692646799905,
+      "width_x_m": 0.10593047291628976,
+      "min_depth_blender_y_m": -0.03948744153781807,
+      "max_depth_blender_y_m": 0.03948744153781807,
+      "depth_m": 0.07897488307563615,
+      "center_x_m": 0.0015314561886550192,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.13,
+      "min_x_m": -0.04899999871850014,
+      "max_x_m": 0.05400000140070915,
+      "width_x_m": 0.10300000011920929,
+      "min_depth_blender_y_m": -0.03343060240149498,
+      "max_depth_blender_y_m": 0.03343060240149498,
+      "depth_m": 0.06686120480298996,
+      "center_x_m": 0.0025000013411045074,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.135,
+      "min_x_m": -0.046823276011908554,
+      "max_x_m": 0.052733958376076896,
+      "width_x_m": 0.09955723438798544,
+      "min_depth_blender_y_m": -0.02893871449154374,
+      "max_depth_blender_y_m": 0.02893871449154374,
+      "depth_m": 0.05787742898308748,
+      "center_x_m": 0.002955341182084171,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.14,
+      "min_x_m": -0.04468131834095841,
+      "max_x_m": 0.050814971567725915,
+      "width_x_m": 0.09549628990868433,
+      "min_depth_blender_y_m": -0.0265976257238236,
+      "max_depth_blender_y_m": 0.0265976257238236,
+      "depth_m": 0.0531952514476472,
+      "center_x_m": 0.0030668266133837517,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.145,
+      "min_x_m": -0.0430000014603138,
+      "max_x_m": 0.04899999871850014,
+      "width_x_m": 0.09200000017881393,
+      "min_depth_blender_y_m": -0.026000000536441803,
+      "max_depth_blender_y_m": 0.026000000536441803,
+      "depth_m": 0.052000001072883606,
+      "center_x_m": 0.00299999862909317,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.155,
+      "min_x_m": -0.04073866855187738,
+      "max_x_m": 0.04621263626156522,
+      "width_x_m": 0.0869513048134426,
+      "min_depth_blender_y_m": -0.024839801829016683,
+      "max_depth_blender_y_m": 0.024839801829016683,
+      "depth_m": 0.04967960365803337,
+      "center_x_m": 0.0027369838548439197,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.17,
+      "min_x_m": -0.039000001011928014,
+      "max_x_m": 0.04300000184328965,
+      "width_x_m": 0.08200000285521766,
+      "min_depth_blender_y_m": -0.024000000308728394,
+      "max_depth_blender_y_m": 0.024000000308728394,
+      "depth_m": 0.04800000061745679,
+      "center_x_m": 0.002000000415680818,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.19,
+      "min_x_m": -0.04013333447244439,
+      "max_x_m": 0.04064259943075581,
+      "width_x_m": 0.0807759339032002,
+      "min_depth_blender_y_m": -0.023206873545548522,
+      "max_depth_blender_y_m": 0.02321419932513614,
+      "depth_m": 0.046421072870684664,
+      "center_x_m": 0.00025463247915570933,
+      "center_depth_m": 3.662889793809576e-06,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.21,
+      "min_x_m": -0.04200000033775982,
+      "max_x_m": 0.040199999940395054,
+      "width_x_m": 0.08220000027815488,
+      "min_depth_blender_y_m": -0.022775457619500304,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04577545766420379,
+      "center_x_m": -0.0009000001986823845,
+      "center_depth_m": 0.0001122712126015897,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.23,
+      "min_x_m": -0.04399999976158142,
+      "max_x_m": 0.04100000113248825,
+      "width_x_m": 0.08500000089406967,
+      "min_depth_blender_y_m": -0.022585919151417055,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04558591919612054,
+      "center_x_m": -0.001499999314546585,
+      "center_depth_m": 0.00020704044664321408,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.25,
+      "min_x_m": -0.04553333297371864,
+      "max_x_m": 0.04335621247688929,
+      "width_x_m": 0.08888954545060793,
+      "min_depth_blender_y_m": -0.023137064029773075,
+      "max_depth_blender_y_m": 0.023333333432674408,
+      "depth_m": 0.04647039746244748,
+      "center_x_m": -0.0010885602484146766,
+      "center_depth_m": 9.813470145066637e-05,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.27,
+      "min_x_m": -0.04442920704330491,
+      "max_x_m": 0.04739115387201309,
+      "width_x_m": 0.091820360915318,
+      "min_depth_blender_y_m": -0.023499999195337296,
+      "max_depth_blender_y_m": 0.023499999195337296,
+      "depth_m": 0.04699999839067459,
+      "center_x_m": 0.0014809734143540927,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.28,
+      "min_x_m": -0.04100000154128163,
+      "max_x_m": 0.05000000074505806,
+      "width_x_m": 0.0910000022863397,
+      "min_depth_blender_y_m": -0.023499999195337296,
+      "max_depth_blender_y_m": 0.023499999195337296,
+      "depth_m": 0.04699999839067459,
+      "center_x_m": 0.004499999601888214,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.295,
+      "min_x_m": -0.03099999949336052,
+      "max_x_m": 0.05300000159653183,
+      "width_x_m": 0.08400000108989235,
+      "min_depth_blender_y_m": -0.023000000044703484,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04600000008940697,
+      "center_x_m": 0.011000001051585655,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.308,
+      "min_x_m": -0.01600000075995922,
+      "max_x_m": 0.0549999998859821,
+      "width_x_m": 0.07100000064594132,
+      "min_depth_blender_y_m": -0.02199999988079071,
+      "max_depth_blender_y_m": 0.02199999988079071,
+      "depth_m": 0.04399999976158142,
+      "center_x_m": 0.01949999956301144,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.32,
+      "min_x_m": 0.003000000026077032,
+      "max_x_m": 0.0560000017285347,
+      "width_x_m": 0.053000001702457666,
+      "min_depth_blender_y_m": -0.020999999716877937,
+      "max_depth_blender_y_m": 0.020999999716877937,
+      "depth_m": 0.041999999433755875,
+      "center_x_m": 0.029500000877305865,
+      "center_depth_m": 0.0,
+      "point_count": 195
+    },
+    {
+      "height_m": 0.33,
+      "min_x_m": 0.01999997992061426,
+      "max_x_m": 0.0560000017285347,
+      "width_x_m": 0.03600002180792044,
+      "min_depth_blender_y_m": -0.01920360212758157,
+      "max_depth_blender_y_m": 0.0192039002356859,
+      "depth_m": 0.03840750236326747,
+      "center_x_m": 0.037999990824574476,
+      "center_depth_m": 1.4905405216515677e-07,
+      "point_count": 172
+    },
+    {
+      "height_m": 0.339,
+      "min_x_m": 0.02500000037252903,
+      "max_x_m": 0.054999999701976776,
+      "width_x_m": 0.029999999329447746,
+      "min_depth_blender_y_m": -0.016721499106793714,
+      "max_depth_blender_y_m": 0.016721762237663383,
+      "depth_m": 0.0334432613444571,
+      "center_x_m": 0.0400000000372529,
+      "center_depth_m": 1.315654348348072e-07,
+      "point_count": 181
+    },
+    {
+      "height_m": 0.345,
+      "min_x_m": 0.028999999165534973,
+      "max_x_m": 0.054999999701976776,
+      "width_x_m": 0.026000000536441803,
+      "min_depth_blender_y_m": -0.01600000075995922,
+      "max_depth_blender_y_m": 0.01600000075995922,
+      "depth_m": 0.03200000151991844,
+      "center_x_m": 0.041999999433755875,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.349,
+      "min_x_m": 0.03399999106155633,
+      "max_x_m": 0.05200000878803028,
+      "width_x_m": 0.01800001772647395,
+      "min_depth_blender_y_m": -0.013000007318598796,
+      "max_depth_blender_y_m": 0.013000007318598796,
+      "depth_m": 0.02600001463719759,
+      "center_x_m": 0.04299999992479331,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.35,
+      "min_x_m": 0.03799999877810478,
+      "max_x_m": 0.04800000041723251,
+      "width_x_m": 0.010000001639127731,
+      "min_depth_blender_y_m": -0.009999999776482582,
+      "max_depth_blender_y_m": 0.009999999776482582,
+      "depth_m": 0.019999999552965164,
+      "center_x_m": 0.04299999959766865,
+      "center_depth_m": 0.0,
+      "point_count": 113
+    }
+  ],
+  "protected_insertion_surface": {
+    "reference": "frozen R03 LOD0",
+    "reference_vertices": 141,
+    "current_vertices": 141,
+    "max_nearest_vertex_difference_m": 1.0132488181824328e-09,
+    "tolerance_m": 5e-07,
+    "pass": true
+  },
+  "game_mesh_volume_m3": 0.002176655699437932,
+  "normal_bake_revision": "Hole interior uses independent CORNER radial normals; NormalGL and embedded GLB were re-exported after correction.",
+  "frozen_at": "2026-11-26T00:15:10.769181+08:00",
+  "accepted_warnings": [
+    "GLB cold import has 382 duplicate-position vertices from UV/tangent seam splits; source and FBX QA zero errors/warnings.",
+    "GLB exporter combines roughness/metallic image channels and reports use of first image sampler; participating image nodes both use Linear interpolation/REPEAT.",
+    "2K maps reveal fine sampling at extreme close-up; no claim of unlimited-distance anti-aliasing.",
+    "Thickness has 6/603702 missed rays conservatively encoded as120mm and44903 measurements>120mm clamped; complete raw statistics retained."
+  ],
+  "source_transmission_tuning": {
+    "transmission_weight": 0.02,
+    "subsurface_radius_rgb": [
+      1,
+      0.75,
+      0.48
+    ],
+    "subsurface_scale_m": 0.0065,
+    "volume_absorption_color": [
+      0.78,
+      0.74,
+      0.63,
+      1
+    ],
+    "volume_absorption_density": 18,
+    "normal_backlight_watts": 5,
+    "stress_backlight_watts": 25,
+    "same_backlight_camera": true,
+    "game_baked_channels_changed": false,
+    "no_emission": true
+  },
+  "cold_import_file": "Logs/workshop-master-tenon-qinggui-r01-20261125/model/cold-import.json"
+}

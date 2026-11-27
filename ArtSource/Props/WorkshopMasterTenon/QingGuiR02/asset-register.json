@@ -1,0 +1,50 @@
+{
+  "asset": "汉白玉校准主榫 / 清圭 R02",
+  "status": "RevisionB implemented; independent desktop validation passed; user review candidate",
+  "authorization": "User explicitly requested physical transition, raised surface gold wire and translucent jade material changes to the existing model",
+  "items": [
+    {
+      "part": "C4 composition and R01 proportions",
+      "decision": "reuse approved composition, preserve prior version"
+    },
+    {
+      "part": "0–105mm square insertion geometry",
+      "decision": "reuse protected interface; recessed calibration mark only, no raised wire here"
+    },
+    {
+      "part": "shoulder / jade-bronze boundary / aperture lip",
+      "decision": "modify actual geometry and re-bake affected normal/roughness/AO maps"
+    },
+    {
+      "part": "upper flowing gold and edge ornaments",
+      "decision": "replace recessed material treatment with separate solid GoldWire meshes seated on the surface"
+    },
+    {
+      "part": "jade appearance in Unity",
+      "decision": "modify shader and actual lighting setup; evaluate same-light old/new before final acceptance"
+    },
+    {
+      "part": "original console and interaction code",
+      "decision": "reuse independent review references, repeat new-model fit/grip checks"
+    },
+    {
+      "part": "③ pickup pedestal and locking pins",
+      "decision": "owned by another task; this model's compatibility remains separate"
+    },
+    {
+      "part": "six seal glyphs and sounds",
+      "decision": "no change"
+    }
+  ],
+  "user_followup": {
+    "source": "workbench saved R02 annotations",
+    "record": "Logs/workshop-master-tenon-qinggui-r02-20261126/saved-user-feedback-followup.json",
+    "changes": [
+      "clear thin bronze lip and narrow jade seam",
+      "flatten large-scale bronze surface variation",
+      "actual Unity screenshot with translucent jade and continuous wire highlights"
+    ]
+  },
+  "current_model": "Model/RevisionB",
+  "current_unity": "UnityReview/RevisionB"
+}

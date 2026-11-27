@@ -1,0 +1,1041 @@
+{
+  "status": "FROZEN",
+  "asset": "QingGuiR02B",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axes": {
+    "up_blender": "+Z",
+    "up_unity": "+Y",
+    "front": "-Y",
+    "right": "+X"
+  },
+  "origin": "bottom insertion center",
+  "budget_temporary": true,
+  "meshes": [
+    {
+      "name": "QingGuiR02_Body_HIGH",
+      "triangles": 1050216,
+      "vertices": 525108,
+      "dimensions_m": [
+        0.11002996563911438,
+        0.10693933814764023,
+        0.3500002324581146
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_HIGH",
+      "triangles": 61536,
+      "vertices": 30800,
+      "dimensions_m": [
+        0.09090977907180786,
+        0.10534905642271042,
+        0.2333870828151703
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD0",
+      "triangles": 8838,
+      "vertices": 4419,
+      "dimensions_m": [
+        0.11002781987190247,
+        0.106796994805336,
+        0.3500002324581146
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD1",
+      "triangles": 2000,
+      "vertices": 1000,
+      "dimensions_m": [
+        0.11001325398683548,
+        0.10687944293022156,
+        0.35000908374786377
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD2",
+      "triangles": 700,
+      "vertices": 350,
+      "dimensions_m": [
+        0.1099814921617508,
+        0.1067027822136879,
+        0.35001811385154724
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD0",
+      "triangles": 6996,
+      "vertices": 3530,
+      "dimensions_m": [
+        0.09093423187732697,
+        0.10528528690338135,
+        0.23339010775089264
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD1",
+      "triangles": 4650,
+      "vertices": 2357,
+      "dimensions_m": [
+        0.091179758310318,
+        0.10524620115756989,
+        0.23334366083145142
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD2",
+      "triangles": 2744,
+      "vertices": 1404,
+      "dimensions_m": [
+        0.0909012109041214,
+        0.10517704486846924,
+        0.23339998722076416
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "section_profile": [
+    {
+      "z_m": 0.0,
+      "left_x_m": -0.0505,
+      "right_x_m": 0.0505,
+      "width_x_m": 0.101,
+      "depth_y_m": 0.101,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.003,
+      "left_x_m": -0.052,
+      "right_x_m": 0.052,
+      "width_x_m": 0.104,
+      "depth_y_m": 0.104,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.006,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.05,
+      "left_x_m": -0.053000000000000005,
+      "right_x_m": 0.053000000000000005,
+      "width_x_m": 0.10600000000000001,
+      "depth_y_m": 0.10600000000000001,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.101,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.105,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.115,
+      "left_x_m": -0.05256484375,
+      "right_x_m": 0.0531859375,
+      "width_x_m": 0.10575078125000001,
+      "depth_y_m": 0.10041015624999998,
+      "center_x_m": 0.00031054687500000136,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.13,
+      "left_x_m": -0.04677633926402442,
+      "right_x_m": 0.05112509414683693,
+      "width_x_m": 0.09790143341086135,
+      "depth_y_m": 0.06686120605468748,
+      "center_x_m": 0.0021743774414062535,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.145,
+      "left_x_m": -0.043,
+      "right_x_m": 0.049,
+      "width_x_m": 0.092,
+      "depth_y_m": 0.052,
+      "center_x_m": 0.0030000000000000027,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.17,
+      "left_x_m": -0.039,
+      "right_x_m": 0.043,
+      "width_x_m": 0.08199999999999999,
+      "depth_y_m": 0.048,
+      "center_x_m": 0.0019999999999999983,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.2,
+      "left_x_m": -0.041,
+      "right_x_m": 0.04,
+      "width_x_m": 0.081,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.23,
+      "left_x_m": -0.044,
+      "right_x_m": 0.041,
+      "width_x_m": 0.08499999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0014999999999999979,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.26,
+      "left_x_m": -0.046,
+      "right_x_m": 0.045,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.28,
+      "left_x_m": -0.041,
+      "right_x_m": 0.05,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": 0.0045000000000000005,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.295,
+      "left_x_m": -0.031,
+      "right_x_m": 0.053,
+      "width_x_m": 0.08399999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": 0.011,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.308,
+      "left_x_m": -0.016,
+      "right_x_m": 0.055,
+      "width_x_m": 0.07100000000000001,
+      "depth_y_m": 0.044,
+      "center_x_m": 0.0195,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.32,
+      "left_x_m": 0.003,
+      "right_x_m": 0.056,
+      "width_x_m": 0.053,
+      "depth_y_m": 0.042,
+      "center_x_m": 0.029500000000000002,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.33,
+      "left_x_m": 0.02,
+      "right_x_m": 0.056,
+      "width_x_m": 0.036000000000000004,
+      "depth_y_m": 0.039,
+      "center_x_m": 0.038,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.339,
+      "left_x_m": 0.025,
+      "right_x_m": 0.055,
+      "width_x_m": 0.03,
+      "depth_y_m": 0.034,
+      "center_x_m": 0.04,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.345,
+      "left_x_m": 0.029,
+      "right_x_m": 0.055,
+      "width_x_m": 0.026,
+      "depth_y_m": 0.032,
+      "center_x_m": 0.042,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.349,
+      "left_x_m": 0.034,
+      "right_x_m": 0.052,
+      "width_x_m": 0.017999999999999995,
+      "depth_y_m": 0.026,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.35,
+      "left_x_m": 0.038,
+      "right_x_m": 0.048,
+      "width_x_m": 0.010000000000000002,
+      "depth_y_m": 0.02,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    }
+  ],
+  "grip_suggestion": {
+    "blender_xyz_m": [
+      -0.0015,
+      0,
+      0.23
+    ],
+    "unity_xyz_m": [
+      -0.0015,
+      0.23,
+      0
+    ],
+    "width_m": 0.085,
+    "depth_m": 0.046,
+    "note": "comfort/finger clearance needs actual hand and new collision fit; do not infer latch compatibility"
+  },
+  "thickness": {
+    "method": "BVH inward ray from each actual final high vertex, epsilon15um; opposite surface distance + epsilon",
+    "normalization_metres": [
+      0,
+      0.12
+    ],
+    "decode": "thickness_metres = R * 0.12",
+    "raw_min_m": 0.00011494545469759032,
+    "raw_max_m": 0.3287593126296997,
+    "percentiles_m": {
+      "1": 0.011045013554394245,
+      "5": 0.04218499734997749,
+      "25": 0.04715767502784729,
+      "50": 0.10599999129772186,
+      "75": 0.10599999129772186,
+      "95": 0.13268546760082245,
+      "99": 0.15233103930950165
+    },
+    "rays": 525108,
+    "base_normal_retry_count": 0,
+    "unresolved_miss_count": 0,
+    "miss_fallback": "0.12m conservative opaque value, explicitly reported",
+    "clamped_above_120mm": 38971,
+    "seconds": 3.0127575397491455,
+    "independent_of_AO": true
+  },
+  "source_geometry": "RevisionB: real .50mm bronze wrap step with .30mm narrow rounding and .10mm inward jade-side seam. Stable semantic edge rails in both high and low meshes; smooth derivative copper normals. Sparse low-contrast copper color; independent solid gold wires reprojected to support.",
+  "maps": {
+    "BaseColor": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_BaseColor.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    "NormalGL": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_NormalGL.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "AO": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_AO.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Roughness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Roughness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Metallic": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Metallic.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Thickness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_Thickness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "JadeMask": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_JadeMask.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "ORM": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_ORM.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "MetallicSmoothness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\RevisionB\\Textures\\QingGui_MetallicSmoothness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  },
+  "bake": {
+    "engine": "Cycles",
+    "high_to_low": true,
+    "cage_m": 0.003,
+    "max_ray_m": 0.012,
+    "margin_px": 16,
+    "seconds": 34.5215744972229
+  },
+  "uv": "body perimeter in metres U and vertical height V each at 2UV/m; caps/hole separate islands; final triangle normals fixed before bake",
+  "limitations": [
+    "No formal Assets changed.",
+    "New crown/shoulder latch fit not inherited; Unity owner verifies.",
+    "Source Cycles SSS is not Unity URP subsurface shading; opaque game material requires supplied Thickness/JadeMask shader integration.",
+    "User aesthetic and headset acceptance pending."
+  ],
+  "lod_totals": {
+    "0": 15834,
+    "1": 6650,
+    "2": 3444
+  },
+  "measured_mesh_section_profile": [
+    {
+      "height_m": 0,
+      "min_x_m": -0.05050000175833702,
+      "max_x_m": 0.05050000175833702,
+      "width_x_m": 0.10100000351667404,
+      "min_depth_blender_y_m": -0.05050000175833702,
+      "max_depth_blender_y_m": 0.05050000175833702,
+      "depth_m": 0.10100000351667404,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 85
+    },
+    {
+      "height_m": 0.003,
+      "min_x_m": -0.052000001072883606,
+      "max_x_m": 0.052000001072883606,
+      "width_x_m": 0.10400000214576721,
+      "min_depth_blender_y_m": -0.052000001072883606,
+      "max_depth_blender_y_m": 0.052000001072883606,
+      "depth_m": 0.10400000214576721,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.006,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.05,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 56
+    },
+    {
+      "height_m": 0.101,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.105,
+      "min_x_m": -0.0529999999509198,
+      "max_x_m": 0.052999999975560416,
+      "width_x_m": 0.10599999992648021,
+      "min_depth_blender_y_m": -0.052999999809609795,
+      "max_depth_blender_y_m": 0.05299999980961386,
+      "depth_m": 0.10599999961922366,
+      "center_x_m": 1.2320307968272104e-11,
+      "center_depth_m": 2.033095913844818e-15,
+      "point_count": 128
+    },
+    {
+      "height_m": 0.11,
+      "min_x_m": -0.05349674451303034,
+      "max_x_m": 0.053610709749331194,
+      "width_x_m": 0.10710745426236154,
+      "min_depth_blender_y_m": -0.0529822040552688,
+      "max_depth_blender_y_m": 0.052982379143751104,
+      "depth_m": 0.10596458319901991,
+      "center_x_m": 5.698261815042724e-05,
+      "center_depth_m": 8.754424115145487e-08,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.115,
+      "min_x_m": -0.052564844767592406,
+      "max_x_m": 0.053685937080376576,
+      "width_x_m": 0.10625078184796899,
+      "min_depth_blender_y_m": -0.050685950990680684,
+      "max_depth_blender_y_m": 0.050685950990680684,
+      "depth_m": 0.10137190198136137,
+      "center_x_m": 0.0005605461563920854,
+      "center_depth_m": 0.0,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.12,
+      "min_x_m": -0.05120771227886281,
+      "max_x_m": 0.05338518518024961,
+      "width_x_m": 0.10459289745911242,
+      "min_depth_blender_y_m": -0.04563796456420932,
+      "max_depth_blender_y_m": 0.04563796456420932,
+      "depth_m": 0.09127592912841864,
+      "center_x_m": 0.0010887364506933991,
+      "center_depth_m": 0.0,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.125,
+      "min_x_m": -0.04917345931532703,
+      "max_x_m": 0.05267625054498033,
+      "width_x_m": 0.10184970986030736,
+      "min_depth_blender_y_m": -0.039486445952408945,
+      "max_depth_blender_y_m": 0.03948645805979844,
+      "depth_m": 0.07897290401220738,
+      "center_x_m": 0.0017513956148266507,
+      "center_depth_m": 6.053694746877003e-09,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.13,
+      "min_x_m": -0.046776339411735535,
+      "max_x_m": 0.051625095307826996,
+      "width_x_m": 0.09840143471956253,
+      "min_depth_blender_y_m": -0.033424533903598785,
+      "max_depth_blender_y_m": 0.03342389315366745,
+      "depth_m": 0.06684842705726624,
+      "center_x_m": 0.0024243779480457306,
+      "center_depth_m": -3.203749656677246e-07,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.135,
+      "min_x_m": -0.04469070822189408,
+      "max_x_m": 0.050537662880031704,
+      "width_x_m": 0.09522837110192578,
+      "min_depth_blender_y_m": -0.028918976977023995,
+      "max_depth_blender_y_m": 0.028917693614699362,
+      "depth_m": 0.05783667059172336,
+      "center_x_m": 0.002923477329068811,
+      "center_depth_m": -6.416811623166652e-07,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.14,
+      "min_x_m": -0.04341784315254174,
+      "max_x_m": 0.049785040379943676,
+      "width_x_m": 0.09320288353248542,
+      "min_depth_blender_y_m": -0.02656259216447246,
+      "max_depth_blender_y_m": 0.026560777948155395,
+      "depth_m": 0.053123370112627855,
+      "center_x_m": 0.003183598613700968,
+      "center_depth_m": -9.071081585321217e-07,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.145,
+      "min_x_m": -0.0430000014603138,
+      "max_x_m": 0.0494999997317791,
+      "width_x_m": 0.0925000011920929,
+      "min_depth_blender_y_m": -0.025946175679564476,
+      "max_depth_blender_y_m": 0.025943882763385773,
+      "depth_m": 0.05189005844295025,
+      "center_x_m": 0.0032499991357326508,
+      "center_depth_m": -1.146458089351654e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.155,
+      "min_x_m": -0.04159199842619921,
+      "max_x_m": 0.04773110553843136,
+      "width_x_m": 0.08932310396463057,
+      "min_depth_blender_y_m": -0.025315692752915998,
+      "max_depth_blender_y_m": 0.025312574685029,
+      "depth_m": 0.050628267437945,
+      "center_x_m": 0.0030695535561160725,
+      "center_depth_m": -1.5590339434989886e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.17,
+      "min_x_m": -0.03900000111365286,
+      "max_x_m": 0.04350000297797949,
+      "width_x_m": 0.08250000409163236,
+      "min_depth_blender_y_m": -0.02386111969704307,
+      "max_depth_blender_y_m": 0.02385704609221561,
+      "depth_m": 0.04771816578925868,
+      "center_x_m": 0.0022500009321633173,
+      "center_depth_m": -2.0368024137296104e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.19,
+      "min_x_m": -0.04013333447244439,
+      "max_x_m": 0.04114260044403477,
+      "width_x_m": 0.08127593491647916,
+      "min_depth_blender_y_m": -0.02303104232662203,
+      "max_depth_blender_y_m": 0.02302634783999921,
+      "depth_m": 0.04605739016662124,
+      "center_x_m": 0.0005046329857951899,
+      "center_depth_m": -2.347243311408981e-06,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.21,
+      "min_x_m": -0.04200000033775982,
+      "max_x_m": 0.040700000953674015,
+      "width_x_m": 0.08270000129143384,
+      "min_depth_blender_y_m": -0.022735295219447678,
+      "max_depth_blender_y_m": 0.022797426209310467,
+      "depth_m": 0.045532721428758145,
+      "center_x_m": -0.000649999692042904,
+      "center_depth_m": 3.106549493139474e-05,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.23,
+      "min_x_m": -0.04399999976158142,
+      "max_x_m": 0.04150000214576721,
+      "width_x_m": 0.08550000190734863,
+      "min_depth_blender_y_m": -0.02256625335690169,
+      "max_depth_blender_y_m": 0.02279438637262765,
+      "depth_m": 0.04536063972952934,
+      "center_x_m": -0.0012499988079071045,
+      "center_depth_m": 0.00011406650786298031,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.25,
+      "min_x_m": -0.04553333297371864,
+      "max_x_m": 0.04385621349016825,
+      "width_x_m": 0.08938954646388689,
+      "min_depth_blender_y_m": -0.023119400565822918,
+      "max_depth_blender_y_m": 0.023139866068959236,
+      "depth_m": 0.04625926663478215,
+      "center_x_m": -0.000838559741775196,
+      "center_depth_m": 1.0232751568159046e-05,
+      "point_count": 144
+    },
+    {
+      "height_m": 0.27,
+      "min_x_m": -0.04442920704330491,
+      "max_x_m": 0.04789115488529205,
+      "width_x_m": 0.09232036192859697,
+      "min_depth_blender_y_m": -0.023332074284553528,
+      "max_depth_blender_y_m": 0.023328155279159546,
+      "depth_m": 0.046660229563713074,
+      "center_x_m": 0.0017309739209935733,
+      "center_depth_m": -1.959502696990967e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.28,
+      "min_x_m": -0.04150000249495577,
+      "max_x_m": 0.05050000175833702,
+      "width_x_m": 0.0920000042532928,
+      "min_depth_blender_y_m": -0.02334882691502571,
+      "max_depth_blender_y_m": 0.02334505319595337,
+      "depth_m": 0.04669388011097908,
+      "center_x_m": 0.0044999996316906245,
+      "center_depth_m": -1.8868595361709595e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.295,
+      "min_x_m": -0.03150000050663948,
+      "max_x_m": 0.05350000260981079,
+      "width_x_m": 0.08500000311645027,
+      "min_depth_blender_y_m": -0.022901494055986404,
+      "max_depth_blender_y_m": 0.02289811335504055,
+      "depth_m": 0.045799607411026955,
+      "center_x_m": 0.011000001051585655,
+      "center_depth_m": -1.6903504729270935e-06,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.308,
+      "min_x_m": -0.016499999910593033,
+      "max_x_m": 0.05550000089926106,
+      "width_x_m": 0.0720000008098541,
+      "min_depth_blender_y_m": -0.021993357688188553,
+      "max_depth_blender_y_m": 0.021992240101099014,
+      "depth_m": 0.04398559778928757,
+      "center_x_m": 0.019500000494334015,
+      "center_depth_m": -5.587935447692871e-07,
+      "point_count": 216
+    },
+    {
+      "height_m": 0.32,
+      "min_x_m": 0.0024999999441206455,
+      "max_x_m": 0.05650000274181366,
+      "width_x_m": 0.054000002797693014,
+      "min_depth_blender_y_m": -0.021490316838026047,
+      "max_depth_blender_y_m": 0.0214874017983675,
+      "depth_m": 0.04297771863639355,
+      "center_x_m": 0.029500001342967153,
+      "center_depth_m": -1.4575198292732239e-06,
+      "point_count": 275
+    },
+    {
+      "height_m": 0.33,
+      "min_x_m": 0.019499980769978005,
+      "max_x_m": 0.05650000274181366,
+      "width_x_m": 0.037000021971835655,
+      "min_depth_blender_y_m": -0.01920158841251187,
+      "max_depth_blender_y_m": 0.01923239266275668,
+      "depth_m": 0.03843398107526855,
+      "center_x_m": 0.03799999175589583,
+      "center_depth_m": 1.5402125122404922e-05,
+      "point_count": 261
+    },
+    {
+      "height_m": 0.339,
+      "min_x_m": 0.024500001221895218,
+      "max_x_m": 0.05550000071525574,
+      "width_x_m": 0.03099999949336052,
+      "min_depth_blender_y_m": -0.016485912196634256,
+      "max_depth_blender_y_m": 0.016479400917887688,
+      "depth_m": 0.032965313114521944,
+      "center_x_m": 0.04000000096857548,
+      "center_depth_m": -3.2556393732841027e-06,
+      "point_count": 249
+    },
+    {
+      "height_m": 0.345,
+      "min_x_m": 0.02850000001490116,
+      "max_x_m": 0.05550000071525574,
+      "width_x_m": 0.027000000700354576,
+      "min_depth_blender_y_m": -0.016406306996941566,
+      "max_depth_blender_y_m": 0.016419649124145508,
+      "depth_m": 0.032825956121087074,
+      "center_x_m": 0.04200000036507845,
+      "center_depth_m": 6.671063601970673e-06,
+      "point_count": 210
+    },
+    {
+      "height_m": 0.349,
+      "min_x_m": 0.03349999004828381,
+      "max_x_m": 0.05250000980130924,
+      "width_x_m": 0.019000019753025434,
+      "min_depth_blender_y_m": -0.01348769511702587,
+      "max_depth_blender_y_m": 0.01349519135285757,
+      "depth_m": 0.026982886469883442,
+      "center_x_m": 0.04299999992479653,
+      "center_depth_m": 3.7481179158494263e-06,
+      "point_count": 210
+    },
+    {
+      "height_m": 0.35,
+      "min_x_m": 0.03749999776482582,
+      "max_x_m": 0.048500001430511475,
+      "width_x_m": 0.011000003665685654,
+      "min_depth_blender_y_m": -0.010423880070447922,
+      "max_depth_blender_y_m": 0.010485277511179447,
+      "depth_m": 0.02090915758162737,
+      "center_x_m": 0.04299999959766865,
+      "center_depth_m": 3.069872036576271e-05,
+      "point_count": 141
+    }
+  ],
+  "protected_insertion_surface": {
+    "reference": "frozen R03 functional insertion surface, also retained by QingGuiR01",
+    "reference_vertices": 141,
+    "current_vertices": 141,
+    "max_nearest_vertex_difference_m": 1.0132488181824328e-09,
+    "tolerance_m": 5e-07,
+    "pass": true
+  },
+  "game_mesh_volume_m3": 0.0021776521858526024,
+  "normal_bake_revision": "Hole interior uses independent CORNER radial normals; NormalGL and embedded GLB were re-exported after correction.",
+  "frozen_at": "2026-11-26T03:41:42.960190+08:00",
+  "original_r02_core_unchanged": [
+    {
+      "relative_path": "QingGuiR02_Source.blend",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02.blend",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LOD0.fbx",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LODs.fbx",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02.glb",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_Lookdev.glb",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_GeometryCandidate.fbx",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_AO.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_BaseColor.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_JadeMask.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_Metallic.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_MetallicSmoothness.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_NormalGL.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_ORM.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_Roughness.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "Textures/QingGui_Thickness.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LOD0.fbm/QingGui_BaseColor.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LOD0.fbm/QingGui_Metallic.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LOD0.fbm/QingGui_NormalGL.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LOD0.fbm/QingGui_Roughness.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LODs.fbm/QingGui_BaseColor.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LODs.fbm/QingGui_Metallic.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LODs.fbm/QingGui_NormalGL.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "QingGuiR02_LODs.fbm/QingGui_Roughness.png",
+      "unchanged": true
+    },
+    {
+      "relative_path": "SourceMasks/FinePattern.png",
+      "unchanged": true
+    }
+  ],
+  "accepted_warnings": [
+    "Raw GLB QA reports 3 coplanar pairs at split UV/tangent seams; each shares identical geometric vertices. Position-identical adjacency-normalized diagnostic passes with unchanged runtime eps 10um; exported files remain untouched. See raw_export_qa and export_seam_evidence.",
+    "hidden back-to-back faces: QingGuiR02_Body_LOD1<->QingGuiR02_GoldWire_LOD1 (277 pairs) - delete to save tris",
+    "QingGuiR02_Body_Source: FinePattern.png is Non-Color but drives Base Color (looks washed out)",
+    "QingGuiR02_Body_HIGH: 72 zero-area UV faces",
+    "Source-only original10um gate reports one pair of aperture faces1um apart; exact projected overlap1.4095e-13m2, no intersection. Parent accepted .5um source distance recheck. Original and precise reports retained; runtime QA unchanged.",
+    "Body envelope increases versus R02 by approximately .493mm width/.700mm depth above protected shaft; hand/collision validation belongs to Unity.",
+    "Source UV warnings concern Object-space procedural masks; game UVs pass. FinePattern Non-Color is a blend weight, not mis-tagged base color.",
+    "Game LOD finite gold-ring segments and2K micro-engraving remain visible at extreme zoom. No headset/performance claim."
+  ],
+  "geometry_candidate_signatures": {
+    "QingGuiR02_Body_LOD0": {
+      "vertices": 4419,
+      "triangles": 8838,
+      "vertex_coordinates_sha256": "24bc09ce1f5181ba404c664c1fcb6e10ea81ad88533aa9a2412f206c8cdf9c8c",
+      "triangle_indices_sha256": "76534c18b9d70088c164700aabe3168ee2471529e6bb9eb60a557b96f269df58"
+    },
+    "QingGuiR02_GoldWire_LOD0": {
+      "vertices": 3530,
+      "triangles": 6996,
+      "vertex_coordinates_sha256": "3780abbe68dc833db408fc34ab0b2329376ad08b8205d6a3f307c5e642870bfa",
+      "triangle_indices_sha256": "8e431f7bf2783d6b45ab398f245d71bf6e6f57c562bd74e46430d1a580638d48"
+    }
+  },
+  "revision_scope": "Copper interface only; C4 outline/true aperture/jade grip profile/0–105mm shaft retained. Original R02 25 frozen core files untouched.",
+  "renderer_material_contract": {
+    "QingGuiR02_Body_LOD0/1/2": "QingGuiR02_Body",
+    "QingGuiR02_GoldWire_LOD0/1/2": "QingGuiR02_GoldWire"
+  },
+  "source_precision_evidence": [
+    "source-high-qa-10um-original.json",
+    "source-overlap-exact-proof.json",
+    "source-high-qa.json"
+  ],
+  "lookdev_glb": {
+    "source_game_glb_sha256": "26c8cd7472c1a332a5da29a2ca4cb72e7b427d8e11e0115d50c5fe89c29709d4",
+    "lookdev_sha256": "237ae9cb651d8be7bb3f841e501c2766a7ac7723d7b06ef6a00a3c0168157aa8",
+    "body_extensions": {
+      "KHR_materials_transmission": {
+        "transmissionFactor": 0.12,
+        "transmissionTexture": {
+          "index": 3,
+          "texCoord": 0
+        }
+      },
+      "KHR_materials_volume": {
+        "thicknessFactor": 0.12,
+        "thicknessTexture": {
+          "index": 4,
+          "texCoord": 0
+        },
+        "attenuationDistance": 0.045,
+        "attenuationColor": [
+          0.82,
+          0.79,
+          0.71
+        ]
+      },
+      "KHR_materials_ior": {
+        "ior": 1.53
+      },
+      "KHR_materials_clearcoat": {
+        "clearcoatFactor": 0.18,
+        "clearcoatRoughnessFactor": 0.09,
+        "clearcoatTexture": {
+          "index": 3,
+          "texCoord": 0
+        }
+      }
+    },
+    "gold_material_has_transmission": false,
+    "alpha_mode": "OPAQUE",
+    "limitations": [
+      "Viewer must implement the listed KHR extensions.",
+      "Standard transmission/volume is not subsurface scattering.",
+      "No claim this matches the separate Unity shader or Quest output."
+    ]
+  }
+}
