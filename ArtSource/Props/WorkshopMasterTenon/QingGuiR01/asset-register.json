@@ -1,0 +1,15 @@
+{
+  "asset": "汉白玉校准主榫 / 清圭 R01",
+  "approval": "用户在C4金线加强稿后明确要求就这样开始建模；不要求再次选稿",
+  "stage": "first actual model, bake, orthographic views and independent Unity desktop checks complete; reviewable, not promoted to formal chapter",
+  "items": [
+    {"part":"C4 approved form","source":"../BronzeConceptC4/Tenon_C4.png","decision":"retain approved silhouette and jade/bronze/gold composition"},
+    {"part":"square insertion end","source":"../R03/geometry_r03.py","decision":"reuse geometric section only for bottom 0–105 mm; 106 mm square"},
+    {"part":"grip and sloping crown","source":"Model/qinggui_geometry.py","decision":"new curved mesh and real through aperture; original pivot preserved"},
+    {"part":"bronze layered rim and gold inlay","source":"approved C4","decision":"new detailed high mesh and baked game surfaces; no floating decorative wire"},
+    {"part":"jade material","decision":"new physically based source shader and true thickness mask; independent opaque URP transmission approximation"},
+    {"part":"original console socket","source":"existing ConsoleSocket geometry","decision":"retain geometry and seating pose; test new mesh separately"},
+    {"part":"③ pickup pedestal","source":"BronzeConceptB1/Pedestal_B1.png","decision":"separate task; not replaced by this asset"}
+  ],
+  "not_claimed": ["new aesthetics approved beyond initial C4 authorization","Quest headset test","new top/shoulder latch compatibility before measurement","formal scene replacement"]
+}

@@ -1,0 +1,86 @@
+{
+  "asset": "T28_QingGuiR01",
+  "approved_concept": "ArtSource/Props/WorkshopMasterTenon/BronzeConceptC4/Tenon_C4.png",
+  "user_approval": "就这样开始建模 先做三视图 要求建模细致 有玉石光泽，透光 青铜和金线有质感",
+  "reference_guide": "Reference/C4_ThreeView_DesignGuide.png",
+  "reference_limitation": "AI造型三视稿的底端侧宽和段长不是量规。数字尺寸优先；实际模型须另出同尺度正侧背三视。",
+  "axes": {
+    "blender_up": "+Z",
+    "unity_up": "+Y",
+    "front": "Blender -Y",
+    "right": "+X",
+    "origin": "square insertion end center"
+  },
+  "dimensions_mm": {
+    "overall_height": 350,
+    "max_width": 120,
+    "max_depth": 120,
+    "insertion_square": [
+      106,
+      106
+    ],
+    "insertion_length": 105,
+    "baseline_lower_section_preserve_until": 105,
+    "upper_grip_width_target": [
+      80,
+      100
+    ],
+    "upper_grip_depth_target": [
+      42,
+      52
+    ],
+    "surface_fillet_target": [
+      1.5,
+      5
+    ],
+    "low_shoulder_transition": [
+      105,
+      145
+    ],
+    "grip_height_target": 230
+  },
+  "aperture": {
+    "real_through_hole": true,
+    "front_high_side": "+X",
+    "back_mirrored": true,
+    "rounded_edges": true
+  },
+  "geometry": {
+    "retain_C4_silhouette": true,
+    "bronze_layered_rim": true,
+    "real_highpoly_inlay_grooves": true,
+    "no_floating_gold_wire": true,
+    "keep_pivot_and_seated_pose": true,
+    "keep_existing_90_degree_snap_logic": true,
+    "no_new_detachable_parts": true
+  },
+  "materials": {
+    "source": "Cycles jade subsurface/transmission+volume absorption as appropriate, bronze/gold physically based metal",
+    "runtime": "opaque URP thickness-driven light transmission approximation; no glow in unlit test",
+    "required_maps": [
+      "BaseColor",
+      "NormalGL",
+      "Metallic",
+      "Roughness",
+      "AO",
+      "Thickness",
+      "JadeMask"
+    ],
+    "thickness": "true mesh ray measurement, linear texture; documented metres-to-0..1 range, separate from AO",
+    "gold_on_jade": "JadeMask=0 at metal inlay"
+  },
+  "temporary_game_budget": {
+    "lod0_tris_max": 6000,
+    "lod1_tris_target": 1800,
+    "lod2_tris_target": 600,
+    "material_slots_max": 2,
+    "texture_max": 2048
+  },
+  "stages": [
+    "first blockout with actual orthographic three-view + clay for parent shape review",
+    "high detail, atlas UV, real material bake, ray thickness and masks",
+    "cold FBX/GLB readback, asset QA, beauty/front-side-back/backlight renders",
+    "independent Unity material/fit sample, no replacement of formal scene"
+  ],
+  "compatibility_limit": "top latch and shoulder proposal must be remeasured against new shape; do not claim inherited compatibility; formal scene not edited"
+}
