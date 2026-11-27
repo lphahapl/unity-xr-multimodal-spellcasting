@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: QingGui_R01
+  m_Shader: {fileID: 4800000, guid: 4d52def0d0448cb4586cf09d31411f32, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _METALLICSPECGLOSSMAP
+  - _OCCLUSIONMAP
+  m_InvalidKeywords:
+  - _NORMALMAP
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 8f59b487350c5dd4eaaf5743a55a62f0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: e0f9f07a6406a9447a0e0a21e4c74727, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _JadeMask:
+        m_Texture: {fileID: 2800000, guid: 37ac66599672b1840891d28d5d556ce0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 2800000, guid: 9ad6e218febb53b4daefded8bf127266, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: b2281ebb0aef4ea4ab8f2eca17348ca9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ThicknessMap:
+        m_Texture: {fileID: 2800000, guid: 707345da0a0e4dd499f037249eefacdb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _ExitBiasMetres: 0.001
+    - _Metallic: 1
+    - _MinimumLightCosine: 0.01
+    - _OcclusionStrength: 1
+    - _Smoothness: 1
+    - _Surface: 0
+    - _ThicknessMaxMetres: 0.12
+    - _TransmissionDebug: 0
+    - _TransmissionStrength: 0.45
+    m_Colors:
+    - _AbsorptionPerMetre: {r: 55, g: 58, b: 72, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BoundsMaxOS: {r: 0.00055, g: 0.00052999996, b: 0.0035001596, a: 0}
+    - _BoundsMinOS: {r: -0.00056000403, g: -0.00052999996, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
