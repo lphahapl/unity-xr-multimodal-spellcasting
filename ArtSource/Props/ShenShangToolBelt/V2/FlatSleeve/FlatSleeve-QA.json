@@ -1,0 +1,173 @@
+{
+  "part": "FlatSleeve",
+  "sourceProvider": "Tencent Hunyuan3D V1, resized offline",
+  "sourceHunyuanGLBSha256": "ef3a05f7be0d91e2e0f171bf7d23e2bf20a13b96af6ee0b6aabb4921f02cc58c",
+  "sourceBlendSha256": "fef9c5c440106956d2a16ffcc9cbae355d05391cd20a05c1cecdfab82cf48c09",
+  "sourceV1FBXSha256": "5036900e1c04479fad069bdd34d64da1e4ba824e4ffc2e7c6109bf43b6daab0b",
+  "exportedV2FBXSha256": "71dff79d7a9d93e2f305eb45f631cea668d673fe5c1dc7675ac3eb834669ac7f",
+  "textureFiles": [
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\FlatSleeve\\FlatSleeve_BaseColor.png",
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\FlatSleeve\\FlatSleeve_NormalGL.png",
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\FlatSleeve\\FlatSleeve_Mask.png"
+  ],
+  "testAssetSHA256": null,
+  "v1DimensionsUnityM": [
+    0.035,
+    0.09,
+    0.017
+  ],
+  "entryAnchorUnityM": [
+    -0.0,
+    0.09000000357627869,
+    -0.0
+  ],
+  "entryInsertDirectionUnity": [
+    0,
+    -1,
+    0
+  ],
+  "lods": {
+    "FlatSleeve_LOD0": {
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0001,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "FlatSleeve_LOD0": {
+            "verts": 855,
+            "faces": 1718,
+            "tris": 1718,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 2,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.19,
+            "uv_coverage_pct": 35.3
+          }
+        }
+      },
+      "triangles": 1718,
+      "dimensionsUnityM": [
+        0.04235856980085373,
+        0.08994600189180346,
+        0.01697413343936205
+      ],
+      "FBX": {
+        "dimensionsUnityM": [
+          0.04235856980085373,
+          0.08994600181176793,
+          0.016974130645394325
+        ],
+        "unityBackM": -0.008479016833007336,
+        "uvLayers": 1,
+        "atlas": "FlatSleeve_Atlas"
+      },
+      "fit": {
+        "testedRectangleWidthThicknessDepthMM": [
+          20,
+          6,
+          56
+        ],
+        "safeRigidRectanglePass": true,
+        "measuredCenteredWidthAt6mmThicknessAnd56mmDepthMM": 24.3,
+        "floorRayCount": 45,
+        "closedFloorRayCount": 45,
+        "shallowestFloorDepthMM": 58.2,
+        "method": "Triangle versus centered rigid box SAT. Opening box begins 1mm above the rim. A continuous slot admits shallower translation and the raster ray paths verify the closed floor."
+      }
+    },
+    "FlatSleeve_LOD1": {
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "FlatSleeve_LOD1": {
+            "verts": 352,
+            "faces": 712,
+            "tris": 712,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 2,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.65,
+            "uv_coverage_pct": 32.7
+          }
+        }
+      },
+      "triangles": 712,
+      "dimensionsUnityM": [
+        0.042154230177402496,
+        0.08990646490565268,
+        0.017106913030147552
+      ],
+      "FBX": {
+        "dimensionsUnityM": [
+          0.042154230177402496,
+          0.08990646506208577,
+          0.01710691023617983
+        ],
+        "unityBackM": -0.00852635595947504,
+        "uvLayers": 1,
+        "atlas": "FlatSleeve_Atlas"
+      },
+      "fit": {
+        "testedRectangleWidthThicknessDepthMM": [
+          20,
+          6,
+          56
+        ],
+        "safeRigidRectanglePass": true,
+        "measuredCenteredWidthAt6mmThicknessAnd56mmDepthMM": 24.3,
+        "floorRayCount": 45,
+        "closedFloorRayCount": 45,
+        "shallowestFloorDepthMM": 58.2,
+        "method": "Triangle versus centered rigid box SAT. Opening box begins 1mm above the rim. A continuous slot admits shallower translation and the raster ray paths verify the closed floor."
+      }
+    }
+  }
+}
