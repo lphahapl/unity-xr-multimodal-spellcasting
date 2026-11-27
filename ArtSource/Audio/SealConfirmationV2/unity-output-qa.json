@@ -1,0 +1,1491 @@
+{
+  "created_utc": "2026-11-24T17:06:01.455850+00:00",
+  "status": "numerical_checks_failed",
+  "task": "Independent numerical acceptance of final Unity AudioRenderer V2 output",
+  "runtime_result_sha256": "9d28806aa0670ae9dcdde507e4d1415ee24c83bed5334bc102bc43d8af0881f8",
+  "runtime_timeline_sha256": "f0174690ff69d17fd611cbc516941d4406ffd864cf3df08432745424c870e730",
+  "runtime_result_text": "Gui 规印 | calibrated=True | events=2 | prefabInstances=2 | PCM peak=0.2197006 RMS=0.0157976527522475\nJu 矩印 | calibrated=True | events=2 | prefabInstances=2 | PCM peak=0.330106 RMS=0.0198157106280701\nHeng 衡印 | calibrated=True | events=2 | prefabInstances=2 | PCM peak=0.3367313 RMS=0.0212290711631465\nLv 律印 | calibrated=True | events=2 | prefabInstances=2 | PCM peak=0.2853888 RMS=0.0208708423175804\nZhun 准印 | calibrated=False | events=0 | prefabInstances=0 | PCM peak=0.3201959 RMS=0.0124993151336919\nSheng 绳印 | calibrated=False | events=0 | prefabInstances=0 | PCM peak=0.3296186 RMS=0.012746327471311\nRapid: 12 distinct sources; 8 matcher confirmations + 4 uncalibrated direct previews; maximum simultaneous playing=3; all natural stops observed; peak=0.3305455 RMS=0.0380199598322232 clippedSamples=0\nRecorded frame Gui score=0.999938 coverage=1 passes=True; all=规印:0.999938,矩印:0.2467907,衡印:0.1494289,律印:0.258911,准印:0,绳印:0\nRecorded frame Gui through actual matcher: 6s held => 1 confirmation.\nRecorded frame Ju score=0.9996312 coverage=1 passes=True; all=规印:0.3060494,矩印:0.9996312,衡印:0.2665981,律印:0.5214675,准印:0,绳印:0\nRecorded frame Ju through actual matcher: 6s held => 1 confirmation.\nRecorded frame Lv score=0.9861596 coverage=1 passes=True; all=规印:0.3741342,矩印:0.3841317,衡印:0.2741345,律印:0.9861596,准印:0,绳印:0\nRecorded frame Lv through actual matcher: 6s held => 1 confirmation.\nPASS: original matcher→ForwardSeal→PlaySealConfirmation→SealGlyphPulse; synthetic features and wrist injection, not live headset tracking.\n准/绳 calibrated=false, zero recognized events; direct prefab previews only.\nJu V2 internal double strike belongs to a single AudioClip/instance, not two seal events.\nActual Unity AudioRenderer final listener mix captured for each seal and 12-shot overlap; no source-WAV substitution.\nNo Quest hardware/live tracking/headset loudness acceptance claim.\n",
+  "source_files": {
+    "Gui": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/GuiChime.wav",
+      "sha256": "5d446dca6c6b841e4aa20970016b6d744e0bac62d278504e39e1ceaf5caaaa33",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 22080,
+      "duration_seconds": 0.46,
+      "peak_dbfs": -6.103698718548587,
+      "whole_file_rms_dbfs": -22.493749447275434,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    },
+    "Ju": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/JuChime.wav",
+      "sha256": "e937fa1f5cf1b23ebdd53841b7b8ade75d0479e7f3cc82e2d4bc18f71ed6271c",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 17280,
+      "duration_seconds": 0.36,
+      "peak_dbfs": -2.5672559259742616,
+      "whole_file_rms_dbfs": -19.438168381631634,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    },
+    "Heng": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/HengChime.wav",
+      "sha256": "9f135f9e6bd79ad5a2b7043fd1a1c5ea161c5b76f23d4617f3a314cc8ff44cfd",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 23040,
+      "duration_seconds": 0.48,
+      "peak_dbfs": -2.6395135581933395,
+      "whole_file_rms_dbfs": -20.110947669184128,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    },
+    "Lv": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/LvChime.wav",
+      "sha256": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 34080,
+      "duration_seconds": 0.71,
+      "peak_dbfs": -3.8315865683841785,
+      "whole_file_rms_dbfs": -21.933801929925856,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -44.24507755078458
+    },
+    "Zhun": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/ZhunChime.wav",
+      "sha256": "122690883e5d30c414212d8f19927b8c6e74427b528d60d59be62746e24d9fdd",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 16320,
+      "duration_seconds": 0.34,
+      "peak_dbfs": -2.8320085374213786,
+      "whole_file_rms_dbfs": -20.167770436388132,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    },
+    "Sheng": {
+      "file": "Assets/Art/VFX/Skills/SealConfirmation/ShengChime.wav",
+      "sha256": "81b97bc3613e82f7016b440d2644701ccd1725742cad59bb4fcbc8e3ba5bccd8",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "sample_frames": 21120,
+      "duration_seconds": 0.44,
+      "peak_dbfs": -2.580089584248699,
+      "whole_file_rms_dbfs": -21.13173953811106,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    }
+  },
+  "method": {
+    "clip_count": "Counts playback instances in timeline and complete matched source windows, NOT nonzero audio fragments.",
+    "Ju": "Two intended wooden impacts at 0/.095s are inside ONE AudioClip; two played clips contain four intended impacts.",
+    "fit": "Joint least-squares mono-source gains per output stereo channel, with full source windows located by cross-correlation near logged start offsets.",
+    "rapid_overlap": "Subtract other jointly fitted sources before measuring each clip and its energetic tail; no individual source replacement is used as final output.",
+    "heads": "4ms RMS >=2.5% of max, merge gaps <=12ms. A descriptive source-envelope count; event count comes from matched complete clips and timeline.",
+    "tail": "Last 30ms before source RMS drops below 1% of its peak envelope, plus complete-source-window and ending-silence checks.",
+    "correlation_limit": "Correlation here verifies delivery of the expected waveform; it is NOT a metric of perceptual distinguishability.",
+    "limits": "No human listening, no Quest headset loudness/occlusion/live recognition acceptance."
+  },
+  "individual": {
+    "Gui": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Gui",
+          "kind": "confirmed",
+          "timeline_frame": 4,
+          "nominal_seconds": 0.13333333333333333,
+          "timeline_detail": "规印 gameObjectId=-2088 anchor=(0.01000, -0.03500, 0.50000) clip=GuiChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 7168,
+          "fit_start_seconds": 0.14933333333333335,
+          "fit_end_seconds": 0.6093333333333333,
+          "source_duration_seconds": 0.46,
+          "start_minus_nominal_ms": 16.000000000000014,
+          "source_gain_per_channel": [
+            0.4330574725506963,
+            0.44356931488719165
+          ],
+          "full_source_correlation_per_channel": [
+            0.9999858231858,
+            0.9999858520683181
+          ],
+          "fit_residual_rms_dbfs": -75.13566622941664,
+          "isolated_actual_peak_dbfs": -13.16355522791353,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.20408333333333334,
+              "peak_time_seconds": 0.019458333333333334
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.17895833333333333,
+          "energetic_tail_relative_end_seconds": 0.20895833333333333,
+          "energetic_tail_expected_rms_dbfs": -40.20828468053743,
+          "energetic_tail_observed_rms_dbfs": -40.2075501416728,
+          "energetic_tail_rms_ratio_db": 0.0007345388646381601,
+          "energetic_tail_residual_rms_dbfs": -101.02187409417769,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        },
+        {
+          "ordinal": 1,
+          "code": "Gui",
+          "kind": "confirmed",
+          "timeline_frame": 73,
+          "nominal_seconds": 2.433333333333333,
+          "timeline_detail": "规印 gameObjectId=-2098 anchor=(0.01000, -0.03500, 0.50000) clip=GuiChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 117760,
+          "fit_start_seconds": 2.453333333333333,
+          "fit_end_seconds": 2.9133333333333336,
+          "source_duration_seconds": 0.46,
+          "start_minus_nominal_ms": 20.000000000000018,
+          "source_gain_per_channel": [
+            0.4330574725506963,
+            0.44356931488719165
+          ],
+          "full_source_correlation_per_channel": [
+            0.9999858231858,
+            0.9999858520683181
+          ],
+          "fit_residual_rms_dbfs": -75.13566622941664,
+          "isolated_actual_peak_dbfs": -13.16355522791353,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.20408333333333334,
+              "peak_time_seconds": 0.019458333333333334
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.17895833333333333,
+          "energetic_tail_relative_end_seconds": 0.20895833333333333,
+          "energetic_tail_expected_rms_dbfs": -40.20828468053743,
+          "energetic_tail_observed_rms_dbfs": -40.2075501416728,
+          "energetic_tail_rms_ratio_db": 0.0007345388646381601,
+          "energetic_tail_residual_rms_dbfs": -101.02187409417769,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -13.16355522791353,
+      "global_source_mix_reconstruction_rms_dbfs": -36.028555170013014,
+      "global_fit_residual_rms_dbfs": -81.50679121396833,
+      "global_fit_residual_peak_dbfs": -41.044565786614264,
+      "global_fit_residual_to_mix_rms_db": -45.47835905795974,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Gui/unity-output.wav",
+        "sha256": "4983ad4ab88fcb7db55c8c93a7e5db84e8f8a043014c94ec2444f36430966efa",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 191488,
+        "duration_seconds": 3.989333333333333,
+        "peak_dbfs": -13.16355522791353,
+        "whole_file_rms_dbfs": -36.02843215600858,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 2,
+      "matcher_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "intended_total_internal_head_count": 2,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    },
+    "Ju": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Ju",
+          "kind": "confirmed",
+          "timeline_frame": 3,
+          "nominal_seconds": 0.1,
+          "timeline_detail": "矩印 gameObjectId=-2108 anchor=(0.01000, -0.03500, 0.50000) clip=JuChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 6144,
+          "fit_start_seconds": 0.128,
+          "fit_end_seconds": 0.488,
+          "source_duration_seconds": 0.36,
+          "start_minus_nominal_ms": 27.999999999999996,
+          "source_gain_per_channel": [
+            0.43308603337086343,
+            0.44359753564075904
+          ],
+          "full_source_correlation_per_channel": [
+            0.99999444777788,
+            0.99999445778099
+          ],
+          "fit_residual_rms_dbfs": -76.14915923170385,
+          "isolated_actual_peak_dbfs": -9.626862105041486,
+          "intended_internal_head_count": 2,
+          "measured_internal_envelope_head_count": 2,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.067125,
+              "peak_time_seconds": 0.008145833333333333
+            },
+            {
+              "start_seconds": 0.09377083333333333,
+              "end_seconds": 0.1624375,
+              "peak_time_seconds": 0.09970833333333333
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.134125,
+          "energetic_tail_relative_end_seconds": 0.164125,
+          "energetic_tail_expected_rms_dbfs": -25.76417863679772,
+          "energetic_tail_observed_rms_dbfs": -25.76391192546506,
+          "energetic_tail_rms_ratio_db": 0.0002667113326592886,
+          "energetic_tail_residual_rms_dbfs": -101.01893287670663,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        },
+        {
+          "ordinal": 1,
+          "code": "Ju",
+          "kind": "confirmed",
+          "timeline_frame": 73,
+          "nominal_seconds": 2.433333333333333,
+          "timeline_detail": "矩印 gameObjectId=-2118 anchor=(0.01000, -0.03500, 0.50000) clip=JuChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 118784,
+          "fit_start_seconds": 2.474666666666667,
+          "fit_end_seconds": 2.8346666666666667,
+          "source_duration_seconds": 0.36,
+          "start_minus_nominal_ms": 41.33333333333367,
+          "source_gain_per_channel": [
+            0.43308603337086343,
+            0.44359753564075904
+          ],
+          "full_source_correlation_per_channel": [
+            0.99999444777788,
+            0.99999445778099
+          ],
+          "fit_residual_rms_dbfs": -76.14915923170385,
+          "isolated_actual_peak_dbfs": -9.626862105041486,
+          "intended_internal_head_count": 2,
+          "measured_internal_envelope_head_count": 2,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.067125,
+              "peak_time_seconds": 0.008145833333333333
+            },
+            {
+              "start_seconds": 0.09377083333333333,
+              "end_seconds": 0.1624375,
+              "peak_time_seconds": 0.09970833333333333
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.134125,
+          "energetic_tail_relative_end_seconds": 0.164125,
+          "energetic_tail_expected_rms_dbfs": -25.76417863679772,
+          "energetic_tail_observed_rms_dbfs": -25.76391192546506,
+          "energetic_tail_rms_ratio_db": 0.0002667113326592886,
+          "energetic_tail_residual_rms_dbfs": -101.01893287670663,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -9.626862105041486,
+      "global_source_mix_reconstruction_rms_dbfs": -34.06012737086092,
+      "global_fit_residual_rms_dbfs": -83.60799995267021,
+      "global_fit_residual_peak_dbfs": -43.37413046079608,
+      "global_fit_residual_to_mix_rms_db": -49.547920775994626,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Ju/unity-output.wav",
+        "sha256": "768bab8bf4e2f01c7bae11f952bc6f590fd2d3075cbe3491095440ad470b66f3",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 192512,
+        "duration_seconds": 4.010666666666666,
+        "peak_dbfs": -9.626862105041486,
+        "whole_file_rms_dbfs": -34.060079176675586,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 2,
+      "matcher_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "intended_total_internal_head_count": 4,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    },
+    "Heng": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Heng",
+          "kind": "confirmed",
+          "timeline_frame": 5,
+          "nominal_seconds": 0.16666666666666666,
+          "timeline_detail": "衡印 gameObjectId=-2128 anchor=(-0.03500, -0.03500, 0.50000) clip=HengChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 9216,
+          "fit_start_seconds": 0.192,
+          "fit_end_seconds": 0.672,
+          "source_duration_seconds": 0.48,
+          "start_minus_nominal_ms": 25.333333333333346,
+          "source_gain_per_channel": [
+            0.4562738899626754,
+            0.4195663828262066
+          ],
+          "full_source_correlation_per_channel": [
+            0.9999908775536713,
+            0.9999908628791191
+          ],
+          "fit_residual_rms_dbfs": -74.6583043342243,
+          "isolated_actual_peak_dbfs": -9.454339106759937,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.19933333333333333,
+              "peak_time_seconds": 0.013875
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.175875,
+          "energetic_tail_relative_end_seconds": 0.205875,
+          "energetic_tail_expected_rms_dbfs": -41.028066872831644,
+          "energetic_tail_observed_rms_dbfs": -41.02758214702006,
+          "energetic_tail_rms_ratio_db": 0.000484725811582136,
+          "energetic_tail_residual_rms_dbfs": -101.13573889728326,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        },
+        {
+          "ordinal": 1,
+          "code": "Heng",
+          "kind": "confirmed",
+          "timeline_frame": 75,
+          "nominal_seconds": 2.5,
+          "timeline_detail": "衡印 gameObjectId=-2138 anchor=(-0.03500, -0.03500, 0.50000) clip=HengChime isPlaying=True volume=0.62 blend=0.85 caseVisible=True",
+          "fit_start_sample": 120832,
+          "fit_start_seconds": 2.517333333333333,
+          "fit_end_seconds": 2.997333333333333,
+          "source_duration_seconds": 0.48,
+          "start_minus_nominal_ms": 17.3333333333332,
+          "source_gain_per_channel": [
+            0.4562738899626754,
+            0.4195663828262066
+          ],
+          "full_source_correlation_per_channel": [
+            0.9999908775536713,
+            0.9999908628791191
+          ],
+          "fit_residual_rms_dbfs": -74.6583043342243,
+          "isolated_actual_peak_dbfs": -9.454339106759937,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.19933333333333333,
+              "peak_time_seconds": 0.013875
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.175875,
+          "energetic_tail_relative_end_seconds": 0.205875,
+          "energetic_tail_expected_rms_dbfs": -41.028066872831644,
+          "energetic_tail_observed_rms_dbfs": -41.02758214702006,
+          "energetic_tail_rms_ratio_db": 0.000484725811582136,
+          "energetic_tail_residual_rms_dbfs": -101.13573889728326,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -9.454339106759937,
+      "global_source_mix_reconstruction_rms_dbfs": -33.46171839234686,
+      "global_fit_residual_rms_dbfs": -80.84459526183586,
+      "global_fit_residual_peak_dbfs": -40.0765103177183,
+      "global_fit_residual_to_mix_rms_db": -47.38295620957325,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Heng/unity-output.wav",
+        "sha256": "b1fd182f44a81bcf0378417962aef7193d9017410448bc8422c21de8a0661a1e",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 191488,
+        "duration_seconds": 3.989333333333333,
+        "peak_dbfs": -9.454339106759937,
+        "whole_file_rms_dbfs": -33.4616390522626,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 2,
+      "matcher_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "intended_total_internal_head_count": 2,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    },
+    "Lv": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Lv",
+          "kind": "confirmed",
+          "timeline_frame": 3,
+          "nominal_seconds": 0.1,
+          "timeline_detail": "律印 gameObjectId=-2148 anchor=(0.01000, -0.03500, 0.50000) clip=LvChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 6144,
+          "fit_start_seconds": 0.128,
+          "fit_end_seconds": 0.838,
+          "source_duration_seconds": 0.71,
+          "start_minus_nominal_ms": 27.999999999999996,
+          "source_gain_per_channel": [
+            0.43284953486313577,
+            0.4433559632590445
+          ],
+          "full_source_correlation_per_channel": [
+            0.9998304811950557,
+            0.9998304607203814
+          ],
+          "fit_residual_rms_dbfs": -63.793969134824295,
+          "isolated_actual_peak_dbfs": -10.891837559264312,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.4918125,
+              "peak_time_seconds": 0.007625
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.5919583333333334,
+          "energetic_tail_relative_end_seconds": 0.6219583333333333,
+          "energetic_tail_expected_rms_dbfs": -57.15097713784533,
+          "energetic_tail_observed_rms_dbfs": -57.14648128481616,
+          "energetic_tail_rms_ratio_db": 0.004495853029176543,
+          "energetic_tail_residual_rms_dbfs": -101.10886183322917,
+          "complete_window_last10ms_expected_peak_dbfs": -72.2684975127346,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -72.24719895935549,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        },
+        {
+          "ordinal": 1,
+          "code": "Lv",
+          "kind": "confirmed",
+          "timeline_frame": 73,
+          "nominal_seconds": 2.433333333333333,
+          "timeline_detail": "律印 gameObjectId=-2158 anchor=(0.01000, -0.03500, 0.50000) clip=LvChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "fit_start_sample": 118784,
+          "fit_start_seconds": 2.474666666666667,
+          "fit_end_seconds": 3.1846666666666668,
+          "source_duration_seconds": 0.71,
+          "start_minus_nominal_ms": 41.33333333333367,
+          "source_gain_per_channel": [
+            0.43284953486313577,
+            0.4433559632590445
+          ],
+          "full_source_correlation_per_channel": [
+            0.9998304811950557,
+            0.9998304607203814
+          ],
+          "fit_residual_rms_dbfs": -63.793969134824295,
+          "isolated_actual_peak_dbfs": -10.891837559264312,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.4918125,
+              "peak_time_seconds": 0.007625
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.5919583333333334,
+          "energetic_tail_relative_end_seconds": 0.6219583333333333,
+          "energetic_tail_expected_rms_dbfs": -57.15097713784533,
+          "energetic_tail_observed_rms_dbfs": -57.14648128481616,
+          "energetic_tail_rms_ratio_db": 0.004495853029176543,
+          "energetic_tail_residual_rms_dbfs": -101.10886183322917,
+          "complete_window_last10ms_expected_peak_dbfs": -72.2684975127346,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -72.24719895935549,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -10.891837559264312,
+      "global_source_mix_reconstruction_rms_dbfs": -33.6109402209418,
+      "global_fit_residual_rms_dbfs": -68.30325137627277,
+      "global_fit_residual_peak_dbfs": -29.815386044568356,
+      "global_fit_residual_to_mix_rms_db": -34.69378509428489,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Lv/unity-output.wav",
+        "sha256": "4071bb6d6eb4e2e247c484e39b4a2302896d1a249b604be7af907be125a67252",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 192512,
+        "duration_seconds": 4.010666666666666,
+        "peak_dbfs": -10.891837559264312,
+        "whole_file_rms_dbfs": -33.60946628198788,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 2,
+      "matcher_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "intended_total_internal_head_count": 2,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    },
+    "Zhun": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Zhun",
+          "kind": "template_preview",
+          "timeline_frame": 6,
+          "nominal_seconds": 0.2,
+          "timeline_detail": "准印 direct Prefab preview only; no recognized gesture; clip=ZhunChime",
+          "fit_start_sample": 10240,
+          "fit_start_seconds": 0.21333333333333335,
+          "fit_end_seconds": 0.5533333333333333,
+          "source_duration_seconds": 0.34,
+          "start_minus_nominal_ms": 13.333333333333336,
+          "source_gain_per_channel": [
+            0.4308511321121282,
+            0.4413081437407126
+          ],
+          "full_source_correlation_per_channel": [
+            0.9991372358446579,
+            0.9991372326340593
+          ],
+          "fit_residual_rms_dbfs": -55.00096439215191,
+          "isolated_actual_peak_dbfs": -9.89183306082804,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.13783333333333334,
+              "peak_time_seconds": 0.006020833333333334
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.11058333333333334,
+          "energetic_tail_relative_end_seconds": 0.14058333333333334,
+          "energetic_tail_expected_rms_dbfs": -35.01828830304916,
+          "energetic_tail_observed_rms_dbfs": -34.97310999323939,
+          "energetic_tail_rms_ratio_db": 0.04517830980976474,
+          "energetic_tail_residual_rms_dbfs": -80.63409942355457,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -9.89183306082804,
+      "global_source_mix_reconstruction_rms_dbfs": -38.070044079358766,
+      "global_fit_residual_rms_dbfs": -65.69517847973658,
+      "global_fit_residual_peak_dbfs": -24.49879594430934,
+      "global_fit_residual_to_mix_rms_db": -27.632631546233362,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Zhun/unity-output.wav",
+        "sha256": "a63c1faa5853e3e33c506ace713e94e050cc50c85d9922c181c3954a3785d434",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 191488,
+        "duration_seconds": 3.989333333333333,
+        "peak_dbfs": -9.89183306082804,
+        "whole_file_rms_dbfs": -38.06254693350323,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 1,
+      "matcher_confirmation_count": 0,
+      "direct_template_preview_count": 1,
+      "intended_total_internal_head_count": 1,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    },
+    "Sheng": {
+      "events": [
+        {
+          "ordinal": 0,
+          "code": "Sheng",
+          "kind": "template_preview",
+          "timeline_frame": 6,
+          "nominal_seconds": 0.2,
+          "timeline_detail": "绳印 direct Prefab preview only; no recognized gesture; clip=ShengChime",
+          "fit_start_sample": 11264,
+          "fit_start_seconds": 0.23466666666666666,
+          "fit_end_seconds": 0.6746666666666666,
+          "source_duration_seconds": 0.44,
+          "start_minus_nominal_ms": 34.66666666666665,
+          "source_gain_per_channel": [
+            0.43307726088731824,
+            0.4435896828867496
+          ],
+          "full_source_correlation_per_channel": [
+            0.9999889377451104,
+            0.9999889490690499
+          ],
+          "fit_residual_rms_dbfs": -74.84715755664152,
+          "isolated_actual_peak_dbfs": -9.639719377646257,
+          "intended_internal_head_count": 1,
+          "measured_internal_envelope_head_count": 1,
+          "internal_envelope_heads": [
+            {
+              "start_seconds": 0.0,
+              "end_seconds": 0.255625,
+              "peak_time_seconds": 0.006375
+            }
+          ],
+          "energetic_tail_relative_start_seconds": 0.2380625,
+          "energetic_tail_relative_end_seconds": 0.2680625,
+          "energetic_tail_expected_rms_dbfs": -48.16190338216917,
+          "energetic_tail_observed_rms_dbfs": -48.16104776076364,
+          "energetic_tail_rms_ratio_db": 0.0008556214055424258,
+          "energetic_tail_residual_rms_dbfs": -101.00736619591338,
+          "complete_window_last10ms_expected_peak_dbfs": -240.0,
+          "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+          "complete_clip_count": 1,
+          "checks": {
+            "correlation": true,
+            "energetic_tail_level": true,
+            "intended_internal_heads": true,
+            "full_source_window_present": true
+          }
+        }
+      ],
+      "actual_peak_dbfs": -9.639719377646257,
+      "global_source_mix_reconstruction_rms_dbfs": -37.8926613127565,
+      "global_fit_residual_rms_dbfs": -84.44479647705869,
+      "global_fit_residual_peak_dbfs": -42.509423709589306,
+      "global_fit_residual_to_mix_rms_db": -46.55223122948014,
+      "last100ms_actual_peak_dbfs": -240.0,
+      "joint_fit_gram_condition": 1.0,
+      "wave": {
+        "file": "Logs/t01-seal-audio-v2-20261125/unity/Sheng/unity-output.wav",
+        "sha256": "c8e8588d48cbca0ae9b239a1cf1829b11d2b106f270a27b64ec6dfe005d2693b",
+        "sample_rate": 48000,
+        "channels": 2,
+        "pcm_bits": 16,
+        "sample_frames": 192512,
+        "duration_seconds": 4.010666666666666,
+        "peak_dbfs": -9.639719377646257,
+        "whole_file_rms_dbfs": -37.892565247578545,
+        "clipped_samples": 0,
+        "last100ms_peak_dbfs": -240.0
+      },
+      "matched_complete_clip_count": 1,
+      "matcher_confirmation_count": 0,
+      "direct_template_preview_count": 1,
+      "intended_total_internal_head_count": 1,
+      "checks": {
+        "expected_clip_count": true,
+        "zero_clipping": true,
+        "ending_silence": true,
+        "source_reconstruction": true,
+        "all_clip_checks": true
+      }
+    }
+  },
+  "rapid": {
+    "events": [
+      {
+        "ordinal": 0,
+        "code": "Gui",
+        "kind": "matcher",
+        "instance_id": -2188,
+        "timeline_frame": 3,
+        "nominal_seconds": 0.08533333333333333,
+        "nominal_frame_seconds": 0.1,
+        "logged_pcm_frame_offset": 4096,
+        "source_clip_samples": 22080,
+        "max_observed_source_cursor": 22080,
+        "source_completed": true,
+        "fit_start_sample": 6144,
+        "fit_start_seconds": 0.128,
+        "fit_end_seconds": 0.588,
+        "source_duration_seconds": 0.46,
+        "start_minus_nominal_ms": 42.66666666666667,
+        "source_gain_per_channel": [
+          0.4330574725506963,
+          0.44356931488719165
+        ],
+        "full_source_correlation_per_channel": [
+          0.9999770500914854,
+          0.9999770944335025
+        ],
+        "fit_residual_rms_dbfs": -73.04270041487163,
+        "isolated_actual_peak_dbfs": -13.16355522791353,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.20408333333333334,
+            "peak_time_seconds": 0.019458333333333334
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.17895833333333333,
+        "energetic_tail_relative_end_seconds": 0.20895833333333333,
+        "energetic_tail_expected_rms_dbfs": -40.20828468053743,
+        "energetic_tail_observed_rms_dbfs": -40.2075501416728,
+        "energetic_tail_rms_ratio_db": 0.0007345388646381601,
+        "energetic_tail_residual_rms_dbfs": -101.02187409417769,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -95.26174800532152,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 1,
+        "code": "Ju",
+        "kind": "matcher",
+        "instance_id": -2198,
+        "timeline_frame": 15,
+        "nominal_seconds": 0.49066666666666664,
+        "nominal_frame_seconds": 0.5,
+        "logged_pcm_frame_offset": 23552,
+        "source_clip_samples": 17280,
+        "max_observed_source_cursor": 17280,
+        "source_completed": true,
+        "fit_start_sample": 25600,
+        "fit_start_seconds": 0.5333333333333333,
+        "fit_end_seconds": 0.8933333333333333,
+        "source_duration_seconds": 0.36,
+        "start_minus_nominal_ms": 42.666666666666686,
+        "source_gain_per_channel": [
+          0.43308603337086343,
+          0.44359753564075904
+        ],
+        "full_source_correlation_per_channel": [
+          0.99999444777788,
+          0.99999445778099
+        ],
+        "fit_residual_rms_dbfs": -76.14915923170385,
+        "isolated_actual_peak_dbfs": -9.626862105041486,
+        "intended_internal_head_count": 2,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.067125,
+            "peak_time_seconds": 0.008145833333333333
+          },
+          {
+            "start_seconds": 0.09377083333333333,
+            "end_seconds": 0.1624375,
+            "peak_time_seconds": 0.09970833333333333
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.134125,
+        "energetic_tail_relative_end_seconds": 0.164125,
+        "energetic_tail_expected_rms_dbfs": -25.76417863679772,
+        "energetic_tail_observed_rms_dbfs": -25.76391192546506,
+        "energetic_tail_rms_ratio_db": 0.0002667113326592886,
+        "energetic_tail_residual_rms_dbfs": -101.01893287670663,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 2,
+        "code": "Lv",
+        "kind": "matcher",
+        "instance_id": -2208,
+        "timeline_frame": 27,
+        "nominal_seconds": 0.896,
+        "nominal_frame_seconds": 0.9,
+        "logged_pcm_frame_offset": 43008,
+        "source_clip_samples": 34080,
+        "max_observed_source_cursor": 34080,
+        "source_completed": true,
+        "fit_start_sample": 44032,
+        "fit_start_seconds": 0.9173333333333333,
+        "fit_end_seconds": 1.6273333333333333,
+        "source_duration_seconds": 0.71,
+        "start_minus_nominal_ms": 21.333333333333314,
+        "source_gain_per_channel": [
+          0.4328443657947957,
+          0.4433512219036931
+        ],
+        "full_source_correlation_per_channel": [
+          0.9992132826226119,
+          0.9992152964128306
+        ],
+        "fit_residual_rms_dbfs": -57.13335725954649,
+        "isolated_actual_peak_dbfs": -10.891837559264312,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.49183333333333334,
+            "peak_time_seconds": 0.007625
+          },
+          {
+            "start_seconds": 0.7024583333333333,
+            "end_seconds": 0.7071666666666667,
+            "peak_time_seconds": 0.7060625
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.5919583333333334,
+        "energetic_tail_relative_end_seconds": 0.6219583333333333,
+        "energetic_tail_expected_rms_dbfs": -57.15107531620198,
+        "energetic_tail_observed_rms_dbfs": -57.14715288512149,
+        "energetic_tail_rms_ratio_db": 0.003922431080495108,
+        "energetic_tail_residual_rms_dbfs": -101.01655402634562,
+        "complete_window_last10ms_expected_peak_dbfs": -72.26859040222509,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -24.489905655934223,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": false,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 3,
+        "code": "Heng",
+        "kind": "matcher",
+        "instance_id": -2218,
+        "timeline_frame": 41,
+        "nominal_seconds": 1.3653333333333333,
+        "nominal_frame_seconds": 1.3666666666666667,
+        "logged_pcm_frame_offset": 65536,
+        "source_clip_samples": 23040,
+        "max_observed_source_cursor": 23040,
+        "source_completed": true,
+        "fit_start_sample": 66560,
+        "fit_start_seconds": 1.3866666666666667,
+        "fit_end_seconds": 1.8666666666666667,
+        "source_duration_seconds": 0.48,
+        "start_minus_nominal_ms": 21.333333333333428,
+        "source_gain_per_channel": [
+          0.4562733395763603,
+          0.4195654116295512
+        ],
+        "full_source_correlation_per_channel": [
+          0.999452754462927,
+          0.9993233417521081
+        ],
+        "fit_residual_rms_dbfs": -56.43248505587812,
+        "isolated_actual_peak_dbfs": -9.4546766907342,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.19933333333333333,
+            "peak_time_seconds": 0.013875
+          },
+          {
+            "start_seconds": 0.23314583333333333,
+            "end_seconds": 0.23772916666666666,
+            "peak_time_seconds": 0.23672916666666666
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.175875,
+        "energetic_tail_relative_end_seconds": 0.205875,
+        "energetic_tail_expected_rms_dbfs": -41.02808176163768,
+        "energetic_tail_observed_rms_dbfs": -41.0275245317409,
+        "energetic_tail_rms_ratio_db": 0.0005572298967728465,
+        "energetic_tail_residual_rms_dbfs": -101.09039676717816,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": false,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 4,
+        "code": "Zhun",
+        "kind": "direct_template_preview",
+        "instance_id": -2228,
+        "timeline_frame": 48,
+        "nominal_seconds": 1.6,
+        "nominal_frame_seconds": 1.6,
+        "logged_pcm_frame_offset": 76800,
+        "source_clip_samples": 16320,
+        "max_observed_source_cursor": 16320,
+        "source_completed": true,
+        "fit_start_sample": 77824,
+        "fit_start_seconds": 1.6213333333333333,
+        "fit_end_seconds": 1.9613333333333334,
+        "source_duration_seconds": 0.34,
+        "start_minus_nominal_ms": 21.333333333333204,
+        "source_gain_per_channel": [
+          0.43085153485662625,
+          0.4413080711089377
+        ],
+        "full_source_correlation_per_channel": [
+          0.9991371695933909,
+          0.9991371689132932
+        ],
+        "fit_residual_rms_dbfs": -55.00063384433937,
+        "isolated_actual_peak_dbfs": -9.892293899382885,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.13783333333333334,
+            "peak_time_seconds": 0.006020833333333334
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.11058333333333334,
+        "energetic_tail_relative_end_seconds": 0.14058333333333334,
+        "energetic_tail_expected_rms_dbfs": -35.01828507266257,
+        "energetic_tail_observed_rms_dbfs": -34.97310999323939,
+        "energetic_tail_rms_ratio_db": 0.04517507942317593,
+        "energetic_tail_residual_rms_dbfs": -80.63471458539343,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 5,
+        "code": "Sheng",
+        "kind": "direct_template_preview",
+        "instance_id": -2238,
+        "timeline_frame": 60,
+        "nominal_seconds": 1.984,
+        "nominal_frame_seconds": 2.0,
+        "logged_pcm_frame_offset": 95232,
+        "source_clip_samples": 21120,
+        "max_observed_source_cursor": 21120,
+        "source_completed": true,
+        "fit_start_sample": 97280,
+        "fit_start_seconds": 2.026666666666667,
+        "fit_end_seconds": 2.466666666666667,
+        "source_duration_seconds": 0.44,
+        "start_minus_nominal_ms": 42.666666666666856,
+        "source_gain_per_channel": [
+          0.43307726088731824,
+          0.4435896828867496
+        ],
+        "full_source_correlation_per_channel": [
+          0.9999889377451104,
+          0.9999889490690499
+        ],
+        "fit_residual_rms_dbfs": -74.84715755664152,
+        "isolated_actual_peak_dbfs": -9.639719377646257,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.255625,
+            "peak_time_seconds": 0.006375
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.2380625,
+        "energetic_tail_relative_end_seconds": 0.2680625,
+        "energetic_tail_expected_rms_dbfs": -48.16190338216917,
+        "energetic_tail_observed_rms_dbfs": -48.16104776076364,
+        "energetic_tail_rms_ratio_db": 0.0008556214055424258,
+        "energetic_tail_residual_rms_dbfs": -101.00736619591338,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 6,
+        "code": "Gui",
+        "kind": "matcher",
+        "instance_id": -2248,
+        "timeline_frame": 75,
+        "nominal_seconds": 2.496,
+        "nominal_frame_seconds": 2.5,
+        "logged_pcm_frame_offset": 119808,
+        "source_clip_samples": 22080,
+        "max_observed_source_cursor": 22080,
+        "source_completed": true,
+        "fit_start_sample": 120832,
+        "fit_start_seconds": 2.517333333333333,
+        "fit_end_seconds": 2.977333333333333,
+        "source_duration_seconds": 0.46,
+        "start_minus_nominal_ms": 21.333333333333204,
+        "source_gain_per_channel": [
+          0.4330574725506963,
+          0.44356931488719165
+        ],
+        "full_source_correlation_per_channel": [
+          0.9999770500914854,
+          0.9999770944335025
+        ],
+        "fit_residual_rms_dbfs": -73.04270041487163,
+        "isolated_actual_peak_dbfs": -13.16355522791353,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.20408333333333334,
+            "peak_time_seconds": 0.019458333333333334
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.17895833333333333,
+        "energetic_tail_relative_end_seconds": 0.20895833333333333,
+        "energetic_tail_expected_rms_dbfs": -40.20828468053743,
+        "energetic_tail_observed_rms_dbfs": -40.2075501416728,
+        "energetic_tail_rms_ratio_db": 0.0007345388646381601,
+        "energetic_tail_residual_rms_dbfs": -101.02187409417769,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -95.26174800532152,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 7,
+        "code": "Ju",
+        "kind": "matcher",
+        "instance_id": -2258,
+        "timeline_frame": 87,
+        "nominal_seconds": 2.88,
+        "nominal_frame_seconds": 2.9,
+        "logged_pcm_frame_offset": 138240,
+        "source_clip_samples": 17280,
+        "max_observed_source_cursor": 17280,
+        "source_completed": true,
+        "fit_start_sample": 140288,
+        "fit_start_seconds": 2.9226666666666667,
+        "fit_end_seconds": 3.2826666666666666,
+        "source_duration_seconds": 0.36,
+        "start_minus_nominal_ms": 42.666666666666856,
+        "source_gain_per_channel": [
+          0.43308603337086343,
+          0.44359753564075904
+        ],
+        "full_source_correlation_per_channel": [
+          0.99999444777788,
+          0.99999445778099
+        ],
+        "fit_residual_rms_dbfs": -76.14915923170385,
+        "isolated_actual_peak_dbfs": -9.626862105041486,
+        "intended_internal_head_count": 2,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.067125,
+            "peak_time_seconds": 0.008145833333333333
+          },
+          {
+            "start_seconds": 0.09377083333333333,
+            "end_seconds": 0.1624375,
+            "peak_time_seconds": 0.09970833333333333
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.134125,
+        "energetic_tail_relative_end_seconds": 0.164125,
+        "energetic_tail_expected_rms_dbfs": -25.76417863679772,
+        "energetic_tail_observed_rms_dbfs": -25.76391192546506,
+        "energetic_tail_rms_ratio_db": 0.0002667113326592886,
+        "energetic_tail_residual_rms_dbfs": -101.01893287670663,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 8,
+        "code": "Lv",
+        "kind": "matcher",
+        "instance_id": -2268,
+        "timeline_frame": 99,
+        "nominal_seconds": 3.2853333333333334,
+        "nominal_frame_seconds": 3.3,
+        "logged_pcm_frame_offset": 157696,
+        "source_clip_samples": 34080,
+        "max_observed_source_cursor": 34080,
+        "source_completed": true,
+        "fit_start_sample": 159744,
+        "fit_start_seconds": 3.328,
+        "fit_end_seconds": 4.038,
+        "source_duration_seconds": 0.71,
+        "start_minus_nominal_ms": 42.66666666666641,
+        "source_gain_per_channel": [
+          0.4328443657947957,
+          0.4433512219036931
+        ],
+        "full_source_correlation_per_channel": [
+          0.9992132826226119,
+          0.9992152964128306
+        ],
+        "fit_residual_rms_dbfs": -57.13335725954649,
+        "isolated_actual_peak_dbfs": -10.891837559264312,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.49183333333333334,
+            "peak_time_seconds": 0.007625
+          },
+          {
+            "start_seconds": 0.7024583333333333,
+            "end_seconds": 0.7071666666666667,
+            "peak_time_seconds": 0.7060625
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.5919583333333334,
+        "energetic_tail_relative_end_seconds": 0.6219583333333333,
+        "energetic_tail_expected_rms_dbfs": -57.15107531620198,
+        "energetic_tail_observed_rms_dbfs": -57.14715288512149,
+        "energetic_tail_rms_ratio_db": 0.003922431080495108,
+        "energetic_tail_residual_rms_dbfs": -101.01655402634562,
+        "complete_window_last10ms_expected_peak_dbfs": -72.26859040222509,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -24.489905655934223,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": false,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 9,
+        "code": "Heng",
+        "kind": "matcher",
+        "instance_id": -2278,
+        "timeline_frame": 113,
+        "nominal_seconds": 3.7546666666666666,
+        "nominal_frame_seconds": 3.7666666666666666,
+        "logged_pcm_frame_offset": 180224,
+        "source_clip_samples": 23040,
+        "max_observed_source_cursor": 23040,
+        "source_completed": true,
+        "fit_start_sample": 182272,
+        "fit_start_seconds": 3.7973333333333334,
+        "fit_end_seconds": 4.277333333333333,
+        "source_duration_seconds": 0.48,
+        "start_minus_nominal_ms": 42.666666666666856,
+        "source_gain_per_channel": [
+          0.4562733395763603,
+          0.4195654116295512
+        ],
+        "full_source_correlation_per_channel": [
+          0.999452754462927,
+          0.9993233417521081
+        ],
+        "fit_residual_rms_dbfs": -56.43248505587812,
+        "isolated_actual_peak_dbfs": -9.4546766907342,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 2,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.19933333333333333,
+            "peak_time_seconds": 0.013875
+          },
+          {
+            "start_seconds": 0.23314583333333333,
+            "end_seconds": 0.23772916666666666,
+            "peak_time_seconds": 0.23672916666666666
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.175875,
+        "energetic_tail_relative_end_seconds": 0.205875,
+        "energetic_tail_expected_rms_dbfs": -41.02808176163768,
+        "energetic_tail_observed_rms_dbfs": -41.0275245317409,
+        "energetic_tail_rms_ratio_db": 0.0005572298967728465,
+        "energetic_tail_residual_rms_dbfs": -101.09039676717816,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": false,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 10,
+        "code": "Zhun",
+        "kind": "direct_template_preview",
+        "instance_id": -2288,
+        "timeline_frame": 120,
+        "nominal_seconds": 3.989333333333333,
+        "nominal_frame_seconds": 4.0,
+        "logged_pcm_frame_offset": 191488,
+        "source_clip_samples": 16320,
+        "max_observed_source_cursor": 16320,
+        "source_completed": true,
+        "fit_start_sample": 193536,
+        "fit_start_seconds": 4.032,
+        "fit_end_seconds": 4.372,
+        "source_duration_seconds": 0.34,
+        "start_minus_nominal_ms": 42.666666666666856,
+        "source_gain_per_channel": [
+          0.43085153485662625,
+          0.4413080711089377
+        ],
+        "full_source_correlation_per_channel": [
+          0.9991371695933909,
+          0.9991371689132932
+        ],
+        "fit_residual_rms_dbfs": -55.00063384433937,
+        "isolated_actual_peak_dbfs": -9.892293899382885,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.13783333333333334,
+            "peak_time_seconds": 0.006020833333333334
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.11058333333333334,
+        "energetic_tail_relative_end_seconds": 0.14058333333333334,
+        "energetic_tail_expected_rms_dbfs": -35.01828507266257,
+        "energetic_tail_observed_rms_dbfs": -34.97310999323939,
+        "energetic_tail_rms_ratio_db": 0.04517507942317593,
+        "energetic_tail_residual_rms_dbfs": -80.63471458539343,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      },
+      {
+        "ordinal": 11,
+        "code": "Sheng",
+        "kind": "direct_template_preview",
+        "instance_id": -2298,
+        "timeline_frame": 132,
+        "nominal_seconds": 4.394666666666667,
+        "nominal_frame_seconds": 4.4,
+        "logged_pcm_frame_offset": 210944,
+        "source_clip_samples": 21120,
+        "max_observed_source_cursor": 21120,
+        "source_completed": true,
+        "fit_start_sample": 211968,
+        "fit_start_seconds": 4.416,
+        "fit_end_seconds": 4.856,
+        "source_duration_seconds": 0.44,
+        "start_minus_nominal_ms": 21.33333333333365,
+        "source_gain_per_channel": [
+          0.43307726088731824,
+          0.4435896828867496
+        ],
+        "full_source_correlation_per_channel": [
+          0.9999889377451104,
+          0.9999889490690499
+        ],
+        "fit_residual_rms_dbfs": -74.84715755664152,
+        "isolated_actual_peak_dbfs": -9.639719377646257,
+        "intended_internal_head_count": 1,
+        "measured_internal_envelope_head_count": 1,
+        "internal_envelope_heads": [
+          {
+            "start_seconds": 0.0,
+            "end_seconds": 0.255625,
+            "peak_time_seconds": 0.006375
+          }
+        ],
+        "energetic_tail_relative_start_seconds": 0.2380625,
+        "energetic_tail_relative_end_seconds": 0.2680625,
+        "energetic_tail_expected_rms_dbfs": -48.16190338216917,
+        "energetic_tail_observed_rms_dbfs": -48.16104776076364,
+        "energetic_tail_rms_ratio_db": 0.0008556214055424258,
+        "energetic_tail_residual_rms_dbfs": -101.00736619591338,
+        "complete_window_last10ms_expected_peak_dbfs": -240.0,
+        "complete_window_last10ms_isolated_actual_peak_dbfs": -240.0,
+        "complete_clip_count": 1,
+        "checks": {
+          "correlation": true,
+          "energetic_tail_level": true,
+          "intended_internal_heads": true,
+          "full_source_window_present": true
+        }
+      }
+    ],
+    "actual_peak_dbfs": -9.615627582509545,
+    "global_source_mix_reconstruction_rms_dbfs": -28.401466795308604,
+    "global_fit_residual_rms_dbfs": -63.22907775399055,
+    "global_fit_residual_peak_dbfs": -24.49581959246482,
+    "global_fit_residual_to_mix_rms_db": -34.82903969398741,
+    "last100ms_actual_peak_dbfs": -240.0,
+    "joint_fit_gram_condition": 1.8061912247281997,
+    "wave": {
+      "file": "Logs/t01-seal-audio-v2-20261125/unity/Rapid/unity-output.wav",
+      "sha256": "1495253bb9aae78fb1bba210ea47393b8cf42e36eed61517bb84649af3677a22",
+      "sample_rate": 48000,
+      "channels": 2,
+      "pcm_bits": 16,
+      "sample_frames": 287744,
+      "duration_seconds": 5.994666666666666,
+      "peak_dbfs": -9.615627582509545,
+      "whole_file_rms_dbfs": -28.400038060003144,
+      "clipped_samples": 0,
+      "last100ms_peak_dbfs": -240.0
+    },
+    "onsets_sha256": "27e319afa1b579e756c2dbefe6533d79c9f60539ea6a81299403a96f371025e0",
+    "sources_tsv_sha256": "e41c1f72be1b7925469043c286b2baae27e36b9fa8718c3cbe91e0f77321ac94",
+    "matched_complete_clip_count": 12,
+    "matcher_confirmation_count": 8,
+    "direct_template_preview_count": 4,
+    "distinct_instance_count": 12,
+    "intended_total_internal_head_count": 14,
+    "maximum_overlapping_complete_clip_windows": 3,
+    "checks": {
+      "twelve_clips": true,
+      "eight_matcher": true,
+      "four_templates": true,
+      "twelve_distinct_instances": true,
+      "complete_cursor_records": true,
+      "simultaneous_sources": true,
+      "zero_clipping": true,
+      "ending_silence": true,
+      "source_reconstruction": true,
+      "all_clip_checks": false
+    }
+  },
+  "all_checks_pass": false,
+  "listening_acceptance": "NOT PERFORMED; numerical waveform delivery and mixing evidence only.",
+  "source_hashes_unchanged_during_analysis": true
+}

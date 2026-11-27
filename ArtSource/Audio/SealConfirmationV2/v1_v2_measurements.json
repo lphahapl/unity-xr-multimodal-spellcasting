@@ -1,0 +1,346 @@
+{
+  "Lv": {
+    "label": "律",
+    "V1": {
+      "spectral_centroid_hz": 518.9976835902779,
+      "spectral_flatness_100_8000": 5.238524039297848e-06,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8444040645635165,
+      "energy_time_centroid_seconds": 0.06830214646545281,
+      "energy_quantile_seconds": {
+        "0.1": 0.009145833333333334,
+        "0.5": 0.0475,
+        "0.9": 0.15627083333333333,
+        "0.95": 0.20285416666666667,
+        "0.99": 0.31485416666666666
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.4918125,
+          "peak_envelope_time_seconds": 0.007625,
+          "envelope_fwhm_span_seconds": 0.0831875,
+          "envelope_time_above_half_peak_seconds": 0.073125,
+          "energy": 218.17154390644282
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 62.95402834806939,
+      "sub150_energy_percent": 0.0033754259352499387
+    },
+    "V2": {
+      "spectral_centroid_hz": 518.9976835902779,
+      "spectral_flatness_100_8000": 5.238524039297848e-06,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8444040645635165,
+      "energy_time_centroid_seconds": 0.06830214646545281,
+      "energy_quantile_seconds": {
+        "0.1": 0.009145833333333334,
+        "0.5": 0.0475,
+        "0.9": 0.15627083333333333,
+        "0.95": 0.20285416666666667,
+        "0.99": 0.31485416666666666
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.4918125,
+          "peak_envelope_time_seconds": 0.007625,
+          "envelope_fwhm_span_seconds": 0.0831875,
+          "envelope_time_above_half_peak_seconds": 0.073125,
+          "energy": 218.17154390644282
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 62.95402834806939,
+      "sub150_energy_percent": 0.0033754259352499387
+    },
+    "difference_is_not_listening_acceptance": true
+  },
+  "Gui": {
+    "label": "规",
+    "V1": {
+      "spectral_centroid_hz": 443.8620111168674,
+      "spectral_flatness_100_8000": 2.817615756885769e-07,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8371056246957713,
+      "energy_time_centroid_seconds": 0.05055398821301083,
+      "energy_quantile_seconds": {
+        "0.1": 0.0077083333333333335,
+        "0.5": 0.036229166666666666,
+        "0.9": 0.1143125,
+        "0.95": 0.14825,
+        "0.99": 0.22760416666666666
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.3669375,
+          "peak_envelope_time_seconds": 0.006229166666666667,
+          "envelope_fwhm_span_seconds": 0.06739583333333334,
+          "envelope_time_above_half_peak_seconds": 0.06510416666666667,
+          "energy": 221.84715694840997
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 89.84889241724706,
+      "sub150_energy_percent": 0.0014390807044111617
+    },
+    "V2": {
+      "spectral_centroid_hz": 2528.2382741188057,
+      "spectral_flatness_100_8000": 0.34981459945145954,
+      "autocorrelation_peak_lag_2_to_15ms": 0.10642385076539618,
+      "energy_time_centroid_seconds": 0.061126291821688716,
+      "energy_quantile_seconds": {
+        "0.1": 0.0098125,
+        "0.5": 0.056916666666666664,
+        "0.9": 0.1216875,
+        "0.95": 0.1391875,
+        "0.99": 0.17133333333333334
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.20408333333333334,
+          "peak_envelope_time_seconds": 0.019458333333333334,
+          "envelope_fwhm_span_seconds": 0.11689583333333334,
+          "envelope_time_above_half_peak_seconds": 0.1001875,
+          "energy": 124.34116404503584
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 29.758172782483197,
+      "sub150_energy_percent": 0.0014067061805305725
+    },
+    "difference_is_not_listening_acceptance": true
+  },
+  "Ju": {
+    "label": "矩",
+    "V1": {
+      "spectral_centroid_hz": 743.2746292766126,
+      "spectral_flatness_100_8000": 3.83700090214189e-07,
+      "autocorrelation_peak_lag_2_to_15ms": 0.7156030309748486,
+      "energy_time_centroid_seconds": 0.03493238902625471,
+      "energy_quantile_seconds": {
+        "0.1": 0.004020833333333334,
+        "0.5": 0.023833333333333335,
+        "0.9": 0.0810625,
+        "0.95": 0.10635416666666667,
+        "0.99": 0.16720833333333332
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.2677291666666667,
+          "peak_envelope_time_seconds": 0.0034583333333333332,
+          "envelope_fwhm_span_seconds": 0.04527083333333334,
+          "envelope_time_above_half_peak_seconds": 0.0395,
+          "energy": 206.26890177186579
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 99.16931947679485,
+      "sub150_energy_percent": 0.0030699483777245937
+    },
+    "V2": {
+      "spectral_centroid_hz": 908.1612884389077,
+      "spectral_flatness_100_8000": 0.0299070399639641,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8553375507531125,
+      "energy_time_centroid_seconds": 0.0860438034946993,
+      "energy_quantile_seconds": {
+        "0.1": 0.01075,
+        "0.5": 0.10454166666666667,
+        "0.9": 0.13441666666666666,
+        "0.95": 0.1425,
+        "0.99": 0.15266666666666667
+      },
+      "measured_envelope_episode_count": 2,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.067125,
+          "peak_envelope_time_seconds": 0.008145833333333333,
+          "envelope_fwhm_span_seconds": 0.035333333333333335,
+          "envelope_time_above_half_peak_seconds": 0.034166666666666665,
+          "energy": 61.938668973743916
+        },
+        {
+          "start_seconds": 0.09377083333333333,
+          "end_seconds": 0.1624375,
+          "peak_envelope_time_seconds": 0.09970833333333333,
+          "envelope_fwhm_span_seconds": 0.034041666666666665,
+          "envelope_time_above_half_peak_seconds": 0.03177083333333333,
+          "energy": 134.72452322486788
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 91.70960661300528,
+      "sub150_energy_percent": 0.0043878772856679425
+    },
+    "difference_is_not_listening_acceptance": true
+  },
+  "Zhun": {
+    "label": "准",
+    "V1": {
+      "spectral_centroid_hz": 771.792029530848,
+      "spectral_flatness_100_8000": 1.0579921010434881e-07,
+      "autocorrelation_peak_lag_2_to_15ms": 0.9368387359792913,
+      "energy_time_centroid_seconds": 0.054640117494690735,
+      "energy_quantile_seconds": {
+        "0.1": 0.0065625,
+        "0.5": 0.03783333333333333,
+        "0.9": 0.1248125,
+        "0.95": 0.16227083333333334,
+        "0.99": 0.25022916666666667
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.4012291666666667,
+          "peak_envelope_time_seconds": 0.004166666666666667,
+          "envelope_fwhm_span_seconds": 0.07566666666666666,
+          "envelope_time_above_half_peak_seconds": 0.07314583333333333,
+          "energy": 216.71011141128838
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 98.8788905794019,
+      "sub150_energy_percent": 0.0005383793962172714
+    },
+    "V2": {
+      "spectral_centroid_hz": 1324.746270530173,
+      "spectral_flatness_100_8000": 0.009275810994687777,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8228410690545048,
+      "energy_time_centroid_seconds": 0.030607313342859356,
+      "energy_quantile_seconds": {
+        "0.1": 0.0043125,
+        "0.5": 0.022583333333333334,
+        "0.9": 0.0708125,
+        "0.95": 0.0885625,
+        "0.99": 0.11552083333333334
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.13783333333333334,
+          "peak_envelope_time_seconds": 0.006020833333333334,
+          "envelope_fwhm_span_seconds": 0.043604166666666666,
+          "envelope_time_above_half_peak_seconds": 0.043395833333333335,
+          "energy": 157.0116518540308
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 98.54915475914919,
+      "sub150_energy_percent": 0.00037364026345693753
+    },
+    "difference_is_not_listening_acceptance": true
+  },
+  "Sheng": {
+    "label": "绳",
+    "V1": {
+      "spectral_centroid_hz": 1294.5975665756494,
+      "spectral_flatness_100_8000": 2.022573536215776e-07,
+      "autocorrelation_peak_lag_2_to_15ms": 0.8890190161689082,
+      "energy_time_centroid_seconds": 0.0371232799090569,
+      "energy_quantile_seconds": {
+        "0.1": 0.0045,
+        "0.5": 0.023270833333333334,
+        "0.9": 0.0859375,
+        "0.95": 0.12291666666666666,
+        "0.99": 0.2063125
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.3413541666666667,
+          "peak_envelope_time_seconds": 0.0030208333333333333,
+          "envelope_fwhm_span_seconds": 0.04595833333333333,
+          "envelope_time_above_half_peak_seconds": 0.0435,
+          "energy": 163.7131443908438
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 95.46154762199859,
+      "sub150_energy_percent": 0.00045642198124641934
+    },
+    "V2": {
+      "spectral_centroid_hz": 1183.1552255499892,
+      "spectral_flatness_100_8000": 0.006131010785098503,
+      "autocorrelation_peak_lag_2_to_15ms": 0.9492292489732401,
+      "energy_time_centroid_seconds": 0.03706112946126798,
+      "energy_quantile_seconds": {
+        "0.1": 0.005458333333333333,
+        "0.5": 0.025729166666666668,
+        "0.9": 0.08383333333333333,
+        "0.95": 0.10916666666666666,
+        "0.99": 0.16645833333333335
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.255625,
+          "peak_envelope_time_seconds": 0.006375,
+          "envelope_fwhm_span_seconds": 0.04758333333333333,
+          "envelope_time_above_half_peak_seconds": 0.0433125,
+          "energy": 162.727289670147
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 82.61769091806971,
+      "sub150_energy_percent": 0.0010167663804467768
+    },
+    "difference_is_not_listening_acceptance": true
+  },
+  "Heng": {
+    "label": "衡",
+    "V1": {
+      "spectral_centroid_hz": 352.13833669544493,
+      "spectral_flatness_100_8000": 4.1879538412115425e-07,
+      "autocorrelation_peak_lag_2_to_15ms": 0.6578095025021843,
+      "energy_time_centroid_seconds": 0.04390483443107368,
+      "energy_quantile_seconds": {
+        "0.1": 0.006791666666666666,
+        "0.5": 0.030125,
+        "0.9": 0.0986875,
+        "0.95": 0.12820833333333334,
+        "0.99": 0.19775
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.3171875,
+          "peak_envelope_time_seconds": 0.005541666666666667,
+          "envelope_fwhm_span_seconds": 0.06295833333333334,
+          "envelope_time_above_half_peak_seconds": 0.04820833333333333,
+          "energy": 224.95607799012214
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 62.345831900383935,
+      "sub150_energy_percent": 0.008924750641978445
+    },
+    "V2": {
+      "spectral_centroid_hz": 436.55236880262777,
+      "spectral_flatness_100_8000": 0.006615563738360106,
+      "autocorrelation_peak_lag_2_to_15ms": 0.7477756995831294,
+      "energy_time_centroid_seconds": 0.03589060472713517,
+      "energy_quantile_seconds": {
+        "0.1": 0.008125,
+        "0.5": 0.024645833333333332,
+        "0.9": 0.07825,
+        "0.95": 0.10016666666666667,
+        "0.99": 0.15095833333333333
+      },
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.19933333333333333,
+          "peak_envelope_time_seconds": 0.013875,
+          "envelope_fwhm_span_seconds": 0.049958333333333334,
+          "envelope_time_above_half_peak_seconds": 0.04675,
+          "energy": 224.57268460374326
+        }
+      ],
+      "midband_350_to_1800_energy_percent": 92.79749396261565,
+      "sub150_energy_percent": 0.05309544200007158
+    },
+    "difference_is_not_listening_acceptance": true
+  }
+}

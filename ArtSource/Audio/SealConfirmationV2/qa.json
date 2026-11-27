@@ -1,0 +1,885 @@
+{
+  "version": 2,
+  "provenance": "Deterministic synthetic Foley approximations; not real acoustic recordings.",
+  "reference_sha256": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+  "production_source_before": {
+    "Gui": "4e18de4a3b51b36d20b0873a8809ca2593d213b5bd3a086498aa0d6abc57aa8d",
+    "Ju": "e23e32d715d60b27fb7ae3204d40f634dbde99f415ec095b084a861a294a9b3d",
+    "Zhun": "212906fc26562604f51ac873484a956d9acc79e0f3955073767ae6b5a70684bc",
+    "Sheng": "4cd5becaba44c00c4455d17d568940e5c0fe2cfd3d918bf96411b477f026b074",
+    "Heng": "3c534ec1525f66531d0c2e86ada37100242f9b735235aea9fd3d7dbc625fd613"
+  },
+  "clips": {
+    "Lv": {
+      "label": "律",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.71,
+      "peak_dbfs": -3.8315865683841785,
+      "whole_file_rms_dbfs": -21.933801929925856,
+      "first400_raw_rms_dbfs": -19.45432037452542,
+      "first400_k_rms_dbfs": -19.152393213828965,
+      "first400_k_delta_vs_Lv_db": 0.0,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -65.20354859712823,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 518.9976835902779,
+      "spectral_flatness_100_8000": 5.238524039297848e-06,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.8444040645635165,
+      "midband_350_to_1800_energy_percent": 62.95402834806939,
+      "sub150_energy_percent": 0.0033754259352499387,
+      "energy_quantile_seconds": {
+        "0.1": 0.009145833333333334,
+        "0.5": 0.0475,
+        "0.9": 0.15627083333333333,
+        "0.95": 0.20285416666666667,
+        "0.99": 0.31485416666666666
+      },
+      "energy_time_centroid_seconds": 0.06830214646545281,
+      "intended_onsets_seconds": [
+        0
+      ],
+      "intended_onset_count": 1,
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.4918125,
+          "peak_envelope_time_seconds": 0.007625,
+          "envelope_fwhm_span_seconds": 0.0831875,
+          "envelope_time_above_half_peak_seconds": 0.073125,
+          "energy": 218.17154390644282
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -12.36,
+        -12.75,
+        -13.37,
+        -13.53,
+        -14.22,
+        -15.62,
+        -15.89,
+        -16.07,
+        -17.35,
+        -18.11,
+        -18.36,
+        -19.02,
+        -20.07,
+        -20.41,
+        -20.59,
+        -21.95,
+        -22.56,
+        -22.64,
+        -23.71,
+        -24.7,
+        -25.09,
+        -25.09,
+        -26.07,
+        -27.34,
+        -27.19,
+        -27.73,
+        -29.04,
+        -29.61,
+        -29.59,
+        -30.48,
+        -31.6,
+        -31.55,
+        -32.26,
+        -33.52,
+        -33.97,
+        -34.25,
+        -34.81,
+        -35.94,
+        -36.26,
+        -36.34,
+        -37.62,
+        -38.43,
+        -38.47,
+        -39.2,
+        -40.4,
+        -40.53,
+        -40.69,
+        -42.07,
+        -42.82,
+        -42.9,
+        -43.55,
+        -44.57,
+        -45.21,
+        -45.15,
+        -45.94,
+        -47.11,
+        -47.2,
+        -47.78,
+        -48.97,
+        -49.44,
+        -49.48,
+        -50.39,
+        -51.54,
+        -51.55,
+        -51.99,
+        -53.15,
+        -54.08,
+        -55.97,
+        -59.45,
+        -64.95,
+        -73.31
+      ]
+    },
+    "Gui": {
+      "label": "规",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.46,
+      "peak_dbfs": -6.103698718548587,
+      "whole_file_rms_dbfs": -22.493749447275434,
+      "first400_raw_rms_dbfs": -21.88677104373932,
+      "first400_k_rms_dbfs": -19.152656236936096,
+      "first400_k_delta_vs_Lv_db": -0.0002630231071307776,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 2528.2382741188057,
+      "spectral_flatness_100_8000": 0.34981459945145954,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.10642385076539618,
+      "midband_350_to_1800_energy_percent": 29.758172782483197,
+      "sub150_energy_percent": 0.0014067061805305725,
+      "energy_quantile_seconds": {
+        "0.1": 0.0098125,
+        "0.5": 0.056916666666666664,
+        "0.9": 0.1216875,
+        "0.95": 0.1391875,
+        "0.99": 0.17133333333333334
+      },
+      "energy_time_centroid_seconds": 0.061126291821688716,
+      "intended_onsets_seconds": [
+        0
+      ],
+      "intended_onset_count": 1,
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.20408333333333334,
+          "peak_envelope_time_seconds": 0.019458333333333334,
+          "envelope_fwhm_span_seconds": 0.11689583333333334,
+          "envelope_time_above_half_peak_seconds": 0.1001875,
+          "energy": 124.34116404503584
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -15.77,
+        -14.96,
+        -15.94,
+        -17.49,
+        -17.55,
+        -17.83,
+        -17.12,
+        -17.76,
+        -16.65,
+        -18.66,
+        -18.95,
+        -19.26,
+        -20.63,
+        -21.99,
+        -23.94,
+        -24.45,
+        -26.84,
+        -28.97,
+        -29.95,
+        -34.43,
+        -44.65,
+        -66.52,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0
+      ],
+      "checks": {
+        "duration": true,
+        "peak_headroom": true,
+        "energy_match": true,
+        "endpoints": true,
+        "tail": true,
+        "no_clipping": true,
+        "intended_episode_count": true
+      },
+      "passed": true,
+      "sha256": "5d446dca6c6b841e4aa20970016b6d744e0bac62d278504e39e1ceaf5caaaa33"
+    },
+    "Ju": {
+      "label": "矩",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.36,
+      "peak_dbfs": -2.5672559259742616,
+      "whole_file_rms_dbfs": -19.438168381631634,
+      "first400_raw_rms_dbfs": -19.895743287238385,
+      "first400_k_rms_dbfs": -19.15266251482209,
+      "first400_k_delta_vs_Lv_db": -0.0002693009931249435,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 908.1612884389077,
+      "spectral_flatness_100_8000": 0.0299070399639641,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.8553375507531125,
+      "midband_350_to_1800_energy_percent": 91.70960661300528,
+      "sub150_energy_percent": 0.0043878772856679425,
+      "energy_quantile_seconds": {
+        "0.1": 0.01075,
+        "0.5": 0.10454166666666667,
+        "0.9": 0.13441666666666666,
+        "0.95": 0.1425,
+        "0.99": 0.15266666666666667
+      },
+      "energy_time_centroid_seconds": 0.0860438034946993,
+      "intended_onsets_seconds": [
+        0,
+        0.095
+      ],
+      "intended_onset_count": 2,
+      "measured_envelope_episode_count": 2,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.067125,
+          "peak_envelope_time_seconds": 0.008145833333333333,
+          "envelope_fwhm_span_seconds": 0.035333333333333335,
+          "envelope_time_above_half_peak_seconds": 0.034166666666666665,
+          "energy": 61.938668973743916
+        },
+        {
+          "start_seconds": 0.09377083333333333,
+          "end_seconds": 0.1624375,
+          "peak_envelope_time_seconds": 0.09970833333333333,
+          "envelope_fwhm_span_seconds": 0.034041666666666665,
+          "envelope_time_above_half_peak_seconds": 0.03177083333333333,
+          "energy": 134.72452322486788
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -14.33,
+        -14.34,
+        -16.62,
+        -17.93,
+        -20.1,
+        -21.51,
+        -31.71,
+        -98.61,
+        -240.0,
+        -14.76,
+        -10.41,
+        -11.86,
+        -14.31,
+        -15.55,
+        -17.3,
+        -21.33,
+        -40.11,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0
+      ],
+      "checks": {
+        "duration": true,
+        "peak_headroom": true,
+        "energy_match": true,
+        "endpoints": true,
+        "tail": true,
+        "no_clipping": true,
+        "intended_episode_count": true
+      },
+      "passed": true,
+      "sha256": "e937fa1f5cf1b23ebdd53841b7b8ade75d0479e7f3cc82e2d4bc18f71ed6271c"
+    },
+    "Zhun": {
+      "label": "准",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.34,
+      "peak_dbfs": -2.8320085374213786,
+      "whole_file_rms_dbfs": -20.167770436388132,
+      "first400_raw_rms_dbfs": -20.873581179245203,
+      "first400_k_rms_dbfs": -19.152660826675085,
+      "first400_k_delta_vs_Lv_db": -0.000267612846119647,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 1324.746270530173,
+      "spectral_flatness_100_8000": 0.009275810994687777,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.8228410690545048,
+      "midband_350_to_1800_energy_percent": 98.54915475914919,
+      "sub150_energy_percent": 0.00037364026345693753,
+      "energy_quantile_seconds": {
+        "0.1": 0.0043125,
+        "0.5": 0.022583333333333334,
+        "0.9": 0.0708125,
+        "0.95": 0.0885625,
+        "0.99": 0.11552083333333334
+      },
+      "energy_time_centroid_seconds": 0.030607313342859356,
+      "intended_onsets_seconds": [
+        0
+      ],
+      "intended_onset_count": 1,
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.13783333333333334,
+          "peak_envelope_time_seconds": 0.006020833333333334,
+          "envelope_fwhm_span_seconds": 0.043604166666666666,
+          "envelope_time_above_half_peak_seconds": 0.043395833333333335,
+          "energy": 157.0116518540308
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -10.67,
+        -11.81,
+        -13.53,
+        -14.08,
+        -15.94,
+        -17.1,
+        -18.75,
+        -19.72,
+        -21.12,
+        -22.44,
+        -23.64,
+        -24.95,
+        -27.56,
+        -35.32,
+        -58.35,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0
+      ],
+      "checks": {
+        "duration": true,
+        "peak_headroom": true,
+        "energy_match": true,
+        "endpoints": true,
+        "tail": true,
+        "no_clipping": true,
+        "intended_episode_count": true
+      },
+      "passed": true,
+      "sha256": "122690883e5d30c414212d8f19927b8c6e74427b528d60d59be62746e24d9fdd"
+    },
+    "Sheng": {
+      "label": "绳",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.44,
+      "peak_dbfs": -2.580089584248699,
+      "whole_file_rms_dbfs": -21.13173953811106,
+      "first400_raw_rms_dbfs": -20.717812686528806,
+      "first400_k_rms_dbfs": -19.152662845577403,
+      "first400_k_delta_vs_Lv_db": -0.00026963174843785964,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 1183.1552255499892,
+      "spectral_flatness_100_8000": 0.006131010785098503,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.9492292489732401,
+      "midband_350_to_1800_energy_percent": 82.61769091806971,
+      "sub150_energy_percent": 0.0010167663804467768,
+      "energy_quantile_seconds": {
+        "0.1": 0.005458333333333333,
+        "0.5": 0.025729166666666668,
+        "0.9": 0.08383333333333333,
+        "0.95": 0.10916666666666666,
+        "0.99": 0.16645833333333335
+      },
+      "energy_time_centroid_seconds": 0.03706112946126798,
+      "intended_onsets_seconds": [
+        0
+      ],
+      "intended_onset_count": 1,
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.255625,
+          "peak_envelope_time_seconds": 0.006375,
+          "envelope_fwhm_span_seconds": 0.04758333333333333,
+          "envelope_time_above_half_peak_seconds": 0.0433125,
+          "energy": 162.727289670147
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -11.45,
+        -11.8,
+        -12.99,
+        -14.27,
+        -15.54,
+        -16.82,
+        -18.02,
+        -19.25,
+        -20.43,
+        -21.61,
+        -22.82,
+        -24.04,
+        -25.25,
+        -26.46,
+        -27.64,
+        -28.81,
+        -29.96,
+        -31.13,
+        -32.28,
+        -33.43,
+        -34.59,
+        -35.73,
+        -36.88,
+        -38.03,
+        -39.22,
+        -41.7,
+        -47.15,
+        -57.53,
+        -82.06,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0
+      ],
+      "checks": {
+        "duration": true,
+        "peak_headroom": true,
+        "energy_match": true,
+        "endpoints": true,
+        "tail": true,
+        "no_clipping": true,
+        "intended_episode_count": true
+      },
+      "passed": true,
+      "sha256": "81b97bc3613e82f7016b440d2644701ccd1725742cad59bb4fcbc8e3ba5bccd8"
+    },
+    "Heng": {
+      "label": "衡",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 0.48,
+      "peak_dbfs": -2.6395135581933395,
+      "whole_file_rms_dbfs": -20.110947669184128,
+      "first400_raw_rms_dbfs": -19.319135208707877,
+      "first400_k_rms_dbfs": -19.152651975922044,
+      "first400_k_delta_vs_Lv_db": -0.0002587620930789569,
+      "first_sample_pcm": 0,
+      "last_sample_pcm": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "clipped_samples": 0,
+      "spectral_centroid_hz": 436.55236880262777,
+      "spectral_flatness_100_8000": 0.006615563738360106,
+      "flatness_definition": "geometric / arithmetic mean Welch PSD in 100-8000Hz; a broad noise proxy, not a perception score",
+      "autocorrelation_peak_lag_2_to_15ms": 0.7477756995831294,
+      "midband_350_to_1800_energy_percent": 92.79749396261565,
+      "sub150_energy_percent": 0.05309544200007158,
+      "energy_quantile_seconds": {
+        "0.1": 0.008125,
+        "0.5": 0.024645833333333332,
+        "0.9": 0.07825,
+        "0.95": 0.10016666666666667,
+        "0.99": 0.15095833333333333
+      },
+      "energy_time_centroid_seconds": 0.03589060472713517,
+      "intended_onsets_seconds": [
+        0
+      ],
+      "intended_onset_count": 1,
+      "measured_envelope_episode_count": 1,
+      "measured_envelope_episodes": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 0.19933333333333333,
+          "peak_envelope_time_seconds": 0.013875,
+          "envelope_fwhm_span_seconds": 0.049958333333333334,
+          "envelope_time_above_half_peak_seconds": 0.04675,
+          "energy": 224.57268460374326
+        }
+      ],
+      "envelope_4ms_episode_rule": "4ms RMS >=2.5% of max RMS, joining silent gaps <=12ms; ringing extrema are not counted separately",
+      "envelope_10ms_rms_dbfs": [
+        -10.93,
+        -9.96,
+        -11.11,
+        -12.46,
+        -14.17,
+        -15.02,
+        -17.16,
+        -17.32,
+        -18.78,
+        -21.41,
+        -21.92,
+        -23.78,
+        -24.45,
+        -25.63,
+        -26.97,
+        -27.67,
+        -28.95,
+        -30.14,
+        -32.32,
+        -36.14,
+        -46.3,
+        -66.97,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0,
+        -240.0
+      ],
+      "checks": {
+        "duration": true,
+        "peak_headroom": true,
+        "energy_match": true,
+        "endpoints": true,
+        "tail": true,
+        "no_clipping": true,
+        "intended_episode_count": true
+      },
+      "passed": true,
+      "sha256": "9f135f9e6bd79ad5a2b7043fd1a1c5ea161c5b76f23d4617f3a314cc8ff44cfd"
+    }
+  },
+  "render_gains": {
+    "Gui": {
+      "pre_quantization_gain": 0.29941658467092946,
+      "pre_quantization_peak_dbfs": -6.103388383571082
+    },
+    "Ju": {
+      "pre_quantization_gain": 0.4836867494866238,
+      "pre_quantization_peak_dbfs": -2.5670220611123797
+    },
+    "Zhun": {
+      "pre_quantization_gain": 0.6887230132473061,
+      "pre_quantization_peak_dbfs": -2.8319197428226603
+    },
+    "Sheng": {
+      "pre_quantization_gain": 0.7527371037073839,
+      "pre_quantization_peak_dbfs": -2.5796667319754567
+    },
+    "Heng": {
+      "pre_quantization_gain": 0.5172255916449332,
+      "pre_quantization_peak_dbfs": -2.639174599983739
+    }
+  },
+  "all_candidates_pass": true,
+  "listening_acceptance": "NOT PERFORMED: numerical measures do not establish perceived distinction or artistic acceptance.",
+  "unity_playback": "NOT PERFORMED by audio worker for V2",
+  "published": true,
+  "auditions": {
+    "comparison_equal.wav": {
+      "interval_seconds": 1.2,
+      "common_mix_gain_db": 0.0,
+      "output_peak_dbfs": -2.566986624981137,
+      "order": [
+        {
+          "label": "律 Lv",
+          "start_seconds": 0.0,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "规 Gui",
+          "start_seconds": 1.2,
+          "energy_alignment_gain_db": 0.00026302310713099215
+        },
+        {
+          "label": "矩 Ju",
+          "start_seconds": 2.4,
+          "energy_alignment_gain_db": 0.0002693009931253635
+        },
+        {
+          "label": "准 Zhun",
+          "start_seconds": 3.6,
+          "energy_alignment_gain_db": 0.00026761284611906595
+        },
+        {
+          "label": "绳 Sheng",
+          "start_seconds": 4.8,
+          "energy_alignment_gain_db": 0.00026963174843868277
+        },
+        {
+          "label": "衡 Heng",
+          "start_seconds": 6.0,
+          "energy_alignment_gain_db": 0.00025876209307903986
+        }
+      ]
+    },
+    "AB.wav": {
+      "interval_seconds": 1.2,
+      "common_mix_gain_db": 0.0,
+      "output_peak_dbfs": -2.566986624981137,
+      "order": [
+        {
+          "label": "律 Lv V1",
+          "start_seconds": 0.0,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "律 Lv V2",
+          "start_seconds": 1.2,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "规 Gui V1",
+          "start_seconds": 2.4,
+          "energy_alignment_gain_db": 0.15025739043259947
+        },
+        {
+          "label": "规 Gui V2",
+          "start_seconds": 3.6,
+          "energy_alignment_gain_db": 0.00026302310713099215
+        },
+        {
+          "label": "矩 Ju V1",
+          "start_seconds": 4.8,
+          "energy_alignment_gain_db": -0.04973438574909769
+        },
+        {
+          "label": "矩 Ju V2",
+          "start_seconds": 6.0,
+          "energy_alignment_gain_db": 0.0002693009931253635
+        },
+        {
+          "label": "准 Zhun V1",
+          "start_seconds": 7.2,
+          "energy_alignment_gain_db": -0.09973111453781064
+        },
+        {
+          "label": "准 Zhun V2",
+          "start_seconds": 8.4,
+          "energy_alignment_gain_db": 0.00026761284611906595
+        },
+        {
+          "label": "绳 Sheng V1",
+          "start_seconds": 9.6,
+          "energy_alignment_gain_db": -0.19973453248281786
+        },
+        {
+          "label": "绳 Sheng V2",
+          "start_seconds": 10.8,
+          "energy_alignment_gain_db": 0.00026963174843868277
+        },
+        {
+          "label": "衡 Heng V1",
+          "start_seconds": 12.0,
+          "energy_alignment_gain_db": 0.20027517080145818
+        },
+        {
+          "label": "衡 Heng V2",
+          "start_seconds": 13.2,
+          "energy_alignment_gain_db": 0.00025876209307903986
+        }
+      ]
+    },
+    "rapid.wav": {
+      "interval_seconds": 0.4,
+      "common_mix_gain_db": 0.0,
+      "output_peak_dbfs": -2.566986624981137,
+      "order": [
+        {
+          "label": "律 Lv round1",
+          "start_seconds": 0.0,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "规 Gui round1",
+          "start_seconds": 0.4,
+          "energy_alignment_gain_db": 0.00026302310713099215
+        },
+        {
+          "label": "矩 Ju round1",
+          "start_seconds": 0.8,
+          "energy_alignment_gain_db": 0.0002693009931253635
+        },
+        {
+          "label": "准 Zhun round1",
+          "start_seconds": 1.2,
+          "energy_alignment_gain_db": 0.00026761284611906595
+        },
+        {
+          "label": "绳 Sheng round1",
+          "start_seconds": 1.6,
+          "energy_alignment_gain_db": 0.00026963174843868277
+        },
+        {
+          "label": "衡 Heng round1",
+          "start_seconds": 2.0,
+          "energy_alignment_gain_db": 0.00025876209307903986
+        },
+        {
+          "label": "律 Lv round2",
+          "start_seconds": 2.4,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "规 Gui round2",
+          "start_seconds": 2.8,
+          "energy_alignment_gain_db": 0.00026302310713099215
+        },
+        {
+          "label": "矩 Ju round2",
+          "start_seconds": 3.2,
+          "energy_alignment_gain_db": 0.0002693009931253635
+        },
+        {
+          "label": "准 Zhun round2",
+          "start_seconds": 3.6,
+          "energy_alignment_gain_db": 0.00026761284611906595
+        },
+        {
+          "label": "绳 Sheng round2",
+          "start_seconds": 4.0,
+          "energy_alignment_gain_db": 0.00026963174843868277
+        },
+        {
+          "label": "衡 Heng round2",
+          "start_seconds": 4.4,
+          "energy_alignment_gain_db": 0.00025876209307903986
+        },
+        {
+          "label": "律 Lv round3",
+          "start_seconds": 4.8,
+          "energy_alignment_gain_db": 0.0
+        },
+        {
+          "label": "规 Gui round3",
+          "start_seconds": 5.2,
+          "energy_alignment_gain_db": 0.00026302310713099215
+        },
+        {
+          "label": "矩 Ju round3",
+          "start_seconds": 5.6,
+          "energy_alignment_gain_db": 0.0002693009931253635
+        },
+        {
+          "label": "准 Zhun round3",
+          "start_seconds": 6.0,
+          "energy_alignment_gain_db": 0.00026761284611906595
+        },
+        {
+          "label": "绳 Sheng round3",
+          "start_seconds": 6.4,
+          "energy_alignment_gain_db": 0.00026963174843868277
+        },
+        {
+          "label": "衡 Heng round3",
+          "start_seconds": 6.8,
+          "energy_alignment_gain_db": 0.00025876209307903986
+        }
+      ],
+      "mix_note": "18 events, 3 rounds. Production relative energies preserved, one common output gain only; no per-seal compressor or ducking. Ju has 2 intended internal hits, not extra seal events."
+    }
+  },
+  "published_at_utc": "2026-11-24T16:53:48.530259+00:00",
+  "production_source_after": {
+    "Gui": "5d446dca6c6b841e4aa20970016b6d744e0bac62d278504e39e1ceaf5caaaa33",
+    "Ju": "e937fa1f5cf1b23ebdd53841b7b8ade75d0479e7f3cc82e2d4bc18f71ed6271c",
+    "Zhun": "122690883e5d30c414212d8f19927b8c6e74427b528d60d59be62746e24d9fdd",
+    "Sheng": "81b97bc3613e82f7016b440d2644701ccd1725742cad59bb4fcbc8e3ba5bccd8",
+    "Heng": "9f135f9e6bd79ad5a2b7043fd1a1c5ea161c5b76f23d4617f3a314cc8ff44cfd"
+  },
+  "metadata_hashes_unchanged": true,
+  "baseline_unchanged_except_authorized_five_wavs": true
+}

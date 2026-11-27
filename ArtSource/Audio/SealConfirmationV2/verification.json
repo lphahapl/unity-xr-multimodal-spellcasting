@@ -1,0 +1,92 @@
+{
+  "method": "In-memory deterministic synthesis re-evaluated and serialized as WAV, then SHA256 compared without rewriting candidates or production files. Auditions read back from disk independently.",
+  "production_files": {
+    "Gui": {
+      "sha256": "5d446dca6c6b841e4aa20970016b6d744e0bac62d278504e39e1ceaf5caaaa33",
+      "in_memory_reproduction_matches": true,
+      "candidate_equals_production": true,
+      "candidate_bytes": 44204
+    },
+    "Ju": {
+      "sha256": "e937fa1f5cf1b23ebdd53841b7b8ade75d0479e7f3cc82e2d4bc18f71ed6271c",
+      "in_memory_reproduction_matches": true,
+      "candidate_equals_production": true,
+      "candidate_bytes": 34604
+    },
+    "Zhun": {
+      "sha256": "122690883e5d30c414212d8f19927b8c6e74427b528d60d59be62746e24d9fdd",
+      "in_memory_reproduction_matches": true,
+      "candidate_equals_production": true,
+      "candidate_bytes": 32684
+    },
+    "Sheng": {
+      "sha256": "81b97bc3613e82f7016b440d2644701ccd1725742cad59bb4fcbc8e3ba5bccd8",
+      "in_memory_reproduction_matches": true,
+      "candidate_equals_production": true,
+      "candidate_bytes": 42284
+    },
+    "Heng": {
+      "sha256": "9f135f9e6bd79ad5a2b7043fd1a1c5ea161c5b76f23d4617f3a314cc8ff44cfd",
+      "in_memory_reproduction_matches": true,
+      "candidate_equals_production": true,
+      "candidate_bytes": 46124
+    }
+  },
+  "auditions": {
+    "comparison_equal.wav": {
+      "sha256": "13b22565c41d0dad3953800d27db7026ceb59ef0506f0639c9d7e99f6a386ca2",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 7.4,
+      "peak_dbfs": -2.5672559259742616,
+      "clipped_samples": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "common_mix_gain_db": 0.0,
+      "events": 6
+    },
+    "AB.wav": {
+      "sha256": "22290fd40968ac4143aa938464d5c561cc6ff7cb5b7f437d71a4bfb36f6ab925",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 14.6,
+      "peak_dbfs": -2.5672559259742616,
+      "clipped_samples": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "common_mix_gain_db": 0.0,
+      "events": 12
+    },
+    "rapid.wav": {
+      "sha256": "446854a6eeb4fc8012502b32af22791417543340cfef8df7e943d367887f838f",
+      "sample_rate": 48000,
+      "channels": 1,
+      "pcm_bits": 16,
+      "duration_seconds": 7.4,
+      "peak_dbfs": -2.5672559259742616,
+      "clipped_samples": 0,
+      "last10ms_peak_dbfs": -240.0,
+      "common_mix_gain_db": 0.0,
+      "events": 18
+    }
+  },
+  "baseline_changes": [
+    "Assets/Art/VFX/Skills/SealConfirmation/GuiChime.wav",
+    "Assets/Art/VFX/Skills/SealConfirmation/HengChime.wav",
+    "Assets/Art/VFX/Skills/SealConfirmation/JuChime.wav",
+    "Assets/Art/VFX/Skills/SealConfirmation/ShengChime.wav",
+    "Assets/Art/VFX/Skills/SealConfirmation/ZhunChime.wav"
+  ],
+  "no_subjective_listening": true,
+  "baseline_file_count": 52,
+  "other_baseline_files_unchanged": 47,
+  "Lv_sha256": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+  "V1_archive_WAV_hashes": {
+    "Lv": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+    "Gui": "4e18de4a3b51b36d20b0873a8809ca2593d213b5bd3a086498aa0d6abc57aa8d",
+    "Ju": "e23e32d715d60b27fb7ae3204d40f634dbde99f415ec095b084a861a294a9b3d",
+    "Zhun": "212906fc26562604f51ac873484a956d9acc79e0f3955073767ae6b5a70684bc",
+    "Sheng": "4cd5becaba44c00c4455d17d568940e5c0fe2cfd3d918bf96411b477f026b074",
+    "Heng": "3c534ec1525f66531d0c2e86ada37100242f9b735235aea9fd3d7dbc625fd613"
+  }
+}
