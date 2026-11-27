@@ -1,0 +1,304 @@
+{
+  "pouch": "D:\\Temp\\ToolBeltV2\\Pockets\\SoftPouch\\SoftPouch.fbx",
+  "sourceMeshId": "7863ade748eea90568c665b8fa981794",
+  "fbxSHA256": "35f05575f8cf327515d14a14f42554d1dc1d767af377cf00d2e6684dfb8cbca5",
+  "sourceRationFBX": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\TravelRation\\Geometry\\TravelRationBag.fbx",
+  "sourceRationFBXSHA256": "725e94b26433c5339e715fc0a10dc628a7b9a461faf791e3591b446a33ca2094",
+  "rationBoundsUnity": {
+    "minimumMM": [
+      -22.306,
+      -0.0625,
+      -7.7245
+    ],
+    "maximumMM": [
+      22.2942,
+      59.9965,
+      7.7769
+    ],
+    "sizeMM": [
+      44.6002,
+      60.059,
+      15.5014
+    ]
+  },
+  "openEntryUnityM": [
+    -0.0,
+    0.08799999952316284,
+    -0.0
+  ],
+  "insertDirectionUnity": [
+    0,
+    -1,
+    0
+  ],
+  "rationRotationUnityEulerDegrees": [
+    0,
+    0,
+    0
+  ],
+  "lod": {
+    "SoftPouch_LOD0": {
+      "boundsUnity": {
+        "minimumMM": [
+          -49.0482,
+          -0.0988,
+          -15.2722
+        ],
+        "maximumMM": [
+          49.0793,
+          87.9908,
+          15.6636
+        ],
+        "sizeMM": [
+          98.1276,
+          88.0896,
+          30.9358
+        ]
+      },
+      "triangles": 3538,
+      "material": [
+        "SoftPouch_Atlas"
+      ],
+      "clearRectangularPrismMM": [
+        46.0,
+        17.0,
+        65.0
+      ],
+      "prismClears": true,
+      "effectiveDepthAt46x17MM": 82.2416,
+      "netWidthAt17Thickness65DepthMM": 49.9996,
+      "netThicknessAt46Width65DepthMM": 19.2856,
+      "interiorFloorSurfaceDepthMM": {
+        "rays": 209,
+        "numClosed": 209,
+        "minimum": 82.2417,
+        "maximum": 84.3769
+      },
+      "visualMeshSelfIntersectionsExcludingSharedVertices": 17,
+      "firstSelfIntersection": [
+        [
+          1311,
+          1608
+        ],
+        [
+          808,
+          859
+        ],
+        [
+          1153,
+          2309
+        ],
+        [
+          1152,
+          2307
+        ],
+        [
+          1317,
+          1602
+        ],
+        [
+          1317,
+          1608
+        ],
+        [
+          631,
+          1607
+        ]
+      ],
+      "actualRationSweep": {
+        "seatedRootUnityM": [
+          5.880370736122131e-06,
+          0.021562533719756173,
+          -2.6198802515864372e-05
+        ],
+        "entryRootUnityM": [
+          5.880370736122131e-06,
+          0.09156253324291902,
+          -2.6198802515864372e-05
+        ],
+        "seatedAABB": {
+          "minimumMM": [
+            -22.3001,
+            21.5,
+            -7.7507
+          ],
+          "maximumMM": [
+            22.3001,
+            81.559,
+            7.7507
+          ],
+          "sizeMM": [
+            44.6002,
+            60.059,
+            15.5014
+          ]
+        },
+        "sweepMethod": "Exact actual triangles vs pouch BVH at 0.25 mm steps and separately continuous outer swept prism SAT",
+        "numberOfSamples": 281,
+        "hitSamplesMM": [],
+        "continuousPass": true
+      }
+    },
+    "SoftPouch_LOD1": {
+      "boundsUnity": {
+        "minimumMM": [
+          -48.8811,
+          -0.0706,
+          -15.2719
+        ],
+        "maximumMM": [
+          49.2151,
+          87.9616,
+          15.6906
+        ],
+        "sizeMM": [
+          98.0963,
+          88.0322,
+          30.9624
+        ]
+      },
+      "triangles": 1474,
+      "material": [
+        "SoftPouch_Atlas"
+      ],
+      "clearRectangularPrismMM": [
+        46.0,
+        17.0,
+        65.0
+      ],
+      "prismClears": true,
+      "effectiveDepthAt46x17MM": 81.9785,
+      "netWidthAt17Thickness65DepthMM": 49.9996,
+      "netThicknessAt46Width65DepthMM": 18.2438,
+      "interiorFloorSurfaceDepthMM": {
+        "rays": 209,
+        "numClosed": 209,
+        "minimum": 81.9786,
+        "maximum": 84.2763
+      },
+      "visualMeshSelfIntersectionsExcludingSharedVertices": 212,
+      "firstSelfIntersection": [
+        [
+          349,
+          876
+        ],
+        [
+          463,
+          471
+        ],
+        [
+          337,
+          621
+        ],
+        [
+          291,
+          761
+        ],
+        [
+          212,
+          443
+        ],
+        [
+          223,
+          443
+        ],
+        [
+          320,
+          632
+        ]
+      ],
+      "actualRationSweep": {
+        "seatedRootUnityM": [
+          5.880370736122131e-06,
+          0.021562533719756173,
+          -2.6198802515864372e-05
+        ],
+        "entryRootUnityM": [
+          5.880370736122131e-06,
+          0.09156253324291902,
+          -2.6198802515864372e-05
+        ],
+        "seatedAABB": {
+          "minimumMM": [
+            -22.3001,
+            21.5,
+            -7.7507
+          ],
+          "maximumMM": [
+            22.3001,
+            81.559,
+            7.7507
+          ],
+          "sizeMM": [
+            44.6002,
+            60.059,
+            15.5014
+          ]
+        },
+        "sweepMethod": "Exact actual triangles vs pouch BVH at 0.25 mm steps and separately continuous outer swept prism SAT",
+        "numberOfSamples": 281,
+        "hitSamplesMM": [],
+        "continuousPass": true
+      }
+    }
+  },
+  "material": {
+    "name": "SoftPouch_Atlas",
+    "resolutionPX": [
+      2048,
+      2048
+    ],
+    "source": "V1 Hunyuan PBR, same UVs on the original garment. Exterior floor shades transferred from original lower native rim into an unused padded atlas tile.",
+    "atlasPatchRectPixelCoordsFromBottomLeft": [
+      472,
+      16,
+      344,
+      64
+    ],
+    "maps": {
+      "BaseColor": {
+        "file": "SoftPouch_BaseColor.png",
+        "sha256": "cc5e62193f5432b20a0ffa1e3065762b4c5081b332a2881fb56c846eaca405cf",
+        "sourceSha256": "1a44588bef0120b40cc6edd19f9aeb152ecb18086edd930554d8aa0102c20dda",
+        "alteredPixels": 22014
+      },
+      "NormalGL": {
+        "file": "SoftPouch_NormalGL.png",
+        "sha256": "1ee31b7582abf8f490a4a704875362f4adea2e4c4bc89b5325d1f934599fd332",
+        "sourceSha256": "de904877d2af5d8f434181fe95259e558dea0c1a7c0b430d272b3927b30f7f46",
+        "alteredPixels": 21479
+      },
+      "Mask": {
+        "file": "SoftPouch_Mask.png",
+        "sha256": "88547bf2ee0e65f1a57f154b46668ed63020134f269ac9d726123f85e22c5107",
+        "sourceSha256": "8750d7dfb6162496e93fcd6f5bafa5baeeef5b769e0b3d333a8f6468caec6df4",
+        "alteredPixels": 21986
+      }
+    }
+  },
+  "originalAndNewMeshes": {
+    "originalDiskTrianglesIntersectNative": [
+      432,
+      438
+    ],
+    "uncleanedNativeThinWallPairs": [
+      58,
+      694
+    ],
+    "newCurvedPatchTriangleIntersections": [
+      0,
+      0
+    ],
+    "newNativeWallTriangleIntersections": [
+      17,
+      212
+    ],
+    "note": "Residual BVH triangle overlaps occur within existing near-coincident thin folded wall, outside the closure and its junction. One opposite-facing thin wall pair detected in LOD1 by Blender QA.",
+    "bboxWidthHeightDepthMMV1": [
+      98.1276,
+      88.0606,
+      48.0541
+    ]
+  },
+  "sourceBlendPacked": true
+}
