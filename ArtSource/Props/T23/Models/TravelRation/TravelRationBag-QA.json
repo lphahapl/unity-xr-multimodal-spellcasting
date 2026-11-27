@@ -1,0 +1,149 @@
+{
+  "component": "TravelRationBag",
+  "provider": "Tencent Hunyuan3D",
+  "source": "TravelRationBag.glb",
+  "sourceSha256": "6524efdf8f9295baedcc2b46ef002a5410df404618e8bf251b2c3989933c6974",
+  "sourceVertices": 33354,
+  "sourceTriangles": 50000,
+  "sourceBoundsMetres": [
+    0.9765959978103638,
+    0.5439020693302155,
+    1.0489101432169998
+  ],
+  "rotationBlenderDegrees": 0.0,
+  "nominalUnityDimensions": [
+    0.0445,
+    0.06,
+    0.0155
+  ],
+  "modelPipeline": "Texture-preserving collapse of cloud geometry and embedded PBR maps",
+  "orientation": "Unity +Y opens upward, +Z front (Blender -Y). Origin at bottom center.",
+  "lods": {
+    "TravelRationBag_LOD0": {
+      "triangles": 1898,
+      "vertices": 947,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0001,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "TravelRationBag_LOD0": {
+            "verts": 947,
+            "faces": 1898,
+            "tris": 1898,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.0,
+            "uv_coverage_pct": 39.3
+          }
+        }
+      },
+      "exportReadback": {
+        "metresBlender": [
+          0.04460015520453453,
+          0.015501401852816343,
+          0.06005901942990022
+        ],
+        "material": "TravelRationBag_Atlas",
+        "faces": 1898,
+        "uvMaps": 1
+      }
+    },
+    "TravelRationBag_LOD1": {
+      "triangles": 610,
+      "vertices": 303,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": 0.0001,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "TravelRationBag_LOD1": {
+            "verts": 303,
+            "faces": 610,
+            "tris": 610,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.02,
+            "uv_coverage_pct": 29.7
+          }
+        }
+      },
+      "exportReadback": {
+        "metresBlender": [
+          0.044686269015073776,
+          0.015653342939913273,
+          0.060051263331843074
+        ],
+        "material": "TravelRationBag_Atlas",
+        "faces": 610,
+        "uvMaps": 1
+      }
+    }
+  },
+  "exportedFbxSha256": "725e94b26433c5339e715fc0a10dc628a7b9a461faf791e3591b446a33ca2094",
+  "cloudEvidence": {
+    "component": "TravelRationBag",
+    "resultFilename": "6d1b2edbb32e7c56a16802c35cffad66.glb",
+    "bytes": 46218852,
+    "sha256": "6524efdf8f9295baedcc2b46ef002a5410df404618e8bf251b2c3989933c6974",
+    "provider": "Tencent Hunyuan3D V3.1, image to 3D",
+    "reference": "ArtSource/Props/T23/References/TravelRation_ClosedFront.png"
+  },
+  "shader": "URP Lit atlas; glTF review has three embedded textures and two-sided textile shading",
+  "status": "Physical scope: one independently viewable closed outer fabric bag.",
+  "referenceDifferences": [
+    "The original is front-biased in the source plate. Cloud geometry adds a second cloth pull loop on the rear. Both loops are retained in this candidate.",
+    "Pouch state is closed; cloth opening, waxpaper, loose biscuits and runtime consumption are a separate task."
+  ],
+  "reviewGlbSha256": "37457055a621372ec54e26d71435c9154bf97a5b144639f6e8b9a45c00375762",
+  "verification": "Blender 5.2.2 LTS bmesh + game profile and FBX geometry readback. Unity visual/play testing not run for this part.",
+  "publicationTime": "2026-11-25T07:56:18+08:00"
+}
