@@ -1,0 +1,71 @@
+{
+  "source": "docs/visuals/\u6c88\u5546_\u4e94\u53e3\u4e0b\u80f8\u5de5\u5177\u5e26_\u5b9a\u7a3f.jpg",
+  "source_sha256": "bca70497fdd2987e8dd3ce5297c12a75d06440de4c67605307a55d2659ba55e7",
+  "objects": {
+    "SoftPouch": {
+      "method": "contour crop, original project concept on white",
+      "source_bounds_ltrb": [
+        756,
+        497,
+        1001,
+        719
+      ]
+    },
+    "PenSleeve": {
+      "method": "contour crop, original project concept on white",
+      "source_bounds_ltrb": [
+        438,
+        513,
+        633,
+        708
+      ]
+    },
+    "FlatSleeve": {
+      "method": "contour crop, original project concept on white",
+      "source_bounds_ltrb": [
+        637,
+        506,
+        736,
+        715
+      ]
+    },
+    "WoodCase": {
+      "method": "contour crop, original project concept on white",
+      "source_bounds_ltrb": [
+        1017,
+        490,
+        1223,
+        727
+      ]
+    },
+    "TallSleeve": {
+      "method": "contour crop, original project concept on white",
+      "source_bounds_ltrb": [
+        1242,
+        534,
+        1330,
+        721
+      ]
+    },
+    "FlatAndTallSleeves": {
+      "method": "Two separate original props composed on white, retained as quota fallback only",
+      "left": "FlatSleeve",
+      "right": "TallSleeve",
+      "horizontal_gap_px": 212
+    },
+    "BeltBody": {
+      "method": "ImageGen isolated product reference derived from confirmed design to reveal backing behind five detachable holders; laid flat for reconstruction",
+      "original_render_sha256": "62617930d12eab4e69f72a951b0512bf78a3affd96baec8df608a54519acbe32",
+      "faithful_visible_features": [
+        "indigo canvas backing",
+        "wood measuring rule",
+        "side leather tabs with bronze studs",
+        "woven shoulder strap"
+      ],
+      "reconstructed_hidden_features": [
+        "plain cloth behind holders",
+        "connection and span of woven shoulder strap when laid flat"
+      ]
+    }
+  }
+}
