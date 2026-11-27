@@ -1,0 +1,45 @@
+{
+  "time": "2026-11-26T18:58:04.668101+08:00",
+  "gpu": "Unity 6000.3.10f1 Windows D3D11 NVIDIA RTX 4050，桌面模拟的玩家眼相机，未连接 Quest",
+  "isolatedFiles": {
+    "Assets\\Scene\\Chapter02_SuspendedPath.unity": "3ed6f9c6fb768192a8b78fab125c3d78cd750dfef638e09a3c67f8e69782cd85",
+    "Assets\\Materials\\Chapter01\\QuestTrailGold.mat": "934e19b519a992ebb70ac7153f1775fc1382295e8918fd3f8c46808465f31209",
+    "Assets\\Art\\Environment\\SuspendedPath\\SuspendedPathGeometry.asset": "2f70f45cd13de268cee793c264cb11eaebb1362f940b23ba3a7adbb2487d4275",
+    "Assets\\scripts\\ui\\Rpg\\CourtyardTaskGuide.cs": "d028c1b3d63871360a230008d8d3b1e8560787fea3bf557183b9d696ffb9953e",
+    "Assets\\scripts\\ui\\Rpg\\QuestTrailDots.cs": "076026ec9a0e223ad17269ce2cc02608e3d6a5b23040bb899e5d1ca85add0873",
+    "Assets\\scripts\\logic\\Rpg\\Chapter02Guidance\\Chapter02GoldTrail.cs": "4653d4aa3d598a03288769378d7867a930be1da9353ec7091ca11d9698263390",
+    "Assets\\scripts\\logic\\Editor\\Chapter02Guidance\\Chapter02GoldTrailInstaller.cs": "baab921470e278a060a3db91d25b7c794b39cde1c7754c471aab606d6e43081c",
+    "Assets\\scripts\\logic\\Editor\\Chapter02Entry\\Ch02BronzeMount.cs": "558f7c061a20a8dd4a2bd8df208bcd47bc95db2c78808070c82aeb14acafcdbf",
+    "Assets\\scripts\\logic\\Editor\\Chapter02Entry\\Chapter02GoldQa.cs": "d113bdc54ff6810b6fcb1c5d4c5756c6217a1a10a84ec552ea7e9f00392d79b7",
+    "Assets\\scripts\\logic\\Editor\\Chapter02Entry\\Chapter02GoldAPlay.cs": "0dcd4a1877278038e1bf40a2a91fe6abf6b68a7d7bff199c0c998a4034001a45",
+    "Assets\\scripts\\logic\\Rpg\\LinearRpgController.cs": "8286c2d50c7cb2f888925bf339b378ac7ed7cc8a085ee14dc833ba47f1424f38",
+    "Assets\\scripts\\logic\\Rpg\\LinearRpgController.SaveRouting.cs": "4b03546594fe6b64b956b4a2a1866dcd7700187459a1d6b499fe3c8a3eeffa0a",
+    "Assets\\Art\\Environment\\SuspendedPath\\CH02BankAWithoutFloorGuide.asset": "9637ffa4460b2c787ba72acdcfd638b307a962e104f2f657b6bb22b07892033d",
+    "Assets\\Art\\Environment\\SuspendedPath\\CH02BankBWithoutFloorGuide.asset": "a09bf0e6a9391868df0b39ac8f0c1f7e50aa7a1f7abf92b93dea74248b0a64f0"
+  },
+  "reportHash": "3bb35ad2d7c12cfc3c42129634f123fed815b97807f34b5bfee36d5f91ab3c14",
+  "checks": 18,
+  "runtimeMeshes": [
+    "PASS A 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset",
+    "PASS B 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankBWithoutFloorGuide.asset"
+  ],
+  "stateSamples": [
+    "STATE 06-west-checkpoint leg=AToHub stage=2 checkpoint=CH02_A_MIDDLE foot=(-6.1214, 0.0000, 20.4000) moving=False count=16",
+    "STATE 10e-east-span leg=HubToLeverB stage=4 checkpoint=CH02_HUB foot=(49.5695, 0.0000, 20.3699) moving=False count=16"
+  ],
+  "renderedMaterialSamples": [
+    "PASS 06-west-checkpoint 沿用首章材质 NarutoVR/Quest Trail Spark",
+    "PASS 10e-east-span 沿用首章材质 NarutoVR/Quest Trail Spark"
+  ],
+  "floorFaultCases": [],
+  "screenshots": {
+    "06-west-checkpoint-dots-off.png": "06a79d928a7d7bb79c5691796b3dbabde74a3c736e57f4eaa2747d5905922b41",
+    "06-west-checkpoint.png": "61ab71e77e344ba6c3f3f448bf6689a051b0b93c9713d711c80a120283146461",
+    "10e-east-span-dots-off.png": "3273b62c52843a534e9b298175c3f66604491fa1acb16bbe4b095fc381028ac5",
+    "10e-east-span.png": "ff1c09f30ec5344189e51521cdb7905c895626dbd7681232d46125c386228b40"
+  },
+  "routeGroundSamples": [
+    "PASS 路线 AToHub 全线脚下真实碰撞面 265/265 端点=中控操作位 空点=",
+    "PASS 路线 HubToLeverB 全线脚下真实碰撞面 267/267 端点=分控杆站位 空点="
+  ]
+}

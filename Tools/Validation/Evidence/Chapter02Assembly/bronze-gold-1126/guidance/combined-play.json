@@ -1,0 +1,47 @@
+{
+  "time": "2026-11-26T18:56:16+08:00",
+  "matchedDependencies": 12,
+  "inputScene": "130ad10d2eae9aa3a8d1a0403ed36600ec0ed63034bae2c885a0a6a6248943dc",
+  "candidateScene": "65afb7e7f73047fa8f4d6ab4e70261169eebcd7293af4b8384bf0f76fcdfecb6",
+  "runs": {
+    "dedup-guide": {
+      "passedAssertions": 108,
+      "exit": 0,
+      "file": "D:\\Temp\\Ch02GuideQA1126\\dedup-guide\\checks.txt",
+      "sha256": "4005f1fe04b8bb8a81ff399ebf5c21166d2e3308b446bc5c0fcd5ad45b1c9878"
+    },
+    "dedup-A": {
+      "passedAssertions": 66,
+      "exit": 0,
+      "file": "D:\\Temp\\Ch02GuideQA1126\\dedup-A\\trio-free-pen.txt",
+      "sha256": "9743688ac5b9e816951f3edad30d0eb6e03ece0bf03cd5953a4fc7ca65fe3c2a"
+    }
+  },
+  "blueFloorPixels": {
+    "west": {
+      "baseline-banks": {
+        "count": 4925,
+        "image": "D:\\Temp\\Ch02GuideQA1126\\baseline-banks\\06-west-checkpoint.png",
+        "sha256": "51f97ec992b19404b17e73c5c4ce69d1e360733c6dc0a0fb699e48f5d9b658cb"
+      },
+      "dedup-guide": {
+        "count": 0,
+        "image": "D:\\Temp\\Ch02GuideQA1126\\dedup-guide\\06-west-checkpoint.png",
+        "sha256": "4226e1273264fa73d6b2902cc9a1a10c47526771365c915bd64013b9c5c66833"
+      }
+    },
+    "east": {
+      "baseline-banks": {
+        "count": 1831,
+        "image": "D:\\Temp\\Ch02GuideQA1126\\baseline-banks\\10e-east-span.png",
+        "sha256": "69fef1c04ba6befcebc01b995d11346f439706ef88deca69ede3f2e8f36eac29"
+      },
+      "dedup-guide": {
+        "count": 0,
+        "image": "D:\\Temp\\Ch02GuideQA1126\\dedup-guide\\10e-east-span.png",
+        "sha256": "71ecd7cfea8b2ee43543ae5e8077db42d68ba951e850bd0716148ea5b7593555"
+      }
+    }
+  },
+  "pixelMeasure": "matched east/west shots, 1280x720; |x-640|<65 and y>280; R<182,G>128,B>90,G-R>47,B-R>20,G-B<66"
+}

@@ -1,0 +1,59 @@
+{
+  "sceneBaseline": "1be75566173fe09ec6efd8ff2bee7f00bcecc8aec5c652f3496469fbd8ef0353",
+  "sourceProject": "D:/UnityProjects/NarutoVR",
+  "operator": "Codex / GPT-6",
+  "verifiedAt": "2026-11-26T18:44:00+08:00",
+  "editorEntry": "NarutoVR.SealCombat.Editor.Chapter02GoldTrailInstaller.Apply(Scene)",
+  "art": {
+    "firstChapterMaterial": "Assets/Materials/Chapter01/QuestTrailGold.mat",
+    "height": 0.17,
+    "dotSpacing": 0.36,
+    "dotCount": 16,
+    "redrawSeconds": 0.075,
+    "delaySeconds": 0
+  },
+  "compiler": {
+    "version": "Unity 6000.3.10f1 / Roslyn, official Bee NarutoVR.Game.Runtime and NarutoVR.Game.Editor response files",
+    "runtimeExit": 0,
+    "editorExit": 0
+  },
+  "meshReview": {
+    "A,B": {
+      "slotsRetained": [
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "hiddenGuideSlot": 2,
+      "strokesPerBank": 15,
+      "oldIndicesPerBank": 540,
+      "drawnIndicesPerBank": 0,
+      "strokeSizeMeters": [
+        0.7,
+        0.014,
+        0.095
+      ],
+      "sourceVertexAndIndexBuffersUnchanged": true,
+      "collidersChanged": 0
+    },
+    "WorkshopBridge": "BridgeSurface.asset, ink slot5 already has zero indices",
+    "mechanismAndSignInk": "unchanged"
+  },
+  "files": {
+    "Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset": "9637ffa4460b2c787ba72acdcfd638b307a962e104f2f657b6bb22b07892033d",
+    "Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset.meta": "acfebd71c48e14ed5e39a6627b21feffc6d875b8148c25112a0009124dd46bb4",
+    "Assets/Art/Environment/SuspendedPath/CH02BankBWithoutFloorGuide.asset": "a09bf0e6a9391868df0b39ac8f0c1f7e50aa7a1f7abf92b93dea74248b0a64f0",
+    "Assets/Art/Environment/SuspendedPath/CH02BankBWithoutFloorGuide.asset.meta": "677e4c0d874faef954cb287188b84922eff80093b659ca56832077ce2c9688db",
+    "Assets/scripts/logic/Editor/Chapter02Guidance/Chapter02GoldTrailInstaller.cs": "baab921470e278a060a3db91d25b7c794b39cde1c7754c471aab606d6e43081c",
+    "Assets/scripts/logic/Editor/Chapter02Guidance/Chapter02GoldTrailInstaller.cs.meta": "3df32d524204bc4fe097b826ad267ba8ddea44a113e06fcdb2a512394a75f44b",
+    "Assets/scripts/logic/Editor/Chapter02Guidance.meta": "c153fdbbbfa328d67ac623de7b9786a00f7dd0c744abedb9e4c4277e3146b8ac",
+    "Assets/scripts/logic/Rpg/Chapter02Guidance/Chapter02GoldTrail.cs": "4653d4aa3d598a03288769378d7867a930be1da9353ec7091ca11d9698263390",
+    "Assets/scripts/logic/Rpg/Chapter02Guidance/Chapter02GoldTrail.cs.meta": "4cec081ad348e02e75649bb6deae09d1e1df368abeb083de8355c20a0535a48d",
+    "Assets/scripts/logic/Rpg/Chapter02Guidance.meta": "53c66fe907a198d47f7f2eb5889abcd4803ab406e7952546bb7539a2a68152e4",
+    "Assets/scripts/ui/Rpg/CourtyardTaskGuide.cs": "d028c1b3d63871360a230008d8d3b1e8560787fea3bf557183b9d696ffb9953e",
+    "Assets/scripts/ui/Rpg/QuestTrailDots.cs": "076026ec9a0e223ad17269ce2cc02608e3d6a5b23040bb899e5d1ca85add0873"
+  },
+  "playEvidence": "D:/Temp/Ch02GuideQA1126 (independent acceptance; check latest pass and compare same camera on both bank walkways before publishing)"
+}

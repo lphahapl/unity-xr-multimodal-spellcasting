@@ -1,0 +1,14 @@
+{
+  "06-west-checkpoint": {
+    "beforeCyan": 4925,
+    "afterCyan": 0,
+    "camera": "CAM 06-west-checkpoint eye=(-6.1214, 1.2000, 20.4000) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU",
+    "roi": "abs(x-640)<65, y>280 in 1280x720"
+  },
+  "10e-east-span": {
+    "beforeCyan": 1831,
+    "afterCyan": 0,
+    "camera": "CAM 10e-east-span eye=(49.5695, 1.2000, 20.3699) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU",
+    "roi": "abs(x-640)<65, y>280 in 1280x720"
+  }
+}

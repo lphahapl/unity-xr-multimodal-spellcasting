@@ -1,0 +1,49 @@
+PASS 修桥后存档恢复实笔与原腰槽
+PASS 本次进入真实修桥后的阶段
+PASS 玩家自由画板实际绑定一个千钧模板；全部可用模板=glyph.passage,glyph.qianjun
+配置原引用 template=Assets/Art/Glyphs/Qianjun.asset effect=Assets/Art/Glyphs/QianjunTether.asset
+PASS 玩家进入原祭坛，由正式房间出生持石工奴
+PASS 原石在工奴身上，还不能施加符力 -6384
+PASS 原工奴搬运姿势有效
+PASS 原敌人轻击后进入撤离
+PASS 撤到正式掉落边缘
+PASS 原敌人结算，身上同一件镇石携原刚体掉落
+PASS 原战区清场并回到可书写状态
+PASS 进入原乘员盒才开放原石受力
+PASS 施符站在原 A 乘员盒 (-9.1214, 81.2000, 21.8500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=1
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1214, 81.0500, 22.7500) hit=(-8.7470, 80.5327, 29.7785)
+PULL cast=1 from=(-9.1214, 80.5250, 30.3035) to=(-9.1214, 80.5250, 30.3035) toSlot=9.30769 movedByGlyph=True id=-6384
+PASS 玩家松手回同一笔套，释放前一轮持笔认领
+PASS 施符站在原 A 乘员盒 (-9.1214, 81.2000, 21.8500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=2
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1214, 81.0500, 22.7500) hit=(-8.7470, 80.5327, 29.7785)
+PULL cast=2 from=(-9.1214, 80.5250, 30.3035) to=(-9.1214, 80.5250, 30.3035) toSlot=9.30766 movedByGlyph=True id=-6384
+PASS 玩家松手回同一笔套，释放前一轮持笔认领
+PASS 施符站在原 A 乘员盒 (-9.1214, 81.2000, 21.8500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=3
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1214, 81.4200, 22.4100) hit=(-9.1214, 80.5376, 29.7785)
+PULL cast=3 from=(-9.1214, 80.5250, 30.3035) to=(-9.1214, 80.5250, 22.2950) toSlot=1.32492 movedByGlyph=True id=-6384
+PASS 玩家松手回同一笔套，释放前一轮持笔认领
+PASS 施符站在原 A 乘员盒 (-9.1214, 81.2000, 20.3500)
+PASS 开始书符时同一原笔仍在自己的腰槽
+PASS 实体笔捏合离槽，自由板由正式取笔入口展开
+PASS 实际笔尖落墨，抬笔等待提交；points=75 strokes=3
+MATCH glyph.qianjun from actual free board count=4
+PASS 停笔经正式匹配器确认本次自由符，收板并保留实笔；similarity=0 已识别：千钧符
+PASS 同一支实笔的笔尖射向原石，产生正式千钧墨线；tip=(-9.1214, 81.0500, 21.2500) hit=(-9.1214, 80.6132, 21.7700)
+PULL cast=4 from=(-9.1214, 80.5250, 22.2950) to=(-9.1214, 80.2450, 21.0000) toSlot=0.00000 movedByGlyph=True id=-6384
+PASS 从自由画板经自然玩家施符和物理牵引至真实入槽仅一次，前后同一镇石/刚体；matched=4 events=1 id=-6384/-6380
+PASS END

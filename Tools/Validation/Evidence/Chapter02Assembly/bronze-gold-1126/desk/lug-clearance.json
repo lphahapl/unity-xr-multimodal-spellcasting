@@ -1,0 +1,45 @@
+{
+  "deskTrayLocalMin": [
+    -0.4,
+    0.935,
+    -0.32
+  ],
+  "deskTrayLocalMax": [
+    0.4,
+    1.025,
+    0.32
+  ],
+  "lugCenterInDesk": [
+    -0.15656787036437186,
+    0.9633232422497531,
+    -0.3359187256232677
+  ],
+  "lugProbeSpacingMm": [
+    2.64,
+    2.5,
+    2.55
+  ],
+  "lugSamples": 44955,
+  "lugInsideTraySamples": 10026,
+  "lugExtentsInsideTray": [
+    [
+      -0.20227044205989791,
+      0.935000942074199,
+      -0.3199991582093201
+    ],
+    [
+      -0.08349558793130182,
+      1.0146093222962445,
+      -0.25709644019064604
+    ]
+  ],
+  "minimumAxialSeparationMm": {
+    "restCapVsLug": 37.5,
+    "depressedCapVsLug": 34.5,
+    "restMovingStemVsLug": 32.0,
+    "depressedStemVsLug": 29.0
+  },
+  "bezelRearFaceLocalZ": 0.016,
+  "lugFrontFaceLocalZ": 0.011,
+  "bezelLugOverlapMm": 5.0
+}

@@ -1,0 +1,143 @@
+{
+  "author": "Codex / GPT-6",
+  "time": "2026-11-26T19:15:38+08:00",
+  "runtimeCompileExit": 0,
+  "editorCompileExit": 0,
+  "sourceSceneSha256": "3ed6f9c6fb768192a8b78fab125c3d78cd750dfef638e09a3c67f8e69782cd85",
+  "stageAssetSha256": "3594ab46d7aa6940741f1edc7e6445823def57cb939ab5188a74ee13aadde0ec",
+  "previousInstallerSha256": "baab921470e278a060a3db91d25b7c794b39cde1c7754c471aab606d6e43081c",
+  "currentInstallerSha256": "d33abb2cc90be6564553df880327546ae55f8141c3779f4c893227ff268546ef",
+  "entry": "Chapter02GoldTrailInstaller.ApplyPassageRoute(Scene scene)",
+  "changes": "BridgeToAltar.points and exactly two child transforms under BridgeToAltar",
+  "originalRoute": [
+    "CH02_ENTRANCE",
+    "CH02_BRIDGE_DRAW",
+    "首次接敌线",
+    "入祭坛守备区域"
+  ],
+  "newRoute": [
+    "CH02_ENTRANCE",
+    "CH02_BRIDGE_DRAW",
+    "通路符近岸中心",
+    "通路符对岸中心",
+    "首次接敌线",
+    "入祭坛守备区域"
+  ],
+  "near": [
+    -9.1214,
+    80.0,
+    57.16
+  ],
+  "far": [
+    -9.1214,
+    80.0,
+    52.84
+  ],
+  "offlineFourCentimeterSampling": {
+    "original": {
+      "routeSamples": 595,
+      "crossingSamples": 104,
+      "minimumSideMarginM": 0.1428,
+      "belowBodyRadius": 77
+    },
+    "candidate": {
+      "routeSamples": 599,
+      "crossingSamples": 103,
+      "minimumSideMarginM": 0.55,
+      "belowBodyRadius": 0
+    }
+  },
+  "playEvidenceRoot": "D:/Temp/Ch02StoneDesk1126/formal-passage",
+  "staticBankSupport": [
+    {
+      "name": "近岸残段",
+      "enabledBoxColliderId": 1850561956,
+      "topY": 80,
+      "intoBankM": 0.16,
+      "sideMarginM": 1.8
+    },
+    {
+      "name": "对岸残段",
+      "enabledBoxColliderId": 188140709,
+      "topY": 80,
+      "intoBankM": 0.16,
+      "sideMarginM": 1.8
+    }
+  ],
+  "authoritativeEditorUpgrade": {
+    "inputs": "D:/Temp/Ch02StoneDesk1126/formal-passage/centered/inputs.json",
+    "evidence": "D:/Temp/Ch02StoneDesk1126/formal-passage/centered/install/install.txt",
+    "firstApply": true,
+    "secondApply": false,
+    "reopenedApply": false,
+    "reopenedSceneDirty": false,
+    "exitNote": "Private batch -quit timed out after the successful save/reopen/idempotency check; see install/exit-note.txt."
+  },
+  "release": {
+    "sceneSha256": "ce338bb531b220345ad43673dc4e5aad8bf655ed274f7d72adec445c3732cc83",
+    "modifiedYamlObjects": [
+      [
+        "760908239",
+        "114",
+        "方矩定点画板"
+      ],
+      [
+        "1220552009",
+        "4",
+        "BridgeToAltar"
+      ],
+      [
+        "1220552010",
+        "114",
+        "BridgeToAltar"
+      ],
+      [
+        "1814934955",
+        "1",
+        "断桥方直之矩"
+      ]
+    ],
+    "addedYamlObjects": [
+      [
+        "861580399",
+        "1",
+        "通路符近岸中心"
+      ],
+      [
+        "861580400",
+        "4",
+        "通路符近岸中心"
+      ],
+      [
+        "1717002553",
+        "1",
+        "通路符对岸中心"
+      ],
+      [
+        "1717002554",
+        "4",
+        "通路符对岸中心"
+      ]
+    ],
+    "removedYamlObjects": [],
+    "testsDirectory": "D:/Temp/Ch02StoneDesk1126/formal-passage/release-ce338bb5",
+    "oldSaveColdPlayExit": 0,
+    "oldSaveRealCenterlineMinMarginM": 0.55,
+    "oldSaveFloorSamples": 598,
+    "unsupportedSamples": 0,
+    "playRuns": {
+      "Cold": {
+        "exit": 0,
+        "assertions": 41,
+        "log": "D:\\Temp\\Ch02StoneDesk1126\\formal-passage\\release-ce338bb5\\Cold\\checks.txt",
+        "sha256": "91c2058a92091d809822c3eb7a5d4be2fcd9bf6a0993ee35d0901b4a7707150b"
+      },
+      "Fresh": {
+        "exit": 0,
+        "assertions": 9,
+        "log": "D:\\Temp\\Ch02StoneDesk1126\\formal-passage\\release-ce338bb5\\Fresh\\checks.txt",
+        "sha256": "ffb04f0c23363b00c41111f33e4ebeb082e5dd2ce45b140c6e7b11e4a315e95f"
+      }
+    }
+  }
+}

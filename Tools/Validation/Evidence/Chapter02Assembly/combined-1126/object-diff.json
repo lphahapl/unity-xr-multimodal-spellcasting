@@ -1,0 +1,509 @@
+{
+  "baselineSHA256": "e82f24bdef5532e0a39fc9551860a00f7de6aa9c7a15277f842b1d1c8a33681f",
+  "bridgeSHA256": "894c19d83a27416978e423d86e6d4bead69de3a5f3fada354b7580af02f0772c",
+  "candidateSHA256": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+  "baselineObjectCount": 766,
+  "candidateObjectCount": 806,
+  "bridgeToCombined": {
+    "added": [
+      {
+        "id": "1361897482",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "1361897483",
+        "type": "1",
+        "object": "GameObject"
+      },
+      {
+        "id": "1361897484",
+        "type": "1",
+        "object": "GameObject"
+      },
+      {
+        "id": "1486636668",
+        "type": "1",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636669",
+        "type": "4",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636670",
+        "type": "114",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636671",
+        "type": "65",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "9043211110",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "9043211111",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "9043211112",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "9043211113",
+        "type": "4",
+        "object": "Transform"
+      }
+    ],
+    "removed": [],
+    "changed": [
+      {
+        "id": "379468229",
+        "type": "4",
+        "object": "通用手部追踪数据源",
+        "delta": [
+          "+  - {fileID: 9043211111}",
+          "+  - {fileID: 9043211113}"
+        ]
+      },
+      {
+        "id": "436909643",
+        "type": "114",
+        "object": "玩家手势、语音与术式",
+        "delta": [
+          "-  showBoneLines: 1",
+          "+  showBoneLines: 0"
+        ]
+      },
+      {
+        "id": "741926983",
+        "type": "114",
+        "object": "③ 工坊清场与④主榫归座",
+        "delta": [
+          "-  closedJaws: {fileID: 1260669833}",
+          "-  openJaws: {fileID: 520534414}",
+          "+  closedJaws: {fileID: 1361897484}",
+          "+  openJaws: {fileID: 1361897483}"
+        ]
+      },
+      {
+        "id": "1260669833",
+        "type": "1",
+        "object": "取用座 · 锁定状态",
+        "delta": [
+          "-  m_IsActive: 1",
+          "+  m_IsActive: 0"
+        ]
+      },
+      {
+        "id": "1583657889",
+        "type": "1",
+        "object": "背石工奴 · 机体占位",
+        "delta": [
+          "-  m_IsActive: 1",
+          "+  m_IsActive: 0"
+        ]
+      },
+      {
+        "id": "1695557194",
+        "type": "23",
+        "object": "主榫与承座",
+        "delta": [
+          "-  m_Enabled: 1",
+          "+  m_Enabled: 0"
+        ]
+      },
+      {
+        "id": "2072776159",
+        "type": "4",
+        "object": "首次接敌线",
+        "delta": [
+          "-  m_Children: []",
+          "+  m_Children:",
+          "+  - {fileID: 1486636669}"
+        ]
+      },
+      {
+        "id": "9223372036854775807",
+        "type": "1660057539",
+        "object": "SceneRoots",
+        "delta": [
+          "+  - {fileID: 1361897482}"
+        ]
+      }
+    ],
+    "unchanged": 787
+  },
+  "formalToCombined": {
+    "added": [
+      {
+        "id": "48601774",
+        "type": "1",
+        "object": "展开画板铜扣"
+      },
+      {
+        "id": "48601775",
+        "type": "4",
+        "object": "展开画板铜扣"
+      },
+      {
+        "id": "48601776",
+        "type": "114",
+        "object": "展开画板铜扣"
+      },
+      {
+        "id": "206717581",
+        "type": "114",
+        "object": "二章 · 玩家与工坊校准"
+      },
+      {
+        "id": "206717582",
+        "type": "114",
+        "object": "二章 · 玩家与工坊校准"
+      },
+      {
+        "id": "356537611",
+        "type": "1",
+        "object": "CH02_BRIDGE_DRAW"
+      },
+      {
+        "id": "356537612",
+        "type": "4",
+        "object": "CH02_BRIDGE_DRAW"
+      },
+      {
+        "id": "356537613",
+        "type": "65",
+        "object": "CH02_BRIDGE_DRAW"
+      },
+      {
+        "id": "356537614",
+        "type": "114",
+        "object": "CH02_BRIDGE_DRAW"
+      },
+      {
+        "id": "356537615",
+        "type": "114",
+        "object": "CH02_BRIDGE_DRAW"
+      },
+      {
+        "id": "711498176",
+        "type": "1",
+        "object": "墨规笔防坠下界"
+      },
+      {
+        "id": "711498177",
+        "type": "4",
+        "object": "墨规笔防坠下界"
+      },
+      {
+        "id": "760908236",
+        "type": "1",
+        "object": "方矩定点画板"
+      },
+      {
+        "id": "760908237",
+        "type": "114",
+        "object": "方矩定点画板"
+      },
+      {
+        "id": "760908238",
+        "type": "114",
+        "object": "方矩定点画板"
+      },
+      {
+        "id": "760908239",
+        "type": "114",
+        "object": "方矩定点画板"
+      },
+      {
+        "id": "760908240",
+        "type": "4",
+        "object": "方矩定点画板"
+      },
+      {
+        "id": "856396326",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "856396327",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "856396328",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "856396329",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "856396330",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "856396331",
+        "type": "114",
+        "object": "MonoBehaviour"
+      },
+      {
+        "id": "1361897482",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "1361897483",
+        "type": "1",
+        "object": "GameObject"
+      },
+      {
+        "id": "1361897484",
+        "type": "1",
+        "object": "GameObject"
+      },
+      {
+        "id": "1486636668",
+        "type": "1",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636669",
+        "type": "4",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636670",
+        "type": "114",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1486636671",
+        "type": "65",
+        "object": "祭坛工奴 · 接敌区域"
+      },
+      {
+        "id": "1814934955",
+        "type": "1",
+        "object": "断桥方直之矩"
+      },
+      {
+        "id": "1814934956",
+        "type": "4",
+        "object": "断桥方直之矩"
+      },
+      {
+        "id": "1838198680",
+        "type": "1",
+        "object": "铜扣"
+      },
+      {
+        "id": "1838198681",
+        "type": "4",
+        "object": "铜扣"
+      },
+      {
+        "id": "1838198682",
+        "type": "23",
+        "object": "铜扣"
+      },
+      {
+        "id": "1838198683",
+        "type": "33",
+        "object": "铜扣"
+      },
+      {
+        "id": "9043211110",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "9043211111",
+        "type": "4",
+        "object": "Transform"
+      },
+      {
+        "id": "9043211112",
+        "type": "1001",
+        "object": "PrefabInstance"
+      },
+      {
+        "id": "9043211113",
+        "type": "4",
+        "object": "Transform"
+      }
+    ],
+    "removed": [],
+    "changed": [
+      {
+        "id": "10234589",
+        "type": "4",
+        "object": "墨规画符石案",
+        "delta": [
+          "-  m_Children: []",
+          "+  m_Children:",
+          "+  - {fileID: 1814934956}"
+        ]
+      },
+      {
+        "id": "206717572",
+        "type": "1",
+        "object": "二章 · 玩家与工坊校准",
+        "delta": [
+          "+  - component: {fileID: 206717582}",
+          "+  - component: {fileID: 206717581}"
+        ]
+      },
+      {
+        "id": "206717574",
+        "type": "114",
+        "object": "二章 · 玩家与工坊校准",
+        "delta": [
+          "+  - stage: {fileID: 11400000, guid: 30a3a457d260fc843acfd7af0303c481, type: 2}",
+          "+    checkpoint: {fileID: 761596564}",
+          "+  - stage: {fileID: 11400000, guid: fefae22926d70f24290c8f1a786909e0, type: 2}",
+          "+    checkpoint: {fileID: 356537615}"
+        ]
+      },
+      {
+        "id": "206717575",
+        "type": "114",
+        "object": "二章 · 玩家与工坊校准",
+        "delta": [
+          "+  - stage: {fileID: 11400000, guid: 30a3a457d260fc843acfd7af0303c481, type: 2}",
+          "+    objectives:",
+          "+    - {fileID: 356537614}",
+          "+    trialSkills: []",
+          "+    guidanceTarget: {fileID: 0}",
+          "+    visuals:",
+          "+      route: {fileID: 0}",
+          "+      destination: {fileID: 0}",
+          "+      trailDelay: 0",
+          "+      gestures: []",
+          "+  - stage: {fileID: 11400000, guid: fefae22926d70f24290c8f1a786909e0, type: 2}",
+          "+    objectives:",
+          "+    - {fileID: 760908237}",
+          "+    trialSkills: []",
+          "+    guidanceTarget: {fileID: 0}",
+          "+    visuals:",
+          "+      route: {fileID: 0}",
+          "+      destination: {fileID: 0}",
+          "+      trailDelay: 0",
+          "+      gestures: []"
+        ]
+      },
+      {
+        "id": "206717577",
+        "type": "4",
+        "object": "二章 · 玩家与工坊校准",
+        "delta": [
+          "+  - {fileID: 856396327}"
+        ]
+      },
+      {
+        "id": "379468229",
+        "type": "4",
+        "object": "通用手部追踪数据源",
+        "delta": [
+          "+  - {fileID: 9043211111}",
+          "+  - {fileID: 9043211113}"
+        ]
+      },
+      {
+        "id": "436909643",
+        "type": "114",
+        "object": "玩家手势、语音与术式",
+        "delta": [
+          "-  showBoneLines: 1",
+          "+  showBoneLines: 0"
+        ]
+      },
+      {
+        "id": "741926983",
+        "type": "114",
+        "object": "③ 工坊清场与④主榫归座",
+        "delta": [
+          "-  closedJaws: {fileID: 1260669833}",
+          "-  openJaws: {fileID: 520534414}",
+          "+  closedJaws: {fileID: 1361897484}",
+          "+  openJaws: {fileID: 1361897483}"
+        ]
+      },
+      {
+        "id": "1211445031",
+        "type": "4",
+        "object": "05 · 谷底平地  −80 m · 布局待定",
+        "delta": [
+          "+  - {fileID: 711498177}"
+        ]
+      },
+      {
+        "id": "1260669833",
+        "type": "1",
+        "object": "取用座 · 锁定状态",
+        "delta": [
+          "-  m_IsActive: 1",
+          "+  m_IsActive: 0"
+        ]
+      },
+      {
+        "id": "1287789403",
+        "type": "4",
+        "object": "画符站位",
+        "delta": [
+          "-  m_Children: []",
+          "+  m_Children:",
+          "+  - {fileID: 356537612}"
+        ]
+      },
+      {
+        "id": "1583657889",
+        "type": "1",
+        "object": "背石工奴 · 机体占位",
+        "delta": [
+          "-  m_IsActive: 1",
+          "+  m_IsActive: 0"
+        ]
+      },
+      {
+        "id": "1695557194",
+        "type": "23",
+        "object": "主榫与承座",
+        "delta": [
+          "-  m_Enabled: 1",
+          "+  m_Enabled: 0"
+        ]
+      },
+      {
+        "id": "2072776159",
+        "type": "4",
+        "object": "首次接敌线",
+        "delta": [
+          "-  m_Children: []",
+          "+  m_Children:",
+          "+  - {fileID: 1486636669}"
+        ]
+      },
+      {
+        "id": "9223372036854775807",
+        "type": "1660057539",
+        "object": "SceneRoots",
+        "delta": [
+          "+  - {fileID: 1361897482}"
+        ]
+      }
+    ],
+    "unchanged": 751
+  }
+}

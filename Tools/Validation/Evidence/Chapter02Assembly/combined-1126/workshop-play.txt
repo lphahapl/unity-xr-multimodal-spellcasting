@@ -1,0 +1,36 @@
+Unity 6000.3.10f1 / PlayMode
+PASS 独立 RPG、ObjectiveChapterFlow、双手 XR 来源和真实技能匹配器已就绪
+PASS ④初抵、空房和未启动敌人不能开扣
+PASS 中控初始朱砂红
+PASS Cold hub save resumes workshop with bridge repaired
+PASS Both visible B1 pin states belong to the approved seat
+PASS Both pin endpoints on LeftPin are 86 mm apart
+PASS Both pin endpoints on RightPin are 86 mm apart
+PASS 承座已移除焊死假榫，实体铜托顶面 0.650 m，主榫底 0.653 m
+PASS 触发入区随即退出或取消生成时不集合作清场
+PASS F1/F2 预置双射手和真实精英租约同时取得玩家头部
+PASS 现版两名屋顶射手分别驻在有效屋面导航
+PASS 现版院场精英落在地面导航且能走完整路线
+PASS 离房、只击败一名屋顶射手均不会解锁
+PASS 屋顶组单独清完仍然锁住
+PASS 两组首次清场才开放拾取，阶段未提前提交
+PASS 右手持榫期间左手导航可用，持物闪避按玩家既有规则处理
+PASS 握持时脚本请求吸附被拒
+PASS 持榫未插时恢复至工坊目标准备点
+PASS 未提交恢复重新锁住拾取，清除手占用和上轮敌人状态
+PASS 精英先死、屋顶仍有守机时不能取榫
+PASS 持榫离开工坊保持取用权限
+PASS 失手坠崖回同一承座，未复制道具
+PASS 45° 错面松手未插紧
+PASS 横向偏移 4 cm 被拒
+PASS 错误物件被拒
+PASS 正确方向可开始吸附
+PASS 吸附中途取消不会提交或点亮
+PASS 正确四分之一转进入 SnapZone，过渡中仍未提交
+PASS 插到底后由 ObjectiveChapterFlow 提交一次并进入 B 篮阶段
+PASS 朱砂退、冰蓝亮、两侧分控通电，真实槽坐入深度约 104 mm
+PASS 坐实后不能反复结算或重新抓取
+PASS 从二章独立检查点读取成功
+PASS 完成后读档保留已就座与下一阶段，不重生已清的工坊
+PASS Completed stage can be saved for a separate editor launch
+PASS END

@@ -1,0 +1,27 @@
+PASS A 栈道原 renderer、6材质槽、顶点与三块承重碰撞仍在
+PASS A 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset
+PASS B 栈道原 renderer、6材质槽、顶点与三块承重碰撞仍在
+PASS B 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankBWithoutFloorGuide.asset
+PASS 正式中层场景冷开使用 51/51 现场层掩码，唯一槽石仍在位
+STATE 06-west-checkpoint leg=AToHub stage=2 checkpoint=CH02_A_MIDDLE foot=(-6.1214, 0.0000, 20.4000) moving=False count=16
+PASS 06-west-checkpoint 实际路线 AToHub 预期 AToHub
+PASS 06-west-checkpoint 实渲点数=16 预期=1
+PASS 06-west-checkpoint 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 06-west-checkpoint 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 AToHub 全线脚下真实碰撞面 265/265 端点=中控操作位 空点=
+ROUTE AToHub (-7.6214, 0.0000, 20.4000) -> (-6.1214, 0.0000, 20.4000) -> (21.6000, 0.0000, 20.4000) -> (29.6000, 0.0000, 12.5000) -> (35.6000, 0.0000, 12.5000)
+PIXELS 06-west-checkpoint diffRGBsum>20=12322
+PASS 06-west-checkpoint 玩家眼相机有可见光点像素 12322
+CAM 06-west-checkpoint eye=(-6.1214, 1.2000, 20.4000) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 恢复 seated.json，当前节点 CH02_HUB，场景脚底 (35.60, 0.00, 12.50)
+STATE 10e-east-span leg=HubToLeverB stage=4 checkpoint=CH02_HUB foot=(49.5695, 0.0000, 20.3699) moving=False count=16
+PASS 10e-east-span 实际路线 HubToLeverB 预期 HubToLeverB
+PASS 10e-east-span 实渲点数=16 预期=1
+PASS 10e-east-span 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 10e-east-span 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 HubToLeverB 全线脚下真实碰撞面 267/267 端点=分控杆站位 空点=
+ROUTE HubToLeverB (35.6000, 0.0000, 12.5000) -> (41.6000, 0.0000, 12.5000) -> (49.6000, 0.0000, 20.4000) -> (78.1714, 0.0000, 20.4000) -> (77.4214, 0.0000, 19.4200)
+PIXELS 10e-east-span diffRGBsum>20=4180
+PASS 10e-east-span 玩家眼相机有可见光点像素 4180
+CAM 10e-east-span eye=(49.5695, 1.2000, 20.3699) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS END

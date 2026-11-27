@@ -1,0 +1,14 @@
+Register platform support module: D:/unity_hub/6000.3.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: D:/unity_hub/6000.3.10f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+[Subsystems] Discovering subsystems at path D:/unity_hub/6000.3.10f1/Editor/Data/Resources/UnitySubsystems
+Starting: D:\unity_hub\6000.3.10f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+Starting: D:\unity_hub\6000.3.10f1\Editor\Data\netcorerun\netcorerun.exe "D:\unity_hub\6000.3.10f1\Editor\Data\Tools\BuildPipeline\ScriptCompilationBuildProgram.exe" "Library/Bee/1300b0aE.dag.json" "Library/Bee/1300b0aE-inputdata.json" "Library\Bee\buildprogram0.traceevents"
+Starting: D:\unity_hub\6000.3.10f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --dagfilejson="Library\Bee\1300b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+*** Tundra build success (19.29 seconds), 18 items updated, 1924 evaluated
+Asset Pipeline Refresh (id=b6a3c8661c740514babe1b92003d536e): Total: 146.195 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+Asset Pipeline Refresh (id=e50d19548a1c78449a3b21db46f19d07): Total: 0.187 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=ffb47df8a91dc1c42bf31d56f0c635ff): Total: 0.070 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=c0f4fc729b1569248a62eafbfb33fa9f): Total: 0.077 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[Chapter02BridgeEquipment] 已安装并保存 Assets/Scene/Chapter02_SuspendedPath.unity
+NarutoVR.SealCombat.Editor.Chapter02BridgeEquipmentInstaller:Run () (at Assets/scripts/logic/Editor/WorkshopTenon/Chapter02BridgeEquipmentInstaller.cs:52)
+(Filename: Assets/scripts/logic/Editor/WorkshopTenon/Chapter02BridgeEquipmentInstaller.cs Line: 52)

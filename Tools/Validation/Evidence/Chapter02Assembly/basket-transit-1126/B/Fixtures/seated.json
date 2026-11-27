@@ -1,0 +1,34 @@
+{
+    "version": 2,
+    "profileId": "linear-rpg-player",
+    "progress": {
+        "discoveredSkillIds": [],
+        "unlockedSkillIds": [
+            "breath.stream",
+            "thunder.sword",
+            "breath.burst"
+        ],
+        "items": [],
+        "skillLevels": [],
+        "currency": 0,
+        "completedStageIds": [
+            "CH02_BRIDGE_APPROACH",
+            "CH02_BRIDGE_DRAW",
+            "CH02_REACH_HUB",
+            "CH02_WORKSHOP_TENON"
+        ],
+        "claimedRewardIds": [
+            "reward.CH02_BRIDGE_APPROACH",
+            "reward.CH02_BRIDGE_DRAW",
+            "reward.CH02_REACH_HUB",
+            "reward.CH02_WORKSHOP_TENON"
+        ],
+        "checkpointId": "CH02_HUB",
+        "checkpoint": {
+            "health": 100.0,
+            "mana": 100.0,
+            "manaRegenDelayRemaining": 0.0,
+            "cooldowns": []
+        }
+    }
+}

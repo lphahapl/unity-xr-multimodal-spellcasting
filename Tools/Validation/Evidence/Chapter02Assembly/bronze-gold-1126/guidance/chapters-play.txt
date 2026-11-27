@@ -1,0 +1,171 @@
+PASS 场景新引导组件数匹配本轮
+PASS A 栈道原 renderer、6材质槽、顶点与三块承重碰撞仍在
+PASS A 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankAWithoutFloorGuide.asset
+PASS B 栈道原 renderer、6材质槽、顶点与三块承重碰撞仍在
+PASS B 栈道槽2索引 original=540 actual=0 其余槽索引计数与原件逐槽一致 mesh=Assets/Art/Environment/SuspendedPath/CH02BankBWithoutFloorGuide.asset
+PLAYER stored policy=LatestCampaign obstacleMask=51 floorMask=51 capButtonActive=False gotoStage=0
+STATE 01-entry leg=BridgeApproach stage=0 checkpoint=CH02_ENTRANCE foot=(-9.1214, 80.0000, 63.7000) moving=False count=11
+PASS 01-entry 实际路线 BridgeApproach 预期 BridgeApproach
+PASS 01-entry 实渲点数=11 预期=1
+PASS 01-entry 实渲光点有落脚面 11/11 离地 0.170..0.170
+PASS 01-entry 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 BridgeApproach 全线脚下真实碰撞面 25/25 端点=CH02_BRIDGE_DRAW 空点=
+ROUTE BridgeApproach (-9.1214, 80.0000, 63.7000) -> (-8.6514, 80.0000, 59.5200)
+PIXELS 01-entry diffRGBsum>20=12609
+PASS 01-entry 玩家眼相机有可见光点像素 12609
+CAM 01-entry eye=(-9.1214, 81.2000, 63.7000) forward=(0.0000, -0.2873, -0.9578) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 新档断桥实体保持关闭
+PASS 新档断桥缺口无承重碰撞面
+STATE 02-before-draw leg=Hidden stage=1 checkpoint=CH02_BRIDGE_DRAW foot=(-8.6521, 80.0000, 59.5263) moving=False count=0
+PASS 02-before-draw 实际路线 Hidden 预期 Hidden
+PASS 02-before-draw 实渲点数=0 预期=0
+CAM 02-before-draw eye=(-8.6521, 81.2000, 59.5263) forward=(0.0000, -0.2873, -0.9578) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 真实铜扣直接装在石案、旧按钮事件仍唯一连向原画板
+BUTTON (-8.3191, 81.0341, 59.0427) floor=(-8.6521, 80.0000, 59.5263)
+PASS 真实手势观测从腰槽拿取同一实笔
+PASS 按实体铜扣才打开方直之矩；template=Assets/Art/Glyphs/SquareRule.asset floor=(-8.6521, 80.0000, 59.5263)
+STATE 02a-panel-open leg=Hidden stage=1 checkpoint=CH02_BRIDGE_DRAW foot=(-8.6521, 80.0000, 59.5263) moving=False count=0
+PASS 02a-panel-open 实际路线 Hidden 预期 Hidden
+PASS 02a-panel-open 实渲点数=0 预期=0
+CAM 02a-panel-open eye=(-8.6521, 81.2000, 59.5263) forward=(0.0000, -0.2425, -0.9701) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 原笔尖模板轨迹匹配成功，结算前仍为断桥
+PASS 成功只结算一次并收起视图
+PASS 恢复 postrepair.json，当前节点 CH02_ENTRANCE，场景脚底 (-9.12, 80.00, 63.70)
+PASS 修桥存档切换为可走的真实桥面
+STATE 03-over-repaired-bridge leg=BridgeToAltar stage=2 checkpoint=CH02_ENTRANCE foot=(-9.1210, 80.0000, 58.7300) moving=False count=16
+PASS 03-over-repaired-bridge 实际路线 BridgeToAltar 预期 BridgeToAltar
+PASS 03-over-repaired-bridge 实渲点数=16 预期=1
+PASS 03-over-repaired-bridge 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 03-over-repaired-bridge 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 BridgeToAltar 全线脚下真实碰撞面 135/135 端点=入祭坛守备区域 空点=
+ROUTE BridgeToAltar (-9.1214, 80.0000, 63.7000) -> (-8.6514, 80.0000, 59.5200) -> (-9.1214, 80.0000, 41.0000) -> (-9.1214, 80.0000, 40.1500)
+PIXELS 03-over-repaired-bridge diffRGBsum>20=4222
+PASS 03-over-repaired-bridge 玩家眼相机有可见光点像素 4222
+CAM 03-over-repaired-bridge eye=(-9.1210, 81.2000, 58.7300) forward=(0.0000, -0.2873, -0.9578) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 故障注入：可见桥面失去实体支撑，跨崖点=0 渲染点=0 关闭承重 collider=9
+STATE 04-altar-combat leg=Hidden stage=2 checkpoint=CH02_ENTRANCE foot=(-9.1212, 80.0000, 40.8804) moving=False count=0
+PASS 04-altar-combat 实际路线 Hidden 预期 Hidden
+PASS 04-altar-combat 实渲点数=0 预期=0
+CAM 04-altar-combat eye=(-9.1212, 81.2000, 40.8804) forward=(0.0000, -0.2873, -0.9578) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 05-altar-cleared leg=AltarToA stage=2 checkpoint=CH02_ENTRANCE foot=(-9.1212, 80.0000, 40.8804) moving=False count=16
+PASS 05-altar-cleared 实际路线 AltarToA 预期 AltarToA
+PASS 05-altar-cleared 实渲点数=16 预期=1
+PASS 05-altar-cleared 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 05-altar-cleared 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 AltarToA 全线脚下真实碰撞面 117/117 端点=上层乘员侧板 空点=
+ROUTE AltarToA (-9.1214, 80.0000, 40.1500) -> (-7.5714, 80.0000, 37.0000) -> (-7.5714, 80.0000, 24.3000) -> (-9.1214, 80.0000, 22.3000) -> (-8.2914, 80.0000, 21.5100)
+PIXELS 05-altar-cleared diffRGBsum>20=4444
+PASS 05-altar-cleared 玩家眼相机有可见光点像素 4444
+CAM 05-altar-cleared eye=(-9.1212, 81.2000, 40.8804) forward=(0.0000, -0.2873, -0.9578) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 恢复 a-middle.json，当前节点 CH02_A_MIDDLE，场景脚底 (-6.12, 0.00, 20.40)
+STATE 06-west-checkpoint leg=AToHub stage=2 checkpoint=CH02_A_MIDDLE foot=(-6.1214, 0.0000, 20.4000) moving=False count=16
+PASS 06-west-checkpoint 实际路线 AToHub 预期 AToHub
+PASS 06-west-checkpoint 实渲点数=16 预期=1
+PASS 06-west-checkpoint 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 06-west-checkpoint 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 AToHub 全线脚下真实碰撞面 265/265 端点=中控操作位 空点=
+ROUTE AToHub (-7.6214, 0.0000, 20.4000) -> (-6.1214, 0.0000, 20.4000) -> (21.6000, 0.0000, 20.4000) -> (29.6000, 0.0000, 12.5000) -> (35.6000, 0.0000, 12.5000)
+PIXELS 06-west-checkpoint diffRGBsum>20=4833
+PASS 06-west-checkpoint 玩家眼相机有可见光点像素 4833
+CAM 06-west-checkpoint eye=(-6.1214, 1.2000, 20.4000) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 07-hub-workshop leg=HubToWorkshop stage=3 checkpoint=CH02_HUB foot=(33.5581, 0.0000, 12.5003) moving=False count=16
+PASS 07-hub-workshop 实际路线 HubToWorkshop 预期 HubToWorkshop
+PASS 07-hub-workshop 实渲点数=16 预期=1
+PASS 07-hub-workshop 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 07-hub-workshop 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 PickupTenon 全线脚下真实碰撞面 199/199 端点=工坊院门内侧 空点=
+ROUTE PickupTenon (35.6000, 0.0000, 12.5000) -> (33.6000, 0.0000, 12.5000) -> (30.6000, 0.0000, 24.5000) -> (30.6000, 0.0000, 36.5000) -> (30.6000, 0.0000, 37.4000) -> (30.6000, 0.0000, 44.5000)
+PIXELS 07-hub-workshop diffRGBsum>20=3920
+PASS 07-hub-workshop 玩家眼相机有可见光点像素 3920
+CAM 07-hub-workshop eye=(33.5581, 1.2000, 12.5003) forward=(-0.1860, -0.3163, 0.9302) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 07w-workshop-bridge leg=HubToWorkshop stage=3 checkpoint=CH02_HUB foot=(30.6093, 0.0000, 24.4623) moving=False count=16
+PASS 07w-workshop-bridge 实际路线 HubToWorkshop 预期 HubToWorkshop
+PASS 07w-workshop-bridge 实渲点数=16 预期=1
+PASS 07w-workshop-bridge 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 07w-workshop-bridge 沿用首章材质 NarutoVR/Quest Trail Spark
+PIXELS 07w-workshop-bridge diffRGBsum>20=4353
+PASS 07w-workshop-bridge 玩家眼相机有可见光点像素 4353
+CAM 07w-workshop-bridge eye=(30.6093, 1.2000, 24.4623) forward=(0.0000, -0.3134, 0.9496) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 08-workshop-combat leg=Hidden stage=3 checkpoint=CH02_HUB foot=(30.6000, 0.0000, 37.2500) moving=False count=0
+PASS 08-workshop-combat 实际路线 Hidden 预期 Hidden
+PASS 08-workshop-combat 实渲点数=0 预期=0
+CAM 08-workshop-combat eye=(30.6000, 1.2000, 37.2500) forward=(0.0000, -0.2149, 0.9766) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 08b-workshop-cleared leg=PickupTenon stage=3 checkpoint=CH02_HUB foot=(30.6000, 0.0000, 37.2500) moving=False count=16
+PASS 08b-workshop-cleared 实际路线 PickupTenon 预期 PickupTenon
+PASS 08b-workshop-cleared 实渲点数=16 预期=1
+PASS 08b-workshop-cleared 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 08b-workshop-cleared 沿用首章材质 NarutoVR/Quest Trail Spark
+PIXELS 08b-workshop-cleared diffRGBsum>20=4607
+PASS 08b-workshop-cleared 玩家眼相机有可见光点像素 4607
+CAM 08b-workshop-cleared eye=(30.6000, 1.2000, 37.2500) forward=(-0.0918, -0.2961, 0.9507) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+WORKHOLDER (29.9000, 0.6530, 44.5000) room=(20.6000, 0.3900, 54.5000)
+PASS 真实捏合拿起主榫
+STATE 08c-tenon-carried leg=ReturnTenon stage=3 checkpoint=CH02_HUB foot=(29.9811, 0.0000, 43.6598) moving=False count=16
+PASS 08c-tenon-carried 实际路线 ReturnTenon 预期 ReturnTenon
+PASS 08c-tenon-carried 实渲点数=16 预期=1
+PASS 08c-tenon-carried 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 08c-tenon-carried 沿用首章材质 NarutoVR/Quest Trail Spark
+PIXELS 08c-tenon-carried diffRGBsum>20=3784
+PASS 08c-tenon-carried 玩家眼相机有可见光点像素 3784
+CAM 08c-tenon-carried eye=(29.9811, 1.2000, 43.6598) forward=(0.0921, -0.2873, -0.9534) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 持榫路线光点出现时原物仍在右手
+STATE 08d-dropped-but-safe leg=DroppedTenon stage=3 checkpoint=CH02_HUB foot=(30.5976, 0.0000, 38.0388) moving=False count=15
+PASS 08d-dropped-but-safe 实际路线 DroppedTenon 预期 DroppedTenon
+PASS 08d-dropped-but-safe 实渲点数=15 预期=1
+PASS 08d-dropped-but-safe 实渲光点有落脚面 15/15 离地 0.170..0.170
+PASS 08d-dropped-but-safe 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 DroppedTenon 全线脚下真实碰撞面 199/199 端点=掉落主榫所在路面 空点=
+ROUTE DroppedTenon (35.6000, 0.0000, 12.5000) -> (33.6000, 0.0000, 12.5000) -> (30.6000, 0.0000, 24.5000) -> (30.6000, 0.0000, 36.5000) -> (30.6000, 0.0000, 37.4000) -> (30.6000, 0.0000, 43.2799) -> (29.9811, 0.0000, 43.2799) -> (29.9811, 0.0000, 43.2799)
+PIXELS 08d-dropped-but-safe diffRGBsum>20=3890
+PASS 08d-dropped-but-safe 玩家眼相机有可见光点像素 3890
+CAM 08d-dropped-but-safe eye=(30.5976, 1.2000, 38.0388) forward=(0.0000, -0.3048, 0.9524) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 故障注入：失落主榫位于工坊无落脚面的上空，终点 (34.7296, 0.0000, 45.7941) 路线=Hidden
+PASS 恢复 hub.json，当前节点 CH02_HUB，场景脚底 (35.60, 0.00, 12.50)
+STATE 09-hub-restored leg=HubToWorkshop stage=3 checkpoint=CH02_HUB foot=(35.6000, 0.0000, 12.5000) moving=False count=16
+PASS 09-hub-restored 实际路线 HubToWorkshop 预期 HubToWorkshop
+PASS 09-hub-restored 实渲点数=16 预期=1
+PASS 09-hub-restored 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 09-hub-restored 沿用首章材质 NarutoVR/Quest Trail Spark
+PIXELS 09-hub-restored diffRGBsum>20=1748
+PASS 09-hub-restored 玩家眼相机有可见光点像素 1748
+CAM 09-hub-restored eye=(35.6000, 1.2000, 12.5000) forward=(-0.2747, -0.2930, 0.9158) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS 恢复 seated.json，当前节点 CH02_HUB，场景脚底 (35.60, 0.00, 12.50)
+STATE 10-b-control leg=HubToLeverB stage=4 checkpoint=CH02_HUB foot=(35.6000, 0.0000, 12.5000) moving=False count=16
+PASS 10-b-control 实际路线 HubToLeverB 预期 HubToLeverB
+PASS 10-b-control 实渲点数=16 预期=1
+PASS 10-b-control 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 10-b-control 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 HubToLeverB 全线脚下真实碰撞面 267/267 端点=分控杆站位 空点=
+ROUTE HubToLeverB (35.6000, 0.0000, 12.5000) -> (41.6000, 0.0000, 12.5000) -> (49.6000, 0.0000, 20.4000) -> (78.1714, 0.0000, 20.4000) -> (77.4214, 0.0000, 19.4200)
+PIXELS 10-b-control diffRGBsum>20=4707
+PASS 10-b-control 玩家眼相机有可见光点像素 4707
+CAM 10-b-control eye=(35.6000, 1.2000, 12.5000) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 10e-east-span leg=HubToLeverB stage=4 checkpoint=CH02_HUB foot=(49.5695, 0.0000, 20.3699) moving=False count=16
+PASS 10e-east-span 实际路线 HubToLeverB 预期 HubToLeverB
+PASS 10e-east-span 实渲点数=16 预期=1
+PASS 10e-east-span 实渲光点有落脚面 16/16 离地 0.170..0.170
+PASS 10e-east-span 沿用首章材质 NarutoVR/Quest Trail Spark
+PIXELS 10e-east-span diffRGBsum>20=4305
+PASS 10e-east-span 玩家眼相机有可见光点像素 4305
+CAM 10e-east-span eye=(49.5695, 1.2000, 20.3699) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 11-armed-basket leg=BoardB stage=4 checkpoint=CH02_HUB foot=(77.4321, 0.0000, 19.5235) moving=False count=6
+PASS 11-armed-basket 实际路线 BoardB 预期 BoardB
+PASS 11-armed-basket 实渲光点有落脚面 6/6 离地 0.170..0.170
+PASS 11-armed-basket 沿用首章材质 NarutoVR/Quest Trail Spark
+PASS 路线 BoardB 全线脚下真实碰撞面 18/18 端点=B 篮乘员区 空点=
+ROUTE BoardB (77.4214, 0.0000, 19.4200) -> (78.1714, 0.0000, 20.4000) -> (78.7214, 0.0000, 20.4000) -> (79.3614, 0.0000, 20.4000)
+PIXELS 11-armed-basket diffRGBsum>20=2453
+PASS 11-armed-basket 玩家眼相机有可见光点像素 2453
+CAM 11-armed-basket eye=(77.4321, 1.2000, 19.5235) forward=(0.9015, -0.4327, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+STATE 12-b-in-motion leg=Hidden stage=4 checkpoint=CH02_HUB foot=(80.6151, -2.1873, 20.3998) moving=True count=0
+PASS 12-b-in-motion 实际路线 Hidden 预期 Hidden
+PASS 12-b-in-motion 实渲点数=0 预期=0
+STATE 13-complete leg=Hidden stage=4 checkpoint=CH02_B_VALLEY foot=(78.7511, -80.0000, 20.3998) moving=False count=0
+PASS 13-complete 实际路线 Hidden 预期 Hidden
+PASS 13-complete 实渲点数=0 预期=0
+PASS 恢复 b-valley.json，当前节点 CH02_B_VALLEY，场景脚底 (76.97, -80.00, 20.40)
+STATE 14-valley-checkpoint leg=Hidden stage=4 checkpoint=CH02_B_VALLEY foot=(76.9714, -80.0000, 20.4000) moving=False count=0
+PASS 14-valley-checkpoint 实际路线 Hidden 预期 Hidden
+PASS 14-valley-checkpoint 实渲点数=0 预期=0
+CAM 14-valley-checkpoint eye=(76.9714, -78.8000, 20.4000) forward=(0.9524, -0.3048, 0.0000) fov=60 GPU=NVIDIA GeForce RTX 4050 Laptop GPU
+PASS END

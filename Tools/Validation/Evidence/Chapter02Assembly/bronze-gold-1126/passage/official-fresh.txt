@@ -1,0 +1,11 @@
+PASS 正式通路符阶段与画板
+ANCHOR near=(-9.1214, 80.0000, 57.1600) far=(-9.1214, 80.0000, 52.8400) floorMask=51 bodyRadius=0.22 stage=0
+PASS 新局无实桥与旧桥
+PASS 01-fresh leg=BridgeApproach foot=(-9.1214, 80.0000, 63.7000)
+PASS 01-fresh dots=11 supported=11 onSpell=0 minSideMargin=-
+PASS 初始路线在近岸前石案收束
+PASS 从出生走至石案
+PASS 02-at-desk-no-cast leg=Hidden foot=(-8.6514, 80.0000, 59.5200)
+PASS 02-at-desk-no-cast dots=0 supported=0 onSpell=0 minSideMargin=-
+PASS 成桥前跨中无碰撞且没有指崖金点
+PASS END

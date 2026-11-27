@@ -1,0 +1,45 @@
+现场旧工奴根及其子外观均未启用
+已安装的祭坛房间使用现场 RPG、头部/移动根和 EnemyManager
+现场 RPG 初始化完毕，可进入真实房间，存档隔离：ch02-basket-test-9d2a049115414a28bcb842407ddbf239.json
+Cold post-repair checkpoint restored into altar with bridge repaired
+实笔工具带完成首次 LateUpdate 挂回
+双手来源已配置，场景恰有两个 HandVisual
+Left 官方可见手和对应输入引用
+Right 官方可见手和对应输入引用
+断桥画符与原玩家、唯一工具带的交互器接线
+实笔为启用的原章节物品，工具带已完成初始化
+实笔确在工具带归位槽，槽与物品双向引用一致
+干粮使用原工具带、同一玩家和正式挂在头部的嘴区
+剧情或配置尚未发放口粮，未生成初始口粮包
+上层定目帘初始透明、隶属头部相机，无 GraphicRaycaster 或接收射线的图形；相机=二章 · 玩家与工坊校准/XROriginCameraRig/TrackingSpace/CenterEyeAnchor
+桌面模拟进入战区：head=(-9.1214, 81.2000, 38.0000) floor=(-9.1214, 80.0000, 38.0000) rig=二章 · 玩家与工坊校准/XROriginCameraRig
+玩家脚底进入祭坛后由 CombatRoomEncounter 自动出生、绑定现有 post 和 A 篮
+出生时 A4 活动渲染网格 ID=72262,72274,72284,72288,72296,72280,72304,72292 搬运者根=(-9.1214, 80.0833, 35.0000)
+正式 A4 外观随房间出生 lease=1 stoneID=-4718 rigidbodyID=-4714 source=Assets/Art/Enemies/CanJiOu/BallastStoneA4/T25-A4-Unity.fbx
+工奴进入生产搬运 Animator 状态
+持姿 phase=0.025450 local=(0.0027, 1.8125, 0.6811) rotation=(-0.14416, -0.02062, -0.08307, 0.98585) profile=Assets/ScriptableObjects/敌人战斗配置/StoneCarrierProfile.asset curve=Assets/ScriptableObjects/敌人战斗配置/A4镇石搬运持姿.asset
+背载状态不能施力
+正式非致命受击进入撤离
+实际撤离至示例落石边缘 (-9.1214, 80.0833, 29.5305)
+生产受击结算掉下原石/原刚体 ID=-4718/-4714
+原房间确认当轮清场
+已清场但玩家尚未登篮，符力继续关闭，石心=(-9.1214, 80.5250, 30.3055)
+真实玩家代表点进入原乘员盒，符力开放；head=(-9.1214, 81.2000, 20.3500)
+Center ray: 二章 · 玩家与工坊校准·敌人会话/CanJiOu_Room(Clone)/身体受击区 distance=6.548145
+Qianjun sweep=1 lock=True tip=(-9.1214, 81.0500, 22.7500) from=(-9.1214, 80.5250, 30.3055)
+Center ray: 二章 · 玩家与工坊校准·敌人会话/CanJiOu_Room(Clone)/身体受击区 distance=6.548144
+Qianjun sweep=2 lock=True tip=(-9.1214, 81.0500, 22.7500) from=(-9.1214, 80.5250, 30.3055)
+Qianjun sweep=3 lock=True tip=(-9.1214, 81.2400, 22.4100) from=(-9.1214, 80.5250, 30.3054)
+Qianjun sweep=4 lock=True tip=(-9.1214, 81.0500, 21.2500) from=(-9.1214, 80.5250, 24.3097)
+Qianjun sweep=5 lock=True tip=(-9.1214, 81.2400, 21.8100) from=(-9.1214, 80.5250, 22.2950)
+出篮对照：脚/头已移出原乘员盒
+onDocked count=1 stone=-4718 at=(-9.1214, 80.2450, 21.0000)
+同一 A4 实例、刚体和渲染网格锁定，onDocked 恰好一次
+原篮、乘员盒、锁槽保持同一实例
+玩家移出后镇石已入槽，篮与玩家保持静止
+携原镇石回篮后开动
+A 行程中物理高度已下降
+A 途中手动保存落在上层安全检查点
+A 途中按真实 RPG 入口读档
+恢复上层起点，原篮回摆，石与战区重置，可重试；floor=(-9.1214, 80.0000, 63.7000)
+PASS interrupted

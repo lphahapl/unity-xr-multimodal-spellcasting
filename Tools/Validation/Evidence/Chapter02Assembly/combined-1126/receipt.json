@@ -1,0 +1,50 @@
+{
+  "time": "2026-11-26T02:03:54+08:00",
+  "engine": "Unity 6000.3.10f1",
+  "baselineSHA256": "e82f24bdef5532e0a39fc9551860a00f7de6aa9c7a15277f842b1d1c8a33681f",
+  "releaseSHA256": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+  "formalDiskReadbackSHA256": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+  "formalSceneMetaSHA256": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "exit": {
+    "fresh": 0,
+    "drawing": 0,
+    "legacy": 0,
+    "altar": 0,
+    "workshop": 0,
+    "seated": 0
+  },
+  "followupExit": {
+    "fresh": 0,
+    "workshop": 0
+  },
+  "assertions": {
+    "fresh": 27,
+    "drawing": 5,
+    "legacy": 6,
+    "workshop-play": 34,
+    "cold-seated": 6,
+    "official-hands": 20
+  },
+  "altarDockEvents": 1,
+  "assets": {
+    "altar-aim.txt": "645024f1672fadc7200cf90346dd714db4edad947ec69eaa74312aa73a488ae4",
+    "altar-install.txt": "e7ccfb64649bdb0c9265ab42076e0fb450529e7e3105cf01b6ad438affa7f115",
+    "altar-play.txt": "41cbb8583b8e06ae75e7f883e2a75f3297211dda80eb343e09f916627d16ff02",
+    "altar-transit.csv": "dad0b05dfd0dc1ff9eda6b85a280d8c369c9291ca7cf0227d95cd592be1e3184",
+    "bridge-play.txt": "f84797a07c7b619390d2c7f43d94787fb50d023099e4e1950d6c9c72fd717585",
+    "Chapter02_SuspendedPath.candidate.unity": "cf4b60b25f15aad2dd8400e8d302d97e470407ebaa11867ac1b5e23c216bb854",
+    "cold-seated.txt": "fe1afaec9f400733f52a624ae78f7346f777fab1c0cabfa36f2dc6393baebc8a",
+    "hand-source.json": "35688467f937cfffab11cdaec143c47e2c95709df5586271b412b9b577e7ad04",
+    "main-inspection.txt": "d9acd91368600ae9df2d2bd5d748c87c445ed81d461dfbba8d44192194b469f1",
+    "main-readback.txt": "e2c66202eac33db849f707b80087f3ab9e725f8570be7b2de342a9478298e396",
+    "neighbors.json": "6642ded2ab195f77e212459ed885657a560b929b46ee74effa73657e443648c6",
+    "object-diff.json": "51b32a0bc8737b574deea5557a2d18846630cbddec5f8a2dcbad0184c580b680",
+    "official-hands.txt": "592bf8e1e721ae38ee487c714546fd2ea3a57aeec8737ace0063bfad95af83df",
+    "replay-fixtures.zip": "59603f83c813aa3bbe819b7cb4f2d534ff5cc661454008a6df358e676039594d",
+    "workshop-play.txt": "e7e78ddf90f1e44223b633e69a5f77d061a4774ad3c99ba75bd8e6266b6a2904"
+  },
+  "chapter01Unchanged": {
+    "Courtyard": true,
+    "Awakening": true
+  }
+}

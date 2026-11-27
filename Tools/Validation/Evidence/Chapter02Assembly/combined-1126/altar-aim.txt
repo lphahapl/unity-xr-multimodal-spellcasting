@@ -1,0 +1,15 @@
+[altar-first]
+已清场但玩家尚未登篮，符力继续关闭，石心=(-9.121366, 80.525000, 30.308010)
+Qianjun sweep=1 lock=False tip=(-9.121372, 81.050000, 21.250010) from=(-9.121366, 80.525000, 30.308010)
+FAIL System.Exception: 同一 A4 实例、刚体和渲染网格锁定，onDocked 恰好一次
+[altar-second]
+已清场但玩家尚未登篮，符力继续关闭，石心=(-9.121366, 80.525000, 30.286170)
+Qianjun sweep=1 lock=False tip=(-9.121367, 81.050000, 22.750000) from=(-9.121366, 80.525000, 30.286170)
+FAIL System.Exception: 同一 A4 实例、刚体和渲染网格锁定，onDocked 恰好一次
+[altar]
+已清场但玩家尚未登篮，符力继续关闭，石心=(-9.121366, 80.525000, 30.302550)
+Center ray: 二章 · 玩家与工坊校准·敌人会话/CanJiOu_Room(Clone)/身体受击区 distance=6.545252
+Qianjun sweep=1 lock=True tip=(-9.121367, 81.050000, 22.750000) from=(-9.121366, 80.525000, 30.302550)
+Center ray: 二章 · 玩家与工坊校准·敌人会话/CanJiOu_Room(Clone)/身体受击区 distance=6.545252
+onDocked count=1 stone=-6922 at=(-9.121380, 80.245000, 21.000010)
+PASS

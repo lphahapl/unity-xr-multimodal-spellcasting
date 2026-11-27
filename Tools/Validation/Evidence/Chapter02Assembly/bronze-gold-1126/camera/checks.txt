@@ -1,0 +1,9 @@
+PASS 恢复 seated.json，当前节点 CH02_HUB，场景脚底 (35.60, 0.00, 12.50)
+OLD floor=(49.5695, 0.0000, 20.3699) eye=(49.5695, 1.2000, 20.3699) camera=(0.0000, 0.0000, -1.0000) rig=(0.0000, 0.0000, -1.0000) belt=(0.0000, 0.0000, -1.0000) pen=(49.4143, 0.9529, 20.2265)
+RAY CANDIDATES all=212 intersect=10
+PICK 1126/1127 diffAll=68624 二章 · 玩家与工坊校准/ChapterToolBelt/WornSlots/BeltVisualV2/BeltBody/Visual/BeltBodyV2_LOD0 bounds=Center: (49.57, 1.00, 20.32), Extents: (0.18, 0.19, 0.13)
+PASS 同一帧仅移除该 renderer，棕环特征点落在消失区域=1126/1127；还原像素差=0
+CULPRIT scene=Chapter02_SuspendedPath path=二章 · 玩家与工坊校准/ChapterToolBelt/WornSlots/BeltVisualV2/BeltBody/Visual/BeltBodyV2_LOD0 type=MeshRenderer mesh=BeltBodyV2_LOD0 meshFile=Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2.fbx prefab=- materials=BeltBodyV2@Assets/Art/Props/ShenShangToolBelt/V2/Geometry/BeltBody/BeltBodyV2.mat pos=(49.5695, 0.8100, 20.2099) nearestBounds=0.0001670148
+SETTLED 02-level-120cm-settled floor=(49.5695, 0.0000, 20.3699) eye=(49.5695, 1.2000, 20.3699) camera=(0.9524, -0.3048, 0.0000) rig=(1.0000, 0.0000, 0.0000) belt=(1.0000, 0.0000, 0.0000) selectedTotalPixels=28239 ringMarkers=0/1127 object=(49.7295, 0.8100, 20.3699)
+SETTLED 03-standing-162cm-settled floor=(49.5695, 0.0000, 20.3699) eye=(49.5695, 1.6200, 20.3699) camera=(0.9524, -0.3048, 0.0000) rig=(1.0000, 0.0000, 0.0000) belt=(1.0000, 0.0000, 0.0000) selectedTotalPixels=28230 ringMarkers=0/1127 object=(49.7295, 1.2300, 20.3699)
+PASS END

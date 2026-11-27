@@ -1,0 +1,20 @@
+PASS Edit exactly two visuals and a configured bilateral XR Hands source
+PASS Edit debug skeleton lines disabled
+PASS Edit transitive scene references exclude custom hand and Shen Shang character assets
+PASS Edit no player body or custom hand meshes instantiated
+PASS Edit Left official component bound to 左手·实际骨骼数据
+PASS Edit Left Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRLeftHand.fbx vertices=1360 joints=26
+PASS Edit Right official component bound to 右手·实际骨骼数据
+PASS Edit Right Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRRightHand.fbx vertices=1360 joints=26
+PASS Play exactly two visuals and a configured bilateral XR Hands source
+PASS Play debug skeleton lines disabled
+PASS Play transitive scene references exclude custom hand and Shen Shang character assets
+PASS Play no player body or custom hand meshes instantiated
+PASS Play Left official component bound to 左手·实际骨骼数据
+PASS Play Left Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRLeftHand.fbx vertices=1360 joints=26
+PASS Left SDK shows the renderer for a synthetic valid tracking sample on its original input
+PASS Left SDK hides the renderer on tracking loss
+PASS Play Right official component bound to 右手·实际骨骼数据
+PASS Play Right Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRRightHand.fbx vertices=1360 joints=26
+PASS Right SDK shows the renderer for a synthetic valid tracking sample on its original input
+PASS Right SDK hides the renderer on tracking loss

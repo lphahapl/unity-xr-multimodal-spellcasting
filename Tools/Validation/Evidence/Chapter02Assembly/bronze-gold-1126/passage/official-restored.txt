@@ -1,0 +1,50 @@
+PASS 正式通路符阶段与画板
+ANCHOR near=(-9.1214, 80.0000, 57.1600) far=(-9.1214, 80.0000, 52.8400) floorMask=51 bodyRadius=0.22 stage=2
+PASS 原方直之矩旧档冷启后仅由通路符桥承重
+PASS 横向射线证实桥宽=1.1000 长=4.3200 高=80.0000
+PASS 四分断面实桥顶 (-9.1214, 80.0000, 56.0800)
+PASS 四分断面实桥顶 (-9.1214, 80.0000, 55.0000)
+PASS 四分断面实桥顶 (-9.1214, 80.0000, 53.9200)
+PASS 03-legacy-cold leg=BridgeToAltar foot=(-9.1214, 80.0000, 63.7000)
+PASS 03-legacy-cold dots=16 supported=16 onSpell=0 minSideMargin=-
+ROUTE CH02_ENTRANCE (-9.1214, 80.0000, 63.7000) -> CH02_BRIDGE_DRAW (-8.6514, 80.0000, 59.5200) -> 通路符近岸中心 (-9.1214, 80.0000, 57.1600) -> 通路符对岸中心 (-9.1214, 80.0000, 52.8400) -> 首次接敌线 (-9.1214, 80.0000, 41.0000) -> 入祭坛守备区域 (-9.1214, 80.0000, 40.1500)
+PASS 六点引导跨桥全段保持实桥中心，足底至两侧均≥0.538m，22cm身宽半径全被支承
+ROUTE_EDGE min=0.5500 bodyRadius=0.22 overhangSamples=0 narrow=(-9.1214, 80.0000, 55.1200)
+PASS 按4cm采样完整已配置路线 598，无承重点=0
+PASS 连续原 WalkStep 到 04-desk
+SAMPLE 04-desk xyz=(-8.6514, 80.0000, 59.5200) floor=近岸残段 along=-2.3600 edgeMargin=0.0800
+PASS 04-desk leg=BridgeToAltar foot=(-8.6514, 80.0000, 59.5200)
+PASS 04-desk dots=16 supported=16 onSpell=10 minSideMargin=0.5500
+PASS 04-desk 实渲桥上金点贴近中心，侧余量≥49cm
+PASS 连续原 WalkStep 到 05-near
+SAMPLE 05-near xyz=(-9.1193, 80.0000, 57.0112) floor=通路符桥面|近岸残段 along=0.1488 edgeMargin=0.5479
+PASS 05-near leg=BridgeToAltar foot=(-9.1193, 80.0000, 57.0112)
+PASS 05-near dots=16 supported=16 onSpell=11 minSideMargin=0.5500
+PASS 05-near 实渲桥上金点贴近中心，侧余量≥49cm
+PASS 连续原 WalkStep 到 06-mid
+SAMPLE 06-mid xyz=(-9.1214, 80.0000, 55.0000) floor=通路符桥面 along=2.1600 edgeMargin=0.5500
+PASS 06-mid leg=BridgeToAltar foot=(-9.1214, 80.0000, 55.0000)
+PASS 06-mid dots=16 supported=16 onSpell=6 minSideMargin=0.5500
+PASS 06-mid 实渲桥上金点贴近中心，侧余量≥49cm
+PASS 连续原 WalkStep 到 07-far
+SAMPLE 07-far xyz=(-9.1214, 80.0000, 52.9701) floor=通路符桥面|对岸残段 along=4.1900 edgeMargin=0.5500
+PASS 07-far leg=BridgeToAltar foot=(-9.1214, 80.0000, 52.9701)
+PASS 07-far dots=16 supported=16 onSpell=0 minSideMargin=-
+PASS 连续原 WalkStep 到 08-beyond
+SAMPLE 08-beyond xyz=(-9.1214, 80.0000, 51.6400) floor=对岸残段 along=5.5200 edgeMargin=0.5500
+PASS 08-beyond leg=BridgeToAltar foot=(-9.1214, 80.0000, 51.6400)
+PASS 08-beyond dots=16 supported=16 onSpell=0 minSideMargin=-
+PASS 原存档入口保存
+PASS 原存档入口读回
+PASS 读档恢复同一条可走实桥且未生成重复桥
+PASS 09-after-restore leg=BridgeToAltar foot=(-9.1214, 80.0000, 63.7000)
+PASS 09-after-restore dots=16 supported=16 onSpell=0 minSideMargin=-
+PASS 旧档再次连续原步行至 CH02_BRIDGE_DRAW
+PASS 旧档再次连续原步行至 通路符近岸中心
+PASS 旧档再次连续原步行至 通路符对岸中心
+PASS 旧档再次连续原步行至 首次接敌线
+PASS 旧档再次连续原步行至 入祭坛守备区域
+PASS 连续走入祭坛真实接敌，寻路隐藏
+PASS 10-altar leg=Hidden foot=(-9.1214, 80.0000, 40.8346)
+PASS 10-altar dots=0 supported=0 onSpell=0 minSideMargin=-
+PASS END

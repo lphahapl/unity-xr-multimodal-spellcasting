@@ -1,0 +1,118 @@
+{
+  "before": "5fde465963731f04617d87206389f89f14391f10b2455e8aaf5fbd00b1e94e0f",
+  "candidate": "5dd207725cd973a5cc2f32b04b52322bdf7aa38fbeef5cd4adf79577f7f4818c",
+  "sceneMeta": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "changed": {
+    "79008830": {
+      "object": "",
+      "type": "1001",
+      "lines": [
+        "+    - targetCorrespondingSourceObject: {fileID: 521555727555064246, guid: f9f107e8ecae49048bda9d4fd7e1d1ec, type: 3}",
+        "+      insertIndex: -1",
+        "+      addedObject: {fileID: 842400475}"
+      ]
+    },
+    "206717574": {
+      "object": "二章 · 玩家与工坊校准",
+      "type": "114",
+      "lines": [
+        "+    alternateCheckpoint: {fileID: 721909438}"
+      ]
+    },
+    "790622550": {
+      "object": "双臂衡梁 · 120 m",
+      "type": "1",
+      "lines": [
+        "+  - component: {fileID: 790622554}"
+      ]
+    },
+    "968967808": {
+      "object": "B · 谷底吊篮",
+      "type": "1",
+      "lines": [
+        "+  - component: {fileID: 968967818}"
+      ]
+    },
+    "1011881999": {
+      "object": "A 中层篮口",
+      "type": "4",
+      "lines": [
+        "-  m_Children: []",
+        "+  m_Children:",
+        "+  - {fileID: 721909439}"
+      ]
+    }
+  },
+  "added": {
+    "398071562": {
+      "object": "定目铜纹",
+      "type": "1"
+    },
+    "398071563": {
+      "object": "定目铜纹",
+      "type": "224"
+    },
+    "398071564": {
+      "object": "定目铜纹",
+      "type": "114"
+    },
+    "398071565": {
+      "object": "定目铜纹",
+      "type": "222"
+    },
+    "721909437": {
+      "object": "西接驳栈道 · A 篮落稳存档",
+      "type": "1"
+    },
+    "721909438": {
+      "object": "西接驳栈道 · A 篮落稳存档",
+      "type": "114"
+    },
+    "721909439": {
+      "object": "西接驳栈道 · A 篮落稳存档",
+      "type": "4"
+    },
+    "790622554": {
+      "object": "双臂衡梁 · 120 m",
+      "type": "114"
+    },
+    "842400474": {
+      "object": "乘篮定目帘",
+      "type": "1"
+    },
+    "842400475": {
+      "object": "乘篮定目帘",
+      "type": "224"
+    },
+    "842400476": {
+      "object": "乘篮定目帘",
+      "type": "225"
+    },
+    "842400477": {
+      "object": "乘篮定目帘",
+      "type": "223"
+    },
+    "968967818": {
+      "object": "B · 谷底吊篮",
+      "type": "65"
+    },
+    "1173581697": {
+      "object": "遮景",
+      "type": "1"
+    },
+    "1173581698": {
+      "object": "遮景",
+      "type": "224"
+    },
+    "1173581699": {
+      "object": "遮景",
+      "type": "114"
+    },
+    "1173581700": {
+      "object": "遮景",
+      "type": "222"
+    }
+  },
+  "removed": [],
+  "unchanged": 810
+}

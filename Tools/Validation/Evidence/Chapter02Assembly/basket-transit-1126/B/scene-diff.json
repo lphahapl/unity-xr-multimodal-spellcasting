@@ -1,0 +1,68 @@
+{
+  "before": "5dd207725cd973a5cc2f32b04b52322bdf7aa38fbeef5cd4adf79577f7f4818c",
+  "candidate": "8c476f15b1774330aeb1ec0461b5bf328b5dc94f506a7de5441a50d2bb0a7af9",
+  "sceneMeta": "1a445276795e42e78bdc0f6ebc756c13263b0837c68997e8ea3fcabed67db05b",
+  "changed": {
+    "206717575": {
+      "object": "二章 · 玩家与工坊校准",
+      "type": "114",
+      "lines": [
+        "-  finalCheckpoint: {fileID: 1134302618}",
+        "+  finalCheckpoint: {fileID: 1063350954}"
+      ]
+    },
+    "243284619": {
+      "object": "B 分控杆",
+      "type": "1",
+      "lines": [
+        "+  - component: {fileID: 243284624}"
+      ]
+    },
+    "243284620": {
+      "object": "B 分控杆",
+      "type": "4",
+      "lines": [
+        "-  m_Children: []",
+        "+  m_Children:",
+        "+  - {fileID: 1313127745}"
+      ]
+    },
+    "455728502": {
+      "object": "B 谷底篮口",
+      "type": "4",
+      "lines": [
+        "-  m_Children: []",
+        "+  m_Children:",
+        "+  - {fileID: 1063350955}"
+      ]
+    }
+  },
+  "added": {
+    "243284624": {
+      "object": "B 分控杆",
+      "type": "114"
+    },
+    "1063350953": {
+      "object": "谷底 · B 篮外安全检查点",
+      "type": "1"
+    },
+    "1063350954": {
+      "object": "谷底 · B 篮外安全检查点",
+      "type": "114"
+    },
+    "1063350955": {
+      "object": "谷底 · B 篮外安全检查点",
+      "type": "4"
+    },
+    "1313127744": {
+      "object": "B 分控杆 · 铜握柄中心",
+      "type": "1"
+    },
+    "1313127745": {
+      "object": "B 分控杆 · 铜握柄中心",
+      "type": "4"
+    }
+  },
+  "removed": [],
+  "unchanged": 828
+}
