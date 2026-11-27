@@ -1,0 +1,89 @@
+{
+  "task": "T-26",
+  "candidate": "shen-young-a2-hunyuan",
+  "checkedAt": "2026-11-25T05:35:23+08:00",
+  "state": "blocked_daily_quota",
+  "creationPage": "https://3d.hunyuan.tencent.com/creation",
+  "service": "腾讯混元3D V3.1",
+  "mode": "图生3D / 多张图片",
+  "targetTier": "500k",
+  "sources": {
+    "concept": {
+      "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2.png",
+      "sha256": "f51ad3175e25c37dd30506e66d629e855677912f10334a0412dbe3492bc8ef65",
+      "sizePx": [
+        1536,
+        1024
+      ]
+    },
+    "turnaround": {
+      "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_四向.png",
+      "sha256": "4f6b6c7b2b1ee3ea4c45bf150bb469def021e560634de109ea82755df226d1a7",
+      "sizePx": [
+        1876,
+        838
+      ]
+    },
+    "faceReviewOnly": {
+      "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_脸部三向.png",
+      "sha256": "ed10ec1c8bb0a58e5b7faa5437553d916c5e3659f4c07ddff8a264e67c10ded3",
+      "sizePx": [
+        1920,
+        819
+      ]
+    }
+  },
+  "slots": {
+    "front": {
+      "uiLabel": "上传正图",
+      "path": "docs/visuals/20261125_shen_shang_young/views/01-front.png",
+      "sha256": "4ab276d934c3a088cbb5cf88b80a6b7e21978c76ed8ba8718f424fbe9159bae6",
+      "sizePx": [
+        403,
+        838
+      ],
+      "thumbnailConfirmed": true
+    },
+    "left": {
+      "uiLabel": "上传左图",
+      "path": "docs/visuals/20261125_shen_shang_young/views/02-left-bracer.png",
+      "sha256": "66dd6e06602098283e0fa4d839d42b2a310fb88f8b99effa9e35cf431b785b71",
+      "sizePx": [
+        403,
+        838
+      ],
+      "thumbnailConfirmed": true
+    },
+    "back": {
+      "uiLabel": "上传背图",
+      "path": "docs/visuals/20261125_shen_shang_young/views/03-back.png",
+      "sha256": "bcf564a1e60240fb6a6b8b201e2eaf50eace348c0c49f8b5d83c247d7ed3590d",
+      "sizePx": [
+        403,
+        838
+      ],
+      "thumbnailConfirmed": true
+    },
+    "right": {
+      "uiLabel": "上传右图",
+      "path": "docs/visuals/20261125_shen_shang_young/views/04-right-wrap.png",
+      "sha256": "508c85efab3a73da7d0236ee6752996219945aae995b0f6c570a63294307a51e",
+      "sizePx": [
+        403,
+        838
+      ],
+      "thumbnailConfirmed": true
+    }
+  },
+  "generationAttempts": 1,
+  "quotaBeforeAttempt": 0,
+  "quotaAfterAttempt": 0,
+  "serviceNotice": "您当日的次数已用完，可以前往腾讯云官网继续试用3D模型API服务",
+  "jobId": null,
+  "cloudModel": null,
+  "workbench": {
+    "collection": "t26-shen-a2-hunyuan",
+    "url": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-hunyuan",
+    "publishedVersion": null
+  }
+}

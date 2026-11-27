@@ -1,0 +1,64 @@
+{
+  "task": "T-26",
+  "candidate": "shen-young-a2-hunyuan",
+  "checkedAt": "2026-11-25T06:38:52+08:00",
+  "status": "blocked_no_verified_existing_trial_or_local_multiview",
+  "studio": {
+    "quota": 0,
+    "stagedViews": 4,
+    "newJob": false,
+    "priorRecordSha256": "e745cf396a0d92d1cbaa62a7f6c31836044f0e80095b438d13f358fd0a504d4f"
+  },
+  "cloudAPI": {
+    "resourcePackagePage": "https://console.cloud.tencent.com/ai3d/packages",
+    "browser": "Existing Chrome remote debugging session, dedicated read-only tab",
+    "observedRedirect": {
+      "host": "cloud.tencent.com",
+      "path": "/login",
+      "title": "登录 - 腾讯云"
+    },
+    "existingFreeCreditsVerified": null,
+    "accountApiAuthorizationVerified": null,
+    "publicTrial": {
+      "points": 100,
+      "condition": "first activation and claim; public eligibility is not a verified account balance"
+    },
+    "endpointAction": "SubmitHunyuanTo3DProJob",
+    "model": "3.1",
+    "frontInput": "ImageBase64 or ImageUrl",
+    "otherViews": [
+      "left",
+      "back",
+      "right"
+    ],
+    "listedStandardTexturedMultiViewPoints": 30,
+    "pointsConditions": "Normal 20 + MultiViewImages 10; PBR, custom face count, and explicit result format may add charges",
+    "sources": {
+      "trial": "https://cloud.tencent.cn/document/product/1804/120706",
+      "billing": "https://cloud.tencent.com/document/product/1804/123461",
+      "api": "https://cloud.tencent.com.cn/document/api/1804/123447"
+    },
+    "submission": false
+  },
+  "local": {
+    "scope": "Common Hugging Face and Torch caches, user download and app locations, Blender and AI tool directories on local drives",
+    "scannedRoots": 11,
+    "scannedDirectories": 20997,
+    "runtimeNamesFound": 0,
+    "checkpointCandidatesFound": 0,
+    "standardTencentEnvironmentVariableNamesFound": 0,
+    "standardTencentCliProfileDirsFound": 0,
+    "activePythonModulePresent": {
+      "hy3dgen": false,
+      "tencentcloud": false,
+      "tencentcloud_sdk": false,
+      "gradio": false
+    },
+    "installedGpu": {
+      "name": "NVIDIA GeForce RTX 4050 Laptop GPU",
+      "memoryMiB": 6141
+    },
+    "officialMultiviewModel": "https://huggingface.co/tencent/Hunyuan3D-2mv",
+    "officialRuntimeDirections": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2#gradio-app"
+  }
+}
