@@ -1,0 +1,281 @@
+{
+  "phase": "Review only. Three individually downloaded Hunyuan meshes and local fit corrections.",
+  "sourceHashes": {
+    "WrappedCore": "c31e749887c0fa7479819e9d61c3c937be9b0e98641caddfd5bfc8738cfd2d5d",
+    "DetachableSegment": "52f7c6d44c5193ea07f82a0d715b104302995470f8b5ee4aadaf62f114081656",
+    "SlideSleeve": "2f9fb191898c4ccb7b7af16e173b1631474a15049f90fe9777385f65cb270087"
+  },
+  "triangles": {
+    "WrappedCore": 3636,
+    "SlideSleeve": 3018,
+    "DetachableSegment": 2560
+  },
+  "totalTriangles": 9214,
+  "closedOutsideBlenderWidthThicknessHeightMm": [
+    18.46390124410391,
+    11.997283902019262,
+    36.58308647572994
+  ],
+  "actualWoodCaseFit": {
+    "sourceAssetPath": "Assets/Art/Props/ShenShangToolBelt/Geometry/WoodCase/WoodCase.fbx",
+    "sourceAssetSHA256": "0d26dcabced654e68f9f956d39fb73c3bc37d5a031af83e0a132396ca46985e0",
+    "verifiedGeometry": [
+      {
+        "caseLOD": "WoodCase_LOD0",
+        "sampleStepMm": 0.5,
+        "testedDepthRangeMm": [
+          -3,
+          30
+        ],
+        "intersections": [],
+        "passesClosedAssemblyAt28mmSeat": true
+      },
+      {
+        "caseLOD": "WoodCase_LOD1",
+        "sampleStepMm": 0.5,
+        "testedDepthRangeMm": [
+          -3,
+          30
+        ],
+        "intersections": [],
+        "passesClosedAssemblyAt28mmSeat": true
+      }
+    ],
+    "chosenDepthBelowMouthMm": 28.0,
+    "upperRopeAboveMouthMmAtChosenDepth": 8.583086475729942,
+    "physicalDeclaredSlotWidthThicknessDepthMm": [
+      38,
+      19,
+      80
+    ]
+  },
+  "closedPoseRopeTintSHA256": "afe1ca4cadcd744c7264c292e630d5fb8b3c83a0064555336ca549c456da372e",
+  "boreCrossSectionWidthThicknessMm": [
+    15.235351817458868,
+    8.881249418258667
+  ],
+  "mouthOpenBothEnds": {
+    "continuousBoreProbes": 187,
+    "unobstructed": 187,
+    "passed": true
+  },
+  "removedDetachedSourceSpeckVertices": 51,
+  "passesGeometricEnvelope": [
+    true,
+    true,
+    true
+  ],
+  "localCavityProcessing": {
+    "newLiningFacesBeforeTriangulation": 29,
+    "donorUvSwatch": {
+      "center": [
+        0.419921875,
+        0.73193359375
+      ],
+      "radius": [
+        0.029296875,
+        0.029296875
+      ],
+      "linearLuminance2th50th98th": [
+        0.17243452370166779,
+        0.18308237195014954,
+        0.19149178266525269
+      ]
+    },
+    "microEdgesCollapsed": 0
+  },
+  "sleeveQA": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "hidden back-to-back faces: SlideSleeve (1 pairs) - delete to save tris",
+      "asset lowest point z=-0.0185 (not resting on ground plane z=0)"
+    ],
+    "ground_z": -0.0185,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [
+      {
+        "where": "SlideSleeve",
+        "tri_pairs": 1
+      }
+    ],
+    "enclosed": [],
+    "objects": {
+      "SlideSleeve": {
+        "verts": 1509,
+        "faces": 3018,
+        "tris": 3018,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.03,
+        "uv_coverage_pct": 55.5
+      }
+    }
+  },
+  "sleeveFinish": {
+    "method": "Original metallic and AO channels retained byte-for-byte. Copper roughness floor 0.529 at metal B>=.29. Longitudinal wood variation is UV-projected from the existing mesh and isolated to the existing nonmetal assignment.",
+    "roughnessCopperBeforeP5P50P95": [
+      0.1098,
+      0.1608,
+      0.2275
+    ],
+    "roughnessCopperAfterP5P50P95": [
+      0.5294,
+      0.5294,
+      0.5294
+    ],
+    "woodUvPixelsAffected": 1363030,
+    "grainGainLimit": 0.084,
+    "hashes": {
+      "SlideSleeve_BaseColor.png": "328c3a3d4eb269fcaecc8eab25063e50f4e7df389c110fa54c551c5a5d7e7fb8",
+      "SlideSleeve_ORM.png": "131e848dd4216a63456bcb61ac65a87ef503ba1b2c879cebd7d54e36ae20e7b8",
+      "SlideSleeve_ReviewWood.png": "3970b12c8be38dae36efa9cfc0de5598ef8a107260b08b09837582d84a14c46f",
+      "SlideSleeve_ReviewORM.png": "e92b8fc12e6177046647d3e02720d1ed814669b5e93a7e868b0f77c4494562dd"
+    }
+  },
+  "actionSweep": {
+    "framesSampled": 443,
+    "frameInterval": 0.5,
+    "collisionEvents": [],
+    "collisionEventCount": 0,
+    "minimumSampledInkVertexDistanceToMovingSleeveMm": 0.4234630614519119,
+    "clearanceSamplesFrameMm": [
+      [
+        1,
+        0.4397760785650462
+      ],
+      [
+        5,
+        0.4397760785650462
+      ],
+      [
+        9,
+        0.4397760785650462
+      ],
+      [
+        13,
+        0.4397760785650462
+      ],
+      [
+        17,
+        0.4397760785650462
+      ],
+      [
+        21,
+        0.4397760785650462
+      ],
+      [
+        25,
+        0.4397760785650462
+      ],
+      [
+        29,
+        0.4397760785650462
+      ],
+      [
+        33,
+        0.4234630614519119
+      ],
+      [
+        37,
+        0.4625576548278332
+      ],
+      [
+        41,
+        0.7005988154560328
+      ],
+      [
+        45,
+        0.7136358763091266
+      ],
+      [
+        49,
+        0.7223415304906666
+      ],
+      [
+        53,
+        0.636909157037735
+      ],
+      [
+        57,
+        0.6614850135520101
+      ],
+      [
+        61,
+        0.591941294260323
+      ],
+      [
+        65,
+        0.6551644182763994
+      ],
+      [
+        69,
+        0.610596383921802
+      ]
+    ]
+  },
+  "slideTravelMm": 31.0,
+  "designDecisions": [
+    "Thumb notch and both original outer bronze ridges remain mapped to the cloud atlas.",
+    "A single rounded longitudinal bore uses the same atlas to expose unblocked true sleeve walls.",
+    "The detached piece scales out at a distance after visibly breaking off. No recovery or particle implementation is included."
+  ],
+  "states": {
+    "fps": 30,
+    "closedFrame": 1,
+    "slideOpenedFrame": 69,
+    "detachedFrame": 116,
+    "reclosedFrame": 222
+  },
+  "reviewGLB": {
+    "path": "PineInk-Review.glb",
+    "sha256": "52d26af4beb68863818bae6b56b63e21bf575b5f391b27181a9c930747f62904",
+    "visibleNodeNames": [
+      "DetachableSegment",
+      "SlideSleeve",
+      "WrappedCore"
+    ],
+    "animationNames": [
+      "\u63a8\u5f00\u3001\u6298\u6bb5\u3001\u6536\u5957"
+    ],
+    "animationTargets": [
+      {
+        "node": "DetachableSegment",
+        "path": "translation"
+      },
+      {
+        "node": "DetachableSegment",
+        "path": "rotation"
+      },
+      {
+        "node": "DetachableSegment",
+        "path": "scale"
+      },
+      {
+        "node": "SlideSleeve",
+        "path": "translation"
+      }
+    ],
+    "animationChannels": 4
+  }
+}
