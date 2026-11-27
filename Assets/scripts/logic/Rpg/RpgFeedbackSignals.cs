@@ -4,7 +4,7 @@ using UnityEngine;
 namespace NarutoVR.SealCombat.Rpg
 {
     public enum RpgActionCue { NavigationReady, TargetSelected, Blocked, Moved, Dodged, Cancelled, CastReady, Launched, Hit, Shield, Damage, Progress,
-        ThrowGripReady, ThrowRejected, DwellNearComplete }
+        ThrowGripReady, ThrowRejected, DwellNearComplete, PerfectDodge }
 
     /// <summary>Presentation listeners cannot interrupt gameplay settlement.</summary>
     public static class RpgFeedbackSignals

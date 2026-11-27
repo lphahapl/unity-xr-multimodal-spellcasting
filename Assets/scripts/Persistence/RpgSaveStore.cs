@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -22,11 +23,14 @@ namespace NarutoVR.SealCombat.Rpg
         readonly string path, profileId;
         readonly HashSet<string> knownSkills, knownCooldownGroups;
         readonly float maxHealth, maxMana;
+        readonly Func<RpgProgressData, bool> acceptsLocation;
+        bool routeInspection;
         [Serializable] sealed class VersionHeader { public int version = 0; }
 
         /// <summary>注入保存路径、档案身份、技能/冷却白名单和资源上限，不读取具体章节规则。</summary>
         public RpgSaveStore(IRpgSaveJson jsonCodec, string path, string profileId, IEnumerable<string> knownSkills,
-            float maxHealth = 100, float maxMana = 100, IEnumerable<string> knownCooldownGroups = null)
+            float maxHealth = 100, float maxMana = 100, IEnumerable<string> knownCooldownGroups = null,
+            Func<RpgProgressData, bool> acceptsLocation = null)
         {
             this.jsonCodec = jsonCodec ?? throw new ArgumentNullException(nameof(jsonCodec));
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentException("必须明确指定存档文件路径。", nameof(path));
@@ -35,6 +39,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!RpgDataRules.InRange(maxHealth, 1, RpgDataRules.MaximumStat) || !RpgDataRules.InRange(maxMana, 1, RpgDataRules.MaximumStat))
                 throw new ArgumentOutOfRangeException(nameof(maxHealth));
             this.path = Path.GetFullPath(path); this.profileId = profileId;
+            this.acceptsLocation = acceptsLocation;
             this.knownSkills = new HashSet<string>(knownSkills, StringComparer.Ordinal);
             this.knownCooldownGroups = knownCooldownGroups == null
                 ? new HashSet<string>(this.knownSkills, StringComparer.Ordinal)
@@ -46,13 +51,23 @@ namespace NarutoVR.SealCombat.Rpg
 
         /// <summary>优先读取主文件，损坏时尝试有效备份；未知较新版本不回退也不覆盖。</summary>
         public bool TryLoad(out RpgProgressData progress, out string reason)
+            => TryLoad(out progress, out reason, out _);
+
+        // The destination scene owns its catalogue. Inspect portable v2 data first without applying
+        // the outgoing scene's skill whitelist; the actual destination validates it again before use.
+        internal static RpgSaveStore InspectLocation(IRpgSaveJson codec, string path, string profileId,
+            Func<RpgProgressData, bool> acceptsLocation = null)
+            => new RpgSaveStore(codec, path, profileId, Array.Empty<string>(), acceptsLocation: acceptsLocation) { routeInspection = true };
+
+        /// <summary>返回实际通过校验的副本，兼容没有保存时间的旧档。</summary>
+        public bool TryLoad(out RpgProgressData progress, out string reason, out string readPath)
         {
-            progress = null;
+            progress = null; readPath = null;
             if (Read(path, out var primary, out bool future, out string primaryReason))
-            { progress = primary.progress; reason = null; return true; }
+            { progress = primary.progress; readPath = path; reason = null; return true; }
             if (future) { reason = primaryReason; return false; }
             if (Read(path + ".bak", out var backup, out bool backupFuture, out string backupReason))
-            { progress = backup.progress; reason = "主存档不可用，已从备份恢复：" + primaryReason; return true; }
+            { progress = backup.progress; readPath = path + ".bak"; reason = "主存档不可用，已从备份恢复：" + primaryReason; return true; }
             reason = backupFuture ? backupReason : "存档与备份均不可用。主文件：" + primaryReason + "；备份：" + backupReason;
             return false;
         }
@@ -60,6 +75,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>校验快照后写临时文件并复读，再原子替换主文件；失败保留已有文件。</summary>
         public bool TrySave(RpgProgressData progress, out string reason)
         {
+            if (routeInspection) { reason = "读取归属时不允许保存"; return false; }
             string temporary = path + ".tmp";
             try
             {
@@ -68,7 +84,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if (future || DifferentProfile(existing)) return false;
                 Read(path + ".bak", out var existingBackup, out future, out string backupReason);
                 if (future || DifferentProfile(existingBackup)) { reason = backupReason; return false; }
-                if (!Validate(progress, out reason)) return false;
+                if (!Validate(progress, out reason) || !ValidateLocation(progress, out reason)) return false;
                 var envelope = new SaveEnvelope { profileId = profileId, progress = progress };
                 string json = jsonCodec.Serialize(envelope);
                 if (Encoding.UTF8.GetByteCount(json) > MaximumFileBytes) { reason = "存档超过大小上限"; return false; }
@@ -136,6 +152,14 @@ namespace NarutoVR.SealCombat.Rpg
         bool DifferentProfile(SaveEnvelope envelope) => envelope != null &&
             RpgDataRules.ValidId(envelope.profileId) && envelope.profileId != profileId;
 
+        bool ValidateLocation(RpgProgressData progress, out string reason)
+        {
+            if (progress != null && (acceptsLocation == null || acceptsLocation(progress)))
+            { reason = null; return true; }
+            reason = "检查点的所属场景与存档槽不符";
+            return false;
+        }
+
         bool Read(string file, out SaveEnvelope envelope, out bool future, out string reason)
         {
             envelope = null; future = false;
@@ -153,6 +177,17 @@ namespace NarutoVR.SealCombat.Rpg
                 envelope = jsonCodec.Deserialize<SaveEnvelope>(json);
                 if (envelope == null) { reason = "JSON内容为空或无效"; return false; }
                 if (envelope.profileId != profileId) { reason = "存档档案ID不匹配"; return false; }
+                if (!ValidateLocation(envelope.progress, out reason)) return false;
+                if (routeInspection)
+                {
+                    var data = envelope.progress;
+                    if (data?.discoveredSkillIds == null || data.unlockedSkillIds == null || data.checkpoint?.cooldowns == null)
+                    { reason = "进度缺少技能或检查点"; return false; }
+                    var shape = new RpgSaveStore(jsonCodec, path, profileId,
+                        data.discoveredSkillIds.Concat(data.unlockedSkillIds), RpgDataRules.MaximumStat,
+                        RpgDataRules.MaximumStat, data.checkpoint.cooldowns.Select(cd => cd?.group));
+                    return shape.Validate(data, out reason);
+                }
                 return ValidateLoadedProgress(envelope.progress, out reason);
             }
             catch (Exception ex)

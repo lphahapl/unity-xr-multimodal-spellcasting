@@ -16,15 +16,79 @@ namespace NarutoVR.SealCombat
 
         BreathAim pendingBreathAim;
         SkillDefinition pendingBreathSkill;
-        enum MouthState { Ready, NoTracking, Released, TooFar }
+        GameObject pendingPilotFlame;
+        SkillDefinition chargeSkill;
+        GameObject chargeFlame;
+
+        // Both the small flame and the final projectile use this tracked world-space point.
+        bool TrySealFlamePose(out Pose pose)
+        {
+            pose = default;
+            if (!head || !TryGetWrist(true, out var left, out var lt) ||
+                !TryGetWrist(false, out var right, out var rt) ||
+                Math.Abs(lt - rt) > SealLab.SealFeatureExtractor.MaximumHandSkew) return false;
+            Vector3 center = GetSealCenter(left, right) + head.forward * .05f + Vector3.up * .055f;
+            pose = new Pose(center, Quaternion.LookRotation(head.forward, Vector3.up));
+            return true;
+        }
+
+        void ShowSealFlame(GameObject flame)
+        {
+            if (!flame) return;
+            bool visible = TrySealFlamePose(out var pose);
+            if (visible) flame.transform.SetPositionAndRotation(pose.position, pose.rotation);
+            if (visible != flame.activeSelf) flame.SetActive(visible);
+        }
+
+        internal void SetSequenceCharge(SkillDefinition skill)
+        {
+            if (!skill || !(skill.effectDefinition is BreathEffectDefinition { mode: BreathCastMode.SealProjectile }) ||
+                HasOccupiedHand || !RightHandActionAllowed) skill = null;
+            if (skill != chargeSkill)
+            {
+                FreePrepared(chargeFlame);
+                chargeFlame = null;
+                chargeSkill = skill;
+                if (!skill) mouthAimView?.Hide();
+            }
+            if (!chargeSkill || !head) return;
+            if (!chargeFlame)
+            {
+                if (!TrySealFlamePose(out var p)) return;
+                var settings = (BreathEffectDefinition)skill.effectDefinition;
+                chargeFlame = Instantiate(settings.pilotFlamePrefab, p.position, p.rotation, head);
+            }
+            ShowSealFlame(chargeFlame);
+        }
+
+        bool SealProjectileAim(SkillDefinition skill, BreathEffectDefinition settings, out FireballAim aim)
+        {
+            aim = default;
+            return TrySealFlamePose(out var pose) && WeaponOriginClear(pose.position, settings.radius) &&
+                TryResolveProjectileAim(pose.position, skill.aimProfile, settings.radius, settings.range, out aim);
+        }
+
+        enum MouthState { Ready, NoTracking, Released, TooFar, AimBehindMouth }
 
         internal void SetPendingMouthCondition(SkillDefinition skill)
         {
+            if (!skill) SetSequenceCharge(null);
+            if (skill) ClearBurstAim();
+            if (pendingBreathSkill && aimedChannel == null && !aimedBurst) mouthAimView?.Hide();
+            FreePrepared(pendingPilotFlame);
+            pendingPilotFlame = null;
             pendingBreathAim = default;
             pendingBreathSkill = skill;
             // A voice event can complete the match between hand frames, before the seal is raised.
-            if (skill && skill.effectDefinition is BreathEffectDefinition && skill.triggerMode != SkillTriggerMode.VoiceOnly)
-                GetMouthPose(skill, false, ref pendingBreathAim, out _);
+            if (skill && skill.effectDefinition is BreathEffectDefinition breath && skill.triggerMode != SkillTriggerMode.VoiceOnly)
+            {
+                GetMouthPose(skill, false, ref pendingBreathAim, out var pose);
+                if (head && breath.mode == BreathCastMode.Sustained && breath.pilotFlamePrefab)
+                {
+                    pendingPilotFlame = Instantiate(breath.pilotFlamePrefab, pose.position, pose.rotation, head);
+                    ShowSealFlame(pendingPilotFlame);
+                }
+            }
         }
 
         internal bool IsMouthConditionMet(SkillDefinition skill, bool sustaining)
@@ -32,12 +96,16 @@ namespace NarutoVR.SealCombat
             if (!skill) return false;
             if (skill.castCondition == SkillCastCondition.None) return true;
             if (pendingBreathSkill == skill)
-                return GetMouthPose(skill, sustaining, ref pendingBreathAim, out _) == MouthState.Ready;
+            {
+                var state = GetMouthPose(skill, sustaining, ref pendingBreathAim, out var pose);
+                ShowSealFlame(pendingPilotFlame);
+                return state == MouthState.Ready;
+            }
             BreathAim aim = default;
             return GetMouthPose(skill, sustaining, ref aim, out _) == MouthState.Ready;
         }
 
-        MouthState GetMouthPose(SkillDefinition skill, bool sustaining, ref BreathAim aim, out Pose pose)
+        MouthState GetMouthPose(SkillDefinition skill, bool sustaining, ref BreathAim aim, out Pose pose, bool resuming = false)
         {
             pose = default;
             if (!head) { aim = default; return MouthState.NoTracking; }
@@ -66,13 +134,13 @@ namespace NarutoVR.SealCombat
                 float leftWeight = .5f + (leftTop.y - rightTop.y) / (2 * heightBand);
                 Vector3 top = Vector3.Lerp(rightTop, leftTop, leftWeight);
                 Vector3 direction = top - pose.position;
-                if (Vector3.Dot(direction, head.forward) < .01f) return MouthState.TooFar;
+                if (Vector3.Dot(direction, head.forward) < .01f) return MouthState.AimBehindMouth;
                 pose.rotation = Quaternion.LookRotation(direction, head.up);
             }
             if (!nearMouth) return MouthState.Ready;
 
             Vector3 center = GetSealCenter(left, right);
-            float limit = sustaining ? skill.mouthStopDistance : skill.mouthStartDistance;
+            float limit = sustaining && !resuming ? skill.mouthStopDistance : skill.mouthStartDistance;
             return (center - pose.position).sqrMagnitude <= limit * limit ? MouthState.Ready : MouthState.TooFar;
         }
 
@@ -133,8 +201,15 @@ namespace NarutoVR.SealCombat
                 settings.ConfigureVisual(instance);
                 Pose launchPose = default;
                 BreathAim aim = pendingBreathSkill == skill ? pendingBreathAim : default;
-                bool CanStart() => !HasOccupiedHand && RightHandActionAllowed &&
-                    GetMouthPose(skill, false, ref aim, out launchPose) == MouthState.Ready;
+                bool CanStart()
+                {
+                    if (HasOccupiedHand || !RightHandActionAllowed) return false;
+                    if (settings.mode != BreathCastMode.SealProjectile)
+                        return GetMouthPose(skill, false, ref aim, out launchPose) == MouthState.Ready;
+                    if (chargeSkill != skill || !chargeFlame || !SealProjectileAim(skill, settings, out var shot)) return false;
+                    launchPose = new Pose(shot.origin, Quaternion.LookRotation(shot.direction, Vector3.up));
+                    return true;
+                }
                 if (settings.mode == BreathCastMode.Sustained)
                 {
                     var channel = new BreathChannel(this, instance, settings, skill);
@@ -148,16 +223,18 @@ namespace NarutoVR.SealCombat
                 projectile.radius = settings.radius;
                 projectile.lifetime = settings.range / settings.speed;
                 projectile.AttackerTarget = head;
+                ConfigureProjectileImpact(projectile, settings.impactPrefab);
+                projectile.AlignImpactToSurface = true;
                 var mark = settings.surfaceMark;
                 if (mark) projectile.MarkSurface = hit => StampSurface(hit, mark, Vector3.zero);
                 projectile.GameClock = GameClock;
                 return new PreparedSkillCast(() => CanStart() && WeaponOriginClear(launchPose.position, settings.radius),
-                    () => LaunchBreath(projectile, launchPose), () => FreePrepared(instance));
+                    () => LaunchBreath(projectile, launchPose, skill), () => FreePrepared(instance));
             }
             catch { FreePrepared(instance); throw; }
         }
 
-        void LaunchBreath(SkillProjectile projectile, Pose pose)
+        void LaunchBreath(SkillProjectile projectile, Pose pose, SkillDefinition skill)
         {
             try
             {
@@ -168,7 +245,17 @@ namespace NarutoVR.SealCombat
                 LastLaunchPosition = pose.position;
                 LastLaunchDirection = pose.forward;
                 ++LaunchCount;
+                ClearBurstAim();
+                if (skill.aimProfile && skill.aimProfile.showReticle && skill.aimProfile.launchedSeconds > 0)
+                {
+                    aimedBurst = projectile;
+                    burstSkill = skill;
+                    burstPose = pose;
+                    burstAimUntil = Now + skill.aimProfile.launchedSeconds;
+                }
                 projectile.gameObject.SetActive(true);
+                if (skill.effectDefinition is BreathEffectDefinition { mode: BreathCastMode.SealProjectile } &&
+                    projectile.TryGetComponent<FlyingFlameVisual>(out var flame)) flame.LaunchFormed();
                 if (projectile && !projectile.IsFinished) projectile.CheckLaunchOverlap();
             }
             catch { if (projectile) projectile.Finish(); throw; }
@@ -183,6 +270,8 @@ namespace NarutoVR.SealCombat
             readonly Rpg.RpgPlayerState vitals;
             double lastTick, nextDamage, paidSpraySeconds, lostAt = double.NaN;
             BreathAim aim;
+            GameObject pilotFlame;
+            bool spraying;
             bool cancelled;
 
             public BreathChannel(SkillController owner, GameObject visual, BreathEffectDefinition settings, SkillDefinition skill)
@@ -195,6 +284,14 @@ namespace NarutoVR.SealCombat
             }
 
             public bool IsAlive => !cancelled && visual;
+            public SkillDefinition Skill => skill;
+            public bool TryGetSprayPose(out Pose pose)
+            {
+                pose = default;
+                if (!IsAlive || !spraying || !visual.activeInHierarchy) return false;
+                pose = new Pose(visual.transform.position,visual.transform.rotation);
+                return true;
+            }
 
             public void Publish(Pose pose, BreathAim initialAim)
             {
@@ -209,6 +306,20 @@ namespace NarutoVR.SealCombat
                     visual.transform.SetParent(owner.head, false);
                     visual.transform.SetPositionAndRotation(pose.position, pose.rotation);
                     owner.SetActivationAudioAnchor(visual.transform);
+                    if (settings.pilotFlamePrefab)
+                    {
+                        if (owner.pendingBreathSkill == skill && owner.pendingPilotFlame)
+                        {
+                            pilotFlame = owner.pendingPilotFlame;
+                            owner.pendingPilotFlame = null;
+                        }
+                        else
+                            pilotFlame = Instantiate(settings.pilotFlamePrefab, pose.position, pose.rotation, owner.head);
+                        owner.ShowSealFlame(pilotFlame);
+                    }
+                    spraying = true;
+                    owner.ClearBurstAim();
+                    owner.aimedChannel = this;
                     visual.SetActive(true);
                 }
                 catch { Cancel(); throw; }
@@ -219,23 +330,39 @@ namespace NarutoVR.SealCombat
                 if (!owner.head || !owner.RightHandActionAllowed || !vitals.Alive || vitals.Mana <= 0) { Cancel(); return; }
                 double elapsed = Math.Max(0, now - lastTick);
                 lastTick = now;
-                var state = owner.GetMouthPose(skill, true, ref aim, out var pose);
+                var state = owner.GetMouthPose(skill, true, ref aim, out var pose, resuming: !spraying);
                 if (state == MouthState.NoTracking)
                 {
                     // Brief occlusion keeps the cast, with emission, damage and cost suspended.
                     if (double.IsNaN(lostAt)) lostAt = now;
                     visual.SetActive(false);
+                    if (pilotFlame) pilotFlame.SetActive(false);
                     nextDamage = now + settings.damageInterval;
                     if (now - lostAt >= .10) Cancel();
                     return;
                 }
-                if (state != MouthState.Ready) { Cancel(); return; }
+                bool pausedAtDistance = state == MouthState.TooFar && pilotFlame;
+                if (state != MouthState.Ready && !pausedAtDistance) { Cancel(); return; }
                 visual.transform.SetPositionAndRotation(pose.position, pose.rotation);
+                owner.ShowSealFlame(pilotFlame);
                 if (!double.IsNaN(lostAt))
                 {
                     if (now - lostAt >= .10) { Cancel(); return; }
                     lostAt = double.NaN;
                     elapsed = 0;
+                }
+                if (pausedAtDistance)
+                {
+                    spraying = false;
+                    if (visual.activeSelf) visual.SetActive(false);
+                    if (!pilotFlame.activeSelf) pilotFlame.SetActive(true);
+                    return;
+                }
+                if (!visual.activeSelf)
+                {
+                    spraying = true;
+                    elapsed = 0;
+                    nextDamage = now + settings.damageInterval;
                     visual.SetActive(true);
                 }
                 paidSpraySeconds += Math.Min(elapsed, (double)vitals.Mana / settings.manaPerSecond);
@@ -250,30 +377,35 @@ namespace NarutoVR.SealCombat
             {
                 if (cancelled) return;
                 cancelled = true;
+                if (owner.aimedChannel == this)
+                {
+                    owner.aimedChannel = null;
+                    owner.mouthAimView?.Hide();
+                }
                 vitals.EndSustainedCost(this, owner.Now);
                 if (visual) owner.StopHeldAudio(visual.transform);
+                FreePrepared(pilotFlame);
                 FreePrepared(visual);
             }
         }
 
-        void HitWithBreath(Vector3 origin, Vector3 forward, BreathEffectDefinition settings, BreathChannel channel)
+        bool TraceBreath(Vector3 origin, Vector3 forward, float radius, float range, out Collider closest, out RaycastHit? surfaceSweep)
         {
-            if (!WeaponOriginClear(origin, settings.radius)) return;
-            int overlaps = Physics.OverlapSphereNonAlloc(origin, settings.radius, throwOverlaps, WeaponHitMask, QueryTriggerInteraction.Collide);
-            if (overlaps == throwOverlaps.Length) return;
-            Collider closest = null;
-            RaycastHit? surfaceSweep = null;
+            closest = null;
+            surfaceSweep = null;
+            int overlaps = Physics.OverlapSphereNonAlloc(origin, radius, throwOverlaps, WeaponHitMask, QueryTriggerInteraction.Collide);
+            if (overlaps == throwOverlaps.Length) return false;
             for (int i = 0; i < overlaps; i++)
             {
                 var other = throwOverlaps[i];
                 if (IgnoreThrowCollider(other)) continue;
-                if (!new SkillHitTarget(other).IsTarget) return;
+                if (!new SkillHitTarget(other).IsTarget) { closest = other; return true; }
                 closest = other;
             }
             if (!closest)
             {
-                int count = Physics.SphereCastNonAlloc(origin, settings.radius, forward, throwSweeps, settings.range, WeaponHitMask, QueryTriggerInteraction.Collide);
-                if (count == throwSweeps.Length) return;
+                int count = Physics.SphereCastNonAlloc(origin, radius, forward, throwSweeps, range, WeaponHitMask, QueryTriggerInteraction.Collide);
+                if (count == throwSweeps.Length) return false;
                 float nearest = float.PositiveInfinity;
                 for (int i = 0; i < count; i++)
                 {
@@ -285,6 +417,13 @@ namespace NarutoVR.SealCombat
                     surfaceSweep = hit;
                 }
             }
+            return true;
+        }
+
+        void HitWithBreath(Vector3 origin, Vector3 forward, BreathEffectDefinition settings, BreathChannel channel)
+        {
+            if (!WeaponOriginClear(origin, settings.radius)) return;
+            if (!TraceBreath(origin, forward, settings.radius, settings.range, out var closest, out var surfaceSweep)) return;
             if (closest)
             {
                 var target = new SkillHitTarget(closest);

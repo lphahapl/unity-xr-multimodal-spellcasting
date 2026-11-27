@@ -255,6 +255,7 @@ namespace NarutoVR.SealCombat
         void BuildMatcher(IReadOnlyList<SkillDefinition> available)
         {
             sealHintView?.Clear();
+            if (effects) effects.SetSequenceCharge(null);
             if (Engine != null) Engine.SealConfirmed -= ForwardSeal;
             Engine=new SkillMatchEngine(available,catalog.matching,catalog.cancelPhrase);
             Engine.Log=Report;Engine.TryActivate=ActivateTraced;
@@ -323,6 +324,7 @@ namespace NarutoVR.SealCombat
                 Engine.Observe(frame, lab.Scores, cancelLatched || exclusive || (GestureInputBlocked?.Invoke() ?? false),
                     effects && effects.HasHeldObject, firstPlayerHandObservationAfter, LeftHandBusy);
             }
+            if (effects) effects.SetSequenceCharge(Engine.PendingSequenceCharge);
             if(now>=nextCastSnapshot) {
                 nextCastSnapshot=now+Math.Max(.2,castTraceInterval);
                 TraceCast("match_snapshot",$"状态={Engine.Status}；截止={Engine.PendingDeadline:F3}；帧间隔={Time.unscaledDeltaTime:F4}；追踪={(lab?lab.TrackingSource:"无")}",Engine.PendingSkillId,lab.Frame?.time??0);

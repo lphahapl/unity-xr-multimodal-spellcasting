@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
+    /// <summary>Optional chapter policy for a physical interaction that continues across a completed objective.</summary>
+    internal interface IRpgStageInteractionContinuity
+    {
+        UnityEngine.Object RetainInteractionAfter(RpgStageDefinition completedStage);
+    }
+
     /// <summary>
     /// 章节与通用 RPG 的协作契约。章节负责解释目标和交互；RPG 统一负责阶段奖励与存档。
     /// 首章教学和普通目标关卡均可接入，不向调用方暴露双盘、靶或吸附区。

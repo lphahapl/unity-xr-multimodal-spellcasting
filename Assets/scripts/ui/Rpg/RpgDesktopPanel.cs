@@ -97,6 +97,7 @@ namespace NarutoVR.SealCombat.Rpg
             ActionButton(simulation,"模拟战斗后撤",()=>Owner.DebugMove(true,Vector2.down));
             ActionButton(simulation,"模拟受到25点伤害",()=>Owner.DebugDamage(25));
             ActionButton(simulation,"恢复检查点",()=>Owner.RestoreCheckpoint());
+            ActionButton(simulation,"读取默认存档",()=>Owner.LoadDefaultSave());
             ActionButton(simulation,"保存当前检查点",()=>Owner.SaveCheckpoint());
             ActionButton(simulation,"尝试进入下一阶段",()=>Owner.TryAdvanceStage());
             if (Owner && Owner.locomotion)

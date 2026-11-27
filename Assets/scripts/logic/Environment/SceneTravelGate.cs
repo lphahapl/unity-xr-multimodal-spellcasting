@@ -1,5 +1,6 @@
 using System;
 using NarutoVR.SealCombat.Events;
+using NarutoVR.SealCombat.Rpg;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -73,9 +74,18 @@ namespace NarutoVR.SceneArt
             string target = (destinationScene ?? "").Trim();
             if (target.Length > 0 && (target == gameObject.scene.path || target == gameObject.scene.name)) return;
             var view = playerHead ? playerHead.GetComponent<Camera>() : null;
+            if (!LinearRpgController.TryCaptureGateDeparture(gameObject.scene, playerHead, target, out var entry, out var reason))
+            {
+                Debug.LogWarning("[场景传送门] " + reason, this);
+                return;
+            }
             var result = AsyncSceneLoader.TryLoad(target, notice.PresentationSeconds, loadingOverlayPrefab, presentation, view);
             loading = result == AsyncSceneLoader.Result.Started;
-            if (loading) onTravelStarted.Invoke();
+            if (loading)
+            {
+                LinearRpgController.PublishGateEntry(entry);
+                onTravelStarted.Invoke();
+            }
             if (result == AsyncSceneLoader.Result.InvalidDestination && !reportedInvalid)
             {
                 Debug.LogWarning($"[场景传送门] 无法加载目标场景“{target}”。请填写目标场景路径，并在构建场景列表中勾选该场景。", this);

@@ -5,7 +5,8 @@ namespace NarutoVR.SealCombat
     public enum BreathCastMode
     {
         [InspectorName("单次吹出")] Burst,
-        [InspectorName("持续喷射")] Sustained
+        [InspectorName("持续喷射")] Sustained,
+        [InspectorName("掌上结印发射")] SealProjectile
     }
 
     [CreateAssetMenu(menuName = "NarutoVR/技能效果/吐息")]
@@ -14,6 +15,8 @@ namespace NarutoVR.SealCombat
         [InspectorName("吐息场景痕迹"), Tooltip("命中实体表面时使用；留空关闭。")] public SurfaceMarkStyle surfaceMark;
         [InspectorName("释放方式")] public BreathCastMode mode;
         [InspectorName("火焰预制体（局部 +Z 向前）")] public GameObject visualPrefab;
+        [InspectorName("单发命中爆散预制体"), Tooltip("选配。碰撞时在接触点播放，局部 +Z 沿表面向外。")] public GameObject impactPrefab;
+        [InspectorName("成印火苗"), Tooltip("结印后显示的小火苗。飞炎在发射时切换为完整弹体。")] public GameObject pilotFlamePrefab;
         [InspectorName("嘴部挂点（相对头显，米）")] public Vector3 mouthOffset = new(0, -.09f, .08f);
         [InspectorName("特效缩放"), Min(.001f)] public float visualScale = 1;
         [InspectorName("射程（米）"), Min(.1f)] public float range = 4;
@@ -40,7 +43,12 @@ namespace NarutoVR.SealCombat
             }
         }
 
-        public override string Summary => mode == BreathCastMode.Sustained ? "嘴部持续喷射" : "嘴部单次吹出";
+        public override string Summary => mode switch
+        {
+            BreathCastMode.Sustained => "嘴部持续喷射",
+            BreathCastMode.SealProjectile => "结印蓄火、掌上瞄准发射",
+            _ => "嘴部单次吹出"
+        };
         public override float CooldownOnActivation(float seconds) => mode == BreathCastMode.Sustained ? 0 : seconds;
 
         internal float CooldownAfterSpraying(double seconds) =>
@@ -60,6 +68,7 @@ namespace NarutoVR.SealCombat
             return mode switch
             {
                 BreathCastMode.Burst when Positive(speed) => null,
+                BreathCastMode.SealProjectile when pilotFlamePrefab && Positive(speed) => null,
                 BreathCastMode.Sustained when Positive(manaPerSecond) && Positive(damageInterval) => null,
                 _ => "吐息模式、速度、持续消耗或伤害间隔无效"
             };

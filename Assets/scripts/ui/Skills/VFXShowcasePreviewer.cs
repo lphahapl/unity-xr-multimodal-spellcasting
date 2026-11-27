@@ -21,6 +21,8 @@ namespace NarutoVR.SealCombat
     [DefaultExecutionOrder(400)]
     public class VFXShowcasePreviewer : MonoBehaviour
     {
+        public enum PreviewMotion { Stationary, BreathPilot, FlyingBreath }
+
         [Serializable]
         public class VFXEntry
         {
@@ -31,6 +33,7 @@ namespace NarutoVR.SealCombat
             public Vector3 spawnOffset = Vector3.zero;
             public float spawnScale = 1f;
             public GameObject prefab;
+            public PreviewMotion motion;
         }
 
         [Serializable]
@@ -43,12 +46,22 @@ namespace NarutoVR.SealCombat
 
         [Header("分类与特效配置")]
         public List<VFXCategory> categories = new List<VFXCategory>();
-        public int currentCategoryIndex = 4; // 默认选中小火苗
+        public int currentCategoryIndex = 1;
         public int currentEntryIndex = 0;
 
         [Header("生成与展示挂点")]
         public Transform spawnRoot;
         public GameObject currentInstance;
+        [SerializeField] private BreathEffectDefinition dragonBreath;
+        [SerializeField] private BreathEffectDefinition flyingBreath;
+        [SerializeField] private Material impactTargetMaterial;
+        private GameObject dragonStream;
+        private GameObject impactTarget;
+        private GameObject flightImpact;
+        private readonly SurfaceMarkPool previewMarks = new();
+        private const float FlightSpeed = 5.5f;
+        private const float FlightHitTime = 1.12f;
+        private const float FlightReplayTime = 2.82f;
 
         [Header("镜头控制")]
         public Camera showcaseCamera;
@@ -56,7 +69,7 @@ namespace NarutoVR.SealCombat
         public float cameraDistance = 3.5f;
         public float cameraPitch = 18.0f;
         public float cameraYaw = 0f;
-        public bool autoRotateCamera = true;
+        public bool autoRotateCamera;
         public float autoRotateSpeed = 12.0f;
 
         [Header("播放设置")]
@@ -78,6 +91,14 @@ namespace NarutoVR.SealCombat
         public Button slowMotionButton;
         public Button resetCamButton;
 
+        private const float PanelWidth = 430f;
+        private float panelPixelWidth = PanelWidth;
+        private PreviewMotion previewMotion;
+        private Vector3 previewOrigin;
+        private float previewTime;
+        private string previewPhase;
+        private Vector2Int viewportSize;
+
         private Vector2 previousMousePos;
         private bool isRightDragging = false;
 
@@ -95,6 +116,8 @@ namespace NarutoVR.SealCombat
             EnsureEventSystem();
             EnsureUGUI();
             BindButtonListeners();
+            if (Application.isPlaying && previewMotion == PreviewMotion.FlyingBreath && currentInstance)
+                SpawnCurrentEffect();
         }
 
         private void Start()
@@ -116,13 +139,20 @@ namespace NarutoVR.SealCombat
             EnsureUGUI();
             BindButtonListeners();
 
-            UpdateCameraTransform();
+            ResetCamera();
             SpawnCurrentEffect();
         }
 
         private void Update()
         {
+            if (viewportSize.x != Screen.width || viewportSize.y != Screen.height)
+            {
+                viewportSize = new Vector2Int(Screen.width, Screen.height);
+                SetCanvasScale();
+                UpdateCameraTransform();
+            }
             HandleInputs();
+            if (Application.isPlaying) AdvancePreview();
 
             if (autoRotateCamera && !isRightDragging)
             {
@@ -135,6 +165,12 @@ namespace NarutoVR.SealCombat
         public void EnsureAllPrefabsLoaded()
         {
 #if UNITY_EDITOR
+            if (dragonBreath == null)
+                dragonBreath = AssetDatabase.LoadAssetAtPath<BreathEffectDefinition>("Assets/ScriptableObjects/吐火效果配置/龙火之术效果.asset");
+            if (flyingBreath == null)
+                flyingBreath = AssetDatabase.LoadAssetAtPath<BreathEffectDefinition>("Assets/ScriptableObjects/吐火效果配置/飞炎术效果_玩家.asset");
+            if (impactTargetMaterial == null)
+                impactTargetMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Showcase/石板银边.mat");
             if (categories == null) return;
             foreach (var cat in categories)
             {
@@ -152,14 +188,9 @@ namespace NarutoVR.SealCombat
 
         public void SpawnCurrentEffect()
         {
-            if (currentInstance != null)
-            {
-                if (Application.isPlaying)
-                    Destroy(currentInstance);
-                else
-                    DestroyImmediate(currentInstance);
-                currentInstance = null;
-            }
+            SetDragonStream(false);
+            ClearFlightImpact();
+            ReleasePreviewObject(ref currentInstance);
 
             if (categories == null || categories.Count == 0) return;
             currentCategoryIndex = Mathf.Clamp(currentCategoryIndex, 0, categories.Count - 1);
@@ -168,6 +199,9 @@ namespace NarutoVR.SealCombat
             currentEntryIndex = Mathf.Clamp(currentEntryIndex, 0, cat.entries.Count - 1);
 
             var entry = cat.entries[currentEntryIndex];
+            previewMotion = entry.motion;
+            previewTime = 0f;
+            previewPhase = null;
             if (entry.prefab == null)
             {
                 EnsureAllPrefabsLoaded();
@@ -176,10 +210,23 @@ namespace NarutoVR.SealCombat
             if (entry.prefab != null)
             {
                 Vector3 pos = (spawnRoot != null ? spawnRoot.position : Vector3.zero) + entry.spawnOffset;
+                previewOrigin = pos;
+                if (previewMotion == PreviewMotion.FlyingBreath)
+                {
+                    if (Application.isPlaying) CreateImpactTarget();
+                    cameraPivot = pos + Vector3.forward * 0.8f;
+                    UpdateCameraTransform();
+                }
                 currentInstance = Instantiate(entry.prefab, pos, Quaternion.identity);
                 currentInstance.name = "[Showcase] " + entry.title;
                 if (spawnRoot != null) currentInstance.transform.SetParent(spawnRoot, true);
                 currentInstance.transform.localScale = Vector3.one * (entry.spawnScale > 0 ? entry.spawnScale : 1f);
+
+                if (previewMotion != PreviewMotion.Stationary)
+                {
+                    RefreshUI();
+                    return;
+                }
 
                 // 确保粒子系统重新播放，并兼容仅有 rateOverDistance (位移才发射) 的飞弹类特效
                 var particles = currentInstance.GetComponentsInChildren<ParticleSystem>(true);
@@ -209,17 +256,121 @@ namespace NarutoVR.SealCombat
             RefreshUI();
         }
 
+        private void OnDisable()
+        {
+            SetDragonStream(false);
+            ClearFlightImpact();
+            if (Application.isPlaying && previewMotion == PreviewMotion.FlyingBreath && currentInstance)
+                currentInstance.SetActive(false);
+        }
+
+        private static void ReleasePreviewObject(ref GameObject visual)
+        {
+            if (!visual) return;
+            visual.SetActive(false);
+            if (Application.isPlaying) Destroy(visual);
+            else DestroyImmediate(visual);
+            visual = null;
+        }
+
+        private void ClearFlightImpact()
+        {
+            previewMarks.Clear();
+            ReleasePreviewObject(ref flightImpact);
+            ReleasePreviewObject(ref impactTarget);
+        }
+
+        private void CreateImpactTarget()
+        {
+            // The fire head extends past its moving origin. Meet its leading edge with the near face.
+            var contact = previewOrigin + Vector3.forward * (FlightHitTime * FlightSpeed + .32f);
+            var rotation = Quaternion.Euler(0, -18, 0);
+            const float thickness = .16f;
+            impactTarget = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            impactTarget.name = "[Showcase] 飞炎撞击石板";
+            impactTarget.transform.SetParent(spawnRoot, false);
+            impactTarget.transform.localScale = new Vector3(2.35f, 2.1f, thickness);
+            impactTarget.transform.SetPositionAndRotation(contact + rotation * Vector3.forward * (thickness / 2), rotation);
+            if (impactTargetMaterial) impactTarget.GetComponent<Renderer>().sharedMaterial = impactTargetMaterial;
+        }
+
+        private void PlayFlightImpact()
+        {
+            if (!impactTarget || !flyingBreath) return;
+            var receiver = impactTarget.GetComponent<Collider>();
+            var travel = Vector3.forward;
+            if (!receiver.Raycast(new Ray(previewOrigin, travel), out var hit, FlightSpeed * FlightHitTime + 1f)) return;
+            previewMarks.Stamp(new SurfaceContact(hit), flyingBreath.surfaceMark, travel, previewTime, 1);
+            if (!flyingBreath.impactPrefab) return;
+            flightImpact = Instantiate(flyingBreath.impactPrefab, hit.point, Quaternion.LookRotation(hit.normal), spawnRoot);
+            flightImpact.name = "[Showcase] 飞炎命中爆散";
+            // The preview uses scaled time, including its slow-motion and replay controls.
+            if (flightImpact.TryGetComponent<SkillVisualLifetime>(out var lifetime)) lifetime.enabled = false;
+        }
+
+        private void SetDragonStream(bool spraying)
+        {
+            if (spraying && dragonStream == null && dragonBreath != null && dragonBreath.visualPrefab != null)
+            {
+                dragonStream = Instantiate(dragonBreath.visualPrefab, previewOrigin, Quaternion.identity, spawnRoot);
+                dragonStream.name = "[Showcase] 龙火吹气喷流";
+                dragonStream.SetActive(false);
+                dragonBreath.ConfigureVisual(dragonStream);
+                dragonStream.SetActive(true);
+            }
+            else if (!spraying && dragonStream != null)
+            {
+                dragonStream.SetActive(false);
+                if (Application.isPlaying) Destroy(dragonStream);
+                else DestroyImmediate(dragonStream);
+                dragonStream = null;
+            }
+            else return;
+
+            UpdateCameraTransform();
+        }
+
+        private void AdvancePreview()
+        {
+            if (previewMotion == PreviewMotion.Stationary || currentInstance == null) return;
+            previewTime += Time.deltaTime;
+            bool visible;
+            string phase;
+            if (previewMotion == PreviewMotion.BreathPilot)
+            {
+                // The showcase owns this clock. In gameplay, breath input owns these transitions.
+                if (previewTime >= 6f) { SpawnCurrentEffect(); return; }
+                SetDragonStream(previewTime >= 1.5f && previewTime < 3f);
+                visible = previewTime < 1.5f || (previewTime >= 3f && previewTime < 4.6f);
+                phase = previewTime < 1.5f ? "已确认 · 待吹" : previewTime < 3f ? "吹气中" :
+                    previewTime < 4.6f ? "停吹 · 火苗恢复" : "术已结束";
+            }
+            else
+            {
+                if (previewTime >= FlightReplayTime) { SpawnCurrentEffect(); return; }
+                visible = previewTime < FlightHitTime;
+                phase = previewTime < 0.15f ? "吐火" : previewTime < 0.4f ? "火球成形" :
+                    visible ? "飞行" : previewTime < FlightHitTime + 1.1f ? "命中 · 爆散" : "命中处余迹";
+                float flightTime = Mathf.Min(previewTime, FlightHitTime);
+                currentInstance.transform.position = previewOrigin + Vector3.forward * (flightTime * FlightSpeed);
+                cameraPivot = previewOrigin + Vector3.forward * (0.8f + flightTime * 4.75f);
+                UpdateCameraTransform();
+                if (!visible && currentInstance.activeSelf) PlayFlightImpact();
+                previewMarks.Tick(previewTime, 1);
+            }
+
+            if (currentInstance.activeSelf != visible) currentInstance.SetActive(visible);
+            if (previewPhase == phase) return;
+            previewPhase = phase;
+            RefreshUI();
+        }
+
         public void SwitchCategory(int index)
         {
             if (categories == null || categories.Count == 0) return;
             currentCategoryIndex = Mathf.Clamp(index, 0, categories.Count - 1);
             currentEntryIndex = 0;
-            // 小火苗时自动微调镜头距离到 2.8m，便于细致观察火苗跳动
-            if (currentCategoryIndex == 4)
-            {
-                cameraDistance = 2.8f;
-                cameraPitch = 15f;
-            }
+            ResetCamera();
             SpawnCurrentEffect();
         }
 
@@ -229,6 +380,7 @@ namespace NarutoVR.SealCombat
             var cat = categories[currentCategoryIndex];
             if (cat.entries == null || cat.entries.Count == 0) return;
             currentEntryIndex = (currentEntryIndex + 1) % cat.entries.Count;
+            ResetCamera();
             SpawnCurrentEffect();
         }
 
@@ -238,6 +390,7 @@ namespace NarutoVR.SealCombat
             var cat = categories[currentCategoryIndex];
             if (cat.entries == null || cat.entries.Count == 0) return;
             currentEntryIndex = (currentEntryIndex - 1 + cat.entries.Count) % cat.entries.Count;
+            ResetCamera();
             SpawnCurrentEffect();
         }
 
@@ -264,10 +417,22 @@ namespace NarutoVR.SealCombat
 
         public void ResetCamera()
         {
-            cameraDistance = (currentCategoryIndex == 4) ? 2.8f : 4.5f;
-            cameraPitch = 18.0f;
+            var cat = categories.Count > currentCategoryIndex && currentCategoryIndex >= 0 ? categories[currentCategoryIndex] : null;
+            var entry = cat != null && cat.entries.Count > currentEntryIndex && currentEntryIndex >= 0 ? cat.entries[currentEntryIndex] : null;
+            var motion = entry != null ? entry.motion : PreviewMotion.Stationary;
+            cameraDistance = currentCategoryIndex == 4 ? 2.8f : 4.5f;
+            cameraPitch = 18f;
             cameraYaw = 0f;
-            cameraPivot = new Vector3(0, 1.0f, 0);
+            cameraPivot = new Vector3(0f, 1f, 0f);
+            if (motion == PreviewMotion.BreathPilot || motion == PreviewMotion.FlyingBreath)
+            {
+                bool pilot = motion == PreviewMotion.BreathPilot;
+                var origin = spawnRoot == null ? transform.position : spawnRoot.position;
+                cameraPivot = origin + entry.spawnOffset + (pilot ? Vector3.up * 0.025f : Vector3.forward * 0.8f);
+                cameraDistance = pilot ? 0.38f : 3.35f;
+                cameraPitch = 6f;
+                cameraYaw = pilot ? -90f : -65f;
+            }
             UpdateCameraTransform();
         }
 
@@ -318,8 +483,8 @@ namespace NarutoVR.SealCombat
                 float scroll = mouse.scroll.ReadValue().y;
                 if (Mathf.Abs(scroll) > 0.01f)
                 {
-                    cameraDistance -= Mathf.Sign(scroll) * 0.65f;
-                    cameraDistance = Mathf.Clamp(cameraDistance, 1.2f, 18.0f);
+                    cameraDistance *= scroll > 0f ? 0.85f : 1f / 0.85f;
+                    cameraDistance = Mathf.Clamp(cameraDistance, 0.2f, 18f);
                     UpdateCameraTransform();
                 }
             }
@@ -330,9 +495,20 @@ namespace NarutoVR.SealCombat
         {
             if (showcaseCamera == null) return;
             Quaternion rot = Quaternion.Euler(cameraPitch, cameraYaw, 0);
-            Vector3 targetPos = cameraPivot - (rot * Vector3.forward * cameraDistance);
-            showcaseCamera.transform.position = targetPos;
-            showcaseCamera.transform.LookAt(cameraPivot);
+            // Frame the stage in the area to the right of the control panel.
+            float panelPixels = panelPixelWidth + 24f;
+            float reserved = Mathf.Min(0.58f, panelPixels / Mathf.Max(1f, Screen.width));
+            float distance = cameraDistance;
+            Vector3 pivot = cameraPivot;
+            if (dragonStream != null)
+            {
+                // Widen the side view only while the full-size gameplay jet is on screen.
+                distance += 1.7f;
+                pivot += Vector3.forward * 0.65f;
+            }
+            float halfWidth = distance * Mathf.Tan(0.5f * showcaseCamera.fieldOfView * Mathf.Deg2Rad) * showcaseCamera.aspect;
+            Vector3 center = pivot - rot * Vector3.right * (halfWidth * reserved);
+            showcaseCamera.transform.SetPositionAndRotation(center - rot * Vector3.forward * distance, rot);
         }
 
         #region uGUI 现代化界面构建与更新
@@ -341,16 +517,17 @@ namespace NarutoVR.SealCombat
         {
             var eventSystems = FindObjectsByType<UnityEngine.EventSystems.EventSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             UnityEngine.EventSystems.EventSystem activeEs = null;
-            if (eventSystems != null && eventSystems.Length > 0)
+            foreach (var candidate in eventSystems)
             {
-                activeEs = eventSystems[0];
-                for (int i = 1; i < eventSystems.Length; i++)
+                if (candidate.gameObject.scene != gameObject.scene) continue;
+                if (activeEs == null) activeEs = candidate;
+                else if (candidate.transform.IsChildOf(transform))
                 {
-                    if (Application.isPlaying) Destroy(eventSystems[i].gameObject);
-                    else DestroyImmediate(eventSystems[i].gameObject);
+                    if (Application.isPlaying) Destroy(candidate.gameObject);
+                    else DestroyImmediate(candidate.gameObject);
                 }
             }
-            else
+            if (activeEs == null)
             {
                 var esGo = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem));
                 esGo.transform.SetParent(transform, false);
@@ -391,7 +568,7 @@ namespace NarutoVR.SealCombat
             }
         }
 
-        [ContextMenu("重建并刷新 uGUI 面板 (880x500高分清晰版)")]
+        [ContextMenu("重建预览面板")]
         public void RebuildUGUIContextMenu()
         {
             BuildUGUIHierarchy();
@@ -402,15 +579,60 @@ namespace NarutoVR.SealCombat
             EnsureEventSystem();
             if (uiCanvas != null && infoTitleText != null && categoryButtons.Count > 0 && prevButton != null)
             {
-                // 检查主面板尺寸是否为旧版 (580x360)，如果是则强制重建为高分清晰版 (880x500)
                 var mainPanel = uiCanvas.transform.Find("MainControlPanel") as RectTransform;
-                if (mainPanel != null && mainPanel.sizeDelta.x >= 800f)
+                if (mainPanel != null && mainPanel.Find("InfoDesc") != null && categoryButtons.Count == categories.Count)
                 {
+                    SetCanvasScale();
                     BindButtonListeners();
                     return;
                 }
             }
             BuildUGUIHierarchy();
+        }
+
+        private void SetCanvasScale()
+        {
+            if (uiCanvas == null) return;
+            uiCanvas.pixelPerfect = true;
+            var scaler = uiCanvas.GetComponent<CanvasScaler>();
+            // Overlay text is rasterised in device pixels; integer scaling keeps CJK strokes aligned.
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            scaler.scaleFactor = Mathf.Max(1f, Mathf.Floor(Mathf.Min(Screen.width / 1200f, Screen.height / 700f)));
+            var panel = uiCanvas.transform.Find("MainControlPanel") as RectTransform;
+            if (panel == null || panel.Find("InfoDesc") == null) return;
+
+            bool compact = Screen.width < 900 || Screen.height < 510;
+            float width = compact ? 350f : PanelWidth;
+            panelPixelWidth = width * scaler.scaleFactor;
+            panel.sizeDelta = new Vector2(width, compact ? 264f : 388f);
+            panel.Find("HeaderTitle").gameObject.SetActive(!compact);
+            panel.Find("TipText").gameObject.SetActive(!compact);
+            infoPathText.gameObject.SetActive(!compact);
+
+            for (int i = 0; i < categoryButtons.Count; i++)
+                PositionControl((RectTransform)categoryButtons[i].transform, compact ? 8 + i * 67 : 14 + i * 81, compact ? -8 : -79, compact ? 65 : 77, 36);
+
+            PositionControl(infoTitleText.rectTransform, 14, compact ? -48 : -125, width - 28, 52);
+            PositionControl(infoDescriptionText.rectTransform, 14, compact ? -99 : -181, width - 28, 67);
+            var columns = new[] { prevButton, replayButton, nextButton, autoRotateButton, slowMotionButton, resetCamButton };
+            for (int i = 0; i < columns.Length; i++)
+            {
+                var button = columns[i];
+                int col = i % 3;
+                float x = compact ? 8 + col * 112 : col == 0 ? 14 : col == 1 ? 145 : 291;
+                float y = compact ? -176 - (i / 3) * 42 : -298 - (i / 3) * 42;
+                float w = compact ? 108 : col == 1 ? 140 : 125;
+                PositionControl((RectTransform)button.transform, x, y, w, 36);
+            }
+
+        }
+
+        private static void PositionControl(RectTransform rect, float x, float y, float w, float h)
+        {
+            rect.anchoredPosition = new Vector2(x, y);
+            rect.sizeDelta = new Vector2(w, h);
+            if (rect.TryGetComponent<Button>(out _) && rect.childCount > 0)
+                ((RectTransform)rect.GetChild(0)).sizeDelta = rect.sizeDelta;
         }
 
         public void BindButtonListeners()
@@ -479,11 +701,7 @@ namespace NarutoVR.SealCombat
             uiCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             uiCanvas.sortingOrder = 50;
 
-            var scaler = canvasGo.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
-            scaler.matchWidthOrHeight = 0.5f;
-            scaler.dynamicPixelsPerUnit = 2.0f; // 动态字体纹理按双倍精细度采样光栅化，彻底杜绝汉字模糊
+            SetCanvasScale();
 
             var raycaster = canvasGo.GetComponent<GraphicRaycaster>();
             if (raycaster != null) raycaster.enabled = true;
@@ -496,101 +714,48 @@ namespace NarutoVR.SealCombat
                 uiFont = AssetDatabase.LoadAssetAtPath<Font>("Assets/SealLab/Resources/Fonts/NotoSansCJKsc-Regular.otf");
             }
 #endif
-            if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+
             if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-            // 2. 主控制面板（尺寸从 580x360 放大至 880x500，提供充裕排版空间）
-            var panelGo = new GameObject("MainControlPanel", typeof(RectTransform), typeof(Image));
-            panelGo.transform.SetParent(canvasGo.transform, false);
-            var panelRect = panelGo.GetComponent<RectTransform>();
-            panelRect.anchorMin = new Vector2(0, 1);
-            panelRect.anchorMax = new Vector2(0, 1);
-            panelRect.pivot = new Vector2(0, 1);
-            panelRect.anchoredPosition = new Vector2(30, -30);
-            panelRect.sizeDelta = new Vector2(880, 500);
+            var panel = new GameObject("MainControlPanel", typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(canvasGo.transform, false);
+            var rect = (RectTransform)panel.transform;
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = new Vector2(12f, -12f);
+            rect.sizeDelta = new Vector2(PanelWidth, 388f);
+            panel.GetComponent<Image>().color = new Color(0.05f, 0.07f, 0.12f, 0.96f);
+            var parent = panel.transform;
 
-            var panelImg = panelGo.GetComponent<Image>();
-            panelImg.color = new Color(0.05f, 0.07f, 0.12f, 0.94f); // 深色高级半透明磨砂质感
-            panelImg.raycastTarget = true;
+            CreateText("HeaderTitle", parent, uiFont, 23, FontStyle.Bold, Color.white, new Vector2(14, -8), new Vector2(402, 36))
+                .GetComponent<Text>().text = "忍术特效预览";
+            CreateText("TipText", parent, uiFont, 16, FontStyle.Normal, new Color(0.79f, 0.86f, 0.95f), new Vector2(14, -45), new Vector2(402, 25))
+                .GetComponent<Text>().text = "1–5 切换分类    右键环绕    滚轮缩放";
 
-            // 3. 标题与提示
-            var headerGo = CreateText("HeaderTitle", panelGo.transform, uiFont, 28, FontStyle.Bold, Color.white, new Vector2(25, -20), new Vector2(830, 38));
-            headerGo.GetComponent<Text>().text = "火影忍术特效精选展厅 · 预览控制台";
-
-            var tipGo = CreateText("TipText", panelGo.transform, uiFont, 15, FontStyle.Normal, new Color(0.7f, 0.82f, 0.95f), new Vector2(25, -64), new Vector2(830, 26));
-            tipGo.GetComponent<Text>().text = "快捷键: 1-5 换系 | A/D 切换 | Space 重播 | R 环绕 | C 慢动作 | 鼠标右键旋转，滚轮缩放";
-
-            // 4. 分类横排按钮栏 (5个分类均衡铺满，按钮加宽加高，文字清晰)
             categoryButtons.Clear();
             categoryButtonTexts.Clear();
-            float btnWidth = 156f;
-            float btnHeight = 46f;
-            float startX = 25f;
-            float gap = 12f;
+            Color buttonColor = new Color(0.13f, 0.19f, 0.28f);
             for (int i = 0; i < categories.Count; i++)
             {
-                int catIdx = i;
-                var cat = categories[i];
-                var catBtnGo = CreateButton($"CatBtn_{i}", panelGo.transform, uiFont, cat.categoryName, new Vector2(startX + i * (btnWidth + gap), -100), new Vector2(btnWidth, btnHeight), new Color(0.12f, 0.16f, 0.22f), 17);
-                var btn = catBtnGo.GetComponent<Button>();
-                var btnText = catBtnGo.GetComponentInChildren<Text>();
-
-                categoryButtons.Add(btn);
-                categoryButtonTexts.Add(btnText);
+                string label = categories[i].categoryName.Replace("[", "").Replace("]", "");
+                var button = CreateButton($"CatBtn_{i}", parent, uiFont, label, new Vector2(14 + i * 81, -79), new Vector2(77, 36), buttonColor, 16);
+                categoryButtons.Add(button.GetComponent<Button>());
+                categoryButtonTexts.Add(button.GetComponentInChildren<Text>());
             }
 
-            // 5. 当前特效信息卡片 (背景框扩大至 830x180，文字层级分明、字号大幅提升)
-            var cardGo = new GameObject("InfoCard", typeof(RectTransform), typeof(Image));
-            cardGo.transform.SetParent(panelGo.transform, false);
-            var cardRect = cardGo.GetComponent<RectTransform>();
-            cardRect.anchorMin = new Vector2(0, 1);
-            cardRect.anchorMax = new Vector2(0, 1);
-            cardRect.pivot = new Vector2(0, 1);
-            cardRect.anchoredPosition = new Vector2(25, -156);
-            cardRect.sizeDelta = new Vector2(830, 185);
-            var cardImg = cardGo.GetComponent<Image>();
-            cardImg.color = new Color(0.08f, 0.11f, 0.17f, 0.94f);
-            cardImg.raycastTarget = false; // 严禁卡片底图拦截子控件或外层事件
+            infoTitleText = CreateText("InfoTitle", parent, uiFont, 20, FontStyle.Bold, Color.white, new Vector2(14, -125), new Vector2(402, 52)).GetComponent<Text>();
+            infoDescriptionText = CreateText("InfoDesc", parent, uiFont, 17, FontStyle.Normal, Color.white, new Vector2(14, -181), new Vector2(402, 67)).GetComponent<Text>();
+            infoPathText = CreateText("InfoPath", parent, uiFont, 15, FontStyle.Normal, new Color(0.72f, 0.83f, 0.93f), new Vector2(14, -249), new Vector2(402, 41)).GetComponent<Text>();
 
-            var titleTextGo = CreateText("InfoTitle", cardGo.transform, uiFont, 24, FontStyle.Bold, Color.yellow, new Vector2(20, -14), new Vector2(790, 34));
-            infoTitleText = titleTextGo.GetComponent<Text>();
+            prevButton = CreateButton("PrevBtn", parent, uiFont, "上一个 (A)", new Vector2(14, -298), new Vector2(125, 36), buttonColor).GetComponent<Button>();
+            replayButton = CreateButton("ReplayBtn", parent, uiFont, "重播 (Space)", new Vector2(145, -298), new Vector2(140, 36), new Color(0.20f, 0.38f, 0.28f)).GetComponent<Button>();
+            nextButton = CreateButton("NextBtn", parent, uiFont, "下一个 (D)", new Vector2(291, -298), new Vector2(125, 36), buttonColor).GetComponent<Button>();
+            autoRotateButton = CreateButton("AutoRotateBtn", parent, uiFont, "", new Vector2(14, -340), new Vector2(125, 36), buttonColor).GetComponent<Button>();
+            slowMotionButton = CreateButton("SlowMotionBtn", parent, uiFont, "", new Vector2(145, -340), new Vector2(140, 36), buttonColor).GetComponent<Button>();
+            resetCamButton = CreateButton("ResetCamBtn", parent, uiFont, "重置视角", new Vector2(291, -340), new Vector2(125, 36), buttonColor).GetComponent<Button>();
+            autoRotateBtnText = autoRotateButton.GetComponentInChildren<Text>();
+            slowMotionBtnText = slowMotionButton.GetComponentInChildren<Text>();
 
-            var descTextGo = CreateText("InfoDesc", cardGo.transform, uiFont, 17, FontStyle.Normal, new Color(0.92f, 0.94f, 0.98f), new Vector2(20, -52), new Vector2(790, 78));
-            infoDescriptionText = descTextGo.GetComponent<Text>();
-
-            var pathTextGo = CreateText("InfoPath", cardGo.transform, uiFont, 14, FontStyle.Normal, new Color(0.5f, 0.72f, 0.9f), new Vector2(20, -144), new Vector2(790, 26));
-            infoPathText = pathTextGo.GetComponent<Text>();
-
-            // 6. 切换翻页控制栏 (三个大操作按钮)
-            float actionBtnWidth1 = 255f;
-            float actionBtnWidth2 = 288f;
-            float actionBtnHeight = 52f;
-            float actionY = -356f;
-
-            var prevBtnGo = CreateButton("PrevBtn", panelGo.transform, uiFont, "◀ 上一个 (A)", new Vector2(25, actionY), new Vector2(actionBtnWidth1, actionBtnHeight), new Color(0.16f, 0.24f, 0.34f), 18);
-            prevButton = prevBtnGo.GetComponent<Button>();
-
-            var replayBtnGo = CreateButton("ReplayBtn", panelGo.transform, uiFont, "重新释放 (Space)", new Vector2(25 + actionBtnWidth1 + 16, actionY), new Vector2(actionBtnWidth2, actionBtnHeight), new Color(0.2f, 0.38f, 0.28f), 18);
-            replayButton = replayBtnGo.GetComponent<Button>();
-
-            var nextBtnGo = CreateButton("NextBtn", panelGo.transform, uiFont, "下一个 (D) ▶", new Vector2(25 + actionBtnWidth1 + 16 + actionBtnWidth2 + 16, actionY), new Vector2(actionBtnWidth1, actionBtnHeight), new Color(0.16f, 0.24f, 0.34f), 18);
-            nextButton = nextBtnGo.GetComponent<Button>();
-
-            // 7. 工具栏 (环绕、慢动作、重置视角)
-            float toolBtnHeight = 44f;
-            float toolY = -422f;
-
-            var autoRotateBtnGo = CreateButton("AutoRotateBtn", panelGo.transform, uiFont, "镜头环绕: [开] (R)", new Vector2(25, toolY), new Vector2(actionBtnWidth1, toolBtnHeight), new Color(0.14f, 0.18f, 0.26f), 16);
-            autoRotateButton = autoRotateBtnGo.GetComponent<Button>();
-            autoRotateBtnText = autoRotateBtnGo.GetComponentInChildren<Text>();
-
-            var slowMotionBtnGo = CreateButton("SlowMotionBtn", panelGo.transform, uiFont, "慢动作: [关] (C)", new Vector2(25 + actionBtnWidth1 + 16, toolY), new Vector2(actionBtnWidth2, toolBtnHeight), new Color(0.14f, 0.18f, 0.26f), 16);
-            slowMotionButton = slowMotionBtnGo.GetComponent<Button>();
-            slowMotionBtnText = slowMotionBtnGo.GetComponentInChildren<Text>();
-
-            var resetCamBtnGo = CreateButton("ResetCamBtn", panelGo.transform, uiFont, "重置视角", new Vector2(25 + actionBtnWidth1 + 16 + actionBtnWidth2 + 16, toolY), new Vector2(actionBtnWidth1, toolBtnHeight), new Color(0.14f, 0.18f, 0.26f), 16);
-            resetCamButton = resetCamBtnGo.GetComponent<Button>();
-
+            SetCanvasScale();
             BindButtonListeners();
             RefreshUI();
         }
@@ -614,7 +779,7 @@ namespace NarutoVR.SealCombat
             txt.alignment = TextAnchor.MiddleLeft;
             txt.horizontalOverflow = HorizontalWrapMode.Wrap;
             txt.verticalOverflow = VerticalWrapMode.Overflow;
-            txt.lineSpacing = 1.25f;
+            txt.lineSpacing = 1f;
             txt.raycastTarget = false;
             return go;
         }
@@ -666,8 +831,8 @@ namespace NarutoVR.SealCombat
                 infoTitleText.text = $"[{currentEntryIndex + 1}/{cat.entries.Count}]   {entry.title}";
                 infoTitleText.color = cat.themeColor;
 
-                infoDescriptionText.text = entry.description;
-                infoPathText.text = "资源: " + entry.assetPath;
+                infoDescriptionText.text = previewPhase == null ? entry.description : previewPhase + "\n" + entry.description;
+                infoPathText.text = "预制体  " + System.IO.Path.GetFileName(entry.assetPath);
             }
 
             // 更新分类按钮高亮
@@ -683,25 +848,25 @@ namespace NarutoVR.SealCombat
                     btnImg.color = categories[i].themeColor * 0.75f;
                     btnTxt.color = Color.white;
                     btnTxt.fontStyle = FontStyle.Bold;
-                    btnTxt.fontSize = 17;
+                    btnTxt.fontSize = 16;
                 }
                 else
                 {
                     btnImg.color = new Color(0.12f, 0.16f, 0.22f, 0.9f);
                     btnTxt.color = new Color(0.75f, 0.8f, 0.85f);
                     btnTxt.fontStyle = FontStyle.Normal;
-                    btnTxt.fontSize = 17;
+                    btnTxt.fontSize = 16;
                 }
             }
 
             if (autoRotateBtnText != null)
             {
-                autoRotateBtnText.text = autoRotateCamera ? "镜头环绕: [开] (R)" : "镜头环绕: [关] (R)";
+                autoRotateBtnText.text = autoRotateCamera ? "环绕 开 (R)" : "环绕 关 (R)";
             }
 
             if (slowMotionBtnText != null)
             {
-                slowMotionBtnText.text = slowMotion ? "慢动作: [开 0.2x] (C)" : "慢动作: [关] (C)";
+                slowMotionBtnText.text = slowMotion ? "慢放 开 (C)" : "慢放 关 (C)";
             }
         }
 
@@ -778,6 +943,20 @@ namespace NarutoVR.SealCombat
                 entries = new List<VFXEntry>
                 {
                     new VFXEntry {
+                        title = "龙火之术 · 待吹火苗",
+                        assetPath = "Assets/Art/VFX/Skills/Prefabs/龙火待吹火苗.prefab",
+                        description = "开吹隐藏火苗，停吹复现，施术结束熄灭。",
+                        motion = PreviewMotion.BreathPilot,
+                        spawnOffset = new Vector3(0f, 1f, 0f)
+                    },
+                    new VFXEntry {
+                        title = "飞炎术 · 吐火成球",
+                        assetPath = "Assets/Art/VFX/Skills/Prefabs/飞炎吐火球.prefab",
+                        description = "按 C 慢放，观察火球撞上石板后的爆散与焦痕。",
+                        motion = PreviewMotion.FlyingBreath,
+                        spawnOffset = new Vector3(0f, 1f, -2.8f)
+                    },
+                    new VFXEntry {
                         title = "火遁·豪火灭却 (烈焰风暴喷涌)",
                         assetPath = "Assets/Imported/MasterMagicFX/ParticlesVer2/FlameThrower/StormFlameThrower/Prefabs/StormFlameThrower.prefab",
                         description = "狂暴多重火舌奔涌铺天盖地，极具斑爷豪火灭却压迫感",
@@ -785,7 +964,7 @@ namespace NarutoVR.SealCombat
                     },
                     new VFXEntry {
                         title = "火遁·龙火之术 (火柱持续喷射)",
-                        assetPath = "Assets/Imported/MasterMagicFX/ParticlesVer2/FlameThrower/NormalFlameThrower/Prefabs/FlameThrower.prefab",
+                        assetPath = "Assets/Art/VFX/Skills/Prefabs/龙火定向喷流.prefab",
                         description = "标准前方持续炽烈喷吐，火柱吞噬前方目标",
                         spawnOffset = new Vector3(0, 0.5f, 0), spawnScale = 1.0f
                     },

@@ -36,6 +36,8 @@ namespace NarutoVR.SealCombat
         public string sealName;
         [InspectorName("后续手印（按顺序）"), Tooltip("单印留空。重复同印需要先退出手势再结。")]
         public string[] followingSeals = Array.Empty<string>();
+        [InspectorName("蓄势后占用末印"), Tooltip("已通过口令和前置手印后，此次末印用于本术。单独结末印仍可触发原单印术。")]
+        public bool reserveFinalSeal;
         [InspectorName("组合窗口（秒）"), Tooltip("口令结束与整个有效保持区间必须落在此窗口内。10秒缓存和2秒延迟预算允许最大8秒。"), Range(0.1f, 8)]
         public float matchWindow = 8;
         [InspectorName("组合口令分数减免"), Tooltip("仅组合模式有对应口令时生效；不会降低覆盖率、必需特征或竞争印分差要求。"), Range(0, 1)]
@@ -50,6 +52,8 @@ namespace NarutoVR.SealCombat
         [Header("三、效果与生命周期")]
         [InspectorName("效果配置资产"), Tooltip("引用护盾或投射物效果SO；新效果可继承SkillEffectDefinition扩展。")]
         public SkillEffectDefinition effectDefinition;
+        [InspectorName("瞄准配置资产"), Tooltip("本术的准心、方向线和瞄准参数。")]
+        public SkillAimProfile aimProfile;
         [InspectorName("生成到左手"), Tooltip("关闭时使用右手；仅手持效果使用。")]
         public bool leftHand = false;
         [InspectorName("起手冷却（秒）"), Tooltip("普通技能成功释放后开始计时。持续喷射的冷却在吐息效果资产中配置，停喷时开始计时。"), Min(0)]

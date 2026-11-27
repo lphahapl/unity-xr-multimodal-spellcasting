@@ -392,7 +392,7 @@ namespace NarutoVR.SealCombat
         {
             if (Time.timeScale <= 0)
             {
-                if (heldObject || shieldPoints > 0 || shieldPulse?.IsPlaying == true || projectiles.Count > 0 || transientVisuals.Count > 0 || extensions.Count > 0) ClearAll();
+                if (heldObject || chargeSkill || pendingBreathSkill || shieldPoints > 0 || shieldPulse?.IsPlaying == true || projectiles.Count > 0 || transientVisuals.Count > 0 || extensions.Count > 0) ClearAll();
                 return;
             }
             double now = Now;
@@ -409,6 +409,7 @@ namespace NarutoVR.SealCombat
             }
             UpdateBuffVisual();
             if (heldObject) UpdateHeld(now);
+            RefreshCastReticles();
         }
 
         public bool TryGetRightWeaponWrist(out Pose worldPose, out double observed)
@@ -476,10 +477,12 @@ namespace NarutoVR.SealCombat
         }
 
         /// <summary>头向准星射线给出目标点，投射物从手部实际位置朝该点飞行。</summary>
-        public Vector3 GetAimPoint()
+        public Vector3 GetAimPoint() => GetAimPoint(HeldAimProfile);
+
+        Vector3 GetAimPoint(SkillAimProfile profile)
         {
-            if (!head) return transform.position + transform.forward * Mathf.Max(1, aimDistance);
-            float range = Mathf.Max(1, aimDistance);
+            float range = Mathf.Max(1, profile ? profile.gazeDistance : aimDistance);
+            if (!head) return transform.position + transform.forward * range;
             Vector3 point = head.position + head.forward * range;
             float nearest = range;
             int mask=hitLayers.value & ~playerLayers.value;
@@ -503,18 +506,18 @@ namespace NarutoVR.SealCombat
             return currentFireball != null && currentFireball.TryGetThrowPreview(out aim);
         }
 
-        public bool TryGetWeaponWaveDirection(Vector3 origin, out Vector3 direction)
+        public bool TryGetWeaponWaveDirection(Vector3 origin, out Vector3 direction, SkillAimProfile profile = null)
         {
             direction = Vector3.zero;
-            return RightHandActionAllowed && TryGetAimRay(origin, out _, out direction, out _);
+            return RightHandActionAllowed && TryGetAimRay(origin, profile, out _, out direction, out _);
         }
 
-        bool TryGetAimRay(Vector3 origin, out Vector3 point, out Vector3 direction, out float distance)
+        bool TryGetAimRay(Vector3 origin, SkillAimProfile profile, out Vector3 point, out Vector3 direction, out float distance)
         {
             point = direction = Vector3.zero;
             distance = 0f;
             if (!head || !NarutoVR.SealLab.SealLab.FinitePose(new Pose(head.position, head.rotation))) return false;
-            point = GetAimPoint();
+            point = GetAimPoint(profile);
             Vector3 delta = point - origin;
             distance = delta.magnitude;
             if (!float.IsFinite(distance) || distance < .001f || Vector3.Dot(delta, head.forward) <= 0f) return false;
@@ -525,15 +528,22 @@ namespace NarutoVR.SealCombat
         private bool TryResolveAim(Vector3 origin,out FireballAim aim)
         {
             aim=default;
-            if (!TryGetAimRay(origin, out var point, out var direction, out float distance) ||
-                !ThrowPathClear(origin, origin)) return false;
-            Vector3 endpoint = point;
+            return ThrowPathClear(origin, origin) && TryResolveProjectileAim(origin, HeldAimProfile,
+                heldParameters.Radius, heldParameters.Speed * heldParameters.FlightLifetime, out aim);
+        }
+
+        bool TryResolveProjectileAim(Vector3 origin, SkillAimProfile profile, float radius, float range, out FireballAim aim)
+        {
+            aim = default;
+            if (!TryGetAimRay(origin, profile, out var point, out var direction, out float distance)) return false;
+            distance = Mathf.Min(distance, range);
+            Vector3 endpoint = origin + direction * distance;
             bool blocked = false;
             int mask=hitLayers.value & ~playerLayers.value;
             // 实际飞行使用有半径的球形扫掠，因此准星射线旁的墙体也可能挡住投射物。
-            int count=Physics.SphereCastNonAlloc(origin,heldParameters.Radius,direction,throwSweeps,distance,mask,QueryTriggerInteraction.Collide);
+            int count=Physics.SphereCastNonAlloc(origin,radius,direction,throwSweeps,distance,mask,QueryTriggerInteraction.Collide);
             RaycastHit[] hits=throwSweeps;
-            if(count==hits.Length) { hits=Physics.SphereCastAll(origin,heldParameters.Radius,direction,distance,mask,QueryTriggerInteraction.Collide); count=hits.Length; }
+            if(count==hits.Length) { hits=Physics.SphereCastAll(origin,radius,direction,distance,mask,QueryTriggerInteraction.Collide); count=hits.Length; }
             float nearest=distance;
             for(int i=0;i<count;i++)
             {
@@ -554,7 +564,11 @@ namespace NarutoVR.SealCombat
             Report($"命中训练靶：剩余生命 {target.CurrentHealth:0}，累计命中 {HitCount} 次");
         }
 
-        private void OnProjectileFinished(SkillProjectile projectile) => projectiles.Remove(projectile);
+        private void OnProjectileFinished(SkillProjectile projectile)
+        {
+            projectiles.Remove(projectile);
+            if (aimedBurst == projectile) ClearBurstAim();
+        }
         void PublishProjectileStage(ProjectileStage stage, Vector3 point)
         {
             if (ProjectileStageChanged == null) return;
@@ -563,6 +577,18 @@ namespace NarutoVR.SealCombat
                 catch (Exception e) { Debug.LogWarning("火球表现监听失败：" + e.Message, this); }
         }
         private void OnImpactCreated(GameObject visual) { if (visual) transientVisuals.Add(visual); }
+
+        private void ConfigureProjectileImpact(SkillProjectile projectile, GameObject prefab)
+        {
+            projectile.impactPrefab = prefab;
+            if (!prefab) return;
+            if (vfxPool && vfxPool.Handles(prefab))
+            {
+                projectile.ImpactPool = vfxPool;
+                projectile.ImpactOwner = this;
+            }
+            else projectile.ImpactCreated = OnImpactCreated;
+        }
 
         /// <summary>Acquire the hand and register the same lifetime for tick and cleanup in one operation.</summary>
         public bool TryRegisterRightHandEffect(ISkillEffectLifetime effect)
@@ -660,6 +686,7 @@ namespace NarutoVR.SealCombat
         /// <summary>按手持投射物、最新自定义效果、护盾的优先级取消一项；飞行中的投射物继续运行。</summary>
         public bool CancelLatest()
         {
+            ClearBurstAim();
             ++clearingVersion;
             if (heldObject) { ClearHeld(); Report("已取消持握火球"); return true; }
             while (extensions.Count > 0)
@@ -717,6 +744,7 @@ namespace NarutoVR.SealCombat
             try
             {
                 SetPendingMouthCondition(null);
+                ClearCastReticles();
                 trainingHandPoses?.Reset();
                 surfaceMarks.Clear();
                 ClearHeld();
@@ -821,6 +849,7 @@ namespace NarutoVR.SealCombat
 
         private void EndShieldPresentation()
         {
+            parrySeconds = 0;
             lastShieldCapacity = 0;
             if (bodyShield) FreePrepared(bodyShield.gameObject);
             bodyShield = null;
@@ -841,7 +870,7 @@ namespace NarutoVR.SealCombat
                 if (shellMaterial)
                 {
                     var shell = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    shell.name = "护体咒 · 周身护盾";
+                    shell.name = "衡印 · 周身护盾";
                     var collider = shell.GetComponent<Collider>();
                     collider.enabled = false;
                     if (Application.isPlaying) Destroy(collider); else DestroyImmediate(collider);

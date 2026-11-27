@@ -37,11 +37,13 @@ namespace NarutoVR.SealCombat
             line.lightProbeUsage=LightProbeUsage.Off;line.reflectionProbeUsage=ReflectionProbeUsage.Off;
             return line;
         }
-        public void Show(FireballAim aim,Quaternion orientation,bool ready)
+        public void Show(FireballAim aim,Quaternion orientation,bool ready, SkillAimProfile profile)
         {
             if(!root) return;
             if (!root.activeSelf) root.SetActive(true);
             var color=aim.blocked?new Color(1,.32f,.08f):ready?new Color(.14f,.85f,1):new Color(.35f,.48f,.55f);
+            if (profile) color = aim.blocked ? profile.blockedColor : ready ? profile.color : Color.Lerp(profile.color,Color.gray,.45f);
+            ray.enabled = !profile || profile.showDirectionLine;
             if (currentColor != color)
             {
                 if (material.HasProperty("_BaseColor")) material.SetColor("_BaseColor", color);
@@ -58,7 +60,8 @@ namespace NarutoVR.SealCombat
             rayPoints[4] = tip - aim.direction * .06f - right * .025f;
             ray.SetPositions(rayPoints);
             // Outline at the actual aim endpoint; apparent size stays legible at distance.
-            float size=Mathf.Clamp(distance*.035f,.08f,.45f);
+            float size=profile ? profile.RadiusAt(distance) : Mathf.Clamp(distance*.035f,.08f,.45f);
+            arc.widthMultiplier = profile ? Mathf.Max(.002f,size*.19f) : .008f;
             // The arc's local +Y points along flight after the fixed model-axis correction.
             // Keep the whole preview in front of the hit surface, with its opening toward us.
             Vector3 center=aim.endpoint-aim.direction*(size*.3f+.015f);

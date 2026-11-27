@@ -23,12 +23,50 @@ namespace NarutoVR.SealCombat.Rpg
             public float score, threshold;
         }
 
+        // Raw signed depth is measured before the pen visual snaps to the board (negative faces player).
+        [Serializable] internal sealed class ContactLog
+        {
+            public int contacts, frontLifts, sideExits, trackingBreaks;
+            public float latestRawZ;
+            public double lastContactTime, lastReleaseTime;
+            [NonSerialized] bool down;
+
+            public void Observe(float z, bool inside, bool touching, double now)
+            {
+                latestRawZ = z;
+                if (touching == down) return;
+                down = touching;
+                if (touching) { contacts++; lastContactTime = now; }
+                else
+                {
+                    if (inside) frontLifts++; else sideExits++;
+                    lastReleaseTime = now;
+                }
+            }
+
+            public void LostTracking(double now)
+            {
+                trackingBreaks++;
+                if (down) lastReleaseTime = now;
+                down = false;
+            }
+
+            public void Clear()
+            {
+                contacts = frontLifts = sideExits = trackingBreaks = 0;
+                latestRawZ = 0;
+                lastContactTime = lastReleaseTime = 0;
+                down = false;
+            }
+        }
+
         [Serializable] internal sealed class Snapshot
         {
             public string capturedUtc, scene, board, mode, reason;
             public double decisionTime;
             public float lastScore, minimumMargin, idleSeconds;
             public int strokeCount;
+            public ContactLog contact;
             public Point[] points;
             public Candidate[] candidates;
         }
@@ -60,7 +98,7 @@ namespace NarutoVR.SealCombat.Rpg
                     capturedUtc = DateTime.UtcNow.ToString("o"), scene = board.gameObject.scene.path, board = board.name,
                     mode = mode, reason = board.Status, decisionTime = now, lastScore = board.LastScore,
                     minimumMargin = board.minimumMargin, idleSeconds = board.idleSeconds, strokeCount = board.StrokeCount,
-                    points = points, candidates = candidates.ToArray()
+                    contact = board.contactLog, points = points, candidates = candidates.ToArray()
                 };
                 Directory.CreateDirectory(OutputDirectory);
                 string path = Path.Combine(OutputDirectory, "last-" + mode + ".json");

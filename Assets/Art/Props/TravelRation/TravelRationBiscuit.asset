@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06bde6f70324ef684f428f4a3f93f83, type: 3}
+  m_Name: TravelRationBiscuit
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Items.ConsumableItemConfigSO
+  kind: 2
+  maxUses: 1
+  dwellSeconds: 0.3
+  requireFacing: 0
+  maxFacingAngle: 65
+  effects:
+  - {fileID: 11400000, guid: 7b43ad288624c1b42a3323b9304ea42a, type: 2}
+  biteSound: {fileID: 8300000, guid: 4c8917c78133a8b489dd65978e70cd9a, type: 3}
+  volume: 0.7
+  hapticStrength: 0.2
+  hapticSeconds: 0.04

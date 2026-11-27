@@ -14,7 +14,7 @@ namespace NarutoVR.SealCombat
             { Report("雷光剑需要右手和有效持续时间"); return null; }
             if (HasOccupiedHand || !RightHandActionAllowed || !WeaponAttacker || !TryGetSwordGrip(out _, out _, out _))
             { Report("当前无法使用右手雷光剑"); return null; }
-            return ThunderSwordCast.Prepare(this, settings, skill.durationSeconds);
+            return ThunderSwordCast.Prepare(this, settings, skill.durationSeconds, skill.aimProfile);
         }
 
         // Build a grip from the rigid palm bones, not the SDK wrist's arbitrary local +Z.
@@ -65,12 +65,14 @@ namespace NarutoVR.SealCombat
             return false;
         }
 
-        internal bool TryGetWeaponWavePreview(Vector3 origin, float radius, out FireballAim aim)
+        internal bool TryGetWeaponWavePreview(Vector3 origin, float radius, float reach, SkillAimProfile profile, out FireballAim aim)
         {
             aim = default;
-            if (!RightHandActionAllowed || !TryGetAimRay(origin, out var point, out var direction, out float distance)) return false;
-            Vector3 endpoint = point;
-            bool originBlocked=!WeaponOriginClear(origin,radius), blocked=originBlocked;
+            if (!RightHandActionAllowed || !TryGetAimRay(origin, profile, out var point, out var direction, out float distance)) return false;
+            distance = Mathf.Min(reach,distance);
+            Vector3 endpoint = origin + direction * distance;
+            if (!WeaponOriginClear(origin,radius)) return false;
+            bool blocked=false;
             float nearest = distance;
             int count=Physics.SphereCastNonAlloc(origin,radius,direction,throwSweeps,distance,WeaponHitMask,QueryTriggerInteraction.Collide);
             bool incomplete=count==throwSweeps.Length;
@@ -80,7 +82,7 @@ namespace NarutoVR.SealCombat
                 var hit=throwSweeps[i];
                 if(IgnoreThrowCollider(hit.collider) || hit.distance>nearest) continue;
                 nearest=hit.distance; endpoint=origin+direction*nearest;
-                blocked=originBlocked || incomplete || !new SkillHitTarget(hit.collider).IsTarget;
+                blocked=incomplete || !new SkillHitTarget(hit.collider).IsTarget;
             }
             aim=new FireballAim(origin,direction,point,endpoint,blocked); return true;
         }

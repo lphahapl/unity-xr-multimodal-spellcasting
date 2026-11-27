@@ -20,10 +20,14 @@ namespace NarutoVR.SealCombat.Rpg
         [Header("四、异步生成（配置后替代预置敌人列表）")]
         [InspectorName("敌人管理服务")] public EnemyManager enemyManager;
         [InspectorName("怪物出生点")] public SpawnPoint[] spawnPoints = Array.Empty<SpawnPoint>();
+        [InspectorName("入场前显示守敌"), Tooltip("在附近时提前加载同一批敌人。玩家脚底入场后才启用攻击和受击。")]
+        public bool showEnemiesBeforeEngagement;
+        [InspectorName("守敌显示距离（米）"), Min(0f)] public float previewDistance = 32f;
         public bool UsesEnemyManager => enemyManager != null;
         public bool IsLoadingEnemies => pendingSpawns != null;
         public Task SpawnTask { get; private set; } = Task.CompletedTask;
         readonly List<EnemyLease> roomLeases = new();
+        readonly List<StoneCarrierPost> carrierPosts = new();
         CancellationTokenSource pendingSpawns;
         bool spawnFailed;
 
@@ -47,13 +51,22 @@ namespace NarutoVR.SealCombat.Rpg
             }
             if (complete) { rpg.RequestEncounterCombat(this, false); status = "房间已完成，探索中"; return; }
             if (started && CheckRoomDefeats()) return;
-            if (!ContainsFloor(rpg.locomotion.PlayerFloorPosition, inside))
+            var feet = rpg.locomotion.PlayerFloorPosition;
+            inside = ContainsFloor(feet, inside);
+            if (!inside && (started || !WithinPreviewDistance(feet)))
             {
-                inside = false; CancelPendingSpawns(); if (!PauseManagedEnemies()) return; rpg.RequestEncounterCombat(this, false);
-                status = started ? "已离开房间，敌人保留生命并暂停" : "练习区：等待玩家进入房间"; return;
+                CancelPendingSpawns();
+                if (!started && roomLeases.Count > 0)
+                {
+                    RecycleRoomLeases();
+                    enemies = Array.Empty<EnemyController>();
+                }
+                if (!PauseManagedEnemies()) return;
+                rpg.RequestEncounterCombat(this, false);
+                status = started ? "已离开房间，敌人保留生命并暂停" : "练习区：等待玩家进入房间";
+                return;
             }
-            inside = true;
-            if (!started)
+            if (roomLeases.Count == 0)
             {
                 if (spawnFailed) { rpg.RequestEncounterCombat(this, false); return; }
                 if (pendingSpawns == null)
@@ -61,14 +74,39 @@ namespace NarutoVR.SealCombat.Rpg
                     var request = new CancellationTokenSource(); pendingSpawns = request;
                     SpawnTask = SpawnRoomAsync(revision, request);
                 }
-                if (!started) { if (!spawnFailed) { status = "正在异步准备房间敌人"; rpg.RequestEncounterCombat(this, true); } return; }
+                if (roomLeases.Count == 0)
+                {
+                    if (!spawnFailed) { status = "正在异步准备房间敌人"; rpg.RequestEncounterCombat(this, inside); }
+                    return;
+                }
             }
-            if (pausedEnemies)
+            ResumeManagedEnemies(preview: !inside);
+        }
+
+        bool WithinPreviewDistance(Vector3 feet) => showEnemiesBeforeEngagement && area.enabled &&
+            (feet - area.ClosestPoint(feet)).sqrMagnitude <= previewDistance * previewDistance;
+
+        // 整批就绪后才解开暂停。预展示仍封锁受击与索敌；首次越线只切换权限。
+        void ResumeManagedEnemies(bool preview)
+        {
+            bool firstEngagement = !preview && !started;
+            if (!preview) started = true;
+            if (pausedEnemies || firstEngagement)
             {
+                int token = revision;
                 pausedEnemies = false;
-                foreach (var lease in roomLeases) if (enemyManager.IsCurrent(lease) && !Defeated(lease.Controller)) lease.Controller.SetSuspended(false);
+                foreach (var lease in roomLeases)
+                {
+                    if (enemyManager.IsCurrent(lease) && !Defeated(lease.Controller))
+                    {
+                        lease.PreviewPatrol = preview;
+                        lease.Controller.SetSuspended(false);
+                    }
+                    if (!this || token != revision || !isActiveAndEnabled) return;
+                }
             }
-            rpg.RequestEncounterCombat(this, true); status = "房间战斗中";
+            rpg.RequestEncounterCombat(this, !preview);
+            status = preview ? "守敌巡逻中，等待玩家入场" : "房间战斗中";
         }
 
         bool CheckRoomDefeats()
@@ -99,6 +137,7 @@ namespace NarutoVR.SealCombat.Rpg
         async Task SpawnRoomAsync(int token, CancellationTokenSource request)
         {
             var created = new List<EnemyLease>();
+            var boundPosts = new List<StoneCarrierPost>();
             var manager = enemyManager;
             var owner = rpg;
             bool Current() => this && isActiveAndEnabled && token == revision && !request.IsCancellationRequested &&
@@ -106,7 +145,8 @@ namespace NarutoVR.SealCombat.Rpg
             try
             {
                 // Snapshot the batch so Inspector changes do not change an in-flight request.
-                var batch = spawnPoints.Select(s => (s.enemyId, s.point.position, s.point.rotation, s.isSummoned)).ToArray();
+                var batch = spawnPoints.Select(s => (s.enemyId, s.point.position, s.point.rotation, s.isSummoned,
+                    carrierPost: s.point.GetComponent<StoneCarrierPost>(), pace: s.point.GetComponent<EncounterEnemyPace>())).ToArray();
                 foreach (var item in batch)
                 {
                     var lease = await manager.SpawnEnemyAsync(item.enemyId, item.position, item.rotation, owner.locomotion.head, item.isSummoned, request.Token);
@@ -114,14 +154,26 @@ namespace NarutoVR.SealCombat.Rpg
                     if (!Current()) throw new OperationCanceledException();
                     if (!manager.IsCurrent(lease)) throw new OperationCanceledException("出生租约已失效");
                     lease.Controller.SetSuspended(true);
+                    if (item.pace && item.pace.isActiveAndEnabled) lease.Pace = item.pace;
                 }
-                if (!Current() || !owner.CanAct || !ContainsFloor(owner.locomotion.PlayerFloorPosition, false) ||
-                    created.Any(l => !manager.IsCurrent(l))) throw new OperationCanceledException();
+                if (!Current() || !owner.CanAct || created.Any(l => !manager.IsCurrent(l))) throw new OperationCanceledException();
+                var feet = owner.locomotion.PlayerFloorPosition;
+                bool enter = ContainsFloor(feet, false);
+                if (!enter && !WithinPreviewDistance(feet)) throw new OperationCanceledException();
+                for (int i = 0; i < batch.Length; i++)
+                {
+                    var post = batch[i].carrierPost;
+                    if (!post) continue;
+                    if (!post.Bind(created[i], owner.locomotion.head, this))
+                        throw new InvalidOperationException("背石工奴出生点缺少工奴、A 篮或槽心：" + post.name);
+                    boundPosts.Add(post);
+                }
+                carrierPosts.AddRange(boundPosts); boundPosts.Clear();
                 roomLeases.AddRange(created); created.Clear();
                 enemies = roomLeases.Select(l => l.Controller).ToArray();
-                started = true; pausedEnemies = false;
-                foreach (var lease in roomLeases) if (manager.IsCurrent(lease)) lease.Controller.SetSuspended(false);
-                rpg.RequestEncounterCombat(this, true); status = "房间战斗中";
+                pausedEnemies = true;
+                inside = enter;
+                ResumeManagedEnemies(preview: !enter);
             }
             catch (OperationCanceledException) { /* Leaving/resetting invalidates just this batch. */ }
             catch (Exception error)
@@ -131,6 +183,7 @@ namespace NarutoVR.SealCombat.Rpg
             }
             finally
             {
+                foreach (var post in boundPosts) if (post) post.ResetPost();
                 foreach (var lease in created) if (manager) manager.Recycle(lease);
                 if (ReferenceEquals(pendingSpawns, request)) pendingSpawns = null;
                 request.Dispose();
@@ -157,9 +210,15 @@ namespace NarutoVR.SealCombat.Rpg
         void RecycleRoomLeases()
         {
             CancelPendingSpawns();
+            ResetCarrierPosts();
             var owned = roomLeases.ToArray();
             roomLeases.Clear();
             foreach (var lease in owned) if (enemyManager) enemyManager.Recycle(lease);
+        }
+        void ResetCarrierPosts()
+        {
+            foreach (var post in carrierPosts) if (post) post.ResetPost();
+            carrierPosts.Clear();
         }
         void ResetManagedEncounter()
         {

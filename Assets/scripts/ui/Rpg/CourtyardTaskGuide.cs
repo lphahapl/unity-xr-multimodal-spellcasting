@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
+    // An optional scene component can choose a phase within one objective (carrying an item or riding a lift).
+    internal interface IQuestTrailSource { QuestVisualHints CurrentTrail { get; } }
+
     [DefaultExecutionOrder(365), DisallowMultipleComponent]
     public sealed class CourtyardTaskGuide : MonoBehaviour
     {
@@ -15,6 +18,7 @@ namespace NarutoVR.SealCombat.Rpg
         public Material handMaterial;
 
         QuestTrailDots trail;
+        IQuestTrailSource routeSource;
         QuestGestureHand hand;
         QuestVisualHints activeRoute;
         QuestGestureHint activeGesture;
@@ -23,6 +27,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         void OnEnable()
         {
+            routeSource = GetComponent<IQuestTrailSource>();
             owner = chapter ? chapter.Owner : null;
             if (owner) owner.CheckpointRestored += Clear;
         }
@@ -38,7 +43,8 @@ namespace NarutoVR.SealCombat.Rpg
                 return;
             }
 
-            UpdateTrail(showTrail ? chapter.TrailHints : null, player.locomotion);
+            var currentTrail = routeSource != null ? routeSource.CurrentTrail : chapter.TrailHints;
+            UpdateTrail(showTrail ? currentTrail : null, player.locomotion);
             var movement = player.locomotion;
             QuestGestureHint candidate = null;
             if (showGestures && !chapter.Speaking && movement.head && rightHandModel && handMaterial &&
@@ -70,7 +76,7 @@ namespace NarutoVR.SealCombat.Rpg
             int end = hints.route.EndIndex(hints.destination);
             if (end < 0) { trail?.Hide(); return; }
             trail ??= new QuestTrailDots(transform, guideMaterial);
-            trail.Draw(hints.route.points, end, movement, trailHeight);
+            trail.Draw(hints.route.points, end, movement, trailHeight, routeSource != null);
         }
 
         void UpdateHand(QuestGestureHint hint, Transform head)

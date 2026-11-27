@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: 左手护盾
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.SkillDefinition
   skillId: shield.left
-  displayName: 左手护盾
+  displayName: 衡印
   triggerMode: 0
   sealName: 衡印
   followingSeals: []
   matchWindow: 8
   voiceDiscount: 0
   thresholdFloor: 0.65
-  effectDefinition: {fileID: 11400000, guid: 081c041630f0eef47ad3f5a33e978555, type: 2}
+  effectDefinition: {fileID: 11400000, guid: 28f0624a2c1d4f1c9681dfdee046784e, type: 2}
   cooldownSeconds: 3
   manaCost: 15
   cooldownGroup: shield

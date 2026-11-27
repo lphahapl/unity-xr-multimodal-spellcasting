@@ -22,8 +22,8 @@ namespace NarutoVR.SealCombat.Editor
             using var authored = AuthoredSkillCatalog.Open(Obj.FindFirstObjectByType<LinearRpgController>().skills);
             var known = authored.Catalog.skills.Select(skill => skill.skillId).ToArray();
             teaching.Validate(known); items.Validate(known);
-            var shieldLesson = teaching.entries.Single(entry => entry.skillIds.Contains("buff.zi"));
-            Check(shieldLesson.skillIds.Length == 2 && shieldLesson.skillIds.Contains("buff.voice"), "teaching groups alternative recipes without granting progress");
+            var shieldLesson = teaching.entries.Single(entry => entry.entryId == "shield");
+            Check(shieldLesson.displayName == "衡印" && shieldLesson.skillIds.SequenceEqual(new[] { "shield.left", "buff.voice" }), "teaching groups alternative recipes without granting progress");
             var model = new PlayerModel(new RpgPlayerState());
             RpgProgressData Snapshot() => model.Export(model.Vitals.CaptureCheckpoint(0), null);
             bool Accepts(RpgProgressData saved)

@@ -70,18 +70,7 @@ namespace NarutoVR.SealCombat.Editor
                 stageGo.transform.position = new Vector3(0, -0.05f, 0);
                 stageGo.transform.localScale = new Vector3(12.0f, 0.05f, 12.0f);
 
-                var stageMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/ShowcaseStageDark.mat");
-                if (stageMat == null)
-                {
-                    Directory.CreateDirectory("Assets/Materials");
-                    var shader = Shader.Find("Universal Render Pipeline/Lit");
-                    if (shader == null) shader = Shader.Find("Standard");
-                    stageMat = new Material(shader);
-                    stageMat.name = "ShowcaseStageDark";
-                    stageMat.color = new Color(0.08f, 0.1f, 0.14f);
-                    if (stageMat.HasProperty("_Smoothness")) stageMat.SetFloat("_Smoothness", 0.4f);
-                    AssetDatabase.CreateAsset(stageMat, "Assets/Materials/ShowcaseStageDark.mat");
-                }
+                var stageMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Showcase/玄色石面.mat");
                 stageGo.GetComponent<Renderer>().sharedMaterial = stageMat;
 
                 // 4. 特效生成挂点与控制器
@@ -90,7 +79,7 @@ namespace NarutoVR.SealCombat.Editor
                 previewer.showcaseCamera = cam;
                 previewer.spawnRoot = managerGo.transform;
 
-                // 初始化并加载五大系40个精选特效预制体（含小火苗）
+                // 烘入预览目录的真实预制体引用，让独立播放器也能切换全部条目。
                 previewer.InitializeCuratedList();
                 previewer.EnsureAllPrefabsLoaded();
 
@@ -104,7 +93,7 @@ namespace NarutoVR.SealCombat.Editor
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
-                Debug.Log($"[特效展厅] 成功生成并保存测试场景至：{ScenePath}，包含 uGUI 面板与 40 个精选特效！");
+                Debug.Log($"[特效展厅] 成功生成并保存测试场景至：{ScenePath}，包含 uGUI 面板与全部分类特效。");
             }
             catch (Exception ex)
             {

@@ -9,6 +9,7 @@ namespace NarutoVR.SealCombat.Rpg
         public Transform cap;
         [InspectorName("匣面与教学投影位")] public ZhunwangWristDisplay display;
         [Tooltip("场景中的右食指输入；独立展台也可指定 fingertip。")] public WristMenuController handInput;
+        [Tooltip("没有腕匣时，固定机关可直接使用正式玩家手部观测。")] public LinearRpgController playerHandInput;
         public Transform fingertip;
         [Min(.0001f)] public float travelMetres = .0015f;
         [Min(.001f)] public float touchRadius = .022f;
@@ -31,11 +32,20 @@ namespace NarutoVR.SealCombat.Rpg
             // Worn buttons are sampled once before gameplay arbitrates this same hand frame.
             if (handInput && handInput.wornDevice == this) return;
             if(fingertip){Sample(fingertip.position);return;}
-            if(handInput&&handInput.isActiveAndEnabled){
-                var frame=handInput.LatestInput;
-                if(!frame.tipUnavailable && PlayerHandObservation.Finite(frame.rightTip) && PlayerHandObservation.Fresh(frame.rightValid,frame.rightObserved,Time.realtimeSinceStartupAsDouble,handInput.settings.maxAge)){Sample(frame.rightTip);return;}
-            }
+            if (handInput && handInput.isActiveAndEnabled &&
+                SampleTrackedTip(handInput.LatestInput, handInput.settings.maxAge)) return;
+            if (playerHandInput && playerHandInput.CanAct &&
+                SampleTrackedTip(playerHandInput.Input.LatestHand, playerHandInput.handSampleMaxAge)) return;
             ResetContact();
+        }
+
+        bool SampleTrackedTip(PlayerHandObservation frame, float maxAge)
+        {
+            if (frame.tipUnavailable || !PlayerHandObservation.Finite(frame.rightTip) ||
+                !PlayerHandObservation.Fresh(frame.rightValid, frame.rightObserved, Time.realtimeSinceStartupAsDouble, maxAge))
+                return false;
+            Sample(frame.rightTip);
+            return true;
         }
         public void Sample(Vector3 tip)
         {

@@ -22,12 +22,14 @@ namespace NarutoVR.SealCombat.Events
         public readonly PlayableDirector Director;
         public readonly Transform ShotPose;
         public readonly Camera PlayerCamera;
+        public readonly GameObject TrackingReturnCue;
 
-        public StoryPlayRequest(PlayableDirector director, Transform shotPose, Camera playerCamera = null)
+        public StoryPlayRequest(PlayableDirector director, Transform shotPose, Camera playerCamera = null, GameObject trackingReturnCue = null)
         {
             Director = director;
             ShotPose = shotPose;
             PlayerCamera = playerCamera;
+            TrackingReturnCue = trackingReturnCue;
         }
     }
 

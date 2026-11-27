@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bbfc8198e8473992ae44233b77f5da, type: 3}
+  m_Name: StoneCarrierProfile
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.StoneCarrierProfile
+  stone: {fileID: 859030054880561711, guid: 8e5a09ccfc5af7b46be20a8532915180, type: 3}
+  carryPose: {fileID: 11400000, guid: 3dd25d933f644184b7f8abb3702e5bf4, type: 2}
+  carryOffset: {x: 0, y: 1.81, z: -0.327}
+  clipWalkSpeed: 0.54
+  patrolSpeed: 0.54
+  retreatSpeed: 0.72
+  arrivalDistance: 0.45
+  retreatDuration: 8.5
+  patrolPause: 1.2
+  defaultRadius: 2.5

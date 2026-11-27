@@ -51,7 +51,9 @@ namespace NarutoVR.SealCombat.Rpg
 
         internal static bool ValidateCheckpoint(RpgCheckpointData data, float maxHealth, float maxMana, out string reason)
         {
-            bool valid = TryReadVitals(data, out var state) && state.IsValid(maxHealth, maxMana);
+            bool valid = TryReadVitals(data, out var state) && state.IsValid(maxHealth, maxMana) &&
+                (data.ration == null || data.ration.IsValid()) && (data.stake == null || data.stake.IsValid()) &&
+                (data.hearthFood == null || data.hearthFood.IsValid());
             reason = valid ? null : "检查点生命、能量或冷却无效";
             return valid;
         }

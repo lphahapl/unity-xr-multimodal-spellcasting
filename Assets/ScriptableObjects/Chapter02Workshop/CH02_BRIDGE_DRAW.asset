@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234452b1368041df89bcce25fca81e5a, type: 3}
+  m_Name: CH02_BRIDGE_DRAW
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.Chapter02PassageStage
+  stageId: CH02_BRIDGE_DRAW
+  displayName: 绘通路符过断桥
+  instructions: 右手按石案铜扣，取墨规笔照图画通路符。归笔，用右食指先后指向两岸铜榫，握拳成路。
+  enableHazards: 0
+  startsInCombat: 0
+  rewardCurrency: 0
+  unlockSkillIds: []
+  passage: {fileID: 11400000, guid: 604813e8103fe324d980727faeb4c7ed, type: 2}
+  socketPrefab: {fileID: 4715351715761386601, guid: 24ca2b72711678b41b68de538ccf17ed, type: 3}
+  nearLanding: {x: -7.16, y: 0, z: 11}
+  farLanding: {x: -2.84, y: 0, z: 11}

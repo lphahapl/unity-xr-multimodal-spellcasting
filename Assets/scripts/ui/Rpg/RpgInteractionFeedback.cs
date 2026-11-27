@@ -33,6 +33,7 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("提示音量"), Range(0,1)] public float volume = .18f;
         [InspectorName("选中或准备音效")] public AudioClip selectionClip;
         [InspectorName("移动成功音效")] public AudioClip movementClip;
+        [InspectorName("极限闪避音效"), Tooltip("留空时使用默认擦身音。")] public AudioClip perfectDodgeClip;
         [InspectorName("技能成功音效")] public AudioClip skillClip;
         [InspectorName("取消音效")] public AudioClip cancelClip;
         [InspectorName("操作拒绝音效")] public AudioClip blockedClip;
@@ -50,7 +51,7 @@ namespace NarutoVR.SealCombat.Rpg
         public Vector3 DisplayedTarget { get; private set; }
         public bool GripVisualVisible => throwGrip && throwGrip.enabled;
         [InspectorName("调试：显示前送原始轨迹对照线")] public bool showRawWindupDirection;
-        public bool ThrowDirectionVisible => throwDirection && throwDirection.enabled;
+        public bool ThrowDirectionVisible => (effects && effects.ProfileThrowDirectionVisible) || (throwDirection && throwDirection.enabled);
         public int GripCueCount { get; private set; }
         public int DwellCueCount { get; private set; }
         public int ThrowRejectedCueCount { get; private set; }
@@ -62,6 +63,7 @@ namespace NarutoVR.SealCombat.Rpg
         Material pathMaterial, progressMaterial, pulseMaterial, throwMaterial;
         Transform visuals;
         AudioSource speaker;
+        AudioClip dodgeSleeve;
         readonly AudioClip[] generated = new AudioClip[5];
         readonly double[] lastCue = new double[Enum.GetValues(typeof(RpgActionCue)).Length];
         bool wasNavigating, wasProtected, wasWarning;
@@ -95,6 +97,8 @@ namespace NarutoVR.SealCombat.Rpg
 
         void EnsurePresentation()
         {
+            if (!perfectDodgeClip) perfectDodgeClip = Resources.Load<AudioClip>("Audio/PerfectDodge");
+            if (!dodgeSleeve) dodgeSleeve = Resources.Load<AudioClip>("Audio/DodgeSleeve");
             if (!speaker)
             {
                 speaker = gameObject.AddComponent<AudioSource>(); speaker.playOnAwake = false;
@@ -262,9 +266,9 @@ namespace NarutoVR.SealCombat.Rpg
             bool valid = active && effects && effects.HasHeldObject && effects.ThrowInputValid;
             throwGrip.enabled = valid && showThrowGrip;
             FireballAim aim=default;
-            throwDirection.enabled = aimReticle.enabled = active && showThrowDirection &&
-                effects && effects.TryGetThrowPreview(out aim);
-            rawWindupLine.enabled = throwDirection.enabled && showRawWindupDirection && effects.WindupPreview;
+            throwDirection.enabled = aimReticle.enabled = active && showThrowDirection && effects && !effects.HeldAimProfile && effects.TryGetThrowPreview(out aim);
+            rawWindupLine.enabled = active && (throwDirection.enabled || effects && effects.ProfileThrowDirectionVisible) &&
+                showRawWindupDirection && effects.WindupPreview;
             if(rawWindupLine.enabled){
                 var origin=effects.ThrowPreviewOrigin;
                 rawWindupLine.positionCount=2;
@@ -323,6 +327,7 @@ namespace NarutoVR.SealCombat.Rpg
                     LastFeedback = openingMarks != null ? "已到达落点，放松左食指后可再次选择" : "已到达落点：左食指回到起点后可再次选择";
                     tone = 1; break;
                 case RpgActionCue.Dodged: LastFeedback = "闪避成功：右手回位后可再次划动（仍需冷却结束）"; tone = 1; break;
+                case RpgActionCue.PerfectDodge: LastFeedback = "极限闪避"; tone = 1; break;
                 case RpgActionCue.Cancelled: LastFeedback = "已取消待施法与未发射物"; tone = 3; color = new Color(.65f,.45f,1); break;
                 case RpgActionCue.Blocked: LastFeedback = "操作未通过：查看移动或最近操作中的原因"; tone = 4; color = new Color(1,.25f,.08f); break;
                 case RpgActionCue.Damage: LastFeedback = "受到攻击：检查生命与护盾"; tone = 4; color = Color.red; break;
@@ -333,7 +338,9 @@ namespace NarutoVR.SealCombat.Rpg
                 case RpgActionCue.DwellNearComplete: LastFeedback = "落点即将确认：保持方向，或左手回中立撤销"; color = progressColor; DwellCueCount++; break;
                 default: LastFeedback = cue == RpgActionCue.Progress ? "进度操作成功" : "技能已生效或准备完成"; tone = 2; color = progressColor; break;
             }
-            var clip = tone switch { 0 => selectionClip, 1 => movementClip, 2 => skillClip, 3 => cancelClip, _ => blockedClip };
+            var clip = cue == RpgActionCue.PerfectDodge ? perfectDodgeClip :
+                cue == RpgActionCue.Dodged && !movementClip ? dodgeSleeve :
+                tone switch { 0 => selectionClip, 1 => movementClip, 2 => skillClip, 3 => cancelClip, _ => blockedClip };
             if (cue != RpgActionCue.Damage && playSounds && volume > 0)
             {
                 var sound = clip ? clip : generated[tone];

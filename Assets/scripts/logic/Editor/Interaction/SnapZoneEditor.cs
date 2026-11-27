@@ -1,13 +1,17 @@
 // 基于 NeuGameMRTools 的吸附 Inspector；保留原字段绑定，适配本项目列表路径和 Undo。
 using NeuGameMRTools.Runtime.Components;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace NeuGameMRTools.Editor.Editors
 {
-    [CustomEditor(typeof(SnapZone))]
+    [CustomEditor(typeof(SnapZone), true)]
     public sealed class SnapZoneEditor : UnityEditor.Editor
     {
+        static readonly string[] BaseFields = typeof(SnapZone).GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+            .Select(field => field.Name).Append("m_Script").ToArray();
         GameObject testObject;
         SerializedProperty P(string name) => serializedObject.FindProperty(name);
         void Field(string name, string label) => EditorGUILayout.PropertyField(P(name), new GUIContent(label), true);
@@ -67,6 +71,11 @@ namespace NeuGameMRTools.Editor.Editors
             Field("_onPointReachedEvent", "到达路径点（物体、零起始序号）");
             Field("_onSnapCompletedEvent", "整条吸附完成");
             Field("_onExitEvent", "释放 / 取消吸附");
+            if (zone.GetType() != typeof(SnapZone))
+            {
+                EditorGUILayout.Space();
+                DrawPropertiesExcluding(serializedObject, BaseFields);
+            }
             serializedObject.ApplyModifiedProperties();
 
             var collider = zone.GetComponent<Collider>();

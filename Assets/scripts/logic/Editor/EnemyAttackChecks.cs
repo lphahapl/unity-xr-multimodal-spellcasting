@@ -228,7 +228,7 @@ namespace NarutoVR.SealCombat.Editor
             { for (int i = objects.Count - 1; i >= 0; i--) if (objects[i]) UnityEngine.Object.DestroyImmediate(objects[i]); }
         }
 
-        sealed class RpgFixture : IDisposable
+        internal sealed class RpgFixture : IDisposable
         {
             readonly GameObject root;
             readonly GameObject floor;
@@ -238,7 +238,7 @@ namespace NarutoVR.SealCombat.Editor
             public SkillController Effects { get; }
             public SkillDefinition Buff { get; }
 
-            public RpgFixture(Vector3 position)
+            public RpgFixture(Vector3 position, params string[] trialSkills)
             {
                 root = new GameObject("敌人攻击检查_真实RPG") { hideFlags = HideFlags.HideAndDontSave };
                 root.SetActive(false); root.transform.position = position;
@@ -264,7 +264,8 @@ namespace NarutoVR.SealCombat.Editor
                 Controller.chapter = root.AddComponent<TrainingChapterFlow>();
                 ((TrainingChapterFlow)Controller.chapter).rpg = Controller;
                 Controller.playerDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<RpgPlayerDefinition>(LinearRpgSceneSetup.TrainingPlayerPath);
-                ((TrainingChapterFlow)Controller.chapter).trialSkills = new[] { "buff.zi" }; Controller.skills = skills; Controller.locomotion = locomotion;
+                ((TrainingChapterFlow)Controller.chapter).trialSkills = trialSkills.Length == 0 ? new[] { "buff.zi" } : trialSkills;
+                Controller.skills = skills; Controller.locomotion = locomotion;
                     Controller.handPoseSettings = AssetDatabase.LoadAssetAtPath<BasicHandPoseSettings>("Assets/ScriptableObjects/基础手形配置/官方基础手形.asset");
                     Controller.ConfigureRoute(new[] { stage }, new[] { node }); Controller.GetComponent<TrainingTargetGroup>().targets = new[] { target }; Controller.GetComponent<TrainingTargetGroup>().stageHealth = new[] { new TrainingTargetGroup.StageHealth { stage = stage, health = 60f } };
                     Controller.autoLoad = false; Controller.GetComponent<TrainingChapterFlow>().autoAdvance = false;

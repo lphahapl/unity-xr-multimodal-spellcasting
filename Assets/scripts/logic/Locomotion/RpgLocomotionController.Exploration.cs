@@ -232,7 +232,9 @@ namespace NarutoVR.SealCombat.Rpg
             Vector3 delta = Vector3.ProjectOnPlane(autoDestination - PlayerFloorPosition, Vector3.up);
             if (delta.magnitude <= .012f) { StopExploration(); Status = "已到达所选落点"; return; }
             if (dt <= 0) { EndWalkStride(); Status = "等待下一帧继续自动行走"; return; }
-            if (!WalkStep(Vector3.ClampMagnitude(delta, dt * Mathf.Max(.05f, exploreSpeed)), "正在走向所选落点") || walkContact)
+            var step = Vector3.ClampMagnitude(delta, dt * Mathf.Max(.05f, exploreSpeed));
+            if (!WalkStep(step, "正在走向所选落点") ||
+                Vector3.ProjectOnPlane(autoDestination - PlayerFloorPosition, Vector3.up).sqrMagnitude >= delta.sqrMagnitude)
             {
                 StopExploration();
                 Status = "自动行走已中止，请重新选点";

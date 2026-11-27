@@ -6,12 +6,13 @@ using UnityEngine;
 namespace NarutoVR.SealCombat.Rpg
 {
     [DefaultExecutionOrder(330)]
-    public sealed class OpeningLeafPuzzle : QuestGestureCondition
+    public sealed class OpeningLeafPuzzle : QuestGestureCondition, IHandPickupSource
     {
         public LinearRpgController rpg;
         public Transform outerDisc, innerDisc, outerHandle, innerHandle, prizeRest, verifier, slotEntry;
         public GameObject leaf, lid;
         [InspectorName("实物铜叶标识")] public string leafId = "leaf.fangyuan";
+        [InspectorName("铜叶取用尺寸倍率"), Min(1f)] public float heldSizeMultiplier = 1.4f;
         public SnapZone slot;
         /// <summary>机关解开后的完成阶段，用于恢复开盖状态；铜叶归属只读取实际持有记录。</summary>
         public RpgStageDefinition solvedStage;
@@ -36,9 +37,12 @@ namespace NarutoVR.SealCombat.Rpg
 
         enum Grip { None, Outer, Inner, Leaf }
         Grip grip;
+        bool heldInLeft, reconfirmLeaf;
         long gripClaim;
         readonly DiscAlignmentState discs = new();
         float lastAngle, dropTime;
+        Vector3 restingLeafScale;
+        float appliedLeafScale = 1f;
         bool activePuzzle, canCollect, taken, canInsert, pinchReleased;
         public override bool CanDemonstrate(Transform target)
         {
@@ -85,7 +89,23 @@ namespace NarutoVR.SealCombat.Rpg
             PoseLeaf(slot.transform);
         }
 
-        void PoseLeaf(Transform anchor) => leaf.transform.SetPositionAndRotation(anchor.position, anchor.rotation);
+        void EnlargeHeldLeaf()
+        {
+            if (appliedLeafScale > 1f) return;
+            restingLeafScale = leaf.transform.localScale;
+            appliedLeafScale = Mathf.Max(1f, heldSizeMultiplier);
+            leaf.transform.localScale = restingLeafScale * appliedLeafScale;
+        }
+
+        void PoseLeaf(Transform anchor)
+        {
+            if (appliedLeafScale > 1f)
+            {
+                leaf.transform.localScale = restingLeafScale;
+                appliedLeafScale = 1f;
+            }
+            leaf.transform.SetPositionAndRotation(anchor.position, anchor.rotation);
+        }
         void SetDiscs()
         {
             outerDisc.localRotation = Quaternion.Euler(0, discs.OuterDegrees, 0);
@@ -98,6 +118,32 @@ namespace NarutoVR.SealCombat.Rpg
         }
         bool Near(Vector3 point, Transform handle) => (point - handle.position).sqrMagnitude <= grabRadius * grabRadius;
 
+        bool LeafAvailable => isActiveAndEnabled && leaf && leaf.activeInHierarchy &&
+            !IsSeated && grip == Grip.None && (canCollect || canInsert) && discs.Solved && slot && !slot.SnappedObject;
+
+        void OnEnable() => HandPickupQuery.Register(this);
+
+        public void CollectPickups(HandPickupQuery query)
+        {
+            if (query.Player == rpg && LeafAvailable)
+                query.Offer(this, leaf.transform, leaf.transform.position, grabRadius);
+        }
+
+        public bool TryPickup(Transform target, bool left, PlayerHandObservation hand)
+        {
+            if (!LeafAvailable || target != leaf.transform || hand.tipUnavailable ||
+                !hand.PinchDown(pinchClose) || !TryGrip(Grip.Leaf)) return false;
+            heldInLeft = left;
+            reconfirmLeaf = false;
+            trackingLostAt = double.NaN;
+            slotContactAt = double.NegativeInfinity;
+            dropTime = 0;
+            EnlargeHeldLeaf();
+            leaf.transform.position = hand.rightTip;
+            if (!taken) { taken = true; Collected?.Invoke(); }
+            return true;
+        }
+
         void LateUpdate()
         {
             if (IsSeated)
@@ -109,7 +155,7 @@ namespace NarutoVR.SealCombat.Rpg
             }
             if (!rpg || !rpg.CanAct || rpg.UiInputOwned ||
                 (grip != Grip.None && !rpg.Input.OwnsInteraction(this, gripClaim))) { DropTracking(); return; }
-            var hand = rpg.Input.LatestHand;
+            var hand = heldInLeft ? rpg.Input.LeftPickupHand : rpg.Input.LatestHand;
             double now = Time.realtimeSinceStartupAsDouble;
             bool valid = !hand.tipUnavailable && PlayerHandObservation.Fresh(hand.rightValid, hand.rightObserved,
                 now, rpg.handSampleMaxAge);
@@ -117,6 +163,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 if (grip == Grip.Leaf)
                 {
+                    reconfirmLeaf = true;
                     if (double.IsNaN(trackingLostAt)) trackingLostAt = now;
                     // Freeze the last valid pose. Missing samples are neither release nor movement.
                     if (now - trackingLostAt <= leafTrackingGrace) return;
@@ -125,6 +172,11 @@ namespace NarutoVR.SealCombat.Rpg
             }
             if (!double.IsNaN(trackingLostAt) && now - trackingLostAt > leafTrackingGrace) DropTracking();
             trackingLostAt = double.NaN;
+            if (reconfirmLeaf && grip == Grip.Leaf)
+            {
+                if (!hand.PinchDown(pinchClose)) return;
+                reconfirmLeaf = false;
+            }
             var tip = hand.rightTip;
             bool release = grip == Grip.Leaf ? LeafReleased(hand) : hand.PinchUp(pinchOpen);
             if (release)
@@ -144,11 +196,6 @@ namespace NarutoVR.SealCombat.Rpg
                     else if (Near(tip, innerHandle)) TryGrip(Grip.Inner);
                     if (grip != Grip.None) discs.BeginTurn();
                     lastAngle = Angle(tip);
-                }
-                if ((canCollect || canInsert) && discs.Solved && !slot.SnappedObject && Near(tip, leaf.transform) && TryGrip(Grip.Leaf))
-                {
-                    slotContactAt = double.NegativeInfinity;
-                    if (!taken) { taken = true; Collected?.Invoke(); }
                 }
             }
             if (grip == Grip.Outer || grip == Grip.Inner)
@@ -203,7 +250,7 @@ namespace NarutoVR.SealCombat.Rpg
             float depth = Mathf.Clamp(Vector3.Dot(fromEntry, axis), 0f, travel.magnitude);
             float radiusSquared = slotRadius * slotRadius;
             return (fromEntry - axis * depth).sqrMagnitude <= radiusSquared ||
-                (fromEntry + leaf.transform.TransformVector(leafGuideLocal)).sqrMagnitude <= radiusSquared;
+                (fromEntry + leaf.transform.TransformVector(leafGuideLocal) / appliedLeafScale).sqrMagnitude <= radiusSquared;
         }
 
         void TryInsertReleasedLeaf(Vector3 finger, double now)
@@ -228,16 +275,26 @@ namespace NarutoVR.SealCombat.Rpg
             if (rpg && gripClaim != 0) rpg.Input.ReleaseInteraction(this, gripClaim);
             gripClaim = 0;
             grip = Grip.None;
+            heldInLeft = reconfirmLeaf = false;
         }
         void DropTracking()
         {
             ReleaseGrip(); pinchReleased = false;
             trackingLostAt = double.NaN; slotContactAt = double.NegativeInfinity;
         }
-        void OnDisable() => DropTracking();
+        void OnDisable()
+        {
+            HandPickupQuery.Unregister(this);
+            DropTracking();
+        }
         void Recall()
         {
-            if (!taken || IsSeated || slot.SnappedObject || Vector3.Distance(leaf.transform.position, prizeRest.position) < .01f) return;
+            if (!taken || IsSeated || slot.SnappedObject) return;
+            if (Vector3.Distance(leaf.transform.position, prizeRest.position) < .01f)
+            {
+                if (appliedLeafScale > 1f) PoseLeaf(prizeRest);
+                return;
+            }
             dropTime += Time.deltaTime;
             if (dropTime >= 2) { PoseLeaf(prizeRest); dropTime = 0; }
         }

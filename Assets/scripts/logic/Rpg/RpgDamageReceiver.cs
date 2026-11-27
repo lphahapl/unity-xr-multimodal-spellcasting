@@ -10,6 +10,8 @@ namespace NarutoVR.SealCombat.Rpg
         LinearRpgController player;
         LinearRpgController Player => player ? player : player = GetComponent<LinearRpgController>();
         public override bool CanReceiveDamage => Player && Player.CanAct && Player.skills && Player.skills.effects;
+        public override bool HasFireCoreParry => CanReceiveDamage && Player.skills.effects.CanParryFireCore;
+        public override void PresentFireCoreParry() => Player.skills.effects.PresentFireCoreParry();
         public override Transform HitTransform => Player && Player.locomotion && Player.locomotion.head ? Player.locomotion.head : transform;
         public override Transform DetectionColliderRoot => Player && Player.locomotion && Player.locomotion.rigRoot ? Player.locomotion.rigRoot : transform;
         public override Vector3 HitPosition => HitTransform.position;

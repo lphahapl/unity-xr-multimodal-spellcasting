@@ -7,6 +7,8 @@ using NarutoVR.SealLab;
 using Oculus.Interaction.Input;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using NarutoVR.SealCombat.Enemies;
 using Lab = NarutoVR.SealLab.SealLab;
 using Object = UnityEngine.Object;
 
@@ -30,6 +32,7 @@ namespace NarutoVR.SealCombat.Editor
         public static void Run()
         {
             Require(Application.isPlaying, "需要在 Play 模式运行");
+            VerifySealProjectile();
             VerifyRecognizedStream();
             VerifyStream();
             VerifyStreamJointSwitches();
@@ -43,9 +46,65 @@ namespace NarutoVR.SealCombat.Editor
             VerifyCooldownLimits();
             VerifyOptionalDistance();
             VerifyBurst();
+            VerifyBurstImpact();
             VerifyBurstJointSwitches();
             VerifyBurstAfterInterruptedSeal();
             Debug.Log("BREATH_PLAY_PASS 认印后变形、迟到口令、分手作废、SO 起手和停喷边界、口令等手、曲指关节与掌心印顶、单手换点滞回与重选、近等高印顶混合、指尖遮挡、仅腕暂停与恢复、嘴后拒发、移动与转头、阻挡、松印、距离、耗尽、持续冷却、检查点、独立飞行");
+        }
+
+        public static void VerifySealProjectile()
+        {
+            using (var f = new Fixture("breath.burst"))
+            {
+                f.HandOffset = Vector3.right * .25f;
+                f.Sample(3, seal:false); f.Speak(); f.Sample(10, near:false);
+                var ember = f.Head.Find("飞炎掌心火种(Clone)");
+                Require(ember && ember.gameObject.activeInHierarchy && ember.GetComponentsInChildren<Renderer>().Length > 0 &&
+                    f.Effects.LaunchCount == 0 && f.Vitals.Mana == 100, "飞炎律印只蓄掌上火苗，无投射物或耗用");
+                f.Head.rotation = Quaternion.Euler(0, 24, 0);
+                f.Sample(8, near:false, seal:false);
+                var start = ember.position;
+                f.ReleaseSeal = true;
+                f.Sample(16, near:false, seal:false);
+                Require(f.Effects.ActivationCount == 1 && f.Effects.LaunchCount == 1 && f.Vitals.Mana == 88 &&
+                    !ember.gameObject.activeSelf, "规印一次发球，只收费一次并收掉火苗");
+                var dir = f.Head.position + f.Head.forward * 30f - start;
+                Require(Vector3.Distance(start, f.Effects.LastLaunchPosition) < .002f &&
+                    Vector3.Angle(dir, f.Effects.LastLaunchDirection) < .2f, "转头后从火苗位置射向最新头向落点");
+            }
+            using (var f = new Fixture("breath.burst"))
+            {
+                f.Sample(6); f.Speak(); f.Sample(4);
+                f.Cancel();
+                f.Sample(8, seal:false); f.ReleaseSeal = true; f.Sample(16, seal:false);
+                Require(f.Effects.LaunchCount == 0 && f.LastActivated == "buff.zi" &&
+                    !f.Head.Find("飞炎掌心火种(Clone)").gameObject.activeSelf, "取消后单结规印恢复加持");
+            }
+            using (var f = new Fixture("breath.burst"))
+            {
+                f.Sample(4, seal:false); f.Speak(); f.Sample(10);
+                f.Sample(180, seal:false);
+                f.ReleaseSeal = true; f.Sample(10, seal:false);
+                Require(f.Effects.LaunchCount == 0 && f.LastActivated == "buff.zi",
+                    "超过组合窗口后规印恢复独立加持");
+            }
+            using (var f = new Fixture("breath.burst"))
+            {
+                f.Sample(4, seal:false); f.Speak(); f.ReleaseSeal = true; f.Sample(12, seal:false);
+                f.ReleaseSeal = false; f.Sample(8, seal:false); f.Sample(12);
+                Require(f.Effects.LaunchCount == 0 && f.LastActivated == "buff.zi",
+                    "规印在律印前不发射");
+            }
+            using (var f = new Fixture("breath.burst"))
+            {
+                f.Sample(6); f.Speak(); f.Sample(6);
+                var ember = f.Head.Find("飞炎掌心火种(Clone)");
+                Require(ember && ember.gameObject.activeSelf, "新输入时代前已蓄火");
+                f.ResetInput(); f.Sample(8, seal:false);
+                f.ReleaseSeal = true; f.Sample(12, seal:false);
+                Require(f.Effects.LaunchCount == 0 && !ember.gameObject.activeSelf,
+                    "恢复检查点后的新输入时代不会从旧火种发射");
+            }
         }
 
         static void VerifyRecognizedStream()
@@ -57,6 +116,9 @@ namespace NarutoVR.SealCombat.Editor
                 f.Speak(.22);
                 f.Sample(4, near:false, seal:false);
                 Require(f.Effects.ActivationCount == 0 && f.Vitals.Mana == 100, "等待近嘴时不扣费");
+                var pilot = f.Head.Find("龙火待吹火苗(Clone)");
+                Require(pilot && pilot.gameObject.activeSelf && Vector3.Distance(pilot.position, f.Mouth) > .15f,
+                    "认印后在胸前手印处看见火苗");
                 // The simulated hand centre is initially 6 cm forward and 4.5 cm below the mouth.
                 f.SetMouthDistance(f.StartDistance + .01f);
                 f.Sample(1, seal:false);
@@ -65,6 +127,7 @@ namespace NarutoVR.SealCombat.Editor
                 f.Sample(1, seal:false);
                 Require(f.Effects.ActivationCount == 1 && f.Effects.HasOccupiedHand,
                     "先正确结印，口令送达前手型改变，进入 SO 起手距离后应从原口令起手");
+                Require(pilot.gameObject.activeSelf, "开始吹气时保留印上原火苗");
                 var target = f.Target(f.Mouth + f.Head.forward);
                 float mana = f.Vitals.Mana;
                 f.SetMouthDistance(f.StopDistance - .01f);
@@ -74,7 +137,8 @@ namespace NarutoVR.SealCombat.Editor
                 f.SetMouthDistance(f.StopDistance + .01f);
                 mana = f.Vitals.Mana;
                 f.Sample(1, seal:false);
-                Require(!f.Effects.HasOccupiedHand && f.Vitals.Mana == mana, "超过 SO 维持距离立即停喷");
+                Require(f.Effects.HasOccupiedHand && f.Vitals.Mana == mana && pilot.gameObject.activeSelf,
+                    "保印移出维持距离应立即停喷，原火苗复现并保留本次术");
             }
             using (var f = new Fixture("breath.stream"))
             {
@@ -222,7 +286,7 @@ namespace NarutoVR.SealCombat.Editor
 
         static void VerifyBlockedBurstAim(bool behindMouth)
         {
-            using var f = new Fixture("breath.burst");
+            using var f = new Fixture("breath.burst", legacyMouthBurst:true);
             if (behindMouth) f.HandOffset = Vector3.back * .18f;
             else f.LeftWristOnly = true;
             float initial = f.Vitals.Mana;
@@ -238,14 +302,41 @@ namespace NarutoVR.SealCombat.Editor
         {
             using var f = new Fixture("breath.stream");
             f.StartFromChest();
+            var pilot = f.Head.Find("龙火待吹火苗(Clone)");
+            var stream = f.Head.Find("龙火之术");
+            Require(pilot && stream && pilot.gameObject.activeSelf, "已激活的火流保留印上火苗");
             f.HandsApart = !leaveMouth;
             f.Sample(12, near:!leaveMouth, seal:leaveMouth);
             f.HandsApart = false;
             float remaining = f.Vitals.Mana;
             var target = f.Target(f.Mouth + f.Head.forward);
+            if (leaveMouth)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Require(!stream.gameObject.activeSelf && pilot.gameObject.activeSelf &&
+                        Vector3.Distance(pilot.position, f.Mouth) > .15f, "停喷同一簇火苗随双手远离喷口");
+                    f.SetMouthDistance((f.StartDistance + f.StopDistance) * .5f);
+                    float pausedMana = f.Vitals.Mana;
+                    int hits = target.HitCount;
+                    f.Sample(24);
+                    Require(pilot.gameObject.activeSelf && f.Vitals.Mana == pausedMana && target.HitCount == hits,
+                        "暂停时停在起手和停喷阈值之间不续喷、不消耗、不命中");
+                    f.HandOffset = Vector3.zero;
+                    f.Sample(18);
+                    Require(pilot.gameObject.activeSelf && stream.gameObject.activeSelf && f.Vitals.Mana < pausedMana &&
+                        target.HitCount > hits && f.Effects.ActivationCount == 1, "同次结印重新近嘴续喷");
+                    f.Sample(2, near:false);
+                }
+                f.HandsApart = true;
+                f.Sample(2, near:false, seal:false);
+                Require(!f.Effects.HasOccupiedHand && !pilot.gameObject.activeSelf && !stream.gameObject.activeSelf,
+                    "待吹期间松印应同时清除火流与火苗");
+                return;
+            }
             f.Sample(20);
-            Require(Math.Abs(f.Vitals.Mana - remaining) < .001f && target.HitCount == 0 &&
-                f.Effects.ActivationCount == 1, leaveMouth ? "手离嘴后应停火，靠近不会自动重启" : "松印后应停火，重结不会重放口令");
+            Require(!pilot.gameObject.activeSelf && Math.Abs(f.Vitals.Mana - remaining) < .001f && target.HitCount == 0 &&
+                f.Effects.ActivationCount == 1, "松印后火苗与火流结束，重结不会重放口令");
         }
 
         static void VerifyExhaustion()
@@ -320,7 +411,7 @@ namespace NarutoVR.SealCombat.Editor
 
         static void VerifyBurst()
         {
-            using var f = new Fixture("breath.burst");
+            using var f = new Fixture("breath.burst", legacyMouthBurst:true);
             f.LeftKnuckle = new Vector3(-.09f, .04f, .12f);
             f.RightKnuckle = new Vector3(-.05f, .04f, .12f);
             f.TipsTracked = false;
@@ -352,9 +443,117 @@ namespace NarutoVR.SealCombat.Editor
             Require(Math.Abs(f.Vitals.Mana - paid) < .001f, "单次施法只扣起手度力");
         }
 
+        static void VerifyBurstImpact()
+        {
+            SkillProjectile Launch(Fixture f)
+            {
+                f.StartFromChest();
+                var bolt = Object.FindObjectsByType<SkillProjectile>(FindObjectsSortMode.None)
+                    .Single(p => Vector3.Distance(p.transform.position, f.Mouth) < .01f);
+                Require(bolt.impactPrefab, "玩家飞炎 SO 应将爆散预制体交给弹体");
+                return bolt;
+            }
+
+            int MarksAt(Vector3 point) => Object.FindObjectsByType<DecalProjector>(FindObjectsSortMode.None)
+                .Count(p => p.gameObject.name == "场景技能痕迹" && Vector3.Distance(p.transform.position, point) < .5f);
+
+            using (var f = new Fixture("breath.burst", legacyMouthBurst:true))
+            {
+                var bolt = Launch(f);
+                Vector3 direction = bolt.transform.forward;
+                var wall = f.Cube(f.Mouth + direction * 1.2f, new Vector3(2, 2, .25f));
+                wall.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 35, 0);
+                Physics.SyncTransforms();
+                var normal = -wall.transform.forward;
+                var face = wall.transform.position + normal * .125f;
+                int impacts = 0;
+                GameObject visual = null;
+                bolt.ImpactCreated += instance => { ++impacts; visual = instance; };
+                var move = BindUpdate(bolt, "Update");
+                int steps = Mathf.CeilToInt(1.8f / (bolt.speed * Time.deltaTime));
+                for (int i = 0; i < steps && !bolt.IsFinished; i++) move();
+                move();
+                Require(bolt.IsFinished && impacts == 1 && visual && visual.activeInHierarchy &&
+                    !visual.transform.IsChildOf(bolt.transform), "飞炎碰墙应脱离弹体只爆散一次");
+                var impact = visual.transform;
+                Require(Mathf.Abs(Vector3.Dot(impact.position - face, normal)) < .002f &&
+                    Vector3.Dot(impact.forward, normal) > .999f && MarksAt(impact.position) == 1,
+                    "斜墙爆散贴合实际接触平面、沿碰撞法线，并与一枚焦痕共存");
+                f.Effects.ClearAll();
+                Require(!visual.activeSelf && MarksAt(impact.position) == 0, "清理施法者应同时回收爆散和焦痕");
+            }
+
+            using (var f = new Fixture("breath.burst", legacyMouthBurst:true))
+            {
+                var pool = f.Root.AddComponent<VfxPoolManager>();
+                pool.impactPrefab = f.Settings.impactPrefab;
+                pool.capacity = 1;
+                pool.Prewarm();
+                f.Effects.vfxPool = pool;
+                var bolt = Launch(f);
+                var target = f.Target(f.Mouth + bolt.transform.forward * .7f);
+                float before = target.CurrentHealth;
+                int impacts = 0;
+                bolt.ImpactCreated += _ => ++impacts;
+                var move = BindUpdate(bolt, "Update");
+                int steps = Mathf.CeilToInt(1f / (bolt.speed * Time.deltaTime));
+                for (int i = 0; i < steps && !bolt.IsFinished; i++) move();
+                move();
+                Require(target.HitCount == 1 && Mathf.Approximately(before - target.CurrentHealth, bolt.damage) &&
+                    impacts == 1 && pool.ActiveCount == 1 && MarksAt(target.transform.position) == 0,
+                    "击中训练靶应正常扣血，仅租用一次池化爆散");
+                f.Effects.ClearAll();
+                Require(pool.AvailableCount == 1 && pool.ActiveCount == 0, "清理施法者应归还命中爆散槽位");
+            }
+
+            using (var f = new Fixture("breath.burst", legacyMouthBurst:true))
+            {
+                var bolt = Launch(f);
+                var enemy = f.Cube(bolt.transform.position, Vector3.one * .8f);
+                enemy.SetActive(false);
+                var entity = enemy.AddComponent<EnemyObj>();
+                enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                var ai = enemy.AddComponent<EnemyController>();
+                enemy.GetComponent<BoxCollider>().isTrigger = true;
+                enemy.AddComponent<EnemyHitZone>().owner = entity;
+                enemy.SetActive(true);
+                ai.ResetForSpawn();
+                Physics.SyncTransforms();
+                var direction = bolt.transform.forward;
+                Require(enemy.GetComponent<Collider>().Raycast(new Ray(f.Mouth - direction, direction),
+                    out var entry, 2), "回归敌人触发区应包住当前弹心");
+                float health = entity.Combat.Health;
+                int impacts = 0;
+                GameObject visual = null;
+                bolt.ImpactCreated += instance => { ++impacts; visual = instance; };
+                bolt.CheckLaunchOverlap();
+                bolt.CheckLaunchOverlap();
+                Require(impacts == 1 && visual && entity.Combat.Health < health &&
+                    Vector3.Distance(visual.transform.position, entry.point) < .002f &&
+                    Vector3.Dot(visual.transform.forward, entry.normal) > .999f && MarksAt(entry.point) == 0,
+                    "深度重叠敌人触发区：只结算一次，爆散贴在入射侧表面");
+            }
+
+            foreach (bool timeout in new[] { false, true })
+            {
+                using var f = new Fixture("breath.burst", legacyMouthBurst:true);
+                var bolt = Launch(f);
+                int impacts = 0;
+                bolt.ImpactCreated += _ => ++impacts;
+                if (timeout)
+                {
+                    bolt.GameClock = () => f.Now + bolt.lifetime + 1;
+                    BindUpdate(bolt, "Update")();
+                }
+                else f.Effects.ClearAll();
+                Require(bolt.IsFinished && impacts == 0, "飞炎未击中时超时或中断均应安静结束");
+            }
+            Debug.Log("FEIYAN_IMPACT_PASS angled-wall+decal, pooled training damage x1 + lease returned, enemy trigger overlap x1, timeout/cancel x0");
+        }
+
         static void VerifyBurstJointSwitches()
         {
-            using var f = new Fixture("breath.burst");
+            using var f = new Fixture("breath.burst", legacyMouthBurst:true);
             f.RightKnuckle = new Vector3(.07f, .040f, .12f);
             f.RightPalm = new Vector3(-.07f, .020f, .12f);
             f.Sample(6, near:false);
@@ -380,7 +579,7 @@ namespace NarutoVR.SealCombat.Editor
 
         static void VerifyBurstAfterInterruptedSeal()
         {
-            using var f = new Fixture("breath.burst");
+            using var f = new Fixture("breath.burst", legacyMouthBurst:true);
             f.RightKnuckle = new Vector3(.07f, .040f, .12f);
             f.RightPalm = new Vector3(-.07f, .020f, .12f);
             f.Sample(6, near:false);
@@ -402,7 +601,7 @@ namespace NarutoVR.SealCombat.Editor
             (Action)component.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic)
                 .CreateDelegate(typeof(Action), component);
 
-        sealed class Fixture : ISkillActivationPolicy, IDisposable
+        internal sealed class Fixture : ISkillActivationPolicy, IDisposable
         {
             public readonly GameObject Root;
             public readonly Transform Head;
@@ -412,7 +611,12 @@ namespace NarutoVR.SealCombat.Editor
             readonly Lab lab;
             readonly SkillDefinition skill;
             readonly SkillCatalog customCatalog;
-            readonly SealProfile profile;
+            readonly SealProfile profile, releaseProfile;
+            readonly BreathEffectDefinition legacyEffect;
+            public bool ReleaseSeal;
+            public void ResetInput() => input.BeginFreshPlayerInput(false);
+            public void Cancel() => input.Cancel();
+            public string LastActivated;
             readonly List<GameObject> objects = new();
             readonly Action updateInput, updateEffects;
             int version, casts;
@@ -428,27 +632,37 @@ namespace NarutoVR.SealCombat.Editor
             public bool LeftWristOnly, RightWristOnly;
             public bool TipsTracked = true;
             public bool RightKnuckleTracked = true;
-            public Vector3 Mouth => Head.TransformPoint(((BreathEffectDefinition)skill.effectDefinition).mouthOffset);
+            public BreathEffectDefinition Settings => (BreathEffectDefinition)skill.effectDefinition;
+            public Vector3 Mouth => Head.TransformPoint(Settings.mouthOffset);
             public double Now => now;
             public string Group => string.IsNullOrEmpty(skill.cooldownGroup) ? skill.skillId : skill.cooldownGroup;
             public float Cooldown => Vitals.GetCooldown(Group, now);
             public string ActivationStatus => Effects.Status;
             public string MatchStatus => input.Engine.Status;
 
-            public Fixture(string id, float initialPower = 100, bool ignoreDistance = false)
+            public Fixture(string id, float initialPower = 100, bool ignoreDistance = false, bool legacyMouthBurst = false)
             {
                 var catalog = AssetDatabase.LoadAssetAtPath<SkillCatalog>(CatalogPath);
                 skill = catalog.skills.Single(s => s && s.skillId == id);
                 Require(skill.effectDefinition is BreathEffectDefinition && skill.ValidateDefinition() == null, "正式技能配置 " + id);
-                if (ignoreDistance)
+                if (ignoreDistance || legacyMouthBurst)
                 {
                     skill = Object.Instantiate(skill);
-                    skill.castCondition = SkillCastCondition.None;
+                    skill.castCondition = ignoreDistance ? SkillCastCondition.None : SkillCastCondition.SealNearMouth;
+                    if (legacyMouthBurst)
+                    {
+                        skill.followingSeals = Array.Empty<string>();
+                        legacyEffect = Object.Instantiate((BreathEffectDefinition)skill.effectDefinition);
+                        legacyEffect.mode = BreathCastMode.Burst;
+                        skill.effectDefinition = legacyEffect;
+                    }
                     customCatalog = ScriptableObject.CreateInstance<SkillCatalog>();
                     customCatalog.skills.Add(skill);
                     catalog = customCatalog;
                 }
                 profile = AssetDatabase.LoadAssetAtPath<SealProfile>("Assets/ScriptableObjects/手印识别配置/" + skill.sealName + ".asset");
+                if (skill.followingSeals?.Length > 0)
+                    releaseProfile = AssetDatabase.LoadAssetAtPath<SealProfile>("Assets/ScriptableObjects/手印识别配置/" + skill.followingSeals[0] + ".asset");
                 Root = new GameObject("吐火回归玩家");
                 Root.transform.position = new Vector3(243, 210, -237);
                 Head = new GameObject("模拟头显").transform;
@@ -476,8 +690,11 @@ namespace NarutoVR.SealCombat.Editor
                 updateEffects = BindUpdate(Effects, "LateUpdate");
             }
 
-            public SkillCastResult TryActivate(SkillDefinition def) =>
-                Effects.CommitCast(def, Vitals, "breath-check-" + ++casts, def.manaCost, now, () => true);
+            public SkillCastResult TryActivate(SkillDefinition def)
+            {
+                LastActivated = def.skillId;
+                return Effects.CommitCast(def, Vitals, "breath-check-" + ++casts, def.manaCost, now, () => true);
+            }
 
             public SkillCastResult ActivateCurrentSkill() => TryActivate(skill);
 
@@ -510,6 +727,8 @@ namespace NarutoVR.SealCombat.Editor
                     typeof(Lab).GetProperty(nameof(Lab.Frame)).SetValue(lab, frame);
                     lab.Scores.Clear();
                     lab.Scores.Add(new SealScore {profile = profile, score = seal ? 1 : 0, coverage = 1, passes = seal});
+                    if (releaseProfile)
+                        lab.Scores.Add(new SealScore {profile = releaseProfile, score = ReleaseSeal ? 1 : 0, coverage = 1, passes = ReleaseSeal});
                     updateEffects();
                     updateInput();
                 }
@@ -572,6 +791,7 @@ namespace NarutoVR.SealCombat.Editor
                 {
                     Object.DestroyImmediate(customCatalog);
                     Object.DestroyImmediate(skill);
+                    if (legacyEffect) Object.DestroyImmediate(legacyEffect);
                 }
             }
         }

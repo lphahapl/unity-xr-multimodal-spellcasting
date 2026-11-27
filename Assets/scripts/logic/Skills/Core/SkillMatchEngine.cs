@@ -46,6 +46,8 @@ namespace NarutoVR.SealCombat
                 if (recipe.Id == id) return recipe.Sequence == null ? recipe.Seal : recipe.Order[recipe.Sequence.PrefixLength(recipe, now)];
             return "";
         }
+        internal SkillDefinition PendingSequenceCharge => pending >= 0 &&
+            recipes[pending].Sequence?.PrefixLength(recipes[pending], now) > 0 ? recipes[pending].Definition : null;
         public string PendingSkillId => pending < 0 ? "" : recipes[pending].Id;
         public bool HasPendingCast => pending >= 0 || heldShort != null;
         public SkillDefinition PendingSkill => pending < 0 ? null : recipes[pending].Definition;
@@ -260,6 +262,14 @@ namespace NarutoVR.SealCombat
             bool branchGap = branchTerminal != null && observed - lastBranchFrameAt > BranchPoseDebounce + Epsilon;
             if (branchTerminal != null && fresh) lastBranchFrameAt = Math.Max(lastBranchFrameAt, observed);
             candidates.Clear();
+            string reservedSeal = null;
+            if (pending >= 0)
+            {
+                var selected = recipes[pending];
+                if (selected.Definition.reserveFinalSeal && selected.Sequence != null &&
+                    selected.Sequence.PrefixLength(selected, now) == selected.Order.Length - 1)
+                    reservedSeal = selected.Order[^1];
+            }
             foreach (var state in seals.Values)
             {
                 bool found = TryGetScore(slot, state.Seal, out var target);
@@ -311,7 +321,8 @@ namespace NarutoVR.SealCombat
                         item.Buffered = true; evidence.Add(item);
                         if (evidence.Count > Capacity) { evidence[0].Buffered = false; evidence.RemoveAt(0); }
                     }
-                    if (firstCompletion && recipe.Mode == SkillTriggerMode.GestureOnly) candidates.Add(new Candidate(tracker.Recipe, item));
+                    if (firstCompletion && recipe.Mode == SkillTriggerMode.GestureOnly && state.Seal != reservedSeal)
+                        candidates.Add(new Candidate(tracker.Recipe, item));
                 }
             }
             string confirmed = null;

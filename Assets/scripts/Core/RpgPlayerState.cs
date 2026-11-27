@@ -12,6 +12,7 @@ namespace NarutoVR.SealCombat.Rpg
         readonly HashSet<string> activations = new HashSet<string>(StringComparer.Ordinal);
         readonly HashSet<string> damages = new HashSet<string>(StringComparer.Ordinal);
         readonly Dictionary<string, double> cooldowns = new Dictionary<string, double>(StringComparer.Ordinal);
+        readonly Dictionary<string, CooldownRecoveryClock> recoveryClocks = new(StringComparer.Ordinal);
         readonly float manaRegen, regenDelay;
         double lastNow, regenAfter;
         bool hasTime;
@@ -85,7 +86,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (source == null || !ReferenceEquals(sustainedCostOwner, source)) return;
             double stoppedAt = ValidNow(now) ? now : lastNow;
-            if (cooldownOnRelease > 0) cooldowns[sustainedCooldownGroup] = stoppedAt + cooldownOnRelease;
+            if (cooldownOnRelease > 0) cooldowns[sustainedCooldownGroup] = CooldownTime(sustainedCooldownGroup, stoppedAt) + cooldownOnRelease;
             sustainedCostOwner = null;
             sustainedCooldownGroup = null;
             regenAfter = stoppedAt + regenDelay;
@@ -96,7 +97,23 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!RpgDataRules.Finite(now) || now < 0 || string.IsNullOrEmpty(group)) return 0;
             if (group == sustainedCooldownGroup) return cooldownOnRelease;
-            return cooldowns.TryGetValue(group, out double until) ? (float)Math.Max(0, until - now) : 0;
+            return cooldowns.TryGetValue(group, out double until) ? (float)Math.Max(0, until - CooldownTime(group, now)) : 0;
+        }
+
+        double CooldownTime(string group, double now) =>
+            recoveryClocks.TryGetValue(group, out var clock) ? clock.Read(now) : now;
+
+        internal void SetCooldownRecovery(object source, string group, float rate, double now, double end)
+        {
+            RequireMutable();
+            if (source == null || !ValidNow(now) || !RpgDataRules.ValidId(group) || !float.IsFinite(rate) ||
+                rate < 1 || !double.IsFinite(end)) throw new ArgumentException("冷却区域参数无效");
+            if (!recoveryClocks.TryGetValue(group, out var clock))
+            {
+                if (rate == 1 || end <= now) return;
+                recoveryClocks.Add(group, clock = new CooldownRecoveryClock());
+            }
+            clock.Set(source, now, end, rate);
         }
 
         /// <summary>IDs are retained for the entire session. At the explicit attempt cap, all new requests fail closed; create a new session to continue.</summary>
@@ -154,7 +171,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 if (owner == null) return;
                 owner.Mana -= cost;
-                if (seconds > 0) owner.cooldowns[group] = now + seconds;
+                if (seconds > 0) owner.cooldowns[group] = owner.CooldownTime(group, now) + seconds;
                 if (cost > 0) owner.regenAfter = now + owner.regenDelay;
                 if (nextShield.HasValue)
                 {
@@ -216,10 +233,15 @@ namespace NarutoVR.SealCombat.Rpg
 
         public int ReceivedHitCount => damages.Count;
         public bool HasReceivedDamage(string id) => id != null && damages.Contains(id);
+        // A dodged enemy hit shares the session ledger with damage, so a replay after the window cannot land.
+        internal bool TryClaimHit(string id, float amount, double now) =>
+            Alive && !CastInProgress && RpgDataRules.InRange(amount, float.Epsilon, RpgDataRules.MaximumStat) &&
+            ValidNow(now) && Claim(damages, id, out _);
+
         internal bool SettleHit(string id, float amount, double now, out PlayerDamageResult result)
         {
             result = default;
-            if (!Alive || !RpgDataRules.InRange(amount, float.Epsilon, RpgDataRules.MaximumStat) || !ValidNow(now) || !Claim(damages, id, out _) || CastInProgress) return false;
+            if (!TryClaimHit(id, amount, now)) return false;
             Tick(now);
             float absorbed = AbsorbShield(amount, now);
             float lost = Math.Min(Health, amount - absorbed);
@@ -273,9 +295,12 @@ namespace NarutoVR.SealCombat.Rpg
         {
             Tick(now);
             var remaining = new List<KeyValuePair<string, float>>();
-            foreach (var pair in cooldowns)
-                if (pair.Key != sustainedCooldownGroup && pair.Value > now)
-                    remaining.Add(new KeyValuePair<string, float>(pair.Key, (float)(pair.Value - now)));
+            foreach (var group in cooldowns.Keys)
+            {
+                float left = GetCooldown(group, now);
+                if (group != sustainedCooldownGroup && left > 0)
+                    remaining.Add(new KeyValuePair<string, float>(group, left));
+            }
             if (sustainedCooldownGroup != null && cooldownOnRelease > 0)
                 remaining.Add(new KeyValuePair<string, float>(sustainedCooldownGroup, cooldownOnRelease));
             remaining.Sort((a, b) => StringComparer.Ordinal.Compare(a.Key, b.Key));
@@ -289,7 +314,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!ValidNow(now) || !snapshot.IsValid(MaxHealth, MaxMana))
             { reason = "检查点数值或时间无效"; return false; }
             cooldowns.Clear();
-            foreach (var pair in snapshot.Cooldowns) cooldowns.Add(pair.Key, now + pair.Value);
+            foreach (var pair in snapshot.Cooldowns) cooldowns.Add(pair.Key, CooldownTime(pair.Key, now) + pair.Value);
             ClearShield();
             sustainedCostOwner = null;
             sustainedCooldownGroup = null;

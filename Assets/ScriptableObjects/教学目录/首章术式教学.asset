@@ -19,18 +19,18 @@ MonoBehaviour:
     - fireball
     actionHint: 成形后握住火球，向前甩手并松开
   - entryId: shield
-    displayName: 护盾
+    displayName: 衡印
     skillIds:
-    - buff.zi
+    - shield.left
     - buff.voice
-    actionHint: 两种方式任选其一
+    actionHint: 用左手结衡印，或直接念「衡印」，任选其一
   - entryId: breath.burst
     displayName: 飞炎术
     skillIds:
     - breath.burst
-    actionHint: 把律印举到嘴前，让印顶对准目标，念「飞炎术」。火弹从嘴边穿过印顶直线飞出。
+    actionHint: 念「飞炎术」，结律印在掌上蓄起火苗。看向目标，用准心瞄准，再结规印发射火球。
   - entryId: breath.stream
     displayName: 龙火之术
     skillIds:
     - breath.stream
-    actionHint: 在嘴前保持律印，念「龙火之术」。移动印顶引导火流，松印或把手移远即可停火。
+    actionHint: 念「龙火之术」，结律印后印上显出火苗。举到嘴前持续喷火，移动印顶引导火流。

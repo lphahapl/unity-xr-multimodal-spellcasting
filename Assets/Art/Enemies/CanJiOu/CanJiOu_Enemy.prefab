@@ -708,8 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1137a8ae5f61af458afc836ab7d9592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Enemies.EnemyObj
-  hitClip: {fileID: 8300000, guid: dccc0b77db2dc455b9cdbbf3eb7339eb, type: 3}
-  hitVolume: 0.9
   definition: {fileID: 11400000, guid: 255c44f9f0294f148acf0660fcb9957e, type: 2}
   animator: {fileID: 7313174513721522091}
   detectionSensor: {fileID: 2717304971428337494}
@@ -739,6 +737,24 @@ MonoBehaviour:
   currentHealth: 0
   currentPoise: 0
   combatStatus: 
+  animationMapping:
+    idleState: Base Layer.CanJiOu_Idle
+    firstAttackState: "Base Layer.Attack.\u6325\u780D"
+    attackTag: EnemyAttack
+    attackTriggerPrefix: attack
+    foundParameter: isFindPlayer
+    attackingParameter: isAttacking
+    angleParameter: angle
+    motionParameter: motionState
+    hitTrigger: Hit
+    seatedTrigger: isSeated
+    deadParameter: dead
+    hitState: Base Layer.Hit
+    seatedState: Base Layer.Seated
+    seatedRecoverState: Base Layer.StandUp
+    deadState: Base Layer.Dead
+  hitClip: {fileID: 8300000, guid: dccc0b77db2dc455b9cdbbf3eb7339eb, type: 3}
+  hitVolume: 0.9
 --- !u!114 &5567288661027169134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,7 +781,7 @@ MonoBehaviour:
   checkLineOfSight: 1
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 51
   eyeHeight: 1.4
   loseDistance: 12
   loseSightSeconds: 2
@@ -818,6 +834,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0.29, z: 0}
   width: 0.55
   height: 0.045
+  healthColor: {r: 0.84, g: 0.25, b: 0.18, a: 1}
   normalColor: {r: 1, g: 0.65, b: 0.1, a: 1}
   brokenColor: {r: 0.65, g: 0.25, b: 1, a: 1}
 --- !u!4 &5390734906295086899 stripped

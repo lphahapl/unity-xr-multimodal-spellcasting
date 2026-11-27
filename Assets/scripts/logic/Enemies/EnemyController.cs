@@ -17,7 +17,8 @@ namespace NarutoVR.SealCombat.Enemies
             [InspectorName("待机")] Idle, [InspectorName("巡逻")] Patrol,
             [InspectorName("追击")] Chase, [InspectorName("转向")] Turn,
             [InspectorName("攻击")] Attack, [InspectorName("暂停")] Suspended,
-            [InspectorName("受击")] Hit, [InspectorName("坐地失衡")] Seated, [InspectorName("死亡")] Dead
+            [InspectorName("受击")] Hit, [InspectorName("坐地失衡")] Seated, [InspectorName("死亡")] Dead,
+            [InspectorName("精英指挥")] Commanding
         }
         [Serializable] public sealed class AttackEvent : UnityEvent<int> { }
 
@@ -86,7 +87,17 @@ namespace NarutoVR.SealCombat.Enemies
         public string DetectionReason => detectionReason;
         public float ProvokedSecondsRemaining => Mathf.Max(0, provokedUntil - clock);
         public bool IsDead => reaction == EnemyReaction.Dead;
-        public bool CanReceiveHit => isActiveAndEnabled && !suspended && !IsDead && Time.timeScale > 0;
+        public bool CanReceiveHit => isActiveAndEnabled && CanEngage && Time.timeScale > 0;
+        /// <summary>当前房间允许本租约线外巡逻；外部暂停及死亡时停止行动。</summary>
+        public bool IsPreviewPatrolling => IsRoomPreview && isActiveAndEnabled && !suspended && !IsDead;
+        bool IsRoomPreview => spawnLease?.PreviewPatrol == true;
+        bool CanEngage => !suspended && !IsDead && !IsRoomPreview;
+
+        EncounterEnemyPace RoomPace => spawnLease?.Pace;
+        float PatrolMoveSpeed => RoomPace ? RoomPace.patrolSpeed : patrolSpeed;
+        float PursuitMoveSpeed => RoomPace ? RoomPace.engagedSpeed : chaseSpeed;
+        Transform[] PatrolRoute => RoomPace && RoomPace.patrolPoints is { Length: > 0 } ? RoomPace.patrolPoints : patrolPoints;
+
         public NavMeshAgent Agent => enemyObj ? enemyObj.Agent : null;
 
         float clock, waitUntil, cooldownUntil, attackStartedAt, lastSeenAt;
@@ -96,18 +107,22 @@ namespace NarutoVR.SealCombat.Enemies
         bool inTick;
         Transform assignedTarget;
         EnemyReaction reaction;
-        float reactionElapsed;
+        float reactionElapsed, timedHitRemaining;
         bool reactionEntered;
         Animator pausedReactionAnimator;
         float reactionResumeSpeed;
         Transform pendingAttacker;
+        StoneCarrier stoneCarrier;
         float provokedUntil = -1;
 
         void Awake() => EnsureInitialized();
-        void OnEnable() { EnsureInitialized(); enemyObj.HitResponse = this; ResetForSpawn(); }
-        void Update() { if (tickAutomatically) Tick(Time.deltaTime); }
+        void OnEnable() { EnsureInitialized(); enemyObj.HitResponse = this; ResetForSpawn(); ListenForDodges(); }
+        void Update() { if (tickAutomatically) RunTick(Time.deltaTime, true); }
         void OnDisable()
         {
+            if (stoneCarrier) stoneCarrier.EndCarryPose();
+            StopListeningForDodges();
+            EndSummons();
             OnDeathPlaybackDisabled();
             SetReactionPaused(false);
             if (enemyObj && ReferenceEquals(enemyObj.HitResponse, this)) enemyObj.HitResponse = null;
@@ -115,12 +130,26 @@ namespace NarutoVR.SealCombat.Enemies
             CancelAttack();
         }
 
-        void IEnemyHitResponse.RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision)
+        void IEnemyHitResponse.RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision, float staggerSeconds)
         {
-            if (!hit.Dead && hit.Attacker) NotifyAttackedBy(hit.Attacker);
+            if (!hit.Dead && (hit.HealthDamage > 0 || hit.PoiseDamage > 0 || staggerSeconds > 0))
+            {
+                summons?.Interrupt(clock);
+                if (!this || !isActiveAndEnabled || !enemyObj.IsCurrentHit(revision)) return;
+            }
+            if (!hit.Dead && hit.Attacker)
+            {
+                if (stoneCarrier) stoneCarrier.RetreatFrom(hit.Attacker, this);
+                else NotifyAttackedBy(hit.Attacker);
+            }
             bool accepted = true;
             if (hit.Dead) accepted = TryDie();
             else if (newlyBroken) accepted = TryEnterSeated() || CurrentBehaviour == Behaviour.Seated;
+            else if (staggerSeconds > 0 && reaction <= EnemyReaction.Hit)
+            {
+                timedHitRemaining = Mathf.Max(timedHitRemaining, staggerSeconds);
+                if (reaction != EnemyReaction.Hit) TryReact(EnemyReaction.Hit);
+            }
             if (!accepted && this && isActiveAndEnabled && enemyObj && enemyObj.IsCurrentHit(revision))
                 SetSuspended(true);
         }
@@ -151,13 +180,17 @@ namespace NarutoVR.SealCombat.Enemies
             ++generation; target = assignedTarget = player;
             provokedUntil = -1;
             hasTarget = false;
+            summons?.ChangeTarget(player);
             StopNavigation(); CancelAttack();
         }
 
         /// <summary>暂停/演出/死亡均可显式调用。恢复不会重播已触发的首次发现事件。</summary>
         public void SetSuspended(bool value)
         {
+            if (value) ResetDodgeTime();
             ++generation; suspended = value;
+            if (stoneCarrier) stoneCarrier.SetCarrySuspended(value);
+            summons?.SetSuspended(value);
             SetReactionPaused(value);
             SetDeathPlaybackSuspended(value);
             if (value) { StopNavigation(); CancelAttack(); if (this && suspended) SetBehaviour(Behaviour.Suspended, "外部暂停"); }
@@ -166,22 +199,29 @@ namespace NarutoVR.SealCombat.Enemies
         public void ResetForSpawn()
         {
             if (retiredDeath || spawnLease?.Defeated == true) return;
+            ResetDodgeTime();
             CancelDeathPlayback();
             SetReactionPaused(false);
             EnsureInitialized(); ++generation;
+            EndSummons();
+            enemyObj.RangedAttack?.Positioning?.Reset(transform);
             // 池化重置不发出上一轮攻击结束业务事件。
             enemyObj.EndStrike();
             enemyObj.ResetCombat();
+            stoneCarrier = GetComponent<StoneCarrier>();
+            if (stoneCarrier) stoneCarrier.Prepare(spawnLease);
             pendingAttacker = null; provokedUntil = -1;
             detectionReason = "尚未发现";
             currentAttack = -1; hasTarget = hasEverDetectedPlayer = suspended = false;
             reaction = EnemyReaction.None; reactionEntered = false;
+            timedHitRemaining = 0;
             clock = waitUntil = cooldownUntil = lastSeenAt = 0;
             patrolIndex = 0; waitingAtPatrol = attackEntered = contactSent = false;
             assignedTarget = target;
             animationValid = ValidateAnimator(out var reason);
             StopNavigation();
             if (animationValid) enemyObj.ResetAnimation();
+            if (animationValid && stoneCarrier) stoneCarrier.BeginCarryPose(enemyObj.Animator);
             SetBehaviour(Behaviour.Idle, animationValid ? "等待目标或巡逻" : reason);
         }
 
@@ -201,24 +241,32 @@ namespace NarutoVR.SealCombat.Enemies
         /// <summary>攻击者使用玩家代表点（XR 头部）；排队到安全 Tick 边界，避免伤害回调重入状态机。</summary>
         public void NotifyAttackedBy(Transform attacker)
         {
-            if (!isActiveAndEnabled || IsDead || !attacker || !attacker.gameObject.activeInHierarchy ||
+            if (!isActiveAndEnabled || IsRoomPreview || IsDead || !attacker || !attacker.gameObject.activeInHierarchy ||
                 attacker == transform || attacker.IsChildOf(transform)) return;
             pendingAttacker = attacker;
         }
 
         bool TryReact(EnemyReaction requested)
         {
+            if (IsRoomPreview && requested != EnemyReaction.Dead) return false;
             EnsureInitialized();
             bool playable = animationValid && enemyObj.AnimationActive && enemyObj.SupportsReactions;
-            if (!isActiveAndEnabled || (!playable && requested != EnemyReaction.Dead) ||
+            if (!isActiveAndEnabled || (!playable && requested != EnemyReaction.Dead && !(requested == EnemyReaction.Hit && timedHitRemaining > 0)) ||
                 (int)reaction >= (int)requested) return false;
             int token = ++generation;
-            if (requested == EnemyReaction.Dead) SetReactionPaused(false);
+            if (requested == EnemyReaction.Dead) { ResetDodgeTime(); SetReactionPaused(false); }
             reaction = requested; reactionElapsed = 0; reactionEntered = false;
+            if (requested != EnemyReaction.Hit) timedHitRemaining = 0;
+            if (requested == EnemyReaction.Dead) EndSummons();
+            if (stoneCarrier) stoneCarrier.InterruptCarryPose();
             StopNavigation();
             // 先同时提交动作与行动锁；结束攻击回调若重生，会完整重置二者。
             if (playable) enemyObj.StartReactionAnimation(requested);
-            if (requested == EnemyReaction.Dead) BeginDeathPlayback();
+            if (requested == EnemyReaction.Dead)
+            {
+                if (stoneCarrier) stoneCarrier.Drop();
+                BeginDeathPlayback();
+            }
             else if (suspended) SetReactionPaused(true);
             CancelAttack();
             if (!this || !isActiveAndEnabled) return false;
@@ -268,21 +316,25 @@ namespace NarutoVR.SealCombat.Enemies
         }
 
         /// <summary>可供外部统一调度；使用时关闭自动更新。时间随游戏时间暂停，不用墙钟跳过攻击。</summary>
-        public void Tick(float deltaTime)
+        public void Tick(float deltaTime) => RunTick(deltaTime, false);
+
+        void RunTick(float deltaTime, bool engineFrame)
         {
             if (inTick) return;
             inTick = true;
-            try { TickCore(deltaTime); }
+            try { TickCore(deltaTime, engineFrame); }
             finally { inTick = false; }
         }
 
-        void TickCore(float deltaTime)
+        void TickCore(float deltaTime, bool engineFrame)
         {
             EnsureInitialized();
-            if (!isActiveAndEnabled || !float.IsFinite(deltaTime) || deltaTime <= 0) return;
+            if (!isActiveAndEnabled || !float.IsFinite(deltaTime) || deltaTime < 0) return;
+            deltaTime = AdvanceDodgeClock(deltaTime, engineFrame);
+            if (deltaTime <= 0) return;
             clock += deltaTime;
             lastDelta = deltaTime;
-            if (!suspended && !IsDead && pendingAttacker)
+            if (CanEngage && pendingAttacker)
             {
                 Transform attacker = pendingAttacker; pendingAttacker = null;
                 if (CombatDamageReceiver.IsDetectable(attacker))
@@ -294,9 +346,9 @@ namespace NarutoVR.SealCombat.Enemies
             }
             if (assignedTarget != target) SetTarget(target);
             if (!this || !isActiveAndEnabled) return;
-            bool validTarget = CombatDamageReceiver.IsDetectable(target);
+            bool validTarget = !IsRoomPreview && CombatDamageReceiver.IsDetectable(target);
             bool nearby = false;
-            if (!suspended && !IsDead && !isSpawnedEnemy && enemyObj.DetectionSensor)
+            if (CanEngage && !isSpawnedEnemy && enemyObj.DetectionSensor)
             {
                 var sensor = enemyObj.DetectionSensor;
                 if (!hasTarget && clock > provokedUntil)
@@ -310,7 +362,7 @@ namespace NarutoVR.SealCombat.Enemies
                 }
                 nearby = validTarget && sensor.Contains(target);
             }
-            if (!suspended && !IsDead && !isSpawnedEnemy && !hasTarget && !nearby &&
+            if (CanEngage && !isSpawnedEnemy && !hasTarget && !nearby &&
                 (!validTarget || !IsVisible(target, false)))
             {
                 var seen = FindVisiblePlayer();
@@ -326,9 +378,33 @@ namespace NarutoVR.SealCombat.Enemies
             if (enemyObj.isActiveAndEnabled && !IsDead && Time.timeScale > 0)
                 enemyObj.TickCombat(deltaTime);
             if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
+            if (reaction == EnemyReaction.Hit && timedHitRemaining > 0)
+            {
+                timedHitRemaining = Mathf.Max(0, timedHitRemaining - deltaTime);
+                if (timedHitRemaining == 0)
+                {
+                    if (animationValid && enemyObj.AnimationActive && enemyObj.SupportsReactions) enemyObj.RecoverReactionAnimation();
+                    reaction = EnemyReaction.None;
+                    SetBehaviour(Behaviour.Idle, "弹反硬直结束");
+                }
+                return;
+            }
+            if (TickCommandParalysis(deltaTime)) return;
             if (!animationValid || !enemyObj.isActiveAndEnabled || !enemyObj.AnimationActive)
             { StopNavigation(); status = "动画配置无效或已禁用，暂停行动"; CancelAttack(); return; }
             if (TickReaction(deltaTime)) return;
+            if (stoneCarrier || IsRoomPreview)
+            {
+                enemyObj.SetTargetAnimation(false, 0);
+                if (stoneCarrier)
+                {
+                    bool moving = stoneCarrier.Tick(this, clock, deltaTime);
+                    stoneCarrier.SetCarryMoving(moving && Agent && Agent.isOnNavMesh ? Agent.velocity.magnitude : 0f);
+                    SetBehaviour(moving ? Behaviour.Patrol : Behaviour.Idle, stoneCarrier.Status);
+                }
+                else TickPatrol();
+                return;
+            }
 
             if (!validTarget || !target || !target.gameObject.activeInHierarchy)
             {
@@ -350,6 +426,17 @@ namespace NarutoVR.SealCombat.Enemies
             }
             if (!this || !isActiveAndEnabled || suspended || generation != tickGeneration) return;
             enemyObj.SetTargetAnimation(hasTarget, angle);
+            if (hasTarget && summons != null)
+            {
+                summons.Tick(target, clock);
+                if (!this || !isActiveAndEnabled || generation != tickGeneration) return;
+                if (summons?.Commanding == true)
+                {
+                    SetBehaviour(Behaviour.Commanding, "精英指挥中");
+                    return;
+                }
+            }
+            else summons?.LoseTarget(clock);
             if (currentAttack >= 0) { TickAttack(); return; }
             if (!hasTarget) { TickPatrol(); return; }
 
@@ -360,6 +447,32 @@ namespace NarutoVR.SealCombat.Enemies
             bool inRange = enemyObj.RangedAttack
                 ? toTarget.sqrMagnitude <= attackDistance * attackDistance
                 : flat.magnitude <= attackDistance && Mathf.Abs(toTarget.y) <= navSampleRadius;
+            var positioning = enemyObj.RangedAttack ? enemyObj.RangedAttack.Positioning : null;
+            if (positioning != null && positioning.Enabled &&
+                !(inRange && clock >= cooldownUntil && enemyObj.CanStartAttackAnimation &&
+                  enemyObj.HasClearSightFrom(transform.position + Vector3.up * eyeHeight, target, target.position, obstructionMask)))
+            {
+                if (positioning.TryGetDestination(this, navigationTarget, clock, out var point))
+                {
+                    if (MoveTo(point, PursuitMoveSpeed, patrolArrivalDistance))
+                    {
+                        enemyObj.RotateTowards(enemyObj.DesiredVelocity, turnSpeed, deltaTime);
+                        SetBehaviour(Behaviour.Chase, "前往掷火射位");
+                        if (enemyObj.HasArrived(patrolArrivalDistance + .05f)) positioning.ReachedDestination();
+                    }
+                    else SetBehaviour(Behaviour.Idle, status);
+                }
+                else if (PatrolRoute is { Length: > 0 }) TickPatrol(true);
+                else if (positioning.TryGetGuardPoint(this, clock, out var guard) &&
+                         MoveTo(guard, PatrolMoveSpeed, patrolArrivalDistance))
+                {
+                    enemyObj.RotateTowards(enemyObj.DesiredVelocity, turnSpeed, deltaTime);
+                    SetBehaviour(Behaviour.Patrol, "掷火驻点巡逻");
+                    if (enemyObj.HasArrived(patrolArrivalDistance + .05f)) positioning.ReachedGuard(clock + patrolWaitSeconds);
+                }
+                else { StopNavigation(); SetBehaviour(Behaviour.Idle, "守点等待下一次选点"); }
+                return;
+            }
             if (inRange)
             {
                 StopNavigation();
@@ -372,8 +485,16 @@ namespace NarutoVR.SealCombat.Enemies
             }
             else
             {
-                if (MoveTo(navigationTarget, chaseSpeed, attackDistance * .85f))
-                { enemyObj.RotateTowards(enemyObj.DesiredVelocity.sqrMagnitude > .001f ? enemyObj.DesiredVelocity : flat, turnSpeed, deltaTime); SetBehaviour(Behaviour.Chase, "追击玩家"); }
+                Vector3 destination = navigationTarget;
+                Vector3 slot = default;
+                bool approachingSlot = !enemyObj.RangedAttack && memberOf != null &&
+                    memberOf.TryApproach(spawnLease, target, navigationTarget, out slot);
+                if (approachingSlot) destination = slot;
+                if (MoveTo(destination, PursuitMoveSpeed, approachingSlot ? patrolArrivalDistance : attackDistance * .85f))
+                {
+                    enemyObj.RotateTowards(enemyObj.DesiredVelocity.sqrMagnitude > .001f ? enemyObj.DesiredVelocity : flat, turnSpeed, deltaTime);
+                    SetBehaviour(Behaviour.Chase, approachingSlot ? "前往本组近战外圈槽位" : "追击玩家");
+                }
                 else SetBehaviour(Behaviour.Idle, status);
             }
         }
@@ -450,25 +571,26 @@ namespace NarutoVR.SealCombat.Enemies
 
         bool HasLineOfSight() => enemyObj.HasLineOfSight(target, checkLineOfSight, eyeHeight, obstructionMask);
 
-        void TickPatrol()
+        void TickPatrol(bool combatPatrol = false)
         {
-            if (isSpawnedEnemy) { StopNavigation(); SetBehaviour(Behaviour.Idle, "召唤敌人无目标，待机"); return; }
-            if (patrolPoints == null || patrolPoints.Length == 0)
+            if (isSpawnedEnemy && !combatPatrol) { StopNavigation(); SetBehaviour(Behaviour.Idle, "召唤敌人无目标，待机"); return; }
+            var route = PatrolRoute;
+            if (route == null || route.Length == 0)
             { StopNavigation(); SetBehaviour(Behaviour.Idle, "未配置巡逻点，待机"); return; }
-            patrolIndex %= patrolPoints.Length;
+            patrolIndex %= route.Length;
             int searched = 0;
-            while (!patrolPoints[patrolIndex] && searched++ < patrolPoints.Length) patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
-            if (!patrolPoints[patrolIndex]) { StopNavigation(); SetBehaviour(Behaviour.Idle, "巡逻点均为空"); return; }
+            while (!route[patrolIndex] && searched++ < route.Length) patrolIndex = (patrolIndex + 1) % route.Length;
+            if (!route[patrolIndex]) { StopNavigation(); SetBehaviour(Behaviour.Idle, "巡逻点均为空"); return; }
             if (waitingAtPatrol)
             {
                 if (clock < waitUntil) { SetBehaviour(Behaviour.Idle, "巡逻到点停留"); return; }
-                waitingAtPatrol = false; patrolIndex = (patrolIndex + 1) % patrolPoints.Length; enemyObj.RequestRepath();
+                waitingAtPatrol = false; patrolIndex = (patrolIndex + 1) % route.Length; enemyObj.RequestRepath();
                 return; // 下一次更新跳过空点后再寻路。
             }
-            if (!MoveTo(patrolPoints[patrolIndex].position, patrolSpeed, patrolArrivalDistance))
+            if (!MoveTo(route[patrolIndex].position, PatrolMoveSpeed, patrolArrivalDistance))
             { SetBehaviour(Behaviour.Idle, status); return; }
             if (enemyObj.HasArrived(patrolArrivalDistance + .05f))
-            { StopNavigation(); waitingAtPatrol = true; waitUntil = clock + patrolWaitSeconds; SetBehaviour(Behaviour.Idle, "巡逻到点停留"); return; }
+            { StopNavigation(); waitingAtPatrol = true; waitUntil = clock + (RoomPace ? RoomPace.patrolWait : patrolWaitSeconds); SetBehaviour(Behaviour.Idle, "巡逻到点停留"); return; }
             enemyObj.RotateTowards(enemyObj.DesiredVelocity, turnSpeed, lastDelta);
             SetBehaviour(Behaviour.Patrol, "巡逻点 " + (patrolIndex + 1));
         }
@@ -477,7 +599,7 @@ namespace NarutoVR.SealCombat.Enemies
 
         bool MoveTo(Vector3 destination, float speed, float stopping)
         {
-            bool moving = enemyObj.TryMoveTo(destination, speed, stopping, clock, repathSeconds, navSampleRadius, out var failure);
+            bool moving = enemyObj.TryMoveTo(destination, DodgeMovementSpeed(speed), stopping, clock, repathSeconds, navSampleRadius, out var failure);
             if (failure != null) status = failure;
             return moving;
         }

@@ -4,10 +4,13 @@ namespace NarutoVR.SealCombat.Rpg
 {
     public struct GlyphEffectContext
     {
-        public Vector3 hand, tip, forward, body;
+        public Vector3 hand, wrist, tip, forward, body;
+        public Quaternion gripRotation;
+        public bool rightPointing, rightOpen, rightFist, indexRayValid;
+        public Ray indexRay;
         public Transform owner;
         public Transform pen;
-        public bool tracked, bodyTracked;
+        public bool tracked, bodyTracked, holdingBeltPen;
         // 腕部估算与完整握姿切换时，从当前点重新计算手速。
         public bool rebaseHand;
         public double observed;
@@ -16,6 +19,8 @@ namespace NarutoVR.SealCombat.Rpg
     /// <summary>符模版持有共享的效果配置；每次命中返回独立执行实例。</summary>
     public abstract class GlyphEffectDefinition : ScriptableObject
     {
+        /// <summary>从辨符成功起允许归笔，空手接续效果，包括剧情板的金闪过渡。</summary>
+        public virtual bool AllowsEmptyHand => false;
         public abstract GlyphEffectInstance Begin(GlyphEffectContext context);
     }
 

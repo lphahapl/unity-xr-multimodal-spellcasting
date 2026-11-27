@@ -12,6 +12,8 @@ namespace NarutoVR.SealCombat.Enemies
         [Header("加载与战斗配置")]
         [InspectorName("Addressables 敌人预置体")] public AssetReferenceGameObject prefab;
         [InspectorName("战斗数值覆盖（空则保留预置体配置）")] public EnemyCombatDefinition combatDefinition;
+        [InspectorName("精英召唤规则（普通怪留空）")] public EliteSummonConfig summoning;
+        [InspectorName("背石工奴配置（其他敌人留空）")] public StoneCarrierProfile stoneCarrier;
         [InspectorName("最多缓存的闲置实例"), Min(0)] public int maxInactive = 4;
 
         public bool Validate(out string reason)
@@ -20,6 +22,8 @@ namespace NarutoVR.SealCombat.Enemies
             else if (prefab == null || !prefab.RuntimeKeyIsValid()) reason = "敌人预置体 Addressables 引用无效：" + enemyId;
             else if (maxInactive < 0) reason = "闲置实例上限不能为负：" + enemyId;
             else if (combatDefinition && !combatDefinition.Valid) reason = "敌人战斗数值无效：" + enemyId;
+            else if (summoning && !summoning.Valid) reason = "召唤规则需要普通小怪定义和正数参数：" + enemyId;
+            else if (stoneCarrier && (!stoneCarrier.stone || summoning)) reason = "背石工奴需要镇石且不能担任召唤精英：" + enemyId;
             else { reason = null; return true; }
             return false;
         }

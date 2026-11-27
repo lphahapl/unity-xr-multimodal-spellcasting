@@ -9,7 +9,7 @@ namespace NarutoVR.SealCombat.Enemies
     internal interface IEnemyHitResponse
     {
         bool CanReceiveHit { get; }
-        void RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision);
+        void RespondToHit(EnemyVitalsNotice hit, bool newlyBroken, int revision, float staggerSeconds);
     }
 
     public enum EnemyReaction
@@ -72,7 +72,7 @@ namespace NarutoVR.SealCombat.Enemies
             public string foundParameter = "isFindPlayer", attackingParameter = "isAttacking";
             public string angleParameter = "angle", motionParameter = "motionState";
             public string hitTrigger = "Hit", seatedTrigger = "isSeated", deadParameter = "dead";
-            public string hitState = "Base Layer.Hit", seatedState = "Base Layer.Seated", deadState = "Base Layer.Dead";
+            public string hitState = "Base Layer.Hit", seatedState = "Base Layer.Seated", seatedRecoverState = "", deadState = "Base Layer.Dead";
         }
 
         [SerializeField, InspectorName("动画图映射（完整状态路径）")] AnimationMapping animationMapping = new();
@@ -135,6 +135,7 @@ namespace NarutoVR.SealCombat.Enemies
         public bool EvaluateStrike(float progress, bool occlusion, float height, LayerMask mask) =>
             strike != null && strike.Evaluate(progress, occlusion, height, mask);
         public void EndStrike() => strike?.End();
+        internal void LockStrikeDirection() => strike?.LockDirection();
 
         public void ResetCombat()
         {
@@ -155,11 +156,12 @@ namespace NarutoVR.SealCombat.Enemies
             Combat.CompleteSeated(); ++combatMutation; SyncCombatFields(); PublishVitals(null, 0, 0, false);
         }
         /// <summary>技能/武器统一受击接口。传本次唯一 ID；弱点区必须属于当前敌人。</summary>
-        public bool ReceiveHit(string hitId, float damage, float poiseDamage, EnemyHitZone zone = null, Transform attacker = null)
+        public bool ReceiveHit(string hitId, float damage, float poiseDamage, EnemyHitZone zone = null, Transform attacker = null, float staggerSeconds = 0)
         {
             var response = HitResponse;
             if (!isActiveAndEnabled || response == null || !response.CanReceiveHit || Combat == null || Combat.Dead ||
-                !float.IsFinite(damage) || damage < 0 || damage > 10000 || !float.IsFinite(poiseDamage) || poiseDamage < 0 || poiseDamage > 100000) return false;
+                !float.IsFinite(damage) || damage < 0 || damage > 10000 || !float.IsFinite(poiseDamage) || poiseDamage < 0 || poiseDamage > 100000 ||
+                !float.IsFinite(staggerSeconds) || staggerSeconds < 0) return false;
             bool weak = zone && zone.isActiveAndEnabled && zone.isWeakPoint && zone.Owner == this;
             float hpDamage = Mathf.Min(10000, damage * (weak ? zone.DamageMultiplier : 1) + (weak ? zone.BonusDamage : 0));
             float poiseLoss = Mathf.Min(100000, poiseDamage * (weak ? zone.PoiseMultiplier : 1));
@@ -172,7 +174,7 @@ namespace NarutoVR.SealCombat.Enemies
             var notice = new EnemyVitalsNotice(this, hitId, state.Health, state.Poise, hpBefore - state.Health, poiseBefore - state.Poise, weak, state.Broken, state.Dead, zone, attacker);
             // 先提交状态机，防止通知回调中继续攻击已死亡/瘫痪的对象。
             bool CurrentLife() => this && IsCurrentHit(mutation) && ReferenceEquals(response, HitResponse);
-            response.RespondToHit(notice, notice.Broken && !wasBroken, mutation);
+            response.RespondToHit(notice, notice.Broken && !wasBroken, mutation, staggerSeconds);
             // 反应可能结束旧攻击；结束监听若重生/销毁，不得暂停或回收新一轮对象。
             if (!CurrentLife()) return true;
             EventCenter.Publish(EnemyEvents.VitalsChanged, notice);
@@ -209,12 +211,14 @@ namespace NarutoVR.SealCombat.Enemies
             for (int i = 1; i < attackCount; i++)
                 if (!Has(animationMapping.attackTriggerPrefix + i, AnimatorControllerParameterType.Trigger))
                 { reason = "缺少攻击 Trigger：" + animationMapping.attackTriggerPrefix + i; return false; }
+            bool hasRecover = string.IsNullOrWhiteSpace(animationMapping.seatedRecoverState) ||
+                animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.seatedRecoverState));
             SupportsReactions = Has(animationMapping.deadParameter, AnimatorControllerParameterType.Bool) && Has(animationMapping.hitTrigger, AnimatorControllerParameterType.Trigger) &&
                 Has(animationMapping.seatedTrigger, AnimatorControllerParameterType.Trigger) &&
                 !string.IsNullOrWhiteSpace(animationMapping.hitState) && !string.IsNullOrWhiteSpace(animationMapping.seatedState) &&
                 !string.IsNullOrWhiteSpace(animationMapping.deadState) && animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.hitState)) &&
                 animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.seatedState)) &&
-                animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.deadState));
+                animator.HasState(0, UnityEngine.Animator.StringToHash(animationMapping.deadState)) && hasRecover;
             reason = "配置有效"; return true;
         }
 
@@ -258,7 +262,9 @@ namespace NarutoVR.SealCombat.Enemies
 
         public void ReadReactionAnimation(EnemyReaction reaction, out bool active, out bool inTransition)
         {
-            active = animator.GetCurrentAnimatorStateInfo(0).IsName(reaction == EnemyReaction.Hit ? animationMapping.hitState : reaction == EnemyReaction.Seated ? animationMapping.seatedState : animationMapping.deadState);
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            active = state.IsName(reaction == EnemyReaction.Hit ? animationMapping.hitState : reaction == EnemyReaction.Seated ? animationMapping.seatedState : animationMapping.deadState) ||
+                (reaction == EnemyReaction.Seated && !string.IsNullOrWhiteSpace(animationMapping.seatedRecoverState) && state.IsName(animationMapping.seatedRecoverState));
             inTransition = animator.IsInTransition(0);
         }
 
@@ -291,7 +297,12 @@ namespace NarutoVR.SealCombat.Enemies
         {
             if (!target) return false;
             if (!checkOcclusion) return true;
-            Vector3 start = transform.position + Vector3.up * eyeHeight, delta = position - start;
+            return HasClearSightFrom(transform.position + Vector3.up * eyeHeight, target, position, obstructionMask);
+        }
+
+        internal bool HasClearSightFrom(Vector3 start, Transform target, Vector3 position, LayerMask obstructionMask)
+        {
+            Vector3 delta = position - start;
             if (delta.sqrMagnitude < .000001f) return true;
             int count = Physics.RaycastNonAlloc(start, delta.normalized, sightHits, delta.magnitude, obstructionMask, QueryTriggerInteraction.Ignore);
             if (count == sightHits.Length) return false;
@@ -339,7 +350,11 @@ namespace NarutoVR.SealCombat.Enemies
         {
             hasNavigationDestination = false;
             if (agent && agent.isActiveAndEnabled && agent.isOnNavMesh)
-            { agent.isStopped = true; agent.ResetPath(); agent.velocity = Vector3.zero; }
+            {
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+                agent.isStopped = true;
+            }
             if (resetRepath) RequestRepath();
         }
 
@@ -402,6 +417,7 @@ namespace NarutoVR.SealCombat.Enemies
 
         void OnDisable()
         {
+            if (HitResponse is EnemyController controller) controller.ResetDodgeTime();
             hitListener?.Dispose();
             hitListener = null;
             if (hitSource) hitSource.Stop();
@@ -421,8 +437,9 @@ namespace NarutoVR.SealCombat.Enemies
                 attacks != null && attacks.Length > 0 ? attacks[Mathf.Clamp(previewAttackIndex, 0, attacks.Length - 1)] : null;
             if (data == null || !data.Validate(out _) || data.shape == AttackShape.Projectile) return;
             Gizmos.color = Application.isPlaying && strike != null && strike.Active ? new Color(1, .25f, .1f) : Color.yellow;
-            Vector3 center = data.Center(transform);
-            Quaternion rotation = AttackData.HorizontalRotation(transform);
+            Quaternion rotation = Application.isPlaying && strike != null && strike.Active
+                ? strike.Facing : AttackData.HorizontalRotation(transform);
+            Vector3 center = transform.position + rotation * data.centerOffset;
             float sweep = data.shape == AttackShape.Circle ? 360 : data.angle;
             int segments = Mathf.Max(8, Mathf.CeilToInt(sweep / 6));
             for (int level = -1; level <= 1; level++)

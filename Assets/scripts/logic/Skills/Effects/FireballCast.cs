@@ -61,6 +61,7 @@ namespace NarutoVR.SealCombat
             GameObject ball = currentFireball.ReleaseVisual();
             StopHeldAudio(ball.transform);
             var projectileAudio = parameters.Audio;
+            fireAimView?.Hide();
             currentFireball = null;
             ball.name = "技能火球_飞行";
             var projectile = ball.AddComponent<SkillProjectile>();
@@ -70,13 +71,7 @@ namespace NarutoVR.SealCombat
             projectile.AttackerTarget = head;
             projectile.poiseDamage = parameters.PoiseDamage;
             projectile.lifetime = parameters.FlightLifetime;
-            projectile.impactPrefab = parameters.Impact;
-            if (vfxPool && vfxPool.Handles(parameters.Impact))
-            {
-                projectile.ImpactPool = vfxPool;
-                projectile.ImpactOwner = this;
-            }
-            else projectile.ImpactCreated = OnImpactCreated;
+            ConfigureProjectileImpact(projectile, parameters.Impact);
             projectile.SurfaceHit = point =>
             {
                 LastImpactAudioHandled = PlayAudio(projectileAudio, SkillAudioCue.Impact, point);
@@ -404,13 +399,14 @@ namespace NarutoVR.SealCombat
                     Time.timeScale<=0 || !double.IsFinite(previewWristStamp)) return false;
                 double age=owner.HandNow-previewWristStamp;
                 if(!double.IsFinite(age) || age<-.01 || age>Parameters.Throwing.sampleMaxAge ||
-                    previewWrist.y<owner.head.position.y-Mathf.Clamp(owner.aimWristDrop,.15f,.65f)) return false;
+                    previewWrist.y<owner.head.position.y-Mathf.Clamp(Source.aimProfile ? Source.aimProfile.wristDrop : owner.aimWristDrop,.15f,.65f)) return false;
                 return owner.TryResolveAim(ThrowPreviewOrigin,out aim);
             }
 
             public void Cancel()
             {
                 if (!Visual) return;
+                owner.fireAimView?.Hide();
                 ObserveThrow("cancelled", "持球结束或取消", default, default, 0, false);
                 if (!Visual) return;
                 owner.StopHeldAudio(Visual.transform);

@@ -14,6 +14,8 @@ namespace NarutoVR.SealCombat.Enemies
         public virtual Transform DetectionColliderRoot => transform;
         public virtual Vector3 NavigationPosition => HitTransform.position;
         public abstract bool CanReceiveDamage { get; }
+        public virtual bool HasFireCoreParry => false;
+        public virtual void PresentFireCoreParry() { }
         public abstract bool TryReceiveDamage(EnemyAttackHit hit);
         protected virtual void Awake() => Known.Add(this);
         protected virtual void OnEnable() => Known.Add(this);

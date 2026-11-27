@@ -11,6 +11,8 @@ namespace NarutoVR.SealCombat.Enemies
         public LineRenderer warningRing;
         [Min(.01f)] public float speed = 6f;
         [Range(0, 1)] public float lockProgress = .55f;
+        [SerializeField, InspectorName("战斗走位")] FireThrowerPositioning positioning = new();
+        internal FireThrowerPositioning Positioning => positioning;
 
         public bool IsConfigured => upperArm && forearm && muzzle && projectile && warningRing
             && forearm.IsChildOf(upperArm) && muzzle.IsChildOf(forearm) && float.IsFinite(speed) && speed > 0;
@@ -42,6 +44,12 @@ namespace NarutoVR.SealCombat.Enemies
             var floor = CombatDamageReceiver.GetNavigationPosition(target);
             aimPoint = floor + Vector3.up * .06f;
             warningRing.transform.position = floor + Vector3.up * .02f;
+        }
+
+        // Keep the last telegraphed point; sampling the target again here would follow the dodge itself.
+        internal void LockAim()
+        {
+            if (attackId != null) locked = true;
         }
 
         internal void SetProgress(float value, bool release)

@@ -11,11 +11,13 @@ namespace NarutoVR.SceneArt
         [SerializeField] private Camera playerCamera;
         [InspectorName("剧情机位"), Tooltip("拖入由 Timeline 或 Cinemachine Brain 控制的机位物体。演出时，玩家相机会跟随它的位置和旋转。")]
         [SerializeField] private Transform shotPose;
+        [InspectorName("交还头显时激活的物体"), Tooltip("可选。Timeline 激活此物体时恢复玩家追踪，剩余轨道继续播放。醒来演出使用淡出前遮住双眼的黑幕。")]
+        [SerializeField] private GameObject trackingReturnCue;
 
         public void Play()
         {
             if (!isActiveAndEnabled) return;
-            var request = new StoryPlayRequest(GetComponent<PlayableDirector>(), shotPose, playerCamera);
+            var request = new StoryPlayRequest(GetComponent<PlayableDirector>(), shotPose, playerCamera, trackingReturnCue);
             EventCenter.Publish(TravelEvents.StoryPlayRequested, request);
         }
 

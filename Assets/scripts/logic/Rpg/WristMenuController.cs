@@ -640,7 +640,7 @@ namespace NarutoVR.SealCombat.Rpg
                 return content.ToString();
             }
             if (Page == 0)
-                return PanelKind == WristPanelKind.Seal ? "结印与施法\n按右侧箭头查看当前技能配方。\n双手做印；参考卡保留时可正常施法。\n双手低位保持可取消未发射火球。\n移动：左食指指向落点，短暂停留确认。\n投掷：握住火球，甩手后松开。" :
+                return PanelKind == WristPanelKind.Seal ? "结印与施法\n按右侧箭头查看当前技能配方。\n按各课手图结印，衡印仅用左手。参考卡保留时可正常施法。\n双手低位保持可取消未发射火球。\n移动：左食指指向落点，短暂停留确认。\n投掷：握住火球，甩手后松开。" :
                     "中文咒语\n按下一页查看当前目录中的完整口令。\n组合技允许先结印或先念咒。\n取消口令：" + (owner && owner.skills ? owner.skills.CancelPhrase : "取消施法") +
                     "\n当前没有示范语音播放；不会自动念出技能。\n本页是实战速查，不是无伤害练习模式。";
             return "当前目录没有对应配方";

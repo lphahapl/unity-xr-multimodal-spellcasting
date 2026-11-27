@@ -1,9 +1,11 @@
 using System;
 using Oculus.Interaction.Input;
+using Unity.XR.OpenXR.Features.PICOSupport;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.XR.Hands;
+using UnityEngine.XR.OpenXR;
 using UnityEngine.XR.OpenXR.Features.Interactions;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -13,7 +15,7 @@ namespace NarutoVR.SealCombat.Rpg
     internal static class WristHandChannels
     {
         internal static void Apply(ref PlayerHandObservation f, Transform origin, Vector3 wrist,
-            float maxAge, bool xrHands, IHand native)
+            float maxAge, bool xrHands, IHand native, bool left = false)
         {
             if (!xrHands)
             {
@@ -25,17 +27,22 @@ namespace NarutoVR.SealCombat.Rpg
                 return;
             }
 
-            // EXT_hand_interaction is optional. A device must be a right hand, not a controller.
+            // Keep PICO's ray and pinch stable through the gesture when both joint channels exist.
+            // Some firmware reports EXT pointer readiness only while the hand is pinched.
+            bool preferJoints = OpenXRSettings.Instance?.GetFeature<PICOFeature>()?.enabled == true;
+            if (preferJoints && f.rayValid && f.pinchValid) return;
+
+            // EXT_hand_interaction is optional. Only read the requested hand's device.
             foreach (var device in InputSystem.devices)
             {
                 if (!(device is HandInteractionProfile.HandInteraction hand) || !hand.enabled ||
-                    !hand.usages.Contains(UnityEngine.InputSystem.CommonUsages.RightHand) ||
+                    !hand.usages.Contains(left ? UnityEngine.InputSystem.CommonUsages.LeftHand : UnityEngine.InputSystem.CommonUsages.RightHand) ||
                     !Fresh(hand,f.rightObserved,maxAge)) continue;
                 var pose=hand.pointer.ReadValue();
                 var poseFields=UnityEngine.XR.InputTrackingState.Position|UnityEngine.XR.InputTrackingState.Rotation;
-                if (pose.isTracked && (pose.trackingState & poseFields)==poseFields)
+                if ((!preferJoints || !f.rayValid) && pose.isTracked && (pose.trackingState & poseFields)==poseFields)
                     SetRay(ref f,WorldPose(origin,pose.position,pose.rotation),wrist,"OpenXR EXT·系统射线");
-                if (hand.pinchReady.isPressed)
+                if ((!preferJoints || !f.pinchValid) && hand.pinchReady.isPressed)
                 {
                     float strength=hand.pinchValue.ReadValue();
                     if(float.IsFinite(strength) && strength>=0 && strength<=1)
@@ -44,8 +51,10 @@ namespace NarutoVR.SealCombat.Rpg
                 break;
             }
 
+            if (preferJoints) return;
+
             // FB aim flags distinguish "open" from a device that never provided pinch data.
-            var aim=MetaAimHand.right;
+            var aim=left ? MetaAimHand.left : MetaAimHand.right;
             if (aim==null || !aim.added || !aim.enabled || !Fresh(aim,f.rightObserved,maxAge)) return;
             var flags=(MetaAimFlags)aim.aimFlags.ReadValue();
             if ((flags & MetaAimFlags.Computed)==0) return;

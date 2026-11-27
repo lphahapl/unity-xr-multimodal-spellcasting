@@ -33,6 +33,7 @@ namespace NarutoVR.SealCombat.Editor
                 root.transform.SetPositionAndRotation(new Vector3(1, 1.4f, 2), Quaternion.Euler(15, 71, -8));
                 var board = root.AddComponent<GlyphBoard>();
                 CheckRetracedInk(board);
+                CheckBrushInk(board);
                 CheckQianjunRepair(board);
                 var story = root.AddComponent<GlyphStoryPanel>();
                 story.board = board;
@@ -266,6 +267,59 @@ namespace NarutoVR.SealCombat.Editor
             Require(Vertices().Length == initial, "清空后可在原位置重新落墨");
             Stroke(new Vector2(left.x, -.009f), new Vector2(right.x, .015f));
             Require(Vertices().Length == initial + 8, "斜穿旧笔迹的小角度交叉也保留完整");
+            board.Close();
+        }
+
+        static void CheckBrushInk(GlyphBoard board)
+        {
+            board.Open(Array.Empty<GlyphTemplate>(), false);
+            var ink = Array.Find(board.GetComponentsInChildren<GlyphStrokeGraphic>(), g => g.name == "朱砂墨迹");
+            Require(ink.material.shader.name == "NarutoVR/UI/Glyph Brush Ink" && ink.material.shader.isSupported,
+                "实际画板加载毛笔材质");
+            var paper = Array.Find(board.GetComponentsInChildren<UnityEngine.UI.Image>(), g => g.name == "书写面");
+            Require(paper && paper.sprite && paper.sprite.name == "GlyphPaper", "实际画板加载纤维纸写面");
+            double time = 1;
+            void Tip(float x, float y, double dt, float z = 0) =>
+                board.Sample(board.transform.TransformPoint(new Vector3(x, y, z)), true, time += dt);
+            void Line(float y, double dt, double finalDt)
+            {
+                Tip(-.05f, y, .08, .04f);
+                for (int i = 0; i <= 8; ++i) Tip(-.05f + i * .008f, y, i == 8 ? finalDt : dt);
+            }
+
+            Line(.07f, .14, .14);
+            Line(.025f, .018, .018);
+            Line(-.025f, .018, .14);
+            Line(-.07f, .018, .008);
+            Tip(-.06f, -.13f, .1, .04f);
+            Tip(-.06f, -.13f, .14);
+            Tip(-.052f, -.13f, .14);
+            Tip(-.044f, -.13f, .14);
+            Tip(-.044f, -.122f, .14);
+            Tip(-.044f, -.114f, .14);
+
+            ink.Rebuild(UnityEngine.UI.CanvasUpdate.PreRender);
+            var mesh = ink.canvasRenderer.GetMesh();
+            var vertices = mesh.vertices;
+            var pigment = mesh.colors32;
+            var brush = mesh.uv;
+            var taper = mesh.uv2;
+            const int strip = 9 * 4;
+            int middle = 4 * 4;
+            // The portion beyond U = ±1 only provides room for feathering.
+            float Width(int i) => Vector3.Distance(vertices[i], vertices[i + 1]) *
+                (2f / (brush[i + 1].x - brush[i].x));
+            Require(vertices.Length == strip * 4 + 5 * 4 && pigment.Length == vertices.Length &&
+                taper.Length == vertices.Length && board.PointCount == 41, "速度渲染保留全部原始采样并提供两套笔刷坐标");
+            Require(Width(middle) > Width(strip + middle) * 1.35f &&
+                pigment[middle].a - pigment[strip + middle].a > 50, "相同路径的慢笔比快笔更粗、更浓");
+            int finalEdge = strip - 4;
+            Require(taper[2 * strip + finalEdge].x > taper[3 * strip + finalEdge].x &&
+                Mathf.Abs(taper[3 * strip + finalEdge + 2].x) < .0001f, "急收和顺势扫出的笔锋不同，均收至真实落点");
+            int corner = 4 * strip + 3 * 4;
+            Require(Width(corner) > Width(middle) * 1.20f, "慢速转角顿笔加宽并连接两边");
+            Debug.Log($"GlyphBrushInk PASS: slow {Width(middle):F2} mm / {pigment[middle].a}, " +
+                $"fast {Width(strip + middle):F2} mm / {pigment[strip + middle].a}, corner {Width(corner):F2} mm.");
             board.Close();
         }
     }

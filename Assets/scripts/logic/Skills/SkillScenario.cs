@@ -41,7 +41,7 @@ namespace NarutoVR.SealCombat
         {
             if (!effects) effects = GetComponent<SkillController>();
             Status = kind == SkillScenarioKind.ShieldTrial
-                ? "先摆规印或念“护体咒”；获得护盾后自动开始一轮测试。"
+                ? "先用左手结衡印或念“衡印”；获得护盾后自动开始一轮测试。"
                 : "输入满足即激活；保留原有三种配方与取消方式。";
             RefreshText();
         }
@@ -67,7 +67,7 @@ namespace NarutoVR.SealCombat
             if (running) return;
             autoStarted = true;
             if (effects.ShieldPoints > 0) StartPulses(Time.realtimeSinceStartupAsDouble);
-            else { armed = true; Status = "测试已准备：请摆规印或念“护体咒”，无需再操作电脑。"; RefreshText(); }
+            else { armed = true; Status = "测试已准备：请用左手结衡印或念“衡印”，无需再操作电脑。"; RefreshText(); }
         }
 
         public void StopShieldTest()

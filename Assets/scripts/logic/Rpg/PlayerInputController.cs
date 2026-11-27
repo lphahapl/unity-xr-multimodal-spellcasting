@@ -16,6 +16,8 @@ namespace NarutoVR.SealCombat.Rpg
         public double leftObserved, rightObserved;
         public Vector3 leftWrist, rightTip, rayOrigin, rayDirection, headPosition, headForward;
         public Vector3 rightWrist, rightPalmNormal;
+        public bool rightIndexRayValid;
+        public Vector3 rightIndexDirection;
         public bool gripPoseValid;
         public Vector3 gripPosition;
         public Quaternion gripRotation;
@@ -34,6 +36,21 @@ namespace NarutoVR.SealCombat.Rpg
     {
         readonly LinearRpgController player;
         UnityEngine.Object interactionOwner;
+        UnityEngine.Object passengerTransitOwner;
+        internal bool PassengerTransitActive => passengerTransitOwner;
+        internal bool TryBeginPassengerTransit(UnityEngine.Object owner)
+        {
+            if (!owner || passengerTransitOwner) return false;
+            passengerTransitOwner = owner;
+            InvalidateRequests();
+            return true;
+        }
+        internal void EndPassengerTransit(UnityEngine.Object owner)
+        {
+            if (!ReferenceEquals(owner, passengerTransitOwner)) return;
+            passengerTransitOwner = null;
+            InvalidateRequests();
+        }
         long activeClaim, nextClaim;
         string observationSource;
         double inputReadyAt = double.NegativeInfinity;
@@ -42,6 +59,8 @@ namespace NarutoVR.SealCombat.Rpg
         public string HandPoseStatus => handPoses?.Status ?? "官方手形：等待初始化";
         public bool UiOwnsInput => player.wristMenu && player.wristMenu.OwnsInput;
         public bool InteractionOwnsHand => interactionOwner;
+        public HandPickupQuery Pickups { get; }
+        public PlayerHandObservation LeftPickupHand { get; internal set; }
         public PlayerHandObservation LatestHand { get; private set; }
         NarutoVR.SealLab.SealLab Tracking => player.handTracking ? player.handTracking : player.skills ? player.skills.lab : null;
         bool RightHandHeld => player.skills && player.skills.effects && player.skills.effects.HasRightHeldObject;
@@ -56,22 +75,28 @@ namespace NarutoVR.SealCombat.Rpg
             }
             var navigation = ReadNavigationFrame(frame, now);
             LatestHand = ReadHandFrame(navigation, frame, now);
+            var left = ReadHandFrame(navigation, frame, now, true);
+            Pickups.Evaluate(left, LatestHand, now);
             return navigation;
         }
-        internal PlayerInputController(LinearRpgController player) { this.player = player; }
+        internal PlayerInputController(LinearRpgController player) { this.player = player; Pickups = new HandPickupQuery(player); }
         public bool IsCurrent(long generation) => generation == Generation && player && player.CanAct;
         internal void InvalidateRequests(bool clearMatch = false)
         {
             Generation++;
             if (player.skills) player.skills.AdvanceInputOwnership(clearMatch);
         }
-        internal void Invalidate()
+        internal void Invalidate(UnityEngine.Object retainedInteraction = null)
         {
             InvalidateRequests();
             inputReadyAt = Time.realtimeSinceStartupAsDouble;
-            interactionOwner = null;
-            activeClaim = 0;
-            LatestHand = default;
+            if (!retainedInteraction || !ReferenceEquals(retainedInteraction, interactionOwner))
+            {
+                interactionOwner = null;
+                activeClaim = 0;
+            }
+            LatestHand = LeftPickupHand = default;
+            Pickups.Reset();
             handPoses?.Reset();
         }
 
@@ -81,7 +106,7 @@ namespace NarutoVR.SealCombat.Rpg
         // which spells will be ready when the player lowers the menu.
         internal bool CanCast(out string reason, bool includeWristMenu)
         {
-            reason = player.StateCommitInProgress ? "玩家状态正在提交" : !player.CanAct ? "当前无法施法" : player.GlyphBlocksCombat ? "墨规笔占用输入" : includeWristMenu && UiOwnsInput ? "正在操作教学界面；手部恢复中立后再施法" :
+            reason = player.StateCommitInProgress ? "玩家状态正在提交" : !player.CanAct ? "当前无法施法" : PassengerTransitActive ? "吊篮运行中" : player.GlyphBlocksCombat ? "墨规笔占用输入" : includeWristMenu && UiOwnsInput ? "正在操作教学界面；手部恢复中立后再施法" :
                 InteractionOwnsHand ? "右手正在操作机关或持有物品" :
                 player.locomotion && player.locomotion.NavigationActive ? "导航准备中：放下左手后再开始结印或吟唱" : null;
             return reason == null;
@@ -95,14 +120,14 @@ namespace NarutoVR.SealCombat.Rpg
         }
         public bool CanInteract(out string reason)
         {
-            reason = player.StateCommitInProgress ? "玩家状态正在提交" : !player.CanAct ? "角色当前不能操作物品" : UiOwnsInput ? "腕部界面占用输入" :
+            reason = player.StateCommitInProgress ? "玩家状态正在提交" : !player.CanAct ? "角色当前不能操作物品" : PassengerTransitActive ? "吊篮运行中" : UiOwnsInput ? "腕部界面占用输入" :
                 InteractionOwnsHand || RightHandHeld
                     ? "右手已持有物品" : null;
             return reason == null;
         }
         public bool CanCancel(out string reason)
         {
-            reason = player.IsReady ? null : "关卡未就绪";
+            reason = !player.IsReady ? "关卡未就绪" : PassengerTransitActive ? "吊篮运行中" : null;
             return reason == null;
         }
         public string MovementBlockReason
@@ -113,6 +138,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if (!player.IsReady || player.Player == null) return "关卡未就绪";
                 if (player.InputPaused || Time.timeScale <= 0) return "游戏已暂停，恢复播放后才能移动";
                 if (!player.Player.Alive) return "生命为零，点击「恢复检查点」后可继续移动";
+                if (PassengerTransitActive) return "吊篮运行中，停稳后可移动";
                 return UiOwnsInput ? "腕部界面占用输入，请先结束点击或拖动并关闭主菜单" : null;
             }
         }
@@ -197,7 +223,7 @@ namespace NarutoVR.SealCombat.Rpg
         public PlayerHandObservation ReadWristMenuFrame(NavigationHandInput navigation) =>
             ReadHandFrame(navigation, Tracking ? Tracking.Frame : null, Time.realtimeSinceStartupAsDouble);
 
-        PlayerHandObservation ReadHandFrame(NavigationHandInput navigation, SealFrame frame, double now)
+        PlayerHandObservation ReadHandFrame(NavigationHandInput navigation, SealFrame frame, double now, bool forLeft = false)
         {
             var f = new PlayerHandObservation { leftValid = navigation.leftValid, rightValid = navigation.rightValid,
                 leftObserved = navigation.leftObserved, rightObserved = navigation.rightObserved,
@@ -233,7 +259,14 @@ namespace NarutoVR.SealCombat.Rpg
             }
             // Menu input needs only the joints used by each channel. Navigation's confidence
             // includes every finger and must not suppress a valid wrist when one tip is occluded.
-            var hand=frame.right;
+            var hand=forLeft ? frame.left : frame.right;
+            if (forLeft)
+            {
+                f.rightObserved = hand.observedAt;
+                f.rightOpen = navigation.leftOpen;
+                f.rightPointing = f.leftPointing;
+                f.rightClosed = f.leftClosed;
+            }
             f.rightValid=hand.connected && hand.tracked && hand.fresh && hand.jointValid[wrist] && hand.observedAt > inputReadyAt &&
                 PlayerHandObservation.Fresh(true,hand.observedAt,now,player.handSampleMaxAge);
             f.tipUnavailable=true;
@@ -241,7 +274,7 @@ namespace NarutoVR.SealCombat.Rpg
             Vector3 wristWorld=World(hand.joints[wrist].position);
             if(!PlayerHandObservation.Finite(wristWorld)){f.rightValid=false;return f;}
             f.rightWrist = wristWorld;
-            if (SealFeatureExtractor.PalmNormal(hand, false, out var normalInTrackingSpace))
+            if (SealFeatureExtractor.PalmNormal(hand, forLeft, out var normalInTrackingSpace))
             {
                 f.rightPalmNormal = origin * normalInTrackingSpace;
                 f.rightPalmValid = PlayerHandObservation.Finite(f.rightPalmNormal) && f.rightPalmNormal.sqrMagnitude > .9f;
@@ -249,6 +282,17 @@ namespace NarutoVR.SealCombat.Rpg
             if(hand.jointValid[tip]){
                 f.rightTip=World(hand.joints[tip].position);
                 f.tipUnavailable=!PlayerHandObservation.Finite(f.rightTip);
+                int joint = (int)HandJointId.HandIndex2;
+                if (!f.tipUnavailable && hand.jointValid[joint] && hand.jointValid[index])
+                {
+                    var knuckle = World(hand.joints[joint].position);
+                    var axis = f.rightTip - knuckle;
+                    var proximal = knuckle - World(hand.joints[index].position);
+                    // During fist debounce the pose may still say "pointing" after the fingertip has curled.
+                    f.rightIndexRayValid = PlayerHandObservation.Finite(axis) && axis.sqrMagnitude > .000025f &&
+                        Vector3.Dot(proximal.normalized, axis.normalized) >= .82f;
+                    if (f.rightIndexRayValid) f.rightIndexDirection = axis.normalized;
+                }
             }
             int middle=(int)HandJointId.HandMiddle1;
             bool hasIndex=hand.jointValid[index],hasMiddle=hand.jointValid[middle];
@@ -274,7 +318,7 @@ namespace NarutoVR.SealCombat.Rpg
                 if(f.pinchValid)f.pinchSource="骨骼·拇食指距离";
             }
             WristHandChannels.Apply(ref f,Tracking.recordingOrigin,wristWorld,player.handSampleMaxAge,
-                Tracking.xrHandsSource,Tracking.rightTrackedHand as IHand);
+                Tracking.xrHandsSource,(forLeft ? Tracking.leftTrackedHand : Tracking.rightTrackedHand) as IHand,forLeft);
             f.rayAnchorValid=f.rayValid;
             return f;
         }

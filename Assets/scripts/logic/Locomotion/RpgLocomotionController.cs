@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NarutoVR.SealCombat.Items;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -165,6 +166,9 @@ namespace NarutoVR.SealCombat.Rpg
         RpgGestureState State => state ?? (state = new RpgGestureState(gestures));
 
         public void ProcessInput(NavigationHandInput frame, bool forwardOwnedByHeldSpell, bool blockActions, double now)
+            => ProcessInput(frame, forwardOwnedByHeldSpell, blockActions, now, false);
+
+        internal void ProcessInput(NavigationHandInput frame, bool forwardOwnedByHeldSpell, bool blockActions, double now, bool drawingDodge)
         {
             rawInput = frame; inputNow = now;
             if (!RpgGestureState.Finite(now)) { ResetInput(); Status = "输入时钟无效"; return; }
@@ -188,7 +192,7 @@ namespace NarutoVR.SealCombat.Rpg
 
             if (UsesEncounterModes)
             {
-                if (ProcessEncounter(frame,forwardOwnedByHeldSpell,blockActions || intent.cancel,now)) return;
+                if (ProcessEncounter(frame,forwardOwnedByHeldSpell && !drawingDodge,blockActions || intent.cancel,now,drawingDodge) || drawingDodge) return;
                 ProcessRayNavigation(frame,false,now);
                 return;
             }
@@ -251,6 +255,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void ResetInput()
         {
+            ClearDodgeEffects();
             ResetEncounterMotion();
             lastSelectionObserved = double.NegativeInfinity;
             inputSmoother.Reset(); debugCandidates.Clear();
@@ -291,7 +296,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!TryFloor(node.floorPosition, floors, out RaycastHit target, out string reason) ||
                 Mathf.Abs(target.point.y - node.floorPosition.y) > targetFloorTolerance)
             { Status = "检查点恢复失败：" + (reason ?? "节点地面高度不合法"); return false; }
-            Vector3 currentFloor = TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out _) ? from.point : ExpectedFloor;
+            Vector3 currentFloor = ExpectedFloor;
             if (!ClearCapsule(target, currentFloor, obstacles, out reason))
             { Status = "检查点恢复失败：" + reason; return false; }
             delta = target.point - currentFloor;
@@ -658,7 +663,8 @@ namespace NarutoVR.SealCombat.Rpg
             if (count == smoothOverlaps.Length) { reason = "身体附近碰撞密集"; return false; }
             for (int i = 0; i < count; i++)
             {
-                if (Ignored(smoothOverlaps[i])) continue;
+                var obstacle = smoothOverlaps[i];
+                if (Ignored(obstacle)) continue;
                 reason = "身体占位被阻挡";
                 return false;
             }
@@ -701,7 +707,17 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         bool Ignored(Collider collider) => collider == null || collider.isTrigger ||
-            collider.transform == rigRoot || collider.transform.IsChildOf(rigRoot);
+            collider.transform == rigRoot || collider.transform.IsChildOf(rigRoot) || IsOwnAttachedItem(collider);
+
+        // The belt and pen can be siblings of the tracking rig. Worn or held items move
+        // with this player; a dropped item in the very same hierarchy is a world obstacle.
+        bool IsOwnAttachedItem(Collider collider)
+        {
+            if (!collider.transform.IsChildOf(transform)) return false;
+            var item = collider.GetComponentInParent<GameItemBase>();
+            return item && (item.IsHeld || (item.Dock && item.Dock.SnappedObject == item.gameObject &&
+                item.Dock.transform.IsChildOf(transform)));
+        }
 
         void Translate(Vector3 delta, PlayerMovementKind kind)
         {

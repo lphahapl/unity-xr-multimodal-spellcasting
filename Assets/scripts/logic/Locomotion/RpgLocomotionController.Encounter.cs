@@ -1,5 +1,7 @@
 using System;
+using NarutoVR.SealCombat.Enemies;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NarutoVR.SealCombat.Rpg
 {
@@ -20,8 +22,96 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("快推动作窗口（秒）"),Min(.1f)] public float pushWindow=.34f;
         [InspectorName("滑退持续时间（秒）"),Min(.05f)] public float slideDuration=.25f;
         [InspectorName("发射后闪避恢复时间（秒）"),Min(0)] public float throwDodgeRecovery=.65f;
+        [InspectorName("战斗滑退免伤窗口（秒）"), Range(0, .8f)] public float dodgeProtectionSeconds = .35f;
+        [InspectorName("极限闪避窗口（秒）"), Range(0, .5f)] public float perfectDodgeSeconds = .25f;
+        [InspectorName("极限闪避回度力冷却（秒）"), Min(0)] public float perfectDodgeCooldown = 2f;
+        [InspectorName("极限闪避回复度力"), Range(0, 100)] public float perfectDodgeMana = 25f;
+        [InspectorName("极限闪避敌方时间倍率"), Range(.05f, 1f)] public float perfectDodgeEnemyScale = .25f;
+        [InspectorName("敌方慢动作时长（现实秒）"), Min(0)] public float perfectDodgeSlowSeconds = 1.6f;
+        [InspectorName("原地虚影时长（现实秒）"), Min(0)] public float perfectDodgeAfterimageSeconds = .9f;
+        [SerializeField, InspectorName("当前玩家全身模型（可选）")]
+        Animator dodgeAvatar;
+
+        double dodgeStartedAt = double.NegativeInfinity;
+        double nextPerfectDodgeAt = double.NegativeInfinity;
+        bool perfectDodgeAwarded;
+        bool hasDodgeEffects;
+        RpgDodgeAfterimage dodgeAfterimage;
+        Scene dodgeScene;
+        bool dodgeAvatarAssigned;
+
+        void Start()
+        {
+            if (!dodgeAvatarAssigned && dodgeAvatar) BindDodgeAvatar(dodgeAvatar);
+        }
+
+        internal void ReleaseDodgeAvatar(TrackedAvatarPresentation owner)
+        {
+            if (dodgeAfterimage && dodgeAfterimage.Release(owner)) dodgeAvatar = null;
+        }
+
+        /// <summary>生成或更换本地玩家的全身展示时调用。头显专用的躯干、袖口、手模不参与墨影。</summary>
+        public bool BindDodgeAvatar(TrackedAvatarPresentation presentation)
+        {
+            if (!presentation || !presentation.player || presentation.player.locomotion != this)
+                return BindDodgeAvatar((Animator)null);
+            return BindDodgeAvatar(presentation.GetComponentInChildren<Animator>(), presentation);
+        }
+
+        /// <summary>普通 Humanoid 全身模型可直接绑定 Animator。传空解除当前外观。</summary>
+        public bool BindDodgeAvatar(Animator fullBody)
+        {
+            var presentation = fullBody ? fullBody.GetComponentInParent<TrackedAvatarPresentation>() : null;
+            if (presentation && (!presentation.player || presentation.player.locomotion != this)) fullBody = null;
+            return BindDodgeAvatar(fullBody, presentation);
+        }
+
+        bool BindDodgeAvatar(Animator fullBody, TrackedAvatarPresentation presentation)
+        {
+            dodgeAvatarAssigned = true;
+            dodgeAvatar = fullBody;
+            if (!dodgeAfterimage && !TryGetComponent(out dodgeAfterimage))
+            {
+                if (!fullBody) return false;
+                dodgeAfterimage = gameObject.AddComponent<RpgDodgeAfterimage>();
+            }
+            return dodgeAfterimage.Bind(fullBody, presentation);
+        }
+
+        void PresentPerfectDodge()
+        {
+            hasDodgeEffects = true;
+            EnemyDodgeEffects.SlowEnemies(dodgeScene, transform, perfectDodgeEnemyScale, perfectDodgeSlowSeconds);
+            if (dodgeAfterimage) dodgeAfterimage.ShowCaptured(perfectDodgeAfterimageSeconds, dodgeScene);
+        }
+
+        void ClearDodgeEffects()
+        {
+            if (!hasDodgeEffects) return;
+            hasDodgeEffects = false;
+            EnemyDodgeEffects.ClearSlow(transform);
+            if (dodgeAfterimage) dodgeAfterimage.Clear();
+        }
+
+        internal bool TryAvoidEnemyHit(RpgPlayerState player, string hitId, float amount, double now)
+        {
+            double elapsed = now - dodgeStartedAt;
+            if (!isActiveAndEnabled || !UsesEncounterModes || !EncounterCombat ||
+                elapsed < 0 || elapsed >= dodgeProtectionSeconds || !player.TryClaimHit(hitId, amount, now)) return false;
+
+            if (!perfectDodgeAwarded && elapsed < perfectDodgeSeconds && now >= nextPerfectDodgeAt)
+            {
+                perfectDodgeAwarded = true;
+                nextPerfectDodgeAt = now + perfectDodgeCooldown;
+                player.RestoreMana(perfectDodgeMana);
+                PresentPerfectDodge();
+                RpgFeedbackSignals.Raise(Feedback, RpgActionCue.PerfectDodge, this);
+            }
+            return true;
+        }
 
         bool modeInitialized, needNeutral, shotGuard, remoteRearm, armed, sliding, walking, movedThisAction;
+        bool drawingSlideBeforeLeftNeutral;
         double lastProcess=double.NaN, shotAt, lastWristStamp=double.NaN, anchorStamp, slideRemaining;
         Vector3 pushAnchor, pushHeading, lastRelative, slideDirection, slideDelta;
         Collider walkContact;
@@ -36,13 +126,30 @@ namespace NarutoVR.SealCombat.Rpg
         public event Action<float> ExplorationTravelled;
         public string EncounterDebugDetails=>$"模式：{(EncounterCombat?"战斗":"探索")}；等待收指={needNeutral}；步速倍率 {pitchFactor:F2}\n闪避：{motionReason}；发射保护 {(shotGuard?Math.Max(0,throwDodgeRecovery-(inputNow-shotAt)):0):F2}s；冷却 {DodgeRemaining:F2}s";
 
-        public void SetEncounterCombat(bool combat)
+        public void SetEncounterCombat(bool combat) => SetEncounterCombat(combat, false);
+
+        internal void SetEncounterCombat(bool combat, bool carryDrawingWrist)
         {
             if(modeInitialized && EncounterCombat==combat)return;
             bool switching=modeInitialized;
             modeInitialized=true; EncounterCombat=combat;
             RefreshAuthoredMarkers();
+            bool canCarry = carryDrawingWrist && !SealProtectionActive && !rawInput.bothHandsLow &&
+                !rawInput.rightMotionOwnedBySpell && Fresh(rawInput.rightValid, rawInput.rightObserved, inputNow);
             ResetInput(); needNeutral=switching;
+            // Carry only the last chest pose. A second, continuous combat sample must
+            // still pass the normal speed, distance, protection and cooldown checks.
+            if (canCarry && head && TryHorizontal(head.forward, out var heading))
+            {
+                var relative = rawInput.rightWrist - head.position;
+                if (InChest(relative, heading))
+                {
+                    lastRelative = pushAnchor = relative;
+                    lastWristStamp = anchorStamp = rawInput.rightObserved;
+                    pushHeading = heading;
+                    armed = true;
+                }
+            }
             motionReason=switching?"模式切换，请先收指":"等待手势";
         }
         public void NotifyProjectileLaunched(double now)
@@ -54,6 +161,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void ResetEncounterMotion()
         {
+            dodgeStartedAt = double.NegativeInfinity;
+            drawingSlideBeforeLeftNeutral = false;
             StopExploration();
             walkContact = null;
             lastProcess=lastWristStamp=double.NaN; armed=sliding=walking=movedThisAction=false;
@@ -73,7 +182,9 @@ namespace NarutoVR.SealCombat.Rpg
             heading.Normalize();return true;
         }
         bool Fresh(bool valid,double stamp,double now)=>valid && double.IsFinite(stamp) && now>=stamp && now-stamp<=gestures.sampleMaxAge;
-        bool ProcessEncounter(NavigationHandInput f,bool held,bool blocked,double now)
+        bool InChest(Vector3 relative, Vector3 heading) =>
+            (relative - (Vector3.down * chestBelowHead + heading * .16f)).sqrMagnitude <= chestRadius * chestRadius;
+        bool ProcessEncounter(NavigationHandInput f,bool held,bool blocked,double now,bool drawingDodge)
         {
             walkContact = null;
             double delta=now-lastProcess;
@@ -82,7 +193,9 @@ namespace NarutoVR.SealCombat.Rpg
             bool left=Fresh(f.leftValid,f.leftObserved,now);
             // A lowered wrist or missing tracking does not count as releasing the pointing pose.
             if(needNeutral && left && !rawInput.leftPoseUnconfirmed && !rawInput.leftPointing && !rawInput.leftNavigationPointing)needNeutral=false;
-            if(blocked || needNeutral)
+            // Left-hand navigation still needs a neutral pose. A draft can yield to a
+            // right-only push, and the resulting slide can finish with the left hand out of view.
+            if(blocked || needNeutral && !drawingDodge && !drawingSlideBeforeLeftNeutral)
             {
                 ResetEncounterMotion(); rayState.Reset(); CandidateNode=null; debugCandidates.Clear();
                 if (!blocked && PickingGround && left && !SealProtectionActive && !f.bothHandsLow)
@@ -100,6 +213,7 @@ namespace NarutoVR.SealCombat.Rpg
                 rayState.Suspend(); CandidateNode=null;
                 return AdvanceSlide(dt);
             }
+            if (needNeutral && drawingSlideBeforeLeftNeutral) return true;
             // New semantic: right empty hand only; do not reuse legacy four-direction palm dodge.
             if(held || f.rightMotionOwnedBySpell || SealProtectionActive || !Fresh(f.rightValid,f.rightObserved,now) ||
                 !TryHorizontal(head.forward,out var look))
@@ -111,7 +225,7 @@ namespace NarutoVR.SealCombat.Rpg
             double stamp=f.rightObserved;
             if(stamp==lastWristStamp)return false;
             bool continuous=double.IsFinite(lastWristStamp) && stamp>lastWristStamp && stamp-lastWristStamp<=gestures.sampleMaxGap;
-            bool inChest=(relative - (Vector3.down*chestBelowHead + look*.16f)).sqrMagnitude<=chestRadius*chestRadius;
+            bool inChest=InChest(relative, look);
             float speed=continuous?(relative-lastRelative).magnitude/(float)(stamp-lastWristStamp):0;
             lastRelative=relative; lastWristStamp=stamp;
             if(!continuous)armed=false;
@@ -129,7 +243,12 @@ namespace NarutoVR.SealCombat.Rpg
                 float distance=Vector3.Dot(relative-pushAnchor,pushHeading);
                 double elapsed=stamp-anchorStamp;
                 if(elapsed>0 && elapsed<=pushWindow && distance>=pushDistance && distance/elapsed>=pushSpeed)
-                { armed=false;remoteRearm=false;return StartSlide(pushHeading,now); }
+                {
+                    armed=false; remoteRearm=false;
+                    bool started = StartSlide(pushHeading,now);
+                    drawingSlideBeforeLeftNeutral = started && drawingDodge && needNeutral;
+                    return started;
+                }
                 if(elapsed>pushWindow || distance<-.04f)armed=false;
             }
             if((inChest || remoteRearm && continuous && speed<.22f) && (!armed || speed<.22f))
@@ -187,7 +306,7 @@ namespace NarutoVR.SealCombat.Rpg
             top += Vector3.up * inset;
             radius -= inset;
         }
-        bool SmoothClear(RaycastHit floor,Vector3 current,float inset,out Collider overlap,out string reason)
+        bool SmoothClear(RaycastHit floor,Vector3 current,float inset,out Collider overlap,out string reason, int contacts = 0)
         {
             overlap = null;
             SmoothCapsule(floor,current,inset,out var bottom,out var top,out var radius);
@@ -196,6 +315,11 @@ namespace NarutoVR.SealCombat.Rpg
             for (int i = 0; i < count; i++)
             {
                 if (Ignored(smoothOverlaps[i])) continue;
+                int index = ContactIndex(smoothOverlaps[i], contacts);
+                if (index >= 0 &&
+                    MeasureContact(smoothOverlaps[i], bottom, top, radius + WalkGap, out var normal, out float depth) &&
+                    depth <= startingContacts[index].depth + .0001f && Vector3.Dot(normal, startingContacts[index].normal) > 0f)
+                    continue;
                 overlap = smoothOverlaps[i];
                 reason = "身体占位被阻挡";
                 return false;
@@ -203,7 +327,7 @@ namespace NarutoVR.SealCombat.Rpg
             reason=null;return true;
         }
         bool TrySmoothLeg(RaycastHit from, Vector3 initialFloor, Vector3 delta, float inset,
-            out RaycastHit target, out RaycastHit obstacle, out string reason)
+            out RaycastHit target, out RaycastHit obstacle, out string reason, int contacts = 0)
         {
             obstacle = default;
             if (!SmoothFloor(from.point + delta, out target, out reason)) return false;
@@ -217,58 +341,178 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 var hit = smoothHits[i];
                 if (Ignored(hit.collider) || hit.distance >= nearest) continue;
+                int index = ContactIndex(hit.collider, contacts);
+                // A convex collider stays behind its measured support plane on tangent/outward motion.
+                // PhysX sweeps starting in contact can instead report the reverse travel direction.
+                // A concave collider still needs later faces checked. Always verify the end occupancy.
+                if (index >= 0 && Vector3.Dot(travel, startingContacts[index].normal) >= -.0001f &&
+                    (hit.collider is not MeshCollider { convex: false } || hit.distance <= WalkGap))
+                    continue;
                 nearest = hit.distance;
                 obstacle = hit;
             }
+            // A concave mesh may contain another face in the same collider. Sweep again from
+            // just outside the touching face so a distance-zero hit cannot hide the next face.
+            for (int i = 0; i < contacts; i++)
+            {
+                var contact = startingContacts[i];
+                if (!(contact.collider is MeshCollider mesh) || mesh.convex) continue;
+                var offset = contact.normal * (contact.depth + WalkGap);
+                count = Physics.CapsuleCastNonAlloc(bottom + offset, top + offset, radius, travel.normalized, smoothHits,
+                    travel.magnitude, obstacleLayers, QueryTriggerInteraction.Ignore);
+                if (count == smoothHits.Length) { reason = "路径碰撞密集"; return false; }
+                for (int j = 0; j < count; j++)
+                {
+                    var hit = smoothHits[j];
+                    if (hit.collider != mesh || hit.distance >= nearest) continue;
+                    nearest = hit.distance;
+                    obstacle = hit;
+                }
+            }
             if (obstacle.collider) { reason = "路径有障碍"; return false; }
-            if (SmoothClear(target, initialFloor, inset, out var overlap, out reason)) return true;
+            if (SmoothClear(target, initialFloor, inset, out var overlap, out reason, contacts)) return true;
             if (walking && overlap) walkContact = overlap;
             return false;
         }
-        bool TryWalkAlongSurface(RaycastHit from, Vector3 delta, float inset, RaycastHit obstacle,
-            RaycastHit intendedFloor, out RaycastHit destination, out string reason)
+        // Only colliders touching the starting capsule may retain a shallow room-scale overlap.
+        // Store their outward planes for this step. Every other obstacle uses the full body radius.
+        const float WalkGap = .001f;
+        struct WalkContact { public Collider collider; public Vector3 normal; public float depth; }
+        readonly WalkContact[] startingContacts = new WalkContact[32];
+        readonly Vector3[] contactPlanes = new Vector3[35]; // starting overlaps + up to three slide impacts
+        CapsuleCollider walkProbe;
+
+        bool MeasureContact(Collider other, Vector3 bottom, Vector3 top, float radius, out Vector3 normal, out float depth)
+        {
+            if (!walkProbe)
+            {
+                // ComputePenetration needs an enabled shape. Keep the query trigger outside the level
+                // and exclude simulation contacts. Its actual pose is supplied by each query.
+                var probe = new GameObject("步行占位测量") { layer = LayerMask.NameToLayer("Ignore Raycast") };
+                probe.transform.position = Vector3.down * 10000f;
+                walkProbe = probe.AddComponent<CapsuleCollider>();
+                walkProbe.isTrigger = true;
+                walkProbe.excludeLayers = ~0;
+            }
+            float height = top.y - bottom.y + 2f * radius;
+            if (walkProbe.radius != radius) walkProbe.radius = radius;
+            if (walkProbe.height != height) walkProbe.height = height;
+            return Physics.ComputePenetration(walkProbe, (bottom + top) * .5f, Quaternion.identity,
+                other, other.transform.position, other.transform.rotation, out normal, out depth);
+        }
+
+        void OnDestroy()
+        {
+            if (!walkProbe) return;
+            if (Application.isPlaying) Destroy(walkProbe.gameObject);
+            else DestroyImmediate(walkProbe.gameObject);
+        }
+
+        bool WalkStart(RaycastHit from, out int contacts, out string reason)
+        {
+            contacts = 0;
+            reason = null;
+            Capsule(from, from.point, out var bottom, out var top, out float radius);
+            int count = Physics.OverlapCapsuleNonAlloc(bottom, top, radius + WalkGap, smoothOverlaps, obstacleLayers, QueryTriggerInteraction.Ignore);
+            if (count == smoothOverlaps.Length) { reason = "身体附近碰撞密集"; return false; }
+            for (int i = 0; i < count; i++)
+            {
+                var other = smoothOverlaps[i];
+                if (Ignored(other)) continue;
+                if (!MeasureContact(other, bottom, top, radius + WalkGap, out var normal, out float depth) ||
+                    depth > Mathf.Min(radius * .25f, .06f) + WalkGap || Mathf.Abs(normal.y) >= .95f)
+                {
+                    reason = "身体占位被阻挡";
+                    return false;
+                }
+                walkContact = other;
+                contactPlanes[contacts] = Vector3.ProjectOnPlane(normal, Vector3.up).normalized;
+                startingContacts[contacts++] = new WalkContact { collider = other, depth = depth, normal = normal };
+            }
+            return true;
+        }
+
+        int ContactIndex(Collider other, int contacts)
+        {
+            for (int i = 0; i < contacts; ++i)
+                if (startingContacts[i].collider == other) return i;
+            return -1;
+        }
+
+        bool PermittedHeading(Vector3 step, int planes)
+        {
+            for (int i = 0; i < planes; i++)
+                if (Vector3.Dot(step, contactPlanes[i]) < -.000001f) return false;
+            return true;
+        }
+
+        Vector3 ClipWalk(Vector3 step, int planes)
+        {
+            if (PermittedHeading(step, planes)) return step;
+            // In the horizontal plane the nearest feasible displacement is the original step,
+            // a tangent to one of the faces, or zero in a closed corner.
+            Vector3 best = Vector3.zero;
+            for (int i = 0; i < planes; i++)
+            {
+                Vector3 along = Vector3.ProjectOnPlane(step, contactPlanes[i]);
+                if (along.sqrMagnitude > best.sqrMagnitude && PermittedHeading(along, planes)) best = along;
+            }
+            return best;
+        }
+
+        bool TryWalkStep(RaycastHit from, Vector3 delta, out RaycastHit destination, out string reason)
         {
             destination = from;
-            reason = "路径有障碍";
-            float length = Vector3.Distance(intendedFloor.point, from.point);
-            if (length < .0001f) return false;
-
-            // Recheck both legs against the floor and any other colliders before committing the rig once.
-            const float contactGap = .001f;
-            float fraction = Mathf.Clamp01((obstacle.distance - contactGap) / length);
-            if (fraction > 0 && TrySmoothLeg(from, from.point, delta * fraction, inset, out var approach, out _, out _))
-                destination = approach;
-
-            Vector3 normal = Vector3.ProjectOnPlane(obstacle.normal, Vector3.up).normalized;
-            if (Vector3.Dot(delta, normal) < 0 && Mathf.Abs(obstacle.normal.y) < .95f)
+            if (!WalkStart(from, out int contacts, out reason)) return false;
+            int planes = contacts;
+            for (int leg = 0; leg < 3; leg++)
             {
-                Vector3 along = Vector3.ProjectOnPlane(delta * (1f - fraction), normal);
-                if (along.sqrMagnitude > .00000001f &&
-                    TrySmoothLeg(destination, from.point, along, inset, out var end, out _, out _))
-                    destination = end;
+                delta = ClipWalk(delta, planes);
+                if (delta.sqrMagnitude < .00000001f) break;
+                if (TrySmoothLeg(destination, from.point, delta, 0, out var target, out var hit, out reason, contacts))
+                {
+                    destination = target;
+                    return true;
+                }
+                if (!hit.collider) break;
+                walkContact = hit.collider;
+                float length = Vector3.Distance(destination.point, target.point);
+                if (length < WalkGap || Mathf.Abs(hit.normal.y) >= .95f) break;
+                float fraction = Mathf.Clamp01((hit.distance - WalkGap) / length);
+                if (fraction > 0 && TrySmoothLeg(destination, from.point, delta * fraction, 0, out var approach, out _, out _, contacts))
+                    destination = approach;
+                contactPlanes[planes++] = Vector3.ProjectOnPlane(hit.normal, Vector3.up).normalized;
+                delta *= 1f - fraction;
             }
+            reason ??= "路径有障碍";
             return (destination.point - from.point).sqrMagnitude > .00000001f;
         }
+
         bool TrySmoothStep(Vector3 delta,out Vector3 moved,out string reason)
         {
             moved = Vector3.zero;
             if (!SmoothFloor(ExpectedFloor, out var from, out reason)) return false;
-            float inset = 0f;
-            if (!SmoothClear(from, from.point, inset, out var overlap, out reason))
+            RaycastHit target;
+            if (walking)
             {
-                if (!walking || !overlap) return false;
-                walkContact = overlap;
-                inset = Mathf.Min(Mathf.Clamp(skin, 0f, .025f), Mathf.Max(.05f, bodyRadius) * .2f);
-                if (!SmoothClear(from, from.point, inset, out _, out reason)) return false;
+                if (!TryWalkStep(from, delta, out target, out reason)) return false;
             }
-            if (!TrySmoothLeg(from, from.point, delta, inset, out var target, out var obstacle, out reason))
-            {
-                if (!walking || !obstacle.collider) return false;
-                walkContact = obstacle.collider;
-                if (!TryWalkAlongSurface(from, delta, inset, obstacle, target, out var destination, out reason)) return false;
-                target = destination;
-            }
+            else if (!SmoothClear(from, from.point, 0, out _, out reason) ||
+                !TrySmoothLeg(from, from.point, delta, 0, out target, out _, out reason)) return false;
             moved = target.point - from.point;
+            if (!walking && !movedThisAction && moved.sqrMagnitude > 0)
+            {
+                dodgeStartedAt = lastNow;
+                perfectDodgeAwarded = false;
+                if (dodgeAfterimage && perfectDodgeAfterimageSeconds > 0f)
+                    dodgeAfterimage.CapturePose(from.point);
+                // A persistent XR rig can stand in a different scene from the encounter.
+                dodgeScene = from.collider.gameObject.scene;
+                if (!dodgeScene.IsValid()) dodgeScene = gameObject.scene;
+                if (!dodgeScene.IsValid()) dodgeScene = SceneManager.GetActiveScene();
+                // A tracking ranged attack must see the player's position before the rig moves.
+                EnemyDodgeEffects.LockCurrentAttacks(dodgeScene, head, rigRoot);
+            }
             var previous = rigRoot.position;
             rigRoot.position += moved;
             if (walking)

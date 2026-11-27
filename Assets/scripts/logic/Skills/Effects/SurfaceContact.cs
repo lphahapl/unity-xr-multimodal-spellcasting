@@ -15,10 +15,10 @@ namespace NarutoVR.SealCombat
         }
 
         internal static bool TryResolve(Collider collider, Vector3 center, Vector3 incoming,
-            float radius, RaycastHit? sweep, out SurfaceContact contact)
+            float radius, RaycastHit? sweep, out SurfaceContact contact, bool includeTriggers = false)
         {
             contact = default;
-            if (!collider || collider.isTrigger) return false;
+            if (!collider || (collider.isTrigger && !includeTriggers)) return false;
             if (sweep is RaycastHit hit && hit.distance > 0 && hit.normal.sqrMagnitude > .5f)
             {
                 // 球扫在棱边的法线可能朝向球心，短射线可取到真正的碰撞面法线。

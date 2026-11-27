@@ -470,6 +470,7 @@ MonoBehaviour:
     deadParameter: dead
     hitState: Base Layer.Standing React Small From Right
     seatedState: Base Layer.Seated
+    seatedRecoverState: Base Layer.StandUp
     deadState: Base Layer.Dead
   hitClip: {fileID: 0}
   hitVolume: 0.9
@@ -594,6 +595,10 @@ MonoBehaviour:
   warningRing: {fileID: 1292941771111921697}
   speed: 6
   lockProgress: 0.55
+  positioning:
+    mode: 1
+    guardHalfWidth: 1.5
+    retrySeconds: 1
 --- !u!4 &6839202875943121982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 462505419536199322, guid: 5c24b87b1c9df914ca3b736020891f53, type: 3}
