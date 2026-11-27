@@ -1,0 +1,74 @@
+{
+  "task_id": "T28-QINGGUI-R03-20261126",
+  "status": "FIRST_REVIEW_READY; structural and desktop checks passed; final jade look/LOD/detail and user aesthetic acceptance pending",
+  "source": "User rejected R02B jade appearance and fused copper/jade via coordinating conversation 01a1baa5-74af-7201-a767-e6c8bc255446",
+  "preserve": [
+    "R02B files and existing annotations including newly added #jade-reference",
+    "approved C4 outline and gold composition",
+    "350mm total length",
+    "0-105mm protected 106mm square insertion geometry",
+    "real aperture and bottom-centre root",
+    "formal chapter ownership"
+  ],
+  "geometry": {
+    "parts": [
+      "closed JadeCore",
+      "closed BronzeFrame including aperture cap and inner wall",
+      "independent closed surface GoldWire"
+    ],
+    "not_sufficient": [
+      "assigning two materials to the same Body",
+      "splitting faces without closing or constructing inner walls",
+      "AO or black seam paint",
+      "widening gaps instead of creating a seated lip"
+    ],
+    "first_candidate_dimensions_mm": {
+      "bronze_total_thickness": [
+        1.5,
+        1.6
+      ],
+      "exposed_lip": [
+        0.7,
+        0.8
+      ],
+      "seat_clearance": 0.1
+    },
+    "dimensions_status": "Measured candidate: copper wall1.6mm, exposed lip0.8mm, own edge round0.18mm, jade recess0.95mm, hidden clearance0.15mm, visible jointabout0.1mm. Original protected insertion unchanged within1.013e-9m.",
+    "first_review": [
+      "same-side aperture termination",
+      "physical copper end face and inside wall",
+      "closed jade seat",
+      "assembled and exploded actual mesh",
+      "QA plus cold-read exported GLB"
+    ]
+  },
+  "material": {
+    "jade": "warm white nephrite visual target, dense fine low-frequency scattering, substantial body colour at thick section, warm backlit thin shoulder",
+    "unity_route": "opaque JadeCore with measured thickness and shadow-controlled transmission/scattering approximation, dedicated bronze and gold materials",
+    "negative_test": "moving high-contrast background must not be clearly legible through jade",
+    "not_claimed": "measured jade optical constants, physically exact volume transport, Quest hardware validation",
+    "reference_caveat": "Mida paper describes a particular deposit including porcelain-like atypical samples; not a universal jade shader calibration"
+  },
+  "comparison": {
+    "B_and_R03": "same new capture batch, camera/exposure/light locked, left B right R03",
+    "lighting": "read current chapter02 and mobile URP settings; use ordinary scene lighting instead of studio-only review quality",
+    "views": [
+      "normal holding scale front/right/back",
+      "backlight",
+      "aperture copper termination",
+      "fixed light actual rotation",
+      "real GLB viewer"
+    ]
+  },
+  "ownership": {
+    "model": "QingGuiR03/Model and R03 logs/model: tenon_model_build",
+    "unity": "QingGuiR03/UnityReview and R03 logs/unity, isolated Temp project: seal_unity_acceptance",
+    "page": "new r03 page/assets/media only: pen_drag_core",
+    "parent": "reference verification, acceptance, API publication, root documents, append-only handovers"
+  },
+  "first_delivery_time": "2026-11-26T15:42:58.261222+08:00",
+  "current_model": "Model/RevisionA/frozen-manifest.json",
+  "current_unity_media": "UnityReview/revision-a-first-look-01/media-contract.json",
+  "source_triangles": 40024,
+  "gold_paths": 18
+}

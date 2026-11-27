@@ -1,0 +1,169 @@
+{
+  "status": "CAPTURED_ACTUAL_UNITY_BACKLIGHT_APPROVAL_MEDIA",
+  "createdAt": "2026-11-26T21:54:13.107511+08:00",
+  "nativeProcess": {
+    "finished": "2026-11-26T21:53:03.8993906+08:00",
+    "pid": 64596,
+    "started": "2026-11-26T21:50:12.9658260+08:00",
+    "exitCode": 0,
+    "nativeHandleObserved": true
+  },
+  "geometry": "Frozen Revision A:3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3;18 gold paths;40024 triangles/3 opaque parts",
+  "thicknessSha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+  "fixedMaterialParameters": {
+    "transmissionStrength": 0.7,
+    "scatterStrength": 0.24,
+    "absorptionPerMetre": [
+      38,
+      50,
+      70
+    ],
+    "smoothness": 0.6,
+    "clearcoat": 0.16,
+    "clearcoatSmoothness": 0.74,
+    "depthColorStrength": 0.12,
+    "casterDepthLimitMetres": 0.00075,
+    "casterNormalLimitMetres": 0.0005
+  },
+  "lighting": {
+    "mainIntensity": 1.65,
+    "color": [
+      1,
+      0.88,
+      0.74
+    ],
+    "shadowStrength": 0.68,
+    "environment": "Unchanged ordinary Chapter02 Mobile snapshot and actual sky-only128reflection; no studio lights",
+    "exposure": "Unchanged; no postprocessing or grading",
+    "motion": "Main directional light rotation only; camera and object fixed"
+  },
+  "camera": {
+    "localPosition": [
+      -0.16,
+      0.23,
+      0.38
+    ],
+    "localTarget": [
+      0,
+      0.205,
+      0
+    ],
+    "objectYaw": 180,
+    "fov": 60,
+    "output": [
+      1280,
+      960
+    ],
+    "MSAA": 4
+  },
+  "timeline": [
+    {
+      "seconds": [
+        0,
+        1.2
+      ],
+      "phase": "normal hold"
+    },
+    {
+      "seconds": [
+        1.2,
+        2.7
+      ],
+      "phase": "normal to side-back"
+    },
+    {
+      "seconds": [
+        2.7,
+        3.6
+      ],
+      "phase": "side-back hold"
+    },
+    {
+      "seconds": [
+        3.6,
+        4.8
+      ],
+      "phase": "side-back to back"
+    },
+    {
+      "seconds": [
+        4.8,
+        6.5
+      ],
+      "phase": "back hold"
+    }
+  ],
+  "control": {
+    "maxLinearRGBDifference": 0.454902,
+    "meanFullFrameDifference": 0.00817583258310454,
+    "changedPixelsAbove004": 121040,
+    "scope": "Same camera/light/background; only cloned jade TransmissionStrength .7 to0; shallow scatter/PBR/metals unchanged. No asset edit."
+  },
+  "media": [
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/backlight-approval-01/01_NormalLight_FixedCamera.png",
+      "sha256": "da4cf56eda118906470cf01efefa5c875c70fdfb7ae0d6dff883f9ba70b1a71e",
+      "bytes": 327269,
+      "type": "image/png",
+      "caption": "正常原章光；固定相机、固定本体，温白玉首样材质未改。"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/backlight-approval-01/02_SideBackLight_FixedCamera.png",
+      "sha256": "72546478508c28ee8d58c1c9facf55d82ff255e3bd8cc1e6b26f825b77ac712c",
+      "bytes": 315814,
+      "type": "image/png",
+      "caption": "同机位侧逆光；只改变主光方向，强度与曝光相同。"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/backlight-approval-01/03_BackLight_FixedCamera.png",
+      "sha256": "3e09693ebfb7fc3f42ef4d98b1dba802bf19aaeb19816be1cad783594b8b0594",
+      "bytes": 314961,
+      "type": "image/png",
+      "caption": "同机位背光；真实厚度控制的暖透近似，无透明背景图案。"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/backlight-approval-01/04_SameBackLight_TransmissionOnlyOff.png",
+      "sha256": "e668a3382830f246a7f23309dc0f164f58dd035d84df390b5ce6eff4bea531aa",
+      "bytes": 298122,
+      "type": "image/png",
+      "caption": "同背光下，仅在临时材质克隆上将 TransmissionStrength .7→0；其余 PBR/浅散射/金铜/光照保持。"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/backlight-approval-01/R03_Unity_NormalToBacklight_6_5s.mp4",
+      "sha256": "6932e7bf3c97338c8b07a910588441860c2e574216056a73fadb7c8325598815",
+      "bytes": 312304,
+      "type": "video/mp4",
+      "caption": "实际 Unity 连续6.5秒固定相机/本体，仅主灯正常→侧逆光→背光；原帧不变曝光。",
+      "frames": 195,
+      "fps": 30,
+      "durationSeconds": 6.5
+    }
+  ],
+  "inputsManifest": {
+    "path": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/backlight-approval-01/fixed-inputs-sha256.json",
+    "sha256": "5427951822b98b6ad15e49be655a60efb559844c644ffb0fd3b7debf440c5375",
+    "bytes": 6625
+  },
+  "preservation": {
+    "path": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/backlight-approval-01/preservation.json",
+    "sha256": "0fb8c175d3e35daaf34ebd0f100ad87e4d281e075d3f88f40731624c443cbdb1",
+    "bytes": 129
+  },
+  "videoVerification": {
+    "path": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/backlight-approval-01/video-process.json",
+    "sha256": "96f50fb790ced43ba2465f7b90b93a977fe875dc28b0e86f01a10d5402f0d62a",
+    "bytes": 764
+  },
+  "captureSettings": {
+    "path": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/backlight-approval-01/capture-settings.txt",
+    "sha256": "efc1b5d6ec32777c9600e25b6c19fce472f8496029df1d8c3fef4d7e49f5824a",
+    "bytes": 640
+  },
+  "erratum": "capture-settings.txt line about screenshot03 temporary disable is a filename typo: the actual disabled control is04;03 is unchanged approved transmission-on. Code and timeline prove the order.",
+  "boundaries": [
+    "Real Unity desktop capture; no Quest/stereo performance claim",
+    "Opaque artistic thickness/scattering approximation; no screen refraction/background transmission",
+    "Only temporary control clone disables transmission; frozen materials and scene bytes unchanged",
+    "6.5s/30fps are encoding parameters, not device FPS"
+  ]
+}
