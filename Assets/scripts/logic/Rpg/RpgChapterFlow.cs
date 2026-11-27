@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
+    /// <summary>Optional chapter policy for a physical interaction that continues across a completed objective.</summary>
+    internal interface IRpgStageInteractionContinuity
+    {
+        UnityEngine.Object RetainInteractionAfter(RpgStageDefinition completedStage);
+    }
+
     /// <summary>
     /// 章节与通用 RPG 的协作契约。章节负责解释目标和交互；RPG 统一负责阶段奖励与存档。
     /// 首章教学和普通目标关卡均可接入，不向调用方暴露双盘、靶或吸附区。
@@ -12,6 +18,9 @@ namespace NarutoVR.SealCombat.Rpg
     {
         [UnityEngine.Serialization.FormerlySerializedAs("interiorGuidance")]
         [InspectorName("章节场景提示（可选）")] public ChapterSceneGuidance sceneGuidance;
+
+        [InspectorName("本章入场即掌握的术法"), Tooltip("直开、跨章进入及恢复本章节旧档时补齐永久许可；由玩家按配方施放。")]
+        public SkillDefinition[] entrySkills = Array.Empty<SkillDefinition>();
 
         /// <summary>章节所属的 RPG；完成请求必须来自该控制器绑定的章节。</summary>
         public abstract LinearRpgController Owner { get; }

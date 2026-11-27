@@ -4,7 +4,7 @@ namespace NarutoVR.SealCombat.Rpg
 {
     /// <summary>通用阶段身份、目标说明和完成奖励；训练设施参数由 TrainingTargetGroup 持有。</summary>
     [CreateAssetMenu(menuName = "NarutoVR/线性RPG/试炼阶段")]
-    public sealed class RpgStageDefinition : ScriptableObject
+    public class RpgStageDefinition : ScriptableObject
     {
         [Header("一、阶段身份与目标")]
         [InspectorName("稳定阶段标识")] public string stageId;

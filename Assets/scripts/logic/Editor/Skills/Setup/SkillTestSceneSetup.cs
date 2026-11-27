@@ -159,7 +159,7 @@ namespace NarutoVR.SealCombat.Editor
                     bg.GetComponent<Image>().color=new Color(.025f,.04f,.07f,.85f);bg.GetComponent<Image>().raycastTarget=false;
                     var text=new GameObject("中文技能状态",typeof(RectTransform),typeof(Text));text.transform.SetParent(panel.transform,false);Stretch(text.GetComponent<RectTransform>(),20);
                     controller.statusText=text.GetComponent<Text>();controller.statusText.font=controller.chineseFont;controller.statusText.fontSize=30;controller.statusText.color=Color.white;controller.statusText.raycastTarget=false;
-                    controller.statusText.text="技能训练场\n规印：加持\n护体咒：加持\n火球术＋律印：右手火球\n真实语音需启动本地服务。";
+                    controller.statusText.text="技能训练场\n左手结衡印或念“衡印”：护盾\n火球术＋律印：右手火球\n真实语音需启动本地服务。";
                     var dot=new GameObject("头向瞄准点",typeof(RectTransform),typeof(Text));dot.transform.SetParent(panel.transform,false);
                     dot.GetComponent<RectTransform>().anchoredPosition=new Vector2(550,-83.3333f);dot.GetComponent<RectTransform>().sizeDelta=new Vector2(80,80);
                     var dt=dot.GetComponent<Text>();dt.font=controller.chineseFont;dt.fontSize=36;dt.text="＋";dt.color=Color.white;dt.raycastTarget=false;dt.alignment=TextAnchor.MiddleCenter;
@@ -211,7 +211,7 @@ namespace NarutoVR.SealCombat.Editor
             var c=UnityEngine.Object.FindFirstObjectByType<SkillInputController>();
             if(c==null||c.Engine==null)throw new Exception("技能控制器未启动。");
             c.Cancel();int before=c.effects.ActivationCount;
-            c.ReceiveVoice("护体咒",Time.realtimeSinceStartupAsDouble);
+            c.ReceiveVoice("衡印",Time.realtimeSinceStartupAsDouble);
             if(c.effects.ActivationCount!=before+1 || c.effects.BuffRemaining<=0)throw new Exception("纯语音加持未实际生效。");
             if(c.effects.AbsorbPracticeDamage(30)!=0 || Math.Abs(c.effects.ShieldPoints-70)>0.01f)throw new Exception("护盾没有真实吸收伤害。");
             c.Cancel();if(c.effects.BuffRemaining>0)throw new Exception("取消没有结束加持。");

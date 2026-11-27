@@ -13,7 +13,7 @@ namespace NarutoVR.SealCombat.Rpg
     internal static class WristHandChannels
     {
         internal static void Apply(ref PlayerHandObservation f, Transform origin, Vector3 wrist,
-            float maxAge, bool xrHands, IHand native)
+            float maxAge, bool xrHands, IHand native, bool left = false)
         {
             if (!xrHands)
             {
@@ -29,7 +29,7 @@ namespace NarutoVR.SealCombat.Rpg
             foreach (var device in InputSystem.devices)
             {
                 if (!(device is HandInteractionProfile.HandInteraction hand) || !hand.enabled ||
-                    !hand.usages.Contains(UnityEngine.InputSystem.CommonUsages.RightHand) ||
+                    !hand.usages.Contains(left ? UnityEngine.InputSystem.CommonUsages.LeftHand : UnityEngine.InputSystem.CommonUsages.RightHand) ||
                     !Fresh(hand,f.rightObserved,maxAge)) continue;
                 var pose=hand.pointer.ReadValue();
                 var poseFields=UnityEngine.XR.InputTrackingState.Position|UnityEngine.XR.InputTrackingState.Rotation;
@@ -45,7 +45,7 @@ namespace NarutoVR.SealCombat.Rpg
             }
 
             // FB aim flags distinguish "open" from a device that never provided pinch data.
-            var aim=MetaAimHand.right;
+            var aim=left ? MetaAimHand.left : MetaAimHand.right;
             if (aim==null || !aim.added || !aim.enabled || !Fresh(aim,f.rightObserved,maxAge)) return;
             var flags=(MetaAimFlags)aim.aimFlags.ReadValue();
             if ((flags & MetaAimFlags.Computed)==0) return;

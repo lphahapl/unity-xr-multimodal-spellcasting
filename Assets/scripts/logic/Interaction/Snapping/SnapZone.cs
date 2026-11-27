@@ -61,6 +61,19 @@ namespace NeuGameMRTools.Runtime.Components
         public string LastFailure { get; private set; } = "";
         public Vector3 SnapPosition => _snapTarget ? _snapTarget.position : transform.position;
         public Quaternion SnapRotation => _snapRotationTarget ? _snapRotationTarget.rotation : transform.rotation;
+        /// <summary>The resolved endpoint of the current route, including motion of its reference frame.</summary>
+        public Pose LandingPose
+        {
+            get
+            {
+                if (route == null) return new Pose(SnapPosition, SnapRotation);
+                var end = route[route.Length - 1];
+                return relativeRoute ? new Pose(transform.TransformPoint(end.position), transform.rotation * end.rotation)
+                    : new Pose(end.position, end.rotation);
+            }
+        }
+        public event Action<GameObject> OnSnapStarted;
+        public event Action<GameObject, bool> OnSnapReleased;
         public event Action<GameObject> OnSnapCompleted;
         public event Action<GameObject, int> OnPointReached;
 
@@ -81,7 +94,7 @@ namespace NeuGameMRTools.Runtime.Components
         Quaternion segmentStartRotation;
         double elapsed;
         Rigidbody body;
-        bool bodyKinematic, bodyGravity, disableAtEnd, restoring;
+        bool bodyKinematic, bodyGravity, disableAtEnd, restoring, preparing, reachedEnd, announced, legacyEntered;
         long generation;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -133,10 +146,20 @@ namespace NeuGameMRTools.Runtime.Components
         /// <summary>保留上游 UnityEvent 可调用入口。显式调用无需名称过滤，仍检查占用、追踪抓取与路径配置。</summary>
         public void SnapObject(GameObject obj) => TrySnapObject(obj);
 
-        public bool TrySnapObject(GameObject obj)
+        public bool TrySnapObject(GameObject obj) => StartSnap(obj, null);
+        public bool TrySnapObjectAtRotation(GameObject obj, Quaternion worldRotation) => StartSnap(obj, worldRotation);
+
+        /// <summary>Validate the canonical item root and propose the final world-space pose before any state changes.</summary>
+        protected virtual bool TryPrepareSnap(GameObject candidate, Quaternion? requestedWorldRotation, ref Pose targetPose, out string reason)
+        {
+            reason = null;
+            return true;
+        }
+
+        bool StartSnap(GameObject obj, Quaternion? requestedRotation)
         {
             LastFailure = "";
-            if (!Application.isPlaying || !isActiveAndEnabled || Time.timeScale <= 0 || restoring)
+            if (!Application.isPlaying || !isActiveAndEnabled || Time.timeScale <= 0 || restoring || preparing)
                 return Fail("仅在未暂停的 Play 模式、吸附区域启用时运行");
             if (!obj || !obj.activeInHierarchy) return Fail("吸附对象为空或未启用");
             var item = obj.GetComponentInParent<SnapItem>();
@@ -146,40 +169,80 @@ namespace NeuGameMRTools.Runtime.Components
                 return Fail("道具与区域必须为独立层级，不能互相包含");
             if (Owners.TryGetValue(obj, out var owner) && owner) return Fail("道具已由其他吸附区域接管");
             if (_waitForRelease && item && item.IsHeld) return Fail("等待道具松手");
-            if (!BuildRoute(obj.transform, out var nextRoute, out var error)) return Fail(error);
             var bodies = obj.GetComponentsInChildren<Rigidbody>(true);
             if (bodies.Length > 1 || (bodies.Length == 1 && bodies[0].gameObject != obj))
                 return Fail("道具仅支持根节点的单个 Rigidbody，请合并子碰撞体到该根节点");
 
-            long ticket = ++generation;
-            SnappedObject = obj; Owners[obj] = this;
-            route = nextRoute;
+            if (requestedRotation.HasValue && !ValidRotation(requestedRotation.Value)) return Fail("请求旋转无效");
+            Segment[] nextRoute;
+            var before = generation;
+            preparing = true;
+            try
+            {
+                if (!BuildRoute(obj, requestedRotation, out nextRoute, out var error)) return Fail(error);
+            }
+            catch (Exception exception)
+            {
+                return Fail("吸附准备失败：" + exception.Message);
+            }
+            finally { preparing = false; }
+            if (before != generation || !isActiveAndEnabled || !obj || !obj.activeInHierarchy ||
+                Time.timeScale <= 0 || (Owners.TryGetValue(obj, out owner) && owner))
+                return Fail("准备期间区域、道具或所有权已改变");
+
+            // Capture restorable state before changing any driver or publishing this ownership.
             curve = _snapCurve == null || _snapCurve.length == 0 ? AnimationCurve.Linear(0, 0, 1, 1) :
                 new AnimationCurve(_snapCurve.keys) { preWrapMode = _snapCurve.preWrapMode, postWrapMode = _snapCurve.postWrapMode };
             disableAtEnd = _disableCollidersOnSnap;
             colliders.Clear(); drivers.Clear();
             foreach (var collider in obj.GetComponentsInChildren<Collider>(true))
                 colliders.Add(new ColliderState { value = collider, enabled = collider.enabled });
-            // 在停用驱动之前先收集全部状态。抓取组件的 OnDisable 可能间接改动 Rigidbody。
             body = bodies.Length == 1 ? bodies[0] : null;
             if (body) { bodyKinematic = body.isKinematic; bodyGravity = body.useGravity; }
             if (item)
                 foreach (var driver in item.GetPositionDrivers())
                     if (driver) drivers.Add(new DriverState { value = driver, enabled = driver.enabled });
+
+            long ticket = ++generation;
+            SnappedObject = obj; Owners[obj] = this;
+            route = nextRoute;
+            LastFailure = "";
+            reachedEnd = false;
             IsSnapping = true; CurrentPointIndex = 0; elapsed = 0;
             relativeRoute = _followZoneDuringSnap;
             segmentStartPosition = relativeRoute ? transform.InverseTransformPoint(obj.transform.position) : obj.transform.position;
             segmentStartRotation = relativeRoute ? Quaternion.Inverse(transform.rotation) * obj.transform.rotation : obj.transform.rotation;
-            foreach (var state in drivers)
+            try
             {
-                if (state.value) state.value.enabled = false;
-                if (!Owns(ticket, obj)) return true;
+                foreach (var state in drivers)
+                {
+                    if (state.value) state.value.enabled = false;
+                    if (!Owns(ticket, obj)) break;
+                }
+                if (!Owns(ticket, obj))
+                {
+                    if (generation == ticket) ReleaseObject();
+                    return Fail("道具接管在开始反馈之前中断");
+                }
+                if (body)
+                {
+                    if (!body.isKinematic) { body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero; }
+                    body.isKinematic = true; body.useGravity = false;
+                }
             }
-            if (body)
+            catch (Exception e)
             {
-                if (!body.isKinematic) { body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero; }
-                body.isKinematic = true; body.useGravity = false;
+                if (generation == ticket) ReleaseObject();
+                return Fail("道具物理接管失败：" + e.Message);
             }
+            announced = true;
+            if (OnSnapStarted != null)
+                foreach (Action<GameObject> callback in OnSnapStarted.GetInvocationList())
+                {
+                    SafeInvoke(() => callback(obj));
+                    if (!Owns(ticket, obj)) return true;
+                }
+            legacyEntered = true;
             SafeInvoke(() => _onEnterEvent?.Invoke(obj));
             if (Owns(ticket, obj)) Advance(0);
             return true;
@@ -188,7 +251,7 @@ namespace NeuGameMRTools.Runtime.Components
         bool Fail(string reason) { LastFailure = reason; return false; }
 
         /// <summary>冻结各点在所选参考空间的姿态和时长，编辑列表不会改变正在执行的路径。</summary>
-        bool BuildRoute(Transform moving, out Segment[] result, out string error)
+        bool BuildRoute(GameObject candidate, Quaternion? requestedRotation, out Segment[] result, out string error)
         {
             result = null; error = null;
             if (!float.IsFinite(_snapDuration) || _snapDuration < 0) { error = "默认时长必须是非负有限值"; return false; }
@@ -205,12 +268,23 @@ namespace NeuGameMRTools.Runtime.Components
                     point != null && point.rotationTarget ? point.rotationTarget : target;
                 float duration = !single && point != null && point.overrideDuration ? point.duration : _snapDuration;
                 if (!target || !rotation) { error = $"第 {i + 1} 个点为空"; return false; }
-                if (target.IsChildOf(moving) || rotation.IsChildOf(moving)) { error = "吸附目标点不能属于被移动道具"; return false; }
+                if (target.IsChildOf(candidate.transform) || rotation.IsChildOf(candidate.transform)) { error = "吸附目标点不能属于被移动道具"; return false; }
                 if (!float.IsFinite(duration) || duration < 0 || !Finite(target.position) || !Finite(rotation.rotation))
                 { error = $"第 {i + 1} 个点的姿态或时长无效"; return false; }
+                var pose = new Pose(target.position, rotation.rotation);
+                if (i == count - 1)
+                {
+                    if (requestedRotation.HasValue) pose.rotation = requestedRotation.Value;
+                    if (!TryPrepareSnap(candidate, requestedRotation, ref pose, out error))
+                    {
+                        if (string.IsNullOrEmpty(error)) error = "区域拒绝该道具";
+                        return false;
+                    }
+                }
+                if (!Finite(pose.position) || !ValidRotation(pose.rotation)) { error = "吸附目标姿态无效"; return false; }
                 result[i] = new Segment {
-                    position = _followZoneDuringSnap ? transform.InverseTransformPoint(target.position) : target.position,
-                    rotation = _followZoneDuringSnap ? Quaternion.Inverse(transform.rotation) * rotation.rotation : rotation.rotation,
+                    position = _followZoneDuringSnap ? transform.InverseTransformPoint(pose.position) : pose.position,
+                    rotation = _followZoneDuringSnap ? Quaternion.Inverse(transform.rotation) * pose.rotation : pose.rotation,
                     duration = duration
                 };
             }
@@ -251,6 +325,7 @@ namespace NeuGameMRTools.Runtime.Components
                 IsSnapping = false;
                 if (disableAtEnd)
                     foreach (var state in colliders) if (state.value) state.value.enabled = false;
+                reachedEnd = true;
                 SafeInvoke(() => _onSnapCompletedEvent?.Invoke(obj));
                 if (!Owns(ticket, obj)) return;
                 if (OnSnapCompleted != null)
@@ -271,6 +346,8 @@ namespace NeuGameMRTools.Runtime.Components
         {
             if (restoring) return;
             var obj = SnappedObject;
+            bool completed = reachedEnd, notify = announced, legacyExit = legacyEntered;
+            reachedEnd = announced = legacyEntered = false;
             ++generation; IsSnapping = false; CurrentPointIndex = -1;
             SnappedObject = null; route = null;
             if (ReferenceEquals(obj, null)) return;
@@ -281,14 +358,17 @@ namespace NeuGameMRTools.Runtime.Components
                 foreach (var state in colliders) if (state.value) state.value.enabled = state.enabled;
                 foreach (var state in drivers) if (state.value) state.value.enabled = state.enabled;
                 if (body) { body.isKinematic = bodyKinematic; body.useGravity = bodyGravity; }
-                if (obj && IsInsideRegion()) waitForExit.Add(obj);
+                if (notify && obj && IsInsideRegion()) waitForExit.Add(obj);
             }
             finally
             {
                 if (Owners.TryGetValue(obj, out var owner) && owner == this) Owners.Remove(obj);
                 colliders.Clear(); drivers.Clear(); body = null; restoring = false;
             }
-            if (obj) SafeInvoke(() => _onExitEvent?.Invoke(obj));
+            if (notify && OnSnapReleased != null)
+                foreach (Action<GameObject, bool> callback in OnSnapReleased.GetInvocationList())
+                    SafeInvoke(() => callback(obj, completed));
+            if (legacyExit && obj) SafeInvoke(() => _onExitEvent?.Invoke(obj));
         }
 
         public void ShowSelf()
@@ -326,6 +406,7 @@ namespace NeuGameMRTools.Runtime.Components
         }
         static bool Finite(Vector3 p) => float.IsFinite(p.x) && float.IsFinite(p.y) && float.IsFinite(p.z);
         static bool Finite(Quaternion q) => float.IsFinite(q.x) && float.IsFinite(q.y) && float.IsFinite(q.z) && float.IsFinite(q.w);
+        static bool ValidRotation(Quaternion q) => Finite(q) && Mathf.Abs(Quaternion.Dot(q, q) - 1f) <= .001f;
         void SafeInvoke(Action callback) { try { callback(); } catch (Exception e) { Debug.LogException(e, this); } }
     }
 }

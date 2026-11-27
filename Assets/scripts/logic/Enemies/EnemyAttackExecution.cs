@@ -16,6 +16,9 @@ namespace NarutoVR.SealCombat.Enemies
         int version, index;
         float previousProgress;
         bool evaluating, windowOpened;
+        bool directionLocked;
+        Quaternion lockedRotation;
+        internal Quaternion Facing => directionLocked ? lockedRotation : AttackData.HorizontalRotation(owner.transform);
         public AttackData Data { get; private set; }
         public string Id { get; private set; }
         public bool Active { get; private set; }
@@ -31,7 +34,15 @@ namespace NarutoVR.SealCombat.Enemies
         public void End()
         {
             if (Active && Data.shape == AttackShape.Projectile && owner.RangedAttack) owner.RangedAttack.Cancel();
-            ++version; Active = false;
+            ++version; Active = directionLocked = false;
+        }
+
+        internal void LockDirection()
+        {
+            if (!Active || directionLocked) return;
+            lockedRotation = AttackData.HorizontalRotation(owner.transform);
+            directionLocked = true;
+            if (Data.shape == AttackShape.Projectile) owner.RangedAttack?.LockAim();
         }
 
         /// <returns>本次更新第一次经过生效起点，用于接触通知（不等同命中）。</returns>
@@ -56,7 +67,8 @@ namespace NarutoVR.SealCombat.Enemies
             try
             {
                 CombatDamageReceiver.CopyActive(candidates);
-                Vector3 center = data.Center(owner.transform), forward = AttackData.HorizontalRotation(owner.transform) * Vector3.forward;
+                Quaternion facing = Facing;
+                Vector3 center = owner.transform.position + facing * data.centerOffset, forward = facing * Vector3.forward;
                 foreach (var receiver in candidates)
                 {
                     if (!Active || version != token || !owner || !owner.isActiveAndEnabled) break;

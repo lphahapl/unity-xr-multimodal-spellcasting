@@ -11,6 +11,8 @@ namespace NarutoVR.SealCombat.Enemies
         public LineRenderer warningRing;
         [Min(.01f)] public float speed = 6f;
         [Range(0, 1)] public float lockProgress = .55f;
+        [SerializeField, InspectorName("战斗走位")] FireThrowerPositioning positioning = new();
+        internal FireThrowerPositioning Positioning => positioning;
 
         public bool IsConfigured => upperArm && forearm && muzzle && projectile && warningRing
             && forearm.IsChildOf(upperArm) && muzzle.IsChildOf(forearm) && float.IsFinite(speed) && speed > 0;
@@ -39,9 +41,16 @@ namespace NarutoVR.SealCombat.Enemies
 
         void TrackTarget()
         {
-            var floor = CombatDamageReceiver.GetNavigationPosition(target);
-            aimPoint = floor + Vector3.up * .06f;
+            var receiver = CombatDamageReceiver.FromHitTransform(target);
+            var floor = receiver ? receiver.NavigationPosition : target.position;
+            aimPoint = receiver ? receiver.RangedHitPosition : target.position;
             warningRing.transform.position = floor + Vector3.up * .02f;
+        }
+
+        // Keep the last telegraphed point; sampling the target again here would follow the dodge itself.
+        internal void LockAim()
+        {
+            if (attackId != null) locked = true;
         }
 
         internal void SetProgress(float value, bool release)
@@ -73,10 +82,15 @@ namespace NarutoVR.SealCombat.Enemies
             pending = false;
             fired = true;
             warningRing.enabled = false;
-            var core = Instantiate(projectile, muzzle.position, muzzle.rotation);
+            // Rotating a forearm also translates its offset muzzle. Use the final muzzle position
+            // to resolve the shot after the last animation correction.
+            var direction = aimPoint - muzzle.position;
+            var rotation = direction.sqrMagnitude > .000001f
+                ? Quaternion.FromToRotation(muzzle.forward, direction) * muzzle.rotation : muzzle.rotation;
+            var core = Instantiate(projectile, muzzle.position, rotation);
             SceneManager.MoveGameObjectToScene(core.gameObject, gameObject.scene);
             core.Launch(controller, attackId, attackIndex, attack.damage, speed,
-                Vector3.Distance(aimPoint, muzzle.position), attack.radius);
+                Mathf.Max(controller.attackDistance, Vector3.Distance(aimPoint, muzzle.position)), attack.radius);
         }
 
         void AimJoint(Transform joint, float weight)

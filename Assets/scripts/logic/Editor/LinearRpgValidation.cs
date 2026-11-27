@@ -105,6 +105,10 @@ namespace NarutoVR.SealCombat.Editor
                     case "wrist-ease": Write(new Report { action=action,passed=true,detail=WristMenuSetup.ConfigureEase() }); break;
                     case "wrist-ray-probe": Write(new Report { action=action,passed=true,detail="腕部射线复现："+WristRayIssueProbe.Run() }); break;
                     case "wrist-check": Write(new Report { action=action,passed=true,detail="腕饰检查："+WristMenuChecks.Run() }); break;
+                    case "kaogong-ui-check":
+                        KaogongUIRedesignChecks.RunAllChecks(out var uiSummary);
+                        Write(new Report { action=action,passed=uiSummary.passed,integrationChecks=uiSummary.kaogongUiChecks+uiSummary.wristMenuChecks+uiSummary.wristTapChecks+uiSummary.wristLifecycleChecks+uiSummary.wristEaseChecks,detail=uiSummary.detail });
+                        break;
                     case "wrist-preview": WristMenuSetup.Preview(); Write(new Report { action=action,passed=true }); break;
                     case "clock-check": Write(new Report { action = action, passed = true, detail = "口令时钟：" + SkillClockRegressionChecks.Run() }); break;
                     case "feel-check": Write(new Report { action = action, passed = true, detail = "输入手感："+InteractionFeelChecks.Run()+"；表现与调试："+InteractionFeelPresentationChecks.Run() }); break;

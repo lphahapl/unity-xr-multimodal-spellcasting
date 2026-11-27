@@ -36,6 +36,7 @@ namespace NarutoVR.SealCombat.Rpg
         [Range(0f, .3f), InspectorName("不同符形的最低得分差")] public float minimumMargin = .055f;
         const int MaxPoints = 3072;
         const int MaxStrokes = 64;
+        const float NibHintDepth = .06f;
 
         readonly List<List<Vector2>> ink = new();
         readonly List<NibSample> samples = new();
@@ -47,10 +48,14 @@ namespace NarutoVR.SealCombat.Rpg
         bool story, tracking, buttonPressed, atCapacity;
         double successStarted;
         GlyphTemplate completionAtSnap;
+#if UNITY_EDITOR
+        internal readonly GlyphRejectionCapture.ContactLog contactLog = new();
+#endif
         public bool IsShowingSuccess { get; private set; }
         public bool IsOpen { get; private set; }
         public IReadOnlyList<NibSample> Samples => samples;
         public int PointCount => samples.Count;
+        internal bool HasUnsubmittedInk => IsOpen && PointCount > 0 && revision != evaluatedRevision && !IsShowingSuccess;
         public int StrokeCount => ink.Count;
         public string Status { get; private set; }
         public float LastScore { get; private set; }
@@ -65,10 +70,10 @@ namespace NarutoVR.SealCombat.Rpg
             IsOpen = true;
             tracking = false;
             lostAt = double.NaN;
-            if (view == null) view = new GlyphBoardView(transform, ink);
+            if (view == null) view = new GlyphBoardView(transform, ink, samples);
             view.Open(story && this.candidates.Length > 0 ? this.candidates[0] : null, story);
             ClearInk();
-            SetStatus(story ? "照范本画符，停笔后辨符" : "笔尖触板书写，停笔后辨符");
+            SetStatus(view.StepFeedback ?? (story ? "照范本画符，停笔后辨符" : "笔尖触板书写，停笔后辨符"));
         }
 
         public void Close()
@@ -91,10 +96,17 @@ namespace NarutoVR.SealCombat.Rpg
             if (!IsOpen || IsShowingSuccess || !double.IsFinite(now)) return;
             if (!valid || !PlayerHandObservation.Finite(worldTip))
             {
-                if (tracking) lostAt = now;
+                if (tracking)
+                {
+                    lostAt = now;
+#if UNITY_EDITOR
+                    contactLog.LostTracking(now);
+#endif
+                }
                 tracking = false;
-                stroke = null;
+                EndStroke();
                 buttonPressed = false;
+                view.ClearPointer();
                 return;
             }
             if (!tracking && double.IsFinite(lostAt) && PointCount > 0)
@@ -104,16 +116,23 @@ namespace NarutoVR.SealCombat.Rpg
 
             Vector3 local = transform.InverseTransformPoint(worldTip);
             float depth = Mathf.Abs(local.z);
+            bool writingArea = Mathf.Abs(local.x) <= HalfWidth && Mathf.Abs(local.y) <= HalfHeight;
+            int button = writingArea ? -1 : ButtonAt(local);
+            if (writingArea && depth <= NibHintDepth)
+                view.SetNib(local, Mathf.InverseLerp(NibHintDepth, contactDistance, depth), contactAllowed && depth <= contactDistance);
+            else if (contactAllowed && button >= 0 && depth <= Mathf.Max(contactDistance, releaseDistance))
+                view.ShowButton(button, depth <= contactDistance);
+            else
+                view.ClearPointer();
             if (!contactAllowed || depth > Mathf.Max(contactDistance, releaseDistance))
             {
-                stroke = null;
+                EndStroke();
                 buttonPressed = false;
                 return;
             }
-            if (Mathf.Abs(local.x) > HalfWidth || Mathf.Abs(local.y) > HalfHeight)
+            if (!writingArea)
             {
-                stroke = null;
-                int button = ButtonAt(local);
+                EndStroke();
                 if (button >= 0 && depth <= contactDistance)
                 {
                     if (!buttonPressed)
@@ -146,8 +165,16 @@ namespace NarutoVR.SealCombat.Rpg
             samples.Add(new NibSample(local, now, ink.Count - 1));
             revision++;
             lastInk = now;
-            SetStatus(story ? "书写中，停笔后辨符" : "书写中");
+            SetStatus(view.StepFeedback != null ? "笔尖已着墨，换笔时向身前抬离约两厘米" : story ? "书写中，停笔后辨符" : "书写中");
             view.InkChanged();
+        }
+
+        void EndStroke()
+        {
+            if (stroke == null) return;
+            stroke = null;
+            view.ReadSteps();
+            if (view.StepFeedback != null && evaluatedRevision != revision) SetStatus(view.StepFeedback);
         }
 
         /// <summary>返回 true 表示这一版墨迹已评判。拒识时 match 为空，可撤销或清空后重画。</summary>
@@ -158,6 +185,7 @@ namespace NarutoVR.SealCombat.Rpg
                 return false;
             if (now - lastInk < Mathf.Max(.1f, idleSeconds)) return false;
             evaluatedRevision = revision;
+            view.ReadSteps();
 
             var lines = new List<Vector2[]>(ink.Count);
             float length = 0;
@@ -205,7 +233,7 @@ namespace NarutoVR.SealCombat.Rpg
                 }
                 else runnerUp = Mathf.Max(runnerUp, entry.score);
             }
-            if (!best || LastScore < best.threshold) SetStatus(story ? "符形不符，请照范本重画" : "符形未匹配，请修改或清空");
+            if (!best || LastScore < best.threshold) SetStatus(view.StepRejection ?? (story ? "符形不符，请照范本重画" : "符形未匹配，请修改或清空"));
             else if (!story && runnerUp >= 0 && LastScore - runnerUp < minimumMargin)
                 SetStatus("两种符形相近，请重画");
             else { match = best; SetStatus("已识别：" + best.Title); }
@@ -219,6 +247,7 @@ namespace NarutoVR.SealCombat.Rpg
         {
             if (!story || !IsOpen || IsShowingSuccess || !double.IsFinite(now)) return;
             IsShowingSuccess = true;
+            view.ClearPointer();
             successStarted = now;
             completionAtSnap = matched;
             SetStatus("符成");
@@ -259,6 +288,7 @@ namespace NarutoVR.SealCombat.Rpg
             atCapacity = false;
             revision++;
             lastInk = now;
+            view.ReadSteps();
             SetStatus("已撤销上一笔");
             view.InkChanged();
         }
@@ -267,11 +297,15 @@ namespace NarutoVR.SealCombat.Rpg
         {
             stroke = null;
             ink.Clear();
+#if UNITY_EDITOR
+            contactLog.Clear();
+#endif
             samples.Clear();
             revision = evaluatedRevision = 0;
             buttonPressed = atCapacity = false;
             LastScore = 0;
             view?.InkChanged();
+            view?.ReadSteps();
         }
 
         void SetStatus(string value)

@@ -243,6 +243,7 @@ namespace NarutoVR.SealCombat.Editor
             var idle = root.states.Single(s => s.state.name == "CanJiOu_Idle").state;
             var hit = root.states.Single(s => s.state.name == "Hit").state;
             var seated = root.states.Single(s => s.state.name == "Seated").state;
+            var standUp = root.states.FirstOrDefault(s => s.state.name == "StandUp").state;
             var dead = root.states.Single(s => s.state.name == "Dead").state;
             EnsureParameter(controller, "dead", AnimatorControllerParameterType.Bool);
             EnsureParameter(controller, "Hit", AnimatorControllerParameterType.Trigger);
@@ -257,10 +258,24 @@ namespace NarutoVR.SealCombat.Editor
                 {
                     transition.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
                     transition.AddCondition(AnimatorConditionMode.If, 0, state == hit ? "Hit" : "isSeated");
-                    foreach (var old in state.transitions.Where(t => t.destinationState == idle).ToArray()) state.RemoveTransition(old);
-                    var exit = state.AddTransition(idle); ConfigureTransition(exit);
-                    exit.hasExitTime = true; exit.exitTime = .98f;
-                    exit.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
+                    foreach (var old in state.transitions.Where(t => t.destinationState == idle || t.destinationState == standUp).ToArray()) state.RemoveTransition(old);
+                    if (state == seated && standUp != null)
+                    {
+                        var rise = state.AddTransition(standUp); ConfigureTransition(rise);
+                        rise.duration = .2f; rise.hasExitTime = true; rise.exitTime = .48f;
+                        rise.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
+                        foreach (var old in standUp.transitions.Where(t => t.destinationState == idle).ToArray()) standUp.RemoveTransition(old);
+                        var recover = standUp.AddTransition(idle); ConfigureTransition(recover);
+                        recover.duration = .12f; recover.hasExitTime = true; recover.exitTime = .96f;
+                        recover.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
+                        standUp.tag = "EnemyReaction"; EditorUtility.SetDirty(standUp);
+                    }
+                    else
+                    {
+                        var exit = state.AddTransition(idle); ConfigureTransition(exit);
+                        exit.hasExitTime = true; exit.exitTime = .98f;
+                        exit.AddCondition(AnimatorConditionMode.IfNot, 0, "dead");
+                    }
                 }
                 state.tag = state == dead ? "EnemyDead" : "EnemyReaction";
                 EditorUtility.SetDirty(state);

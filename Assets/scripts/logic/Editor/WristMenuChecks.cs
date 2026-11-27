@@ -253,7 +253,7 @@ namespace NarutoVR.SealCombat.Editor
         internal static bool HasExpectedTargets(WristMenuView view)
         {
             string[] ids = { "seal", "glyph", "voice", "status", "follow", "drag", "retry-microphone",
-                "previous", "next", "relocate", "close", "right-status", "seal-hints", "exploration" };
+                "previous", "next", "relocate", "close", "right-status", "seal-hints", "exploration", "combat-movement", "aim-assist" };
             return view.Targets.Count == ids.Length && ids.All(id => view.Targets.Count(target => target.id == id) == 1);
         }
 

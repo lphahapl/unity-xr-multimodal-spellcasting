@@ -124,7 +124,7 @@ namespace NarutoVR.SealCombat.Editor
             var breath = (BreathEffectDefinition)target;
             serializedObject.Update();
             if (breath.mode == BreathCastMode.Sustained)
-                DrawPropertiesExcluding(serializedObject, "m_Script", nameof(breath.speed));
+                DrawPropertiesExcluding(serializedObject, "m_Script", nameof(breath.speed), nameof(breath.impactPrefab));
             else
                 DrawPropertiesExcluding(serializedObject, "m_Script", nameof(breath.manaPerSecond),
                     nameof(breath.damageInterval), nameof(breath.minCooldownSeconds),

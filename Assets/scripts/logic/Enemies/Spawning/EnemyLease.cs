@@ -8,6 +8,9 @@ namespace NarutoVR.SealCombat.Enemies
         public string EnemyId { get; }
         /// <summary>本次出生已经死亡，即使底层物体之后用于另一只怪亦保持不变。</summary>
         public bool Defeated { get; internal set; }
+        /// <summary>当前出生点的导航配置。下一次使用同一敌人实例时会分配新的租约。</summary>
+        internal EncounterEnemyPace Pace { get; set; }
+        internal bool PreviewPatrol { get; set; }
         internal EnemyManager Owner { get; }
         internal long SessionId { get; }
         internal EnemyLease(long id, EnemyController controller, string enemyId, EnemyManager owner, long sessionId)

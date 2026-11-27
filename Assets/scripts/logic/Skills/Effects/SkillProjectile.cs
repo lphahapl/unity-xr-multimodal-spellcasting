@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NarutoVR.SealCombat.Enemies;
+using NarutoVR.SealCombat.Items;
 
 namespace NarutoVR.SealCombat
 {
@@ -17,6 +18,7 @@ namespace NarutoVR.SealCombat
         [InspectorName("最大寿命（秒）"), Min(0.1f)] public float lifetime = 4;
         [Header("纯视觉反馈")]
         [InspectorName("命中爆散预置体")] public GameObject impactPrefab;
+        internal bool AlignImpactToSurface { get; set; }
         public VfxPoolManager ImpactPool { get; set; }
         public Component ImpactOwner { get; set; }
         public Action<GameObject> ImpactCreated;
@@ -100,12 +102,22 @@ namespace NarutoVR.SealCombat
                 closestDistance = hit.distance;
                 closestHit = hit;
             }
+            if (InterceptScreen(start, Mathf.Min(distance, closestDistance))) return;
             if (closest)
             {
                 transform.position = start + direction * Mathf.Max(0, closestDistance);
                 Hit(closest, closestHit.point, closestHit);
             }
             else transform.position = start + direction * distance;
+        }
+
+        bool InterceptScreen(Vector3 origin, float distance)
+        {
+            if (!StakeScreen.TryEntry(gameObject.scene, origin, direction, distance, out var entry)) return false;
+            transform.position = origin + direction * entry.Distance;
+            entry.Ripple();
+            Finish();
+            return true;
         }
 
         private bool CheckInitialOverlap()
@@ -140,7 +152,9 @@ namespace NarutoVR.SealCombat
                 if (!collider)
                 {
                     if (remaining <= 0) return;
-                    if (!WaveSweep(origin, remaining, out var hit))
+                    bool contact = WaveSweep(origin, remaining, out var hit);
+                    if (InterceptScreen(origin, contact ? hit.distance : remaining)) return;
+                    if (!contact)
                     {
                         transform.position = origin + direction * remaining;
                         return;
@@ -235,8 +249,29 @@ namespace NarutoVR.SealCombat
             IsFinished = true;
             var target = new SkillHitTarget(collider);
             var point = contact ?? transform.position;
+            bool alignImpact = AlignImpactToSurface && impactPrefab;
+            var impactPose = new Pose(transform.position, Quaternion.LookRotation(-direction));
             try
             {
+                // Resolve the face while the hit collider still exists. A damage callback can remove it.
+                SurfaceContact surface = default;
+                bool canMark = !target.IsTarget && !collider.isTrigger && MarkSurface != null;
+                bool hasSurface = (alignImpact || canMark) && SurfaceContact.TryResolve(collider,
+                    transform.position, direction, radius, sweep, out surface, includeTriggers: alignImpact);
+                if (alignImpact)
+                {
+                    if (hasSurface) impactPose = new Pose(surface.Point, Quaternion.LookRotation(surface.Normal));
+                    else
+                    {
+                        // A collider may move entirely over a live shot. Find its upstream face even
+                        // when the closest surface lies outside the small decal-probe radius.
+                        Bounds bounds = collider.bounds;
+                        float reach = Vector3.Distance(bounds.center, point) + bounds.extents.magnitude + radius;
+                        var ray = new Ray(point - direction * reach, direction);
+                        if (collider.Raycast(ray, out var entry, reach + radius))
+                            impactPose = new Pose(entry.point, Quaternion.LookRotation(entry.normal));
+                    }
+                }
                 if (Strike != null)
                     ReportStrike(target, point);
                 else if (target.Apply(hitId, damage, poiseDamage, AttackerTarget ? AttackerTarget : playerRoot) &&
@@ -244,15 +279,14 @@ namespace NarutoVR.SealCombat
                 SurfaceHit?.Invoke(point);
                 if (!target.IsTarget && collider)
                 {
-                    if (MarkSurface != null && SurfaceContact.TryResolve(collider, transform.position,
-                        direction, radius, sweep, out var surface)) MarkSurface(surface);
+                    if (canMark && hasSurface) MarkSurface?.Invoke(surface);
                     WorldHit?.Invoke(point);
                 }
             }
-            finally { SpawnImpact(); Dispose(); }
+            finally { SpawnImpact(impactPose); Dispose(); }
         }
 
-        private void SpawnImpact()
+        private void SpawnImpact(Pose pose)
         {
             if (!impactPrefab) return;
             if (!ReferenceEquals(ImpactPool, null))
@@ -260,8 +294,8 @@ namespace NarutoVR.SealCombat
                 VfxPoolManager.Lease lease = default;
                 try
                 {
-                    if (ImpactPool && ImpactPool.TryPlayImpact(impactPrefab, transform.position,
-                        Quaternion.LookRotation(-direction), ImpactOwner, out lease)) ImpactCreated?.Invoke(lease.Visual);
+                    if (ImpactPool && ImpactPool.TryPlayImpact(impactPrefab, pose.position,
+                        pose.rotation, ImpactOwner, out lease)) ImpactCreated?.Invoke(lease.Visual);
                 }
                 catch (Exception error)
                 {
@@ -273,7 +307,7 @@ namespace NarutoVR.SealCombat
             GameObject visual = null;
             try
             {
-                visual = Instantiate(impactPrefab, transform.position, Quaternion.LookRotation(-direction));
+                visual = Instantiate(impactPrefab, pose.position, pose.rotation);
                 visual.name = "火球命中_一次性爆散";
                 SceneManager.MoveGameObjectToScene(visual, gameObject.scene);
                 foreach (var collider in visual.GetComponentsInChildren<Collider>(true)) collider.enabled = false;

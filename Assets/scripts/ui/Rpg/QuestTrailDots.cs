@@ -42,7 +42,7 @@ namespace NarutoVR.SealCombat.Rpg
             renderer.receiveShadows = false;
         }
 
-        public void Draw(Transform[] path, int end, RpgLocomotionController movement, float height)
+        public void Draw(Transform[] path, int end, RpgLocomotionController movement, float height, bool requireFloor = false)
         {
             var foot = movement.PlayerFloorPosition;
             int segment = -1;
@@ -60,7 +60,7 @@ namespace NarutoVR.SealCombat.Rpg
                 float along = arc + t * length;
                 arc += length;
                 float sq = (p-foot).sqrMagnitude;
-                if (sq >= best || sq > 36f || !ClearLeg(foot,p,movement)) continue;
+                if (sq >= best || sq > 36f || !ClearLeg(foot,p,movement,requireFloor)) continue;
                 best = sq; join = p; segment = i; joinArc = along;
             }
             // A single authored point is a direct, obstruction-tested approach.
@@ -78,7 +78,7 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 var leg = to-from;
                 float length = leg.magnitude;
-                if (length > .001f && !ClearLeg(from,to,movement)) break;
+                if (length > .001f && !ClearLeg(from,to,movement,requireFloor)) break;
                 while (drawn < Count && offset <= length)
                 {
                     var at = from + leg * (offset/length) + Vector3.up*height;
@@ -105,11 +105,34 @@ namespace NarutoVR.SealCombat.Rpg
             renderer.enabled = true;
         }
 
-        bool ClearLeg(Vector3 a, Vector3 b, RpgLocomotionController movement)
+        bool ClearLeg(Vector3 a, Vector3 b, RpgLocomotionController movement, bool requireFloor)
         {
             var delta = b-a;
             if (delta.sqrMagnitude < .0025f) return true;
-            int n = Physics.SphereCastNonAlloc(a+Vector3.up*.55f,.12f,delta.normalized,hits,delta.magnitude,
+            // A cliff-edge route is allowed to join the player only across supported floor. Test the
+            // visible stretch of long authored segments, including the point where the next dot would land.
+            float distance = requireFloor ? Mathf.Min(delta.magnitude, (Count + 1) * Spacing) : delta.magnitude;
+            if (requireFloor)
+            {
+                int samples = Mathf.Max(1, Mathf.CeilToInt(distance / .35f));
+                for (int i = 0; i <= samples; i++)
+                {
+                    var at = a + delta.normalized * (distance * i / samples);
+                    int count = Physics.RaycastNonAlloc(at + Vector3.up * .22f, Vector3.down, hits, .45f,
+                        movement.floorLayers, QueryTriggerInteraction.Ignore);
+                    if (count == hits.Length) return false;
+                    bool supported = false;
+                    for (int h = 0; h < count; h++)
+                    {
+                        if (hits[h].transform.IsChildOf(movement.rigRoot) || hits[h].normal.y < .82f ||
+                            Mathf.Abs(hits[h].point.y - at.y) > .18f) continue;
+                        supported = true;
+                        break;
+                    }
+                    if (!supported) return false;
+                }
+            }
+            int n = Physics.SphereCastNonAlloc(a+Vector3.up*.55f,.12f,delta.normalized,hits,distance,
                 movement.obstacleLayers,QueryTriggerInteraction.Ignore);
             if (n == hits.Length) return false;
             for (int i=0;i<n;i++)

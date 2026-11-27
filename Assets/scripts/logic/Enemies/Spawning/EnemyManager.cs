@@ -245,6 +245,7 @@ namespace NarutoVR.SealCombat.Enemies
                 if (!IsCurrent(lease)) throw new OperationCanceledException("初始化回调结束了本次出生");
                 if (!agent || !agent.enabled || !agent.isOnNavMesh || !instance.Controller.ValidateAnimator(out _))
                     throw SpawnFailure(id, "导航代理或动画接线无效");
+                instance.Controller.ConfigureSummons(lease, entry.Definition.summoning);
                 status = "敌人已出生：" + id + " #" + lease.Id; UpdateCounts(); return lease;
             }
             catch (Exception error)
@@ -276,6 +277,11 @@ namespace NarutoVR.SealCombat.Enemies
             var controller = root.GetComponent<EnemyController>();
             var entity = root.GetComponent<EnemyObj>();
             entity.Definition = entry.Definition;
+            if (entry.Definition.stoneCarrier)
+            {
+                if (!root.TryGetComponent<StoneCarrier>(out var carrier)) carrier = root.AddComponent<StoneCarrier>();
+                carrier.profile = entry.Definition.stoneCarrier;
+            }
             var instance = new Instance { Root = root, Controller = controller, Type = entry, OriginalCombat = entity.CombatDefinition };
             current.AllInstances.Add(instance);
             createdCount++;

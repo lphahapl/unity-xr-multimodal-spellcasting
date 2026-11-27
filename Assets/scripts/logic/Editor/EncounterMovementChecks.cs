@@ -8,7 +8,7 @@ namespace NarutoVR.SealCombat.Editor
 {
     public static class EncounterMovementChecks
     {
-        public static int Run() => CheckEncounterMotion() + CheckWallGlancing() + CheckExplorationChoices()
+        public static int Run() => CheckEncounterMotion() + CheckEncounterMotion(CombatMovement.NodeTeleport) + CheckExplorationChoices(true) + CheckWallGlancing() + CheckExplorationChoices()
             + CheckExplorationMarks() + CheckGroundDwell(ExplorationMovement.Teleport) + CheckGroundDwell(ExplorationMovement.AutoWalk);
 
         static int CheckExplorationMarks()
@@ -28,6 +28,9 @@ namespace NarutoVR.SealCombat.Editor
             try
             {
                 move.SetEncounterCombat(true);
+                marks.Refresh(true, false, default);
+                Require(!renderer.enabled && line.forceRenderingOff, "默认战斗走跑隐藏节点标记");
+                move.SetCombatMode(CombatMovement.NodeTeleport);
                 marks.Refresh(true, false, default);
                 Require(renderer.enabled && filter.sharedMesh.GetIndexCount(0) > 0 && !line.forceRenderingOff,
                     "战斗预设点保留候选纹样和原有标记");
@@ -49,7 +52,7 @@ namespace NarutoVR.SealCombat.Editor
                 marks.Refresh(true, false, default);
                 Require(renderer.enabled && filter.sharedMesh.GetIndexCount(0) > 0 && !line.forceRenderingOff,
                     "切回战斗恢复候选和原有线圈");
-                return 10;
+                return 11;
             }
             finally
             {
@@ -108,11 +111,12 @@ namespace NarutoVR.SealCombat.Editor
             return 6;
         }
 
-        static int CheckExplorationChoices()
+        static int CheckExplorationChoices(bool combat = false)
         {
             using var f = new Fixture();
             var move = f.C;
-            move.SetEncounterCombat(false);
+            if (combat) move.SetExplorationMode(ExplorationMovement.Teleport);
+            move.SetEncounterCombat(combat);
             double time = 8;
             var start = move.PlayerFloorPosition;
             var goal = start + Vector3.forward * 2;
@@ -138,6 +142,12 @@ namespace NarutoVR.SealCombat.Editor
                 runDistance > (walked.x-start.x)*1.5f, "缺少拳头方向样本时沿最近一次有效指向加速");
             Sample(handValid:false); var stopped = move.PlayerFloorPosition; Sample(fist:true);
             Require(move.PlayerFloorPosition == stopped, "追踪恢复后握拳不能自行起跑");
+            if (combat)
+            {
+                Require(warps == 0 && move.CombatMode == CombatMovement.PointWalk && move.ExplorationMode == ExplorationMovement.Teleport,
+                    "战斗默认指行拳跑独立于探索传送");
+                return 4;
+            }
             move.SetExplorationMode(ExplorationMovement.Teleport);
             Sample();
             for (int i=0; i<30; i++) Sample(point:true,ground:true);
@@ -167,10 +177,11 @@ namespace NarutoVR.SealCombat.Editor
             return 9;
         }
 
-        static int CheckEncounterMotion()
+        static int CheckEncounterMotion(CombatMovement combatMode = CombatMovement.PointWalk)
         {
             using var f=new Fixture();
             var c=f.C;
+            c.SetCombatMode(combatMode);
             var initial=c.rigRoot.position;
             c.SetEncounterCombat(false);
             f.Tick(1,true,.16f);f.Tick(1.04,true,.16f);

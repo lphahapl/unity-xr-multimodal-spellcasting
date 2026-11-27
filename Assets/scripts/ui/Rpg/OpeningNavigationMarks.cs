@@ -42,7 +42,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void Refresh(bool visible, bool focused, RaycastHit focusFloor)
         {
-            bool combat = movement.EncounterCombat;
+            bool combat = movement.UsingCombatNodes;
             if (!visible || (!combat && !focused))
             {
                 renderer.enabled = wasVisible = false;

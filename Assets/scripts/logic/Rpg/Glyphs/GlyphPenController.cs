@@ -1,11 +1,12 @@
 using System;
+using NarutoVR.SealCombat.Items;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
 {
     /// <summary>从工具带取笔、占用玩家输入并驱动两种画板。效果的可变状态只属于本次匹配。</summary>
     [DisallowMultipleComponent, RequireComponent(typeof(LinearRpgController))]
-    public sealed class GlyphPenController : MonoBehaviour
+    public sealed class GlyphPenController : MonoBehaviour, IHandPickupSource
     {
         [InspectorName("主动面板模板")] public GlyphTemplate[] activeTemplates = Array.Empty<GlyphTemplate>();
         [InspectorName("主动面板，可留空使用灰盒")] public GlyphBoard activeBoard;
@@ -22,8 +23,10 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("主动板相对眼位（右、上、前）")] public Vector3 boardOffset = new(0, -.18f, .42f);
         [InspectorName("主动板停笔提交间隔（秒）"), Min(.1f)] public float idleSeconds = .9f;
 
-        public bool IsHeld => claim != 0;
+        public bool IsHeld => claim != 0 || beltSession;
         public bool BlocksCombat => IsHeld || releasedFrame == Time.frameCount;
+        internal bool CanYieldDrawingToDodge => player.locomotion.UsesEncounterModes && drawing && drawing.HasUnsubmittedInk &&
+            effect == null && OwnsPen;
         public string Status { get; private set; } = "轻捏上腹右侧的墨规笔";
         LinearRpgController player;
         GlyphBoard drawing;
@@ -31,12 +34,34 @@ namespace NarutoVR.SealCombat.Rpg
         Vector3 previousRawTip;
         bool hasPreviousTip, readyFromFront, touchingSurface;
         GlyphStoryPanel story;
-        GlyphTemplate pendingStoryMatch;
+        GlyphTemplate matchedTemplate;
+        bool AllowsEmptyHand => matchedTemplate && matchedTemplate.effect && matchedTemplate.effect.AllowsEmptyHand;
         GlyphEffectInstance effect;
         GlyphEffectContext context;
         Transform sleeve, actorRoot;
+        Transform observedNib;
+        GlyphNibDragVisual nibDrag;
         Material previewMaterial;
         long claim;
+        ToolBeltInteraction carriedBelt;
+        GameItemBase carriedPen;
+        bool beltSession, heldInLeftHand, pendingPickup, waitingForLift;
+        bool OwnsPen => claim != 0 ? player.Input.OwnsInteraction(this, claim) :
+            beltSession && carriedBelt && carriedBelt.OwnsHeldItem(carriedPen);
+
+        internal void BindBeltPen(ToolBeltInteraction belt, GameItemBase item)
+        {
+            if (!belt || !item || item.Kind != GameItemKind.GlyphPen || !item.grip || !item.insertionTip)
+                throw new ArgumentException("工具带墨规笔须有有效握点与笔尖");
+            Finish();
+            if (carriedBelt && carriedBelt != belt) carriedBelt.DrivenByGlyph = false;
+            carriedBelt = belt;
+            carriedPen = item;
+            penRoot = item.transform;
+            nib = item.insertionTip;
+            if (sleeve) sleeve.gameObject.SetActive(false);
+            carriedBelt.DrivenByGlyph = isActiveAndEnabled;
+        }
         bool pinchArmed;
         int releasedFrame = -1;
         double lastTracked;
@@ -49,12 +74,38 @@ namespace NarutoVR.SealCombat.Rpg
         {
             player = GetComponent<LinearRpgController>();
             player.GlyphPen = this;
+            HandPickupQuery.Register(this);
+            if (carriedBelt) carriedBelt.DrivenByGlyph = true;
             if (player.locomotion) player.locomotion.MovementStarting += OnMovementStarting;
+        }
+
+        bool CanTakeStandalone => isActiveAndEnabled && !carriedBelt && !IsHeld && player && player.CanAct &&
+            penRoot && penRoot.gameObject.activeInHierarchy && !player.skills.effects.HasOccupiedHand &&
+            !player.locomotion.EncounterCombat && !player.locomotion.NavigationActive && !player.locomotion.EncounterSlideActive;
+
+        public void CollectPickups(HandPickupQuery query)
+        {
+            if (query.Player == player && CanTakeStandalone)
+                query.Offer(this, penRoot, penRoot.position, pickupRadius);
+        }
+
+        public bool TryPickup(Transform target, bool left, PlayerHandObservation hand)
+        {
+            if (target != penRoot || !CanTakeStandalone || !hand.gripPoseValid ||
+                !player.Input.TryAcquireInteraction(this, out claim)) return false;
+            heldInLeftHand = left;
+            pendingPickup = true;
+            lastTracked = hand.rightObserved;
+            waitingForLift = hand.headPosition.y - hand.rightWrist.y >= lowerBelowHead;
+            player.skills.InvalidateEarlierVoice();
+            player.skills.effects.ResetPushInput();
+            Status = "已取出墨规笔";
+            return true;
         }
 
         void OnMovementStarting()
         {
-            if (effect?.IsTethered != true) Finish();
+            if (!AllowsEmptyHand && effect?.IsTethered != true) Finish();
         }
 
         void EnsureTools()
@@ -75,7 +126,7 @@ namespace NarutoVR.SealCombat.Rpg
                 nib.SetParent(penRoot, false);
                 nib.localPosition = Vector3.forward * .108f;
             }
-            if (!holster)
+            if (!holster && !carriedBelt)
             {
                 sleeve = new GameObject("上腹右侧笔套").transform;
                 sleeve.SetParent(actorRoot, false);
@@ -110,7 +161,12 @@ namespace NarutoVR.SealCombat.Rpg
         // Called before wrist and locomotion arbitration; matching runs after movement.
         internal void Observe(PlayerHandObservation hand, double now)
         {
-            if (!isActiveAndEnabled || !player.CanAct || player.locomotion.EncounterCombat)
+            if (carriedBelt) carriedBelt.StepFromGlyph(hand, now);
+            if (carriedBelt && carriedBelt.OwnsHeldItem(carriedPen))
+                heldInLeftHand = carriedBelt.HeldInLeftHand;
+            if (heldInLeftHand) hand = player.Input.LeftPickupHand;
+            bool inCombat = player.locomotion.EncounterCombat;
+            if (!isActiveAndEnabled || !player.CanAct || inCombat && !CanYieldDrawingToDodge)
             {
                 Finish();
                 return;
@@ -123,14 +179,33 @@ namespace NarutoVR.SealCombat.Rpg
             if (sleeve && bodyTracked)
                 sleeve.SetPositionAndRotation(hand.headPosition + bodyYaw * beltOffset, bodyYaw * Quaternion.Euler(52,-12,0));
             var rest = holster ? holster : sleeve;
-            if (!IsHeld) penRoot.SetPositionAndRotation(rest.position, rest.rotation);
-            if (IsHeld && !player.Input.OwnsInteraction(this, claim)) { Finish(); return; }
+            bool startedBeltHold = false;
+            if (carriedBelt && claim == 0)
+            {
+                if (!carriedBelt.OwnsHeldItem(carriedPen))
+                {
+                    if (!beltSession || !AllowsEmptyHand || carriedBelt.Held ||
+                        !hand.pinchValid || hand.pinchTransition || !hand.PinchUp(.045f) ||
+                        !PlayerHandObservation.Fresh(hand.rightValid, hand.rightObserved, now, player.handSampleMaxAge) ||
+                        !player.Input.TryAcquireInteraction(this, out claim)) { Finish(); return; }
+                    beltSession = false;
+                }
+                else if (!beltSession)
+                {
+                    beltSession = startedBeltHold = true;
+                    lastTracked = hand.rightObserved;
+                    player.skills.effects.ResetPushInput();
+                    Status = "已取出墨规笔";
+                }
+            }
+            else if (!IsHeld) penRoot.SetPositionAndRotation(rest.position, rest.rotation);
+            if (IsHeld && !OwnsPen) { Finish(); return; }
             bool tethered = effect?.IsTethered == true;
             bool wristTracked = PlayerHandObservation.Fresh(hand.rightValid,hand.rightObserved,now,player.handSampleMaxAge) &&
                 PlayerHandObservation.Finite(hand.rightWrist);
             bool wristOnly = tethered && wristTracked && !hand.gripPoseValid;
             bool tracked = wristTracked && (hand.gripPoseValid || wristOnly);
-            if (IsHeld && (tethered || !tracked) && now - lastTracked >= (tethered ? tetherTrackingTimeout : trackingTimeout))
+            if (IsHeld && !AllowsEmptyHand && (tethered || !tracked) && now - lastTracked >= (tethered ? tetherTrackingTimeout : trackingTimeout))
             {
                 Finish();
                 return;
@@ -145,7 +220,7 @@ namespace NarutoVR.SealCombat.Rpg
                 {
                     // 手暂时被遮住，笔模型与牵引线起点一起跟随脚步平移。
                     context.hand += Vector3.ProjectOnPlane(hand.headPosition - context.body, Vector3.up);
-                    penRoot.position = context.hand;
+                    if (!carriedBelt) penRoot.position = context.hand;
                 }
                 context.tracked = false;
                 context.bodyTracked = bodyTracked;
@@ -159,14 +234,14 @@ namespace NarutoVR.SealCombat.Rpg
             if (pressed) pinchArmed = false;
             if (!IsHeld)
             {
-                if (!pressed || hand.tipUnavailable || Vector3.Distance(hand.rightTip,rest.position) > pickupRadius ||
-                    player.skills.effects.HasOccupiedHand || player.locomotion.NavigationActive ||
-                    player.locomotion.EncounterSlideActive || !player.Input.TryAcquireInteraction(this,out claim)) return;
-                player.skills.InvalidateEarlierVoice();
-                player.skills.effects.ResetPushInput();
-                Status = "已取出墨规笔";
+                player.Input.Pickups.EvaluateDirectRight(hand, now);
+                if (!IsHeld) return;
             }
-            if (bodyTracked && ShouldLowerPen(hand.headPosition.y - hand.rightWrist.y, hand.rightObserved, tethered))
+            bool startedPickup = pendingPickup;
+            pendingPickup = false;
+            if (bodyTracked && hand.headPosition.y - hand.rightWrist.y < lowerBelowHead) waitingForLift = false;
+            if (!waitingForLift && !carriedBelt && !AllowsEmptyHand && bodyTracked &&
+                ShouldLowerPen(hand.headPosition.y - hand.rightWrist.y, hand.rightObserved, tethered))
             {
                 Finish();
                 return;
@@ -175,17 +250,27 @@ namespace NarutoVR.SealCombat.Rpg
             lastTracked = hand.rightObserved;
             if (!wristOnly) gripFromWrist = hand.gripPosition - hand.rightWrist;
             Vector3 grip = wristOnly ? hand.rightWrist + gripFromWrist : hand.gripPosition;
-            penRoot.SetPositionAndRotation(grip, wristOnly ? penRoot.rotation : hand.gripRotation);
+            if (!carriedBelt) penRoot.SetPositionAndRotation(grip, wristOnly ? penRoot.rotation : hand.gripRotation);
             context = new GlyphEffectContext {
-                owner = player.locomotion.rigRoot, pen = penRoot, tracked = true, hand = grip, tip = nib.position,
+                owner = player.locomotion.rigRoot, pen = penRoot, holdingBeltPen = beltSession, tracked = true, hand = grip, tip = nib.position,
                 bodyTracked = bodyTracked, rebaseHand = wristOnly != usingWrist,
+                wrist = hand.rightWrist, gripRotation = wristOnly ? penRoot.rotation : hand.gripRotation,
+                rightPointing = hand.rightPointing, rightOpen = hand.rightOpen, rightFist = hand.rightClosed,
+                indexRayValid = hand.rightIndexRayValid, indexRay = new Ray(hand.rightTip, hand.rightIndexDirection),
                 // The tracked head translates with the player even inside a stationary XR origin.
                 forward = nib.forward, body = hand.headPosition, observed = hand.rightObserved
             };
             usingWrist = wristOnly;
 
             if (effect != null) return;
-            SelectBoard(hand, pressed);
+            if (inCombat)
+            {
+                // Keep the draft while the right wrist is being evaluated for a combat push.
+                contactBoard = null;
+                touchingSurface = false;
+                return;
+            }
+            SelectBoard(hand, startedPickup || pressed || startedBeltHold);
             if (drawing)
             {
                 ConstrainToBoard(nib.position);
@@ -213,10 +298,12 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 drawing = null;
                 story = null;
-                pendingStoryMatch = null;
+                matchedTemplate = null;
             }
             if (drawing && (drawing != activeBoard || drawing.PointCount > 0)) return;
             var nearby = GlyphStoryPanel.FindNear(nib.position, .8f);
+            // After pressing a story board's button, the held nib starts back at the belt.
+            if (!nearby) nearby = GlyphStoryPanel.FindNear(hand.headPosition, 1.2f);
             if (drawing && !nearby) return;
             if (drawing) drawing.Close();
             contactBoard = null; // 同一个板对象重新展开也需要新的一次正面接近。
@@ -275,6 +362,9 @@ namespace NarutoVR.SealCombat.Rpg
                 if (local.z < -contact || (!hasPreviousTip && inside && local.z < 0)) readyFromFront = true;
                 else if (!inside || local.z >= 0) readyFromFront = false;
             }
+#if UNITY_EDITOR
+            drawing.contactLog.Observe(local.z, inside, touchingSurface, Time.realtimeSinceStartupAsDouble);
+#endif
             if (touchingSurface)
             {
                 var onPlane = drawing.transform.TransformPoint(new Vector3(local.x, local.y, 0));
@@ -287,7 +377,8 @@ namespace NarutoVR.SealCombat.Rpg
         internal void Advance(double now)
         {
             if (!IsHeld) return;
-            if (!player.Input.OwnsInteraction(this,claim) || !player.CanAct) { Finish(); return; }
+            if (!OwnsPen || !player.CanAct) { Finish(); return; }
+            ObserveNibVisual(now);
             if (effect != null)
             {
                 effect.Tick(context,Time.unscaledDeltaTime);
@@ -296,16 +387,20 @@ namespace NarutoVR.SealCombat.Rpg
                 return;
             }
             if (!drawing) return;
+            if (player.locomotion.EncounterCombat && drawing.HasUnsubmittedInk)
+            {
+                // Suspend both ink and the idle-submit clock until exploration resumes.
+                drawing.Sample(default, false, now);
+                return;
+            }
             if (story && story.IsResolving)
             {
                 if (drawing.AdvanceStorySuccess(now))
                 {
                     var resolved = story;
-                    var matched = pendingStoryMatch;
                     drawing = null;
                     story = null;
-                    pendingStoryMatch = null;
-                    if (matched && matched.effect) effect = matched.effect.Begin(context);
+                    if (matchedTemplate && matchedTemplate.effect) effect = matchedTemplate.effect.Begin(context);
                     resolved.Complete();
                 }
                 return;
@@ -314,10 +409,10 @@ namespace NarutoVR.SealCombat.Rpg
             if (!context.tracked || !drawing.TrySubmit(now,out var match)) return;
             if (!match) { Status = drawing.Status; return; }
 
+            matchedTemplate = match;
             Status = "已识别：" + match.Title;
             if (story)
             {
-                pendingStoryMatch = match;
                 drawing.BeginStorySuccess(now, match);
                 return;
             }
@@ -328,17 +423,34 @@ namespace NarutoVR.SealCombat.Rpg
             match.RaiseCompleted(completedBoard);
         }
 
+        void ObserveNibVisual(double now)
+        {
+            if (observedNib != nib)
+            {
+                if (nibDrag) nibDrag.ResetDrag();
+                observedNib = nib;
+                nibDrag = observedNib ? observedNib.GetComponentInParent<GlyphNibDragVisual>() : null;
+            }
+            if (!nibDrag) return;
+            bool writing = touchingSurface && drawing && drawing.IsOpen && !drawing.IsShowingSuccess &&
+                effect == null && !player.locomotion.EncounterCombat;
+            nibDrag.Observe(drawing ? drawing.transform : null, context.tip, context.tracked, writing, now);
+        }
+
         void FixedUpdate()
         {
-            if (IsHeld && player && player.CanAct && player.Input.OwnsInteraction(this,claim))
+            if (IsHeld && player && player.CanAct && OwnsPen)
                 effect?.FixedTick(Time.fixedDeltaTime);
         }
 
         public void Finish()
         {
             if (!IsHeld) return;
+            if (nibDrag) nibDrag.ResetDrag();
             var held = claim;
             claim = 0;
+            beltSession = false;
+            heldInLeftHand = pendingPickup = waitingForLift = false;
             releasedFrame = Time.frameCount;
             pinchArmed = false;
             lowSince = double.NaN;
@@ -357,7 +469,7 @@ namespace NarutoVR.SealCombat.Rpg
             finally
             {
                 story = null;
-                pendingStoryMatch = null;
+                matchedTemplate = null;
                 drawing = null;
                 if (player)
                 {
@@ -369,7 +481,7 @@ namespace NarutoVR.SealCombat.Rpg
                     }
                 }
                 var rest = holster ? holster : sleeve;
-                if (penRoot && rest) penRoot.SetPositionAndRotation(rest.position, rest.rotation);
+                if (!carriedBelt && penRoot && rest) penRoot.SetPositionAndRotation(rest.position, rest.rotation);
                 Status = "轻捏上腹右侧的墨规笔";
             }
         }
@@ -377,8 +489,10 @@ namespace NarutoVR.SealCombat.Rpg
         void OnApplicationFocus(bool focused) { if (!focused) { pinchArmed = false; Finish(); } }
         void OnDisable()
         {
+            HandPickupQuery.Unregister(this);
             Finish();
             pinchArmed = false;
+            if (carriedBelt) carriedBelt.DrivenByGlyph = false;
             if (player && player.locomotion) player.locomotion.MovementStarting -= OnMovementStarting;
             if (player && player.GlyphPen == this) player.GlyphPen = null;
         }

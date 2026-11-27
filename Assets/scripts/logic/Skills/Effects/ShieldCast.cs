@@ -7,11 +7,19 @@ namespace NarutoVR.SealCombat
     {
 
         float lastShieldCapacity;
+        double parryOpenedAt;
+        float parrySeconds;
+
+        internal bool CanParryFireCore => isActiveAndEnabled && parrySeconds > 0 && ShieldPoints > 0 &&
+            Now >= parryOpenedAt && Now <= parryOpenedAt + parrySeconds;
+
+        internal void PresentFireCoreParry() => PlayShieldPulse(ShieldPulseKind.Impact, 1);
 
         sealed class ShieldCast
         {
             public readonly string DisplayName;
             public readonly float Capacity, Duration;
+            public readonly float ParrySeconds;
             public readonly GameObject Visual;
             public readonly MeshRenderer BodyPrefab;
             public readonly Material Material;
@@ -21,6 +29,7 @@ namespace NarutoVR.SealCombat
             {
                 DisplayName = skill.displayName;
                 Capacity = definition.capacity;
+                ParrySeconds = definition.fireCoreParrySeconds;
                 Duration = float.IsFinite(skill.durationSeconds) ? Mathf.Max(.1f, skill.durationSeconds) : 10;
                 Visual = definition.visualPrefab;
                 BodyPrefab = definition.bodyPrefab;
@@ -44,6 +53,8 @@ namespace NarutoVR.SealCombat
         /// <summary>护盾配置的执行入口，设置容量与到期时间；成功次数由外层 TryCast 统一统计。</summary>
         void PresentShield(ShieldCast cast)
         {
+            parryOpenedAt = Now;
+            parrySeconds = cast.ParrySeconds;
             GameObject visual = cast.Visual;
             Material material = cast.Material;
             lastShieldCapacity = cast.Capacity;

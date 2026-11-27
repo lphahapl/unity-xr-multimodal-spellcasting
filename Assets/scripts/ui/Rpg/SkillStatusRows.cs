@@ -74,20 +74,19 @@ namespace NarutoVR.SealCombat.Rpg
 
         sealed class Cell
         {
-            // Brass edging, dark lacquer, warm paper and jade match the wrist instrument.
-            static readonly Color Brass = new(.63f, .51f, .31f, 1);
-            static readonly Color Lacquer = new(.045f, .085f, .083f, .98f);
-            static readonly Color Paper = new(1f, .94f, .77f, 1);
-            static readonly Color Jade = new(.58f, .97f, .83f, 1);
-            static readonly Color Amber = new(1f, .78f, .42f, 1);
-            static readonly Color Cinnabar = new(1f, .63f, .53f, 1);
-            static readonly Color Dimmed = new(.48f,.47f,.44f,1);
+            static readonly Color Brass = KaogongTheme.BronzeAged;
+            static readonly Color Lacquer = KaogongTheme.LacquerDark;
+            static readonly Color Paper = KaogongTheme.JadeWarm;
+            static readonly Color Jade = KaogongTheme.JadeAccent;
+            static readonly Color Amber = KaogongTheme.GoldInlay;
+            static readonly Color Cinnabar = KaogongTheme.Cinnabar;
+            static readonly Color Dimmed = new(.48f, .47f, .44f, 1);
 
             public readonly RectTransform Root;
             public SkillDefinition Skill;
             public int Slot { get; private set; } = -1;
             readonly string key;
-            readonly Image icon, recovered;
+            readonly Image backing, icon, recovered;
             readonly Text title, state;
             int lastSeconds = -1;
             string secondsLabel;
@@ -96,13 +95,24 @@ namespace NarutoVR.SealCombat.Rpg
             {
                 this.key = key;
                 Root = Rect(parent, "术法 " + key);
-                Paint(Root, Brass);
-                RectTransform plate = Rect(Root, "漆底");
-                plate.anchorMin = Vector2.zero;
-                plate.anchorMax = Vector2.one;
-                plate.offsetMin = Vector2.one * 2;
-                plate.offsetMax = Vector2.one * -2;
-                Paint(plate, Lacquer);
+                Sprite cellFrame = KaogongUISprites.Get("Button_Normal");
+                if (cellFrame)
+                {
+                    backing = Paint(Root, Color.white);
+                    backing.sprite = cellFrame;
+                    backing.type = Image.Type.Sliced;
+                    backing.pixelsPerUnitMultiplier = 2.0f;
+                }
+                else
+                {
+                    backing = Paint(Root, Brass);
+                    RectTransform plate = Rect(Root, "漆底");
+                    plate.anchorMin = Vector2.zero;
+                    plate.anchorMax = Vector2.one;
+                    plate.offsetMin = Vector2.one * 2;
+                    plate.offsetMax = Vector2.one * -2;
+                    Paint(plate, Lacquer);
+                }
 
                 icon = Paint(Rect(Root, "图标"), Color.white);
                 icon.sprite = Resources.Load<Sprite>("SkillStatus/" + key);
@@ -125,18 +135,18 @@ namespace NarutoVR.SealCombat.Rpg
                 const int columns = 3;
                 int rows = Mathf.Max(2, Mathf.CeilToInt((float)count / columns));
                 float slotWidth = width / columns, slotHeight = height / rows;
-                float gap = Mathf.Min(slotWidth, slotHeight) * .055f;
+                float gap = Mathf.Min(slotWidth, slotHeight) * .05f;
                 float w = slotWidth - gap * 2, h = slotHeight - gap * 2;
                 Root.sizeDelta = new Vector2(w, h);
                 Root.anchoredPosition = new Vector2((index % columns + .5f) * slotWidth - width * .5f,
                     height * .5f - (index / columns + .5f) * slotHeight);
-                float iconSize = Mathf.Min(h * .48f, w * .65f);
-                Place(icon.rectTransform, iconSize, iconSize, h * .222f);
-                Place(recovered.rectTransform, iconSize, iconSize, h * .222f);
-                Place(title.rectTransform, w - gap, h * .24f, -h * .13f);
-                Place(state.rectTransform, w - gap, h * .23f, -h * .365f);
-                SetSize(title, Mathf.Min(h * .21f, w * .22f));
-                SetSize(state, Mathf.Min(h * .20f, w * .21f));
+                float iconSize = Mathf.Min(h * .44f, w * .60f);
+                Place(icon.rectTransform, iconSize, iconSize, h * .21f);
+                Place(recovered.rectTransform, iconSize, iconSize, h * .21f);
+                Place(title.rectTransform, w - gap * 1.4f, h * .23f, -h * .125f);
+                Place(state.rectTransform, w - gap * 1.4f, h * .22f, -h * .35f);
+                SetSize(title, Mathf.Min(h * .20f, w * .21f));
+                SetSize(state, Mathf.Min(h * .19f, w * .20f));
             }
 
             internal void Present(LinearRpgController owner)
@@ -152,6 +162,8 @@ namespace NarutoVR.SealCombat.Rpg
                 recovered.enabled = showProgress;
                 if (showProgress) recovered.fillAmount = 1f - remaining / Skill.cooldownSeconds;
                 icon.color = cooling ? Dimmed : Color.white;
+                if (backing && backing.sprite)
+                    backing.color = cooling ? new Color(0.75f, 0.72f, 0.68f, 1f) : Color.white;
 
                 if (held)
                 {

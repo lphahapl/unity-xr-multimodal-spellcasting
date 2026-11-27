@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NarutoVR.SealCombat.Items;
 using UnityEngine;
 
 namespace NarutoVR.SealCombat.Rpg
@@ -68,7 +69,7 @@ namespace NarutoVR.SealCombat.Rpg
         double lastSelectionObserved = double.NegativeInfinity;
         double lastNow, nextDodgeAt = double.NegativeInfinity;
 
-        public bool NavigationActive => UsesEncounterModes && !EncounterCombat ? walking || autoWalking || (PickingGround && rayState.Active) : (UsesEncounterModes || useRayNavigation) ? rayState.Active : state != null && state.NavigationActive;
+        public bool NavigationActive => UsesEncounterModes && !UsingCombatNodes ? walking || autoWalking || (PickingGround && rayState.Active) : (UsesEncounterModes || useRayNavigation) ? rayState.Active : state != null && state.NavigationActive;
         public bool SealProtectionActive => state != null && state.SealProtectionActive;
         internal bool LeftNavigationPoseActive => head && rawInput.leftValid &&
             rawInput.leftWrist.y >= head.position.y - navigationDropBelowHead &&
@@ -93,7 +94,7 @@ namespace NarutoVR.SealCombat.Rpg
                 return isActiveAndEnabled && aimingAtGround && rayState.IsTracking(groundTarget);
             }
             floor = selectedRayFloor;
-            return isActiveAndEnabled && (UsesEncounterModes ? EncounterCombat : useRayNavigation) &&
+            return isActiveAndEnabled && (UsesEncounterModes ? UsingCombatNodes : useRayNavigation) &&
                 CandidateNode && rayState.IsTracking(CandidateNode);
         }
         readonly List<NavigationNode> connectedNodes = new();
@@ -165,6 +166,9 @@ namespace NarutoVR.SealCombat.Rpg
         RpgGestureState State => state ?? (state = new RpgGestureState(gestures));
 
         public void ProcessInput(NavigationHandInput frame, bool forwardOwnedByHeldSpell, bool blockActions, double now)
+            => ProcessInput(frame, forwardOwnedByHeldSpell, blockActions, now, false);
+
+        internal void ProcessInput(NavigationHandInput frame, bool forwardOwnedByHeldSpell, bool blockActions, double now, bool drawingDodge)
         {
             rawInput = frame; inputNow = now;
             if (!RpgGestureState.Finite(now)) { ResetInput(); Status = "输入时钟无效"; return; }
@@ -188,7 +192,7 @@ namespace NarutoVR.SealCombat.Rpg
 
             if (UsesEncounterModes)
             {
-                if (ProcessEncounter(frame,forwardOwnedByHeldSpell,blockActions || intent.cancel,now)) return;
+                if (ProcessEncounter(frame,forwardOwnedByHeldSpell && !drawingDodge,blockActions || intent.cancel,now,drawingDodge) || drawingDodge) return;
                 ProcessRayNavigation(frame,false,now);
                 return;
             }
@@ -251,6 +255,7 @@ namespace NarutoVR.SealCombat.Rpg
 
         public void ResetInput()
         {
+            ClearDodgeEffects();
             ResetEncounterMotion();
             lastSelectionObserved = double.NegativeInfinity;
             inputSmoother.Reset(); debugCandidates.Clear();
@@ -264,7 +269,7 @@ namespace NarutoVR.SealCombat.Rpg
         /// <summary>Cancel a pending node selection without rearming the held-low cancel gesture.</summary>
         public void CancelPendingNavigation()
         {
-            if (UsesEncounterModes && !EncounterCombat) StopExploration();
+            if (UsesEncounterModes && !UsingCombatNodes && !sliding) StopExploration();
             State.InterruptDwell(); rayState.Suspend(); CandidateNode = null; candidateDirection = Vector2.zero; ClearChallenger();
         }
 
@@ -291,7 +296,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (!TryFloor(node.floorPosition, floors, out RaycastHit target, out string reason) ||
                 Mathf.Abs(target.point.y - node.floorPosition.y) > targetFloorTolerance)
             { Status = "检查点恢复失败：" + (reason ?? "节点地面高度不合法"); return false; }
-            Vector3 currentFloor = TryFloor(ExpectedFloor, floorLayers, out RaycastHit from, out _) ? from.point : ExpectedFloor;
+            Vector3 currentFloor = ExpectedFloor;
             if (!ClearCapsule(target, currentFloor, obstacles, out reason))
             { Status = "检查点恢复失败：" + reason; return false; }
             delta = target.point - currentFloor;
@@ -658,7 +663,8 @@ namespace NarutoVR.SealCombat.Rpg
             if (count == smoothOverlaps.Length) { reason = "身体附近碰撞密集"; return false; }
             for (int i = 0; i < count; i++)
             {
-                if (Ignored(smoothOverlaps[i])) continue;
+                var obstacle = smoothOverlaps[i];
+                if (Ignored(obstacle)) continue;
                 reason = "身体占位被阻挡";
                 return false;
             }
@@ -701,7 +707,17 @@ namespace NarutoVR.SealCombat.Rpg
         }
 
         bool Ignored(Collider collider) => collider == null || collider.isTrigger ||
-            collider.transform == rigRoot || collider.transform.IsChildOf(rigRoot);
+            collider.transform == rigRoot || collider.transform.IsChildOf(rigRoot) || IsOwnAttachedItem(collider);
+
+        // The belt and pen can be siblings of the tracking rig. Worn or held items move
+        // with this player; a dropped item in the very same hierarchy is a world obstacle.
+        bool IsOwnAttachedItem(Collider collider)
+        {
+            if (!collider.transform.IsChildOf(transform)) return false;
+            var item = collider.GetComponentInParent<GameItemBase>();
+            return item && (item.IsHeld || (item.Dock && item.Dock.SnappedObject == item.gameObject &&
+                item.Dock.transform.IsChildOf(transform)));
+        }
 
         void Translate(Vector3 delta, PlayerMovementKind kind)
         {
@@ -719,9 +735,9 @@ namespace NarutoVR.SealCombat.Rpg
         public string BuildDebugDetails(double now)
         {
             var b = new System.Text.StringBuilder();
-            bool combatRay=UsesEncounterModes && EncounterCombat;
+            bool combatRay=UsingCombatNodes;
             bool rayMode=UsesEncounterModes ? combatRay || PickingGround : useRayNavigation;
-            string mode=UsesEncounterModes ? combatRay ? "战斗头向与手指融合选点" : ExplorationModeName :
+            string mode=UsesEncounterModes ? EncounterCombat ? CombatModeName : ExplorationModeName :
                 rayMode ? "射线直接选点（无需食指位移）" : "旧四向位移";
             b.AppendLine($"导航模式：{mode}；候选 {LandingDescription}");
             if (rayMode) b.AppendLine($"射线状态：{rayState.Status}；准备 {rayNavigation?.readySeconds:F2}s / 驻留 {rayNavigation?.dwellSeconds:F2}s；等待重备={rayState.NeedsRelease}");
@@ -747,7 +763,7 @@ namespace NarutoVR.SealCombat.Rpg
         static double Age(double now, double stamp) => double.IsFinite(now) && double.IsFinite(stamp) ? Math.Max(0,now-stamp)*1000 : -1;
 
         internal void RefreshAuthoredMarkers() =>
-            NavigationNode.SetExploring(gameObject.scene, isActiveAndEnabled && UsesEncounterModes && !EncounterCombat);
+            NavigationNode.SetExploring(gameObject.scene, isActiveAndEnabled && UsesEncounterModes && !UsingCombatNodes);
 
         void OnEnable() => RefreshAuthoredMarkers();
 

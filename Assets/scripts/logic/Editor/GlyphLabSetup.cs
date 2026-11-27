@@ -75,12 +75,27 @@ namespace NarutoVR.SealCombat.Editor
             if (!rpg || !rpg.chapter || !rpg.chapter.isActiveAndEnabled || !rpg.locomotion ||
                 !rpg.CheckpointAt(0).gameObject.activeInHierarchy || rpg.StageAt(0).startsInCombat ||
                 pen.activeTemplates == null || !pen.activeTemplates.Any(t => t && t.effect is QianjunEffectDefinition) ||
-                !story.template || !story.board || story.onCompleted.GetPersistentEventCount() < 2 ||
+                !pen.penRoot || !pen.nib || !story.template || !story.board || story.onCompleted.GetPersistentEventCount() < 2 ||
                 !weights.Any(w => w.localAxis == Vector3.zero) || !weights.Any(w => w.localAxis != Vector3.zero))
                 throw new InvalidOperationException("墨规笔试验场接线不完整：" + scene.path);
             if (checkStageBindings)
                 foreach (var shop in rpg.GetComponentsInChildren<RpgSkillShop>(true))
                     shop.ValidateConfiguration(rpg);
+        }
+
+        internal static void BindApprovedPen(GlyphPenController pen)
+        {
+            if (pen.penRoot && pen.nib) return;
+            const string path = "Assets/Art/Props/MoGuiPen/MoGuiPen.prefab";
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (!asset || !asset.transform.Find("Nib"))
+                throw new InvalidOperationException("正式墨规笔或笔尖资源缺失：" + path);
+            var model = pen.penRoot && PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(pen.penRoot) == path
+                ? pen.penRoot.gameObject : (GameObject)PrefabUtility.InstantiatePrefab(asset, pen.transform);
+            pen.penRoot = model.transform;
+            pen.nib = model.transform.Find("Nib");
+            PrefabUtility.RecordPrefabInstancePropertyModifications(pen);
+            EditorUtility.SetDirty(pen);
         }
 
         static void Configure(Scene scene)
@@ -120,6 +135,7 @@ namespace NarutoVR.SealCombat.Editor
 
             var pen = player.gameObject.AddComponent<GlyphPenController>();
             pen.activeTemplates = new[] { qianjun };
+            BindApprovedPen(pen);
             var lab = new GameObject("墨规笔试验场");
             var spawn = player.CheckpointAt(0);
             lab.transform.position = spawn.transform.position;

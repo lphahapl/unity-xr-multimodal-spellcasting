@@ -137,7 +137,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 Stage("trial.01", "火球基础", "律印与“火球术”匹配后，抓握瞄准后松手投掷。击破本阶段训练靶，再前往下一阶段。", 40,
                     new[] { "buff.zi", "buff.voice" }, false, result),
-                Stage("trial.02", "护盾与闪避", "规印或“护体咒”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 40,
+                Stage("trial.02", "护盾与闪避", "左手结衡印或念“衡印”施放护盾；右手张掌短划闪避。击破训练靶并应对训练攻击。", 40,
                     Array.Empty<string>(), true, result),
                 Stage("trial.03", "综合试炼", "用导航、护盾、闪避与火球完成最后的训练；可在电脑菜单升级火球。", 60,
                     Array.Empty<string>(), true, result)

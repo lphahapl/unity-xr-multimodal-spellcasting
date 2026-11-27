@@ -24,6 +24,12 @@ namespace NarutoVR.SealCombat.Enemies
                 if (next.ContainsKey(definition.enemyId)) { reason = "重复敌人编号：" + definition.enemyId; return false; }
                 next.Add(definition.enemyId, definition);
             }
+            foreach (var definition in enemies)
+            {
+                var rule = definition.summoning;
+                if (rule && (!next.TryGetValue(rule.minion.enemyId ?? "", out var minion) || minion != rule.minion))
+                { reason = "当前目录不含对应的召唤小怪定义：" + definition.enemyId; return false; }
+            }
             index = next; reason = null; return true;
         }
         public bool TryGet(string id, out EnemyDefinition definition)

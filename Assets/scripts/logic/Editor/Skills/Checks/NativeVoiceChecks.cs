@@ -162,7 +162,7 @@ namespace NarutoVR.SealCombat.Editor
                 Check(labels.Length == expected.Length && labels.OrderBy(x => x).SequenceEqual(expected.OrderBy(x => x)), "Native vocabulary matches all voice recipes and cancellation: " + catalog.name);
                 Check(labels.Count(label => label == SkillPhrase.Normalize(catalog.cancelPhrase)) == 1, "Cancellation keyword appears exactly once: " + catalog.name);
                 if ((!hasManifest || AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(SkillResourceManifest)) &&
-                    new[] { "护体咒", "火球术", "取消施法" }.All(expected.Contains))
+                    new[] { "衡印", "火球术", "取消施法" }.All(expected.Contains))
                 { report.fixtureCatalogPath = path; selectedKeywords = text; }
             }
             Check(report.fixtureCatalogPath != null, "Chapter vocabulary contains the existing three WAV fixture labels");
@@ -266,7 +266,7 @@ namespace NarutoVR.SealCombat.Editor
                 {
                     version = decoder.NativeVersion;
                     var hits = new List<string>(); decoder.Hit += hit => hits.Add(hit.Phrase);
-                    foreach (var item in new[] { ("shield", "护体咒"), ("fireball", "火球术"), ("cancel", "取消施法"), ("negative", "") })
+                    foreach (var item in new[] { ("shield", "衡印"), ("fireball", "火球术"), ("cancel", "取消施法"), ("negative", "") })
                     {
                         decoder.Reset(); hits.Clear();
                         float[] samples = ReadWave(Path.Combine(source, item.Item1 + ".wav"), out int rate);
@@ -286,7 +286,7 @@ namespace NarutoVR.SealCombat.Editor
                         sequence.AddRange(samples); sequence.AddRange(new float[rate]);
                     }
                     decoder.Accept(sequence.ToArray(), sequence.Count, 16000, 10); decoder.Flush(10 + sequence.Count / 16000d);
-                    string[] repeated = { "护体咒", "火球术", "取消施法", "护体咒" };
+                    string[] repeated = { "衡印", "火球术", "取消施法", "衡印" };
                     results.Add(new FixtureResult { name = "sequence_and_repeat", expected = repeated, actual = hits.ToArray(), passed = hits.SequenceEqual(repeated) });
                     decoder.Reset(); hits.Clear(); decoder.Accept(new float[48000], 48000, 16000, 10); decoder.Flush(13);
                     results.Add(new FixtureResult { name = "silence", expected = Array.Empty<string>(), actual = hits.ToArray(), passed = hits.Count == 0 });
@@ -306,7 +306,7 @@ namespace NarutoVR.SealCombat.Editor
                     decoder.Accept(joined.ToArray(), joined.Count, 16000, 100);
                     decoder.Flush(100 + joined.Count / 16000d);
                     decoder.Hit -= joinedHits.Add;
-                    string[] joinedExpected = { "护体咒", "火球术", "取消施法" };
+                    string[] joinedExpected = { "衡印", "火球术", "取消施法" };
                     results.Add(new FixtureResult { name = "joined_no_gap", expected = joinedExpected, actual = hits.ToArray(),
                         endedAt = joinedHits.Select(h => h.EndedAt).ToArray(), detectedAt = joinedHits.Select(h => h.DetectedAt).ToArray(),
                         passed = hits.SequenceEqual(joinedExpected) });
@@ -328,7 +328,7 @@ namespace NarutoVR.SealCombat.Editor
             {
                 var receiver = go.AddComponent<SkillVoiceReceiver>();
                 receiver.useNativeInEditor = true; receiver.autoStartInEditor = false; receiver.logPhrases = false;
-                receiver.ConfigurePhrases(new[] { "护体咒", "火球术", "取消施法" });
+                receiver.ConfigurePhrases(new[] { "衡印", "火球术", "取消施法" });
                 using var selected = AuthoredSkillCatalog.Open(report.fixtureCatalogPath);
                 var catalog = selected.Catalog;
                 var engine = new SkillMatchEngine(catalog.skills, cancelPhrase: catalog.cancelPhrase);
@@ -353,12 +353,12 @@ namespace NarutoVR.SealCombat.Editor
                 long epoch = engine.Epoch;
                 foreach (var hit in hits)
                     Call(receiver, "NativePhrase", new NativeKeywordHit(hit.Phrase, hit.EndedAt + offset, hit.DetectedAt + offset), generation);
-                Check(delivered.SequenceEqual(new[] { "护体咒", "火球术", "取消施法" }) && engine.Epoch == epoch + 1 && string.IsNullOrEmpty(engine.PendingSkillId),
+                Check(delivered.SequenceEqual(new[] { "衡印", "火球术", "取消施法" }) && engine.Epoch == epoch + 1 && string.IsNullOrEmpty(engine.PendingSkillId),
                     "Equal-end cancellation reaches facade and match engine without retiming audio");
                 var last = hits[hits.Count - 1];
                 Call(receiver, "NativePhrase", new NativeKeywordHit(last.Phrase, last.EndedAt + offset, last.DetectedAt + offset), generation);
                 Check(delivered.Count == 3 && engine.Epoch == epoch + 1, "Replayed identical native keyword is still rejected");
-                Call(receiver, "NativePhrase", new NativeKeywordHit("护体咒", last.EndedAt + offset - .1, last.DetectedAt + offset), generation);
+                Call(receiver, "NativePhrase", new NativeKeywordHit("衡印", last.EndedAt + offset - .1, last.DetectedAt + offset), generation);
                 Check(delivered.Count == 3, "Older native end timestamp is still rejected after joined words");
             }
             finally { Object.DestroyImmediate(go); }

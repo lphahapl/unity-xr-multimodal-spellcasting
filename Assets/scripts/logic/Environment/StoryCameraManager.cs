@@ -16,6 +16,8 @@ namespace NarutoVR.SceneArt
         private PlayableDirector director;
         private Transform shotPose;
         private Camera controlledCamera;
+        private GameObject trackingReturnCue;
+        private bool trackingReturned;
         private Pose savedLocalPose;
         private DirectorWrapMode previousWrapMode;
         private InputPoseDriver inputDriverToRestore;
@@ -68,6 +70,8 @@ namespace NarutoVR.SceneArt
             director = target;
             shotPose = request.ShotPose;
             controlledCamera = head;
+            trackingReturnCue = request.TrackingReturnCue;
+            trackingReturned = false;
             savedLocalPose = new Pose(head.transform.localPosition, head.transform.localRotation);
             previousWrapMode = director.extrapolationMode;
             inputDriverToRestore = inputDriver && inputDriver.enabled ? inputDriver : null;
@@ -136,8 +140,25 @@ namespace NarutoVR.SceneArt
         [BeforeRenderOrder(10000)]
         private void ApplyShot()
         {
-            if (controlledCamera && shotPose)
-                controlledCamera.transform.SetPositionAndRotation(shotPose.position, shotPose.rotation);
+            if (trackingReturned || !controlledCamera || !shotPose) return;
+            if (trackingReturnCue && trackingReturnCue.activeInHierarchy)
+            {
+                ReturnHeadPose();
+                return;
+            }
+            controlledCamera.transform.SetPositionAndRotation(shotPose.position, shotPose.rotation);
+        }
+
+        private void ReturnHeadPose()
+        {
+            if (trackingReturned) return;
+            trackingReturned = true;
+            if (controlledCamera)
+                controlledCamera.transform.SetLocalPositionAndRotation(savedLocalPose.position, savedLocalPose.rotation);
+            if (legacyDriverToRestore) legacyDriverToRestore.enabled = true;
+            if (inputDriverToRestore) inputDriverToRestore.enabled = true;
+            legacyDriverToRestore = null;
+            inputDriverToRestore = null;
         }
 
         private void RestoreHeadTracking()
@@ -148,13 +169,9 @@ namespace NarutoVR.SceneArt
                 director.stopped -= OnDirectorStopped;
                 director.extrapolationMode = previousWrapMode;
             }
-            if (controlledCamera)
-                controlledCamera.transform.SetLocalPositionAndRotation(savedLocalPose.position, savedLocalPose.rotation);
-            if (legacyDriverToRestore) legacyDriverToRestore.enabled = true;
-            if (inputDriverToRestore) inputDriverToRestore.enabled = true;
+            ReturnHeadPose();
             controlledCamera = null;
-            legacyDriverToRestore = null;
-            inputDriverToRestore = null;
+            trackingReturnCue = null;
             director = null;
             shotPose = null;
         }

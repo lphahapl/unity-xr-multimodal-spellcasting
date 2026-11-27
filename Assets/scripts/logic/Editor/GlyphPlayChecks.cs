@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NarutoVR.SealCombat.Enemies;
 using NarutoVR.SealCombat.Rpg;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -184,6 +185,7 @@ namespace NarutoVR.SealCombat.Editor
                     storyTemplate.onCompleted.AddListener(storyCompletions.Add);
                     story.onCompleted.AddListener(RecordGateOpening);
                     RunInteractions(shape);
+                    CheckCombatDrawingDodge();
                 }
                 finally
                 {
@@ -216,7 +218,8 @@ namespace NarutoVR.SealCombat.Editor
                 LiftAt(pen.activeBoard);
                 clock += pen.idleSeconds + .025;
                 LiftAt(pen.activeBoard);
-                Require(pen.activeBoard.IsOpen && pen.activeBoard.Status.Contains("未匹配"), "主动板拒绝错误符形");
+                Require(pen.activeBoard.IsOpen && pen.activeBoard.Status.Contains("未匹配") && !pen.CanYieldDrawingToDodge,
+                    "主动板拒绝错误符形，已评判墨迹不属于进战快推的草稿");
                 RequireEventCounts(0, 0, 0, "错误的主动符");
                 string activeTrace = CheckRejectionCapture(pen.activeBoard, shape, "active");
                 DrawAt(pen.activeBoard, new Vector3(0, -.179f, 0));
@@ -228,7 +231,8 @@ namespace NarutoVR.SealCombat.Editor
                 RequireEventCounts(0, 0, 0, "主动书写中");
                 clock += pen.idleSeconds + .025;
                 LiftAt(pen.activeBoard);
-                Require(!pen.activeBoard.IsOpen && pen.Status.Contains(shape.Title), "主动停笔匹配实际千钧符资源");
+                Require(!pen.activeBoard.IsOpen && pen.Status.Contains(shape.Title) && !pen.CanYieldDrawingToDodge,
+                    "主动停笔匹配实际千钧符资源，已提交的效果不属于进战快推的草稿");
                 RequireEventCounts(1, 0, 0, "主动符匹配当帧");
                 Require(ReadCapture("active") == activeTrace, "主动符成功后保留最近的拒识记录");
 
@@ -294,7 +298,8 @@ namespace NarutoVR.SealCombat.Editor
                 Paint(story.board, story.template);
                 clock += story.board.idleSeconds + .02f;
                 LiftAt(story.board);
-                Require(story.IsResolving && story.board.IsShowingSuccess && gate.activeSelf, "吸附反馈已经开始，机关仍关闭");
+                Require(story.IsResolving && story.board.IsShowingSuccess && gate.activeSelf && !pen.CanYieldDrawingToDodge,
+                    "吸附反馈已经开始，机关仍关闭，已判对的剧情符不属于进战快推的草稿");
                 Require(ReadCapture("story") == storyTrace && ReadCapture("active") == activeTrace, "剧情符成功后两块板各自保留拒识记录");
                 clock += story.board.successDuration * .49;
                 pen.Advance(clock);
@@ -365,6 +370,107 @@ namespace NarutoVR.SealCombat.Editor
             {
                 player.locomotion.ResetInput();
                 player.locomotion.ProcessInput(new NavigationHandInput { leftValid = true, leftObserved = clock += .02 }, false, false, clock);
+            }
+
+            void CheckCombatDrawingDodge()
+            {
+                var move = player.locomotion;
+                var receiver = player.GetComponent<RpgDamageReceiver>();
+                Require(move.UsesEncounterModes && receiver, "GlyphLab 使用正式遭遇移动与受击入口");
+                var originalFloor = move.floorLayers;
+                var originalRig = move.rigRoot.position;
+                player.Player.Respawn(100, 20, player.GameTime, true);
+                bool Hit(string id) => receiver.TryReceiveDamage(new EnemyAttackHit(null, receiver, id, 0, 5, receiver.HitPosition));
+                void Wrist(float forward, float side = .08f)
+                {
+                    head = move.head.position;
+                    var yaw = Quaternion.LookRotation(Vector3.ProjectOnPlane(move.head.forward, Vector3.up));
+                    var wrist = head + yaw * new Vector3(side, -move.chestBelowHead, forward);
+                    Observe(wrist, yaw, false);
+                    player.ProcessMovementFrame(new NavigationHandInput {
+                        rightValid = true, rightObserved = clock, rightWrist = wrist
+                    }, player.MovementBlockReason != null, clock);
+                    pen.Advance(clock);
+                }
+                try
+                {
+                    foreach (bool noFloor in new[] { true, false })
+                    {
+                        // Both left-hand travel choices must allow a drawn stroke to yield to the first combat push.
+                        move.SetCombatMode(noFloor ? CombatMovement.NodeTeleport : CombatMovement.PointWalk);
+                        bool storyDraft = !noFloor;
+                        if (storyDraft) story.Show();
+                        head = storyDraft ? story.board.transform.position - Vector3.forward * .34f + Vector3.up * .16f : move.head.position;
+                        TakePen();
+                        var board = storyDraft ? story.board : pen.activeBoard;
+                        LiftAt(board);
+                        DrawAt(board, new Vector3(-.05f, .04f, 0));
+                        DrawAt(board, new Vector3(.04f, .04f, 0));
+                        Require(board.HasUnsubmittedInk && pen.CanYieldDrawingToDodge, "板面真实采样产生未提交墨迹");
+                        if (!storyDraft)
+                        {
+                            Wrist(.16f);
+                            Wrist(.38f);
+                            Require(pen.IsHeld && !move.EncounterSlideActive, "探索中快推不抢笔");
+                        }
+                        Wrist(.16f);
+                        int points = board.PointCount;
+                        int completions = activeCompletions.Count + storyCompletions.Count;
+                        player.SetEncounterCombat(true);
+                        if (noFloor)
+                        {
+                            clock += move.gestures.sampleMaxGap + .03;
+                            Wrist(.37f);
+                            Require(pen.IsHeld && !move.EncounterSlideActive, "过期的进战前腕点不能启动滑退");
+                            Wrist(.16f);
+                            Wrist(.18f, .27f);
+                            for (int i = 0; i < 90; i++) Wrist(.18f + i * .002f);
+                            Require(pen.IsHeld && player.Input.InteractionOwnsHand && board.PointCount == points &&
+                                board.HasUnsubmittedInk && !move.EncounterSlideActive, "进战、侧推、短推、慢推及停笔超时保留原稿");
+                            player.SetEncounterCombat(false);
+                            LiftAt(board);
+                            Require(board.HasUnsubmittedInk && board.PointCount == points, "返回探索时不会补交超时草稿");
+                            DrawAt(board, new Vector3(.07f, .06f, 0));
+                            Require(board.PointCount == points + 1, "退战后可在原稿上续笔");
+                            player.SetEncounterCombat(true);
+                            move.floorLayers = 0;
+                            Wrist(.16f);
+                            Wrist(.16f);
+                        }
+                        Vector3 start = move.rigRoot.position;
+                        // The story case starts at the chest one frame before combat and
+                        // crosses the threshold on its first combat sample.
+                        Wrist(.37f);
+                        Require(move.EncounterSlideActive && move.rigRoot.position == start && !pen.IsHeld &&
+                            !player.Input.InteractionOwnsHand && board.PointCount == 0, "首次有效右手快推同帧启动滑退、清稿并归还持笔权");
+                        Require(board.IsOpen == storyDraft && (!storyDraft || story.IsWaiting) &&
+                            activeCompletions.Count + storyCompletions.Count == completions, "主动板关闭、剧情板仍候笔，取消不发完成事件");
+                        Require(Hit(noFloor ? "glyph-wall-intent" : "glyph-slide-intent") && player.Player.Mana == 20,
+                            "快推已识别但没有实际位移时仍可受伤");
+                        Wrist(.37f);
+                        if (noFloor)
+                            Require(!move.EncounterSlideActive && move.rigRoot.position == start && Hit("glyph-wall-step") &&
+                                player.Player.Mana == 20, "首步缺地面时正常受伤、没有度力奖励");
+                        else
+                        {
+                            Vector3 back = -Vector3.ProjectOnPlane(move.head.forward, Vector3.up).normalized;
+                            Require(Vector3.Dot(move.rigRoot.position - start, back) > .001f, "不再快推，下一帧已经向后位移");
+                            Require(!Hit("glyph-slide-first") && !Hit("glyph-slide-second") && player.Player.Mana == 45,
+                                "首次有效位移后免伤，同一次滑退仅回复一次 25 度力");
+                        }
+                        player.SetEncounterCombat(false);
+                        move.floorLayers = originalFloor;
+                    }
+                    Debug.Log("GlyphCombatDodge PASS: active/story, exploration, invalid/stale push, cross-transition push, same push release/slide, blocked floor, first-step protection, single mana award.");
+                }
+                finally
+                {
+                    move.floorLayers = originalFloor;
+                    move.rigRoot.position = originalRig;
+                    player.SetEncounterCombat(false);
+                    pen.Finish();
+                    story.Cancel();
+                }
             }
 
             void HoldLow(double duration, Quaternion rotation)
@@ -814,7 +920,9 @@ namespace NarutoVR.SealCombat.Editor
                 Require(!string.IsNullOrWhiteSpace(label.text) && mesh && mesh.vertexCount >= 4, "中文标签实际字形网格：" + label.name);
             }
             var strokes = board.GetComponentsInChildren<GlyphStrokeGraphic>();
-            Require(strokes.Length == 2, "板面图样与笔迹渲染层");
+            var guide = Array.FindAll(strokes, graphic => graphic.name == "范本");
+            var ink = Array.FindAll(strokes, graphic => graphic.name == "朱砂墨迹");
+            Require(guide.Length == 1 && ink.Length == 1, "板面必须各有一层范本与笔迹");
             foreach (var graphic in strokes)
                 if (story || graphic.name == "朱砂墨迹")
                 {

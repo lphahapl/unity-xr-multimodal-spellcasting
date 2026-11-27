@@ -101,7 +101,7 @@ namespace NarutoVR.SealCombat.Editor
                 Samples(t=>c.ProcessInput(Frame(t),false,false,t)); Check(rig.transform.position==origin,"悬空节点禁止传送");
                 target.transform.position-=Vector3.up;
                 var alternative=Node("战斗手指对照",origin+new Vector3(.9f,0,2)); start.neighbors.Add(alternative);
-                c.encounterModesEnabled=true;c.SetEncounterCombat(true);
+                c.encounterModesEnabled=true;c.SetCombatMode(CombatMovement.NodeTeleport);c.SetEncounterCombat(true);
                 double clock=10;
                 void CombatSample(Vector3 gaze,Vector3 hand,bool point=true,bool relaxed=false)
                 {

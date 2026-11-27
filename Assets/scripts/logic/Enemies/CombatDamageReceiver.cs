@@ -10,10 +10,16 @@ namespace NarutoVR.SealCombat.Enemies
         // XR 代表点可能与接收器分属两棵对象树。组件禁用时仍保留身份，防止将其当成旧版裸目标。
         static readonly HashSet<CombatDamageReceiver> Known = new();
         public abstract Vector3 HitPosition { get; }
+        public virtual Vector3 RangedHitPosition => HitPosition;
         public virtual Transform HitTransform => transform;
         public virtual Transform DetectionColliderRoot => transform;
         public virtual Vector3 NavigationPosition => HitTransform.position;
         public abstract bool CanReceiveDamage { get; }
+        // Only registered combatants contribute chapter-specific multipliers.
+        internal virtual float IncomingEnemyDamageMultiplier => 1f;
+        internal virtual float OutgoingDamageMultiplier => 1f;
+        public virtual bool HasFireCoreParry => false;
+        public virtual void PresentFireCoreParry() { }
         public abstract bool TryReceiveDamage(EnemyAttackHit hit);
         protected virtual void Awake() => Known.Add(this);
         protected virtual void OnEnable() => Known.Add(this);
@@ -36,11 +42,18 @@ namespace NarutoVR.SealCombat.Enemies
             return null;
         }
 
+        internal static CombatDamageReceiver FromHitTransform(Transform target)
+        {
+            if (!target) return null;
+            foreach (var receiver in Known)
+                if (receiver && receiver.isActiveAndEnabled && receiver.HitTransform == target) return receiver;
+            return null;
+        }
+
         internal static Vector3 GetNavigationPosition(Transform target)
         {
-            foreach (var receiver in Known)
-                if (receiver && receiver.isActiveAndEnabled && receiver.HitTransform == target) return receiver.NavigationPosition;
-            return target.position;
+            var receiver = FromHitTransform(target);
+            return receiver ? receiver.NavigationPosition : target.position;
         }
 
         internal static bool IsDetectable(Transform target)
@@ -64,6 +77,13 @@ namespace NarutoVR.SealCombat.Enemies
         public readonly float Damage;
         public readonly Vector3 Position;
         public EnemyAttackHit(EnemyObj source, CombatDamageReceiver receiver, string id, int index, float damage, Vector3 position)
-        { Source = source; Receiver = receiver; AttackId = id; AttackIndex = index; Damage = damage; Position = position; }
+        {
+            Source = source;
+            Receiver = receiver;
+            AttackId = id;
+            AttackIndex = index;
+            Damage = source && receiver ? damage * receiver.IncomingEnemyDamageMultiplier : damage;
+            Position = position;
+        }
     }
 }

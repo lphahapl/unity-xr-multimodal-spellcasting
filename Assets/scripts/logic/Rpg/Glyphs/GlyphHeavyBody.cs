@@ -10,13 +10,17 @@ namespace NarutoVR.SealCombat.Rpg
         Rigidbody body;
         public Rigidbody Body => body ? body : body = GetComponent<Rigidbody>();
         public bool CanManipulate => isActiveAndEnabled && Body && !Body.isKinematic;
+        /// <summary>仅在千钧符确实向刚体施加非零冲量时通知当前道具。</summary>
+        public event System.Action<Vector3> GlyphImpulseApplied;
 
         public void ApplyGlyphImpulse(Vector3 impulse)
         {
             if (!CanManipulate || impulse == Vector3.zero) return;
             if (localAxis.sqrMagnitude > 0.000001f)
                 impulse = Vector3.Project(impulse, transform.TransformDirection(localAxis));
+            if (impulse == Vector3.zero) return;
             Body.AddForce(impulse, ForceMode.Impulse);
+            GlyphImpulseApplied?.Invoke(impulse);
         }
     }
 }

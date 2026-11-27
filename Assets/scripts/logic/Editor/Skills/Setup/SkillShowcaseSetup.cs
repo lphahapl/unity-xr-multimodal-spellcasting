@@ -149,7 +149,7 @@ namespace NarutoVR.SealCombat.Editor
         private static void BuildShield(Transform root, SkillScenario scenario)
         {
             scenario.title = "澄心 · 护盾试炼";
-            scenario.instructions = "规印 或 “护体咒” → 自身护盾\n首次获得护盾后自动开始\n0.5 秒后首击，此后每 2.5 秒\n每次 30 点，最多 4 次\n\nF8：准备 / 停止一轮测试\n未吸收伤害只报告，不扣玩家生命\n玩家生命系统尚未接入";
+            scenario.instructions = "左手结衡印 或 念“衡印” → 自身护盾\n首次获得护盾后自动开始\n0.5 秒后首击，此后每 2.5 秒\n每次 30 点，最多 4 次\n\nF8：准备 / 停止一轮测试\n未吸收伤害只报告，不扣玩家生命\n玩家生命系统尚未接入";
             var center = new Vector3(0, 0, 3);
             Cylinder(root, "圆形试炼台基座", center + Vector3.down * .22f, new Vector3(12, .2f, 12), stone, true);
             Cylinder(root, "青蓝内台", center + Vector3.down * .005f, new Vector3(10.8f, .015f, 10.8f), dark);

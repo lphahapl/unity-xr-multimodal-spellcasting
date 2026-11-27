@@ -18,6 +18,7 @@ namespace NarutoVR.SealCombat.Rpg
         readonly List<Renderer> body = new(), localHands = new(), localBody = new();
         readonly Stack<RenderScope> activePasses = new(), reusable = new();
         bool hasHeading;
+        RpgLocomotionController dodgeOwner;
 
         sealed class RenderScope
         {
@@ -49,10 +50,20 @@ namespace NarutoVR.SealCombat.Rpg
             }
             RenderPipelineManager.beginCameraRendering += BeginCamera;
             RenderPipelineManager.endCameraRendering += EndCamera;
+            BindDodgeVisual();
         }
         void Start() => BindPlayerVisuals();
+        void BindDodgeVisual()
+        {
+            if (!Application.isPlaying) return;
+            var next = isActiveAndEnabled && player ? player.locomotion : null;
+            if (dodgeOwner && dodgeOwner != next) dodgeOwner.ReleaseDodgeAvatar(this);
+            dodgeOwner = next;
+            if (dodgeOwner) dodgeOwner.BindDodgeAvatar(this);
+        }
         public void BindPlayerVisuals()
         {
+            BindDodgeVisual();
             localHands.Clear();
             if (!player) return;
             if (Application.isPlaying)
@@ -71,6 +82,8 @@ namespace NarutoVR.SealCombat.Rpg
         }
         void OnDisable()
         {
+            if (dodgeOwner) dodgeOwner.ReleaseDodgeAvatar(this);
+            dodgeOwner = null;
             RenderPipelineManager.beginCameraRendering -= BeginCamera;
             RenderPipelineManager.endCameraRendering -= EndCamera;
             while (activePasses.Count > 0) activePasses.Pop().Restore();

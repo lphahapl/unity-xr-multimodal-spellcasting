@@ -8,16 +8,25 @@ namespace NarutoVR.SealCombat.Rpg
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class GlyphStrokeGraphic : MaskableGraphic
     {
+        const float BrushMargin = 1.32f;
         [System.NonSerialized] public List<List<Vector2>> lines;
         [System.NonSerialized] public float width = 3;
         VisibleInk visible;
-        bool useVisibleInk;
+        GlyphBrushProfile brush;
+        bool useVisibleInk, useBrush;
 
-        internal void UpdateInk(List<List<Vector2>> samples)
+        internal void UpdateInk(List<List<Vector2>> samples, IReadOnlyList<GlyphBoard.NibSample> nibSamples, Material brushMaterial)
         {
             visible ??= new VisibleInk();
             visible.Update(samples);
             useVisibleInk = true;
+            useBrush = brushMaterial;
+            material = brushMaterial;
+            if (useBrush)
+            {
+                brush ??= new GlyphBrushProfile();
+                brush.Update(nibSamples);
+            }
             SetVerticesDirty();
         }
 
@@ -26,6 +35,8 @@ namespace NarutoVR.SealCombat.Rpg
         internal void RebuildSuccessInk(bool fullyAligned)
         {
             useVisibleInk = !fullyAligned;
+            useBrush = false;
+            material = null;
             SetVerticesDirty();
         }
 
@@ -39,7 +50,8 @@ namespace NarutoVR.SealCombat.Rpg
                 foreach (var span in visible.spans)
                 {
                     var line = lines[span.stroke];
-                    if (span.end == 0) Dot(mesh, line[0] * 1000, half);
+                    if (useBrush) BrushSpan(mesh, line, span, half);
+                    else if (span.end == 0) Dot(mesh, line[0] * 1000, half);
                     else
                     {
                         Vector2 start = line[span.end - 1], edge = line[span.end] - start;
@@ -62,6 +74,65 @@ namespace NarutoVR.SealCombat.Rpg
             }
         }
 
+        void BrushSpan(VertexHelper mesh, List<Vector2> line, VisibleInk.Span span, float half)
+        {
+            var end = brush.At(span.stroke, span.end, line.Count);
+            int index = mesh.currentVertCount;
+            if (span.end == 0)
+            {
+                Vector2 center = line[0] * 1000f;
+                float r = half * end.width * (line.Count == 1 ? 1f : .78f) * BrushMargin;
+                BrushVertex(mesh, center + new Vector2(-r, -r), end, -BrushMargin, -BrushMargin, true);
+                BrushVertex(mesh, center + new Vector2(-r, r), end, -BrushMargin, BrushMargin, true);
+                BrushVertex(mesh, center + new Vector2(r, r), end, BrushMargin, BrushMargin, true);
+                BrushVertex(mesh, center + new Vector2(r, -r), end, BrushMargin, -BrushMargin, true);
+            }
+            else
+            {
+                Vector2 start = line[span.end - 1];
+                Vector2 edge = line[span.end] - start;
+                Vector2 direction = edge.normalized;
+                var begin = brush.At(span.stroke, span.end - 1, line.Count);
+                Vector2 beginNormal = JoinNormal(line, span.end - 1, direction);
+                Vector2 endNormal = JoinNormal(line, span.end, direction);
+                var from = GlyphBrushProfile.Tip.Lerp(begin, end, span.from);
+                var to = GlyphBrushProfile.Tip.Lerp(begin, end, span.to);
+                Vector2 a = (start + span.from * edge) * 1000f;
+                Vector2 b = (start + span.to * edge) * 1000f;
+                Vector2 aOffset = Vector2.Lerp(beginNormal, endNormal, span.from) * (half * from.width * BrushMargin);
+                Vector2 bOffset = Vector2.Lerp(beginNormal, endNormal, span.to) * (half * to.width * BrushMargin);
+                BrushVertex(mesh, a - aOffset, from, -BrushMargin, from.travelMm, false);
+                BrushVertex(mesh, a + aOffset, from, BrushMargin, from.travelMm, false);
+                BrushVertex(mesh, b + bOffset, to, BrushMargin, to.travelMm, false);
+                BrushVertex(mesh, b - bOffset, to, -BrushMargin, to.travelMm, false);
+            }
+            AddQuad(mesh, index);
+        }
+
+        static Vector2 JoinNormal(List<Vector2> line, int point, Vector2 segment)
+        {
+            Vector2 normal = Vector2.Perpendicular(segment);
+            if (point == 0 || point + 1 == line.Count) return normal;
+            Vector2 before = (line[point] - line[point - 1]).normalized;
+            Vector2 after = (line[point + 1] - line[point]).normalized;
+            if (Vector2.Dot(before, after) < -.8f) return normal;
+            Vector2 bisector = Vector2.Perpendicular((before + after).normalized);
+            return bisector / Mathf.Max(.72f, Vector2.Dot(normal, bisector));
+        }
+
+        void BrushVertex(VertexHelper mesh, Vector2 position, GlyphBrushProfile.Tip tip,
+            float across, float along, bool dot)
+        {
+            Color tint = color;
+            tint.a *= tip.wetness;
+            var vertex = UIVertex.simpleVert;
+            vertex.position = position;
+            vertex.color = tint;
+            vertex.uv0 = new Vector2(across, along);
+            vertex.uv1 = new Vector2(tip.taper, dot ? 1 : 0);
+            mesh.AddVert(vertex);
+        }
+
         void Dot(VertexHelper mesh, Vector2 a, float half) =>
             Quad(mesh, a + new Vector2(-half, -half), a + new Vector2(-half, half),
                 a + new Vector2(half, half), a + new Vector2(half, -half));
@@ -80,6 +151,11 @@ namespace NarutoVR.SealCombat.Rpg
             mesh.AddVert(b, tint, Vector2.zero);
             mesh.AddVert(c, tint, Vector2.zero);
             mesh.AddVert(d, tint, Vector2.zero);
+            AddQuad(mesh, index);
+        }
+
+        static void AddQuad(VertexHelper mesh, int index)
+        {
             mesh.AddTriangle(index, index + 1, index + 2);
             mesh.AddTriangle(index, index + 2, index + 3);
         }

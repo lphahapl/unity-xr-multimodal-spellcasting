@@ -9,9 +9,25 @@ namespace NarutoVR.SealCombat.Rpg
         [InspectorName("选点传送")] Teleport
     }
 
+    public enum CombatMovement
+    {
+        [InspectorName("食指指向行走／握拳快跑")] PointWalk,
+        [InspectorName("战斗节点传送")] NodeTeleport
+    }
+
     public sealed partial class RpgLocomotionController
     {
         internal const string ExplorationPreference = "NarutoVR.ExplorationMovement";
+        internal const string CombatPreference = "NarutoVR.CombatMovement";
+        [SerializeField, InspectorName("默认战斗移动")] CombatMovement defaultCombatMovement;
+        CombatMovement? selectedCombatMovement;
+        public CombatMovement CombatMode => selectedCombatMovement ?? defaultCombatMovement;
+        internal bool UsingCombatNodes => UsesEncounterModes && EncounterCombat && CombatMode == CombatMovement.NodeTeleport;
+        public string CombatModeName => CombatMode == CombatMovement.NodeTeleport ? "战斗节点传送" : "食指行走／握拳快跑";
+        public string CombatHint => CombatMode == CombatMovement.NodeTeleport
+            ? "左食指指向战斗落点，金圈填满后传送。空着的右手从胸前快推可闪避。"
+            : "左食指行走，走动中握拳快跑。空着的右手从胸前快推可闪避。";
+
         [SerializeField, InspectorName("默认探索移动")] ExplorationMovement defaultExplorationMovement;
         [InspectorName("探索快跑倍率"), Range(1f, 4f)] public float sprintMultiplier = 1.8f;
         ExplorationMovement? selectedMovement;
@@ -35,7 +51,9 @@ namespace NarutoVR.SealCombat.Rpg
         internal void LoadExplorationPreference()
         {
             int saved = PlayerPrefs.GetInt(ExplorationPreference, (int)defaultExplorationMovement);
-            if (System.Enum.IsDefined(typeof(ExplorationMovement), saved)) SetExplorationMode((ExplorationMovement)saved);
+            SetExplorationMode(System.Enum.IsDefined(typeof(ExplorationMovement), saved) ? (ExplorationMovement)saved : defaultExplorationMovement);
+            int combat = PlayerPrefs.GetInt(CombatPreference, (int)defaultCombatMovement);
+            SetCombatMode(System.Enum.IsDefined(typeof(CombatMovement), combat) ? (CombatMovement)combat : defaultCombatMovement);
         }
         public void SetExplorationMode(ExplorationMovement mode)
         {
@@ -53,6 +71,20 @@ namespace NarutoVR.SealCombat.Rpg
             PlayerPrefs.Save();
         }
 
+        public void SetCombatMode(CombatMovement mode)
+        {
+            if (!System.Enum.IsDefined(typeof(CombatMovement), mode) || mode == CombatMode) return;
+            selectedCombatMovement = mode;
+            if (EncounterCombat) { ResetInput(); needNeutral = true; RefreshAuthoredMarkers(); }
+        }
+
+        public void CycleCombatMode()
+        {
+            SetCombatMode(CombatMode == CombatMovement.PointWalk ? CombatMovement.NodeTeleport : CombatMovement.PointWalk);
+            PlayerPrefs.SetInt(CombatPreference, (int)CombatMode);
+            PlayerPrefs.Save();
+        }
+
         void StopExploration()
         {
             lastPointAt = double.NegativeInfinity;
@@ -61,16 +93,16 @@ namespace NarutoVR.SealCombat.Rpg
             walking = false;
         }
 
-        void ProcessExploration(NavigationHandInput hand, bool fresh, float dt, double now)
+        void ProcessWalkingInput(NavigationHandInput hand, bool fresh, float dt, double now)
         {
             CandidateNode = null;
             debugCandidates.Clear();
-            motionReason = "探索中";
+            if (!EncounterCombat) motionReason = "探索中";
             if (!fresh || SealProtectionActive || hand.bothHandsLow)
             {
                 StopExploration();
                 rayState.Suspend();
-                Status = "探索停止：手部追踪中断、结印或双手放低";
+                Status = "移动停止：手部追踪中断、结印或双手放低";
                 return;
             }
             if (PickingGround)
@@ -105,7 +137,7 @@ namespace NarutoVR.SealCombat.Rpg
             float t = Mathf.InverseLerp(pitchSlowStart, Mathf.Max(pitchSlowStart + 1, pitchSlowEnd), pitch);
             pitchFactor = pitchSlowsWalk ? Mathf.Lerp(1, minimumPitchFactor, Mathf.SmoothStep(0, 1, t)) : 1;
             WalkStep(walkHeading * (dt * Mathf.Max(.05f, exploreSpeed) * pitchFactor * (sprint ? Mathf.Max(1, sprintMultiplier) : 1)),
-                sprint ? "探索：握拳快跑" : "探索：沿食指方向行走");
+                sprint ? "握拳快跑" : "沿食指方向行走");
         }
 
         bool WalkStep(Vector3 step, string status)
@@ -116,10 +148,10 @@ namespace NarutoVR.SealCombat.Rpg
             if (!TrySmoothStep(step, out var travel, out var reason))
             {
                 EndWalkStride();
-                Status = "探索停止：" + reason;
+                Status = "移动停止：" + reason;
                 return false;
             }
-            if (walking && movedThisAction) ExplorationTravelled?.Invoke(new Vector2(travel.x, travel.z).magnitude);
+            if (!EncounterCombat && walking && movedThisAction) ExplorationTravelled?.Invoke(new Vector2(travel.x, travel.z).magnitude);
             Status = status;
             return true;
         }
@@ -232,7 +264,9 @@ namespace NarutoVR.SealCombat.Rpg
             Vector3 delta = Vector3.ProjectOnPlane(autoDestination - PlayerFloorPosition, Vector3.up);
             if (delta.magnitude <= .012f) { StopExploration(); Status = "已到达所选落点"; return; }
             if (dt <= 0) { EndWalkStride(); Status = "等待下一帧继续自动行走"; return; }
-            if (!WalkStep(Vector3.ClampMagnitude(delta, dt * Mathf.Max(.05f, exploreSpeed)), "正在走向所选落点") || walkContact)
+            var step = Vector3.ClampMagnitude(delta, dt * Mathf.Max(.05f, exploreSpeed));
+            if (!WalkStep(step, "正在走向所选落点") ||
+                Vector3.ProjectOnPlane(autoDestination - PlayerFloorPosition, Vector3.up).sqrMagnitude >= delta.sqrMagnitude)
             {
                 StopExploration();
                 Status = "自动行走已中止，请重新选点";

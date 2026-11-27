@@ -19,6 +19,15 @@ namespace NarutoVR.SealCombat.Rpg
         [Tooltip("每个样本是一幅完整图案，第一份有效样本同时用于教学图样。")]
         public Example[] examples = Array.Empty<Example>();
 
+        [Serializable] public struct StrokeHint
+        {
+            [InspectorName("笔画")] public string name;
+            [InspectorName("运笔方向")] public string direction;
+        }
+
+        [Tooltip("按范本首例的笔画顺序填写。填全后在剧情板上显示逐笔提示。")]
+        public StrokeHint[] storyStrokeHints = Array.Empty<StrokeHint>();
+
         [Header("画符完成反馈")]
         [InspectorName("完成特效"), Tooltip("在画板中心播放的一次性粒子预制体。")] public ParticleSystem completionVfx;
         [InspectorName("完成音效")] public AudioClip completionSfx;

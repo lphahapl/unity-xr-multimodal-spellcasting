@@ -11,6 +11,7 @@ namespace NarutoVR.SealCombat
     {
         readonly SkillController owner;
         readonly ThunderSwordEffectDefinition settings;
+        readonly SkillAimProfile aimProfile;
         readonly string castId = "thunder-sword:" + Guid.NewGuid().ToString("N");
         readonly List<SkillProjectile> waves = new();
         readonly SkillVisualBursts visuals;
@@ -28,8 +29,9 @@ namespace NarutoVR.SealCombat
         Quaternion previousRigRotation;
         bool needsRearm, released, cancelled, previousPalm, verticalWave;
 
-        ThunderSwordCast(SkillController owner, ThunderSwordEffectDefinition settings, float duration)
+        ThunderSwordCast(SkillController owner, ThunderSwordEffectDefinition settings, float duration, SkillAimProfile aimProfile)
         {
+            this.aimProfile = aimProfile;
             this.owner = owner;
             this.settings = Object.Instantiate(settings);
             this.settings.hideFlags = HideFlags.HideAndDontSave;
@@ -40,9 +42,9 @@ namespace NarutoVR.SealCombat
         double Now => owner.Now;
         public bool IsAlive => !cancelled && (!released || waves.Count > 0 || visuals.IsAlive);
 
-        public static PreparedSkillCast Prepare(SkillController owner, ThunderSwordEffectDefinition settings, float duration)
+        public static PreparedSkillCast Prepare(SkillController owner, ThunderSwordEffectDefinition settings, float duration, SkillAimProfile aimProfile)
         {
-            var cast = new ThunderSwordCast(owner, settings, duration);
+            var cast = new ThunderSwordCast(owner, settings, duration, aimProfile);
             try
             {
                 cast.sword = Object.Instantiate(settings.swordPrefab, owner.StagingRoot);
@@ -79,7 +81,7 @@ namespace NarutoVR.SealCombat
         {
             try
             {
-                if (settings.showWavePreview) preview = new ThunderSwordAimPreview(owner.gameObject.scene);
+                if (aimProfile || settings.showWavePreview) preview = new ThunderSwordAimPreview(owner.gameObject.scene);
             }
             catch (Exception e) { Debug.LogWarning("雷光剑瞄准提示创建失败：" + e.Message, owner); }
             try { bladeTrail = new ThunderSwordBladeTrail(owner.gameObject.scene, settings.bladeTrailMaterial, settings.bladeTrailLifetime); }
@@ -122,6 +124,14 @@ namespace NarutoVR.SealCombat
             Sample(grip, stamp, now, hasPalm);
         }
 
+        void UpdatePreview(Vector3 waveOrigin, double now)
+        {
+            if (preview?.IsAvailable == true && (!aimProfile || aimProfile.showReticle) &&
+                owner.TryGetWeaponWavePreview(waveOrigin, settings.waveRadius, settings.waveSpeed * settings.waveLifetime, aimProfile, out var aim))
+                preview.Show(aim, WaveRotation(aim.direction), now >= Math.Max(armedAt, nextSwing), aimProfile);
+            else preview?.Hide();
+        }
+
         void ResetSamples()
         {
             previousTime = double.NaN;
@@ -138,8 +148,10 @@ namespace NarutoVR.SealCombat
             sword.transform.SetPositionAndRotation(grip, rotation);
             if (hasPalm != previousPalm) ResetSamples();
             previousPalm = hasPalm;
+            Vector3 waveOrigin = grip + rotation * Vector3.forward * settings.waveOriginOffset;
             if (stamp == previousTime)
             {
+                UpdatePreview(waveOrigin, now);
                 bladeTrail?.Tick(now);
                 return;
             }
@@ -183,10 +195,7 @@ namespace NarutoVR.SealCombat
             previousTime = stamp;
             bladeTrail?.Sample(melee && melee.bladeBase ? melee.bladeBase.position : grip + rotation * Vector3.forward * settings.trailBaseOffset,
                 melee && melee.bladeTip ? melee.bladeTip.position : worldTip, now);
-            Vector3 waveOrigin = grip + rotation * Vector3.forward * settings.waveOriginOffset;
-            if (preview?.IsAvailable == true && owner.TryGetWeaponWavePreview(waveOrigin, settings.waveRadius, out var aim))
-                preview?.Show(aim, WaveRotation(aim.direction), now >= Math.Max(armedAt, nextSwing));
-            else preview?.Hide();
+            UpdatePreview(waveOrigin, now);
             if (now > closeUntil) strike = null;
             if (melee) melee.Sample(strike, owner.WeaponOwnerRoot, owner.WeaponHitMask, owner.playerLayers);
             if (fired && !released && !cancelled)
@@ -278,8 +287,9 @@ namespace NarutoVR.SealCombat
 
         void LaunchWave(Vector3 origin)
         {
-            if (!owner.TryGetWeaponWaveDirection(origin, out var direction) ||
-                !owner.WeaponOriginClear(origin, settings.waveRadius)) return;
+            if (!owner.TryGetWeaponWavePreview(origin, settings.waveRadius, settings.waveSpeed * settings.waveLifetime,
+                aimProfile, out var aim)) return;
+            var direction = aim.direction;
             var go = Spawn(settings.wavePrefab, origin, WaveRotation(direction));
             if (released || cancelled) { Remove(ref go); return; }
             if (!go.TryGetComponent<SkillProjectile>(out var wave)) wave = go.AddComponent<SkillProjectile>();

@@ -50,6 +50,8 @@ namespace NarutoVR.SealCombat
             {
                 int j = 0;
                 while (j < needle.Length && sequence[i + j] == needle[j]) j++;
+                if (j == needle.Length && other.reserveFinalSeal && other.triggerMode == SkillTriggerMode.VoiceAndGesture &&
+                    needle.Length == 1 && i > 0 && i == sequence.Length - 1) continue;
                 if (j == needle.Length)
                     return !(i == 0 && needle.Length < sequence.Length && other.triggerMode == SkillTriggerMode.GestureOnly);
             }

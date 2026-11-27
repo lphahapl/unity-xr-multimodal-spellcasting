@@ -112,29 +112,92 @@ namespace NarutoVR.SealCombat.Editor
                 movement.encounterModesEnabled = true;
                 menu.Tick(WristMenuChecks.Sample(10.32), rpg, false, 10.32);
                 var target = view.Targets.Single(entry => entry.id == "exploration").rect;
+                var combatTarget = view.Targets.Single(entry => entry.id == "combat-movement").rect;
+                var aimTarget = view.Targets.Single(entry => entry.id == "aim-assist").rect;
+                var launcher = (RectTransform)target.parent;
+                Check(combatTarget.parent == launcher && combatTarget.gameObject.activeInHierarchy &&
+                    Mathf.Abs(target.anchoredPosition.y - combatTarget.anchoredPosition.y) > (target.rect.height + combatTarget.rect.height) * .5f,
+                    "两个移动按钮有独立可点区域");
+                const string combatPreference = RpgLocomotionController.CombatPreference;
+                bool hadCombatPreference = PlayerPrefs.HasKey(combatPreference);
+                int previousCombatPreference = PlayerPrefs.GetInt(combatPreference);
+                const string aimPreference = "NarutoVR.SkillAim.AssistEnabled";
+                bool hadAimPreference = PlayerPrefs.HasKey(aimPreference);
+                bool assistBefore = SkillAimProfile.AssistEnabled;
                 const string preference = RpgLocomotionController.ExplorationPreference;
                 bool hadPreference = PlayerPrefs.HasKey(preference);
                 int previousPreference = PlayerPrefs.GetInt(preference);
                 double pressTime = 10.36;
                 try
                 {
-                    foreach (var expected in new[] { ExplorationMovement.AutoWalk, ExplorationMovement.Teleport, ExplorationMovement.PointWalk })
+                    PlayerPrefs.DeleteKey(combatPreference);
+                    PlayerPrefs.DeleteKey(preference);
+                    movement.LoadExplorationPreference();
+                    Check(movement.CombatMode == CombatMovement.PointWalk && movement.ExplorationMode == ExplorationMovement.PointWalk,
+                        "新安装的战斗与探索均默认食指行走／握拳快跑");
+                    void Press(RectTransform button)
                     {
                         var away = WristMenuChecks.Sample(pressTime);
                         menu.Tick(away, rpg, false, pressTime);
                         var hover = WristMenuChecks.Sample(pressTime + .04);
-                        hover.rightTip = target.position - target.forward * .04f;
+                        hover.rightTip = button.position - button.forward * .04f;
                         menu.Tick(hover, rpg, false, pressTime + .04);
                         var touch = WristMenuChecks.Sample(pressTime + .08);
-                        touch.rightTip = target.position - target.forward * .001f;
+                        touch.rightTip = button.position - button.forward * .001f;
                         menu.Tick(touch, rpg, false, pressTime + .08);
-                        Check(movement.ExplorationMode == expected && PlayerPrefs.GetInt(preference, -1) == (int)expected,
-                            "腕匣实际按钮切换并保存探索方式：" + expected + "；" + menu.DebugDetails);
                         pressTime += .14;
                     }
+                    foreach (var expected in new[] { ExplorationMovement.AutoWalk, ExplorationMovement.Teleport, ExplorationMovement.PointWalk })
+                    {
+                        Press(target);
+                        Check(movement.ExplorationMode == expected && PlayerPrefs.GetInt(preference, -1) == (int)expected
+                            && movement.CombatMode == CombatMovement.PointWalk && !PlayerPrefs.HasKey(combatPreference),
+                            "腕匣实际按钮独立切换并保存探索方式：" + expected);
+                    }
+                    Press(combatTarget);
+                    Check(movement.CombatMode == CombatMovement.NodeTeleport && PlayerPrefs.GetInt(combatPreference, -1) == (int)CombatMovement.NodeTeleport
+                        && movement.ExplorationMode == ExplorationMovement.PointWalk, "腕匣实际按钮单独切换并保存战斗方式");
+                    movement.SetCombatMode(CombatMovement.PointWalk);
+                    movement.LoadExplorationPreference();
+                    Check(movement.CombatMode == CombatMovement.NodeTeleport, "重载后恢复两项独立偏好");
+                    Press(combatTarget);
+                    Check(movement.CombatMode == CombatMovement.PointWalk, "战斗选点切回默认走跑");
+                    void RayPress(RectTransform button, string id)
+                    {
+                        int previous = menu.ClickCount;
+                        void Feed(float pinch, double offset)
+                        {
+                            var sample = WristMenuChecks.Sample(pressTime + offset);
+                            sample.rayValid = sample.rayAnchorValid = sample.rightPointing = true;
+                            sample.rayOrigin = button.position - button.forward * .50f;
+                            sample.rayDirection = button.forward;
+                            sample.rightTip = sample.rayOrigin;
+                            sample.pinchDistance = pinch;
+                            menu.Tick(sample, rpg, false, pressTime + offset);
+                        }
+                        Feed(.06f, 0); Feed(.06f, .06); Feed(.02f, .10); Feed(.02f, .14);
+                        Check(menu.ClickCount == previous + 1 && menu.LastAction.Contains(id),
+                            "持续捏合仅触发一次对应射线按钮 " + id + " " + menu.DebugDetails);
+                        pressTime += .20;
+                    }
+                    RayPress(target, "exploration");
+                    RayPress(combatTarget, "combat-movement");
+                    RayPress(aimTarget, "aim-assist");
+                    Check(SkillAimProfile.AssistEnabled != assistBefore &&
+                        PlayerPrefs.GetInt(aimPreference, -1) == (SkillAimProfile.AssistEnabled ? 1 : 0) &&
+                        movement.ExplorationMode == ExplorationMovement.AutoWalk && movement.CombatMode == CombatMovement.NodeTeleport,
+                        "远距三个设置各自生效");
+                    PlayerPrefs.SetInt(preference, (int)ExplorationMovement.Teleport);
+                    PlayerPrefs.DeleteKey(combatPreference);
+                    movement.LoadExplorationPreference();
+                    Check(movement.ExplorationMode == ExplorationMovement.Teleport && movement.CombatMode == CombatMovement.PointWalk,
+                        "旧版仅存探索传送的玩家保留选择，战斗默认走跑");
                 }
                 finally
                 {
+                    SkillAimProfile.AssistEnabled = assistBefore;
+                    if (!hadAimPreference) PlayerPrefs.DeleteKey(aimPreference);
+                    if (hadCombatPreference) PlayerPrefs.SetInt(combatPreference, previousCombatPreference); else PlayerPrefs.DeleteKey(combatPreference);
                     if (hadPreference) PlayerPrefs.SetInt(preference, previousPreference); else PlayerPrefs.DeleteKey(preference);
                     PlayerPrefs.Save();
                 }

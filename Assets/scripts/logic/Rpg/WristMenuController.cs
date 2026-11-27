@@ -368,7 +368,7 @@ namespace NarutoVR.SealCombat.Rpg
             if (view) view.HideRightHandStatus();
         }
 
-        static bool IsLauncherTarget(string id) => id is "seal" or "glyph" or "voice" or "status" or "exploration";
+        static bool IsLauncherTarget(string id) => id is "seal" or "glyph" or "voice" or "status" or "exploration" or "combat-movement" or "aim-assist";
 
         bool RayTargetAvailable(string id,PlayerHandObservation f,bool launcherClickable,bool lowered,Vector3 point)
         {
@@ -458,6 +458,14 @@ namespace NarutoVR.SealCombat.Rpg
                     break;
                 case "exploration":
                     if (owner && owner.locomotion) owner.locomotion.CycleExplorationMode();
+                    RefreshLauncherReadout();
+                    break;
+                case "aim-assist":
+                    SkillAimProfile.AssistEnabled = !SkillAimProfile.AssistEnabled;
+                    RefreshLauncherReadout();
+                    break;
+                case "combat-movement":
+                    if (owner && owner.locomotion) owner.locomotion.CycleCombatMode();
                     RefreshLauncherReadout();
                     break;
                 case "glyph": OpenPanel(WristPanelKind.Glyph); break;
@@ -563,7 +571,8 @@ namespace NarutoVR.SealCombat.Rpg
         };
         void RefreshLauncherReadout()
         {
-            view.SetExplorationChoice(owner ? owner.locomotion : null);
+            view.SetMovementChoices(owner ? owner.locomotion : null);
+            view.SetAimAssist(SkillAimProfile.AssistEnabled);
             if (owner && wornDevice && owner.PlayerView!=null) view.SetLauncherVitals(owner.PlayerView.Health,owner.PlayerView.Mana);
             if (!owner || owner.PlayerView==null) { view.SetLauncherProgress(null); return; }
             if (launcherOwner!=owner || launcherRevision!=owner.ProgressRevision)
@@ -640,7 +649,7 @@ namespace NarutoVR.SealCombat.Rpg
                 return content.ToString();
             }
             if (Page == 0)
-                return PanelKind == WristPanelKind.Seal ? "结印与施法\n按右侧箭头查看当前技能配方。\n双手做印；参考卡保留时可正常施法。\n双手低位保持可取消未发射火球。\n移动：左食指指向落点，短暂停留确认。\n投掷：握住火球，甩手后松开。" :
+                return PanelKind == WristPanelKind.Seal ? "结印与施法\n按右侧箭头查看当前技能配方。\n按各课手图结印，衡印仅用左手。参考卡保留时可正常施法。\n双手低位保持可取消未发射火球。\n移动：左食指指向落点，短暂停留确认。\n投掷：握住火球，甩手后松开。" :
                     "中文咒语\n按下一页查看当前目录中的完整口令。\n组合技允许先结印或先念咒。\n取消口令：" + (owner && owner.skills ? owner.skills.CancelPhrase : "取消施法") +
                     "\n当前没有示范语音播放；不会自动念出技能。\n本页是实战速查，不是无伤害练习模式。";
             return "当前目录没有对应配方";
