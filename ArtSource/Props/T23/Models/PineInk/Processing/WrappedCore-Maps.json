@@ -1,0 +1,95 @@
+{
+  "BaseColor": {
+    "file": "WrappedCoreTextures/WrappedCore_BaseColor.png",
+    "sourceName": "texture_pbr_20250901",
+    "sourcePngSHA256": "3979f652861e3b2b51e9b364bd81b287bcc8bdc47dd1e56fbfb4e64b161f9cf3",
+    "derivedPngSHA256": "8a6840c1f97cb4ccf76f91e7bd7a2c271d5c251cb26ba701a135617095f04521",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "outputChannel5th50th95thPercentiles": [
+      [
+        38.0,
+        41.0,
+        35.0
+      ],
+      [
+        68.0,
+        67.0,
+        58.0
+      ],
+      [
+        130.0,
+        127.0,
+        110.0
+      ]
+    ]
+  },
+  "NormalGL": {
+    "file": "WrappedCoreTextures/WrappedCore_NormalGL.png",
+    "sourceName": "texture_pbr_20250901_normal",
+    "sourcePngSHA256": "e58ec325545670ce0bb8df607cf8e9c8b81e472ebb85094b188e52c95bcbb49d",
+    "derivedPngSHA256": "90d23ff43bd7227c944388db43aa9dc4af4b1547455c9238979f467f952d9ffa",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "outputChannel5th50th95thPercentiles": [
+      [
+        114.0,
+        121.0,
+        253.0
+      ],
+      [
+        127.0,
+        127.0,
+        255.0
+      ],
+      [
+        141.0,
+        134.0,
+        255.0
+      ]
+    ]
+  },
+  "ORM": {
+    "file": "WrappedCoreTextures/WrappedCore_ORM.png",
+    "sourceName": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+    "sourcePngSHA256": "efb07d7a33519761487c2f6c1c39ea90df1bbc123207115784903a18f4762f82",
+    "derivedPngSHA256": "ae1944f2be6888485813e1f29f0287197c69fdf0ead40a58c56267aa0f5562ba",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "outputChannel5th50th95thPercentiles": [
+      [
+        255.0,
+        149.0,
+        8.0
+      ],
+      [
+        255.0,
+        166.0,
+        13.0
+      ],
+      [
+        255.0,
+        201.0,
+        20.0
+      ]
+    ]
+  }
+}
