@@ -1,0 +1,187 @@
+{
+  "part": "PenSleeve",
+  "sourceProvider": "Tencent Hunyuan3D V1, resized offline",
+  "sourceHunyuanGLBSha256": "4c63c34f90d545735c68d17df573fe90fc47b13abb0c71d6da8a13023cf67fac",
+  "sourceBlendSha256": "27acbca5fac9e21a233c568f641db8e1851c6f8e130ef9526cff3d5f7a8326de",
+  "sourceV1FBXSha256": "5712ed5cc541d1c74ef0325d4b2d1f23daee55d79f687e179568ea4561d1676e",
+  "exportedV2FBXSha256": "061526f2e714c1cda12bd32d66e8317b4725828f49e9c1e62660bf52c64f23b5",
+  "textureFiles": [
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\PenSleeve\\PenSleeve_BaseColor.png",
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\PenSleeve\\PenSleeve_NormalGL.png",
+    "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\PenSleeve\\PenSleeve_Mask.png"
+  ],
+  "testAssetSHA256": "fa8028cb47d0f8b284a5a55a644f7d113dd027a4ea9b72ae12c716c5558ffa53",
+  "v1DimensionsUnityM": [
+    0.036,
+    0.116,
+    0.026
+  ],
+  "entryAnchorUnityM": [
+    -0.0,
+    0.07999999821186066,
+    -0.0
+  ],
+  "entryInsertDirectionUnity": [
+    0,
+    -1,
+    0
+  ],
+  "lods": {
+    "PenSleeve_LOD0": {
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "PenSleeve_LOD0": {
+            "verts": 861,
+            "faces": 1718,
+            "tris": 1718,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.05,
+            "uv_coverage_pct": 48.3
+          }
+        }
+      },
+      "triangles": 1718,
+      "dimensionsUnityM": [
+        0.03402739763259888,
+        0.07998556852226102,
+        0.025592263787984848
+      ],
+      "FBX": {
+        "dimensionsUnityM": [
+          0.03402739763259888,
+          0.07998556853135597,
+          0.025592262856662273
+        ],
+        "unityBackM": -0.01260454673320055,
+        "uvLayers": 1,
+        "atlas": "PenSleeve_Atlas"
+      },
+      "fit": {
+        "clearDepthMM": 55.5,
+        "clearDepthBySeparateApproachVariationMM": {
+          "center": 55.5,
+          "lateralPlus0.5mm": 59.5,
+          "lateralMinus0.5mm": 51.5,
+          "frontPlus0.5mm": 61.0,
+          "frontMinus0.5mm": 49.0,
+          "pitchPlus2deg": 46.5,
+          "pitchMinus2deg": 48.5,
+          "yawPlus2deg": 42.5,
+          "yawMinus2deg": 47.0
+        },
+        "recommendedStopDepthMM": 52,
+        "seatedGripAboveEntryMM": 56.0,
+        "clearTravelCheckedFromDepthMM": -8,
+        "sampleIntervalMM": 0.5,
+        "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+        "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve sampled continuously in 0.5mm steps, including withdrawal along that trajectory. Offers no anatomical test."
+      }
+    },
+    "PenSleeve_LOD1": {
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "PenSleeve_LOD1": {
+            "verts": 386,
+            "faces": 768,
+            "tris": 768,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 1,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 1,
+            "uv_maps": 1,
+            "uv_oob_pct": 0.0,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 0.12,
+            "uv_coverage_pct": 46.7
+          }
+        }
+      },
+      "triangles": 768,
+      "dimensionsUnityM": [
+        0.03367784060537815,
+        0.07995802767709392,
+        0.025602743960916996
+      ],
+      "FBX": {
+        "dimensionsUnityM": [
+          0.03367784060537815,
+          0.07995802768436988,
+          0.025602742098271847
+        ],
+        "unityBackM": -0.012538503855466843,
+        "uvLayers": 1,
+        "atlas": "PenSleeve_Atlas"
+      },
+      "fit": {
+        "clearDepthMM": 57.5,
+        "clearDepthBySeparateApproachVariationMM": {
+          "center": 57.5,
+          "lateralPlus0.5mm": 62.0,
+          "lateralMinus0.5mm": 51.5,
+          "frontPlus0.5mm": 61.5,
+          "frontMinus0.5mm": 50.5,
+          "pitchPlus2deg": 47.0,
+          "pitchMinus2deg": 48.0,
+          "yawPlus2deg": 43.5,
+          "yawMinus2deg": 47.0
+        },
+        "recommendedStopDepthMM": 52,
+        "seatedGripAboveEntryMM": 56.0,
+        "clearTravelCheckedFromDepthMM": -8,
+        "sampleIntervalMM": 0.5,
+        "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+        "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve sampled continuously in 0.5mm steps, including withdrawal along that trajectory. Offers no anatomical test."
+      }
+    }
+  }
+}

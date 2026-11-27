@@ -1,0 +1,61 @@
+{
+  "R01": {
+    "Hips": {
+      "mean": 0.9942,
+      "min": 0.9832,
+      "max": 1.0052
+    },
+    "Shoulders": {
+      "mean": 1.4163,
+      "min": 1.4041,
+      "max": 1.4285
+    },
+    "Head": {
+      "mean": 1.4986,
+      "min": 1.4861,
+      "max": 1.511
+    },
+    "knee_flex_deg": {
+      "mean": 44.6997,
+      "min": 20.8207,
+      "max": 64.4035
+    },
+    "torso_hip_to_neck_lean_deg": {
+      "mean": 21.2761,
+      "min": 20.8679,
+      "max": 21.6839
+    }
+  },
+  "R02": {
+    "Hips": {
+      "mean": 0.8332,
+      "min": 0.8222,
+      "max": 0.8442
+    },
+    "Shoulders": {
+      "mean": 1.2212,
+      "min": 1.2085,
+      "max": 1.2337
+    },
+    "Head": {
+      "mean": 1.2953,
+      "min": 1.2823,
+      "max": 1.3082
+    },
+    "knee_flex_deg": {
+      "mean": 81.5182,
+      "min": 71.8571,
+      "max": 94.3442
+    },
+    "torso_hip_to_neck_lean_deg": {
+      "mean": 31.2761,
+      "min": 30.8679,
+      "max": 31.6839
+    }
+  },
+  "mean_y_delta_m": {
+    "Hips": -0.161,
+    "Shoulders": -0.1951,
+    "Head": -0.2033
+  }
+}

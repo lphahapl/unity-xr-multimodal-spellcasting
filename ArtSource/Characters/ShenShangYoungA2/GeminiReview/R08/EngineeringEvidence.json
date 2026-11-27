@@ -1,0 +1,43 @@
+{
+  "version": "R08",
+  "modelSHA256": "491a7053a2e6fe2f07db4884b6f0fa74c6d0b62d9b85098541a03538abb3e40d",
+  "priorGLBSHA256": "f965c0e078f3f603a9496650e478bb51f040ec28f81e9c9db6f4b4fa44e326d0",
+  "sourceReference": {
+    "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_脸部三向.png",
+    "sha256": "ed10ec1c8bb0a58e5b7faa5437553d916c5e3659f4c07ddff8a264e67c10ded3"
+  },
+  "userNotes": [
+    {
+      "version": "shen-young-a2-blender-r04",
+      "id": "a1204cfd-7fa5-42d6-8c68-2d941ea3a34d",
+      "text": "脸型需要修改 还有发际线",
+      "created": 1795606614299
+    },
+    {
+      "version": "shen-young-a2-blender-r05",
+      "id": "b784da1d-d926-4282-93a2-47718119e4e7",
+      "text": "发际线有问题，脸型再改一下 脸需要精细一点",
+      "created": 1795607973418
+    }
+  ],
+  "producerReports": [
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R08/Review/FaceAcceptance.json",
+      "sha256": "ec0021bb83eab2a322ceed461c5d014c3044cc16d6625bb99072ef04092c33a7"
+    },
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R08/Review/SculptChanges.json",
+      "sha256": "660199e301b9092b91759d141d6c344e287ebaf8a042854efa593091c14398f9"
+    },
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R08/Review/GroomClearance.json",
+      "sha256": "630d8c31e3a2826386d91e5d48c234a50bcfdcffcdaae1bfc06f744c8b0e4361"
+    },
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R08/Review/RearRegression.json",
+      "sha256": "ca3e049b2bc36abf3322b8c7fd661cbd0580dcde30f1031673c2bddcaf5829e7"
+    }
+  ],
+  "clayAndMaterialCameraViews": "MatchedFace/R07/Cameras.json and MatchedFace/R08/Cameras.json",
+  "scope": "静态头脸与发际视觉对照，最终相似度与造型由用户裁定。"
+}

@@ -1,0 +1,17 @@
+{
+  "command": "python -X utf8 ArtSource/Audio/SealConfirmationV1/render_seal_chimes.py --stage all",
+  "exit_code": 0,
+  "stdout": "Lv    0.71s peak=-3.83 rms=-21.93 raw400diff=+0.00 K400diff=+0.00 peaksHz=[509.77, 281.25, 823.24]\nGui   0.72s peak=-3.41 rms=-21.92 raw400diff=+0.08 K400diff=-0.15 peaksHz=[351.56, 594.73, 981.45]\nJu    0.57s peak=-2.57 rms=-21.22 raw400diff=-0.23 K400diff=+0.05 peaksHz=[477.54, 791.02, 1368.16]\nHeng  0.73s peak=-3.40 rms=-21.92 raw400diff=+0.14 K400diff=-0.20 peaksHz=[386.72, 216.8, 691.41]\nZhun  0.70s peak=-5.05 rms=-21.90 raw400diff=-0.02 K400diff=+0.10 peaksHz=[703.12, 1192.38, 1942.38]\nSheng 0.71s peak=-2.78 rms=-23.18 raw400diff=-1.24 K400diff=+0.20 peaksHz=[925.78, 1582.03, 2472.66]\nPASS: source hash preserved, format/duration/energy/clipping/tail checks\nListening and Unity playback remain for parent/human acceptance.\n",
+  "stderr": "",
+  "repeat_render_sha256_identical": true,
+  "hashes": {
+    "LvChime.wav": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+    "GuiChime.wav": "4e18de4a3b51b36d20b0873a8809ca2593d213b5bd3a086498aa0d6abc57aa8d",
+    "JuChime.wav": "e23e32d715d60b27fb7ae3204d40f634dbde99f415ec095b084a861a294a9b3d",
+    "HengChime.wav": "3c534ec1525f66531d0c2e86ada37100242f9b735235aea9fd3d7dbc625fd613",
+    "ZhunChime.wav": "212906fc26562604f51ac873484a956d9acc79e0f3955073767ae6b5a70684bc",
+    "ShengChime.wav": "4cd5becaba44c00c4455d17d568940e5c0fe2cfd3d918bf96411b477f026b074"
+  },
+  "reference_unchanged": true,
+  "scope_note": "Audio worker did not start Unity, edit .meta files, or modify scenes/calibration. Subjective listening not performed."
+}

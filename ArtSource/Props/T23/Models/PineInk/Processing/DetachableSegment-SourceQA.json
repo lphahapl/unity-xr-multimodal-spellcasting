@@ -1,0 +1,153 @@
+{
+  "blender": "5.2.2 LTS",
+  "asset": "DetachableSegment.glb",
+  "sourceSHA256": "52f7c6d44c5193ea07f82a0d715b104302995470f8b5ee4aadaf62f114081656",
+  "sourceMetresAreNotAuthoringScale": true,
+  "counts": {
+    "triangles": 50000,
+    "verticesAfterWeldingGltfSplits": 25002
+  },
+  "bboxBlenderOriginal": {
+    "min": [
+      -0.5374979972839355,
+      -0.4781031012535095,
+      -3.703091167039929e-08
+    ],
+    "max": [
+      0.5119320154190063,
+      0.48338696360588074,
+      0.9250851273536682
+    ],
+    "extent": [
+      1.049430012702942,
+      0.9614900648593903,
+      0.9250851643845799
+    ]
+  },
+  "pcaBasis": [
+    0.1008555462379551,
+    0.07131285351379223,
+    0.01405466697967572
+  ],
+  "matrixBlenderImported": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -1.3435885648505064e-07,
+      -1.0000001192092896,
+      0.0
+    ],
+    [
+      0.0,
+      1.0000001192092896,
+      -1.3435885648505064e-07,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "gltfOriginalMaterials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        }
+      },
+      "name": "Material.001",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    }
+  ],
+  "embeddedPng": [
+    {
+      "name": "texture_pbr_20250901",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "sRGB",
+      "packed": true
+    },
+    {
+      "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "Non-Color",
+      "packed": true
+    },
+    {
+      "name": "texture_pbr_20250901_normal",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "Non-Color",
+      "packed": true
+    }
+  ],
+  "qa": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "DetachableSegment_Source": {
+        "verts": 25002,
+        "faces": 50000,
+        "tris": 50000,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 63.2
+      }
+    }
+  }
+}

@@ -1,0 +1,968 @@
+{
+  "status": "FROZEN_R02_CORE_PENDING_USER_AESTHETIC_AND_UNITY_HEADSET_ACCEPTANCE",
+  "asset": "QingGuiR02",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axes": {
+    "up_blender": "+Z",
+    "up_unity": "+Y",
+    "front": "-Y",
+    "right": "+X"
+  },
+  "origin": "bottom insertion center",
+  "budget_temporary": true,
+  "meshes": [
+    {
+      "name": "QingGuiR02_Body_HIGH",
+      "triangles": 1214070,
+      "vertices": 607035,
+      "dimensions_m": [
+        0.10958127677440643,
+        0.1061054915189743,
+        0.35000020265579224
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_HIGH",
+      "triangles": 61416,
+      "vertices": 30740,
+      "dimensions_m": [
+        0.09090329706668854,
+        0.10494909435510635,
+        0.23338621854782104
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD0",
+      "triangles": 5670,
+      "vertices": 2835,
+      "dimensions_m": [
+        0.10953433811664581,
+        0.10609704256057739,
+        0.35000020265579224
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD1",
+      "triangles": 1998,
+      "vertices": 999,
+      "dimensions_m": [
+        0.10952593386173248,
+        0.10610136389732361,
+        0.35000914335250854
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_Body_LOD2",
+      "triangles": 700,
+      "vertices": 350,
+      "dimensions_m": [
+        0.109540194272995,
+        0.10600461810827255,
+        0.350014328956604
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD0",
+      "triangles": 6804,
+      "vertices": 3434,
+      "dimensions_m": [
+        0.09092094004154205,
+        0.10445675253868103,
+        0.23337998986244202
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD1",
+      "triangles": 4400,
+      "vertices": 2232,
+      "dimensions_m": [
+        0.09094429761171341,
+        0.10437769442796707,
+        0.2333558052778244
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "QingGuiR02_GoldWire_LOD2",
+      "triangles": 2656,
+      "vertices": 1360,
+      "dimensions_m": [
+        0.09101597964763641,
+        0.10434400290250778,
+        0.23333290219306946
+      ],
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "section_profile": [
+    {
+      "z_m": 0.0,
+      "left_x_m": -0.0505,
+      "right_x_m": 0.0505,
+      "width_x_m": 0.101,
+      "depth_y_m": 0.101,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.003,
+      "left_x_m": -0.052,
+      "right_x_m": 0.052,
+      "width_x_m": 0.104,
+      "depth_y_m": 0.104,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.006,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.05,
+      "left_x_m": -0.053000000000000005,
+      "right_x_m": 0.053000000000000005,
+      "width_x_m": 0.10600000000000001,
+      "depth_y_m": 0.10600000000000001,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.101,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.105,
+      "left_x_m": -0.053,
+      "right_x_m": 0.053,
+      "width_x_m": 0.106,
+      "depth_y_m": 0.106,
+      "center_x_m": 0.0,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.115,
+      "left_x_m": -0.05256484375,
+      "right_x_m": 0.0531859375,
+      "width_x_m": 0.10575078125000001,
+      "depth_y_m": 0.10041015624999998,
+      "center_x_m": 0.00031054687500000136,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.13,
+      "left_x_m": -0.04677633926402442,
+      "right_x_m": 0.05112509414683693,
+      "width_x_m": 0.09790143341086135,
+      "depth_y_m": 0.06686120605468748,
+      "center_x_m": 0.0021743774414062535,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.145,
+      "left_x_m": -0.043,
+      "right_x_m": 0.049,
+      "width_x_m": 0.092,
+      "depth_y_m": 0.052,
+      "center_x_m": 0.0030000000000000027,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.17,
+      "left_x_m": -0.039,
+      "right_x_m": 0.043,
+      "width_x_m": 0.08199999999999999,
+      "depth_y_m": 0.048,
+      "center_x_m": 0.0019999999999999983,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.2,
+      "left_x_m": -0.041,
+      "right_x_m": 0.04,
+      "width_x_m": 0.081,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.23,
+      "left_x_m": -0.044,
+      "right_x_m": 0.041,
+      "width_x_m": 0.08499999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": -0.0014999999999999979,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.26,
+      "left_x_m": -0.046,
+      "right_x_m": 0.045,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": -0.0005000000000000004,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.28,
+      "left_x_m": -0.041,
+      "right_x_m": 0.05,
+      "width_x_m": 0.091,
+      "depth_y_m": 0.047,
+      "center_x_m": 0.0045000000000000005,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.295,
+      "left_x_m": -0.031,
+      "right_x_m": 0.053,
+      "width_x_m": 0.08399999999999999,
+      "depth_y_m": 0.046,
+      "center_x_m": 0.011,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.308,
+      "left_x_m": -0.016,
+      "right_x_m": 0.055,
+      "width_x_m": 0.07100000000000001,
+      "depth_y_m": 0.044,
+      "center_x_m": 0.0195,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.32,
+      "left_x_m": 0.003,
+      "right_x_m": 0.056,
+      "width_x_m": 0.053,
+      "depth_y_m": 0.042,
+      "center_x_m": 0.029500000000000002,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.33,
+      "left_x_m": 0.02,
+      "right_x_m": 0.056,
+      "width_x_m": 0.036000000000000004,
+      "depth_y_m": 0.039,
+      "center_x_m": 0.038,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.339,
+      "left_x_m": 0.025,
+      "right_x_m": 0.055,
+      "width_x_m": 0.03,
+      "depth_y_m": 0.034,
+      "center_x_m": 0.04,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.345,
+      "left_x_m": 0.029,
+      "right_x_m": 0.055,
+      "width_x_m": 0.026,
+      "depth_y_m": 0.032,
+      "center_x_m": 0.042,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.349,
+      "left_x_m": 0.034,
+      "right_x_m": 0.052,
+      "width_x_m": 0.017999999999999995,
+      "depth_y_m": 0.026,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    },
+    {
+      "z_m": 0.35,
+      "left_x_m": 0.038,
+      "right_x_m": 0.048,
+      "width_x_m": 0.010000000000000002,
+      "depth_y_m": 0.02,
+      "center_x_m": 0.043,
+      "unity_axes": "height Y; width X; depth Z; centerX same"
+    }
+  ],
+  "grip_suggestion": {
+    "blender_xyz_m": [
+      -0.0015,
+      0,
+      0.23
+    ],
+    "unity_xyz_m": [
+      -0.0015,
+      0.23,
+      0
+    ],
+    "width_m": 0.085,
+    "depth_m": 0.046,
+    "note": "comfort/finger clearance needs actual hand and new collision fit; do not infer latch compatibility"
+  },
+  "thickness": {
+    "method": "BVH inward ray from each actual final high vertex, epsilon15um; opposite surface distance + epsilon",
+    "normalization_metres": [
+      0,
+      0.12
+    ],
+    "decode": "thickness_metres = R * 0.12",
+    "raw_min_m": 2.8564740205183625e-05,
+    "raw_max_m": 0.3287593126296997,
+    "percentiles_m": {
+      "1": 0.012792030349373817,
+      "5": 0.04253578931093216,
+      "25": 0.04597998410463333,
+      "50": 0.10562354326248169,
+      "75": 0.10599999129772186,
+      "95": 0.13309815526008606,
+      "99": 0.15186597406864166
+    },
+    "rays": 607035,
+    "base_normal_retry_count": 1,
+    "unresolved_miss_count": 0,
+    "miss_fallback": "0.12m conservative opaque value, explicitly reported",
+    "clamped_above_120mm": 44254,
+    "seconds": 3.4078640937805176,
+    "independent_of_AO": true
+  },
+  "source_geometry": "Real rounded shoulder, swept rounded through-hole, feathered bronze relief; long gold/edge/ellipse wires are separate closed meshes with rounded caps and shallow contact. Original crown/collar fine patterns remain inward engraved metallic detail, not raised main wires.",
+  "maps": {
+    "BaseColor": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_BaseColor.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    "NormalGL": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_NormalGL.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "AO": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_AO.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Roughness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_Roughness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Metallic": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_Metallic.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "Thickness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_Thickness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "JadeMask": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_JadeMask.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "ORM": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_ORM.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    "MetallicSmoothness": {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Textures\\QingGui_MetallicSmoothness.png",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    }
+  },
+  "bake": {
+    "engine": "Cycles",
+    "high_to_low": true,
+    "cage_m": 0.003,
+    "max_ray_m": 0.012,
+    "margin_px": 16,
+    "seconds": 43.33402967453003
+  },
+  "uv": "body perimeter in metres U and vertical height V each at 2UV/m; caps/hole separate islands; final triangle normals fixed before bake",
+  "limitations": [
+    "No formal Assets changed.",
+    "New crown/shoulder latch fit not inherited; Unity owner verifies.",
+    "Source Cycles SSS is not Unity URP subsurface shading; opaque game material requires supplied Thickness/JadeMask shader integration.",
+    "User aesthetic and headset acceptance pending."
+  ],
+  "lod_totals": {
+    "0": 12474,
+    "1": 6398,
+    "2": 3356
+  },
+  "measured_mesh_section_profile": [
+    {
+      "height_m": 0,
+      "min_x_m": -0.05050000175833702,
+      "max_x_m": 0.05050000175833702,
+      "width_x_m": 0.10100000351667404,
+      "min_depth_blender_y_m": -0.05050000175833702,
+      "max_depth_blender_y_m": 0.05050000175833702,
+      "depth_m": 0.10100000351667404,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 85
+    },
+    {
+      "height_m": 0.003,
+      "min_x_m": -0.052000001072883606,
+      "max_x_m": 0.052000001072883606,
+      "width_x_m": 0.10400000214576721,
+      "min_depth_blender_y_m": -0.052000001072883606,
+      "max_depth_blender_y_m": 0.052000001072883606,
+      "depth_m": 0.10400000214576721,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.006,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.05,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 56
+    },
+    {
+      "height_m": 0.101,
+      "min_x_m": -0.05299999937415123,
+      "max_x_m": 0.05299999937415123,
+      "width_x_m": 0.10599999874830246,
+      "min_depth_blender_y_m": -0.05299999937415123,
+      "max_depth_blender_y_m": 0.05299999937415123,
+      "depth_m": 0.10599999874830246,
+      "center_x_m": 0.0,
+      "center_depth_m": 0.0,
+      "point_count": 84
+    },
+    {
+      "height_m": 0.105,
+      "min_x_m": -0.05299999956845504,
+      "max_x_m": 0.05299999959309565,
+      "width_x_m": 0.10599999916155069,
+      "min_depth_blender_y_m": -0.052999999427173525,
+      "max_depth_blender_y_m": 0.052999999427173525,
+      "depth_m": 0.10599999885434705,
+      "center_x_m": 1.2320304498825152e-11,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.11,
+      "min_x_m": -0.05321549372295693,
+      "max_x_m": 0.053360709148316046,
+      "width_x_m": 0.10657620287127298,
+      "min_depth_blender_y_m": -0.05273716181098611,
+      "max_depth_blender_y_m": 0.05273716181098611,
+      "depth_m": 0.10547432362197222,
+      "center_x_m": 7.260771267955657e-05,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.115,
+      "min_x_m": -0.052611720141642226,
+      "max_x_m": 0.0534859374165535,
+      "width_x_m": 0.10609765755819572,
+      "min_depth_blender_y_m": -0.05045931523521245,
+      "max_depth_blender_y_m": 0.05045931523521245,
+      "depth_m": 0.1009186304704249,
+      "center_x_m": 0.00043710863745563544,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.12,
+      "min_x_m": -0.05120771227886281,
+      "max_x_m": 0.053185185519996084,
+      "width_x_m": 0.1043928977988589,
+      "min_depth_blender_y_m": -0.04545137774031597,
+      "max_depth_blender_y_m": 0.04545137774031597,
+      "depth_m": 0.09090275548063194,
+      "center_x_m": 0.0009887366205666367,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.125,
+      "min_x_m": -0.04917345931532703,
+      "max_x_m": 0.05247625088472681,
+      "width_x_m": 0.10164971020005384,
+      "min_depth_blender_y_m": -0.03948744153781807,
+      "max_depth_blender_y_m": 0.03948744153781807,
+      "depth_m": 0.07897488307563615,
+      "center_x_m": 0.0016513957846998883,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.13,
+      "min_x_m": -0.046776339411735535,
+      "max_x_m": 0.05142509564757347,
+      "width_x_m": 0.098201435059309,
+      "min_depth_blender_y_m": -0.03343060240149498,
+      "max_depth_blender_y_m": 0.03343060240149498,
+      "depth_m": 0.06686120480298996,
+      "center_x_m": 0.002324378117918968,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.135,
+      "min_x_m": -0.04469070822189408,
+      "max_x_m": 0.05033766321977818,
+      "width_x_m": 0.09502837144167225,
+      "min_depth_blender_y_m": -0.02893871449154374,
+      "max_depth_blender_y_m": 0.02893871449154374,
+      "depth_m": 0.05787742898308748,
+      "center_x_m": 0.0028234774989420487,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.14,
+      "min_x_m": -0.04341784315254174,
+      "max_x_m": 0.04958504071969015,
+      "width_x_m": 0.09300288387223189,
+      "min_depth_blender_y_m": -0.0265976257238236,
+      "max_depth_blender_y_m": 0.0265976257238236,
+      "depth_m": 0.0531952514476472,
+      "center_x_m": 0.0030835987835742054,
+      "center_depth_m": 0.0,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.145,
+      "min_x_m": -0.0430000014603138,
+      "max_x_m": 0.049300000071525574,
+      "width_x_m": 0.09230000153183937,
+      "min_depth_blender_y_m": -0.026000000536441803,
+      "max_depth_blender_y_m": 0.026000000536441803,
+      "depth_m": 0.052000001072883606,
+      "center_x_m": 0.0031499993056058884,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.155,
+      "min_x_m": -0.04159199842619921,
+      "max_x_m": 0.04753110587817783,
+      "width_x_m": 0.08912310430437705,
+      "min_depth_blender_y_m": -0.025410369138659225,
+      "max_depth_blender_y_m": 0.025410369138659225,
+      "depth_m": 0.05082073827731845,
+      "center_x_m": 0.00296955372598931,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.17,
+      "min_x_m": -0.03900000111365286,
+      "max_x_m": 0.04330000331772597,
+      "width_x_m": 0.08230000443137883,
+      "min_depth_blender_y_m": -0.024000000376745316,
+      "max_depth_blender_y_m": 0.024000000376745316,
+      "depth_m": 0.04800000075349063,
+      "center_x_m": 0.002150001102036555,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.19,
+      "min_x_m": -0.04013333447244439,
+      "max_x_m": 0.040942600783781244,
+      "width_x_m": 0.08107593525622564,
+      "min_depth_blender_y_m": -0.023206873545548522,
+      "max_depth_blender_y_m": 0.02321419932513614,
+      "depth_m": 0.046421072870684664,
+      "center_x_m": 0.00040463315566842753,
+      "center_depth_m": 3.662889793809576e-06,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.21,
+      "min_x_m": -0.04200000033775982,
+      "max_x_m": 0.04050000129342049,
+      "width_x_m": 0.08250000163118032,
+      "min_depth_blender_y_m": -0.022775457619500304,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04577545766420379,
+      "center_x_m": -0.0007499995221696663,
+      "center_depth_m": 0.0001122712126015897,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.23,
+      "min_x_m": -0.04399999976158142,
+      "max_x_m": 0.04130000248551369,
+      "width_x_m": 0.08530000224709511,
+      "min_depth_blender_y_m": -0.022585919151417055,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04558591919612054,
+      "center_x_m": -0.0013499986380338669,
+      "center_depth_m": 0.00020704044664321408,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.25,
+      "min_x_m": -0.04553333297371864,
+      "max_x_m": 0.043656213829914726,
+      "width_x_m": 0.08918954680363336,
+      "min_depth_blender_y_m": -0.023137064029773075,
+      "max_depth_blender_y_m": 0.023333333432674408,
+      "depth_m": 0.04647039746244748,
+      "center_x_m": -0.0009385595719019584,
+      "center_depth_m": 9.813470145066637e-05,
+      "point_count": 112
+    },
+    {
+      "height_m": 0.27,
+      "min_x_m": -0.04442920704330491,
+      "max_x_m": 0.04769115522503853,
+      "width_x_m": 0.09212036226834344,
+      "min_depth_blender_y_m": -0.023499999195337296,
+      "max_depth_blender_y_m": 0.023499999195337296,
+      "depth_m": 0.04699999839067459,
+      "center_x_m": 0.001630974090866811,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.28,
+      "min_x_m": -0.041201003280664145,
+      "max_x_m": 0.050300002098083496,
+      "width_x_m": 0.09150100537874764,
+      "min_depth_blender_y_m": -0.023499999195337296,
+      "max_depth_blender_y_m": 0.023499999195337296,
+      "depth_m": 0.04699999839067459,
+      "center_x_m": 0.004549499408709676,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.295,
+      "min_x_m": -0.031300000846385956,
+      "max_x_m": 0.053300002949557265,
+      "width_x_m": 0.08460000379594322,
+      "min_depth_blender_y_m": -0.023000000044703484,
+      "max_depth_blender_y_m": 0.023000000044703484,
+      "depth_m": 0.04600000008940697,
+      "center_x_m": 0.011000001051585655,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.308,
+      "min_x_m": -0.016300000250339508,
+      "max_x_m": 0.05530000123900754,
+      "width_x_m": 0.07160000148934705,
+      "min_depth_blender_y_m": -0.02199999988079071,
+      "max_depth_blender_y_m": 0.02199999988079071,
+      "depth_m": 0.04399999976158142,
+      "center_x_m": 0.019500000494334015,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.32,
+      "min_x_m": 0.0027000000700354576,
+      "max_x_m": 0.056300003081560135,
+      "width_x_m": 0.05360000301152468,
+      "min_depth_blender_y_m": -0.021299999207258224,
+      "max_depth_blender_y_m": 0.021299999207258224,
+      "depth_m": 0.04259999841451645,
+      "center_x_m": 0.029500001575797796,
+      "center_depth_m": 0.0,
+      "point_count": 225
+    },
+    {
+      "height_m": 0.33,
+      "min_x_m": 0.01969998043023153,
+      "max_x_m": 0.056300003081560135,
+      "width_x_m": 0.036600022651328605,
+      "min_depth_blender_y_m": -0.019093172597546747,
+      "max_depth_blender_y_m": 0.019091918413385443,
+      "depth_m": 0.03818509101093219,
+      "center_x_m": 0.03799999175589583,
+      "center_depth_m": -6.270920806517033e-07,
+      "point_count": 201
+    },
+    {
+      "height_m": 0.339,
+      "min_x_m": 0.024700000882148743,
+      "max_x_m": 0.05530000105500221,
+      "width_x_m": 0.03060000017285347,
+      "min_depth_blender_y_m": -0.016491256987710166,
+      "max_depth_blender_y_m": 0.016491256987710166,
+      "depth_m": 0.03298251397542033,
+      "center_x_m": 0.04000000096857548,
+      "center_depth_m": 0.0,
+      "point_count": 199
+    },
+    {
+      "height_m": 0.345,
+      "min_x_m": 0.028699999675154686,
+      "max_x_m": 0.05530000105500221,
+      "width_x_m": 0.026600001379847527,
+      "min_depth_blender_y_m": -0.016300000250339508,
+      "max_depth_blender_y_m": 0.016300000250339508,
+      "depth_m": 0.032600000500679016,
+      "center_x_m": 0.04200000036507845,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.349,
+      "min_x_m": 0.03369998970853733,
+      "max_x_m": 0.05230001014105572,
+      "width_x_m": 0.018600020432518384,
+      "min_depth_blender_y_m": -0.013300007740301658,
+      "max_depth_blender_y_m": 0.013300007740301658,
+      "depth_m": 0.026600015480603315,
+      "center_x_m": 0.04299999992479653,
+      "center_depth_m": 0.0,
+      "point_count": 168
+    },
+    {
+      "height_m": 0.35,
+      "min_x_m": 0.037699997425079346,
+      "max_x_m": 0.04830000177025795,
+      "width_x_m": 0.010600004345178604,
+      "min_depth_blender_y_m": -0.010300000198185444,
+      "max_depth_blender_y_m": 0.010300000198185444,
+      "depth_m": 0.020600000396370888,
+      "center_x_m": 0.04299999959766865,
+      "center_depth_m": 0.0,
+      "point_count": 113
+    }
+  ],
+  "protected_insertion_surface": {
+    "reference": "frozen R03 functional insertion surface, also retained by QingGuiR01",
+    "reference_vertices": 141,
+    "current_vertices": 141,
+    "max_nearest_vertex_difference_m": 1.0132488181824328e-09,
+    "tolerance_m": 5e-07,
+    "pass": true
+  },
+  "game_mesh_volume_m3": 0.0021741056686001093,
+  "normal_bake_revision": "Hole interior uses independent CORNER radial normals; NormalGL and embedded GLB were re-exported after correction.",
+  "frozen_at": "2026-11-26T01:43:51.349450+08:00",
+  "accepted_warnings": [
+    "Source high QA: 59 zero-area UV faces and 1 near-duplicate vertex; source uses Object-space procedural/projected masks, not these UVs. No degenerate mesh faces, non-manifold edges, floating parts or z-fighting. Runtime UVs pass.",
+    "Source Non-Color FinePattern image is a scalar mask mixing colors; QA color-space warning is expected, not a BaseColor image incorrectly tagged.",
+    "LOD1 body/wire has 253 hidden back-to-back triangle pairs from intentional shallow contact of closed solid strands; kept closed. No floating or z-fighting errors.",
+    "GLB has 477 Body and 723 GoldWire duplicate-position vertices from UV/tangent seams; wire UV optimization reduced the latter from 10206 without changing any vertex position or triangle index.",
+    "glTF exporter combines Metallic/Roughness samplers; both source texture nodes use Linear/Repeat.",
+    "LOD0 is 12474 tris, above provisional 10000 target. Parent accepted the actual near-hand budget. LOD1/2 are 6398/3356. Each LOD uses two meshes/materials; Quest performance and shader pass cost remain unmeasured.",
+    "2K fine engraving and discrete round-wire segments can be seen in extreme 75mm-frame close-ups; no claim of unlimited zoom or perfectly analytic runtime curves.",
+    "Thickness has 0 unresolved misses after 1 retry across607035 rays; 44254 values above120mm are clamped. Normalized data is an approximation, not optical path tracing in Unity."
+  ],
+  "renderer_material_contract": {
+    "QingGuiR02_Body_LOD0/1/2": "QingGuiR02_Body: jade and bronze via masks",
+    "QingGuiR02_GoldWire_LOD0/1/2": "QingGuiR02_GoldWire: uniform metal=1, roughness=.24, no transmission"
+  },
+  "geometry_candidate_signatures": {
+    "QingGuiR02_Body_LOD0": {
+      "vertices": 2835,
+      "triangles": 5670,
+      "vertex_coordinates_sha256": "813d2f6aeb6b72981878068819bc2929932b8aaa9839d5df2a6bc056d114f16f",
+      "triangle_indices_sha256": "99912ff1402a452d203f9f8ed502c9e4ffffc7ec5a3fe9fcbe2f0d722f0fc2c0"
+    },
+    "QingGuiR02_GoldWire_LOD0": {
+      "vertices": 3434,
+      "triangles": 6804,
+      "vertex_coordinates_sha256": "b04ebf47a18f98ae619bc474c9df033294825e2cc6a686afe0ad2bb08d3d622a",
+      "triangle_indices_sha256": "d3d4553915373beebffb6953fa30517481b70f85375ce555c5ab1a6ac71ae19f"
+    }
+  },
+  "source_high_qa": {
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "QingGuiR02_Body_Source: FinePattern.png is Non-Color but drives Base Color (looks washed out)",
+      "QingGuiR02_Body_HIGH: 59 zero-area UV faces",
+      "QingGuiR02_Body_HIGH: duplicate verts=1 loose verts=0"
+    ]
+  },
+  "source_optics": {
+    "jade_roughness": 0.13,
+    "jade_only_coat": 0.18,
+    "coat_roughness": 0.09,
+    "ior": 1.53,
+    "transmission_jade_only": 0.055,
+    "sss_jade_only": 0.32,
+    "sss_scale_m": 0.0055,
+    "volume_absorption_density": 23,
+    "emission": false
+  },
+  "lookdev_glb": {
+    "source_game_glb_sha256": "fff50ec5bd5e22cecf0a84241097b77b0631ec6eeecbf83be909b5b9504cb890",
+    "lookdev_sha256": "44da6dd4a5310f1c856742fac2a4f2044c77409d6e9e08ea7c132292681fc688",
+    "body_extensions": {
+      "KHR_materials_transmission": {
+        "transmissionFactor": 0.12,
+        "transmissionTexture": {
+          "index": 3,
+          "texCoord": 0
+        }
+      },
+      "KHR_materials_volume": {
+        "thicknessFactor": 0.12,
+        "thicknessTexture": {
+          "index": 4,
+          "texCoord": 0
+        },
+        "attenuationDistance": 0.045,
+        "attenuationColor": [
+          0.82,
+          0.79,
+          0.71
+        ]
+      },
+      "KHR_materials_ior": {
+        "ior": 1.53
+      },
+      "KHR_materials_clearcoat": {
+        "clearcoatFactor": 0.18,
+        "clearcoatRoughnessFactor": 0.09,
+        "clearcoatTexture": {
+          "index": 3,
+          "texCoord": 0
+        }
+      }
+    },
+    "gold_material_has_transmission": false,
+    "alpha_mode": "OPAQUE",
+    "limitations": [
+      "Viewer must implement the listed KHR extensions.",
+      "Standard transmission/volume is not subsurface scattering.",
+      "No claim this matches the separate Unity shader or Quest output."
+    ]
+  },
+  "reproducibility": [
+    "fine_patterns.py",
+    "build_source.py",
+    "source_optics.py",
+    "build_delivery.py",
+    "measure_interface.py",
+    "make_lookdev_glb.py",
+    "verify_delivery.py",
+    "review_delivery.py",
+    "assemble_review.py",
+    "final_source_qa.py",
+    "freeze_delivery.py"
+  ],
+  "geometry_only_uv_note": "Final wire charts are cylindrical strips plus cap disks. UV-only optimization assertions and candidate cold comparison prove vertex positions and topology unchanged.",
+  "scope": "No formal Assets, Unity project/scene, workbench, prior R01/R02/R03/QingGuiR01 or global handover writes."
+}

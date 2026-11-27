@@ -1,0 +1,393 @@
+{
+  "status": "Standalone physical mating proof. Final sleeve clearance and final sizes are pending its cloud asset.",
+  "solidGeometryOrigin": {
+    "WrappedCore": "c31e749887c0fa7479819e9d61c3c937be9b0e98641caddfd5bfc8738cfd2d5d",
+    "DetachableSegment": "52f7c6d44c5193ea07f82a0d715b104302995470f8b5ee4aadaf62f114081656"
+  },
+  "cutFractionMeasuredFromEachOriginalLowEnd": {
+    "WrappedCore": 0.16,
+    "DetachableSegment": 0.75
+  },
+  "metersPhysicalFit": true,
+  "nominalSeamWidthThicknessMm": [
+    14.0,
+    8.0
+  ],
+  "provisionalAxialHeightEachMm": 18.0,
+  "provisionalFitBasis": "Current Unity InkRubbingLab graybox envelope x18 y56 z12 mm; individual placeholder ink segments x14 y18 z8 mm.",
+  "assembledFixedSeamGapMm": 0.13999999999999999,
+  "axis": "Blender +Z is grip-to-top, OpenGL GLB +Y asset, local seam at 0. Detachable pulls along -Z in Blender.",
+  "rawToAuthoringFrames": {
+    "WrappedCore": [
+      [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "DetachableSegment": [
+      [
+        0.6582270264625549,
+        -0.36534154415130615,
+        -0.6582270264625549
+      ],
+      [
+        -0.3335413932800293,
+        0.6423203349113464,
+        -0.6900541186332703
+      ],
+      [
+        0.6748980283737183,
+        0.6737582683563232,
+        0.3009360432624817
+      ]
+    ],
+    "DetachableRollCorrectionRadians": 0.18136469249441833
+  },
+  "capUvDonorSwatchesOnOriginalDerivedAtlases": {
+    "WrappedCore": {
+      "center": [
+        0.31591796875,
+        0.31591796875
+      ],
+      "radius": [
+        0.029296875,
+        0.029296875
+      ],
+      "linearLuminance2th50th98th": [
+        0.1433869144320488,
+        0.1655443161725998,
+        0.20616473257541656
+      ]
+    },
+    "DetachableSegment": {
+      "center": [
+        0.45458984375,
+        0.7666015625
+      ],
+      "radius": [
+        0.029296875,
+        0.029296875
+      ],
+      "linearLuminance2th50th98th": [
+        0.09355042099952698,
+        0.1460670754313469,
+        0.19243940740823745
+      ]
+    }
+  },
+  "components": {
+    "WrappedCore": {
+      "LOD0": {
+        "triangles": 3636,
+        "boundsBlenderMetres": {
+          "min": [
+            -0.007110246457159519,
+            -0.004025219939649105,
+            7.000000186963007e-05
+          ],
+          "max": [
+            0.0070350272580981255,
+            0.0039781187660992146,
+            0.018069999292492867
+          ],
+          "extent": [
+            0.014145273715257645,
+            0.00800333870574832,
+            0.017999999290623236
+          ]
+        },
+        "sourcePlaneComponentBoundaryAreaSourceUnits": [
+          0.5730157170430511,
+          0.5620381325923729
+        ],
+        "fractureCapTriangles": 126,
+        "microscopicCutEdgesCollapsed": 0,
+        "qa": {
+          "ok": true,
+          "pass": true,
+          "errors": [],
+          "warnings": [],
+          "ground_z": 0.0001,
+          "zfighting": [],
+          "floating": [],
+          "back_to_back": [],
+          "enclosed": [],
+          "objects": {
+            "WrappedCore_Joined_LOD0": {
+              "verts": 1820,
+              "faces": 3636,
+              "tris": 3636,
+              "ngons": 0,
+              "boundary_edges": 0,
+              "nonmanifold_edges": 0,
+              "wire_edges": 0,
+              "loose_verts": 0,
+              "degenerate_faces": 0,
+              "zero_length_edges": 0,
+              "inconsistent_normals_edges": 0,
+              "duplicate_verts": 0,
+              "islands": 1,
+              "inside_out_islands": 0,
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "materials": 1,
+              "uv_maps": 1,
+              "uv_oob_pct": 0.0,
+              "uv_zero_area_faces": 0,
+              "uv_overlap_pct": 0.0,
+              "uv_coverage_pct": 28.3
+            }
+          }
+        }
+      },
+      "LOD1": {
+        "triangles": 1634,
+        "boundsBlenderMetres": {
+          "min": [
+            -0.007117570377886295,
+            -0.004023404326289892,
+            7.000000186963007e-05
+          ],
+          "max": [
+            0.007028690539300442,
+            0.003982212860137224,
+            0.018069999292492867
+          ],
+          "extent": [
+            0.014146260917186737,
+            0.008005617186427116,
+            0.017999999290623236
+          ]
+        },
+        "sourcePlaneComponentBoundaryAreaSourceUnits": [
+          0.5726921192871495,
+          0.5620218132621719
+        ],
+        "fractureCapTriangles": 78,
+        "microscopicCutEdgesCollapsed": 0,
+        "qa": {
+          "ok": true,
+          "pass": true,
+          "errors": [],
+          "warnings": [],
+          "ground_z": 0.0001,
+          "zfighting": [],
+          "floating": [],
+          "back_to_back": [],
+          "enclosed": [],
+          "objects": {
+            "WrappedCore_Joined_LOD1": {
+              "verts": 819,
+              "faces": 1634,
+              "tris": 1634,
+              "ngons": 0,
+              "boundary_edges": 0,
+              "nonmanifold_edges": 0,
+              "wire_edges": 0,
+              "loose_verts": 0,
+              "degenerate_faces": 0,
+              "zero_length_edges": 0,
+              "inconsistent_normals_edges": 0,
+              "duplicate_verts": 0,
+              "islands": 1,
+              "inside_out_islands": 0,
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "materials": 1,
+              "uv_maps": 1,
+              "uv_oob_pct": 0.0,
+              "uv_zero_area_faces": 0,
+              "uv_overlap_pct": 0.0,
+              "uv_coverage_pct": 28.0
+            }
+          }
+        }
+      }
+    },
+    "DetachableSegment": {
+      "LOD0": {
+        "triangles": 2560,
+        "boundsBlenderMetres": {
+          "min": [
+            -0.007076558656990528,
+            -0.003942428156733513,
+            -0.018069999292492867
+          ],
+          "max": [
+            0.007385105360299349,
+            0.004116029478609562,
+            -7.000000186963007e-05
+          ],
+          "extent": [
+            0.014461664017289877,
+            0.008058457635343075,
+            0.017999999290623236
+          ]
+        },
+        "sourcePlaneComponentBoundaryAreaSourceUnits": [
+          0.21984741674132496
+        ],
+        "fractureCapTriangles": 136,
+        "microscopicCutEdgesCollapsed": 2,
+        "qa": {
+          "ok": true,
+          "pass": true,
+          "errors": [],
+          "warnings": [
+            "asset lowest point z=-0.0181 (not resting on ground plane z=0)"
+          ],
+          "ground_z": -0.0181,
+          "zfighting": [],
+          "floating": [],
+          "back_to_back": [],
+          "enclosed": [],
+          "objects": {
+            "DetachableSegment_Joined_LOD0": {
+              "verts": 1282,
+              "faces": 2560,
+              "tris": 2560,
+              "ngons": 0,
+              "boundary_edges": 0,
+              "nonmanifold_edges": 0,
+              "wire_edges": 0,
+              "loose_verts": 0,
+              "degenerate_faces": 0,
+              "zero_length_edges": 0,
+              "inconsistent_normals_edges": 0,
+              "duplicate_verts": 0,
+              "islands": 1,
+              "inside_out_islands": 0,
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "materials": 1,
+              "uv_maps": 1,
+              "uv_oob_pct": 0.0,
+              "uv_zero_area_faces": 0,
+              "uv_overlap_pct": 0.0,
+              "uv_coverage_pct": 45.9
+            }
+          }
+        }
+      },
+      "LOD1": {
+        "triangles": 1172,
+        "boundsBlenderMetres": {
+          "min": [
+            -0.007074106018990278,
+            -0.003941962029784918,
+            -0.018069999292492867
+          ],
+          "max": [
+            0.007388061843812466,
+            0.004123921971768141,
+            -7.000000186963007e-05
+          ],
+          "extent": [
+            0.014462167862802744,
+            0.008065884001553059,
+            0.017999999290623236
+          ]
+        },
+        "sourcePlaneComponentBoundaryAreaSourceUnits": [
+          0.21973740326846541
+        ],
+        "fractureCapTriangles": 103,
+        "microscopicCutEdgesCollapsed": 2,
+        "qa": {
+          "ok": true,
+          "pass": true,
+          "errors": [],
+          "warnings": [
+            "asset lowest point z=-0.0181 (not resting on ground plane z=0)"
+          ],
+          "ground_z": -0.0181,
+          "zfighting": [],
+          "floating": [],
+          "back_to_back": [],
+          "enclosed": [],
+          "objects": {
+            "DetachableSegment_Joined_LOD1": {
+              "verts": 588,
+              "faces": 1172,
+              "tris": 1172,
+              "ngons": 0,
+              "boundary_edges": 0,
+              "nonmanifold_edges": 0,
+              "wire_edges": 0,
+              "loose_verts": 0,
+              "degenerate_faces": 0,
+              "zero_length_edges": 0,
+              "inconsistent_normals_edges": 0,
+              "duplicate_verts": 0,
+              "islands": 1,
+              "inside_out_islands": 0,
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "materials": 1,
+              "uv_maps": 1,
+              "uv_oob_pct": 0.0,
+              "uv_zero_area_faces": 0,
+              "uv_overlap_pct": 0.0,
+              "uv_coverage_pct": 45.4
+            }
+          }
+        }
+      }
+    }
+  },
+  "combinations": {
+    "CoreLOD0_DetachableLOD0": {
+      "triangleIntersections": 0,
+      "minimumAxialGapMm": 0.14000000373926014,
+      "maximumRimRadialDifferenceMm": 0.09299775391917367,
+      "rimRadialDifferenceP95Mm": 0.05238371286345528
+    },
+    "CoreLOD0_DetachableLOD1": {
+      "triangleIntersections": 0,
+      "minimumAxialGapMm": 0.14000000373926014,
+      "maximumRimRadialDifferenceMm": 0.3218245302998215,
+      "rimRadialDifferenceP95Mm": 0.06835630101263104
+    },
+    "CoreLOD1_DetachableLOD0": {
+      "triangleIntersections": 0,
+      "minimumAxialGapMm": 0.14000000373926014,
+      "maximumRimRadialDifferenceMm": 0.23718137953369997,
+      "rimRadialDifferenceP95Mm": 0.05767277698004746
+    },
+    "CoreLOD1_DetachableLOD1": {
+      "triangleIntersections": 0,
+      "minimumAxialGapMm": 0.14000000373926014,
+      "maximumRimRadialDifferenceMm": 0.3141369903275834,
+      "rimRadialDifferenceP95Mm": 0.08463074216188607
+    }
+  },
+  "exports": {
+    "WrappedCore-Mated-LOD0.glb": "e6fbb715c16a120cf192ffd17b614d0d98ebd84fe1501478a6d24a9927b9ebf9",
+    "WrappedCore-Mated-LOD1.glb": "a095f8735bd37bed337d330cf39d2ca460468d33ef35ddd365d220bedc3890b3",
+    "DetachableSegment-Mated-LOD0.glb": "57446bc06645ce69659cf9e9c5df82bf91181a17d05d7987eba72a2ca58af43e",
+    "DetachableSegment-Mated-LOD1.glb": "ac9f4f4341b94942c2c339baea90f605e2776cb8849fabd0a8ec1b81e4db70b9"
+  }
+}

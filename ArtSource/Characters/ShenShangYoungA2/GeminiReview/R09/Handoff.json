@@ -1,0 +1,42 @@
+{
+  "version": "R09",
+  "glbSHA256": "65c43cd3a1f42cd297b54647a1317c41ec20a8bea749dacee5ef42bc460352d4",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r09",
+  "workbenchLabel": "R09 · 发际高度已下调，脸型与前额发缘待返修",
+  "noteId": "4e39747b-56d3-4ab5-bb20-d9212a4f6ab3",
+  "workbenchRevision": "a24258a3f9c731a59723df1848df6705b2b496222554e31d2fad296b57991f40",
+  "webURL": "https://gemini.google.com/app/34816300022fa493",
+  "webReplyElement": "message-content-id-r_5afeb15e56ecdb1c",
+  "webMode": "打开模式选择器，当前模式为“Hydrogen”",
+  "backendModel": null,
+  "pixelChecks": {
+    "R09_Forehead_Jaw": {
+      "token": "EEAD37",
+      "match": true
+    },
+    "R09_Likeness": {
+      "token": "7B436E",
+      "match": true
+    },
+    "R09_Clay_Features": {
+      "token": "98D6F3",
+      "match": true
+    },
+    "R09_Temples_Rear": {
+      "token": "6C3C9A",
+      "match": true
+    }
+  },
+  "submissionCount": 1,
+  "replySHA256": "a462db215d0932d977d3c4054de8c84471c363e8b0cd064979f885d686606aeb",
+  "review": [
+    "R09 独立静态视审，以 R08 用户批注「脸型不像 还有发际线不行，有点高」和 A2 三向设定为准。四分之三素模中，R08 外顶的颧弓和颧下凹坑在 R09 都收顺了，颊面向下颌的过渡更接近 A2，建议保留。两侧鬓角与后脑覆盖的所示视角未见明显头皮穿出。R09 可作中间稿，定脸仍待用户。",
+    "优先修额中和额角。未画线的正面图里，R09 已缓解 R08 的高额感，但前缘偏厚，中央一段横平、短齿密排，两侧折向太阳穴仍偏方。制作在 640×819 的同构图正面测得眉线至中央发缘 A2 81.12 px、R08 82.85 px、R09 71.33 px。R09 该处留白比 A2 少 9.79 px。建议保持当前大致高度，削薄前缘、顺着发髻方向向后梳，理出额中至两鬓的自然弧线，避免继续整条下压。数值仅用于同机位二维对照。",
+    "第二项是中下脸。R09 整体仍偏瘦长，颏底略方，侧面下颌角折点偏高、偏圆。用 Likeness 正侧和四分之三对照 A2 的颊面宽度、颌角和颏底，保留已修顺的颧弓。第三项是眼口神态，R09 眼裂偏短圆，下睑中段略垂，口角和唇缘较平直。先统一正视方向和打光，再在带材质图与 Clay_Features 素模检查眼裂长度、嘴角内收和下唇体积。",
+    "左右鬓角已分别取证。左耳轮上缘交界有深色叠影，正后颈发缘和右耳后可见轻微暗边，图上无法判定来自透明叠色、光照或几何贴合。A2 缺少对应右正侧和后脑细节参考。后续同机位复查局部暗边；表情、眨眼、转颈和头显表现仍待动态检查。"
+  ],
+  "producerEvidence": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/R09/EngineeringEvidence.json",
+    "sha256": "426c877dcdbc20293410ac3e8d07d8e5b0f5ef9b4658f6d96a7cdc6b2eec26bc"
+  }
+}

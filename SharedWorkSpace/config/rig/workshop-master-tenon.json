@@ -1,0 +1,347 @@
+{
+  "id": "workshop-master-tenon",
+  "name": "汉白玉校准主榫 · 二章重要道具",
+  "defaultVersion": "master-tenon-qinggui-r03a",
+  "versions": [
+    {
+      "id": "master-tenon-r01",
+      "label": "R01 · 主榫独立初稿 · 待批注",
+      "filename": "MasterTenon_R01.glb",
+      "files": [
+        "workshop-master-tenon-r01/MasterTenon_R01.glb",
+        "workshop-master-tenon-r01/Reference_Zone4.png",
+        "workshop-master-tenon-r01/Reference_Zone3.png",
+        "workshop-master-tenon-r01/Design_A1_Candidate.png",
+        "workshop-master-tenon-r01/Blender_01_Front45.png",
+        "workshop-master-tenon-r01/Blender_02_Back45.png",
+        "workshop-master-tenon-r01/Blender_04_Right.png",
+        "workshop-master-tenon-r01/Blender_05_Back.png",
+        "workshop-master-tenon-r01/Blender_06_TipCalibration.png",
+        "workshop-master-tenon-r01/Blender_07_SideLightJade.png",
+        "workshop-master-tenon-r01/Blender_08_BronzeWear.png",
+        "workshop-master-tenon-r01/Blender_09_LowSameView.png",
+        "workshop-master-tenon-r01/Blender_10_HighSameView.png",
+        "workshop-master-tenon-r01/Blender_11_CleanWireFront.png",
+        "workshop-master-tenon-r01/Unity_01_TwoSeparateStations.png",
+        "workshop-master-tenon-r01/Unity_02_NearHand_Front45_1to1.png",
+        "workshop-master-tenon-r01/Unity_03_BackSide_1to1.png",
+        "workshop-master-tenon-r01/Unity_04_SideLight_1to1.png",
+        "workshop-master-tenon-r01/Unity_05_PhysicalDropOnDisplay.png",
+        "workshop-master-tenon-r01/Unity_06_ActualSocketTop_EmptyOpening.png",
+        "workshop-master-tenon-r01/Unity_07_AboveActualOpening.png",
+        "workshop-master-tenon-r01/Unity_08_Inserted_Front45.png",
+        "workshop-master-tenon-r01/Unity_09_Inserted_Side.png",
+        "workshop-master-tenon-r01/Unity_10_InsertedTop.png",
+        "workshop-master-tenon-r01/Unity_11_FinalOverview.png",
+        "workshop-master-tenon-r01/Neutral_01_NearHand_Front45_Neutral.png",
+        "workshop-master-tenon-r01/Neutral_02_SideLight_Neutral.png",
+        "workshop-master-tenon-r01/Neutral_03_Inserted_Front45_Neutral.png",
+        "workshop-master-tenon-r01/Proposal_01_Closed_TopEdgeStops.png",
+        "workshop-master-tenon-r01/Proposal_02_Retracted_ClearTop.png"
+      ],
+      "turnaround": "workshop-master-tenon-r01/Blender_01_Front45.png",
+      "created": 1795587316644,
+      "notes": [
+        {
+          "id": "r01-scope",
+          "created": 1795587316644,
+          "text": "按原设制作的独立主榫。温白玉、云雷纹、度量刻线与暗铜；120×120×350mm，铜箍不突出。高模343616，低模720/256/96三角，单材质2K PBR。与玩家杂物集合分开；正式场景未替换。原设和Unity实插对照见 /plans/workshop-master-tenon-r01.html。头显/真人握持与审美待验；清场退销是新增提案，未接正式系统。"
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-r02",
+      "label": "R02 · 玉料刻纹与端部精修 · 待批注",
+      "filename": "MasterTenon_R02.glb",
+      "files": [
+        "workshop-master-tenon-r02/MasterTenon_R02.glb",
+        "workshop-master-tenon-r02/Blender_01_Front45.png",
+        "workshop-master-tenon-r02/Blender_02_Back45.png",
+        "workshop-master-tenon-r02/Blender_03_Front.png",
+        "workshop-master-tenon-r02/Blender_04_Right.png",
+        "workshop-master-tenon-r02/Blender_05_Back.png",
+        "workshop-master-tenon-r02/Blender_06_TipCalibration.png",
+        "workshop-master-tenon-r02/Blender_07_SideLightJade.png",
+        "workshop-master-tenon-r02/Blender_08_EndInlay.png",
+        "workshop-master-tenon-r02/Blender_09_LowSameView.png",
+        "workshop-master-tenon-r02/Blender_10_HighSameView.png",
+        "workshop-master-tenon-r02/Blender_11_CleanWireFront.png",
+        "workshop-master-tenon-r02/Blender_12_CleanWire45.png",
+        "workshop-master-tenon-r02/Blender_QA_material.png",
+        "workshop-master-tenon-r02/Blender_QA_material_back.png",
+        "workshop-master-tenon-r02/Blender_QA_material_front.png",
+        "workshop-master-tenon-r02/Blender_QA_material_right.png",
+        "workshop-master-tenon-r02/Blender_QA_material_three_quarter.png",
+        "workshop-master-tenon-r02/Blender_QA_wire.png",
+        "workshop-master-tenon-r02/Blender_QA_wire_back.png",
+        "workshop-master-tenon-r02/Blender_QA_wire_front.png",
+        "workshop-master-tenon-r02/Blender_QA_wire_right.png",
+        "workshop-master-tenon-r02/Blender_QA_wire_three_quarter.png",
+        "workshop-master-tenon-r02/Unity_Images_01_TwoSeparateStations.png",
+        "workshop-master-tenon-r02/Unity_Images_02_NearHand_Front45_1to1.png",
+        "workshop-master-tenon-r02/Unity_Images_02B_R01_Reference_SameCamera_Neutral.png",
+        "workshop-master-tenon-r02/Unity_Images_03_BackSide_1to1.png",
+        "workshop-master-tenon-r02/Unity_Images_04_SideLight_1to1.png",
+        "workshop-master-tenon-r02/Unity_Images_04B_InsertionEnd_Close.png",
+        "workshop-master-tenon-r02/Unity_Images_04C_GripAndInsertionEnd_Distance.png",
+        "workshop-master-tenon-r02/Unity_Images_05_PhysicalDropOnDisplay.png",
+        "workshop-master-tenon-r02/Unity_Images_06_ActualSocketTop_EmptyOpening.png",
+        "workshop-master-tenon-r02/Unity_Images_07_AboveActualOpening.png",
+        "workshop-master-tenon-r02/Unity_Images_08_Inserted_Front45.png",
+        "workshop-master-tenon-r02/Unity_Images_09_Inserted_Side.png",
+        "workshop-master-tenon-r02/Unity_Images_10_InsertedTop.png",
+        "workshop-master-tenon-r02/Unity_Images_11_FinalOverview.png"
+      ],
+      "turnaround": "workshop-master-tenon-r02/Blender_01_Front45.png",
+      "created": 1795593143208,
+      "notes": [
+        {
+          "id": "r02-scope",
+          "created": 1795593143208,
+          "text": "R02近手精修候选：温白细絮玉料、连续窄云雷纹带、连贯准线与刻度，收窄插接端与肩线。仍120×120×350mm，肩线不冒称跨153mm孔口机械止挡；原孔和原落座姿态保留。桌面拿插回归见独立审稿页；Meta/XR抓取入口尚未接线，审美待批注。R01原件和批注保留。"
+        },
+        {
+          "id": "cc0954ef-f23b-4269-b74b-aac384f77115",
+          "text": "有点厚了，看着没有设计感，倒角圆润一下",
+          "created": 1795594995457
+        },
+        {
+          "id": "9445fe5a-7960-47b1-81e7-c5c9ec7c326a",
+          "text": "再优化一下 上半部分就是一个方形的，有些不美观 在设计一版",
+          "created": 1795601835044
+        },
+        {
+          "id": "f40d383e-ed1d-4191-851f-c7321d99da16",
+          "text": "重新设计一轮这个道具 以青铜为元素 先搜索方形青铜器让我选纹样 确定元素后生成概念图",
+          "created": 1795602301955
+        },
+        {
+          "id": "39043e6d-26c1-4b23-83f8-a55da175bce2",
+          "text": "要连带拿取的台子一起重新设计。分开设计",
+          "created": 1795602387344
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r01",
+      "label": "清圭R01 · C4实模初版 · 待批注",
+      "filename": "QingGuiR01.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r01/QingGuiR01.glb",
+        "workshop-master-tenon-qinggui-r01/Model_01_Front.png",
+        "workshop-master-tenon-qinggui-r01/Model_02_Right.png",
+        "workshop-master-tenon-qinggui-r01/Model_03_Back.png",
+        "workshop-master-tenon-qinggui-r01/Model_04_Front45.png",
+        "workshop-master-tenon-qinggui-r01/Model_05_GoldJadeClose.png",
+        "workshop-master-tenon-qinggui-r01/Model_06_ApertureClose.png",
+        "workshop-master-tenon-qinggui-r01/Model_07_ShoulderAlignment.png",
+        "workshop-master-tenon-qinggui-r01/Model_08_HighSameView.png",
+        "workshop-master-tenon-qinggui-r01/Model_09_CleanWire45.png",
+        "workshop-master-tenon-qinggui-r01/Model_11_ThreeView_SameScale.png",
+        "workshop-master-tenon-qinggui-r01/Model_LOD1_SameView.png",
+        "workshop-master-tenon-qinggui-r01/Model_LOD2_SameView.png",
+        "workshop-master-tenon-qinggui-r01/Source_04_Front45.png",
+        "workshop-master-tenon-qinggui-r01/Source_05_StripSideLight.png",
+        "workshop-master-tenon-qinggui-r01/Source_06a_Backlight_Normal_5W.png",
+        "workshop-master-tenon-qinggui-r01/Source_06b_Backlight_Stress_25W.png",
+        "workshop-master-tenon-qinggui-r01/Source_07_NoLight.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r01/Model_11_ThreeView_SameScale.png",
+      "created": 1795623552630,
+      "notes": [
+        {
+          "id": "qinggui-r01-scope",
+          "created": 1795623552630,
+          "text": "按用户已批准C4制作的新实模。350mm全长，106×106×105mm方插端，握位约85×46mm；LOD4916/1800/600、1材质2K，实际高到低烘焙，原孔/实时材质另在独立Unity验证。旋转GLB显示普通PBR，不能代替专属Unity透光shader或Cycles。最终三视/侧光/源逆光对照 /plans/workshop-master-tenon-qinggui-r01.html。旧R01–R03和所有批注保留，本版未替换正式章节场景，头显未测。"
+        },
+        {
+          "id": "qinggui-r01-independent-unity-complete",
+          "created": 1795625122501,
+          "text": "独立Unity桌面验证完成：原孔四向与取回重插、真实模型厚度背光、遮挡/关灯、金属遮罩和Android Vulkan shader编译通过。真实正面、近手及槽内图见审稿页。此GLB只作普通PBR旋转预览。未接Meta/XR抓取，Quest及正式章节接入另验，实际模型观感待批注。"
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r02",
+      "label": "清圭 R02 · 表面金丝与过渡修整",
+      "filename": "QingGuiR02.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r02/QingGuiR02.glb",
+        "workshop-master-tenon-qinggui-r02/Model_01_Front.png",
+        "workshop-master-tenon-qinggui-r02/Model_02_Right.png",
+        "workshop-master-tenon-qinggui-r02/Model_03_Back.png",
+        "workshop-master-tenon-qinggui-r02/Model_04_Front45.png",
+        "workshop-master-tenon-qinggui-r02/Model_05_GoldContact.png",
+        "workshop-master-tenon-qinggui-r02/Model_06_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_07_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/Model_08_HighSameView.png",
+        "workshop-master-tenon-qinggui-r02/Model_09_HighAperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_10_CleanWire45.png",
+        "workshop-master-tenon-qinggui-r02/Model_11_CleanWireFront.png",
+        "workshop-master-tenon-qinggui-r02/Model_12_ThreeView_SameScale.png",
+        "workshop-master-tenon-qinggui-r02/Model_13_R01_R02_45.png",
+        "workshop-master-tenon-qinggui-r02/Model_14_R01_R02_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_15_R01_R02_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/Model_LOD1_SameView.png",
+        "workshop-master-tenon-qinggui-r02/Model_LOD2_SameView.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r02/Model_12_ThreeView_SameScale.png",
+      "created": 1795629039148,
+      "notes": [
+        {
+          "id": "master-tenon-qinggui-r02-scope",
+          "created": 1795629039148,
+          "text": "用户返修候选：独立实体金丝、圆顺肩孔过渡，106×106×105mm插端与350mm总高保持。LOD0 12474三角、2材质、2K九图。此旋转图为普通PBR，Unity局部玉层半透与移动光在独立审稿页展示；不是头显验收。R01原件与批注保留，本版未替换正式章节。"
+        },
+        {
+          "id": "71e02d4a-0386-4e1b-b364-6dfd216c87d2",
+          "text": "unity实拍才能看出效果，下次还交付一张截图还有现在铜的部分像是融进玉石里了而且铜表面不平整",
+          "created": 1795629232801
+        },
+        {
+          "id": "ba4f452d-7479-4abe-b5b6-ad26f12de0ab",
+          "text": "现在看起来像实心的一坨，没有玉石质感",
+          "created": 1795629260585
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r02-lookdev",
+      "label": "清圭 R02 · 网页透光材质对照",
+      "filename": "QingGuiR02_Lookdev.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r02/QingGuiR02_Lookdev.glb",
+        "workshop-master-tenon-qinggui-r02/Model_01_Front.png",
+        "workshop-master-tenon-qinggui-r02/Model_02_Right.png",
+        "workshop-master-tenon-qinggui-r02/Model_03_Back.png",
+        "workshop-master-tenon-qinggui-r02/Model_04_Front45.png",
+        "workshop-master-tenon-qinggui-r02/Model_05_GoldContact.png",
+        "workshop-master-tenon-qinggui-r02/Model_06_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_07_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/Model_08_HighSameView.png",
+        "workshop-master-tenon-qinggui-r02/Model_09_HighAperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_10_CleanWire45.png",
+        "workshop-master-tenon-qinggui-r02/Model_11_CleanWireFront.png",
+        "workshop-master-tenon-qinggui-r02/Model_12_ThreeView_SameScale.png",
+        "workshop-master-tenon-qinggui-r02/Model_13_R01_R02_45.png",
+        "workshop-master-tenon-qinggui-r02/Model_14_R01_R02_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/Model_15_R01_R02_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/Model_LOD1_SameView.png",
+        "workshop-master-tenon-qinggui-r02/Model_LOD2_SameView.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r02/Model_12_ThreeView_SameScale.png",
+      "created": 1795629039148,
+      "notes": [
+        {
+          "id": "master-tenon-qinggui-r02-lookdev-scope",
+          "created": 1795629039148,
+          "text": "与R02相同游戏几何，网页材质采用KHR transmission/volume/IOR/clearcoat扩展，只在玉区生效，金丝与铜面不透明。此变体用于浏览器光泽参考，不等同Unity专用shader或真实体积散射；实际Unity画面见R02审稿页。"
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r02b",
+      "label": "清圭 R02B · 薄铜包边与表面金丝",
+      "filename": "QingGuiR02B.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r02/QingGuiR02B.glb",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackCrownCopperTail.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackHeld.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackShoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_FrontCrownCopperTail.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_LeftCopperWrap.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_01_Front.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_02_Right.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_03_Back.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_04_Front45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_05_GoldContact.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_06_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_07_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_08_HighSameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_09_HighAperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_10_CleanWire45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_11_CleanWireFront.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_12_ThreeView_SameScale.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_13_R02_B_45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_14_R02_B_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_15_R02_B_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_LOD1_SameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_LOD2_SameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Source_04b_CopperJadeClose.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r02/B_Model_12_ThreeView_SameScale.png",
+      "created": 1795637970100,
+      "notes": [
+        {
+          "id": "master-tenon-qinggui-r02b-scope",
+          "created": 1795637970100,
+          "text": "本轮铜玉界续修成品：0.5mm薄铜唇、窄接缝、平顺铜面与独立表面圆金丝，350mm总高与106方插端保留。游戏LOD 15834/6650/3444三角，2材质2K九图。网页旋转显示普通PBR；实际Unity半透玉料、同侧旧新与转动实拍见 /plans/workshop-master-tenon-qinggui-r02.html。独立样板已验证拿插与材质，正式章节/Meta XR/Quest未接入或实测；观感待批注。原R02及用户批注保留。"
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r02b-lookdev",
+      "label": "清圭 R02B · 网页微透材质参考",
+      "filename": "QingGuiR02B_Lookdev.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r02/QingGuiR02B_Lookdev.glb",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackCrownCopperTail.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackHeld.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_BackShoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_FrontCrownCopperTail.png",
+        "workshop-master-tenon-qinggui-r02/B_Game_LeftCopperWrap.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_01_Front.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_02_Right.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_03_Back.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_04_Front45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_05_GoldContact.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_06_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_07_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_08_HighSameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_09_HighAperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_10_CleanWire45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_11_CleanWireFront.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_12_ThreeView_SameScale.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_13_R02_B_45.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_14_R02_B_Aperture.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_15_R02_B_Shoulder.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_LOD1_SameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Model_LOD2_SameView.png",
+        "workshop-master-tenon-qinggui-r02/B_Source_04b_CopperJadeClose.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r02/B_Model_12_ThreeView_SameScale.png",
+      "created": 1795637970100,
+      "notes": [
+        {
+          "id": "master-tenon-qinggui-r02b-lookdev-scope",
+          "created": 1795637970100,
+          "text": "同一R02B游戏网格，KHR transmission/volume/IOR/clearcoat只作用玉区。网页微透参考不等同Unity专用shader；实际效果见同页Unity录像。铜/金不透明，独立审稿，非头显验收。"
+        }
+      ]
+    },
+    {
+      "id": "master-tenon-qinggui-r03a",
+      "label": "清圭 R03 A · 分件与暖白玉首样",
+      "filename": "QingGuiR03_StructureCandidate.glb",
+      "files": [
+        "workshop-master-tenon-qinggui-r03/QingGuiR03_StructureCandidate.glb",
+        "workshop-master-tenon-qinggui-r03/Model_12_ThreeActualPartsExploded.png",
+        "workshop-master-tenon-qinggui-r03/Model_11_UntexturedClayAssembly.png"
+      ],
+      "turnaround": "workshop-master-tenon-qinggui-r03/Model_12_ThreeActualPartsExploded.png",
+      "created": 1795678770227,
+      "notes": [
+        {
+          "id": "master-tenon-qinggui-r03a-scope",
+          "created": 1795678770227,
+          "text": "独立结构/材质首样，待批注：闭合玉芯、闭合青铜包框/孔帽、18条表面圆金丝。原350mm高与106mm方插端保留，40,024三角/3材质，尚未最终LOD与细刻烘焙。普通PBR网页模型仅供转动看分件；Unity二章Mobile同光实拍、B/R03对照及固定光转动见 /plans/workshop-master-tenon-qinggui-r03.html。大块三角投影已修，玉质仍需精修，冠顶细分与铜尾小缺口保留为首样待办。原孔几何/透光遮挡桌面检查通过；未接R03抓取/XR、未测Quest，未替代正式章节。旧B退修及全部批注保留。"
+        },
+        {
+          "id": "df95c813-9e26-4e20-ad42-d0adfb683e19",
+          "text": "暂时通过 给我unity下透光的照片视频",
+          "created": 1795680441802
+        }
+      ]
+    }
+  ]
+}

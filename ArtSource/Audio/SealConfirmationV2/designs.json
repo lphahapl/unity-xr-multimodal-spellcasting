@@ -1,0 +1,115 @@
+{
+  "Lv": {
+    "label": "律",
+    "role": "保留已认可的厚铜鸣",
+    "material": "V1原文件，只读",
+    "intended_onsets_seconds": [
+      0
+    ],
+    "source": "Existing approved LvChime.wav"
+  },
+  "Gui": {
+    "label": "规",
+    "role": "短环擦回旋",
+    "material": "摩擦噪声/回旋谱扫主导，非钟体",
+    "physical_approximation": "Three overlapping filtered-noise friction bands follow one curved spectral sweep; one light initial touch.",
+    "intended_onsets_seconds": [
+      0
+    ],
+    "duration": 0.46,
+    "seed": 5201,
+    "envelope": "4ms触面，约180ms连续环擦，快速收住",
+    "distinguishing_axis": "宽带粗糙摩擦 + 高频向内收拢的连续运动",
+    "controls": {
+      "sweep_band_centers_hz": [
+        1050,
+        2400,
+        4750
+      ],
+      "friction_support_seconds": 0.215
+    }
+  },
+  "Ju": {
+    "label": "矩",
+    "role": "两记干木尺相合，第二记锁定",
+    "material": "干木接触 + 极短低Q木体",
+    "physical_approximation": "Two independent short band-limited wood contacts and heavily damped signed modes, 95ms apart.",
+    "intended_onsets_seconds": [
+      0,
+      0.095
+    ],
+    "duration": 0.36,
+    "seed": 5202,
+    "envelope": "两音头间隔95ms，第二记重音，两个木击尾均截止到70ms",
+    "distinguishing_axis": "有意双击节奏；不是两次成印事件",
+    "controls": {
+      "inter_impact_seconds": 0.095,
+      "first_impact_amplitude": 0.68,
+      "second_impact_amplitude": 1.0,
+      "impact_support_seconds": 0.07
+    }
+  },
+  "Zhun": {
+    "label": "准",
+    "role": "一滴落定清点",
+    "material": "短石质点触 + 极短浅下滑共鸣",
+    "physical_approximation": "A short rough point contact plus rapidly damped low-Q shallow pitch-settling modes, not a cartoon water drop.",
+    "intended_onsets_seconds": [
+      0
+    ],
+    "duration": 0.34,
+    "seed": 5203,
+    "envelope": "单个清点，前25ms浅下滑，145ms前收住",
+    "distinguishing_axis": "孤立短点、轻清收定；无长钟尾/水泡弹性",
+    "controls": {
+      "settling_hz": [
+        1390,
+        1300
+      ],
+      "settling_tau_seconds": 0.012,
+      "point_support_seconds": 0.145
+    }
+  },
+  "Sheng": {
+    "label": "绳",
+    "role": "绷弦短拨与纤维收紧",
+    "material": "Karplus–Strong拨弦近似 + 干纤维摩擦",
+    "physical_approximation": "Single seeded noise excitation of a lossy delay loop; delayed-difference pluck-position filter; overlapping fiber tension friction.",
+    "intended_onsets_seconds": [
+      0
+    ],
+    "duration": 0.44,
+    "seed": 5204,
+    "envelope": "一次拨动，约140ms绷紧余振与纤维短擦，干燥收尾",
+    "distinguishing_axis": "短谐波梳状弦体 + 纤维质地；不使用钟的非谐模态族",
+    "controls": {
+      "delay_samples": 119,
+      "loop_feedback": 0.988,
+      "pluck_position_ratio": 0.23,
+      "external_damping_tau_seconds": 0.132
+    }
+  },
+  "Heng": {
+    "label": "衡",
+    "role": "低秤杆摆停/砝码落座",
+    "material": "厚闷落座 + 低Q杆体 + 短机械摩擦",
+    "physical_approximation": "Dense low-mid filtered impact and heavily damped bar modes, with a quiet continuous settling rub instead of a second hit.",
+    "intended_onsets_seconds": [
+      0
+    ],
+    "duration": 0.48,
+    "seed": 5205,
+    "envelope": "单个厚落座，后接轻微机械余动，约200ms止住",
+    "distinguishing_axis": "中低频实体重量，保留350–1800Hz小扬声器线索",
+    "controls": {
+      "body_modes_hz": [
+        183,
+        371,
+        647,
+        1133
+      ],
+      "highpass_hz": 130,
+      "settling_support_seconds": 0.215
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "t28-pedestal-b1",
+  "name": "T-28 ③取用台 · 青铜 B1 实物",
+  "versions": [
+    {
+      "id": "pedestal-b1",
+      "label": "③ 取用台 · 青铜 B1",
+      "created": 1795620923315,
+      "filename": "T28-Pedestal_B1.glb",
+      "files": [
+        "c7dd9b0d490869672fddc9dd78c37997a72fdc8ff4d60f9b009e647aa20c786b/T28-Pedestal_B1.glb",
+        "40e8cedeb5cfac37663bccf6ab199ce4d59f2630fcfb60f1e562ca144353abf3/T28-B1-Review.jpg"
+      ],
+      "turnaround": "40e8cedeb5cfac37663bccf6ab199ce4d59f2630fcfb60f1e562ca144353abf3/T28-B1-Review.jpg",
+      "notes": [
+        {
+          "id": "b1-notes",
+          "created": 1795620923315,
+          "text": "拖动「双销锁定与退开」时间条比较压销和退出，模型可旋转看盘面、兽面纹、四侧包浆和底部净空。这是独立台座，插入件由主榫负责人交付。对照图使用烘焙低模的 Blender 渲染。"
+        },
+        {
+          "id": "ff8aa1eb-0359-403b-a1b4-128cdc055794",
+          "text": "这侧面几个面和上面为什么这么空白你去搜一下古代青铜器的花纹，给些元素给我审，然后加贴图",
+          "created": 1795621320293
+        }
+      ]
+    },
+    {
+      "id": "pedestal-b1-bronze",
+      "label": "B1 青铜材质试装 · 纹样待选",
+      "created": 1795621798330,
+      "filename": "T28-Pedestal_B1.glb",
+      "files": [
+        "b678c5d781479f41fca1cc3ac845bf1edf4ce8918f7d5a256affbc707d55dc63/T28-Pedestal_B1.glb",
+        "fd2f1f879d26d4cc8ecaa1f0b6ad82f6c5750d68c024b151991fe9cc18bdfaee/T28-B1-Review.jpg",
+        "e1fb1cd56d9441f5de440ac5075758006bb10e9791457a6db0ada1bd87b02b9a/T28-B1-Motif-Options.jpg"
+      ],
+      "turnaround": "e1fb1cd56d9441f5de440ac5075758006bb10e9791457a6db0ada1bd87b02b9a/T28-B1-Motif-Options.jpg",
+      "notes": [
+        {
+          "id": "b1-notes",
+          "created": 1795621798330,
+          "text": "拖动「双销锁定与退开」时间条比较压销和退出，模型可旋转看盘面、兽面纹、四侧包浆和底部净空。这是独立台座，插入件由主榫负责人交付。全身三视图按钮内是 A / B / C 纹样选稿。图案待用户选择后烘焙。"
+        }
+      ]
+    },
+    {
+      "id": "pedestal-b1-ornament-trial",
+      "label": "B1 繁复青铜纹样 · 已通过",
+      "created": 1795624643687,
+      "filename": "Pedestal_B1_OrnamentTrial.glb",
+      "files": [
+        "233c420bfac32bc76d22ffc614aac941e8cddf569df2b2016727fb1b3d9afda5/Pedestal_B1_OrnamentTrial.glb",
+        "5f39df4bbeba865ee0536525fcf48974a583a8ce4cad840c9f15a787d754458b/B1-Ornament-Review.jpg"
+      ],
+      "turnaround": "5f39df4bbeba865ee0536525fcf48974a583a8ce4cad840c9f15a787d754458b/B1-Ornament-Review.jpg",
+      "notes": [
+        {
+          "id": "ornament-trial-notes",
+          "text": "试贴沿用 D 兽面细地纹、E 交缠龙纹侧腹和 F 错银连纹盘沿。正侧与俯看可以同时检查青铜包浆、低浮雕起伏、盘面细亮线和托槽留白。全身三视图按钮内有二章同光同机位的原版和试贴，滑动「双销锁定与退开」检查距槽口的位置。",
+          "created": 1795624643687
+        }
+      ]
+    }
+  ],
+  "defaultVersion": "pedestal-b1-ornament-trial"
+}

@@ -1,0 +1,32 @@
+{
+  "Gorge_LOD0": {
+    "triangles": 61952,
+    "vertices": 31329,
+    "uv_sets": 2,
+    "boundary_edges": 704,
+    "unique_atlas_area": 0.9999999746796675,
+    "unique_atlas_layout": "Two consistently wound triangles in each exclusive cell of the regular unit square; shared edges have zero area.",
+    "all_uv_triangles_positive": true,
+    "upward_faces": true
+  },
+  "Gorge_LOD1": {
+    "triangles": 25088,
+    "vertices": 12769,
+    "uv_sets": 2,
+    "boundary_edges": 448,
+    "unique_atlas_area": 0.9999999958308763,
+    "unique_atlas_layout": "Two consistently wound triangles in each exclusive cell of the regular unit square; shared edges have zero area.",
+    "all_uv_triangles_positive": true,
+    "upward_faces": true
+  },
+  "Gorge_LOD2": {
+    "triangles": 8192,
+    "vertices": 4225,
+    "uv_sets": 2,
+    "boundary_edges": 256,
+    "unique_atlas_area": 1.0,
+    "unique_atlas_layout": "Two consistently wound triangles in each exclusive cell of the regular unit square; shared edges have zero area.",
+    "all_uv_triangles_positive": true,
+    "upward_faces": true
+  }
+}

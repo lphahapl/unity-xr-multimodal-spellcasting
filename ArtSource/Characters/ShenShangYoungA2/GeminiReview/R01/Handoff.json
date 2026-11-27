@@ -1,0 +1,26 @@
+{
+  "version": "R01",
+  "model": "dcfac78e265b15e8df93e9ddf3d4d805cb368ad07452fee0a2a483f8aa610707",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r01",
+  "workbenchNote": "81b2f548-d76b-41c1-ad72-88ea85f522af",
+  "review": "R01 · Gemini 网页独立视审完成，返修，待主审。网页显示 Neon 高，后端版本未披露。三张附件、十张本版实拍的三枚像素编号 B56A6B / B9423B / 338E2A 全部吻合。GLB dcfac78e265b。\n脸部与侧影返修：下颊偏圆、眉眼偏软，鼻尖与下巴投影不足。检查左耳前串色、发髻下浅斑及领缘锯齿。裤形与布料返修：保留膝高，增加臀胯、膝和裤口松量，上提裤脚收束，调整过于规则的方格纹。设定短摆遮住腰头，绝对裆深无法判断。\n独立性本地核对：角色保留普通腰绳，GLB 节点未见旧版五袋与背带。T-06 继续独立供给。画面未装工具带，穿戴贴合与穿模待组合视图。\nGemini 原对话 https://gemini.google.com/app/d536b8519dd7ba33 。完整原文、像素与哈希清单在 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R01/。",
+  "producerSheetsReceivedAfterSubmission": [
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R01/Review/R01_Face_Comparison.jpg",
+      "sha256": "0edfd5b385dff57675aa1e79ec5b9db8799087d1526ce990f1293da9253f3bc1"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R01/Review/R01_Full_Comparison.jpg",
+      "sha256": "b77dce5e3572067af5a24ec8021c08db04b82e4a31a5ebe90b3e88e4dbf9e0e8"
+    },
+    {
+      "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R01/Review/R01_Trousers_Comparison.jpg",
+      "sha256": "13f5581086a1a9e4fb3246d41f7a8468309c17e5cc1ae7b06dffd7b19e5bce74"
+    }
+  ],
+  "submittedSheets": "InputManifest.json 中的 Face / Full / Trousers 三张带图内校验码的拼图，同一冻结 GLB 及十张原始实拍；制作方另交三张拼图后未重复送审。",
+  "replyHash": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/R01/Gemini原文.txt",
+    "sha256": "7d07a6827f5048efbc77a0600bbc91aa9231f46c65f21d7153b5208a257a24f1"
+  }
+}

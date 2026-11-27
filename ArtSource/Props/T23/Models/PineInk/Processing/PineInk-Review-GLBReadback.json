@@ -1,0 +1,96 @@
+{
+  "file": "PineInk-Review.glb",
+  "sha256": "52d26af4beb68863818bae6b56b63e21bf575b5f391b27181a9c930747f62904",
+  "binSHA256": "6437747a6c26b694cdc82d4af1fdbffc928f1dd9612a7b971513943462c51dd4",
+  "animatedClipName": "推开、折段、收套",
+  "channelEvidence": {
+    "DetachableSegment/translation": {
+      "sampleCount": 222,
+      "firstSecond": 0.0,
+      "lastSecond": 7.366666793823242
+    },
+    "DetachableSegment/rotation": {
+      "sampleCount": 222,
+      "firstSecond": 0.0,
+      "lastSecond": 7.366666793823242
+    },
+    "DetachableSegment/scale": {
+      "sampleCount": 222,
+      "firstSecond": 0.0,
+      "lastSecond": 7.366666793823242
+    },
+    "SlideSleeve/translation": {
+      "sampleCount": 222,
+      "firstSecond": 0.0,
+      "lastSecond": 7.366666793823242
+    }
+  },
+  "states": {
+    "收合": {
+      "timeSeconds": 0.0,
+      "slideSleeveYMetres": 0.0,
+      "segmentTranslationMetres": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "segmentRotationXyzw": [
+        0.0,
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "segmentScale": 1.0
+    },
+    "推开": {
+      "timeSeconds": 2.2666666666666666,
+      "slideSleeveYMetres": 0.03099999949336052,
+      "segmentTranslationMetres": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "segmentRotationXyzw": [
+        0.0,
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "segmentScale": 1.0
+    },
+    "掰下": {
+      "timeSeconds": 3.8333333333333335,
+      "slideSleeveYMetres": 0.03099999949336052,
+      "segmentTranslationMetres": [
+        0.017000000923871994,
+        -0.017000000923871994,
+        -0.003000000026077032
+      ],
+      "segmentRotationXyzw": [
+        0.0,
+        0.0,
+        -0.36650121212005615,
+        0.9304175972938538
+      ],
+      "segmentScale": 1.0
+    },
+    "收套": {
+      "timeSeconds": 7.366666666666666,
+      "slideSleeveYMetres": 0.004000000189989805,
+      "segmentTranslationMetres": [
+        0.017999999225139618,
+        -0.017999999225139618,
+        -0.003000000026077032
+      ],
+      "segmentRotationXyzw": [
+        0.0,
+        0.0,
+        -0.36650118231773376,
+        0.9304175972938538
+      ],
+      "segmentScale": 0.0010000000474974513
+    }
+  },
+  "independentMeshNodeCount": 3,
+  "passes": true
+}

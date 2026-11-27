@@ -1,0 +1,103 @@
+{
+  "stage": "PREPARATION_ONLY_WAITING_FOR_PARENT_THREE_VIEWS_AND_DIMENSION_CONFIRMATION",
+  "prepared_at": "2026-11-25T22:56:25.078287+08:00",
+  "reference": {
+    "path": "ArtSource\\Props\\WorkshopMasterTenon\\BronzeConceptC4\\Tenon_C4.png",
+    "sha256": "1255d86f12df547e3d03501dc3ba843c5ebdfd7876fadb1c22ca85ece9a040cd",
+    "inspected": true
+  },
+  "mesh_created": false,
+  "new_write_roots": [
+    "ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\Model",
+    "Logs\\workshop-master-tenon-qinggui-r01-20261125\\model"
+  ],
+  "existing_versions": "R01/R02/R03 are read-only frozen inputs; no formal Assets or live Blender/Unity operations",
+  "blender": {
+    "exe": "D:/Blender/Blender 5.2/blender.exe",
+    "actual_environment": "environment.json",
+    "control": "headless isolated CLI",
+    "native_mcp_tools_exposed": 0,
+    "live_mcp_scene_checked": false,
+    "reason": "Parent requires independent CLI and no live session occupation"
+  },
+  "engineering_interface": {
+    "unit": "metre",
+    "origin": "bottom center",
+    "blender_axis": "+Z",
+    "unity_axis": "+Y",
+    "old_insertion_shaft_xyz_m": [
+      0.106,
+      0.106,
+      0.105
+    ],
+    "total_length_m": 0.35,
+    "max_xy_m": [
+      0.12,
+      0.12
+    ],
+    "old_seat_world_y": 0.9239401221,
+    "old_mouth_world_y": 1.0279999971,
+    "actual_insert_depth_m": 0.104059875,
+    "old_body_clearance_m": 0.0040000002,
+    "socket_original_nominal_m": 0.146,
+    "socket_current_measured_m": 0.153,
+    "parent_dimension_confirmation_pending": true
+  },
+  "visual_plan": [
+    "Completely new C4 asymmetric sloped crown and tapered jade body; do not scale or repaint R03 upper grip.",
+    "Real through-hole with bronze edge wall and inner bevel.",
+    "Single-sided aged bronze spine with layered edges; sparse stronger gold inlay following approved C4 flow.",
+    "Preserve warm jade open face, upper long/short flow lines, lower response lines, narrow basal meander and alignment mark.",
+    "True cut seats and embedded metal in high model; keep main inlay silhouette geometry in close-hand LOD where practical, bake microdetails without floating coplanar ribbons."
+  ],
+  "planned_reproducible_stages": [
+    "0: immutable input hashes + approved front/side/back and dimensions gate",
+    "1: JSON section/spline parameters and strict shaft reuse; clay front/side/back with measured dimensions",
+    "2: high jade, bronze, gold with geometric seats, bevels, through-hole and contact checks",
+    "3: game LOD0/1/2, material groups, UV packing, final triangulation and normals",
+    "4: 512px projection check; then Cycles normal/AO/BaseColor/roughness/metal; geometric thickness raycast map with physical range metadata",
+    "5: source jade SSS/volume and opaque game PBR comparison, neutral/raking/backlight and high-low views",
+    "6: QA all meshes and materials, cold FBX/GLB import, preserve input hash checks, freeze core files before downstream Unity"
+  ],
+  "tentative_budget_not_project_standard": {
+    "lod0_triangles": [
+      3500,
+      6000
+    ],
+    "lod1_target": 1800,
+    "lod2_target": 600,
+    "materials_max": 2,
+    "texture_main": 2048,
+    "note": "Final number depends on accepted side thickness and hole/inlay construction; parent may revise."
+  },
+  "jade_delivery": {
+    "source": "physical-scale SSS with IOR/roughness; local thin-edge translucency, not transparent alpha ghosting",
+    "runtime_inputs": [
+      "BaseColor",
+      "Normal",
+      "AO",
+      "Roughness",
+      "Metallic",
+      "ORM",
+      "MetallicSmoothness",
+      "Thickness",
+      "jade-versus-metal mask"
+    ],
+    "thickness": "measure surface-to-opposite-surface distances; export normalized values plus metres conversion metadata",
+    "runtime_limitation": "Current Unity 6000.3.10f1 URP17.3 project: Blender SSS does not become a URP Lit subsurface shader. Runtime implementation and Quest validation require Unity owner."
+  },
+  "risks": [
+    "C4 is perspective concept: its shaft length and upper proportions cannot be directly treated as engineering dimensions.",
+    "R03 new shoulder clamp was only an independent proposal matched to that profile; C4 requires new fit. Current production sample still references R01 top latch.",
+    "Asymmetric C4 crown requires rechecking original top latch height and both closed/open sweep; unchanged 350mm height is not sufficient.",
+    "Existing socket indexes yaw to 90-degree increments; asymmetric facing/gold alignment may need explicit visual orientation policy from parent, without changing interface here.",
+    "Max120mm includes every bronze edge/gold ridge; no external shoulder can block original146nominal/153measured aperture.",
+    "Golden inlay close-hand and mobile thickness shading need a restrained shader/material plan; no claim of Quest transparency/performance until measured."
+  ],
+  "waiting_for": [
+    "parent front/side/back reference paths",
+    "parent confirmed overall + grip depth/width + shaft reuse boundary + top hole dimensions",
+    "parent confirmation/revision of temporary triangle/material budget"
+  ],
+  "notes": "No new cloud generation, no subagent spawned: this worker handles the already-delegated model preparation; parent handles reference generation and interface choices."
+}

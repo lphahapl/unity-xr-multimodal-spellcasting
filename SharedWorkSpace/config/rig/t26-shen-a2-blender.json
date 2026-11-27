@@ -1,0 +1,481 @@
+{
+  "id": "t26-shen-a2-blender",
+  "name": "T-26 沈商青年短摆 A2 · 独立 Blender 高模烘焙",
+  "versions": [
+    {
+      "id": "shen-young-a2-blender-study01",
+      "label": "首稿 · 留档对照",
+      "created": 1795556161575,
+      "notes": [
+        {
+          "id": "9da7eefa-cb7e-4762-8069-f8b8f0d6b778",
+          "created": 1795556771668,
+          "text": "主审退修意见（排期会话转录）：近景肩带穿入衣面，请检查肩带与衣料的贴合；柔化眼睑与唇缝；调整衣料材质，减弱灰毡感。修订版提交后用相同视角复审。"
+        }
+      ],
+      "filename": "ShenShang_Young_A2.glb",
+      "files": [
+        "8feeefe426bca3e1d651a520dcf112a8cdad924c14290c8a7bfb7ccb5c49aa3c/A2_Review.jpg",
+        "9fa6abf85c14a5154d3c53f93b623f324ea8f3111e854466a1fbecd8b8f1bd8c/01_Face.png",
+        "66e84791ec6a3136370d97298955878f568d1b4063cd279442d54ad0309e6078/02_FullBody.png",
+        "b990a3b1801b4db9ec66b5c1996a26dcb239ad18d3317d43d5dcf675d7ae40d2/03_Cloth.png",
+        "69ba5ceb8d05b53a755e021f310d69b225af9d111cc883a6615f0725ebf94e7e/04_Profile.png",
+        "5d2bd542b6c32d2e69f138e2375a3386da8082e2e18ad76d051e6788c5241893/05_Back.png",
+        "a46d4958fe28283f337c0cba0771cee2eac7b5aeac4566ce799414ba77fa25f8/ShenShang_Young_A2.glb"
+      ],
+      "turnaround": "8feeefe426bca3e1d651a520dcf112a8cdad924c14290c8a7bfb7ccb5c49aa3c/A2_Review.jpg"
+    },
+    {
+      "id": "shen-young-a2-blender",
+      "label": "修订版 · 用户退回",
+      "created": 1795562401811,
+      "notes": [
+        {
+          "id": "a2-asset-review-status",
+          "created": 1795562401811,
+          "text": "制作侧送审记录。此条目供脸型、头身比例、衣料和五口工具带外观批注。首稿另有独立条目。GLB 重新导入为 232,462 三角形，52 个材质，37 张内嵌图。脸与短衣切线法线来自独立高模烘焙。肩带正面 4,800 点复测穿入 0，最小间隙 1.55 mm。导出集退化面、零面积 UV、零长边为 0。游戏网格检查仍提示眉睫、发片和腕匣读数层局部近平行重叠。尚未绑定或在头显测帧率；下眼睑厚度、脸型和青年感待美术批注。"
+        },
+        {
+          "id": "c39651d6-a699-46aa-bacb-e6601ec18384",
+          "text": "主审复看修订版（排期会话转录）：靛蓝衣色、肩带贴合与唇缝已有改善。眼睑、颧颌轮廓、布料质感和游戏网格仍待验，可在此版继续批注。",
+          "created": 1795563936860
+        },
+        {
+          "id": "22473317-e213-4057-a9fc-9eb3d42771df",
+          "text": "用户退回（排期会话转录）。按青年短摆设定重新建脸与裤子；工具带及袋体由 T-06 独立供给，新版角色 GLB 仅含角色和服装。后续每版单独提交模型、实际渲染与 Gemini 对照意见；本条保留旧版批注。",
+          "created": 1795572545897
+        }
+      ],
+      "filename": "ShenShang_Young_A2.glb",
+      "files": [
+        "64e4bd0b1969c90d7274bc66389a8811d17120ad2993f78b6c4c9f36932f4797/A2_Review.jpg",
+        "51349ae6aaba683c0dc61b2a059b747ef3ae437c4b4c516a47e9dcaf3a1dec54/01_Face.png",
+        "2744805e7906d09065ff31672d364354037e52479d86c3b1be9c2c4b98158851/02_FullBody.png",
+        "24a9806a85f15c18617e72445629727cc2f4c041eaeac441ff7d0f5fefa18b3b/03_Cloth.png",
+        "95f9c2278de84965279aa60c26bf8bd8aac70519a2ceb6438cc24ecf71d09040/04_Profile.png",
+        "b84013949cc233056c9d59aa91b6feab10f8a95e07110906df8938fb7ab550bc/05_Back.png",
+        "eb1405b030a565fef292a53cf25c19c9d3fc13a51cccb405bf9b1b570c905f72/ShenShang_Young_A2.glb"
+      ],
+      "turnaround": "64e4bd0b1969c90d7274bc66389a8811d17120ad2993f78b6c4c9f36932f4797/A2_Review.jpg"
+    },
+    {
+      "id": "shen-young-a2-blender-r01",
+      "label": "R01 · 主审未批准",
+      "created": 1795576980163,
+      "filename": "ShenShang_R01.glb",
+      "files": [
+        "dcfac78e265b15e8df93e9ddf3d4d805cb368ad07452fee0a2a483f8aa610707/ShenShang_R01.glb",
+        "c0f906378fa36e86da9c9dad3f751662a37bb5b22912d1ff9db0a9b9d7eaee24/01_Face_Front.png",
+        "aa88adf98bc474edb1d6e02fc805a072dd2023906c8f0a23c6ea3916a8c29750/02_Face_Profile.png",
+        "e915fdd8675eddae30f5b5c9ab83e6f6819480141e03c8c0faebe445b9576cab/03_Face_ThreeQuarter.png",
+        "fe8268622820085136b084217c16defa24b4f0c12f33504471ac97164b4a8b27/04_Lower_Front.png",
+        "16ff8138492f9cc4ea14f5ac94335cf43d5acf2913ca2b5017926139c49e7da3/05_Lower_Profile.png",
+        "b219ee9e90e266a7d940ba84701ff9ed514566e2465fb71e160d52e64bd2edde/06_Full_Front.png",
+        "d7285062bb81d49e7d85339a0db67b9bb7bf070e7798961f7c07d5c33fb1afa8/07_Full_Profile.png",
+        "89f552c6b6f04bf9bfee1aaf05079597097a53d263fb7a6c0d002fb029d42a5a/08_Trousers_Uncovered_Front.png",
+        "a7d33d630a0b433c2083145f4d1ff7d009f1e0627302e22251b782c3f1049896/09_Trousers_Uncovered_Profile.png",
+        "5f79f9ebb94027a876f81da0b89aee21976a9f88e5434483ca3efb2b8a764e2d/10_Trousers_Uncovered_Back.png"
+      ],
+      "notes": [
+        {
+          "id": "86e5e81f-876d-43b8-a747-3bcba609ce32",
+          "text": "主审复看 R01，未批准。下摆处大块裤料穿出，割断褐色收边；肩颈衔接不自然；双膝褶皱呈对称环状。请下一版以同机位核对三处修改。Gemini 的 R01 送审使用本版 GLB 和实际渲染；旧版基线回执独立留档。",
+          "created": 1795576980163
+        },
+        {
+          "id": "81b2f548-d76b-41c1-ad72-88ea85f522af",
+          "created": 1795577257792,
+          "text": "R01 · Gemini 网页独立视审完成，返修，待主审。网页显示 Neon 高，后端版本未披露。三张附件、十张本版实拍的三枚像素编号 B56A6B / B9423B / 338E2A 全部吻合。GLB dcfac78e265b。\n脸部与侧影返修：下颊偏圆、眉眼偏软，鼻尖与下巴投影不足。检查左耳前串色、发髻下浅斑及领缘锯齿。裤形与布料返修：保留膝高，增加臀胯、膝和裤口松量，上提裤脚收束，调整过于规则的方格纹。设定短摆遮住腰头，绝对裆深无法判断。\n独立性本地核对：角色保留普通腰绳，GLB 节点未见旧版五袋与背带。T-06 继续独立供给。画面未装工具带，穿戴贴合与穿模待组合视图。\nGemini 原对话 https://gemini.google.com/app/d536b8519dd7ba33 。完整原文、像素与哈希清单在 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R01/。"
+        },
+        {
+          "id": "f2a96a81-0111-4379-b453-0d3ea1939d55",
+          "text": "任务后面衣服是破的，并且后面秃头",
+          "created": 1795594901928
+        },
+        {
+          "id": "cbba8473-535c-4b47-b46a-ea693d270131",
+          "text": "衣服裤子穿模了",
+          "created": 1795597143825
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r02",
+      "label": "R02 · Gemini 已审，待返修与用户批注",
+      "filename": "ShenShang_R02.glb",
+      "files": [
+        "7c130756af9a38e523613ad955e36fef870541b92ac27f210ebd9e06c3a92de0/R02_Review.jpg",
+        "244ab8b30cc0c95e85a1a850a9d239b414b80cfa69a892cde59e6ae8ee325bb3/R02_Face_Comparison.jpg",
+        "3ca601020e90ab7aeec6a44dd6c55a6c94292c0121485223a1ced6d76cb5b299/R02_Full_Comparison.jpg",
+        "290d65f391d742861c11295a8cd4287b9c9e48571d68105311732addf6234145/R02_Trousers_Comparison.jpg",
+        "2b2c8b34da376b67368e481cf2fd22d2c4c11f22aa397d2f6a3c3d9fa1cc2693/R02_T06_Comparison.jpg",
+        "0bcb89a30c6cc4c9e1a33cfe045a82654847a270b3b57fe4ad1d22bad01f75b9/01_Face_Front.png",
+        "6171959028bedcb9aeee9e419710206447652c64c2e8ca538f43328c1253ed36/02_Face_Profile.png",
+        "214a0bdaaf6365e11cca4a44b4f215c21bd65d8671615ba22ec86a338d4d2d21/03_Face_ThreeQuarter.png",
+        "c0fc541f2dffe9dd22c7a1f98128af2090231301d6ad83ce307af03c17f0bc27/04_Lower_Front.png",
+        "34a04eab964481a229e8cfeb6b528d84268c34ea326c6daa5ccfedebc33986fe/05_Lower_Profile.png",
+        "37f8741393df29ba9198edf464b5539042becd338b5d3da5a7117533934cf48f/06_Full_Front.png",
+        "8318ec1a88e8014e088367368a4b38e9f5dbce0f061cbce57c5a820eb60feece/07_Full_Profile.png",
+        "e2721f623617d323da50aface2dafb6251d0fc1373d266f7ba303fd8ab645503/08_Trousers_Uncovered_Front.png",
+        "3b56516afb621de6380fb41b8383ec547b9232e0fed24151e907f8fde5c40ffa/09_Trousers_Uncovered_Profile.png",
+        "c44f300638bf3ade30ebe18dd0961448867e06f6920b78ea5105c217892c62d0/10_Trousers_Uncovered_Back.png",
+        "7de780d07a06696bb10cfc7eb410c167fc499b3338675e6a732cf4b62297ba4c/11_T06_External_Fit.png",
+        "7ab9c180f058ba893728051db5943ba01a700a173b082b01e1d1ba1f6d03a54b/ShenShang_R02.glb"
+      ],
+      "turnaround": "7c130756af9a38e523613ad955e36fef870541b92ac27f210ebd9e06c3a92de0/R02_Review.jpg",
+      "created": 1795586335801,
+      "notes": [
+        {
+          "id": "r02-submission",
+          "created": 1795586335801,
+          "text": "R02 冻结外观候选，待 Gemini 网页视审和用户批注。本次重做颧颌、眉眼、鼻唇颏、发际与耳前肤色，重建高腰裤的裆桥和两腿落褶、布面斜纹，增加窄内领与下摆间隙。十个固定镜头及 T-06 独立试装实拍已上传。角色本体 137,499 三角面；头部和裤子均带切线。导出集报告仍有 7 组近平行面及 56 条告警，主要涉及腕匣、发束和衣领。试装肩带靠近胸前衣扣，尚待复核。当前为静态审图资产。"
+        },
+        {
+          "id": "bd7b1b3b-c711-4a89-b71e-74c3992255e5",
+          "created": 1795587090824,
+          "text": "R02 静态外观 · Gemini 网页复审已完成，建议定向返修后再提主审。此次回读 17 个冻结文件，模型 7ab9c180f058。网页 Neon 高模式，后端版本未披露。一个版本、一轮提交、四张带编号的对照图，四枚图内编号均正确。\n可保留：正脸颧颌眉眼、侧影鼻唇颏基本通过；髻下浅斑和领缘缺口已消除，R01 的规则裤面方格已去除，膝高和整体腿宽已接近设定。\n先修三处：① 保留裤子宽度，做出膝弯、裤脚绑腿上方的堆褶，放松贴体的前裆与臀缝，恢复粗麻织纹并核对上衣冷蓝灰偏色。② T-06 独立试装图中肩带与胸前盘扣重叠，带端疑似翘起，需调整走线并以侧后图核实间隙。③ 打散额角与鬓角硬边、规整发槽，清理耳前少量残灰。\n正面可见工具带与腰绳上下分层，袋面未见衣料穿出。背侧、袋内和动态贴合尚无图证。已从本地 GLB 节点及外部试装来源核对 T-06 保持独立。\n原文与逐图回执：https://gemini.google.com/app/ad138f5662dece1e 。工程归档 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R02/。"
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r03",
+      "label": "R03 · Gemini 已审，待返修与用户批注",
+      "filename": "ShenShang_R03.glb",
+      "files": [
+        "0bd20c0954090761df6fd248b58bdc952a621b3a9c9ec8b80211da70e3e1998b/R03_Review.jpg",
+        "0d998cdbc5dfbecec8370d083bdf20b48d9b96e9f12b7e7dba530f63bae2154f/R03_Face_Comparison.jpg",
+        "18628ef2449306e55452e044dedcd7ceff78c89e8818c6454b81de2d294e9ee2/R03_Full_Comparison.jpg",
+        "868197ecd60d8d1a9da6d3a90a760673b4c7585bc83d8e862a925b313e526fc8/R03_Trousers_Comparison.jpg",
+        "b9cd50da260ecf31d74e7c1c263f964a3b0b9ca4fb18055ee24f0c56ef5736b4/R03_T06_Comparison.jpg",
+        "c875303c34141b53e405738fea7edf34a3fd6e74890a4f790eeebe5debcaabc7/01_Face_Front.png",
+        "b93ab85f09515d81d9b004f052dbd5888d22daa56c90b641f6f8f0c8744421db/02_Face_Profile.png",
+        "99e4c3e66876f17a0a69c86c1f3830e96d227e7735975a6584909fff3dacaebd/03_Face_ThreeQuarter.png",
+        "9c453422be7fd60a4414cb89660c02efd24e0582248be26776ff15943a2d59b0/04_Lower_Front.png",
+        "7bc3381bd8720348fd5565b8b327f511070af3abd9eb7f9b812bb7836edea40e/05_Lower_Profile.png",
+        "2ed869d83666b884723ed77ecbb99d600fc3f9198e6b55650176f99d3eceb30e/06_Full_Front.png",
+        "43eab18b832545bd862e9f5c9a574c1f9055450ddd3639308f5650476ad54351/07_Full_Profile.png",
+        "b1de08e36f03eb781e1c8f855b4ea2a6c545de854899e7559290dca1cee61d7c/08_Trousers_Uncovered_Front.png",
+        "e610e422ee12e46ead60b747c2631678284c3559f0aaefc309dcd00e03171741/09_Trousers_Uncovered_Profile.png",
+        "378cce40db1b9dc3c86dba6b761c5fafd736b01ac90f66873e9736cc424bf0ce/10_Trousers_Uncovered_Back.png",
+        "239ba47b06882912a00612b4b94ae6c984db117c446d5e252fe86ac84809d2f5/11_T06_External_Fit.png",
+        "15f6199735c66cc27d1d33a77b5ae3665d363543d7e42c9a288f979ca7405a59/12_T06_Left_Profile.png",
+        "a08b64eac4c1ca7b48d6f761ce46dbc3b21996feadc79d2b02bdc1411dc87260/13_T06_Back.png",
+        "9025ab7ace194358781945b7e2a36f95267229d03bf7609cf06997713312088d/14_Hemp_And_Cuff.png",
+        "0390dec83a0f746f6aadfb5e76de2d4b921d2885359f5e66866262486b76ad98/ShenShang_R03.glb"
+      ],
+      "turnaround": "0bd20c0954090761df6fd248b58bdc952a621b3a9c9ec8b80211da70e3e1998b/R03_Review.jpg",
+      "created": 1795589815975,
+      "notes": [
+        {
+          "id": "r03-submission",
+          "created": 1795589815975,
+          "text": "R03 冻结候选，待 Gemini 网页复审及用户批注。脸部几何逐点沿用 R02，修改额鬓、后颈碎发与耳前肤色。裆桥下移 31 mm，膝位和裤口高度沿用；重做左右裤褶与粗麻织纹。T-06 外部试装另拍正、侧、背，盘扣到前肩带的顶点采样最小距离 65.23 mm。主角色 GLB 仅包含角色。当前 144,701 三角面，游戏网格回读仍有 4 组近共面报告、53 条告警。未做蒙皮与动画接触测试。"
+        },
+        {
+          "id": "2e6dcf42-dc40-412b-a364-ba9195d594d6",
+          "created": 1795590577616,
+          "text": "R03 独立静态复审完成。Gemini 网页建议定向返修后再送主审。四组图内编号全部读对；裤装含 14 粗麻与裤口近照，T-06 含正、左侧、背试穿。GLB 0390dec83a0f，20 个冻结文件已与工作台回读一致。\n可保留：R02 已通过的脸部骨相，R03 的耳前肤色；膝位、裤脚绑腿上缘的堆褶和近景粗麻经纬；T-06 避开两枚胸前盘扣的肩带走线。\n优先返修：① 收顺下摆下方突出的裆臀鼓包及硬横折，弱化全身距离上的大块斑驳和暗沟，保留细织纹。② 打散额前、鬓角、后颈碎发均匀的尖齿，保留脸型与已清理的耳前底色。③ 收紧侧视后腰绳，理开角色右侧外端袋与腰绳的贴靠。试装背扣偏右、肩带略窄，适宜在独立试装里细化并补右侧视图。\n本地直接比对两版 GLB 的头部 POSITION，4,644 个顶点逐点相同。T-06 仍独立，新增背托与前后固定扣仅见于 WearStudy。可见贴靠为静态画面判断；右侧盲区、袋后内面及抬臂弯腰后的接触均未验收。\n网页版视审原文 https://gemini.google.com/app/21ed8e03a2879cab 。工程归档 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R03/。"
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r04",
+      "label": "R04 · Gemini 已审，待主审与用户批注",
+      "filename": "ShenShang_R04.glb",
+      "files": [
+        "03db713168feba70f8d090c5a24bf269a79bbcf6bd0a7aa28ecf67f64e953235/R04_Review.jpg",
+        "ed6a8d07b5db685825c1a207b647d0dd7c4aa3688439ca7a38f21704f6a704e7/R04_Face_Comparison.jpg",
+        "0f9ec38cc85d98b040165f1fd21d4bde0ac1f6e21d96f1227f680946358fe713/R04_Full_Comparison.jpg",
+        "de61ff930bf06332e1ff3707c049013b9fa42c83c01b42d8e6517e34b82931d0/R04_Trousers_Comparison.jpg",
+        "4798b6e62609e89417701c1a3935ab4340a858bb1575fe8cd5f08e69dd6c1d0c/R04_T06_Comparison.jpg",
+        "440487bf014b841ae8e90255d5e551e7f57135b0b125abf7e725465b86961fa0/01_Face_Front.png",
+        "7dadb51c539599f613e1edb11c4b3a579a6e73e722f301068c99db633fb1b689/02_Face_Profile.png",
+        "5fa776489c2722bbaecd7bf50f7363a3cb3daa80f96ef89a89fd7712a07da813/03_Face_ThreeQuarter.png",
+        "eeb4f6a7217eabce0f4e0471c8b80e9b96e29abc8db1085281e837697f0ca6c7/04_Lower_Front.png",
+        "c770189dc2bd669af45bfbb3934e3d599363a58fc01c446dbb3eaf758efde034/05_Lower_Profile.png",
+        "698f08aa0a77a5e0b83c0684eb7618fcdb79c1442ca1fd537531891f739f9011/06_Full_Front.png",
+        "cfccad6b80fddb029279a8f219f0c7fe4a9204f0c51493560a069a1e0ac1d95c/07_Full_Profile.png",
+        "3d345f25582dc698726c042ee8d907b44f432e04db925bdc997e1e8a0a7efa7f/08_Trousers_Uncovered_Front.png",
+        "e1dc65c4e05836e511e811034d641a19dd4eb8d2c51e57289d5d65c55b7a24c3/09_Trousers_Uncovered_Profile.png",
+        "72286526c5671b698ca23bd824a0b464691298f31551cc0b554fa44b91c8eb45/10_Trousers_Uncovered_Back.png",
+        "45c1bb1a812b203b8af6b773c78f16b514ecd9dea6f6df5b0ed986cf817cb245/11_T06_External_Fit.png",
+        "64ef2287b28c347c7a5f9fd1d6871655b48db4dd78dbee4e4aa1ccac24b82e47/12_T06_Left_Profile.png",
+        "8248185169c76e914b4f3abad94d5b20777d86ada882b051aceff8f2da2fd96c/13_T06_Back.png",
+        "51cb74ac6684661bf0bb6a0181fed860593fc2bfbcbe6d6af6f41edcff31c4a6/14_Hemp_And_Cuff.png",
+        "accad3eab8f6ca86a74be67075a63965e4a2eb2e429af6055eb8552d9d170165/15_T06_Right_Profile.png",
+        "a1b3b67221765f86589cd8c6b0e04803a7667d9c2a9b2b3ec8ccab31fb870c67/ShenShang_R04.glb"
+      ],
+      "turnaround": "03db713168feba70f8d090c5a24bf269a79bbcf6bd0a7aa28ecf67f64e953235/R04_Review.jpg",
+      "created": 1795593608359,
+      "notes": [
+        {
+          "id": "r04-submission",
+          "created": 1795593608359,
+          "text": "R04 冻结候选，待 Gemini 网页视审与用户批注。对照 R03 调整裆臀横折、大面积裤色斑驳、发际碎发边及外部试穿的窄袋与腰绳间距。面部与膝踝的几何受保护，外部试装另拍正、背、左、右。两只窄袋至腰绳的采样间隙逐项见 RevisionResponse.json。正式 T06 与角色分开。当前 143,173 三角面，导出集 4 组近共面报告和 53 条告警。本次静态图评；肩带宽度、背扣造型与短衣用色待用户取舍。"
+        },
+        {
+          "id": "2dc59076-7b00-4df8-8094-019acb7c7adb",
+          "created": 1795595397695,
+          "text": "R04 独立 Gemini 网页复审。可交主审与用户查看静态外观，本轮没有交付前必修项。\n臀下硬横折、短衣下鼓包和中远景裤面斑驳已收敛，近景粗麻织纹可辨。可保留脸型、清理后的耳前肤色与收短的鬓角。T-06 正左背右试穿中，右侧窄袋在腰绳上方，两侧后腰轮廓均未见透底。\n后颈发际偏左的两处浅色点可在精修时复查。隐藏短衣后前裆上方还有极浅横痕，正常穿着时被遮住。\n用户可定发顶保留紧凑块面还是更接近 A2 的蓬松碎发，以及前侧窄袋维持贴绳还是稍微上提。肩带宽度、后扣造型和上衣色相依主审意见沿用 R03。\n静态试穿使用独立 T-06 和局部穿戴态腰绳副本。袋底阴影、袋背和绳内侧间距，以及屈身、跑动时的穿插，仍需工程或动作验证。\n四组像素编号全部读对，归档版本模型 SHA-256 a1b3b67221765f86589cd8c6b0e04803a7667d9c2a9b2b3ec8ccab31fb870c67。原文 https://gemini.google.com/app/e5d050112e5fcbb5，本地回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R04/WebReceipt.json。"
+        },
+        {
+          "id": "r04-art-direction-options",
+          "text": "R04 静态外观已可审阅，以下五项留给用户决定，可以分别用 A 或 B 批注。\n1 肩带　A 维持当前窄带　B 加宽至接近 A2。\n2 后扣　A 保留现有简洁接片　B 改为 A2 较居中、能辨识扣件的结构。\n3 短衣　A 保留 R04 的冷灰靛蓝　B 靠近 A2 的深炭灰。\n4 头发　A 保留贴头、整洁的束发　B 让额鬓和后颈更蓬松，有更多散发层次。\n5 窄袋　A 维持目前与腰绳紧凑但分层的关系　B 略上提，让两者之间多露一线衣料。\n另有一处技术项：实拍 13 后颈两点经相机射线核实是头皮局部穿出发壳，中心采样约 0.65–0.90 mm，绑定前应修。R04 作为冻结批注版保留。",
+          "created": 1795595502867
+        },
+        {
+          "id": "a1204cfd-7fa5-42d6-8c68-2d941ea3a34d",
+          "text": "脸型需要修改 还有发际线",
+          "created": 1795606614299
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r05",
+      "label": "R05 · 背面静态视审通过，待用户批注",
+      "filename": "ShenShang_R05.glb",
+      "files": [
+        "d65c9b95231d33896cf0fd64291ac94697bea779eaeda2fb49d490bd668ce305/R05_Review.jpg",
+        "0ce735cbfc90b71550134ef37638de8bc443651a0a05fc6d7d804ade63d1c77a/R05_Unity_Back_Comparison.jpg",
+        "05a799ddf0ed5dd4d89d320763489dfd3416a33a4cac22009f02120fb219ad09/R05_Head_Comparison.jpg",
+        "02d1f270bbe776284597b63b3a382a230603a14f3ff3bd2d4958357f81734eb5/R05_Coat_Comparison.jpg",
+        "26a4a0d2e55f664187d4c06189ef903c428c5f605d3f5fa939e37b7a539006ba/R05_Culling_Comparison.jpg",
+        "0e2e664c5d2c566c1a4920347c3be546f927e45f5197082e1bdbd444c0833db8/R05_Unity_01_Back_Full.png",
+        "480160ca41eef10794439dcc829ed944aa22fffef7197e97be0d9d8cbde58f37/R05_Unity_02_Top_Rear_Head.png",
+        "9ea48a14ef6d994d334c74b82259dc6bd53881de9bcb923aad3bfa38f637c414/R05_Unity_03_Nape_Straight.png",
+        "22da9fb6ca44142a0b6ff05313c59cd03fd792e8b46da082e83679d95b73bb3e/R05_Unity_04_Oblique_Shoulder.png",
+        "d26f7cc54daad961cd0d8b5f138a7e94f23ddc1eb9dc411845210c36134b7359/R05_Unity_05_Waist_And_Hem.png",
+        "02593d453c79815c6685b0a7e7fd74f001a5cd6afa5aace5e4a4b1b9dfd041df/R05_Unity_06_Back_Collar.png",
+        "5f929e54848c0c4344ffcae78ab5fc293dae496478255a9496e72ff0e4384dec/R05_GLB_01_Back_Full.png",
+        "6e9084471c8982431cc7836976ac13f52239e2fa0cd2bda13ec8f45dc0d5f66e/R05_GLB_01_Back_Full_CullBack.png",
+        "500086f68329df5105dc0d447ef998196279a5b4cd64c9b8ef987630e1ac64e9/R05_GLB_02_Top_Rear_Head.png",
+        "f48cc5dd3827e18072acdf6d4197cc865fb6a08a238a81d6ddd123eca560c9d8/R05_GLB_03_Nape_Straight.png",
+        "319febc582438bec842178573d5cc1ec3d8695b532ff41ba00d3cea0f32ffe3d/R05_GLB_04_Shoulders_Left.png",
+        "891a2c28b86619b61c81ffe4475cfa8a509df9dd35a84dbef4faf31ee95f5b63/R05_GLB_05_Shoulders_Right.png",
+        "53869426d5e28f60d2214bd568935d530830e5d9bb94f606aa58a3aa5d85d588/R05_GLB_06_Back_Waist_Hem.png",
+        "44a1b80b9d60220d1bee652306eda003bd12da75b97a35c897715966a39196b9/R05_GLB_06_Back_Waist_Hem_CullBack.png",
+        "10dcb310e9accdab1a98cb1a7b006e575b3d703e7d3568f864ade723100b5bbf/R05_GLB_07_Neck_Shoulders.png",
+        "cce5eca256e8af87fad6ac63b91a28971d9ae6cae3d3392261929fb5b4aecd75/R05_GLB_07_Neck_Shoulders_CullBack.png",
+        "ba232118296c55a20d290c08fbe4052bf201edd3b2abcf20b5f7de3b1e80eceb/01_Face_Front.png",
+        "b3e26b84eec895d2c564c89090f5322a80c0fdcee5ff6ab737b0971b395dbc19/02_Face_Profile.png",
+        "c8fa34f1c6a18ca13a186b3fd81430c81ea692b0d176347b4d2596b3d65590d3/03_Face_ThreeQuarter.png",
+        "68f55acc21f0a44660123a867c11edb7f3262b10ab0ea7d9ea2d18aea59a56e0/04_Lower_Front.png",
+        "b4a273cf9abac6c88432fc6d48aa537473500d9ccdae9e7403c684b258920ca0/05_Lower_Profile.png",
+        "7c6fd89f9882a547402815041fcb59d83d64ba8b06557b1b67c715fc341eb2af/06_Full_Front.png",
+        "d4495d3d4d3cfcc02cee936a5cc5637450183bc201e3a5bf1a974479c615c392/07_Full_Profile.png",
+        "2573085ca3966ee27b91a6b90c72d361ece9aca488a848317ede21f40206fbd6/08_Trousers_Uncovered_Front.png",
+        "71448e1b19bbf5d4987bf885f0c7cc9b3a8c36829cc329ce8e25a64185b7ba6a/09_Trousers_Uncovered_Profile.png",
+        "94931ecb182652d1d6adf388ac7a07476a093cde427535606e004bb5a948ccc5/10_Trousers_Uncovered_Back.png",
+        "e75874e0482d20316115a670a3c5fcdace94f6f56fa7e1fb854d931ac13ec373/11_T06_External_Fit.png",
+        "bbe27e2c54aeee1e6bc4262cc6738631114854b1f0cc6c3e5bae83d9d2d84f70/12_T06_Left_Profile.png",
+        "26a706ab324a99c27075868ba076bb203f1904f3001eaa89a9aa0aef8bd8f86c/13_T06_Back.png",
+        "7c4a5fbfd596b78d19dc45c40a92710a29944427c39f73172fa46dc1ca870426/14_Hemp_And_Cuff.png",
+        "a6dbf61a16f96475ae4f68be21cd765925eb8e213e4a712ac8b9edd6df27ea07/15_T06_Right_Profile.png",
+        "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0/ShenShang_R05.glb"
+      ],
+      "turnaround": "d65c9b95231d33896cf0fd64291ac94697bea779eaeda2fb49d490bd668ce305/R05_Review.jpg",
+      "created": 1795605690710,
+      "notes": [
+        {
+          "id": "r05-submission",
+          "created": 1795605690710,
+          "text": "本版回应 R01 的后背衣破、后脑似秃批注。封合下摆内侧、补衬袖口和腰绳局部，调整后颈发层以盖住穿出的头皮。陈列含相同视角的 R01、R04、R05 及无工具带的 Unity 实拍和 GLB 重导近景。脸和裤型的导出顶点逐值核对。150,173 三角面、33 个网格。游戏网格 QA 仍有 4 组近共面错误与 55 项告警。静态外观待 Gemini 网页视审和用户批注。"
+        },
+        {
+          "id": "a120f60b-88ee-4955-93f1-24fa76b02178",
+          "text": "R05 独立 Gemini 网页视审。后脑、后颈、后领双肩、腰背与下摆通过静态外观复核，正脸与 R04 无可见回退。可交用户看稿，本次两项背面批注均无交付前必修。\n同机位能区分两次改动。R01 发髻下方大片区域看起来像露头皮，后领两侧也直接露肤，下摆有波浪形裤料穿出；R04 已覆盖大片浅区和肩部缺口，理顺了可见裤片。R05 清除了 R04 后颈发际中线偏左的肤色斑及两侧零星亮点，Unity 俯后近景和 GLB 正后近景一致。\nR05 双肩布面和褐色收边在本组机位连续。另据制作的 RearAcceptance.json，R04→R05 后颈头皮在前的射线样本由 279 降至 0，单面衣摆等受测服装射线漏到底色由 61 降至 0。R01 后脑大片浅色为外观描述，受测处发帽在头皮之前。R04 在仰视下仍有单面缺口，R05 补了内衬并封合滚边。\n制作复核项：Gemini 在 Culling 第 2 排强制剔除背面时观察到左腕准望匣背侧显出内腔、卷袖内缘局部变薄。普通显示下没有相应破洞，需在正式着色器下复看。低头转颈、抬臂、弯腰下蹲还需绑定后检查，造型保留用户裁定。\n一次提交四张图，四组顶栏校验码与回执吻合。冻结 GLB SHA-256 97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0。\nGemini 原文 https://gemini.google.com/app/d5a9cfc6bae9c70c。工程回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R05/WebReceipt.json。",
+          "created": 1795606769259
+        },
+        {
+          "id": "b784da1d-d926-4282-93a2-47718119e4e7",
+          "text": "发际线有问题，脸型再改一下 脸需要精细一点",
+          "created": 1795607973418
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r06",
+      "label": "R06 · 裤腰静态复核通过，材质待返修",
+      "filename": "ShenShang_R06.glb",
+      "files": [
+        "9213a465601fcb74bb5430cbb2f4d96958f744ef083363b62996ffc8e5debcaf/R06_Hem.jpg",
+        "532dfb45769d78e22f152597a3c1b8dff0df9c625f04d1dfb4f8d67ab26087fd/R06_Elevation.jpg",
+        "52c8da164b8d07a114166ec5b4dcc961bff43605ee7a5a6c4e5e0a6fb573cc4c/R06_Unity_Waist.jpg",
+        "88bd8a440586f9e4a33d09f4534bcda0c7cecfa68358d3a5bf99be9e78832b1e/R06_Figure.jpg",
+        "fd56c335eff7deedc75d1914917516c5e25e867998b37d99f573f4b1f5dcbf66/R06_GLB_01_Back.png",
+        "345f5bc54a6c108fc9564e062ddaf6fc776183e222bae790f8af32d613f37606/R06_GLB_02_Oblique_Left.png",
+        "a48baf9419564abe327dc17b6d60e64cefed5faac3cc7887b48520aa10d20152/R06_GLB_03_Oblique_Right.png",
+        "491c7d1ca4f4e5250cfec5ac78bca029aafd6fb907f35bce5627daa2b523e9bb/R06_GLB_04_High_Rear.png",
+        "01153aacf901399aa332faca53b2c15ba5fa3f9bd4caf437de2569fc12cc48d7/R06_GLB_05_Low_Rear.png",
+        "d771615d50cb4bd0db7e211a039fb33c121c37b3e7934e05eb05fb0a8b12570f/R06_GLB_06_Front.png",
+        "51b97028e338ee9d8ddf5c98005854986ec8f6c49b5dc484a663a01751830a1d/R06_GLB_07_Profile.png",
+        "0d5538ce21651c312f1669327a02ca3ec97a31b580943e63ea2bf3332f7e2669/R06_Unity_01_Back.png",
+        "649bf8f22ef8429709fdd85cc011fec0f6b8001e36b0f6f66e6c8b7ea345c1ca/R06_Unity_02_High_Rear.png",
+        "0c14044362cd5db0b3858d5ee44845bd9d1c7516c54162cd82db72b1ba0cbb6b/R06_Unity_03_Low_Rear.png",
+        "17b31ba724c4b14ee1b107d62ca1a05db81e5135600d1cb8a571f4dcd5573313/R06_Unity_04_Front_Waist.png",
+        "061e519c65bc5aaf375e8f59d11a3a0dad5a9d2e7e1387f1e0c53e519fd86de0/01_Face_Front.png",
+        "78721d5003563014ca6b88b6938708bb420f588564e2a2aa0c37feff6001a75c/06_Full_Front.png",
+        "887bba55d7c2a3479320f20c87e530b667887247de3cbeb7611bcf903a0fb789/08_Trousers_Uncovered_Front.png",
+        "8e1ed5b62da948a6441b065ac9ab861226f4fbd0bdefa92a6f032fbd003c6fc7/10_Trousers_Uncovered_Back.png",
+        "77be680b1cbc86904a66aa1af7f088f5fbed41f15dd6c467b9cfce221b76fce1/ShenShang_R06.glb"
+      ],
+      "turnaround": "9213a465601fcb74bb5430cbb2f4d96958f744ef083363b62996ffc8e5debcaf/R06_Hem.jpg",
+      "created": 1795611405975,
+      "notes": [
+        {
+          "id": "r06-submission",
+          "created": 1795611405975,
+          "text": "回应 R01 的「衣服裤子穿模了」。R01 下摆与裤料确认交叉，R05 下摆已修；重新测出 R05 裤腰仍与腰绳、上衣相交。R06 将藏在上衣内的裤腰最高边降低 27 mm、收进 2 mm，保留臀腿、裤褶及 25 张内嵌纹理。冻结 GLB 对八件衣物的裤料相交数归零，32 个腰部观察角度均无裤片先于上衣或腰绳。含七机位和 Unity 对照。当前为静态外观候选，待 Gemini 与用户批注，4 组既有近共面和 55 项告警继续记录。"
+        },
+        {
+          "id": "64aa731b-d423-4fd8-8832-0ddb6a8bbb08",
+          "text": "R06 独立 Gemini 网页视审。R01 下摆处可见裤料穿出，R05 已修。R05 与 R06 在本组机位均无可定位的外露裤片或腰绳缺口，褐色收边连续，正脸、全身比例及外露裤型也无明显变化。衣物覆盖着裤腰，静态图分辨不出两版衣内的几何差别。\n冻结网格另有检测依据。R05 裤料与夹袄、腰绳分别有 441、282 组三角面相交，R06 两项均为 0。相同腰部射线采样中先命中裤料由 4/74114 降至 0/74114。此处为静态几何结果，不能推及弯腰、下蹲与跑动。\n材质返修。GLB 正后及斜后和 Unity 腰部图中，R06 夹袄、翻折袖口显著偏浅暖灰，腰绳由深褐转浅卡其；全身正面图里差异较弱。核对两版 GLB，夹袄、腰绳等 9 个同名材质在 R06 遗漏了 R05 的 baseColorFactor。R06 作为中间版保留，恢复颜色后的 R07 另行送审。\n一次提交四张图，四组顶栏校验码与回执吻合。冻结 GLB SHA-256 77be680b1cbc86904a66aa1af7f088f5fbed41f15dd6c467b9cfce221b76fce1。\nGemini 原文 https://gemini.google.com/app/3c3da0d54622bafb。工程回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R06/WebReceipt.json。",
+          "created": 1795612147125
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r07",
+      "label": "R07 · 服装静态复核通过",
+      "filename": "ShenShang_R07.glb",
+      "files": [
+        "859469ebdb7393414c72277e8ba86203695ab135ca42bb21223a9076042f64f6/R07_Hem.jpg",
+        "14925223234f6e79519abbc8191013b607dfe6815d1807952e97af8a61d4a515/R07_Elevation.jpg",
+        "8bd473e3abc6109503b46de309fa9688c2fb42966b24c3931e31d5e9af660260/R07_Unity_Waist.jpg",
+        "8983ae620a68675011cfb7f0112745c1b420e59d3be5d0b3d67424a9b07beb92/R07_Figure.jpg",
+        "5e5772553b8e608e324d1b2b127a02879a2cfbc2947b9847e970c6dd6f6d53d7/R07_Material_Comparison.jpg",
+        "38fc89a1f2a3db25e59a30403210b2b2e8a8a5f6f12f01d367a0c159e9ffd920/R07_GLB_01_Back.png",
+        "abc3d74a66cc7542b7c3f1fbbeab6f6c7537038149584ccc4a2a37044badcc01/R07_GLB_02_Oblique_Left.png",
+        "127578c276fcd218bac2c0522901515d0b0abca5816d96c6ce44639d8b478d9f/R07_GLB_03_Oblique_Right.png",
+        "06dbf38c1f73bdb71bb07b10ed88e3ac9fa6e8346110da21cf61db1ca49b0dff/R07_GLB_04_High_Rear.png",
+        "7b8c634404ebcd650c9fb9b2b6f2a000c25586d483c3f358763c2d6c6656f161/R07_GLB_05_Low_Rear.png",
+        "38b7d126ba45d2e59e9389d60ffee7a5a1aea89676547e945ba7a8b3859e8881/R07_GLB_06_Front.png",
+        "eab2cd498db93bde3c49c74fe133e1d656250403cbaf060c5801241a03f0d67f/R07_GLB_07_Profile.png",
+        "3d0783ab25dd2aafd3139851ad4126d052fa7b5337b91a6fdf9b01eb45c510ab/R07_Unity_01_Back.png",
+        "159e6dd7994a0803a1cf893d868e0139c9c6645d20b8e4b9667ab36d2512f187/R07_Unity_02_High_Rear.png",
+        "1f37e0c889e3a72a6cb27e5c16f00f76688ae62be16ae1d76acb78e3521814cb/R07_Unity_03_Low_Rear.png",
+        "7d272eded98c9fd209a45a6d49e6609ca530844534a8e642ba59e07163605954/R07_Unity_04_Front_Waist.png",
+        "149f875980ed83ef677d3fca3723b1626f33d450001c9ed62f9cc3bfc9f27e21/01_Face_Front.png",
+        "08ad4d7373d809c853abe60dce10dd5e9e3828a06bffd51be7134bf1fc776bc9/06_Full_Front.png",
+        "42935d4ed8215b5d295b8a8a5b1eb32cca74fabd55f7bde0f484193c5ae6e237/08_Trousers_Uncovered_Front.png",
+        "26a7d229d9b863c0fe7e372a6d63c6f4fca09307b2568586886df5a912a4438d/10_Trousers_Uncovered_Back.png",
+        "f965c0e078f3f603a9496650e478bb51f040ec28f81e9c9db6f4b4fa44e326d0/ShenShang_R07.glb"
+      ],
+      "turnaround": "859469ebdb7393414c72277e8ba86203695ab135ca42bb21223a9076042f64f6/R07_Hem.jpg",
+      "created": 1795612287310,
+      "notes": [
+        {
+          "id": "r07-submission",
+          "created": 1795612287310,
+          "text": "回应 R01 的「衣服裤子穿模了」。R01 下摆与裤料确认交叉，R05 下摆已修；重新测出 R05 裤腰仍与腰绳、上衣相交。R06 修正裤腰，R07 同时恢复九项导出材质基色乘数，33 项材质描述与 R05 完全一致。修订将藏在上衣内的裤腰最高边降低 27 mm、收进 2 mm，保留臀腿、裤褶及 25 张内嵌纹理。冻结 GLB 对八件衣物的裤料相交数归零，32 个腰部观察角度均无裤片先于上衣或腰绳。含七机位和 Unity 对照。当前为静态外观候选，待 Gemini 与用户批注，4 组既有近共面和 55 项告警继续记录。"
+        },
+        {
+          "id": "a6b7000b-be89-42f9-a639-5348edbc663d",
+          "text": "R07 独立 Gemini 服装视审。在 R05 / R06 / R07 同灯光对照中，R07 夹袄、袖口与腰绳已恢复 R05 的深青蓝与褐色。GLB 斜后和 Unity 正面腰部两行的观察一致。R01 / R05 / R07 对照中，R01 可见的裤片穿出在 R07 各所示机位均未重现，下摆和褐边连续。颜色与可见穿模两项静态通过，本轮没有需退回制作的服装项。\n独立核对导出文件，R07 的 33 个材质描述及 30 个纹理绑定均与 R05 相同，R06 遗漏的 9 个基色参数已恢复。R07 与 R06 的 GLB 二进制块、网格和访问器描述相同。制作的静态网格报告中裤料与夹袄、腰绳相交均为 0，74114 条腰部射线无裤料先命中；这些是工程证据。\n动作验证待绑定后覆盖弯腰时的前襟和腰绳，下蹲、迈步时的大腿与后摆，抬臂时的袖口。用户提出的脸型与发际修订由 R08 独立评审。\n一次提交四张图，四组顶栏校验码与回执吻合。冻结 GLB SHA-256 f965c0e078f3f603a9496650e478bb51f040ec28f81e9c9db6f4b4fa44e326d0。\nGemini 原文 https://gemini.google.com/app/ff361454e846a988。工程回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R07/WebReceipt.json。",
+          "created": 1795616323941
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r08",
+      "label": "R08 · 脸型与发际需返修，可批注中间稿",
+      "filename": "ShenShang_R08.glb",
+      "files": [
+        "785e972dec2dca6b24698d248ebe2838f396f42e9951440b06deda17621abf85/R08_Likeness.jpg",
+        "850fec61b40b50fd54f8d3b58483c74fb5fc3cb6ce94a402d10dedd8c4157f01/R08_Clay.jpg",
+        "d932f38313581ec793fd2badc4b1ab26a2873d564e4e88ab2f17e00440c72b9f/R08_Hairline.jpg",
+        "7873c2e0181a47c0b33fcb01f3e40cfd270ff0588326184e1e84ca52edca51fb/R08_Features.jpg",
+        "ccf61af90373aa4f86c03169cc3a7f62d33645ab78acd4d10df5bef24d580ebc/R08_01_Front.png",
+        "0d6b344b52fd478a2f3919f46c2c0ad8a249b0112c7d9cc2ef135e289169d1db/R08_01_Front_Clay.png",
+        "9400961c577c2bc497c2aac13485843c8bd4f3a25917aefe7fef82ae6721e29e/R08_02_Profile.png",
+        "ba8dc5b5bfedb10d9c265cb200dab8fa92e3189da55a6d2564927e6e3b4ea3f2/R08_02_Profile_Clay.png",
+        "850066f5c74143060fbd5206a0c0b5d18972a2fb1a4dcf05e9a984db64ee075f/R08_03_ThreeQuarter.png",
+        "38701c9f2d966230bf5ffce178ab07f6ab6af4ee4ef6912fa39f3f5d8c4472dc/R08_03_ThreeQuarter_Clay.png",
+        "75012a4929529f2f414f50c135418ec3c00d04a6c49026f57b369377b2da98cd/R08_04_Hairline.png",
+        "6a34b28220627c2d08e4ccffaf2e48fcb547b8aa42a0263db8f7de4cede8eda0/R08_04_Hairline_Clay.png",
+        "e591a2ce7bd059acfb5370d85f4f54f491d9e1e405ff667a5b2f5ee2b999dcfe/R08_05_Temple.png",
+        "ddd22b8569f4144bfe522589b6dc0c57e05954e4710db33685b91f796a1ec099/R08_05_Temple_Clay.png",
+        "7205f2a89b09f67c22f09f714c156912e5b5e8555c6f8232241956996be4e707/R08_06_Eyes_Nose_Lips.png",
+        "85813fa680fc618af2acab1664e346d57c19275e5243ebfaa9ed4a75747d84d3/R08_06_Eyes_Nose_Lips_Clay.png",
+        "3a653955dfc98313908a6f08b69c5fb2cdbb947a4aa1baabcb1a7292ffdb5746/R08_07_Nape.png",
+        "097ff7b705611a51eb2301655efc5ca423fa9cabf66c6a6f438ce0c8fab446e8/R08_08_Full.png",
+        "491a7053a2e6fe2f07db4884b6f0fa74c6d0b62d9b85098541a03538abb3e40d/ShenShang_R08.glb"
+      ],
+      "turnaround": "785e972dec2dca6b24698d248ebe2838f396f42e9951440b06deda17621abf85/R08_Likeness.jpg",
+      "created": 1795614082253,
+      "notes": [
+        {
+          "id": "r08-submission",
+          "created": 1795614082253,
+          "text": "本版回应 R04、R05 的脸型和发际返修。根据 A2 正侧与四分之三脸部重塑颧颌、眼睑、鼻翼和唇缘，重做额中与两鬓的过渡、发束梳向和头发纹理。白模和带材质图按相同相机与灯光重拍，外观审阅模型（实测 196,673 三角面）；R07 的裤腰、衣摆和衣色按导出 GLB 复核。游戏网格检查有 4 组近共面和 56 项告警，脸与发型是否符合用户期望仍待批注。本次静态候选待 Gemini 网页复核。"
+        },
+        {
+          "id": "aa6ff3d5-68d2-495d-85db-ca3ab5a22ac4",
+          "text": "R08 独立 Gemini 头脸静态复审，依据为 A2 脸部三向与 R04、R05 用户原批注。颧颌、五官精细度、发际过渡均判返修。可作中间稿核对方向，最终相貌待用户裁定。\n第一优先看 Likeness 与 Clay 第三列的四分之三侧面。R08 的颧弓外缘明显鼓出，颧下随即内凹，与 A2 连续收向下颌的轮廓有差距；侧影鼻根偏浅，下颌缘仍显短斜。保留正面下巴收窄的幅度和侧面鼻尖、人中、唇的相对投影。\n第二优先看 Hairline 的近正面、斜侧额角与 Likeness 侧视。保留前额起伏和额角位置，打散等长密排的短发束，理顺额角向发髻的梳向。耳上鬓角有深色边点，前额发片转入主发层有接缝感；复查可见侧的贴合并补对侧近照。静帧不能确定深点的几何或透明裁切成因。\n第三优先看 Features 的素模。鼻翼包裹和上唇唇峰比 R07 清楚，可以保留；上下眼睑仍薄平，内眼角偏尖，嘴角外端有尖折。建议用相同材质和无贴图机位复拍，复核眼睑包裹及嘴角端点。另一侧鬓角、发旋后颈、受遮挡的眼鼻内侧及表情变形本组未充分验证。\n一次提交四张图，四组顶栏校验码与回执吻合。冻结 GLB SHA-256 491a7053a2e6fe2f07db4884b6f0fa74c6d0b62d9b85098541a03538abb3e40d。\nGemini 原文 https://gemini.google.com/app/c90904ee0ae83841。工程回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R08/WebReceipt.json。",
+          "created": 1795617875826
+        },
+        {
+          "id": "99adff08-aa0f-4e83-9ef2-ddcf97f0e304",
+          "text": "脸型不像 还有发际线不行，有点高",
+          "created": 1795618106780
+        }
+      ]
+    },
+    {
+      "id": "shen-young-a2-blender-r09",
+      "label": "R09 · 发际高度已下调，脸型与前额发缘待返修",
+      "filename": "ShenShang_R09.glb",
+      "files": [
+        "87c33a78e47f77b7fe416028c990f94890c211dafd4ac9f9c4996f7f0076115f/R09_Forehead_Jaw.jpg",
+        "afb41ee18e278d6039f58f830891154a2677d6b77ad7d28464ff47e05c2812ca/R09_Likeness.jpg",
+        "c239788ab52f1b7806c74e5fd19e88a608edfc67df5f58cbc664a69733ada3bd/R09_Clay_Features.jpg",
+        "56de7ab516b4e7afab8d9ed78f6039bb682a8fc96eacfefdc5c3d10aed802d51/R09_Temples_Rear.jpg",
+        "3bc2234d232cabfdfdaf25d982a6ef9a80435e6e8770b05ebb7e26dc86f53913/R09_01_Front.png",
+        "cd8080a1e2c8d58144730b46701e2ca7b7c2940065a8f398c8b66054473926be/R09_01_Front_Clay.png",
+        "4832e43841744f4a46dbe390279470f2219bbd386960a7d2fd6a68d0d8192139/R09_02_Profile.png",
+        "f19106cca69bc69e27c7e85fc4f38471266dfe290139f22a5c05fc953b56de55/R09_02_Profile_Clay.png",
+        "db28793e7d32aa3e15bb026ab77ce831f71e586f0b645c80d06703e05c345d59/R09_03_ThreeQuarter.png",
+        "5170cf260e05574313a912da96adc57e5ad6f5aee05497cf4117558b73a64d99/R09_03_ThreeQuarter_Clay.png",
+        "0f171e74875ab2d7f1f05cb5ec834f721c4f7e57adeee1fa3dd7073619f5e7d5/R09_04_Hairline.png",
+        "c70d68fd4475a6954c697df46d3063f1c22f3ee0ab1e825bc02a105a71101a8f/R09_04_Hairline_Clay.png",
+        "9d616f4c88ea54b741ef78db5748451d4f5fff50aa26fe75184fa4d2265b750b/R09_05_Temple.png",
+        "949df2fca8ab8fc41f7177546a572d21a3a43a8c1f1e84bcc00ce85d2d71b7ed/R09_05_Temple_Clay.png",
+        "a4e2f9249f7d067b6830e31a7977799e017e8df8254cdc94e2c4326beee6ad2e/R09_06_Eyes_Nose_Lips.png",
+        "1a0c4d1459e56604e3a7a5ede9de4db90ae81210ca6b56b1595e7026f1723c2a/R09_06_Eyes_Nose_Lips_Clay.png",
+        "18ae82c9d622d4a855c52aeccedf09ba63a1247ee1115c6e12099537f7d4144e/R09_07_Nape.png",
+        "bc472281eeb2387d09dee48443a807ad6a5640fff96473eeb0959e9a88020035/R09_08_Full.png",
+        "d9c1298e8f28089a2173c4df3b5046435c25ade4917638038e56312cd10508ac/R09_09_Right_Temple.png",
+        "a0e6759bec925b37212ae7ba6485dfb95f1239f5c017078c3b7f035e853d6c87/R09_10_Right_Profile.png",
+        "d427d5bb9140df3b0d8cef4f655fe80e9a4c1e59e4bec14837ce15f6e1201729/R09_11_Crown_Rear.png",
+        "7bc06558221f90bd1cc38e9b373c456f1ec109490cb1cf1255c150a4d2f36bf3/R09_12_Nape_Straight.png",
+        "0ad540ca6d889f5caa43d834cc67a97cc29b3fbb5d4cb93f86cd361b0af9dcea/R09_A2_front.png",
+        "9b09b71ad6bf10f001874ebbb8f02416f2f2706ce8efa6f2a99344d5029bbbdd/R09_A2_front_Clay.png",
+        "57e8c90e0d07672d74240e07aeed88f5f13d6c8be1b43e8a57a9a110f2bc89ea/R09_A2_side.png",
+        "20666d3eafc08756e8fd115654d25e62cf39f2cd96c30a0b4447cca69eb72a72/R09_A2_side_Clay.png",
+        "aa43c2fd0ef838c7f08c3957e852769ffb4241cb349b02a71153672b64dcb1ac/R09_A2_turn.png",
+        "6b2df2e895e8f81e9b3c3f716a3646680bf5437125828ffba06b78af6940d71c/R09_A2_turn_Clay.png",
+        "65c43cd3a1f42cd297b54647a1317c41ec20a8bea749dacee5ef42bc460352d4/ShenShang_R09.glb"
+      ],
+      "turnaround": "87c33a78e47f77b7fe416028c990f94890c211dafd4ac9f9c4996f7f0076115f/R09_Forehead_Jaw.jpg",
+      "created": 1795620285877,
+      "notes": [
+        {
+          "id": "r09-submission",
+          "created": 1795620285877,
+          "text": "按 R08 用户批注「脸型不像 还有发际线不行，有点高」修改。额中最前缘在注册正面原图从 y=193 下移至 204，眉上额高 A2 81.1 px、R08 82.9 px、R09 71.3 px。颧弓外侧回收，调整颧下到下颌的过渡、眼睑和口角，重新制作额角至耳上的连续发层。四张比较图含 A2 同机位、素模、左右侧和后脑。外观候选 205,199 三角面，游戏检查保留 5 组标记，其中一组为发顶 UV 边共边；另有 56 项告警。待 Gemini 网页审阅及用户批注。"
+        },
+        {
+          "id": "4e39747b-56d3-4ab5-bb20-d9212a4f6ab3",
+          "text": "R09 独立静态视审，以 R08 用户批注「脸型不像 还有发际线不行，有点高」和 A2 三向设定为准。四分之三素模中，R08 外顶的颧弓和颧下凹坑在 R09 都收顺了，颊面向下颌的过渡更接近 A2，建议保留。两侧鬓角与后脑覆盖的所示视角未见明显头皮穿出。R09 可作中间稿，定脸仍待用户。\n优先修额中和额角。未画线的正面图里，R09 已缓解 R08 的高额感，但前缘偏厚，中央一段横平、短齿密排，两侧折向太阳穴仍偏方。制作在 640×819 的同构图正面测得眉线至中央发缘 A2 81.12 px、R08 82.85 px、R09 71.33 px。R09 该处留白比 A2 少 9.79 px。建议保持当前大致高度，削薄前缘、顺着发髻方向向后梳，理出额中至两鬓的自然弧线，避免继续整条下压。数值仅用于同机位二维对照。\n第二项是中下脸。R09 整体仍偏瘦长，颏底略方，侧面下颌角折点偏高、偏圆。用 Likeness 正侧和四分之三对照 A2 的颊面宽度、颌角和颏底，保留已修顺的颧弓。第三项是眼口神态，R09 眼裂偏短圆，下睑中段略垂，口角和唇缘较平直。先统一正视方向和打光，再在带材质图与 Clay_Features 素模检查眼裂长度、嘴角内收和下唇体积。\n左右鬓角已分别取证。左耳轮上缘交界有深色叠影，正后颈发缘和右耳后可见轻微暗边，图上无法判定来自透明叠色、光照或几何贴合。A2 缺少对应右正侧和后脑细节参考。后续同机位复查局部暗边；表情、眨眼、转颈和头显表现仍待动态检查。\n一次提交四张图，四组顶栏校验码与回执吻合。冻结 GLB SHA-256 65c43cd3a1f42cd297b54647a1317c41ec20a8bea749dacee5ef42bc460352d4。\nGemini 原文 https://gemini.google.com/app/34816300022fa493。工程回执 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R09/WebReceipt.json。",
+          "created": 1795621537796
+        },
+        {
+          "id": "t26-r09-reserve-20261126",
+          "created": 1795628472344,
+          "text": "2026-11-26 用户决定将沈商和自制手模作为资产留存，正式玩家先用官方手模。本版保留模型、源文件、渲染、Gemini 回执和已有批注，后续人物修订继续按版本独立送审。正式玩家与章节角色接入暂缓。"
+        }
+      ]
+    }
+  ],
+  "defaultVersion": "shen-young-a2-blender-r09"
+}

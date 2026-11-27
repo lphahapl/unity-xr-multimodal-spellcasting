@@ -1,0 +1,146 @@
+{
+  "clip": "CanJiOu_BackCarryWalk",
+  "frames": 49,
+  "seconds": 1.6000001430511475,
+  "speed_m_s": 0.54,
+  "geometry_samples": 259749,
+  "a4_sha256": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+  "behind_upper_spine_mm": [
+    476.72,
+    488.13
+  ],
+  "seam_worst_mesh_vertex_mm": 0.0,
+  "stone_seam_mm": 0.0,
+  "stone_surface_distance_mm": {
+    "body": [
+      4.43,
+      15.97
+    ],
+    "back_and_shoulders": [
+      6.12,
+      15.97
+    ],
+    "head_and_neck": [
+      39.8,
+      52.72
+    ],
+    "right_hand_long_tool": [
+      133.03,
+      139.65
+    ]
+  },
+  "intersecting_frames": {
+    "body": [],
+    "back_and_shoulders": [],
+    "head_and_neck": [],
+    "right_hand_long_tool": []
+  },
+  "collided_actor_triangle_frames_by_bone": {},
+  "feet": {
+    "Left": {
+      "lowest_sole_height_mm": [
+        1.64,
+        70.37
+      ],
+      "sole_height_during_authored_stance_mm": [
+        1.64,
+        1.64
+      ],
+      "stance_intervals": [
+        {
+          "frames": [
+            0,
+            28
+          ],
+          "seconds": 0.933,
+          "accumulated_horizontal_slip_mm": 0.0
+        }
+      ]
+    },
+    "Right": {
+      "lowest_sole_height_mm": [
+        3.4,
+        71.3
+      ],
+      "sole_height_during_authored_stance_mm": [
+        3.4,
+        3.4
+      ],
+      "stance_intervals": [
+        {
+          "frames": [
+            0,
+            4
+          ],
+          "seconds": 0.133,
+          "accumulated_horizontal_slip_mm": 0.0
+        },
+        {
+          "frames": [
+            24,
+            48
+          ],
+          "seconds": 0.8,
+          "accumulated_horizontal_slip_mm": 0.0
+        }
+      ]
+    }
+  },
+  "closed_component_containment": {
+    "actor_shell_inside_stone": [],
+    "stone_shell_inside_actor": []
+  },
+  "palm_gap_mm": {
+    "left": [
+      21.43,
+      39.22
+    ],
+    "right": [
+      36.34,
+      38.43
+    ]
+  },
+  "sample_origin": "spawned Chapter02 stone-carrier lease, actual skinned mesh",
+  "inputs_sha256": {
+    "bones.f32": "0c33d1e203c2cacd7f0c19050868af559a3023b7caeb9ddb3834d4b030f7c5cb",
+    "manifest.json": "232051cc5baf8dc27755e6c978ac3c3fbe9f16223b211738e178d2d0a7fe15e8",
+    "triangles.i32": "af9667f3a2f3f527dc3ec481903fd6c27cde21233b5306ba6831cc8ff4b98af7",
+    "vertices.f32": "6079b8359e7d33f20d41e2e745771eb2bfba8f3cc70edb6b393124634da1e557",
+    "weights.csv": "57b2d22530ec6d1a8e0017a267ccd0fe82e9128c1bd3ad9841135958a3878428",
+    "StoneRoot.csv": "41e47fe38f3fee7d0a1f47969ec8ce96829bf3d76556fd701cc472ff4bce1cb1",
+    "CanJiOu_BackCarryWalk.fbx": "44ccd1e720be944546ed8b0bbf6d3e99f918c117181a9bd2e9bad9f59023362d"
+  },
+  "stance_persistent_sole_vertex_horizontal_span": {
+    "Left": [
+      {
+        "frames": [
+          0,
+          28
+        ],
+        "vertices": 71,
+        "max_per_vertex_horizontal_span_mm": 2.7376852785584376,
+        "median_per_vertex_horizontal_span_mm": 0.0014997961815980101
+      }
+    ],
+    "Right": [
+      {
+        "frames": [
+          0,
+          4
+        ],
+        "vertices": 54,
+        "max_per_vertex_horizontal_span_mm": 0.1640492697550238,
+        "median_per_vertex_horizontal_span_mm": 0.0005613755337376807
+      },
+      {
+        "frames": [
+          24,
+          48
+        ],
+        "vertices": 54,
+        "max_per_vertex_horizontal_span_mm": 1.9251892586229864,
+        "median_per_vertex_horizontal_span_mm": 0.0013955742480106625
+      }
+    ]
+  }
+}

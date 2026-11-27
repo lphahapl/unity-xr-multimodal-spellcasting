@@ -1,0 +1,254 @@
+{
+  "status": "CAPTURED_QUICK_CHECKS_PASSED_VISUAL_ACCEPTANCE_PENDING",
+  "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+  "source": {
+    "R03": {
+      "modelPath": "Assets/Review/QingGuiR03/Model/RevisionA/QingGuiR03_StructureCandidate.fbx",
+      "thicknessPath": "Assets/Review/QingGuiR03/Model/RevisionA/CandidateTextures/QingGuiR03_JadeCore_Thickness.png",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3",
+      "thicknessSha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+      "sourceModelPath": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/Model/RevisionA/QingGuiR03_StructureCandidate.fbx",
+      "sourceGlbPath": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/Model/RevisionA/QingGuiR03_StructureCandidate.glb",
+      "sourceGlbSha256": "6b7f8b1c1c52e04d77dd8ec29839ccb272e965490137c140e0c0d41b494723bf",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "run": "revision-a-first-look-01"
+    },
+    "B": {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR02/Model/RevisionB/QingGuiR02B_LOD0.fbx",
+      "sha256": "57ff891ee579d2d36c28e5487c6c193ab369e7ae0715b01ad7b2447e5eccc15a",
+      "material": "Frozen .60 layered jade/opaque metals, unchanged asset files; renderer follows same ordinary Mobile pipeline"
+    }
+  },
+  "comparison": "Same new capture batch; B left and R03 right are simultaneous in one render, never a montage of different exposures.",
+  "lighting": {
+    "sourceScene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+    "sunColor": [
+      1,
+      0.88,
+      0.74
+    ],
+    "sunIntensity": 1.65,
+    "sunRotationQuaternion": [
+      0.3408282,
+      -0.2884922,
+      0.110741794,
+      0.8878877
+    ],
+    "sunShadowStrength": 0.68,
+    "sunUsesPipelineBias": true,
+    "ambient": "Exact copied Trilight .58/.67/.74, .47/.53/.54, .34/.32/.31",
+    "environment": "Source GorgeSky/GorgeHorizon, actual sky-only128cube, no studio cards/added lights",
+    "pipeline": "Exact source Mobile snapshot, 1024shadow/50m/1cascade/bias1,1/soft supportfalse/MSAA4/renderScale.8/HDRfalse/transparent shadow receivefalse",
+    "scope": "Standalone review with copied source lighting; not full chapter terrain occlusion or XR capture",
+    "heldObjectCasterBiasCapsMetres": {
+      "depth": 0.00075,
+      "normal": 0.0005,
+      "signedClamp": true,
+      "scope": "All three R03 material ShadowCaster passes only; original Mobile RP, receivers and external blocker remain unchanged"
+    }
+  },
+  "camera": {
+    "fov": 60,
+    "near": 0.01,
+    "far": 1000,
+    "postProcessing": false,
+    "exposureBoost": false,
+    "colorSpace": "Linear",
+    "output": "1280x960 sRGB, gamma conversion only; no tone/colour grading",
+    "bodyFront": "Model-local+Z, held base yaw180, so camera world-Z sees actual front",
+    "bodyRight": "Model-local-X, camera world+X after held yaw180",
+    "backlight": "Image10 rotates light with identical color/intensity/exposure; clearly separate from image04 actual back view"
+  },
+  "boundaries": [
+    "R03 opaque closed JadeCore; no legible background transmission",
+    "Artistic absorption/scatter fit, not measured jade optical constants",
+    "Metal closure is model QA evidence, not inferred from renderer count",
+    "GameItemBase grab and XR entry are not claimed by these visual previews",
+    "Quest/performance/stereo untested",
+    "Original-slot photo is geometric placement, not SnapZone completion"
+  ],
+  "nativeProcess": {
+    "finished": "2026-11-26T15:00:52.2088665+08:00",
+    "pid": 66404,
+    "nativeHandleObserved": true,
+    "exitCode": 0,
+    "started": "2026-11-26T14:56:21.5699865+08:00"
+  },
+  "media": [
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/01_R03_Front_OrdinaryChapter.png",
+      "sha256": "1f6d084dbf29ae15b498904b2eae68cc063783d676f2d957b7fd2a7c96e52da5",
+      "bytes": 280285,
+      "type": "image/png",
+      "caption": "R03 actual structure; camera at model-local +Z (held yaw180, world -Z), ordinary chapter sun/sky; opaque jade",
+      "cameraPosition": "(0.00000, 0.18000, -0.65000)",
+      "cameraEuler": "(0.4407, 0.0000, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/02_R03_Front35_OrdinaryChapter.png",
+      "sha256": "b95ef51e1db3fbe2956c3dcdc1bceba48849ae1f34b3f9f24e353ef909fb3d2f",
+      "bytes": 270467,
+      "type": "image/png",
+      "caption": "R03 front-right oblique; unchanged chapter light",
+      "cameraPosition": "(0.38000, 0.20000, -0.55000)",
+      "cameraEuler": "(2.1417, 325.3591, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/03_R03_RightSide_OrdinaryChapter.png",
+      "sha256": "44c493151e85d50201d88532a0ff548edea864d67b25f6b9b35fbce48b8e127e",
+      "bytes": 247592,
+      "type": "image/png",
+      "caption": "Actual right side from model-local -X (world +X); unchanged chapter light",
+      "cameraPosition": "(0.65000, 0.18000, 0.00000)",
+      "cameraEuler": "(0.4407, 270.0000, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/04_R03_Back_OrdinaryChapter.png",
+      "sha256": "3d1c0ab611aa222f0dd4a25ccd315161f151a2667a0c2a7260f19e01d5a8db9d",
+      "bytes": 258323,
+      "type": "image/png",
+      "caption": "Actual back from model-local -Z (world +Z); unchanged chapter light, not relit",
+      "cameraPosition": "(0.00000, 0.18000, 0.65000)",
+      "cameraEuler": "(0.4407, 180.0000, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/05_R03_RearShoulder_NormalScale.png",
+      "sha256": "6d8ae85cf779716a4f6f15d0bbbcf2d05a5a760d9d9d6ef0c8d3eaa86ddad243",
+      "bytes": 298196,
+      "type": "image/png",
+      "caption": "Same requested rear shoulder/copper cap direction, normal hold distance",
+      "cameraPosition": "(0.22000, 0.34000, 0.32000)",
+      "cameraEuler": "(3.6835, 214.5085, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/06_R03_CopperCap_Termination_Close.png",
+      "sha256": "039b421e637ee7f1756e55e250923d361dd8cbb1c3be60790b993609ff86e5f7",
+      "bytes": 303440,
+      "type": "image/png",
+      "caption": "Close-up actual bronze cap termination and jade receiving edge; unchanged light",
+      "cameraPosition": "(0.10000, 0.33500, 0.15000)",
+      "cameraEuler": "(6.3305, 213.6901, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/07_B_Left_R03_Right_Front_SameFrame.png",
+      "sha256": "9dcecd048a72d25f56377e4ed0f780d716f4259922a4ecd967ba8f3cb30073a0",
+      "bytes": 340787,
+      "type": "image/png",
+      "caption": "Left B original .60, right R03 opaque; same render camera, sun, sky, production Mobile pipeline; B transparent shadow receive follows ordinary renderer=false",
+      "cameraPosition": "(0.00000, 0.18000, -0.65000)",
+      "cameraEuler": "(0.4407, 0.0000, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/08_B_Left_R03_Right_35_SameFrame.png",
+      "sha256": "ca21f371415b9011788c720ff47c587d5502d5d652455935af93c9882a144a8d",
+      "bytes": 346713,
+      "type": "image/png",
+      "caption": "Left B and right R03 both +35 held yaw; exactly shared exposure and lighting",
+      "cameraPosition": "(0.00000, 0.18000, -0.65000)",
+      "cameraEuler": "(0.4407, 0.0000, 0.0000)",
+      "modelEuler": "(0.0000, 215.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/09_B_Left_R03_Right_RearShoulder_SameFrame.png",
+      "sha256": "d76cc878168e4d862918fb068623b71b43241665871c552a5d97ee950766a475",
+      "bytes": 332918,
+      "type": "image/png",
+      "caption": "Left B and right R03 held yaw160 exposing rear shoulder; same light/exposure",
+      "cameraPosition": "(0.00000, 0.18000, -0.65000)",
+      "cameraEuler": "(0.4407, 0.0000, 0.0000)",
+      "modelEuler": "(0.0000, 340.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/10_R03_BackLit_Diagnostic.png",
+      "sha256": "e96acdb845a1ef4c02be8d4e3061d4f9116a69b42180103f71ee7a670f127a2e",
+      "bytes": 278679,
+      "type": "image/png",
+      "caption": "Light-direction diagnostic only: same intensity/exposure/ambient, main light moved behind object; not model back view",
+      "cameraPosition": "(0.00000, 0.18000, -0.65000)",
+      "cameraEuler": "(0.4407, 0.0000, 0.0000)",
+      "modelEuler": "(0.0000, 180.0000, 0.0000)",
+      "lightEuler": "(13.7742, 168.6901, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/11_R03_OriginalSocket_Seated_GeometricPreview.png",
+      "sha256": "de67170ddf360ed44b26369222bbb91220c2540bfd6a73b5d17eb2b9c8c1acd7",
+      "bytes": 725729,
+      "type": "image/png",
+      "caption": "Actual production console mesh and R03 model at geometric sample seat; not a grab/XR or SnapZone completion claim",
+      "cameraPosition": "(-0.40000, 1.35000, 0.62000)",
+      "cameraEuler": "(21.6475, 155.6955, 0.0000)",
+      "modelEuler": "(0.0000, 0.0000, 0.0000)",
+      "lightEuler": "(42.0000, 324.0000, 0.0000)",
+      "stage": "REVISION_A_STRUCTURE_MATERIAL_CANDIDATE:18completegoldpaths,40024tris,threeclosedparts,newCORNERnormalsandmatched1930932perUVpixelrays;5trianglefallbacks,2conservativemisses,251393over120mmclamped;notfinalLODorQuestbudget",
+      "modelSha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3"
+    },
+    {
+      "path": "D:/UnityProjects/NarutoVR/ArtSource/Props/WorkshopMasterTenon/QingGuiR03/UnityReview/revision-a-first-look-01/R03_FixedLight_Turn.mp4",
+      "sha256": "cca18cf38912cd4e27cc15023ac47b08756fcef67f124f015c9f90841871ed66",
+      "bytes": 269350,
+      "type": "video/mp4",
+      "caption": "Actual Unity4-second30fpsmodelrotation;fixedchapterlight;noexposurechange",
+      "frames": 120,
+      "fps": 30,
+      "durationSeconds": 4
+    }
+  ],
+  "knownLimitations": {
+    "geometryStage": "RevisionA 18-line complete structure/material candidate, not final polished asset or Quest performance",
+    "sourceTriangles": 40024,
+    "materials": "Three opaque renderers/materials, no duplicated body submission",
+    "opticalCoefficients": "Appearance fits, not measured jade physical constants",
+    "thickness": "1930932 actual BVH per-UV-pixel rays matching interpolated exportedCORNERnormals;5triangle fallback directions,2misses assigned conservative120mm,251393paths over120mm clipped",
+    "mobile": "Original1024/50mMobileRP retained; only held-item signedShadowCaster capsdepth.75mm/normal.50mm. Submillimetre contact shadows not guaranteed by scene texel resolution",
+    "cameraCorrection": "Views05/06 target actual item localY315mm aperture copper termination; first15-line candidate lower-waist framing is not reused"
+  },
+  "contractGeneratedAt": "2026-11-26T15:33:18.277924+08:00",
+  "captureCompletedAt": "2026-11-26T15:00:52.2088665+08:00",
+  "technicalChecks": {
+    "optics": {
+      "backgroundResponse": 0,
+      "backlightIncrement": 0.5686275,
+      "opaqueBlockerResidual": 0,
+      "note": "Measured geometry thickness; artistic absorption. Main-shadow strength floor is removed only for physical direct transmission, not surface PBR. Opaque jade, no environment colour sampling."
+    },
+    "originalSlotReport": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/revision-a-first-look-01/original-slot-quickfit.txt",
+    "runResult": "D:/UnityProjects/NarutoVR/Logs/workshop-master-tenon-qinggui-r03-20261126/unity/revision-a-first-look-01/result.txt",
+    "logQualification": "Editor SearchDatabase startup index exception, package-manager and absent XR runtime messages remain in raw log; no tested shader compile error or probe failure. Native exit 0 and actual capture/check files are recorded separately."
+  }
+}

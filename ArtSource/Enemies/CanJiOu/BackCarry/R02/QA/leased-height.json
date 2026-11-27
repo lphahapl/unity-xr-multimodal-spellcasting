@@ -1,0 +1,51 @@
+{
+  "bone_stream_sha256": {
+    "r01": "6b659b1163c7e26dc128fd37a2bbb7edef7be0f20480bc7172ea667906483de3",
+    "r02": "0e2aa5f4b5305344313dd537c952fb1955b612823990ded57d4ec5babb415f34"
+  },
+  "phases": "48 unique samples, loop endpoint omitted",
+  "metrics": {
+    "hips_mm": {
+      "r01_mean": 994.1616058349609,
+      "r02_mean": 833.1623077392578,
+      "matched_min_change": -161.00311279296875,
+      "matched_max_change": -160.9954833984375,
+      "mean_change": -160.99929809570312
+    },
+    "head_mm": {
+      "r01_mean": 1498.5558191935222,
+      "r02_mean": 1295.3147888183594,
+      "matched_min_change": -203.7353515625,
+      "matched_max_change": -202.73590087890625,
+      "mean_change": -203.24103037516275
+    },
+    "shoulders_mm": {
+      "r01_mean": 1416.3265228271484,
+      "r02_mean": 1221.157471338908,
+      "matched_min_change": -195.59478759765625,
+      "matched_max_change": -194.73648071289062,
+      "mean_change": -195.16905148824057
+    },
+    "left_knee_flex_deg": {
+      "r01_mean": 44.830921028173805,
+      "r02_mean": 81.69625841371321,
+      "matched_min_change": 28.83927834842069,
+      "matched_max_change": 51.03612754523364,
+      "mean_change": 36.8653373855394
+    },
+    "right_knee_flex_deg": {
+      "r01_mean": 44.568525855401084,
+      "r02_mean": 81.34024838800903,
+      "matched_min_change": 28.77543805938953,
+      "matched_max_change": 50.55785827422538,
+      "mean_change": 36.771722532607946
+    },
+    "hip_to_neck_forward_lean_deg": {
+      "r01_mean": 21.27604106705458,
+      "r02_mean": 31.276113740590148,
+      "matched_min_change": 9.999448004839639,
+      "matched_max_change": 10.000615453810912,
+      "mean_change": 10.000072673535563
+    }
+  }
+}

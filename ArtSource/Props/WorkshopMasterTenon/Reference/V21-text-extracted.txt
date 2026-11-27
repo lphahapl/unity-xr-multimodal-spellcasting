@@ -1,0 +1,85 @@
+《考工律度》第二章 · 断衡悬道（Mohist Punk / Artisan Physics）
+关卡动线重构、单支点巨衡机制与 V2.1 阶段稿汇总
+版本：V2.1 Stage Draft（基于 V2.0_20261121 规范演进）  |  目标平台：Meta Quest 3 VR  |  动线闭环：① ➔ ② ➔ ④ ↔ ③ ➔ ④ ➔ 落点 ➔ ⑤
+
+本阶段核心设计准则（延续 V2.0 美术与物理铁律）1. 拒绝廉价魔法特效：所有力学失衡与机械修复均须有可感知的工匠工程参照（压舱镇石、榫槽咬合、铅锤/刻度与矿朱砂/荧光冰蓝状态切换）。2. 唯一单支点巨衡：全场仅保留架设于 ④ 区中央支点的一整根刚性青铜双臂杠杆，取消分散小吊机，A/B 双篮与台面无缝贴壁。3. VR 交互与防晕友好：操作台职责极简拆分，关键高空垂降留出安全缓冲与准望匣【定目帘】过渡。
+
+01  新版关卡动线闭环与空间拓扑定稿
+围绕“玩家在区域②画符通过断路后，借助压舱配重与杠杆将玩家运送至区域④；随后前往区域③获取核心道具，返回区域④修复并启动另一侧吊篮下放至区域⑤”的核心诉求，本轮将原单向阶梯折返重构为带有枢纽支路折返的全新闭环：
+▪ 完整动线序列：① 出关门径台（+120m）➔ 顺崖道下行至 ② 断隘天堑台（+80m，修桥过断路、清怪落镇石、站 A 篮画「千钧符」压降左臂）➔ 垂降至 ④ 司衡配重台（0m，中枢缺榫报错）➔ 水平折入独立死路支线 ③ 狭道阻截区（清剿伏击机偶并夺回【汉白玉校准主榫】）➔ 原路折返 ④ 司衡配重台（插榫修复中枢、解锁双侧操纵机关并反转巨臂）➔ 乘 B 侧吊篮沿绝壁直降 ➔ 谷底 落点 平台 ➔ 经一小段过渡石道步入 ⑤ 地渊决战坪（-80m）。
+▪ ① ➔ ② 单向收敛：① 区石门阶梯仅通往 ② 区断桥与红符祭坛，移除此前左侧绕行至 ④ 区的冗余石阶，确保主线路径唯一且无歧义。
+▪ ③ 区独立支路定位：③ 区不再夹在 ② 与 ④ 之间作为必经之路，而是改为从 ④ 区水平延伸出去的独立岩缝支路（与 ①、② 崖壁隔绝），形成“枢纽 ④ ➔ 支路 ③ 取榫 ➔ 回枢纽 ④ 解锁”的箱庭闭环。
+▪ ② ➔ ④ 地形零缺口与连续 0m 平面：② 区崖边顺垂直峭壁直落无断沟，与 ④ 区 0m 连续石台面及巨臂支点底座严格持平；A 侧吊篮正下方全程净空，人石同篮压降后可直接步出走向中枢与支路。
+▪ 落点与决战坪过渡距离：④ 区右侧为纯粹垂直绝壁，无直连谷底的天桥或楼梯；B 侧吊篮沿绝壁直降至谷底独立的方形【落点】石台，再经一小段带荧光冰蓝导引线的短石道接入八角形决战坪，为玩家留出步出吊篮、仰望百米巨壁与目视首领【太仪·负衡偶】的开战缓冲。
+动线节点
+高程定位
+空间与地形衔接要点
+核心交互 / 状态变化
+① 出关门径台
++120m（最高处）
+衔接首章崖端石门，石阶仅通向 ② 区，移除多余侧阶。
+荧光冰蓝导航线自门槛引向 ② 区断桥。
+② 断隘天堑台
++80m（次高层）
+含断桥、红符祭坛与高崖边缘；崖壁直落 ④ 区 0m 连续平地，无缺口。
+画符过断路 ➔ 清怪掉镇石 ➔ 入 A 篮画「千钧符」牵引镇石压降左臂。
+④ 司衡配重台
+0m（中层枢纽）
+宽阔 0m 连续石台，与巨臂底座齐平；右侧纯绝壁无桥；设 1 中控台 + 2 吊篮旁分控台。
+初抵缺榫报错（朱砂红）➔ 赴 ③ 取榫 ➔ 插榫修复（转冰蓝）➔ 反转巨臂。
+③ 狭道阻截区
+水平支路（连 ④ 区）
+从 ④ 区水平延伸的独立岩缝死路夹道，与 ①、② 隔绝。
+遭遇残机偶伏击 ➔ 清场夺回【汉白玉校准主榫】➔ 折返 ④ 区。
+落 点
+-80m（谷底崖脚）
+位于 ④ 区右侧垂直绝壁脚下、B 篮垂降正下方，独立方形石台。
+乘 B 篮平稳触地出篮，作为进入决战坪前的安全缓冲站位。
+⑤ 地渊决战坪
+-80m（谷底深处）
+经“落点”前一小段短石道接入的开阔八角石坪，四周环形绝壁。
+循冰蓝导引线步入祭坛，迎战首领【太仪·负衡偶】。
+
+
+图 1：单支点双臂巨型杠杆三阶段力学剖面图（已统一三段地形轮廓，补实 0m 连续平面并确保人石同篮压降）
+02  关键机关力学与 VR 交互细节
+2.1 区域②「千钧符」画符、压舱镇石与吸附复位规则
+▪ 工奴护卫与镇石掉落：残机偶工奴搬运/护卫绑有风化青铜箍的方形【应急压舱镇石】；玩家击破护卫与搬运工奴后，镇石落于崖台地面，A 侧吊篮旁的配重槽空置并泛起矿物朱砂警戒提示。
+▪ 先入篮、再牵引的防呆时序：玩家必须先走入与 ② 区崖面无缝贴靠的 A 侧吊篮站稳，再举起【墨规笔】画下「千钧符」。符纹构型采用极简先秦衡器几何轨迹（平衡杆一横 ➔ 垂坠力线折下 ➔ 底部闭合梯形重权），便于 Quest 3 手柄快速精准识别。
+▪ 吸附阈值与偏轨/超时复位：牵引过程中由朱砂磁墨力学线条拖拽镇石向篮内配重槽移动；当镇石进入槽口约 0.5m～0.8m 吸附半径时自动咬合锁定，槽口由朱砂红转为荧光冰蓝，杠杆随即因“玩家体重 + 镇石压舱”超重压下左侧巨臂，垂送至 ④ 区并同步跷高右侧大臂。
+▪ 防卡关容错：若牵引中偏移有效轨道过远或持续操作超时（建议 8～10 秒度力耗散），牵引线自动断开，镇石以沉重惯性复位至初始落点并闪烁提示，等待玩家重新画符牵引，杜绝镇石坠渊卡关。
+2.2 单支点巨臂与“中控台 + 吊篮旁分控台”从简架构
+▪ 一杆两篮无缝贴壁：整座巨型青铜双臂横梁架设在 ④ 区中央支点上，左侧力臂负责 A 篮（② ➔ ④），右侧力臂负责 B 篮（④ ➔ 落点）。两侧吊篮在停靠位均与对应崖面/台面无缝贴合，避免 VR 跨空跳跃风险。
+▪ 中控操作台（巨臂正下方·唯留一槽）：体积紧凑，台面正中仅设【汉白玉校准主榫】方形空榫眼母槽。初抵 ④ 区时因缺榫亮起朱砂红卡死报错；从 ③ 区取回玉榫插入后，齿轮咬合归位，中枢切换为荧光冰蓝充盈态，并沿地面嵌槽传导线同步点亮左右两侧分控台。
+▪ 吊篮旁操作台（就近单杆分控）：在 ④ 区 A 篮落点旁与 B 篮贴壁处各设一根极简单杆青铜控制台，职责单一（对应侧吊篮的升降/接驳呼唤），玩家无需记忆复杂的多摇柄分工；B 篮平稳降落至谷底【落点】后，玩家经短石道前往 ⑤ 区决战坪。
+2.3 区域④ 操作台参考图审视与落地修正点
+▪ 保留优点：参考图（见图 2）中“台面正中榫槽 + 红蓝状态光环”的视觉因果极其直观，且站在操作台前可同时兼顾巨臂/深渊视野与右侧 ③ 区岩缝方向。
+▪ 落地修正：实际制作时将玉榫表面直白的“阴刻”二字替换为先秦云雷纹与度量刻度线；青铜材质保持暗沉哑光绿锈包浆，严禁抛光金；背景吊装结构严格统一为单支点双臂巨型直梁与无缝贴壁吊篮。
+
+图 2：区域④ 起重机操作台参考图（用于验证中枢榫槽视觉焦点、齿轮咬合质感与站位视野关系）
+03  V2.1 阶段稿提示词与出图成品
+以下按“先提示词、后出图”整理本轮确定的 V2.1 阶段稿核心方案与概念图件，可直接用于后续关卡白盒对齐、美术细化或继续迭代：
+阶段稿 1：V2.1 阶段定稿动线图（全局拓扑总览）
+▪ 设计要点：锁定 ①➔② 单向通达、②➔④ 零缺口连续 0m 台面、唯一单支点双臂巨梁、双篮无缝贴壁、③ 区独立死路取榫，以及 ④➔落点➔短石道➔⑤ 的无桥垂降动线。
+英文提示词（Prompt）：
+Clean flat architectural game level design isometric flow map blueprint on dark slate-blue parchment with fine technical grid lines, ancient Chinese Mohist punk artisan engineering aesthetic (slate-grey basalt cliffs, matte weathered green patina bronze, dark oak timber, cold white jade accents, mineral cinnabar red accents, glowing icy cyan-blue navigation path lines with directional arrows). Strictly ONE colossal continuous straight rigid dual-arm weathered patina bronze seesaw balance-beam lever mounted on a single central stone-and-bronze fulcrum tower at Zone 4 (0m), with NO other cranes anywhere. Exact unambiguous stepped spatial topology from top-left to bottom-right: (1) Far top-left highest cliff peak: ancient Chinese grey stone gate with grey tiled roof and white jade lintel with stone stairs descending ONLY onto Zone 2, labeled '① 出关门径台 (+120m)'. (2) Upper-left high terrace: broken bronze aqueduct bridge, glowing red glyph altar, and heavy square basalt ballast stone at the sheer cliff edge, labeled '② 断隘天堑台 (+80m)'. (3) Center-left middle terrace directly at the foot of Zone 2's sheer vertical cliff wall (ZERO gap or chasm between the cliff foot and the 0m floor, NO stairs from Zone 2 to Zone 4): a wide flat solid unbroken horizontal stone terrace at 0m level flush with the cliff foot and the base of the central fulcrum tower, labeled '④ 司衡配重台 (0m)'. Directly at the front base of the fulcrum tower stands a compact bronze console with a glowing white jade tenon slot, labeled '中控操作台'. The left arm of the giant bronze lever suspends Basket A completely flush against Zone 2's vertical cliff wall, dropping straight down onto Zone 4's flat 0m terrace right beside a small single-lever bronze post labeled '吊篮旁操作台'. The right arm of the exact same giant bronze lever reaches right to the right vertical edge of Zone 4's 0m stone deck so Basket B hangs completely flush against Zone 4's right vertical cliff wall with ZERO horizontal gap, right beside a second small single-lever bronze post labeled '吊篮旁操作台'. (4) Branching horizontally to the upper-right from the back edge of Zone 4 (isolated dead-end crevice): narrow ruined rocky corridor with broken mechanical puppets and a glowing white jade tenon at the dead end, labeled '③ 狭道阻截区 (取主榫)'. (5) Deep bottom-right abyss (-80m): Zone 4's right edge drops straight down along a sheer 80m vertical rock wall with STRICTLY NO bridge and NO stairs connecting Zone 4 to the bottom. Directly at the foot of this sheer cliff wall straight beneath Basket B sits a small flat square stone elevator landing platform labeled '落点'. Extending to the right from '落点' across the abyss floor is a clear short horizontal stone walkway carrying the glowing icy cyan-blue line into a separate grand octagonal stone battle arena labeled '⑤ 地渊决战坪 (-80m)'. Glowing icy cyan-blue path lines with arrows trace ONLY: ① -> ② -> straight down via Basket A to ④ -> into dead-end ③ and back to '中控操作台' -> right '吊篮旁操作台' -> straight down vertically along the cliff via Basket B to '落点' -> across the short stone walkway into '⑤ 地渊决战坪 (-80m)'. Top-left title: '《断衡悬道》· V2.1 阶段定稿动线图'.
+
+图 3：阶段稿 1 出图 — 《断衡悬道》· V2.1 阶段定稿动线图
+阶段稿 2：区域② A 侧吊篮内画「千钧符」牵引压舱镇石（VR 第一人称）
+▪ 设计要点：玩家站在与崖壁无缝贴靠的 A 篮内，手持【墨规笔】画「千钧符」，以朱砂几何张力线将倾覆机偶旁留下的【应急压舱镇石】牵引入篮内配重槽。
+英文提示词（Prompt）：
+First-person VR game concept art in ancient Chinese Mohist punk artisan physics aesthetic, Unreal Engine 5 realistic render, high-altitude slate-grey basalt cliffside overlooking a misty vertical gorge. The viewer stands INSIDE an open-frame weathered matte patina bronze and dark oiled oak crane basket (Basket A) docked completely flush against the high cliff ledge of Zone 2. Overhead, the massive weathered bronze left arm of a giant seesaw lever extends out above the basket. In the right foreground, the player's hand holds an ancient bronze-and-wood stylus brush, drawing a crisp glowing mineral cinnabar-red geometric glyph floating in mid-air: a simple sharp Pre-Qin balance-weight symbol formed by a horizontal beam, a vertical plumb drop, and a closed trapezoidal weight at the bottom. Outside the basket on the rocky cliff terrace, shattered dark oak and patina bronze wreckage of mechanical laborer puppets lies scattered; taut glowing mineral cinnabar-red geometric tension lines pull a heavy square basalt stone block bound in riveted weathered bronze straps across the stone floor directly into a recessed counterweight slot inside the basket beside the player. Strictly matte weathered bronze with green patina, dark oak wood, slate-grey basalt rock, subtle glowing icy cyan-blue floor guide line, dramatic volumetric canyon fog, 8k resolution. No polished gold, no fantasy magic sparkles, do not render any text.
+
+图 4：阶段稿 2 出图 — 区域② 吊篮内画「千钧符」牵引压舱镇石第一人称概念图
+阶段稿 3：区域④ 巨臂下极简中控插榫与吊篮旁分控台（场景概念）
+▪ 设计要点：展现 ④ 区 0m 连续台面、单支点双臂巨梁、中控台插入【汉白玉校准主榫】后点亮地面荧光冰蓝传导线，以及右侧 B 篮与台面无缝贴合的状态。
+英文提示词（Prompt）：
+Wide-angle cinematic game concept art in ancient Chinese Mohist punk artisan physics aesthetic, Unreal Engine 5 realistic render, standing on the wide flat unbroken 0m stone terrace of Zone 4 overlooking a gigantic misty vertical canyon. Dominating the center-left: a tall stone-and-bronze central fulcrum tower supporting ONE colossal continuous straight rigid dual-arm weathered patina bronze seesaw lever beam — its left arm angles up toward a high sheer cliff ledge on the left, while its right arm extends right to the vertical cliff edge of the 0m terrace, suspending an open-frame dark oak and bronze elevator cage (Basket B) completely flush and seamless against the right stone edge with zero gap. Directly at the front base of the central fulcrum tower stands a minimalist compact weathered bronze central console featuring ONLY ONE clean central square mortise slot where a cold translucent white jade master tenon (engraved with delicate Pre-Qin cloud-thunder geometric patterns and graduation lines) is inserted, glowing bright icy cyan-blue. From the central console, glowing icy cyan-blue inlaid floor conduit lines run smoothly across the flat stone terrace to two simple minimalist single-lever bronze side console posts — one beside Basket A's landing spot on the left, and one right beside Basket B at the right cliff edge. Far below the sheer vertical cliff drop on the right, dimly visible through volumetric mist at the canyon bottom, is a small square landing platform connected by a short stone walkway to a grand octagonal stone battle arena. On the far back-right, a narrow rocky cliff crevice entrance leads into a ruined corridor. Slate-grey basalt cliffs, matte green patina bronze, dark oiled oak timber, cold white jade, subtle upward-drifting anomalous water droplets, 8k cinematic lighting. No polished gold, no fantasy magic sparkles, do not render any text.
+
+图 5：阶段稿 3 出图 — 区域④ 中控台插榫修复、地面冰蓝光路与双篮结构概念图
+阶段稿 4：区域⑤ 谷底落点经短过渡道望向八角决战坪（场景概念）
+▪ 设计要点：展现 B 侧吊篮沿绝壁垂降至谷底【落点】石台后，经一小段短石道接入环形绝壁环绕的八角决战坪，首领【太仪·负衡偶】驻守中央。
+英文提示词（Prompt）：
+Wide cinematic first-person game concept art in ancient Chinese Mohist punk artisan physics aesthetic, Unreal Engine 5 realistic render, deep at the bottom of a monumental subterranean canyon (-80m). In the immediate left foreground at the foot of a towering sheer vertical slate-grey basalt cliff wall, an open-frame weathered patina bronze and dark oak elevator cage (Basket B) rests cleanly on a small flat square stone landing platform, with massive vertical bronze cables stretching straight up the sheer rock face into the high mist. Stepping forward out of the landing platform, a short straight flat stone walkway bridge inlaid with a glowing icy cyan-blue navigation line leads across a misty chasm directly into a grand, expansive octagonal grey stone battle arena surrounded by towering circular sheer canyon walls. Standing motionless at the center of the octagonal arena is a colossal ancient weathered bronze and dark oak mechanical boss guardian with twin balance-beam shoulders. Subtle physical anomalies: tiny water droplets drifting slowly upward from wet stone crevices, cold cyan ambient vents, dramatic volumetric mist, epic vertical scale looking up toward the distant silhouette of the giant lever high above on the cliff. Slate-grey basalt rock, matte green patina bronze, dark oak timber, cold white jade trim, 8k cinematic lighting. No polished gold, no fantasy magic sparkles, do not render any text.
+
+图 6：阶段稿 4 出图 — 区域⑤ 谷底落点、过渡短石道与八角决战坪开战视野概念图

@@ -1,0 +1,583 @@
+{
+  "created_utc": "2026-11-24T16:23:33.310185+00:00",
+  "analysis_kind": "Read-only numerical analysis of Unity AudioRenderer final stereo mix WAV, not source WAV substitution",
+  "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+  "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+  "heng_final_regression_confirmed": true,
+  "status": "final",
+  "method": {
+    "episode_detection": "Any nonzero stereo PCM sample; merge silent gaps <=30ms to avoid counting quantization or zero crossings as new strikes.",
+    "threshold_robustness": "Also count episodes at -60/-72/-84 dBFS, merging gaps <=40ms.",
+    "source_comparison": "Locate source using positive cross-correlation within 20ms of each episode start, then least-squares gain fit per channel over the complete source duration.",
+    "event_clock": "Timeline frame/30 is the nominal per-stage clock. AudioRenderer blocks quantize capture times; printed absolute simulation times at begin are inherited from the preceding stage and are not an audio clock.",
+    "onset_interpretation": "One isolated episode fitting one full source impact counts as one playback; modal ringing peaks inside an impact are not extra confirmations.",
+    "tail_interpretation": "Check complete source-window fit, final 10ms level, last nonzero sample magnitude, and silence before file end. Sub-LSB tail loss is PCM quantization, not an audible cut assertion.",
+    "limits": "No human listening or headset playback; scores measure numerical consistency, not perceptual quality or real hand-tracking recognition."
+  },
+  "clips": {
+    "Gui": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Gui/unity-output.wav",
+      "runtime_sha256": "80bee1abbcab8ff6c035ef7b8b2a3ae8fc7fd36f0e02cb97006145de2155f815",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/timeline.tsv",
+      "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+      "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+      "capture_variant": "Original accepted six-seal run",
+      "runtime_file_modified_utc": "2026-11-24T16:12:41.067485+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/GuiChime.wav",
+      "source_sha256": "4e18de4a3b51b36d20b0873a8809ca2593d213b5bd3a086498aa0d6abc57aa8d",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 191488,
+      "runtime_duration_seconds": 3.989333333333333,
+      "source_channels": 1,
+      "source_duration_seconds": 0.72,
+      "runtime_peak_dbfs": -10.469422879302686,
+      "runtime_whole_file_rms_dbfs": -33.51308483153423,
+      "source_peak_dbfs": -3.4093704206492,
+      "source_whole_file_rms_dbfs": -21.922190405754126,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 2,
+      "threshold_episode_counts": {
+        "-60": 2,
+        "-72": 2,
+        "-84": 2
+      },
+      "recognition_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.14941666666666667,
+          "nonzero_end_seconds_exclusive": 0.8601875,
+          "source_fit_start_sample": 7168,
+          "source_fit_start_seconds": 0.14933333333333335,
+          "source_fit_end_seconds": 0.8693333333333333,
+          "timeline_type": "confirmed",
+          "timeline_frame": 4,
+          "timeline_nominal_seconds": 0.13333333333333333,
+          "audio_minus_nominal_frame_ms": 16.000000000000014,
+          "timeline_detail": "规印 id=-2148 anchor=(0.01000, -0.03500, 0.50000) clip=GuiChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -10.469422879302686,
+          "rms_dbfs": -29.087706494479487,
+          "source_gain_per_channel": [
+            0.4329211986697923,
+            0.44342915631435725
+          ],
+          "source_correlation_per_channel": [
+            0.9998960147426593,
+            0.9998959991371101
+          ],
+          "source_fit_residual_rms_dbfs": -65.90370502604615,
+          "full_source_window_last10ms_peak_dbfs": -90.30899869919436,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 1.5932291666666667,
+          "identical_to_previous_full_playback_window": null
+        },
+        {
+          "index": 2,
+          "nonzero_start_seconds": 2.4534166666666666,
+          "nonzero_end_seconds_exclusive": 3.1641875,
+          "source_fit_start_sample": 117760,
+          "source_fit_start_seconds": 2.453333333333333,
+          "source_fit_end_seconds": 3.1733333333333333,
+          "timeline_type": "confirmed",
+          "timeline_frame": 73,
+          "timeline_nominal_seconds": 2.433333333333333,
+          "audio_minus_nominal_frame_ms": 20.000000000000018,
+          "timeline_detail": "规印 id=-2158 anchor=(0.01000, -0.03500, 0.50000) clip=GuiChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -10.469422879302686,
+          "rms_dbfs": -29.087706494479487,
+          "source_gain_per_channel": [
+            0.4329211986697923,
+            0.44342915631435725
+          ],
+          "source_correlation_per_channel": [
+            0.9998960147426593,
+            0.9998959991371101
+          ],
+          "source_fit_residual_rms_dbfs": -65.90370502604615,
+          "full_source_window_last10ms_peak_dbfs": -90.30899869919436,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 0.8251458333333334,
+          "identical_to_previous_full_playback_window": true
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    },
+    "Ju": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Ju/unity-output.wav",
+      "runtime_sha256": "032804a87014f28255eb91118a4098a2f2fc5406e8ee7e7b8a4a96ebef6a52b9",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/timeline.tsv",
+      "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+      "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+      "capture_variant": "Original accepted six-seal run",
+      "runtime_file_modified_utc": "2026-11-24T16:12:43.098965+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/JuChime.wav",
+      "source_sha256": "e23e32d715d60b27fb7ae3204d40f634dbde99f415ec095b084a861a294a9b3d",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 192512,
+      "runtime_duration_seconds": 4.010666666666666,
+      "source_channels": 1,
+      "source_duration_seconds": 0.57,
+      "runtime_peak_dbfs": -9.626059157073447,
+      "runtime_whole_file_rms_dbfs": -33.865817825679116,
+      "source_peak_dbfs": -2.565831133740094,
+      "source_whole_file_rms_dbfs": -21.223375874984885,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 2,
+      "threshold_episode_counts": {
+        "-60": 2,
+        "-72": 2,
+        "-84": 2
+      },
+      "recognition_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.12810416666666666,
+          "nonzero_end_seconds_exclusive": 0.6849375,
+          "source_fit_start_sample": 6144,
+          "source_fit_start_seconds": 0.128,
+          "source_fit_end_seconds": 0.698,
+          "timeline_type": "confirmed",
+          "timeline_frame": 3,
+          "timeline_nominal_seconds": 0.1,
+          "audio_minus_nominal_frame_ms": 27.999999999999996,
+          "timeline_detail": "矩印 id=-2168 anchor=(0.01000, -0.03500, 0.50000) clip=JuChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -9.626059157073447,
+          "rms_dbfs": -28.402700653764793,
+          "source_gain_per_channel": [
+            0.43201893982786876,
+            0.4425056810725359
+          ],
+          "source_correlation_per_channel": [
+            0.9994005976670169,
+            0.9994006626242535
+          ],
+          "source_fit_residual_rms_dbfs": -57.614873142961,
+          "full_source_window_last10ms_peak_dbfs": -240.0,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 1.7898333333333334,
+          "identical_to_previous_full_playback_window": null
+        },
+        {
+          "index": 2,
+          "nonzero_start_seconds": 2.4747708333333334,
+          "nonzero_end_seconds_exclusive": 3.031604166666667,
+          "source_fit_start_sample": 118784,
+          "source_fit_start_seconds": 2.474666666666667,
+          "source_fit_end_seconds": 3.0446666666666666,
+          "timeline_type": "confirmed",
+          "timeline_frame": 73,
+          "timeline_nominal_seconds": 2.433333333333333,
+          "audio_minus_nominal_frame_ms": 41.33333333333367,
+          "timeline_detail": "矩印 id=-2178 anchor=(0.01000, -0.03500, 0.50000) clip=JuChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -9.626059157073447,
+          "rms_dbfs": -28.402700653764793,
+          "source_gain_per_channel": [
+            0.43201893982786876,
+            0.4425056810725359
+          ],
+          "source_correlation_per_channel": [
+            0.9994005976670169,
+            0.9994006626242535
+          ],
+          "source_fit_residual_rms_dbfs": -57.614873142961,
+          "full_source_window_last10ms_peak_dbfs": -240.0,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 0.9790625,
+          "identical_to_previous_full_playback_window": true
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    },
+    "Heng": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Heng/unity-output.wav",
+      "runtime_sha256": "e55f752f3680b27ea96ea974d6feaa24afe9b9386c1317435e645b12f1f667c4",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/heng-depth12/timeline.tsv",
+      "runtime_timeline_sha256": "bb6e4ea7b5de1b4770baf87a2090d8db608f1edad2549d24abd4fc1e4237538a",
+      "runtime_result_sha256": "c5b374286731949fe9e7809bd3ce416d97a08f01957f7f98cd26eac16ca2c8ce",
+      "capture_variant": "Heng final HandDepthBias .12 Angle0 (first trial in heng-depth12 timeline; frames 6 and 75)",
+      "runtime_file_modified_utc": "2026-11-24T16:19:44.130199+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/HengChime.wav",
+      "source_sha256": "3c534ec1525f66531d0c2e86ada37100242f9b735235aea9fd3d7dbc625fd613",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 191488,
+      "runtime_duration_seconds": 3.989333333333333,
+      "source_channels": 1,
+      "source_duration_seconds": 0.73,
+      "runtime_peak_dbfs": -10.219131948248872,
+      "runtime_whole_file_rms_dbfs": -33.4545275274172,
+      "source_peak_dbfs": -3.404269498256767,
+      "source_whole_file_rms_dbfs": -21.921929541544458,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 2,
+      "threshold_episode_counts": {
+        "-60": 2,
+        "-72": 2,
+        "-84": 2
+      },
+      "recognition_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.21341666666666667,
+          "nonzero_end_seconds_exclusive": 0.9222916666666666,
+          "source_fit_start_sample": 10240,
+          "source_fit_start_seconds": 0.21333333333333335,
+          "source_fit_end_seconds": 0.9433333333333334,
+          "timeline_type": "confirmed",
+          "timeline_frame": 6,
+          "timeline_nominal_seconds": 0.2,
+          "audio_minus_nominal_frame_ms": 13.333333333333336,
+          "timeline_detail": "衡印 id=-2132 anchor=(-0.03500, -0.03500, 0.50000) clip=HengChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -10.219131948248872,
+          "rms_dbfs": -29.089052827254328,
+          "source_gain_per_channel": [
+            0.4560844437898598,
+            0.4193916339948902
+          ],
+          "source_correlation_per_channel": [
+            0.9998886260938896,
+            0.9998885621315161
+          ],
+          "source_fit_residual_rms_dbfs": -65.60493492219462,
+          "full_source_window_last10ms_peak_dbfs": -240.0,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 1.595125,
+          "identical_to_previous_full_playback_window": null
+        },
+        {
+          "index": 2,
+          "nonzero_start_seconds": 2.5174166666666666,
+          "nonzero_end_seconds_exclusive": 3.2262916666666666,
+          "source_fit_start_sample": 120832,
+          "source_fit_start_seconds": 2.517333333333333,
+          "source_fit_end_seconds": 3.247333333333333,
+          "timeline_type": "confirmed",
+          "timeline_frame": 75,
+          "timeline_nominal_seconds": 2.5,
+          "audio_minus_nominal_frame_ms": 17.3333333333332,
+          "timeline_detail": "衡印 id=-2142 anchor=(-0.03500, -0.03500, 0.50000) clip=HengChime isPlaying=True volume=0.62 blend=0.85 caseVisible=True",
+          "peak_dbfs": -10.219131948248872,
+          "rms_dbfs": -29.089052827254328,
+          "source_gain_per_channel": [
+            0.4560844437898598,
+            0.4193916339948902
+          ],
+          "source_correlation_per_channel": [
+            0.9998886260938896,
+            0.9998885621315161
+          ],
+          "source_fit_residual_rms_dbfs": -65.60493492219462,
+          "full_source_window_last10ms_peak_dbfs": -240.0,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 0.7630416666666666,
+          "identical_to_previous_full_playback_window": true
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    },
+    "Lv": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Lv/unity-output.wav",
+      "runtime_sha256": "4071bb6d6eb4e2e247c484e39b4a2302896d1a249b604be7af907be125a67252",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/timeline.tsv",
+      "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+      "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+      "capture_variant": "Original accepted six-seal run",
+      "runtime_file_modified_utc": "2026-11-24T16:12:52.792146+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/LvChime.wav",
+      "source_sha256": "603a8782c8355ec8d0af278f510e32e2bc684079444d9e118add0724277825f4",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 192512,
+      "runtime_duration_seconds": 4.010666666666666,
+      "source_channels": 1,
+      "source_duration_seconds": 0.71,
+      "runtime_peak_dbfs": -10.891837559264312,
+      "runtime_whole_file_rms_dbfs": -33.60946628198788,
+      "source_peak_dbfs": -3.8315865683841785,
+      "source_whole_file_rms_dbfs": -21.933801929925856,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 2,
+      "threshold_episode_counts": {
+        "-60": 2,
+        "-72": 2,
+        "-84": 2
+      },
+      "recognition_confirmation_count": 2,
+      "direct_template_preview_count": 0,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.12802083333333333,
+          "nonzero_end_seconds_exclusive": 0.8358541666666667,
+          "source_fit_start_sample": 6144,
+          "source_fit_start_seconds": 0.128,
+          "source_fit_end_seconds": 0.838,
+          "timeline_type": "confirmed",
+          "timeline_frame": 3,
+          "timeline_nominal_seconds": 0.1,
+          "audio_minus_nominal_frame_ms": 27.999999999999996,
+          "timeline_detail": "律印 id=-2208 anchor=(0.01000, -0.03500, 0.50000) clip=LvChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -10.891837559264312,
+          "rms_dbfs": -29.100184040539396,
+          "source_gain_per_channel": [
+            0.4328495348631358,
+            0.4433559632590445
+          ],
+          "source_correlation_per_channel": [
+            0.9998304811950557,
+            0.9998304607203814
+          ],
+          "source_fit_residual_rms_dbfs": -63.793969134824295,
+          "full_source_window_last10ms_peak_dbfs": -72.24719895935549,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 1.6388333333333334,
+          "identical_to_previous_full_playback_window": null
+        },
+        {
+          "index": 2,
+          "nonzero_start_seconds": 2.4746875,
+          "nonzero_end_seconds_exclusive": 3.1825208333333332,
+          "source_fit_start_sample": 118784,
+          "source_fit_start_seconds": 2.474666666666667,
+          "source_fit_end_seconds": 3.1846666666666668,
+          "timeline_type": "confirmed",
+          "timeline_frame": 73,
+          "timeline_nominal_seconds": 2.433333333333333,
+          "audio_minus_nominal_frame_ms": 41.33333333333367,
+          "timeline_detail": "律印 id=-2218 anchor=(0.01000, -0.03500, 0.50000) clip=LvChime isPlaying=True volume=0.62 blend=0.85 caseVisible=False",
+          "peak_dbfs": -10.891837559264312,
+          "rms_dbfs": -29.100184040539396,
+          "source_gain_per_channel": [
+            0.4328495348631358,
+            0.4433559632590445
+          ],
+          "source_correlation_per_channel": [
+            0.9998304811950557,
+            0.9998304607203814
+          ],
+          "source_fit_residual_rms_dbfs": -63.793969134824295,
+          "full_source_window_last10ms_peak_dbfs": -72.24719895935549,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 0.8281458333333334,
+          "identical_to_previous_full_playback_window": true
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    },
+    "Zhun": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Zhun/unity-output.wav",
+      "runtime_sha256": "fe50b8063ded5b419af529774b98804abbcce178547c0c1de1014061c7649fb3",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/timeline.tsv",
+      "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+      "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+      "capture_variant": "Original accepted six-seal run",
+      "runtime_file_modified_utc": "2026-11-24T16:12:54.819404+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/ZhunChime.wav",
+      "source_sha256": "212906fc26562604f51ac873484a956d9acc79e0f3955073767ae6b5a70684bc",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 191488,
+      "runtime_duration_seconds": 3.989333333333333,
+      "source_channels": 1,
+      "source_duration_seconds": 0.7,
+      "runtime_peak_dbfs": -12.108256228133342,
+      "runtime_whole_file_rms_dbfs": -36.62474500221843,
+      "source_peak_dbfs": -5.048593037113438,
+      "source_whole_file_rms_dbfs": -21.901884538526744,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 1,
+      "threshold_episode_counts": {
+        "-60": 1,
+        "-72": 1,
+        "-84": 1
+      },
+      "recognition_confirmation_count": 0,
+      "direct_template_preview_count": 1,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.21341666666666667,
+          "nonzero_end_seconds_exclusive": 0.9040208333333334,
+          "source_fit_start_sample": 10240,
+          "source_fit_start_seconds": 0.21333333333333335,
+          "source_fit_end_seconds": 0.9133333333333333,
+          "timeline_type": "template_preview",
+          "timeline_frame": 6,
+          "timeline_nominal_seconds": 0.2,
+          "audio_minus_nominal_frame_ms": 13.333333333333336,
+          "timeline_detail": "准印 direct Prefab preview only; no recognized gesture; clip=ZhunChime",
+          "peak_dbfs": -12.108256228133342,
+          "rms_dbfs": -29.066722144353765,
+          "source_gain_per_channel": [
+            0.432977459229769,
+            0.44348845183513375
+          ],
+          "source_correlation_per_channel": [
+            0.9999496554828112,
+            0.9999497002827352
+          ],
+          "source_fit_residual_rms_dbfs": -69.03834686808929,
+          "full_source_window_last10ms_peak_dbfs": -90.30899869919436,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 3.0853125,
+          "identical_to_previous_full_playback_window": null
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    },
+    "Sheng": {
+      "runtime_file": "Logs/t01-seal-feedback-20261124/unity/Sheng/unity-output.wav",
+      "runtime_sha256": "bf3d44ced75687a6ed6a6224f0a9196df4eee87c2732e576835de4de4adc122b",
+      "runtime_timeline_file": "Logs/t01-seal-feedback-20261124/unity/timeline.tsv",
+      "runtime_timeline_sha256": "ef9a2259349d931e00f198f7d317d2c2823a6a91c2ad3f6b668504bf57674f40",
+      "runtime_result_sha256": "67f239b010b5b486eb5a761ab3508880f029a44ff46d8c6644b2211860467e78",
+      "capture_variant": "Original accepted six-seal run",
+      "runtime_file_modified_utc": "2026-11-24T16:12:56.846075+00:00",
+      "source_file": "Assets/Art/VFX/Skills/SealConfirmation/ShengChime.wav",
+      "source_sha256": "4cd5becaba44c00c4455d17d568940e5c0fe2cfd3d918bf96411b477f026b074",
+      "runtime_sample_rate": 48000,
+      "runtime_channels": 2,
+      "runtime_pcm_bits": 16,
+      "runtime_frames": 192512,
+      "runtime_duration_seconds": 4.010666666666666,
+      "source_channels": 1,
+      "source_duration_seconds": 0.71,
+      "runtime_peak_dbfs": -9.84230304842818,
+      "runtime_whole_file_rms_dbfs": -37.87333604608384,
+      "source_peak_dbfs": -2.7822052477736543,
+      "source_whole_file_rms_dbfs": -23.181304362957125,
+      "runtime_clipped_sample_count": 0,
+      "runtime_last100ms_peak_dbfs": -240.0,
+      "runtime_first_frame_pcm": [
+        0,
+        0
+      ],
+      "runtime_last_frame_pcm": [
+        0,
+        0
+      ],
+      "independent_playback_episode_count": 1,
+      "threshold_episode_counts": {
+        "-60": 1,
+        "-72": 1,
+        "-84": 1
+      },
+      "recognition_confirmation_count": 0,
+      "direct_template_preview_count": 1,
+      "episode_count_matches_playback_triggers": true,
+      "unaccounted_sound_episodes": 0,
+      "episodes": [
+        {
+          "index": 1,
+          "nonzero_start_seconds": 0.23472916666666666,
+          "nonzero_end_seconds_exclusive": 0.9306458333333333,
+          "source_fit_start_sample": 11264,
+          "source_fit_start_seconds": 0.23466666666666666,
+          "source_fit_end_seconds": 0.9446666666666667,
+          "timeline_type": "template_preview",
+          "timeline_frame": 6,
+          "timeline_nominal_seconds": 0.2,
+          "audio_minus_nominal_frame_ms": 34.66666666666665,
+          "timeline_detail": "绳印 direct Prefab preview only; no recognized gesture; clip=ShengChime",
+          "peak_dbfs": -9.84230304842818,
+          "rms_dbfs": -30.353753847995545,
+          "source_gain_per_channel": [
+            0.4325570917906094,
+            0.4430562745655847
+          ],
+          "source_correlation_per_channel": [
+            0.9998528370106405,
+            0.9998528431945628
+          ],
+          "source_fit_residual_rms_dbfs": -65.66552801482742,
+          "full_source_window_last10ms_peak_dbfs": -240.0,
+          "last_nonzero_sample_abs_pcm": 1,
+          "silence_after_nonzero_seconds": 3.080020833333333,
+          "identical_to_previous_full_playback_window": null
+        }
+      ],
+      "state": "numerical_checks_passed",
+      "tail_conclusion": "No evidence of truncation: complete source window fits, endpoint is <=2 PCM units, then exact silence."
+    }
+  },
+  "summary": {
+    "calibrated_four_seals": "Gui/Ju/Heng/Lv: each two recognized events, two isolated sound episodes; repeated held pose does not add sound inside either hold.",
+    "uncalibrated_two_seals": "Zhun/Sheng: zero recognized events, one direct prefab preview and one sound episode each.",
+    "distinct_runtime_vs_source": "Runtime files are stereo final output with scene attenuation/spatial gain and silence; production source assets remain mono and are not modified.",
+    "clipping": "Zero clipped samples in all six runtime WAVs.",
+    "ending": "Every runtime WAV ends with >=100ms exact digital silence; each playback ends at <=2 PCM units with full-length source fit.",
+    "listening_status": "Not listened to by a human; numerical evidence only."
+  }
+}

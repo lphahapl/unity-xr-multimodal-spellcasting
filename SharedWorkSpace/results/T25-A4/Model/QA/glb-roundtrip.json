@@ -1,0 +1,89 @@
+{
+  "format": "glb",
+  "mesh_objects": 8,
+  "triangles": 21456,
+  "material_names": [
+    "Bronze",
+    "Cinnabar",
+    "Stone"
+  ],
+  "uv_layers_per_mesh": {
+    "01_HewnGreywacke_RecessedSeals": 1,
+    "02_BronzeGirth_EastWest": 1,
+    "03_BronzeGirth_FrontBack": 1,
+    "04_InsetLoadShoe": 1,
+    "05_FrontScarfPlate": 1,
+    "06_FrontPeen_1": 1,
+    "06_FrontPeen_2": 1,
+    "07_CrownPeen": 1
+  },
+  "max_symmetric_vertex_error_m": 1.7344029402011074e-05,
+  "boundsMin": [
+    -0.5058,
+    -0.525,
+    -0.5058
+  ],
+  "boundsMax": [
+    0.5058,
+    0.522,
+    0.515
+  ],
+  "embedded_images": [
+    {
+      "name": "Stone_NormalGL",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Stone_ORM",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Stone_BaseColor",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Cinnabar_BaseColor",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Bronze_NormalGL",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Bronze_ORM",
+      "mime": "image/png",
+      "embedded": true
+    },
+    {
+      "name": "Bronze_BaseColor",
+      "mime": "image/png",
+      "embedded": true
+    }
+  ],
+  "pbr": {
+    "Stone": {
+      "albedo": true,
+      "orm": true,
+      "ao": true,
+      "normal": true
+    },
+    "Cinnabar": {
+      "albedo": true,
+      "orm": false,
+      "ao": false,
+      "normal": false
+    },
+    "Bronze": {
+      "albedo": true,
+      "orm": true,
+      "ao": true,
+      "normal": true
+    }
+  },
+  "pass": true
+}

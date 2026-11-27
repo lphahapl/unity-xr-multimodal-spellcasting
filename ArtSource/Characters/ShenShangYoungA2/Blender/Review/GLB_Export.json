@@ -1,0 +1,42 @@
+{
+  "bytes": 47948136,
+  "sha256": "eb1405b030a565fef292a53cf25c19c9d3fc13a51cccb405bf9b1b570c905f72",
+  "glbTriangles": 232462,
+  "importedTriangles": 232462,
+  "meshes": 94,
+  "materials": 52,
+  "images": 37,
+  "allImagesEmbedded": true,
+  "textureBindings": [
+    {
+      "material": "A2 Skin | young complexion",
+      "baseColor": {
+        "name": "A2_Skin_Albedo",
+        "bytes": 927419,
+        "mime": "image/png"
+      },
+      "normal": {
+        "name": "A2_Skin_Normal",
+        "bytes": 332218,
+        "mime": "image/png"
+      }
+    },
+    {
+      "material": "A2 Indigo | short-coat baked folds",
+      "baseColor": {
+        "name": "A2_Coat_Albedo",
+        "bytes": 1090440,
+        "mime": "image/png"
+      },
+      "normal": {
+        "name": "A2_Coat_Normal",
+        "bytes": 2299373,
+        "mime": "image/png"
+      }
+    }
+  ],
+  "status": false,
+  "issues": 20,
+  "warnings": 138,
+  "armatures": 0
+}

@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-11-25T21:17:19+08:00",
+  "approvedRevision": "travel-ration-v2",
+  "approval": {
+    "id": "55899a4b-1bd4-4cb2-b13f-ee7923ec9def",
+    "text": "通过",
+    "created": 1795611416319
+  },
+  "unityVersion": "6000.3.10f1",
+  "normalSampleEntry": "Assets/Samples/ToolBeltItems/TravelRationLab.unity",
+  "mainProjectPrefab": "Assets/Art/Props/TravelRation/TravelRationPouch.prefab",
+  "servingPrefab": "Assets/Art/Props/TravelRation/TravelRationBiscuit.prefab",
+  "openMesh": {
+    "file": "Assets/Art/Props/TravelRation/Contents/TravelRationContents.fbx",
+    "sha256": "fa0fddd7bb53b9725837feeee43cfad0135877f673b4a5a984ebafcddc8457fc",
+    "guid": "126dc752480f42cba6470887dc9e0bab",
+    "triangles": 9124,
+    "sameBytesAsPassedPlay": true
+  },
+  "atlas": {
+    "file": "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Atlas.mat",
+    "channels": {
+      "_BaseMap": {
+        "texture": "Assets/Art/Props/TravelRation/Contents/TravelRationContents_BaseColor.png",
+        "guid": "9038d0aae2e34684924e30322eb00c9e",
+        "sha256": "21b38d34c9ba3e6b62fe235b8b038705b5368267e9fd8fd9ee1f65351aecb7bf"
+      },
+      "_BumpMap": {
+        "texture": "Assets/Art/Props/TravelRation/Contents/TravelRationContents_NormalGL.png",
+        "guid": "47149a7b07b34b2c83196d3ee2bee441",
+        "sha256": "0a3157cad475fd339e5ba2caf3042a72d521d00f67648aa0881710db63f959b6"
+      },
+      "_MetallicGlossMap": {
+        "texture": "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Mask.png",
+        "guid": "c079563aadc2417eaaab4485c7d64588",
+        "sha256": "6fd6d979da833561533552ec61502fffa0b748b46195885639b919e2be08e006"
+      },
+      "_OcclusionMap": {
+        "texture": "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Mask.png",
+        "guid": "c079563aadc2417eaaab4485c7d64588",
+        "sha256": "6fd6d979da833561533552ec61502fffa0b748b46195885639b919e2be08e006"
+      }
+    }
+  },
+  "productionAssetsMatchedToPlay": {
+    "Assets/Art/Props/TravelRation/Contents/TravelRationBiscuit.fbx": "4097605c2a83f7cd5e1a40f36b9588374a5ef03485404d5dee2cd48bf8380edd",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationBiscuit.fbx.meta": "fc189b5876afa5d2296c6f23dcda9afc35adb9af831617395898bff4f2fc2dd6",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents.fbx": "fa0fddd7bb53b9725837feeee43cfad0135877f673b4a5a984ebafcddc8457fc",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents.fbx.meta": "0771c750e7328d6be7616cd473d46b1f8528b4138a2ddf69a7abafa832a62c70",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Atlas.mat": "e69394544613c7108096b2bdfcbc5dee1b6636ef8901121f660dfe03eec3de95",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Atlas.mat.meta": "b32caf561fee4dc21b10f18c5801bcbb9b31ae597ef854ee48b993f10e779ee9",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_BaseColor.png": "21b38d34c9ba3e6b62fe235b8b038705b5368267e9fd8fd9ee1f65351aecb7bf",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_BaseColor.png.meta": "b64f30c0487187c499f76c12d1e1941d346b22c063438f8fa91c712c617987e6",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Mask.png": "6fd6d979da833561533552ec61502fffa0b748b46195885639b919e2be08e006",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_Mask.png.meta": "c55a70bf69ce79cb0a648a1df6ca0aa1524584631de816fee1a3777e7a47b98f",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_NormalGL.png": "0a3157cad475fd339e5ba2caf3042a72d521d00f67648aa0881710db63f959b6",
+    "Assets/Art/Props/TravelRation/Contents/TravelRationContents_NormalGL.png.meta": "d00ca2a27807cb26a2df8a72ab4d5b01ad13f1252b8d22abe45c0cf1c1c7b503",
+    "Assets/Art/Props/TravelRation/Contents.meta": "b202ba65cd84f6261116da599891de30a0e8a5910a0964d8742afd4969cec292",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag.fbx": "725e94b26433c5339e715fc0a10dc628a7b9a461faf791e3591b446a33ca2094",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag.fbx.meta": "4a705c73f1b7908d4658aca5f08fc001ca25ccfc4f5d8980b7e5df58cdfe2203",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_Atlas.mat": "c4b7d9b0a624bb49b660959a3aee9593edfe2af2ae07861a7a5a832aae99d400",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_Atlas.mat.meta": "47ab1da0f195f660bb33617981857f01a39cfccf551b1d2765e9c8176be0b78e",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_BaseColor.png": "7f4fed08db6e3c6ad020d48e94c3b18610e931180128e7f8582dda2322f73898",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_BaseColor.png.meta": "2b07aac8072bc1cdaef921d2199b35af3deb94934f133ce7935631ed9367ea24",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_Mask.png": "8e85bbaee3471a03006f1a2a79fa3681a27828e36a2a02340f59758490fc7d79",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_Mask.png.meta": "c6bb7a8d9e3d21860d5685729782d164daa367483d7368d7cf47cd9880abc52f",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_NormalGL.png": "4b1b82d49a78ba6f5225f6c258fce8b62759c967965588b045ae1a0f17818ebb",
+    "Assets/Art/Props/TravelRation/Geometry/TravelRationBag_NormalGL.png.meta": "6dfa377d0a8c8c611edb34fe8f4e93fd197048e929408c6226a0bbe8a6099971",
+    "Assets/Art/Props/TravelRation/Geometry.meta": "c4116e1eac46872f40ebd1f435fefdc7a615608b5cdaf8f21a8f1255d6ac59c4",
+    "Assets/Art/Props/TravelRation/TravelRationBiscuit.asset": "73bcdf916da54d5da034a12237712d6bd16e5afd27f47be5484ddc8857fddfe0",
+    "Assets/Art/Props/TravelRation/TravelRationBiscuit.asset.meta": "85ebc443c8d76683cad22710f0716056d0715c80c428fe8be5c5e40244c63b01",
+    "Assets/Art/Props/TravelRation/TravelRationBiscuit.prefab": "ccab0086a7a1533fdaa4e309a6438211231a7ad0643f3ff7aea5288c7ebe3656",
+    "Assets/Art/Props/TravelRation/TravelRationBiscuit.prefab.meta": "682fddcd6b44c50d0f8c17973f79c396d0ffc1ec0aadd1b57a201624dc5de275",
+    "Assets/Art/Props/TravelRation/TravelRationPouch.asset": "6deac43e0c23c7452cca719f09a2c373424f972327d428bbd8e1b72cf7eedc6d",
+    "Assets/Art/Props/TravelRation/TravelRationPouch.asset.meta": "6ddee8e98b5d6de85436d510917b08836dfc43015a530a7a46e03b1013ce9b26",
+    "Assets/Art/Props/TravelRation/TravelRationPouch.prefab": "de8f5cf3be219fe734c758111f9467712be496b52180c34f98d903c3eeaf85e3",
+    "Assets/Art/Props/TravelRation/TravelRationPouch.prefab.meta": "6d73cd4c2335098c2115637cb24316a35485d450df3168bdaadc108be7959cac"
+  },
+  "firstVerifiedDesktopPlay": {
+    "exitCode": 0,
+    "report": "ArtSource/Props/T23/Models/TravelRation/V2/UnityQA.txt",
+    "counts": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "healthAddedEach": 15,
+    "emptyBagRedockingAndReopening": true
+  },
+  "verifiedAt": "2026-11-25T21:21:41+08:00",
+  "supplementalEditorProbe": {
+    "status": "stopped_at_assembly_reload_before_assertions",
+    "bindingReadback": "Static official Prefab, FBX importer and atlas GUID checks. Exact 32-file comparison to the successful normal Play snapshot."
+  }
+}

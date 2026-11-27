@@ -1,0 +1,110 @@
+{
+  "method": "Actual exported FBX vertices. Conservative full closed-bag AABB swept from 8 mm above the pouch mouth to the centered seated position, triangle/AABB separating-axis test; every LOD cross combination.",
+  "sourcePouch": "D:/UnityProjects/NarutoVR/Assets/Art/Props/ShenShangToolBelt/Geometry/SoftPouch/SoftPouch.fbx",
+  "sourcePouchSha256": "ef82dd464b1ef489fceae0728e0be741c5487478b86f658f3b5e10eb863aade3",
+  "rationFbxSha256": "725e94b26433c5339e715fc0a10dc628a7b9a461faf791e3591b446a33ca2094",
+  "assumptions": "Bag vertical with cloth normal +Z, centered in pouch local X/Z. Visual fit only; hand tracking, dynamic colliders and dock authoring are separate.",
+  "results": [
+    {
+      "rationLOD": "TravelRationBag_LOD0",
+      "pouchLOD": "SoftPouch_LOD0",
+      "boundingBoxUnityMillimetres": [
+        44.6002,
+        60.059,
+        15.5014
+      ],
+      "settledRootInPouchSpaceUnityMetres": [
+        0,
+        0.038,
+        0
+      ],
+      "pouchMouthUnityYMetres": 0.08799080550670624,
+      "gripTargetRationLocalUnityMetres": [
+        0,
+        0.055,
+        0
+      ],
+      "gripTargetYAboveHighestPouchMouthMetres": 0.0050091944932937615,
+      "topAboveHighestPouchMouthMetres": 0.010005680203437811,
+      "insertionStartHeightUnityMetres": 0.09599080550670624,
+      "fullAabbVerticalSweepCollides": false
+    },
+    {
+      "rationLOD": "TravelRationBag_LOD0",
+      "pouchLOD": "SoftPouch_LOD1",
+      "boundingBoxUnityMillimetres": [
+        44.6002,
+        60.059,
+        15.5014
+      ],
+      "settledRootInPouchSpaceUnityMetres": [
+        0,
+        0.038,
+        0
+      ],
+      "pouchMouthUnityYMetres": 0.0879615768790245,
+      "gripTargetRationLocalUnityMetres": [
+        0,
+        0.055,
+        0
+      ],
+      "gripTargetYAboveHighestPouchMouthMetres": 0.005038423120975494,
+      "topAboveHighestPouchMouthMetres": 0.010034908831119543,
+      "insertionStartHeightUnityMetres": 0.09596157687902451,
+      "fullAabbVerticalSweepCollides": false
+    },
+    {
+      "rationLOD": "TravelRationBag_LOD1",
+      "pouchLOD": "SoftPouch_LOD0",
+      "boundingBoxUnityMillimetres": [
+        44.6863,
+        60.0513,
+        15.6533
+      ],
+      "settledRootInPouchSpaceUnityMetres": [
+        0,
+        0.038,
+        0
+      ],
+      "pouchMouthUnityYMetres": 0.08799080550670624,
+      "gripTargetRationLocalUnityMetres": [
+        0,
+        0.055,
+        0
+      ],
+      "gripTargetYAboveHighestPouchMouthMetres": 0.0050091944932937615,
+      "topAboveHighestPouchMouthMetres": 0.010177483141422278,
+      "insertionStartHeightUnityMetres": 0.09599080550670624,
+      "fullAabbVerticalSweepCollides": false
+    },
+    {
+      "rationLOD": "TravelRationBag_LOD1",
+      "pouchLOD": "SoftPouch_LOD1",
+      "boundingBoxUnityMillimetres": [
+        44.6863,
+        60.0513,
+        15.6533
+      ],
+      "settledRootInPouchSpaceUnityMetres": [
+        0,
+        0.038,
+        0
+      ],
+      "pouchMouthUnityYMetres": 0.0879615768790245,
+      "gripTargetRationLocalUnityMetres": [
+        0,
+        0.055,
+        0
+      ],
+      "gripTargetYAboveHighestPouchMouthMetres": 0.005038423120975494,
+      "topAboveHighestPouchMouthMetres": 0.01020671176910401,
+      "insertionStartHeightUnityMetres": 0.09596157687902451,
+      "fullAabbVerticalSweepCollides": false
+    }
+  ],
+  "actualFrontLoopPickPointLocalUnityM": [
+    0,
+    0.055,
+    0.007423
+  ]
+}

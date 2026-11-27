@@ -1,0 +1,111 @@
+{
+  "version": "5.2.2 LTS",
+  "fbx": [
+    {
+      "name": "WorkshopHearth_LOD0",
+      "triangles": 3572,
+      "uv": 1,
+      "dimensions": [
+        2.08,
+        1.45,
+        4.319
+      ],
+      "nonManifold": 0,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "WorkshopHearth_LOD0: ~99.98% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "WorkshopHearth_LOD0": {
+            "verts": 1934,
+            "faces": 2344,
+            "tris": 3572,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 74,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 5,
+            "uv_maps": 1,
+            "uv_oob_pct": 77.38,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 99.98,
+            "uv_coverage_pct": 98.2
+          }
+        }
+      }
+    },
+    {
+      "name": "WorkshopHearth_LOD1",
+      "triangles": 484,
+      "uv": 1,
+      "dimensions": [
+        2.08,
+        1.45,
+        4.319
+      ],
+      "nonManifold": 0,
+      "qa": {
+        "ok": true,
+        "pass": true,
+        "errors": [],
+        "warnings": [
+          "WorkshopHearth_LOD1: ~100.0% UV overlap (ok only if mirrored/stacked on purpose; bakes break)"
+        ],
+        "ground_z": -0.0,
+        "zfighting": [],
+        "floating": [],
+        "back_to_back": [],
+        "enclosed": [],
+        "objects": {
+          "WorkshopHearth_LOD1": {
+            "verts": 328,
+            "faces": 322,
+            "tris": 484,
+            "ngons": 0,
+            "boundary_edges": 0,
+            "nonmanifold_edges": 0,
+            "wire_edges": 0,
+            "loose_verts": 0,
+            "degenerate_faces": 0,
+            "zero_length_edges": 0,
+            "inconsistent_normals_edges": 0,
+            "duplicate_verts": 0,
+            "islands": 43,
+            "inside_out_islands": 0,
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "materials": 5,
+            "uv_maps": 1,
+            "uv_oob_pct": 81.38,
+            "uv_zero_area_faces": 0,
+            "uv_overlap_pct": 100.0,
+            "uv_coverage_pct": 98.5
+          }
+        }
+      }
+    }
+  ]
+}

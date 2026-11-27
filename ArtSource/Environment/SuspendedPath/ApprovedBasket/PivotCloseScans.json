@@ -1,0 +1,30 @@
+{
+  "metal_source": "https://polyhaven.com/a/rusty_metal_03",
+  "metal_authors": {
+    "Amal Kumar": "All"
+  },
+  "metal_scan_extent_m": [
+    1.35,
+    1.35
+  ],
+  "metal_inputs": {
+    "Diffuse": {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rusty_metal_03/rusty_metal_03_diff_1k.jpg",
+      "md5": "32165054d3f6a81d81e3d7aec59181da"
+    },
+    "nor_gl": {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rusty_metal_03/rusty_metal_03_nor_gl_1k.jpg",
+      "md5": "a9de126b02dc45d674664cf85764519f"
+    },
+    "Rough": {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rusty_metal_03/rusty_metal_03_rough_1k.jpg",
+      "md5": "d14ac18d2658f5e5cd68f68cbfa183f1"
+    }
+  },
+  "license": "CC0-1.0",
+  "license_url": "https://polyhaven.com/license",
+  "stone_source": "https://polyhaven.com/a/quarry_wall",
+  "stone_inputs": "../Surfaces/Workshop/sources.json",
+  "packing": "linear RG=tangent normal XY; B=signed luminance modulation centered at 0.5; A=roughness",
+  "use": "Casting pits and roughness use a scan of oxidized metal; actual bronze coloration remains authored. Course stone retains the quarry scan."
+}

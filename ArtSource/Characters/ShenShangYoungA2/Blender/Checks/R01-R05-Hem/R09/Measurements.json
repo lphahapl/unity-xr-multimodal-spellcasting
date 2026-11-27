@@ -1,0 +1,132 @@
+{
+  "inputFile": "ShenShang_R09.glb",
+  "SHA256": "65c43cd3a1f42cd297b54647a1317c41ec20a8bea749dacee5ef42bc460352d4",
+  "pose": "exported static pose",
+  "units": "metres unless marked mm",
+  "trousers": "R05 | bifurcated high-waist work trousers",
+  "testedPantsTriangles": 42560,
+  "pairTests": {
+    "A2 Short coat | drafted flared skirt": {
+      "testedCoatTriangles": 9600,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "A2 Short coat | hem bead": {
+      "testedCoatTriangles": 1680,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "A2 Short coat | warm narrow hem return": {
+      "testedCoatTriangles": 1600,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Jacket": {
+      "testedCoatTriangles": 2668,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Jacket closures": {
+      "testedCoatTriangles": 1440,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Jacket collar": {
+      "testedCoatTriangles": 6566,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Undertunic": {
+      "testedCoatTriangles": 4003,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Waist sash": {
+      "testedCoatTriangles": 9005,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    }
+  },
+  "radialSurvey": {
+    "layerObjects": [
+      "A2 Short coat | drafted flared skirt",
+      "A2 Short coat | hem bead",
+      "A2 Short coat | warm narrow hem return"
+    ],
+    "layers": "outermost actual skirt, woven binding, or hem bead vs outermost trousers on same torso-facing ray",
+    "resolution": "0.5 degree azimuth, 1.25 mm height; rays stop at body axis; only heights shared by both surfaces",
+    "all": {
+      "samples": 104816,
+      "pantsInFrontMoreThan0_05mm": 0,
+      "within0_05mm": 0,
+      "minOuterMinusPants_mm": 3.7577,
+      "minimumLocation": {
+        "azimuth_deg": 76.0,
+        "z_m": 0.8625
+      },
+      "p05_mm": 6.618
+    },
+    "byQuadrant": {
+      "back": {
+        "samples": 26141,
+        "pantsInFrontMoreThan0_05mm": 0,
+        "within0_05mm": 0,
+        "minOuterMinusPants_mm": 5.6988,
+        "minimumLocation": {
+          "azimuth_deg": 27.0,
+          "z_m": 0.895
+        },
+        "p05_mm": 6.889
+      },
+      "front": {
+        "samples": 26291,
+        "pantsInFrontMoreThan0_05mm": 0,
+        "within0_05mm": 0,
+        "minOuterMinusPants_mm": 6.7955,
+        "minimumLocation": {
+          "azimuth_deg": 165.5,
+          "z_m": 0.85375
+        },
+        "p05_mm": 7.734
+      },
+      "left": {
+        "samples": 25867,
+        "pantsInFrontMoreThan0_05mm": 0,
+        "within0_05mm": 0,
+        "minOuterMinusPants_mm": 3.7577,
+        "minimumLocation": {
+          "azimuth_deg": 76.0,
+          "z_m": 0.8625
+        },
+        "p05_mm": 6.098
+      },
+      "right": {
+        "samples": 26517,
+        "pantsInFrontMoreThan0_05mm": 0,
+        "within0_05mm": 0,
+        "minOuterMinusPants_mm": 4.6834,
+        "minimumLocation": {
+          "azimuth_deg": 275.5,
+          "z_m": 0.85
+        },
+        "p05_mm": 5.847
+      }
+    }
+  }
+}

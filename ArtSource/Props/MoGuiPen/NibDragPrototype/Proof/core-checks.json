@@ -1,0 +1,141 @@
+{
+  "scope": "Pure JS prototype; synthetic samples, not Unity or headset verification",
+  "passed": true,
+  "count": 21,
+  "checks": [
+    {
+      "name": "positive X drags negative X",
+      "passed": true
+    },
+    {
+      "name": "negative X drags positive X",
+      "passed": true
+    },
+    {
+      "name": "positive Y drags negative Y",
+      "passed": true
+    },
+    {
+      "name": "negative Y drags positive Y",
+      "passed": true
+    },
+    {
+      "name": "stopped returns by the configured exponential",
+      "passed": true
+    },
+    {
+      "name": "lifted returns by the configured exponential",
+      "passed": true
+    },
+    {
+      "name": "tracking_lost returns by the configured exponential",
+      "passed": true
+    },
+    {
+      "name": "first sample has no velocity spike at an arbitrary position",
+      "passed": true
+    },
+    {
+      "name": "recontact and recovery do not differentiate across missing samples",
+      "passed": true
+    },
+    {
+      "name": "switching board clears bend and establishes a new local baseline",
+      "passed": true
+    },
+    {
+      "name": "pure board-normal motion never bends",
+      "passed": true
+    },
+    {
+      "name": "duplicate timestamps neither integrate nor poison the prior point",
+      "passed": true
+    },
+    {
+      "name": "backwards time, long gap, and invalid time reset safely",
+      "passed": true
+    },
+    {
+      "name": "invalid point decays and requires a new baseline",
+      "passed": true
+    },
+    {
+      "name": "sub-deadzone motion does not accumulate drift",
+      "passed": true
+    },
+    {
+      "name": "large and changing velocities remain bounded",
+      "passed": true
+    },
+    {
+      "name": "reversal converges to the new opposite direction",
+      "passed": true
+    },
+    {
+      "name": "shaft, ferrule, root and visible contact tip are unchanged",
+      "passed": true
+    },
+    {
+      "name": "only bristle belly bows, including transformed pen-local Z",
+      "passed": true
+    },
+    {
+      "name": "30/60/90/120 Hz produce the same constant-speed response and return",
+      "passed": true
+    },
+    {
+      "name": "invalid configuration and deformation arguments are rejected",
+      "passed": true
+    }
+  ],
+  "hzResults": {
+    "30": {
+      "moving": [
+        -0.0035999999991958914,
+        0,
+        0
+      ],
+      "stopped": [
+        -8.653301149169673e-7,
+        0,
+        0
+      ]
+    },
+    "60": {
+      "moving": [
+        -0.003599999999195893,
+        0,
+        0
+      ],
+      "stopped": [
+        -8.653301149169686e-7,
+        0,
+        0
+      ]
+    },
+    "90": {
+      "moving": [
+        -0.0035999999991958923,
+        0,
+        0
+      ],
+      "stopped": [
+        -8.65330114916968e-7,
+        0,
+        0
+      ]
+    },
+    "120": {
+      "moving": [
+        -0.003599999999195892,
+        0,
+        0
+      ],
+      "stopped": [
+        -8.65330114916968e-7,
+        0,
+        0
+      ]
+    }
+  }
+}

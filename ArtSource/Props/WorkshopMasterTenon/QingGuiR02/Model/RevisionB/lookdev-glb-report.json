@@ -1,0 +1,44 @@
+{
+  "source_game_glb_sha256": "26c8cd7472c1a332a5da29a2ca4cb72e7b427d8e11e0115d50c5fe89c29709d4",
+  "lookdev_sha256": "237ae9cb651d8be7bb3f841e501c2766a7ac7723d7b06ef6a00a3c0168157aa8",
+  "body_extensions": {
+    "KHR_materials_transmission": {
+      "transmissionFactor": 0.12,
+      "transmissionTexture": {
+        "index": 3,
+        "texCoord": 0
+      }
+    },
+    "KHR_materials_volume": {
+      "thicknessFactor": 0.12,
+      "thicknessTexture": {
+        "index": 4,
+        "texCoord": 0
+      },
+      "attenuationDistance": 0.045,
+      "attenuationColor": [
+        0.82,
+        0.79,
+        0.71
+      ]
+    },
+    "KHR_materials_ior": {
+      "ior": 1.53
+    },
+    "KHR_materials_clearcoat": {
+      "clearcoatFactor": 0.18,
+      "clearcoatRoughnessFactor": 0.09,
+      "clearcoatTexture": {
+        "index": 3,
+        "texCoord": 0
+      }
+    }
+  },
+  "gold_material_has_transmission": false,
+  "alpha_mode": "OPAQUE",
+  "limitations": [
+    "Viewer must implement the listed KHR extensions.",
+    "Standard transmission/volume is not subsurface scattering.",
+    "No claim this matches the separate Unity shader or Quest output."
+  ]
+}

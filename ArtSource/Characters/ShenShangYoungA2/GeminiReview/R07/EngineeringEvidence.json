@@ -1,0 +1,56 @@
+{
+  "version": "R07",
+  "modelSHA256s": {
+    "R05": "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0",
+    "R06": "77be680b1cbc86904a66aa1af7f088f5fbed41f15dd6c467b9cfce221b76fce1",
+    "R07": "f965c0e078f3f603a9496650e478bb51f040ec28f81e9c9db6f4b4fa44e326d0"
+  },
+  "R06AndR07BINIncludingHeaderSHA256": "84dd4f28f6ce347901d2f167c5c957f76e645ea32e60ca74fa16d5f4f8debe7f",
+  "geometryJSONIdenticalR06R07": true,
+  "identicalR05MaterialDescriptorCount": 33,
+  "identicalR05TextureBindingCount": 30,
+  "restoredBaseColorFactors": [
+    "A2 Charcoal | Web_Wardrobe_albedo",
+    "A2 Hand | Web_Wardrobe_albedo",
+    "A2 Work jacket | Web_Wardrobe_albedo",
+    "A2 Bias collar | Web_Collar_albedo",
+    "A2 Hand | LeftHand • wardrobe",
+    "A2 Hand | LeftCuff • wardrobe",
+    "A2 Hand | RightHand • wardrobe",
+    "A2 Hand | RightCuff • wardrobe",
+    "A2 Sash | Web_Wardrobe_albedo"
+  ],
+  "producerStaticMeasurements": {
+    "R01": {
+      "jacketTriangleIntersections": 285,
+      "cordTriangleIntersections": 111,
+      "skirtTriangleIntersections": 1657,
+      "raysThroughWaist": 74263,
+      "waistTrouserMaterialVisible": 1174
+    },
+    "R05": {
+      "jacketTriangleIntersections": 441,
+      "cordTriangleIntersections": 282,
+      "skirtTriangleIntersections": 0,
+      "raysThroughWaist": 74114,
+      "waistTrouserMaterialVisible": 4
+    },
+    "R07": {
+      "jacketTriangleIntersections": 0,
+      "cordTriangleIntersections": 0,
+      "skirtTriangleIntersections": 0,
+      "raysThroughWaist": 74114,
+      "waistTrouserMaterialVisible": 0
+    }
+  },
+  "reports": [
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R07/Review/MaterialParity.json",
+      "sha256": "6bc4d752acd204800b8c8350eb3fd2efd5a60d50a42e6258913b30811cc469a1"
+    },
+    {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R07/Review/TrouserCoatCheck.json",
+      "sha256": "f5e4dbef3b3840e10ac204b5bed699a4f4632244fab1d20eabc25ad759635c1e"
+    }
+  ]
+}

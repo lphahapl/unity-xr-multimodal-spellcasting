@@ -1,0 +1,548 @@
+{
+  "version": "R03",
+  "status": "aesthetic_review_candidate",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axis": "Blender +Z; Unity +Y",
+  "origin": "insertion end center",
+  "envelope_metres": [
+    0.12,
+    0.12,
+    0.35
+  ],
+  "max_section_metres": 0.12,
+  "shaft_width_metres": 0.106,
+  "shaft_length_metres": 0.105,
+  "shoulder_transition_metres": [
+    0.105,
+    0.127
+  ],
+  "shoulder_is_mechanical_stop": false,
+  "old_seated_bottom_y": 0.92394,
+  "old_socket_mouth_y": 1.028,
+  "nominal_socket_metres": 0.153,
+  "per_side_shaft_clearance_metres": 0.0235,
+  "temporary_budget": true,
+  "meshes": [
+    {
+      "name": "MasterTenon_HIGH",
+      "verts": 182690,
+      "triangles": 365376,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_count": 1
+    },
+    {
+      "name": "MasterTenon_LOD0",
+      "verts": 739,
+      "triangles": 1474,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD1",
+      "verts": 282,
+      "triangles": 560,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD2",
+      "verts": 107,
+      "triangles": 210,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "bake": {
+    "engine": "Cycles",
+    "selected_to_active": true,
+    "source": "MasterTenon_HIGH",
+    "target": "MasterTenon_LOD0",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "cage_extrusion": 0.0035,
+    "max_ray_distance": 0.009,
+    "margin": 16,
+    "seconds": 15.928587913513184
+  },
+  "limitations": [
+    "Opaque runtime PBR approximates jade surface; high-source subsurface scatter is not a custom Quest shader.",
+    "Geometry clearance only, actual socket fit validated separately by parent.",
+    "No headset or aesthetic acceptance claimed."
+  ],
+  "section_profile": [
+    {
+      "z_metres": 0.0,
+      "width_metres": 0.101,
+      "depth_metres": 0.101,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.003,
+      "width_metres": 0.104,
+      "depth_metres": 0.104,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.006,
+      "width_metres": 0.106,
+      "depth_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.101,
+      "width_metres": 0.106,
+      "depth_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.105,
+      "width_metres": 0.106,
+      "depth_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.108,
+      "width_metres": 0.11,
+      "depth_metres": 0.11,
+      "corner_radius_metres": 0.004
+    },
+    {
+      "z_metres": 0.11,
+      "width_metres": 0.115,
+      "depth_metres": 0.115,
+      "corner_radius_metres": 0.005
+    },
+    {
+      "z_metres": 0.112,
+      "width_metres": 0.117,
+      "depth_metres": 0.117,
+      "corner_radius_metres": 0.006
+    },
+    {
+      "z_metres": 0.116,
+      "width_metres": 0.117,
+      "depth_metres": 0.117,
+      "corner_radius_metres": 0.006
+    },
+    {
+      "z_metres": 0.121,
+      "width_metres": 0.119,
+      "depth_metres": 0.119,
+      "corner_radius_metres": 0.008
+    },
+    {
+      "z_metres": 0.127,
+      "width_metres": 0.12,
+      "depth_metres": 0.12,
+      "corner_radius_metres": 0.009
+    },
+    {
+      "z_metres": 0.14,
+      "width_metres": 0.118,
+      "depth_metres": 0.105,
+      "corner_radius_metres": 0.011
+    },
+    {
+      "z_metres": 0.165,
+      "width_metres": 0.111,
+      "depth_metres": 0.086,
+      "corner_radius_metres": 0.015
+    },
+    {
+      "z_metres": 0.19,
+      "width_metres": 0.106,
+      "depth_metres": 0.078,
+      "corner_radius_metres": 0.018
+    },
+    {
+      "z_metres": 0.215,
+      "width_metres": 0.104,
+      "depth_metres": 0.075,
+      "corner_radius_metres": 0.019
+    },
+    {
+      "z_metres": 0.24,
+      "width_metres": 0.104,
+      "depth_metres": 0.074,
+      "corner_radius_metres": 0.02
+    },
+    {
+      "z_metres": 0.252,
+      "width_metres": 0.10492609174311926,
+      "depth_metres": 0.07496450182704019,
+      "corner_radius_metres": 0.020596439354346657
+    },
+    {
+      "z_metres": 0.26,
+      "width_metres": 0.106,
+      "depth_metres": 0.076,
+      "corner_radius_metres": 0.021
+    },
+    {
+      "z_metres": 0.282,
+      "width_metres": 0.11,
+      "depth_metres": 0.079,
+      "corner_radius_metres": 0.022
+    },
+    {
+      "z_metres": 0.302,
+      "width_metres": 0.112,
+      "depth_metres": 0.08,
+      "corner_radius_metres": 0.023
+    },
+    {
+      "z_metres": 0.325,
+      "width_metres": 0.112,
+      "depth_metres": 0.08,
+      "corner_radius_metres": 0.024
+    },
+    {
+      "z_metres": 0.337,
+      "width_metres": 0.111,
+      "depth_metres": 0.078,
+      "corner_radius_metres": 0.024
+    },
+    {
+      "z_metres": 0.345,
+      "width_metres": 0.107,
+      "depth_metres": 0.073,
+      "corner_radius_metres": 0.025
+    },
+    {
+      "z_metres": 0.35,
+      "width_metres": 0.1,
+      "depth_metres": 0.064,
+      "corner_radius_metres": 0.026
+    }
+  ],
+  "proposed_compound_box_colliders_blender_XYZ": [
+    {
+      "name": "insert",
+      "center": [
+        0,
+        0,
+        0.0525
+      ],
+      "size": [
+        0.1,
+        0.1,
+        0.105
+      ]
+    },
+    {
+      "name": "shoulder",
+      "center": [
+        0,
+        0,
+        0.116
+      ],
+      "size": [
+        0.11,
+        0.11,
+        0.022
+      ]
+    },
+    {
+      "name": "grip",
+      "center": [
+        0,
+        0,
+        0.231
+      ],
+      "size": [
+        0.086,
+        0.052,
+        0.208
+      ]
+    },
+    {
+      "name": "top",
+      "center": [
+        0,
+        0,
+        0.341
+      ],
+      "size": [
+        0.078,
+        0.046,
+        0.018
+      ]
+    }
+  ],
+  "collision_note": "Conservative interior boxes for separate Unity draft; parent may instead derive tight convex section hulls. Not an accepted collision design.",
+  "lower_geometry_identity": {
+    "status": "PREVIEW_ONLY_NOT_FROZEN",
+    "lower_0_to_127_mm_exact_coordinate_and_triangle_identity": true,
+    "R02_lower": {
+      "vertices": 309,
+      "triangles": 588,
+      "vertex_sha": "52d12f95e84e3f29f31ec8000cd52ed7f54518441bc82ac7670207f884de90ad",
+      "triangle_sha": "4589c36c39b17a394d1c447e3c490ceeb54986d7ed775bd6771fb3861dfa1201"
+    },
+    "R03_lower": {
+      "vertices": 309,
+      "triangles": 588,
+      "vertex_sha": "52d12f95e84e3f29f31ec8000cd52ed7f54518441bc82ac7670207f884de90ad",
+      "triangle_sha": "4589c36c39b17a394d1c447e3c490ceeb54986d7ed775bd6771fb3861dfa1201"
+    },
+    "R02_volume_m3": 0.00465125884655421,
+    "R03_volume_m3": 0.003389821141241296,
+    "volume_reduction_percent": 27.120350574499298,
+    "meshes": [
+      {
+        "name": "MasterTenon_HIGH",
+        "verts": 182690,
+        "triangles": 365376,
+        "dimensions": [
+          0.11999999731779099,
+          0.11999999731779099,
+          0.3499999940395355
+        ],
+        "materials": 1,
+        "uv_layers": 1
+      },
+      {
+        "name": "MasterTenon_LOD0",
+        "verts": 706,
+        "triangles": 1408,
+        "dimensions": [
+          0.11999999731779099,
+          0.11999999731779099,
+          0.3499999940395355
+        ],
+        "materials": 1,
+        "uv_layers": 1
+      },
+      {
+        "name": "MasterTenon_LOD1",
+        "verts": 261,
+        "triangles": 518,
+        "dimensions": [
+          0.11999999731779099,
+          0.11999999731779099,
+          0.3499999940395355
+        ],
+        "materials": 1,
+        "uv_layers": 1
+      },
+      {
+        "name": "MasterTenon_LOD2",
+        "verts": 107,
+        "triangles": 210,
+        "dimensions": [
+          0.11999999731779099,
+          0.11999999731779099,
+          0.3499999940395355
+        ],
+        "materials": 1,
+        "uv_layers": 1
+      }
+    ],
+    "sections": [
+      {
+        "z_mm": 0.0,
+        "width_mm": 101.0,
+        "depth_mm": 101.0,
+        "corner_radius_mm": 3.0
+      },
+      {
+        "z_mm": 3.0,
+        "width_mm": 104.0,
+        "depth_mm": 104.0,
+        "corner_radius_mm": 3.0
+      },
+      {
+        "z_mm": 6.0,
+        "width_mm": 106.0,
+        "depth_mm": 106.0,
+        "corner_radius_mm": 3.0
+      },
+      {
+        "z_mm": 101.0,
+        "width_mm": 106.0,
+        "depth_mm": 106.0,
+        "corner_radius_mm": 3.0
+      },
+      {
+        "z_mm": 105.0,
+        "width_mm": 106.0,
+        "depth_mm": 106.0,
+        "corner_radius_mm": 3.0
+      },
+      {
+        "z_mm": 108.0,
+        "width_mm": 110.0,
+        "depth_mm": 110.0,
+        "corner_radius_mm": 4.0
+      },
+      {
+        "z_mm": 110.0,
+        "width_mm": 115.0,
+        "depth_mm": 115.0,
+        "corner_radius_mm": 5.0
+      },
+      {
+        "z_mm": 112.0,
+        "width_mm": 117.0,
+        "depth_mm": 117.0,
+        "corner_radius_mm": 6.0
+      },
+      {
+        "z_mm": 116.0,
+        "width_mm": 117.0,
+        "depth_mm": 117.0,
+        "corner_radius_mm": 6.0
+      },
+      {
+        "z_mm": 121.0,
+        "width_mm": 119.0,
+        "depth_mm": 119.0,
+        "corner_radius_mm": 8.0
+      },
+      {
+        "z_mm": 127.0,
+        "width_mm": 120.0,
+        "depth_mm": 120.0,
+        "corner_radius_mm": 9.0
+      },
+      {
+        "z_mm": 140.0,
+        "width_mm": 118.0,
+        "depth_mm": 105.0,
+        "corner_radius_mm": 11.0
+      },
+      {
+        "z_mm": 165.0,
+        "width_mm": 111.0,
+        "depth_mm": 86.0,
+        "corner_radius_mm": 15.0
+      },
+      {
+        "z_mm": 190.0,
+        "width_mm": 106.0,
+        "depth_mm": 78.0,
+        "corner_radius_mm": 18.0
+      },
+      {
+        "z_mm": 215.0,
+        "width_mm": 104.0,
+        "depth_mm": 75.0,
+        "corner_radius_mm": 19.0
+      },
+      {
+        "z_mm": 240.0,
+        "width_mm": 104.0,
+        "depth_mm": 74.0,
+        "corner_radius_mm": 20.0
+      },
+      {
+        "z_mm": 260.0,
+        "width_mm": 106.0,
+        "depth_mm": 76.0,
+        "corner_radius_mm": 21.0
+      },
+      {
+        "z_mm": 282.0,
+        "width_mm": 110.0,
+        "depth_mm": 79.0,
+        "corner_radius_mm": 22.0
+      },
+      {
+        "z_mm": 302.0,
+        "width_mm": 112.0,
+        "depth_mm": 80.0,
+        "corner_radius_mm": 23.0
+      },
+      {
+        "z_mm": 325.0,
+        "width_mm": 112.0,
+        "depth_mm": 80.0,
+        "corner_radius_mm": 24.0
+      },
+      {
+        "z_mm": 337.0,
+        "width_mm": 111.0,
+        "depth_mm": 78.0,
+        "corner_radius_mm": 24.0
+      },
+      {
+        "z_mm": 345.0,
+        "width_mm": 107.0,
+        "depth_mm": 73.0,
+        "corner_radius_mm": 25.0
+      },
+      {
+        "z_mm": 350.0,
+        "width_mm": 100.0,
+        "depth_mm": 64.0,
+        "corner_radius_mm": 26.0
+      }
+    ],
+    "thumb": {
+      "surface": "front -Y",
+      "center_metres": [
+        0,
+        -0.037482250913520095,
+        0.252
+      ],
+      "depth_metres": 0.002,
+      "oval_size_metres": [
+        0.036,
+        0.056
+      ],
+      "real_low_mesh": true
+    },
+    "R02_grip_depth_mm": 120,
+    "R03_waist_depth_mm": 74,
+    "depth_reduction_percent": 38.33333333333333,
+    "lighting_note": "Both versions rendered in same neutral cameras and light rig, source procedural jade materials, before final rebake."
+  },
+  "thumb_actual_low_geometry_metres": 0.002,
+  "uv_density": "Side UVs use physical section perimeter and 2 UV/metre in U and V; caps also 2 UV/metre. Cloud band uses 12 equal physical-distance cells.",
+  "final_geometry_verification": {
+    "lower_0_to_127_mm_exact_identity": true,
+    "lower_signature": {
+      "vertices": 309,
+      "triangles": 588,
+      "vertex_sha": "52d12f95e84e3f29f31ec8000cd52ed7f54518441bc82ac7670207f884de90ad",
+      "triangle_sha": "4589c36c39b17a394d1c447e3c490ceeb54986d7ed775bd6771fb3861dfa1201"
+    },
+    "thumb_depth_low_mesh_m": 0.0020000003278255463,
+    "thumb_center_low_mesh_m": [
+      -6.938893903907228e-18,
+      -0.0354822501540184,
+      0.25200000405311584
+    ],
+    "comparison_basis": "Frozen R02 coordinate/triangle signature and actual final LOD0 vertices."
+  },
+  "high_source_cleanup": "R03 ring heights rounded; zero-area duplicate-row prevention retained. Source geometry cold-checked."
+}

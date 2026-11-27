@@ -1,0 +1,458 @@
+{
+  "status": "STRUCTURE_CANDIDATE_NOT_FINAL_BAKE",
+  "asset": "QingGuiR03",
+  "axes": {
+    "blender_up": "+Z",
+    "front": "-Y",
+    "right": "+X",
+    "unity_up": "+Y",
+    "origin": "bottom insertion center"
+  },
+  "meshes": [
+    {
+      "name": "QingGuiR03_JadeCore_LOD0",
+      "triangles": 11196,
+      "vertices": 5598,
+      "dimensions_m": [
+        0.10805186629295349,
+        0.10599999874830246,
+        0.3484914302825928
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_m3": 0.0021420807183283744,
+      "material": "QingGuiR03_JadeCore"
+    },
+    {
+      "name": "QingGuiR03_BronzeFrame_LOD0",
+      "triangles": 21328,
+      "vertices": 10660,
+      "dimensions_m": [
+        0.11062780022621155,
+        0.10756732523441315,
+        0.24471351504325867
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_m3": 4.220429550695329e-05,
+      "material": "QingGuiR03_BronzeFrame"
+    },
+    {
+      "name": "QingGuiR03_GoldWire_LOD0",
+      "triangles": 7500,
+      "vertices": 3782,
+      "dimensions_m": [
+        0.09125711023807526,
+        0.1060018241405487,
+        0.23334452509880066
+      ],
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_m3": 1.077898861683919e-06,
+      "material": "QingGuiR03_GoldWire"
+    }
+  ],
+  "construction": {
+    "bronze_shell_wall_m": 0.0016,
+    "exposed_lip_m": 0.0008,
+    "bronze_edge_round_m": 0.00018,
+    "jade_receiving_pocket_depth_m": 0.00095,
+    "hidden_normal_clearance_m": 0.00015,
+    "visible_joint_nominal_m": 0.0001,
+    "bronze_lowest_height_m": 0.10528648644685745
+  },
+  "UV_status": "Unique smart-projected candidate atlas on JadeCore/BronzeFrame; GoldWire cylinder UV",
+  "wire_paths": [
+    {
+      "path": "FrontFlow1",
+      "samples": 28,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 182,
+      "contact_probe_count": 108,
+      "max_radial_clearance_m": -5.852489680957361e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "FrontFlow2",
+      "samples": 45,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 284,
+      "contact_probe_count": 176,
+      "max_radial_clearance_m": -6.931920252742515e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "FrontFlow3",
+      "samples": 47,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 296,
+      "contact_probe_count": 184,
+      "max_radial_clearance_m": -8.006953950840973e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "FrontFlow4",
+      "samples": 43,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 272,
+      "contact_probe_count": 168,
+      "max_radial_clearance_m": -6.49108495570515e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "FrontFlow5",
+      "samples": 23,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 152,
+      "contact_probe_count": 88,
+      "max_radial_clearance_m": -6.649694494413551e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "FrontFlow6",
+      "samples": 5,
+      "diameter_max_m": 0.0011,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 44,
+      "contact_probe_count": 16,
+      "max_radial_clearance_m": -9.901641376871173e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_LowerFlow1",
+      "samples": 20,
+      "diameter_max_m": 0.001,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 134,
+      "contact_probe_count": 76,
+      "max_radial_clearance_m": -6.609948675079887e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_LowerFlow2",
+      "samples": 21,
+      "diameter_max_m": 0.001,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 140,
+      "contact_probe_count": 80,
+      "max_radial_clearance_m": -9.031038706742533e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_Spine1",
+      "samples": 57,
+      "diameter_max_m": 0.00088,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 356,
+      "contact_probe_count": 224,
+      "max_radial_clearance_m": -7.170200236942712e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_Spine2",
+      "samples": 59,
+      "diameter_max_m": 0.00088,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 368,
+      "contact_probe_count": 232,
+      "max_radial_clearance_m": -7.264762487211196e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_CrownReturn",
+      "samples": 23,
+      "diameter_max_m": 0.00086,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 152,
+      "contact_probe_count": 88,
+      "max_radial_clearance_m": -1.6280556451046726e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "-1_ApertureRim",
+      "samples": 21,
+      "diameter_max_m": 0.00092,
+      "end_diameter_m": null,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": true,
+      "wire_vertices": 126,
+      "contact_probe_count": 84,
+      "max_radial_clearance_m": -6.588439716957511e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_LowerFlow1",
+      "samples": 20,
+      "diameter_max_m": 0.001,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 134,
+      "contact_probe_count": 76,
+      "max_radial_clearance_m": -6.61225437630983e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_LowerFlow2",
+      "samples": 21,
+      "diameter_max_m": 0.001,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 140,
+      "contact_probe_count": 80,
+      "max_radial_clearance_m": -9.048539075541084e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_Spine1",
+      "samples": 57,
+      "diameter_max_m": 0.00088,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 356,
+      "contact_probe_count": 224,
+      "max_radial_clearance_m": -7.086080685121644e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_Spine2",
+      "samples": 59,
+      "diameter_max_m": 0.00088,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 368,
+      "contact_probe_count": 232,
+      "max_radial_clearance_m": -7.264713965668857e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_CrownReturn",
+      "samples": 23,
+      "diameter_max_m": 0.00086,
+      "end_diameter_m": 0.00038,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": false,
+      "wire_vertices": 152,
+      "contact_probe_count": 88,
+      "max_radial_clearance_m": -1.635911860338587e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    },
+    {
+      "path": "1_ApertureRim",
+      "samples": 21,
+      "diameter_max_m": 0.00092,
+      "end_diameter_m": null,
+      "nominal_embedding_m": 0.0001,
+      "closed_loop": true,
+      "wire_vertices": 126,
+      "contact_probe_count": 84,
+      "max_radial_clearance_m": -6.588269459549339e-05,
+      "clearance_definition": "signed center-to-body normal distance minus local radius; positive=gap; sampled at quarter segments"
+    }
+  ],
+  "limitations": [
+    "Structure review only; no final maps or jade optics claim.",
+    "No new decorative layout; fine motifs temporarily omitted in clay, must preserve at detail stage."
+  ],
+  "protected_insertion": {
+    "old_vertices": 141,
+    "new_vertices": 141,
+    "max_nearest_difference_m": 1.0132488181824328e-09,
+    "pass": true
+  },
+  "thickness": {
+    "method": "Per occupied UV pixel center, barycentric actual triangle position; interpolated normalized Blender CORNER normal identical to exported shading direction; independent JadeCore BVH inward ray",
+    "sampling_resolution": [
+      2048,
+      2048
+    ],
+    "direction": "negative interpolated CORNER normal",
+    "origin_inset_m": 1.5e-05,
+    "measured_texels": 1930932,
+    "triangle_normal_fallbacks": 5,
+    "unresolved_miss": 2,
+    "miss_fallback_m": 0.12,
+    "clamped_above_120mm": 251393,
+    "min_m": 1.915214844906586e-05,
+    "max_m": 0.34860644687652587,
+    "percentiles_m": {
+      "1": 0.006696340797804297,
+      "5": 0.04052307282328606,
+      "25": 0.04704163142234087,
+      "50": 0.10600000818014145,
+      "75": 0.10600006778478623,
+      "95": 0.15074193452239035,
+      "99": 0.32054943789482115
+    },
+    "decode": "linear R * 0.12 m",
+    "outside_island_padding_px": 8,
+    "seconds": 17.446714401245117,
+    "source_is_B": false,
+    "limitation": "Single directional chord on candidate mesh; 120mm clamp and PNG quantization; not multiple scattering. Mobile shadow triangle issue was independently diagnosed in Unity, not attributed to this map."
+  },
+  "qa": {
+    "ok": true,
+    "pass": true,
+    "errors": [],
+    "warnings": [
+      "QingGuiR03_JadeCore_LOD0: duplicate verts=11 loose verts=0",
+      "QingGuiR03_BronzeFrame_LOD0: duplicate verts=2 loose verts=0",
+      "hidden back-to-back faces: QingGuiR03_JadeCore_LOD0<->QingGuiR03_BronzeFrame_LOD0 (2 pairs) - delete to save tris"
+    ],
+    "ground_z": 0.0,
+    "zfighting": [],
+    "floating": [],
+    "back_to_back": [
+      {
+        "where": "QingGuiR03_JadeCore_LOD0<->QingGuiR03_BronzeFrame_LOD0",
+        "tri_pairs": 2
+      }
+    ],
+    "enclosed": [],
+    "objects": {
+      "QingGuiR03_JadeCore_LOD0": {
+        "verts": 5598,
+        "faces": 11196,
+        "tris": 11196,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 11,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 46.5
+      },
+      "QingGuiR03_BronzeFrame_LOD0": {
+        "verts": 10660,
+        "faces": 21328,
+        "tris": 21328,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 2,
+        "islands": 1,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 22.0
+      },
+      "QingGuiR03_GoldWire_LOD0": {
+        "verts": 3782,
+        "faces": 7500,
+        "tris": 7500,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 18,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 68.8
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.fbx",
+      "relative_path": "QingGuiR03_StructureCandidate.fbx",
+      "sha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3",
+      "bytes": 1310572
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.glb",
+      "relative_path": "QingGuiR03_StructureCandidate.glb",
+      "sha256": "6b7f8b1c1c52e04d77dd8ec29839ccb272e965490137c140e0c0d41b494723bf",
+      "bytes": 1061076
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.blend",
+      "relative_path": "QingGuiR03_StructureCandidate.blend",
+      "sha256": "a1bc040ec584ab7f8cbbc3149eeb494cb79a4b250d6e37547fd14a630b391f7e",
+      "bytes": 1579926
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\CandidateTextures\\QingGuiR03_JadeCore_JadeMask.png",
+      "relative_path": "CandidateTextures/QingGuiR03_JadeCore_JadeMask.png",
+      "sha256": "18052ab7865cadd6a718216aae37cdd0d736be03fa576f07da5865cd00091cf5",
+      "bytes": 260
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\CandidateTextures\\QingGuiR03_JadeCore_Thickness.png",
+      "relative_path": "CandidateTextures/QingGuiR03_JadeCore_Thickness.png",
+      "sha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+      "bytes": 289444
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "status": "TECHNICAL_ACCEPTANCE_COMPLETE_READY_FOR_USER_ART_REVIEW",
+  "finished_at": "2026-11-26T00:42:16.455438+08:00",
+  "project": "D:\\Temp\\NarutoVR-QingGuiR01-20261125",
+  "readme": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\README.md",
+  "material_readme": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\MATERIAL_VALIDATION.md",
+  "scene": "Assets/Review/QingGuiR01/QingGuiR01_Lab.unity",
+  "prefab": "Assets/Review/QingGuiR01/QingGuiR01.prefab",
+  "package": {
+    "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\QingGuiR01_UnityReview.unitypackage",
+    "sha256": "d6a044917e88851a5bc57b1cee3aee24868ce29aaedf329628ca0e94ecbb938a",
+    "bytes": 18065403
+  },
+  "video": {
+    "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\QingGuiR01_Insertion_Unity.mp4",
+    "sha256": "9d00c57085d97bc52f581076315623a3cd3c57c568868cf63f80b602f7eed883",
+    "bytes": 154167,
+    "frames": 75,
+    "fps": 30,
+    "duration_seconds": 2.5,
+    "camera": "Actual insertion regression recorded from model BACK; not the front artwork preview",
+    "decode_exit_code": 0
+  },
+  "preferred_images": [
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\01_C4_Front_Orthographic.png",
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\02_C4_Right_Orthographic.png",
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\03_C4_Back_Orthographic.png",
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\04_C4_Front45_NearHand.png",
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\07_C4_Front45_SeatedPose.png",
+    "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR01\\UnityReview\\FacingReview\\08_C4_Front_SeatedPose.png"
+  ],
+  "final_grip_metres": {
+    "x": 0.0014999806880950928,
+    "y": 0.23000000417232513,
+    "z": -0.00020706653594970703
+  },
+  "final_grip_changed_during_clean_photography": 0.0,
+  "full_run_exit": {
+    "exitCode": 0,
+    "pid": 60884,
+    "ended": "2026-11-26T00:19:35.4929904+08:00"
+  },
+  "final_photography_exit": {
+    "ended": "2026-11-26T00:37:48.3708640+08:00",
+    "pid": 47016,
+    "exitCode": 0
+  },
+  "current_input_file_count": 144,
+  "boundary": [
+    "Meta/XR grab events not connected or verified; desktop true interfaces only",
+    "Quest hardware, stereo and GPU performance not tested",
+    "No production Assets/chapters or old R01/R02/R03 changes",
+    "No new latch compatibility or chapter unlock claim"
+  ]
+}

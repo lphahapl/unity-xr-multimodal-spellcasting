@@ -1,0 +1,2490 @@
+{
+  "created_at": "2026-11-26T04:41:21.407591+08:00",
+  "files": [
+    {
+      "relative_path": "delivery-manifest.json",
+      "bytes": 13759,
+      "sha256": "39f5d68aedb960bf6c019f559e2717aaa3f6ca088b7150f8366fdba3b9e79b8a"
+    },
+    {
+      "relative_path": "FinalLook/01_R02_Front_Default60.png",
+      "bytes": 187020,
+      "sha256": "cb33fd5b73db9a3b22777828c3fbedeea9425fe2e66c1091aeeaef0a1269b184"
+    },
+    {
+      "relative_path": "FinalLook/02_R02_Front35_Default60.png",
+      "bytes": 188330,
+      "sha256": "12239913a87ebe714531c5d6464a541bf466db97b0f94ce5d9348faac6c18929"
+    },
+    {
+      "relative_path": "FinalLook/03_R02_Front35_Restrained50.png",
+      "bytes": 185745,
+      "sha256": "6a26cbe88d2c39a20bd2bba6476186ce934091ff17cffdf620c13ea80472d7fe"
+    },
+    {
+      "relative_path": "FinalLook/04_R02_RightSide_Default60.png",
+      "bytes": 101351,
+      "sha256": "deab35eba99560a2bfbad5e78d17ce817da007c532303004f69c7d5c102b1ea4"
+    },
+    {
+      "relative_path": "FinalLook/05_R02_SideLight35_Default60.png",
+      "bytes": 188628,
+      "sha256": "17c900c88cd0ab4b8216fa7051c0e5f7b2ebd520f6ae7502f51e41124779439c"
+    },
+    {
+      "relative_path": "FinalLook/06_R02_GoldWire_Contact_Close.png",
+      "bytes": 396149,
+      "sha256": "21fd340efe85f7641320a0b51a0471fc565259872cdf91bc5e42297ad5065967"
+    },
+    {
+      "relative_path": "FinalLook/07_R02_Crown_Transition_Close.png",
+      "bytes": 291740,
+      "sha256": "dcfccd4968ab83fbda602c330d93fad00cb600c086e7ff95417a9d317f3a689b"
+    },
+    {
+      "relative_path": "FinalLook/08_R01_Left_R02_Right_SameLight_Front.png",
+      "bytes": 359001,
+      "sha256": "ad1f213de4123df62b58d5945aed2d559fe9eb7a47374c3ca49decbcb3d66688"
+    },
+    {
+      "relative_path": "FinalLook/09_R01_Left_R02_Right_SameLight35.png",
+      "bytes": 354664,
+      "sha256": "844688194afcafec04e490aa14a5c81aef06d86dfb3f54f34f6cc5ab5ff8015c"
+    },
+    {
+      "relative_path": "FinalLook/10_JadeMask.png",
+      "bytes": 34681,
+      "sha256": "5b8491f48eb9464c52790ce704a17ade5880c00a3256fff217a12310920e32f5"
+    },
+    {
+      "relative_path": "FinalLook/11_BronzeMask.png",
+      "bytes": 37935,
+      "sha256": "6af7f233f9681bd74950af57cc47d6125604efca98381640d10892a6f0b55537"
+    },
+    {
+      "relative_path": "FinalLook/12_FrontmostWireMask.png",
+      "bytes": 42444,
+      "sha256": "2272172ec1d9609dcd8bad9fd51211e01621a411755b89fc9e8dbfb71ae48dba"
+    },
+    {
+      "relative_path": "FinalLook/13_AllLights_SH_ReflectionOff_BlackBackground.png",
+      "bytes": 84855,
+      "sha256": "8d7ee5638cb871b6cd3d1b6a6dedd99e11df61259836a653ddea2a2ec6b68ec7"
+    },
+    {
+      "relative_path": "FinalLookAA/01_R02_Front_Default60.png",
+      "bytes": 179012,
+      "sha256": "a06f760a49286eddf03eb9f3fc9691ee3fb6723d08b4d91e144e3122c8f9290b"
+    },
+    {
+      "relative_path": "FinalLookAA/02_R02_Front35_Default60.png",
+      "bytes": 183603,
+      "sha256": "9a1c39e52663c3f52e14505827206b47bf9ac66b0ccc5a540c6b3753e1f4f7ac"
+    },
+    {
+      "relative_path": "FinalLookAA/03_R02_Front35_Restrained50.png",
+      "bytes": 182409,
+      "sha256": "d48e993e234a68d6b5ccf882235f18e7ed0a73aa2a907d54ab47f98f1065861d"
+    },
+    {
+      "relative_path": "FinalLookAA/04_R02_RightSide_Default60.png",
+      "bytes": 98543,
+      "sha256": "d3c526b8279eb7a9805f542418ca59b78b803f94cc1ebe8bcdd7cbe279768f29"
+    },
+    {
+      "relative_path": "FinalLookAA/05_R02_SideLight35_Default60.png",
+      "bytes": 187115,
+      "sha256": "e35bcbd236fb99919f5e8bb83f0ec6ea514ba8007759553558696892cfa834d7"
+    },
+    {
+      "relative_path": "FinalLookAA/06_R02_GoldWire_Contact_Close.png",
+      "bytes": 394308,
+      "sha256": "277cef91375b83f2e78ac104950f9754ff150233cd26b7101fb5ff5353071397"
+    },
+    {
+      "relative_path": "FinalLookAA/07_R02_Crown_Transition_Close.png",
+      "bytes": 293352,
+      "sha256": "ad320db1326f1a0c370b8ea3c8435b8393b4cc84f59614e030b25217b719b375"
+    },
+    {
+      "relative_path": "FinalLookAA/08_R01_Left_R02_Right_SameLight_Front.png",
+      "bytes": 350862,
+      "sha256": "8c77680072a3d9b7e9955aeb9fc9f5e978cb125ac30551bcfd55372631e10758"
+    },
+    {
+      "relative_path": "FinalLookAA/09_R01_Left_R02_Right_SameLight35.png",
+      "bytes": 349206,
+      "sha256": "21d766a2cec1034d4b2cb12517d25c39c06fa38efd7c0df1e92e7728d94ea3f3"
+    },
+    {
+      "relative_path": "FinalLookAA/10_JadeMask.png",
+      "bytes": 34681,
+      "sha256": "5b8491f48eb9464c52790ce704a17ade5880c00a3256fff217a12310920e32f5"
+    },
+    {
+      "relative_path": "FinalLookAA/11_BronzeMask.png",
+      "bytes": 37935,
+      "sha256": "6af7f233f9681bd74950af57cc47d6125604efca98381640d10892a6f0b55537"
+    },
+    {
+      "relative_path": "FinalLookAA/12_FrontmostWireMask.png",
+      "bytes": 42444,
+      "sha256": "2272172ec1d9609dcd8bad9fd51211e01621a411755b89fc9e8dbfb71ae48dba"
+    },
+    {
+      "relative_path": "FinalLookAA/13_AllLights_SH_ReflectionOff_BlackBackground.png",
+      "bytes": 16171,
+      "sha256": "16bd2de40b079ea025a64316cf9e46e4432aae070cfe5f11073860b0dd3c10ce"
+    },
+    {
+      "relative_path": "FinalLookAA/14_BlackBackgroundWitness.png",
+      "bytes": 176767,
+      "sha256": "fc85e1c9ec6a7b7d8c01a92ba4b5abe8d948fede52ab071d2964340236bb8315"
+    },
+    {
+      "relative_path": "FinalLookAA/15_WhiteBackgroundWitness.png",
+      "bytes": 172249,
+      "sha256": "449c575ecbdbc42c65091f04e5d83d3e867a5d705bca6d6c2d18834e5485739e"
+    },
+    {
+      "relative_path": "FinalLookAA/16_GoldVisible.png",
+      "bytes": 172249,
+      "sha256": "449c575ecbdbc42c65091f04e5d83d3e867a5d705bca6d6c2d18834e5485739e"
+    },
+    {
+      "relative_path": "FinalLookAA/17_GoldColourHidden_ShadowRetained.png",
+      "bytes": 142789,
+      "sha256": "49d60e30e09985a385fb6d681e818118f3d641ee93ec59b0cdd351b2d3d7654f"
+    },
+    {
+      "relative_path": "FinalLookAA/18_WireShadowOn.png",
+      "bytes": 172249,
+      "sha256": "449c575ecbdbc42c65091f04e5d83d3e867a5d705bca6d6c2d18834e5485739e"
+    },
+    {
+      "relative_path": "FinalLookAA/19_WireShadowOff.png",
+      "bytes": 172249,
+      "sha256": "449c575ecbdbc42c65091f04e5d83d3e867a5d705bca6d6c2d18834e5485739e"
+    },
+    {
+      "relative_path": "FinalLookReady/01_R02_Front_Default60.png",
+      "bytes": 177935,
+      "sha256": "0edb3f3b2f1c84f07e7535b32d483f70bf9349f6a0659ee5c4cb14acabac737a"
+    },
+    {
+      "relative_path": "FinalLookReady/02_R02_Front35_Default60.png",
+      "bytes": 182696,
+      "sha256": "21a2cc18c1495131ba6389c912b6b14908d1a3a95c3509927a158683d2aac8ca"
+    },
+    {
+      "relative_path": "FinalLookReady/03_R02_Front35_Restrained50.png",
+      "bytes": 181876,
+      "sha256": "07096abb608f76bc09e6b044308206a809862bc287a0862b16aaf91bbcea2214"
+    },
+    {
+      "relative_path": "FinalLookReady/04_R02_RightSide_Default60.png",
+      "bytes": 98489,
+      "sha256": "cc4af7a802a6a7d257a7a95e11ab8599eef680c7ad51b5004b87d5455fe95368"
+    },
+    {
+      "relative_path": "FinalLookReady/05_R02_SideLight35_Default60.png",
+      "bytes": 186171,
+      "sha256": "8fb58e721db73c34b203e9fa3aa0c08158cd2b4297f8b388dcd0b0d1675d1578"
+    },
+    {
+      "relative_path": "FinalLookReady/06_R02_GoldWire_Contact_Close.png",
+      "bytes": 387268,
+      "sha256": "e6a40cbff7880158c763b7526e1d08e30c005ef1f2ae390acaff5e4b19a01de4"
+    },
+    {
+      "relative_path": "FinalLookReady/07_R02_Crown_Transition_Close.png",
+      "bytes": 289739,
+      "sha256": "4a7accb9f4ca6931989a3458c9337edcdde13c0ecb316d28e31242b0279bbe2a"
+    },
+    {
+      "relative_path": "FinalLookReady/08_R01_Left_R02_Right_SameLight_Front.png",
+      "bytes": 349300,
+      "sha256": "f941f4c0862b62021983ee32566d9038fd35ae2127c4022f5d9dbecc861ed0df"
+    },
+    {
+      "relative_path": "FinalLookReady/09_R01_Left_R02_Right_SameLight35.png",
+      "bytes": 348086,
+      "sha256": "cca38334223df8c8c8d1bd3ea76e781aa28f6434fa937773e163e8c93824bb40"
+    },
+    {
+      "relative_path": "FinalLookReady/10_JadeMask.png",
+      "bytes": 34681,
+      "sha256": "5b8491f48eb9464c52790ce704a17ade5880c00a3256fff217a12310920e32f5"
+    },
+    {
+      "relative_path": "FinalLookReady/11_BronzeMask.png",
+      "bytes": 37935,
+      "sha256": "6af7f233f9681bd74950af57cc47d6125604efca98381640d10892a6f0b55537"
+    },
+    {
+      "relative_path": "FinalLookReady/12_FrontmostWireMask.png",
+      "bytes": 42444,
+      "sha256": "2272172ec1d9609dcd8bad9fd51211e01621a411755b89fc9e8dbfb71ae48dba"
+    },
+    {
+      "relative_path": "FinalLookReady/13_AllLights_SH_ReflectionOff_BlackBackground.png",
+      "bytes": 16171,
+      "sha256": "16bd2de40b079ea025a64316cf9e46e4432aae070cfe5f11073860b0dd3c10ce"
+    },
+    {
+      "relative_path": "FinalLookReady/14_BlackBackgroundWitness.png",
+      "bytes": 175863,
+      "sha256": "b71c6f398639e1a61ba0d2821f69b881424c57210b39d5c5f28eb55f5270669f"
+    },
+    {
+      "relative_path": "FinalLookReady/15_WhiteBackgroundWitness.png",
+      "bytes": 171839,
+      "sha256": "6d8646dbc2f72c45665e4c847b04087f33cbfe68fc32adddb4e867ecc06b86c1"
+    },
+    {
+      "relative_path": "FinalLookReady/16_GoldVisible.png",
+      "bytes": 171839,
+      "sha256": "6d8646dbc2f72c45665e4c847b04087f33cbfe68fc32adddb4e867ecc06b86c1"
+    },
+    {
+      "relative_path": "FinalLookReady/17_GoldColourHidden_ShadowRetained.png",
+      "bytes": 142789,
+      "sha256": "49d60e30e09985a385fb6d681e818118f3d641ee93ec59b0cdd351b2d3d7654f"
+    },
+    {
+      "relative_path": "FinalLookReady/18_WireShadowOn.png",
+      "bytes": 171839,
+      "sha256": "6d8646dbc2f72c45665e4c847b04087f33cbfe68fc32adddb4e867ecc06b86c1"
+    },
+    {
+      "relative_path": "FinalLookReady/19_WireShadowOff.png",
+      "bytes": 171839,
+      "sha256": "6d8646dbc2f72c45665e4c847b04087f33cbfe68fc32adddb4e867ecc06b86c1"
+    },
+    {
+      "relative_path": "FinalLookReady/media-manifest.json",
+      "bytes": 2107,
+      "sha256": "7642b1aad1bf9d6ad618a00e55ee429c3488f02f77bd934adfa845b43aa02d29"
+    },
+    {
+      "relative_path": "FinalLookReady/R02_Default60_MovingLight.mp4",
+      "bytes": 234584,
+      "sha256": "483da9eb895dc46017886d7d6e986c77b5504a135b25eea541c3248ed1197303"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/01_R02_Front_Default60.png",
+      "bytes": 178234,
+      "sha256": "8af49ede44c37c4d029ed26503754bc09c4a5bff73b52715a442871349067e80"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/02_R02_Front35_Default60.png",
+      "bytes": 182966,
+      "sha256": "783e54a475a42be16c8d939b6847dd46e8341cd090759af546d4f1a38e3f9fd9"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/03_R02_Front35_Restrained50.png",
+      "bytes": 181933,
+      "sha256": "4c616eec62684bbbd278fc95ebc0b4eac10e6a91f35a2d9a374b62b73e8e3284"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/04_R02_RightSide_Default60.png",
+      "bytes": 98726,
+      "sha256": "e6e667907fcceec043705203ddba6bc722365e6ca74756f0df5a6c8ec6db5a33"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/05_R02_SideLight35_Default60.png",
+      "bytes": 190160,
+      "sha256": "3cd816366fffe0ab6e280142f410139ed4d20c2b15b01284f6419aaef8479b25"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/06_R02_GoldWire_Contact_Close.png",
+      "bytes": 403367,
+      "sha256": "e9292ae7421752e5357cc3442b3efc44e1b20f5eef1a3912c2825d4cff2a2987"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/07_R02_Crown_Transition_Close.png",
+      "bytes": 300924,
+      "sha256": "bfe9c55a88029606baf67a36f1ec6736081193431d5127fb3196386cb2ce2d51"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/08_R01_Left_R02_Right_SameLight_Front.png",
+      "bytes": 349309,
+      "sha256": "23539805e2fb537368dde5ca639ddeedef6555b4b830d44fbcc144eb517104cc"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/09_R01_Left_R02_Right_SameLight35.png",
+      "bytes": 349281,
+      "sha256": "19f40287ab58b31d1052bd2db4ffca204b3cd4c323a494464f507c3fab502fd2"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/10_JadeMask.png",
+      "bytes": 34681,
+      "sha256": "5b8491f48eb9464c52790ce704a17ade5880c00a3256fff217a12310920e32f5"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/11_BronzeMask.png",
+      "bytes": 37935,
+      "sha256": "6af7f233f9681bd74950af57cc47d6125604efca98381640d10892a6f0b55537"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/12_FrontmostWireMask.png",
+      "bytes": 42444,
+      "sha256": "2272172ec1d9609dcd8bad9fd51211e01621a411755b89fc9e8dbfb71ae48dba"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/13_AllLights_SH_ReflectionOff_BlackBackground.png",
+      "bytes": 16171,
+      "sha256": "16bd2de40b079ea025a64316cf9e46e4432aae070cfe5f11073860b0dd3c10ce"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/14_BlackBackgroundWitness.png",
+      "bytes": 176062,
+      "sha256": "4f42d1b817ceb35005f5e30155a579af28768f580a3f69b7ed8c3b5429895ddf"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/15_WhiteBackgroundWitness.png",
+      "bytes": 172262,
+      "sha256": "fecbe77c28fa87add1ef408c5c4d4a7a20ae1d26aca9228d9384f44a105bbb15"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/16_GoldVisible.png",
+      "bytes": 172262,
+      "sha256": "fecbe77c28fa87add1ef408c5c4d4a7a20ae1d26aca9228d9384f44a105bbb15"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/17_GoldColourHidden_ShadowRetained.png",
+      "bytes": 143803,
+      "sha256": "c40c3c6804506e9b7366d0c42eb9f48569e851bface44d2a23f939c20fb4e47f"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/18_WireShadowOn.png",
+      "bytes": 172262,
+      "sha256": "fecbe77c28fa87add1ef408c5c4d4a7a20ae1d26aca9228d9384f44a105bbb15"
+    },
+    {
+      "relative_path": "FinalLookShadowReady/19_WireShadowOff.png",
+      "bytes": 172041,
+      "sha256": "aa099469ed6d3c724eb8fd59d11e864405d51a8ceeb38fe0f2a9d9a1ac474eb2"
+    },
+    {
+      "relative_path": "Images/01_TwoSeparateStations.png",
+      "bytes": 226222,
+      "sha256": "77caf6bb6323be6cf035cd4aac8556ae1b61a909756b383dce23612dd9fe1c17"
+    },
+    {
+      "relative_path": "Images/02_NearHand_Front45_1to1.png",
+      "bytes": 374335,
+      "sha256": "6bb5b5db85b8567283909f9a0a28bb3085c4183fd0afedc983aaac7f832b809a"
+    },
+    {
+      "relative_path": "Images/03_BackSide_1to1.png",
+      "bytes": 171326,
+      "sha256": "3a4d08779362bf166bd8a72e2c00be7dbd75076dab88fbace1eb4ee95a953637"
+    },
+    {
+      "relative_path": "Images/04_SideLight_1to1.png",
+      "bytes": 301333,
+      "sha256": "a16ed412ac68c6ff540eea8d283711f3648b9a96b4ee23f306153c62f6389ee2"
+    },
+    {
+      "relative_path": "Images/04B_InsertionEnd_Close.png",
+      "bytes": 262272,
+      "sha256": "72c2876a3b49a39ea3b40a5273129a83e47ca5ae448dea02a8057b2b510f900b"
+    },
+    {
+      "relative_path": "Images/04C_GripAndInsertionEnd_Distance.png",
+      "bytes": 256221,
+      "sha256": "c8a906233f5886411b77f0f0ad3585c6d24492cd284e371e8d67ee6e5068c90f"
+    },
+    {
+      "relative_path": "Images/05_PhysicalDropOnDisplay.png",
+      "bytes": 321962,
+      "sha256": "3606ab8ede830d9d09da6d30f95dcfe92bcaf0267005a802ac9d020259efbe88"
+    },
+    {
+      "relative_path": "Images/06_ActualSocketTop_EmptyOpening.png",
+      "bytes": 1090192,
+      "sha256": "a0c6acb4250fa7262aecb11f84583fe335b2202aebbc83c3bf4dd8e2d58f6dbb"
+    },
+    {
+      "relative_path": "Images/07_AboveActualOpening.png",
+      "bytes": 704993,
+      "sha256": "8fd0ae8d118e2522d0fa677fefc4634c6b974266466165bf2e0ad38f67f35eba"
+    },
+    {
+      "relative_path": "Images/08_Inserted_Front45.png",
+      "bytes": 690169,
+      "sha256": "d36054acd97d006d6fff836f07cf285dc792d2ff6c91de4f35d4f0dfa5dea075"
+    },
+    {
+      "relative_path": "Images/09_Inserted_Side.png",
+      "bytes": 438599,
+      "sha256": "ceede321a50e1db70ede85b818e208b76d6df72b9aea7ea2138c7d040ee68bbe"
+    },
+    {
+      "relative_path": "Images/10_InsertedTop.png",
+      "bytes": 916012,
+      "sha256": "3111ff00adab27a95c2c4406e2777843d64afcb2e62b08a1718f6c59d96309ff"
+    },
+    {
+      "relative_path": "Images/11_FinalOverview.png",
+      "bytes": 222013,
+      "sha256": "8831ba0fc85be2ca31f19b2e68c7a03c3942dc62a62795b9a9e6d73d1b91682e"
+    },
+    {
+      "relative_path": "Images/12_Front_Neutral.png",
+      "bytes": 121717,
+      "sha256": "78b1a08c67887d53112ec35b3116565bf91b6fcf408bb0fbb1fb72e27d8f8e27"
+    },
+    {
+      "relative_path": "Images/13_Side_Neutral.png",
+      "bytes": 405230,
+      "sha256": "4f12c04be3cbbd32157a36734e0f4e6cabde9209d12a593cb50ad3786484a399"
+    },
+    {
+      "relative_path": "Images/14_Back_Neutral.png",
+      "bytes": 116686,
+      "sha256": "50a426d70afb22e7ecfb1956783e290defe5b2fc8c80889b669797335a5d789a"
+    },
+    {
+      "relative_path": "Images/16_QingGuiR02_GripThumb_Close.png",
+      "bytes": 288011,
+      "sha256": "ba1d7017a764f476674074b382e0559b6557018167aeeffd936c73e71ec6a5bb"
+    },
+    {
+      "relative_path": "MaterialAB/01_R01_Lit_R02_DarkBackground.png",
+      "bytes": 448173,
+      "sha256": "d1ef510430d326c09f20e4b6b0c97fde1c816b3e954c0e494212b9f29f3d653c"
+    },
+    {
+      "relative_path": "MaterialAB/02_R01_Lit_R02_LightBackground.png",
+      "bytes": 440305,
+      "sha256": "3a7c4ef63d6345ba44bd5bafa098d80da279b78d4b38a05e635383fc94d14865"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/01_Front_ActualFrontalSoftbox_R01_Lit_R02.png",
+      "bytes": 416760,
+      "sha256": "b038b732a29c0384188b09c3fe8481d2849a8147aea47438744f49a406ce78c1"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/02_Front35_R01_Lit_R02_Dark.png",
+      "bytes": 189710,
+      "sha256": "cce453e0e529e0f98987d0f5978ff2a08265301be210d9c9eef0cac155ba97eb"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/03_Front35_R01_Lit_R02_Light.png",
+      "bytes": 187585,
+      "sha256": "de1a445e26876eb08c613bfb75a1e2edb2aae65ffe6822909f0c2d6ede1fa0e9"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/04_JadeMask.png",
+      "bytes": 37412,
+      "sha256": "cbb87c401363eb55cead03a60516c33e153a2788e00c3175b4ea49d7ed2640be"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/05_CoatMask_ActualBranch.png",
+      "bytes": 36334,
+      "sha256": "e52701db1ddbff19783696debd46bc9be93f38d6d08944186ab1ca95ad55ca99"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/06_CoatOn.png",
+      "bytes": 97369,
+      "sha256": "05b81ffbdf4f5dc67be6d719abaaaa351bdee20b56f600eee6567e6a592601e3"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/07_CoatOff.png",
+      "bytes": 97969,
+      "sha256": "33350e6f1d6650862b2475da5b540bed2853c4244280f85d0a3323502da5b754"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/08_EnvironmentReflectionOnly.png",
+      "bytes": 71628,
+      "sha256": "605dbe509430755462397fffe33ec44ece71c62791379347a7ddd6351c2c095d"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/09_AllLightsAndEnvironmentOff.png",
+      "bytes": 19411,
+      "sha256": "8619a98a09e258c211d77e8495ece9ca01d1bad8ff46767fe7ac2210f32b31a0"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/10_LocalJadeLayer_R01_Opaque_LocalTransparent.png",
+      "bytes": 153608,
+      "sha256": "bb927f97a445bef52617c4625c817adb88bab22775eb5defe09f8b1ae5129839"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe/11_LocalJadeLayer35_R01_Opaque_LocalTransparent.png",
+      "bytes": 184208,
+      "sha256": "ecf73030836c071cd42c9db2054d10e439944a7d95a350af2331ddf45e9c24ef"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/01_Front_ActualFrontalSoftbox_R01_Lit_R02.png",
+      "bytes": 416760,
+      "sha256": "b038b732a29c0384188b09c3fe8481d2849a8147aea47438744f49a406ce78c1"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/02_Front35_R01_Lit_R02_Dark.png",
+      "bytes": 422809,
+      "sha256": "b9cb09e4350dcbd24952aa0a5c9671bb2eb05181fe19795698a2a452aca6ec21"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/03_Front35_R01_Lit_R02_Light.png",
+      "bytes": 421604,
+      "sha256": "0f115f48e9667b23cf10ce8f4d9d01a27aa38d5a713905756cd033a98498edb0"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/04_JadeMask.png",
+      "bytes": 64961,
+      "sha256": "f897de8734f322f147772f97a422f750b745e12965dbaa85e5e25c65163c5146"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/05_CoatMask_ActualBranch.png",
+      "bytes": 62126,
+      "sha256": "01f49e1d71b0d032b60938b0b25158e13b3959bf38c594e5a5d5da54d1da44dc"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/06_CoatOn.png",
+      "bytes": 210936,
+      "sha256": "c9b9efb9f20e9c4ba902f8cee778a7e7a6cf68c1e28889b6ef143c646dfda573"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/07_CoatOff.png",
+      "bytes": 211568,
+      "sha256": "370dd269582aac1c73a9377f35a12ac67bab57c017729c69152ad86f03db202b"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/08_EnvironmentReflectionOnly.png",
+      "bytes": 136514,
+      "sha256": "fd28619e5946b6fa6e0080f2f7e1b8dff09ea3a755d05eb2c4932f34dedc4c7b"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/09_AllLightsAndEnvironmentOff.png",
+      "bytes": 19411,
+      "sha256": "8619a98a09e258c211d77e8495ece9ca01d1bad8ff46767fe7ac2210f32b31a0"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/10_LocalJadeLayer_R01_Opaque_LocalTransparent.png",
+      "bytes": 408735,
+      "sha256": "3685520183ad3b38e315e27456c818c1c08bc4f4652177c3ded188801a31374b"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/11_LocalJadeLayer35_R01_Opaque_LocalTransparent.png",
+      "bytes": 411861,
+      "sha256": "faabd5f3bad7fdc4278cd640a3072c3e3e38ecfe295e72af4de2924bbe8ce4e0"
+    },
+    {
+      "relative_path": "MaterialAB/PolishProbe-r2/R01Geometry_Opaque_LocalLayer_MovingLight.mp4",
+      "bytes": 402574,
+      "sha256": "e12fc65ac05584593b2881e06f3fe9925f26a8339f945bf406cba087a5f52269"
+    },
+    {
+      "relative_path": "MaterialAB/R01Geometry_SameLight_AB.mp4",
+      "bytes": 516380,
+      "sha256": "e854a74cacd9f20074af9e250a6425d3e03b50cd3bbd6441c145fdc87e1b8c03"
+    },
+    {
+      "relative_path": "MaterialModel/01_Front_PBR_SameExposure.png",
+      "bytes": 104365,
+      "sha256": "719e78691bb5f8bd123279f83c43ba4d24ab06c0abe2321902789aa63465148d"
+    },
+    {
+      "relative_path": "MaterialModel/02_Side_PBR_SameExposure.png",
+      "bytes": 90552,
+      "sha256": "dfc7da91cc7ed2202a1c55ec6b37cefba2a4f8319ca1b18882c75f7256b3b330"
+    },
+    {
+      "relative_path": "MaterialModel/03_Back_PBR_SameExposure.png",
+      "bytes": 90289,
+      "sha256": "993e53aabc694a00a02f43b4752e177d3993f73c28c6b4d906f54d7d90cfe809"
+    },
+    {
+      "relative_path": "MaterialModel/04_Back_TransmissionDelta.png",
+      "bytes": 90119,
+      "sha256": "52b7de2a235c8af38a5d27ffa96878e58fa51c2e92674360793dae98e43dc261"
+    },
+    {
+      "relative_path": "MaterialModel/05_JadeMask_Readback.png",
+      "bytes": 25367,
+      "sha256": "62e0f09227bdf63ba7e8fe8866f6f9a4818e2f54bf6329e917bb5d52599f1aa8"
+    },
+    {
+      "relative_path": "MaterialModel/06_Metallic_Readback.png",
+      "bytes": 27789,
+      "sha256": "608ae8c1c96be605773b50b3671525023ef35f9b97a37a8411a1a060277b390e"
+    },
+    {
+      "relative_path": "MaterialModel/07_MeasuredThickness_Readback.png",
+      "bytes": 41921,
+      "sha256": "fb21fb48fc082c1847707844c897f4fce9b478dcdb715a34ab6c56662ce822c3"
+    },
+    {
+      "relative_path": "MaterialModel/08_LightOff_TransmissionDelta.png",
+      "bytes": 10384,
+      "sha256": "b0354ccbe4985a96efcd4fd184c28e52c9336a83998eaef2252979b3f781baf9"
+    },
+    {
+      "relative_path": "MaterialModel/09_ExternalBlocker_TransmissionDelta.png",
+      "bytes": 90119,
+      "sha256": "52b7de2a235c8af38a5d27ffa96878e58fa51c2e92674360793dae98e43dc261"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/01_Front_PBR_SameExposure.png",
+      "bytes": 114585,
+      "sha256": "34b16029522a411c330055c62a7fb294e41481d2b78035f0a1fd499c45acaf25"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/02_Side_PBR_SameExposure.png",
+      "bytes": 101366,
+      "sha256": "29baa2018dad05137f86a378d39ef044c2d1a38e4df56208a60355a84b332fe8"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/03_Back_PBR_SameExposure.png",
+      "bytes": 90507,
+      "sha256": "071bb09842ee8fb99aba09410dd749f28a37ad77d4be45ed13dcb20230cb2f89"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/04_Back_TransmissionDelta.png",
+      "bytes": 90473,
+      "sha256": "c09fb267914fd4db48f9d90f591cb34ebc8cc9577dde74617c717ee9b2701069"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/05_JadeMask_Readback.png",
+      "bytes": 25367,
+      "sha256": "62e0f09227bdf63ba7e8fe8866f6f9a4818e2f54bf6329e917bb5d52599f1aa8"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/06_Metallic_Readback.png",
+      "bytes": 27789,
+      "sha256": "608ae8c1c96be605773b50b3671525023ef35f9b97a37a8411a1a060277b390e"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/07_MeasuredThickness_Readback.png",
+      "bytes": 41921,
+      "sha256": "fb21fb48fc082c1847707844c897f4fce9b478dcdb715a34ab6c56662ce822c3"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/08_LightOff_TransmissionDelta.png",
+      "bytes": 10384,
+      "sha256": "b0354ccbe4985a96efcd4fd184c28e52c9336a83998eaef2252979b3f781baf9"
+    },
+    {
+      "relative_path": "MaterialModelShadowReady/09_ExternalBlocker_TransmissionDelta.png",
+      "bytes": 10384,
+      "sha256": "b0354ccbe4985a96efcd4fd184c28e52c9336a83998eaef2252979b3f781baf9"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/01_Backlight_TransmissionDelta.png",
+      "bytes": 71011,
+      "sha256": "894c4352a90b4533e903a75f9a59646aee823196e8a0b088925b020d3e3a5854"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/02_Backlight_PBRSurface.png",
+      "bytes": 71011,
+      "sha256": "894c4352a90b4533e903a75f9a59646aee823196e8a0b088925b020d3e3a5854"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/03_ExternalOccluder_TransmissionDelta.png",
+      "bytes": 6941,
+      "sha256": "5dc5d217cc32b9160e0ba13226be77f8995756c491347e1da28e49b810cf8c34"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/04_ExternalOccluder_EntryVisibility.png",
+      "bytes": 6941,
+      "sha256": "5dc5d217cc32b9160e0ba13226be77f8995756c491347e1da28e49b810cf8c34"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/05_MainLightOff_TransmissionDelta.png",
+      "bytes": 6941,
+      "sha256": "5dc5d217cc32b9160e0ba13226be77f8995756c491347e1da28e49b810cf8c34"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/06_FrontLight_TransmissionDelta.png",
+      "bytes": 6941,
+      "sha256": "5dc5d217cc32b9160e0ba13226be77f8995756c491347e1da28e49b810cf8c34"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/07_FrontLight_PBRSurface.png",
+      "bytes": 32451,
+      "sha256": "ba9f87fc92fc7fe90ea987f767d6ff44ca1f6e59e39883081901fd0b1803e4b7"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/08_GrazingSide_PBRSurface.png",
+      "bytes": 54405,
+      "sha256": "c1e81e357bd96428b6329984914ee2f98f54973f7cb964a50fcbf20069821eb2"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/09_GrazingSide_TransmissionDelta.png",
+      "bytes": 54389,
+      "sha256": "47e36b35315c448011735d1bd9c5868b18e4de6c5e40da5404d168214e445916"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/10_IsolatedGrazing_TransmissionDelta.png",
+      "bytes": 34348,
+      "sha256": "516561ea1a02c22c63c689c1ec385e932c3f4734acc92cfc4a3e9d9ffbb87493"
+    },
+    {
+      "relative_path": "OpticalControls/MaterialSamples/11_CloseGrazingOccluder_TransmissionDelta.png",
+      "bytes": 6941,
+      "sha256": "5dc5d217cc32b9160e0ba13226be77f8995756c491347e1da28e49b810cf8c34"
+    },
+    {
+      "relative_path": "QingGuiR02_UnityReview.unitypackage",
+      "bytes": 22903463,
+      "sha256": "ad2c69b022aab2043e3ef677ae6dcca062f49ac24abe718058e2e3b051ceb6c2"
+    },
+    {
+      "relative_path": "README.md",
+      "bytes": 11113,
+      "sha256": "a9fd09fa185cd2c3c4ff9084bd92c810bd6afda2c08fdff740e1cffdba950adc"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/01_R02_Front_Default60.png",
+      "bytes": 182783,
+      "sha256": "515d430eefc6067056f10cd033f52b3b3474f49cc9ebe7ce58b05a1680234621"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/02_R02_Front35_Default60.png",
+      "bytes": 189657,
+      "sha256": "c4c8c247551ea24b9111d5c99f7adcdb97b0d9b1240317dc09ee5c76ab92fad1"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/03_R02_Front35_Restrained50.png",
+      "bytes": 188374,
+      "sha256": "829f4102c32b97d43b2fbed446eb43bc360f2a7566417c17f5a6b72d78e9c9a3"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/04_R02_RightSide_Default60.png",
+      "bytes": 108703,
+      "sha256": "1ced28714acb299e789de7790e93de392eda26b75d236bad0071ed0e6f9d5505"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/05_R02_SideLight35_Default60.png",
+      "bytes": 200225,
+      "sha256": "89013d96f02583c828f7cfa18d1b57e58658b7d4467a0225f70e2ccd95edbbe9"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/06_R02_GoldWire_Contact_Close.png",
+      "bytes": 412942,
+      "sha256": "9d1e5450c07ab228571d77c5ab9689d3a3ae983364e4f3242feffdb7be79ce96"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/07_R02_Crown_Transition_Close.png",
+      "bytes": 308855,
+      "sha256": "95d28c435294f06052cbda01ac0a34ada1f5772ad5088c9f8d199d3ff8e52ce0"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/08_R02Original_Left_RevisionB_Right_SameLight_Front.png",
+      "bytes": 331544,
+      "sha256": "890ea14426bd7f199875d1d3cc6a7a168c96079000cf05b3ffaec84693a91264"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/09_R02Original_Left_RevisionB_Right_SameLight35.png",
+      "bytes": 336819,
+      "sha256": "626fe03a86b378f71a9c69aa2549ae6fd02a258a3909c7607066a5d051f6af6f"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/10_JadeMask.png",
+      "bytes": 32338,
+      "sha256": "d99520614920da31565e4a629602d5574797d8b87eb69b7c75a1e170d66fbbc2"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/11_BronzeMask.png",
+      "bytes": 35013,
+      "sha256": "c45320f1cd04b4a00b6398d1b19d94ac2b11441eba65e96f1904ac4b9594191a"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/12_FrontmostWireMask.png",
+      "bytes": 42527,
+      "sha256": "1270559931016f9580c90c4ebcc103455470bd954798dbd60f5fe3bf6615d8f9"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/13_AllLights_SH_ReflectionOff_BlackBackground.png",
+      "bytes": 16171,
+      "sha256": "16bd2de40b079ea025a64316cf9e46e4432aae070cfe5f11073860b0dd3c10ce"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/14_BlackBackgroundWitness.png",
+      "bytes": 179873,
+      "sha256": "a268c831c0dc5b93be1c9cd07ed82eb7ed3b0945cea1743349c88d6c357222b4"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/15_WhiteBackgroundWitness.png",
+      "bytes": 176921,
+      "sha256": "8f587574805da411cc99b268a6d00bea6185fd908b5477fbbae3f67bb6b0972e"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/16_GoldVisible.png",
+      "bytes": 176921,
+      "sha256": "8f587574805da411cc99b268a6d00bea6185fd908b5477fbbae3f67bb6b0972e"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/17_GoldColourHidden_ShadowRetained.png",
+      "bytes": 148364,
+      "sha256": "f9beeb64f59fa9b55776631f3810ae175e5896688fda030480053ece1c37e80d"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/18_WireShadowOn.png",
+      "bytes": 176921,
+      "sha256": "8f587574805da411cc99b268a6d00bea6185fd908b5477fbbae3f67bb6b0972e"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/19_WireShadowOff.png",
+      "bytes": 176640,
+      "sha256": "83e46e1c3db8ad41201cbdcaa4797b7461ef2b85b424d8aa5251b4fecfffec4a"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/20_RevisionB_RearShoulder_NormalHandScale.png",
+      "bytes": 180632,
+      "sha256": "967bd227c3f6daa26094626b56445dfdbf63ed8de6579a10ec518b187672692c"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/21_R02Original_Left_RevisionB_Right_RearShoulder.png",
+      "bytes": 297996,
+      "sha256": "2346a604a0c40b8867c1c94cdeeb890167210d795e6b536b9dbc69009a0369e7"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/22_RevisionB_RearShoulder_CopperLip_Gap_Close.png",
+      "bytes": 255442,
+      "sha256": "6f5a170ae2b198860905f3c7a5f3a09af3e7b5e72b988aefc6638c64344206a4"
+    },
+    {
+      "relative_path": "RevisionB/FinalLook/RevisionB_MovingLight_AndTurn.mp4",
+      "bytes": 598283,
+      "sha256": "9d072342d95525d5c74b63e79c48a7b3b457ae902c5ed5bd0884bfb486dc2826"
+    },
+    {
+      "relative_path": "RevisionB/Images/01_TwoSeparateStations.png",
+      "bytes": 223948,
+      "sha256": "8babdad7d9bd9b051b30ec982002b386133d3614a8543d9559c6502bec1bc7ac"
+    },
+    {
+      "relative_path": "RevisionB/Images/02_NearHand_Front45_1to1.png",
+      "bytes": 390495,
+      "sha256": "3f059ca1f73c4a0fb0114ca67e2c62947a529c1e2ab8b6cbf0d0cbd3fd63fcae"
+    },
+    {
+      "relative_path": "RevisionB/Images/03_BackSide_1to1.png",
+      "bytes": 178311,
+      "sha256": "733569b9f08a86e48a544160bb683372ff5623c7f199226092a16624c127b9f5"
+    },
+    {
+      "relative_path": "RevisionB/Images/04_SideLight_1to1.png",
+      "bytes": 308811,
+      "sha256": "18380159d5d9f8a28c6e23cc88b427419be02da347ba26c73474b9bf30795f6b"
+    },
+    {
+      "relative_path": "RevisionB/Images/04B_InsertionEnd_Close.png",
+      "bytes": 306754,
+      "sha256": "c836dfd953ce044c2218fcc568e5cabb7b97dd135f82aea7373fe8f72882cdb5"
+    },
+    {
+      "relative_path": "RevisionB/Images/04C_GripAndInsertionEnd_Distance.png",
+      "bytes": 266145,
+      "sha256": "9d36620315ef21fa8738c84ec26cdecf813e5b7804c28c2a5b38a3b1670ef3c8"
+    },
+    {
+      "relative_path": "RevisionB/Images/05_PhysicalDropOnDisplay.png",
+      "bytes": 376840,
+      "sha256": "4caec0caea44dfb17c6a44a9335606b419dd9952d9e46fedb1cb58bd3c59c8bb"
+    },
+    {
+      "relative_path": "RevisionB/Images/06_ActualSocketTop_EmptyOpening.png",
+      "bytes": 1101751,
+      "sha256": "f79810e1be60372db3cc4a7b77b6d80b13c56e87b93b60683ad2f94950fe14b9"
+    },
+    {
+      "relative_path": "RevisionB/Images/07_AboveActualOpening.png",
+      "bytes": 720147,
+      "sha256": "7ecc3036f30d826dab18f4f3bb0c467c6387042f02342041d4705d77c5e56812"
+    },
+    {
+      "relative_path": "RevisionB/Images/08_Inserted_Front45.png",
+      "bytes": 698847,
+      "sha256": "a2e069b910a7a69a36327157e66cdddcb8f3980d988668042f891b6e6482784c"
+    },
+    {
+      "relative_path": "RevisionB/Images/09_Inserted_Side.png",
+      "bytes": 444959,
+      "sha256": "804efae54d42d92aef881b11afe03a935cc11d18f0a6ee3c509f2f1dc62a26cf"
+    },
+    {
+      "relative_path": "RevisionB/Images/10_InsertedTop.png",
+      "bytes": 927296,
+      "sha256": "29cf1ce3fb6ca76d8f2dca2264df73c8c5a544251bd00e77625038b43c18fbb7"
+    },
+    {
+      "relative_path": "RevisionB/Images/11_FinalOverview.png",
+      "bytes": 224643,
+      "sha256": "f1b783357359a97b11fea526c97999f8a84399a23d02560fb5cb80436a871a71"
+    },
+    {
+      "relative_path": "RevisionB/Images/12_Front_Neutral.png",
+      "bytes": 142116,
+      "sha256": "636d0971a2b9746275d410ec5ffb5959178e41e021cfb740f9c6ff844247ab12"
+    },
+    {
+      "relative_path": "RevisionB/Images/13_Side_Neutral.png",
+      "bytes": 412601,
+      "sha256": "10bff98b3490eccea46d09885ed6a7bfd7169863627e3139fe344a4f9a5d4229"
+    },
+    {
+      "relative_path": "RevisionB/Images/14_Back_Neutral.png",
+      "bytes": 107484,
+      "sha256": "8bd365a0b881bc24a4822bafb8f2bdc5264d2e163ab15d5142b178cf14c5e23c"
+    },
+    {
+      "relative_path": "RevisionB/Images/16_QingGuiR02_GripThumb_Close.png",
+      "bytes": 329483,
+      "sha256": "f885aea8e30fc23844a08dbc20c72a17a8af8272ad7e698f3850534f814d7031"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/01_Front_PBR_SameExposure.png",
+      "bytes": 106806,
+      "sha256": "58907d15177830cad694df1cb6941f9440568245ac846d6d9b80e1d7dd8fa50a"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/02_Side_PBR_SameExposure.png",
+      "bytes": 101947,
+      "sha256": "0fdb48cb74bcb63f203514d5568487e442fd274db89f88e0d772ef75ba5c4c02"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/03_Back_PBR_SameExposure.png",
+      "bytes": 89163,
+      "sha256": "8e8620c47825604a49d1f1f7a3a43f37814af8d9403e20aeb2715ed8734146cd"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/04_Back_TransmissionDelta.png",
+      "bytes": 88982,
+      "sha256": "54fa5007fb82dfa030a587f6c56e954321471a0f9d38be3ab4fa74ca3d5f6397"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/05_JadeMask_Readback.png",
+      "bytes": 23708,
+      "sha256": "f3a0b1cdb78d033c44a5e9245f1a11851fac7a6a416b9883338070bf79e30868"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/06_Metallic_Readback.png",
+      "bytes": 25593,
+      "sha256": "3a77e4b690240fff627d85a77e49cf246eca87a8ca32443e8bda6226f7d482a6"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/07_MeasuredThickness_Readback.png",
+      "bytes": 45242,
+      "sha256": "f2303d497d79b4328afd62a0c856e2dca8b8b18fe6e1353e038707e39272dba9"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/08_LightOff_TransmissionDelta.png",
+      "bytes": 10384,
+      "sha256": "b0354ccbe4985a96efcd4fd184c28e52c9336a83998eaef2252979b3f781baf9"
+    },
+    {
+      "relative_path": "RevisionB/MaterialModelShadowReady/09_ExternalBlocker_TransmissionDelta.png",
+      "bytes": 10384,
+      "sha256": "b0354ccbe4985a96efcd4fd184c28e52c9336a83998eaef2252979b3f781baf9"
+    },
+    {
+      "relative_path": "RevisionB/QingGuiR02B_UnityReview.unitypackage",
+      "bytes": 28044589,
+      "sha256": "8e64f93fbefd0000238144554cf0e73eb64548824a1388dd17d726acff944116"
+    },
+    {
+      "relative_path": "RevisionB/README.md",
+      "bytes": 472,
+      "sha256": "060edc7cdea1039547f85eff0b9f3c1d31a06b8eb2c3f3bca4c49755430580b1"
+    },
+    {
+      "relative_path": "RevisionB/RevisionB_ActualSocket_Insert.mp4",
+      "bytes": 189806,
+      "sha256": "b69f38ef0131106d30ec17b609ca76ac95361d6cfd9e420eb4dad13230a6ca6b"
+    },
+    {
+      "relative_path": "RevisionB/ShadowAcne/01_Approved_Bias002_Normal005_SoftMedium.png",
+      "bytes": 329746,
+      "sha256": "f2954f676f3c29176e6bb1bd710cf0ae112f99459e55106f6b7a19384b0b047e"
+    },
+    {
+      "relative_path": "RevisionB/ShadowAcne/02_OnlyShadowStrengthZero.png",
+      "bytes": 253692,
+      "sha256": "00bf992de295db8ac93b3981352139187062ac9b52eb55e3389a61043ab51a61"
+    },
+    {
+      "relative_path": "RevisionB/ShadowAcne/03_OnlyDepthBias02_Normal005.png",
+      "bytes": 292321,
+      "sha256": "02b90e6f89029d4dd5611330197c91d2dc41eb30ef0f0d47b70aa385b3b59c09"
+    },
+    {
+      "relative_path": "RevisionB/ShadowAcne/04_OnlyDepthBias05_Normal005.png",
+      "bytes": 255442,
+      "sha256": "6f5a170ae2b198860905f3c7a5f3a09af3e7b5e72b988aefc6638c64344206a4"
+    },
+    {
+      "relative_path": "ShadowQualityCompare/01_HardShadow_ReceiveEnabled.png",
+      "bytes": 403367,
+      "sha256": "e9292ae7421752e5357cc3442b3efc44e1b20f5eef1a3912c2825d4cff2a2987"
+    },
+    {
+      "relative_path": "ShadowQualityCompare/02_SoftMedium_ReceiveEnabled.png",
+      "bytes": 407573,
+      "sha256": "f23375d032b4c19d2f40ab30cf1df986c053e380c647595cead6762096777040"
+    },
+    {
+      "relative_path": "ShadowQualityCompare/03_SoftMedium_WireCasterOff_BodyStillCasts.png",
+      "bytes": 392881,
+      "sha256": "8eec60fda55256842b7a60c19c02197a0df737f4e6ebfa923e748f4945a287b7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02Acceptance.cs",
+      "bytes": 19404,
+      "sha256": "87c5c24d9c8501c3744089ef355c59ad59c9fe5926eec3f2de927bf2dbee80be"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02Acceptance.cs.meta",
+      "bytes": 59,
+      "sha256": "109dddb5d912e2dd02df878a1add13f9a32354921215a6a5ab0b8d2378fbd0a8"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BAcceptance.cs",
+      "bytes": 19952,
+      "sha256": "711fcc2ccf8776ff149a775a46e04efe30f8ba4b63871085633e834053fe2cd3"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BAcceptance.cs.meta",
+      "bytes": 59,
+      "sha256": "14ff2610498f365ce762e5899fb49302a8231fa51f958b3e267bd3f0c57c1ab4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BFinalLook.cs",
+      "bytes": 11075,
+      "sha256": "564e1e83f5969d5b63d8bb3bcddcd72445675ebba76999ecf7046a5a92a8d72a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BFinalLook.cs.meta",
+      "bytes": 59,
+      "sha256": "883fb2cbb4757a73944efac56763502e553101260bf3c26c815fa0cc4455ba00"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BFinalShadowFix.cs",
+      "bytes": 3102,
+      "sha256": "51387ac4e2de67d842d8c59b59a68603718a9d0698f96dda0ada598c77f8eebb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BFinalShadowFix.cs.meta",
+      "bytes": 59,
+      "sha256": "742aee76dd65ca6fb5332006a4f89cfae8e8f18e7ccbb0f109993f9a61c8145d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BLabBuild.cs",
+      "bytes": 27613,
+      "sha256": "793a9178e02aae8851a3593c3d04563094ae9d97c9b294d18e9f92a721fdfd4c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BLabBuild.cs.meta",
+      "bytes": 59,
+      "sha256": "3ce2c7a1006c0f72e7a40dcd8671a168a106a1b11b8e7913ac0e7f025e65c9b2"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BRearPhotography.cs",
+      "bytes": 6214,
+      "sha256": "54449f0facdfe1eeb79917e0e5d2c5a4969d5e8df9c990f0132f36bc6e3ff084"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BRearPhotography.cs.meta",
+      "bytes": 59,
+      "sha256": "1fd3fd1b402618776a63238a11e0b5f4dec6fd0102a82f0021f5ace8bbf3d69b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BShadowAcneCheck.cs",
+      "bytes": 5006,
+      "sha256": "3c3a4e6e2d3bc65bc8342e931feecfbbb455ea5f442b0eae89bceb68874db1fb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BShadowAcneCheck.cs.meta",
+      "bytes": 59,
+      "sha256": "c9d50a6458f7411197506ada5977b5759580d8d436329a2b0873571d3aeb0a51"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BVulkanShaderCheck.cs",
+      "bytes": 5934,
+      "sha256": "2a3f26160a9c6efcb3a74da81e569cdc0c0304c09a9e4ccaecfc802ca8a6fad1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02BVulkanShaderCheck.cs.meta",
+      "bytes": 59,
+      "sha256": "25c5501eca0f9f191e5f5a76c7b44f514b0dc7aed80d986a4d6051b29fc24425"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02FinalLook.cs",
+      "bytes": 11138,
+      "sha256": "caa2d10a1c467e92d909f5ba5186c34023c9eee8e88a9e81de466b5550ed02f1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02FinalLook.cs.meta",
+      "bytes": 59,
+      "sha256": "0551a88d132ef19d8e307a60d20217b3eb0e38ccfaaa0d2ea7d8986ad9fe321e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02FinalLookOnly.cs",
+      "bytes": 4216,
+      "sha256": "f1c832fd268331b60ba014acc5f1197254eabe33c089c774422220813a77542f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02FinalLookOnly.cs.meta",
+      "bytes": 59,
+      "sha256": "57ecf057e31d20d616a5044e7a5a5f8f34ff37bdaa86a58a4e38d1b7b164b716"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02LabBuild.cs",
+      "bytes": 27960,
+      "sha256": "5436b0ae73c5e374c4bb4a29cc423a54a4f170a9c2b742b63b37c8698a238f97"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02LabBuild.cs.meta",
+      "bytes": 59,
+      "sha256": "9a33d5dc1fc1e6d379922ea86b574244dac8e66617287d61bde268bcbcb4c82f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02MaterialAB.cs",
+      "bytes": 15131,
+      "sha256": "92db4abe9e9e87b4b03f523559e2e7346578239c0e2b43689c3128833d7fec2f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02MaterialAB.cs.meta",
+      "bytes": 59,
+      "sha256": "ed5df215c16c12e53981e2b4d631e072fb5a95f679f8f30e02c6a68945455e22"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02MaterialAcceptance.cs",
+      "bytes": 13187,
+      "sha256": "d64a27438c79cf01f3954bc6ba8a722183c76d9410b8ad9e90ab873d2068e112"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02MaterialAcceptance.cs.meta",
+      "bytes": 59,
+      "sha256": "abf1dff76dcc6bdf7b18a51254c4ab57d6d5d3f17c4359ac4fc5a09561ad391b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ModelMaterialCheck.cs",
+      "bytes": 10791,
+      "sha256": "9227ae2355c987dc7cca454c0f1e235815f98983a5e3798f68d4f367416169d1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ModelMaterialCheck.cs.meta",
+      "bytes": 59,
+      "sha256": "eec98d1779e97685aa60813c70872543d5fb8e7f7128383616546579fe31e999"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02PolishProbe.cs",
+      "bytes": 13945,
+      "sha256": "0ae3a8bc3fde4327fb33cdee1d9a6cdc17605076b7a2a047ce3ac892c0e2eb43"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02PolishProbe.cs.meta",
+      "bytes": 59,
+      "sha256": "3c49109b0276e7db28cb6b5c8837061fbf2e36dd097e5940bc0c591443cf1f00"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ShadowPhotoOnly.cs",
+      "bytes": 4086,
+      "sha256": "f3cb8a1f4884db05e001e82477a7a447927205dda9526ba1aa64c0ac709a3ef0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ShadowPhotoOnly.cs.meta",
+      "bytes": 59,
+      "sha256": "39d726d21b6ec3d261cb5f68aa0f7f1da45c618cd0bead373ee821d70006c530"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ShadowQualityCompare.cs",
+      "bytes": 5276,
+      "sha256": "76c5b9f87dc135daeda4254d1dd2b1796c051cb6e619f688c3d0b02a4696eee2"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02ShadowQualityCompare.cs.meta",
+      "bytes": 59,
+      "sha256": "1b65662a6bc0f112205f4c3ad3a12fee0050479bb2cf25c357fd2e75c819c73f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02VulkanShaderCheck.cs",
+      "bytes": 5519,
+      "sha256": "4ab55916851cb2ae297bd3bb2b1b94703a4e063a179696890f26a67a9e801a46"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02VulkanShaderCheck.cs.meta",
+      "bytes": 59,
+      "sha256": "828a7bf2e885f2741502bcea5e7cf019841c59bb1b57952eeb8c57dcb3650619"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02WireDiagnostics.cs",
+      "bytes": 5871,
+      "sha256": "fe2b631e85ffeea6016470ab7803d979685d2848346f16dc09bdeb31e4c8b533"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor/QingGuiR02WireDiagnostics.cs.meta",
+      "bytes": 59,
+      "sha256": "31ec2638d1e89c385cdd034c6a7597275b2b611368deedf467b7dc6382753f84"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Editor.meta",
+      "bytes": 172,
+      "sha256": "98583a36fe776eebbeaaa9cbd63b369d0499eab324155c03046ca5bcd9b17ea1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/CapturedFrontalStudio.cubemap",
+      "bytes": 2098278,
+      "sha256": "a0577c04b68d5d3e9eeefe6fe34d1bc76b7e0367e0a2e379ca28b9ef23edd31b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/CapturedFrontalStudio.cubemap.meta",
+      "bytes": 188,
+      "sha256": "91de7ab671b4f9360538861890a9ea541627762f5fdfa8a4fff77859e53d90e6"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/CapturedNeutralStudio.cubemap",
+      "bytes": 2098278,
+      "sha256": "66dea4c36d362e8fd2ae41275ec208afbf30d6f7f676da8925f05c344a355817"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/CapturedNeutralStudio.cubemap.meta",
+      "bytes": 188,
+      "sha256": "98868f9909745c3138b4172f1696170b958f34ba90434636a777d04930b253a1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Darkback.mat",
+      "bytes": 1895,
+      "sha256": "03246c0f140b66780103e3b45ff68b0acd366335f68c4e49b829e4ddfba33029"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Darkback.mat.meta",
+      "bytes": 188,
+      "sha256": "484b4d983af0ad316aa9c22bb0f8afdf48c10d7298302ddac14c31236129c0a3"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/DisplayStone.mat",
+      "bytes": 3841,
+      "sha256": "68bfbc397902ee7a418ec533f43d01098f0ed7cac9eebd86287557b7830595c8"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/DisplayStone.mat.meta",
+      "bytes": 188,
+      "sha256": "d56c4cb9b9b12e5d0119000fcca662250e5d1ef988e9a29f074005a9f8ed3ccb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/HandScaleClay.mat",
+      "bytes": 3843,
+      "sha256": "c11aa482008ac272d0728b2834887f6f1cc3d85d98f5b8bb805362dd8f5871b4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/HandScaleClay.mat.meta",
+      "bytes": 188,
+      "sha256": "40a4c5e605939a7d9df69ca987c3d98fb66dfd47262b60ad298e179b634a6df5"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/HandScaleReference_0.asset",
+      "bytes": 209556,
+      "sha256": "bf9e0b7a60d269ab534abc0d581ddaac50e26c9d5b0f7592b9e2a43fe394742b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/HandScaleReference_0.asset.meta",
+      "bytes": 188,
+      "sha256": "d43e000c72b80da9226d817dca794e45b518ac2fd395aeb27b1de6bb9481fbd6"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/JadeDensity.asset",
+      "bytes": 75669,
+      "sha256": "6df92fcc46749ac3b9a5cc746b176251c5ea5ce9bdf0741bb8eb8db929a68530"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/JadeDensity.asset.meta",
+      "bytes": 189,
+      "sha256": "33c20bd47ac86aefafb946632e3ac0def1dcef629940b5ccbaf0b348cab1cb9d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LabCharcoal.mat",
+      "bytes": 3841,
+      "sha256": "5953fbe7f12f3871a8db3c1a176926f448ff094c73c7ae683859b66d3b597dcd"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LabCharcoal.mat.meta",
+      "bytes": 188,
+      "sha256": "2c67c16b46621d6244cea6efe16b53dc9a9b96b45b79982ce8b459e358ea5b0e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Largesoftbox.mat",
+      "bytes": 1885,
+      "sha256": "7285b45b43a64114c5dc8ac90753eea510f011d38d1ea01149395e7b603ff68c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Largesoftbox.mat.meta",
+      "bytes": 188,
+      "sha256": "bf023e560a0a0f6c3715854954876b04c2c76ced7f272c9f2ea13b5b84dd116e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LocalLayer_OpaqueMetal.mat",
+      "bytes": 2906,
+      "sha256": "64eda28bee901947ddecb0d3402b7cd59defce7466363dd3f504d573f262358e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LocalLayer_OpaqueMetal.mat.meta",
+      "bytes": 188,
+      "sha256": "78e01aba2873a291bcdda81859c83dc0367ab284754ceb63d4ad6ac731fb23df"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LocalLayer_TransparentJade.mat",
+      "bytes": 2882,
+      "sha256": "8f2b1d83359a55c383a50411c67f64c5940b861598c7a5a1a9c16e3ff1eccbb5"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/LocalLayer_TransparentJade.mat.meta",
+      "bytes": 188,
+      "sha256": "857f634606a1a57d38d602b7d52264b4048ff9da49866c49055bbc82f80c686a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Narrowstrip.mat",
+      "bytes": 1874,
+      "sha256": "ea8f8a6c40488ffa019f11f8c7c901f408e37faa47b9e8ce7eacca456897a4da"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Narrowstrip.mat.meta",
+      "bytes": 188,
+      "sha256": "cc7382c62803cd26d7d13bfa76e2f70e413e09022757c9bf767fccac72f3cfda"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Neutralfloor.mat",
+      "bytes": 1908,
+      "sha256": "92b4f4f79840b795f6a8deaefe44285a79e983ed6aa6a5d17ece598ee2d426bb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/Neutralfloor.mat.meta",
+      "bytes": 188,
+      "sha256": "5da7f9467a764c9a4ebcb1c1136572ee3de0e1cb1f473c5373dc308b60b0b0a1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGui_R02.mat",
+      "bytes": 2870,
+      "sha256": "6dd068d4f6e4bac4fce2c80dbf3ff129fd82bcb0c8e889604d727bdbe9c04433"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGui_R02.mat.meta",
+      "bytes": 188,
+      "sha256": "ccb64111bf642d81c4fc11640ef737276b02151c023a9c898b6fdbccea4ea74c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiMainLightVariants.shadervariants",
+      "bytes": 1122,
+      "sha256": "4d1843487d5d0bd6d4c0128804fbc3525b5bc0134f38c02082ac3ad135e4d4c0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiMainLightVariants.shadervariants.meta",
+      "bytes": 189,
+      "sha256": "4f6e6118c574489f40bf649b238850bc4efb4d3b85394b612992974fb8b73c48"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_DesktopReviewRenderer.asset",
+      "bytes": 1966,
+      "sha256": "0a9771422173f22ba97287a930a99bf20f66dd8a5c5a804177c1d2f0264ba61e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_DesktopReviewRenderer.asset.meta",
+      "bytes": 189,
+      "sha256": "e89d0d669f2f17a55094394264158e33d186122867077753f0d8583f9e7465ec"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_DesktopReviewRP.asset",
+      "bytes": 4663,
+      "sha256": "e5982372c8df21718bb208f997d322b89b48258e732905331f79001b8c0a7850"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_DesktopReviewRP.asset.meta",
+      "bytes": 189,
+      "sha256": "430f89ac9ad9d42d0fad5286081923b60747576eee945cfc8366ac691f434ab3"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_GoldWire.mat",
+      "bytes": 4646,
+      "sha256": "98f477f8a9811881a36faf66f51f105b687aed25e421c8289cb46871899d4543"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_GoldWire.mat.meta",
+      "bytes": 188,
+      "sha256": "e731f7c28a55fbd182d5f0fa5bdcf34d3bc29ec2940f4e66ac54c69befce8e73"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_Jade50.mat",
+      "bytes": 2878,
+      "sha256": "b06ea78aea7c7ec2c140e41626ca85544813d9dafc0bd320998f961e6b00683a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_Jade50.mat.meta",
+      "bytes": 188,
+      "sha256": "965a2b7b370e07625608806a18ae01201ab2fcde459173a228d0584124a568f9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_Jade60.mat",
+      "bytes": 2878,
+      "sha256": "c1af19ace7078153f604e0fa8a045e72feac0b75f77fb1eceb40a345db07d0ea"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_Jade60.mat.meta",
+      "bytes": 188,
+      "sha256": "c1ff3511ae627a1c199ee1db00b7272ec42db5c7544c7825c077531a5abab152"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_OpaqueBronze.mat",
+      "bytes": 2912,
+      "sha256": "562be4094c0a2e1df5703df8a0900ad309a18dc22462f6491a110333231fda60"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/QingGuiR02_OpaqueBronze.mat.meta",
+      "bytes": 188,
+      "sha256": "e235bd68c170f5600d105508f53f0d37e7eb4e65b7ee8e0b2d7b9a99fecb2003"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/R01_Baseline.mat",
+      "bytes": 2508,
+      "sha256": "5e303adae86963bcfb3e3bf4814efe44b0459f83b35fd6247e961e1cea4d51ef"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/R01_Baseline.mat.meta",
+      "bytes": 188,
+      "sha256": "7aed5df7f8934c25784f020649139e36841bf2dc5db842583f64ebb1e1850c9b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/R02_Jade_Candidate.mat",
+      "bytes": 2874,
+      "sha256": "30655e82f70aacd9e9f94a4c60c2bf4e05e4807bfb2e7ca47feb7c314abec00b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/R02_Jade_Candidate.mat.meta",
+      "bytes": 188,
+      "sha256": "f2c526c824725b2f0d3cd68e278dee024550515624f57b387e3ccf2dfdc7b067"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/StandardLit.mat",
+      "bytes": 4821,
+      "sha256": "20ef270a1510c2b80fc564d3bdc3aac1ffd54a813ab4d806726e7b9ec7b898fa"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/StandardLit.mat.meta",
+      "bytes": 188,
+      "sha256": "fc6681e80330b6b6d9d595e2384e6de1300aaba8924bd449bda37047624bdbcf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_0.mat",
+      "bytes": 2452,
+      "sha256": "d71e2dde4f7c3afd560b00ea534b5d0beb529ee7a212e990b30c7a95507e530e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_0.mat.meta",
+      "bytes": 188,
+      "sha256": "fe6e20d5b53d8df214116bb743ea642dc4b0c513554c6f384574a39ebf94e1d1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_1.mat",
+      "bytes": 2452,
+      "sha256": "6587ef693d4058c193026fdf6d731eedfd9590d8f0f564e20532999da2331eb4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_1.mat.meta",
+      "bytes": 188,
+      "sha256": "bd13c3e7702658badae0767c79bb6ce38c3a3c7a2a6068974c8242004e039d94"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_2.mat",
+      "bytes": 2452,
+      "sha256": "1024a2de8b64d2b0fd99ccc3960e74c76601e3d9c8fe5ddd7a2fb876125a9b4c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_2.mat.meta",
+      "bytes": 188,
+      "sha256": "2ef23edb7af24eeacc3463083f8a90a11a8f687760b323357b98fb2b62f72575"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_3.mat",
+      "bytes": 2450,
+      "sha256": "c342fac88429cb2898be27666a15cdce883ae94868a07a162e7d9781f38e691f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated/WarmSlab_3.mat.meta",
+      "bytes": 188,
+      "sha256": "c87332dadaa68405e67187ddff061300ff3d873d35f89db00192457306d02b95"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Generated.meta",
+      "bytes": 172,
+      "sha256": "28b12bd089ce7160e4170a81a8fbf6c5da14b934548ade997db145f326d28e38"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/model-report.json",
+      "bytes": 30979,
+      "sha256": "5a9f2b1d72f5a943843223930b34cfe3192578eac15ddb36c2d33a2e1798d425"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/model-report.json.meta",
+      "bytes": 158,
+      "sha256": "c51f8d5a1b38410928ba15d31de0ca9cd52ecb67a226c95c807fcbc6ca181968"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/QingGuiR02_LOD0.fbx",
+      "bytes": 367468,
+      "sha256": "69b6508a7cf9baf79e099f02fc3f7e5e872bf27e9ff2897980f40255ae47c093"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/QingGuiR02_LOD0.fbx.meta",
+      "bytes": 2861,
+      "sha256": "8ca98bde155a03a0bdca9cfee9f4d87ccaacba70467c22624cb444e18e1887a9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/QingGuiR02_LODs.fbx",
+      "bytes": 649612,
+      "sha256": "64e290d929eaabefee3945a0daa06a830a0f9853eefa87d5b300a1225695e202"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/QingGuiR02_LODs.fbx.meta",
+      "bytes": 2892,
+      "sha256": "b4344fdbea5f10a65085b26fd36357b43e5abba65184fc49f11dc8eaeab40fb0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_AO.png",
+      "bytes": 765060,
+      "sha256": "d000a00632cae886579487c206adfbb0a7f168ebc5dc488c69a3f203a754f5eb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_AO.png.meta",
+      "bytes": 3010,
+      "sha256": "95dd114a30afda6ab499b780715cdaeadf0f2a64a1d4856c40a4f2a3cdaafab9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_BaseColor.png",
+      "bytes": 826751,
+      "sha256": "0b44fc71a460b009eba048773bc9386db2491a79b556b1825d72cf6b32ea7208"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_BaseColor.png.meta",
+      "bytes": 3010,
+      "sha256": "08f0cc4ba7e70658e3862bddccee64a93a3a8a278088bf68f3173cfa34efa638"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_JadeMask.png",
+      "bytes": 146184,
+      "sha256": "82517aa082cfb4846647c9ae302c5403c9658b9d740881e1ba33a01c26cd9d05"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_JadeMask.png.meta",
+      "bytes": 3010,
+      "sha256": "f017b67418da6d6e63b6e7be8501a2783eadf78142c383ee23f40c731d22bc5e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Metallic.png",
+      "bytes": 167083,
+      "sha256": "808f07d176fb16d346f08a36d2f1564e44303becbc611bdcc700dd7cf50fd776"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Metallic.png.meta",
+      "bytes": 3009,
+      "sha256": "d95b471c597bdf5a81f0a7c772545f6742e0b8ff44fd41e471de991bbe15bfea"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_MetallicSmoothness.png",
+      "bytes": 210979,
+      "sha256": "88c8b354533fa8b7d762b785ad061a980a8bed6787c10b5361e421be583fc5c3"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_MetallicSmoothness.png.meta",
+      "bytes": 3010,
+      "sha256": "0b739501af1d0c62fe187f7c8d32b0e3a24e0144ffc15712fdd63fc3a3d60fd1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_NormalGL.png",
+      "bytes": 494417,
+      "sha256": "ea396b8fa6e672088eca5677798d52d26c6f5903780e7a50c57ceb8d28e3b2c1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_NormalGL.png.meta",
+      "bytes": 3010,
+      "sha256": "9dcea7f922cf20a60ca72dfcc3bdf6b2c7a403d557f4ebd05e6160b0f2532134"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_ORM.png",
+      "bytes": 943709,
+      "sha256": "ca4ea66109ceb3ff11827999af8bf53a3fc77a1d6afdd468af56ebd9ff9cabfd"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_ORM.png.meta",
+      "bytes": 3009,
+      "sha256": "47e4ce579c93ea69cb5a616ae2731ec69a92326e64305a2ccf51a401abb995a0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Roughness.png",
+      "bytes": 143716,
+      "sha256": "cb722b9f4f947a9ceb6dac9cc6f74cdf407528e10bd8b8211d81e4e16591adfc"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Roughness.png.meta",
+      "bytes": 3009,
+      "sha256": "c03b247687ff6c95e9856715f763ea5f87bef2518bb39ffb78779f378cc1157b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Thickness.png",
+      "bytes": 369958,
+      "sha256": "b593d8caa223652a5389110c1645d5687d19b17351d69af689296be77ea1c84f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures/QingGui_Thickness.png.meta",
+      "bytes": 3010,
+      "sha256": "10ea498661356b4a6fd8d4b6ae78f4a79bd36a3f07e64a872f160b8e2a8d9c29"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model/Textures.meta",
+      "bytes": 172,
+      "sha256": "968137974ffd8374579655d863d698030eecbecfeac572556daa3cfbc9aadbd5"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Model.meta",
+      "bytes": 172,
+      "sha256": "6ad1d23e5d2ab145954b1781375b7a96c387f74e1630808a08643ca8b7d25830"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGui_MaterialWarmSamples.unity",
+      "bytes": 28712,
+      "sha256": "928e6756be262ef7d425b5a52dd65eaa5db1ffafd023d3d04793e30ce65ced05"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGui_MaterialWarmSamples.unity.meta",
+      "bytes": 155,
+      "sha256": "5d8e4c7bb620cbcf83e1f518c5f84b429300a616fbcc44a79790105d5d639047"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02.prefab",
+      "bytes": 55032,
+      "sha256": "ffb7af41c33872d7480df5dc0106bf361c22d741f99a23f03661943b4b764c30"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02.prefab.meta",
+      "bytes": 154,
+      "sha256": "5a8cd5a6adf929f4db677798e1a073021b08a636ff6fb561de4c5d5b4a6d386c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_Lab.unity",
+      "bytes": 983813,
+      "sha256": "15476b7c54b1f32accceb9950f5948de18889249778202f8edb2bfac9f5a121b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_Lab.unity.meta",
+      "bytes": 155,
+      "sha256": "5a943506d6749f30003b8a3e7c1d0ad1839c3d53d7db2a562c1d1ee2649efc39"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_MaterialAB.unity",
+      "bytes": 41878,
+      "sha256": "950b8910637949dbe612b77a5e8877408666c2c0207192fe2fb0320ac2726dd7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_MaterialAB.unity.meta",
+      "bytes": 155,
+      "sha256": "f03fad0b8b22571e8f7d69021784ada458dbb423008e07f315776ca8b2459726"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_PolishProbe.unity",
+      "bytes": 41879,
+      "sha256": "572fa5c3173e715d7c67efb9d3acf44b4d194179d10ea137e508ce66727c5c11"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/QingGuiR02_PolishProbe.unity.meta",
+      "bytes": 155,
+      "sha256": "e706ce5c6c264a915a325d36251de2bd063cafc3f36f2963c385ce39229695b0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_BaseColor.png",
+      "bytes": 3513280,
+      "sha256": "1a0e1db33b8f70f5031265e228a75cc1d7367e4d1e3a71862e7513625b027726"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_BaseColor.png.meta",
+      "bytes": 3139,
+      "sha256": "1d0cff107a7ce3eb920f4dfeabd355c5811df46f41b88c3dc7b9c40e57b5adaf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_Mask.png",
+      "bytes": 2367274,
+      "sha256": "87a91b41f8279577c4568d775169d7ec6e456953188c93cd4989872d6e1dd263"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_Mask.png.meta",
+      "bytes": 3139,
+      "sha256": "e8ca90bed4f7e5e93ec8188bba1092c7726d64296ce180a44dcc00b41b6082dc"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_NormalGL.png",
+      "bytes": 3973034,
+      "sha256": "5c338b4a708b10386dd13a4aa71863a2b33a54b664c5e5acdd8ab04687ceb438"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/Body_NormalGL.png.meta",
+      "bytes": 3139,
+      "sha256": "b341bc2a17b66b320cf1a89a3639ee4c9ec229f58598c9903a3cd4c58f050ade"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.fbx",
+      "bytes": 453916,
+      "sha256": "ce62aaa025b14dc913f02ade897a48f1f2efcb15372ad531fe368f8e7a80b051"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.fbx.meta",
+      "bytes": 2992,
+      "sha256": "ceaaff6871499d3ef1456aa4cbc6c83cc2578abff0992e562f9927c52016f19e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.mat",
+      "bytes": 4281,
+      "sha256": "f1cf42de7d6bad41e41e90a6967721d35dd7f7da3f3daa64c13e55b4c737ed97"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.mat.meta",
+      "bytes": 196,
+      "sha256": "87a9bd7ab9e5031d2b7dcec15ea6feb554b9760c5e186e97ef807d0e2d230491"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.prefab",
+      "bytes": 5969,
+      "sha256": "368a91836d1769e60bb4e36d5e0c1cf5a92f152cf3cbfc29fe2c9b9deb56e37c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body/ConsoleBody.prefab.meta",
+      "bytes": 161,
+      "sha256": "50f1594c5fbb60949f8bb4e6e28e3a993be860281d89e4993f314cfe4bdbe221"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Body.meta",
+      "bytes": 180,
+      "sha256": "4367fa226369b8211a333cb51b4947608d65238d69c1ccb260f667bd72346248"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.fbx",
+      "bytes": 193084,
+      "sha256": "c2211663e924944eda52bd43e9c4026e74f77bfe904a4f6f50199ef813da4338"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.fbx.meta",
+      "bytes": 2992,
+      "sha256": "546e6b89c28995df7619d2420109aa380dc90676a71b5ff018d467486285baec"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.mat",
+      "bytes": 4282,
+      "sha256": "372adc001672e332e10c98e0cb7fc62a6f79279e8beea05f29acaa8468f79e51"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.mat.meta",
+      "bytes": 196,
+      "sha256": "27aeb51b05a25861f4fbe540025c08a128fefabd39ce2bb00379f990c003d87c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.prefab",
+      "bytes": 5981,
+      "sha256": "4d9e9a486dfafede87545db006571e04ef9f918ec9f90960089a521ea2e18302"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/ConsoleSocket.prefab.meta",
+      "bytes": 161,
+      "sha256": "1a592379714cded954a9ba3153faac0b78d9afbb37fabf7e8f4c89ce2226d9ef"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_BaseColor.png",
+      "bytes": 547420,
+      "sha256": "58478d32a242aabd7dea396f878a4d7a6b97d46ab8fc55de613453cf8dec698d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_BaseColor.png.meta",
+      "bytes": 3139,
+      "sha256": "a31ceb1d6d3f3eb646b7cb445e7be27c46bebe7a7ebd6f3478be91895144268d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_Mask.png",
+      "bytes": 723359,
+      "sha256": "d4489e42623e4b85ce9a454ec03807ad72f1f4f74a6bf5c5485eab95631dad7a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_Mask.png.meta",
+      "bytes": 3139,
+      "sha256": "5db3f46bd940ceed54aecd51430e8df27002f8f21f23fa62e2a4dfa361dbf584"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_NormalGL.png",
+      "bytes": 391422,
+      "sha256": "060fe23d4507cabd448abf54c8aed1181a25c4b33de34a5da640d1dfab83ea14"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket/Socket_NormalGL.png.meta",
+      "bytes": 3139,
+      "sha256": "25318498f51d738430da1c74f1e94570f9aa6b67b72090f36cf2626149760163"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/Socket.meta",
+      "bytes": 180,
+      "sha256": "5dfa3aac277e98afd1e6f53652de0624f35e53bb24c5e2ad00764a15ea90d2fd"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/TenonConsole.prefab",
+      "bytes": 6458,
+      "sha256": "61468d4f519917d7d21189b57d216a0f41ae985662646fb3e86e06d3820d91a8"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole/TenonConsole.prefab.meta",
+      "bytes": 161,
+      "sha256": "2e31c81ab3b16f5232105ed65fb5f557244e5067d7701ca73e36d4486891129c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceConsole.meta",
+      "bytes": 172,
+      "sha256": "c7f237a72f7ccfbfd0ce4b4d4d395870881b99acbbee6c92c21bce49399e43ac"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/model-report.json",
+      "bytes": 26091,
+      "sha256": "3168bb4f2485fe20eca6d9366a6de7cc21edc14ca30ed7ee5b91984e776e1380"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/model-report.json.meta",
+      "bytes": 165,
+      "sha256": "425a580ad43a8363b5187c707ac5e6b8dc4809dfac37de17d09b3da1a24fe144"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/QingGui_LOD0.fbx",
+      "bytes": 163756,
+      "sha256": "c813b0e7632431109b5bb8ea70a5614281be832d4ee1e28cdbdb0bf50e429641"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/QingGui_LOD0.fbx.meta",
+      "bytes": 2971,
+      "sha256": "873354c41984b54c9fd84c52eaf992c5576bd5ebbbe5e1c1932ee3bd51878ed1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/QingGui_LODs.fbx",
+      "bytes": 244812,
+      "sha256": "834742b44f77fbb217e4abc0be4442447f1104af708add611c3a53d25b553431"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/QingGui_LODs.fbx.meta",
+      "bytes": 3005,
+      "sha256": "ce8b3c4f2b6432bfe28cd018a7c2fd52c8d8969b75873690fda5f4d0f4855489"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_AO.png",
+      "bytes": 875222,
+      "sha256": "c0e8b319d449bbd51c80d483c7c2fefbc1e2a1455cae4af8056b9f4c2a8fdfb1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_AO.png.meta",
+      "bytes": 3139,
+      "sha256": "8f6823b59378b56d6012f477300c5dd89c5776095a41066b1f17f33bd3b06327"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_BaseColor.png",
+      "bytes": 1174179,
+      "sha256": "ccb29cd85586ccbf6ba971b2f1a5dce9a328aca12694b8692547a8296c124074"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_BaseColor.png.meta",
+      "bytes": 3139,
+      "sha256": "cdcf7f1e80f71270e6c15fc4acc6bdd066d501c333b4681d7875e77d38a4f774"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_JadeMask.png",
+      "bytes": 192320,
+      "sha256": "ade3c03ca113e13d7535cba1a569cc1762c58774cd07d3d3f4292f5a1ad3f810"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_JadeMask.png.meta",
+      "bytes": 3139,
+      "sha256": "5d149be2ad019762f1f0840a79dd9bc32c61ab2bba451aaa49d44cd8b215423b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Metallic.png",
+      "bytes": 203785,
+      "sha256": "d9d11fe1511e06f3b7c72f61f1154c3d3be5351dc43e82832aef46e0cbd350da"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Metallic.png.meta",
+      "bytes": 3139,
+      "sha256": "52778e83c512caefc29b8b3c6c410723295be18b8989295e128813329da0df14"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_MetallicSmoothness.png",
+      "bytes": 306320,
+      "sha256": "5856f9ec853d20caf6982b5a40057b2677ba0c77b135f4e0c819ee0bcd658fa8"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_MetallicSmoothness.png.meta",
+      "bytes": 3139,
+      "sha256": "a7e4761ae19a55a92210c861124a2e4fe45da737b282a1a7b1a3d1fcf5559967"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_NormalGL.png",
+      "bytes": 664052,
+      "sha256": "ea3da6605e44effeb7fe6dc3ba112405691715dc6925dfa580f79bbe13e594b8"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_NormalGL.png.meta",
+      "bytes": 3139,
+      "sha256": "0c2af5bcdcc9454ec2e82610b4c797775f2b42e95f46fa8bb94e6d302e44833f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_ORM.png",
+      "bytes": 1108551,
+      "sha256": "7574a44362ff37ea91738cadd671520aa56f83788a9e23d6a783c2acfd9f6062"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_ORM.png.meta",
+      "bytes": 3139,
+      "sha256": "ec5f7aeea09249cee49fb140ead096663a5a13154079e8a10146557f698acabe"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Roughness.png",
+      "bytes": 216425,
+      "sha256": "102b77c86577423ab60f4001b721a151adcabfea1b39d718a2236933f0c475a9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Roughness.png.meta",
+      "bytes": 3139,
+      "sha256": "36a1ee3e92a2e171a25a931cc55b24a6be11baee0e7d413ed3d3e9621ad3d0db"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Thickness.png",
+      "bytes": 424155,
+      "sha256": "ea9a0db0dc33c105c8753a22d594c77a901e1fe223261b4bfbf0fe77d11cf1b0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures/QingGui_Thickness.png.meta",
+      "bytes": 3139,
+      "sha256": "adeb7b8b11da94fe8503bbd392adf8d8a34f81fc0afbe21aba0147e1a1d9b0c1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model/Textures.meta",
+      "bytes": 180,
+      "sha256": "9ba4a640f38f2a17a3130121dada09744f06dca0dcdcd150c2c5409d7a6f4ae4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Model.meta",
+      "bytes": 172,
+      "sha256": "85a880981f7f2fc599b122c43cef60b1fa2a1c2b5b819ad57f1fd703764f9038"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/QingGui_R01.mat",
+      "bytes": 2584,
+      "sha256": "13e8e9379e5829cd0b1ab8592d73459cfd6b910a85eed03581b1d6781d37b65c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/QingGui_R01.mat.meta",
+      "bytes": 196,
+      "sha256": "c993a0d1dbe51fd328a3fcab99216ce8ba244318e28a99919aa26034814df09d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiJadeLit.shader",
+      "bytes": 5681,
+      "sha256": "bbb09fd96f4cdf421c3cfc3a4a3b69c090e6f9df949e3228f81d004e0f96ddc1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiJadeLit.shader.meta",
+      "bytes": 213,
+      "sha256": "969670cc4dbf1be4de21c48dc904f25600c293d925bff3c349863b77927c5641"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiLitInput.hlsl",
+      "bytes": 13049,
+      "sha256": "c51ce5a63424a389ab09b20b3a6acddeb7caf0861c3b34c6852810f9ee0ffa77"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiLitInput.hlsl.meta",
+      "bytes": 168,
+      "sha256": "0be6e62980864761943d11b753db50b0f1f242561eb9865ddf7d81162f4e285e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiTransmission.hlsl",
+      "bytes": 2826,
+      "sha256": "acfb53d595fe5753096b6310ab6e7f4fc752bfe29e28f49ca5ae6aa593218f51"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders/QingGuiTransmission.hlsl.meta",
+      "bytes": 168,
+      "sha256": "3f00ee62b2032cdd226d65582af7a1de075f6cbdb70e824ddfc78ea82eb3c0d7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01/Shaders.meta",
+      "bytes": 172,
+      "sha256": "427a3fe2ab2f30894d7009b83384fec81b28d4e61fe436d35a423c30fea158df"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/ReferenceR01.meta",
+      "bytes": 172,
+      "sha256": "9b1267d3dfe26dc3d88bbd8c2d0a632eeae4be7dc834f7c3598c2011ecdde323"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/DisplayStone.mat",
+      "bytes": 3843,
+      "sha256": "b8e02b9d760a6674fa496807e104f5f7e032aaa9b9ec74c7290fc98d155f651a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/DisplayStone.mat.meta",
+      "bytes": 188,
+      "sha256": "4c074f54489dc2180c9225d26b0e27282c2e53bd730e5f07a236446bc008422a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/HandScaleClay.mat",
+      "bytes": 3844,
+      "sha256": "b003f2519b57e9da5f703b5eb2e50060914d9768b09a6ceda225a75ef1d39ad3"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/HandScaleClay.mat.meta",
+      "bytes": 188,
+      "sha256": "3cee123a58fec346ff02fea0c1abba35a3e59d801a9cc25e369e5f5bd9309a35"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/HandScaleReference_0.asset",
+      "bytes": 209556,
+      "sha256": "bf9e0b7a60d269ab534abc0d581ddaac50e26c9d5b0f7592b9e2a43fe394742b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/HandScaleReference_0.asset.meta",
+      "bytes": 188,
+      "sha256": "174aa8925d148649ecebd5ecadd5352b3993a95d36fad3928158ad9cc2f5462b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/LabCharcoal.mat",
+      "bytes": 3843,
+      "sha256": "38620fd688922d6195eebc8b86ded797f20966c1458dfd4166ca4598faf3a831"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/LabCharcoal.mat.meta",
+      "bytes": 188,
+      "sha256": "f7c0abbccb01cc9f0029485c1ecf87f41c227b6b02d091c3009743ffc3e2d995"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGui_R02.mat",
+      "bytes": 2865,
+      "sha256": "f3d073e093f4d3c99bc8e0422f106237150ea52d568ab991e14536e2259501ee"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGui_R02.mat.meta",
+      "bytes": 188,
+      "sha256": "8b4b10458a10c0225ff19671f21341e87de787d09e6127b7a2e55536e86194ad"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiMainLightVariants.shadervariants",
+      "bytes": 1382,
+      "sha256": "e4fa78da4821e2f9f1ff638a5f0618614b3f74f651060c81dce3f7b4d1ca7df9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiMainLightVariants.shadervariants.meta",
+      "bytes": 189,
+      "sha256": "97996053242d38d4a2d5a9f54289742dfe34d1f48ec182485d10b7394839c577"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_GoldWire.mat",
+      "bytes": 4625,
+      "sha256": "093cc35f8a35b11879d72c6b161212cc06d824c9829943f4c3565dac65829aeb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_GoldWire.mat.meta",
+      "bytes": 188,
+      "sha256": "14570f10e552e4f2496038be92be66015bb7a2ac262c4b1e4fc7409d74011c79"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_Jade50.mat",
+      "bytes": 2873,
+      "sha256": "3d17bc0e10f847c75c8c38ba58e6ea84e032d16030ae9b5c93a939a49b61433f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_Jade50.mat.meta",
+      "bytes": 188,
+      "sha256": "727dbcf900a7f01e200334711fe3040429df3c96c71f8dafdcdc12a48aa841cb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_Jade60.mat",
+      "bytes": 2873,
+      "sha256": "72987a2e7f45add620ec43437988db837766b93a4d9b11f90eb86712fe37b9e4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_Jade60.mat.meta",
+      "bytes": 188,
+      "sha256": "5e432fe6662baa95c28b3244959c42ff221b2b533f9c9bd92a42057b580df282"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_OpaqueBronze.mat",
+      "bytes": 2907,
+      "sha256": "c61fc7e9927691928af0eb546fd9a0f15f3659496beb0d0a972bcd365968a68c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated/QingGuiR02_OpaqueBronze.mat.meta",
+      "bytes": 188,
+      "sha256": "6530d5bb4c00b951103201179b1f57a439bad82f9a3fa816eec65628f737f38d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Generated.meta",
+      "bytes": 172,
+      "sha256": "29abdb4b109342b8adf0ff590edb46861778674517ddeadfdcc2f288b281b246"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/frozen-manifest.json",
+      "bytes": 12354,
+      "sha256": "d788f8e532e352d9c0ab313eeae912a84c8f435e98e4e09cd65911e53066bc2e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/frozen-manifest.json.meta",
+      "bytes": 158,
+      "sha256": "be71507cf79da73b39a7b024fd4782e3f71c202132d773479aa77a7a1503df76"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/model-report.json",
+      "bytes": 32634,
+      "sha256": "71ccd4d0d85aab3e549854ba5ef3253cc7ffefd83e6f613dbcb258085e6411f5"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/model-report.json.meta",
+      "bytes": 158,
+      "sha256": "b27980320f3af2c4ed3dd3ce7445e164bf112eb7daf6ba9f4869f2c739a789d7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/QingGuiR02B_LOD0.fbx",
+      "bytes": 470972,
+      "sha256": "57ff891ee579d2d36c28e5487c6c193ab369e7ae0715b01ad7b2447e5eccc15a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/QingGuiR02B_LOD0.fbx.meta",
+      "bytes": 2861,
+      "sha256": "e4ea7880fa6476c6d6fab4ddf3eed52cd45e017e6dddcc98f74559752a6997bf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/QingGuiR02B_LODs.fbx",
+      "bytes": 766956,
+      "sha256": "2fe815a9104287e243d0ee1b99f4ce5c1008793f64e180f22affffc8c9ae3bdf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/QingGuiR02B_LODs.fbx.meta",
+      "bytes": 2892,
+      "sha256": "8c8589c624a24a72b8d8340887eb6d4506269f2e9319e1d3b3f05378c18438e0"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_AO.png",
+      "bytes": 825716,
+      "sha256": "5bc7b984cbbb57784bed4ca0e1028a798837815ee1d1f3dbe8f9dee7f825e847"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_AO.png.meta",
+      "bytes": 3010,
+      "sha256": "26b7dcab369655547487c856c5897955504b99d87c7869d24a3474be484bb418"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_BaseColor.png",
+      "bytes": 912564,
+      "sha256": "2b81bcc2d22856bb695accc908d166fce3d9feb0afc77b8c4d93840e5b6507cf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_BaseColor.png.meta",
+      "bytes": 3010,
+      "sha256": "f520a5805258bb02c849b01caa393574f64c1389d834527142eed8b31fedbdbc"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_JadeMask.png",
+      "bytes": 94257,
+      "sha256": "4c4ad17cf4ec5913020a3c580af7374276dc1be9c07d47be31f860b38e8fedf7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_JadeMask.png.meta",
+      "bytes": 3010,
+      "sha256": "2cb19d31675b6215c4baeabe0e2fd5d8851d97fb32cfb51829c0bae94e55ad4e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Metallic.png",
+      "bytes": 112705,
+      "sha256": "eff81370be8033b9ea458ab9a41b2d3826f3867e37ddaec05af801764e9547ab"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Metallic.png.meta",
+      "bytes": 3009,
+      "sha256": "ffa05f13423214185e61cd24336728eb44d41ccfb0890dccedcccdcb03995bdb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_MetallicSmoothness.png",
+      "bytes": 139476,
+      "sha256": "22b520f57edc54b4396fbf86ebea8975a4d66b8b5f1f12ae98a4435891a7f6bf"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_MetallicSmoothness.png.meta",
+      "bytes": 3010,
+      "sha256": "3bbb50ecd7128c1d9ae99e4de910ab15aecaf105d2cc19e8ee1ddd856f3db7a5"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_NormalGL.png",
+      "bytes": 527965,
+      "sha256": "e97f511c6ea1733d2a1c132b2cc686a87b50fa4aa8086cbc2e19f4ee61c2fbc2"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_NormalGL.png.meta",
+      "bytes": 3010,
+      "sha256": "2f8e96c976568f307e26d51d956b0148d05eec5b91bb5a222b260cbca5a80265"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_ORM.png",
+      "bytes": 912869,
+      "sha256": "c064d76f395da35a641d3f50a54b8ab92d55909171cc707d5eac08a5ef10a542"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_ORM.png.meta",
+      "bytes": 3009,
+      "sha256": "24eefc22059b43ca4636da448fca5ce018586429b47d4b153cf978afb5880629"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Roughness.png",
+      "bytes": 111658,
+      "sha256": "98387d6b4a316c7730f8a0648fb10b52c4516a0da03a431816b887e376a7fb24"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Roughness.png.meta",
+      "bytes": 3009,
+      "sha256": "d3c3257933a946d2adfc36064ae1ba08ee89b47acd4d80cd8fc27dab94ac368e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Thickness.png",
+      "bytes": 394042,
+      "sha256": "62ee125064e2dcc3f45504b359d98745d820aa2f586e0a2ced4b2300ff43c45c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures/QingGui_Thickness.png.meta",
+      "bytes": 3010,
+      "sha256": "32f07b65e8502d28dd50415f59a440ba4efe406afe594f9c7223c7567bedda54"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model/Textures.meta",
+      "bytes": 172,
+      "sha256": "9765905d8517b1f2f635f641d4245f079cc51ee78a9d10d9bc47cdf9dcb292dc"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/Model.meta",
+      "bytes": 172,
+      "sha256": "aa41a2949ab611d289dcc86583d460b96f5debb3e281150392ea0c1e06006044"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/QingGuiR02B.prefab",
+      "bytes": 54978,
+      "sha256": "2fcb9a792cfa97b134c67030a856d371202b7ec628c5448c1b2da7ee7dc51e7f"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/QingGuiR02B.prefab.meta",
+      "bytes": 154,
+      "sha256": "bde8420b98984f66c2adf6cf53d0c05d0e0d404ece429358aa27e4fa2f63a5e7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/QingGuiR02B_Lab.unity",
+      "bytes": 984668,
+      "sha256": "fd6edee82c20a145773814bf45977d1cbe89af94e362dbbc5a97ee4dee866bf7"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB/QingGuiR02B_Lab.unity.meta",
+      "bytes": 155,
+      "sha256": "966662b28c5efba0ee0d40332a1af5f0ca3a0ebb6dc5918cefee901c63abfa1a"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/RevisionB.meta",
+      "bytes": 172,
+      "sha256": "10091fd5d5cd581777cec3cec4426d18f458a9638ef9e20e42d38922b1a9cba6"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02LabController.cs",
+      "bytes": 4781,
+      "sha256": "dbe917d5adb5c7357194db593b9e08c521aadcdef80d54a1fc0c04a29fbc69b9"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02LabController.cs.meta",
+      "bytes": 59,
+      "sha256": "2db8e44dd4cfa4a1136d633df353ea6ac4449a9e75b1c31c3fc1c6eb0c112cfb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02MaterialTick.cs",
+      "bytes": 193,
+      "sha256": "d69db07cb6e1e2545f1b6a1104fb8e65aa295733883a0bd7816c33e6079e8e69"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02MaterialTick.cs.meta",
+      "bytes": 59,
+      "sha256": "ccd8dd820ad7de18856f50925b11ad6cfbde768dadd66c4c65d948d906169fbb"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewQuality.cs",
+      "bytes": 512,
+      "sha256": "132a5eb59dd1d632b36e56ca4a1521898fbd4c181caffc6f826ed983d03d83b1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewQuality.cs.meta",
+      "bytes": 59,
+      "sha256": "0d4d7059f7bb213dcacd194e311fbb6aff9d7e00a0aa2ef7955583ddc8a3b02d"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewTick.cs",
+      "bytes": 270,
+      "sha256": "ca8416c4648682ff7b0e2c6ce2121e41054db1f25d4288d68b3845fa57adde7c"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewTick.cs.meta",
+      "bytes": 59,
+      "sha256": "81aa2c7fa82f4ffbad3d53e92abc43dbbf5991d594073b085443cfd169ae5d7e"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewZone.cs",
+      "bytes": 8377,
+      "sha256": "37c2a73e5be49f72dd7665617655f856bd2115d046286700aeedb6a08d93f885"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime/QingGuiR02ReviewZone.cs.meta",
+      "bytes": 59,
+      "sha256": "e585923d163f4034f4f2e25f00b3f51ca8cb968042784b518b2000f59ee5c446"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Runtime.meta",
+      "bytes": 172,
+      "sha256": "dee9015c958847937dfe0acf04ca6312ed317379fea1d3bc0a7eb4f622001ca1"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiGoldForward.hlsl",
+      "bytes": 1160,
+      "sha256": "8c207a5838b2232ebb872025227dc393de45f9488a1700854ad444cfc60e1f6b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiGoldForward.hlsl.meta",
+      "bytes": 161,
+      "sha256": "a4a55b15ea6c1f8b8a25948dd2d0de9c3f67c5753bde1f20eb93763e3e7bbf4b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiGoldLit.shader",
+      "bytes": 6463,
+      "sha256": "2c5107c492a65c07df651c4e60fd51749bb4afeb19f7936c15af4c2f333ba935"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiGoldLit.shader.meta",
+      "bytes": 204,
+      "sha256": "05202d777b98c32d1dba24adc2312ce92ad0261aa1f88f15a5245a13067403f4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiJadeLit.shader",
+      "bytes": 6294,
+      "sha256": "3919248d515a72e191a3661d8bad80cf768ede52396ced49053c297c47214a60"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiJadeLit.shader.meta",
+      "bytes": 62,
+      "sha256": "8e7093c2a3688bba63ea42daedca5f0bc9ea60ce4f8088181f0678744e588211"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiJadeTransparent.shader",
+      "bytes": 4104,
+      "sha256": "b953f08e62db3df55a13e741e312e0accbb58104cf566931e990839f4a2ac585"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiJadeTransparent.shader.meta",
+      "bytes": 204,
+      "sha256": "5255b15f42ce09baa9fb6c1581402a8765ec8b43fc24740b5b08de54ca0b1d06"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiLitInput.hlsl",
+      "bytes": 13251,
+      "sha256": "2bf109e1214c7d4b768e68d70d74719af6c14f2f4038dedd3eb545799d6de38b"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiLitInput.hlsl.meta",
+      "bytes": 62,
+      "sha256": "cdcea4af9856189bfbddc633216d495553280ceaf44e95caa77ab87cfa4293a2"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiTransmission.hlsl",
+      "bytes": 4361,
+      "sha256": "d440492376aa0f7739ce945a84953b2bca340c2f0b11b529ba1157a5598b30e4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders/QingGuiTransmission.hlsl.meta",
+      "bytes": 62,
+      "sha256": "92f3660ada479100a544e0f384ccea429addd9b420d9711d6bb8d4e90340c9f4"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02/Shaders.meta",
+      "bytes": 172,
+      "sha256": "b6df136d4411aa63179fbeafefdd9e2413083b9cc85203f655d517fe1cefef58"
+    },
+    {
+      "relative_path": "Source/Assets/Review/QingGuiR02.meta",
+      "bytes": 172,
+      "sha256": "4925f39d15425cb03589fbcae42213877a3387ec987d406181ef6d66e58b38cb"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/GameItemBase.cs",
+      "bytes": 7352,
+      "sha256": "b92701987ff2d0683ee1bd107970fc3fae58267bc199085e4bdf417a667675fb"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/GameItemBase.cs.meta",
+      "bytes": 62,
+      "sha256": "dc2d37058cce676a7436944a5a2348acd4ea1e9f242f363d4718e31b3a096846"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/SnapItem.cs",
+      "bytes": 1856,
+      "sha256": "5a8c85a6abb697485a3b3f4ac0a5f28e2d59583e8076533363645c4dbbf83156"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/SnapItem.cs.meta",
+      "bytes": 59,
+      "sha256": "45c9b7acb7e2cee3acc2666da850ae4056d1626d732d744a1e0ef4c58402c09f"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/SnapZone.cs",
+      "bytes": 23813,
+      "sha256": "afe731cbf419866f0521a9fa5e83132a7c9478d183d1eac0e861be73574dca5e"
+    },
+    {
+      "relative_path": "Source/ProductionInputs/SnapZone.cs.meta",
+      "bytes": 59,
+      "sha256": "b5f33f4772b8633b623e50ebbef6b362e56ea197dd7c5e7ed5083a3bc4c1da9c"
+    },
+    {
+      "relative_path": "WireDiagnostics/01_Lit_PipelineBias1_1.png",
+      "bytes": 394308,
+      "sha256": "277cef91375b83f2e78ac104950f9754ff150233cd26b7101fb5ff5353071397"
+    },
+    {
+      "relative_path": "WireDiagnostics/02_UnlitGold_SameDepth.png",
+      "bytes": 348698,
+      "sha256": "b8a5a3727139b9e0d053b6c4df27be6f9ba64839460204fcd60e512ec78bfa60"
+    },
+    {
+      "relative_path": "WireDiagnostics/03_Lit_OnlyReceiveShadowsOff.png",
+      "bytes": 394309,
+      "sha256": "7cede05b91558bd13652c38f6315a4540ea2f15f9120408510b47c29788f3c9e"
+    },
+    {
+      "relative_path": "WireDiagnostics/04_ExplicitBias002_Normal0.png",
+      "bytes": 394308,
+      "sha256": "277cef91375b83f2e78ac104950f9754ff150233cd26b7101fb5ff5353071397"
+    },
+    {
+      "relative_path": "WireDiagnostics/05_ExplicitBias002_Normal005.png",
+      "bytes": 394308,
+      "sha256": "277cef91375b83f2e78ac104950f9754ff150233cd26b7101fb5ff5353071397"
+    },
+    {
+      "relative_path": "WireDiagnostics/06_OnlyWireCastingOff.png",
+      "bytes": 394308,
+      "sha256": "872e59560fa0e7111857639daf1f827205723fee5121b2cff68e6e20342ead96"
+    },
+    {
+      "relative_path": "WireDiagnostics/07_ExplicitBias002_Normal015.png",
+      "bytes": 394300,
+      "sha256": "a6054e05613578fc6fa07ee32feff380a0ddbd72d5aa7c299e400f07696c4241"
+    },
+    {
+      "relative_path": "WireMeshNormal/01_Lit_MeshNormals_PipelineBias1_1.png",
+      "bytes": 394309,
+      "sha256": "6ffdb72fe26fb913ba299d6cb49949a881ecd8e15607335c0b77f37b9647c762"
+    },
+    {
+      "relative_path": "WireSpecularAA/01_Lit_GeometricSpecAA_PipelineBias1_1.png",
+      "bytes": 387268,
+      "sha256": "e6a40cbff7880158c763b7526e1d08e30c005ef1f2ae390acaff5e4b19a01de4"
+    }
+  ]
+}

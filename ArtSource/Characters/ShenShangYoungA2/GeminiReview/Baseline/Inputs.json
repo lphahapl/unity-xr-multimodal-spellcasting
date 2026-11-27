@@ -1,0 +1,138 @@
+{
+  "version": "Baseline",
+  "inputs": [
+    {
+      "sheet": {
+        "path": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/Baseline/Face.jpg",
+        "sha256": "b66e7e7d98cc7bcd1c8dac64ba6ee8da33313f747b3f6d1fd65eadde6b9541cf"
+      },
+      "sources": [
+        {
+          "label": "A TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_脸部三向.png",
+          "sha256": "ed10ec1c8bb0a58e5b7faa5437553d916c5e3659f4c07ddff8a264e67c10ded3"
+        },
+        {
+          "label": "B MODEL",
+          "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Review/01_Face.png",
+          "sha256": "51349ae6aaba683c0dc61b2a059b747ef3ae437c4b4c516a47e9dcaf3a1dec54"
+        },
+        {
+          "label": "C MODEL",
+          "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Review/04_Profile.png",
+          "sha256": "95f9c2278de84965279aa60c26bf8bd8aac70519a2ceb6438cc24ecf71d09040"
+        }
+      ]
+    },
+    {
+      "sheet": {
+        "path": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/Baseline/Body.jpg",
+        "sha256": "f35f4b71d1e5e05d163432e71263c92a98675d432f8e223b4a2df2b727a5c4b7"
+      },
+      "sources": [
+        {
+          "label": "D TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2.png",
+          "sha256": "f51ad3175e25c37dd30506e66d629e855677912f10334a0412dbe3492bc8ef65"
+        },
+        {
+          "label": "E TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/views/01-front.png",
+          "sha256": "4ab276d934c3a088cbb5cf88b80a6b7e21978c76ed8ba8718f424fbe9159bae6"
+        },
+        {
+          "label": "F MODEL",
+          "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Review/02_FullBody.png",
+          "sha256": "2744805e7906d09065ff31672d364354037e52479d86c3b1be9c2c4b98158851"
+        },
+        {
+          "label": "G MODEL",
+          "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Review/03_Cloth.png",
+          "sha256": "24a9806a85f15c18617e72445629727cc2f4c041eaeac441ff7d0f5fefa18b3b"
+        },
+        {
+          "label": "H MODEL",
+          "path": "ArtSource/Characters/ShenShangYoungA2/Blender/Review/05_Back.png",
+          "sha256": "b84013949cc233056c9d59aa91b6feab10f8a95e07110906df8938fb7ab550bc"
+        }
+      ]
+    },
+    {
+      "sheet": {
+        "path": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/Baseline/Sides.jpg",
+        "sha256": "a5edca86637015d76aa8db61cd62f49064b715bb13a8ccbf09c886c8578c2558"
+      },
+      "sources": [
+        {
+          "label": "I TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/沈商_青年短摆_A2_四向.png",
+          "sha256": "4f6b6c7b2b1ee3ea4c45bf150bb469def021e560634de109ea82755df226d1a7"
+        },
+        {
+          "label": "J TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/views/02-left-bracer.png",
+          "sha256": "66dd6e06602098283e0fa4d839d42b2a310fb88f8b99effa9e35cf431b785b71"
+        },
+        {
+          "label": "K TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/views/03-back.png",
+          "sha256": "bcf564a1e60240fb6a6b8b201e2eaf50eace348c0c49f8b5d83c247d7ed3590d"
+        },
+        {
+          "label": "L TARGET",
+          "path": "docs/visuals/20261125_shen_shang_young/views/04-right-wrap.png",
+          "sha256": "508c85efab3a73da7d0236ee6752996219945aae995b0f6c570a63294307a51e"
+        }
+      ]
+    }
+  ],
+  "beltCheck": {
+    "character": {
+      "path": "ArtSource/Characters/ShenShangYoungA2/Blender/ShenShang_Young_A2.glb",
+      "sha256": "eb1405b030a565fef292a53cf25c19c9d3fc13a51cccb405bf9b1b570c905f72"
+    },
+    "embeddedKitMeshNodes": [
+      "A2 Harness | backed chest band",
+      "A2 Harness | bound chest welt",
+      "A2 Harness | bound chest welt.001",
+      "A2 Harness | close-fitted shoulder baldric",
+      "A2 Harness | shaped folded edge",
+      "A2 Harness | shaped folded edge.001",
+      "A2 Kit | brush handle",
+      "A2 Kit | copper ferrule",
+      "A2 Kit | copper ferrule.001",
+      "A2 Kit | copper ferrule.002",
+      "A2 Kit | copper ferrule.003",
+      "A2 Kit | keeper",
+      "A2 Kit | keeper.001",
+      "A2 Kit | stake cap",
+      "A2 Kit | vertical bound edges",
+      "A2 Kit | vertical bound edges.001",
+      "A2 Kit | vertical bound edges.002",
+      "A2 Kit | vertical bound edges.003",
+      "A2 Pocket 1 | brush sleeve",
+      "A2 Pocket 1 | doubled lip",
+      "A2 Pocket 2 | doubled lip",
+      "A2 Pocket 2 | writing slip",
+      "A2 Pocket 3 | doubled lip",
+      "A2 Pocket 3 | drawstring purse",
+      "A2 Pocket 4 | doubled lip",
+      "A2 Pocket 4 | rubbing case",
+      "A2 Pocket 5 | doubled lip",
+      "A2 Pocket 5 | stake tube",
+      "A2 Pouch | bronze stud",
+      "A2 Pouch | gathered cord",
+      "A2 Pouch | gathered cord.001",
+      "A2 Pouch | saddle stitched flap edge",
+      "A2 Pouch | soft leather flap",
+      "A2 Pouch | tie",
+      "A2 Pouch | tie.001"
+    ],
+    "separateToolBeltPrefab": {
+      "path": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+      "sha256": "8dececcbf88dee1af73ae1b9131001bb0d9b8af3c0f1fcf70f79c0052d8fc385"
+    },
+    "prefabSourceMeshInstances": 6,
+    "entryAnchors": 5
+  }
+}

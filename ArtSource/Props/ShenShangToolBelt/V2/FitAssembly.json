@@ -1,0 +1,214 @@
+{
+  "bodyCollisions": {},
+  "partCollisions": {
+    "PenSleeve": {},
+    "FlatSleeve": {},
+    "SoftPouch": {},
+    "WoodCase": {},
+    "TallSleeve": {}
+  },
+  "placements": [
+    {
+      "name": "PenSleeve",
+      "unityPosition": [
+        0.13606251776218414,
+        0.008999999612569809,
+        -0.0027030433993786573
+      ],
+      "unityQuaternion": [
+        -0.026932600885629654,
+        0.30784109234809875,
+        -0.08289001882076263,
+        0.9474374651908875
+      ],
+      "blenderPosition": [
+        -0.13606251776218414,
+        0.0027030433993786573,
+        0.008999999612569809
+      ],
+      "outwardSpacerMm": 0,
+      "meshBackMetres": 0.01260454673320055,
+      "changed": true
+    },
+    {
+      "name": "FlatSleeve",
+      "unityPosition": [
+        0.07515600323677063,
+        0.007000000216066837,
+        0.001116267405450344
+      ],
+      "unityQuaternion": [
+        0,
+        0.20023054686348588,
+        0,
+        0.9797488086763614
+      ],
+      "blenderPosition": [
+        -0.07515600323677063,
+        -0.001116267405450344,
+        0.007000000216066837
+      ],
+      "outwardSpacerMm": 4.0,
+      "meshBackMetres": 0.008479016833007336,
+      "changed": true
+    },
+    {
+      "name": "SoftPouch",
+      "unityPosition": [
+        6.767716165256843e-09,
+        0.004999999888241291,
+        0.02032778039574623
+      ],
+      "unityQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "blenderPosition": [
+        -6.767716165256843e-09,
+        -0.02032778039574623,
+        0.004999999888241291
+      ],
+      "outwardSpacerMm": 0,
+      "meshBackMetres": 0.015272179618477821,
+      "changed": true
+    },
+    {
+      "name": "WoodCase",
+      "unityPosition": [
+        -0.10355319827795029,
+        0.006000000052154064,
+        0.0028517572209239006
+      ],
+      "unityQuaternion": [
+        0.0,
+        -0.25299885869026184,
+        0.0,
+        0.9674665331840515
+      ],
+      "blenderPosition": [
+        0.10355319827795029,
+        -0.0028517572209239006,
+        0.006000000052154064
+      ],
+      "outwardSpacerMm": 0,
+      "meshBackMetres": 0.021972699090838432,
+      "changed": false
+    },
+    {
+      "name": "TallSleeve",
+      "unityPosition": [
+        -0.15296466648578644,
+        0.00800000037997961,
+        -0.03227107226848602
+      ],
+      "unityQuaternion": [
+        0.0,
+        -0.30901703238487244,
+        0.0,
+        0.9510564804077148
+      ],
+      "blenderPosition": [
+        0.15296466648578644,
+        0.03227107226848602,
+        0.00800000037997961
+      ],
+      "outwardSpacerMm": 0,
+      "meshBackMetres": 0.016530169174075127,
+      "changed": false
+    }
+  ],
+  "interPartCollisions": {
+    "PenSleeve": {},
+    "FlatSleeve": {},
+    "SoftPouch": {},
+    "WoodCase": {},
+    "TallSleeve": {}
+  },
+  "bodyCollisionPoints": {},
+  "flatSleeveAdjustment": {
+    "oldUnityPosition": [
+      0.10608974099159241,
+      0.007000000216066837,
+      -0.010719327256083488
+    ],
+    "entryAnchorUnityPosition": [
+      0.07515600323677063,
+      0.09700000379234552,
+      0.001116267405450344
+    ],
+    "entryInsertDirectionUnity": [
+      0,
+      -1,
+      0
+    ],
+    "supportBaseBlenderMetres": [
+      -0.06884197145700455,
+      0.009647507220506668,
+      0.028549790382385254
+    ],
+    "supportBlenderRadialAngle": -0.5305084930284737,
+    "bodySupportEdit": {
+      "movedVertices": 38,
+      "exactControlPoints": 38,
+      "meshTriangles": 3504,
+      "guideFitErrorMillimetres": 0.00012294869122797536
+    },
+    "supportFit": {
+      "archOutwardMetres": 0.0079,
+      "supportInsetMetres": -0.00425,
+      "pocketClearanceFromArchMm": 0.196632303413935
+    },
+    "arcDefinitionAndMeasurements": {
+      "convention": "Actual fitted lower-chest belt arc from profile, at fractional band height .45 with approved surface relief and 6.9 mm reference outward offset. Endpoints are unchanged registered support axes from LayoutBase, not world centres or piece edges.",
+      "referenceRank": [
+        [
+          "SoftPouch",
+          -4.6193599700927736e-08,
+          142.4029034134573
+        ],
+        [
+          "WoodCase",
+          0.6731015846133231,
+          240.31173832659485
+        ],
+        [
+          "TallSleeve",
+          1.0221134468913076,
+          298.8032538553395
+        ]
+      ],
+      "endpointsRadians": [
+        -0.8917442992329595,
+        -4.6193599700927736e-08
+      ],
+      "midpointRadians": -0.5305084930284737,
+      "halfArcMillimetres": [
+        71.2015951833271,
+        71.20384433714602
+      ],
+      "midpointSupportRefBlenderMetres": [
+        -0.06884197145700455,
+        0.009647507220506668,
+        0.028549790382385254
+      ]
+    },
+    "minimumClearanceDiagnosticsLod0Mm": {
+      "position": [
+        -0.07515600323677063,
+        -0.001116267405450344,
+        0.007000000216066837
+      ],
+      "yaw": -0.40318645470164,
+      "t": -0.5305084930284737,
+      "clearSoft": 9.452431462705135,
+      "clearPen": 30.49943409860134,
+      "extra": 0.004,
+      "dyaw": 0,
+      "zmm": 0,
+      "bodyClear": 1.7225154442712665,
+      "charClear": 9.663903154432774
+    }
+  }
+}

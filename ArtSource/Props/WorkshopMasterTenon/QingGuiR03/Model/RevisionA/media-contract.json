@@ -1,0 +1,96 @@
+{
+  "status": "FROZEN",
+  "asset": "QingGuiR03_StructureA",
+  "frozen_at": "2026-11-26T14:58:27.993292+08:00",
+  "model_manifest": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\frozen-manifest.json",
+  "media": [
+    {
+      "id": "three_parts_clay",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\12_ThreeActualPartsExploded.png",
+      "relative_path": "StructurePreview/12_ThreeActualPartsExploded.png",
+      "label": "说明性拆件：玉芯 / 铜框 / 18条独立金丝",
+      "origin": "Actual separated meshes from this RevisionA; same untextured grey material; not gameplay disassembly",
+      "sha256": "952aea654bd3f0b805bf9616ad3cde9d905064b7d55efc3280aaa4b117362fb9",
+      "bytes": 1813553
+    },
+    {
+      "id": "clay_assembly",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\11_UntexturedClayAssembly.png",
+      "relative_path": "StructurePreview/11_UntexturedClayAssembly.png",
+      "label": "真实三件装配：统一无贴图灰模",
+      "origin": "Actual same candidate meshes; no Normal texture or jade shader",
+      "sha256": "1b8e9a662f7bea1c5e80e57c7b44adeb9d04c594a354c703d76762d44dd12281",
+      "bytes": 1137994
+    },
+    {
+      "id": "assembly_pbr",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\01_Assembled45.png",
+      "relative_path": "StructurePreview/01_Assembled45.png",
+      "label": "A 结构材质装配",
+      "origin": "Actual Blender Cycles; not Unity final jade appearance",
+      "sha256": "9a0ec27847321ada7fd948b1ebcd67744b2e4ef727a5ae67974fa8c2c5703300",
+      "bytes": 1231528
+    },
+    {
+      "id": "crown_tail",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\02_CrownTailClose.png",
+      "relative_path": "StructurePreview/02_CrownTailClose.png",
+      "label": "铜帽实体终止与孔口",
+      "origin": "Actual RevisionA meshes",
+      "sha256": "0c1705a564f15549c17d678ee762eba885c4dfb52a5048ed652972e68ae52e20",
+      "bytes": 1321562
+    },
+    {
+      "id": "back_scale",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\03_BackHeld.png",
+      "relative_path": "StructurePreview/03_BackHeld.png",
+      "label": "背面正常比例",
+      "origin": "Actual RevisionA meshes",
+      "sha256": "be4c929875ed2c7eef5edd7a61d2cf9d340a307d495ef8a6bc859998c9cad1c8",
+      "bytes": 1187695
+    },
+    {
+      "id": "receiving_pocket",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\05_JadeReceivingPocket.png",
+      "relative_path": "StructurePreview/05_JadeReceivingPocket.png",
+      "label": "移去铜件后的完整玉芯承口",
+      "origin": "Actual closed JadeCore; structure-only material",
+      "sha256": "a25d3a33eb5720181d9668c28517e36241d69ced67bb15871c8a0a8802657fb7",
+      "bytes": 1192444
+    },
+    {
+      "id": "bronze_interior",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\StructurePreview\\06_BronzeInterior.png",
+      "relative_path": "StructurePreview/06_BronzeInterior.png",
+      "label": "铜框独立内壁与端面",
+      "origin": "Actual closed BronzeFrame; crown segment limits retained",
+      "sha256": "67dfe58b11dc5e314de5f07e0d9176a161c925e7921f0350c597a9e11f1d2fd0",
+      "bytes": 1253775
+    },
+    {
+      "id": "structure_glb",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.glb",
+      "relative_path": "QingGuiR03_StructureCandidate.glb",
+      "label": "R03 A 三件结构旋转预览",
+      "origin": "Standard PBR GLB, no Unity jade shader",
+      "sha256": "6b7f8b1c1c52e04d77dd8ec29839ccb272e965490137c140e0c0d41b494723bf",
+      "bytes": 1061076
+    },
+    {
+      "id": "thickness",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\CandidateTextures\\QingGuiR03_JadeCore_Thickness.png",
+      "relative_path": "CandidateTextures/QingGuiR03_JadeCore_Thickness.png",
+      "label": "新玉芯逐像素真实厚度",
+      "origin": "1930932 UV texel rays matching CORNER normals; R×.12m, limits in ray report",
+      "sha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+      "bytes": 289444
+    }
+  ],
+  "presentation_rules": [
+    "11/12 are the requested same-version clay assembly and full three-part exploded view.",
+    "Do not use old two-part04 as full three-part clay.",
+    "Blender views are not Unity screenshots; root provides actual Unity evidence.",
+    "This is a structural first sample, not complete optimized game art.",
+    "Keep first R03 and R02B history available."
+  ]
+}

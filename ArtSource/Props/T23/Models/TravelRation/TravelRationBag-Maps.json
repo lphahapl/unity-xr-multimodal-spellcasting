@@ -1,0 +1,62 @@
+{
+  "source": "TravelRationBag.glb",
+  "sourceHash": "6524efdf8f9295baedcc2b46ef002a5410df404618e8bf251b2c3989933c6974",
+  "provider": "Tencent Hunyuan3D",
+  "mapNotes": {
+    "BaseColor": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "e924de915798fdd8a47b4028ba85776345d273d53edccaafc703bdb9abc1e1b5"
+    },
+    "NormalGL": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "e877efc3e410dedd9a5007ad9407f83f78e2a148d2fbc979b1fe05afbc333ef3"
+    },
+    "MetalRough": {
+      "source": "glb embedded",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "sha256": "0307d5593f69b7c158af6da2a2a8c2f18c12394b088b0d913828733bf5cd97aa"
+    },
+    "Occlusion": {
+      "source": "editor constant",
+      "value": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "outputs": {
+    "BaseColor": {
+      "sha256": "7f4fed08db6e3c6ad020d48e94c3b18610e931180128e7f8582dda2322f73898",
+      "width": 1024,
+      "height": 1024
+    },
+    "NormalGL": {
+      "sha256": "4b1b82d49a78ba6f5225f6c258fce8b62759c967965588b045ae1a0f17818ebb",
+      "width": 1024,
+      "height": 1024
+    },
+    "Mask": {
+      "sha256": "8e85bbaee3471a03006f1a2a79fa3681a27828e36a2a02340f59758490fc7d79",
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  "fabricTreatment": {
+    "source": "Cloud atlas with woven fabric selected by color/material",
+    "metallicReduction": "Up to zero",
+    "roughnessFloor": "0.80 at full selection",
+    "notes": "No procedural high-frequency normal was added to protect mip stability"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "paths": {
+    "woodCase": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\ShenShangToolBelt\\Geometry\\WoodCase\\WoodCase.fbx",
+    "pen": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Props\\MoGuiPen\\Geometry\\MoGuiPen.fbx"
+  },
+  "sha256": {
+    "woodCase": "0d26dcabced654e68f9f956d39fb73c3bc37d5a031af83e0a132396ca46985e0",
+    "pen": "fa8028cb47d0f8b284a5a55a644f7d113dd027a4ea9b72ae12c716c5558ffa53"
+  },
+  "fixed_entry_point_blender_m": [
+    0.0,
+    0.0,
+    0.092
+  ],
+  "rotation": "Blender R_x(+90deg); corresponds to pen +Z vertically down, pen +Y toward case nose/world -Y Blender",
+  "lods": {
+    "WoodCase_LOD0/MoGuiPen_LOD0": {
+      "first_sample_colliding_mm": 82.5,
+      "deepest_continuously_clear_sample_mm": 82.25,
+      "counts_at_52_55_60_65_70_75_80_85mm": {
+        "52": 0,
+        "55": 0,
+        "60": 0,
+        "65": 0,
+        "70": 0,
+        "75": 0,
+        "80": 0,
+        "85": 76
+      },
+      "grip_above_entry_at_52_mm": 56.00000280141769,
+      "first_collision_bracket_mm": [
+        82.434814453125,
+        82.43505859375
+      ]
+    },
+    "WoodCase_LOD0/MoGuiPen_LOD1": {
+      "first_sample_colliding_mm": 82.5,
+      "deepest_continuously_clear_sample_mm": 82.25,
+      "counts_at_52_55_60_65_70_75_80_85mm": {
+        "52": 0,
+        "55": 0,
+        "60": 0,
+        "65": 0,
+        "70": 0,
+        "75": 0,
+        "80": 0,
+        "85": 44
+      },
+      "grip_above_entry_at_52_mm": 56.00000280141769,
+      "first_collision_bracket_mm": [
+        82.434814453125,
+        82.43505859375
+      ]
+    },
+    "WoodCase_LOD1/MoGuiPen_LOD0": {
+      "first_sample_colliding_mm": 82.5,
+      "deepest_continuously_clear_sample_mm": 82.25,
+      "counts_at_52_55_60_65_70_75_80_85mm": {
+        "52": 0,
+        "55": 0,
+        "60": 0,
+        "65": 0,
+        "70": 0,
+        "75": 0,
+        "80": 0,
+        "85": 78
+      },
+      "grip_above_entry_at_52_mm": 56.00000280141769,
+      "first_collision_bracket_mm": [
+        82.385498046875,
+        82.3857421875
+      ]
+    },
+    "WoodCase_LOD1/MoGuiPen_LOD1": {
+      "first_sample_colliding_mm": 82.5,
+      "deepest_continuously_clear_sample_mm": 82.25,
+      "counts_at_52_55_60_65_70_75_80_85mm": {
+        "52": 0,
+        "55": 0,
+        "60": 0,
+        "65": 0,
+        "70": 0,
+        "75": 0,
+        "80": 0,
+        "85": 46
+      },
+      "grip_above_entry_at_52_mm": 56.00000280141769,
+      "first_collision_bracket_mm": [
+        82.385498046875,
+        82.3857421875
+      ]
+    }
+  }
+}

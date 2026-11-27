@@ -1,0 +1,78 @@
+{
+  "provider": "Tencent Hunyuan 3D V3.1, image to 3D",
+  "scope": "Download result identifiers and FBX proofs for the selected outputs",
+  "jobs": [
+    {
+      "part": "BeltBody",
+      "hunyuanDownloadStem": "e408ae1eb8a959a37fe23e4ebecd76c1",
+      "originalTriangles": 50000,
+      "originalBytes": 44826008,
+      "originalSha256": "bf79a9ec248dc0eefd6d34e5e4305eb44aacdd74485052e5eeb5e40350bc3c06",
+      "fbxSha256": "e0dc951fbfa506adc2a65841893daf2285ec27925d33792ac652ed0983ebb15a",
+      "lodTriangles": [
+        3300,
+        1100
+      ]
+    },
+    {
+      "part": "PenSleeve",
+      "hunyuanDownloadStem": "3786684cdf1fa5873463b00c09e587db",
+      "originalTriangles": 49994,
+      "originalBytes": 33549156,
+      "originalSha256": "4c63c34f90d545735c68d17df573fe90fc47b13abb0c71d6da8a13023cf67fac",
+      "fbxSha256": "5712ed5cc541d1c74ef0325d4b2d1f23daee55d79f687e179568ea4561d1676e",
+      "lodTriangles": [
+        1718,
+        768
+      ]
+    },
+    {
+      "part": "FlatSleeve",
+      "hunyuanDownloadStem": "c246ef052def1386bf8b4823c6b18f71",
+      "originalTriangles": 50000,
+      "originalBytes": 23390836,
+      "originalSha256": "ef3a05f7be0d91e2e0f171bf7d23e2bf20a13b96af6ee0b6aabb4921f02cc58c",
+      "fbxSha256": "5036900e1c04479fad069bdd34d64da1e4ba824e4ffc2e7c6109bf43b6daab0b",
+      "lodTriangles": [
+        1720,
+        712
+      ]
+    },
+    {
+      "part": "SoftPouch",
+      "hunyuanDownloadStem": "7863ade748eea90568c665b8fa981794",
+      "originalTriangles": 50000,
+      "originalBytes": 36269628,
+      "originalSha256": "924331f0fa1a6fc13534459f12ea41cefd4b88e87ff8bf0307121401d638c1d9",
+      "fbxSha256": "28266c1914bd0cd280d6581462e1571ceae9c83719289cac63daa02f1bb07954",
+      "lodTriangles": [
+        2988,
+        1186
+      ]
+    },
+    {
+      "part": "WoodCase",
+      "hunyuanDownloadStem": "9bec9c9b30d112e66012750406ee6c2b",
+      "originalTriangles": 50000,
+      "originalBytes": 39264672,
+      "originalSha256": "d738aff449bd5a704046f07aa65480800ecbd8a3f103689daf65213495b3a9cd",
+      "fbxSha256": "0d26dcabced654e68f9f956d39fb73c3bc37d5a031af83e0a132396ca46985e0",
+      "lodTriangles": [
+        2200,
+        760
+      ]
+    },
+    {
+      "part": "TallSleeve",
+      "hunyuanDownloadStem": "8c3805490bca26de5765679afbeba59a",
+      "originalTriangles": 50000,
+      "originalBytes": 28892248,
+      "originalSha256": "b51c8054367580d8dce54778e258cee27daa5d5602e58453239a45f9e8a632be",
+      "fbxSha256": "d9c453ed8e40867a232ca96655e36aad1c77da7f46d5043865c05af97b18d3a5",
+      "lodTriangles": [
+        1742,
+        630
+      ]
+    }
+  ]
+}

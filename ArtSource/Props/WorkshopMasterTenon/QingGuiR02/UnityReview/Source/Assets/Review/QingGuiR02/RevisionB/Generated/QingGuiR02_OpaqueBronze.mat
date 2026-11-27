@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: QingGuiR02_OpaqueBronze
+  m_Shader: {fileID: 4800000, guid: ae2216e740aa55a399dc1d11744b2267, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _CLEARCOAT
+  - _METALLICSPECGLOSSMAP
+  - _OCCLUSIONMAP
+  m_InvalidKeywords:
+  - _NORMALMAP
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3001
+  stringTagMap: {}
+  disabledShaderPasses:
+  - DepthOnly
+  - DepthNormals
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 5591deddd60dd734086194fb0c64f083, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 969152b2ecba9984392bae85a24976f6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _JadeCloud:
+        m_Texture: {fileID: 11700000, guid: 28c0064d669ae7a41a8dcb5fb1599fe5, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _JadeMask:
+        m_Texture: {fileID: 2800000, guid: bd3e9a92d67ac0e42b072f211b2febf0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 2800000, guid: 4ce185a9db4eb0847afc880118e852e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: b1dec6eeb28cf1a49b652cdf8ac835ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ThicknessMap:
+        m_Texture: {fileID: 2800000, guid: 7dd196babc89747408926c25a4c23289, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 1
+    - _ClearCoatMask: 0.6
+    - _ClearCoatSmoothness: 0.9
+    - _CloudScaleMetres: 0.06
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DepthColorStrength: 0.08
+    - _ExitBiasMetres: 0.001
+    - _InnerDepthMetres: 0.012
+    - _JadeLayerMode: 1
+    - _JadeTransparency: 0.5
+    - _Metallic: 1
+    - _MinimumLightCosine: 0.01
+    - _OcclusionStrength: 1
+    - _ScatterStrength: 0.25
+    - _Smoothness: 1
+    - _Surface: 0
+    - _ThicknessMaxMetres: 0.12
+    - _TransmissionDebug: 0
+    - _TransmissionStrength: 0.55
+    m_Colors:
+    - _AbsorptionPerMetre: {r: 22, g: 24, b: 30, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BoundsMaxOS: {r: 0.00053544913, g: 0.0005343835, b: 0.003500181, a: 0}
+    - _BoundsMinOS: {r: -0.000565, g: -0.0005344109, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

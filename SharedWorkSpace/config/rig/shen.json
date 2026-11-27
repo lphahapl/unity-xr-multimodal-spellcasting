@@ -547,6 +547,39 @@
           "text": "同一份已通过外观审阅的 Blender 模型。工作台将头皮纹理的纵向边缘设为夹紧，修复放大时额前出现的极淡 V 线。送审时的原 GLB 与审阅图已保留。"
         }
       ]
+    },
+    {
+      "id": "shen-face-clean-r8",
+      "label": "净肤调色 R8",
+      "filename": "ShenShang_FaceClean_R8.glb",
+      "files": [
+        "shen-face-clean-r8/ShenShang_FaceClean_R8.glb",
+        "shen-face-clean-r8/ShenShang_FaceColor_R8.png"
+      ],
+      "created": 1795530805967,
+      "notes": [
+        {
+          "id": "r8-face-color",
+          "created": 1795530805967,
+          "text": "从 R7 调整额头、鼻梁和两颊的底色，淡化深褐斑点，保留眉眼、唇线和短胡茬。可旋转至侧光观察颧颊，在此版本批注。"
+        },
+        {
+          "id": "fb2a8692-8bf9-449b-815e-1243a1a2b2e7",
+          "text": "可以暂时使用这个版本，存档导入unity",
+          "created": 1795541647149
+        }
+      ]
+    },
+    {
+      "id": "shen-face-clean-r8-running",
+      "label": "净肤 R8 · Mixamo 跑步回件",
+      "filename": "ShenShang_R8_Running.glb",
+      "files": [
+        "shen-face-clean-r8-running/ShenShang_R8_Running.glb",
+        "shen-face-clean-r8/ShenShang_FaceColor_R8.png"
+      ],
+      "created": 1795551535661,
+      "notes": []
     }
   ],
   "defaultVersion": "shen-archive-08"

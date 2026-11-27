@@ -1,0 +1,127 @@
+{
+  "frozen_at": "2026-11-25T13:50:39.905870+08:00",
+  "main_source_inputs_unchanged": true,
+  "passed_lab_scene_prefab_package_unchanged": true,
+  "visual_supplement_script_sha256": "f053a639459c5ceea0c3e4028b78630ec2d07f0a765fa356360c8cc6ec53412c",
+  "runtime_grab_boundary": "Keyboard/panel and synthetic API calls only. Meta/XR grab events NOT wired; real headset grab entry not connected or verified.",
+  "neutral_comparison": {
+    "warm": {
+      "same_screen_top_face_polygon_mean_rgb": [
+        242.25101763907733,
+        247.8272274988693,
+        231.4364540931705
+      ],
+      "top_face_all_channels_ge_250_fraction": 0.2858435097241067,
+      "body_patch_mean_rgb": [
+        205.89104081632652,
+        210.4999387755102,
+        173.68751020408163
+      ]
+    },
+    "neutral": {
+      "same_screen_top_face_polygon_mean_rgb": [
+        200.11714156490277,
+        218.06965174129354,
+        213.60560832202623
+      ],
+      "top_face_all_channels_ge_250_fraction": 0.0,
+      "body_patch_mean_rgb": [
+        155.52138775510204,
+        168.13797959183674,
+        157.42057142857144
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\01_TwoSeparateStations.png",
+      "sha256": "8a19436282471cf2da02dd12a11b36ff442a9d99f5275443d7baabf852dbbd4f",
+      "bytes": 475471
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\02_NearHand_Front45_1to1.png",
+      "sha256": "4dd9632fbd90abc1b050f29faca46a53b4e281d560ec0164959bc42197897dcb",
+      "bytes": 247778
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\03_BackSide_1to1.png",
+      "sha256": "f51532ff4f2558b4574ca877414952d76f2f7a10ceb4278878e1a69a12ede040",
+      "bytes": 474784
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\04_SideLight_1to1.png",
+      "sha256": "3c987d96652b43d0243ad2d43d605edf5829c1c2945cc4e2a110628e04178f55",
+      "bytes": 168857
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\05_PhysicalDropOnDisplay.png",
+      "sha256": "8f769b6bda4449874a7996490149323e1eda38ca766d10fbcc901c865d5971c9",
+      "bytes": 366035
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\06_ActualSocketTop_EmptyOpening.png",
+      "sha256": "122c91ff1900bd7a8efe06b777f93b39c080da2dff2fcc1f192b0cf08397357b",
+      "bytes": 1188942
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\07_AboveActualOpening.png",
+      "sha256": "3ec7eed1bf44fd45ee4f239b37d28caf9a3df8940b0b9603eb53e163f21810c0",
+      "bytes": 807857
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\08_Inserted_Front45.png",
+      "sha256": "6da798882aa7546a82ef4e84beda66a496b30c636071347d24db4b4ec517bc4f",
+      "bytes": 754568
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\09_Inserted_Side.png",
+      "sha256": "ab41f73f7e4d393a5944d6f6f2afad59d8a7e36ccd46ffd8249d16d201fa2252",
+      "bytes": 577901
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\10_InsertedTop.png",
+      "sha256": "987189ed8602966a30e638db60330bdc56045226789a9da46293d83ec9fcd62f",
+      "bytes": 974001
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Images\\11_FinalOverview.png",
+      "sha256": "63151c18b1828bac324f8d31e7c91a1bca8fd9c528650fdf67f5da68cd2020d1",
+      "bytes": 471695
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\NeutralLighting\\01_NearHand_Front45_Neutral.png",
+      "sha256": "d90d917e78f6f2b09dfb71d2798b8b458dda9959767a16b1586677e314fc6996",
+      "bytes": 235817
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\NeutralLighting\\02_SideLight_Neutral.png",
+      "sha256": "e89020f06da4610983ce30029532869a1dcd82e4ca01df50edc4ce3b812eb914",
+      "bytes": 162170
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\NeutralLighting\\03_Inserted_Front45_Neutral.png",
+      "sha256": "9968a664a87d0481eb464ffa2671fad89a0a7c2519c7d9f09619bde94d4a6395",
+      "bytes": 711452
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Proposal\\01_Closed_TopEdgeStops.png",
+      "sha256": "31864609bb9abe9575749d2433865f8813679b7296bdf60ad92e035251964b3f",
+      "bytes": 383757
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Proposal\\02_Retracted_ClearTop.png",
+      "sha256": "0ff7c7090d6eee4f6be6c1b065a9ad6ab14544862ab485f9d672ff1d99578f2a",
+      "bytes": 383175
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\Insertion_ActualUnity.mp4",
+      "sha256": "7f0144260b10d23acacfc826f79fc4d87a551c20f94782f419e03420ab880547",
+      "bytes": 236682
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R01\\UnityReview\\WorkshopMasterTenonR01_UnityReview.unitypackage",
+      "sha256": "8cb7909f103255cde4ac76dec37adcc03e17c448c4bd3bd6f5fe66db4c5d6397",
+      "bytes": 17821105
+    }
+  ]
+}

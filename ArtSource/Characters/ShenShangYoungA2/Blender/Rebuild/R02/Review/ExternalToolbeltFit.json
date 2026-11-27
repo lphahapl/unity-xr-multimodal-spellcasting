@@ -1,0 +1,17 @@
+{
+  "source": "SharedWorkSpace\\assets\\shenshang-toolbelt\\assembled-v1.glb",
+  "sourceSHA256": "1041b462e8b09a24d95e0265c5b483d7b8d8b74c8adc2b59e906f58a0ac15a8d",
+  "prefab": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+  "wearer": "ShenShang_R02",
+  "components": [
+    "BeltBody",
+    "FlatSleeve",
+    "PenSleeve",
+    "SoftPouch",
+    "TallSleeve",
+    "WoodCase"
+  ],
+  "fitting": "Non-persistent, per-vertex wrap of the independent textured belt and shoulder sling in review render only. Front fittings keep original geometry with a common curvature around the torso.",
+  "bakedIntoCharacter": false,
+  "runtimeClothOrSkinningTested": false
+}

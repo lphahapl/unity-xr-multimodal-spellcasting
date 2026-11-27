@@ -1,0 +1,171 @@
+{
+  "tool": "5.2.2 LTS",
+  "fbxSha256": "fa8028cb47d0f8b284a5a55a644f7d113dd027a4ea9b72ae12c716c5558ffa53",
+  "reference": "docs/visuals/\u6c88\u5546_\u58a8\u89c4\u7b14_\u65b9\u68483_\u4e09\u89c6\u56fe.jpg",
+  "blenderAuthoringChecks": {
+    "MoGuiPen_LOD0": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.0079 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.0079,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "MoGuiPen_LOD0": {
+          "verts": 1116,
+          "faces": 2228,
+          "tris": 2228,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 78.6
+        }
+      },
+      "triangles": 2228,
+      "bounds": [
+        [
+          -0.007782390806823969,
+          0.007890000008046627
+        ],
+        [
+          -0.1080000028014183,
+          0.1357775628566742
+        ],
+        [
+          -0.007863051258027554,
+          0.007863051258027554
+        ]
+      ]
+    },
+    "MoGuiPen_LOD1": {
+      "ok": true,
+      "pass": true,
+      "errors": [],
+      "warnings": [
+        "asset lowest point z=-0.0078 (not resting on ground plane z=0)"
+      ],
+      "ground_z": -0.0078,
+      "zfighting": [],
+      "floating": [],
+      "back_to_back": [],
+      "enclosed": [],
+      "objects": {
+        "MoGuiPen_LOD1": {
+          "verts": 403,
+          "faces": 802,
+          "tris": 802,
+          "ngons": 0,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "wire_edges": 0,
+          "loose_verts": 0,
+          "degenerate_faces": 0,
+          "zero_length_edges": 0,
+          "inconsistent_normals_edges": 0,
+          "duplicate_verts": 0,
+          "islands": 2,
+          "inside_out_islands": 0,
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "materials": 1,
+          "uv_maps": 1,
+          "uv_oob_pct": 0.0,
+          "uv_zero_area_faces": 0,
+          "uv_overlap_pct": 0.0,
+          "uv_coverage_pct": 78.6
+        }
+      },
+      "triangles": 802,
+      "bounds": [
+        [
+          -0.007570399437099695,
+          0.007890000008046627
+        ],
+        [
+          -0.1080000028014183,
+          0.13583999872207642
+        ],
+        [
+          -0.00780969113111496,
+          0.00780969113111496
+        ]
+      ]
+    }
+  },
+  "fbxImport": {
+    "MoGuiPen_LOD0": {
+      "triangles": 2228,
+      "vertices": 1116,
+      "material": "MoGuiPen_Atlas",
+      "actual_nib_blender_m": [
+        0.0,
+        -0.1080000028014183,
+        8.15377365626091e-09
+      ],
+      "intended_nib_unity_m": [
+        0,
+        0,
+        0.108
+      ],
+      "length_m": 0.2437775656580925,
+      "dimensions_m": [
+        0.015672391280531883,
+        0.015726102516055107,
+        0.2437775731086731
+      ]
+    },
+    "MoGuiPen_LOD1": {
+      "triangles": 802,
+      "vertices": 403,
+      "material": "MoGuiPen_Atlas",
+      "actual_nib_blender_m": [
+        0.0,
+        -0.1080000028014183,
+        8.15377365626091e-09
+      ],
+      "intended_nib_unity_m": [
+        0,
+        0,
+        0.108
+      ],
+      "length_m": 0.24384000152349472,
+      "dimensions_m": [
+        0.01546039991080761,
+        0.01561938226222992,
+        0.24384000897407532
+      ]
+    }
+  },
+  "acceptedWarning": "Both LODs are held props centered on the tracked pinch anchor, so the underside is below Blender z=0.",
+  "maps": {
+    "Pen_BaseColor.png": "db7e4ba6f95a7e50c3a2f01065b944b48911152924b6350892fec36f904ec75c",
+    "Pen_Mask.png": "02fe4dacfa71b27509a114ec0d3ffc0a8fcb141883ea47b537166c5e164314b6",
+    "Pen_NormalGL.png": "8de57fad34f1b6622ad59c1e2634c1b8dd1f43cacbcdd972196094bf3704158e"
+  }
+}

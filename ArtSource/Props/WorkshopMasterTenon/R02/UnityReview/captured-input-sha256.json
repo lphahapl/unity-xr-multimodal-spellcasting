@@ -1,0 +1,793 @@
+{
+  "time": "2026-11-25T15:45:44.378350+08:00",
+  "unity": "6000.3.10f1 D3D11",
+  "production_inputs_unchanged": true,
+  "R01_unchanged_files": 183,
+  "sources": [
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\GameItemBase.cs",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\GameItemBase.cs",
+      "source_sha256": "5d041089940a01f4ae39b3c04938b48ecc87b9edcd10e1f75e1315da83ea7020",
+      "isolated_sha256": "5d041089940a01f4ae39b3c04938b48ecc87b9edcd10e1f75e1315da83ea7020",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\GameItemBase.cs.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\GameItemBase.cs.meta",
+      "source_sha256": "dc2d37058cce676a7436944a5a2348acd4ea1e9f242f363d4718e31b3a096846",
+      "isolated_sha256": "dc2d37058cce676a7436944a5a2348acd4ea1e9f242f363d4718e31b3a096846",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltSlot.cs",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltSlot.cs",
+      "source_sha256": "7cdf7aec542aa5cf3b5bcdeb2b666c85ded7efaaf064e6317cf88ce831c4c506",
+      "isolated_sha256": "7cdf7aec542aa5cf3b5bcdeb2b666c85ded7efaaf064e6317cf88ce831c4c506",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltSlot.cs.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltSlot.cs.meta",
+      "source_sha256": "cad320c86ab0c72a16642064fca090395fcd20b7c68f125de044bf27bb58abab",
+      "isolated_sha256": "cad320c86ab0c72a16642064fca090395fcd20b7c68f125de044bf27bb58abab",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltInteraction.cs",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltInteraction.cs",
+      "source_sha256": "b4f0123c1fca94dd202f9eb9915a916aa424124e939410c966a17a36fb2921b0",
+      "isolated_sha256": "b4f0123c1fca94dd202f9eb9915a916aa424124e939410c966a17a36fb2921b0",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltInteraction.cs.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Items\\ToolBeltInteraction.cs.meta",
+      "source_sha256": "dd3cf0d3edcd577bb8219c3ff397d753ea324370bd528992bf51d485c546b4d8",
+      "isolated_sha256": "dd3cf0d3edcd577bb8219c3ff397d753ea324370bd528992bf51d485c546b4d8",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapZone.cs",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapZone.cs",
+      "source_sha256": "afe731cbf419866f0521a9fa5e83132a7c9478d183d1eac0e861be73574dca5e",
+      "isolated_sha256": "afe731cbf419866f0521a9fa5e83132a7c9478d183d1eac0e861be73574dca5e",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapZone.cs.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapZone.cs.meta",
+      "source_sha256": "b5f33f4772b8633b623e50ebbef6b362e56ea197dd7c5e7ed5083a3bc4c1da9c",
+      "isolated_sha256": "b5f33f4772b8633b623e50ebbef6b362e56ea197dd7c5e7ed5083a3bc4c1da9c",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapItem.cs",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapItem.cs",
+      "source_sha256": "5a8c85a6abb697485a3b3f4ac0a5f28e2d59583e8076533363645c4dbbf83156",
+      "isolated_sha256": "5a8c85a6abb697485a3b3f4ac0a5f28e2d59583e8076533363645c4dbbf83156",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapItem.cs.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\scripts\\logic\\Interaction\\Snapping\\SnapItem.cs.meta",
+      "source_sha256": "45c9b7acb7e2cee3acc2666da850ae4056d1626d732d744a1e0ef4c58402c09f",
+      "isolated_sha256": "45c9b7acb7e2cee3acc2666da850ae4056d1626d732d744a1e0ef4c58402c09f",
+      "kind": "original-production-runtime"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\MasterTenon_LOD0.fbx",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\MasterTenon_LOD0.fbx",
+      "source_sha256": "0d0a2c772cf6c583c37ee9d0fe2e4559454fa2baedaa3bf15d712112ba510bbb",
+      "isolated_sha256": "0d0a2c772cf6c583c37ee9d0fe2e4559454fa2baedaa3bf15d712112ba510bbb",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\MasterTenon_LODs.fbx",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\MasterTenon_LODs.fbx",
+      "source_sha256": "47080fab97331f4ab44fac8e29f032c52330c5057e0e3c7fa91f3f481c8cbffa",
+      "isolated_sha256": "47080fab97331f4ab44fac8e29f032c52330c5057e0e3c7fa91f3f481c8cbffa",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\model-report.json",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\model-report.json",
+      "source_sha256": "d941cae6af0e76548fef4475110a8cf05e3b81886be63688657d83b83fdb20cc",
+      "isolated_sha256": "d941cae6af0e76548fef4475110a8cf05e3b81886be63688657d83b83fdb20cc",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\Textures\\MasterTenon_BaseColor.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\Textures\\MasterTenon_BaseColor.png",
+      "source_sha256": "e7e75ffdbb3e44fe324a761cf8007fb0b6a6a443572ed953a966e8dc6e60718b",
+      "isolated_sha256": "e7e75ffdbb3e44fe324a761cf8007fb0b6a6a443572ed953a966e8dc6e60718b",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\Textures\\MasterTenon_Normal.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\Textures\\MasterTenon_Normal.png",
+      "source_sha256": "3aa4e2c894b177b3b54eb100f60da14e2a3fba31801f87922b8403f3f4b79cc6",
+      "isolated_sha256": "3aa4e2c894b177b3b54eb100f60da14e2a3fba31801f87922b8403f3f4b79cc6",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\Textures\\MasterTenon_MetallicSmoothness.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\Textures\\MasterTenon_MetallicSmoothness.png",
+      "source_sha256": "625e4ce24b8b245d33c152595aea045db4ed72f77f7dd01db581b00109f0459f",
+      "isolated_sha256": "625e4ce24b8b245d33c152595aea045db4ed72f77f7dd01db581b00109f0459f",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\R02\\Textures\\MasterTenon_AO.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\Model\\Textures\\MasterTenon_AO.png",
+      "source_sha256": "e7d0a7be7120d43cbc4cccac9a35791c7edc6e55a48a776ddc06ba9db4c88370",
+      "isolated_sha256": "e7d0a7be7120d43cbc4cccac9a35791c7edc6e55a48a776ddc06ba9db4c88370",
+      "kind": "frozen-R02-candidate"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_BaseColor.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_BaseColor.png",
+      "source_sha256": "1a0e1db33b8f70f5031265e228a75cc1d7367e4d1e3a71862e7513625b027726",
+      "isolated_sha256": "1a0e1db33b8f70f5031265e228a75cc1d7367e4d1e3a71862e7513625b027726",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_BaseColor.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_BaseColor.png.meta",
+      "source_sha256": "5dddc309c5d503c83462cd41ec2fa387fb3331b41c35381a0e81c65e74e6396f",
+      "isolated_sha256": "73107f7b59799816b0d6ee18e5125b52a769195425dee04b4b979b18c841d7f6",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_Mask.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_Mask.png",
+      "source_sha256": "87a91b41f8279577c4568d775169d7ec6e456953188c93cd4989872d6e1dd263",
+      "isolated_sha256": "87a91b41f8279577c4568d775169d7ec6e456953188c93cd4989872d6e1dd263",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_Mask.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_Mask.png.meta",
+      "source_sha256": "7b3ad63816adc3e7b6980942defc926eb952d076160f7595b72a34562c800cd4",
+      "isolated_sha256": "b536afe8e06eb539b49e7832e0971103397efd86f930d7991495572bb04685ba",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_NormalGL.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_NormalGL.png",
+      "source_sha256": "5c338b4a708b10386dd13a4aa71863a2b33a54b664c5e5acdd8ab04687ceb438",
+      "isolated_sha256": "5c338b4a708b10386dd13a4aa71863a2b33a54b664c5e5acdd8ab04687ceb438",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\Body_NormalGL.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\Body_NormalGL.png.meta",
+      "source_sha256": "2afe89de03988c5aea0a5bc8a3c73d16c605662d8c687cb614e600f86e4c1f03",
+      "isolated_sha256": "7c8a5563a8068fb57f6b95a66cbba1403c412f63ab9413c2b8dc2d6053acc061",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.fbx",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.fbx",
+      "source_sha256": "ce62aaa025b14dc913f02ade897a48f1f2efcb15372ad531fe368f8e7a80b051",
+      "isolated_sha256": "ce62aaa025b14dc913f02ade897a48f1f2efcb15372ad531fe368f8e7a80b051",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.fbx.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.fbx.meta",
+      "source_sha256": "de781696c17d2686377d17de40620fbd89cb2269d43b8794b1fd6e90c223e16b",
+      "isolated_sha256": "614e937b64289c551429eb789da4290066c18d1103bd58414197c4b1868b9f4c",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.mat",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.mat",
+      "source_sha256": "51e917c8ce18bd9329ca374fc6f45060f8c4e5ee03c6c6f25ee414bff7c3287e",
+      "isolated_sha256": "8e56b2313f8cb9bd8cff8aeb60a300cce5a1853a689a331594a42a23ecae1578",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.mat.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.mat.meta",
+      "source_sha256": "6af0c7743884a72cd873c29794a3e95984d84cdde51f5f81e59a13f180fbff15",
+      "isolated_sha256": "b55d22095e37fb0955988d67e5e52817caba284dfcbecc2c29e1921bef231019",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.prefab",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.prefab",
+      "source_sha256": "36ab313682fc9aec9dea87904c294ac811ef5b6de0b60e7b2b4d132e00ff1491",
+      "isolated_sha256": "ff7d37182999547567e284efe3fa748a39a7bb865ecd95e3aa48d3dcf4d7f76f",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body\\ConsoleBody.prefab.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body\\ConsoleBody.prefab.meta",
+      "source_sha256": "c482fa32496bdc112e4bdc0a0bf056c30118ffe64243301a0ffbd48e173bfe53",
+      "isolated_sha256": "6de0dda308e5d89dfe8fdb04bb3698b20bd141c865a0dea78562e43b05eb10d4",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Body.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Body.meta",
+      "source_sha256": "898882ee80ff35937c3ecccce62cf71e8077e58de8899ab699890769f59ac570",
+      "isolated_sha256": "c1bcf265b51425fe03df852b21256c44392a487c71ff807bccf3d663889e10ad",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.fbx",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.fbx",
+      "source_sha256": "c2211663e924944eda52bd43e9c4026e74f77bfe904a4f6f50199ef813da4338",
+      "isolated_sha256": "c2211663e924944eda52bd43e9c4026e74f77bfe904a4f6f50199ef813da4338",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.fbx.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.fbx.meta",
+      "source_sha256": "bdf79379e58540e6bf62999f073fc2a6ffb0e0485313374dfbbcf9d6957f9069",
+      "isolated_sha256": "5a17f6f4fc0b61c9652c34ecf7f88eb9a3d27a3b78590cb8303898c4522490fa",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.mat",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.mat",
+      "source_sha256": "43038bbc2671b04d1cdf1f75a82eb8a2c9b88e8e77b1cc996ff2424acbbaf40e",
+      "isolated_sha256": "50308a76435c18ef720ccf416790192d333c9aa073273908ab672d34eed9a20a",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.mat.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.mat.meta",
+      "source_sha256": "a8407d399dd5996c09d4f27f384857f185e7fe7236d32d1da265313fae8a34bf",
+      "isolated_sha256": "59018734c93bcdde02432f436abb352bd3e9c93be25bc5a8a6a6facae42a4429",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.prefab",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.prefab",
+      "source_sha256": "b3437932a71e967d3963864d4004693d9268874de7a67d5711097b78fad1c589",
+      "isolated_sha256": "a8d45df019ce649cfd8bd53e37c4521816e2f0f58faf0b5a6fb6fe6be46d0aef",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\ConsoleSocket.prefab.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\ConsoleSocket.prefab.meta",
+      "source_sha256": "ed6cd7cbcbd27cbfbb83d10ea5003a050623f8b49489d1ccbdf11b7dc766a4ea",
+      "isolated_sha256": "686bdd38517cb4b135586ff40c2d60069b37fcbe5906657d6d48044d8b3296f4",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_BaseColor.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_BaseColor.png",
+      "source_sha256": "58478d32a242aabd7dea396f878a4d7a6b97d46ab8fc55de613453cf8dec698d",
+      "isolated_sha256": "58478d32a242aabd7dea396f878a4d7a6b97d46ab8fc55de613453cf8dec698d",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_BaseColor.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_BaseColor.png.meta",
+      "source_sha256": "7bf6ac0ada671560e12d1c0d13429d78b1a828fa4205f2f4b218cbb88d0b1e3c",
+      "isolated_sha256": "e7bfbe05a5c726fe1b5579c581dbc98800f10e91df13452446682a420670a351",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_Mask.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_Mask.png",
+      "source_sha256": "d4489e42623e4b85ce9a454ec03807ad72f1f4f74a6bf5c5485eab95631dad7a",
+      "isolated_sha256": "d4489e42623e4b85ce9a454ec03807ad72f1f4f74a6bf5c5485eab95631dad7a",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_Mask.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_Mask.png.meta",
+      "source_sha256": "fba5218590dc32ab85464691755aef4e4b3f9d1d948f45222f7a4f108b971d32",
+      "isolated_sha256": "3076f1790857c40042d7f2d0ce22311de5e819114cb92e7d45ca8690215ac2aa",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_NormalGL.png",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_NormalGL.png",
+      "source_sha256": "060fe23d4507cabd448abf54c8aed1181a25c4b33de34a5da640d1dfab83ea14",
+      "isolated_sha256": "060fe23d4507cabd448abf54c8aed1181a25c4b33de34a5da640d1dfab83ea14",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket\\Socket_NormalGL.png.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket\\Socket_NormalGL.png.meta",
+      "source_sha256": "f4df6fcc3e27c92fc8fb949916cfc626e3a2ff72242770e4f94f77f77404e8f3",
+      "isolated_sha256": "461e66934df11bc468ae1ae77f7c9c526280cc50605cd7637a19b1ec915f7881",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\Socket.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\Socket.meta",
+      "source_sha256": "f02f41f9508653453adceae772404880edd03ad8458838c9f11f46f8d3afcb82",
+      "isolated_sha256": "60ecd04d45828b49bd21748312deeb3794850192362e46cdd3f089bc2594061d",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\TenonConsole.prefab",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\TenonConsole.prefab",
+      "source_sha256": "93b0f6381610a484e07d6b6388171d9349e14e0b889b5ef1d93192640c60a071",
+      "isolated_sha256": "45eb18aa00d81a4c90a2a0159ac366d138855919398acb498e4fc9029aadf7f2",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    },
+    {
+      "source": "D:\\UnityProjects\\NarutoVR\\Assets\\Art\\Environment\\SuspendedPath\\Console\\TenonConsole.prefab.meta",
+      "isolated": "D:\\Temp\\NarutoVR-T01Seal-20261124\\Assets\\Review\\WorkshopMasterTenonR02\\ReferenceConsole\\TenonConsole.prefab.meta",
+      "source_sha256": "150d6bdfe7b0f15db1597d3157e8284c6f505ec28b00133c498bb07c9269b9cc",
+      "isolated_sha256": "747dd2d4907de3c2f963e48549443c4760f72cb5f71ea21e7c68a2c16658bd45",
+      "kind": "production-console-exact-geometry-with-review-GUID-remap"
+    }
+  ],
+  "review_artifacts": [
+    {
+      "path": "Editor\\NarutoVR.Game.Editor.asmref",
+      "sha256": "ae76bfee31275b675703d7ddb682cd9e9914e26bd94a9e8edfb3663d70e09af7",
+      "bytes": 37
+    },
+    {
+      "path": "Editor\\NarutoVR.Game.Editor.asmref.meta",
+      "sha256": "cfabc4d94118c97e140e44b1a345ab0af89e925999b670e3a583c81a1850e672",
+      "bytes": 175
+    },
+    {
+      "path": "Editor\\WorkshopTenonR02Acceptance.cs",
+      "sha256": "a9ebadf10f934cc5e2153a8862498a23d84b2f861814056e54425d0e168a8309",
+      "bytes": 17559
+    },
+    {
+      "path": "Editor\\WorkshopTenonR02Acceptance.cs.meta",
+      "sha256": "0bd930521d53762a8f87b9e1db2829c08d4fc5f73b27cc7e403c3773eb7a4854",
+      "bytes": 59
+    },
+    {
+      "path": "Editor\\WorkshopTenonR02LabBuild.cs",
+      "sha256": "9f19abe45d9587a6139c3e1c81818046f22647eb2f8ae9f6b6755ec3d4ecd040",
+      "bytes": 18549
+    },
+    {
+      "path": "Editor\\WorkshopTenonR02LabBuild.cs.meta",
+      "sha256": "68f0002fd997d8d31f25c2cf9d591246057fa7ad45726f63acab9d00c56d9187",
+      "bytes": 59
+    },
+    {
+      "path": "Editor.meta",
+      "sha256": "1b641798368aa02eee9d3049821c09d458eb10304d239fdbd27b2656b7428525",
+      "bytes": 172
+    },
+    {
+      "path": "Generated\\DisplayStone.mat",
+      "sha256": "8c02e577af500dd7b4ddbb0680de002584a03fcd02a705f02f16473d5e8f59b1",
+      "bytes": 3842
+    },
+    {
+      "path": "Generated\\DisplayStone.mat.meta",
+      "sha256": "97a1c7ad6afa993453dd7cdf020387b0cb480d8a4e6d2fe7c588ec5573ab6908",
+      "bytes": 188
+    },
+    {
+      "path": "Generated\\HandScaleClay.mat",
+      "sha256": "9220e41c4908a1ad2b86c2677b5213c510bbb31c42b3df08d60bf96eec720030",
+      "bytes": 3843
+    },
+    {
+      "path": "Generated\\HandScaleClay.mat.meta",
+      "sha256": "37c762cb6319f426f5f6304c29b54575e4777e605b383bda8378ef4643743dfc",
+      "bytes": 188
+    },
+    {
+      "path": "Generated\\HandScaleReference_0.asset",
+      "sha256": "bf9e0b7a60d269ab534abc0d581ddaac50e26c9d5b0f7592b9e2a43fe394742b",
+      "bytes": 209556
+    },
+    {
+      "path": "Generated\\HandScaleReference_0.asset.meta",
+      "sha256": "fec216607ade80cc3808749781b3a01a79f4d5b8c85b273d7f6c757041b68d38",
+      "bytes": 188
+    },
+    {
+      "path": "Generated\\LabCharcoal.mat",
+      "sha256": "a43e7697dc3272e878a7a995a469b6a53fccc9f64dada6de4da98c55f34b1496",
+      "bytes": 3842
+    },
+    {
+      "path": "Generated\\LabCharcoal.mat.meta",
+      "sha256": "fa156ced6f1f07be7fde9e6f70bc20e8f1a7392337e4d488a4a6c66753ed4f22",
+      "bytes": 188
+    },
+    {
+      "path": "Generated\\MasterTenon_R02.mat",
+      "sha256": "7abec4845614323d2203df1b8f4817a9b06d9c175690254217c4926fa803e14d",
+      "bytes": 4138
+    },
+    {
+      "path": "Generated\\MasterTenon_R02.mat.meta",
+      "sha256": "9d0b5ce1901312a441f59bdb37d884e53ff2ff9fbd67838cb942ac7fea527999",
+      "bytes": 188
+    },
+    {
+      "path": "Generated.meta",
+      "sha256": "390309aeee59449389fde1f415bf888f322b63b3feed77fc87701581e6c9f767",
+      "bytes": 172
+    },
+    {
+      "path": "Model\\collision-profile.json",
+      "sha256": "88e96bedb18a82e9c9c14c4397a5c5f8929eb493274765f99451c4eb362252ba",
+      "bytes": 1780
+    },
+    {
+      "path": "Model\\collision-profile.json.meta",
+      "sha256": "e1827d2a59691193a15e911d1ff21467c56145a621cd6a332fc7165092fd660e",
+      "bytes": 158
+    },
+    {
+      "path": "Model\\MasterTenon_LOD0.fbx",
+      "sha256": "0d0a2c772cf6c583c37ee9d0fe2e4559454fa2baedaa3bf15d712112ba510bbb",
+      "bytes": 44444
+    },
+    {
+      "path": "Model\\MasterTenon_LOD0.fbx.meta",
+      "sha256": "6c33a7655209c70ff0a038e2b6866b320abce7f445d41e8b8c078a8e516e03d8",
+      "bytes": 2861
+    },
+    {
+      "path": "Model\\MasterTenon_LODs.fbx",
+      "sha256": "47080fab97331f4ab44fac8e29f032c52330c5057e0e3c7fa91f3f481c8cbffa",
+      "bytes": 59468
+    },
+    {
+      "path": "Model\\MasterTenon_LODs.fbx.meta",
+      "sha256": "cfd5582bca1818192256753622b90d4b30f35064f1ced6d3bcc817f55dd69455",
+      "bytes": 2892
+    },
+    {
+      "path": "Model\\model-report.json",
+      "sha256": "d941cae6af0e76548fef4475110a8cf05e3b81886be63688657d83b83fdb20cc",
+      "bytes": 5911
+    },
+    {
+      "path": "Model\\model-report.json.meta",
+      "sha256": "d8b2da13ac48d5e8c4f73ca35ab17643b38bf331b21208b5841d67caea066dcf",
+      "bytes": 158
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_AO.png",
+      "sha256": "e7d0a7be7120d43cbc4cccac9a35791c7edc6e55a48a776ddc06ba9db4c88370",
+      "bytes": 565822
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_AO.png.meta",
+      "sha256": "f17402faf43e5c03966910f262c4fca919a3d89f2e48a78e28a0499cafe16cda",
+      "bytes": 3009
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_BaseColor.png",
+      "sha256": "e7e75ffdbb3e44fe324a761cf8007fb0b6a6a443572ed953a966e8dc6e60718b",
+      "bytes": 2274936
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_BaseColor.png.meta",
+      "sha256": "c535d1f06d6fcef4be49effc3bb636687df68035cd1fdf59a8c8da8c4f8a5c2b",
+      "bytes": 3009
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_MetallicSmoothness.png",
+      "sha256": "625e4ce24b8b245d33c152595aea045db4ed72f77f7dd01db581b00109f0459f",
+      "bytes": 2090444
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_MetallicSmoothness.png.meta",
+      "sha256": "2a99bd5b8a0911c32de5f59dc76bf97604e42f5e173729f79039c52725b8db56",
+      "bytes": 3009
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_Normal.png",
+      "sha256": "3aa4e2c894b177b3b54eb100f60da14e2a3fba31801f87922b8403f3f4b79cc6",
+      "bytes": 572233
+    },
+    {
+      "path": "Model\\Textures\\MasterTenon_Normal.png.meta",
+      "sha256": "a4fc0ef98de23b12b252d49613c5069d771b7fb08f27e6675ff0c2919235c774",
+      "bytes": 3009
+    },
+    {
+      "path": "Model\\Textures.meta",
+      "sha256": "533cd4b7f343514bbd08c45936e0c81405fe73e2a18a9f6dc4814dc12814ece7",
+      "bytes": 172
+    },
+    {
+      "path": "Model.meta",
+      "sha256": "94550f366c911ba3748ba5e5be1fa5680e5928390df66993f995a43c85e3548a",
+      "bytes": 172
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_BaseColor.png",
+      "sha256": "1a0e1db33b8f70f5031265e228a75cc1d7367e4d1e3a71862e7513625b027726",
+      "bytes": 3513280
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_BaseColor.png.meta",
+      "sha256": "73107f7b59799816b0d6ee18e5125b52a769195425dee04b4b979b18c841d7f6",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_Mask.png",
+      "sha256": "87a91b41f8279577c4568d775169d7ec6e456953188c93cd4989872d6e1dd263",
+      "bytes": 2367274
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_Mask.png.meta",
+      "sha256": "b536afe8e06eb539b49e7832e0971103397efd86f930d7991495572bb04685ba",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_NormalGL.png",
+      "sha256": "5c338b4a708b10386dd13a4aa71863a2b33a54b664c5e5acdd8ab04687ceb438",
+      "bytes": 3973034
+    },
+    {
+      "path": "ReferenceConsole\\Body\\Body_NormalGL.png.meta",
+      "sha256": "7c8a5563a8068fb57f6b95a66cbba1403c412f63ab9413c2b8dc2d6053acc061",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.fbx",
+      "sha256": "ce62aaa025b14dc913f02ade897a48f1f2efcb15372ad531fe368f8e7a80b051",
+      "bytes": 453916
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.fbx.meta",
+      "sha256": "614e937b64289c551429eb789da4290066c18d1103bd58414197c4b1868b9f4c",
+      "bytes": 2992
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.mat",
+      "sha256": "8e56b2313f8cb9bd8cff8aeb60a300cce5a1853a689a331594a42a23ecae1578",
+      "bytes": 4281
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.mat.meta",
+      "sha256": "b55d22095e37fb0955988d67e5e52817caba284dfcbecc2c29e1921bef231019",
+      "bytes": 196
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.prefab",
+      "sha256": "ff7d37182999547567e284efe3fa748a39a7bb865ecd95e3aa48d3dcf4d7f76f",
+      "bytes": 5969
+    },
+    {
+      "path": "ReferenceConsole\\Body\\ConsoleBody.prefab.meta",
+      "sha256": "6de0dda308e5d89dfe8fdb04bb3698b20bd141c865a0dea78562e43b05eb10d4",
+      "bytes": 161
+    },
+    {
+      "path": "ReferenceConsole\\Body.meta",
+      "sha256": "c1bcf265b51425fe03df852b21256c44392a487c71ff807bccf3d663889e10ad",
+      "bytes": 180
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.fbx",
+      "sha256": "c2211663e924944eda52bd43e9c4026e74f77bfe904a4f6f50199ef813da4338",
+      "bytes": 193084
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.fbx.meta",
+      "sha256": "5a17f6f4fc0b61c9652c34ecf7f88eb9a3d27a3b78590cb8303898c4522490fa",
+      "bytes": 2992
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.mat",
+      "sha256": "50308a76435c18ef720ccf416790192d333c9aa073273908ab672d34eed9a20a",
+      "bytes": 4282
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.mat.meta",
+      "sha256": "59018734c93bcdde02432f436abb352bd3e9c93be25bc5a8a6a6facae42a4429",
+      "bytes": 196
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.prefab",
+      "sha256": "a8d45df019ce649cfd8bd53e37c4521816e2f0f58faf0b5a6fb6fe6be46d0aef",
+      "bytes": 5981
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\ConsoleSocket.prefab.meta",
+      "sha256": "686bdd38517cb4b135586ff40c2d60069b37fcbe5906657d6d48044d8b3296f4",
+      "bytes": 161
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_BaseColor.png",
+      "sha256": "58478d32a242aabd7dea396f878a4d7a6b97d46ab8fc55de613453cf8dec698d",
+      "bytes": 547420
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_BaseColor.png.meta",
+      "sha256": "e7bfbe05a5c726fe1b5579c581dbc98800f10e91df13452446682a420670a351",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_Mask.png",
+      "sha256": "d4489e42623e4b85ce9a454ec03807ad72f1f4f74a6bf5c5485eab95631dad7a",
+      "bytes": 723359
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_Mask.png.meta",
+      "sha256": "3076f1790857c40042d7f2d0ce22311de5e819114cb92e7d45ca8690215ac2aa",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_NormalGL.png",
+      "sha256": "060fe23d4507cabd448abf54c8aed1181a25c4b33de34a5da640d1dfab83ea14",
+      "bytes": 391422
+    },
+    {
+      "path": "ReferenceConsole\\Socket\\Socket_NormalGL.png.meta",
+      "sha256": "461e66934df11bc468ae1ae77f7c9c526280cc50605cd7637a19b1ec915f7881",
+      "bytes": 3139
+    },
+    {
+      "path": "ReferenceConsole\\Socket.meta",
+      "sha256": "60ecd04d45828b49bd21748312deeb3794850192362e46cdd3f089bc2594061d",
+      "bytes": 180
+    },
+    {
+      "path": "ReferenceConsole\\TenonConsole.prefab",
+      "sha256": "45eb18aa00d81a4c90a2a0159ac366d138855919398acb498e4fc9029aadf7f2",
+      "bytes": 6458
+    },
+    {
+      "path": "ReferenceConsole\\TenonConsole.prefab.meta",
+      "sha256": "747dd2d4907de3c2f963e48549443c4760f72cb5f71ea21e7c68a2c16658bd45",
+      "bytes": 161
+    },
+    {
+      "path": "ReferenceConsole.meta",
+      "sha256": "f101984ae1237247c1bcb360aa7071e36010604d33bee1971fbec6b070d3db9c",
+      "bytes": 172
+    },
+    {
+      "path": "Runtime\\NarutoVR.Game.Runtime.asmref",
+      "sha256": "e65ca1a2600e9134ca5a347fba6d9ce1119e0edf3f00e52449ab9dc3c6a4500c",
+      "bytes": 38
+    },
+    {
+      "path": "Runtime\\NarutoVR.Game.Runtime.asmref.meta",
+      "sha256": "94f98d1f5acd98f6600b0449748459f98db1fc9fca643ffed831a6aae366e4b8",
+      "bytes": 175
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02LabController.cs",
+      "sha256": "8f5a83b9dfc6cafe74aa85ff9cffd2a4649314c81b0711bedaee808769a022bf",
+      "bytes": 4785
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02LabController.cs.meta",
+      "sha256": "09bb46522db8f9779a44280a0f24f27b53aa0f020f6a80b873a5ad6d59553c48",
+      "bytes": 59
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02ReviewTick.cs",
+      "sha256": "953f76f8def1ca7693f5e66bb3e439f86e10cfb2a23e2e466fb63a615d7edb2f",
+      "bytes": 282
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02ReviewTick.cs.meta",
+      "sha256": "200e90d45a8fac428e12158ad1d0cabe08f1b4243d9ff149418d7b0437a744d6",
+      "bytes": 59
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02ReviewZone.cs",
+      "sha256": "3d1d8d44b3cb65a391b2ff1f332de7e05d8ae4b4c880041e9b6f0cb7829c0384",
+      "bytes": 8389
+    },
+    {
+      "path": "Runtime\\WorkshopTenonR02ReviewZone.cs.meta",
+      "sha256": "8b0f3e00b82ca487e645a5d8d92ce43eb50a44b1e14aba5860e1396dbb0af358",
+      "bytes": 59
+    },
+    {
+      "path": "Runtime.meta",
+      "sha256": "7f6b0399b4ad2888a99e1224747edc34c95956d43ecb8c88164ae2224b721089",
+      "bytes": 172
+    },
+    {
+      "path": "WorkshopMasterTenonR02.prefab",
+      "sha256": "ed3af51536b4c0db33cb069edb4f651a79a324e971763bd6ae431b40126c091f",
+      "bytes": 25644
+    },
+    {
+      "path": "WorkshopMasterTenonR02.prefab.meta",
+      "sha256": "088326699fb71b0b63d7c39c618b96c54859b6bfc4adb84383c4448263392373",
+      "bytes": 154
+    },
+    {
+      "path": "WorkshopMasterTenonR02_Lab.unity",
+      "sha256": "f20cdcc018d0f79aa8b002a703319aa2c728a3555172baeb7b76aedec9f00341",
+      "bytes": 982004
+    },
+    {
+      "path": "WorkshopMasterTenonR02_Lab.unity.meta",
+      "sha256": "287190b93724019b64158c191a4f4e347fa2cc3dcf208b77cadc46b337e69f63",
+      "bytes": 155
+    }
+  ],
+  "collider_profile": {
+    "gripHeight": 0.231,
+    "parts": [
+      {
+        "name": "section_0",
+        "lower": 0.0,
+        "upper": 0.003,
+        "width": 0.104,
+        "depth": 0.104
+      },
+      {
+        "name": "section_1",
+        "lower": 0.003,
+        "upper": 0.105,
+        "width": 0.106,
+        "depth": 0.106
+      },
+      {
+        "name": "section_2",
+        "lower": 0.105,
+        "upper": 0.108,
+        "width": 0.11,
+        "depth": 0.11
+      },
+      {
+        "name": "section_3",
+        "lower": 0.108,
+        "upper": 0.11,
+        "width": 0.115,
+        "depth": 0.115
+      },
+      {
+        "name": "section_4",
+        "lower": 0.11,
+        "upper": 0.116,
+        "width": 0.117,
+        "depth": 0.117
+      },
+      {
+        "name": "section_5",
+        "lower": 0.116,
+        "upper": 0.121,
+        "width": 0.119,
+        "depth": 0.119
+      },
+      {
+        "name": "section_6",
+        "lower": 0.121,
+        "upper": 0.339,
+        "width": 0.12,
+        "depth": 0.12
+      },
+      {
+        "name": "section_7",
+        "lower": 0.339,
+        "upper": 0.344,
+        "width": 0.119,
+        "depth": 0.119
+      },
+      {
+        "name": "section_8",
+        "lower": 0.344,
+        "upper": 0.348,
+        "width": 0.116,
+        "depth": 0.116
+      },
+      {
+        "name": "section_9",
+        "lower": 0.348,
+        "upper": 0.35,
+        "width": 0.11,
+        "depth": 0.11
+      }
+    ],
+    "sourceProfileSha256": "d941cae6af0e76548fef4475110a8cf05e3b81886be63688657d83b83fdb20cc",
+    "note": "Each interval uses the maximum visible axis width at its endpoints. Adjacent equal-width intervals merged. Exterior conservative box approximation around rounded corners; not the disabled 120mm full measurement gauge. Shoulder cannot physically stop across 153mm mouth; SnapZone seat is limiting."
+  },
+  "boundary": "Desktop API controls only; Meta/XR grab entry is not wired. R02 shoulder is not a mechanical stop across the 153 mm original socket. Disabled 120 mm gauge is not a game contact collider."
+}

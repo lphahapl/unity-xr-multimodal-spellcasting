@@ -1,0 +1,41 @@
+{
+  "version": "R07",
+  "glbSHA256": "f965c0e078f3f603a9496650e478bb51f040ec28f81e9c9db6f4b4fa44e326d0",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r07",
+  "workbenchLabel": "R07 · 服装静态复核通过",
+  "noteId": "a6b7000b-be89-42f9-a639-5348edbc663d",
+  "workbenchRevision": "36104544d7f4e4ee2a65bc71ce4f152388662c487989c9963d802c7e6dcf6b24",
+  "webURL": "https://gemini.google.com/app/ff361454e846a988",
+  "webReplyElement": "message-content-id-r_6ebd508b233ba903",
+  "webMode": "打开模式选择器，当前模式为“Hydrogen”",
+  "backendModel": null,
+  "pixelChecks": {
+    "R07_Material_Comparison": {
+      "token": "94645D",
+      "match": true
+    },
+    "R07_Hem": {
+      "token": "83B494",
+      "match": true
+    },
+    "R07_Elevation": {
+      "token": "CDB2F5",
+      "match": true
+    },
+    "R07_Unity_Waist": {
+      "token": "74AF92",
+      "match": true
+    }
+  },
+  "submissionCount": 1,
+  "replySHA256": "86b99e4859720c483a4889d18b325b37e8f0cd680f4ec29a8782684e32f2483b",
+  "review": [
+    "R07 独立 Gemini 服装视审。在 R05 / R06 / R07 同灯光对照中，R07 夹袄、袖口与腰绳已恢复 R05 的深青蓝与褐色。GLB 斜后和 Unity 正面腰部两行的观察一致。R01 / R05 / R07 对照中，R01 可见的裤片穿出在 R07 各所示机位均未重现，下摆和褐边连续。颜色与可见穿模两项静态通过，本轮没有需退回制作的服装项。",
+    "独立核对导出文件，R07 的 33 个材质描述及 30 个纹理绑定均与 R05 相同，R06 遗漏的 9 个基色参数已恢复。R07 与 R06 的 GLB 二进制块、网格和访问器描述相同。制作的静态网格报告中裤料与夹袄、腰绳相交均为 0，74114 条腰部射线无裤料先命中；这些是工程证据。",
+    "动作验证待绑定后覆盖弯腰时的前襟和腰绳，下蹲、迈步时的大腿与后摆，抬臂时的袖口。用户提出的脸型与发际修订由 R08 独立评审。"
+  ],
+  "producerEvidence": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/R07/EngineeringEvidence.json",
+    "sha256": "57b6cfac5cbcdd6b6737958cb525b8195f0c40f0478dd1d03d76c9534d81e0c0"
+  }
+}

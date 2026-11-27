@@ -1,0 +1,104 @@
+{
+  "Stone": {
+    "maps": {
+      "BaseColor": {
+        "sha256": "f443b2c14548c1ce8658dd49eb094741c2944ddc53e703855e7d6470c472ee2b",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.821,
+        "wrapNeighborRatioY": 1.257
+      },
+      "NormalGL": {
+        "sha256": "ad1729fddfa5ab65f98ce3017624d2c2f2940d86f5c5f6df03af76e95acd6759",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 1.038,
+        "wrapNeighborRatioY": 1.147
+      },
+      "Roughness": {
+        "sha256": "99e1ed8b59fe90750d5427864e764dfbfb21faba496e0d9454600096f5b82dc5",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.833,
+        "wrapNeighborRatioY": 1.421
+      },
+      "Metallic": {
+        "sha256": "8f5d21ab58d2bd166d53916516ca0c1ba6976497077ee79b48f2bcc870da37dc",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.0,
+        "wrapNeighborRatioY": 0.0
+      },
+      "ORM": {
+        "sha256": "b3b8f85165efe532fe0664abbbd7f0e8ef02825dfb1444816aabcd6dff80379f",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.822,
+        "wrapNeighborRatioY": 1.397
+      }
+    },
+    "ORMMatchesSingles": true,
+    "maxNormalLengthError": 0.0059
+  },
+  "Bronze": {
+    "maps": {
+      "BaseColor": {
+        "sha256": "72751e506624af337f14700487fedf18d41fae5ecea58f56c9c0ccaf729d08ad",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.795,
+        "wrapNeighborRatioY": 0.914
+      },
+      "NormalGL": {
+        "sha256": "69c9d97f12fb448f96fa8512b78ae6f95520237fe0210f76f939f57b07747ef9",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.758,
+        "wrapNeighborRatioY": 1.221
+      },
+      "Roughness": {
+        "sha256": "92d87f3f3fdc759c587e32f9489f2f2258246b28f6bb80406d7707167ae05f06",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.772,
+        "wrapNeighborRatioY": 0.856
+      },
+      "Metallic": {
+        "sha256": "58c37b9d46eef549aec17ab6f44fef7cf1f2c9d815cd75f79250c01f20e56a69",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.839,
+        "wrapNeighborRatioY": 0.859
+      },
+      "ORM": {
+        "sha256": "c95103e33fb095ebf905552c830db6ae6f91d59e16ed5523231354245ce62202",
+        "dimensions": [
+          2048,
+          2048
+        ],
+        "wrapNeighborRatioX": 0.813,
+        "wrapNeighborRatioY": 0.876
+      }
+    },
+    "ORMMatchesSingles": true,
+    "maxNormalLengthError": 0.00535
+  }
+}

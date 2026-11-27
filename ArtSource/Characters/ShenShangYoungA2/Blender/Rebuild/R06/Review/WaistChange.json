@@ -1,0 +1,21 @@
+{
+  "baselineSHA256": "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0",
+  "waistbandTopLowered_mm": 27,
+  "waistbandTopRadialInset_mm": 2,
+  "belowHeightUnchanged_m": 0.957,
+  "parts": {
+    "R05 | bifurcated high-waist work trousers": {
+      "changed": 2080,
+      "preserved": 19359,
+      "topBefore_m": 1.0369999408721924,
+      "topAfter_m": 1.0099999608278423
+    },
+    "R05 | sculpted trouser folds and twill": {
+      "changed": 8000,
+      "preserved": 77439,
+      "topBefore_m": 1.037000060081482,
+      "topAfter_m": 1.010000060081482
+    }
+  },
+  "rationale": "Keep the tucked trouser top at the waist cord, taper displacement to zero beneath the cord while retaining silhouette, texture coordinates and lower folds."
+}

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="六印小篆 R1 审稿：Unity 实际同屏、带声播放、衡印左腕与旧新字源对照。规矩律衡回归通过，准绳未标定；Quest 与真人观感待验。">
+  <title>T01六印成印字影·小篆 R1 审稿</title>
+  <style>
+    :root { color-scheme: light; --paper: #f5f2e9; --ink: #293c35; --muted: #62685c; --bronze: #80613d; --line: #d5cfbf; --green: #315e4e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.7 system-ui, "Microsoft YaHei", sans-serif; }
+    a { color: var(--green); text-underline-offset: .22em; }
+    a:focus-visible, video:focus-visible { outline: 3px solid #a48044; outline-offset: 5px; }
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 34px 32px 42px; }
+    .eyebrow { margin: 0 0 10px; color: var(--bronze); font-size: 12px; letter-spacing: .13em; }
+    header { padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+    h1, h2, h3 { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; line-height: 1.3; }
+    h1 { font-size: clamp(29px, 3vw, 43px); font-weight: 600; margin: 0 0 15px; }
+    h2 { font-size: 27px; margin: 0 0 10px; }
+    h3 { font-size: 21px; margin: 0 0 10px; }
+    p { margin: 0 0 13px; }
+    .intro { max-width: 970px; margin-top: 17px; }
+    .status { display: inline-block; margin: 0 7px 7px 0; padding: 5px 12px; border: 1px solid #c5ad82; border-radius: 3px; background: #eee5d3; color: #705128; font-size: 14px; }
+    .status.ready { border-color: #9baa92; background: #e8eee2; color: #355342; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 23px; margin-top: 18px; font-size: 14px; }
+    section { padding-top: 32px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .section-head p { max-width: 650px; margin: 0; color: var(--muted); font-size: 14px; }
+    figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #fffdf8; }
+    .image-link { display: block; position: relative; background: #1c2426; }
+    .image-link::after { content: "查看原图 ↗"; position: absolute; right: 12px; bottom: 12px; padding: 4px 9px; color: #3c5145; background: #fffdf5ed; border: 1px solid #d9d0bb; border-radius: 3px; font-size: 12px; }
+    img, video { display: block; width: 100%; height: auto; }
+    video { background: #1c2426; aspect-ratio: 16/9; }
+    figcaption { padding: 17px 22px; color: var(--muted); font-size: 14px; }
+    figcaption p:last-child { margin-bottom: 0; }
+    .notice { margin-top: 18px; padding: 14px 18px; border-left: 3px solid #aa8a55; background: #f1ebdc; font-size: 14px; }
+    .notice p:last-child { margin-bottom: 0; }
+    .table-wrap { margin-top: 20px; overflow-x: auto; border: 1px solid var(--line); border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; background: #fffdf8; font-size: 14px; text-align: left; }
+    th, td { padding: 12px 17px; border-bottom: 1px solid #e5dfd1; vertical-align: top; }
+    th { color: #4c5b4b; background: #e9ede4; font-weight: 600; }
+    tr:last-child td { border-bottom: 0; }
+    .name { white-space: nowrap; }
+    .card { margin-top: 18px; padding: 23px 26px; background: #fffdf8; border: 1px solid var(--line); border-radius: 5px; }
+    .card p:last-child { margin-bottom: 0; }
+    .review { margin-top: 32px; padding: 25px 28px; background: #e9ede4; border: 1px solid #c9d1c2; border-radius: 5px; }
+    .action { display: inline-block; padding: 9px 14px; border: 1px solid #829487; border-radius: 3px; background: #f3f5ee; text-decoration: none; font-size: 14px; }
+    .action:hover { background: #fffdf8; }
+    footer { margin-top: 30px; padding-top: 21px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .sources { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 12px; }
+    @media (max-width: 900px) { .section-head { display: block; } }
+    @media (max-width: 650px) { .wrap { padding: 23px 16px 30px; } h2 { font-size: 23px; } .card, .review { padding: 20px; } figcaption { padding: 15px 17px; } th, td { padding: 10px 12px; } nav { gap: 11px 16px; } }
+    @media print { body { background: white; } .wrap { padding: 0; } figure, .card { break-inside: avoid; } nav, .action, video { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">考工律度 · T01 · 2026-11-26</p>
+      <h1>六印成印字影 · 小篆 R1</h1>
+      <span class="status ready">六张字影已部署</span>
+      <span class="status">观感待批注 · Quest 待验</span>
+      <p class="intro">六印统一使用崇羲篆体原轮廓：規、矩、律、衡、準、繩。五印音效暂沿用 V3.1，律印保留原铜鸣；本轮调整字影。先看实际 Unity 同屏与带声播放，再核左腕近景、旧新对照和字源。</p>
+      <nav aria-label="页面导航">
+        <a href="#actual">六印实际同屏</a>
+        <a href="#playback">带声播放</a>
+        <a href="#wrist">衡印左腕</a>
+        <a href="#comparison">旧新与小尺寸</a>
+        <a href="#source">矩字与来源</a>
+        <a href="#review">批注</a>
+      </nav>
+    </header>
+    <main>
+      <section id="actual" aria-labelledby="actual-title">
+        <div class="section-head">
+          <h2 id="actual-title">01 · 六个实际实例，同屏比较</h2>
+          <p>上排规、矩、衡；下排律、准、绳。六字来自真实 Prefab，统一脉冲年龄。</p>
+        </div>
+        <figure>
+          <a class="image-link" href="/assets/seal-confirmation-xiaozhuan-r1/SixSeal_ActualInstances_Labelled.png" target="_blank" rel="noopener noreferrer" aria-label="打开六印 Unity 实际实例同屏原图">
+            <img src="/assets/seal-confirmation-xiaozhuan-r1/SixSeal_ActualInstances_Labelled.png" alt="六印 Unity 实际实例同屏，上排规矩衡、下排律准绳，暖金色崇羲篆体字影" decoding="async">
+          </a>
+          <figcaption>实际 Unity 实例同屏，只比较字形与呈现；同屏板声音静音，不是六印同时识别测试。准、绳在本轮仍为未标定模板。</figcaption>
+        </figure>
+      </section>
+      <section id="playback" aria-labelledby="playback-title">
+        <div class="section-head">
+          <h2 id="playback-title">02 · 实际画面与原声播放</h2>
+          <p>点击播放后有声音；不自动播放。顺序：规 → 矩 → 衡 → 律 → 准 → 绳。</p>
+        </div>
+        <figure>
+          <video controls playsinline preload="metadata" aria-label="六印 Unity 实际成印与声音，每印约四秒，准绳为模板预览">
+            <source src="/plans/media/seal-confirmation-xiaozhuan-r1/SixSeal_ActualUnity_WithAudio.mp4" type="video/mp4">
+            当前浏览器无法播放此视频，请<a href="/plans/media/seal-confirmation-xiaozhuan-r1/SixSeal_ActualUnity_WithAudio.mp4">打开带声视频文件</a>。
+          </video>
+          <figcaption>每印约 4 秒，画面来自实际实例，声音来自 Unity Listener 的实际混音；仅增加说明标签，没有用源 WAV 替换录得声音。五印 V3.1 与律印原声、音量保持。</figcaption>
+        </figure>
+        <div class="table-wrap">
+          <table aria-label="逐印字影与本轮播放验证">
+            <thead><tr><th scope="col">正式印名</th><th scope="col">字影用字</th><th scope="col">本轮验证状态</th></tr></thead>
+            <tbody>
+              <tr><td class="name">规印 · 合规</td><td>規</td><td>持印一次确认；退出不追加；重入再确认，真实声音播放。</td></tr>
+              <tr><td class="name">矩印 · 交矩</td><td>矩</td><td>持印一次确认；退出不追加；重入再确认，真实声音播放。</td></tr>
+              <tr><td class="name">衡印 · 镇衡</td><td>衡</td><td>持印一次确认；退出不追加；重入再确认，真实声音播放。</td></tr>
+              <tr><td class="name">律印 · 鸣律</td><td>律</td><td>持印一次确认；退出不追加；重入再确认，保留原铜鸣。</td></tr>
+              <tr><td class="name">准印 · 平准</td><td>準</td><td>未标定，识别事件为 0；仅直接预览模板及声音一次。</td></tr>
+              <tr><td class="name">绳印 · 张绳</td><td>繩</td><td>未标定，识别事件为 0；仅直接预览模板及声音一次。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice"><p>独立 Unity 6000.3.10f1 回归使用合成输入及历史手帧回放，<strong>不是本轮真人识别或 Quest 头显测试，也未做真人盲测</strong>。准、绳的模板播放不代表已完成标定。</p></div>
+      </section>
+      <section id="wrist" aria-labelledby="wrist-title">
+        <div class="section-head">
+          <h2 id="wrist-title">03 · 衡印左腕近手</h2>
+          <p>保留左腕锚点与原材质深度，使用实际准望匣 Prefab。</p>
+        </div>
+        <figure>
+          <a class="image-link" href="/assets/seal-confirmation-xiaozhuan-r1/Heng_LeftWrist_ActualUnity.png" target="_blank" rel="noopener noreferrer" aria-label="打开衡印左腕 Unity 实际帧原图">
+            <img src="/assets/seal-confirmation-xiaozhuan-r1/Heng_LeftWrist_ActualUnity.png" alt="衡印暖金字影与实际左腕准望匣的 Unity 合成正视腕姿画面" loading="lazy" decoding="async">
+          </a>
+          <figcaption>本图只核一个合成正视腕姿。尚未验证其他角度、真实跟踪或 Quest 双眼观感，不能据此判断所有姿态无遮挡。</figcaption>
+        </figure>
+      </section>
+      <section id="comparison" aria-labelledby="comparison-title">
+        <div class="section-head">
+          <h2 id="comparison-title">04 · 旧新字影与小尺寸</h2>
+          <p>由自绘篆意字调整为同一字库原轮廓；正式印名与配置保持。</p>
+        </div>
+        <figure>
+          <a class="image-link" href="/assets/seal-confirmation-xiaozhuan-r1/SixSeal_Old_vs_ChongXi.png" target="_blank" rel="noopener noreferrer" aria-label="打开六印旧版与崇羲小篆及小尺寸对照原图">
+            <img src="/assets/seal-confirmation-xiaozhuan-r1/SixSeal_Old_vs_ChongXi.png" alt="六印旧版字影与崇羲篆体原轮廓对照，并列96、64、48像素高的静态字形" loading="lazy" decoding="async">
+          </a>
+          <figcaption>上方为原字影，下方为字体排字；96、64、48 像素对照仅作静态检查。页面缩放会改变显示尺寸，小尺寸可读性仍须在头显实际尺度验证。</figcaption>
+        </figure>
+      </section>
+      <section id="source" aria-labelledby="source-title">
+        <div class="section-head">
+          <h2 id="source-title">05 · 矩字关系与字库来源</h2>
+          <p>矩印仍使用矩；巨、榘只作字源关系参照。</p>
+        </div>
+        <figure>
+          <a class="image-link" href="/assets/seal-confirmation-xiaozhuan-r1/Ju_JuRadical_JuVariant.png" target="_blank" rel="noopener noreferrer" aria-label="打开矩巨榘字形关系对照原图">
+            <img src="/assets/seal-confirmation-xiaozhuan-r1/Ju_JuRadical_JuVariant.png" alt="崇羲篆体矩、巨、榘关系参照，正式矩印继续使用原字库矩字" loading="lazy" decoding="async">
+          </a>
+          <figcaption>矩使用崇羲原字库收录的篆体转写，没有换成巨或自行拼字；不称为《说文》“矩”独立字头原刻摹本。</figcaption>
+        </figure>
+        <div class="card">
+          <h3>原轮廓普通排字</h3>
+          <p>采用崇羲篆体，保留原笔画轮廓，普通排字、等比缩放与透明背景；没有增删笔画、加粗或描边。游戏字影为暖金 RGB 246/220/167，透明度沿用原排字结果。</p>
+          <p>崇羲篆體 — 王心怡、謝清俊、莊德明、季旭昇；中央研究院小學堂。许可为 <a href="https://xiaoxue.iis.sinica.edu.tw/chongxi/copyright.htm" target="_blank" rel="noopener noreferrer">CC BY-ND 3.0 TW or later</a>。使用原字型排字，未修改字型或笔画轮廓。</p>
+          <p>实际字体取自公开镜像。<strong>未完成与官方二进制整包或官方常用字表 PDF 的比对</strong>，本页不作官方文件完全一致的保证。</p>
+          <div class="sources">
+            <a href="https://xiaoxue.iis.sinica.edu.tw/chongxi/" target="_blank" rel="noopener noreferrer">崇羲官方介绍与制作体例</a>
+            <a href="https://xiaoxue.iis.sinica.edu.tw/chongxi/example.htm" target="_blank" rel="noopener noreferrer">官方排字范例</a>
+            <a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=%E7%9F%A9" target="_blank" rel="noopener noreferrer">中大字库 · 矩</a>
+            <a href="https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=%E5%B7%A8" target="_blank" rel="noopener noreferrer">中大字库 · 巨与榘</a>
+          </div>
+        </div>
+      </section>
+      <section class="review" id="review" aria-labelledby="review-title">
+        <h2 id="review-title">六印小篆 R1 批注</h2>
+        <p>可注明印名、视频时间或图片区域，分别批注字形识别、大小、近腕位置与听感。当前仍待用户观感确认。</p>
+        <a class="action" href="/plans/?id=t01-seal-xiaozhuan-r1">进入六印小篆 R1 批注</a>
+      </section>
+    </main>
+    <footer>
+      <p>部署范围：仅替换六张原 Glyph.png，已与独立 Unity 实测暖金版逐文件核对；既有 meta、Prefab、声音、六份识别配置和其他受保护文件保持。未改正式场景或主榫。</p>
+      <p>播放回归完成不等于日志零告警：本轮记录了独立于测试链的 SearchDatabase 启动索引异常。Unity 测试请求退出 0，未捕获操作系统退出码；不将其写为进程退出码已验。</p>
+      <a href="/">返回工作空间首页</a>
+    </footer>
+  </div>
+</body>
+</html>
