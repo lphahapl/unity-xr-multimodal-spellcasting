@@ -1,0 +1,582 @@
+{
+  "scope": "Real Chrome WebGL using original T-21 review GLB; synthetic input, not Unity or Quest",
+  "passed": true,
+  "checks": [
+    {
+      "name": "All variants use exactly equal logical Nib positions",
+      "passed": true
+    },
+    {
+      "name": "All variants feed same sample count",
+      "passed": true
+    },
+    {
+      "name": "Rigid original does not move vertices",
+      "passed": true
+    },
+    {
+      "name": "Both deforming variants preserve all shaft/ferrule vertices",
+      "passed": true
+    },
+    {
+      "name": "Pinned-tip candidate remains at original Nib within .0001 mm",
+      "passed": true
+    },
+    {
+      "name": "Free-tip control exposes approx 2 mm contact mismatch",
+      "passed": true
+    },
+    {
+      "name": "Rightward contact drags negative X",
+      "passed": true
+    },
+    {
+      "name": "Leftward contact drags positive X",
+      "passed": true
+    },
+    {
+      "name": "Corner settles behind new Y direction",
+      "passed": true
+    },
+    {
+      "name": "Stopped .6 seconds returns below .001 mm",
+      "passed": true
+    },
+    {
+      "name": "Lifted .5 seconds returns below .001 mm",
+      "passed": true
+    },
+    {
+      "name": "Tracking loss .4 seconds returns below .01 mm",
+      "passed": true
+    },
+    {
+      "name": "First recovered frame has zero derived velocity",
+      "passed": true
+    },
+    {
+      "name": "Pure board-normal movement causes no bend",
+      "passed": true
+    },
+    {
+      "name": "Rotated board has identical local response and zero contact error",
+      "passed": true
+    },
+    {
+      "name": "Geometry index/UV buffers and original triangle count retained",
+      "passed": true,
+      "evidence": {
+        "vertices": 1231,
+        "triangles": 2228,
+        "uvUnchanged": true,
+        "indicesUnchanged": true
+      }
+    },
+    {
+      "name": "All browser geometry samples obey 4.5 mm cap",
+      "passed": true
+    }
+  ],
+  "samples": {
+    "right": {
+      "time": 1.4,
+      "phase": "向右运笔",
+      "state": {
+        "bend": [
+          -0.001999999999553273,
+          0,
+          0
+        ],
+        "speed": 0.025,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        },
+        {
+          "maxVertexBendMm": 1.9443419988117987,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        },
+        {
+          "maxVertexBendMm": 1.9999999995532718,
+          "visibleTipToNibMm": 2.000000390599655,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        }
+      ]
+    },
+    "stop": {
+      "time": 2.4,
+      "phase": "停笔回正",
+      "state": {
+        "bend": [
+          -9.079985952496099e-8,
+          0,
+          0
+        ],
+        "speed": 0,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0,
+            0
+          ],
+          "samplePoints": 13
+        },
+        {
+          "maxVertexBendMm": 0.0000882729902006336,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0,
+            0
+          ],
+          "samplePoints": 13
+        },
+        {
+          "maxVertexBendMm": 0.00009079985952453241,
+          "visibleTipToNibMm": 0.00009212100323903765,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0,
+            0
+          ],
+          "samplePoints": 13
+        }
+      ]
+    },
+    "left": {
+      "time": 3.4,
+      "phase": "向左运笔",
+      "state": {
+        "bend": [
+          0.0020799999604384587,
+          0,
+          0
+        ],
+        "speed": 0.02600000000000019,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.007799999999999996,
+            0,
+            0
+          ],
+          "samplePoints": 21
+        },
+        {
+          "maxVertexBendMm": 2.0221156407553567,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.007799999999999996,
+            0,
+            0
+          ],
+          "samplePoints": 21
+        },
+        {
+          "maxVertexBendMm": 2.0799999604384602,
+          "visibleTipToNibMm": 2.080000253421727,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.007799999999999996,
+            0,
+            0
+          ],
+          "samplePoints": 21
+        }
+      ]
+    },
+    "lift": {
+      "time": 4.3,
+      "phase": "抬笔回正",
+      "state": {
+        "bend": [
+          4.999685109511898e-7,
+          0,
+          0
+        ],
+        "speed": 0,
+        "valid": true,
+        "contact": false,
+        "resetReason": "no_contact"
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.0182,
+            0,
+            0.012
+          ],
+          "samplePoints": 25
+        },
+        {
+          "maxVertexBendMm": 0.00048605488707033215,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.0182,
+            0,
+            0.012
+          ],
+          "samplePoints": 25
+        },
+        {
+          "maxVertexBendMm": 0.0004999685109499812,
+          "visibleTipToNibMm": 0.0004999849590600281,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.0182,
+            0,
+            0.012
+          ],
+          "samplePoints": 25
+        }
+      ]
+    },
+    "corner": {
+      "time": 2.5,
+      "phase": "直角转向上行",
+      "state": {
+        "bend": [
+          -3.51025005598874e-10,
+          -0.001999999648974993,
+          0
+        ],
+        "speed": 0.024999999999999918,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0.017499999999999998,
+            0
+          ],
+          "samplePoints": 19
+        },
+        {
+          "maxVertexBendMm": 1.9443416579897908,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0.017499999999999998,
+            0
+          ],
+          "samplePoints": 19
+        },
+        {
+          "maxVertexBendMm": 1.9999996489750254,
+          "visibleTipToNibMm": 2.0000011557557955,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.013,
+            0.017499999999999998,
+            0
+          ],
+          "samplePoints": 19
+        }
+      ]
+    },
+    "normal": {
+      "time": 2,
+      "phase": "沿法线压入，切向速度为零",
+      "state": {
+        "bend": [
+          0,
+          0,
+          0
+        ],
+        "speed": 0,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0,
+            0,
+            0
+          ],
+          "samplePoints": 0
+        },
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0,
+            0,
+            0
+          ],
+          "samplePoints": 0
+        },
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0,
+            0,
+            0
+          ],
+          "samplePoints": 0
+        }
+      ]
+    },
+    "lost": {
+      "time": 1.5,
+      "phase": "短暂失追，回正",
+      "state": {
+        "bend": [
+          -0.000002545267155953267,
+          0,
+          0
+        ],
+        "speed": 0,
+        "valid": false,
+        "contact": false,
+        "resetReason": "tracking_lost"
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.005500000000000005,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        },
+        {
+          "maxVertexBendMm": 0.002474434915309758,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.005500000000000005,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        },
+        {
+          "maxVertexBendMm": 0.002545267155952714,
+          "visibleTipToNibMm": 0.0025452330675110172,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.005500000000000005,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        }
+      ]
+    },
+    "recontact": {
+      "time": 1.55,
+      "phase": "向右运笔",
+      "state": {
+        "bend": [
+          -0.0000011061685461491952,
+          0,
+          0
+        ],
+        "speed": 0,
+        "valid": true,
+        "contact": true,
+        "resetReason": "contact_started"
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.006749999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        },
+        {
+          "maxVertexBendMm": 0.0010753849812610127,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.006749999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        },
+        {
+          "maxVertexBendMm": 0.001106168546148255,
+          "visibleTipToNibMm": 0.0011062386502319038,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.006749999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 6
+        }
+      ]
+    },
+    "rotate": {
+      "time": 1.4,
+      "phase": "向右运笔",
+      "state": {
+        "bend": [
+          -0.001999999999553273,
+          0,
+          0
+        ],
+        "speed": 0.025,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        },
+        {
+          "maxVertexBendMm": 1.9443419988117987,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        },
+        {
+          "maxVertexBendMm": 1.9999999995532718,
+          "visibleTipToNibMm": 2.000000390599655,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            0.002999999999999999,
+            0,
+            0
+          ],
+          "samplePoints": 9
+        }
+      ]
+    },
+    "fast": {
+      "time": 1.5,
+      "phase": "圆形运笔",
+      "state": {
+        "bend": [
+          -0.0006437132992520594,
+          0.0036768713502313296,
+          0
+        ],
+        "speed": 0.04712254405684163,
+        "valid": true,
+        "contact": true,
+        "resetReason": null
+      },
+      "views": [
+        {
+          "maxVertexBendMm": 0,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.014265847744427303,
+            -0.0046352549156242154,
+            0
+          ],
+          "samplePoints": 18
+        },
+        {
+          "maxVertexBendMm": 3.6289139039541256,
+          "visibleTipToNibMm": 0.0000028014183056646047,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.014265847744427303,
+            -0.0046352549156242154,
+            0
+          ],
+          "samplePoints": 18
+        },
+        {
+          "maxVertexBendMm": 3.7327938247090384,
+          "visibleTipToNibMm": 3.7327925840612854,
+          "rigidVertexMovementMm": 0,
+          "logicalNib": [
+            -0.014265847744427303,
+            -0.0046352549156242154,
+            0
+          ],
+          "samplePoints": 18
+        }
+      ]
+    }
+  }
+}
