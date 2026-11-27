@@ -1,0 +1,158 @@
+{
+  "asset": "QingGuiR02",
+  "frozen_at": "2026-11-26T01:43:51.349450+08:00",
+  "model_manifest": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\frozen-manifest.json",
+  "media": [
+    {
+      "id": "game_three_view",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\12_ThreeView_SameScale.png",
+      "relative_path": "Previews/12_ThreeView_SameScale.png",
+      "label": "真实最终 LOD0 PBR 同尺度正/右/背三视",
+      "origin": "Actual Blender Cycles render of game LOD0; no Unity shader",
+      "sha256": "4765b18969b33628422b221245c3a22ff10e79b906a31f592c0a8b0c15d9f711",
+      "bytes": 667779
+    },
+    {
+      "id": "game_front45",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\04_Front45.png",
+      "relative_path": "Previews/04_Front45.png",
+      "label": "真实最终 LOD0 45°",
+      "origin": "Actual Blender Cycles game LOD0",
+      "sha256": "703c4eeae0e7497c1a6f18b50e8851589e2f49d89f7bd729fa991fc9fb6106df",
+      "bytes": 1234848
+    },
+    {
+      "id": "wire_contact",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\05_GoldContact.png",
+      "relative_path": "Previews/05_GoldContact.png",
+      "label": "实体金丝近景",
+      "origin": "Actual game LOD0; discrete round segments visible at extreme zoom",
+      "sha256": "26151884efe1b8fbb77333d4face25e11d209dac7f18473e7deefcff57ce0737",
+      "bytes": 1542816
+    },
+    {
+      "id": "aperture",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\06_Aperture.png",
+      "relative_path": "Previews/06_Aperture.png",
+      "label": "圆孔口与金丝接头",
+      "origin": "Actual game LOD0; 2K fine motif and finite-segment ring",
+      "sha256": "452d8a83bfb4a215b4bff0419d42a5692d8cf7053c60c6f7607bf22c40c8ae08",
+      "bytes": 1414032
+    },
+    {
+      "id": "shoulder",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\07_Shoulder.png",
+      "relative_path": "Previews/07_Shoulder.png",
+      "label": "肩部、铜玉交界及准线",
+      "origin": "Actual game LOD0",
+      "sha256": "daa03f66aa0feaa4ad6c6c57d7def98ff318773ec65eaa97ae4db863ca724052",
+      "bytes": 1298274
+    },
+    {
+      "id": "compare_45",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\13_R01_R02_45.png",
+      "relative_path": "Previews/13_R01_R02_45.png",
+      "label": "R01 左 / R02 右：同机位游戏模型",
+      "origin": "Layout of existing actual low-model renders, no regenerated imagery",
+      "sha256": "0e15bc4c66ca7ea11587f378a9f3d330e3fbc1fe80f0d54dabdcf94e4fdaf64b",
+      "bytes": 849403
+    },
+    {
+      "id": "compare_aperture",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\14_R01_R02_Aperture.png",
+      "relative_path": "Previews/14_R01_R02_Aperture.png",
+      "label": "R01 左 / R02 右：孔口与表面金丝",
+      "origin": "Actual low-model comparison, same view/scale",
+      "sha256": "f528546876ba1f56220f4bd67de10bda0ee22a9ed91fab2e7a28290b2e0bf505",
+      "bytes": 1228311
+    },
+    {
+      "id": "compare_shoulder",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\15_R01_R02_Shoulder.png",
+      "relative_path": "Previews/15_R01_R02_Shoulder.png",
+      "label": "R01 左 / R02 右：肩与细纹",
+      "origin": "Actual low-model comparison, same view/scale",
+      "sha256": "79fe61d9a149b4e9fd203da70324fa406d653699f2223c1998b20e10f547310c",
+      "bytes": 1135389
+    },
+    {
+      "id": "source_three_view",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\SourcePreview\\14_ThreeView_Source.png",
+      "relative_path": "SourcePreview/14_ThreeView_Source.png",
+      "label": "源高模玉石材质三视",
+      "origin": "Blender source high with Cycles optical material; not runtime proof",
+      "sha256": "9e6c8f471d29aac8cd0ca21f05779cc8ef8af7de1735e04e29d6e9be7e9e4de7",
+      "bytes": 665152
+    },
+    {
+      "id": "source_polish",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\SourcePreview\\10_PolishStrip.png",
+      "relative_path": "SourcePreview/10_PolishStrip.png",
+      "label": "源材质窄条侧光：抛磨连续高光",
+      "origin": "Cycles source high, 4W rectangular strip, world .1",
+      "sha256": "f9f9f644a7139ed5f245f5a8b428b83e380152f4015ad7d69434f8a476eb208a",
+      "bytes": 1317406
+    },
+    {
+      "id": "source_backlight",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\SourcePreview\\11_Backlight_5W.png",
+      "relative_path": "SourcePreview/11_Backlight_5W.png",
+      "label": "源材质正常 5W 背光：厚薄区别",
+      "origin": "Cycles source high, 5W rear disc, world zero",
+      "sha256": "c4db0765cdf8ea7b76e49fd1b21678f2f27e7bdec93ab07ad46159b0ff823dbe",
+      "bytes": 670966
+    },
+    {
+      "id": "source_stress_backlight",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\SourcePreview\\12_Backlight_25W_Stress.png",
+      "relative_path": "SourcePreview/12_Backlight_25W_Stress.png",
+      "label": "25W 极端背光压力测试",
+      "origin": "Cycles source high stress test; not normal presentation",
+      "sha256": "97a931b04cd65c2e356969f1c9d0850f3e0083997fedbbd12065201327db6417",
+      "bytes": 696665
+    },
+    {
+      "id": "source_no_light",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\SourcePreview\\13_NoLight.png",
+      "relative_path": "SourcePreview/13_NoLight.png",
+      "label": "关灯/环境光关闭",
+      "origin": "Actual all-lights/world-zero source render; no emission",
+      "sha256": "577039026eeb8373f6470f562e92cb34f785014e372aad806e6e7c47b5ce9816",
+      "bytes": 275986
+    },
+    {
+      "id": "wire_review",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\Previews\\11_CleanWireFront.png",
+      "relative_path": "Previews/11_CleanWireFront.png",
+      "label": "实际 LOD0 线框",
+      "origin": "Blender Workbench exact mesh edges",
+      "sha256": "f76f49f53b5b3c6fb09ab8e86f54f116f032450cbf20630161e21fc34a0614f9",
+      "bytes": 899608
+    },
+    {
+      "id": "model_pbr",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\QingGuiR02.glb",
+      "relative_path": "QingGuiR02.glb",
+      "label": "标准游戏 PBR GLB",
+      "origin": "Final actual LOD0; opaque conventional PBR; no Unity jade shader",
+      "sha256": "fff50ec5bd5e22cecf0a84241097b77b0631ec6eeecbf83be909b5b9504cb890",
+      "bytes": 1940504
+    },
+    {
+      "id": "model_lookdev",
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR02\\Model\\QingGuiR02_Lookdev.glb",
+      "relative_path": "QingGuiR02_Lookdev.glb",
+      "label": "标准抛磨/微透 Lookdev GLB",
+      "origin": "Same actual LOD0 plus KHR transmission/volume/ior/clearcoat; jade-mask gated, no alpha, not Unity/SSS equivalence",
+      "sha256": "44da6dd4a5310f1c856742fac2a4f2044c77409d6e9e08ea7c132292681fc688",
+      "bytes": 2457616
+    }
+  ],
+  "presentation_rules": [
+    "Main three-view is actual game LOD0, not source high.",
+    "Label source optics separately from Unity results.",
+    "Lookdev needs the four listed KHR extensions; ordinary PBR GLB does not contain Unity half-translucence.",
+    "Near-field wire faceting and 2K engraving sampling are accepted limits of this LOD.",
+    "Unity/Quest media are supplied separately by the Unity task; this contract contains none."
+  ]
+}
