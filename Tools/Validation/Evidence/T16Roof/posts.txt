@@ -1,0 +1,24 @@
+scene=Assets/Scene/Chapter02_SuspendedPath.unity originalNavTriangles=0 originalRangedActors=0 yard=(20.600, -0.260, 54.500)
+F1 · 锻造房 Assets/Art/Environment/SuspendedPath/Workshop/CliffForge.fbx submesh=4 tileTriangles=3084 origin=(10.600, 0.000, 44.500)
+F2 · 炭棚 Assets/Art/Environment/SuspendedPath/Workshop/CharcoalShed.fbx submesh=3 tileTriangles=1572 origin=(9.600, 0.000, 55.700)
+bakedAreas=0:12 3:6 4:5
+route 0 (11.200, 4.405, 41.035) -> (11.793, 4.435, 47.809) spawn (11.497, 4.382, 44.422)
+route 1 (10.751, 2.724, 54.497) -> (10.216, 2.694, 57.246) spawn (10.483, 2.672, 55.872)
+patrol.area=3 visited=True,True travel=9.040317
+patrol.area=4 visited=True,True travel=6.049851
+clear control target=(19.483, 2.672, 55.872) valid firing point=(8.274, 2.411, 54.928)
+fallback: dynamic射手有目标，遮挡确认、院落断路确认，两种情况均实际选择原屋顶巡逻点。
+post 3 goal=(12.526, 3.963, 47.243) actual=(12.307, 4.076, 46.995)
+post 4 goal=(11.057, 2.512, 55.016) actual=(10.927, 2.535, 55.334)
+combat playerFloor=(17.862, 0.000, 51.403) head=(17.862, 1.600, 51.403)
+fire -2742 pos=(12.818, 4.630, 46.646) frame=1114
+fire -2892 pos=(10.847, 3.072, 54.755) frame=1119
+cast frame=1180 coreDistances=2.08128,1.418738
+return -2742 frame=1184
+return -2892 frame=1192
+vitals enemy:5d4acbb225af4b85bdc4bd843f671958:1 owner=-2742 hp=70 frame=1252
+vitals enemy:c27c08878093475f8bfa7f711450f3bd:1 owner=-2892 hp=70 frame=1263
+result F1 · 锻造房 hp=70 agentSamples=1261 travel=11.45545 maxTileHeightError=0.1371064
+result F2 · 炭棚 hp=70 agentSamples=1261 travel=9.107948 maxTileHeightError=0.1249108
+double return: 一次衡印，两名原主各损失80，玩家生命100、盾量100。
+ROOF_TRIAL_PASS

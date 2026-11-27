@@ -1,0 +1,89 @@
+{
+  "source": "D:\\Temp\\UnifiedItems1127\\quest\\com.valvesoftware.steamlinkvr-20261127-043531-0.mp4",
+  "sha256": "0fab7ffc5aa2db1ba036ffd0f22317a67691d49bcfbe174be45276ff711a0b0b",
+  "sourceLocalStart": "2026-11-27T04:35:31+08:00",
+  "metadataOrigin": "/sdcard/Oculus/VideoShots/com.valvesoftware.steamlinkvr-20261127-043531-0.mp4",
+  "width": 1920,
+  "height": 1080,
+  "fps": 29.997884796797674,
+  "frames": 4768,
+  "selected": [
+    {
+      "seconds": 6,
+      "requestedZeroBasedFrame": 180,
+      "decodedSourceResolution": [
+        1920,
+        1080
+      ],
+      "filename": "quest1127-video-00m06s.jpg",
+      "sha256": "4c983c93f486f7f8cb4dda83a023d0e5f8b3a53f5ff7b3d364b83522be44e878"
+    },
+    {
+      "seconds": 51,
+      "requestedZeroBasedFrame": 1530,
+      "decodedSourceResolution": [
+        1920,
+        1080
+      ],
+      "filename": "quest1127-video-00m51s.jpg",
+      "sha256": "aa3af46e48459032ece3c14be3efbf7bdaac208f4c97edcd22f2f477e6beaf99"
+    },
+    {
+      "seconds": 84,
+      "requestedZeroBasedFrame": 2520,
+      "decodedSourceResolution": [
+        1920,
+        1080
+      ],
+      "filename": "quest1127-video-01m24s.jpg",
+      "sha256": "bc7e7f1da8212c8533c13b71cd2dd056421410ebbecd9e1981d4cd2c69ff10b1"
+    },
+    {
+      "seconds": 120,
+      "requestedZeroBasedFrame": 3600,
+      "decodedSourceResolution": [
+        1920,
+        1080
+      ],
+      "filename": "quest1127-video-02m00s.jpg",
+      "sha256": "bd2496995514c6b1cf208d79fc592df68feeee38414559bf8b9344cf681b7fa5"
+    }
+  ],
+  "sourceDeviceEvidence": {
+    "app": "com.valvesoftware.steamlinkvr",
+    "adbPath": "/sdcard/Oculus/VideoShots/com.valvesoftware.steamlinkvr-20261127-043531-0.mp4",
+    "steamLog": "D:/Netease/steam/logs/vrserver.previous.txt:2974",
+    "localTime": "2026-11-27T04:34:34.648+08:00",
+    "value": "vrlink: ReceivedHMDStaticProps. Model Number: Oculus Quest3",
+    "recordSource": "Tools/Validation/Evidence/AllItemsLab1127/repro/headset-observations.json"
+  },
+  "observations": [
+    {
+      "seconds": 6,
+      "seen": "Two open hand silhouettes consisting of thin green line segments."
+    },
+    {
+      "seconds": 51,
+      "seen": "Left-side hand and ration stack on the left, curled right-side digits reaching nearby."
+    },
+    {
+      "seconds": 84,
+      "seen": "One biscuit near the camera at right with angular green finger paths. The board shows 3/4 pieces; hand surface is absent from the visible pixels."
+    },
+    {
+      "seconds": 120,
+      "seen": "Wrist menu in foreground; actual wrist fit and skin surface are not visible."
+    }
+  ],
+  "correlation": {
+    "recording": "2026-11-27T04:35:31+08:00 to 04:38:09.94",
+    "sdkFrameClip": "2026-11-27T19:24:57+08:00 to 19:25:02",
+    "sameSessionAsSDKFrames": false,
+    "nearbyLogs": [
+      "Logs/interaction-input/20261127-043706.jsonl",
+      "Logs/interaction-input/20261127-043739.jsonl"
+    ],
+    "nearbyLogSemantics": "30 s, approximately 10 Hz, diagnostic text with hand pose class and derived recognizer/motion metrics. Frame-exact video clock sync and complete per-joint poses are absent."
+  },
+  "limits": "Lab rendering shows green finger chains with no continuous skin surface. Mesh deformation, skin weights, local axis and exact grip contacts cannot be identified from this clip."
+}

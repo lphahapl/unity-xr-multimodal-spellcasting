@@ -1,0 +1,39 @@
+{
+  "inputs": {
+    "runtime-vertices-bone4.f32": "c04ea7d5912b739ea6fab918a2bfd8d522fa24a219cca688519364b5f2ef3141",
+    "runtime-triangles.i32": "af9667f3a2f3f527dc3ec481903fd6c27cde21233b5306ba6831cc8ff4b98af7",
+    "runtime-poses.csv": "d61e8ae6f7b3a3cd7302c2239e2953b990b0b74659255a83ae64b8d84593d164",
+    "T25-A4-stone-local.obj": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+    "runtime-bones.f32": "5669bad75a7eb74d270c74d330f231c540cacdde1aeb546853d6d64a12983f7c"
+  },
+  "all": {
+    "min_mm": 3.774801554034267,
+    "min_frame": 6,
+    "max_mm": 4.054280416399674,
+    "max_frame": 45,
+    "hit_frames": []
+  },
+  "left": {
+    "min_mm": 4.008309800616616,
+    "min_frame": 38,
+    "max_mm": 8.405349035472822,
+    "max_frame": 67,
+    "hit_frames": []
+  },
+  "right": {
+    "min_mm": 5.954977534576045,
+    "min_frame": 29,
+    "max_mm": 9.398859176558027,
+    "max_frame": 67,
+    "hit_frames": []
+  },
+  "extension": {
+    "min_mm": 39.285337707025136,
+    "min_frame": 55,
+    "max_mm": 83.6689927163603,
+    "max_frame": 33,
+    "hit_frames": []
+  },
+  "containment_frames": [],
+  "right_extension_aabb_overlap_frames": 80
+}

@@ -1,0 +1,68 @@
+2026-11-26T01:42:54.5970682+08:00
+Play data builder: Use Asset Database (fastest)
+PASS Chapter01_Awakening real skinned bones=25
+PASS Chapter01_Awakening renamed first attack requires its mapped state
+PASS Chapter01_Awakening alternate first attack validates: 配置有效
+PASS Chapter01_Awakening alternate graph returns to pool
+PASS Chapter01_Awakening real spawn validates renamed attack on checkout
+PASS Chapter01_Awakening poise damaged before presentation-only disable
+PASS Chapter01_Awakening encounter suspension freezes poise
+PASS Chapter01_Awakening combat clock recovers poise with Animator disabled
+PASS Chapter01_Awakening entered Hit
+TRACE Chapter01_Awakening Hit pause=3.20s boneMax=0.00 deg postMotion=78.14 orphanAI=0.025s played=True released=True state=1325029553
+PASS Chapter01_Awakening Hit retains pose while explicitly suspended
+PASS Chapter01_Awakening Hit visibly resumes and unlocks without watchdog
+PASS Chapter01_Awakening entered Seated
+TRACE Chapter01_Awakening Seated pause=3.20s boneMax=0.00 deg postMotion=82.04 orphanAI=0.025s played=True released=True state=1325029553
+PASS Chapter01_Awakening Seated retains pose while explicitly suspended
+PASS Chapter01_Awakening Seated visibly resumes and unlocks without watchdog
+PASS Chapter01_Awakening entered Hit
+TRACE Chapter01_Awakening Hit pause=10.00s boneMax=0.00 deg postMotion=78.14 orphanAI=0.025s played=True released=True state=1325029553
+PASS Chapter01_Awakening Hit retains pose while explicitly suspended
+PASS Chapter01_Awakening Hit visibly resumes and unlocks without watchdog
+TRACE Chapter01_Awakening sustained-turn side=1 behaviour=Turn normalized=2.46 boneMovement=94.54 deg /0.95s actual=CanJiOu_TurnRight90 loop=True asset=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx
+PASS Chapter01_Awakening sustained rotation continues to animate limbs
+TRACE Chapter01_Awakening sustained-turn side=-1 behaviour=Turn normalized=2.28 boneMovement=107.74 deg /0.95s actual=CanJiOu_TurnLeft90 loop=True asset=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx
+PASS Chapter01_Awakening sustained rotation continues to animate limbs
+PASS Chapter01_Awakening attack cancel/re-enter balanced starts=3 finishes=3 bone=1450.9
+PASS Chapter01_Awakening disabling Animator cancels the active attack without opening its damage window
+TRACE Chapter01_Awakening globalPause poseDelta=0.00 normalizedDelta=0.0000 resumePose=25.85 mode=Normal
+PASS Chapter01_Awakening global timeScale=0 retains reaction pose then resumes
+PASS Chapter01_Awakening original lease recycled
+PASS Chapter01_Awakening reuse during paused reaction preserves configured speed
+PASS Chapter01_Awakening sampled reachable NavMesh destination
+PASS Chapter01_Awakening real NavMesh root moved after reuse, metres=2.12
+PASS KaogongP1Trial real skinned bones=25
+PASS KaogongP1Trial renamed first attack requires its mapped state
+PASS KaogongP1Trial alternate first attack validates: 配置有效
+PASS KaogongP1Trial alternate graph returns to pool
+PASS KaogongP1Trial real spawn validates renamed attack on checkout
+PASS KaogongP1Trial poise damaged before presentation-only disable
+PASS KaogongP1Trial encounter suspension freezes poise
+PASS KaogongP1Trial combat clock recovers poise with Animator disabled
+PASS KaogongP1Trial entered Hit
+TRACE KaogongP1Trial Hit pause=3.20s boneMax=0.00 deg postMotion=78.14 orphanAI=0.025s played=True released=True state=1325029553
+PASS KaogongP1Trial Hit retains pose while explicitly suspended
+PASS KaogongP1Trial Hit visibly resumes and unlocks without watchdog
+PASS KaogongP1Trial entered Seated
+TRACE KaogongP1Trial Seated pause=3.20s boneMax=0.00 deg postMotion=82.04 orphanAI=0.025s played=True released=True state=1325029553
+PASS KaogongP1Trial Seated retains pose while explicitly suspended
+PASS KaogongP1Trial Seated visibly resumes and unlocks without watchdog
+PASS KaogongP1Trial entered Hit
+TRACE KaogongP1Trial Hit pause=10.00s boneMax=0.00 deg postMotion=78.14 orphanAI=0.025s played=True released=True state=1325029553
+PASS KaogongP1Trial Hit retains pose while explicitly suspended
+PASS KaogongP1Trial Hit visibly resumes and unlocks without watchdog
+TRACE KaogongP1Trial sustained-turn side=1 behaviour=Turn normalized=2.46 boneMovement=94.54 deg /0.95s actual=CanJiOu_TurnRight90 loop=True asset=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnRight90.fbx
+PASS KaogongP1Trial sustained rotation continues to animate limbs
+TRACE KaogongP1Trial sustained-turn side=-1 behaviour=Turn normalized=2.28 boneMovement=107.74 deg /0.95s actual=CanJiOu_TurnLeft90 loop=True asset=Assets/Art/Enemies/CanJiOu/Animations/CanJiOu_TurnLeft90.fbx
+PASS KaogongP1Trial sustained rotation continues to animate limbs
+PASS KaogongP1Trial attack cancel/re-enter balanced starts=3 finishes=3 bone=1048.2
+PASS KaogongP1Trial disabling Animator cancels the active attack without opening its damage window
+TRACE KaogongP1Trial globalPause poseDelta=0.00 normalizedDelta=0.0000 resumePose=25.85 mode=Normal
+PASS KaogongP1Trial global timeScale=0 retains reaction pose then resumes
+PASS KaogongP1Trial original lease recycled
+PASS KaogongP1Trial reuse during paused reaction preserves configured speed
+PASS KaogongP1Trial sampled reachable NavMesh destination
+PASS KaogongP1Trial real NavMesh root moved after reuse, metres=2.12
+52 checks / 0 failures
+PASS END

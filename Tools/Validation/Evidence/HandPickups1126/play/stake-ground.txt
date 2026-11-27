@@ -1,0 +1,10 @@
+2026-11-26T23:52:13.0905178+08:00 Assets/Samples/ToolBeltItems/CooldownStakeLab.unity 6000.3.10f1
+PASS calibration box top worldY=0.080000 layer=0; world space signed mm. neutral plane horizontal; target scene Assets/Samples/ToolBeltItems/CooldownStakeLab.unity
+PASS floor-stake CooldownStake mode=free-near floorY=0.080000 meshMm=(0.50,33.50) colliderMm=(0.00,34.00) gripMm=17.00 meshMinusColliderMm=(0.50,-0.50) raySurfaceMm=34.00 vertices=552 solids=1 center=(80.144170,0.097000,39.909910) euler=(0.000104,31.999950,90.000020)
+PASS floor-stake CooldownStake hover=True near=True expectedSurface=(80.050880,0.114000,39.968200) marker=(80.050880,0.114000,39.968200) tip=(80.050880,0.126000,39.968200)
+PASS floor-stake CooldownStake mode=free-ray floorY=0.080000 meshMm=(0.50,33.50) colliderMm=(0.00,34.00) gripMm=17.00 meshMinusColliderMm=(0.50,-0.50) raySurfaceMm=34.00 vertices=552 solids=1 center=(80.144170,0.097000,39.909910) euler=(0.000104,31.999950,90.000020)
+PASS floor-stake CooldownStake hover=True near=False expectedSurface=(80.050880,0.114000,39.968200) marker=(80.050880,0.114000,39.968200) tip=(80.200880,0.774000,39.508210)
+PASS floor-stake CooldownStake mode=planted floorY=0.080000 meshMm=(0.00,213.00) colliderMm=(0.00,220.00) gripMm=170.00 meshMinusColliderMm=(0.00,-7.00) raySurfaceMm=220.00 vertices=552 solids=1 center=(80.000000,0.080000,40.000000) euler=(0.000000,32.000000,0.000000)
+PASS floor-stake CooldownStake hover=True near=False expectedSurface=(80.000000,0.300000,40.000000) marker=(80.000000,0.300000,40.000000) tip=(80.150000,0.960000,39.540000)
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

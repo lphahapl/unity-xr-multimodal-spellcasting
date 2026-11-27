@@ -1,0 +1,96 @@
+{
+  "Chapter01_Awakening": [
+    {
+      "component": "OpeningLeafPuzzle",
+      "fileID": "2027629104",
+      "go": "\"\\u6821\\u89C4\\u5EAD \\xB7 \\u540C\\u5FC3\\u5408\\u77E9\"",
+      "sceneRefs": {
+        "leaf": "{fileID: 461754020}"
+      }
+    }
+  ],
+  "Chapter01_Courtyard": [
+    {
+      "component": "OpeningLeafPuzzle",
+      "fileID": "2027629104",
+      "go": "\"\\u6821\\u89C4\\u5EAD \\xB7 \\u540C\\u5FC3\\u5408\\u77E9\"",
+      "sceneRefs": {
+        "leaf": "{fileID: 461754020}"
+      }
+    }
+  ],
+  "Chapter02_SuspendedPath": [
+    {
+      "component": "GlyphPenController",
+      "fileID": "206717582",
+      "go": "\"\\u4E8C\\u7AE0 \\xB7 \\u73A9\\u5BB6\\u4E0E\\u5DE5\\u574A\\u6821\\u51C6\"",
+      "sceneRefs": {
+        "penRoot": "{fileID: 856396328}"
+      }
+    },
+    {
+      "component": "ChapterRationSupply",
+      "fileID": "206717583",
+      "go": "\"\\u4E8C\\u7AE0 \\xB7 \\u73A9\\u5BB6\\u4E0E\\u5DE5\\u574A\\u6821\\u51C6\"",
+      "sceneRefs": {
+        "interaction": "{fileID: 206717584}",
+        "centralPocket": "{fileID: 1511223459}"
+      }
+    },
+    {
+      "component": "TravelRationInteraction",
+      "fileID": "206717584",
+      "go": "\"\\u4E8C\\u7AE0 \\xB7 \\u73A9\\u5BB6\\u4E0E\\u5DE5\\u574A\\u6821\\u51C6\"",
+      "sceneRefs": {
+        "pouch": "{fileID: 0}"
+      }
+    },
+    {
+      "component": "WorkshopTenonObjective",
+      "fileID": "741926983",
+      "go": "③ 工坊清场与④主榫归座",
+      "sceneRefs": {
+        "tenon": "{fileID: 911223949}"
+      }
+    },
+    {
+      "component": "ChapterToolBelt",
+      "fileID": "856396331",
+      "go": null,
+      "sceneRefs": {}
+    },
+    {
+      "component": "GameItemBase",
+      "fileID": "911223949",
+      "go": null,
+      "sceneRefs": {}
+    },
+    {
+      "component": "ToolBeltInteraction",
+      "fileID": "1511223460",
+      "go": null,
+      "sceneRefs": {}
+    }
+  ],
+  "KaogongP1Trial": [],
+  "GlyphLab": [
+    {
+      "component": "GlyphPenController",
+      "fileID": "1147475787",
+      "go": "RPG 会话与玩家",
+      "sceneRefs": {
+        "penRoot": "{fileID: 1402675508}"
+      }
+    }
+  ],
+  "PassageGlyphLab": [
+    {
+      "component": "GlyphPenController",
+      "fileID": "1147475787",
+      "go": "RPG 会话与玩家",
+      "sceneRefs": {
+        "penRoot": "{fileID: 1402675508}"
+      }
+    }
+  ]
+}

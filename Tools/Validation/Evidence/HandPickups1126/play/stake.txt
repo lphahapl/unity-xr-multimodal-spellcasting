@@ -1,0 +1,18 @@
+2026-11-26T23:47:06.9745576+08:00 Assets/Samples/ToolBeltItems/CooldownStakeLab.unity 6000.3.10f1
+PASS CooldownStake left ray marks actual pocket item
+PASS CooldownStake visible world-space ray and endpoint on target
+PASS CooldownStake straight index owns the marker when the system pointer disagrees
+PASS CooldownStake bent index falls back to the tracked system pointer origin
+PASS CooldownStake outside configured reach is unmarked
+PASS CooldownStake original NeuGame wrapper binds actual Meta rigidbody
+PASS CooldownStake original DisableGrab removes candidate
+PASS CooldownStake wall rejects highlight and pickup
+PASS CooldownStake left distant pinch owns same item
+PASS CooldownStake other hand and brief loss cannot steal
+PASS CooldownStake deliberate release leaves world drop
+PASS CooldownStake right ray recovers actual dropped item
+PASS CooldownStake returns to original legal pocket
+PASS CooldownStake re-docked pocket can be marked from afar
+PASS CooldownStake left near pickup
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

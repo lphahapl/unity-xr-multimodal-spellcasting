@@ -1,0 +1,15 @@
+
+2026-11-27T11:11:34.6390708+08:00 ink 6000.3.10f1
+PASS two independent greybox items seated, prototype recovery defaults off
+PASS ink taken with standard belt claim
+PASS closed sleeve rejects break
+PASS partial slide does not unlock a segment
+PASS sliding cover and exposing ink do not recover DuLi
+PASS straight extraction is not a scored-line break
+PASS partial bend rotates visible segment around score
+PASS tracking loss restores unsnapped segment
+PASS one segment per tracked pinch; unapproved recovery stays disabled
+PASS opt-in break settlement uses existing DuLi effect once; no sniff settlement
+PASS rubbing taken with same belt claim
+PASS rubbing changes actual dock without consumption or special effect
+PASS END

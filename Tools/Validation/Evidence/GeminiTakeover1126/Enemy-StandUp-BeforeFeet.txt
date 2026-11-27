@@ -1,0 +1,58 @@
+2026-11-26T01:31:41.5557159+08:00
+PASS StandUp FBX ModelImporter exists
+PASS StandUp FBX imported as Humanoid
+PASS StandUp FBX imports animation
+PASS StandUp AnimationClip loaded: CanJiOu_StandUp
+PASS DazedSeated AnimationClip loaded: CanJiOu_DazedSeated
+PASS StandUp clip is single-shot (!isLooping)
+PASS StandUp clip length ~2.7s (actual 2.700s @ 30fps)
+PASS Both AnimatorControllers load cleanly
+PASS CanJiOu: Seated shares CanJiOu_DazedSeated
+PASS CanJiOu: StandUp shares CanJiOu_StandUp
+PASS CanJiOu: Seated -> StandUp transition wired
+PASS CanJiOu: StandUp -> Idle transition wired
+PASS ZhiHuoCanJi: Seated shares CanJiOu_DazedSeated
+PASS ZhiHuoCanJi: StandUp shares CanJiOu_StandUp
+PASS ZhiHuoCanJi: Seated -> StandUp transition wired
+PASS ZhiHuoCanJi: StandUp -> Idle transition wired
+PASS CanJiOu: prefab loads (Assets/Art/Enemies/CanJiOu/CanJiOu_Enemy.prefab)
+PASS CanJiOu: ValidateAnimator -> 配置有效
+PASS CanJiOu: SupportsReactions == true
+POSE CanJiOu Idle: HipsY=0.896 HeadY=1.428
+PASS CanJiOu: poise break enters Behaviour.Seated
+STATE CanJiOu entered Seated at t=0.15s HipsY=0.200 HeadY=0.646
+STATE CanJiOu entered StandUp at t=4.25s HipsY=0.163 HeadY=0.537
+STATE CanJiOu recovered to Idle at t=6.85s HipsY=0.898 HeadY=1.429 FootY=(0.092,0.094)
+PASS CanJiOu: played both Seated and StandUp (seated=True, standUp=True)
+PASS CanJiOu: remained locked and broken throughout StandUp (lock=True, zeroPoise=True)
+PASS CanJiOu: completed StandUp before reactionTimeout=8s (elapsed=6.85s)
+PASS CanJiOu: poise restored after StandUp completion
+PASS CanJiOu: visually lowered while seated (idleHead=1.43m -> seatedMin=0.57m)
+FAIL CanJiOu: stood back up cleanly (endHead=1.37m vs idle=1.43m, minFootY=-0.65m)
+BOUNDS CanJiOu CanJiOu_Body: updateOffscreen=False center=(0.10, 0.09, 0.19) ext=(0.77, 0.87, 0.67)
+BOUNDS CanJiOu CanJiOu_Render_LOD1: updateOffscreen=False center=(0.10, 0.09, 0.19) ext=(0.77, 0.87, 0.67)
+PASS CanJiOu: reached StandUp before lethal interrupt test
+PASS CanJiOu: lethal hit mid-StandUp triggers Dead
+PASS CanJiOu: stays in Dead after interrupting StandUp
+PASS ZhiHuoCanJi: prefab loads (Assets/Art/Enemies/ZhiHuoCanJi/ZhiHuoCanJi_Enemy.prefab)
+PASS ZhiHuoCanJi: ValidateAnimator -> 配置有效
+PASS ZhiHuoCanJi: SupportsReactions == true
+POSE ZhiHuoCanJi Idle: HipsY=1.114 HeadY=1.585
+PASS ZhiHuoCanJi: poise break enters Behaviour.Seated
+STATE ZhiHuoCanJi entered Seated at t=0.15s HipsY=0.211 HeadY=0.586
+STATE ZhiHuoCanJi entered StandUp at t=4.25s HipsY=0.165 HeadY=0.469
+STATE ZhiHuoCanJi recovered to Idle at t=6.85s HipsY=1.114 HeadY=1.585 FootY=(0.073,0.070)
+PASS ZhiHuoCanJi: played both Seated and StandUp (seated=True, standUp=True)
+PASS ZhiHuoCanJi: remained locked and broken throughout StandUp (lock=True, zeroPoise=True)
+PASS ZhiHuoCanJi: completed StandUp before reactionTimeout=8s (elapsed=6.85s)
+PASS ZhiHuoCanJi: poise restored after StandUp completion
+PASS ZhiHuoCanJi: visually lowered while seated (idleHead=1.59m -> seatedMin=0.50m)
+FAIL ZhiHuoCanJi: stood back up cleanly (endHead=1.51m vs idle=1.59m, minFootY=-0.72m)
+BOUNDS ZhiHuoCanJi ZhiHuoCanJi: updateOffscreen=False center=(-0.05, -0.25, -0.05) ext=(1.15, 0.98, 0.36)
+PASS ZhiHuoCanJi: reached StandUp before lethal interrupt test
+PASS ZhiHuoCanJi: lethal hit mid-StandUp triggers Dead
+PASS ZhiHuoCanJi: stays in Dead after interrupting StandUp
+EnemyFireCoreParryChecks: PASS
+PASS EnemySetupAndChecks.Run -> PASSED 敌人状态/动画/导航 61 项通过；事件中心 22 项通过；敌人攻击范围/窗口/去重/事件/RPG护盾 39 项通过（隔离 Play 合成检查）。；敌人SO/韧性/瘫痪/弱点/实际投射物 37 项通过；玩家实体与新旧配置 31 项检查通过；敌人双碰撞器/近身真实触发/受击锁定/巡逻120度 24 项通过；既有技能效果 10 项通过；隔离 Play 合成输入测试，非头显验收。
+43 checks / 2 failures
+FAIL END

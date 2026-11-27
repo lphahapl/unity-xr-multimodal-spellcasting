@@ -1,0 +1,569 @@
+{
+  "source": "quest3-1127-middle-wrist-A left",
+  "pixelsPerMetre": 2067.4207134509006,
+  "nativeSurfaceSilhouetteIoU": 0.9999756542909313,
+  "frontVisiblePixels": 41075,
+  "refVisiblePixels": 41074,
+  "landmarks": {
+    "食指根轮廓": {
+      "target": [
+        248,
+        239
+      ],
+      "nearestOutline": [
+        247,
+        238
+      ],
+      "triangle": 2071,
+      "vertexIDs": [
+        1226,
+        1216,
+        1225
+      ],
+      "barycentric": [
+        0.345,
+        0.625,
+        0.03
+      ],
+      "weight": {
+        "IndexProximal": 0.9023,
+        "Wrist": 0.0977
+      },
+      "group": {
+        "掌腕": 0.0977,
+        "食指": 0.9023
+      },
+      "patchVisiblePixels": 41,
+      "patchR6Mean": {
+        "IndexProximal": 0.8612,
+        "Wrist": 0.1387,
+        "IndexIntermediate": 0.0001,
+        "ThumbMetacarpal": 0.0001
+      },
+      "contourR7Pixels": 18,
+      "contourR7Mean": {
+        "IndexProximal": 0.8842,
+        "Wrist": 0.1157,
+        "ThumbMetacarpal": 0.0001
+      },
+      "contourR7SecondGroupWeightMax": 0.187727596438738,
+      "pointSidePixel": [
+        384.01,
+        236.957,
+        0.874
+      ],
+      "occludedBySideDepthMm": -0.016,
+      "jointAxisNearestMm": [
+        [
+          7.75,
+          "IndexProximal/IndexIntermediate",
+          0.267
+        ],
+        [
+          12.55,
+          "IndexMetacarpal/IndexProximal",
+          1.0
+        ],
+        [
+          24.65,
+          "MiddleProximal/MiddleIntermediate",
+          0.239
+        ],
+        [
+          26.6,
+          "MiddleMetacarpal/MiddleProximal",
+          1.0
+        ]
+      ]
+    },
+    "掌侧凹口": {
+      "target": [
+        219,
+        263
+      ],
+      "nearestOutline": [
+        219,
+        263
+      ],
+      "triangle": 203,
+      "vertexIDs": [
+        126,
+        125,
+        130
+      ],
+      "barycentric": [
+        0.033,
+        0.48,
+        0.487
+      ],
+      "weight": {
+        "Wrist": 0.9043,
+        "ThumbMetacarpal": 0.0594,
+        "IndexProximal": 0.0363
+      },
+      "group": {
+        "掌腕": 0.9043,
+        "拇指": 0.0594,
+        "食指": 0.0363
+      },
+      "patchVisiblePixels": 65,
+      "patchR6Mean": {
+        "Wrist": 0.9245,
+        "ThumbMetacarpal": 0.0508,
+        "IndexProximal": 0.0246,
+        "MiddleProximal": 0.0001
+      },
+      "contourR7Pixels": 17,
+      "contourR7Mean": {
+        "Wrist": 0.9013,
+        "ThumbMetacarpal": 0.0561,
+        "IndexProximal": 0.0425
+      },
+      "contourR7SecondGroupWeightMax": 0.10346031005269314,
+      "pointSidePixel": [
+        355.097,
+        264.225,
+        0.887
+      ],
+      "occludedBySideDepthMm": -0.027,
+      "jointAxisNearestMm": [
+        [
+          4.15,
+          "IndexMetacarpal/IndexProximal",
+          0.831
+        ],
+        [
+          10.52,
+          "IndexProximal/IndexIntermediate",
+          0.0
+        ],
+        [
+          14.43,
+          "MiddleMetacarpal/MiddleProximal",
+          0.847
+        ],
+        [
+          16.99,
+          "MiddleProximal/MiddleIntermediate",
+          0.0
+        ]
+      ]
+    },
+    "掌侧鼓包": {
+      "target": [
+        258,
+        334
+      ],
+      "nearestOutline": [
+        257,
+        334
+      ],
+      "triangle": 168,
+      "vertexIDs": [
+        110,
+        107,
+        62
+      ],
+      "barycentric": [
+        0.615,
+        0.25,
+        0.135
+      ],
+      "weight": {
+        "ThumbMetacarpal": 0.5688,
+        "ThumbProximal": 0.407,
+        "Wrist": 0.0243
+      },
+      "group": {
+        "掌腕": 0.0243,
+        "拇指": 0.9757
+      },
+      "patchVisiblePixels": 49,
+      "patchR6Mean": {
+        "ThumbMetacarpal": 0.6885,
+        "ThumbProximal": 0.2752,
+        "Wrist": 0.0363
+      },
+      "contourR7Pixels": 14,
+      "contourR7Mean": {
+        "ThumbMetacarpal": 0.5551,
+        "ThumbProximal": 0.4209,
+        "Wrist": 0.024
+      },
+      "contourR7SecondGroupWeightMax": 0.03218578473900201,
+      "pointSidePixel": [
+        393.407,
+        341.668,
+        0.869
+      ],
+      "occludedBySideDepthMm": -0.013,
+      "jointAxisNearestMm": [
+        [
+          12.13,
+          "ThumbMetacarpal/ThumbProximal",
+          1.0
+        ],
+        [
+          12.13,
+          "ThumbProximal/ThumbDistal",
+          0.0
+        ],
+        [
+          33.16,
+          "IndexMetacarpal/IndexProximal",
+          0.463
+        ],
+        [
+          34.47,
+          "Wrist/ThumbMetacarpal",
+          1.0
+        ]
+      ]
+    }
+  },
+  "knuckleDeflectionDegrees": {
+    "ThumbProximal": {
+      "3d": 42.39,
+      "frontal": 65.23,
+      "lateral": 17.47
+    },
+    "ThumbDistal": {
+      "3d": 31.27,
+      "frontal": 31.77,
+      "lateral": 7.35
+    },
+    "IndexProximal": {
+      "3d": 6.87,
+      "frontal": 5.2,
+      "lateral": 5.66
+    },
+    "IndexIntermediate": {
+      "3d": 0.85,
+      "frontal": 0.83,
+      "lateral": 0.28
+    },
+    "IndexDistal": {
+      "3d": 7.17,
+      "frontal": 4.02,
+      "lateral": 6.8
+    },
+    "MiddleProximal": {
+      "3d": 13.07,
+      "frontal": 1.98,
+      "lateral": 13.01
+    },
+    "MiddleIntermediate": {
+      "3d": 0.5,
+      "frontal": 0.58,
+      "lateral": 0.17
+    },
+    "MiddleDistal": {
+      "3d": 9.06,
+      "frontal": 1.98,
+      "lateral": 9.18
+    },
+    "RingProximal": {
+      "3d": 55.27,
+      "frontal": 8.82,
+      "lateral": 55.74
+    },
+    "RingIntermediate": {
+      "3d": 92.46,
+      "frontal": 150.68,
+      "lateral": 93.03
+    },
+    "RingDistal": {
+      "3d": 54.63,
+      "frontal": 1.1,
+      "lateral": 54.72
+    },
+    "LittleProximal": {
+      "3d": 62.11,
+      "frontal": 75.56,
+      "lateral": 61.06
+    },
+    "LittleIntermediate": {
+      "3d": 73.83,
+      "frontal": 89.06,
+      "lateral": 76.65
+    },
+    "LittleDistal": {
+      "3d": 44.05,
+      "frontal": 0.45,
+      "lateral": 45.59
+    }
+  },
+  "poseBindLengthAndAxes": {
+    "ThumbMetacarpal": {
+      "bindMm": 31.675,
+      "poseMm": 31.476,
+      "rotatedBindToMeasuredDegrees": 0.005
+    },
+    "ThumbProximal": {
+      "bindMm": 32.922,
+      "poseMm": 32.845,
+      "rotatedBindToMeasuredDegrees": 0.136
+    },
+    "ThumbDistal": {
+      "bindMm": 14.48,
+      "poseMm": 14.349,
+      "rotatedBindToMeasuredDegrees": 0.196
+    },
+    "IndexMetacarpal": {
+      "bindMm": 56.975,
+      "poseMm": 57.136,
+      "rotatedBindToMeasuredDegrees": 7.794
+    },
+    "IndexProximal": {
+      "bindMm": 36.95,
+      "poseMm": 36.95,
+      "rotatedBindToMeasuredDegrees": 0.052
+    },
+    "IndexIntermediate": {
+      "bindMm": 23.677,
+      "poseMm": 23.607,
+      "rotatedBindToMeasuredDegrees": 0.011
+    },
+    "IndexDistal": {
+      "bindMm": 11.285,
+      "poseMm": 14.196,
+      "rotatedBindToMeasuredDegrees": 0.012
+    },
+    "MiddleMetacarpal": {
+      "bindMm": 56.874,
+      "poseMm": 58.504,
+      "rotatedBindToMeasuredDegrees": 10.451
+    },
+    "MiddleProximal": {
+      "bindMm": 41.821,
+      "poseMm": 41.74,
+      "rotatedBindToMeasuredDegrees": 0.045
+    },
+    "MiddleIntermediate": {
+      "bindMm": 26.839,
+      "poseMm": 26.686,
+      "rotatedBindToMeasuredDegrees": 0.057
+    },
+    "MiddleDistal": {
+      "bindMm": 11.889,
+      "poseMm": 17.391,
+      "rotatedBindToMeasuredDegrees": 0.2
+    },
+    "RingMetacarpal": {
+      "bindMm": 50.594,
+      "poseMm": 52.688,
+      "rotatedBindToMeasuredDegrees": 10.731
+    },
+    "RingProximal": {
+      "bindMm": 37.991,
+      "poseMm": 37.976,
+      "rotatedBindToMeasuredDegrees": 0.082
+    },
+    "RingIntermediate": {
+      "bindMm": 25.889,
+      "poseMm": 26.002,
+      "rotatedBindToMeasuredDegrees": 0.085
+    },
+    "RingDistal": {
+      "bindMm": 11.632,
+      "poseMm": 17.107,
+      "rotatedBindToMeasuredDegrees": 0.248
+    },
+    "LittleMetacarpal": {
+      "bindMm": 44.474,
+      "poseMm": 44.477,
+      "rotatedBindToMeasuredDegrees": 0.011
+    },
+    "LittleProximal": {
+      "bindMm": 29.929,
+      "poseMm": 29.765,
+      "rotatedBindToMeasuredDegrees": 0.107
+    },
+    "LittleIntermediate": {
+      "bindMm": 19.787,
+      "poseMm": 19.843,
+      "rotatedBindToMeasuredDegrees": 0.099
+    },
+    "LittleDistal": {
+      "bindMm": 11.602,
+      "poseMm": 14.712,
+      "rotatedBindToMeasuredDegrees": 0.141
+    }
+  },
+  "counterfactualHideDominantTriangles": {
+    "掌腕": {
+      "食指根轮廓": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      },
+      "掌侧凹口": {
+        "samePixelRemains": false,
+        "rowRightShiftPx": 15
+      },
+      "掌侧鼓包": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      }
+    },
+    "拇指": {
+      "食指根轮廓": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      },
+      "掌侧凹口": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      },
+      "掌侧鼓包": {
+        "samePixelRemains": false,
+        "rowRightShiftPx": 47
+      }
+    },
+    "食指": {
+      "食指根轮廓": {
+        "samePixelRemains": false,
+        "rowRightShiftPx": 22
+      },
+      "掌侧凹口": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      },
+      "掌侧鼓包": {
+        "samePixelRemains": true,
+        "rowRightShiftPx": 0
+      }
+    }
+  },
+  "frontBoneXY": {
+    "Palm": [
+      179.442,
+      294.126,
+      0.775
+    ],
+    "Wrist": [
+      146.188,
+      409.182,
+      0.745
+    ],
+    "ThumbMetacarpal": [
+      208.675,
+      366.588,
+      0.777
+    ],
+    "ThumbProximal": [
+      235.631,
+      339.779,
+      0.803
+    ],
+    "ThumbDistal": [
+      218.812,
+      293.762,
+      0.826
+    ],
+    "ThumbTip": [
+      197.843,
+      277.286,
+      0.832
+    ],
+    "IndexMetacarpal": [
+      196.539,
+      355.718,
+      0.768
+    ],
+    "IndexProximal": [
+      226.72,
+      248.192,
+      0.787
+    ],
+    "IndexIntermediate": [
+      251.62,
+      182.929,
+      0.802
+    ],
+    "IndexDistal": [
+      266.873,
+      141.132,
+      0.812
+    ],
+    "IndexTip": [
+      274.574,
+      114.327,
+      0.816
+    ],
+    "MiddleMetacarpal": [
+      163.99,
+      349.177,
+      0.766
+    ],
+    "MiddleProximal": [
+      194.894,
+      239.076,
+      0.785
+    ],
+    "MiddleIntermediate": [
+      212.236,
+      167.942,
+      0.807
+    ],
+    "MiddleDistal": [
+      222.876,
+      122.301,
+      0.821
+    ],
+    "MiddleTip": [
+      229.274,
+      89.818,
+      0.828
+    ],
+    "RingMetacarpal": [
+      134.536,
+      342.263,
+      0.763
+    ],
+    "RingProximal": [
+      162.368,
+      243.108,
+      0.78
+    ],
+    "RingIntermediate": [
+      171.308,
+      223.489,
+      0.817
+    ],
+    "RingDistal": [
+      175.742,
+      275.981,
+      0.822
+    ],
+    "RingTip": [
+      177.419,
+      301.741,
+      0.81
+    ],
+    "LittleMetacarpal": [
+      119.125,
+      342.232,
+      0.767
+    ],
+    "LittleProximal": [
+      118.011,
+      259.051,
+      0.786
+    ],
+    "LittleIntermediate": [
+      132.294,
+      255.167,
+      0.815
+    ],
+    "LittleDistal": [
+      143.24,
+      292.963,
+      0.82
+    ],
+    "LittleTip": [
+      150.533,
+      318.909,
+      0.813
+    ]
+  }
+}

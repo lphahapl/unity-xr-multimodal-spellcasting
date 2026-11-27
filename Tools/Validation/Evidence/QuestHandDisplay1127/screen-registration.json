@@ -1,0 +1,53 @@
+{
+  "userImage": "codex-clipboard-105ca17b-04b5-41a8-9ac8-9a9efdece041.png",
+  "sourceSha256": "257d6dfdddcfd71503a9123be31f20a31af47240b7f2489ba950df9bd4f4c903",
+  "matchedSource": "quest3-1127-middle-wrist-A.png",
+  "matchedSourceSha256": "34eb14862c4d12a0f9043cba53faa7842345b9f565353cbec24bce5e6a74e7bb",
+  "userCropTo800x500Reference": [
+    [
+      0.7995816977519178,
+      -0.00012242005269286562,
+      51.992152206661416
+    ],
+    [
+      0.00012242005269286562,
+      0.7995816977519178,
+      135.20333768235034
+    ]
+  ],
+  "inliers": 21,
+  "grayscalePearson": 0.9999639851920895,
+  "anchors": {
+    "corner": [
+      248,
+      239
+    ],
+    "recess": [
+      219,
+      263
+    ],
+    "thumbBulge": [
+      258,
+      334
+    ]
+  },
+  "measurement": "Right silhouette of the isolated left hand at fixed y; endpoint chord from y=225 to 330, reproducible screen metric only.",
+  "contours": {
+    "original": {
+      "file": "quest3-1127-middle-wrist-A.png",
+      "sha256": "34eb14862c4d12a0f9043cba53faa7842345b9f565353cbec24bce5e6a74e7bb",
+      "xAtY260": 218,
+      "xAtY330": 257,
+      "maxInsetFromChordPixels": 37.0,
+      "yAtMaxInset": 260
+    },
+    "candidate": {
+      "file": "quest3-1127-middle-wrist-B.png",
+      "sha256": "4a348824b23274664d0a9afab37654195d79ec8ad50db26dbbcdc29e1b3b6224",
+      "xAtY260": 248,
+      "xAtY330": 250,
+      "maxInsetFromChordPixels": 9.71,
+      "yAtMaxInset": 294
+    }
+  }
+}

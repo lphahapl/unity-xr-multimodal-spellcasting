@@ -1,0 +1,55 @@
+PASS 四个正式 SkillDefinition 引用四个独立瞄准资产
+fireball | Assets/ScriptableObjects/术法瞄准配置/火球术瞄准.asset | Assets/ScriptableObjects/投射物效果配置/火球术投射物.asset
+thunder.sword | Assets/ScriptableObjects/术法瞄准配置/雷光剑瞄准.asset | Assets/ScriptableObjects/雷光剑配置/雷光剑效果.asset
+breath.stream | Assets/ScriptableObjects/术法瞄准配置/龙火之术瞄准.asset | Assets/ScriptableObjects/吐火效果配置/龙火之术效果.asset
+breath.burst | Assets/ScriptableObjects/术法瞄准配置/飞炎术瞄准.asset | Assets/ScriptableObjects/吐火效果配置/飞炎术效果_玩家.asset
+PASS 火球术 玩家运行时副本保留本术瞄准引用
+PASS 雷光剑 玩家运行时副本保留本术瞄准引用
+PASS 龙火之术 玩家运行时副本保留本术瞄准引用
+PASS 飞炎术 玩家运行时副本保留本术瞄准引用
+PASS 玩家飞炎与掷火残机火核的共享飞行资源各自绑定
+PASS 已认印、口令生效、尚未贴嘴时有预瞄
+PASS 双腕松印取消等待，预瞄收起
+PASS 火球术 从实际施法事务生成
+PASS 火球术 准心已启用
+PASS 火球术 准心到靶；独立 SO 覆盖执行器 2 m 旧值
+PASS fireball 单独切换准心渲染器，眼位图像产生 38 个可见差异像素。落点 (115.004, 51.598, 134.871)
+PASS 火球术 中途墙截断并显示阻挡色
+PASS 火球术 自身 SO 开关立即隐藏
+PASS 火球术 持术手失追隐藏
+PASS 火球术 恢复手追后重新瞄准
+PASS 火球术 收招当帧隐藏
+PASS 火球术 从实际施法事务生成
+PASS 火球术 准心已启用
+PASS 火球术 准心到靶；独立 SO 覆盖执行器 2 m 旧值
+PASS 左腕火球真实甩出、收起准心 
+PASS 实际火球从释放腕位飞向瞄准靶
+PASS 雷光剑 从实际施法事务生成
+PASS 雷光剑 准心已启用
+PASS 雷光剑 准心到靶；独立 SO 覆盖执行器 2 m 旧值
+PASS thunder.sword 单独切换准心渲染器，眼位图像产生 44 个可见差异像素。落点 (115.005, 51.597, 134.855)
+PASS 雷光剑 中途墙截断并显示阻挡色
+PASS 雷光剑 自身 SO 开关立即隐藏
+PASS 雷光剑 持术手失追隐藏
+PASS 雷光剑 恢复手追后重新瞄准
+PASS 实际横挥生成剑波
+PASS 剑波实际飞向同一视线靶
+PASS 雷光剑 收招当帧隐藏
+PASS breath.stream 口令与双手印后显示口部准心
+PASS breath.stream 实际口部方向与攻击范围一致
+PASS breath.stream-clear 单独切换准心渲染器，眼位图像产生 78 个可见差异像素。落点 (243.000, 211.510, -235.424)
+PASS breath.stream 受墙遮挡时准心停在前方
+PASS breath.stream 单独切换准心渲染器，眼位图像产生 72 个可见差异像素。落点 (243.000, 211.511, -236.364)
+PASS 持续喷射准心随主导指节转向
+PASS 双手有一侧只剩腕位时立即熄灭
+PASS 龙火取消清理
+PASS breath.burst 口令与双手印后显示口部准心
+PASS breath.burst 实际口部方向与攻击范围一致
+PASS breath.burst-clear 单独切换准心渲染器，眼位图像产生 34 个可见差异像素。落点 (243.000, 211.510, -218.924)
+PASS breath.burst 受墙遮挡时准心停在前方
+PASS breath.burst 单独切换准心渲染器，眼位图像产生 32 个可见差异像素。落点 (243.000, 211.510, -234.044)
+PASS 飞炎出手后准心随已发弹道，转头不改向
+PASS 飞炎瞬发提示按自身 SO 时长收起
+PASS 原火球瞄准与口部施法测试通过
+PASS 全部检查通过 
+FOUR_AIM_PLAY_PASS

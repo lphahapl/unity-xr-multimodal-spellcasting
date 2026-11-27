@@ -1,0 +1,12 @@
+room ③ 工坊清场与④主榫归座/工坊实际院坪区域/F1/F2 屋顶预置 active=False manager=null area=③ 工坊清场与④主榫归座/工坊实际院坪区域 spawns=
+room ③ 工坊清场与④主榫归座/工坊实际院坪区域/院场精英租约 active=False manager=二章 · 玩家与工坊校准 area=③ 工坊清场与④主榫归座/工坊实际院坪区域 spawns=elite-canjiou@03 · 失衡工坊战区  ±0 m/空地中央/精英出生位
+placeholder=True
+old stone=02 · 祭坛战场  +80 m/背石工奴 · 机体占位/背载镇石 · 含铜箍 active=True
+post=02 · 祭坛战场  +80 m/背石起始位 patrol=02 · 祭坛战场  +80 m/示例落石;02 · 祭坛战场  +80 m/背石起始位
+basket=衡梁 · 支点与绳路/双臂衡梁 · 120 m/A 梁端吊点/A · 镇石配重吊篮 passenger=衡梁 · 支点与绳路/双臂衡梁 · 120 m/A 梁端吊点/A · 镇石配重吊篮 center=(1.600000, 1.250000, 0.000000) size=(3.200000, 2.500000, 3.000000) slot=衡梁 · 支点与绳路/双臂衡梁 · 120 m/A 梁端吊点/A · 镇石配重吊篮/A 配重槽 · 净口 1.25/示例槽心/镇石锁定中心 world=(-9.121380, 80.245000, 21.000010) rotation=(0.000000, 90.000000, 0.000000) onDocked.persistent=0
+scene=Assets/Scene/Chapter02_SuspendedPath.unity rpg=二章 · 玩家与工坊校准
+chapter stage=CH02_REACH_HUB objectives=ReachAreaChapterObjective
+chapter stage=CH02_WORKSHOP_TENON objectives=WorkshopTenonObjective
+chapter stage=CH02_B_DESCENT objectives=SignalChapterObjective
+WorkshopTenonObjective.roof=③ 工坊清场与④主榫归座/工坊实际院坪区域/F1/F2 屋顶预置
+WorkshopTenonObjective.courtyard=③ 工坊清场与④主榫归座/工坊实际院坪区域/院场精英租约

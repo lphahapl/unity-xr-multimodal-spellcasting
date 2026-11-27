@@ -1,0 +1,8 @@
+2026-11-26T23:51:38.8613660+08:00 Assets/Scene/Chapter02_SuspendedPath.unity 6000.3.10f1
+PASS calibration box top worldY=80.080000 layer=0; world space signed mm. neutral plane horizontal; target scene Assets/Scene/Chapter02_SuspendedPath.unity
+PASS floor-chapter TravelRation mode=free-near floorY=80.080000 meshMm=(0.09,44.69) colliderMm=(0.00,44.80) gripMm=22.40 meshMinusColliderMm=(0.09,-0.11) raySurfaceMm=44.80 vertices=2626 solids=1 center=(80.042710,80.102400,39.964560) euler=(0.002525,32.000000,90.000710)
+PASS floor-chapter TravelRation hover=True near=True expectedSurface=(80.017180,80.124800,39.980510) marker=(80.017180,80.124800,39.980510) tip=(80.017180,80.136800,39.980510)
+PASS floor-chapter TravelRation mode=free-ray floorY=80.080000 meshMm=(0.09,44.69) colliderMm=(0.00,44.80) gripMm=22.40 meshMinusColliderMm=(0.09,-0.11) raySurfaceMm=44.80 vertices=2626 solids=1 center=(80.042710,80.102400,39.964560) euler=(0.002534,31.999980,90.000710)
+PASS floor-chapter TravelRation hover=True near=False expectedSurface=(80.017180,80.124800,39.980510) marker=(80.017180,80.124800,39.980510) tip=(80.167180,80.784810,39.520510)
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

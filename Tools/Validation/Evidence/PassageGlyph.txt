@@ -1,0 +1,19 @@
+2026-11-26 | Unity 6000.3.10f1 | PassageGlyphPlayChecks.Run | D3D11 桌面 Play，合成输入
+玩家输入适配器：指尖与射线吻合；收指握拳或丢失食指关节时，偏折的射线失效。
+空隙实走受阻，甲岸边缘 z=2.00；原剧情板仍引用方直之矩。
+三岸四座，每岸一根高铜榫；从真实铜榫横梁命中并锁定甲岸。
+掌背双面符纹、指尖原点、首岸持续命中、无效面熄标、遮挡止线、收手回收通过。
+右手成符提示、空射、同岸、超距、同线首个合法标记、墙体遮挡、移开目标、放低右手取消通过。
+单层桥面高于碰撞 12 mm；桥中亮暗背景对照 G 通道对比保留 38%；两岸各三种低视角有无符面最小红通道差 0.323。
+甲→丙、甲→乙各一次握拳落桥；左食指连续行走抵达乙岸 (120.000, 0.000, 126.365)，桥面采样 (120.000, 0.000, 123.750)，maxSpan=7 米（试验值）。
+到岸后以乙为第一岸，另选丙岸，握拳建立第三条独立通路。
+PASSAGE_GLYPH_PLAY_PASS
+
+历史编译快照（本次沿用原着色器）
+Unity 6000.3.10f1 / Android Vulkan / CompileAndroidVariants
+PASSAGE_SHADER STEREO_INSTANCING_ON deck vertex+fragment 5472 bytes
+PASSAGE_SHADER STEREO_INSTANCING_ON _PASSAGE_CUE vertex+fragment 3872 bytes
+PASSAGE_SHADER STEREO_INSTANCING_ON _PASSAGE_SIGIL vertex+fragment 6267 bytes
+PASSAGE_SHADER STEREO_MULTIVIEW_ON deck vertex+fragment 5446 bytes
+PASSAGE_SHADER STEREO_MULTIVIEW_ON _PASSAGE_CUE vertex+fragment 3844 bytes
+PASSAGE_SHADER STEREO_MULTIVIEW_ON _PASSAGE_SIGIL vertex+fragment 6239 bytes

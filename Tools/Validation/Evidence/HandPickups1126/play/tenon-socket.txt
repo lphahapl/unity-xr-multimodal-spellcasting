@@ -1,0 +1,21 @@
+2026-11-26T23:05:17.3965465+08:00 6000.3.10f1
+XR before play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+XR play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+SURFACE tenon on holder | support=主榫与承座 y=0.6500 | meshMin=0.0030 | touchLower=0.0030 touchUpper=0.3530 | grip=0.2180 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS locked workshop tenon ignored
+PASS roof cleared alone keeps fixture locked
+PASS wall blocks retrieval of unlocked workshop tenon
+PASS right far pinch acquires existing tenon after both rooms clear
+PASS release outside socket restores world physics
+PASS dropped tenon falls via authored rigidbody
+SURFACE tenon after physical fall, speed=0.000 | support=主榫与承座 y=0.6500 | meshMin=0.0000 | touchLower=0.0000 touchUpper=0.1200 | grip=0.0600 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS left near pickup of dropped tenon
+PASS brief left tracking loss retains tenon
+PASS left hold follows reacquired hand
+PASS ordinary release cannot power machinery
+PASS right re-acquires loose tenon for legal seating
+PASS aligned release above workshop mouth enters authored socket
+PASS completed socket seats original tenon once and powers authored console
+PASS seated workshop tenon rejects right near and left distant pickup and remains powered
+XR after interactions: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+PASS END

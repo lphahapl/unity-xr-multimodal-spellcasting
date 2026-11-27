@@ -1,0 +1,12 @@
+GlyphBrushRender EXIT=0
+GlyphPlay EXIT=0
+KaogongUi EXIT=0
+GlyphBrush Vulkan STEREO_INSTANCING_ON vertex+fragment 5911 bytes
+GlyphBrush Vulkan STEREO_MULTIVIEW_ON vertex+fragment 6046 bytes
+GlyphBrushRenderFixture PASS
+GlyphBrushInk PASS: slow 4.88 mm / 235, fast 2.66 mm / 120, corner 7.29 mm.
+GlyphBoardChecks PASS: 画板接触、分笔、失追、主动/剧情匹配、一次消费及拒识。
+GlyphPhysicsChecks PASS 35
+GlyphTemplateChecks PASS
+GlyphPhysicsChecks PASS 55
+GlyphPlayChecks PASS: 真实 GlyphLab 引用，右手取笔/多笔千钧/指物/断线/移动抢占/剧情方矩。

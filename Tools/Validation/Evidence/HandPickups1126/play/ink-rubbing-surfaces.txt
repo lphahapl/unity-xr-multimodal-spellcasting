@@ -1,0 +1,12 @@
+2026-11-26T23:32:02.7929972+08:00 Assets/Samples/ToolBeltItems/InkRubbingLab.unity 6000.3.10f1
+PASS calibration box top worldY=0.050000 layer=0; world space signed mm. neutral plane horizontal; target scene Assets/Samples/ToolBeltItems/InkRubbingLab.unity
+PASS floor-ink PineInk mode=free-near floorY=0.050000 meshMm=(0.00,18.00) colliderMm=(0.00,18.00) gripMm=9.00 meshMinusColliderMm=(0.00,0.00) raySurfaceMm=18.00 vertices=120 solids=1 center=(80.000000,0.059000,40.000000) euler=(0.000442,32.000000,90.000130)
+PASS floor-ink PineInk hover=True near=True expectedSurface=(80.000000,0.068000,40.000000) marker=(80.000000,0.068000,40.000000) tip=(80.000000,0.080000,40.000000)
+PASS floor-ink PineInk mode=free-ray floorY=0.050000 meshMm=(0.00,18.00) colliderMm=(0.00,18.00) gripMm=9.00 meshMinusColliderMm=(0.00,0.00) raySurfaceMm=18.00 vertices=120 solids=1 center=(80.000000,0.059000,40.000000) euler=(0.000442,32.000000,90.000130)
+PASS floor-ink PineInk hover=True near=False expectedSurface=(80.000000,0.068000,40.000000) marker=(80.000000,0.068000,40.000000) tip=(80.150000,0.728000,39.540000)
+PASS floor-ink BronzeRubbing mode=free-near floorY=0.050000 meshMm=(0.00,2.00) colliderMm=(0.00,2.00) gripMm=1.00 meshMinusColliderMm=(0.00,0.00) raySurfaceMm=2.00 vertices=24 solids=1 center=(80.000000,0.051000,40.000000) euler=(90.000000,31.996050,0.000000)
+PASS floor-ink BronzeRubbing hover=True near=True expectedSurface=(80.000000,0.052000,40.000000) marker=(80.000000,0.052000,40.000000) tip=(80.000000,0.064000,40.000000)
+PASS floor-ink BronzeRubbing mode=free-ray floorY=0.050000 meshMm=(0.00,2.00) colliderMm=(0.00,2.00) gripMm=1.00 meshMinusColliderMm=(0.00,0.00) raySurfaceMm=2.00 vertices=24 solids=1 center=(80.000000,0.051000,40.000000) euler=(90.000000,31.996050,0.000000)
+PASS floor-ink BronzeRubbing hover=True near=False expectedSurface=(80.000000,0.052000,40.000000) marker=(80.000000,0.052000,40.000000) tip=(80.150000,0.712000,39.540000)
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

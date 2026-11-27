@@ -1,0 +1,33 @@
+2026-11-26T23:45:41.2103915+08:00 Assets/Samples/ToolBeltItems/InkRubbingLab.unity 6000.3.10f1
+PASS PineInk left ray marks actual pocket item
+PASS PineInk visible world-space ray and endpoint on target
+PASS PineInk straight index owns the marker when the system pointer disagrees
+PASS PineInk bent index falls back to the tracked system pointer origin
+PASS PineInk outside configured reach is unmarked
+PASS PineInk original NeuGame wrapper binds actual Meta rigidbody
+PASS PineInk original DisableGrab removes candidate
+PASS PineInk wall rejects highlight and pickup
+PASS PineInk left distant pinch owns same item
+PASS PineInk other hand and brief loss cannot steal
+PASS PineInk deliberate release leaves world drop
+PASS PineInk right ray recovers actual dropped item
+PASS PineInk returns to original legal pocket
+PASS PineInk re-docked pocket can be marked from afar
+PASS PineInk left near pickup
+PASS BronzeRubbing left ray marks actual pocket item
+PASS BronzeRubbing visible world-space ray and endpoint on target
+PASS BronzeRubbing straight index owns the marker when the system pointer disagrees
+PASS BronzeRubbing bent index falls back to the tracked system pointer origin
+PASS BronzeRubbing outside configured reach is unmarked
+PASS BronzeRubbing original NeuGame wrapper binds actual Meta rigidbody
+PASS BronzeRubbing original DisableGrab removes candidate
+PASS BronzeRubbing wall rejects highlight and pickup
+PASS BronzeRubbing left distant pinch owns same item
+PASS BronzeRubbing other hand and brief loss cannot steal
+PASS BronzeRubbing deliberate release leaves world drop
+PASS BronzeRubbing right ray recovers actual dropped item
+PASS BronzeRubbing returns to original legal pocket
+PASS BronzeRubbing re-docked pocket can be marked from afar
+PASS BronzeRubbing left near pickup
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

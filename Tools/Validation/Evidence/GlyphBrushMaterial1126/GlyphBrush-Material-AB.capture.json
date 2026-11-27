@@ -1,0 +1,48 @@
+{
+  "engine": "Unity 6000.3.10f1 / Play Mode / D3D11",
+  "input": "Identical synthetic Board.Sample trajectory",
+  "frames": 354,
+  "fps": 30,
+  "width": 1600,
+  "height": 900,
+  "duration": 11.8,
+  "observedMeanRgb": {
+    "paper": {
+      "before": [
+        29.13,
+        41.18,
+        37.15
+      ],
+      "after": [
+        186.42,
+        169.66,
+        139.34
+      ]
+    },
+    "slow": {
+      "before": [
+        185.13,
+        75.45,
+        37.09
+      ],
+      "after": [
+        109.66,
+        67.15,
+        53.34
+      ]
+    },
+    "fast": {
+      "before": [
+        160.49,
+        81.21,
+        52.46
+      ],
+      "after": [
+        155.61,
+        133.56,
+        107.02
+      ]
+    }
+  },
+  "sha256": "86fe674da00a8fe6819dedce365137598245e9b2a99395461061427725b60d12"
+}

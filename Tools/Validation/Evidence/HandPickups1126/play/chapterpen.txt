@@ -1,0 +1,19 @@
+2026-11-26T23:43:39.4469042+08:00 Assets/Scene/Chapter02_SuspendedPath.unity 6000.3.10f1
+PASS fresh chapter pen remains story locked
+PASS GlyphPen left ray marks actual pocket item
+PASS GlyphPen visible world-space ray and endpoint on target
+PASS GlyphPen straight index owns the marker when the system pointer disagrees
+PASS GlyphPen bent index falls back to the tracked system pointer origin
+PASS GlyphPen outside configured reach is unmarked
+PASS GlyphPen original NeuGame wrapper binds actual Meta rigidbody
+PASS GlyphPen original DisableGrab removes candidate
+PASS GlyphPen wall rejects highlight and pickup
+PASS GlyphPen left distant pinch owns same item
+PASS GlyphPen other hand and brief loss cannot steal
+PASS GlyphPen deliberate release leaves world drop
+PASS GlyphPen right ray recovers actual dropped item
+PASS GlyphPen returns to original legal pocket
+PASS GlyphPen re-docked pocket can be marked from afar
+PASS GlyphPen left near pickup
+PASS Standalone init=false, configured loaders=0, active loader=null, running XR displays=0 in Play
+PASS END

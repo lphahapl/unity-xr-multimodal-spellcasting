@@ -1,0 +1,18 @@
+2026-11-26T23:30:39.9561524+08:00 6000.3.10f1
+XR before play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+XR play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+SURFACE tenon on holder | support=主榫与承座 y=0.6500 | meshMin=0.0030 | touchLower=0.0030 touchUpper=0.3530 | grip=0.2180 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS locked workshop tenon ignored
+PASS roof cleared alone keeps fixture locked
+PASS wall blocks retrieval of unlocked workshop tenon
+PASS right far pinch acquires existing tenon after both rooms clear
+PASS release outside socket restores world physics
+PASS left near pickup of dropped tenon
+PASS brief left tracking loss retains tenon
+PASS left hold follows reacquired hand
+PASS authored tenon settles by gravity on courtyard floor away from its holder: 工坊院场 · 地面与崖基
+SURFACE tenon on courtyard floor | support=工坊院场 · 地面与崖基 y=0.0000 | meshMin=0.0000 | touchLower=0.0000 touchUpper=0.1200 | grip=0.0600 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS ray marks the fallen tenon on authored courtyard floor
+PASS right distant pinch retrieves that same fallen tenon
+XR after interactions: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+PASS END

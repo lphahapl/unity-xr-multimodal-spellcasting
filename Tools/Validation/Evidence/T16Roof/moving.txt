@@ -1,0 +1,20 @@
+scene=Assets/Scene/Chapter02_SuspendedPath.unity originalNavTriangles=0 originalRangedActors=0 yard=(20.600, -0.260, 54.500)
+F1 · 锻造房 Assets/Art/Environment/SuspendedPath/Workshop/CliffForge.fbx submesh=4 tileTriangles=3084 origin=(10.600, 0.000, 44.500)
+F2 · 炭棚 Assets/Art/Environment/SuspendedPath/Workshop/CharcoalShed.fbx submesh=3 tileTriangles=1572 origin=(9.600, 0.000, 55.700)
+bakedAreas=0:12 3:6 4:5
+route 0 (11.200, 4.405, 41.035) -> (11.793, 4.435, 47.809) spawn (11.497, 4.382, 44.422)
+route 1 (10.751, 2.724, 54.497) -> (10.216, 2.694, 57.246) spawn (10.483, 2.672, 55.872)
+patrol.area=3 visited=True,True travel=9.040317
+patrol.area=4 visited=True,True travel=6.049851
+clear control target=(19.483, 2.672, 55.872) valid firing point=(8.274, 2.411, 54.928)
+fallback: dynamic射手有目标，遮挡确认、院落断路确认，两种情况均实际选择原屋顶巡逻点。
+combat playerFloor=(17.710, 0.000, 51.700) head=(17.710, 1.600, 51.700)
+fire -2740 pos=(12.182, 4.978, 45.945) frame=991
+fire -2890 pos=(10.155, 3.211, 56.343) frame=991
+cast frame=1068 coreDistances=1.418399,1.627977
+return -2740 frame=1072
+return -2890 frame=1075
+result F1 · 锻造房 hp=150 agentSamples=1161 travel=12.17394 maxTileHeightError=0.1371064
+result F2 · 炭棚 hp=150 agentSamples=1161 travel=9.162053 maxTileHeightError=0.1249108
+moving control: 首发双核回弹后消失，两射手各150生命，玩家生命100、盾量100。
+ROOF_TRIAL_PASS

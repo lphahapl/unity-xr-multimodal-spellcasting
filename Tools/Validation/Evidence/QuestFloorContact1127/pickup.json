@@ -1,0 +1,66 @@
+{
+  "floor": "20261127-011035-454.jsonl",
+  "start": "2026-11-26T17:10:35.4564334Z",
+  "end": "2026-11-26T17:15:35.3926770Z",
+  "dropTransitions": [
+    [
+      "docked",
+      "2026-11-26T17:10:35.4564334Z",
+      1
+    ],
+    [
+      "held",
+      "2026-11-26T17:11:01.9731632Z",
+      1243
+    ],
+    [
+      "world",
+      "2026-11-26T17:11:17.0529906Z",
+      2176
+    ]
+  ],
+  "headsetSamples": 2487,
+  "settlingExclusionSeconds": 2,
+  "afterSettle": 2127,
+  "left": {
+    "n": 2003,
+    "min": 0.8927523493766785,
+    "withinNineCm": 0,
+    "withinThreeMeters": 1717
+  },
+  "right": {
+    "n": 2001,
+    "min": 0.7710557579994202,
+    "withinNineCm": 0,
+    "withinThreeMeters": 1762
+  },
+  "skillLog": "Logs\\skill-casts\\20261126-171033-b50587a489ef457ebad64155cc093f66.jsonl",
+  "heldBallWindowsUtc": [
+    [
+      "2026-11-26T17:12:20.5540726Z",
+      6184,
+      "throw_spawn"
+    ],
+    [
+      "2026-11-26T17:12:26.2241134Z",
+      6552,
+      "throw_launched"
+    ],
+    [
+      "2026-11-26T17:12:34.1239123Z",
+      7051,
+      "throw_spawn"
+    ],
+    [
+      "2026-11-26T17:12:39.3510958Z",
+      7384,
+      "throw_launched"
+    ]
+  ],
+  "laterInputRows": 275,
+  "laterTime": [
+    407.70733020521584,
+    437.6737528052181
+  ],
+  "limitations": "First capture lacks pen xyz, gameplay ray, gameplay highlight, collider blocking pickup and pinch. Later input records wrist menu data without pen pose. No first-failure collider can be identified for the attempted pickup from these logs."
+}

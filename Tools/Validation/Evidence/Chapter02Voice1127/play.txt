@@ -1,0 +1,79 @@
+PASS Scene contains the configured real chapter voice and player
+PASS 32 authored rows
+PASS One non-spatial voice
+PASS North branch subscribed to actual Passage template
+PASS Fresh entry only enables matching phase
+PASS Fresh scene started real EN01 by itself
+PASS Narration clip sampled as mono
+PASS Head-mounted captions are rendering the real line
+PASS Stone desk real progress does not overlap the entry sentence
+PASS Real drawing stage enables BR01, waits for glyph success before BR02
+PASS No temporary bridge voice coexists
+PASS BR01 started after current entry sentence ended
+PASS Actual bridge recognized callback advances to BR02
+PASS BR02 actually plays on the same source
+PASS Resources load EN01
+PASS AudioSource playing EN01
+PASS Resources load EN02
+PASS AudioSource playing EN02
+PASS Resources load EN03
+PASS AudioSource playing EN03
+PASS Resources load BR01
+PASS AudioSource playing BR01
+PASS Resources load BR02
+PASS AudioSource playing BR02
+PASS Resources load AL01
+PASS AudioSource playing AL01
+PASS Resources load AL02
+PASS AudioSource playing AL02
+PASS Resources load RT01
+PASS AudioSource playing RT01
+PASS Resources load RT02
+PASS AudioSource playing RT02
+PASS Resources load RT03
+PASS AudioSource playing RT03
+PASS Resources load AB01
+PASS AudioSource playing AB01
+PASS Resources load AB02
+PASS AudioSource playing AB02
+PASS Resources load AD01
+PASS AudioSource playing AD01
+PASS Resources load AD02
+PASS AudioSource playing AD02
+PASS Resources load HB01
+PASS AudioSource playing HB01
+PASS Resources load HB02
+PASS AudioSource playing HB02
+PASS Resources load WS01
+PASS AudioSource playing WS01
+PASS Resources load WS02
+PASS AudioSource playing WS02
+PASS Resources load WS03
+PASS AudioSource playing WS03
+PASS Resources load WS04
+PASS AudioSource playing WS04
+PASS Resources load BDN01
+PASS AudioSource playing BDN01
+PASS Resources load BDN02
+PASS AudioSource playing BDN02
+PASS Resources load BDN03
+PASS AudioSource playing BDN03
+PASS Resources load BDN04
+PASS AudioSource playing BDN04
+PASS Resources load BDN05
+PASS AudioSource playing BDN05
+PASS Resources load PG01
+PASS AudioSource playing PG01
+PASS Resources load PG02
+PASS AudioSource playing PG02
+PASS Resources load HT01
+PASS AudioSource playing HT01
+PASS Resources load HT02
+PASS AudioSource playing HT02
+PASS Resources load HT03
+PASS AudioSource playing HT03
+PASS Resources load HT04
+PASS AudioSource playing HT04
+PASS Resources load HT05
+PASS AudioSource playing HT05
+isolatedXR=0 playedEach=32 exit=0

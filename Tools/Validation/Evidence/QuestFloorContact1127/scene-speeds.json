@@ -1,0 +1,62 @@
+{
+  "formalSceneSHA256": "2cb44e6278de75e4eb571290bd9fd2200087dcd065550b8e44811291fa7dcad5",
+  "paceBindings": [
+    {
+      "name": "\"\\u80CC\\u77F3\\u8D77\\u59CB\\u4F4D\"",
+      "gameObject": "298544024",
+      "patrolSpeed": 0.4,
+      "engagedSpeed": 0.62,
+      "patrolWait": 1.6,
+      "retreatSeconds": 10.5
+    },
+    {
+      "name": "\"\\u8FD1\\u6218\\u62A4\\u536B \\xB7 \\u5730\\u9762\\u51FA\\u751F\\u4F4D\"",
+      "gameObject": "1373830077",
+      "patrolSpeed": 0.65,
+      "engagedSpeed": 1.15,
+      "patrolWait": 1.3,
+      "retreatSeconds": 8.5
+    },
+    {
+      "name": "\"\\u63B7\\u706B\\u6B8B\\u673A \\xB7 \\u5730\\u9762\\u5C04\\u4F4D\"",
+      "gameObject": "1595391171",
+      "patrolSpeed": 0.55,
+      "engagedSpeed": 0.95,
+      "patrolWait": 1.5,
+      "retreatSeconds": 8.5
+    }
+  ],
+  "runtimeHashesMatchEarlierDelivery": {
+    "Assets/scripts/logic/Enemies/EnemyController.cs": true,
+    "Assets/scripts/logic/Enemies/Spawning/EncounterEnemyPace.cs": true,
+    "Assets/scripts/logic/Enemies/Spawning/EncounterEnemyPace.cs.meta": true,
+    "Assets/scripts/logic/Enemies/Spawning/EnemyLease.cs": true,
+    "Assets/scripts/logic/Enemies/StoneCarrier.cs": true,
+    "Assets/scripts/logic/Rpg/CombatRoomEncounter.Spawning.cs": true
+  },
+  "spaceOffsetFrameCounts": {
+    "1.20": 1,
+    "0.00": 2486
+  },
+  "earliestSampleWithValidHands": "2026-11-26T17:10:36.6119294Z",
+  "activeSteamVRStandingOriginChangedAt011337": false,
+  "source": "D:/Netease/steam/logs/vrserver.txt:994-995",
+  "periodsInChinaTime": {
+    "01:12:05–01:12:50": {
+      "n": 415,
+      "eyeAboveFloorMinMedianMax": [
+        1.9911,
+        2.3231,
+        2.3592
+      ]
+    },
+    "01:14:20–01:15:05": {
+      "n": 399,
+      "eyeAboveFloorMinMedianMax": [
+        1.7015,
+        1.7927,
+        1.8113
+      ]
+    }
+  }
+}

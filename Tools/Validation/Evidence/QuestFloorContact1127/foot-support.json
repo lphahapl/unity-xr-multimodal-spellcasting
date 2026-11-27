@@ -1,0 +1,116 @@
+{
+  "Unity": "6000.3.10f1",
+  "scene": "2cb44e6278de75e4eb571290bd9fd2200087dcd065550b8e44811291fa7dcad5",
+  "fixture": "XR=off stage=2 repaired=True road=通路符桥面 progress=1 radius=0.22 triangles=2860",
+  "recordedHeadAboveCollider0112": [
+    2.3057327270507812,
+    2.3402786254882812
+  ],
+  "recordedHeadAboveCollider0117": [
+    1.7399826049804688,
+    1.8088226318359375
+  ],
+  "high45centres": {
+    "n": 45,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 45
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 45
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.985,
+      79.985
+    ]
+  },
+  "highFootRing": {
+    "n": 360,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 360
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 360
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.98,
+      79.985
+    ]
+  },
+  "low275centres": {
+    "n": 275,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 275
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 275
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.985,
+      79.985
+    ]
+  },
+  "lowFootRing": {
+    "n": 2200,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 2200
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 2200
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.98,
+      79.985
+    ]
+  },
+  "lateRigCentre": {
+    "n": 275,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 275
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 275
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.985,
+      79.985
+    ]
+  },
+  "live011606": {
+    "n": 1,
+    "hit": {
+      "01 · 石门与断桥  +80 m/近岸残段": 1
+    },
+    "visibleMesh": {
+      "01 · 石门与断桥  +80 m/近岸残段": 1
+    },
+    "realSupportY": [
+      80.0,
+      80.0
+    ],
+    "visibleMeshY": [
+      79.985,
+      79.985
+    ]
+  },
+  "note": "High-eye input stores real head coordinates and measured rig height; synthetic Rig XZ is for transforming the head only. High-eye rig rows excluded. Live 01:16:06 uses same upper deck Y solely as ray reference. 01:10–15 foot trace had no XZ elsewhere."
+}

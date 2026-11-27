@@ -1,0 +1,28 @@
+PASS Prefab loads
+PASS Three solid renderers and no scripts/colliders on art
+PASS Mesh and material loaded QingGuiR03_BronzeFrame_LOD0
+PASS Mesh and material loaded QingGuiR03_GoldWire_LOD0
+PASS Mesh and material loaded QingGuiR03_JadeCore_LOD0
+PASS Jade uses thickness and volumetric density; transmission enabled
+PASS Triangle count 40024
+PASS World-space bounds min=(-0.05680, 0.00000, -0.05378) max=(0.05383, 0.35000, 0.05378) size=(0.11063, 0.35000, 0.10757)
+PASS No review or assembly dependencies
+PASS NarutoVR/Props/QingGui R03 Opaque Gold import
+PASS NarutoVR/Props/QingGui R03 Opaque Gold ForwardLit STEREO_INSTANCING_ON Android/Vulkan 8133 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold ForwardLit STEREO_MULTIVIEW_ON Android/Vulkan 8065 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold ShadowCaster STEREO_INSTANCING_ON Android/Vulkan 2889 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold ShadowCaster STEREO_MULTIVIEW_ON Android/Vulkan 2886 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold DepthOnly STEREO_INSTANCING_ON Android/Vulkan 1628 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold DepthOnly STEREO_MULTIVIEW_ON Android/Vulkan 1569 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold DepthNormals STEREO_INSTANCING_ON Android/Vulkan 2056 bytes 
+PASS NarutoVR/Props/QingGui R03 Opaque Gold DepthNormals STEREO_MULTIVIEW_ON Android/Vulkan 1997 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite import
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite ForwardLit STEREO_INSTANCING_ON Android/Vulkan 16077 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite ForwardLit STEREO_MULTIVIEW_ON Android/Vulkan 16046 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite ShadowCaster STEREO_INSTANCING_ON Android/Vulkan 2889 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite ShadowCaster STEREO_MULTIVIEW_ON Android/Vulkan 2886 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite DepthOnly STEREO_INSTANCING_ON Android/Vulkan 1628 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite DepthOnly STEREO_MULTIVIEW_ON Android/Vulkan 1569 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite DepthNormals STEREO_INSTANCING_ON Android/Vulkan 4030 bytes 
+PASS NarutoVR/Props/QingGui R03 Warm Nephrite DepthNormals STEREO_MULTIVIEW_ON Android/Vulkan 3965 bytes 
+PASS END

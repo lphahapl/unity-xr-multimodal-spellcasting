@@ -1,0 +1,201 @@
+{
+  "reconstructErrorMaxMm": 0.0002736542318605777,
+  "landmarks": {
+    "食指根轮廓": {
+      "twoVsFourVertexBlendMm": 3.649181151647648e-07,
+      "restToPosePrincipalSurfaceStretch": [
+        1.079426673808461,
+        0.977332552866224
+      ],
+      "restToPoseShiftMm": [
+        17.09269858896733,
+        -5.1933229388669115,
+        -9.008984677493572
+      ],
+      "weightedContributionsToShiftMm": {
+        "XRHand_IndexProximal": [
+          17.093,
+          -5.193,
+          -9.009
+        ]
+      }
+    },
+    "掌侧凹口": {
+      "twoVsFourVertexBlendMm": 0.20738150710445732,
+      "restToPosePrincipalSurfaceStretch": [
+        1.001023697237034,
+        0.9609169241749927
+      ],
+      "restToPoseShiftMm": [
+        0.9500735476613009,
+        -0.7130062114447354,
+        -0.6663063690066362
+      ],
+      "weightedContributionsToShiftMm": {
+        "XRHand_ThumbMetacarpal": [
+          0.55,
+          -0.509,
+          -0.338
+        ],
+        "XRHand_IndexProximal": [
+          0.4,
+          -0.204,
+          -0.328
+        ]
+      }
+    },
+    "掌侧鼓包": {
+      "twoVsFourVertexBlendMm": 0.3662937754716256,
+      "restToPosePrincipalSurfaceStretch": [
+        1.5253546702662302,
+        0.9884434244841618
+      ],
+      "restToPoseShiftMm": [
+        2.836005389690394,
+        -14.069189401343465,
+        -3.8475975207984474
+      ],
+      "weightedContributionsToShiftMm": {
+        "XRHand_ThumbMetacarpal": [
+          1.458,
+          -6.896,
+          -4.019
+        ],
+        "XRHand_ThumbProximal": [
+          1.378,
+          -7.173,
+          0.171
+        ]
+      }
+    }
+  },
+  "joints": {
+    "XRHand_ThumbMetacarpal": {
+      "restVsPoseWorldShiftMm": [
+        2.92,
+        -4.6,
+        -4.76
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        2.92,
+        -4.6,
+        -4.76
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 7.227498276358681,
+      "rotationFromWristAlignedBindDeg": 18.875526026494448
+    },
+    "XRHand_ThumbProximal": {
+      "restVsPoseWorldShiftMm": [
+        -0.54,
+        -9.48,
+        -6.56
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        -0.08,
+        0.13,
+        -0.13
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 0.19899061040156896,
+      "rotationFromWristAlignedBindDeg": 59.575417745146574
+    },
+    "XRHand_ThumbDistal": {
+      "restVsPoseWorldShiftMm": [
+        -30.07,
+        -14.17,
+        -1.2
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        0.0,
+        -0.03,
+        -0.1
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 0.11001912782892662,
+      "rotationFromWristAlignedBindDeg": 95.21601548130265
+    },
+    "XRHand_ThumbTip": {
+      "restVsPoseWorldShiftMm": [
+        -50.91,
+        -12.32,
+        0.1
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        0.11,
+        0.07,
+        -0.06
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 0.14014719951473992,
+      "rotationFromWristAlignedBindDeg": 110.89037441406477
+    },
+    "XRHand_IndexMetacarpal": {
+      "restVsPoseWorldShiftMm": [
+        4.83,
+        -10.23,
+        -4.65
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        4.83,
+        -10.23,
+        -4.65
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 12.230135401473843,
+      "rotationFromWristAlignedBindDeg": 6.650293882159675
+    },
+    "XRHand_IndexProximal": {
+      "restVsPoseWorldShiftMm": [
+        15.99,
+        -5.76,
+        -6.11
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        5.26,
+        5.66,
+        -0.69
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 7.757130922220841,
+      "rotationFromWristAlignedBindDeg": 21.33297450291111
+    },
+    "XRHand_IndexIntermediate": {
+      "restVsPoseWorldShiftMm": [
+        29.52,
+        -6.0,
+        -8.13
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        0.03,
+        -0.0,
+        -0.01
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 0.033822058001242786,
+      "rotationFromWristAlignedBindDeg": 21.419411608036622
+    },
+    "XRHand_IndexDistal": {
+      "restVsPoseWorldShiftMm": [
+        38.19,
+        -6.11,
+        -9.37
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        -0.03,
+        0.01,
+        -0.07
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 0.07051372416225286,
+      "rotationFromWristAlignedBindDeg": 21.622629072234655
+    },
+    "XRHand_MiddleProximal": {
+      "restVsPoseWorldShiftMm": [
+        21.86,
+        -6.65,
+        -2.45
+      ],
+      "offsetFromTrackedParentRotatedBindMm": [
+        5.66,
+        8.93,
+        1.15
+      ],
+      "offsetFromTrackedParentRotatedBindMagnitudeMm": 10.632895711648828,
+      "rotationFromWristAlignedBindDeg": 18.874754476241446
+    }
+  },
+  "localDeformation": {}
+}

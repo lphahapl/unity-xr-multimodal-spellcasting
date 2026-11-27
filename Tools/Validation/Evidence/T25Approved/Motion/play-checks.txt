@@ -1,0 +1,28 @@
+MOTION_CHECK 真实工奴租约生成同一个实体镇石，正式配置加载87帧，使用 Humanoid 且关闭根运动
+MOTION_CHECK 出生的 A4 模型在持姿所用镇石根下，局部变换为单位矩阵
+MOTION_CHECK 同一携带实例绑定八块正式 FBX 网格，共 21456 个三角面
+MOTION_CHECK 目标 Avatar 与原 FBX 对应
+MOTION_CHECK 实际 Room prefab 保留签帧使用的右肩覆盖
+MOTION_CHECK 普通残机偶共用控制器仍走原状态
+MOTION_CHECK 真实巡逻入口已播放搬运剪辑
+MOTION_RENDERER CanJiOu_Body mesh=CanJiOu_Body asset=Assets/Art/Enemies/CanJiOu/CanJiOu_LOD0.fbx rendererQuality=Auto quality=Mobile global=TwoBones buildTarget=Android lodScale=(161.32, 161.32, 161.32) actorScale=(1.00, 1.00, 1.00)
+MOTION_CPU_SKIN frame=0 top2ToActualM=7.37268749E-07 allToActualM=0.03314023 allToSignedM=6.175673E-07
+MOTION_SKIN_PROBE Bone2 maxM=0.03314011
+MOTION_SKIN_PROBE Bone4 maxM=0.03314011
+MOTION_CPU_SKIN frame=51 top2ToActualM=6.08877031E-07 allToActualM=0.0385196321 allToSignedM=2.15703E-06
+MOTION_ERRORS phase=3.390842E-07 stoneM=5.047352E-07 stoneDeg=0 wristM=1.30076126E-06 wristDeg=0 vertsM=0.03851948
+MOTION_CHECK 房间暂停冻结搬运相位且不改变 Animator 全局速度
+MOTION_CHECK 恢复继续同一动作
+MOTION_CHECK 动画全局半速时石根从同一半速播放相位采样
+MOTION_CHECK 只禁用持姿组件同样冻结搬运动作
+MOTION_CHECK 重新启用后继续持姿
+MOTION_CHECK 原反应入口接管动作
+MOTION_CHECK 受击过渡不写石根
+MOTION_CHECK 原受击状态实际播放完，恢复同一镇石的搬运
+MOTION_CHECK 死亡立即脱石
+MOTION_CHECK 死亡过渡与晚帧不能写已掉落的石头
+MOTION_CHECK 同物体新租约重置相位、拥有新镇石
+MOTION_CHECK 销毁工奴清理当前背载子物体，场景内此前的落石仍存活
+MOTION_CHECK 87帧实际 Animator 相位、石根位置/朝向/缩放及双腕位置/朝向通过
+MOTION_CHECK 461187个蒙皮顶点样本已导出，表面净空使用同一文件进行三角面复算
+A4_MOTION_PASS

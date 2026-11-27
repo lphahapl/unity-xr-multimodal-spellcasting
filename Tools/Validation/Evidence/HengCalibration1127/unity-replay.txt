@@ -1,0 +1,68 @@
+Unity 6000.3.10f1 isolated Editor replay, XR inactive.
+Native generation: SealTemplateFromRecording.Build from the single 2026-11-27 19:24:57 +08:00 capture.
+Raw capture SHA-256: f718c00c6ee3f0b58cba52ff89add5f201954f4d139c36a8544aa00e303ebb62
+Native replay: SealFeatureExtractor, SealRecognizer, SkillMatchEngine; shield activation delegate records requests.
+Published profile SHA-256: bee063908a95b9b5c8d25eafb6171f8ad4fe394b6ddd33c773f436a5bced32a3
+Process exit: 0.
+
+PASS zero active XR displays
+PASS existing approved left-hand configuration
+PASS actual shield.left recipe
+PASS actual Heng confirmation prefab loads
+PASS trusted user-selected unlabelled recording, 210 frames
+REPLAY saved template frames=210 pass=0 recognized=0 casts=0 confirms=0 scores=0.19845..0.24689 first=
+PASS saved template misses the new gesture
+PASS native p10-p90 builder accepts 210/210 observations with 18 ranges
+PASS candidate uses the existing feature set
+PASS default rule policy for L.Thumb.Curl
+RANGE L.Thumb.Curl 215.5942 217.171112
+PASS default rule policy for L.Thumb.Flexion
+RANGE L.Thumb.Flexion 339.051758 343.237732
+PASS default rule policy for L.Thumb.Abduction
+RANGE L.Thumb.Abduction 46.56831 47.80194
+PASS default rule policy for L.Index.Curl
+RANGE L.Index.Curl 176.5196 176.913879
+PASS default rule policy for L.Index.Flexion
+RANGE L.Index.Flexion 183.500565 185.46608
+PASS default rule policy for L.Index.Abduction
+RANGE L.Index.Abduction 14.8604393 18.2611256
+PASS default rule policy for L.Index.Opposition
+RANGE L.Index.Opposition 0.08992024 0.09118125
+PASS default rule policy for L.Middle.Curl
+RANGE L.Middle.Curl 174.662933 175.29866
+PASS default rule policy for L.Middle.Flexion
+RANGE L.Middle.Flexion 192.068756 192.864288
+PASS default rule policy for L.Middle.Abduction
+RANGE L.Middle.Abduction 102.520485 105.578758
+PASS default rule policy for L.Middle.Opposition
+RANGE L.Middle.Opposition 0.09398233 0.09535132
+PASS default rule policy for L.Ring.Curl
+RANGE L.Ring.Curl 252.277359 253.743729
+PASS default rule policy for L.Ring.Flexion
+RANGE L.Ring.Flexion 233.6176 236.636078
+PASS default rule policy for L.Ring.Abduction
+RANGE L.Ring.Abduction 19.3808 20.8587456
+PASS default rule policy for L.Ring.Opposition
+RANGE L.Ring.Opposition 0.0265725553 0.0277167931
+PASS default rule policy for L.Max.Curl
+RANGE L.Max.Curl 238.391571 239.415146
+PASS default rule policy for L.Max.Flexion
+RANGE L.Max.Flexion 246.461761 248.372482
+PASS default rule policy for L.Max.Opposition
+RANGE L.Max.Opposition 0.0336728469 0.0368865281
+REPLAY first half to second half frames=105 pass=105 recognized=100 casts=1 confirms=1 scores=0.94651..0.99862 first=0.15600
+PASS split replay passes on the other half
+REPLAY second half to first half frames=105 pass=105 recognized=100 casts=1 confirms=1 scores=0.92121..0.99677 first=0.15593
+PASS split replay passes on the other half
+PASS the official candidate is valid and enabled
+REPLAY new gesture, right-hand input absent frames=210 pass=210 recognized=205 casts=1 confirms=1 scores=0.95609..1.00000 first=0.15593
+PASS actual score, hold and battle matcher acknowledge the new gesture once
+REPLAY old Heng, informational only frames=195 pass=111 recognized=97 casts=2 confirms=2 scores=0.73721..0.83798 first=0.52547
+COMPATIBILITY informational frames above threshold 111; cast requests 2
+REPLAY other-ju.jsonl frames=315 pass=0 recognized=0 casts=0 confirms=0 scores=0.24172..0.37586 first=
+PASS unrelated gesture does not trigger: other-ju.jsonl
+REPLAY other-lv.jsonl frames=314 pass=0 recognized=0 casts=0 confirms=0 scores=0.33863..0.35856 first=
+PASS unrelated gesture does not trigger: other-lv.jsonl
+PASS updated wrist image imports
+PASS updated chapter instruction atlas imports
+PASS END

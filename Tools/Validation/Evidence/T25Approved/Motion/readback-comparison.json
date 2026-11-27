@@ -1,0 +1,169 @@
+{
+  "files": {
+    "runtime-bones.f32": "5669bad75a7eb74d270c74d330f231c540cacdde1aeb546853d6d64a12983f7c",
+    "runtime-frames.csv": "fb73ab6a79b8ea773801fac1c8ca61b2ff4136c3d2971b9f0cafccfac5d5eeae",
+    "runtime-poses.csv": "d61e8ae6f7b3a3cd7302c2239e2953b990b0b74659255a83ae64b8d84593d164",
+    "runtime-triangles.i32": "af9667f3a2f3f527dc3ec481903fd6c27cde21233b5306ba6831cc8ff4b98af7",
+    "runtime-vertices-bone2.f32": "c04ea7d5912b739ea6fab918a2bfd8d522fa24a219cca688519364b5f2ef3141",
+    "runtime-vertices-bone4.f32": "c04ea7d5912b739ea6fab918a2bfd8d522fa24a219cca688519364b5f2ef3141",
+    "runtime-vertices.f32": "c04ea7d5912b739ea6fab918a2bfd8d522fa24a219cca688519364b5f2ef3141"
+  },
+  "matches_first_export": {
+    "runtime-bones.f32": true,
+    "runtime-frames.csv": true,
+    "runtime-poses.csv": true,
+    "runtime-triangles.i32": true,
+    "runtime-vertices-bone2.f32": true,
+    "runtime-vertices-bone4.f32": true,
+    "runtime-vertices.f32": true
+  },
+  "same_signed_topology": true,
+  "phase_comparison_max": {
+    "phaseError": 3.390842e-07,
+    "stone_m": 5.047352e-07,
+    "stone_deg": 0.0,
+    "leftWrist_m": 1.13131125e-06,
+    "rightWrist_m": 1.30076126e-06,
+    "wrist_deg": 0.0,
+    "allVerticesMax_m": 0.03851948
+  },
+  "bones": {
+    "mixamorig:Hips": {
+      "max_mm": 0.0003985418651398199,
+      "max_deg": 3.4150945850063884e-05
+    },
+    "mixamorig:Spine": {
+      "max_mm": 0.0004616890178419497,
+      "max_deg": 3.073585126505747e-05
+    },
+    "mixamorig:Spine1": {
+      "max_mm": 0.00041105417648661953,
+      "max_deg": 2.159895462705536e-05
+    },
+    "mixamorig:Spine2": {
+      "max_mm": 0.0004433066106672069,
+      "max_deg": 2.1052056881276854e-05
+    },
+    "mixamorig:Neck": {
+      "max_mm": 0.0003929530167913023,
+      "max_deg": 3.4065461496091986e-05
+    },
+    "mixamorig:Head": {
+      "max_mm": 0.00040227098420470307,
+      "max_deg": 8.642956028592383e-05
+    },
+    "mixamorig:HeadTop_End": {
+      "max_mm": 0.0005617012134615201,
+      "max_deg": 8.642956028592383e-05
+    },
+    "mixamorig:LeftShoulder": {
+      "max_mm": 0.00039828395366538655,
+      "max_deg": 9.671412803557466e-05
+    },
+    "mixamorig:LeftArm": {
+      "max_mm": 0.00035509779974471844,
+      "max_deg": 0.00011347162469574966
+    },
+    "mixamorig:LeftForeArm": {
+      "max_mm": 0.0008811866904480767,
+      "max_deg": 0.0001164141577752315
+    },
+    "mixamorig:LeftHand": {
+      "max_mm": 0.001131311231619257,
+      "max_deg": 0.00011068805722064185
+    },
+    "mixamorig:RightShoulder": {
+      "max_mm": 0.0003870721044115674,
+      "max_deg": 0.00012086250848893356
+    },
+    "mixamorig:RightArm": {
+      "max_mm": 0.0005245556073029089,
+      "max_deg": 0.00018305034404095
+    },
+    "mixamorig:RightForeArm": {
+      "max_mm": 0.0010878868251111495,
+      "max_deg": 0.0001893453604645324
+    },
+    "mixamorig:RightHand": {
+      "max_mm": 0.0013007612730738638,
+      "max_deg": 0.0001775849184203493
+    },
+    "mixamorig:LeftUpLeg": {
+      "max_mm": 0.0005014633736152602,
+      "max_deg": 0.0007334665989333032
+    },
+    "mixamorig:LeftLeg": {
+      "max_mm": 0.001184829736074884,
+      "max_deg": 0.0010060714468554065
+    },
+    "mixamorig:LeftFoot": {
+      "max_mm": 0.006837036357312306,
+      "max_deg": 0.000845172089957561
+    },
+    "mixamorig:LeftToeBase": {
+      "max_mm": 0.008956615146299293,
+      "max_deg": 0.0008456032113717827
+    },
+    "mixamorig:LeftToe_End": {
+      "max_mm": 0.009829846080623417,
+      "max_deg": 0.0008467678644619415
+    },
+    "mixamorig:RightUpLeg": {
+      "max_mm": 0.0004406563366240634,
+      "max_deg": 0.00015581778382244953
+    },
+    "mixamorig:RightLeg": {
+      "max_mm": 0.0012036781326982015,
+      "max_deg": 0.0003908456020982854
+    },
+    "mixamorig:RightFoot": {
+      "max_mm": 0.0029242434740883432,
+      "max_deg": 0.0003873235210890234
+    },
+    "mixamorig:RightToeBase": {
+      "max_mm": 0.003866018612637556,
+      "max_deg": 0.0004929520759994578
+    },
+    "mixamorig:RightToe_End": {
+      "max_mm": 0.003964976113982072,
+      "max_deg": 0.0004891996340845006
+    }
+  },
+  "vertex_error_by_weight_count": {
+    "1": {
+      "vertex_count": 356,
+      "max_mm": 0.0022309979524866227
+    },
+    "2": {
+      "vertex_count": 2329,
+      "max_mm": 0.00980280678323933
+    },
+    "3": {
+      "vertex_count": 2263,
+      "max_mm": 38.5194777686645
+    },
+    "4": {
+      "vertex_count": 353,
+      "max_mm": 34.73134450194454
+    }
+  },
+  "worst_vertex": {
+    "frame": 51,
+    "vertex": 609,
+    "max_mm": 38.5194777686645,
+    "weights": [
+      {
+        "bone": "mixamorig:RightUpLeg",
+        "weight": 0.488287568
+      },
+      {
+        "bone": "mixamorig:Hips",
+        "weight": 0.293206543
+      },
+      {
+        "bone": "mixamorig:LeftUpLeg",
+        "weight": 0.2185059
+      }
+    ]
+  }
+}

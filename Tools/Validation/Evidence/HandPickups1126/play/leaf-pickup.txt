@@ -1,0 +1,18 @@
+2026-11-26T23:07:05.0537502+08:00 6000.3.10f1
+XR before play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+XR play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+PASS authored first-chapter puzzle active
+SURFACE leaf reward rest | support=叶匣石矮几 y=0.9200 | meshMin=0.0491 | touchLower=0.0491 touchUpper=0.0509 | grip=0.0500 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS unsolved leaf cannot be retrieved
+PASS solved leaf visible for taking
+PASS wall blocks left pickup of solved leaf
+PASS left far pinch moves same leaf to fingertip, award once
+PASS brief tracking loss retains leaf
+PASS held leaf follows left hand after tracking returns
+PASS left release gives back ownership
+SURFACE leaf after release | support=叶匣石矮几 y=0.9200 | meshMin=0.6491 | touchLower=0.6491 touchUpper=0.6509 | grip=0.6500 | enabledColliders=1 surfaceSamples=18 | metres above nearest walkable support under grip
+PASS right near pickup of dropped leaf; no duplicate reward
+PASS loose story leaf recalls to its reward rest after two seconds
+PASS seated leaf cannot be taken back
+XR after interactions: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+PASS END

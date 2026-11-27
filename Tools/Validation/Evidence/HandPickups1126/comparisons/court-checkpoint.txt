@@ -1,0 +1,9 @@
+2026-11-26T22:51:14.4758127+08:00 6000.3.10f1
+XR before play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+XR play: Standalone actual=Standalone Settings, InitManagerOnStart=False, loaderCount=0, activeLoader=null, isInitializationComplete=False, runningDisplays=0, XR_RUNTIME_JSON=D:\Temp\StoryHandPickup-1126\NO-XR-RUNTIME-FOR-STORY-TESTS.json (absent)
+PASS save collected loose leaf before LF02: 
+CHECKPOINT court at (7.28, -0.03, 37.90), floor 铺装下承面 6, height 1.16, capsule (7.28, 0.22, 37.90)..(7.28, 1.03, 37.90), overlaps 双盘指引_接回校规台/A2 候选边界
+FAIL System.InvalidOperationException: restore authored LF02 stage (False, 0/15): 检查点落地失败：检查点恢复失败：身体占位被阻挡
+  at NarutoVR.SealCombat.Editor.StoryPickupChecks.Check (System.Boolean ok, System.String name) [0x00024] in D:\Temp\StoryHandPickup-1126\Project\Assets\scripts\logic\Editor\Interaction\StoryPickupChecks.cs:71 
+  at NarutoVR.SealCombat.Editor.StoryPickupChecks+<Run>d__21.MoveNext () [0x0061b] in D:\Temp\StoryHandPickup-1126\Project\Assets\scripts\logic\Editor\Interaction\StoryPickupChecks.cs:136 
+  at NarutoVR.SealCombat.Editor.StoryPickupChecks.Update () [0x0008f] in D:\Temp\StoryHandPickup-1126\Project\Assets\scripts\logic\Editor\Interaction\StoryPickupChecks.cs:80 

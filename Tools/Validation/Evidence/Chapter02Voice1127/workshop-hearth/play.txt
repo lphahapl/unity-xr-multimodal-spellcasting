@@ -1,0 +1,112 @@
+PASS serialized narration shares real supply
+PASS all 32 line IDs retained
+PASS actual first entry voice plays by itself / 章节已就绪
+PASS wired voice uses the head-mounted subtitles
+PASS actual desk phase
+PASS actual altar phase
+PASS actual three altar enemies load
+PASS actual altar kill 1
+PASS partial clear never enables food cue
+PASS actual altar kill 2
+PASS partial clear never enables food cue
+PASS actual altar kill 3
+PASS all three deaths actually offer the bag
+PASS upper departure and reminder independent of untouched lower bag
+PASS same XZ on upper level does not pass the lower furnace range
+PASS save captures untouched shelf offer
+PASS use actual private middle checkpoint
+PASS restored A basket on actual middle station
+PASS middle-stage area is rebound after loading
+PASS actual middle-floor area advances workshop stage
+PASS away from the furnace no invitation starts
+PASS actual separate biscuit pickup does not complete pack pickup
+PASS full health neither consumes biscuit nor changes the bag lesson
+PASS real early pack receipt arrives before proximity
+PASS early pack take skips redundant invitation, enables follow-up
+PASS read untouched shelf before proximity case
+PASS same-floor furnace range enables new invitation and waits for actual bag
+PASS live scheduler plays the new workshop invitation / 第 1 句 · RT01；音频：播放/加载中；操作：等待操作
+PASS new RT01 WAV and matching script are bound
+PASS real pack pickup after live invitation
+PASS new live receipt immediately enables RT02
+PASS actual pickup unlocks RT02 without eating / 第 1 句 · RT02；音频：播放/加载中；操作：无需; t=19.49772; scale=1; act=True; player=受到 40 伤害，护盾吸收 0，生命损失 40; phase=3; picked=True stowed=False canRT02=True
+PASS RT03 plays the stow explanation / 第 1 句 · RT03；音频：播放/加载中；操作：等待操作
+PASS before docking the stow step remains incomplete
+PASS actual release followed by docking into central pocket
+PASS central pocket snap emits the real stow receipt
+PASS stow completes lesson with all four portions uneaten
+PASS restore to test optional audio priority again
+PASS real workshop encounters enter combat
+PASS optional ration line active before workshop clears
+PASS real test kill for workshop clear
+PASS real test kill for workshop clear
+PASS real test kill for workshop clear
+PASS actual workshop clearing unlocks the master tenon
+PASS workshop tenon instruction preempts optional ration / 第 1 句 · WS03；音频：播放/加载中；操作：等待操作
+PASS main instruction did not require ration completion
+PASS one shared voice source
+PASS resource EN01 Chapter02/EN01.wav
+PASS single AudioSource actually plays EN01
+PASS resource EN02 Chapter02/EN02.wav
+PASS single AudioSource actually plays EN02
+PASS resource EN03 Chapter02/EN03.wav
+PASS single AudioSource actually plays EN03
+PASS resource BR01 Chapter02/BR01.wav
+PASS single AudioSource actually plays BR01
+PASS resource BR02 Chapter02/BR02.wav
+PASS single AudioSource actually plays BR02
+PASS resource AL01 Chapter02/AL01.wav
+PASS single AudioSource actually plays AL01
+PASS resource AL02 Chapter02/AL02.wav
+PASS single AudioSource actually plays AL02
+PASS resource RT01 Chapter02/RT01_WorkshopHearth.wav
+PASS single AudioSource actually plays RT01
+PASS resource RT02 Chapter02/RT02.wav
+PASS single AudioSource actually plays RT02
+PASS resource RT03 Chapter02/RT03_WorkshopHearth.wav
+PASS single AudioSource actually plays RT03
+PASS resource AB01 Chapter02/AB01.wav
+PASS single AudioSource actually plays AB01
+PASS resource AB02 Chapter02/AB02.wav
+PASS single AudioSource actually plays AB02
+PASS resource AD01 Chapter02/AD01.wav
+PASS single AudioSource actually plays AD01
+PASS resource AD02 Chapter02/AD02.wav
+PASS single AudioSource actually plays AD02
+PASS resource HB01 Chapter02/HB01.wav
+PASS single AudioSource actually plays HB01
+PASS resource HB02 Chapter02/HB02.wav
+PASS single AudioSource actually plays HB02
+PASS resource WS01 Chapter02/WS01.wav
+PASS single AudioSource actually plays WS01
+PASS resource WS02 Chapter02/WS02.wav
+PASS single AudioSource actually plays WS02
+PASS resource WS03 Chapter02/WS03.wav
+PASS single AudioSource actually plays WS03
+PASS resource WS04 Chapter02/WS04.wav
+PASS single AudioSource actually plays WS04
+PASS resource BDN01 Chapter02/BDN01.wav
+PASS single AudioSource actually plays BDN01
+PASS resource BDN02 Chapter02/BDN02.wav
+PASS single AudioSource actually plays BDN02
+PASS resource BDN03 Chapter02/BDN03.wav
+PASS single AudioSource actually plays BDN03
+PASS resource BDN04 Chapter02/BDN04.wav
+PASS single AudioSource actually plays BDN04
+PASS resource BDN05 Chapter02/BDN05.wav
+PASS single AudioSource actually plays BDN05
+PASS resource PG01 Chapter02/PG01.wav
+PASS single AudioSource actually plays PG01
+PASS resource PG02 Chapter02/PG02.wav
+PASS single AudioSource actually plays PG02
+PASS resource HT01 Chapter02/HT01.wav
+PASS single AudioSource actually plays HT01
+PASS resource HT02 Chapter02/HT02_WorkshopHearth.wav
+PASS single AudioSource actually plays HT02
+PASS resource HT03 Chapter02/HT03.wav
+PASS single AudioSource actually plays HT03
+PASS resource HT04 Chapter02/HT04.wav
+PASS single AudioSource actually plays HT04
+PASS resource HT05 Chapter02/HT05.wav
+PASS single AudioSource actually plays HT05
+PASS END

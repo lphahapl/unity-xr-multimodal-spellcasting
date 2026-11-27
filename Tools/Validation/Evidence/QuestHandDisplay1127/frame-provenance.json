@@ -1,0 +1,181 @@
+{
+  "purpose": "Provenance and limits for same-frame comparison of SDK hand meshes. No hardware or Unity interaction during this audit.",
+  "selectionFile": "D:\\Temp\\QuestHandReview1127\\frames\\selected.ndjson",
+  "selectionSha256": "6d21393628ecf11675b3f76c472e070452bf4490400df42b9c4b5af3a45d7c1b",
+  "indexArray": [
+    "HandPalm",
+    "HandWristRoot",
+    "HandThumb1",
+    "HandThumb2",
+    "HandThumb3",
+    "HandThumbTip",
+    "HandIndex0",
+    "HandIndex1",
+    "HandIndex2",
+    "HandIndex3",
+    "HandIndexTip",
+    "HandMiddle0",
+    "HandMiddle1",
+    "HandMiddle2",
+    "HandMiddle3",
+    "HandMiddleTip",
+    "HandRing0",
+    "HandRing1",
+    "HandRing2",
+    "HandRing3",
+    "HandRingTip",
+    "HandPinky0",
+    "HandPinky1",
+    "HandPinky2",
+    "HandPinky3",
+    "HandPinkyTip"
+  ],
+  "sdkEnum": "D:\\UnityProjects\\NarutoVR\\Library\\PackageCache\\com.meta.xr.sdk.interaction@61177ebcfd9a\\Runtime\\OpenXR\\OpenXRHandPrimitives.cs",
+  "sdkEnumSHA256": "e6bc5b19878db6c5fc545990f65522e80d42ed9fcf110d94849311e610f89dce",
+  "format": {
+    "sourceLine": "One based, sourceLineSHA256 covers original line bytes without the trailing newline. frame has exact decoded values from recorded source.",
+    "joints": "26 Oculus.Interaction.HandJointId poses from IHand.GetJointPose transformed from world into recordingOrigin space; position metrically meaningful under unit-scale origin, xyzw Unity quaternion relative to recordingOrigin.",
+    "wristPoses": "26 IHand.GetJointPosesFromWrist outputs in SDK wrist-relative space, pose.rotation xyzw. These are not raw tracking joint samples.",
+    "validity": "Every selected hand: 26 valid, connected, tracked, fresh, wrist poses valid, finite components and unit quaternions to 1e-3. SteamVR confidence is derived from XR Hands pose validity.",
+    "upstream": "SealXRHandsSource.Read calls XRHandJoint.TryGetPose for validity then discards pose; retains only tracking validity bits and observation times. SealLab.CaptureHand serializes SDK IHand output; cannot isolate raw tracker, local-axis mapping, or skin weight errors from these recordings alone.",
+    "posesCode": "Assets/scripts/logic/SealLab/SealLab.cs:166-189",
+    "sourceCode": "Assets/scripts/logic/SealLab/SealXRHandsSource.cs:70-104",
+    "timeCode": "Assets/scripts/data/SealLab/SealRecording.cs:20"
+  },
+  "quest3Session": {
+    "localTimeZone": "UTC+08:00",
+    "sourceFileUTCStem": "20261127-112457",
+    "localFileTime": "2026-11-27 19:24:57 to 19:25:02",
+    "deviceFile": "E:\\steam\\logs\\vrhw_steamvr.vdf",
+    "deviceFileSha256": "28d318dcadd3f5f8135d19366653836dcd787e93afc3ad6a094ed49a8d06bcc7",
+    "deviceFileUnixTimestamp": 1795778821,
+    "deviceSummary": "Oculus Quest3, vrlink; VRLink Hand Tracker (Left Hand), VRLink Hand Tracker (Right Hand).",
+    "vrserver": "D:\\Netease\\steam\\logs\\vrserver.txt",
+    "sanitizedEvidence": [
+      {
+        "localTime": "2026-11-27 19:24:33.494",
+        "line": 4614,
+        "event": "Unity.exe OpenXR connection for D:/UnityProjects/NarutoVR, PID 9996"
+      },
+      {
+        "localTime": "2026-11-27 19:24:33.516",
+        "line": 4621,
+        "event": "Using existing HMD vrlink.VRLINKHMDQUEST3"
+      },
+      {
+        "localTime": "2026-11-27 19:25:58.658",
+        "line": 4745,
+        "event": "Unity PID 9996 disconnected"
+      }
+    ],
+    "source": {
+      "file": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261127-112457-f02bdf2cf996478a835f1029765cd63a.jsonl",
+      "sha256": "f718c00c6ee3f0b58cba52ff89add5f201954f4d139c36a8544aa00e303ebb62",
+      "frames": 210,
+      "labels": [
+        "unlabelled"
+      ],
+      "sources": [
+        "OpenXR / XR Hands / SteamVR/OpenXR"
+      ],
+      "fullBoth": 210,
+      "left": {
+        "valid26": 210,
+        "distinctRecordedJointArraysWhereValid26": 210,
+        "distinctWristRelativeArraysWhereValid26": 210
+      },
+      "right": {
+        "valid26": 210,
+        "distinctRecordedJointArraysWhereValid26": 1,
+        "distinctWristRelativeArraysWhereValid26": 1
+      }
+    },
+    "spanSeconds": 4.974192900001071,
+    "clipMeaning": "Unlabelled five-second measured SteamVR PC stream. Left is 210 distinct post-SDK frames. Right is one exactly repeated joints/wristPoses array despite 210 increasing reported versions. This observation does not identify the freeze cause. No native Android recording or same-session labelled pinch/fist/equipment action."
+  },
+  "historicalSeals": {
+    "source": "D:\\UnityProjects\\NarutoVR\\Logs\\t01-seal-feedback-20261124\\unity\\historical-pose-provenance.json",
+    "origin": "SteamVR/OpenXR. HMD model at time of these 2026-10-29 recordings not proven by the Nov 27 logs. These represent the same IHand output schema.",
+    "fittedLabels": [
+      {
+        "key": "gui",
+        "source": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261029-110658-fd229e44523247eaa611376f682b5752.jsonl",
+        "line": 115,
+        "maxFingerprintError_m": 9.554957755564253e-09
+      },
+      {
+        "key": "ju",
+        "source": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261029-111313-32f70570cc12410aae878f193b7f5e6d.jsonl",
+        "line": 30,
+        "maxFingerprintError_m": 9.246117510519625e-09
+      },
+      {
+        "key": "lv",
+        "source": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261029-111525-15c3311412d144d394b80739c969e095.jsonl",
+        "line": 158,
+        "maxFingerprintError_m": 2.6867480462655635e-09
+      }
+    ]
+  },
+  "historicalFingerShapes": "Right flexed and extended examples inferred from geometry of four non-thumb fingers, not authored labels or an object grasp.",
+  "pinchCheck": {
+    "gate_mm": 27,
+    "scope": "17 SealRecordings. Requires tracked, fresh, connected with thumb and index tip valid. Both measured in joints (recording origin space).",
+    "smallestObserved": {
+      "left": {
+        "mm": 65.71446854080696,
+        "sourceFile": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261029-105235-f3ed7245b8f8465baa8f57a40d4f1043.jsonl",
+        "sourceLine": 130
+      },
+      "right": {
+        "mm": 28.13495283824042,
+        "sourceFile": "C:\\Users\\鲁迅\\AppData\\LocalLow\\DefaultCompany\\NarutoVR\\SealRecordings\\hands-20261029-035523-fac6a7efd4d34a0fb9c3ea6fec13a7e9.jsonl",
+        "sourceLine": 180
+      }
+    },
+    "passes": false
+  },
+  "otherEvidence": {
+    "floorOnly": [
+      {
+        "file": "D:\\UnityProjects\\NarutoVR\\Logs\\QuestFloorContact\\20261127-011035-454.jsonl",
+        "samples": 2487,
+        "runtime": [
+          "SteamVR/OpenXR"
+        ],
+        "rawTipYValid": {
+          "left": 2400,
+          "right": 2400
+        }
+      },
+      {
+        "file": "D:\\UnityProjects\\NarutoVR\\Logs\\QuestFloorContact\\20261127-032412-685.jsonl",
+        "samples": 1721,
+        "runtime": [
+          "SteamVR/OpenXR"
+        ],
+        "rawTipYValid": {
+          "left": 1720,
+          "right": 1720
+        }
+      },
+      {
+        "file": "D:\\UnityProjects\\NarutoVR\\Logs\\QuestFloorContact\\20261127-174841-891.jsonl",
+        "samples": 30,
+        "runtime": [
+          "SteamVR/OpenXR"
+        ],
+        "rawTipYValid": {
+          "left": 29,
+          "right": 29
+        }
+      }
+    ],
+    "floorMeaning": "QuestFloorContactCapture.cs reads only the index tip raw local/world Y and the corresponding input and visual Y. It cannot reconstruct all 26 positions and rotations or assign roles to finger bases.",
+    "floorCode": "Assets/scripts/logic/Editor/QuestFloorContactCapture.cs:242-278",
+    "floorReplay": "Tools/Validation/Evidence/Chapter02Assembly/quest-wear-view-1126/floor/hand-binding-and-ground-items.json explicitly identifies static binding + deterministic replay; old-provider tests explicitly ran Unity Mock Runtime.",
+    "legacyHeng": "Logs/HengSealPose-20261122/heng-replay.html stores derived left-hand projection from old clip. Original hash documented ADC64A736BA038F15C216C4B7C5D910E999568858286678579680903C2713648; original JSONL is absent from current SealRecordings folder.",
+    "shieldCalibration": "D:/Temp/NarutoVR-LeftShield-20261122/LeftGuardScenePlay20261122.cs:65-76 replays 30 Oct 29 frames and replaces right with empty HandSnapshot, so it cannot count as independent positional evidence.",
+    "headsetVideos": "D:/Temp/NarutoQuest1126-1953/quest-195336.mp4 etc. Quest display recordings can corroborate appearance only; they cannot reconstruct missing bone orientations."
+  }
+}
