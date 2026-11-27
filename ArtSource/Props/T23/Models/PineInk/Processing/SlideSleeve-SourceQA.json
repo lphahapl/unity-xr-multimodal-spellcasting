@@ -1,0 +1,182 @@
+{
+  "blender": "5.2.2 LTS",
+  "asset": "SlideSleeve.glb",
+  "sourceSHA256": "2f9fb191898c4ccb7b7af16e173b1631474a15049f90fe9777385f65cb270087",
+  "sourceMetresAreNotAuthoringScale": true,
+  "counts": {
+    "triangles": 49990,
+    "verticesAfterWeldingGltfSplits": 24999
+  },
+  "bboxBlenderOriginal": {
+    "min": [
+      -0.3043769896030426,
+      -0.4478340744972229,
+      -5.641298272962558e-08
+    ],
+    "max": [
+      0.31154000759124756,
+      0.3484630286693573,
+      0.7796992063522339
+    ],
+    "extent": [
+      0.6159169971942902,
+      0.7962971031665802,
+      0.7796992627652166
+    ]
+  },
+  "pcaBasis": [
+    [
+      -0.009723953654862325,
+      -0.02005678911982616,
+      -0.9997515541050789
+    ],
+    [
+      0.9989177804145272,
+      0.045281264694393406,
+      -0.010624266534230247
+    ],
+    [
+      0.04548310342349303,
+      -0.9987729132680156,
+      0.019594770350497153
+    ]
+  ],
+  "pcaEigenvalues": [
+    0.09483200535305242,
+    0.07965828168407116,
+    0.04623400905677499
+  ],
+  "matrixBlenderImported": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -1.3435885648505064e-07,
+      -1.0000001192092896,
+      0.0
+    ],
+    [
+      0.0,
+      1.0000001192092896,
+      -1.3435885648505064e-07,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "gltfOriginalMaterials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        }
+      },
+      "name": "Material.001",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    }
+  ],
+  "embeddedPng": [
+    {
+      "name": "texture_pbr_20250901",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "sRGB",
+      "packed": true
+    },
+    {
+      "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "Non-Color",
+      "packed": true
+    },
+    {
+      "name": "texture_pbr_20250901_normal",
+      "size": [
+        4096,
+        4096
+      ],
+      "space": "Non-Color",
+      "packed": true
+    }
+  ],
+  "qa": {
+    "ok": true,
+    "pass": false,
+    "errors": [
+      "floating/detached part in SlideSleeve_Source (51 verts at [-0.22, -0.002, 0.759])"
+    ],
+    "warnings": [],
+    "ground_z": -0.0,
+    "zfighting": [],
+    "floating": [
+      {
+        "object": "SlideSleeve_Source",
+        "island_verts": 51,
+        "center": [
+          -0.22,
+          -0.002,
+          0.759
+        ]
+      }
+    ],
+    "back_to_back": [],
+    "enclosed": [],
+    "objects": {
+      "SlideSleeve_Source": {
+        "verts": 24999,
+        "faces": 49990,
+        "tris": 49990,
+        "ngons": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "loose_verts": 0,
+        "degenerate_faces": 0,
+        "zero_length_edges": 0,
+        "inconsistent_normals_edges": 0,
+        "duplicate_verts": 0,
+        "islands": 2,
+        "inside_out_islands": 0,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "materials": 1,
+        "uv_maps": 1,
+        "uv_oob_pct": 0.0,
+        "uv_zero_area_faces": 0,
+        "uv_overlap_pct": 0.0,
+        "uv_coverage_pct": 66.3
+      }
+    }
+  }
+}

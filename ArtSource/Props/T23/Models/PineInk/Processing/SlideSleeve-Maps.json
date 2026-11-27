@@ -1,0 +1,98 @@
+{
+  "BaseColor": {
+    "file": "SlideSleeveTextures/SlideSleeve_BaseColor.png",
+    "sourceName": "texture_pbr_20250901",
+    "sourcePngSHA256": "469758c4fa5e696a65cb7a2cb135630b324f6c1886a5e06459b9b7f058584e2b",
+    "derivedPngSHA256": "328c3a3d4eb269fcaecc8eab25063e50f4e7df389c110fa54c551c5a5d7e7fb8",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Resampled embedded PNG",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        61.0,
+        52.0,
+        36.0
+      ],
+      [
+        82.0,
+        70.0,
+        49.0
+      ],
+      [
+        125.0,
+        115.0,
+        89.0
+      ]
+    ]
+  },
+  "NormalGL": {
+    "file": "SlideSleeveTextures/SlideSleeve_NormalGL.png",
+    "sourceName": "texture_pbr_20250901_normal",
+    "sourcePngSHA256": "0b55d2b31e7e307e7c9f9712f26602f1c5f6d8b10363253211e199657c17b9c4",
+    "derivedPngSHA256": "536a7a9ce0b5c5f88e70df67aa647e0b170fc8550c1982529aabeb7fce627a64",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Resampled embedded PNG",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        127.0,
+        127.0,
+        255.0
+      ],
+      [
+        127.0,
+        127.0,
+        255.0
+      ],
+      [
+        128.0,
+        128.0,
+        255.0
+      ]
+    ]
+  },
+  "ORM": {
+    "file": "SlideSleeveTextures/SlideSleeve_ORM.png",
+    "sourceName": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+    "sourcePngSHA256": "f525ebe1dcf71250772c06aaeff377f262fd2c96bdaddf23388a232a21f2a24b",
+    "derivedPngSHA256": "131e848dd4216a63456bcb61ac65a87ef503ba1b2c879cebd7d54e36ae20e7b8",
+    "sourceDimensions": [
+      4096,
+      4096
+    ],
+    "derivedDimensions": [
+      2048,
+      2048
+    ],
+    "process": "Resampled embedded PNG",
+    "outputChannel5th50th95thPercentiles": [
+      [
+        255.0,
+        27.0,
+        0.0
+      ],
+      [
+        255.0,
+        49.0,
+        105.0
+      ],
+      [
+        255.0,
+        69.0,
+        246.0
+      ]
+    ]
+  }
+}
