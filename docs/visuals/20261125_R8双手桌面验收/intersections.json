@@ -1,0 +1,199 @@
+{
+  "units": "mm from wrist on proximal palm axis (+ towards elbow); unique triangle surface intersection points (1um rounding). Axial position is not penetration depth. Coplanar surfaces not counted.",
+  "results": [
+    {
+      "pose": "open",
+      "side": "Left",
+      "elbowFlexDeg": 82.29,
+      "r8IndexDistalToWristMm": 148.833,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.4,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 115,
+        "distalMostMm": 119.7,
+        "proximalMostMm": 145.22
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "open",
+      "side": "Right",
+      "elbowFlexDeg": 82.29,
+      "r8IndexDistalToWristMm": 148.933,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.39,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 114,
+        "distalMostMm": 120.71,
+        "proximalMostMm": 145.66
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "elbow",
+      "side": "Left",
+      "elbowFlexDeg": 152.5,
+      "r8IndexDistalToWristMm": 148.833,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.4,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 115,
+        "distalMostMm": 100.06,
+        "proximalMostMm": 135.13
+      },
+      "observerHandSleeve": {
+        "count": 56,
+        "distalMostMm": 120.74,
+        "proximalMostMm": 133.43
+      }
+    },
+    {
+      "pose": "elbow",
+      "side": "Right",
+      "elbowFlexDeg": 152.53,
+      "r8IndexDistalToWristMm": 148.932,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.39,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 114,
+        "distalMostMm": 101.0,
+        "proximalMostMm": 136.16
+      },
+      "observerHandSleeve": {
+        "count": 54,
+        "distalMostMm": 111.54,
+        "proximalMostMm": 134.37
+      }
+    },
+    {
+      "pose": "fist",
+      "side": "Left",
+      "elbowFlexDeg": 114.03,
+      "r8IndexDistalToWristMm": 88.538,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.4,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 115,
+        "distalMostMm": 113.77,
+        "proximalMostMm": 142.7
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "fist",
+      "side": "Right",
+      "elbowFlexDeg": 114.04,
+      "r8IndexDistalToWristMm": 87.84,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.39,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 114,
+        "distalMostMm": 114.81,
+        "proximalMostMm": 143.42
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "rollIn",
+      "side": "Left",
+      "elbowFlexDeg": 114.03,
+      "r8IndexDistalToWristMm": 148.833,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.4,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 115,
+        "distalMostMm": 117.32,
+        "proximalMostMm": 142.84
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "rollIn",
+      "side": "Right",
+      "elbowFlexDeg": 114.04,
+      "r8IndexDistalToWristMm": 148.933,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.39,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 114,
+        "distalMostMm": 118.59,
+        "proximalMostMm": 143.01
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "rollOut",
+      "side": "Left",
+      "elbowFlexDeg": 114.03,
+      "r8IndexDistalToWristMm": 148.833,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.4,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 115,
+        "distalMostMm": 112.49,
+        "proximalMostMm": 142.49
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    },
+    {
+      "pose": "rollOut",
+      "side": "Right",
+      "elbowFlexDeg": 114.04,
+      "r8IndexDistalToWristMm": 148.933,
+      "firstPerson": {
+        "count": 124,
+        "distalMostMm": 8.39,
+        "proximalMostMm": 12.0
+      },
+      "observerHandForearm": {
+        "count": 114,
+        "distalMostMm": 111.43,
+        "proximalMostMm": 142.48
+      },
+      "observerHandSleeve": {
+        "count": 0
+      }
+    }
+  ]
+}

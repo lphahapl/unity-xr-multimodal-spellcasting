@@ -1,0 +1,26 @@
+R8 isolated desktop simulation, metres and degrees
+fullSkins=70 firstPersonSkins=19 nativeHands=2
+model eye and aim = (-0.0007, 1.5926, -0.0637) (0.0000, 1.2332, 0.1149)
+open Left flex=82.29 wrist=-0.145000,1.233228,0.210732 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.833
+open Right flex=82.29 wrist=0.145000,1.233228,0.208995 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.933
+draw=0 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=1 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+elbow Left flex=152.50 wrist=-0.145000,1.313228,0.010732 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.833
+elbow Right flex=152.53 wrist=0.145000,1.313228,0.008995 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.932
+draw=2 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=3 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+fist Left flex=114.03 wrist=-0.145000,1.233228,0.115732 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=88.538
+fist Right flex=114.04 wrist=0.145000,1.233228,0.113995 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=87.840
+draw=4 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=5 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+draw=6 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=7 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+rollIn Left flex=114.03 wrist=-0.145000,1.233228,0.115732 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.833
+rollIn Right flex=114.04 wrist=0.145000,1.233228,0.113995 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.933
+draw=8 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=9 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+rollOut Left flex=114.03 wrist=-0.145000,1.233228,0.115731 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.833
+rollOut Right flex=114.04 wrist=0.145000,1.233228,0.113995 proximalAxis=0.000000,0.000000,-1.000000 actualFistDist=148.933
+draw=10 spectator=False SDK=1/1 R8hands=0 body=0 local=19
+draw=11 spectator=True SDK=0/0 R8hands=2 body=70 local=0
+PASS 12 real URP camera draws and restored per-camera state.

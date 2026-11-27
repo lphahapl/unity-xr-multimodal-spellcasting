@@ -1,0 +1,171 @@
+{
+  "unity": "6000.3.10f1",
+  "graphics": "Windows D3D11",
+  "input": "隔离 Unity Play，桌面合成双手输入，正式沈商 Humanoid 与残机偶攻击动画，固定侧机位",
+  "frames": 155,
+  "fps": 30,
+  "meshVertices": 4628,
+  "retreatMeters": 0.8,
+  "perfectCues": 1,
+  "addedCuesOnSecondHit": 0,
+  "missingBodyCreatesImprint": false,
+  "lockedToStart": true,
+  "clipHash": "088cde5c9766ed9fa500f310a8305958309dc18280513b2ed09d0795bef3294c",
+  "comparisonHash": "a59661870016e80906a25ca023931de6729bf24816a913f2eeba4837e6444efc",
+  "audioCapture": {
+    "sampleRate": 48000,
+    "channels": 2,
+    "cueFrame": 60,
+    "peak": 0.12030029296875,
+    "similarity": 0.999999850388499,
+    "audioTime": 1.984,
+    "offsetSeconds": -0.016000000000000014,
+    "duration": 5.1626666666666665,
+    "sleeveTime": 1.8986666666666667,
+    "sleeveCorrelation": 0.9999969105579498,
+    "sleeveLeadMs": 85.33333333333333
+  },
+  "sourceHash": {
+    "Assets/scripts/logic/Locomotion/RpgDodgeAfterimage.cs": "94a47285c6b9fb256c7da93614e5aabba547e1ee1f8ba35f3705becb4cbe6896",
+    "Assets/Shaders/RpgDodgeAfterimage.shader": "7dd41b0a6903ea04bff8c13dc0f622fabb0626c61106cb610bcf4600352ffdc5",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": "3306023dae07002cc8a7a6766d16488523f75503fc0aa202908e3b047452699c",
+    "Assets/Resources/RpgDodgeAfterimage.mat": "413ec53280e61df0182eacdcdbeb24e4784aabfde5077ccf6aa0e3d9244cdfff",
+    "Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs": "3596d636e5a82d598e07905b3e3a6291913c7d9ebb96ba083d81b3f1eec1fd88",
+    "Assets/Resources/Audio/PerfectDodge.wav": "59527f0b801b58e2613a132adf8af3fcda3bcfe809b068491b4f72a2d75af374",
+    "Assets/Resources/Audio/PerfectDodge.wav.meta": "6d9c3b7d14a875c82500d7b33511e72546a03a4650aa45ac2823e24c92250756",
+    "Assets/scripts/logic/Rpg/TrackedAvatarPresentation.cs": "2a7afbe3b03f11120a3a0cdfebb90a79d796be831be94520b9a8fa46ee651911",
+    "Assets/Resources/Audio/DodgeSleeve.wav": "a4ebaf521b059cdbb217dc359af9a291377e9b1ec8d4b67fbcf55a518e8578f4",
+    "Assets/Resources/Audio/DodgeSleeve.wav.meta": "16a036ecf7c2c9b166e8ee2f1665fd73d48ef706b7a1e9416fef65c6fcb38964"
+  },
+  "inkMaskPerFrame": [
+    {
+      "frame": 60,
+      "seconds": 0.0,
+      "inkEnergy": 3476.585,
+      "contrast": 0.3327,
+      "gradient": 0.2339,
+      "softArea": 30
+    },
+    {
+      "frame": 61,
+      "seconds": 0.050703,
+      "inkEnergy": 3335.832,
+      "contrast": 0.2519,
+      "gradient": 0.1061,
+      "softArea": 6120
+    },
+    {
+      "frame": 62,
+      "seconds": 0.079338,
+      "inkEnergy": 4330.696,
+      "contrast": 0.23043,
+      "gradient": 0.0563,
+      "softArea": 7182
+    },
+    {
+      "frame": 64,
+      "seconds": 0.135535,
+      "inkEnergy": 4690.766,
+      "contrast": 0.21831,
+      "gradient": 0.0427,
+      "softArea": 9996
+    },
+    {
+      "frame": 66,
+      "seconds": 0.20255,
+      "inkEnergy": 4501.92,
+      "contrast": 0.21046,
+      "gradient": 0.0426,
+      "softArea": 10432
+    },
+    {
+      "frame": 68,
+      "seconds": 0.266967,
+      "inkEnergy": 4279.746,
+      "contrast": 0.20235,
+      "gradient": 0.0426,
+      "softArea": 10987
+    },
+    {
+      "frame": 70,
+      "seconds": 0.340537,
+      "inkEnergy": 3995.36,
+      "contrast": 0.19281,
+      "gradient": 0.0429,
+      "softArea": 11759
+    },
+    {
+      "frame": 72,
+      "seconds": 0.405138,
+      "inkEnergy": 3717.855,
+      "contrast": 0.18413,
+      "gradient": 0.0428,
+      "softArea": 12446
+    },
+    {
+      "frame": 74,
+      "seconds": 0.467727,
+      "inkEnergy": 3414.189,
+      "contrast": 0.17545,
+      "gradient": 0.0426,
+      "softArea": 13315
+    },
+    {
+      "frame": 76,
+      "seconds": 0.537623,
+      "inkEnergy": 3014.834,
+      "contrast": 0.16369,
+      "gradient": 0.0428,
+      "softArea": 14493
+    },
+    {
+      "frame": 78,
+      "seconds": 0.600963,
+      "inkEnergy": 2590.812,
+      "contrast": 0.15192,
+      "gradient": 0.0442,
+      "softArea": 16683
+    },
+    {
+      "frame": 80,
+      "seconds": 0.667709,
+      "inkEnergy": 2048.978,
+      "contrast": 0.1354,
+      "gradient": 0.0472,
+      "softArea": 18692
+    },
+    {
+      "frame": 82,
+      "seconds": 0.736551,
+      "inkEnergy": 1397.453,
+      "contrast": 0.11496,
+      "gradient": 0.0491,
+      "softArea": 23073
+    },
+    {
+      "frame": 84,
+      "seconds": 0.80067,
+      "inkEnergy": 705.626,
+      "contrast": 0.06419,
+      "gradient": 0.074,
+      "softArea": 18827
+    },
+    {
+      "frame": 86,
+      "seconds": 0.869192,
+      "inkEnergy": 28.222,
+      "contrast": 0.00422,
+      "gradient": 1.7823,
+      "softArea": 86
+    }
+  ],
+  "measurement": "同一时刻用同一相机分别渲染开启与隐藏墨影的画面，计算差值。seconds 来自引擎时间。",
+  "reference": {
+    "url": "https://www.bilibili.com/video/BV1rE421g7x6/",
+    "seconds": [
+      12.2,
+      18.8
+    ],
+    "purpose": "对照擦过身侧的起音与快速衰减，两条项目音频均为原创合成。"
+  }
+}

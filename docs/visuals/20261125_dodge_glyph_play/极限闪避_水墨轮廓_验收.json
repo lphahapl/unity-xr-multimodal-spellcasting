@@ -1,0 +1,71 @@
+{
+  "unity": "6000.3.10f1",
+  "platform": "Windows D3D11",
+  "input": "桌面合成手部观测",
+  "camera": "固定侧机位",
+  "renderFrames": 155,
+  "fps": 30,
+  "sampleRate": 48000,
+  "channels": 2,
+  "durationSeconds": 5.166666666666667,
+  "preSlideRig": [
+    125,
+    0,
+    137
+  ],
+  "inkPosition": [
+    125,
+    0,
+    137
+  ],
+  "sourceVertices": 32630,
+  "inkVertices": 2684,
+  "meshStable": true,
+  "ordinaryDodgeImprint": false,
+  "missingBodyImprint": false,
+  "repeatedHitExtraCues": 0,
+  "lateAvatarRegistered": true,
+  "sameBindingReused": true,
+  "olderModelDisablePreservesNew": true,
+  "peakRetreatMeters": 0.8,
+  "mana": [
+    20,
+    45
+  ],
+  "health": 100,
+  "sourceHashes": {
+    "Assets/scripts/logic/Locomotion/RpgDodgeAfterimage.cs": "0b4df787ad442eb16378f1e2a933ec9b8423a3ae31ebe46820d4ee906fba56e8",
+    "Assets/Shaders/RpgDodgeAfterimage.shader": "60f191139d38a8ceb6d49c7831aecefc91a832ff3f00f8ea8e61ec9b75d7902d",
+    "Assets/scripts/logic/Locomotion/RpgLocomotionController.Encounter.cs": "3306023dae07002cc8a7a6766d16488523f75503fc0aa202908e3b047452699c",
+    "Assets/Resources/RpgDodgeAfterimage.mat": "413ec53280e61df0182eacdcdbeb24e4784aabfde5077ccf6aa0e3d9244cdfff",
+    "Assets/scripts/ui/Rpg/RpgInteractionFeedback.cs": "f16d603958b740ee464ba107d94adfb701949ce32c23806a542f2682333f7d23",
+    "Assets/Resources/Audio/PerfectDodge.wav": "d5d6aa724b97e370b61f276b6053d9b993eab4ed9e6fb07a96a2665957628ff1",
+    "Assets/Resources/Audio/PerfectDodge.wav.meta": "6d9c3b7d14a875c82500d7b33511e72546a03a4650aa45ac2823e24c92250756",
+    "Assets/scripts/logic/Rpg/TrackedAvatarPresentation.cs": "2a7afbe3b03f11120a3a0cdfebb90a79d796be831be94520b9a8fa46ee651911"
+  },
+  "audioMixerCapture": {
+    "sampleRate": 48000,
+    "channels": 2,
+    "cueFrame": 60,
+    "peak": 0.12030029296875,
+    "similarity": 0.8197650775820586,
+    "audioTime": 1.984,
+    "offsetSeconds": -0.016000000000000014,
+    "duration": 5.1626666666666665
+  },
+  "clipSHA256": "0e731569fd419fba76723fc4dd2b31cf09ccf77a70399867636acaf745d6ead7",
+  "events": [
+    {
+      "frame": 56,
+      "event": "快推"
+    },
+    {
+      "frame": 60,
+      "event": "命中极限窗口、原位墨影、敌速0.25倍及原创音"
+    },
+    {
+      "frame": 109,
+      "event": "恢复原速"
+    }
+  ]
+}

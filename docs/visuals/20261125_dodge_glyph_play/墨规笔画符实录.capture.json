@@ -1,0 +1,84 @@
+{
+  "unityVersion": "6000.3.10f1",
+  "sourceScene": "Assets/Scene/Chapter02_SuspendedPath.unity",
+  "penPrefab": "",
+  "penMeshAsset": "Assets/Art/Props/MoGuiPen/Geometry/MoGuiPen.fbx",
+  "template": "glyph.square-rule",
+  "input": "desktop synthetic hand observation",
+  "finalStage": "CH02_REACH_HUB",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "frames": 238,
+  "pressFrame": 27,
+  "pickupFrame": 55,
+  "contactFrame": 82,
+  "dragFrame": 141,
+  "stoppedFrame": 151,
+  "liftFrame": 159,
+  "recognitionFrame": 168,
+  "repairFrame": 188,
+  "strokes": 1,
+  "sampledInk": 56,
+  "completionCount": 1,
+  "matchScore": 1.0,
+  "dwellRequiredSeconds": 0.8999999761581421,
+  "peakBrushDeflectionMm": 4.500000476837158,
+  "stoppedBrushDeflectionMm": 0.012028638273477554,
+  "liftedBrushDeflectionMm": 0.00014125985035207123,
+  "largestRecordedNibPlaneErrorMm": 0.004952773451805115,
+  "brushBInRuntime": true,
+  "fixedNibMarker": true,
+  "bridgeWasOpen": false,
+  "bridgeColliderEnabled": true,
+  "originalBarrierRemoved": true,
+  "mp4": {
+    "frames": 238,
+    "fps": 30.0,
+    "width": 1280,
+    "height": 800,
+    "seconds": 7.933333333333334,
+    "byteLength": 1603021,
+    "sha256": "d2f13c1681a048e89640fa5068c257dbb36c910d9c4068d3b7ee734c1b996249",
+    "fullDecodePassed": true,
+    "audioCaptured": false,
+    "cueFrames": [
+      [
+        0,
+        "断桥石案 · 修复前"
+      ],
+      [
+        20,
+        "按下石案旁的铜扣，展开范本"
+      ],
+      [
+        45,
+        "轻捏右侧笔鞘里的实体墨规笔"
+      ],
+      [
+        73,
+        "笔尖从板面正面靠近，接触后落墨"
+      ],
+      [
+        113,
+        "沿板面拖写 · 笔锋随切向运动略微反弯"
+      ],
+      [
+        142,
+        "贴板停笔，笔锋回直；随后抬离板面"
+      ],
+      [
+        160,
+        "停笔自动辨符 · 等待识别反馈"
+      ],
+      [
+        169,
+        "方直之矩匹配成功 · 墨迹吸附并亮金"
+      ],
+      [
+        194,
+        "原断桥缺口闭合 · 已启用真实桥面碰撞"
+      ]
+    ]
+  }
+}

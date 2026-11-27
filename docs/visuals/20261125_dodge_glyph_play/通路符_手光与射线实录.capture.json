@@ -1,0 +1,267 @@
+{
+  "unity": "6000.3.10f1",
+  "scene": "Assets/Scene/PassageGlyphLab.unity",
+  "fps": 30,
+  "frames": 526,
+  "seconds": 17.533333333333335,
+  "size": [
+    1280,
+    810
+  ],
+  "fromLanding": [
+    120.0,
+    0.0,
+    121.8
+  ],
+  "toLanding": [
+    120.0,
+    0.0,
+    125.7
+  ],
+  "spanMetres": 3.9000000000000057,
+  "experimentalParameters": {
+    "formationSeconds": 2.4,
+    "reach": 12.0,
+    "maxSpan": 7.0,
+    "deckWidth": 1.1
+  },
+  "fixture": "D:\\Temp\\NarutoVR-ParryQA-20261124\\Logs\\PassageFilm-20261126-013335",
+  "markers": {
+    "ink": {
+      "frame": 0,
+      "seconds": 0.0,
+      "unityFrame": 1,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "idle": {
+      "frame": 56,
+      "seconds": 1.867,
+      "unityFrame": 57,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "recognized": {
+      "frame": 81,
+      "seconds": 2.7,
+      "unityFrame": 82,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "first": {
+      "frame": 114,
+      "seconds": 3.8,
+      "unityFrame": 115,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "aim": {
+      "frame": 152,
+      "seconds": 5.067,
+      "unityFrame": 153,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "preview": {
+      "frame": 163,
+      "seconds": 5.433,
+      "unityFrame": 164,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "confirm": {
+      "frame": 198,
+      "seconds": 6.6,
+      "unityFrame": 199,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "forming": {
+      "frame": 202,
+      "seconds": 6.733,
+      "unityFrame": 203,
+      "progress": 0.013889,
+      "front": [
+        120.0,
+        0.0,
+        121.8542
+      ],
+      "collider": false
+    },
+    "joined": {
+      "frame": 274,
+      "seconds": 9.133,
+      "unityFrame": 275,
+      "progress": 1.0,
+      "front": [
+        120.0,
+        0.0,
+        125.7
+      ],
+      "collider": true
+    },
+    "walk": {
+      "frame": 297,
+      "seconds": 9.9,
+      "unityFrame": 298,
+      "progress": 1.0,
+      "front": [
+        120.0,
+        0.0,
+        125.7
+      ],
+      "collider": true
+    },
+    "arrived": {
+      "frame": 504,
+      "seconds": 16.8,
+      "unityFrame": 505,
+      "progress": 1.0,
+      "front": [
+        120.0,
+        0.0,
+        125.7
+      ],
+      "collider": true
+    },
+    "firstLock": {
+      "frame": 117,
+      "seconds": 3.9,
+      "unityFrame": 118,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "fistAccepted": {
+      "frame": 201,
+      "seconds": 6.7,
+      "unityFrame": 202,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "0": {
+      "frame": 201,
+      "seconds": 6.7,
+      "unityFrame": 202,
+      "progress": 0.0,
+      "front": [
+        120.0,
+        0.0,
+        121.8
+      ],
+      "collider": false
+    },
+    "0.25": {
+      "frame": 219,
+      "seconds": 7.3,
+      "unityFrame": 220,
+      "progress": 0.25,
+      "front": [
+        120.0,
+        0.0,
+        122.775
+      ],
+      "collider": false
+    },
+    "0.5": {
+      "frame": 237,
+      "seconds": 7.9,
+      "unityFrame": 238,
+      "progress": 0.5,
+      "front": [
+        120.0,
+        0.0,
+        123.75
+      ],
+      "collider": false
+    },
+    "0.75": {
+      "frame": 255,
+      "seconds": 8.5,
+      "unityFrame": 256,
+      "progress": 0.75,
+      "front": [
+        120.0,
+        0.0,
+        124.725
+      ],
+      "collider": false
+    },
+    "1": {
+      "frame": 274,
+      "seconds": 9.133,
+      "unityFrame": 275,
+      "progress": 1.0,
+      "front": [
+        120.0,
+        0.0,
+        125.7
+      ],
+      "collider": true
+    }
+  },
+  "sha256": "30adba8b31405873e6e2145378bd3642f541f16927d37342f00c2fd0cdcffb16",
+  "cameraFrameReplacements": {},
+  "precision": "Unity reports progress to 6 decimal places. The collider and stage columns record the unrounded in-game completion decision.",
+  "sourceSha256": {
+    "Assets/Scene/PassageGlyphLab.unity": "3889d5c3f2456d110ec5ca32858c4eebabe3a45f700af6b788fad1add110f756",
+    "Assets/Art/Glyphs/Passage.asset": "9dcc7cae95d9ce95309d2dc757536330ca218f25ba2a471b0fe24f2461d0c482",
+    "Assets/Art/Glyphs/PassageEffect.asset": "9f49e0dcb5d80578c6382f4c69e0fab084c112f5d88fa74691b334f04949cb89",
+    "Assets/Art/Glyphs/PassageGold.mat": "a5216a27050f00ba41a4284b7c9707ffe9c984b409f314347c57fd0738bbfd66",
+    "Assets/Art/Glyphs/PassageCueGold.mat": "07dc14327de95976eda7ada92c13b40bc35ff3efbcf7bcfa5239c069c194a2a0",
+    "Assets/Art/Glyphs/PassageHandSigil.mat": "4476eb0f1a0c661b9c662716af45b57436e18a89ad5da36479ad397755e413c1",
+    "Assets/Art/Glyphs/PassageGold.shader": "4561464543446dd4e36912ffc3830f0489302ad6e70788de927cd818f9ea5193",
+    "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphRoad.cs": "3b111c2f3cf8808891787cbbbc373919af5f849c3df4654436f774f93129b69a",
+    "Assets/scripts/logic/Rpg/Glyphs/PassageGlyphEffect.cs": "cadd1961c62827f3fb57b8c7d2fd1aa5d320456a5b7df75196adcba8deca55f5",
+    "Assets/scripts/logic/Rpg/PlayerInputController.cs": "d1036731d742d123a994d0d75e70dc91cac9802ab494bcbc960f32b50aa715d9",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphEffectDefinition.cs": "65959d0d2817661d08586276c2333a66f2a42f46b9d4845ee801959c90bc6439",
+    "Assets/scripts/logic/Rpg/Glyphs/GlyphPenController.cs": "5d82d568bb97867efabaf93ddb31fd778a0a1b499e50e6f891eb5823e1dffd8a",
+    "Tools/Validation/PassageGlyphPlayCapture.cs": "cef60a7656b4ba4409ef8a905d3909dc3a33e265e86530da9de9550148d47598",
+    "Tools/Validation/encode_passage_glyph_play.py": "56bfb0df3a2f97ebf68fb78b40f2a2ad917c4627f47949ba93706dfc0cdb773d"
+  },
+  "input": "Desktop Play. Pen contact replay, Meta OpenXR right-hand pose samples through the player input adapter, real PassageGlyphRoad.Update, left navigation input and physics. The capture uses no live headset input."
+}
