@@ -1,0 +1,147 @@
+{
+  "inputFile": "ShenShang_R01.glb",
+  "SHA256": "dcfac78e265b15e8df93e9ddf3d4d805cb368ad07452fee0a2a483f8aa610707",
+  "pose": "exported static pose",
+  "units": "metres unless marked mm",
+  "trousers": "R01 | bifurcated high-waist work trousers",
+  "testedPantsTriangles": 21280,
+  "pairTests": {
+    "A2 Short coat | drafted flared skirt": {
+      "testedCoatTriangles": 4600,
+      "triangleIntersectionPairs": 1369,
+      "intersectingCoatTriangles": 613,
+      "intersectingPantsTriangles": 749,
+      "zBoundsOfAffectedCoatTriangles_m": [
+        0.82144,
+        1.0338
+      ]
+    },
+    "A2 Short coat | hem bead": {
+      "testedCoatTriangles": 1680,
+      "triangleIntersectionPairs": 168,
+      "intersectingCoatTriangles": 138,
+      "intersectingPantsTriangles": 28,
+      "zBoundsOfAffectedCoatTriangles_m": [
+        0.83275,
+        0.84837
+      ]
+    },
+    "A2 Short coat | warm narrow hem return": {
+      "testedCoatTriangles": 600,
+      "triangleIntersectionPairs": 120,
+      "intersectingCoatTriangles": 65,
+      "intersectingPantsTriangles": 63,
+      "zBoundsOfAffectedCoatTriangles_m": [
+        0.82144,
+        0.84954
+      ]
+    },
+    "Jacket": {
+      "testedCoatTriangles": 2668,
+      "triangleIntersectionPairs": 285,
+      "intersectingCoatTriangles": 101,
+      "intersectingPantsTriangles": 186,
+      "zBoundsOfAffectedCoatTriangles_m": [
+        1.01396,
+        1.03667
+      ]
+    },
+    "Jacket closures": {
+      "testedCoatTriangles": 1440,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Jacket collar": {
+      "testedCoatTriangles": 6566,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Undertunic": {
+      "testedCoatTriangles": 4003,
+      "triangleIntersectionPairs": 0,
+      "intersectingCoatTriangles": 0,
+      "intersectingPantsTriangles": 0,
+      "zBoundsOfAffectedCoatTriangles_m": null
+    },
+    "Waist sash": {
+      "testedCoatTriangles": 8149,
+      "triangleIntersectionPairs": 111,
+      "intersectingCoatTriangles": 22,
+      "intersectingPantsTriangles": 91,
+      "zBoundsOfAffectedCoatTriangles_m": [
+        0.99543,
+        1.03033
+      ]
+    }
+  },
+  "radialSurvey": {
+    "layerObjects": [
+      "A2 Short coat | drafted flared skirt",
+      "A2 Short coat | hem bead",
+      "A2 Short coat | warm narrow hem return"
+    ],
+    "layers": "outermost actual skirt, woven binding, or hem bead vs outermost trousers on same torso-facing ray",
+    "resolution": "0.5 degree azimuth, 1.25 mm height; rays stop at body axis; only heights shared by both surfaces",
+    "all": {
+      "samples": 114689,
+      "pantsInFrontMoreThan0_05mm": 68377,
+      "within0_05mm": 681,
+      "minOuterMinusPants_mm": -16.4699,
+      "minimumLocation": {
+        "azimuth_deg": 74.0,
+        "z_m": 0.90625
+      },
+      "p05_mm": -10.752
+    },
+    "byQuadrant": {
+      "back": {
+        "samples": 28544,
+        "pantsInFrontMoreThan0_05mm": 15997,
+        "within0_05mm": 120,
+        "minOuterMinusPants_mm": -14.8756,
+        "minimumLocation": {
+          "azimuth_deg": 318.5,
+          "z_m": 0.9
+        },
+        "p05_mm": -11.56
+      },
+      "front": {
+        "samples": 28814,
+        "pantsInFrontMoreThan0_05mm": 11726,
+        "within0_05mm": 243,
+        "minOuterMinusPants_mm": -6.5012,
+        "minimumLocation": {
+          "azimuth_deg": 169.5,
+          "z_m": 0.89875
+        },
+        "p05_mm": -4.812
+      },
+      "left": {
+        "samples": 28387,
+        "pantsInFrontMoreThan0_05mm": 20272,
+        "within0_05mm": 176,
+        "minOuterMinusPants_mm": -16.4699,
+        "minimumLocation": {
+          "azimuth_deg": 74.0,
+          "z_m": 0.90625
+        },
+        "p05_mm": -10.625
+      },
+      "right": {
+        "samples": 28944,
+        "pantsInFrontMoreThan0_05mm": 20382,
+        "within0_05mm": 142,
+        "minOuterMinusPants_mm": -14.9268,
+        "minimumLocation": {
+          "azimuth_deg": 266.5,
+          "z_m": 0.91375
+        },
+        "p05_mm": -11.753
+      }
+    }
+  }
+}
