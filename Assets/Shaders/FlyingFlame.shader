@@ -5,7 +5,7 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
         [NoScaleOffset] _FireAtlas ("Dragon breath flame atlas (2x2)", 2D) = "white" {}
         [NoScaleOffset] _HeatRamp ("Dragon breath temperature ramp", 2D) = "white" {}
         [NoScaleOffset] _FlowNoise ("Turbulence", 2D) = "gray" {}
-        [HideInInspector] _FlameShape ("Age, radius, tail length", Vector) = (.62,.45,.92,0)
+        [HideInInspector] _FlameShape ("Age, radius, length, sustained stream", Vector) = (.62,.45,.92,0)
     }
     SubShader
     {
@@ -41,6 +41,7 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 float4 uvCell : TEXCOORD0;
                 float2 rollingField : TEXCOORD2;
                 half4 flame : TEXCOORD1; // layer, fuel, density, variation
+                float streamDepth : TEXCOORD3;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -58,7 +59,46 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 float size, lengthening = 0, fuel, density;
                 // Fade each wisp at birth and burnout; the envelope itself never pulses.
                 float life = smoothstep(0,.14,u) * (1-smoothstep(.72,1,u));
-                if (layer < .5) // Cooler combustion products, behind the flame.
+                if (_FlameShape.w > .5)
+                {
+                    // Soft overlapping pulses move away from the mouth and roll around the hot core.
+                    u = frac(phase + age * (4.8 + .55 * variation));
+                    float z = lerp(.055, tail, u);
+                    float spread = smoothstep(.23, .67, z);
+                    float plume = smoothstep(.53, 1.15, z);
+                    float lobes = .9 + .15 * sin(age * 13 - u * 15 + 2.0 * bearing);
+                    float plumeWidth = lerp(.019, r * lerp(.72, 1.16, plume) * lobes, spread)
+                        * (1 - .19 * smoothstep(.82 * tail, tail, z));
+                    angle = 6.28318 * bearing + u * (3.5 + variation) + age * .75;
+                    side = float2(cos(angle), sin(angle));
+                    float outer = .24 + .4 * variation;
+                    center = float3(side * plumeWidth * outer, z);
+                    center.y += plumeWidth * (.10 + .63 * u * u);
+                    size = plumeWidth * (.40 + .26 * variation);
+                    lengthening = plumeWidth * (.27 + .37 * variation);
+                    fuel = .98 - .35 * u;
+                    density = layer < .5 ? .18 : .68;
+                    if (layer > 1.5 && layer < 2.5)
+                    {
+                        float jet = 1 - spread;
+                        center.xy *= lerp(1, .28, jet);
+                        size = lerp(size, .015 + .013 * variation, jet);
+                        lengthening = lerp(lengthening, .105, jet);
+                        density = lerp(density, 1, jet);
+                    }
+                    if (layer > 3.5)
+                    {
+                        size = plumeWidth * (.03 + .015 * variation);
+                        lengthening = size * (1.8 + 2.1 * variation);
+                        density = .61;
+                    }
+                    float front = min(tail + .13, age * 9.5);
+                    float filling = smoothstep(z - .12, z + .09, front);
+                    float ignition = layer > 1.5 && layer < 2.5 ? .055 : .19;
+                    density *= filling * smoothstep(0, ignition, u) * (1 - smoothstep(.83, 1, u))
+                        * (.84 + .16 * sin(age * 18 + 8 * u + bearing * 6.28318));
+                }
+                else if (layer < .5) // Cooler combustion products, behind the flame.
                 {
                     center = float3(side*r*(.28+.65*u),-tail*(.18+.63*u));
                     center.y += r * (.2+1.15*u*u);
@@ -114,7 +154,9 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 float3 world = centerWS + (card.x*right + card.y*up)*scale;
                 o.positionCS = TransformWorldToHClip(world);
                 // A broad convection roll spans adjoining wisps rather than flashing independently on every card.
-                float3 gas = TransformWorldToObject(world) / max(r,.032);
+                float3 localGas = TransformWorldToObject(world);
+                o.streamDepth = localGas.z;
+                float3 gas = localGas / max(r,.032);
                 o.rollingField = float2(dot(gas,float3(.55,.28,.48)), dot(gas,float3(-.24,.64,.31)));
 
                 float spin = layer > 3.5 ? 0 : bearing*6.28318 + (variation-.44)*u*1.9;
@@ -132,6 +174,9 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 float2 uv = i.uvCell.xy;
                 half layer = i.flame.x, fuel = i.flame.y, density = i.flame.z;
+                if (_FlameShape.w > .5)
+                    density *= smoothstep(.04, .14, i.streamDepth)
+                        * (1 - smoothstep(_FlameShape.z * .88, _FlameShape.z + .10, i.streamDepth));
                 if (layer > 3.5h)
                 {
                     half glow = saturate(1 - length(2*uv-1));
@@ -158,7 +203,14 @@ Shader "NarutoVR/Feiyan/Rolling Fireball"
                 if (layer < .5h)
                     color = lerp(half3(.038,.026,.021),half3(.20,.084,.031),mask);
                 else
+                {
                     color *= half3(1.12,.72,.40) * (.82 + .77*heat*heat);
+                    if (_FlameShape.w > .5)
+                    {
+                        half brightCore = smoothstep(.69h, .96h, heat) * smoothstep(.18h, .64h, mask);
+                        color = lerp(color, half3(1.55, 1.22, .66), brightCore * .73h);
+                    }
+                }
                 return half4(color*a, a);
             }
             ENDHLSL
