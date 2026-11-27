@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="T28 主榫 C4「清圭金线加强」外观已批准，进入清圭 R01 建模；C3、C2、C1、B2、B1 及独立的③取用台 B1 保留对照。">
+  <title>T28主榫与③取用台·青铜概念</title>
+  <style>
+    :root { color-scheme: light; --paper: #f5f2e9; --ink: #293c35; --muted: #62685c; --bronze: #80613d; --line: #d5cfbf; --green: #315e4e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 system-ui, "Microsoft YaHei", sans-serif; }
+    a { color: var(--green); text-underline-offset: .22em; }
+    a:focus-visible { outline: 3px solid #a48044; outline-offset: 5px; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 34px 32px 42px; }
+    .eyebrow { margin: 0 0 9px; color: var(--bronze); font-size: 12px; letter-spacing: .13em; }
+    header { border-bottom: 1px solid var(--line); padding-bottom: 25px; }
+    h1, h2, h3 { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; line-height: 1.3; }
+    h1 { font-size: clamp(28px, 3vw, 43px); font-weight: 600; margin: 0 0 15px; }
+    h2 { font-size: 28px; margin: 0 0 9px; }
+    h3 { font-size: 23px; margin: 0 0 10px; }
+    p { margin: 0 0 12px; }
+    .status { display: inline-block; padding: 5px 12px; color: #705128; border: 1px solid #c5ad82; border-radius: 3px; background: #eee5d3; font-size: 14px; }
+    .intro { max-width: 900px; margin-top: 17px; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 19px; font-size: 14px; }
+    .section { padding-top: 32px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 19px; }
+    .section-head p { max-width: 660px; margin: 0; color: var(--muted); font-size: 14px; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .featured { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(290px, 1fr); margin-bottom: 24px; border-color: #bca77e; }
+    .featured .image-link, .featured figcaption { align-self: center; }
+    .featured figcaption { padding: 28px; }
+    .references { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .references h3 { font-size: 20px; }
+    .references .image-link img { aspect-ratio: 4/3; }
+    .reference-text { padding: 24px; background: #ece8dc; border: 1px solid var(--line); border-radius: 5px; }
+    .reference-text p { color: var(--muted); font-size: 14px; }
+    .reference-text .version { margin-bottom: 20px; }
+    figure { margin: 0; background: #fffdf8; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+    .image-link { display: block; position: relative; background: #e9e5dc; text-decoration: none; }
+    .image-link img { display: block; width: 100%; height: auto; aspect-ratio: 3/2; object-fit: contain; }
+    .image-link::after { content: "查看原图 ↗"; position: absolute; right: 12px; bottom: 12px; padding: 4px 9px; background: #fffdf5eb; border: 1px solid #d9d0bb; color: #3c5145; font: 12px/1.6 system-ui, sans-serif; border-radius: 3px; }
+    .image-link:hover::after { background: #fff; }
+    figcaption { padding: 21px 23px 23px; }
+    .version { display: block; color: var(--bronze); font-size: 12px; letter-spacing: .09em; margin-bottom: 8px; }
+    .description { color: var(--muted); min-height: 3.3em; }
+    .annotation { display: inline-block; padding: 8px 13px; border: 1px solid #829487; border-radius: 3px; background: #edf0e8; text-decoration: none; font-size: 14px; }
+    .annotation:hover { background: #e3eadd; }
+    .caption-note { display: block; margin-top: 9px; color: var(--muted); font-size: 12px; }
+    .pedestal { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(290px, 1fr); }
+    .pedestal .image-link { align-self: center; }
+    .pedestal figcaption { padding: 30px; align-self: center; }
+    .mechanism { margin: 17px 0; padding: 12px 15px; border-left: 3px solid #aa8a55; background: #f1ebdc; font-size: 14px; }
+    .scope { margin-top: 29px; padding: 19px 22px; background: #e9ede4; border: 1px solid #c9d1c2; border-radius: 4px; }
+    .scope p:last-child { margin-bottom: 0; }
+    .scope strong { font-weight: 650; }
+    footer { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 22px; color: var(--muted); font-size: 13px; }
+    .sources { display: flex; flex-wrap: wrap; gap: 8px 23px; padding: 0; margin: 12px 0 0; list-style: none; }
+    @media (max-width: 900px) { .section-head { display: block; } .pedestal, .featured { grid-template-columns: 1fr; } .pedestal figcaption, .featured figcaption { padding: 22px; } .references { grid-template-columns: repeat(2, minmax(0, 1fr)); } .reference-text { grid-column: 1 / -1; } }
+    @media (max-width: 650px) { .wrap { padding: 23px 16px 30px; } .pair, .references { grid-template-columns: 1fr; gap: 19px; } h2 { font-size: 24px; } nav { gap: 11px 16px; } .description { min-height: 0; } figcaption { padding: 18px; } }
+    @media print { body { background: white; } .wrap { padding: 0; } figure { break-inside: avoid; } .annotation, nav { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">考工律度 · 第二章 · T28</p>
+      <h1>T28主榫与③取用台·青铜概念</h1>
+      <span class="status">C4 外观已批准 · 进入清圭 R01 建模</span>
+      <p class="intro">根据“增加金线”的批注，本轮 C4「清圭金线加强」延续 C3 的轮廓与材质，增加肩部、玉面和铜边金线，并与下端呼应。C3 保留对照，C2 的方向获认可；C1、B2、B1 和③取用台仍可分别审阅。可以选择、组合、删减或提出新的修改；本页不预选方案。</p>
+      <nav aria-label="页面导航">
+        <a href="/plans/workshop-master-tenon-qinggui-r01.html">清圭 R01 建模审稿</a>
+        <a href="#tenon">C4 与主榫对照</a>
+        <a href="#pedestal">③取用台</a>
+        <a href="#new-references">C1 新参考</a>
+        <a href="#scope">接口与验证边界</a>
+        <a href="/">工作空间首页</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section" id="tenon" aria-labelledby="tenon-title">
+        <div class="section-head">
+          <h2 id="tenon-title">可持主榫 · C4 / C3 / C2 / C1 / B2 / B1</h2>
+          <p>点击图片查看原图。进入主榫批注时，请注明 <strong>C4</strong>、<strong>C3</strong>、<strong>C2</strong>、<strong>C1</strong>、<strong>B2</strong> 或 <strong>B1</strong>；可按任意部位或整体观感留言。</p>
+        </div>
+        <figure class="featured">
+          <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_C4.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 C4 清圭金线加强原图：肩部、玉面与铜边金线呼应下端">
+            <img src="/assets/workshop-master-tenon-bronze/Tenon_C4.png" alt="主榫 C4 清圭金线加强概念图，沿用 C3 轮廓与材质，肩部与玉面增加疏朗金线，铜边金线与下端相呼应" decoding="async">
+          </a>
+          <figcaption>
+            <span class="version">C4 · 外观已批准，进入建模</span>
+            <h3>主榫 C4 · 清圭金线加强</h3>
+            <p>保留 C3 轮廓与温玉、青铜材质，明显增加肩部和玉面的疏朗金线，同时加强铜边金线与下端呼应，保持玉面留白。</p>
+            <p class="mechanism"><strong>「清圭」仍为提案名，不改正式物品名。</strong>C4 外观已批准，按用户要求先做三视图并进入清圭 R01 建模；实际模型、材质及与③取用台或④中控接口的配合仍待独立验证。</p>
+            <p><a href="/plans/workshop-master-tenon-qinggui-r01.html">查看清圭 R01 · 三视、实模与材质进度</a></p>
+            <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 C4</a>
+            <span class="caption-note">对应图：Tenon_C4.png。C4 为已批准的外观依据，保留原稿与批注；建模完成和工程验证将分别记录。</span>
+          </figcaption>
+        </figure>
+        <figure class="featured">
+          <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_C3.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 C3 清圭铜金精修原图：温玉留白、青铜细阶与顺肩金线">
+            <img src="/assets/workshop-master-tenon-bronze/Tenon_C3.png" alt="主榫 C3 清圭铜金精修概念图，保留 C2 轮廓与温玉留白，细化青铜边的细阶、局部浅纹及顺肩收束的金线" decoding="async">
+          </a>
+          <figcaption>
+            <span class="version">C3 · 铜金精修，保留对照</span>
+            <h3>主榫 C3 · 清圭铜金精修</h3>
+            <p>保留 C2 轮廓与温玉留白，青铜细阶与局部浅纹增加近看层次，金线顺肩收束并呼应下端准线。</p>
+            <p class="mechanism"><strong>「清圭」仍为提案名，不改正式物品名。</strong>这是原创概念适配，不宣称古代实物复原；本轮无新模型，也未进行握持、与③取用台或④中控接口的插接验证。</p>
+            <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 C3</a>
+            <span class="caption-note">对应图：Tenon_C3.png。可批注青铜层次、浅纹密度、金线组织与玉面留白；C3 保留对照，未定稿。</span>
+          </figcaption>
+        </figure>
+        <figure class="featured">
+          <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_C2.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 C2 清圭原图：温白玉握面、古铜骨线和细金弧线">
+            <img src="/assets/workshop-master-tenon-bronze/Tenon_C2.png" alt="主榫 C2 清圭概念图，温白玉圭形握面、柔和斜肩、单侧古铜骨线、两条细金弧线、小穿孔与方插端" decoding="async">
+          </a>
+          <figcaption>
+            <span class="version">C2 · 方向获认可，保留对照</span>
+            <h3>主榫 C2 · 清圭</h3>
+            <p>温白玉圭形握面收成柔和斜肩，单侧古铜骨线与两条细金弧线点出层次；保留小穿孔和方插端，让留白与材质成为主要观感。</p>
+            <p class="mechanism"><strong>「清圭」只是本版提案名，不改正式物品名。</strong>这是原创概念，不宣称古代实物复原；尚未完成实模、握持及插接验证。</p>
+            <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 C2</a>
+            <span class="caption-note">对应图：Tenon_C2.png。可批注清雅程度、玉铜比例、斜肩、小穿孔或整体轮廓；本版未定稿。</span>
+          </figcaption>
+        </figure>
+        <figure class="featured">
+          <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_C1.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 C1 原图：伏虎横钮、分节铜身、方玉插端">
+            <img src="/assets/workshop-master-tenon-bronze/Tenon_C1.png" alt="主榫 C1 新概念，伏虎横钮、分节铜身和方玉插端，作为单体取用信物" decoding="async">
+          </a>
+          <figcaption>
+            <span class="version">主榫 C1 · 保留历史候选，审美未通过</span>
+            <h3>伏虎横钮 · 分节铜身 · 方玉插端</h3>
+            <p class="mechanism"><strong>用户希望更文艺、更清雅。</strong>C1 未通过审美，本图保留作历史对照。</p>
+            <p>用横向伏虎改变顶端轮廓，分节铜身承接信物意象，下接方玉插端。作为一件完整的取用信物，不设置分半合符机制。</p>
+            <p class="mechanism"><strong>原创概念适配，不是史实复原。</strong>新稿尚未制作实模，也未通过与③取用台或④中控接口的配合、握持及插接验证。</p>
+            <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 C1</a>
+            <span class="caption-note">对应图：Tenon_C1.png。可比较伏虎横钮、分节节奏、玉铜比例与整体轮廓。</span>
+          </figcaption>
+        </figure>
+        <div class="pair">
+          <figure>
+            <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_B2.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 B2 原图：双夔合抱、窄玉芯准线">
+              <img src="/assets/workshop-master-tenon-bronze/Tenon_B2.png" alt="主榫 B2 概念图，双夔合抱纹样与窄玉芯准线" decoding="async">
+            </a>
+            <figcaption>
+              <span class="version">主榫 B2 · 保留对照</span>
+              <h3>双夔合抱 · 窄玉芯准线</h3>
+              <p class="description">两侧夔纹围合中轴，以窄玉芯强调准线。对照纹样的密度、握持区留白和整体轮廓。</p>
+              <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 B2</a>
+              <span class="caption-note">对应图：Tenon_B2.png。概念候选，未完成实模与握持验证。</span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a class="image-link" href="/assets/workshop-master-tenon-bronze/Tenon_B1.png" target="_blank" rel="noopener noreferrer" aria-label="查看主榫 B1 原图：单鸟纹、玉质拇指落点">
+              <img src="/assets/workshop-master-tenon-bronze/Tenon_B1.png" alt="主榫 B1 概念图，单鸟纹与玉质拇指落点" decoding="async">
+            </a>
+            <figcaption>
+              <span class="version">主榫 B1 · 保留对照</span>
+              <h3>单鸟纹 · 玉质拇指落点</h3>
+              <p class="description">以单鸟纹组织主要装饰，玉质区域提供拇指落点的设计意向。对照单侧纹样与触握部位的关系。</p>
+              <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 请注明 B1</a>
+              <span class="caption-note">对应图：Tenon_B1.png。拇指落点仍需实模和实际持握确认。</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="pedestal" aria-labelledby="pedestal-title">
+        <div class="section-head">
+          <h2 id="pedestal-title">③取用台 · 独立审阅</h2>
+          <p>这是取出主榫的台座，不是④中控回插接口。主榫与取用台可以分别选择方向、分别批注。</p>
+        </div>
+        <figure class="pedestal">
+          <a class="image-link" href="/assets/workshop-master-tenon-bronze/Pedestal_B1.png" target="_blank" rel="noopener noreferrer" aria-label="查看③取用台 B1 原图">
+            <img src="/assets/workshop-master-tenon-bronze/Pedestal_B1.png" alt="③取用台 B1 概念图，方彝式分层、兽面前饰，以及右下角双销机制示意" loading="lazy" decoding="async">
+          </a>
+          <figcaption>
+            <span class="version">③取用台 B1</span>
+            <h3>方彝式分层 · 兽面前饰</h3>
+            <p>以分层台身和前面兽面装饰组织正面关系，低位双销作为当前机制提案。</p>
+            <p class="mechanism"><strong>右下小图仅为机制示意。</strong>它不代表 B1 或 B2 主榫已与此台座完成配合、取用或插接验证。</p>
+            <a class="annotation" href="/plans/?id=workshop-master-tenon-bronze-pedestal">进入③取用台批注</a>
+            <span class="caption-note">对应图：Pedestal_B1.png。可独立批注台身、纹样、层次或双销提案。</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="section" id="new-references" aria-labelledby="references-title">
+        <div class="section-head">
+          <h2 id="references-title">C1 新参考 · 青铜器与古代信物</h2>
+          <p>下列是馆藏参考及本项目的设计提取。参考跨越不同时期，不表示 C1 对应某件历史器物或复原其用途。</p>
+        </div>
+        <div class="references">
+          <figure>
+            <a class="image-link" href="/assets/workshop-master-tenon-bronze/met-61524.jpg" target="_blank" rel="noopener noreferrer" aria-label="查看大都会汉代鎏金铜虎符馆藏原图">
+              <img src="/assets/workshop-master-tenon-bronze/met-61524.jpg" alt="大都会馆藏汉代鎏金铜虎符 18.43.7，横向伏虎形态" loading="lazy" decoding="async">
+            </a>
+            <figcaption>
+              <span class="version">馆藏参考 · 汉</span>
+              <h3>鎏金铜虎符</h3>
+              <p>提取横向伏兽的轮廓与信物身份，转为 C1 的横钮；不照搬历史分符机制。</p>
+              <a href="https://www.metmuseum.org/art/collection/search/61524" target="_blank" rel="noopener noreferrer">大都会馆藏页 · 18.43.7</a>
+              <span class="caption-note">馆方图片标注 Public Domain。此处展示馆藏照片，设计提取为本项目提案。</span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a class="image-link" href="/assets/workshop-master-tenon-bronze/met-49402.jpg" target="_blank" rel="noopener noreferrer" aria-label="查看大都会商至西周虎形车辖馆藏原图">
+              <img src="/assets/workshop-master-tenon-bronze/met-49402.jpg" alt="大都会馆藏商至西周虎形车辖 1985.214.35，兽首与机械销结合" loading="lazy" decoding="async">
+            </a>
+            <figcaption>
+              <span class="version">馆藏参考 · 商至西周</span>
+              <h3>虎形车辖</h3>
+              <p>参考兽首与机械销一体的构成关系，让装饰与插接器物的形体相连。</p>
+              <a href="https://www.metmuseum.org/art/collection/search/49402" target="_blank" rel="noopener noreferrer">大都会馆藏页 · 1985.214.35</a>
+              <span class="caption-note">馆方图片标注 Public Domain。照片不作为本项目尺寸或配合公差依据。</span>
+            </figcaption>
+          </figure>
+          <article class="reference-text">
+            <span class="version">馆藏参考 · 仅提供馆页链接</span>
+            <h3>鄂君启错金青铜节</h3>
+            <p>提取竹节式分段组织和错金线的节奏，用于分节铜身的层次探索。</p>
+            <p>不复制铭文，也不将其原有通行凭证制度套用为游戏机制。</p>
+            <a href="https://www.chnmuseum.cn/zp/zpml/kgfjp/202110/t20211026_251851.shtml" target="_blank" rel="noopener noreferrer">查看中国国家博物馆藏品介绍</a>
+            <span class="caption-note">本页不使用该馆藏照片；图片许可尚未确认。</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="scope" id="scope" aria-label="接口与验证边界">
+        <p><strong>④中控接口保留。</strong>本轮只讨论可持主榫与③取用台的概念，不把③取用台改作④中控，也不以概念图修改原接口。</p>
+        <p><strong>图中尺寸均是设计目标。</strong>图不能替代实模；握持、接触面、插入深度和配合关系须另行制作、测量与验证。</p>
+        <p><strong>R03 仅是旧方向的工程验证存档。</strong>其审美未通过，本轮不再沿旧方向推进；已有工程结果不能继承为本页新稿已经通过。</p>
+      </section>
+    </main>
+
+    <footer>
+      <p><strong>B1、B2 与③取用台的已核馆藏参考</strong>：纹样与构成经原创适配。本页的主榫与台座概念图<strong>不是馆藏照片，也不是器物的精准复制</strong>；C1 的新增参考另列于上方。</p>
+      <ul class="sources">
+        <li><a href="https://www.metmuseum.org/art/collection/search/44776" target="_blank" rel="noopener noreferrer">大都会 · 商代方彝 · 1974.268.2a,b</a></li>
+        <li><a href="https://www.metmuseum.org/art/collection/search/44513" target="_blank" rel="noopener noreferrer">大都会 · 西周方鼎 · 1988.20.2</a></li>
+        <li><a href="https://www.clevelandart.org/art/1963.103" target="_blank" rel="noopener noreferrer">克利夫兰 · 商代方卣 · 1963.103</a></li>
+      </ul>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "sha256": "297a3ef837361576654a97eac4293f9c2f20f56358761755f5a2e45a780cabc4",
+  "source_blend": "a07a26b03e299e8c8ee2dc2f1cc9d4ea8551ba8a17e523aa7c480dacdf806f5d",
+  "reference_obj": "8a3e80e4b81853967987ed0d18d0f66f5053198a5313aa597c7b93377297f9c3",
+  "change": "Source world X reflected; triangle corners (0,2,1); UV/material carried by corner; inverse transpose reflected split normals; positive signed volume for every closed part. No negative object scale.",
+  "parts": {
+    "01_HewnGreywacke_RecessedSeals": {
+      "triangles": 12496,
+      "vertices": 6250,
+      "UV": "UV0",
+      "signed_volume_m3": 0.9707291034000822
+    },
+    "02_BronzeGirth_EastWest": {
+      "triangles": 4256,
+      "vertices": 2128,
+      "UV": "UV0",
+      "signed_volume_m3": 0.004101942994263179
+    },
+    "03_BronzeGirth_FrontBack": {
+      "triangles": 4256,
+      "vertices": 2128,
+      "UV": "UV0",
+      "signed_volume_m3": 0.003625251836941364
+    },
+    "04_InsetLoadShoe": {
+      "triangles": 64,
+      "vertices": 34,
+      "UV": "UV0",
+      "signed_volume_m3": 0.012773685273714364
+    },
+    "05_FrontScarfPlate": {
+      "triangles": 48,
+      "vertices": 26,
+      "UV": "UV0",
+      "signed_volume_m3": 0.00013803234764964145
+    },
+    "06_FrontPeen_1": {
+      "triangles": 112,
+      "vertices": 58,
+      "UV": "UV0",
+      "signed_volume_m3": 3.1144644102217476e-06
+    },
+    "06_FrontPeen_2": {
+      "triangles": 112,
+      "vertices": 58,
+      "UV": "UV0",
+      "signed_volume_m3": 3.114557292368166e-06
+    },
+    "07_CrownPeen": {
+      "triangles": 112,
+      "vertices": 58,
+      "UV": "UV0",
+      "signed_volume_m3": 4.494915955888246e-06
+    }
+  }
+}

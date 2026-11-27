@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="T28 汉白玉校准主榫·清圭 R01 独立建模审稿。C4 外观已批准；冻结实模与 Unity 实际图交付审稿；五次桌面实孔插接通过，Quest 与实模观感待验。">
+  <title>T28主榫·清圭 R01 建模审稿</title>
+  <style>
+    :root { color-scheme: light; --paper: #f5f2e9; --ink: #293c35; --muted: #62685c; --bronze: #80613d; --line: #d5cfbf; --green: #315e4e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.7 system-ui, "Microsoft YaHei", sans-serif; }
+    a { color: var(--green); text-underline-offset: .22em; }
+    a:focus-visible { outline: 3px solid #a48044; outline-offset: 5px; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 34px 32px 42px; }
+    .eyebrow, .kicker { color: var(--bronze); font-size: 12px; letter-spacing: .1em; margin: 0 0 10px; }
+    header { padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+    h1, h2, h3 { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; line-height: 1.3; }
+    h1 { font-size: clamp(28px, 3vw, 43px); font-weight: 600; margin: 0 0 15px; }
+    h2 { font-size: 27px; margin: 0 0 10px; }
+    h3 { font-size: 21px; margin: 0 0 10px; }
+    p { margin: 0 0 13px; }
+    .intro { max-width: 970px; margin-top: 17px; }
+    .status { display: inline-block; padding: 5px 12px; border: 1px solid #c5ad82; border-radius: 3px; background: #eee5d3; color: #705128; font-size: 14px; }
+    .status.approved { border-color: #9baa92; background: #e8eee2; color: #355342; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 23px; margin-top: 19px; font-size: 14px; }
+    section { padding-top: 32px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .section-head p { max-width: 620px; margin: 0; color: var(--muted); font-size: 14px; }
+    .card { padding: 25px 28px; background: #fffdf8; border: 1px solid var(--line); border-radius: 5px; }
+    .card p:last-child { margin-bottom: 0; }
+    .visual { margin: 0 0 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #fffdf8; }
+    .visual a { display: block; background: #e9e5dc; }
+    .visual img, .visual video { display: block; width: 100%; height: auto; }
+    .visual video { background: #131b1f; }
+    .visual figcaption { padding: 14px 20px; color: var(--muted); font-size: 14px; }
+    .model-actions { margin: 0 0 20px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 5px; background: #fffdf8; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+    th, td { padding: 12px 18px; border-bottom: 1px solid #e5dfd1; vertical-align: top; }
+    th { width: 180px; font-weight: 600; background: #e9ede4; }
+    tr:last-child th, tr:last-child td { border-bottom: 0; }
+    .extra-views { padding: 18px 23px; border: 1px solid var(--line); border-radius: 5px; background: #fffdf8; }
+    .extra-views summary { cursor: pointer; font-weight: 600; color: var(--green); }
+    .extra-views p { margin: 15px 0 0; font-size: 14px; color: var(--muted); }
+    .file-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; }
+    .grid > .visual { margin-bottom: 0; }
+    .grid + .extra-views, .grid + p { margin-top: 20px; }
+    .approval { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(290px, 1fr); gap: 28px; border-color: #bca77e; }
+    .approval aside { padding-left: 25px; border-left: 1px solid var(--line); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pending { display: inline-block; color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+    .notice { margin-top: 18px; padding: 14px 18px; border-left: 3px solid #aa8a55; background: #f1ebdc; font-size: 14px; }
+    .notice p:last-child { margin-bottom: 0; }
+    blockquote { margin: 16px 0; padding: 0 0 0 16px; border-left: 2px solid #b09b73; color: #535c4c; }
+    .action { display: inline-block; padding: 8px 13px; border: 1px solid #829487; border-radius: 3px; background: #edf0e8; text-decoration: none; font-size: 14px; }
+    .action:hover { background: #e3eadd; }
+    .review { margin-top: 32px; padding: 24px 28px; border: 1px solid #c9d1c2; background: #e9ede4; border-radius: 5px; }
+    footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 900px) { .section-head { display: block; } .approval, .grid { grid-template-columns: 1fr; } .approval aside { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
+    @media (max-width: 650px) { .wrap { padding: 23px 16px 30px; } .grid.two { grid-template-columns: 1fr; } .card, .review { padding: 20px; } h2 { font-size: 23px; } nav { gap: 11px 16px; } }
+    @media print { body { background: white; } .wrap { padding: 0; } .card { break-inside: avoid; } nav, .action { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">考工律度 · 第二章 · T28 · 独立建模审稿</p>
+      <h1>主榫 · 清圭 R01</h1>
+      <span class="status approved">C4 外观已批准</span>
+      <span class="status">实模待批注 · Unity 桌面回归已交付</span>
+      <p class="intro">C4「清圭金线加强」已落实为实际模型。先看同尺度三视、近景和高低模，再看 Cycles 源材质；C4 定稿与 AI 造型参考保留在后。实模当前待观感批注，本版 Unity 实时材质与五次原孔桌面插接已有记录，Quest 未验；尚未正式替换章节资产。</p>
+      <nav aria-label="页面导航">
+        <a href="#model">实际模型三视</a>
+        <a href="#details">近景与细节</a>
+        <a href="#topology">高低模 / LOD</a>
+        <a href="#blender">Cycles 源材质</a>
+        <a href="#unity">Unity 实图与实孔</a>
+        <a href="#approved">C4 与 AI 参考</a>
+        <a href="#review">批注入口</a>
+      </nav>
+    </header>
+    <main>
+      <section id="model" aria-labelledby="model-title">
+        <div class="section-head">
+          <h2 id="model-title">01 · 冻结实模，同尺度正右背三视</h2>
+          <p>实际 LOD0 与 2K PBR。模型已交付审稿，Unity 实测见下方；头显体验另验。</p>
+        </div>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_11_ThreeView_SameScale.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 实际低模正右背同尺度三视，4916 三角形与 2K PBR原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_11_ThreeView_SameScale.png" alt="清圭 R01 实际低模正右背同尺度三视，4916 三角形与 2K PBR" decoding="async">
+          </a>
+          <figcaption>同一实际低模与材质：正面、右侧、背面，统一尺度。正面 Blender −Y、右侧 +X；背面轮廓自然镜像。点击可看原图。</figcaption>
+        </figure>
+        <p class="model-actions"><a class="action" href="/rig/?collection=workshop-master-tenon&amp;model=master-tenon-qinggui-r01">旋转查看清圭 R01 · GLB</a></p>
+        <div class="table-wrap">
+          <table aria-label="清圭 R01 冻结模型规格">
+            <tbody>
+              <tr><th scope="row">外廓与握位</th><td>总高 350 mm；低模外廓约 111×106 mm。握位设计宽 85 mm、厚 46 mm，实际握持体验待验。</td></tr>
+              <tr><th scope="row">方插端</th><td>106×106×105 mm，底端中心为原点；五次原孔桌面插接已通过；顶扣另验。本清圭模型与③取用台/双销配合另验，由独立任务负责。</td></tr>
+              <tr><th scope="row">实际三角形数</th><td>高模 1,207,404；LOD0 / LOD1 / LOD2 为 4,916 / 1,800 / 600。</td></tr>
+              <tr><th scope="row">游戏材质与贴图</th><td>1 材质、1 UV，2K 九图。九图包含原始通道与不同打包格式的交付文件，不代表游戏同时采样九张贴图。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice"><p><strong>旋转页 GLB 使用普通 PBR。</strong>它不等同于 Cycles 源材质透光，也不等同于 Unity 的实时透光近似；本版 Unity 实测见下方独立分区，Quest 未验。</p></div>
+      </section>
+      <section id="details" aria-labelledby="details-title">
+        <div class="section-head">
+          <h2 id="details-title">02 · 实际近景与细节</h2>
+          <p>从整体斜视到金玉交界、真实通孔和肩部准线。近景不是真人握持验收。</p>
+        </div>
+        <div class="grid two">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_04_Front45.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 实际低模前45度原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_04_Front45.png" alt="清圭 R01 实际低模前45度" loading="lazy" decoding="async">
+          </a>
+          <figcaption>实际低模前 45° · LOD0，2K PBR；用于整体与近手尺度观感审阅。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_05_GoldJadeClose.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 金线玉面与青铜边近景原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_05_GoldJadeClose.png" alt="清圭 R01 金线玉面与青铜边近景" loading="lazy" decoding="async">
+          </a>
+          <figcaption>金线 / 玉面近景 · 查看金槽烘焙、玉面留白及铜边层次。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_06_ApertureClose.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 真实通孔与孔壁近景原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_06_ApertureClose.png" alt="清圭 R01 真实通孔与孔壁近景" loading="lazy" decoding="async">
+          </a>
+          <figcaption>通孔近景 · 真实贯穿几何与修正后的孔壁法线，不是贴图画出的孔。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_07_ShoulderAlignment.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 肩部与下端准线近景原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_07_ShoulderAlignment.png" alt="清圭 R01 肩部与下端准线近景" loading="lazy" decoding="async">
+          </a>
+          <figcaption>肩部 / 准线近景 · 查看玉铜交界和下端呼应；五次原孔插接结果见 Unity 分区；顶扣、双销另验。</figcaption>
+        </figure>
+        </div>
+      </section>
+      <section id="topology" aria-labelledby="topology-title">
+        <div class="section-head">
+          <h2 id="topology-title">03 · 高低模同机位与 LOD</h2>
+          <p>高模细节与游戏低模分开展示，线框和单视图可展开查看。</p>
+        </div>
+        <div class="grid two">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_08_HighSameView.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 高模同机位对照原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_08_HighSameView.png" alt="清圭 R01 高模同机位对照" loading="lazy" decoding="async">
+          </a>
+          <figcaption>高模 · 1,207,404 三角形。保留源刻槽、铜脊层差、孔壁与冠部倒圆。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Model_04_Front45.png" target="_blank" rel="noopener noreferrer" aria-label="查看清圭 R01 低模同机位对照原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Model_04_Front45.png" alt="清圭 R01 低模同机位对照" loading="lazy" decoding="async">
+          </a>
+          <figcaption>LOD0 · 4,916 三角形，2K 烘焙 PBR。与左侧高模作同机位对照。</figcaption>
+        </figure>
+        </div>
+        <details class="extra-views">
+          <summary>展开单独正右背、线框与 LOD 对照原图</summary>
+          <div class="file-links">
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_01_Front.png" target="_blank" rel="noopener noreferrer">正面 · 同尺度</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_02_Right.png" target="_blank" rel="noopener noreferrer">右侧 · 同尺度</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_03_Back.png" target="_blank" rel="noopener noreferrer">背面 · 同尺度</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_09_CleanWire45.png" target="_blank" rel="noopener noreferrer">LOD0 干净线框</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_04_Front45.png" target="_blank" rel="noopener noreferrer">LOD0 · 4,916 三角形</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_LOD1_SameView.png" target="_blank" rel="noopener noreferrer">LOD1 · 1,800 三角形</a>
+            <a href="/assets/workshop-master-tenon-qinggui-r01/Model_LOD2_SameView.png" target="_blank" rel="noopener noreferrer">LOD2 · 600 三角形</a>
+          </div>
+          <p>各档用于观察减面后的轮廓与细节；远 LOD 不作为插接或碰撞的精密量规。</p>
+        </details>
+      </section>
+      <section id="blender" aria-labelledby="blender-title">
+        <div class="section-head">
+          <h2 id="blender-title">04 · Cycles 源材质：侧光与透光</h2>
+          <p>以下均为 Blender Cycles 源材质实图，使用 SSS、少量透射和体积吸收；不是 Unity 截图。</p>
+        </div>
+        <div class="grid two">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Source_05_StripSideLight.png" target="_blank" rel="noopener noreferrer" aria-label="查看Cycles 源材质条形侧光，玉石铜与金线原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Source_05_StripSideLight.png" alt="Cycles 源材质条形侧光，玉石铜与金线" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Cycles 源材质 · 条形侧光。查看玉面连续高光、青铜层次及金线反光。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Source_06a_Backlight_Normal_5W.png" target="_blank" rel="noopener noreferrer" aria-label="查看Cycles 源材质普通5W背光原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Source_06a_Backlight_Normal_5W.png" alt="Cycles 源材质普通5W背光" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Cycles 源材质 · 普通 5W 背光。与压力图同机位，分别标注光源强度。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Source_06b_Backlight_Stress_25W.png" target="_blank" rel="noopener noreferrer" aria-label="查看Cycles 源材质25W背光压力测试原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Source_06b_Backlight_Stress_25W.png" alt="Cycles 源材质25W背光压力测试" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Cycles 源材质 · 25W 背光压力图。强光下的透光检查，不作为常态亮度。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Source_07_NoLight.png" target="_blank" rel="noopener noreferrer" aria-label="查看Cycles 源材质关灯对照原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Source_07_NoLight.png" alt="Cycles 源材质关灯对照" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Cycles 源材质 · 关灯对照，无自发光；峰值 1/255 为渲染底噪或抖动，不声称数学全零。</figcaption>
+        </figure>
+        </div>
+        <p><a href="/assets/workshop-master-tenon-qinggui-r01/Source_04_Front45.png" target="_blank" rel="noopener noreferrer">查看 Cycles 源材质常态前 45° 原图</a></p>
+        <div class="notice"><p>源材质透光不会随 FBX 或普通 PBR GLB 自动成为游戏实时效果。Unity 厚度近似与原孔已有桌面验证，实图和结果见下方；Quest 观感仍待实机验证。</p></div>
+      </section>
+      <section id="unity" aria-labelledby="unity-title">
+        <div class="section-head">
+          <h2 id="unity-title">05 · Unity 实际朝向、近手与实孔</h2>
+          <p>独立桌面工程实测。新实模待观感批注；Meta/XR 手部未接，Quest 未验。</p>
+        </div>
+        <h3>实际几何朝向与插到位</h3>
+        <p>正面为 Unity +Z，右侧为 −X，背面为 −Z。正面前 45° 使用 C4 长金线一面；近手画面中的手模仅为尺度参照，不代表真人或 Meta/XR 抓取。</p>
+        <div class="grid">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_01_C4_Front_Orthographic.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 正面正交实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_01_C4_Front_Orthographic.png" alt="Unity 正面正交实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 实际几何正面 · +Z。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_02_C4_Right_Orthographic.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 右侧正交实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_02_C4_Right_Orthographic.png" alt="Unity 右侧正交实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 实际几何右侧 · −X。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_03_C4_Back_Orthographic.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 背面正交实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_03_C4_Back_Orthographic.png" alt="Unity 背面正交实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 实际几何背面 · −Z。</figcaption>
+        </figure>
+        </div>
+        <div class="grid two" style="margin-top:20px">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_04_C4_Front45_NearHand.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity C4长金线正面前45度近手实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_04_C4_Front45_NearHand.png" alt="Unity C4长金线正面前45度近手实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 前 45° 近手 · C4 长金线正面，手模只作尺度参照。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_07_C4_Front45_SeatedPose.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity C4正面前45度插到位实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_07_C4_Front45_SeatedPose.png" alt="Unity C4正面前45度插到位实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 前 45° 插到位 · C4 长金线正面，与既有④中控接口。</figcaption>
+        </figure>
+        </div>
+        <details class="extra-views" style="margin-bottom:24px">
+          <summary>展开握位、孔缘与正面插到位近景</summary>
+          <div class="grid" style="margin-top:18px">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_05_C4_Front_GoldLines_Grip.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 正面金线与握位细节原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_05_C4_Front_GoldLines_Grip.png" alt="Unity 正面金线与握位细节" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 正面金线 / 握位 · 真实导入模型与材质，不是 Meta/XR 抓取实测。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_06_C4_CrownHole_Close.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 冠部真实通孔近景原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_06_C4_CrownHole_Close.png" alt="Unity 冠部真实通孔近景" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 冠部 / 孔缘近景 · 查看实际通孔与孔壁材质。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_08_C4_Front_SeatedPose.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 正面插到位实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_08_C4_Front_SeatedPose.png" alt="Unity 正面插到位实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>Unity 正面插到位 · 作为本版桌面配合的实际画面。</figcaption>
+        </figure>
+          </div>
+        </details>
+        <h3>原孔插接回归录像</h3>
+        <figure class="visual">
+          <video controls playsinline preload="metadata" aria-label="清圭 R01 原孔插接回归帧录像，沿用原机位">
+            <source src="/plans/media/workshop-master-tenon-qinggui-r01/QingGuiR01_Insertion_Unity.mp4" type="video/mp4">
+            当前浏览器无法播放，请<a href="/plans/media/workshop-master-tenon-qinggui-r01/QingGuiR01_Insertion_Unity.mp4">打开原孔插接录像</a>。
+          </video>
+          <figcaption>原插接回归帧录像，沿用当时机位；不是上方新增的 C4 正面摄影角度。正面长金线与坐实形态请对照独立 FacingReview 静图。</figcaption>
+        </figure>
+        <h3>实时暖光近似：完整材质与透光分量</h3>
+        <p>本组正照、侧照、背照指<strong>光照方向</strong>，不是模型的正、侧、背几何朝向。01 / 02 / 03 显示最终完整材质（PBR+厚度近似），04 只显示透光分量；这组不是关闭透光前后的 A/B 对照。</p>
+        <div class="grid two">
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_01_Front_PBR_SameExposure.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 正照最终完整材质原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_01_Front_PBR_SameExposure.png" alt="Unity 正照最终完整材质" loading="lazy" decoding="async">
+          </a>
+          <figcaption>正照 · 最终完整材质（PBR+厚度近似），同曝光；“Front”表示光照方向。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_02_Side_PBR_SameExposure.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 侧照最终完整材质原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_02_Side_PBR_SameExposure.png" alt="Unity 侧照最终完整材质" loading="lazy" decoding="async">
+          </a>
+          <figcaption>侧照 · 最终完整材质（PBR+厚度近似），同曝光；“Side”表示光照方向。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_03_Back_PBR_SameExposure.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 背照最终完整材质原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_03_Back_PBR_SameExposure.png" alt="Unity 背照最终完整材质" loading="lazy" decoding="async">
+          </a>
+          <figcaption>背照 · 最终完整材质（PBR+厚度近似），同曝光；右侧另示仅透光分量。</figcaption>
+        </figure>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_04_Back_TransmissionDelta.png" target="_blank" rel="noopener noreferrer" aria-label="查看Unity 背照仅透光分量实图原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_04_Back_TransmissionDelta.png" alt="Unity 背照仅透光分量实图" loading="lazy" decoding="async">
+          </a>
+          <figcaption>背照 · 仅透光分量，单独呈现厚度近似的光照贡献；不是完整材质，也不是模型背面图。</figcaption>
+        </figure>
+        </div>
+        <p class="file-links" style="margin-bottom:20px">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_08_LightOff_TransmissionDelta.png" target="_blank" rel="noopener noreferrer">关灯后的透光增量原图</a>
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Unity_Material_09_ExternalBlocker_TransmissionDelta.png" target="_blank" rel="noopener noreferrer">外物挡住入射光后的透光增量原图</a>
+        </p>
+        <div class="table-wrap">
+          <table aria-label="清圭 R01 Unity 桌面验证结果与边界">
+            <tbody>
+              <tr><th scope="row">四向与再插</th><td>四个正交方向加取回重插，共 5 次完成；均经实际插槽路径，无重复完成事件。</td></tr>
+              <tr><th scope="row">原孔与碰撞</th><td>原孔射线在 6 个深度双向测得宽约 153 mm；15 段实际碰撞体覆盖 2,848 个导入顶点。五次插接的逐帧实际碰撞体与独立 120 mm 保守量规最大穿入均为 0；量规不作为本体物理碰撞。</td></tr>
+              <tr><th scope="row">握点与拿取</th><td>按 Unity 导入几何截面中心修正握点，独立 GameItemBase.Take / MoveHeld 通过。输入为桌面合成控制，未绑定 Meta/XR 抓取事件。</td></tr>
+              <tr><th scope="row">暖光与遮挡</th><td>最终厚度暖光近似由光照驱动，不使用自发光。关灯或外物挡住入射传光时，传光增量为 0；真实模型金属区域残余约 2.98×10<sup>−6</sup>，接近零。</td></tr>
+              <tr><th scope="row">Android / Vulkan</th><td>材质 Shader 编译通过；这不是 Quest 实机运行、XR 双眼验证或 GPU 性能测试。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice"><p><strong>仍需另验：</strong>顶扣、Meta/XR 实际抓取、Quest 观感与性能。本清圭模型与③取用台/双销配合另验，由独立任务负责。清圭 R01 尚未正式替换章节资产，C4 概念批准不等于新实模审美已通过。</p></div>
+      </section>
+      <section id="approved" aria-labelledby="approved-title">
+        <div class="section-head">
+          <h2 id="approved-title">06 · 定稿依据 C4</h2>
+          <p>Approved Concept = C4。批准范围为外观与开始建模。</p>
+        </div>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/Approved_C4.png" target="_blank" rel="noopener noreferrer" aria-label="查看已批准 C4 概念原图">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/Approved_C4.png" alt="已批准的 C4 清圭金线加强概念，温玉握面、青铜边与疏朗金线" decoding="async">
+          </a>
+          <figcaption>C4 已批准外观依据 · 点击查看原图。此图为概念稿，实际模型与材质在本页独立分区展示。</figcaption>
+        </figure>
+        <div class="card approval">
+          <div>
+            <p class="kicker">主榫 C4 · 清圭金线加强</p>
+            <h3>温玉留白，青铜与金线成形</h3>
+            <p>保留获准的轮廓、温玉握面与金线组织。建模继续细化肩部、铜边和下端呼应，并呈现玉石、青铜与金线各自的材质。</p>
+            <a class="action" href="/plans/workshop-master-tenon-bronze-concepts.html#tenon">查看已批准 C4 与历史概念</a>
+          </div>
+          <aside>
+            <p class="kicker">用户要求</p>
+            <blockquote>就这样开始建模 先做三视图 要求建模细致 有玉石光泽，透光 青铜和金线有质感</blockquote>
+            <p>“清圭”是方案名，正式物品仍为汉白玉校准主榫。新实模仍待观感批注；本版 Unity 桌面配合记录单列，头显效果待验。</p>
+          </aside>
+        </div>
+      </section>
+      <section id="reference" aria-labelledby="reference-title">
+        <div class="section-head">
+          <h2 id="reference-title">07 · AI 造型参考</h2>
+          <p>AI Reference Guide · 仅用于造型沟通</p>
+        </div>
+        <figure class="visual">
+          <a href="/assets/workshop-master-tenon-qinggui-r01/DesignGuide_ThreeView.png" target="_blank" rel="noopener noreferrer" aria-label="查看 AI 三视造型参考原图，非实际模型三视">
+            <img src="/assets/workshop-master-tenon-qinggui-r01/DesignGuide_ThreeView.png" alt="清圭 AI 三视造型参考，用于轮廓、铜玉关系和金线走向沟通，不是实际模型正交三视" loading="lazy" decoding="async">
+          </a>
+          <figcaption>AI 三视造型稿 · 点击查看原图。仅用于造型沟通，不作为实际模型或配合验证的证据。</figcaption>
+        </figure>
+        <div class="card">
+          <h3>轮廓、铜玉关系与金线走向</h3>
+          <p>此区承接由定稿延展的造型参考。参考图不作为精确尺寸、配合公差或三视一致性的量规；实际几何以实模测量和正交视图为准。</p>
+          <p><strong>AI 图侧视中的方插端宽度、长度比例不作为量规；方插端以数字约束 106×106×105 mm 为准。</strong>不得按图中像素比例量取或改变插端尺寸，配合结论以本版 Unity 实孔记录为准，不能用 AI 图替代。</p>
+        </div>
+      </section>
+      <section class="review" id="review" aria-labelledby="review-title">
+        <h2 id="review-title">沿用主榫独立批注</h2>
+        <p>请注明“清圭 R01”以及要批注的图名、部位或阶段。C4 原稿和已有批注继续保留。</p>
+        <a class="action" href="/plans/?id=workshop-master-tenon-bronze-tenon">进入主榫批注 · 清圭 R01</a>
+      </section>
+    </main>
+    <footer>
+      <p>本页展示冻结实模、Cycles 源材质及独立 Unity 桌面记录，保留 C4 定稿和 AI 参考。新实模待观感批注，未正式替换章节；Quest、Meta/XR 另验；本清圭模型与③取用台/双销配合由独立任务另验。</p>
+      <a href="/plans/workshop-master-tenon-bronze-concepts.html">返回 C4 及历史概念对照</a> · <a href="/">工作空间首页</a>
+    </footer>
+  </div>
+</body>
+</html>
