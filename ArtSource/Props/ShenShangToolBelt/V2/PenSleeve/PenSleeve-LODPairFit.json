@@ -1,0 +1,82 @@
+{
+  "SleeveLOD0_PenLOD0": {
+    "clearDepthMM": 55.5,
+    "clearDepthBySeparateApproachVariationMM": {
+      "center": 55.5,
+      "lateralPlus0.5mm": 59.5,
+      "lateralMinus0.5mm": 51.5,
+      "frontPlus0.5mm": 61.0,
+      "frontMinus0.5mm": 49.0,
+      "pitchPlus2deg": 46.5,
+      "pitchMinus2deg": 48.5,
+      "yawPlus2deg": 42.5,
+      "yawMinus2deg": 47.0
+    },
+    "recommendedStopDepthMM": 52,
+    "seatedGripAboveEntryMM": 56.0,
+    "clearTravelCheckedFromDepthMM": -8,
+    "sampleIntervalMM": 0.5,
+    "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+    "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve at 0.5mm intervals, including withdrawal along the same trajectory. No anatomical or tracking test."
+  },
+  "SleeveLOD0_PenLOD1": {
+    "clearDepthMM": 57.5,
+    "clearDepthBySeparateApproachVariationMM": {
+      "center": 57.5,
+      "lateralPlus0.5mm": 62.0,
+      "lateralMinus0.5mm": 51.5,
+      "frontPlus0.5mm": 61.5,
+      "frontMinus0.5mm": 50.5,
+      "pitchPlus2deg": 46.5,
+      "pitchMinus2deg": 48.5,
+      "yawPlus2deg": 43.5,
+      "yawMinus2deg": 47.0
+    },
+    "recommendedStopDepthMM": 52,
+    "seatedGripAboveEntryMM": 56.0,
+    "clearTravelCheckedFromDepthMM": -8,
+    "sampleIntervalMM": 0.5,
+    "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+    "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve at 0.5mm intervals, including withdrawal along the same trajectory. No anatomical or tracking test."
+  },
+  "SleeveLOD1_PenLOD0": {
+    "clearDepthMM": 55.5,
+    "clearDepthBySeparateApproachVariationMM": {
+      "center": 55.5,
+      "lateralPlus0.5mm": 60.0,
+      "lateralMinus0.5mm": 51.5,
+      "frontPlus0.5mm": 61.0,
+      "frontMinus0.5mm": 48.5,
+      "pitchPlus2deg": 46.5,
+      "pitchMinus2deg": 48.0,
+      "yawPlus2deg": 42.5,
+      "yawMinus2deg": 47.0
+    },
+    "recommendedStopDepthMM": 52,
+    "seatedGripAboveEntryMM": 56.0,
+    "clearTravelCheckedFromDepthMM": -8,
+    "sampleIntervalMM": 0.5,
+    "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+    "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve at 0.5mm intervals, including withdrawal along the same trajectory. No anatomical or tracking test."
+  },
+  "SleeveLOD1_PenLOD1": {
+    "clearDepthMM": 57.5,
+    "clearDepthBySeparateApproachVariationMM": {
+      "center": 57.5,
+      "lateralPlus0.5mm": 62.0,
+      "lateralMinus0.5mm": 51.5,
+      "frontPlus0.5mm": 61.5,
+      "frontMinus0.5mm": 50.5,
+      "pitchPlus2deg": 47.0,
+      "pitchMinus2deg": 48.0,
+      "yawPlus2deg": 43.5,
+      "yawMinus2deg": 47.0
+    },
+    "recommendedStopDepthMM": 52,
+    "seatedGripAboveEntryMM": 56.0,
+    "clearTravelCheckedFromDepthMM": -8,
+    "sampleIntervalMM": 0.5,
+    "staticRotatedNibMinMMFromAuthoredTip": -0.0,
+    "method": "Triangle BVH intersections of actual same-level T-21 pen and exported sleeve at 0.5mm intervals, including withdrawal along the same trajectory. No anatomical or tracking test."
+  }
+}
