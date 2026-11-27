@@ -1,0 +1,93 @@
+{
+  "version": "R01",
+  "status": "aesthetic_review_candidate",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axis": "Blender +Z; Unity +Y",
+  "origin": "insertion end center",
+  "envelope_metres": [
+    0.12,
+    0.12,
+    0.35
+  ],
+  "max_section_metres": 0.12,
+  "nominal_socket_metres": 0.146,
+  "per_side_clearance_metres": 0.013,
+  "temporary_budget": true,
+  "meshes": [
+    {
+      "name": "MasterTenon_HIGH",
+      "verts": 172226,
+      "triangles": 343616,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_count": 1
+    },
+    {
+      "name": "MasterTenon_LOD0",
+      "verts": 362,
+      "triangles": 720,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD1",
+      "verts": 130,
+      "triangles": 256,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD2",
+      "verts": 50,
+      "triangles": 96,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "bake": {
+    "engine": "Cycles",
+    "selected_to_active": true,
+    "source": "MasterTenon_HIGH",
+    "target": "MasterTenon_LOD0",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "cage_extrusion": 0.003,
+    "max_ray_distance": 0.008,
+    "margin": 16,
+    "seconds": 34.830432653427124
+  },
+  "limitations": [
+    "Opaque runtime PBR approximates jade surface; high-source subsurface scatter is not a custom Quest shader.",
+    "Geometry clearance only, actual socket fit validated separately by parent.",
+    "No headset or aesthetic acceptance claimed."
+  ],
+  "high_source_cleanup": "Merged duplicated .014m row (<1e-8m); removed zero-area faces only; build script now rounds ring heights."
+}
