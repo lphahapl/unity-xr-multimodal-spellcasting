@@ -1,0 +1,77 @@
+{
+  "gripHeight": 0.231,
+  "parts": [
+    {
+      "name": "section_0",
+      "lower": 0.0,
+      "upper": 0.003,
+      "width": 0.104,
+      "depth": 0.104
+    },
+    {
+      "name": "section_1",
+      "lower": 0.003,
+      "upper": 0.105,
+      "width": 0.106,
+      "depth": 0.106
+    },
+    {
+      "name": "section_2",
+      "lower": 0.105,
+      "upper": 0.108,
+      "width": 0.11,
+      "depth": 0.11
+    },
+    {
+      "name": "section_3",
+      "lower": 0.108,
+      "upper": 0.11,
+      "width": 0.115,
+      "depth": 0.115
+    },
+    {
+      "name": "section_4",
+      "lower": 0.11,
+      "upper": 0.116,
+      "width": 0.117,
+      "depth": 0.117
+    },
+    {
+      "name": "section_5",
+      "lower": 0.116,
+      "upper": 0.121,
+      "width": 0.119,
+      "depth": 0.119
+    },
+    {
+      "name": "section_6",
+      "lower": 0.121,
+      "upper": 0.339,
+      "width": 0.12,
+      "depth": 0.12
+    },
+    {
+      "name": "section_7",
+      "lower": 0.339,
+      "upper": 0.344,
+      "width": 0.119,
+      "depth": 0.119
+    },
+    {
+      "name": "section_8",
+      "lower": 0.344,
+      "upper": 0.348,
+      "width": 0.116,
+      "depth": 0.116
+    },
+    {
+      "name": "section_9",
+      "lower": 0.348,
+      "upper": 0.35,
+      "width": 0.11,
+      "depth": 0.11
+    }
+  ],
+  "sourceProfileSha256": "d941cae6af0e76548fef4475110a8cf05e3b81886be63688657d83b83fdb20cc",
+  "note": "Each interval uses the maximum visible axis width at its endpoints. Adjacent equal-width intervals merged. Exterior conservative box approximation around rounded corners; not the disabled 120mm full measurement gauge. Shoulder cannot physically stop across 153mm mouth; SnapZone seat is limiting."
+}

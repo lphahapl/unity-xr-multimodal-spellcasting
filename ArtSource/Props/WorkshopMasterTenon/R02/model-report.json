@@ -1,0 +1,251 @@
+{
+  "version": "R02",
+  "status": "aesthetic_review_candidate",
+  "blender": "5.2.2 LTS",
+  "unit": "metres",
+  "axis": "Blender +Z; Unity +Y",
+  "origin": "insertion end center",
+  "envelope_metres": [
+    0.12,
+    0.12,
+    0.35
+  ],
+  "max_section_metres": 0.12,
+  "shaft_width_metres": 0.106,
+  "shaft_length_metres": 0.105,
+  "shoulder_transition_metres": [
+    0.105,
+    0.127
+  ],
+  "shoulder_is_mechanical_stop": false,
+  "old_seated_bottom_y": 0.92394,
+  "old_socket_mouth_y": 1.028,
+  "nominal_socket_metres": 0.153,
+  "per_side_shaft_clearance_metres": 0.0235,
+  "temporary_budget": true,
+  "meshes": [
+    {
+      "name": "MasterTenon_HIGH",
+      "verts": 180930,
+      "triangles": 361856,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_count": 1
+    },
+    {
+      "name": "MasterTenon_LOD0",
+      "verts": 478,
+      "triangles": 952,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD1",
+      "verts": 162,
+      "triangles": 320,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    },
+    {
+      "name": "MasterTenon_LOD2",
+      "verts": 58,
+      "triangles": 112,
+      "dimensions": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.3499999940395355
+      ],
+      "materials": 1,
+      "uv_layers": 1
+    }
+  ],
+  "bake": {
+    "engine": "Cycles",
+    "selected_to_active": true,
+    "source": "MasterTenon_HIGH",
+    "target": "MasterTenon_LOD0",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "cage_extrusion": 0.002,
+    "max_ray_distance": 0.006,
+    "margin": 16,
+    "seconds": 30.369957447052002
+  },
+  "limitations": [
+    "Opaque runtime PBR approximates jade surface; high-source subsurface scatter is not a custom Quest shader.",
+    "Geometry clearance only, actual socket fit validated separately by parent.",
+    "No headset or aesthetic acceptance claimed."
+  ],
+  "section_profile": [
+    {
+      "z_metres": 0.0,
+      "width_metres": 0.101,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.003,
+      "width_metres": 0.104,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.006,
+      "width_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.101,
+      "width_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.105,
+      "width_metres": 0.106,
+      "corner_radius_metres": 0.003
+    },
+    {
+      "z_metres": 0.108,
+      "width_metres": 0.11,
+      "corner_radius_metres": 0.004
+    },
+    {
+      "z_metres": 0.11,
+      "width_metres": 0.115,
+      "corner_radius_metres": 0.005
+    },
+    {
+      "z_metres": 0.112,
+      "width_metres": 0.117,
+      "corner_radius_metres": 0.006
+    },
+    {
+      "z_metres": 0.116,
+      "width_metres": 0.117,
+      "corner_radius_metres": 0.006
+    },
+    {
+      "z_metres": 0.121,
+      "width_metres": 0.119,
+      "corner_radius_metres": 0.008
+    },
+    {
+      "z_metres": 0.127,
+      "width_metres": 0.12,
+      "corner_radius_metres": 0.009
+    },
+    {
+      "z_metres": 0.297,
+      "width_metres": 0.12,
+      "corner_radius_metres": 0.009
+    },
+    {
+      "z_metres": 0.333,
+      "width_metres": 0.12,
+      "corner_radius_metres": 0.009
+    },
+    {
+      "z_metres": 0.339,
+      "width_metres": 0.119,
+      "corner_radius_metres": 0.009
+    },
+    {
+      "z_metres": 0.344,
+      "width_metres": 0.116,
+      "corner_radius_metres": 0.01
+    },
+    {
+      "z_metres": 0.348,
+      "width_metres": 0.11,
+      "corner_radius_metres": 0.011
+    },
+    {
+      "z_metres": 0.35,
+      "width_metres": 0.104,
+      "corner_radius_metres": 0.012
+    }
+  ],
+  "proposed_compound_box_colliders_blender_XYZ": [
+    {
+      "name": "insert",
+      "center": [
+        0,
+        0,
+        0.0525
+      ],
+      "size": [
+        0.1,
+        0.1,
+        0.105
+      ]
+    },
+    {
+      "name": "shoulder",
+      "center": [
+        0,
+        0,
+        0.116
+      ],
+      "size": [
+        0.11,
+        0.11,
+        0.022
+      ]
+    },
+    {
+      "name": "grip",
+      "center": [
+        0,
+        0,
+        0.231
+      ],
+      "size": [
+        0.112,
+        0.112,
+        0.208
+      ]
+    },
+    {
+      "name": "top",
+      "center": [
+        0,
+        0,
+        0.341
+      ],
+      "size": [
+        0.102,
+        0.102,
+        0.018
+      ]
+    }
+  ],
+  "collision_note": "Conservative interior boxes for separate Unity draft; parent may instead derive tight convex section hulls. Not an accepted collision design.",
+  "high_source_cleanup": "R02 ring heights rounded; zero-area duplicate-row prevention retained. Source geometry cold-checked.",
+  "socket_dimension_source": "Parent supplied measured existing socket 153mm; this model task does not modify or independently certify the socket.",
+  "A1_reference_differences": [
+    "A1 perspective only; final physical envelope is120x120x350mm and106mm shaft length105mm, not scaled from image pixels.",
+    "Visual shoulder remains within120mm envelope, not a mechanical stop across153mm hole.",
+    "No double pins/socket/base are part of this master-tenon model.",
+    "R02 is opaque runtime PBR with polished warm ivory jade surface; A1 translucency is not claimed on Quest."
+  ]
+}
