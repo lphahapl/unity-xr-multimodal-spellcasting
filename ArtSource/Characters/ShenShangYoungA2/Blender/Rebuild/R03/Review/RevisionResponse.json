@@ -1,0 +1,105 @@
+{
+  "version": "R03",
+  "releaseIntent": "独立外观候选，提交静态对照审图",
+  "priorGeminiReceipt": "../../../../GeminiReview/R02/WebReceipt.json",
+  "GLB": "0390dec83a0f746f6aadfb5e76de2d4b921d2885359f5e66866262486b76ad98",
+  "characterTriangles": 144701,
+  "changes": [
+    {
+      "topic": "脸型与发际",
+      "preservation": {
+        "R02HeadVertexSHA256": "e18171d9652731ae1a0748f4d6a83954fa89ae2c68cb12f4ae4cbf08adeee469",
+        "R03HeadVertexSHA256": "e18171d9652731ae1a0748f4d6a83954fa89ae2c68cb12f4ae4cbf08adeee469",
+        "kneeCentreHeightMetres": 0.49,
+        "kneeLegCentreX": 0.128,
+        "kneePatternHalfWidth": 0.085,
+        "R02SaddleHeight": 0.709,
+        "R03SaddleHeight": 0.678,
+        "R02CuffHeight": 0.338,
+        "R03CuffHeight": 0.338,
+        "R02HipTransitionHeight": 0.138,
+        "R03HipTransitionHeight": 0.058
+      },
+      "work": "沿用 R02 全部头部几何；按贴图空间选取耳前局部调整肤色。重排额、鬓、后颈发际，修整头顶壳及柔化发束。",
+      "images": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "裆臀与裤褶",
+      "work": "低位裆桥上方更早形成整体裤筒，增大前后布量。单独雕左右腿的膝后、侧面和束口褶，粗麻带经纬纱线、杂色、粗糙度及高低模烘焙。",
+      "images": [
+        4,
+        5,
+        8,
+        9,
+        10,
+        14
+      ]
+    },
+    {
+      "topic": "短衣",
+      "work": "靛蓝短衣略向低饱和暖灰调整，短摆与滚边同步改变起伏。",
+      "hemStaticSamples": {
+        "units": "mm",
+        "radialSamples": 7807,
+        "minimum": 3.7995593884261325,
+        "penetrations": 0,
+        "below2mm": 0
+      },
+      "images": [
+        6,
+        7
+      ]
+    },
+    {
+      "topic": "T-06 试装",
+      "work": "外部件肩带从人物左肩落到左胸，试装副本单独配后腰承托带和两只固定扣。侧、背实拍均保留，腰绳仍属于角色。",
+      "fit": {
+        "originalToolbelt": "Assets/Art/Props/ShenShangToolBelt/ShenShangToolBelt.prefab",
+        "originalAssemblySHA256": "1041b462e8b09a24d95e0265c5b483d7b8d8b74c8adc2b59e906f58a0ac15a8d",
+        "originalMeshParts": [
+          "BeltBody",
+          "FlatSleeve",
+          "PenSleeve",
+          "SoftPouch",
+          "TallSleeve",
+          "WoodCase"
+        ],
+        "frontShoulderStrapToJacketClosures_mm": 65.23,
+        "frontStrapVertexSamples": 370,
+        "wearStudyAdditions": [
+          "detachable rear backing",
+          "front and rear keeper"
+        ],
+        "savedScene": "ExternalFit/T06_R03_WearStudy.blend",
+        "sourceCharacterGLBIncludesToolbelt": false,
+        "staticPose": true,
+        "riggingAndAnimatedContactTested": false
+      },
+      "images": [
+        11,
+        12,
+        13
+      ]
+    }
+  ],
+  "technicalQA": {
+    "pass": false,
+    "errors": [
+      "z-fighting: Zhunwang readout (278 overlapping coplanar tri pairs)",
+      "z-fighting: R03 | graduated hairline and nape fibres (112 overlapping coplanar tri pairs)",
+      "z-fighting: Zhunwang_Body (9 overlapping coplanar tri pairs)",
+      "z-fighting: Jacket<->R03 | continuous crossed collar with linen reveal (3 overlapping coplanar tri pairs)"
+    ],
+    "warnings": 53,
+    "headAndTrousersTangents": {
+      "R01 | anatomical head and neck": true,
+      "R03 | bifurcated high-waist work trousers": true
+    },
+    "embeddedImages": 25,
+    "skinCount": 0
+  }
+}
