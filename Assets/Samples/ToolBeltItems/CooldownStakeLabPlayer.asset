@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8145a0d8c33ae4b95c29d443c59bcd, type: 3}
+  m_Name: CooldownStakeLabPlayer
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.RpgPlayerDefinition
+  maxHealth: 100
+  maxMana: 100
+  manaRegen: 0
+  regenDelay: 2
+  startingSkills:
+  - {fileID: 11400000, guid: 2c08484b43813aa42a18ab6aaab0d939, type: 2}
+  - {fileID: 11400000, guid: e886d09ee2594178a57a273472a4b5b5, type: 2}
+  - {fileID: 11400000, guid: adaf2d84e87ee374cb9ea517d5d9f19b, type: 2}
+  - {fileID: 11400000, guid: b6a5cdaf396d5feaaabd0a3c15c21638, type: 2}
+  hitVignetteIntensity: 1

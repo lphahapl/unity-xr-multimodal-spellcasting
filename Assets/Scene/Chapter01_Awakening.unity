@@ -21181,7 +21181,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u89C4\u5370 \xB7 \u62A4\u4F53\u5492"
+  m_Text: "\u5DE6\u624B\u7ED3\u8861\u5370 \xB7 \u5FF5\u8861\u5370"
 --- !u!222 &676263374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39582,7 +39582,7 @@ MonoBehaviour:
   - lineId: SH01
     audioFileName: Chapter01/SH01.wav
     speaker: "\u7533\u5C60\uFF08\u8001\u8003\u5DE5\u5B98\uFF09"
-    text: "\u51FA\u624B\u4F1A\u4E86\uFF0C\u8FD8\u5F97\u5B66\u4F1A\u62A4\u7740\u81EA\u5DF1\u3002\u7167\u56FE\u7ED3\u4E2A\u89C4\u5370\uFF0C\u6216\u662F\u5FF5\u4E00\u58F0\u201C\u62A4\u4F53\u5492\u201D\uFF0C\u90FD\u80FD\u8D77\u76FE\u3002"
+    text: "\u51FA\u624B\u4F1A\u4E86\uFF0C\u8FD8\u5F97\u5B66\u4F1A\u62A4\u7740\u81EA\u5DF1\u3002\u7167\u56FE\u7528\u5DE6\u624B\u7ED3\u8861\u5370\uFF0C\u6216\u662F\u5FF5\u4E00\u58F0\u8861\u5370\uFF0C\u90FD\u80FD\u8D77\u76FE\u3002"
     advanceMode: 0
     delayAfter: 0.5
     onStarted:
@@ -41439,7 +41439,7 @@ GameObject:
   - component: {fileID: 1305562045}
   - component: {fileID: 1305562044}
   m_Layer: 0
-  m_Name: "\u89C4\u5370 \xB7 \u62A4\u4F53\u5492"
+  m_Name: "\u5DE6\u624B\u7ED3\u8861\u5370 \xB7 \u5FF5\u8861\u5370"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62390,7 +62390,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5F8B\u5370 \xB7 \u706B\u7403\u672F     \u89C4\u5370 \xB7 \u62A4\u4F53\u5492"
+  m_Text: "\u5F8B\u5370 \xB7 \u706B\u7403\u672F     \u5DE6\u624B\u7ED3\u8861\u5370 \xB7 \u5FF5\u8861\u5370"
 --- !u!222 &1847240908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65147,7 +65147,7 @@ MonoBehaviour:
     narration: {fileID: 1273284387}
     lines:
     - id: SH01
-      subtitle: "\u51FA\u624B\u4F1A\u4E86\uFF0C\u8FD8\u5F97\u5B66\u4F1A\u62A4\u7740\u81EA\u5DF1\u3002\u7167\u56FE\u7ED3\u4E2A\u89C4\u5370\uFF0C\u6216\u662F\u5FF5\u4E00\u58F0\u201C\u62A4\u4F53\u5492\u201D\uFF0C\u90FD\u80FD\u8D77\u76FE\u3002"
+      subtitle: "\u51FA\u624B\u4F1A\u4E86\uFF0C\u8FD8\u5F97\u5B66\u4F1A\u62A4\u7740\u81EA\u5DF1\u3002\u7167\u56FE\u7528\u5DE6\u624B\u7ED3\u8861\u5370\uFF0C\u6216\u662F\u5FF5\u4E00\u58F0\u8861\u5370\uFF0C\u90FD\u80FD\u8D77\u76FE\u3002"
       action: 0
       area: {fileID: 0}
       target: {fileID: 0}
@@ -65432,7 +65432,7 @@ MonoBehaviour:
   targetGroup: {fileID: 900010000}
   initialDiscoveries:
   - fireball
-  - buff.zi
+  - shield.left
   - buff.voice
   - thunder.sword
   - breath.burst
