@@ -1,0 +1,48 @@
+{
+  "status": "FROZEN",
+  "asset": "QingGuiR03_StructureA",
+  "scope": "STRUCTURE_CANDIDATE_NOT_FINAL_OPTIMIZED_ASSET",
+  "frozen_at": "2026-11-26T14:58:27.993292+08:00",
+  "core_count": 5,
+  "core_files": [
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.fbx",
+      "relative_path": "QingGuiR03_StructureCandidate.fbx",
+      "sha256": "3052e95f06ac67cfd37a6106e06f7a472b74cbae882f0ff0247268234f2170d3",
+      "bytes": 1310572
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.glb",
+      "relative_path": "QingGuiR03_StructureCandidate.glb",
+      "sha256": "6b7f8b1c1c52e04d77dd8ec29839ccb272e965490137c140e0c0d41b494723bf",
+      "bytes": 1061076
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\QingGuiR03_StructureCandidate.blend",
+      "relative_path": "QingGuiR03_StructureCandidate.blend",
+      "sha256": "a1bc040ec584ab7f8cbbc3149eeb494cb79a4b250d6e37547fd14a630b391f7e",
+      "bytes": 1579926
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\CandidateTextures\\QingGuiR03_JadeCore_JadeMask.png",
+      "relative_path": "CandidateTextures/QingGuiR03_JadeCore_JadeMask.png",
+      "sha256": "18052ab7865cadd6a718216aae37cdd0d736be03fa576f07da5865cd00091cf5",
+      "bytes": 260
+    },
+    {
+      "path": "D:\\UnityProjects\\NarutoVR\\ArtSource\\Props\\WorkshopMasterTenon\\QingGuiR03\\Model\\RevisionA\\CandidateTextures\\QingGuiR03_JadeCore_Thickness.png",
+      "relative_path": "CandidateTextures/QingGuiR03_JadeCore_Thickness.png",
+      "sha256": "a0642df21fc9aec326f7d386bab04d91f49fa50203f45f189aaa286f481ce582",
+      "bytes": 289444
+    }
+  ],
+  "first_candidate_unchanged": true,
+  "R02B_25_core_unchanged": true,
+  "wire_paths": 18,
+  "triangles": 40024,
+  "limitations": [
+    "Crown finite segments and copper-tail corner notch remain first-sample limits.",
+    "Final engraving bakes, LODs, final jade optics and Quest performance unverified.",
+    "Unity first-shot hard triangles were diagnosed as Mobile shadow bias, not attributed to Thickness or model normals."
+  ]
+}
