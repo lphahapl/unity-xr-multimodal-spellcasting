@@ -1,0 +1,69 @@
+{
+  "id": "shen-young-a2-blender-r02",
+  "sourceReview": "../../../../GeminiReview/R01/Gemini原文.txt",
+  "statusAtFreeze": "待 Gemini 和用户外观批注",
+  "scope": "角色外观冻结候选。T-06 为已有六件模型，在试装场景临时贴合肩胸。",
+  "reviewResponses": [
+    {
+      "topic": "脸型与侧影",
+      "change": "重新调整颧颌、眼窝、眉弓、鼻梁鼻尖、唇缝及下巴几何，同时给头部烘焙新法线。近景正、侧、四分之三使用与 R01 相同的相机。",
+      "files": [
+        "01_Face_Front",
+        "02_Face_Profile",
+        "03_Face_ThreeQuarter"
+      ]
+    },
+    {
+      "topic": "发际与耳前",
+      "change": "耳前和脸侧用连续皮肤底色替换投影串色，重做头发与发髻颜色、重排覆盖轮廓和前额发束。发束分组及局部前额横纹仍可辨。"
+    },
+    {
+      "topic": "裆、膝与落褶",
+      "change": "重做连通裤网，裆桥约0.709 m，裤口0.338 m。两腿分别建模斜褶和纵褶，隐藏上衣拍正、侧、背。"
+    },
+    {
+      "topic": "纱纹尺度",
+      "change": "低对比细斜纹替换大方格，新烘焙裤装法线，保留上衣本身的蓝灰靛布。"
+    },
+    {
+      "topic": "领肩、下摆",
+      "change": "独立窄内领接肩颈，联动放大下摆和滚边，逐高度按短衣内轮廓收纳裤腰臀。",
+      "sample": {
+        "units": "mm",
+        "radialSamples": 7816,
+        "minimum": 7.210997631773353,
+        "penetrations": 0,
+        "below2mm": 0
+      }
+    },
+    {
+      "topic": "工具带关系",
+      "change": "同版实拍分开角色本体与已有 T-06 五口的贴身试装，角色烘焙与导出集均独立。",
+      "evidence": "11_T06_External_Fit.png"
+    }
+  ],
+  "R01Triangles": 141181,
+  "R02Triangles": 137499,
+  "glbSha256": "7ab9c180f058ba893728051db5943ba01a700a173b082b01e1d1ba1f6d03a54b",
+  "blendSha256": "d52e5de8b5c9350aee7ff7df8a4d5eba0947bc6accf4f84524cc1094230ec7b0",
+  "technicalGate": {
+    "pass": false,
+    "errors": [
+      "z-fighting: Zhunwang readout (278 overlapping coplanar tri pairs)",
+      "z-fighting: R02 | swept scalp and sideburns<->R02 | swept tapered locks (20 overlapping coplanar tri pairs)",
+      "z-fighting: R02 | swept tapered locks (19 overlapping coplanar tri pairs)",
+      "z-fighting: R02 | feathered hairline and temple wisps (10 overlapping coplanar tri pairs)",
+      "z-fighting: Zhunwang_Body (9 overlapping coplanar tri pairs)",
+      "z-fighting: R02 | anatomical head and neck<->R02 | swept scalp and sideburns (4 overlapping coplanar tri pairs)",
+      "z-fighting: Jacket<->R02 | continuous crossed collar with linen reveal (3 overlapping coplanar tri pairs)"
+    ],
+    "warnings": 56,
+    "headAndTrousersTangent": {
+      "R01 | anatomical head and neck": true,
+      "R02 | bifurcated high-waist work trousers": true
+    },
+    "skinTested": false,
+    "runtimeTested": false
+  },
+  "unchangedFrozenPredecessor": "dcfac78e265b15e8df93e9ddf3d4d805cb368ad07452fee0a2a483f8aa610707"
+}
