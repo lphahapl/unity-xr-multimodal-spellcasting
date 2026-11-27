@@ -1,0 +1,13 @@
+Assets/Scene/StoneCarrierGreybox.unity
+2026-11-26T16:59:08.2512177+08:00
+PASS opened the actual StoneCarrierGreybox
+PASS Start generated stone-carrier and bound its real A4
+clip=CanJiOu_BackCarryWalk controller=CanJiOu patrol=0.54 retreat=0.72
+patrol displacement=0.400095 hips=(-0.0081, 0.8234, 0.0592) head=(-0.0099, 1.2836, 0.3651) stone=(-0.0055, 1.6717, -0.1706)
+PASS low hips, lowered head, forward torso and stone behind during normal patrol
+PASS standard nonlethal greybox button starts retreat while carrying the original stone
+PASS alive after retreat
+PASS standard lethal button kills the lease
+drop instant delta metres=0 deg=0 original stone ID=-2268
+PASS same stone drops directly from its last carry transform with enabled physics
+GREYBOX_R02_PASS
