@@ -1,0 +1,42 @@
+{
+  "version": "R05",
+  "glbSHA256": "97ea0fde1a6ec312e5d9f6ce40dcfe8d7c9ccdabffa35680e04ad4064275a1a0",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r05",
+  "workbenchLabel": "R05 · 背面静态视审通过，待用户批注",
+  "noteId": "a120f60b-88ee-4955-93f1-24fa76b02178",
+  "workbenchRevision": "d87a675956be0cf5df7e225bf53edb675fb6603e2cc73b2b9b52cfd0b88414ba",
+  "webURL": "https://gemini.google.com/app/d5a9cfc6bae9c70c",
+  "webReplyElement": "message-content-id-r_0f46e6ac48dc2f0e",
+  "webMode": "打开模式选择器，当前模式为“Neon 高”",
+  "backendModel": null,
+  "pixelChecks": {
+    "Overview": {
+      "token": "319624",
+      "match": true
+    },
+    "UnityBack": {
+      "token": "32329B",
+      "match": true
+    },
+    "Coat": {
+      "token": "3C3A2A",
+      "match": true
+    },
+    "Culling": {
+      "token": "72A124",
+      "match": true
+    }
+  },
+  "submissionCount": 1,
+  "replySHA256": "7c9b887a31fa4f2bf247510fdac4794be2858849f01ce35af325f75715b2fedb",
+  "review": [
+    "R05 独立 Gemini 网页视审。后脑、后颈、后领双肩、腰背与下摆通过静态外观复核，正脸与 R04 无可见回退。可交用户看稿，本次两项背面批注均无交付前必修。",
+    "同机位能区分两次改动。R01 发髻下方大片区域看起来像露头皮，后领两侧也直接露肤，下摆有波浪形裤料穿出；R04 已覆盖大片浅区和肩部缺口，理顺了可见裤片。R05 清除了 R04 后颈发际中线偏左的肤色斑及两侧零星亮点，Unity 俯后近景和 GLB 正后近景一致。",
+    "R05 双肩布面和褐色收边在本组机位连续。另据制作的 RearAcceptance.json，R04→R05 后颈头皮在前的射线样本由 279 降至 0，单面衣摆等受测服装射线漏到底色由 61 降至 0。R01 后脑大片浅色为外观描述，受测处发帽在头皮之前。R04 在仰视下仍有单面缺口，R05 补了内衬并封合滚边。",
+    "制作复核项：Gemini 在 Culling 第 2 排强制剔除背面时观察到左腕准望匣背侧显出内腔、卷袖内缘局部变薄。普通显示下没有相应破洞，需在正式着色器下复看。低头转颈、抬臂、弯腰下蹲还需绑定后检查，造型保留用户裁定。"
+  ],
+  "producerEvidence": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/Blender/Rebuild/R05/Review/RearAcceptance.json",
+    "sha256": "0ddf04329b307ded7d44a0eb5cf3c2ec07b1dce078e707ef8a92e0cf04d2d2ea"
+  }
+}

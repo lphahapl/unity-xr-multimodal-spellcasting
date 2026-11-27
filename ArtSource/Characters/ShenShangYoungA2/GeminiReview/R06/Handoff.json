@@ -1,0 +1,41 @@
+{
+  "version": "R06",
+  "glbSHA256": "77be680b1cbc86904a66aa1af7f088f5fbed41f15dd6c467b9cfce221b76fce1",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r06",
+  "workbenchLabel": "R06 · 裤腰静态复核通过，材质待返修",
+  "noteId": "64aa731b-d423-4fd8-8832-0ddb6a8bbb08",
+  "workbenchRevision": "ea509664d19aba6ca62d2d16610ffba16560007e9a8c3ed543cf912aabed6020",
+  "webURL": "https://gemini.google.com/app/3c3da0d54622bafb",
+  "webReplyElement": "message-content-id-r_f4e166c56761a704",
+  "webMode": "打开模式选择器，当前模式为“Hydrogen 高”",
+  "backendModel": null,
+  "pixelChecks": {
+    "R06_Hem": {
+      "token": "00527E",
+      "match": true
+    },
+    "R06_Elevation": {
+      "token": "8075F6",
+      "match": true
+    },
+    "R06_Unity_Waist": {
+      "token": "586AA9",
+      "match": true
+    },
+    "R06_Figure": {
+      "token": "449C76",
+      "match": true
+    }
+  },
+  "submissionCount": 1,
+  "replySHA256": "cee299062fced94006187b2bd8dcaea0db4415cdfa4bfe38b549815001f9d8bd",
+  "review": [
+    "R06 独立 Gemini 网页视审。R01 下摆处可见裤料穿出，R05 已修。R05 与 R06 在本组机位均无可定位的外露裤片或腰绳缺口，褐色收边连续，正脸、全身比例及外露裤型也无明显变化。衣物覆盖着裤腰，静态图分辨不出两版衣内的几何差别。",
+    "冻结网格另有检测依据。R05 裤料与夹袄、腰绳分别有 441、282 组三角面相交，R06 两项均为 0。相同腰部射线采样中先命中裤料由 4/74114 降至 0/74114。此处为静态几何结果，不能推及弯腰、下蹲与跑动。",
+    "材质返修。GLB 正后及斜后和 Unity 腰部图中，R06 夹袄、翻折袖口显著偏浅暖灰，腰绳由深褐转浅卡其；全身正面图里差异较弱。核对两版 GLB，夹袄、腰绳等 9 个同名材质在 R06 遗漏了 R05 的 baseColorFactor。R06 作为中间版保留，恢复颜色后的 R07 另行送审。"
+  ],
+  "producerEvidence": {
+    "file": "ArtSource/Characters/ShenShangYoungA2/GeminiReview/R06/EngineeringEvidence.json",
+    "sha256": "d309239856e19a001f2084ad52239ca771eccf47a50729514b052479c474dc31"
+  }
+}

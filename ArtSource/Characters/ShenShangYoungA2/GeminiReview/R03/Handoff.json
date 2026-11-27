@@ -1,0 +1,45 @@
+{
+  "version": "R03",
+  "workbench": "http://127.0.0.1:4190/rig/?collection=t26-shen-a2-blender&model=shen-young-a2-blender-r03",
+  "workbenchLabel": "R03 · Gemini 已审，待返修与用户批注",
+  "workbenchNoteId": "2e6dcf42-dc40-412b-a364-ba9195d594d6",
+  "glbSHA256": "0390dec83a0f746f6aadfb5e76de2d4b921d2885359f5e66866262486b76ad98",
+  "review": "https://gemini.google.com/app/21ed8e03a2879cab",
+  "replyElement": "message-content-id-r_0633ce62e5324bda",
+  "webMode": "打开模式选择器，当前模式为“Neon 高”",
+  "backendModel": null,
+  "imageChecks": {
+    "Face": {
+      "token": "2F5249",
+      "match": true
+    },
+    "Full": {
+      "token": "02BB18",
+      "match": true
+    },
+    "Trousers": {
+      "token": "8D4D5C",
+      "match": true
+    },
+    "T06": {
+      "token": "461FAE",
+      "match": true
+    }
+  },
+  "headPositions": {
+    "R02": [
+      {
+        "count": 4644,
+        "sha256": "20a68ee4db0f410a6a24523dce35f274a8bee49ccceeaeca325c34e3922b799f"
+      }
+    ],
+    "R03": [
+      {
+        "count": 4644,
+        "sha256": "20a68ee4db0f410a6a24523dce35f274a8bee49ccceeaeca325c34e3922b799f"
+      }
+    ]
+  },
+  "wearStudySHA256": "50e554b9558b408a7dbabb7b0f2685f42ca01279d04aa4498471988bb9eb9575",
+  "summary": "R03 独立静态复审完成。Gemini 网页建议定向返修后再送主审。四组图内编号全部读对；裤装含 14 粗麻与裤口近照，T-06 含正、左侧、背试穿。GLB 0390dec83a0f，20 个冻结文件已与工作台回读一致。\n可保留：R02 已通过的脸部骨相，R03 的耳前肤色；膝位、裤脚绑腿上缘的堆褶和近景粗麻经纬；T-06 避开两枚胸前盘扣的肩带走线。\n优先返修：① 收顺下摆下方突出的裆臀鼓包及硬横折，弱化全身距离上的大块斑驳和暗沟，保留细织纹。② 打散额前、鬓角、后颈碎发均匀的尖齿，保留脸型与已清理的耳前底色。③ 收紧侧视后腰绳，理开角色右侧外端袋与腰绳的贴靠。试装背扣偏右、肩带略窄，适宜在独立试装里细化并补右侧视图。\n本地直接比对两版 GLB 的头部 POSITION，4,644 个顶点逐点相同。T-06 仍独立，新增背托与前后固定扣仅见于 WearStudy。可见贴靠为静态画面判断；右侧盲区、袋后内面及抬臂弯腰后的接触均未验收。\n网页版视审原文 https://gemini.google.com/app/21ed8e03a2879cab 。工程归档 ArtSource/Characters/ShenShangYoungA2/GeminiReview/R03/。"
+}
