@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993544e4f42e410fab2acc0d4958477e, type: 3}
+  m_Name: Passage
+  m_EditorClassIdentifier: NarutoVR.Game.Runtime::NarutoVR.SealCombat.Rpg.GlyphTemplate
+  symbolId: glyph.passage
+  displayName: "\u901A\u8DEF\u7B26"
+  effect: {fileID: 11400000, guid: 3dd454d7ed08c254eae98e7c8a405557, type: 2}
+  threshold: 0.83
+  examples:
+  - strokes:
+    - points:
+      - {x: -0.8, y: -0.7}
+      - {x: -0.8, y: 0.65}
+      - {x: 0.8, y: 0.65}
+      - {x: 0.8, y: -0.7}
+    - points:
+      - {x: -0.36, y: -0.1}
+      - {x: 0.36, y: -0.1}
+  storyStrokeHints:
+  - name: "门框"
+    direction: "左下起，向上、向右、向下"
+  - name: "内横"
+    direction: "从左向右横画"
+  completionVfx: {fileID: 4524324242839856303, guid: 28e383ddf9dc3144db04ba0356168700, type: 3}
+  completionSfx: {fileID: 8300000, guid: 1e37d24c40321c64ca16f71a579b7aff, type: 3}
+  completionVolume: 0.6
+  onCompleted:
+    m_PersistentCalls:
+      m_Calls: []
