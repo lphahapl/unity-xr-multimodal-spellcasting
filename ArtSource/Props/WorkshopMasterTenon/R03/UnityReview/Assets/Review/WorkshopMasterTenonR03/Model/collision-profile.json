@@ -1,0 +1,126 @@
+{
+  "gripHeight": 0.231,
+  "parts": [
+    {
+      "name": "section_0",
+      "lower": 0.0,
+      "upper": 0.003,
+      "width": 0.104,
+      "depth": 0.104
+    },
+    {
+      "name": "section_1",
+      "lower": 0.003,
+      "upper": 0.105,
+      "width": 0.106,
+      "depth": 0.106
+    },
+    {
+      "name": "section_2",
+      "lower": 0.105,
+      "upper": 0.108,
+      "width": 0.11,
+      "depth": 0.11
+    },
+    {
+      "name": "section_3",
+      "lower": 0.108,
+      "upper": 0.11,
+      "width": 0.115,
+      "depth": 0.115
+    },
+    {
+      "name": "section_4",
+      "lower": 0.11,
+      "upper": 0.116,
+      "width": 0.117,
+      "depth": 0.117
+    },
+    {
+      "name": "section_5",
+      "lower": 0.116,
+      "upper": 0.121,
+      "width": 0.119,
+      "depth": 0.119
+    },
+    {
+      "name": "section_6",
+      "lower": 0.121,
+      "upper": 0.14,
+      "width": 0.12,
+      "depth": 0.12
+    },
+    {
+      "name": "section_7",
+      "lower": 0.14,
+      "upper": 0.165,
+      "width": 0.118,
+      "depth": 0.105
+    },
+    {
+      "name": "section_8",
+      "lower": 0.165,
+      "upper": 0.19,
+      "width": 0.111,
+      "depth": 0.086
+    },
+    {
+      "name": "section_9",
+      "lower": 0.19,
+      "upper": 0.215,
+      "width": 0.106,
+      "depth": 0.078
+    },
+    {
+      "name": "section_10",
+      "lower": 0.215,
+      "upper": 0.24,
+      "width": 0.104,
+      "depth": 0.075
+    },
+    {
+      "name": "section_11",
+      "lower": 0.24,
+      "upper": 0.252,
+      "width": 0.10492609174311926,
+      "depth": 0.07496450182704019
+    },
+    {
+      "name": "section_12",
+      "lower": 0.252,
+      "upper": 0.26,
+      "width": 0.106,
+      "depth": 0.076
+    },
+    {
+      "name": "section_13",
+      "lower": 0.26,
+      "upper": 0.282,
+      "width": 0.11,
+      "depth": 0.079
+    },
+    {
+      "name": "section_14",
+      "lower": 0.282,
+      "upper": 0.337,
+      "width": 0.112,
+      "depth": 0.08
+    },
+    {
+      "name": "section_15",
+      "lower": 0.337,
+      "upper": 0.345,
+      "width": 0.111,
+      "depth": 0.078
+    },
+    {
+      "name": "section_16",
+      "lower": 0.345,
+      "upper": 0.35,
+      "width": 0.107,
+      "depth": 0.073
+    }
+  ],
+  "sourceProfileSha256": "27f7e8940d5708d930574a38d2944d142c7147bc596aaa94726f10917334217f",
+  "note": "Each interval independently uses the maximum visible width and depth at its profile endpoints. Adjacent equal-width/depth intervals merged. Rounded corners and thumb depression remain conservatively boxed; contact shape is separate from disabled 120mm full gauge. Shoulder cannot stop across 153mm mouth; SnapZone seat limits insertion. All actual imported LOD0 vertices are checked against these boxes in Unity."
+}
